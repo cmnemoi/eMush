@@ -3401,5 +3401,35 @@
         <target>jukebox.examine</target>
       </segment>
     </unit>
+    <unit id="anniversary_gift">
+      <segment id="name" state="initial">
+        <source>anniversary_gift.name</source>
+        <target>anniversary_gift.name</target>
+      </segment>
+      <segment id="short_name" state="initial">
+        <source>anniversary_gift.short_name</source>
+        <target>anniversary_gift.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>anniversary_gift.plural_name</source>
+        <target>anniversary_gift.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>anniversary_gift.gender</source>
+        <target>anniversary_gift.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>anniversary_gift.first_letter</source>
+        <target>anniversary_gift.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>anniversary_gift.description</source>
+        <target>anniversary_gift.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>anniversary_gift.examine</source>
+        <target>anniversary_gift.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

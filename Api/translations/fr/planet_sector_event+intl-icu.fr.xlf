@@ -127,7 +127,7 @@
       </segment>
       <segment id="landing_description" state="translated">
         <source>tired.landing_description</source>
-        <target>The landing is difficult, {equipment} turns and shocks violently, the crew is sick.</target>
+        <target>L'atterrissage est difficile, le vaisseau tourne et vire dans tous les sens, l'équipage est malade.</target>
       </segment>
       <segment id="cold_description" state="translated">
         <source>tired.cold_description</source>

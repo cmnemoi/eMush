@@ -10,85 +10,92 @@
         <source>tips.description</source>
         <target>Aquí puedes encontrar **consejos prácticos** para tu vida diaria (patrocinado por estilosdevidasaludable.sanidad.gob.es)</target>
       </segment>
-      <segment id="teamObjectives.title" state="initial">
+      <segment id="teamObjectives.title" state="translated">
         <source>tips.teamObjectives.title</source>
-        <target>tips.teamObjectives.title</target>
+        <target>{team, select,
+mush {Tus objetivos como :berzerk: Mush} other {{character_gender, select, female {Tus objetivos como :female_admin: humano}
+other {Tus objetivos como :male_admin: humano}
+}}}</target>
       </segment>
-      <segment id="teamObjectives.elements" state="initial">
+      <segment id="teamObjectives.elements" state="translated">
         <source>tips.teamObjectives.elements</source>
-        <target>tips.teamObjectives.elements</target>
+        <target>{team, slect,
+mush {**Elimina a todos los humanos** en cooperación con otros Mush.//**Contamina a los humanos** convirtiéndolos en Mush.//**Manipula a los humanos** para que hagan cosas que los ponga en desventaja.//**Sabotea acciones humanas** en el momento adecuado, para prevenir la reparación del PILGRED y su retorno a Sol.}
+other {**Elimina a los Mush abordo**.//**Repara el PILGRED** para volver a Sol.//**Coopera con otros humanos** para sobrevivir usando tus habilidades. 👇}}</target>
       </segment>
-      <segment id="teamObjectives.mushTutorialTitle" state="initial">
+      <segment id="teamObjectives.mushTutorialTitle" state="translated">
         <source>tips.teamObjectives.mushTutorialTitle</source>
-        <target>tips.teamObjectives.mushTutorialTitle</target>
+        <target>**Más información en el tutorial de la comunidad**</target>
       </segment>
-      <segment id="teamObjectives.mushTutorialLink" state="initial">
+      <segment id="teamObjectives.mushTutorialLink" state="translated">
         <source>tips.teamObjectives.mushTutorialLink</source>
-        <target>tips.teamObjectives.mushTutorialLink</target>
+        <target>https://www.mushpedia.com/wiki/Mush_Play</target>
       </segment>
-      <segment id="characterObjectives.title" state="initial">
+      <segment id="characterObjectives.title" state="translated">
         <source>tips.characterObjectives.title</source>
-        <target>tips.characterObjectives.title</target>
+        <target>Tus objetivos como :{characterKey}: {character}</target>
       </segment>
-      <segment id="characterObjectives.tutorial" state="initial">
+      <segment id="characterObjectives.tutorial" state="translated">
         <source>tips.characterObjectives.tutorial</source>
-        <target>tips.characterObjectives.tutorial</target>
+        <target>**Más información en el tutorial de la comunidad**</target>
       </segment>
-      <segment id="externalResources.title" state="initial">
+      <segment id="externalResources.title" state="translated">
         <source>tips.externalResources.title</source>
-        <target>tips.externalResources.title</target>
+        <target>¿Necesitas ayuda? No te preocupes en preguntar</target>
       </segment>
-      <segment id="externalResources.crewmates" state="initial">
+      <segment id="externalResources.crewmates" state="translated">
         <source>tips.externalResources.crewmates</source>
-        <target>tips.externalResources.crewmates</target>
+        <target>{team, select,
+mush {Tus compañeros usando el :mush: **Canal Mush**}
+other {Tus compañeros usando el :wall: **canal general**}}</target>
       </segment>
-      <segment id="externalResources.discord" state="initial">
+      <segment id="externalResources.discord" state="translated">
         <source>tips.externalResources.discord</source>
-        <target>tips.externalResources.discord</target>
+        <target>**Servidor de Discord de Eternaltwin**</target>
       </segment>
-      <segment id="externalResources.tutorials" state="initial">
+      <segment id="externalResources.tutorials" state="translated">
         <source>tips.externalResources.tutorials</source>
-        <target>tips.externalResources.tutorials</target>
+        <target>Tutoriales de **Mushpedia**</target>
       </segment>
-      <segment id="externalResources.wiki" state="initial">
+      <segment id="externalResources.wiki" state="translated">
         <source>tips.externalResources.wiki</source>
-        <target>tips.externalResources.wiki</target>
+        <target>Wiki de **Mushpedia**</target>
       </segment>
-      <segment id="externalResources.tutorialsLink" state="initial">
+      <segment id="externalResources.tutorialsLink" state="translated">
         <source>tips.externalResources.tutorialsLink</source>
-        <target>tips.externalResources.tutorialsLink</target>
+        <target>https://www.mushpedia.com/wiki/Game_Basics</target>
       </segment>
-      <segment id="externalResources.wikiLink" state="initial">
+      <segment id="externalResources.wikiLink" state="translated">
         <source>tips.externalResources.wikiLink</source>
-        <target>tips.externalResources.wikiLink</target>
+        <target>https://www.mushpedia.com/</target>
       </segment>
-      <segment id="missions.title" state="initial">
+      <segment id="missions.title" state="translated">
         <source>tips.missions.title</source>
-        <target>tips.missions.title</target>
+        <target>Misiones</target>
       </segment>
-      <segment id="missions.accept" state="initial">
+      <segment id="missions.accept" state="translated">
         <source>tips.missions.accept</source>
-        <target>tips.missions.accept</target>
+        <target>¿Aceptar?</target>
       </segment>
     </unit>
     <unit id="room_log">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>room_log.name</source>
-        <target>room_log.name</target>
+        <target>Eventos en la sala</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>room_log.description</source>
-        <target>room_log.description</target>
+        <target>Aquí verás **lo que sucede en esta sala desde que llegaste**. Si hay una cámara, las acciones secretas y furtivas serán reveladas.</target>
       </segment>
     </unit>
     <unit id="public">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>public.name</source>
-        <target>public.name</target>
+        <target>Canal principal</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>public.description</source>
-        <target>public.description</target>
+        <target>El canal principal es indispensable para la organización del equipo. Para participar debes tener un :talkie.png: **walkie talkie**.</target>
       </segment>
     </unit>
     <unit id="private">
@@ -128,9 +135,9 @@
         <source>favorites.name</source>
         <target>Favoritos</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>favorites.description</source>
-        <target>favorites.description</target>
+        <target>Tus hilos marcados como favoritos.</target>
       </segment>
     </unit>
     <unit id="message_date">

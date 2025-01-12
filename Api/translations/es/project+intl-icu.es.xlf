@@ -24,17 +24,17 @@
         <source>auto_watering.type</source>
         <target>auto_watering.type</target>
       </segment>
-      <segment id="auto_watering.name" state="initial">
+      <segment id="auto_watering.name" state="translated">
         <source>auto_watering.name</source>
-        <target>auto_watering.name</target>
+        <target>Regaderas automáticas</target>
       </segment>
-      <segment id="auto_watering.description" state="initial">
+      <segment id="auto_watering.description" state="translated">
         <source>auto_watering.description</source>
-        <target>auto_watering.description</target>
+        <target>Cada incendio tiene 25% de probabilidades de ser apagado automáticamente en cada ciclo.</target>
       </segment>
-      <segment id="auto_watering.lore" state="initial">
+      <segment id="auto_watering.lore" state="translated">
         <source>auto_watering.lore</source>
-        <target>auto_watering.lore</target>
+        <target>¿Podrás convencer al terco de NERON de utilizar un sistema antiincendios?</target>
       </segment>
     </unit>
     <unit id="dismantling">
@@ -42,17 +42,17 @@
         <source>dismantling.type</source>
         <target>dismantling.type</target>
       </segment>
-      <segment id="dismantling.name" state="initial">
+      <segment id="dismantling.name" state="translated">
         <source>dismantling.name</source>
-        <target>dismantling.name</target>
+        <target>Desmantelamiento</target>
       </segment>
-      <segment id="dismantling.description" state="initial">
+      <segment id="dismantling.description" state="translated">
         <source>dismantling.description</source>
-        <target>dismantling.description</target>
+        <target>Genera 5 piezas metálicas en la Sala de Motores.</target>
       </segment>
-      <segment id="dismantling.lore" state="initial">
+      <segment id="dismantling.lore" state="translated">
         <source>dismantling.lore</source>
-        <target>dismantling.lore</target>
+        <target>Desarmando todos los experimentos inútiles de Raluca en el PILGRED hay manera de recuperar una serie de piezas usadas que nos servirán para reforzar el casco de la nave o reparar los patrulleros.</target>
       </segment>
     </unit>
     <unit id="door_sensor">
@@ -60,17 +60,17 @@
         <source>door_sensor.type</source>
         <target>door_sensor.type</target>
       </segment>
-      <segment id="door_sensor.name" state="initial">
+      <segment id="door_sensor.name" state="translated">
         <source>door_sensor.name</source>
-        <target>door_sensor.name</target>
+        <target>Detectores de pistones defectuosos</target>
       </segment>
-      <segment id="door_sensor.description" state="initial">
+      <segment id="door_sensor.description" state="translated">
         <source>door_sensor.description</source>
-        <target>door_sensor.description</target>
+        <target>Las puertas bloqueadas son reportados en tus módulos personales.</target>
       </segment>
-      <segment id="door_sensor.lore" state="initial">
+      <segment id="door_sensor.lore" state="translated">
         <source>door_sensor.lore</source>
-        <target>door_sensor.lore</target>
+        <target>Analizando el humo proveniente de los pistones defectuosos de las puertas automáticas, NERON ahora puede determinar con exactitud su posición en los módulos personales.</target>
       </segment>
     </unit>
     <unit id="equipment_sensor">

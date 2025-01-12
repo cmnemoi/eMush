@@ -259,5 +259,17 @@
         <target>edited_by_neron</target>
       </segment>
     </unit>
+    <unit id="anniversary_begin">
+      <segment id="anniversary_begin" state="initial">
+        <source>anniversary_begin</source>
+        <target>anniversary_begin</target>
+      </segment>
+    </unit>
+    <unit id="halloween_begin">
+      <segment id="halloween_begin" state="initial">
+        <source>halloween_begin</source>
+        <target>halloween_begin</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2631,13 +2631,13 @@ Qui eût cru que quelques coussins et une structure de contre-plaqué puissent a
       </segment>
       <segment id="description" state="translated">
         <source>coffee_thermos.description</source>
-        <target>Rien de tel qu'un café chaud.
+        <target>Rien de tel qu'un café chaud.//
 Contient {charge} x Cafés.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>coffee_thermos.examine</source>
-        <target>Rien de tel qu'un café chaud.
-Contient {charge} x Cafés.
+        <target>Rien de tel qu'un café chaud.//
+Contient {charge} x Cafés.//
 Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans soupe chaude ni brasero.</target>
       </segment>
     </unit>

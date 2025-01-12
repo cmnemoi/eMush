@@ -1464,7 +1464,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>convert_cat.description</source>
-        <target>PAllows you to cuddle with Schrödinger "lovingly" and make it an agent of Mush.</target>
+        <target>Allows you to cuddle with Schrödinger "lovingly" and make it an agent of Mush.</target>
       </segment>
     </unit>
     <unit id="torture">
@@ -1582,6 +1582,16 @@ Or you simply need some fresh air.... or not.</target>
         <target>This action cannot be undone. Are you sure you want to continue?</target>
       </segment>
     </unit>
+    <unit id="shoot_cat">
+      <segment id="name" state="translated">
+        <source>shoot_cat.name</source>
+        <target>Shoot: Blaster</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>shoot_cat.description</source>
+        <target>Fire at someone to wound them, kill them or worse if you're so inclined. It might all end in tears!</target>
+      </segment>
+    </unit>
     <unit id="open_container">
       <segment id="name" state="translated">
         <source>open_container.name</source>
@@ -1589,7 +1599,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>open_container.description</source>
-        <target>Use this item.</target>
+        <target>Use this object.</target>
       </segment>
     </unit>
   </file>

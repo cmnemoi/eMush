@@ -2652,13 +2652,13 @@ Who would have thought that a plywood structure and a few cushions could be so r
       </segment>
       <segment id="description" state="translated">
         <source>coffee_thermos.description</source>
-        <target>There is nothing quite like a hot cup of joe...
+        <target>There is nothing quite like a hot cup of joe...//
 Contains {charge} x Coffee.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>coffee_thermos.examine</source>
-        <target>There's nothing quite like a hot cup of joe...
-Contains {charge} x Coffee.
+        <target>There is nothing quite like a hot cup of joe...//
+Contains {charge} x Coffee.//
 The final word in solidarity in times of famine. Delivered without hot soup and without brazier.</target>
       </segment>
     </unit>
@@ -2962,10 +2962,7 @@ A place to put a plant in the hydroponic garden.</target>
     <unit id="peniraft">
       <segment id="name" state="translated">
         <source>peniraft.name</source>
-        <target>{age, select,
-       young {Young }
-       other {}
-}Peniraft</target>
+        <target>Peniraft</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>peniraft.short_name</source>

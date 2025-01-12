@@ -818,42 +818,42 @@
       <segment id="jukebox_played" state="translated">
         <source>jukebox_played</source>
         <target>During this cycle, you can listen to the famous {player, select,
-                    andie {**That's the way it is**}
-                    chao {**Unleash The Party**}
-                    chun {**Star Walker : Infinite And Beyond OST**}
-                    derek {**She has the sniper eyes**}
-                    eleesha {**To Whom The Rockets Tolls**}
-                    finola {**Night Flowers**}
-                    gioele {**Die Die My Lightning**}
-                    hua {**Mon Clavier Pleure**}
-                    ian {**Take The Truth**}
-                    janice {**Dutch Dawn**}
-                    jin_su {**Bad Requiem**}
-                    kuan_ti {**Touching And Fading**}
-                    paola {**Audacity**}
-                    raluca {**Stoner And Sweeter**}
-                    roland {**A Weekend In Blood**}
-                    stephen {**Return Of The Haze**}
-                    terrence {**4ème symphonie en Ut majeur**}
+                    andie {**Audacity**}
+                    chao {**A Weekend In Blood**}
+                    chun {**Dutch Dawn**}
+                    derek {**Die Die My Lightning**}
+                    eleesha {**Take The Truth**}
+                    finola {**Return Of The Haze**}
+                    gioele {**Unleash The Party**}
+                    hua {**The Next Adventure**}
+                    ian {**Night Flowers**}
+                    janice {**Take The Time For Blossoms**}
+                    jin_su {**4ème symphonie en Ut majeur**}
+                    kuan_ti {**Star Walker : Infinite And Beyond OST**}
+                    paola {**Bad Requiem**}
+                    raluca {**Touching And Fading**}
+                    roland {**Victory Tab**}
+                    stephen {**To Whom The Rockets Tolls**}
+                    terrence {**Stoner And Sweeter**}
                     other {**Al's Ballad**}
                 } interprété par {player, select,
-                    andie {**Rita Risotto**}
-                    chao {**Tree Pot**}
-                    chun {**Jon Roger**}
-                    derek {**Patrick Lavande**}
-                    eleesha {**Mario Leone**}
-                    finola {**Rob Vivan**}
-                    gioele {**MetalliCorn**}
-                    hua {**Claude Chevalier**}
-                    ian {**Neil Washed**}
-                    janice {**Faded Happiness**}
-                    jin_su {**The Stoojazz**}
-                    kuan_ti {**VOSTeX**}
-                    paola {**ShipSalt**}
-                    raluca {**Old Crooks**}
-                    roland {**Steel Panzer Society**}
-                    stephen {**Sweet Symphonies**}
-                    terrence {**Mozoven**}
+                    andie {**ShipSalt**}
+                    chao {**Steel Panzer Society**}
+                    chun {**Faded Happiness**}
+                    derek {**MetalliCorn**}
+                    eleesha {**Neil Washed**}
+                    finola {**Sweet Symphonies**}
+                    gioele {**Tree Pot**}
+                    hua {**Rustic Vines**}
+                    ian {**Rob Vivan**}
+                    janice {**Janice Popet**}
+                    jin_su {**Mozoven**}
+                    kuan_ti {**Jon Roger**}
+                    paola {**The Stoojazz**}
+                    raluca {**VOSTeX**}
+                    roland {**Hugh Schafting**}
+                    stephen {**Mario Leone**}
+                    terrence {**Old Crooks**}
                     other {**Massive Expenditure**}
                 } !!!</target>
       </segment>
@@ -1132,7 +1132,7 @@
     <unit id="gen_metal_success">
       <segment id="gen_metal_success" state="translated">
         <source>gen_metal_success</source>
-        <target>**{character}** emerges from {character_gender, select, female {her} other {his}} pile of debris looking delighted, {character_gender, select, female {she} other {he}} has made a find! And {equipment_first_letter, select, vowel {an **{equipment}**} other {a **{equipment}**}}!</target>
+        <target>**{character}** emerges from {character_gender, select, female {her} other {his}} pile of debris looking delighted, {character_gender, select, female {she} other {he}} has made a find! And {target_equipment_first_letter, select, vowel {an **{target_equipment}**} other {a **{target_equipment}**}}!</target>
       </segment>
     </unit>
     <unit id="gain_it_chef_point">

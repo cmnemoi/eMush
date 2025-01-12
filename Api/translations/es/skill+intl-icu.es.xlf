@@ -2,273 +2,273 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="skill.ext">
     <unit id="botanist">
-      <segment id="botanist.name" state="initial">
+      <segment id="botanist.name" state="translated">
         <source>botanist.name</source>
-        <target>botanist.name</target>
+        <target>Botánico</target>
       </segment>
-      <segment id="botanist.description" state="initial">
+      <segment id="botanist.description" state="translated">
         <source>botanist.description</source>
-        <target>botanist.description</target>
+        <target>El botánico sabe distinguir las propiedades de los vegetales. Es el más eficiente en el mantenimiento del jardín.</target>
       </segment>
     </unit>
     <unit id="firefighter">
-      <segment id="firefighter.name" state="initial">
+      <segment id="firefighter.name" state="translated">
         <source>firefighter.name</source>
-        <target>firefighter.name</target>
+        <target>Bombero</target>
       </segment>
-      <segment id="firefighter.description" state="initial">
+      <segment id="firefighter.description" state="translated">
         <source>firefighter.description</source>
-        <target>firefighter.description</target>
+        <target>El bombero sabe bien cómo usar un extintor, aunque a veces puede arreglárselas sin él.</target>
       </segment>
     </unit>
     <unit id="pilot">
-      <segment id="pilot.name" state="initial">
+      <segment id="pilot.name" state="translated">
         <source>pilot.name</source>
-        <target>pilot.name</target>
+        <target>Piloto</target>
       </segment>
-      <segment id="pilot.description" state="initial">
+      <segment id="pilot.description" state="translated">
         <source>pilot.description</source>
-        <target>pilot.description</target>
+        <target>El piloto es un experto en maniobrar las naves Icarus, Pasiphae y Patrullero. Su dominio del espacio es impresionante.</target>
       </segment>
     </unit>
     <unit id="radio_expert">
-      <segment id="radio_expert.name" state="initial">
+      <segment id="radio_expert.name" state="translated">
         <source>radio_expert.name</source>
-        <target>radio_expert.name</target>
+        <target>Experto en comunicaciones</target>
       </segment>
-      <segment id="radio_expert.description" state="initial">
+      <segment id="radio_expert.description" state="translated">
         <source>radio_expert.description</source>
-        <target>radio_expert.description</target>
+        <target>El experto en radio sabe decodificar las ondas espaciales para enviar mensajes hacia el otro lado del universo.</target>
       </segment>
     </unit>
     <unit id="robotics_expert">
-      <segment id="robotics_expert.name" state="initial">
+      <segment id="robotics_expert.name" state="translated">
         <source>robotics_expert.name</source>
-        <target>robotics_expert.name</target>
+        <target>Ing. Robótico</target>
       </segment>
-      <segment id="robotics_expert.description" state="initial">
+      <segment id="robotics_expert.description" state="translated">
         <source>robotics_expert.description</source>
-        <target>robotics_expert.description</target>
+        <target>El experto en robótica puede crear y controlar los drones como mejor le parezca.</target>
       </segment>
     </unit>
     <unit id="physicist">
-      <segment id="physicist.name" state="initial">
+      <segment id="physicist.name" state="translated">
         <source>physicist.name</source>
-        <target>physicist.name</target>
+        <target>Físico</target>
       </segment>
-      <segment id="physicist.description" state="initial">
+      <segment id="physicist.description" state="translated">
         <source>physicist.description</source>
-        <target>physicist.description</target>
+        <target>Conoce la mecánica que mueven al universo. Tiene notables ventajas en la reparación de PILGRED.</target>
       </segment>
     </unit>
     <unit id="technician">
-      <segment id="technician.name" state="initial">
+      <segment id="technician.name" state="translated">
         <source>technician.name</source>
-        <target>technician.name</target>
+        <target>Técnico</target>
       </segment>
-      <segment id="technician.description" state="initial">
+      <segment id="technician.description" state="translated">
         <source>technician.description</source>
-        <target>technician.description</target>
+        <target>El técnico está habilitado para reparar materiales, equipos y el casco del Daedalus.</target>
       </segment>
     </unit>
     <unit id="astrophysicist">
-      <segment id="astrophysicist.name" state="initial">
+      <segment id="astrophysicist.name" state="translated">
         <source>astrophysicist.name</source>
-        <target>astrophysicist.name</target>
+        <target>Astrofísico</target>
       </segment>
-      <segment id="astrophysicist.description" state="initial">
+      <segment id="astrophysicist.description" state="translated">
         <source>astrophysicist.description</source>
-        <target>astrophysicist.description</target>
+        <target>El astrofísico está habilitado para usar el scanner para detectar planetas o conocer su composición.</target>
       </segment>
     </unit>
     <unit id="computer">
-      <segment id="it_expert.name" state="initial">
+      <segment id="it_expert.name" state="translated">
         <source>it_expert.name</source>
-        <target>it_expert.name</target>
+        <target>Informático</target>
       </segment>
-      <segment id="it_expert.description" state="initial">
+      <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
-        <target>it_expert.description</target>
+        <target>El informático encuentra su felicidad frente a una pantalla. Domina a la perfección los terminales del Nexus, de navegación y de comunicación.</target>
       </segment>
     </unit>
     <unit id="conceptor">
-      <segment id="conceptor.name" state="initial">
+      <segment id="conceptor.name" state="translated">
         <source>conceptor.name</source>
-        <target>conceptor.name</target>
+        <target>Artífice</target>
       </segment>
-      <segment id="conceptor.description" state="initial">
+      <segment id="conceptor.description" state="translated">
         <source>conceptor.description</source>
-        <target>conceptor.description</target>
+        <target>El artífice cuenta con 2 acciones gratuitas para usar el núcleo de NERON.</target>
       </segment>
     </unit>
     <unit id="creative">
-      <segment id="creative.name" state="initial">
+      <segment id="creative.name" state="translated">
         <source>creative.name</source>
-        <target>creative.name</target>
+        <target>Creativo</target>
       </segment>
-      <segment id="creative.description" state="initial">
+      <segment id="creative.description" state="translated">
         <source>creative.description</source>
-        <target>creative.description</target>
+        <target>Hay que saber darle la vuelta a los problemas.</target>
       </segment>
     </unit>
     <unit id="shrink">
-      <segment id="shrink.name" state="initial">
+      <segment id="shrink.name" state="translated">
         <source>shrink.name</source>
-        <target>shrink.name</target>
+        <target>Psicólogo</target>
       </segment>
-      <segment id="shrink.description" state="initial">
+      <segment id="shrink.description" state="translated">
         <source>shrink.description</source>
-        <target>shrink.description</target>
+        <target>Se encarga del bienestar psicológico del equipo. Mantiene la moral alta y cuida los trastornos mentales.</target>
       </segment>
     </unit>
     <unit id="caffeine_junkie">
-      <segment id="caffeine_junkie.name" state="initial">
+      <segment id="caffeine_junkie.name" state="translated">
         <source>caffeine_junkie.name</source>
-        <target>caffeine_junkie.name</target>
+        <target>Cafeinómano</target>
       </segment>
-      <segment id="caffeine_junkie.description" state="initial">
+      <segment id="caffeine_junkie.description" state="translated">
         <source>caffeine_junkie.description</source>
-        <target>caffeine_junkie.description</target>
+        <target>El cafeinómano trabaja 2 veces mejor que sus compañeros mientras tenga acceso a la cafetera.</target>
       </segment>
     </unit>
     <unit id="shooter">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shooter.name</source>
-        <target>shooter.name</target>
+        <target>Artillero</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shooter.description</source>
-        <target>shooter.description</target>
+        <target>El artillero domina el uso de armas.</target>
       </segment>
     </unit>
     <unit id="chef">
-      <segment id="chef.name" state="initial">
+      <segment id="chef.name" state="translated">
         <source>chef.name</source>
-        <target>chef.name</target>
+        <target>Chef</target>
       </segment>
-      <segment id="chef.description" state="initial">
+      <segment id="chef.description" state="translated">
         <source>chef.description</source>
-        <target>chef.description</target>
+        <target>El chef es un experto en la preparación de deliciosos platillos. También sabe muy bien (o casi) lo que se puede comer y lo que no.</target>
       </segment>
     </unit>
     <unit id="nurse">
-      <segment id="nurse.name" state="initial">
+      <segment id="nurse.name" state="translated">
         <source>nurse.name</source>
-        <target>nurse.name</target>
+        <target>Enfermero</target>
       </segment>
-      <segment id="nurse.description" state="initial">
+      <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
-        <target>nurse.description</target>
+        <target>El enfermero siempre está listo para servir.</target>
       </segment>
     </unit>
     <unit id="paranoid">
-      <segment id="paranoid.name" state="initial">
+      <segment id="paranoid.name" state="translated">
         <source>paranoid.name</source>
-        <target>paranoid.name</target>
+        <target>Paranoico</target>
       </segment>
-      <segment id="paranoid.description" state="initial">
+      <segment id="paranoid.description" state="translated">
         <source>paranoid.description</source>
-        <target>paranoid.description</target>
+        <target>El paranoico piensa que todos sus compañeros son potencialmente peligrosos, anda siempre vigilando sus espaldas con sus 2 cámaras extra.</target>
       </segment>
     </unit>
     <unit id="biologist">
-      <segment id="biologist.name" state="initial">
+      <segment id="biologist.name" state="translated">
         <source>biologist.name</source>
-        <target>biologist.name</target>
+        <target>Biólogo</target>
       </segment>
-      <segment id="biologist.description" state="initial">
+      <segment id="biologist.description" state="translated">
         <source>biologist.description</source>
-        <target>biologist.description</target>
+        <target>El biólogo es muy eficaz en las investigaciones de laboratorio.</target>
       </segment>
     </unit>
     <unit id="mankind_only_hope">
-      <segment id="mankind_only_hope.name" state="initial">
+      <segment id="mankind_only_hope.name" state="translated">
         <source>mankind_only_hope.name</source>
-        <target>mankind_only_hope.name</target>
+        <target>Nuestra última esperanza</target>
       </segment>
-      <segment id="mankind_only_hope.description" state="initial">
+      <segment id="mankind_only_hope.description" state="translated">
         <source>mankind_only_hope.description</source>
-        <target>mankind_only_hope.description</target>
+        <target>Su excepcional sistema inmunitario le convierte en la última esperanza para la especie humana. Mientras esté con vida, tendremos la oportunidad de vencer al Mush.</target>
       </segment>
     </unit>
     <unit id="leader">
-      <segment id="leader.name" state="initial">
+      <segment id="leader.name" state="translated">
         <source>leader.name</source>
-        <target>leader.name</target>
+        <target>Líder</target>
       </segment>
-      <segment id="leader.description" state="initial">
+      <segment id="leader.description" state="translated">
         <source>leader.description</source>
-        <target>leader.description</target>
+        <target>Un líder carismático sabe dirigir al equipo y subirle el ánimo con sus discursos.</target>
       </segment>
     </unit>
     <unit id="motivator">
-      <segment id="motivator.name" state="initial">
+      <segment id="motivator.name" state="translated">
         <source>motivator.name</source>
-        <target>motivator.name</target>
+        <target>Motivador</target>
       </segment>
-      <segment id="motivator.description" state="initial">
+      <segment id="motivator.description" state="translated">
         <source>motivator.description</source>
-        <target>motivator.description</target>
+        <target>Nadie se resiste a tus palabras.</target>
       </segment>
     </unit>
     <unit id="confident">
-      <segment id="confident.name" state="initial">
+      <segment id="confident.name" state="translated">
         <source>confident.name</source>
-        <target>confident.name</target>
+        <target>Confidente</target>
       </segment>
-      <segment id="confident.description" state="initial">
+      <segment id="confident.description" state="translated">
         <source>confident.description</source>
-        <target>confident.description</target>
+        <target>Tanta es la confianza que inspiras, que la gente no deja de contarte sus secretos.</target>
       </segment>
     </unit>
     <unit id="survivalist">
-      <segment id="survivalist.name" state="initial">
+      <segment id="survivalist.name" state="translated">
         <source>survivalist.name</source>
-        <target>survivalist.name</target>
+        <target>Superviviente</target>
       </segment>
-      <segment id="survivalist.description" state="initial">
+      <segment id="survivalist.description" state="translated">
         <source>survivalist.description</source>
-        <target>survivalist.description</target>
+        <target>El experto en supervivencia es perfecto para las misiones de exploración. Se defiende bien ante los ataques extraterrestres y tendrá más probabilidades de éxito.</target>
       </segment>
     </unit>
     <unit id="diplomat">
-      <segment id="diplomat.name" state="initial">
+      <segment id="diplomat.name" state="translated">
         <source>diplomat.name</source>
-        <target>diplomat.name</target>
+        <target>Diplomático</target>
       </segment>
-      <segment id="diplomat.description" state="initial">
+      <segment id="diplomat.description" state="translated">
         <source>diplomat.description</source>
-        <target>diplomat.description</target>
+        <target>Un buen diplomático sabe como establecer buenas relaciones con los extraterrestres.</target>
       </segment>
     </unit>
     <unit id="anonymush">
-      <segment id="anonymush.name" state="initial">
+      <segment id="anonymush.name" state="translated">
         <source>anonymush.name</source>
-        <target>anonymush.name</target>
+        <target>Incógnito</target>
       </segment>
-      <segment id="anonymush.description" state="initial">
+      <segment id="anonymush.description" state="translated">
         <source>anonymush.description</source>
-        <target>anonymush.description</target>
+        <target>Tus mycotoxinas son indetectables en la atmósfera. ¡Eres discreto como todo buen predador!</target>
       </segment>
     </unit>
     <unit id="determined">
-      <segment id="determined.name" state="initial">
+      <segment id="determined.name" state="translated">
         <source>determined.name</source>
-        <target>determined.name</target>
+        <target>Perseverante</target>
       </segment>
-      <segment id="determined.description" state="initial">
+      <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>determined.description</target>
+        <target>Cuando ha comenzado una tarea, nada perturba a este personaje perseverante.</target>
       </segment>
     </unit>
     <unit id="optimist">
-      <segment id="optimist.name" state="initial">
+      <segment id="optimist.name" state="translated">
         <source>optimist.name</source>
-        <target>optimist.name</target>
+        <target>Optimista</target>
       </segment>
-      <segment id="optimist.description" state="initial">
+      <segment id="optimist.description" state="translated">
         <source>optimist.description</source>
-        <target>optimist.description</target>
+        <target>El fin de la humanidad... ¡Hay cosas peores!</target>
       </segment>
     </unit>
     <unit id="gunner">
@@ -282,253 +282,253 @@
       </segment>
     </unit>
     <unit id="apprentice">
-      <segment id="apprentice.name" state="initial">
+      <segment id="apprentice.name" state="translated">
         <source>apprentice.name</source>
-        <target>apprentice.name</target>
+        <target>Entrenamiento</target>
       </segment>
-      <segment id="apprentice.description" state="initial">
+      <segment id="apprentice.description" state="translated">
         <source>apprentice.description</source>
-        <target>apprentice.description</target>
+        <target>Observando atentamente a sus maestros, el aprendiz puede reproducir sus técnicas y gestos.</target>
       </segment>
     </unit>
     <unit id="solid">
-      <segment id="solid.name" state="initial">
+      <segment id="solid.name" state="translated">
         <source>solid.name</source>
-        <target>solid.name</target>
+        <target>Robusto</target>
       </segment>
-      <segment id="solid.description" state="initial">
+      <segment id="solid.description" state="translated">
         <source>solid.description</source>
-        <target>solid.description</target>
+        <target>No sufres al transportar objetos pesados. Muy bueno también para los combates cuerpo a cuerpo.</target>
       </segment>
     </unit>
     <unit id="genius">
-      <segment id="genius.name" state="initial">
+      <segment id="genius.name" state="translated">
         <source>genius.name</source>
-        <target>genius.name</target>
+        <target>Genio</target>
       </segment>
-      <segment id="genius.description" state="initial">
+      <segment id="genius.description" state="translated">
         <source>genius.description</source>
-        <target>genius.description</target>
+        <target>Cuando está iluminado por el hada de la sabiduría, el genio puede encontrar la solución a cualquier problema en el Daedalus.</target>
       </segment>
     </unit>
     <unit id="presentiment">
-      <segment id="presentiment.name" state="initial">
+      <segment id="presentiment.name" state="translated">
         <source>presentiment.name</source>
-        <target>presentiment.name</target>
+        <target>Presentimiento</target>
       </segment>
-      <segment id="presentiment.description" state="initial">
+      <segment id="presentiment.description" state="translated">
         <source>presentiment.description</source>
-        <target>presentiment.description</target>
+        <target>Tu intuición no se equivoca nunca, puedes ver la última acción de un compañero como flashback luminoso. Es práctico pero hace doler la cabeza.</target>
       </segment>
     </unit>
     <unit id="neron_only_friend">
-      <segment id="neron_only_friend.name" state="initial">
+      <segment id="neron_only_friend.name" state="translated">
         <source>neron_only_friend.name</source>
-        <target>neron_only_friend.name</target>
+        <target>Único amigo de NERON</target>
       </segment>
-      <segment id="neron_only_friend.description" state="initial">
+      <segment id="neron_only_friend.description" state="translated">
         <source>neron_only_friend.description</source>
-        <target>neron_only_friend.description</target>
+        <target>Cuando estás en la nave, NERON se estabiliza, sus rutinas no presentan errores y su rendimiento mejora enormemente.</target>
       </segment>
     </unit>
     <unit id="mycelium_spirit">
-      <segment id="mycelium_spirit.name" state="initial">
+      <segment id="mycelium_spirit.name" state="translated">
         <source>mycelium_spirit.name</source>
-        <target>mycelium_spirit.name</target>
+        <target>Espíritu del Mycellium</target>
       </segment>
-      <segment id="mycelium_spirit.description" state="initial">
+      <segment id="mycelium_spirit.description" state="translated">
         <source>mycelium_spirit.description</source>
-        <target>mycelium_spirit.description</target>
+        <target>Tu misión es sagrada. El Mush te ha elegido como su propagador de genes favorito.</target>
       </segment>
     </unit>
     <unit id="fertile">
-      <segment id="fertile.name" state="initial">
+      <segment id="fertile.name" state="translated">
         <source>fertile.name</source>
-        <target>fertile.name</target>
+        <target>Fértil</target>
       </segment>
-      <segment id="fertile.description" state="initial">
+      <segment id="fertile.description" state="translated">
         <source>fertile.description</source>
-        <target>fertile.description</target>
+        <target>Tu producción de esporas es extraordinaria. ¡Vivan las esporas!</target>
       </segment>
     </unit>
     <unit id="splashproof">
-      <segment id="splashproof.name" state="initial">
+      <segment id="splashproof.name" state="translated">
         <source>splashproof.name</source>
-        <target>splashproof.name</target>
+        <target>Resistente al agua</target>
       </segment>
-      <segment id="splashproof.description" state="initial">
+      <segment id="splashproof.description" state="translated">
         <source>splashproof.description</source>
-        <target>splashproof.description</target>
+        <target>La investigación sobre el Mush ha dado como resultado un nuevo mucus, ideal para marcar la diferencia.</target>
       </segment>
     </unit>
     <unit id="infector">
-      <segment id="infector.name" state="initial">
+      <segment id="infector.name" state="translated">
         <source>infector.name</source>
-        <target>infector.name</target>
+        <target>Infeccioso</target>
       </segment>
-      <segment id="infector.description" state="initial">
+      <segment id="infector.description" state="translated">
         <source>infector.description</source>
-        <target>infector.description</target>
+        <target>Pica, pica y repica.</target>
       </segment>
     </unit>
     <unit id="sneak">
-      <segment id="sneak.name" state="initial">
+      <segment id="sneak.name" state="translated">
         <source>sneak.name</source>
-        <target>sneak.name</target>
+        <target>Huidizo</target>
       </segment>
-      <segment id="sneak.description" state="initial">
+      <segment id="sneak.description" state="translated">
         <source>sneak.description</source>
-        <target>sneak.description</target>
+        <target>Eres asustadizo por naturaleza y sabes escapar a todo intento de contacto físico.</target>
       </segment>
     </unit>
     <unit id="logistics_expert">
-      <segment id="logistics_expert.name" state="initial">
+      <segment id="logistics_expert.name" state="translated">
         <source>logistics_expert.name</source>
-        <target>logistics_expert.name</target>
+        <target>Logística</target>
       </segment>
-      <segment id="logistics_expert.description" state="initial">
+      <segment id="logistics_expert.description" state="translated">
         <source>logistics_expert.description</source>
-        <target>logistics_expert.description</target>
+        <target>Quieres optimizar al máximo las posibilidades de cada uno de tus compañeros en el Daedalus.</target>
       </segment>
     </unit>
     <unit id="transfer">
-      <segment id="transfer.name" state="initial">
+      <segment id="transfer.name" state="translated">
         <source>transfer.name</source>
-        <target>transfer.name</target>
+        <target>Transferencia</target>
       </segment>
-      <segment id="transfer.description" state="initial">
+      <segment id="transfer.description" state="translated">
         <source>transfer.description</source>
-        <target>transfer.description</target>
+        <target>El Mush te ha transferido el genotipo de una de las armas estratégicas más letales. Úsala con prudencia.</target>
       </segment>
     </unit>
     <unit id="phagocyte">
-      <segment id="phagocyte.name" state="initial">
+      <segment id="phagocyte.name" state="translated">
         <source>phagocyte.name</source>
-        <target>phagocyte.name</target>
+        <target>Devorador de esporas</target>
       </segment>
-      <segment id="phagocyte.description" state="initial">
+      <segment id="phagocyte.description" state="translated">
         <source>phagocyte.description</source>
-        <target>phagocyte.description</target>
+        <target>En caso de problemas, tienes "la" solución.</target>
       </segment>
     </unit>
     <unit id="wrestler">
-      <segment id="wrestler.name" state="initial">
+      <segment id="wrestler.name" state="translated">
         <source>wrestler.name</source>
-        <target>wrestler.name</target>
+        <target>Luchador</target>
       </segment>
-      <segment id="wrestler.description" state="initial">
+      <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
-        <target>wrestler.description</target>
+        <target>Los músculos del luchador hacen temblar los huesos de todos sus adversarios.</target>
       </segment>
     </unit>
     <unit id="sprinter">
-      <segment id="sprinter.name" state="initial">
+      <segment id="sprinter.name" state="translated">
         <source>sprinter.name</source>
-        <target>sprinter.name</target>
+        <target>Velocista</target>
       </segment>
-      <segment id="sprinter.description" state="initial">
+      <segment id="sprinter.description" state="translated">
         <source>sprinter.description</source>
-        <target>sprinter.description</target>
+        <target>¡El velocista inicia siempre con el pie derecho! Goza de Puntos de Movimiento adicionales.</target>
       </segment>
     </unit>
     <unit id="devotion">
-      <segment id="devotion.name" state="initial">
+      <segment id="devotion.name" state="translated">
         <source>devotion.name</source>
-        <target>devotion.name</target>
+        <target>Voluntarioso</target>
       </segment>
-      <segment id="devotion.description" state="initial">
+      <segment id="devotion.description" state="translated">
         <source>devotion.description</source>
-        <target>devotion.description</target>
+        <target>Es bueno saber que podemos contar contigo.</target>
       </segment>
     </unit>
     <unit id="radio_piracy">
-      <segment id="radio_piracy.name" state="initial">
+      <segment id="radio_piracy.name" state="translated">
         <source>radio_piracy.name</source>
-        <target>radio_piracy.name</target>
+        <target>Radio pirata</target>
       </segment>
-      <segment id="radio_piracy.description" state="initial">
+      <segment id="radio_piracy.description" state="translated">
         <source>radio_piracy.description</source>
-        <target>radio_piracy.description</target>
+        <target>Este medio de comunicación nunca pasará de moda.</target>
       </segment>
     </unit>
     <unit id="trapper">
-      <segment id="trapper.name" state="initial">
+      <segment id="trapper.name" state="translated">
         <source>trapper.name</source>
-        <target>trapper.name</target>
+        <target>Bromista</target>
       </segment>
-      <segment id="trapper.description" state="initial">
+      <segment id="trapper.description" state="translated">
         <source>trapper.description</source>
-        <target>trapper.description</target>
+        <target>¡Sorpresa!</target>
       </segment>
     </unit>
     <unit id="tracker">
-      <segment id="tracker.name" state="initial">
+      <segment id="tracker.name" state="translated">
         <source>tracker.name</source>
-        <target>tracker.name</target>
+        <target>Detective</target>
       </segment>
-      <segment id="tracker.description" state="initial">
+      <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
-        <target>tracker.description</target>
+        <target>El detective ve la procedencia y la dirección de cada tripulante. Puede imprimir un reporte en el tabulador, es decir, una lista de personas que revela si al menos una está infectada con el Mush.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">
-      <segment id="bacterophiliac.name" state="initial">
+      <segment id="bacterophiliac.name" state="translated">
         <source>bacterophiliac.name</source>
-        <target>bacterophiliac.name</target>
+        <target>Bacteriano</target>
       </segment>
-      <segment id="bacterophiliac.description" state="initial">
+      <segment id="bacterophiliac.description" state="translated">
         <source>bacterophiliac.description</source>
-        <target>bacterophiliac.description</target>
+        <target>Es lo mejor que puedes hacer con tus bacterias.</target>
       </segment>
     </unit>
     <unit id="pyromaniac">
-      <segment id="pyromaniac.name" state="initial">
+      <segment id="pyromaniac.name" state="translated">
         <source>pyromaniac.name</source>
-        <target>pyromaniac.name</target>
+        <target>Pirómano</target>
       </segment>
-      <segment id="pyromaniac.description" state="initial">
+      <segment id="pyromaniac.description" state="translated">
         <source>pyromaniac.description</source>
-        <target>pyromaniac.description</target>
+        <target>El pirómano puede inyectar microesporas explosivas en un material inflamable para causar un incendio capaz de dañar la nave.</target>
       </segment>
     </unit>
     <unit id="observant">
-      <segment id="observant.name" state="initial">
+      <segment id="observant.name" state="translated">
         <source>observant.name</source>
-        <target>observant.name</target>
+        <target>Observador</target>
       </segment>
-      <segment id="observant.description" state="initial">
+      <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>observant.description</target>
+        <target>Usas 1 PA menos para encontrar objetos escondidos. Tienes 25% de probabilidades de detectar una acción discreta en la sala donde te encuentras.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">
-      <segment id="detached_crewmember.name" state="initial">
+      <segment id="detached_crewmember.name" state="translated">
         <source>detached_crewmember.name</source>
-        <target>detached_crewmember.name</target>
+        <target>Indolente</target>
       </segment>
-      <segment id="detached_crewmember.description" state="initial">
+      <segment id="detached_crewmember.description" state="translated">
         <source>detached_crewmember.description</source>
-        <target>detached_crewmember.description</target>
+        <target>El indolente es frío e indiferente. No le afecta ver morir a un camarada.</target>
       </segment>
     </unit>
     <unit id="expert">
-      <segment id="expert.name" state="initial">
+      <segment id="expert.name" state="translated">
         <source>expert.name</source>
-        <target>expert.name</target>
+        <target>Diestro</target>
       </segment>
-      <segment id="expert.description" state="initial">
+      <segment id="expert.description" state="translated">
         <source>expert.description</source>
-        <target>expert.description</target>
+        <target>Haciendo lo tuyo eres muy hábil, y no temes ensuciarte ni hacerte daño.</target>
       </segment>
     </unit>
     <unit id="defacer">
-      <segment id="defacer.name" state="initial">
+      <segment id="defacer.name" state="translated">
         <source>defacer.name</source>
-        <target>defacer.name</target>
+        <target>Corrupto</target>
       </segment>
-      <segment id="defacer.description" state="initial">
+      <segment id="defacer.description" state="translated">
         <source>defacer.description</source>
-        <target>defacer.description</target>
+        <target>¡Siglos de corrupción humana han sido perfeccionados en tus genes!</target>
       </segment>
     </unit>
     <unit id="u_turn">
@@ -542,9 +542,9 @@
       </segment>
     </unit>
     <unit id="politician">
-      <segment id="politician.name" state="initial">
+      <segment id="politician.name" state="translated">
         <source>politician.name</source>
-        <target>politician.name</target>
+        <target>Político</target>
       </segment>
       <segment id="politician.description" state="initial">
         <source>politician.description</source>
@@ -552,19 +552,19 @@
       </segment>
     </unit>
     <unit id="victimizer">
-      <segment id="victimizer.name" state="initial">
+      <segment id="victimizer.name" state="translated">
         <source>victimizer.name</source>
-        <target>victimizer.name</target>
+        <target>Perseguidor</target>
       </segment>
-      <segment id="victimizer.description" state="initial">
+      <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>victimizer.description</target>
+        <target>Te dijimos que tus actos pueden tener repercusiones inesperadas.</target>
       </segment>
     </unit>
     <unit id="frugivore">
-      <segment id="frugivore.name" state="initial">
+      <segment id="frugivore.name" state="translated">
         <source>frugivore.name</source>
-        <target>frugivore.name</target>
+        <target>Frugívoro</target>
       </segment>
       <segment id="frugivore.description" state="initial">
         <source>frugivore.description</source>
@@ -572,153 +572,153 @@
       </segment>
     </unit>
     <unit id="mycologist">
-      <segment id="mycologist.name" state="initial">
+      <segment id="mycologist.name" state="translated">
         <source>mycologist.name</source>
-        <target>mycologist.name</target>
+        <target>Micólogo</target>
       </segment>
-      <segment id="mycologist.description" state="initial">
+      <segment id="mycologist.description" state="translated">
         <source>mycologist.description</source>
-        <target>mycologist.description</target>
+        <target>El micólogo puede atender las infecciones en la **Enfermería** o usando un **Medikit**.</target>
       </segment>
     </unit>
     <unit id="fungal_kitchen">
-      <segment id="fungal_kitchen.name" state="initial">
+      <segment id="fungal_kitchen.name" state="translated">
         <source>fungal_kitchen.name</source>
-        <target>fungal_kitchen.name</target>
+        <target>Cocina fúngica</target>
       </segment>
-      <segment id="fungal_kitchen.description" state="initial">
+      <segment id="fungal_kitchen.description" state="translated">
         <source>fungal_kitchen.description</source>
-        <target>fungal_kitchen.description</target>
+        <target>Un gran clásico en la gastronomía exótica en el Sistema Solar.</target>
       </segment>
     </unit>
     <unit id="hard_boiled">
-      <segment id="hard_boiled.name" state="initial">
+      <segment id="hard_boiled.name" state="translated">
         <source>hard_boiled.name</source>
-        <target>hard_boiled.name</target>
+        <target>Duro de cocer</target>
       </segment>
-      <segment id="hard_boiled.description" state="initial">
+      <segment id="hard_boiled.description" state="translated">
         <source>hard_boiled.description</source>
-        <target>hard_boiled.description</target>
+        <target>Tu epidermis es más dura que la de un rinoceronte plutoniano.</target>
       </segment>
     </unit>
     <unit id="saboteur">
-      <segment id="saboteur.name" state="initial">
+      <segment id="saboteur.name" state="translated">
         <source>saboteur.name</source>
-        <target>saboteur.name</target>
+        <target>Saboteador</target>
       </segment>
-      <segment id="saboteur.description" state="initial">
+      <segment id="saboteur.description" state="translated">
         <source>saboteur.description</source>
-        <target>saboteur.description</target>
+        <target>Tu saliva contiene una sustancia capaz de hacer que cualquier cosa tenga un corto circuito...</target>
       </segment>
     </unit>
     <unit id="disheartening_contact">
-      <segment id="disheartening_contact.name" state="initial">
+      <segment id="disheartening_contact.name" state="translated">
         <source>disheartening_contact.name</source>
-        <target>disheartening_contact.name</target>
+        <target>Contacto deprimente</target>
       </segment>
-      <segment id="disheartening_contact.description" state="initial">
+      <segment id="disheartening_contact.description" state="translated">
         <source>disheartening_contact.description</source>
-        <target>disheartening_contact.description</target>
+        <target>Las feromónas Mush pueden ser tan atroces que pueden desestabilizar a cualquiera, y eso te puede ser útil...</target>
       </segment>
     </unit>
     <unit id="slimetrap">
-      <segment id="slimetrap.name" state="initial">
+      <segment id="slimetrap.name" state="translated">
         <source>slimetrap.name</source>
-        <target>slimetrap.name</target>
+        <target>Trampa mohosa</target>
       </segment>
-      <segment id="slimetrap.description" state="initial">
+      <segment id="slimetrap.description" state="translated">
         <source>slimetrap.description</source>
-        <target>slimetrap.description</target>
+        <target>Esos cochinos hongos se reproducen muy rápido, muy rápido, ¡Están por todas partes!</target>
       </segment>
     </unit>
     <unit id="green_jelly">
-      <segment id="green_jelly.name" state="initial">
+      <segment id="green_jelly.name" state="translated">
         <source>green_jelly.name</source>
-        <target>green_jelly.name</target>
+        <target>Gelatina verde</target>
       </segment>
-      <segment id="green_jelly.description" state="initial">
+      <segment id="green_jelly.description" state="translated">
         <source>green_jelly.description</source>
-        <target>green_jelly.description</target>
+        <target>Mejor no mencionar cómo produces esa cosa verde y pegajosa...</target>
       </segment>
     </unit>
     <unit id="massive_mushification">
-      <segment id="massive_mushification.name" state="initial">
+      <segment id="massive_mushification.name" state="translated">
         <source>massive_mushification.name</source>
-        <target>massive_mushification.name</target>
+        <target>Enmohecimiento letal</target>
       </segment>
-      <segment id="massive_mushification.description" state="initial">
+      <segment id="massive_mushification.description" state="translated">
         <source>massive_mushification.description</source>
-        <target>massive_mushification.description</target>
+        <target>Ciertos peniceliums tienen una virulencia extrema. El efecto tiene corta duración pero es más eficaz.</target>
       </segment>
     </unit>
     <unit id="bypass">
-      <segment id="bypass.name" state="initial">
+      <segment id="bypass.name" state="translated">
         <source>bypass.name</source>
-        <target>bypass.name</target>
+        <target>Conspirador</target>
       </segment>
-      <segment id="bypass.description" state="initial">
+      <segment id="bypass.description" state="translated">
         <source>bypass.description</source>
-        <target>bypass.description</target>
+        <target>Los secretos del cógido de NERON pueden ser tan deleitosos...</target>
       </segment>
     </unit>
     <unit id="traitor">
-      <segment id="traitor.name" state="initial">
+      <segment id="traitor.name" state="translated">
         <source>traitor.name</source>
-        <target>traitor.name</target>
+        <target>Traidor</target>
       </segment>
-      <segment id="traitor.description" state="initial">
+      <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>traitor.description</target>
+        <target>Has desarrollado una habilidad fabulosa para atraer problemas. "Mira, un mankarog... ¿y si le hacemos cosquillas por aquí?"...</target>
       </segment>
     </unit>
     <unit id="cold_blooded">
-      <segment id="cold_blooded.name" state="initial">
+      <segment id="cold_blooded.name" state="translated">
         <source>cold_blooded.name</source>
-        <target>cold_blooded.name</target>
+        <target>Sangre fría</target>
       </segment>
-      <segment id="cold_blooded.description" state="initial">
+      <segment id="cold_blooded.description" state="translated">
         <source>cold_blooded.description</source>
-        <target>cold_blooded.description</target>
+        <target>En el espacio, todo puede suceder. Conservar la calma puede ayudar mucho.</target>
       </segment>
     </unit>
     <unit id="green_thumb">
-      <segment id="green_thumb.name" state="initial">
+      <segment id="green_thumb.name" state="translated">
         <source>green_thumb.name</source>
-        <target>green_thumb.name</target>
+        <target>Amigo de las plantas</target>
       </segment>
-      <segment id="green_thumb.description" state="initial">
+      <segment id="green_thumb.description" state="translated">
         <source>green_thumb.description</source>
-        <target>green_thumb.description</target>
+        <target>Las plantas crecen naturalmente gracias a tu presencia, basta con dirigirles tu mirada cautivadora para que produzcan bellos frutos.</target>
       </segment>
     </unit>
     <unit id="polyvalent">
-      <segment id="polyvalent.name" state="initial">
+      <segment id="polyvalent.name" state="translated">
         <source>polyvalent.name</source>
-        <target>polyvalent.name</target>
+        <target>Polivalente</target>
       </segment>
-      <segment id="polyvalent.description" state="initial">
+      <segment id="polyvalent.description" state="translated">
         <source>polyvalent.description</source>
-        <target>polyvalent.description</target>
+        <target>Así que eres multioficios, bien, ¡adelante!</target>
       </segment>
     </unit>
     <unit id="strateguru">
-      <segment id="strateguru.name" state="initial">
+      <segment id="strateguru.name" state="translated">
         <source>strateguru.name</source>
-        <target>strateguru.name</target>
+        <target>Estratega militar</target>
       </segment>
-      <segment id="strateguru.description" state="initial">
+      <segment id="strateguru.description" state="translated">
         <source>strateguru.description</source>
-        <target>strateguru.description</target>
+        <target>Eres un experto en batallas espaciales, pero todos creen que estás loco.</target>
       </segment>
     </unit>
     <unit id="opportunist">
-      <segment id="opportunist.name" state="initial">
+      <segment id="opportunist.name" state="translated">
         <source>opportunist.name</source>
-        <target>opportunist.name</target>
+        <target>Arribista</target>
       </segment>
-      <segment id="opportunist.description" state="initial">
+      <segment id="opportunist.description" state="translated">
         <source>opportunist.description</source>
-        <target>opportunist.description</target>
+        <target>El arribista no pierde ninguna oportunidad para subir en la jerarquía de la nave.</target>
       </segment>
     </unit>
     <unit id="crazy_eye">
@@ -726,39 +726,39 @@
         <source>crazy_eye.name</source>
         <target>crazy_eye.name</target>
       </segment>
-      <segment id="crazy_eye.description" state="initial">
+      <segment id="crazy_eye.description" state="translated">
         <source>crazy_eye.description</source>
-        <target>crazy_eye.description</target>
+        <target>No hay manera de sorprenderte, anticipas todos los movimientos de tus enemigos así como de tus supuestos aliados.</target>
       </segment>
     </unit>
     <unit id="medic">
-      <segment id="medic.name" state="initial">
+      <segment id="medic.name" state="translated">
         <source>medic.name</source>
-        <target>medic.name</target>
+        <target>Médico</target>
       </segment>
-      <segment id="medic.description" state="initial">
+      <segment id="medic.description" state="translated">
         <source>medic.description</source>
-        <target>medic.description</target>
+        <target>El médico tiene los conocimientos necesarios para realizar curaciones rápidas y precisas. También puede realizar cirugías.</target>
       </segment>
     </unit>
     <unit id="rebel">
-      <segment id="rebel.name" state="initial">
+      <segment id="rebel.name" state="translated">
         <source>rebel.name</source>
-        <target>rebel.name</target>
+        <target>Rebelde</target>
       </segment>
-      <segment id="rebel.description" state="initial">
+      <segment id="rebel.description" state="translated">
         <source>rebel.description</source>
-        <target>rebel.description</target>
+        <target>Tus vínculos con la resistencia anti-mush te permiten comprender y decodificar las señales rebeldes más rápido que cualquier experto radio.</target>
       </segment>
     </unit>
     <unit id="torturer">
-      <segment id="torturer.name" state="initial">
+      <segment id="torturer.name" state="translated">
         <source>torturer.name</source>
-        <target>torturer.name</target>
+        <target>Verdugo</target>
       </segment>
-      <segment id="torturer.description" state="initial">
+      <segment id="torturer.description" state="translated">
         <source>torturer.description</source>
-        <target>torturer.description</target>
+        <target>El verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: \n"CONFIESA."</target>
       </segment>
     </unit>
     <unit id="ocd">
@@ -766,25 +766,25 @@
         <source>ocd.name</source>
         <target>ocd.name</target>
       </segment>
-      <segment id="ocd.description" state="initial">
+      <segment id="ocd.description" state="translated">
         <source>ocd.description</source>
-        <target>ocd.description</target>
+        <target>Tienes una manía con la limpieza y eso tiene su lado positivo.</target>
       </segment>
     </unit>
     <unit id="lethargy">
-      <segment id="lethargy.name" state="initial">
+      <segment id="lethargy.name" state="translated">
         <source>lethargy.name</source>
-        <target>lethargy.name</target>
+        <target>Aletargado</target>
       </segment>
-      <segment id="lethargy.description" state="initial">
+      <segment id="lethargy.description" state="translated">
         <source>lethargy.description</source>
-        <target>lethargy.description</target>
+        <target>Estás despierto solo 4h al día, pero en ese poco tiempo, ¡puedes hacer milagros!</target>
       </segment>
     </unit>
     <unit id="panic">
-      <segment id="panic.name" state="initial">
+      <segment id="panic.name" state="translated">
         <source>panic.name</source>
-        <target>panic.name</target>
+        <target>Pánico</target>
       </segment>
       <segment id="panic.description" state="initial">
         <source>panic.description</source>
@@ -792,9 +792,9 @@
       </segment>
     </unit>
     <unit id="hygienist">
-      <segment id="hygienist.name" state="initial">
+      <segment id="hygienist.name" state="translated">
         <source>hygienist.name</source>
-        <target>hygienist.name</target>
+        <target>Impecable</target>
       </segment>
       <segment id="hygienist.description" state="initial">
         <source>hygienist.description</source>
@@ -802,19 +802,19 @@
       </segment>
     </unit>
     <unit id="antique_perfume">
-      <segment id="antique_perfume.name" state="initial">
+      <segment id="antique_perfume.name" state="translated">
         <source>antique_perfume.name</source>
-        <target>antique_perfume.name</target>
+        <target>Perfume fino</target>
       </segment>
-      <segment id="antique_perfume.description" state="initial">
+      <segment id="antique_perfume.description" state="translated">
         <source>antique_perfume.description</source>
-        <target>antique_perfume.description</target>
+        <target>¡Pero qué bien hueles hoy!</target>
       </segment>
     </unit>
     <unit id="self_sacrifice">
-      <segment id="self_sacrifice.name" state="initial">
+      <segment id="self_sacrifice.name" state="translated">
         <source>self_sacrifice.name</source>
-        <target>self_sacrifice.name</target>
+        <target>Abnegación</target>
       </segment>
       <segment id="self_sacrifice.description" state="initial">
         <source>self_sacrifice.description</source>
@@ -832,9 +832,9 @@
       </segment>
     </unit>
     <unit id="metalworker">
-      <segment id="metalworker.name" state="initial">
+      <segment id="metalworker.name" state="translated">
         <source>metalworker.name</source>
-        <target>metalworker.name</target>
+        <target>Materialista</target>
       </segment>
       <segment id="metalworker.description" state="initial">
         <source>metalworker.description</source>
@@ -842,23 +842,23 @@
       </segment>
     </unit>
     <unit id="doorman">
-      <segment id="doorman.name" state="initial">
+      <segment id="doorman.name" state="translated">
         <source>doorman.name</source>
-        <target>doorman.name</target>
+        <target>Portero</target>
       </segment>
-      <segment id="doorman.description" state="initial">
+      <segment id="doorman.description" state="translated">
         <source>doorman.description</source>
-        <target>doorman.description</target>
+        <target>Una puerta saboteada puede ser tan, pero tan desesperante...</target>
       </segment>
     </unit>
     <unit id="nimble_fingers">
-      <segment id="nimble_fingers.name" state="initial">
+      <segment id="nimble_fingers.name" state="translated">
         <source>nimble_fingers.name</source>
-        <target>nimble_fingers.name</target>
+        <target>Dedo de hada</target>
       </segment>
-      <segment id="nimble_fingers.description" state="initial">
+      <segment id="nimble_fingers.description" state="translated">
         <source>nimble_fingers.description</source>
-        <target>nimble_fingers.description</target>
+        <target>Con tus manos benditas puedes hacer cosas maravillosas, como manipular las cámaras...</target>
       </segment>
     </unit>
     <unit id="polymath">
@@ -872,33 +872,33 @@
       </segment>
     </unit>
     <unit id="nightmarish">
-      <segment id="nightmarish.name" state="initial">
+      <segment id="nightmarish.name" state="translated">
         <source>nightmarish.name</source>
-        <target>nightmarish.name</target>
+        <target>Pesadillero</target>
       </segment>
-      <segment id="nightmarish.description" state="initial">
+      <segment id="nightmarish.description" state="translated">
         <source>nightmarish.description</source>
-        <target>nightmarish.description</target>
+        <target>Las escamas del Mush pueden alterar las ondas cerebrales de los humanos. Sacudiéndolas un poco pueden hacer el descanso imposible.</target>
       </segment>
     </unit>
     <unit id="ninja">
-      <segment id="ninja.name" state="initial">
+      <segment id="ninja.name" state="translated">
         <source>ninja.name</source>
-        <target>ninja.name</target>
+        <target>Ninja</target>
       </segment>
-      <segment id="ninja.description" state="initial">
+      <segment id="ninja.description" state="translated">
         <source>ninja.description</source>
-        <target>ninja.description</target>
+        <target>Tus desplazamientos son veloces y discretos.</target>
       </segment>
     </unit>
     <unit id="neron_depression">
-      <segment id="neron_depression.name" state="initial">
+      <segment id="neron_depression.name" state="translated">
         <source>neron_depression.name</source>
-        <target>neron_depression.name</target>
+        <target>NERON estresado</target>
       </segment>
-      <segment id="neron_depression.description" state="initial">
+      <segment id="neron_depression.description" state="translated">
         <source>neron_depression.description</source>
-        <target>neron_depression.description</target>
+        <target>Cuando NERON se siente mal, es todo el Daedalus el que vomita.</target>
       </segment>
     </unit>
   </file>

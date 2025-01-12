@@ -629,7 +629,7 @@
                     }* {versionPart2, select,
                          1 {a quitté le secteur.}
                          2 {en est la cause.}
-                         3 {est probablement votre ange guardien.}
+                         3 {est probablement votre ange gardien.}
                          4 {a déposé des paquets dans vos poches.}
                          other {invalid version number}
                     }}

@@ -3477,7 +3477,7 @@ This plan requires:</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>apprentron.first_letter</source>
-        <target>vowel</target>
+        <target>consonant</target>
       </segment>
       <segment id="description" state="translated">
         <source>apprentron.description</source>

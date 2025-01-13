@@ -440,11 +440,9 @@
       </segment>
     </unit>
     <unit id="sneak">
-      <segment id="sneak.name" state="translated">
+      <segment id="sneak.name" state="final">
         <source>sneak.name</source>
-        <target>{character_gender, select,
-    female {Fuyante}
-    other {Fuyant}}</target>
+        <target>Fuyant</target>
       </segment>
       <segment id="sneak.description" state="translated">
         <source>sneak.description</source>

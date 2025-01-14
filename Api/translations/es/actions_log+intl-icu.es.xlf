@@ -146,51 +146,58 @@ other {**{character}** le da un derechazo a **{target_character}**}
       </segment>
     </unit>
     <unit id="hit_fail">
-      <segment id="hit_fail" state="initial">
+      <segment id="hit_fail" state="translated">
         <source>hit_fail</source>
-        <target>hit_fail</target>
+        <target>{version, select,
+1 {**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy...}
+2 {**{character}** falla su ataque contra **{target_character}**
+other {invalid version number}
+}</target>
       </segment>
     </unit>
     <unit id="hyperfreeze_success">
-      <segment id="hyperfreeze_success" state="initial">
+      <segment id="hyperfreeze_success" state="translated">
         <source>hyperfreeze_success</source>
-        <target>hyperfreeze_success</target>
+        <target>Has hipercongelado tu alimento para conservarlo mejor.</target>
       </segment>
     </unit>
     <unit id="infect_success">
-      <segment id="infect_success" state="initial">
+      <segment id="infect_success" state="translated">
         <source>infect_success</source>
-        <target>infect_success</target>
+        <target>:mush: **{character}** se ha acercado a **{target_character}** con un instinto predador... ¡y le ha picado discretamente! </target>
       </segment>
     </unit>
     <unit id="lie_down">
-      <segment id="lie_down" state="initial">
+      <segment id="lie_down" state="translated">
         <source>lie_down</source>
-        <target>lie_down</target>
+        <target>**{character}** se recuesta... El descanso le hará bien. ¡Rumbo al país de los sueños! </target>
       </segment>
     </unit>
     <unit id="enter_room">
-      <segment id="enter_room" state="initial">
+      <segment id="enter_room" state="translated">
         <source>enter_room</source>
-        <target>enter_room</target>
+        <target>**{character}** ha entrado.{is_tracker, select, true {enter_loc_prep} {place}} other {}.}
+}</target>
       </segment>
     </unit>
     <unit id="exit_room">
-      <segment id="exit_room" state="initial">
+      <segment id="exit_room" state="translated">
         <source>exit_room</source>
-        <target>exit_room</target>
+        <target>**{character}** ha salido.{is_tracker, select, true {
+{exit_loc_prep} {place}} other {}}.}
+}</target>
       </segment>
     </unit>
     <unit id="read_book">
-      <segment id="read_book" state="initial">
+      <segment id="read_book" state="translated">
         <source>read_book</source>
-        <target>read_book</target>
+        <target>**{character}** lee un libro y algo le intriga...</target>
       </segment>
     </unit>
     <unit id="read_document">
-      <segment id="read_document" state="initial">
+      <segment id="read_document" state="translated">
         <source>read_document</source>
-        <target>read_document</target>
+        <target>**{character}** lee un documento y algo le intriga...</target>
       </segment>
     </unit>
     <unit id="read_content">
@@ -212,15 +219,19 @@ other {**{character}** le da un derechazo a **{target_character}**}
       </segment>
     </unit>
     <unit id="search_success">
-      <segment id="search_success" state="initial">
+      <segment id="search_success" state="translated">
         <source>search_success</source>
-        <target>search_success</target>
+        <target>{equipment_gender, select,
+male **{character}** ha descubierto un **{equipment}**.}
+female **{character}** ha descubierto una **{equipment}**.}
+other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="search_fail">
-      <segment id="search_fail" state="initial">
+      <segment id="search_fail" state="translated">
         <source>search_fail</source>
-        <target>search_fail</target>
+        <target>No has encontrado nada esta vez.</target>
       </segment>
     </unit>
     <unit id="shower_human">

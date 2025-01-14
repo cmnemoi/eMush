@@ -1760,18 +1760,21 @@ A thick tube... what could this be for ?</target>
       </segment>
       <segment id="description" state="translated">
         <source>support_drone.description</source>
-        <target>The best friend of the man-about-ship, this drone can carry out many tasks in your place
-
+        <target>The best friend of the man-about-ship, this drone can carry out many tasks in your place.
+//
 The Drone carries out actions similar to those of the crew.
-
-Try to repair the defective equipment in the room before you leave.</target>
+//
+Tries to repair defective equipment in its room before moving.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>support_drone.examine</source>
-        <target>The best friend of the man-about-ship, this drone can carry out many tasks in your place.
+        <target>The best friend of the man-about-ship, this drone can carry out many tasks in your place. 
+//
 The Drone carries out actions similar to those of the crew.
-Try to repair the defective equipment in the room before you leave.
-The support drone fulfils the automatic maintenance objective planned for the Magellan project. Employing the Beta-Slave protocol it is almost possible to replace a human being. Aside from the minor issue of building the thing...</target>
+//
+Tries to repair defective equipment in its room before moving.
+//
+The support drone fulfills the automatic maintenance objective planned for the Magellan project. By employing its Beta-Slave protocol, it can almost replace a human being. Aside from the minor issue of building the thing...</target>
       </segment>
     </unit>
     <unit id="jar_of_alien_oil">

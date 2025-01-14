@@ -118,6 +118,10 @@ const STANDARD_RATION = "standard_ration";
 const COOKED_RATION = "cooked_ration";
 const ORGANIC_WASTE = "organic_waste";
 const ALIEN_STEAK = "alien_steak";
+const SUPERVITAMIN_BAR = "supervitamin_bar";
+const LOMBRICK_BAR = "lombrick_bar";
+const SPACE_POTATO = "space_potato";
+const PROACTIVE_PUFFED_RICE = "proactive_puffed_rice";
 
 // NPCs
 const SUPPORT_DRONE = "support_drone";
@@ -435,7 +439,7 @@ export const itemEnum: {[index: string]: any} = {
         'image': getImgUrl('items/natamy_riffle.jpg')
     },
     [ALIEN_STEAK]: {
-        'image': getImgUrl('items/ration_5.jpg')
+        'image': getImgUrl('items/alien_steak.jpg')
     },
     [THERMOSENSOR]: {
         'image': getImgUrl('items/heat_seeker.jpg')
@@ -484,5 +488,17 @@ export const itemEnum: {[index: string]: any} = {
     },
     [COFFEE_THERMOS]:{
         'image': getImgUrl('items/coffee_thermos.jpg')
+    },
+    [SUPERVITAMIN_BAR]:{
+        'image': getImgUrl('items/supervitamin_bar.jpg')
+    },
+    [LOMBRICK_BAR]:{
+        'image': getImgUrl('items/lombrick_bar.jpg')
+    },
+    [SPACE_POTATO]:{
+        'image': getImgUrl('items/space_potato.jpg')
+    },
+    [PROACTIVE_PUFFED_RICE]:{
+        'image': getImgUrl('items/proactive_puffed_rice.jpg')
     }
 };

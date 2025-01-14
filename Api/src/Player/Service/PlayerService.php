@@ -262,7 +262,7 @@ final class PlayerService implements PlayerServiceInterface
             $this->entityManager->refresh($player);
 
             if ($player->isDead()) {
-                throw new \RuntimeException('Player is already dead');
+                return $player;
             }
 
             $this->markPlayerAsDead($player, $endReason, $time);

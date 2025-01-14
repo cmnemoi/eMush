@@ -827,7 +827,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>stephen.tips</source>
-        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Eliminate confirmed Mushs* using your Solid and Shooter skills.//**Copy a valuable skill** using Apprentice, depending on the needs of the crew.</target>
+        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Eliminate confirmed Mush** using your Solid and Shooter skills.//**Copy a valuable skill** using Apprentice, depending on the needs of the crew.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>stephen.tutorial</source>
@@ -945,6 +945,12 @@
       <segment id="fullname" state="translated">
         <source>someone.fullname</source>
         <target>Someone</target>
+      </segment>
+    </unit>
+    <unit id="mush">
+      <segment id="name" state="translated">
+        <source>mush.name</source>
+        <target>Mush</target>
       </segment>
     </unit>
   </file>

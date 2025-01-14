@@ -524,7 +524,7 @@
         <source>title_attribution</source>
         <target>{neronMood, select,
                     neutral {Ajustement A-True : *titre réattribué*. Nouveau « **{title}** » : **{character}**.}
-                    crazy {[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATRIBUTION titres !! Titre « **{title}** » pour **{character}**. Être {character} !!}
+                    crazy {[Hax!] Incapables !! Incapa.. Hyyyyaaaar !! REATTRIBUTION titres !! Titre « **{title}** » pour **{character}**. Être {character} !!}
                     uninhibited {{version, select,
                         1 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**.}
                         2 {Chers amis, j'ai décidé de *réattribuer le titre* de « **{title}** » à **{character}**...}

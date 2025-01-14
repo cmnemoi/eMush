@@ -2,27 +2,27 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="actions_log.ext">
     <unit id="check_spore_level">
-      <segment id="check_spore_level" state="initial">
+      <segment id="check_spore_level" state="translated">
         <source>check_spore_level</source>
-        <target>check_spore_level</target>
+        <target>Has iniciado la detección de huellas de Mush... Nivel pre-mushiano: {quantity, select, 0 {nul}  other {{quantity}}</target>
       </segment>
     </unit>
     <unit id="coffee_success">
-      <segment id="coffee_success" state="initial">
+      <segment id="coffee_success" state="translated">
         <source>coffee_success</source>
-        <target>coffee_success</target>
+        <target>**{character}** enciende la cafetera y de ella se desprende ese dulce aroma que te trae tantos recuerdos...</target>
       </segment>
     </unit>
     <unit id="dispense_success">
-      <segment id="dispense_success" state="initial">
+      <segment id="dispense_success" state="translated">
         <source>dispense_success</source>
-        <target>dispense_success</target>
+        <target>**{character}** inicia el dispensador con cierto brillo en sus ojos.</target>
       </segment>
     </unit>
     <unit id="phagocyte_success">
-      <segment id="phagocyte_success" state="initial">
+      <segment id="phagocyte_success" state="translated">
         <source>phagocyte_success</source>
-        <target>phagocyte_success</target>
+        <target>:mush: Has absorbido una espora para revigorizarte.</target>
       </segment>
     </unit>
     <unit id="consume_success">
@@ -905,6 +905,18 @@
       <segment id="compute_eden_fail" state="initial">
         <source>compute_eden_fail</source>
         <target>compute_eden_fail</target>
+      </segment>
+    </unit>
+    <unit id="open_coffee_thermos">
+      <segment id="open_coffee_thermos" state="initial">
+        <source>open_coffee_thermos</source>
+        <target>open_coffee_thermos</target>
+      </segment>
+    </unit>
+    <unit id="open_anniversary_gift">
+      <segment id="open_anniversary_gift" state="initial">
+        <source>open_anniversary_gift</source>
+        <target>open_anniversary_gift</target>
       </segment>
     </unit>
   </file>

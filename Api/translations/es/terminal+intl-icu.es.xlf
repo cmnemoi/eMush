@@ -10,9 +10,9 @@
         <source>command_terminal.tips</source>
         <target>Como *Comandante* eres la única persona que puede acceder a este terminal.
 ////
-Mover la nave es esencial para **viajar a otros planetas** y podría ser útil para deshacerse de los cazadores.
+Mover la nave es esencial para **viajar a otros planetas** y podría ser útil para deshacerse de los hunters.
 ////
-Para ir a un planeta necesitas **saber el rumbo y la cantidad de combustible necesaria**. Estos dos datos pueden obtenerse en el *Terminal Astronómico*. Con esta información, primero hay que llenar la cámara de combustión con la cantidad adecuada de combustible. A continuación, ¡poner el Daedalus en la ruta correcta e iniciar el viaje!
+Para ir a un planeta necesitas **saber el rumbo y la cantidad de combustible necesaria**. Estos dos datos pueden obtenerse en la *Terminal Astro*. Con esta información, primero hay que llenar la cámara de combustión con la cantidad adecuada de combustible. A continuación, ¡poner el Daedalus en la ruta correcta e iniciar el viaje!
 ////
 Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita de un planeta, ¡que podrá ser explorado por la tripulación y obtener nuevos recursos!</target>
       </segment>
@@ -20,55 +20,71 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>command_terminal.orientate_daedalus</source>
         <target>Orientación del Daedalus</target>
       </segment>
-      <segment id="move_daedalus" state="initial">
+      <segment id="move_daedalus" state="translated">
         <source>command_terminal.move_daedalus</source>
-        <target>command_terminal.move_daedalus</target>
+        <target>Desplazamiento del Daedalus</target>
       </segment>
-      <segment id="general_informations" state="initial">
+      <segment id="general_informations" state="translated">
         <source>command_terminal.general_informations</source>
-        <target>command_terminal.general_informations</target>
+        <target>Informaciones generales</target>
       </segment>
       <segment id="pilgred" state="translated">
         <source>command_terminal.pilgred</source>
-        <target>command_terminal.difficulty_normal</target>
+        <target>Pilgred</target>
       </segment>
       <segment id="difficulty_normal" state="translated">
         <source>command_terminal.difficulty_normal</source>
-        <target>command_terminal.difficulty_hard</target>
+        <target>Estamos viajando en el **Espacio cercano**</target>
       </segment>
       <segment id="difficulty_hard" state="translated">
         <source>command_terminal.difficulty_hard</source>
-        <target>command_terminal.difficulty_very_hard</target>
+        <target>Estamos viajando a través del **Espacio profundo**</target>
       </segment>
       <segment id="difficulty_very_hard" state="translated">
         <source>command_terminal.difficulty_very_hard</source>
-        <target>command_terminal.advance_daedalus_status_ok</target>
+        <target>Estamos viajando a través del **Espacio infinito**</target>
       </segment>
       <segment id="advance_daedalus_status_ok" state="translated">
         <source>command_terminal.advance_daedalus_status_ok</source>
-        <target>command_terminal.advance_daedalus_status_no_fuel</target>
+        <target>Los sistemas están funcionales.</target>
       </segment>
       <segment id="advance_daedalus_status_no_fuel" state="translated">
         <source>command_terminal.advance_daedalus_status_no_fuel</source>
-        <target>command_terminal.advance_daedalus_status_emergency_reactor_broken</target>
+        <target>¡No hay combustible en la *Cámara de Combustión*! El desplazamiento es imposible.</target>
       </segment>
       <segment id="advance_daedalus_status_emergency_reactor_broken" state="translated">
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
-        <target>command_terminal.orientation</target>
+        <target>¡El *Reactor de Emergencia* está averiado! El desplazamiento es imposible.</target>
       </segment>
-      <segment id="orientation" state="initial">
+      <segment id="orientation" state="translated">
         <source>command_terminal.orientation</source>
-        <target>command_terminal.orientation</target>
+        <target>{orientation, select,
+                  north {Oeste :left::left::left: 
+**Norte** :right::right::right: Este}
+                  south {Este :left::left::left: 
+**Sur** :right::right::right: Oeste}
+                  east {Norte :left::left::left: 
+**Este** :right::right::right: Sur}
+                  west {Sur :left::left::left: 
+**Oeste** :right::right::right: Norte}
+                  other {El Daedalus se orienta actualmente hacia: **{orientation}**.}
+}</target>
       </segment>
     </unit>
     <unit id="astro_terminal">
       <segment id="name" state="translated">
         <source>astro_terminal.name</source>
-        <target>Terminal Astronómico</target>
+        <target>Terminal Astro</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>astro_terminal.tips</source>
-        <target>astro_terminal.tips</target>
+        <target>Para poder encontrar un planeta para explorar, primero debes **realizar un escaneo** para encontrar hasta un máximo de 2 planetas. Los resultados de los planetas encontrados son exclusivos para cada persona.
+////
+Una vez encontrado y elegido un planeta, deberás comunicar a la tripulación la **orientación y el combustible necesario** para llegar allí. Esto permitirá al *Comandante** mover el Daedalus al planeta elegido.
+////
+Cuando el Daedalus ha llegado y está en órbita, es imposible buscar otros planetas. Por otro lado, puedes **analizar el planeta** en órbita para obtener GeoDatos adicionales si es que este no fue analizado por completo. Estos datos serán utilizados por el equipo de expedición, que podrá preparar la exploración con antelación.
+////
+Para salir de la órbita, el Comandante a cargo debe ejecutar la acción desde la Terminal de Comando.</target>
       </segment>
       <segment id="orientation" state="translated">
         <source>astro_terminal.orientation</source>
@@ -82,189 +98,194 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>astro_terminal.in_orbit</source>
         <target>*¡En órbita!*</target>
       </segment>
-      <segment id="share_planet_button_name" state="initial">
+      <segment id="share_planet_button_name" state="translated">
         <source>astro_terminal.share_planet_button_name</source>
-        <target>astro_terminal.share_planet_button_name</target>
+        <target>Compartir</target>
       </segment>
-      <segment id="share_planet_button_description" state="initial">
+      <segment id="share_planet_button_description" state="translated">
         <source>astro_terminal.share_planet_button_description</source>
-        <target>astro_terminal.share_planet_button_description</target>
+        <target>Comparte este planeta con la tripulación.</target>
       </segment>
     </unit>
     <unit id="research_laboratory">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>research_laboratory.name</source>
-        <target>research_laboratory.name</target>
+        <target>Laboratorio de Investigación</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>research_laboratory.tips</source>
-        <target>research_laboratory.tips</target>
+        <target>La ciencia es un arma clave contra los Mush. Tienes 2 maneras de colaborar con ella: Manipular objetos en el laboratorio para desbloquear nuevas investigaciones o hacer avanzar las que están en marcha usando Puntos de Acción.
+
+Puedes manipular un objeto de tu inventario o que se encuentre en la sala.
+
+Una sola persona podrá difícilmente completar una investigación, incluso si tiene las habilidades requeridas. Si haces avanzar una investigación varias veces consecutivas, la eficacia de la acción disminuirá. ¡La clave es trabajar alternadamente en equipo!</target>
       </segment>
-      <segment id="chun_present" state="initial">
+      <segment id="chun_present" state="translated">
         <source>research_laboratory.chun_present</source>
-        <target>research_laboratory.chun_present</target>
+        <target>**Chun** está presente. Por lo que ciertas investigaciones son posibles.</target>
       </segment>
-      <segment id="mush_dead" state="initial">
+      <segment id="mush_dead" state="translated">
         <source>research_laboratory.mush_dead</source>
-        <target>research_laboratory.mush_dead</target>
+        <target>Un **tripulante infectado** está muerto y ahora sirve como una muestra.</target>
       </segment>
     </unit>
     <unit id="block_of_post_it">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>block_of_post_it.name</source>
-        <target>block_of_post_it.name</target>
+        <target>Bloc de notas</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
-        <target>block_of_post_it.tips</target>
+        <target>Un bloc de estos papelitos horribles...</target>
       </segment>
     </unit>
     <unit id="exploration">
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>exploration.tips</source>
-        <target>exploration.tips</target>
+        <target>{isExplorationFinished, select, other {{quantity, plural, one {La exploración se realiza automáticamente. Cada minuto se desarrolla una nueva etapa. Una vez que vayas, no podrás regresar.} other {La exploración se realiza automáticamente. Cada # minuto se produce una nueva estapa. Una vez que bayas, no hay vuelta atrás.} }} true {Esta expedición ya ha terminado. Puedes revisar aquí los diferentes eventos que encontraron los miembros de la tripulación.}}</target>
       </segment>
-      <segment id="recolted_infos" state="initial">
+      <segment id="recolted_infos" state="translated">
         <source>exploration.recolted_infos</source>
-        <target>exploration.recolted_infos</target>
+        <target>Información obtenida...</target>
       </segment>
-      <segment id="new_step" state="initial">
+      <segment id="new_step" state="translated">
         <source>exploration.new_step</source>
-        <target>exploration.new_step</target>
+        <target>Nueva etapa</target>
       </segment>
-      <segment id="lost" state="initial">
+      <segment id="lost" state="translated">
         <source>exploration.lost</source>
-        <target>exploration.lost</target>
+        <target>Te has perdido en este planeta. Tu ánimo bajará rápidamente... Pide a la tripulación que venga por ti.</target>
       </segment>
-      <segment id="finished" state="initial">
+      <segment id="finished" state="translated">
         <source>exploration.finished</source>
-        <target>exploration.finished</target>
+        <target>Finalizada</target>
       </segment>
     </unit>
     <unit id="closed_exploration">
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>closed_exploration.tips</source>
-        <target>closed_exploration.tips</target>
+        <target>Aquí puedes leer el reporte de tu expedición.</target>
       </segment>
     </unit>
     <unit id="bios_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bios_terminal.name</source>
-        <target>bios_terminal.name</target>
+        <target>Terminal BIOS</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>bios_terminal.tips</source>
-        <target>bios_terminal.tips</target>
+        <target>Estás accediendo a las BIOS de NERON. Solo el Administrador de NERON puede cambiar sus parámetros.</target>
       </segment>
-      <segment id="cpu_priority.name" state="initial">
+      <segment id="cpu_priority.name" state="translated">
         <source>bios_terminal.cpu_priority_name</source>
-        <target>bios_terminal.cpu_priority_name</target>
+        <target>Prioridad CPU</target>
       </segment>
-      <segment id="cpu_priority.description" state="initial">
+      <segment id="cpu_priority.description" state="translated">
         <source>bios_terminal.cpu_priority_description</source>
-        <target>bios_terminal.cpu_priority_description</target>
+        <target>Controla la repartición de recursos del CPU. Puede hacer los proyectos e investigaciones más fáciles de realizar, aumentar la cantidad de GeoDatos analizados de los planetas, o ponerse en modo de economía de energía, el cual no hace nada. Este atributo puede ser cambiado solo **una vez al día** para no provocar una sobrecarga cognitiva en NERON.</target>
       </segment>
-      <segment id="cpu_priority.astronavigation" state="initial">
+      <segment id="cpu_priority.astronavigation" state="translated">
         <source>bios_terminal.cpu_priority_astronavigation</source>
-        <target>bios_terminal.cpu_priority_astronavigation</target>
+        <target>Astronavegación</target>
       </segment>
-      <segment id="cpu_priority.defence" state="initial">
+      <segment id="cpu_priority.defence" state="translated">
         <source>bios_terminal.cpu_priority_defence</source>
-        <target>bios_terminal.cpu_priority_defence</target>
+        <target>Sistema de defensa</target>
       </segment>
       <segment id="cpu_priority.pilgred" state="translated">
         <source>bios_terminal.cpu_priority_pilgred</source>
         <target>PILGRED</target>
       </segment>
-      <segment id="cpu_priority.research" state="initial">
+      <segment id="cpu_priority.research" state="translated">
         <source>bios_terminal.cpu_priority_research</source>
-        <target>bios_terminal.cpu_priority_research</target>
+        <target>Investigación</target>
       </segment>
-      <segment id="cpu_priority.projects" state="initial">
+      <segment id="cpu_priority.projects" state="translated">
         <source>bios_terminal.cpu_priority_projects</source>
-        <target>bios_terminal.cpu_priority_projects</target>
+        <target>Proyectos</target>
       </segment>
-      <segment id="cpu_priority.none" state="initial">
+      <segment id="cpu_priority.none" state="translated">
         <source>bios_terminal.cpu_priority_none</source>
-        <target>bios_terminal.cpu_priority_none</target>
+        <target>Ninguno</target>
       </segment>
-      <segment id="crew_lock.name" state="initial">
+      <segment id="crew_lock.name" state="translated">
         <source>bios_terminal.crew_lock_name</source>
-        <target>bios_terminal.crew_lock_name</target>
+        <target>Bloqueo de seguridad</target>
       </segment>
-      <segment id="crew_lock.description" state="initial">
+      <segment id="crew_lock.description" state="translated">
         <source>bios_terminal.crew_lock_description</source>
-        <target>bios_terminal.crew_lock_description</target>
+        <target>:point: Bloqueo de pilotaje: Los no pilotos no están autorizados a pilotar un Patrullero o el Icarus.//:point: Bloqueo de proyectos: Los no artífices no están autorizados a participar en el desarrollo de proyectos.//:point: Bloqueo de investigación: Los no biólogos y no médicos no pueden participar en investigaciones científicas.</target>
       </segment>
-      <segment id="crew_lock.projects" state="initial">
+      <segment id="crew_lock.projects" state="translated">
         <source>bios_terminal.crew_lock_projects</source>
-        <target>bios_terminal.crew_lock_projects</target>
+        <target>Proyectos</target>
       </segment>
-      <segment id="crew_lock.piloting" state="initial">
+      <segment id="crew_lock.piloting" state="translated">
         <source>bios_terminal.crew_lock_piloting</source>
-        <target>bios_terminal.crew_lock_piloting</target>
+        <target>Pilotaje</target>
       </segment>
-      <segment id="crew_lock.research" state="initial">
+      <segment id="crew_lock.research" state="translated">
         <source>bios_terminal.crew_lock_research</source>
-        <target>bios_terminal.crew_lock_research</target>
+        <target>Investigación</target>
       </segment>
-      <segment id="plasma_shield.name" state="initial">
+      <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>
-        <target>bios_terminal.plasma_shield_name</target>
+        <target>Escudo Plasma</target>
       </segment>
-      <segment id="plasma_shield.description" state="initial">
+      <segment id="plasma_shield.description" state="translated">
         <source>bios_terminal.plasma_shield_description</source>
-        <target>bios_terminal.plasma_shield_description</target>
+        <target>Activa el escudo plasma</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="initial">
+      <segment id="plasma_shield.toggle_activate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
-        <target>bios_terminal.plasma_shield_toggle_activate</target>
+        <target>Activar</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="initial">
+      <segment id="plasma_shield.toggle_deactivate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
-        <target>bios_terminal.plasma_shield_toggle_deactivate</target>
+        <target>Desactivar</target>
       </segment>
-      <segment id="magnetic_net.name" state="initial">
+      <segment id="magnetic_net.name" state="translated">
         <source>bios_terminal.magnetic_net_name</source>
-        <target>bios_terminal.magnetic_net_name</target>
+        <target>Red magnética</target>
       </segment>
-      <segment id="magnetic_net.description" state="initial">
+      <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
-        <target>bios_terminal.magnetic_net_description</target>
+        <target>Activa o desactiva la red magnética que permite traer de vuelta a los patrulleros al mover la nave... o abandonarlos.</target>
       </segment>
-      <segment id="magnetic_net.toggle_active" state="initial">
+      <segment id="magnetic_net.toggle_active" state="translated">
         <source>bios_terminal.magnetic_net_toggle_active</source>
-        <target>bios_terminal.magnetic_net_toggle_active</target>
+        <target>Activar</target>
       </segment>
-      <segment id="magnetic_net.toggle_inactive" state="initial">
+      <segment id="magnetic_net.toggle_inactive" state="translated">
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
-        <target>bios_terminal.magnetic_net_toggle_inactive</target>
+        <target>Desactivar</target>
       </segment>
-      <segment id="neron_inhibition.name" state="initial">
+      <segment id="neron_inhibition.name" state="translated">
         <source>bios_terminal.neron_inhibition_name</source>
-        <target>bios_terminal.neron_inhibition_name</target>
+        <target>Bloqueo DMZ-CorePeace</target>
       </segment>
-      <segment id="neron_inhibition.description" state="initial">
+      <segment id="neron_inhibition.description" state="translated">
         <source>bios_terminal.neron_inhibition_description</source>
-        <target>bios_terminal.neron_inhibition_description</target>
+        <target>Activa el bloqueo del comportamiento de NERON. El bloqueo cambia un número de comportamientos agresivos de NERON.</target>
       </segment>
-      <segment id="neron_inhibition.toggle_active" state="initial">
+      <segment id="neron_inhibition.toggle_active" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_active</source>
-        <target>bios_terminal.neron_inhibition_toggle_active</target>
+        <target>Si</target>
       </segment>
-      <segment id="neron_inhibition.toggle_inactive" state="initial">
+      <segment id="neron_inhibition.toggle_inactive" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
-        <target>bios_terminal.neron_inhibition_toggle_inactive</target>
+        <target>No</target>
       </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pilgred.name</source>
-        <target>pilgred.name</target>
+        <target>Reactor PILGRED</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>pilgred.tips</source>
-        <target>pilgred.tips</target>
+        <target>La reparación del PILGRED requiere de grandes habilidades. Necesitarás mucha paciencia y esfuerzo.
+**Cuando esté reparado, volver al Sol será posible.** ¿Qué harías tú?</target>
       </segment>
       <segment id="pilgred_finished_description" state="initial">
         <source>pilgred.pilgred_finished_description</source>
@@ -272,57 +293,63 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>neron_core.name</source>
-        <target>neron_core.name</target>
+        <target>Núcleo de NERON</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>neron_core.tips</source>
-        <target>neron_core.tips</target>
+        <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.
+Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.
+Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto varias veces consecutivas, la eficacia de tu acción disminuirá. **¡La clave es trabajar alternadamente en equipo!**
+Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser terminado **anulará el avance en los otros**. ¡Habla con tus compañeros para determinar cual servirá mejor para la tripulación!</target>
       </segment>
-      <segment id="no_proposed_neron_projects_description" state="initial">
+      <segment id="no_proposed_neron_projects_description" state="translated">
         <source>neron_core.no_proposed_neron_projects_description</source>
-        <target>neron_core.no_proposed_neron_projects_description</target>
+        <target>Ya no hay más proyectos por completar.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>auxiliary_terminal.name</source>
-        <target>auxiliary_terminal.name</target>
+        <target>Terminal auxiliar de NERON</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>auxiliary_terminal.tips</source>
-        <target>auxiliary_terminal.tips</target>
+        <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.
+Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.
+Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto varias veces consecutivas, la eficacia de tu acción disminuirá. **¡La clave es trabajar alternadamente en equipo!**
+Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser terminado **anulará el avance en los otros**. ¡Habla con tus compañeros para determinar cual servirá mejor para la tripulación!</target>
       </segment>
-      <segment id="no_proposed_neron_projects_description" state="initial">
+      <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
-        <target>auxiliary_terminal.no_proposed_neron_projects_description</target>
+        <target>Ya no hay más proyectos por completar.</target>
       </segment>
     </unit>
     <unit id="calculator">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>calculator.name</source>
-        <target>calculator.name</target>
+        <target>Supercalculadora</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>calculator.tips</source>
-        <target>calculator.tips</target>
+        <target>Calcula datos importantes o sin ningún valor. Pero la ciencia guarda más de una sorpresa...</target>
       </segment>
-      <segment id="to_a_new_eden_title" state="initial">
+      <segment id="to_a_new_eden_title" state="translated">
         <source>calculator.to_a_new_eden_title</source>
-        <target>calculator.to_a_new_eden_title</target>
+        <target>Hacia un nuevo Eden</target>
       </segment>
-      <segment id="to_a_new_eden_description" state="initial">
+      <segment id="to_a_new_eden_description" state="translated">
         <source>calculator.to_a_new_eden_description</source>
-        <target>calculator.to_a_new_eden_description</target>
+        <target>La cristalita contiene coordenadas polares correspondientes al centro de la nebulosa de Magallanes... Sin embargo, para salir de aquí, necesitaremos un sistema de propulsión increíble...</target>
       </segment>
-      <segment id="nothing_to_compute" state="initial">
+      <segment id="nothing_to_compute" state="translated">
         <source>calculator.nothing_to_compute</source>
-        <target>calculator.nothing_to_compute</target>
+        <target>No hay nada que calcular por el momento.</target>
       </segment>
-      <segment id="eden_computed" state="initial">
+      <segment id="eden_computed" state="translated">
         <source>calculator.eden_computed</source>
-        <target>calculator.eden_computed</target>
+        <target>El cálculo de las coordenadas de Eden se ha completado con éxito. Las coordenadas se han enviado a NERON. Consulta a tu ***Comandante*** para obtener más información.</target>
       </segment>
     </unit>
   </file>

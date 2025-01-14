@@ -2,363 +2,396 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="event_log.ext">
     <unit id="build_success">
-      <segment id="build_success" state="initial">
+      <segment id="build_success" state="translated">
         <source>build_success</source>
-        <target>build_success</target>
+        <target>Has armado un *{target_equipment}*.</target>
       </segment>
     </unit>
     <unit id="open_success">
-      <segment id="open_success" state="initial">
+      <segment id="open_success" state="translated">
         <source>open_success</source>
-        <target>open_success</target>
+        <target> **{character}** ha encontrado una **{target_equipments}** en una cápsula espacial.</target>
       </segment>
     </unit>
     <unit id="transplant_success">
-      <segment id="transplant_success" state="initial">
+      <segment id="transplant_success" state="translated">
         <source>transplant_success</source>
-        <target>transplant_success</target>
+        <target>**{character}** emprende la reproducción de **{target_equipment}**. ¡Enhorabuena! La joven planta tiene muy buena salud.</target>
       </segment>
     </unit>
     <unit id="awaken">
-      <segment state="initial">
+      <segment state="translated">
         <source>awaken</source>
-        <target>awaken</target>
+        <target>{character} se despierta de su largo sueño.</target>
       </segment>
     </unit>
     <unit id="gain_action_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_action_point</source>
-        <target>gain_action_point</target>
+        <target>Has ganado {quantity} :pa:.</target>
       </segment>
     </unit>
     <unit id="gain_movement_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_movement_point</source>
-        <target>gain_movement_point</target>
+        <target>Has ganado {quantity} :pm:.</target>
       </segment>
     </unit>
     <unit id="gain_health_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_health_point</source>
-        <target>gain_health_point</target>
+        <target>Has ganado {quantity} :hp:.</target>
       </segment>
     </unit>
     <unit id="loss_health_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>loss_health_point</source>
-        <target>loss_health_point</target>
+        <target>Has perdido {quantity} :hp:. </target>
       </segment>
     </unit>
     <unit id="gain_moral_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_moral_point</source>
-        <target>gain_moral_point</target>
+        <target>Has ganado {quantity} :pmo:.</target>
       </segment>
     </unit>
     <unit id="loss_moral_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>loss_moral_point</source>
-        <target>loss_moral_point</target>
+        <target>Has perdido {quantity} :pmo:.</target>
       </segment>
     </unit>
     <unit id="loss_action_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>loss_action_point</source>
-        <target>loss_action_point</target>
+        <target>Has perdido {quantity} :pa:.</target>
       </segment>
     </unit>
     <unit id="loss_movement_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>loss_movement_point</source>
-        <target>loss_movement_point</target>
+        <target>Has perdido {quantity} :pm:.</target>
       </segment>
     </unit>
     <unit id="gain_triumph">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_triumph</source>
-        <target>gain_triumph</target>
+        <target>Esta acción completa los objetivos personales de tu personaje. Has ganado *{quantity} de Gloria*</target>
       </segment>
     </unit>
     <unit id="death">
-      <segment state="initial">
+      <segment state="translated">
         <source>death</source>
-        <target>death</target>
+        <target>:dead: **{target_character}** ha muerto. Causa: {end_cause}.</target>
       </segment>
     </unit>
     <unit id="object_fell">
-      <segment state="initial">
+      <segment state="translated">
         <source>object_fell</source>
-        <target>object_fell</target>
+        <target>{target_equipment_gender, select,
+                        male {**{character}** dejó caer un **{target_equipment}**.}
+                        female {**{character}** dejó caer una **{target_equipment}**.}
+                        other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="oxy_low_use_capsule">
-      <segment state="initial">
+      <segment state="translated">
         <source>oxy_low_use_capsule</source>
-        <target>oxy_low_use_capsule</target>
+        <target>Ya no respiras... te asfixias... pero por suerte esta *Cápsula de oxígeno* te ha salvado la vida...</target>
       </segment>
     </unit>
     <unit id="soiled">
-      <segment state="initial">
+      <segment state="translated">
         <source>soiled</source>
-        <target>soiled</target>
+        <target>Mírate, te has ensuciado por completo.</target>
       </segment>
     </unit>
     <unit id="soil_prevented">
-      <segment state="initial">
+      <segment state="translated">
         <source>soil_prevented</source>
-        <target>soil_prevented</target>
+        <target>Es repugnante... pero por suerte tienes tu **Mandil antimanchas**.</target>
       </segment>
     </unit>
     <unit id="clumsiness">
-      <segment state="initial">
+      <segment state="translated">
         <source>clumsiness</source>
-        <target>clumsiness</target>
+        <target>¡Paf! Te tropezaste y te has hecho daño al realizar esta acción...</target>
       </segment>
     </unit>
     <unit id="clumsiness_prevented">
-      <segment state="initial">
+      <segment state="translated">
         <source>clumsiness_prevented</source>
-        <target>clumsiness_prevented</target>
+        <target>Eso no estaba previsto, pero gracias a tus **Guantes de protección**, has evitado una catástrofe.</target>
       </segment>
     </unit>
     <unit id="metal_plate">
-      <segment state="initial">
+      <segment state="translated">
         <source>metal_plate</source>
-        <target>metal_plate</target>
+        <target>Una sacudida inesperada hizo caer una placa de metal sobre **{character}**. ¡Le ha causado una grave herida!</target>
       </segment>
     </unit>
     <unit id="tremor_gravity">
-      <segment state="initial">
+      <segment state="translated">
         <source>tremor_gravity</source>
-        <target>tremor_gravity</target>
+        <target>La sala empieza a sacudirse. Los tripulantes presentes caen al suelo y el techo se quiebra en algunos lugares. Que pedazo de chatarra...</target>
       </segment>
     </unit>
     <unit id="tremor_no_gravity">
-      <segment state="initial">
+      <segment state="translated">
         <source>tremor_no_gravity</source>
-        <target>tremor_no_gravity</target>
+        <target>La sala empieza sacudirse. Los objetos vuelan a través de la sala y chocan contra los tripulantes presentes.</target>
       </segment>
     </unit>
     <unit id="electric_arc">
-      <segment state="initial">
+      <segment state="translated">
         <source>electric_arc</source>
-        <target>electric_arc</target>
+        <target>¡Una enorme descarga eléctrica salió de los equipos y atravesó a la tripulación!</target>
       </segment>
     </unit>
     <unit id="equipment_broken">
-      <segment state="initial">
+      <segment state="translated">
         <source>equipment_broken</source>
-        <target>equipment_broken</target>
+        <target>:broken_equipments:
+{equipment_gender, select,
+                    male {¡Un **{equipment}** se ha roto!}
+                    female {¡Una **{equipment} se ha roto!}
+                     other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="equipment_destroyed">
-      <segment state="initial">
+      <segment state="translated">
         <source>equipment_destroyed</source>
-        <target>equipment_destroyed</target>
+        <target>:broken_equipments: 
+{equipment_gender,select, 
+                    male {¡Un **{equipment}** ha sido destruido!}
+                    female {¡Una **{equipment}** ha sido destruida!}
+                    other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="panic_crisis">
-      <segment state="initial">
+      <segment state="translated">
         <source>panic_crisis</source>
-        <target>panic_crisis</target>
+        <target>Sientes escalofríos, pierdes toda esperanza y te preguntas cuando va a acabar este infierno... Eres víctima de una Crisis de pánico.</target>
       </segment>
     </unit>
     <unit id="plant_new_fruit">
-      <segment state="initial">
+      <segment state="translated">
         <source>plant_new_fruit</source>
-        <target>plant_new_fruit</target>
+        <target>¡Oh! Una de las plantas ha dado un: **{target_equipment}**</target>
       </segment>
     </unit>
     <unit id="plant_maturity">
-      <segment state="initial">
+      <segment state="translated">
         <source>plant_maturity</source>
-        <target>plant_maturity</target>
+        <target>{equipment_gender, select,
+                    male {Un **{equipment}** ha madurado. ¡Por fin!}
+                    female {Una **{equipment}** ha madurado. ¡Por fin!}
+                    other {Un **{equipment}** ha madurado. ¡Por fin!}
+}</target>
       </segment>
     </unit>
     <unit id="plant_death">
-      <segment state="initial">
+      <segment state="translated">
         <source>plant_death</source>
-        <target>plant_death</target>
+        <target>{target_equipment_gender, select,
+                        male {Un **{target_equipment}** ha muerto... ¡snif!}
+                        female {Una **{target_equipment}** ha muerto... ¡snif!}
+                        other {invalid gender input}
+                    }}
+                }</target>
       </segment>
     </unit>
     <unit id="garden_destroyed">
-      <segment state="initial">
+      <segment state="translated">
         <source>garden_destroyed</source>
-        <target>garden_destroyed</target>
+        <target>El jardín se quemó durante el ataque, de las 12 plantas, solo quedan 2 y una maceta...</target>
       </segment>
     </unit>
     <unit id="hunger">
-      <segment state="initial">
+      <segment state="translated">
         <source>hunger</source>
-        <target>hunger</target>
+        <target>Tienes hambre. Si no comes, tu salud va a deteriorarse con cada ciclo.</target>
       </segment>
     </unit>
     <unit id="force_get_up">
-      <segment state="initial">
+      <segment state="translated">
         <source>force_get_up</source>
-        <target>force_get_up</target>
+        <target>{character_gender, select,
+                    male {**{character}** es arrastrado violentamente de su cama.}
+                    female {**{character}** es arrastrada violentamente de su cama.}
+                    other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="antisocial_morale_loss">
-      <segment state="initial">
+      <segment state="translated">
         <source>antisocial_morale_loss</source>
-        <target>antisocial_morale_loss</target>
+        <target>A veces los humanos son insoportables. Su ir y venir sin sentido te hace perder la esperanza en la humanidad.</target>
       </segment>
     </unit>
     <unit id="become_pregnant">
-      <segment state="initial">
+      <segment state="translated">
         <source>become_pregnant</source>
-        <target>become_pregnant</target>
+        <target>¡Has ganado *8 Gloria* porque estás esperando un acontecimiento feliz!</target>
       </segment>
     </unit>
     <unit id="disease_appear">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_appear</source>
-        <target>disease_appear</target>
+        <target>:ill: No te sientes muy bien... Calor... Frío... Calor... Frío... Deberías ir a ver a un doctor. Parece que has contraído una enfermedad física: {disease}.</target>
       </segment>
     </unit>
     <unit id="disease_cured">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_cured</source>
-        <target>disease_cured</target>
+        <target>Ahora te sientes mejor, tú {disease} por fin se curó.</target>
       </segment>
     </unit>
     <unit id="disorder_appear">
-      <segment state="initial">
+      <segment state="translated">
         <source>disorder_appear</source>
-        <target>disorder_appear</target>
+        <target>:psy_disease: No te sientes bien... La cabeza te da vueltas, sientes confusión, estrés y angustia. Deberías ir a ver a un *Psicólogo*. Al parecer tienes una enfermedad mental: {disease}.</target>
       </segment>
     </unit>
     <unit id="disease_curred_player">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_cured_player</source>
-        <target>disease_cured_player</target>
+        <target>**{character}** ha logrado curar a **{target_character}** de su enfermedad ({disease}). </target>
       </segment>
     </unit>
     <unit id="disease_healed_player">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_healed_player</source>
-        <target>disease_healed_player</target>
+        <target>**{character}** ha hecho un progreso en curar a **{target_character}** de su enfermedad, pero el tratamiento debe continuar.</target>
       </segment>
     </unit>
     <unit id="disease_cured_drug">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_cured_drug</source>
-        <target>disease_cured_drug</target>
+        <target>**{character}** se siente mejor. Ha logrado curar su propia enfermedad ({disease}).</target>
       </segment>
     </unit>
     <unit id="disease_treated_drug">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_treated_drug</source>
-        <target>disease_treated_drug</target>
+        <target>**{character}** se siente mejor, pero el tratamiento es insuficiente. Tendrá que empezar de nuevo.</target>
       </segment>
     </unit>
     <unit id="disorder_treated_player">
-      <segment state="initial">
+      <segment state="translated">
         <source>disorder_treated_player</source>
-        <target>disorder_treated_player</target>
+        <target>**{character}** está feliz. La sesión de **{target_character}** fue muy positiva, pero habrá que hacer más. </target>
       </segment>
     </unit>
     <unit id="disorder_cured_player">
-      <segment state="initial">
+      <segment state="translated">
         <source>disorder_cured_player</source>
-        <target>disorder_cured_player</target>
+        <target>La sesión es un éxito, **{target_character}** se ha curado de su enfermedad ({disease}). **{character}** está muy feliz.</target>
       </segment>
     </unit>
     <unit id="injury_appear">
-      <segment state="initial">
+      <segment state="translated">
         <source>injury_appear</source>
-        <target>injury_appear</target>
+        <target>:hurt: Te has herido: {disease}. Esto podría limitarte.</target>
       </segment>
     </unit>
     <unit id="disease_overridden">
-      <segment state="initial">
+      <segment state="translated">
         <source>disease_overridden</source>
-        <target>disease_overridden</target>
+        <target>:ill: Con lo que te acaba de pasar, tu enfermedad {disease} ha desaparecido. Pero esa es la menor de tus preocupaciones ahora.</target>
       </segment>
     </unit>
     <unit id="screaming">
-      <segment state="initial">
+      <segment state="translated">
         <source>screaming</source>
-        <target>screaming</target>
+        <target>:pill: **{target_character}** se tira al suelo y empieza a llorar y a gritar por su madre...</target>
       </segment>
     </unit>
     <unit id="wall_head_bang">
-      <segment state="initial">
+      <segment state="translated">
         <source>wall_head_bang</source>
-        <target>wall_head_bang</target>
+        <target>:pill: **{target_character}** de repente empieza a golpear su cabeza contra la pared... parece que le duele...</target>
       </segment>
     </unit>
     <unit id="run_in_circles">
-      <segment state="initial">
+      <segment state="translated">
         <source>run_in_circles</source>
-        <target>run_in_circles</target>
+        <target>:pill: **{target_character}** empieza a correr en círculos y nada parece detenerle... salvo el cansancio...</target>
       </segment>
     </unit>
     <unit id="vomiting">
-      <segment id="vomiting" state="initial">
+      <segment id="vomiting" state="translated">
         <source>vomiting</source>
-        <target>vomiting</target>
+        <target>:ill: **{character}** vomita su comida. Puajjj...</target>
       </segment>
     </unit>
     <unit id="sneezing">
-      <segment id="sneezing" state="initial">
+      <segment id="sneezing" state="translated">
         <source>sneezing</source>
-        <target>sneezing</target>
+        <target>¡Atchúúúú!</target>
       </segment>
     </unit>
     <unit id="biting">
-      <segment id="biting" state="initial">
+      <segment id="biting" state="translated">
         <source>biting</source>
-        <target>biting</target>
+        <target>:pill: **{character}** se gira hacia **{target_character}** y empieza a devorar su brazo...</target>
       </segment>
     </unit>
     <unit id="breakouts">
-      <segment id="breakouts" state="initial">
+      <segment id="breakouts" state="translated">
         <source>breakouts</source>
-        <target>breakouts</target>
+        <target>:ill: **{character}** se rasca sus costras inmundas, es realmente atroz...</target>
       </segment>
     </unit>
     <unit id="foaming_mouth">
-      <segment id="foaming_mouth" state="initial">
+      <segment id="foaming_mouth" state="translated">
         <source>foaming_mouth</source>
-        <target>foaming_mouth</target>
+        <target>:pill: A **{character}** se le escapa un poco de espuma de la boca... Es bastante asqueroso...</target>
       </segment>
     </unit>
     <unit id="drooling">
-      <segment id="drooling" state="initial">
+      <segment id="drooling" state="translated">
         <source>drooling</source>
-        <target>drooling</target>
+        <target>:pill: **{character}** está babeando sin parar, esto empieza a parecer sospechoso...</target>
       </segment>
     </unit>
     <unit id="cat_allergy">
-      <segment id="cat_allergy" state="initial">
+      <segment id="cat_allergy" state="translated">
         <source>cat_allergy</source>
-        <target>cat_allergy</target>
+        <target>:ill: {character} está sufriendo una erupción cutánea violenta, se está ahogando. Sin embargo, ¡es posible que le hayamos dicho que no tenía nada que ver con ese maldito gato!</target>
       </segment>
     </unit>
     <unit id="fear_of_cats">
-      <segment id="fear_of_cats" state="initial">
+      <segment id="fear_of_cats" state="translated">
         <source>fear_of_cats</source>
-        <target>fear_of_cats</target>
+        <target>AAAaaaaaaaRRRrgghhhhhhh....</target>
       </segment>
     </unit>
     <unit id="fear_of_cats_notif">
-      <segment id="fear_of_cats_notif" state="initial">
+      <segment id="fear_of_cats_notif" state="translated">
         <source>fear_of_cats_notif</source>
-        <target>fear_of_cats_notif</target>
+        <target>:cat: El gato estaba en el cuarto, no pudiste evitar salir corriendo...</target>
       </segment>
     </unit>
     <unit id="fitful_sleep">
-      <segment id="fitful_sleep" state="initial">
+      <segment id="fitful_sleep" state="translated">
         <source>fitful_sleep</source>
-        <target>fitful_sleep</target>
+        <target>Tu sueño se agita, es imposible descansar así...</target>
       </segment>
     </unit>
     <unit id="surgery_success">
-      <segment id="surgery_success" state="initial">
+      <segment id="surgery_success" state="translated">
         <source>surgery_success</source>
-        <target>surgery_success</target>
+        <target>
+Parecía interminable, **{character}** finalmente da su veredicto con una sonrisa...
+                                            {version, select,
+                                            1 {la operación fue un éxito. **{target_character}** está bien y pronto estará de pie.}
+                                            2 {**{target_character}** se recupera satisfactoriamente.}
+                                            other {invalid version input}
+                                             } La herida ({disease}) de **{target_character}** ha sido curada.</target>
       </segment>
     </unit>
     <unit id="surgery_critical_success">
@@ -368,9 +401,14 @@
       </segment>
     </unit>
     <unit id="self_surgery_success">
-      <segment id="self_surgery_success" state="initial">
+      <segment id="self_surgery_success" state="translated">
         <source>self_surgery_success</source>
-        <target>self_surgery_success</target>
+        <target>Parecía interminable... 
+{version, select,
+                    1 **{character}** se recupera satisfactoriamente.}
+                     2 {la operación fue un éxito. **{character}** está bien y pronto estará de pie.}
+                     other {invalid gender input}
+                     } La herida ({disease}) de **{character}** ha sido curada.</target>
       </segment>
     </unit>
     <unit id="self_surgery_critical_success">
@@ -560,45 +598,45 @@
       </segment>
     </unit>
     <unit id="gain_shoot_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_shoot_point</source>
-        <target>gain_shoot_point</target>
+        <target>Has ganado {quantity} :pa_shoot:.</target>
       </segment>
     </unit>
     <unit id="gain_conceptor_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_conceptor_point</source>
-        <target>gain_conceptor_point</target>
+        <target>Has ganado {quantity} :pa_core:.</target>
       </segment>
     </unit>
     <unit id="gain_nurse_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_nurse_point</source>
-        <target>gain_nurse_point</target>
+        <target>Has ganado {quantity} :pa_heal:.</target>
       </segment>
     </unit>
     <unit id="gain_it_expert_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_it_expert_point</source>
-        <target>gain_it_expert_point</target>
+        <target>Has ganado {quantity} :pa_comp:.</target>
       </segment>
     </unit>
     <unit id="gain_pilgred_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_pilgred_point</source>
-        <target>gain_pilgred_point</target>
+        <target>Has ganado {quantity} :pa_pilgred:.</target>
       </segment>
     </unit>
     <unit id="gain_technician_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_technician_point</source>
-        <target>gain_technician_point</target>
+        <target>Has ganado {quantity} :pa_eng:.</target>
       </segment>
     </unit>
     <unit id="gain_botanist_point">
-      <segment state="initial">
+      <segment state="translated">
         <source>gain_botanist_point</source>
-        <target>gain_botanist_point</target>
+        <target>Has ganado {quantity} :pa_garden:.</target>
       </segment>
     </unit>
     <unit id="found_item_in_exploration">
@@ -740,9 +778,9 @@
       </segment>
     </unit>
     <unit id="observant_noticed_something">
-      <segment id="observant_noticed_something" state="initial">
+      <segment id="observant_noticed_something" state="translated">
         <source>observant_noticed_something</source>
-        <target>observant_noticed_something</target>
+        <target>**{character}** ha notado algo interesante...</target>
       </segment>
     </unit>
     <unit id="delogged">

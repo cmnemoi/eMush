@@ -202,7 +202,7 @@
     <unit id="centre_alpha_turret">
       <segment id="name" state="translated">
         <source>centre_alpha_turret.name</source>
-        <target>Centre Alpha Turret</target>
+        <target>Center Alpha Turret</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_alpha_turret.loc_prep</source>
@@ -256,7 +256,7 @@
     <unit id="centre_bravo_turret">
       <segment id="name" state="translated">
         <source>centre_bravo_turret.name</source>
-        <target>Centre Bravo Turret</target>
+        <target>Center Bravo Turret</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_bravo_turret.loc_prep</source>

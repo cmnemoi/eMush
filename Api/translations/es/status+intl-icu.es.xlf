@@ -16,13 +16,13 @@
       </segment>
     </unit>
     <unit id="electric_charges">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>electric_charges.name</source>
-        <target>electric_charges.name</target>
+        <target>Cargas</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>electric_charges.description</source>
-        <target>electric_charges.description</target>
+        <target>Las cargas representan la cantidad de veces que puedes usar este objeto. Los objetos **Cargados** ganan **una** carga por ciclo.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>electric_charges.examine</source>
@@ -44,13 +44,13 @@
       </segment>
     </unit>
     <unit id="module_access">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>module_access.name</source>
-        <target>module_access.name</target>
+        <target>Acceso al módulo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>module_access.description</source>
-        <target>module_access.description</target>
+        <target>Este objeto carga un módulo.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>module_access.examine</source>
@@ -64,7 +64,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>hidden.description</source>
-        <target>Este objeto está oculto. Solo tú puedes verlo. ¡Advertencia!, un objeto oculto puede ser descubierto por otro jugador si buscan en la habitación.</target>
+        <target>Este objeto está oculto. Solo tú puedes verlo. ¡Advertencia!, un objeto oculto puede ser descubierto por otro jugador si buscan en la sala.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>hidden.examine</source>
@@ -88,11 +88,11 @@
     <unit id="unstable">
       <segment id="name" state="translated">
         <source>unstable.name</source>
-        <target>Inestable</target>
+        <target>Sospechoso</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>unstable.description</source>
-        <target>unstable.description</target>
+        <target>Este alimento da mala espina.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>unstable.examine</source>
@@ -102,11 +102,11 @@
     <unit id="hazardous">
       <segment id="name" state="translated">
         <source>hazardous.name</source>
-        <target>Peligroso</target>
+        <target>Nocivo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hazardous.description</source>
-        <target>hazardous.description</target>
+        <target>Esto no debe ser ingerido por ninguna persona frágil, puede ser peligroso.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>hazardous.examine</source>
@@ -114,13 +114,13 @@
       </segment>
     </unit>
     <unit id="decomposing">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>decomposing.name</source>
-        <target>decomposing.name</target>
+        <target>Descomposición</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>decomposing.description</source>
-        <target>decomposing.description</target>
+        <target>Este alimento debe ser desechado. Comerlo puede ser peligroso y hasta fatal.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>decomposing.examine</source>
@@ -128,13 +128,13 @@
       </segment>
     </unit>
     <unit id="frozen">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>frozen.name</source>
-        <target>frozen.name</target>
+        <target>Congelado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>frozen.description</source>
-        <target>frozen.description</target>
+        <target>Este alimento esta hipercongelado. Su consumo en este estado es muy difícil.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>frozen.examine</source>
@@ -142,13 +142,13 @@
       </segment>
     </unit>
     <unit id="contaminated">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>contaminated.name</source>
-        <target>contaminated.name</target>
+        <target>Contaminado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>contaminated.description</source>
-        <target>contaminated.description</target>
+        <target>Este alimento está contaminado. El primer tripulante (Mush o no) que lo coma será contaminado por una espora. Puedes ver este mensaje porque eres Mush.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>contaminated.examine</source>
@@ -156,13 +156,13 @@
       </segment>
     </unit>
     <unit id="plant_young">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plant_young.name</source>
-        <target>plant_young.name</target>
+        <target>Planta joven</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plant_young.description</source>
-        <target>plant_young.description</target>
+        <target>Esta planta es joven. No producirá frutos ni oxígeno hasta su maduración.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>plant_young.examine</source>
@@ -170,13 +170,13 @@
       </segment>
     </unit>
     <unit id="plant_thirsty">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plant_thirsty.name</source>
-        <target>plant_thirsty.name</target>
+        <target>Sedienta</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plant_thirsty.description</source>
-        <target>plant_thirsty.description</target>
+        <target>Esta planta tiene **Sed**, no producirá más que oxígeno. Si no es regada, mañana estará **seca**.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>plant_thirsty.examine</source>
@@ -184,13 +184,13 @@
       </segment>
     </unit>
     <unit id="plant_dry">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plant_dry.name</source>
-        <target>plant_dry.name</target>
+        <target>Seca</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plant_dry.description</source>
-        <target>plant_dry.description</target>
+        <target>Esta planta está **Seca**, no producirá ni frutos ni oxígeno. Si no es regada, mañana estará muerta.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>plant_dry.examine</source>
@@ -198,13 +198,13 @@
       </segment>
     </unit>
     <unit id="plant_diseased">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>plant_diseased.name</source>
-        <target>plant_diseased.name</target>
+        <target>Enferma</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>plant_diseased.description</source>
-        <target>plant_diseased.description</target>
+        <target>Esta planta está **Enferma**, no producirá ni frutos ni oxígeno.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>plant_diseased.examine</source>
@@ -1080,13 +1080,13 @@
       </segment>
     </unit>
     <unit id="commander">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>commander.name</source>
-        <target>commander.name</target>
+        <target>Comandante</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>commander.description</source>
-        <target>commander.description</target>
+        <target>Decide la dirección del Daedalus. También es el único en poder iniciar una secuencia de viaje.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>commander.examine</source>
@@ -1094,13 +1094,13 @@
       </segment>
     </unit>
     <unit id="communications_officer">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>communications_officer.name</source>
-        <target>communications_officer.name</target>
+        <target>Oficial de Comunicaciones</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>communications_officer.description</source>
-        <target>communications_officer.description</target>
+        <target>El Oficial de Comunicaciones puede iniciar la toma de contacto cuando la comunicación con el Sistema Solar esté restablecida.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>communications_officer.examine</source>
@@ -1108,13 +1108,13 @@
       </segment>
     </unit>
     <unit id="neron_administrator">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>neron_administrator.name</source>
-        <target>neron_administrator.name</target>
+        <target>Administrador de NERON</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>neron_administrator.description</source>
-        <target>neron_administrator.description</target>
+        <target>El Administrador de NERON puede acceder al módulo BIOS de NERON. También tiene acceso privilegiado a las herramientas de gestión diarias.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>neron_administrator.examine</source>
@@ -1122,13 +1122,13 @@
       </segment>
     </unit>
     <unit id="antisocial">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>antisocial.name</source>
-        <target>antisocial.name</target>
+        <target>Antisocial</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>antisocial.description</source>
-        <target>antisocial.description</target>
+        <target>Al inicio de cada ciclo, si te encuentras en una sala con al menos otro tripulante, perderás un punto de ánimo.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>antisocial.examine</source>
@@ -1136,13 +1136,13 @@
       </segment>
     </unit>
     <unit id="berzerk">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>berzerk.name</source>
-        <target>berzerk.name</target>
+        <target>Mutado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>berzerk.description</source>
-        <target>berzerk.description</target>
+        <target>Has mutado. Tus daños tienen un bonus y tienes el rol de guardián permanente.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>berzerk.examine</source>
@@ -1150,13 +1150,13 @@
       </segment>
     </unit>
     <unit id="brainsync">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>brainsync.name</source>
-        <target>brainsync.name</target>
+        <target>Pensalink</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>brainsync.description</source>
-        <target>brainsync.description</target>
+        <target>Tienes un pensalink que te permite comunicar sin el walky-talkie.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>brainsync.examine</source>
@@ -1164,13 +1164,13 @@
       </segment>
     </unit>
     <unit id="burdened">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>burdened.name</source>
-        <target>burdened.name</target>
+        <target>Sobrecargado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>burdened.description</source>
-        <target>burdened.description</target>
+        <target>Llevas objetos bastante pesados. Tus movimientos son más costosos.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>burdened.examine</source>
@@ -1206,13 +1206,13 @@
       </segment>
     </unit>
     <unit id="disabled">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>disabled.name</source>
-        <target>disabled.name</target>
+        <target>Lisiado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>disabled.description</source>
-        <target>disabled.description</target>
+        <target>Ganas 2 :pm: menos en tus conversiones de :pa: a :pm:, pero puedes desplazarte gratis si estás en una sala con al menos otro tripulante.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>disabled.examine</source>
@@ -1234,13 +1234,13 @@
       </segment>
     </unit>
     <unit id="first_time">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>first_time.name</source>
-        <target>first_time.name</target>
+        <target>Primera vez</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>first_time.description</source>
-        <target>first_time.description</target>
+        <target>Nunca lo has hecho. La primera vez que lo hagas con otro tripulante, tu moral se subirá al máximo.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>first_time.examine</source>
@@ -1248,13 +1248,13 @@
       </segment>
     </unit>
     <unit id="focused">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>focused.name</source>
-        <target>focused.name</target>
+        <target>Concentrado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>focused.description</source>
-        <target>focused.description</target>
+        <target>Estás ingresando a una terminal.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>focused.examine</source>
@@ -1262,13 +1262,13 @@
       </segment>
     </unit>
     <unit id="full_stomach">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>full_stomach.name</source>
-        <target>full_stomach.name</target>
+        <target>Estómago lleno</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>full_stomach.description</source>
-        <target>full_stomach.description</target>
+        <target>Ya no puedes ingerir nada más.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>full_stomach.examine</source>
@@ -1276,13 +1276,13 @@
       </segment>
     </unit>
     <unit id="gagged">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>gagged.name</source>
-        <target>gagged.name</target>
+        <target>Amordazado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gagged.description</source>
-        <target>gagged.description</target>
+        <target>Alguien se hartó de tus lloriqueos.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>gagged.examine</source>
@@ -1294,9 +1294,9 @@
         <source>germaphobe.name</source>
         <target>germaphobe.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>germaphobe.description</source>
-        <target>germaphobe.description</target>
+        <target>Pierdes un punto de ánimo (:pmo:) por cada ciclo que pases sin limpiarte. Tampoco puedes acariciar al gato.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>germaphobe.examine</source>
@@ -1308,9 +1308,9 @@
         <source>guardian.name</source>
         <target>guardian.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>guardian.description</source>
-        <target>guardian.description</target>
+        <target>Cuando un guardián está en la sala, los visitantes **solo** pueden ir al lugar de donde vienen.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>guardian.examine</source>
@@ -1318,9 +1318,9 @@
       </segment>
     </unit>
     <unit id="highly_inactive">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>highly_inactive.name</source>
-        <target>highly_inactive.name</target>
+        <target>Gran inactivo</target>
       </segment>
       <segment id="description" state="initial">
         <source>highly_inactive.description</source>
@@ -1416,9 +1416,9 @@
       </segment>
     </unit>
     <unit id="mush">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mush.name</source>
-        <target>mush.name</target>
+        <target>Mush</target>
       </segment>
       <segment id="description" state="initial">
         <source>mush.description</source>

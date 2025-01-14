@@ -907,5 +907,17 @@
         <target>compute_eden_fail</target>
       </segment>
     </unit>
+    <unit id="open_coffee_thermos">
+      <segment id="open_coffee_thermos" state="initial">
+        <source>open_coffee_thermos</source>
+        <target>open_coffee_thermos</target>
+      </segment>
+    </unit>
+    <unit id="open_anniversary_gift">
+      <segment id="open_anniversary_gift" state="initial">
+        <source>open_anniversary_gift</source>
+        <target>open_anniversary_gift</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

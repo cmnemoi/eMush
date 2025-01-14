@@ -96,7 +96,10 @@
     <unit id="drop">
       <segment id="drop" state="translated">
         <source>drop</source>
-        <target>**{character}** has dropped a **{target_equipment}**.</target>
+        <target>{target_equipment, select,
+                        Schrödinger {**{character}** has dropped **{target_equipment}**.}
+                        other {**{character}** has dropped a **{target_equipment}**.}
+                }</target>
       </segment>
     </unit>
     <unit id="express_cook_success">
@@ -912,7 +915,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="takeoff_to_planet_patrol_ship_success">
       <segment id="takeoff_to_planet_patrol_ship_success" state="translated">
         <source>takeoff_to_planet_patrol_ship_success</source>
-        <target>**{character}** made {target_equipment} landing on the planet.</target>
+        <target>**{character}** landed {target_equipment} on the planet.</target>
       </segment>
     </unit>
     <unit id="change_neron_cpu_priority_success">

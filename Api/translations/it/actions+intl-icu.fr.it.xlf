@@ -1551,5 +1551,25 @@
         <target>travel_to_eden.confirmation</target>
       </segment>
     </unit>
+    <unit id="shoot_cat">
+      <segment id="name" state="initial">
+        <source>shoot_cat.name</source>
+        <target>shoot_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>shoot_cat.description</source>
+        <target>shoot_cat.description</target>
+      </segment>
+    </unit>
+    <unit id="open_container">
+      <segment id="name" state="initial">
+        <source>open_container.name</source>
+        <target>open_container.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>open_container.description</source>
+        <target>open_container.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

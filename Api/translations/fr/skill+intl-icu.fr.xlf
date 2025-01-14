@@ -812,7 +812,7 @@
       </segment>
       <segment id="medic.description" state="translated">
         <source>medic.description</source>
-        <target>Le médecin possède une formation médicale, ce qui permet d'effectuer des soins rapides et précis. Il est également habilité à la chirurgie.//:point: Les actions **Soins** font gagner 2 :hp: supplémentaires.//:point: Peut effectuer des **Opérations**.//:point:Peut lire les **propriétés des médicaments**.//:point: +**4% de bonus** sur chacune des **Recherches** du Laboratoire.</target>
+        <target>Le médecin possède une formation médicale, ce qui permet d'effectuer des soins rapides et précis. Il est également habilité à la chirurgie.//:point: Les actions **Soins** font gagner 2 :hp: supplémentaires.//:point: Peut effectuer des **Opérations**.//:point: Peut lire les **propriétés des médicaments**.//:point: +**4% de bonus** sur chacune des **Recherches** du Laboratoire.</target>
       </segment>
     </unit>
     <unit id="rebel">

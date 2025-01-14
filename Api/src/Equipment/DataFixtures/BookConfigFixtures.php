@@ -61,6 +61,19 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             SkillEnum::SHRINK,
             SkillEnum::SPRINTER,
             SkillEnum::TECHNICIAN,
+            SkillEnum::OPTIMIST,
+            SkillEnum::APPRENTICE,
+            SkillEnum::SNEAK,
+            SkillEnum::POLITICIAN,
+            SkillEnum::CREATIVE,
+            SkillEnum::DETERMINED,
+            SkillEnum::OCD,
+            SkillEnum::MOTIVATOR,
+            SkillEnum::CAFFEINE_JUNKIE,
+            SkillEnum::GENIUS,
+            SkillEnum::OPPORTUNIST,
+            SkillEnum::REBEL,
+            SkillEnum::SELF_SACRIFICE,
         ];
 
         foreach ($skillsArray as $skill) {

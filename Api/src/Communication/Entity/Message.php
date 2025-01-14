@@ -28,7 +28,7 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\ManyToOne(targetEntity: Neron::class)]
     private ?Neron $neron = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, orphanRemoval: true, fetch: 'EAGER')]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, orphanRemoval: true, fetch: 'EAGER', cascade: ['all'])]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private Collection $child;
 

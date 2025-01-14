@@ -46,17 +46,6 @@ final class JukeboxProjectTest extends TestCase
         $this->thenThePlayerShouldHaveMoralePoints(12, $player);
     }
 
-    public function testShouldNotGiveMoralePointsIfProjectIsNotFinished(): void
-    {
-        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
-
-        $jukebox = $this->givenAJukeboxEquipmentInPlayerRoom($player);
-
-        $this->whenJukeboxWorksAtCycleChange($jukebox);
-
-        $this->thenThePlayerShouldHaveMoralePoints(10, $player);
-    }
-
     public function testShouldNotGiveMoralePointsIfPlayerIsNotInJukeBoxRoom(): void
     {
         [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();

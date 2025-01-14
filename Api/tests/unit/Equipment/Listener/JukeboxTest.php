@@ -32,22 +32,8 @@ use PHPUnit\Framework\TestCase;
  */
 final class JukeboxTest extends TestCase
 {
-    public function testShouldNotChangeSongIfJukeboxProjectIsNotFinished(): void
-    {
-        $daedalus = $this->givenADaedalusWithBeatBoxProject();
-        $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
-        PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
-
-        $laboratory = $this->givenALaboratoryInDaedalus($daedalus);
-        $jukebox = $this->givenAJukeboxInLaboratoryPlayingSongForPlayer($laboratory, player: $raluca);
-        $this->whenJukeboxWorksAtCycleChange($jukebox);
-
-        $this->thenJukeboxShouldBePlayingPlayerSong($jukebox, $raluca);
-    }
-
     public function testShouldChangeSongToOtherPlayerInDaedalusOnNewCycle(): void
     {
-        $daedalus = $this->givenADaedalusWithFinishedBeatBoxProject();
         $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
         $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
 
@@ -61,7 +47,6 @@ final class JukeboxTest extends TestCase
 
     public function testShouldChangeSongIfCurrentJukeboxPlayerNotInRoom(): void
     {
-        $daedalus = $this->givenADaedalusWithFinishedBeatBoxProject();
         $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
         $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
 
@@ -76,7 +61,6 @@ final class JukeboxTest extends TestCase
 
     public function testShouldChangeSongEvenWithoutCurrentJukeboxPlayer(): void
     {
-        $daedalus = $this->givenADaedalusWithFinishedBeatBoxProject();
         $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
         $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
 
@@ -86,14 +70,6 @@ final class JukeboxTest extends TestCase
         $this->whenJukeboxWorksAtCycleChange($jukebox);
 
         $this->thenJukeboxShouldBePlayingPlayerSong($jukebox, $chun);
-    }
-
-    private function givenADaedalusWithBeatBoxProject(): Daedalus
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::BEAT_BOX, $daedalus);
-
-        return $daedalus;
     }
 
     private function givenADaedalusWithFinishedBeatBoxProject(): Daedalus

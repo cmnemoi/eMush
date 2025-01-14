@@ -13,7 +13,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
-use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -38,8 +37,6 @@ final class JukeboxCest extends AbstractFunctionalTest
     {
         $this->givenNoIncidents();
 
-        $this->givenJukeboxProjectIsFinished();
-
         $jukebox = $this->givenJukeboxInPlayerRoom($this->chun);
 
         $this->givenJukeboxPlaysPlayerSong($jukebox, player: $this->chun);
@@ -52,8 +49,6 @@ final class JukeboxCest extends AbstractFunctionalTest
     public function shouldGenerateAPublicLogEvenWhenAbsentPlayerSong(FunctionalTester $I): void
     {
         $this->givenNoIncidents();
-
-        $this->givenJukeboxProjectIsFinished();
 
         $jukebox = $this->givenJukeboxInPlayerRoom($this->chun);
 
@@ -70,11 +65,6 @@ final class JukeboxCest extends AbstractFunctionalTest
     {
         $this->daedalus->setDay(0);
         $this->daedalus->getDaedalusConfig()->setCyclePerGameDay(1_000_000);
-    }
-
-    private function givenJukeboxProjectIsFinished(): void
-    {
-        $this->daedalus->getProjectByName(ProjectName::BEAT_BOX)->finish();
     }
 
     private function givenJukeboxInPlayerRoom(Player $player): GameEquipment

@@ -32,22 +32,9 @@ use PHPUnit\Framework\TestCase;
  */
 final class JukeboxTest extends TestCase
 {
-    public function testShouldNotChangeSongIfJukeboxProjectIsNotFinished(): void
-    {
-        $daedalus = $this->givenADaedalusWithBeatBoxProject();
-        $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
-        PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
-
-        $laboratory = $this->givenALaboratoryInDaedalus($daedalus);
-        $jukebox = $this->givenAJukeboxInLaboratoryPlayingSongForPlayer($laboratory, player: $raluca);
-        $this->whenJukeboxWorksAtCycleChange($jukebox);
-
-        $this->thenJukeboxShouldBePlayingPlayerSong($jukebox, $raluca);
-    }
-
     public function testShouldChangeSongToOtherPlayerInDaedalusOnNewCycle(): void
     {
-        $daedalus = $this->givenADaedalusWithFinishedBeatBoxProject();
+        $daedalus = $this->givenADaedalusWithBeatBoxProject();
         $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
         $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
 
@@ -61,7 +48,7 @@ final class JukeboxTest extends TestCase
 
     public function testShouldChangeSongIfCurrentJukeboxPlayerNotInRoom(): void
     {
-        $daedalus = $this->givenADaedalusWithFinishedBeatBoxProject();
+        $daedalus = $this->givenADaedalusWithBeatBoxProject();
         $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
         $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
 
@@ -76,7 +63,7 @@ final class JukeboxTest extends TestCase
 
     public function testShouldChangeSongEvenWithoutCurrentJukeboxPlayer(): void
     {
-        $daedalus = $this->givenADaedalusWithFinishedBeatBoxProject();
+        $daedalus = $this->givenADaedalusWithBeatBoxProject();
         $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
         $raluca = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
 
@@ -92,15 +79,6 @@ final class JukeboxTest extends TestCase
     {
         $daedalus = DaedalusFactory::createDaedalus();
         ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::BEAT_BOX, $daedalus);
-
-        return $daedalus;
-    }
-
-    private function givenADaedalusWithFinishedBeatBoxProject(): Daedalus
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $project = ProjectFactory::createNeronProjectByNameForDaedalus(ProjectName::BEAT_BOX, $daedalus);
-        $project->makeProgress(100);
 
         return $daedalus;
     }

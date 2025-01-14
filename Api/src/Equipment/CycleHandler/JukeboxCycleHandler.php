@@ -43,9 +43,6 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
         if ($jukebox->isNotOperational()) {
             return;
         }
-        if ($daedalus->projectIsNotFinished(ProjectName::BEAT_BOX)) {
-            return;
-        }
 
         if ($jukeboxPlayer?->canReachEquipment($jukebox)) {
             $this->applyJukeboxMoraleGainToPlayer($jukeboxPlayer, $dateTime);

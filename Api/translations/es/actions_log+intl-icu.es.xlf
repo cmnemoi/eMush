@@ -26,51 +26,60 @@
       </segment>
     </unit>
     <unit id="consume_success">
-      <segment id="consume_success" state="initial">
+      <segment id="consume_success" state="translated">
         <source>consume_success</source>
-        <target>consume_success</target>
+        <target>{version, select,
+1 {**{character}** se ha comido una pequeña ración.}
+2 {**{character}** se ha comido una deliciosa ración.}
+3 {**{character}** se ha llenado el estómago con una ración, ñam.}
+4 {**{character}** se ha llenado la panza con una ración, glup.}
+5 {**{character}** se ha devorado su ración.}</target>
       </segment>
     </unit>
     <unit id="consume_drug">
-      <segment id="consume_drug" state="initial">
+      <segment id="consume_drug" state="translated">
         <source>consume_drug</source>
-        <target>consume_drug</target>
+        <target>**{character}** toma una pastilla.</target>
       </segment>
     </unit>
     <unit id="consume_mush">
-      <segment id="consume_mush" state="initial">
+      <segment id="consume_mush" state="translated">
         <source>consume_mush</source>
-        <target>consume_mush</target>
+        <target>Comes esta deplorable comida, pero no te hace nada...</target>
       </segment>
     </unit>
     <unit id="cook_success">
-      <segment id="cook_success" state="initial">
+      <segment id="cook_success" state="translated">
         <source>cook_success</source>
-        <target>cook_success</target>
+        <target>**{character}** se ha preparado algo para más tarde. </target>
       </segment>
     </unit>
     <unit id="disassemble_fail">
-      <segment id="disassemble_fail" state="initial">
+      <segment id="disassemble_fail" state="translated">
         <source>disassemble_fail</source>
-        <target>disassemble_fail</target>
+        <target>Esta cosa no estaba tan mal hecha... no logras desarmarla...</target>
       </segment>
     </unit>
     <unit id="disassemble_success">
-      <segment id="disassemble_success" state="initial">
+      <segment id="disassemble_success" state="translated">
         <source>disassemble_success</source>
-        <target>disassemble_success</target>
+        <target>{target_equipment_gender, select,
+male {**{character}** ha desarmado un **{target_equipment}**.}
+female **{character}** ha desarmado una *{target_equipment}**.}
+other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="do_the_thing_success">
-      <segment id="do_the_thing_success" state="initial">
+      <segment id="do_the_thing_success" state="translated">
         <source>do_the_thing_success</source>
-        <target>do_the_thing_success</target>
+        <target>**{character}** y **{target_character}** apagan la luz y se producen ruidos extraños... Algunos minutos más tarde, las vuelven a encender. Parecen satisfechos.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_breaks_sofa">
-      <segment id="do_the_thing_breaks_sofa" state="initial">
+      <segment id="do_the_thing_breaks_sofa" state="translated">
         <source>do_the_thing_breaks_sofa</source>
-        <target>do_the_thing_breaks_sofa</target>
+        <target>**{character}** y **{target_character}** apagan la luz y se producen ruidos extraños... Algunos minutos más tarde, las vuelven a encender. Parecen satisfechos. *El sofá no puede decir lo mismo...*</target>
       </segment>
     </unit>
     <unit id="drop">
@@ -98,9 +107,9 @@
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="initial">
+      <segment id="get_up" state="translated">
         <source>get_up</source>
-        <target>get_up</target>
+        <target>**{character}** se levanta lentamente... </target>
       </segment>
     </unit>
     <unit id="hide_success">

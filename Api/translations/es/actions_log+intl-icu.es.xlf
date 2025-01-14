@@ -83,27 +83,34 @@ other {invalid gender input}
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="initial">
+      <segment id="drop" state="translated">
         <source>drop</source>
-        <target>drop</target>
+        <target>{target_equipment_gender, select,
+male {**{character}** ha dejado un **{target_equipment}**.}
+female **{character}** ha dejado una **{target_equipment}**
+other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="express_cook_success">
-      <segment id="express_cook_success" state="initial">
+      <segment id="express_cook_success" state="translated">
         <source>express_cook_success</source>
-        <target>express_cook_success</target>
+        <target>**{character}** ha calentado algo en el microondas.</target>
       </segment>
     </unit>
     <unit id="extract_spore_success">
-      <segment id="extract_spore_success" state="initial">
+      <segment id="extract_spore_success" state="translated">
         <source>extract_spore_success</source>
-        <target>extract_spore_success</target>
+        <target>:mush: **{character}** se quita una espora. Es repugnante, y apesta... puajjj.</target>
       </segment>
     </unit>
     <unit id="flirt_success">
-      <segment id="flirt_success" state="initial">
+      <segment id="flirt_success" state="translated">
         <source>flirt_success</source>
-        <target>flirt_success</target>
+        <target>{character_gender, select, male {**{character}** parece estar interesado en **{target_character}**. Esa mirada no engaña.}
+female {**{character}** parece estar interesada en **{target_character}**, ese pestañeo y esa sonrisa revelan sus intenciones.}
+other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -113,15 +120,23 @@ other {invalid gender input}
       </segment>
     </unit>
     <unit id="hide_success">
-      <segment id="hide_success" state="initial">
+      <segment id="hide_success" state="translated">
         <source>hide_success</source>
-        <target>hide_success</target>
+        <target>{target_equipment_gender, select,
+male {**{character}** ha escondido un **{target_equipment}**.}
+female {**{character}** ha escondido una **{target_equipment}**.
+other {invalid gender input}
+}</target>
       </segment>
     </unit>
     <unit id="hit_success">
-      <segment id="hit_success" state="initial">
+      <segment id="hit_success" state="translated">
         <source>hit_success</source>
-        <target>hit_success</target>
+        <target>{version, select,
+1 {**{character}** le da un espectacular puñetazo a **{target_character}**...} 
+2 {**{character}** le da un formidable cabezazo a **{target_character}** y le provoca un gran chorro de sangre...}
+other {**{character}** le da un derechazo a **{target_character}**}
+}</target>
       </segment>
     </unit>
     <unit id="hit_critical_success">

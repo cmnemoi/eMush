@@ -1128,7 +1128,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>antisocial.description</source>
-        <target>At the start of each cycle, is the antisocial player is in a room containing another crewmember, they'll lose a morale point.</target>
+        <target>At the start of each cycle, if an antisocial person is in a room containing another crewmember, they'll lose a morale point.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>antisocial.examine</source>

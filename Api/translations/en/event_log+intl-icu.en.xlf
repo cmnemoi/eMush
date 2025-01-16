@@ -1111,10 +1111,7 @@
     <unit id="self_sacrifice_worked">
       <segment id="self_sacrifice_worked" state="translated">
         <source>self_sacrifice_worked</source>
-        <target>{target_character_gender, select,
-        female {Your **Abnegation** skill has borne fruit, you're not dead...}
-        other {Your **Abnegation** skill has borne fruit, you're not dead...}
-        }</target>
+        <target>Your **Self-Sacrifice** skill has borne fruit, you're not dead...</target>
       </segment>
     </unit>
     <unit id="research_completed">

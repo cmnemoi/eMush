@@ -1273,7 +1273,7 @@
     <unit id="myco_alarm_ring">
       <segment id="myco_alarm_ring" state="translated">
         <source>myco_alarm_ring</source>
-        <target>DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!</target>
+        <target>:mycoalarm: DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!</target>
       </segment>
     </unit>
     <unit id="gen_metal_success">

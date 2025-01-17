@@ -828,7 +828,7 @@
                     hua {**The Next Adventure**}
                     ian {**Night Flowers**}
                     janice {**Take The Time For Blossoms**}
-                    jin_su {**4ème symphonie en Ut majeur**}
+                    jin_su {**4th Symphony in Ut Major**}
                     kuan_ti {**Star Walker : Infinite And Beyond OST**}
                     paola {**Bad Requiem**}
                     raluca {**Touching And Fading**}
@@ -836,7 +836,7 @@
                     stephen {**To Whom The Rockets Tolls**}
                     terrence {**Stoner And Sweeter**}
                     other {**Al's Ballad**}
-                } interprété par {player, select,
+                } played by {player, select,
                     andie {**ShipSalt**}
                     chao {**Steel Panzer Society**}
                     chun {**Faded Happiness**}

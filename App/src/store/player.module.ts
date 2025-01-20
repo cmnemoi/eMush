@@ -13,7 +13,8 @@ const state =  {
     confirmPopup: new ConfirmPopup(),
     displayMushSkills: false,
     playerChanged: false,
-    commanderOrderPanelOpen: false
+    commanderOrderPanelOpen: false,
+    comManagerAnnouncementPanelOpen: false
 };
 
 const getters: GetterTree<any, any> = {
@@ -37,6 +38,9 @@ const getters: GetterTree<any, any> = {
     },
     commanderOrderPanelOpen: (state: any): boolean => {
         return state.commanderOrderPanelOpen;
+    },
+    comManagerAnnouncementPanelOpen: (state: any): boolean => {
+        return state.comManagerAnnouncementPanelOpen;
     }
 };
 
@@ -168,6 +172,12 @@ const actions: ActionTree<any, any> = {
     },
     closeCommanderOrderPanel({ commit }) {
         commit('closeCommanderOrderPanel');
+    },
+    openComManagerAnnouncementPanel({ commit }) {
+        commit('openComManagerAnnouncementPanel');
+    },
+    closeComManagerAnnouncementPanel({ commit }) {
+        commit('closeComManagerAnnouncementPanel');
     }
 };
 
@@ -238,6 +248,12 @@ const mutations : MutationTree<any> = {
     },
     closeCommanderOrderPanel(state) {
         state.commanderOrderPanelOpen = false;
+    },
+    openComManagerAnnouncementPanel(state) {
+        state.comManagerAnnouncementPanelOpen = true;
+    },
+    closeComManagerAnnouncementPanel(state) {
+        state.comManagerAnnouncementPanelOpen = false;
     }
 };
 

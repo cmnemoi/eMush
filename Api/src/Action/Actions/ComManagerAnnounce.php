@@ -7,22 +7,16 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\CanContactACrewmate;
 use Mush\Action\Validator\ClassConstraint;
-use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NeedTitle;
-use Mush\Communication\UseCase\GetContactablePlayersUseCase;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerNotificationEnum;
-use Mush\Player\Service\AddCommanderMissionToPlayerService;
+use Mush\Player\Service\AddComManagerAnnouncementToPlayerService;
 use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -35,10 +29,9 @@ final class ComManagerAnnounce extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private readonly AddCommanderMissionToPlayerService $addCommanderMissionToPlayer,
-        private readonly GetContactablePlayersUseCase $getContactablePlayers,
+        private readonly AddComManagerAnnouncementToPlayerService $addComManagerAnnouncementToPlayer,
         private readonly UpdatePlayerNotificationService $updatePlayerNotification,
-        private readonly StatusServiceInterface $statusService
+        private readonly StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -47,19 +40,8 @@ final class ComManagerAnnounce extends AbstractAction
     {
         $metadata->addConstraints([
             new NeedTitle([
-                'title' => TitleEnum::COMMANDER,
+                'title' => TitleEnum::COM_MANAGER,
                 'groups' => [ClassConstraint::VISIBILITY],
-            ]),
-            new HasStatus([
-                'status' => PlayerStatusEnum::HAS_ISSUED_MISSION,
-                'target' => HasStatus::PLAYER,
-                'contain' => false,
-                'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::ISSUE_MISSION_ALREADY_ISSUED,
-            ]),
-            new CanContactACrewmate([
-                'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::ISSUE_MISSION_NO_TARGET,
             ]),
         ]);
     }
@@ -76,79 +58,47 @@ final class ComManagerAnnounce extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->checkSubordinateIsContactable();
-
-        $this->createMission();
-        $this->createMissionSentNotification();
-        $this->createMissionReceivedNotification();
-        $this->createHasIssuedMissionStatus();
+        $this->createAnnouncement();
+        $this->createAnnouncementCreatedNotification();
+        $this->createAnnouncementReceivedNotification();
     }
 
-    private function checkSubordinateIsContactable(): void
+    private function createAnnouncement(): void
     {
-        if ($this->getContactablePlayers->execute($this->player)->contains($this->subordinate())) {
-            return;
-        }
-
-        throw new GameException('You can only give a mission to a player you can contact!');
-    }
-
-    private function createMission(): void
-    {
-        $this->addCommanderMissionToPlayer->execute(
-            commander: $this->player,
-            subordinate: $this->subordinate(),
-            mission: $this->mission()
+        $this->addComManagerAnnouncementToPlayer->execute(
+            comManager: $this->player,
+            announcement: $this->announcement(),
         );
     }
 
-    private function createMissionSentNotification(): void
+    private function createAnnouncementCreatedNotification(): void
     {
         $this->updatePlayerNotification->execute(
             player: $this->player,
-            message: PlayerNotificationEnum::MISSION_SENT->toString(),
+            message: PlayerNotificationEnum::ANNOUNCEMENT_CREATED->toString(),
         );
     }
 
-    private function createMissionReceivedNotification(): void
+    private function createAnnouncementReceivedNotification(): void
     {
-        $this->updatePlayerNotification->execute(
-            player: $this->subordinate(),
-            message: PlayerNotificationEnum::MISSION_RECEIVED->toString(),
-        );
+        $recipients = $this->player->getDaedalus()->getAlivePlayers()->getAllExcept($this->player);
+        foreach ($recipients as $player) {
+            $this->updatePlayerNotification->execute(
+                player: $player,
+                message: PlayerNotificationEnum::ANNOUNCEMENT_RECEIVED->toString(),
+            );
+        }
     }
 
-    private function createHasIssuedMissionStatus(): void
-    {
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::HAS_ISSUED_MISSION,
-            holder: $this->player,
-            tags: $this->getTags(),
-            time: new \DateTime(),
-        );
-    }
-
-    private function subordinate(): Player
+    private function announcement(): string
     {
         $params = $this->getParameters();
-        $subordinate = ($params && \array_key_exists('subordinate', $params)) ? $params['subordinate'] : '';
+        $announcement = ($params && \array_key_exists('announcement', $params)) ? $params['announcement'] : '';
 
-        if (!$subordinate) {
-            throw new GameException('You need to specify to whom you want to give a mission!');
+        if (!$announcement) {
+            throw new GameException('Announcement cannot be empty!');
         }
 
-        return $this->player->getDaedalus()->getAlivePlayerByNameOrThrow($subordinate);
-    }
-
-    private function mission(): string
-    {
-        $params = $this->getParameters();
-        $mission = ($params && \array_key_exists('mission', $params)) ? $params['mission'] : '';
-
-        if (!$mission) {
-            throw new GameException('You need to specify a mission content!');
-        }
-
-        return $mission;
+        return $announcement;
     }
 }

@@ -245,7 +245,8 @@ export default defineComponent ({
             'openLearnSkillPopUp': 'popup/openLearnSkillPopUp',
             'initMushSkillsDisplay': 'player/initMushSkillsDisplay',
             'toggleMushSkillsDisplay': 'player/toggleMushSkillsDisplay',
-            'openCommanderOrderPanel': 'player/openCommanderOrderPanel'
+            'openCommanderOrderPanel': 'player/openCommanderOrderPanel',
+            'openComManagerAnnouncementPanel': 'player/openComManagerAnnouncementPanel'
         }),
         getImgUrl,
         formatText,
@@ -298,6 +299,10 @@ export default defineComponent ({
             }
             if (action.key === ActionEnum.COMMANDER_ORDER) {
                 this.openCommanderOrderPanel();
+                return;
+            }
+            if (action.key === ActionEnum.COM_MANAGER_ANNOUNCEMENT) {
+                this.openComManagerAnnouncementPanel();
                 return;
             }
 

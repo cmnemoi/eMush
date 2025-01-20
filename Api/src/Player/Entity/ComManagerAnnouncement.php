@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Player\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
-use Mush\Player\Entity\Collection\PlayerCollection;
 
 #[ORM\Entity]
 class ComManagerAnnouncement implements SanctionEvidenceInterface
@@ -22,22 +22,16 @@ class ComManagerAnnouncement implements SanctionEvidenceInterface
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'createdAnnouncements')]
     private Player $comManager;
 
-    #[ORM\ManyToOne(targetEntity: PlayerCollection::class, inversedBy: 'receivedAnnouncements')]
-    private Player $receivers;
+    #[ORM\OneToMany(mappedBy: 'comManagerAnnouncement', targetEntity: Player::class)]
+    private Collection $receivers;
 
     #[ORM\Column(type: 'text', nullable: false, options: ['default' => ''])]
     private string $announcement;
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
-    private bool $pending = true;
-
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
-    private bool $completed = false;
-
     public function __construct(Player $comManager, string $announcement)
     {
         $this->comManager = $comManager;
-        $this->receivers = $this->comManager->getDaedalus()->getAlivePlayersWithMeansOfCommunication();
+        $this->receivers = $this->comManager->getDaedalus()->getAlivePlayers();
         $this->announcement = $announcement;
 
         foreach ($this->receivers as $receiver) {
@@ -55,7 +49,7 @@ class ComManagerAnnouncement implements SanctionEvidenceInterface
         return $this->comManager;
     }
 
-    public function getReceivers(): PlayerCollection
+    public function getReceivers(): Collection
     {
         return $this->receivers;
     }
@@ -78,43 +72,6 @@ class ComManagerAnnouncement implements SanctionEvidenceInterface
     public function getCreatedAtOrThrow(): \DateTime
     {
         return $this->createdAt ?? throw new \RuntimeException('Comms Manager Announcement should have a creation date');
-    }
-
-    public function isPending(): bool
-    {
-        return $this->pending;
-    }
-
-    public function isNotPending(): bool
-    {
-        return $this->pending === false;
-    }
-
-    public function isCompleted(): bool
-    {
-        return $this->completed;
-    }
-
-    public function accept(): self
-    {
-        $this->pending = false;
-
-        return $this;
-    }
-
-    public function reject(): self
-    {
-        $this->pending = false;
-        $this->completed = true;
-
-        return $this;
-    }
-
-    public function toggleCompletion(): self
-    {
-        $this->completed = !$this->completed;
-
-        return $this;
     }
 
     public function getMessage(): string

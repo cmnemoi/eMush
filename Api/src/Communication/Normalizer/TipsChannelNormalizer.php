@@ -6,6 +6,7 @@ namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Channel;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\ComManagerAnnouncement;
 use Mush\Player\Entity\CommanderMission;
 use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -81,6 +82,17 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
                             language: $currentPlayer->getLanguage(),
                         ),
                     ],
+                ],
+                'announcements' => [
+                    'title' => $this->translationService->translate(
+                        key: 'tips.announcements.title',
+                        parameters: [],
+                        domain: 'chat',
+                        language: $currentPlayer->getLanguage(),
+                    ),
+                    'elements' => $currentPlayer->getNewestAnnouncementAsArrayCollection()->map(
+                        fn (ComManagerAnnouncement $comManagerAnnouncement) => $this->normalizer->normalize($comManagerAnnouncement, $format, $context)
+                    )->toArray(),
                 ],
             ],
         ];

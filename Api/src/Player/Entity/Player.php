@@ -149,7 +149,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     #[OrderBy(['createdAt' => Order::Descending->value])]
     private Collection $receivedMissions;
 
-    #[ORM\OneToMany(mappedBy: 'subordinate', targetEntity: ComManagerAnnouncement::class, orphanRemoval: true)]
+    #[ORM\ManyToMany(mappedBy: 'receivers', targetEntity: ComManagerAnnouncement::class, orphanRemoval: true)]
     #[OrderBy(['createdAt' => Order::Descending->value])]
     private Collection $receivedAnnouncements;
 
@@ -1266,9 +1266,14 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return new ArrayCollection($this->receivedAnnouncements->toArray());
     }
 
-    public function hasPendingAnnouncements(): bool
+    public function getNewestAnnouncement(): ComManagerAnnouncement
     {
-        return $this->receivedAnnouncements->filter(static fn (ComManagerAnnouncement $announcement) => $announcement->isPending())->count() > 0;
+        return $this->getReceivedAnnouncements()->first();
+    }
+
+    public function getNewestAnnouncementAsArrayCollection(): ArrayCollection
+    {
+        return $this->getReceivedAnnouncements()->first()->toArray();
     }
 
     public function hasMeansOfCommunication(): bool

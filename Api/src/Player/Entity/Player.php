@@ -322,6 +322,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->items;
     }
 
+    public function getEquipmentsExceptPersonal(): Collection
+    {
+        return $this->items->filter(static fn (GameItem $gameItem) => !$gameItem->isPersonal());
+    }
+
     public function setEquipments(ArrayCollection $equipments): static
     {
         $this->items = $equipments;

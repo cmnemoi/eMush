@@ -9,12 +9,12 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use Mush\Communication\Entity\Message;
+use Mush\Daedalus\Entity\ComManagerAnnouncement;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\MetaGame\Repository\ModerationSanctionRepository;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
-use Mush\Player\Entity\ComManagerAnnouncement;
 use Mush\Player\Entity\CommanderMission;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -799,7 +799,7 @@ final class ModerationController extends AbstractFOSRestController
      *
      * @Security(name="Bearer")
      *
-     * @Rest\Post(path="/report-commander-mission/{id}")
+     * @Rest\Post(path="/report-com-manager-announcement/{id}")
      *
      * @Rest\View()
      */

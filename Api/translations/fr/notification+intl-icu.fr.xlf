@@ -61,5 +61,25 @@
         <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
       </segment>
     </unit>
+    <unit id="announcement_received">
+      <segment state="translated">
+        <source>announcement_received.title</source>
+        <target>Annonce Générale</target>
+      </segment>
+      <segment state="translated">
+        <source>announcement_received.description</source>
+        <target>{message}////{character} / Jour {day} - Cycle {cycle} // Vous pouvez relire ce message à tout moment dans l'onglet :tip: Conseils.</target>
+      </segment>
+    </unit>
+    <unit id="announcement_created">
+      <segment state="translated">
+        <source>announcement_created.title</source>
+        <target>Annonce publiée</target>
+      </segment>
+      <segment state="translated">
+        <source>announcement_created.description</source>
+        <target>{message}////{character} / Jour {day} - Cycle {cycle} // Vous pouvez relire ce message à tout moment dans l'onglet :tip: Conseils.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

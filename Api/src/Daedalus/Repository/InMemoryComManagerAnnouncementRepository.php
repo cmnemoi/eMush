@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Mush\Player\Repository;
+namespace Mush\Daedalus\Repository;
 
-use Mush\Player\Entity\ComManagerAnnouncement;
+use Mush\Daedalus\Entity\ComManagerAnnouncement;
 
 final class InMemoryComManagerAnnouncementRepository implements ComManagerAnnouncementRepositoryInterface
 {

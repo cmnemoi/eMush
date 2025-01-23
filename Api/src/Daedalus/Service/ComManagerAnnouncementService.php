@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Mush\Player\Service;
+namespace Mush\Daedalus\Service;
 
-use Mush\Player\Entity\ComManagerAnnouncement;
+use Mush\Daedalus\Entity\ComManagerAnnouncement;
+use Mush\Daedalus\Repository\ComManagerAnnouncementRepositoryInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Repository\ComManagerAnnouncementRepositoryInterface;
 
-final readonly class AddComManagerAnnouncementToPlayerService
+final readonly class ComManagerAnnouncementService
 {
     public function __construct(private ComManagerAnnouncementRepositoryInterface $comManagerAnnouncementRepository) {}
 

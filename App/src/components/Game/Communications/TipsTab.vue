@@ -10,9 +10,10 @@
                         <img :src="getImgUrl(`char/body/${mission.commander.key}.png`)">
                     </div>
                     <p>
-                        <span class="author">{{ mission.commander.name }} :</span>{{ mission.mission }}
+                        <span class="author">{{ mission.commander.name }} :</span>
+                        <span class="mission-text" v-html="formatText(mission.mission)"></span>
                         <span class="timestamp">{{ mission.date }}</span>
-                        <Tippy tag="span" @click="submitReport(mission)">
+                        <Tippy tag="span" class="report-button" @click="submitReportMission(mission)">
                             <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                             <template #content>
                                 <h1>{{ $t('moderation.report.name')}}</h1>
@@ -38,6 +39,31 @@
                         v-else
                         @click="toggleMissionCompletion(mission)"/>
                 </span>
+            </div>
+        </section>
+
+        <section class="unit" v-if="channel.tips.announcement.elements.length > 0">
+            <div class="banner">
+                <span><img :src="getImgUrl('infoalert.png')"> {{ channel.tips.announcement.title }} <img :src="getImgUrl('infoalert.png')"></span>
+            </div>
+            <div class="announcement" v-for="announcement in channel.tips.announcement.elements" :key="announcement.comManager.key">
+                <div class="message">
+                    <div class="char-portrait">
+                        <img :src="getImgUrl(`char/body/${announcement.comManager.key}.png`)">
+                    </div>
+                    <p>
+                        <span class="author">{{ announcement.comManager.name }} :</span>
+                        <span class="announcement-text" v-html="formatText(announcement.announcement)"></span>
+                        <span class="timestamp">{{ announcement.date }}</span>
+                        <Tippy tag="span" class="report-button" @click="submitReportAnnouncement(announcement)">
+                            <img :src="getImgUrl('comms/alert.png')" alt="Report message">
+                            <template #content>
+                                <h1>{{ $t('moderation.report.name')}}</h1>
+                                <p>{{ $t('moderation.report.description') }}</p>
+                            </template>
+                        </Tippy>
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -91,6 +117,7 @@
 
 <script lang="ts">
 import { CommanderMission } from "@/entities/Channel";
+import { ComManagerAnnouncement } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
@@ -120,7 +147,8 @@ export default defineComponent ({
         ...mapActions({
             'executeAction': 'action/executeAction',
             'reportCommanderMission': 'moderation/reportCommanderMission',
-            'toggleMission': 'player/toggleMissionCompletion'
+            'toggleMission': 'player/toggleMissionCompletion',
+            'reportComManagerAnnouncement': 'moderation/reportComManagerAnnouncement'
         }),
         async acceptMission(missionId: number): Promise<void> {
             await this.executeAction({ target: null, action: this.acceptMissionAction, params: { missionId } });
@@ -128,7 +156,7 @@ export default defineComponent ({
         async rejectMission(missionId: number): Promise<void> {
             await this.executeAction({ target: null, action: this.rejectMissionAction, params: { missionId } });
         },
-        async submitReport(mission: CommanderMission): Promise<void> {
+        async submitReportMission(mission: CommanderMission): Promise<void> {
             const params = new URLSearchParams();
 
             params.append('reason', 'hate_speech');
@@ -140,6 +168,15 @@ export default defineComponent ({
         async toggleMissionCompletion(mission: CommanderMission): Promise<void> {
             await this.toggleMission({ mission });
             mission.isCompleted = !mission.isCompleted;
+        },
+        async submitReportAnnouncement(announcement: ComManagerAnnouncement): Promise<void> {
+            const params = new URLSearchParams();
+
+            params.append('reason', 'hate_speech');
+            params.append('player', announcement.comManager.id);
+            params.append('adminMessage', `${announcement.announcement} (${this.$t('moderation.report.comManagerAnnouncement')})`);
+
+            await this.reportComManagerAnnouncement({ announcementId : announcement.id, params });
         },
         getImgUrl,
         formatText
@@ -327,6 +364,10 @@ export default defineComponent ({
     .mission-completion {
         display: flex;
         justify-content: right;
+    }
+
+    .report-button{
+        float: right;
     }
 }
 

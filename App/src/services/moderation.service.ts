@@ -237,6 +237,13 @@ const ModerationService = {
 
         return response;
     },
+    reportComManagerAnnouncement: async(announcementId: number, params: URLSearchParams): Promise<any> => {
+        store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(urlJoin(MODERATION_ENDPOINT, 'report-com-manager-announcement', String(announcementId)) + '?' + params.toString());
+        store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     loadReportablePlayers: async (): Promise<ContactablePlayer[]> => {
         const playersData = await ApiService.get(MODERATION_ENDPOINT + '/reportable');
 

@@ -1624,5 +1624,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Utiliser cet objet.</target>
       </segment>
     </unit>
+    <unit id="com_manager_announcement">
+      <segment id="name" state="translated">
+        <source>com_manager_announcement.name</source>
+        <target>Annonce Générale</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>com_manager_announcement.description</source>
+        <target>En tant que *Resp. Communications* vous pouvez réaliser une annonce générale. // Tous vos camarades seront **notifiés** et l'annonce restera dans l'onglet :tip: **Conseils**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

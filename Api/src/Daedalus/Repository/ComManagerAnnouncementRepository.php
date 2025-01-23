@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mush\Player\Repository;
+namespace Mush\Daedalus\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Mush\Player\Entity\ComManagerAnnouncement;
+use Mush\Daedalus\Entity\ComManagerAnnouncement;
 
 /**
  * @template-extends ServiceEntityRepository<ComManagerAnnouncement>

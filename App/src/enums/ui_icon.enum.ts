@@ -30,9 +30,12 @@ export enum UiIconEnum {
     PSY_DISEASE = 'psy_disease',
     //Hungry Log
     HUNGRY = 'hungry',
-    //public chat icon
+    //public channel icon
     WALL = 'wall',
     BOOK_OPEN = 'book_open', //Alternative spelling for players
+    //Tips channel icon
+    TIP = 'tip',
+    LIGHTBULB = 'lightbulb',
     //Used in public chat tooltip
     TALKIE = 'talkie',
     //Used in the automatically generated chat message when sharing a planet
@@ -85,6 +88,8 @@ export const UiIconIcons: {[index: string]: string} = {
     [UiIconEnum.HUNGRY]: getImgUrl('status/starving.png'),
     [UiIconEnum.WALL]: getImgUrl('comms/wall.png'),
     [UiIconEnum.BOOK_OPEN]: getImgUrl('comms/wall.png'),
+    [UiIconEnum.TIP]: getImgUrl('comms/tip.png'),
+    [UiIconEnum.LIGHTBULB]: getImgUrl('comms/tip.png'),
     [UiIconEnum.TALKIE]: getImgUrl('comms/talkie.png'),
     [UiIconEnum.PLANET]: getImgUrl('ui_icons/planet.png'),
     [UiIconEnum.FUEL]: getImgUrl('ui_icons/fuel.png'),

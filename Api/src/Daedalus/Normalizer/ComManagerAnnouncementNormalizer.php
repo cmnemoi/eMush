@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mush\Player\Normalizer;
+namespace Mush\Daedalus\Normalizer;
 
+use Mush\Daedalus\Entity\ComManagerAnnouncement;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\ComManagerAnnouncement;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final readonly class ComManagerAnnouncementNormalizer implements NormalizerInterface
@@ -40,7 +40,12 @@ final readonly class ComManagerAnnouncementNormalizer implements NormalizerInter
                     language: $comManagerAnnouncement->getLanguage(),
                 ),
             ],
-            'announcement' => $comManagerAnnouncement->getAnnouncement(),
+            'announcement' => $this->translationService->translate(
+                key: $comManagerAnnouncement->getAnnouncement(),
+                parameters: [],
+                domain: 'chat',
+                language: $comManagerAnnouncement->getLanguage(),
+            ),
             'date' => $this->getTranslatedDate($comManagerAnnouncement->getCreatedAtOrThrow(), $comManagerAnnouncement->getLanguage()),
         ];
     }

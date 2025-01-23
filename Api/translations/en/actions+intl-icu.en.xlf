@@ -1602,5 +1602,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>Use this object.</target>
       </segment>
     </unit>
+    <unit id="com_manager_announcement">
+      <segment id="name" state="translated">
+        <source>com_manager_announcement.name</source>
+        <target>General Announcement</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>com_manager_announcement.description</source>
+        <target>As the *Comms Officer* you may broadcast a general announcement. // All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

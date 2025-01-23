@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Mush\Player\Entity;
+namespace Mush\Daedalus\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
+use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
 class ComManagerAnnouncement implements SanctionEvidenceInterface
@@ -22,21 +22,17 @@ class ComManagerAnnouncement implements SanctionEvidenceInterface
     #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'createdAnnouncements')]
     private Player $comManager;
 
-    #[ORM\OneToMany(mappedBy: 'comManagerAnnouncement', targetEntity: Player::class)]
-    private Collection $receivers;
-
     #[ORM\Column(type: 'text', nullable: false, options: ['default' => ''])]
     private string $announcement;
+
+    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'receivedAnnouncements')]
+    private Daedalus $daedalus;
 
     public function __construct(Player $comManager, string $announcement)
     {
         $this->comManager = $comManager;
-        $this->receivers = $this->comManager->getDaedalus()->getAlivePlayers();
+        $this->daedalus = $this->comManager->getDaedalus();
         $this->announcement = $announcement;
-
-        foreach ($this->receivers as $receiver) {
-            $receiver->addReceivedAnnouncement($this);
-        }
     }
 
     public function getId(): int
@@ -47,11 +43,6 @@ class ComManagerAnnouncement implements SanctionEvidenceInterface
     public function getComManager(): Player
     {
         return $this->comManager;
-    }
-
-    public function getReceivers(): Collection
-    {
-        return $this->receivers;
     }
 
     public function getAnnouncement(): string

@@ -10,11 +10,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\NeedTitle;
+use Mush\Daedalus\Service\ComManagerAnnouncementService;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\PlayerNotificationEnum;
-use Mush\Player\Service\AddComManagerAnnouncementToPlayerService;
 use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Service\StatusServiceInterface;
@@ -29,7 +29,7 @@ final class ComManagerAnnounce extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private readonly AddComManagerAnnouncementToPlayerService $addComManagerAnnouncementToPlayer,
+        private readonly ComManagerAnnouncementService $comManagerAnnouncementService,
         private readonly UpdatePlayerNotificationService $updatePlayerNotification,
         private readonly StatusServiceInterface $statusService,
     ) {
@@ -65,7 +65,7 @@ final class ComManagerAnnounce extends AbstractAction
 
     private function createAnnouncement(): void
     {
-        $this->addComManagerAnnouncementToPlayer->execute(
+        $this->comManagerAnnouncementService->execute(
             comManager: $this->player,
             announcement: $this->announcement(),
         );
@@ -76,6 +76,12 @@ final class ComManagerAnnounce extends AbstractAction
         $this->updatePlayerNotification->execute(
             player: $this->player,
             message: PlayerNotificationEnum::ANNOUNCEMENT_CREATED->toString(),
+            parameters: [
+                'message' => $this->announcement(),
+                $this->player->getLogKey() => $this->player->getLogName(),
+                'day' => $this->player->getDaedalus()->getDay(),
+                'cycle' => $this->player->getDaedalus()->getCycle(),
+            ]
         );
     }
 
@@ -86,6 +92,12 @@ final class ComManagerAnnounce extends AbstractAction
             $this->updatePlayerNotification->execute(
                 player: $player,
                 message: PlayerNotificationEnum::ANNOUNCEMENT_RECEIVED->toString(),
+                parameters: [
+                    'message' => $this->announcement(),
+                    $this->player->getLogKey() => $this->player->getLogName(),
+                    'day' => $this->player->getDaedalus()->getDay(),
+                    'cycle' => $this->player->getDaedalus()->getCycle(),
+                ]
             );
         }
     }

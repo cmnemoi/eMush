@@ -249,7 +249,8 @@ export default defineComponent({
             if (
                 evidenceClass === 'message' ||
                 evidenceClass === 'roomLog' ||
-                evidenceClass === 'commanderMission'
+                evidenceClass === 'commanderMission' ||
+                evidenceClass === 'comManagerAnnouncement'
             ) {
                 router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
             } else if (evidenceClass === 'closedPlayer') {

@@ -14,6 +14,8 @@ use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -26,6 +28,7 @@ final class LogisticsExpertCest extends AbstractFunctionalTest
     private AddSkillToPlayerService $addSkillToPlayerService;
     private ChooseSkillUseCase $chooseSkillUseCase;
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -34,6 +37,7 @@ final class LogisticsExpertCest extends AbstractFunctionalTest
         $this->addSkillToPlayerService = $I->grabService(AddSkillToPlayerService::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldGiveActionPointToASingleOtherPlayer(FunctionalTester $I): void
@@ -106,6 +110,46 @@ final class LogisticsExpertCest extends AbstractFunctionalTest
             expectedRoomLog: 'La compétence **Logistique** de **Chun** a porté ses fruits...',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->kuanTi,
+                log: PlayerModifierLogEnum::LOGISTIC_LOG,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I,
+        );
+    }
+
+    public function shouldIgnoreInactivePlayers(FunctionalTester $I): void
+    {
+        // setup no incidents to avoid false positive due to panic crisis
+        $this->daedalus->setDay(0);
+
+        // given paola is a logistic expert
+        $paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::LOGISTICS_EXPERT, $paola));
+
+        // given player 2 is inactive
+        $this->player2->setActionPoint(12);
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $this->player2,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given all active players in the room have 10 action points
+        $this->player1->setActionPoint(10);
+        $paola->setActionPoint(10);
+
+        // when cycle change is triggered
+        $cycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then player 1 should have 12 AP
+        $I->assertEquals(12, $this->player1->getActionPoint());
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'La compétence **Logistique** de **Paola** a porté ses fruits...',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player1,
                 log: PlayerModifierLogEnum::LOGISTIC_LOG,
                 visibility: VisibilityEnum::PRIVATE,
             ),

@@ -43,7 +43,7 @@ final class LogisticsExpertHandler
     {
         $player = $event->getPlayer();
 
-        $selectedPlayer = $this->randomService->getRandomPlayer($player->getAlivePlayersInRoomExceptSelf());
+        $selectedPlayer = $this->randomService->getRandomPlayer($player->getActivePlayersInRoomExceptSelf());
 
         $playerVariableEvent = new PlayerVariableEvent(
             player: $selectedPlayer,

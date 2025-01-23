@@ -1078,6 +1078,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         );
     }
 
+    public function getActivePlayersInRoomExceptSelf(): PlayerCollection
+    {
+        return $this->getAlivePlayersInRoomExceptSelf()->getActivePlayers();
+    }
+
     public function isAloneInRoom(): bool
     {
         return $this->getPlace()->getNumberOfPlayersAlive() === 1;

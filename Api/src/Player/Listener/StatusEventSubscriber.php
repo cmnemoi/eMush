@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Player\Listener;
 
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -30,8 +33,36 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            StatusEvent::STATUS_APPLIED => 'onStatusApplied',
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
+    }
+
+    public function onStatusApplied(StatusEvent $event): void
+    {
+        $statusName = $event->getStatusName();
+
+        switch ($statusName) {
+            case PlayerStatusEnum::INACTIVE:
+            case PlayerStatusEnum::HIGHLY_INACTIVE:
+                $DroppableItems = $event->getPlayerStatusHolder()->getEquipmentsExceptPersonal();
+                foreach ($DroppableItems as $item) {
+                    $tags = $event->getTags();
+                    $tags[] = $item->getName();
+
+                    $itemEvent = new MoveEquipmentEvent(
+                        equipment: $item,
+                        newHolder: $event->getPlayerStatusHolder()->getPlace(),
+                        author: $event->getPlayerStatusHolder(),
+                        visibility: VisibilityEnum::PUBLIC,
+                        tags: $tags,
+                        time: new \DateTime(),
+                    );
+                    $this->eventService->callEvent($itemEvent, EquipmentEvent::CHANGE_HOLDER);
+                }
+
+                break;
+        }
     }
 
     public function onStatusRemoved(StatusEvent $event): void

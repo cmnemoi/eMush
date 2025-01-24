@@ -251,6 +251,7 @@ final class PlayerServiceTest extends TestCase
     {
         $this->entityManager->shouldIgnoreMissing();
         $this->eventService->shouldIgnoreMissing();
+        $this->roomLogService->shouldIgnoreMissing();
 
         $this->service->handleNewCycle($player, new \DateTime());
     }

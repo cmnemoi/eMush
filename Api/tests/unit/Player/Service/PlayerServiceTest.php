@@ -263,6 +263,6 @@ final class PlayerServiceTest extends TestCase
 
     private function thenPlayerShouldHaveAP(Player $player, int $AP): void
     {
-        self::assertTrue($player->getActionPoint() === $AP);
+        self::assertEquals($AP, $player->getActionPoint());
     }
 }

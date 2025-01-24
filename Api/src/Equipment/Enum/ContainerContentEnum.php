@@ -353,14 +353,14 @@ class ContainerContentEnum
             'filterValue' => CharacterEnum::PAOLA,
         ],
         [
-            'item' => 'apprentron_determined_default',
+            'item' => 'apprentron_determined',
             'quantity' => 1,
             'weight' => 5,
             'filterType' => self::FILTER_BY_CHARACTER,
             'filterValue' => CharacterEnum::PAOLA,
         ],
         [
-            'item' => 'apprentron_ocd_default',
+            'item' => 'apprentron_ocd',
             'quantity' => 1,
             'weight' => 1,
             'filterType' => self::FILTER_BY_CHARACTER,

@@ -349,7 +349,7 @@ That's not all: only one project per set can be brought to fruition. **When a pr
       </segment>
       <segment id="nothing_to_compute" state="translated">
         <source>calculator.nothing_to_compute</source>
-        <target>Nothing to compute at the moment.</target>
+        <target>Nothing to compute at the moment. // Please deposit material in the shelf.</target>
       </segment>
       <segment id="eden_computed" state="translated">
         <source>calculator.eden_computed</source>

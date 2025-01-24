@@ -90,17 +90,21 @@ final class InactivityStatusCest extends AbstractFunctionalTest
         $this->thenAPublicRemovalRoomLogShouldBeCreated($I);
     }
 
-    public function shouldDropAllNonPersonalItemsWhenCreated(FunctionalTester $I): void
+    public function shouldDropAllCriticalItemsWhenCreated(FunctionalTester $I): void
     {
         $this->givenPlayerHasATrackie();
 
         $this->givenPlayerHasAnApron();
+
+        $this->givenPlayerHasPlasteniteArmor();
 
         $this->whenPlayerGetsInactiveStatus();
 
         $this->thenTheApronShouldHaveDropped($I);
 
         $this->thenTheTrackieShouldNotHaveDropped($I);
+
+        $this->thenTheArmorShouldNotHaveDropped($I);
 
         $this->thenPlayerShouldStillBeInactive($I);
     }
@@ -129,6 +133,16 @@ final class InactivityStatusCest extends AbstractFunctionalTest
     {
         $talkie = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::ITRACKIE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerHasPlasteniteArmor(): void
+    {
+        $talkie = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::PLASTENITE_ARMOR,
             equipmentHolder: $this->chun,
             reasons: [],
             time: new \DateTime(),
@@ -239,6 +253,11 @@ final class InactivityStatusCest extends AbstractFunctionalTest
         );
 
         $I->assertTrue($this->player->getPlace()->hasEquipmentByName(GearItemEnum::STAINPROOF_APRON), 'No Apron found in room shelf!');
+    }
+
+    private function thenTheArmorShouldNotHaveDropped(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->hasEquipmentByName(GearItemEnum::PLASTENITE_ARMOR), 'No plastenite Armor found on player!');
     }
 
     private function thenTheTrackieShouldNotHaveDropped(FunctionalTester $I): void

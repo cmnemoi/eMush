@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Player\Listener;
 
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
@@ -41,11 +43,12 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     public function onStatusApplied(StatusEvent $event): void
     {
         $statusName = $event->getStatusName();
+        $isCritical = static fn (GameEquipment $gameEquipment) => EquipmentEnum::getCriticalItems()->contains($gameEquipment->getName());
 
         switch ($statusName) {
             case PlayerStatusEnum::INACTIVE:
             case PlayerStatusEnum::HIGHLY_INACTIVE:
-                $DroppableItems = $event->getPlayerStatusHolder()->getEquipmentsExceptPersonal();
+                $DroppableItems = $event->getPlayerStatusHolder()->getEquipmentsExceptPersonal()->filter($isCritical);
                 foreach ($DroppableItems as $item) {
                     $tags = $event->getTags();
                     $tags[] = $item->getName();

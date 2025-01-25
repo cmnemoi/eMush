@@ -23,6 +23,8 @@ Consequently, it is present in 2 different places at once.
     |-- Normalizer
     |-- Repository
     |-- Service
+    |-- ValueObject
+    |-- WeaponEffect
 
 
 # Entities
@@ -58,6 +60,8 @@ Tools provide additional actions to the equipment, however those actions are onl
 ### Weapon
 
 Is a tool with the action Attack and some damage, accuracy, etc...
+
+To add new weapon events and effects, see [WEAPON_EVENT_README.md](./WEAPON_EVENT_README.md) and [WEAPON_EFFECT_README.md](./WEAPON_EFFECT_README.md).
 
 ### Book
 

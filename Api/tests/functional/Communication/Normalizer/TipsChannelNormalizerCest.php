@@ -86,6 +86,10 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals('Missions', $normalizedChannel['tips']['missions']['title']);
         $I->assertEquals([], $normalizedChannel['tips']['missions']['elements']);
         $I->assertEquals(['accept' => 'Accepter ?'], $normalizedChannel['tips']['missions']['buttons']);
+
+        // Check general announcement
+        $I->assertEquals('Annonces', $normalizedChannel['tips']['announcement']['title']);
+        $I->assertEquals([], $normalizedChannel['tips']['announcement']['element']);
     }
 
     public function shouldNormalizeMushTipsIfPlayerIsMush(FunctionalTester $I): void

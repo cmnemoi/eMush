@@ -90,7 +90,7 @@ final class InactivityStatusCest extends AbstractFunctionalTest
         $this->thenAPublicRemovalRoomLogShouldBeCreated($I);
     }
 
-    public function shouldDropAllCriticalItemsWhenCreated(FunctionalTester $I): void
+    public function shouldDropAllCriticalItemsWhenHighlyInactiveCreated(FunctionalTester $I): void
     {
         $this->givenPlayerHasATrackie();
 
@@ -98,7 +98,7 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
         $this->givenPlayerHasPlasteniteArmor();
 
-        $this->whenPlayerGetsInactiveStatus();
+        $this->whenPlayerGetsHighlyInactiveStatus();
 
         $this->thenTheApronShouldHaveDropped($I);
 
@@ -106,7 +106,7 @@ final class InactivityStatusCest extends AbstractFunctionalTest
 
         $this->thenTheArmorShouldNotHaveDropped($I);
 
-        $this->thenPlayerShouldStillBeInactive($I);
+        $this->thenPlayerShouldStillBeHighlyInactive($I);
     }
 
     private function givenPlayerHasAllTheirActionPoints(): void
@@ -176,10 +176,10 @@ final class InactivityStatusCest extends AbstractFunctionalTest
         $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
     }
 
-    private function whenPlayerGetsInactiveStatus(): void
+    private function whenPlayerGetsHighlyInactiveStatus(): void
     {
         $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::INACTIVE,
+            statusName: PlayerStatusEnum::HIGHLY_INACTIVE,
             holder: $this->player,
             tags: [],
             time: new \DateTime()
@@ -265,8 +265,8 @@ final class InactivityStatusCest extends AbstractFunctionalTest
         $I->assertTrue($this->player->hasEquipmentByName(ItemEnum::ITRACKIE), 'No iTrackie found on player!');
     }
 
-    private function thenPlayerShouldStillBeInactive(FunctionalTester $I): void
+    private function thenPlayerShouldStillBeHighlyInactive(FunctionalTester $I): void
     {
-        $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::INACTIVE), 'player woke up!');
+        $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE), 'player woke up!');
     }
 }

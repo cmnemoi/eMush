@@ -40,12 +40,7 @@ final readonly class CommanderMissionNormalizer implements NormalizerInterface
                     language: $commanderMission->getLanguage(),
                 ),
             ],
-            'mission' => $this->translationService->translate(
-                key: $commanderMission->getMission(),
-                parameters: [],
-                domain: 'chat',
-                language: $commanderMission->getLanguage(),
-            ),
+            'mission' => $commanderMission->getMission(),
             'date' => $this->getTranslatedDate($commanderMission->getCreatedAtOrThrow(), $commanderMission->getLanguage()),
             'isPending' => $commanderMission->isPending(),
             'isCompleted' => $commanderMission->isCompleted(),

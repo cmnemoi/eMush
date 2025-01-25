@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\Config\WeaponEffect\InflictInjuryWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\InflictRandomInjuryWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\ModifyDamageWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\ModifyMaxDamageWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\MultiplyDamageOnMushTargetWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\OneShotWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\RemoveActionPointsWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEventConfig;
@@ -33,6 +34,7 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
     'modify_damage_weapon_effect_config' => ModifyDamageWeaponEffectConfig::class,
     'break_weapon_effect_config' => BreakWeaponEffectConfig::class,
     'drop_weapon_effect_config' => DropWeaponEffectConfig::class,
+    'multiply_damage_on_mush_target_weapon_effect_config' => MultiplyDamageOnMushTargetWeaponEffectConfig::class,
 ])]
 abstract class AbstractEventConfig
 {

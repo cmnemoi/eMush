@@ -1,24 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\Repository;
 
 use Mush\Equipment\Entity\Config\WeaponEventConfig;
 use Mush\Game\ConfigData\EventConfigData;
 
-class InMemoryWeaponEffectConfigRepository implements WeaponEffectConfigRepositoryInterface
+final class InMemoryWeaponEffectConfigRepository implements WeaponEffectConfigRepositoryInterface
 {
     public function findAllByWeaponEvent(WeaponEventConfig $weaponEvent): array
     {
-        $weaponEffectConfigDtos = array_merge(
-            EventConfigData::removeActionPointsWeaponEffectConfigData(),
-            EventConfigData::modifyDamageWeaponEffectConfigData(),
-            EventConfigData::oneShotWeaponEffectConfigData(),
-            EventConfigData::inflictInjuryWeaponEffectConfigData(),
-            EventConfigData::inflictRandomInjuryWeaponEffectConfigData(),
-            EventConfigData::modifyDamageWeaponEffectConfigData(),
-            EventConfigData::breakWeaponEffectConfigData(),
-            EventConfigData::dropWeaponEffectConfigData(),
-        );
+        $weaponEffectConfigDtos = EventConfigData::weaponEffectsConfigData();
 
         $weaponEventEffectKeys = $weaponEvent->getEffectKeys();
 

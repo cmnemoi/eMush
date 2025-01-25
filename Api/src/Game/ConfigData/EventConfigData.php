@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\Dto\WeaponEffect\ModifyDamageWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\ModifyMaxDamageWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\OneShotWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\RemoveActionPointsWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\WeaponEffectDto;
 use Mush\Equipment\Entity\Dto\WeaponEventConfigDto;
 use Mush\Equipment\Enum\WeaponEffectEnum;
 use Mush\Equipment\Enum\WeaponEventEnum;
@@ -908,8 +909,8 @@ class EventConfigData
         ];
     }
 
-    /** @return RemoveActionPointsWeaponEffectConfigDto[] */
-    public static function removeActionPointsWeaponEffectConfigData(): array
+    /** @return WeaponEffectDto[] */
+    public static function weaponEffectsConfigData(): array
     {
         return [
             new RemoveActionPointsWeaponEffectConfigDto(
@@ -923,13 +924,6 @@ class EventConfigData
                 eventName: WeaponEffectEnum::REMOVE_ACTION_POINTS->toString(),
                 quantity: 2,
             ),
-        ];
-    }
-
-    /** @return ModifyDamageWeaponEffectConfigDto[] */
-    public static function modifyDamageWeaponEffectConfigData(): array
-    {
-        return [
             new ModifyDamageWeaponEffectConfigDto(
                 name: WeaponEffectEnum::ADD_ONE_DAMAGE->toString(),
                 eventName: WeaponEffectEnum::MODIFY_DAMAGE->toString(),
@@ -940,13 +934,6 @@ class EventConfigData
                 eventName: WeaponEffectEnum::MODIFY_DAMAGE->toString(),
                 quantity: 2,
             ),
-        ];
-    }
-
-    /** @return OneShotWeaponEffectConfigDto[] */
-    public static function oneShotWeaponEffectConfigData(): array
-    {
-        return [
             new OneShotWeaponEffectConfigDto(
                 name: WeaponEffectEnum::BLASTER_ONE_SHOT->toString(),
                 eventName: WeaponEffectEnum::ONE_SHOT->toString(),
@@ -957,13 +944,6 @@ class EventConfigData
                 eventName: WeaponEffectEnum::ONE_SHOT->toString(),
                 endCause: EndCauseEnum::BEHEADED,
             ),
-        ];
-    }
-
-    /** @return InflictRandomInjuryWeaponEffectConfigDto[] */
-    public static function inflictRandomInjuryWeaponEffectConfigData(): array
-    {
-        return [
             new InflictRandomInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
@@ -977,13 +957,6 @@ class EventConfigData
                 name: WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET_20_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
             ),
-        ];
-    }
-
-    /** @return InflictInjuryWeaponEffectConfigDto[] */
-    public static function inflictInjuryWeaponEffectConfigData(): array
-    {
-        return [
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_MASHED_EAR_INJURY_TO_TARGET->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
@@ -1026,36 +999,15 @@ class EventConfigData
                 injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
                 triggerRate: 10,
             ),
-        ];
-    }
-
-    /** @return ModifyMaxDamageWeaponEffectConfigDto[] */
-    public static function modifyMaxDamageWeaponEffectConfigData(): array
-    {
-        return [
             new ModifyMaxDamageWeaponEffectConfigDto(
                 name: WeaponEffectEnum::ADD_TWO_MAX_DAMAGE->toString(),
                 eventName: WeaponEffectEnum::MODIFY_MAX_DAMAGE->toString(),
                 quantity: 2,
             ),
-        ];
-    }
-
-    /** @return BreakWeaponEffectConfigDto[] */
-    public static function breakWeaponEffectConfigData(): array
-    {
-        return [
             new BreakWeaponEffectConfigDto(
                 name: WeaponEffectEnum::BREAK_WEAPON->toString(),
                 eventName: WeaponEffectEnum::BREAK_WEAPON->toString(),
             ),
-        ];
-    }
-
-    /** @return DropWeaponEffectConfigDto[] */
-    public static function dropWeaponEffectConfigData(): array
-    {
-        return [
             new DropWeaponEffectConfigDto(
                 name: WeaponEffectEnum::DROP_WEAPON->toString(),
                 eventName: WeaponEffectEnum::DROP_WEAPON->toString(),
@@ -1072,20 +1024,9 @@ class EventConfigData
         }
     }
 
-    public static function getWeaponEffectConfigDataByName(WeaponEffectEnum $name): mixed
+    public static function getWeaponEffectConfigDataByName(WeaponEffectEnum $name): WeaponEffectDto
     {
-        $weaponEffectConfigData = array_merge(
-            self::breakWeaponEffectConfigData(),
-            self::dropWeaponEffectConfigData(),
-            self::inflictInjuryWeaponEffectConfigData(),
-            self::inflictRandomInjuryWeaponEffectConfigData(),
-            self::modifyDamageWeaponEffectConfigData(),
-            self::modifyMaxDamageWeaponEffectConfigData(),
-            self::oneShotWeaponEffectConfigData(),
-            self::removeActionPointsWeaponEffectConfigData(),
-        );
-
-        $result = current(array_filter($weaponEffectConfigData, static fn ($dto) => $dto->name === $name->toString()));
+        $result = current(array_filter(self::weaponEffectsConfigData(), static fn (WeaponEffectDto $dto) => $dto->name === $name->toString()));
         if (!$result) {
             throw new \RuntimeException("WeaponEffectConfig not found for name {$name->toString()}");
         }

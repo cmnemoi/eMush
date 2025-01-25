@@ -6,7 +6,7 @@ namespace Mush\Equipment\Entity\Dto\WeaponEffect;
 
 use Mush\Equipment\Entity\Config\WeaponEffect\InflictInjuryWeaponEffectConfig;
 
-final readonly class InflictInjuryWeaponEffectConfigDto
+final readonly class InflictInjuryWeaponEffectConfigDto extends WeaponEffectDto
 {
     public function __construct(
         public string $name,

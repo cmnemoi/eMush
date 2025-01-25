@@ -6,7 +6,7 @@ namespace Mush\Equipment\Entity\Dto\WeaponEffect;
 
 use Mush\Equipment\Entity\Config\WeaponEffect\RemoveActionPointsWeaponEffectConfig;
 
-final readonly class RemoveActionPointsWeaponEffectConfigDto
+final readonly class RemoveActionPointsWeaponEffectConfigDto extends WeaponEffectDto
 {
     public function __construct(
         public string $name,

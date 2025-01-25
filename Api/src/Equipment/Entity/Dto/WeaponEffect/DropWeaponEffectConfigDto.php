@@ -6,13 +6,8 @@ namespace Mush\Equipment\Entity\Dto\WeaponEffect;
 
 use Mush\Equipment\Entity\Config\WeaponEffect\DropWeaponEffectConfig;
 
-final readonly class DropWeaponEffectConfigDto
+final readonly class DropWeaponEffectConfigDto extends WeaponEffectDto
 {
-    public function __construct(
-        public string $name,
-        public string $eventName,
-    ) {}
-
     public function toEntity(): DropWeaponEffectConfig
     {
         return new DropWeaponEffectConfig($this->name, $this->eventName);

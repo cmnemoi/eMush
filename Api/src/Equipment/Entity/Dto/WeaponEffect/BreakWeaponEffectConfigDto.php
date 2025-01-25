@@ -6,13 +6,8 @@ namespace Mush\Equipment\Entity\Dto\WeaponEffect;
 
 use Mush\Equipment\Entity\Config\WeaponEffect\BreakWeaponEffectConfig;
 
-final readonly class BreakWeaponEffectConfigDto
+final readonly class BreakWeaponEffectConfigDto extends WeaponEffectDto
 {
-    public function __construct(
-        public string $name,
-        public string $eventName,
-    ) {}
-
     public function toEntity(): BreakWeaponEffectConfig
     {
         return new BreakWeaponEffectConfig($this->name, $this->eventName);

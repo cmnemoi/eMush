@@ -103,9 +103,9 @@
             other {**{character}** tire une rafale sur **{target_character}**...}}</target>
         </segment>
     </unit>
-    <unit id="natamy_rifle_target_headshot">
-        <segment id="natamy_rifle_target_headshot" state="translated">
-            <source>natamy_rifle_target_headshot</source>
+    <unit id="natamy_rifle_headshot">
+        <segment id="natamy_rifle_headshot" state="translated">
+            <source>natamy_rifle_headshot</source>
             <target>**{character}** a réussi sa tentative de tir en pleine tête sur **{target_character}**.</target>
         </segment>
     </unit>

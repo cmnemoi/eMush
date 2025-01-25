@@ -888,11 +888,21 @@ class EventConfigData
                 ]
             ),
             new WeaponEventConfigDto(
-                name: WeaponEventEnum::NATAMY_RIFLE_TARGET_HEADSHOT->toString(),
-                eventName: WeaponEventEnum::NATAMY_RIFLE_TARGET_HEADSHOT->toString(),
+                name: WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->toString(),
+                eventType: WeaponEventType::NORMAL,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_10_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_HEADSHOT->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_HEADSHOT->toString(),
                 eventType: WeaponEventType::CRITIC,
                 effectKeys: [
-                    WeaponEffectEnum::NATAMY_RIFLE_ONE_SHOT->toString(),
+                    WeaponEffectEnum::BIG_GUN_ONE_SHOT->toString(),
                 ]
             ),
         ];
@@ -943,7 +953,7 @@ class EventConfigData
                 endCause: EndCauseEnum::BEHEADED,
             ),
             new OneShotWeaponEffectConfigDto(
-                name: WeaponEffectEnum::NATAMY_RIFLE_ONE_SHOT->toString(),
+                name: WeaponEffectEnum::BIG_GUN_ONE_SHOT->toString(),
                 eventName: WeaponEffectEnum::ONE_SHOT->toString(),
                 endCause: EndCauseEnum::BEHEADED,
             ),
@@ -1003,6 +1013,18 @@ class EventConfigData
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
                 injuryName: InjuryEnum::HEAD_TRAUMA,
                 triggerRate: 100,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::HAEMORRHAGE,
+                triggerRate: 40,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_10_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
+                triggerRate: 10,
             ),
         ];
     }

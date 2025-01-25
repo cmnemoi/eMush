@@ -93,7 +93,6 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions25->add($slimeObjectAction);
         $actions25->add($reinforce);
 
-        /** @TODO more details are needed on the output of each weapon */
         $blasterMechanic = new Weapon();
         $blasterMechanic
             ->setBaseAccuracy(50)

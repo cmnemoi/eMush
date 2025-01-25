@@ -92,6 +92,7 @@ abstract class LogDeclinationEnum
             ActionLogEnum::SHOOT_CAT_CRITICAL_FAIL => [self::VERSION => 2],
             WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
             WeaponEventEnum::BLASTER_FAILED_SHOT->value => [self::VERSION => 2],
+            WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
         ];
     }
 }

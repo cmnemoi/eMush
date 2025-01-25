@@ -234,22 +234,14 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveActionPoints(6, $I);
     }
 
-    public function natamyRifleHeadshotEventShouldPrintPublicLog(FunctionalTester $I): void
+    public function natamyRifleSuccessfulShotShouldRemoveHealthPoints(FunctionalTester $I): void
     {
         $this->givenChunHasANatamyRifle();
-        $this->givenNatamyRifleHas100ChanceToDispatchEvent(WeaponEventEnum::NATAMY_RIFLE_TARGET_HEADSHOT->toString());
+        $this->givenNatamyRifleHas100ChanceToDispatchEvent(WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->toString());
 
         $this->whenChunShootsAtKuanTiWithNatamyRifle();
 
-        $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: '**Chun** a réussi sa tentative de tir en pleine tête sur **Kuan Ti**.',
-            actualRoomLogDto: new RoomLogDto(
-                player: $this->chun,
-                log: WeaponEventEnum::NATAMY_RIFLE_TARGET_HEADSHOT->toString(),
-                visibility: VisibilityEnum::PUBLIC,
-            ),
-            I: $I,
-        );
+        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(10, $I);
     }
 
     public function plasteniteArmorShouldReduceDamage(FunctionalTester $I): void
@@ -426,17 +418,54 @@ final class ShootActionCest extends AbstractFunctionalTest
     private function weaponEventLogProvider(): array
     {
         return [
-            WeaponEventEnum::BLASTER_TARGET_HEADSHOT->toString() => [WeaponEventEnum::BLASTER_TARGET_HEADSHOT->toString(), "Quelques fois tout devient ralenti, certains vous diront que le temps était juste différent, que la durée ne comptait plus, que chaque acte devenait unité et que chaque perception devenait éternelle. Dans un tel état de grâce, **Chun** tire avec une aisance surréaliste dans la tête de **Kuan Ti** qui s'effondre."],
-            WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->toString() => [WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->toString(), '**Chun** se saisit de son blaster et enchaîne les tirs avec précision sur **Kuan Ti**...'],
-            WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->toString() => [WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->toString(), "Il n'y a qu'un battement de cil entre le coup de feu de **Chun** et l'impact sur **Kuan Ti**."],
-            WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->toString() => [WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->toString(), "Que résonne le hurlement des blasters, seuls les survivants en disserteront. **Chun** est bien placée pour tenter de le savoir. **Kuan Ti** y perd le sens de l'audition."],
-            WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->toString() => [WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->toString(), '**Chun** se penche, dégaine et tire rapidement sur **Kuan Ti**... Qui est touché à la tête !'],
-            WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->toString() => [WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->toString(), "Un coup feu rapide de **Chun** vers **Kuan Ti** fait perdre l'équilibre à ce dernier."],
-            WeaponEventEnum::BLASTER_BREAK_WEAPON->toString() => [WeaponEventEnum::BLASTER_BREAK_WEAPON->toString(), 'Clic... Clic... **Chun** a raté une occasion...'],
-            WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->toString() => [WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->toString(), "La violence est le refuge de l'incompétence. **Chun** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **Kuan Ti** l'en sait gré."],
-            WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->toString() => [WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->toString(), 'Le tour de magie de **Chun** est décidément raté, il retourne son arme contre lui par mégarde.'],
-            WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->toString() => [WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->toString(), '**Chun** bute sur un poney imaginaire et tombe en arrière !'],
-            WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP->toString() => [WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP->toString(), "Clic... Clic... l'arme de **Chun** est enrayée."],
+            WeaponEventEnum::BLASTER_TARGET_HEADSHOT->toString() => [
+                WeaponEventEnum::BLASTER_TARGET_HEADSHOT->toString(),
+                "Quelques fois tout devient ralenti, certains vous diront que le temps était juste différent, que la durée ne comptait plus, que chaque acte devenait unité et que chaque perception devenait éternelle. Dans un tel état de grâce, **Chun** tire avec une aisance surréaliste dans la tête de **Kuan Ti** qui s'effondre.",
+            ],
+            WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->toString() => [
+                WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->toString(),
+                '**Chun** se saisit de son blaster et enchaîne les tirs avec précision sur **Kuan Ti**...',
+            ],
+            WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->toString() => [
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->toString(),
+                "Il n'y a qu'un battement de cil entre le coup de feu de **Chun** et l'impact sur **Kuan Ti**.",
+            ],
+            WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->toString() => [
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->toString(),
+                "Que résonne le hurlement des blasters, seuls les survivants en disserteront. **Chun** est bien placée pour tenter de le savoir. **Kuan Ti** y perd le sens de l'audition.",
+            ],
+            WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->toString() => [
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->toString(),
+                '**Chun** se penche, dégaine et tire rapidement sur **Kuan Ti**... Qui est touché à la tête !',
+            ],
+            WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->toString() => [
+                WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->toString(),
+                "Un coup feu rapide de **Chun** vers **Kuan Ti** fait perdre l'équilibre à ce dernier.",
+            ],
+            WeaponEventEnum::BLASTER_BREAK_WEAPON->toString() => [
+                WeaponEventEnum::BLASTER_BREAK_WEAPON->toString(),
+                'Clic... Clic... **Chun** a raté une occasion...',
+            ],
+            WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->toString() => [
+                WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->toString(),
+                "La violence est le refuge de l'incompétence. **Chun** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **Kuan Ti** l'en sait gré.",
+            ],
+            WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->toString() => [
+                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->toString(),
+                'Le tour de magie de **Chun** est décidément raté, il retourne son arme contre lui par mégarde.',
+            ],
+            WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->toString() => [
+                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->toString(),
+                '**Chun** bute sur un poney imaginaire et tombe en arrière !',
+            ],
+            WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP->toString() => [
+                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP->toString(),
+                "Clic... Clic... l'arme de **Chun** est enrayée.",
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_HEADSHOT->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_HEADSHOT->toString(),
+                '**Chun** a réussi sa tentative de tir en pleine tête sur **Kuan Ti**.',
+            ],
         ];
     }
 }

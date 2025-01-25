@@ -26,12 +26,6 @@
             <target>Quelques fois tout devient ralenti, certains vous diront que le temps était juste différent, que la durée ne comptait plus, que chaque acte devenait unité et que chaque perception devenait éternelle. Dans un tel état de grâce, **{character}** tire avec une aisance surréaliste dans la tête de **{target_character}** qui s'effondre.</target>
         </segment>
     </unit>
-    <unit id="natamy_rifle_target_headshot">
-        <segment id="natamy_rifle_target_headshot" state="translated">
-            <source>natamy_rifle_target_headshot</source>
-            <target>**{character}** a réussi sa tentative de tir en pleine tête sur **{target_character}**.</target>
-        </segment>
-    </unit>
     <unit id="blaster_target_random_injury">
         <segment id="blaster_target_random_injury" state="translated">
             <source>blaster_target_random_injury</source>
@@ -96,6 +90,23 @@
         <segment id="blaster_target_headshot" state="translated">
             <source>blaster_target_headshot</source>
             <target>Quelques fois tout devient ralenti, certains vous diront que le temps était juste différent, que la durée ne comptait plus, que chaque acte devenait unité et que chaque perception devenait éternelle. Dans un tel état de grâce, **{character}** tire avec une aisance surréaliste dans la tête de **{target_character}** qui s'effondre.</target>
+        </segment>
+    </unit>
+    <unit id="natamy_rifle_successful_shot">
+        <segment id="natamy_rifle_successful_shot" state="translated">
+            <source>natamy_rifle_successful_shot</source>
+            <target>{version, select,
+            1 {**{character}** vient de tirer sur **{target_character}** !}
+            2 {**{character}** ouvre le feu sur **{target_character}**...}
+            3 {**{character}** déverse un torrent de balle sur **{target_character}**...}
+            4 {**{character}** vient de mettre une balle dans **{target_character}**...}
+            other {**{character}** tire une rafale sur **{target_character}**...}}</target>
+        </segment>
+    </unit>
+    <unit id="natamy_rifle_target_headshot">
+        <segment id="natamy_rifle_target_headshot" state="translated">
+            <source>natamy_rifle_target_headshot</source>
+            <target>**{character}** a réussi sa tentative de tir en pleine tête sur **{target_character}**.</target>
         </segment>
     </unit>
     </file>

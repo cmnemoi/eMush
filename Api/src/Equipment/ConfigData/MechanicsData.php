@@ -1012,16 +1012,24 @@ abstract class MechanicsData
         [
             'name' => 'weapon_natamy_rifle_default',
             'type' => 'weapon',
-            'damageSpread' => [],
-            'successfulEventKeys' => [],
-            'failedEventKeys' => [],
+            'damageSpread' => [2, 4],
+            'successfulEventKeys' => [
+                WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->value => 75,
+                WeaponEventEnum::NATAMY_RIFLE_HEADSHOT->value => 1,
+            ],
+            'failedEventKeys' => [
+                WeaponEventEnum::BLASTER_FAILED_SHOT->value => 90,
+            ],
             'baseAccuracy' => 50.0,
             'baseDamageRange' => [2 => 12],
             'expeditionBonus' => 1.0,
             'criticalSuccessRate' => 0.0,
             'criticalFailRate' => 0.0,
             'oneShotRate' => 0.0,
-            'actions' => [],
+            'actions' => [
+                ActionEnum::SHOOT,
+                ActionEnum::SHOOT_CAT,
+            ],
             'modifierConfigs' => [],
         ],
         [

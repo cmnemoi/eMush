@@ -22,7 +22,8 @@ enum WeaponEventEnum: string
     case BLASTER_SHOOTER_MINUS_1_AP = 'blaster_shooter_minus_1_ap';
 
     // Natamy Rifle
-    case NATAMY_RIFLE_TARGET_HEADSHOT = 'natamy_rifle_target_headshot';
+    case NATAMY_RIFLE_SUCCESSFUL_SHOT = 'natamy_rifle_successful_shot';
+    case NATAMY_RIFLE_HEADSHOT = 'natamy_rifle_headshot';
 
     public function toString(): string
     {

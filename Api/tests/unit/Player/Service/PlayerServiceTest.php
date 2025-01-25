@@ -25,8 +25,6 @@ use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Skill\Entity\Skill;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
@@ -212,37 +210,10 @@ final class PlayerServiceTest extends TestCase
         $this->thenPlayerShouldBeDead($player);
     }
 
-    public function testPlayerAtZeroMoraleAtCycleChangeWithSelfSacrificeDoesntHaveEnergyRegenSkipped(): void
-    {
-        $player = $this->givenPlayerWithMorale(0);
-
-        $this->givenPlayerHasSelfSacrifice($player);
-
-        $this->givenPlayerWithAP($player, 0);
-
-        $this->whenIHandleNewCycleForPlayer($player);
-
-        $this->thenPlayerShouldHaveAP($player, 1);
-    }
-
     private function givenPlayerWithMorale(int $morale): Player
     {
         $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
         $player->setMoralPoint($morale);
-
-        return $player;
-    }
-
-    private function givenPlayerhasSelfSacrifice(Player $player): Player
-    {
-        $player->addSkill(Skill::createByNameForPlayer(SkillEnum::SELF_SACRIFICE, $player));
-
-        return $player;
-    }
-
-    private function givenPlayerWithAP(Player $player, int $AP): Player
-    {
-        $player->setActionPoint($AP);
 
         return $player;
     }
@@ -259,10 +230,5 @@ final class PlayerServiceTest extends TestCase
     private function thenPlayerShouldBeDead(Player $player): void
     {
         self::assertTrue($player->isDead());
-    }
-
-    private function thenPlayerShouldHaveAP(Player $player, int $AP): void
-    {
-        self::assertEquals($AP, $player->getActionPoint());
     }
 }

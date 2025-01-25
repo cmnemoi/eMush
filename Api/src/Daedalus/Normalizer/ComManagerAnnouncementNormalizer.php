@@ -40,12 +40,7 @@ final readonly class ComManagerAnnouncementNormalizer implements NormalizerInter
                     language: $comManagerAnnouncement->getLanguage(),
                 ),
             ],
-            'announcement' => $this->translationService->translate(
-                key: $comManagerAnnouncement->getAnnouncement(),
-                parameters: [],
-                domain: 'chat',
-                language: $comManagerAnnouncement->getLanguage(),
-            ),
+            'announcement' => $comManagerAnnouncement->getAnnouncement(),
             'date' => $this->getTranslatedDate($comManagerAnnouncement->getCreatedAtOrThrow(), $comManagerAnnouncement->getLanguage()),
         ];
     }

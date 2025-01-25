@@ -31,8 +31,9 @@ class ComManagerAnnouncement implements SanctionEvidenceInterface
     public function __construct(Player $comManager, string $announcement)
     {
         $this->comManager = $comManager;
-        $this->daedalus = $this->comManager->getDaedalus();
         $this->announcement = $announcement;
+        $this->daedalus = $this->comManager->getDaedalus();
+        $this->daedalus->addGeneralAnnouncement($this);
     }
 
     public function getId(): int

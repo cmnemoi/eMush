@@ -46,7 +46,6 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         $isCritical = static fn (GameEquipment $gameEquipment) => EquipmentEnum::getCriticalItems()->contains($gameEquipment->getName());
 
         switch ($statusName) {
-            case PlayerStatusEnum::INACTIVE:
             case PlayerStatusEnum::HIGHLY_INACTIVE:
                 $DroppableItems = $event->getPlayerStatusHolder()->getEquipmentsExceptPersonal()->filter($isCritical);
                 foreach ($DroppableItems as $item) {

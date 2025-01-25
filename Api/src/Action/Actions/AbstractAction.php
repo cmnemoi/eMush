@@ -82,7 +82,7 @@ abstract class AbstractAction
         $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
         $metadata->addConstraint(new PlayerCanAffordPoints(['groups' => ['execute']]));
         $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION]));
-        // $metadata->addConstraint(new IsActionProviderOperational(['groups' => ['execute']]));
+        $metadata->addConstraint(new IsActionProviderOperational(['groups' => ['execute']]));
         $metadata->addConstraint(new AdminAction(['groups' => [ClassConstraint::VISIBILITY]]));
     }
 

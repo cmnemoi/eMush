@@ -908,6 +908,109 @@ class EventConfigData
                     WeaponEffectEnum::BIG_GUN_ONE_SHOT->toString(),
                 ]
             ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::DOUBLE_DAMAGE_ON_MUSH_TARGET->toString(),
+                    WeaponEffectEnum::ADD_TWO_MAX_DAMAGE->toString(),
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_TARGET_MINUS_1AP->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_TARGET_MINUS_1AP->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_HEADSHOT_2->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_HEADSHOT_2->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::NATAMY_RIFLE_INJURY_ONE_SHOT->toString(),
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_TARGET_MASHED_FOOT->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_TARGET_MASHED_FOOT->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::DOUBLE_DAMAGE_ON_MUSH_TARGET->toString(),
+                    WeaponEffectEnum::INFLICT_MASHED_FOOT_INJURY_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::DOUBLE_DAMAGE_ON_MUSH_TARGET->toString(),
+                    WeaponEffectEnum::INFLICT_BROKEN_SHOULDER_INJURY_TO_TARGET->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_BREAK_WEAPON->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_BREAK_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::BREAK_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BURNT_HAND->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BURNT_HAND->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_BURNT_HAND_INJURY_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BROKEN_SHOULDER->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BROKEN_SHOULDER->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_BROKEN_SHOULDER_INJURY_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_FAILED_SHOT->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_FAILED_SHOT->toString(),
+                eventType: WeaponEventType::MISS,
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_MASHED_FOOT->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_MASHED_FOOT->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_MASHED_FOOT_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_DROP_WEAPON->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_DROP_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::DROP_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE->toString(),
+                eventName: WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::DOUBLE_DAMAGE_ON_MUSH_TARGET->toString(),
+                    WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                ]
+            ),
         ];
     }
 
@@ -946,6 +1049,11 @@ class EventConfigData
                 eventName: WeaponEffectEnum::ONE_SHOT->toString(),
                 endCause: EndCauseEnum::BEHEADED,
             ),
+            new OneShotWeaponEffectConfigDto(
+                name: WeaponEffectEnum::NATAMY_RIFLE_INJURY_ONE_SHOT->toString(),
+                eventName: WeaponEffectEnum::ONE_SHOT->toString(),
+                endCause: EndCauseEnum::INJURY,
+            ),
             new InflictRandomInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
@@ -963,7 +1071,6 @@ class EventConfigData
                 name: WeaponEffectEnum::INFLICT_MASHED_EAR_INJURY_TO_TARGET->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
                 injuryName: InjuryEnum::DAMAGED_EARS,
-                triggerRate: 100,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_TORN_TONGUE_INJURY_TO_TARGET_30_PERCENTS->toString(),
@@ -987,7 +1094,7 @@ class EventConfigData
                 name: WeaponEffectEnum::INFLICT_HEAD_TRAUMA_INJURY_TO_TARGET_30_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
                 injuryName: InjuryEnum::HEAD_TRAUMA,
-                triggerRate: 100,
+                triggerRate: 30,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
@@ -1018,6 +1125,45 @@ class EventConfigData
                 name: WeaponEffectEnum::DOUBLE_DAMAGE_ON_MUSH_TARGET->toString(),
                 eventName: WeaponEffectEnum::MULTIPLY_DAMAGE_ON_MUSH_TARGET->toString(),
                 quantity: 2,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
+                triggerRate: 40,
+            ),
+            new RemoveActionPointsWeaponEffectConfigDto(
+                name: WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::REMOVE_ACTION_POINTS->toString(),
+                quantity: 1,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_MASHED_FOOT_INJURY_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::MASHED_FOOT,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_BROKEN_SHOULDER_INJURY_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::BROKEN_SHOULDER,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_BURNT_HAND_INJURY_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::BURNT_HAND,
+                toShooter: true,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_BROKEN_SHOULDER_INJURY_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::BROKEN_SHOULDER,
+                toShooter: true,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_MASHED_FOOT_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::MASHED_FOOT,
+                toShooter: true,
             ),
         ];
     }

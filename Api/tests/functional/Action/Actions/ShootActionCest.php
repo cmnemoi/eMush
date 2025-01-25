@@ -466,6 +466,46 @@ final class ShootActionCest extends AbstractFunctionalTest
                 WeaponEventEnum::NATAMY_RIFLE_HEADSHOT->toString(),
                 '**Chun** a réussi sa tentative de tir en pleine tête sur **Kuan Ti**.',
             ],
+            WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString(),
+                '**Chun** prend son temps pour ajuster **Kuan Ti**. Aïe...',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_TARGET_MINUS_1AP->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_TARGET_MINUS_1AP->toString(),
+                '**Kuan Ti** esquive miraculeusement une rafale de **Chun**.',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_HEADSHOT_2->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_HEADSHOT_2->toString(),
+                '**Chun** vide son chargeur dans **Kuan Ti**.',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_TARGET_MASHED_FOOT->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_TARGET_MASHED_FOOT->toString(),
+                'La crosse de son fusil gêne **Chun**. Le pied de **Kuan Ti** est maintenant en purée.',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_BREAK_WEAPON->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_BREAK_WEAPON->toString(),
+                'Clic clic clic... L\'arme de **Chun** est enrayée. **Kuan Ti** devrait lui en être reconnaissant.',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BURNT_HAND->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BURNT_HAND->toString(),
+                'En tirant sur **Kuan Ti**, **Chun** s\'est brûlée avec son arme. Grandiose.',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BROKEN_SHOULDER->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BROKEN_SHOULDER->toString(),
+                '**Chun** aurait dû mieux anticiper le recul, ratant **Kuan Ti** en se démontant l\'épaule. Bravo.',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_SHOOTER_MASHED_FOOT->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_SHOOTER_MASHED_FOOT->toString(),
+                'Une arme lourde fait de gros dégâts sur les pieds de **Chun**...',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_DROP_WEAPON->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_DROP_WEAPON->toString(),
+                'Nul mot de saurait décrire l\'incroyable acrobatie de l\'arme de **Chun** qui finit par atterrir par terre...',
+            ],
+            WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE->toString() => [
+                WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE->toString(),
+                'L\'oeil vif, la rage au corps, **Chun** réussit magnifiquement son tir en plein dans la poitrine de **Kuan Ti**...',
+            ],
         ];
     }
 }

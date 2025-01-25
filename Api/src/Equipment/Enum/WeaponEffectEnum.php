@@ -20,6 +20,7 @@ enum WeaponEffectEnum: string
     // one shot effects
     case BLASTER_ONE_SHOT = 'blaster_one_shot';
     case BIG_GUN_ONE_SHOT = 'big_gun_one_shot';
+    case NATAMY_RIFLE_INJURY_ONE_SHOT = 'natamy_rifle_injury_one_shot';
 
     // modify damage effects
     case ADD_ONE_DAMAGE = 'add_one_damage';
@@ -35,6 +36,12 @@ enum WeaponEffectEnum: string
     case INFLICT_OPEN_AIR_BRAIN_INJURY_TO_TARGET_30_PERCENTS = 'inflict_open_air_brain_injury_to_target_30_percents';
     case INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_10_PERCENTS = 'inflict_critical_haemorrhage_injury_to_target_10_percents';
     case INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS = 'inflict_haemorrhage_injury_to_target_40_percents';
+    case INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS = 'inflict_critical_haemorrhage_injury_to_target_40_percents';
+    case INFLICT_MASHED_FOOT_INJURY_TO_TARGET = 'inflict_mashed_foot_injury_to_target';
+    case INFLICT_BROKEN_SHOULDER_INJURY_TO_TARGET = 'inflict_broken_shoulder_injury_to_target';
+    case INFLICT_BURNT_HAND_INJURY_TO_SHOOTER = 'inflict_burnt_hand_injury_to_shooter';
+    case INFLICT_BROKEN_SHOULDER_INJURY_TO_SHOOTER = 'inflict_broken_shoulder_injury_to_shooter';
+    case INFLICT_MASHED_FOOT_TO_SHOOTER = 'inflict_mashed_foot_to_shooter';
 
     // inflict random injury effects
     case INFLICT_RANDOM_INJURY_TO_SHOOTER = 'inflict_random_injury_to_shooter';
@@ -45,6 +52,7 @@ enum WeaponEffectEnum: string
     // remove action point effects
     case REMOVE_ONE_ACTION_POINT_TO_SHOOTER = 'remove_one_action_point_to_shooter';
     case REMOVE_TWO_ACTION_POINTS_TO_TARGET = 'remove_two_action_points_to_target';
+    case REMOVE_ONE_ACTION_POINT_TO_TARGET = 'remove_one_action_point_to_target';
 
     // multiply damage on mush target effects
     case DOUBLE_DAMAGE_ON_MUSH_TARGET = 'double_damage_on_mush_target';

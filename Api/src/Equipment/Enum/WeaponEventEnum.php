@@ -23,7 +23,19 @@ enum WeaponEventEnum: string
 
     // Natamy Rifle
     case NATAMY_RIFLE_SUCCESSFUL_SHOT = 'natamy_rifle_successful_shot';
+    case NATAMY_RIFLE_FAILED_SHOT = 'natamy_rifle_failed_shot';
     case NATAMY_RIFLE_HEADSHOT = 'natamy_rifle_headshot';
+    case NATAMY_RIFLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY = 'natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury';
+    case NATAMY_RIFLE_TARGET_MINUS_1AP = 'natamy_rifle_target_minus_1ap';
+    case NATAMY_RIFLE_HEADSHOT_2 = 'natamy_rifle_headshot_2';
+    case NATAMY_RIFLE_TARGET_MASHED_FOOT = 'natamy_rifle_target_mashed_foot';
+    case NATAMY_RIFLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS = 'natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents';
+    case NATAMY_RIFLE_BREAK_WEAPON = 'natamy_rifle_break_weapon';
+    case NATAMY_RIFLE_SHOOTER_BURNT_HAND = 'natamy_rifle_shooter_burnt_hand';
+    case NATAMY_RIFLE_SHOOTER_BROKEN_SHOULDER = 'natamy_rifle_shooter_broken_shoulder';
+    case NATAMY_RIFLE_SHOOTER_MASHED_FOOT = 'natamy_rifle_shooter_mashed_foot';
+    case NATAMY_RIFLE_DROP_WEAPON = 'natamy_rifle_drop_weapon';
+    case NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE = 'natamy_rifle_shooter_plus_2_damage';
 
     public function toString(): string
     {

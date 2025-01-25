@@ -14,7 +14,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Action\Service\GetActionTargetFromContextService;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -224,13 +223,15 @@ class ActionNormalizer implements NormalizerInterface
     {
         $actionName = $actionClass->getActionName();
         $daedalus = $currentPlayer->getDaedalus();
+        $actionProvider = $actionClass->getActionProvider();
 
         $translationParameters = [
             $currentPlayer->getLogKey() => $currentPlayer->getLogName(),
+            $actionProvider->getLogKey() => $actionProvider->getLogName(),
             'outputQuantity' => $actionClass->getOutputQuantity(),
         ];
 
-        if ($actionTarget instanceof Player) {
+        if ($actionTarget) {
             $translationParameters['target_' . $actionTarget->getLogKey()] = $actionTarget->getLogName();
         }
         if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
@@ -243,11 +244,6 @@ class ActionNormalizer implements NormalizerInterface
         }
         if (ActionEnum::getTakeOffToPlanetActions()->contains($actionName)) {
             $translationParameters['planet'] = $this->getTranslatedInOrbitPlanet($currentPlayer);
-        }
-        if ($actionName === ActionEnum::GRAFT->value) {
-            /** @var GameItem $fruit */
-            $fruit = $actionClass->getActionProvider();
-            $translationParameters[$fruit->getLogKey()] = $fruit->getLogName();
         }
 
         return $translationParameters;

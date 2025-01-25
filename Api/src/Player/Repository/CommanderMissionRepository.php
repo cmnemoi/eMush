@@ -25,7 +25,7 @@ final class CommanderMissionRepository extends ServiceEntityRepository implement
 
     public function save(CommanderMission $commanderMission): void
     {
-        $this->_em->persist($commanderMission);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($commanderMission);
+        $this->getEntityManager()->flush();
     }
 }

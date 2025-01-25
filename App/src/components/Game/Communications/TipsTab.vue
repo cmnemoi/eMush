@@ -42,11 +42,11 @@
             </div>
         </section>
 
-        <section class="unit" v-if="channel.tips.announcement.elements.length > 0">
+        <section class="unit" v-if="channel.tips.announcement.element.length > 0">
             <div class="banner">
                 <span><img :src="getImgUrl('infoalert.png')"> {{ channel.tips.announcement.title }} <img :src="getImgUrl('infoalert.png')"></span>
             </div>
-            <div class="announcement" v-for="announcement in channel.tips.announcement.elements" :key="announcement.comManager.key">
+            <div class="announcement" v-for="announcement in channel.tips.announcement.element" :key="announcement.comManager.key">
                 <div class="message">
                     <div class="char-portrait">
                         <img :src="getImgUrl(`char/body/${announcement.comManager.key}.png`)">

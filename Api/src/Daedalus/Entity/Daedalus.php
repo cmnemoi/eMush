@@ -111,7 +111,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ComManagerAnnouncement::class, orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
-    private Collection $receivedAnnouncements;
+    private Collection $generalAnnouncements;
 
     public function __construct()
     {
@@ -121,7 +121,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->statuses = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->titlePriorities = new ArrayCollection();
-        $this->receivedAnnouncements = new ArrayCollection();
+        $this->generalAnnouncements = new ArrayCollection();
     }
 
     public function getId(): int
@@ -985,21 +985,21 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getExploration()?->isChangingCycle() ?? false;
     }
 
-    public function addReceivedAnnouncement(ComManagerAnnouncement $announcement): static
+    public function addGeneralAnnouncement(ComManagerAnnouncement $announcement): static
     {
-        $this->receivedAnnouncements->add($announcement);
+        $this->generalAnnouncements->add($announcement);
 
         return $this;
     }
 
-    public function getReceivedAnnouncements(): ArrayCollection
+    public function getGeneralAnnouncements(): ArrayCollection
     {
-        return new ArrayCollection($this->receivedAnnouncements->toArray());
+        return new ArrayCollection($this->generalAnnouncements->toArray());
     }
 
     public function getNewestAnnouncement(): ?ComManagerAnnouncement
     {
-        return $this->getReceivedAnnouncements()->last() ?: null;
+        return $this->getGeneralAnnouncements()->last() ?: null;
     }
 
     public function getNewestAnnouncementAsArray(): ArrayCollection

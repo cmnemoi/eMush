@@ -25,7 +25,7 @@ final class ComManagerAnnouncementRepository extends ServiceEntityRepository imp
 
     public function save(ComManagerAnnouncement $comManagerAnnouncement): void
     {
-        $this->_em->persist($comManagerAnnouncement);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($comManagerAnnouncement);
+        $this->getEntityManager()->flush();
     }
 }

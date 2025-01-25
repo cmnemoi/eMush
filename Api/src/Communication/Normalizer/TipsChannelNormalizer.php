@@ -90,7 +90,7 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
                         domain: 'chat',
                         language: $currentPlayer->getLanguage(),
                     ),
-                    'elements' => $currentPlayer->getDaedalus()->getNewestAnnouncementAsArray()->map(
+                    'element' => $currentPlayer->getDaedalus()->getNewestAnnouncementAsArray()->map(
                         fn (ComManagerAnnouncement $comManagerAnnouncement) => $this->normalizer->normalize($comManagerAnnouncement, $format, $context)
                     )->toArray(),
                 ],

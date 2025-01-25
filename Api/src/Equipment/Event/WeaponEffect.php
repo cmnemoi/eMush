@@ -6,8 +6,6 @@ namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\Config\WeaponEffect\BackfireWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\InflictInjuryWeaponEffectConfig;
-use Mush\Equipment\Entity\Config\WeaponEffect\ModifyDamageWeaponEffectConfig;
-use Mush\Equipment\Entity\Config\WeaponEffect\ModifyMaxDamageWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\OneShotWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\QuantityWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\RandomWeaponEffectConfig;
@@ -93,36 +91,23 @@ final class WeaponEffect extends AbstractGameEvent
 
     public function modifyMaxDamage(): void
     {
-        $this->damageSpread = new DamageSpread($this->damageSpread->min, $this->damageSpread->max + $this->getMaxDamageModification());
+        $this->damageSpread = new DamageSpread($this->damageSpread->min, $this->damageSpread->max + $this->getQuantity());
     }
 
     public function modifyDamage(): void
     {
-        $this->damageSpread = new DamageSpread($this->damageSpread->min + $this->getDamageModification(), $this->damageSpread->max + $this->getDamageModification());
+        $this->damageSpread = new DamageSpread($this->damageSpread->min + $this->getQuantity(), $this->damageSpread->max + $this->getQuantity());
+    }
+
+    public function multiplyDamage(): void
+    {
+        $this->damageSpread = new DamageSpread($this->damageSpread->min * $this->getQuantity(), $this->damageSpread->max * $this->getQuantity());
     }
 
     public function getQuantity(): int
     {
         if (!$this->weaponEffectConfig instanceof QuantityWeaponEffectConfig) {
             throw new \RuntimeException("Only quantity weapon effects can have a quantity, got {$this->weaponEffectConfig->getName()}");
-        }
-
-        return $this->weaponEffectConfig->getQuantity();
-    }
-
-    private function getMaxDamageModification(): int
-    {
-        if (!$this->weaponEffectConfig instanceof ModifyMaxDamageWeaponEffectConfig) {
-            throw new \RuntimeException("Only modify max damage weapon effects can modify max damage, got {$this->weaponEffectConfig->getName()}");
-        }
-
-        return $this->weaponEffectConfig->getQuantity();
-    }
-
-    private function getDamageModification(): int
-    {
-        if (!$this->weaponEffectConfig instanceof ModifyDamageWeaponEffectConfig) {
-            throw new \RuntimeException("Only modify damage weapon effects can modify damage, got {$this->weaponEffectConfig->getName()}");
         }
 
         return $this->weaponEffectConfig->getQuantity();

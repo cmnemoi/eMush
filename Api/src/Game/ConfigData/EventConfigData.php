@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\Dto\WeaponEffect\InflictInjuryWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\InflictRandomInjuryWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\ModifyDamageWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\ModifyMaxDamageWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\MultiplyDamageOnMushTargetWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\OneShotWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\RemoveActionPointsWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\WeaponEffectDto;
@@ -893,6 +894,7 @@ class EventConfigData
                 eventName: WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->toString(),
                 eventType: WeaponEventType::NORMAL,
                 effectKeys: [
+                    WeaponEffectEnum::DOUBLE_DAMAGE_ON_MUSH_TARGET->toString(),
                     WeaponEffectEnum::INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
                     WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
                     WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_10_PERCENTS->toString(),
@@ -1011,6 +1013,11 @@ class EventConfigData
             new DropWeaponEffectConfigDto(
                 name: WeaponEffectEnum::DROP_WEAPON->toString(),
                 eventName: WeaponEffectEnum::DROP_WEAPON->toString(),
+            ),
+            new MultiplyDamageOnMushTargetWeaponEffectConfigDto(
+                name: WeaponEffectEnum::DOUBLE_DAMAGE_ON_MUSH_TARGET->toString(),
+                eventName: WeaponEffectEnum::MULTIPLY_DAMAGE_ON_MUSH_TARGET->toString(),
+                quantity: 2,
             ),
         ];
     }

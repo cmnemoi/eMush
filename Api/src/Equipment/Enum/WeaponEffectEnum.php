@@ -15,6 +15,7 @@ enum WeaponEffectEnum: string
     case MODIFY_MAX_DAMAGE = 'modify_max_damage';
     case ONE_SHOT = 'one_shot';
     case REMOVE_ACTION_POINTS = 'remove_action_points';
+    case MULTIPLY_DAMAGE_ON_MUSH_TARGET = 'multiply_damage_on_mush_target';
 
     // one shot effects
     case BLASTER_ONE_SHOT = 'blaster_one_shot';
@@ -44,6 +45,9 @@ enum WeaponEffectEnum: string
     // remove action point effects
     case REMOVE_ONE_ACTION_POINT_TO_SHOOTER = 'remove_one_action_point_to_shooter';
     case REMOVE_TWO_ACTION_POINTS_TO_TARGET = 'remove_two_action_points_to_target';
+
+    // multiply damage on mush target effects
+    case DOUBLE_DAMAGE_ON_MUSH_TARGET = 'double_damage_on_mush_target';
 
     public function toString(): string
     {

@@ -18,7 +18,11 @@ final class WeaponEffectConfigDataLoader extends ConfigDataLoader
 
         foreach (EventConfigData::weaponEffectsConfigData() as $dto) {
             $config = $repository->findOneBy(['name' => $dto->name]);
-            $config = !$config ? $dto->toEntity() : $config->updateFromDto($dto);
+            if ($config === null) {
+                $config = $dto->toEntity();
+            } else {
+                $config->updateFromDto($dto);
+            }
 
             $this->entityManager->persist($config);
         }

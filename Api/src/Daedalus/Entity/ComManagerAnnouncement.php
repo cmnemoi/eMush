@@ -19,13 +19,13 @@ class ComManagerAnnouncement implements SanctionEvidenceInterface
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'createdAnnouncements')]
+    #[ORM\ManyToOne(targetEntity: Player::class)]
     private Player $comManager;
 
     #[ORM\Column(type: 'text', nullable: false, options: ['default' => ''])]
     private string $announcement;
 
-    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'receivedAnnouncements')]
+    #[ORM\ManyToOne(targetEntity: Daedalus::class, inversedBy: 'generalAnnouncements')]
     private Daedalus $daedalus;
 
     public function __construct(Player $comManager, string $announcement)
@@ -76,13 +76,13 @@ class ComManagerAnnouncement implements SanctionEvidenceInterface
         return self::class;
     }
 
-    public function getDay(): null
+    public function getDay(): int
     {
-        return null;
+        return $this->daedalus->getDay();
     }
 
-    public function getCycle(): null
+    public function getCycle(): int
     {
-        return null;
+        return $this->daedalus->getCycle();
     }
 }

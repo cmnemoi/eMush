@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Communication\Normalizer;
 
 use Mush\Communication\Entity\Channel;
-use Mush\Daedalus\Entity\ComManagerAnnouncement;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\CommanderMission;
 use Mush\Player\Entity\Player;
@@ -90,9 +89,7 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
                         domain: 'chat',
                         language: $currentPlayer->getLanguage(),
                     ),
-                    'element' => $currentPlayer->getDaedalus()->getNewestAnnouncementAsArray()->map(
-                        fn (ComManagerAnnouncement $comManagerAnnouncement) => $this->normalizer->normalize($comManagerAnnouncement, $format, $context)
-                    )->toArray(),
+                    'element' => $this->normalizer->normalize($currentPlayer->getDaedalus()->getLatestAnnouncement(), $format, $context),
                 ],
             ],
         ];

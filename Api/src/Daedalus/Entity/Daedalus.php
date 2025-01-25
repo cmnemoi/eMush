@@ -997,18 +997,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return new ArrayCollection($this->generalAnnouncements->toArray());
     }
 
-    public function getNewestAnnouncement(): ?ComManagerAnnouncement
+    public function getLatestAnnouncement(): ?ComManagerAnnouncement
     {
         return $this->getGeneralAnnouncements()->last() ?: null;
-    }
-
-    public function getNewestAnnouncementAsArray(): ArrayCollection
-    {
-        if ($this->getNewestAnnouncement()) {
-            return new ArrayCollection([$this->getNewestAnnouncement()]);
-        }
-
-        return new ArrayCollection();
     }
 
     private function getCreatedAtOrThrow(): \DateTime

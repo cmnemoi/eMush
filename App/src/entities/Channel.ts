@@ -11,6 +11,11 @@ export type CommanderMission = {
 };
 
 export type ComManagerAnnouncement = {
+    title: string,
+    element: ComManagerAnnouncementElement,
+};
+
+export type ComManagerAnnouncementElement = {
     id: number,
     comManager: {id: number, key: string, name: string},
     announcement: string,
@@ -45,9 +50,9 @@ type Tips = {
             accept: string;
         }
     };
-    announcements: {
+    announcement: {
         title: string;
-        elements: ComManagerAnnouncement[];
+        element: ComManagerAnnouncement;
     }
 }
 

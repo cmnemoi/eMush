@@ -42,20 +42,20 @@
             </div>
         </section>
 
-        <section class="unit" v-if="channel.tips.announcement.element.length > 0">
+        <section class="unit" v-if="generalAnnouncement">
             <div class="banner">
                 <span><img :src="getImgUrl('infoalert.png')"> {{ channel.tips.announcement.title }} <img :src="getImgUrl('infoalert.png')"></span>
             </div>
-            <div class="announcement" v-for="announcement in channel.tips.announcement.element" :key="announcement.comManager.key">
+            <div class="announcement" :key="generalAnnouncement.comManager.key">
                 <div class="message">
                     <div class="char-portrait">
-                        <img :src="getImgUrl(`char/body/${announcement.comManager.key}.png`)">
+                        <img :src="getImgUrl(`char/body/${generalAnnouncement.comManager.key}.png`)">
                     </div>
                     <p>
-                        <span class="author">{{ announcement.comManager.name }} :</span>
-                        <span class="announcement-text" v-html="formatText(announcement.announcement)"></span>
-                        <span class="timestamp">{{ announcement.date }}</span>
-                        <Tippy tag="span" class="report-button" @click="submitReportAnnouncement(announcement)">
+                        <span class="author">{{ generalAnnouncement.comManager.name }} :</span>
+                        <span class="announcement-text" v-html="formatText(generalAnnouncement.announcement)"></span>
+                        <span class="timestamp">{{ generalAnnouncement.date }}</span>
+                        <Tippy tag="span" class="report-button" @click="submitReportAnnouncement(generalAnnouncement)">
                             <img :src="getImgUrl('comms/alert.png')" alt="Report message">
                             <template #content>
                                 <h1>{{ $t('moderation.report.name')}}</h1>
@@ -116,7 +116,7 @@
 </template>
 
 <script lang="ts">
-import { CommanderMission } from "@/entities/Channel";
+import { ComManagerAnnouncementElement, CommanderMission } from "@/entities/Channel";
 import { ComManagerAnnouncement } from "@/entities/Channel";
 import TabContainer from "@/components/Game/Communications/TabContainer.vue";
 import { defineComponent } from "vue";
@@ -136,6 +136,9 @@ export default defineComponent ({
             channel: "communication/currentChannel",
             player: "player/player"
         }),
+        generalAnnouncement(): ComManagerAnnouncementElement | undefined {
+            return this.channel.tips?.announcement.element;
+        },
         acceptMissionAction(): Action | undefined {
             return this.player.getActionByKey(ActionEnum.ACCEPT_MISSION);
         },
@@ -160,7 +163,7 @@ export default defineComponent ({
             const params = new URLSearchParams();
 
             params.append('reason', 'hate_speech');
-            params.append('player', mission.commander.id);
+            params.append('player', String(mission.commander.id));
             params.append('adminMessage', `${mission.mission} (${this.$t('moderation.report.commanderMission')})`);
 
             await this.reportCommanderMission({ missionId : mission.id, params });
@@ -169,11 +172,11 @@ export default defineComponent ({
             await this.toggleMission({ mission });
             mission.isCompleted = !mission.isCompleted;
         },
-        async submitReportAnnouncement(announcement: ComManagerAnnouncement): Promise<void> {
+        async submitReportAnnouncement(announcement: ComManagerAnnouncementElement): Promise<void> {
             const params = new URLSearchParams();
 
             params.append('reason', 'hate_speech');
-            params.append('player', announcement.comManager.id);
+            params.append('player', String(announcement.comManager.id));
             params.append('adminMessage', `${announcement.announcement} (${this.$t('moderation.report.comManagerAnnouncement')})`);
 
             await this.reportComManagerAnnouncement({ announcementId : announcement.id, params });

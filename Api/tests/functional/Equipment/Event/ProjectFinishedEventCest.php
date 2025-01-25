@@ -123,7 +123,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
             I: $I
         );
 
-        // then the lab should one piece of equipment to remove
+        // then the lab should still have one piece of equipment to remove
         $I->assertCount(
             expectedCount: 1,
             haystack: $room->getAllEquipmentsByName($example['equipmentToRemove']),

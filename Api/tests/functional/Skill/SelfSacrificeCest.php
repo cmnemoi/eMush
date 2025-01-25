@@ -67,7 +67,7 @@ final class SelfSacrificeCest extends AbstractFunctionalTest
         );
     }
 
-    public function ShouldNotSkipAPRegen(FunctionalTester $I): void
+    public function shouldNotSkipActionPointsRegen(FunctionalTester $I): void
     {
         $this->givenPlayerHasMorale(0);
 

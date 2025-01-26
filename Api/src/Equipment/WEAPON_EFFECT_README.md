@@ -43,7 +43,25 @@ This guide explains how to implement brand new weapon effects.
    }
    ```
 
-2. Create the associated DTO in `Api/src/Equipment/Entity/Dto/WeaponEffect`:
+2. Add it to [AbstractEventConfig](../Game/Entity/AbstractEventConfig.php) discriminator map:
+```php
+#[ORM\Entity]
+#[ORM\Table(name: 'event_config')]
+#[ORM\InheritanceType('SINGLE_TABLE')]
+#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
+#[ORM\DiscriminatorMap([
+    'variable_event_config' => VariableEventConfig::class,
+    'planet_sector_event_config' => PlanetSectorEventConfig::class,
+    'weapon_event_config' => WeaponEventConfig::class,
+    'your_weapon_effect_config' => YourWeaponEffectConfig::class,
+])]
+abstract class AbstractEventConfig
+{
+    ...
+}
+```
+
+3. Create the associated DTO in `Api/src/Equipment/Entity/Dto/WeaponEffect`:
    ```php
    namespace Mush\Equipment\Entity\Dto\WeaponEffect;
 
@@ -59,7 +77,7 @@ This guide explains how to implement brand new weapon effects.
    }
    ```
 
-3. Create a handler that extends `AbstractWeaponEffectHandler` in `Api/src/Equipment/WeaponEffect`:
+4. Create a handler that extends `AbstractWeaponEffectHandler` in `Api/src/Equipment/WeaponEffect`:
    ```php
    namespace Mush\Equipment\WeaponEffect;
 
@@ -80,12 +98,12 @@ This guide explains how to implement brand new weapon effects.
    }
    ```
 
-4. Add your effect name to `WeaponEffectEnum` in `Api/src/Equipment/Enum/WeaponEffectEnum.php`:
+5. Add your effect name to `WeaponEffectEnum` in `Api/src/Equipment/Enum/WeaponEffectEnum.php`:
    ```php
    case YOUR_EFFECT = 'your_effect';
    ```
 
-5. Configure your effect in `Api/src/Game/ConfigData/EventConfigData.php`:
+6. Configure your effect in `Api/src/Game/ConfigData/EventConfigData.php`:
    ```php
    new YourWeaponEffectConfigDto(
        name: WeaponEffectEnum::YOUR_EFFECT->toString(),
@@ -94,7 +112,7 @@ This guide explains how to implement brand new weapon effects.
    ),
    ```
 
-6. Add test fixtures in `Api/src/Equipment/DataFixtures/WeaponEffectConfigFixtures.php`
+7. Add test fixtures in `Api/src/Equipment/DataFixtures/WeaponEffectConfigFixtures.php`
 
 ## Available Interfaces
 
@@ -103,84 +121,5 @@ When creating your weapon effect config, you can implement these interfaces base
 - **QuantityWeaponEffectConfig**: For effects that need a quantity value (like damage modifiers)
 - **BackfireWeaponEffectConfig**: For effects that can backfire on the shooter
 - **RandomWeaponEffectConfig**: For effects with random outcomes
-
-## Example
-
-Here's an example of implementing a weapon effect that doubles the damage:
-
-1. Create the config entity:
-```php
-#[ORM\Entity]
-class DoubleDamageWeaponEffectConfig extends AbstractEventConfig implements QuantityWeaponEffectConfig
-{
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 2])]
-    private int $quantity = 2;
-
-    public function __construct(
-        string $name,
-        string $eventName,
-        int $quantity = 2,
-    ) {
-        parent::__construct($name, $eventName);
-        $this->quantity = $quantity;
-    }
-
-    public function getQuantity(): int
-    {
-        return $this->quantity;
-    }
-
-    public function updateFromDto(DoubleDamageWeaponEffectConfigDto $dto): void
-    {
-        $this->name = $dto->name;
-        $this->eventName = $dto->eventName;
-        $this->quantity = $dto->quantity;
-    }
-}
-```
-
-2. Create the DTO:
-```php
-final readonly class DoubleDamageWeaponEffectConfigDto extends WeaponEffectDto
-{
-    public function __construct(
-        string $name,
-        string $eventName,
-        public int $quantity = 2,
-    ) {
-        parent::__construct($name, $eventName);
-    }
-}
-```
-
-3. Create the handler:
-```php
-final readonly class DoubleDamageWeaponEffectHandler extends AbstractWeaponEffectHandler
-{
-    public function getName(): string
-    {
-        return WeaponEffectEnum::DOUBLE_DAMAGE->toString();
-    }
-
-    public function handle(WeaponEffect $effect): void
-    {
-        $effect->modifyDamage($effect->getDamage() * 2);
-    }
-}
-```
-
-4. Add to WeaponEffectEnum:
-```php
-case DOUBLE_DAMAGE = 'double_damage';
-```
-
-5. Configure in EventConfigData:
-```php
-new DoubleDamageWeaponEffectConfigDto(
-    name: WeaponEffectEnum::DOUBLE_DAMAGE->toString(),
-    eventName: WeaponEffectEnum::DOUBLE_DAMAGE->toString(),
-    quantity: 2,
-),
-```
 
 For information on how to add this effect to a weapon event, see [WEAPON_EVENT_README.md](./WEAPON_EVENT_README.md).

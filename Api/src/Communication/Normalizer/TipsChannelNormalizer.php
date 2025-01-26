@@ -82,6 +82,15 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
                         ),
                     ],
                 ],
+                'announcement' => [
+                    'title' => $this->translationService->translate(
+                        key: 'tips.announcements.title',
+                        parameters: [],
+                        domain: 'chat',
+                        language: $currentPlayer->getLanguage(),
+                    ),
+                    'element' => $this->normalizer->normalize($currentPlayer->getDaedalus()->getLatestAnnouncement(), $format, $context),
+                ],
             ],
         ];
     }

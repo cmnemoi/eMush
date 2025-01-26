@@ -10,6 +10,7 @@
                 <CharPanel :player="player" />
                 <TerminalPanel v-if="player.isFocused()" :player="player" />
                 <CommanderOrderPanel v-else-if="commanderOrderPanelOpen" :player="player" />
+                <ComManagerAnnouncementPanel v-else-if="comManagerAnnouncementPanelOpen" :player="player" />
                 <ExpeditionPanel v-else-if="player.isExploring()" :player="player" />
                 <ShipPanel v-else :room="player.room" :player="player" />
                 <CommsPanel :calendar="player.daedalus.calendar"/>
@@ -38,6 +39,7 @@ import { TerminalEnum } from "@/enums/terminal.enum";
 import TerminalPanel from "@/components/Game/Terminals/TerminalPanel.vue";
 import ExpeditionPanel from "@/components/Game/ExpeditionPanel.vue";
 import CommanderOrderPanel from "@/components/Game/CommanderOrderPanel.vue";
+import ComManagerAnnouncementPanel from "./ComManagerAnnouncementPanel.vue";
 
 
 export default defineComponent ({
@@ -53,7 +55,8 @@ export default defineComponent ({
         ProjectsPanel,
         TerminalPanel,
         ExpeditionPanel,
-        CommanderOrderPanel
+        CommanderOrderPanel,
+        ComManagerAnnouncementPanel
     },
     data() {
         return {
@@ -68,7 +71,8 @@ export default defineComponent ({
             'player',
             'playerChanged'
         ]),
-        ...mapGetters('player', ['commanderOrderPanelOpen'])
+        ...mapGetters('player', ['commanderOrderPanelOpen']),
+        ...mapGetters('player', ['comManagerAnnouncementPanelOpen'])
     },
     async beforeMount(): Promise<void> {
         if (!this.playerChanged && this.playerId) {

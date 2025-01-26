@@ -629,6 +629,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $rejectMissionAction */
         $rejectMissionAction = $this->getReference(ActionEnum::REJECT_MISSION->value);
 
+        /** @var ActionConfig $comManagerAnnouncementAction */
+        $comManagerAnnouncementAction = $this->getReference(ActionEnum::COM_MANAGER_ANNOUNCEMENT->value);
+
         /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -652,6 +655,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $commanderOrderAction,
             $acceptMissionAction,
             $rejectMissionAction,
+            $comManagerAnnouncementAction,
         ]);
 
         $characterConfig = new CharacterConfig();

@@ -79,6 +79,10 @@
         <source>tips.missions.accept</source>
         <target>Accepter ?</target>
       </segment>
+      <segment id="announcements.title" state="translated">
+        <source>tips.announcements.title</source>
+        <target>Annonces</target>
+      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="translated">

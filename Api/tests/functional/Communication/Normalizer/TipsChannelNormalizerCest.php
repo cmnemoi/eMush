@@ -13,6 +13,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
@@ -26,6 +27,7 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->normalizer = $I->grabService(TipsChannelNormalizer::class);
+        $this->normalizer->setNormalizer($I->grabService(NormalizerInterface::class));
     }
 
     public function shouldSupportNormaliaztionOnlyForChannel(FunctionalTester $I): void
@@ -86,6 +88,10 @@ final class TipsChannelNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals('Missions', $normalizedChannel['tips']['missions']['title']);
         $I->assertEquals([], $normalizedChannel['tips']['missions']['elements']);
         $I->assertEquals(['accept' => 'Accepter ?'], $normalizedChannel['tips']['missions']['buttons']);
+
+        // Check general announcement
+        $I->assertEquals('Annonces', $normalizedChannel['tips']['announcement']['title']);
+        $I->assertEquals(null, $normalizedChannel['tips']['announcement']['element']);
     }
 
     public function shouldNormalizeMushTipsIfPlayerIsMush(FunctionalTester $I): void

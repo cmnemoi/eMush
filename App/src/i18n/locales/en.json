@@ -635,6 +635,10 @@
 			"title": "Mission",
 			"tips": "You are the ship's *Commander* and you have the power to *command missions* from your comrades. You can choose who to send the mission you've freely decided on, and they'll receive :pa: if they accept. But there's no guarantee that your comrade will respect your orders..."
 		},
+		"ComManagerAnnouncementPanel": {
+			"title": "General Announcement",
+			"tips": "As the *Comms Officer* you may broadcast a general announcement. //// All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel. Any new announcement will override the previous one."
+		},
 		"popUp": {
 			"close": "Close",
 			"ok": "I understand",

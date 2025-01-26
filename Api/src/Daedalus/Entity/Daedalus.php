@@ -109,6 +109,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: TitlePriority::class, cascade: ['remove'], orphanRemoval: true)]
     private Collection $titlePriorities;
 
+    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ComManagerAnnouncement::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['createdAt' => 'ASC'])]
+    private Collection $generalAnnouncements;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -117,6 +121,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->statuses = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->titlePriorities = new ArrayCollection();
+        $this->generalAnnouncements = new ArrayCollection();
     }
 
     public function getId(): int
@@ -978,6 +983,23 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function isExplorationChangingCycle(): bool
     {
         return $this->getExploration()?->isChangingCycle() ?? false;
+    }
+
+    public function addGeneralAnnouncement(ComManagerAnnouncement $announcement): static
+    {
+        $this->generalAnnouncements->add($announcement);
+
+        return $this;
+    }
+
+    public function getGeneralAnnouncements(): ArrayCollection
+    {
+        return new ArrayCollection($this->generalAnnouncements->toArray());
+    }
+
+    public function getLatestAnnouncement(): ?ComManagerAnnouncement
+    {
+        return $this->getGeneralAnnouncements()->last() ?: null;
     }
 
     private function getCreatedAtOrThrow(): \DateTime

@@ -469,30 +469,6 @@
         <target>attack_critical_fail</target>
       </segment>
     </unit>
-    <unit id="shoot_success">
-      <segment id="shoot_success" state="initial">
-        <source>shoot_success</source>
-        <target>shoot_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_fail">
-      <segment id="shoot_fail" state="initial">
-        <source>shoot_fail</source>
-        <target>shoot_fail</target>
-      </segment>
-    </unit>
-    <unit id="shoot_critical_success">
-      <segment id="shoot_critical_success" state="initial">
-        <source>shoot_critical_success</source>
-        <target>shoot_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="shoot_critical_fail">
-      <segment id="shoot_critical_fail" state="initial">
-        <source>shoot_critical_fail</source>
-        <target>shoot_critical_fail</target>
-      </segment>
-    </unit>
     <unit id="suicide_success">
       <segment id="suicide_success" state="initial">
         <source>suicide_success</source>

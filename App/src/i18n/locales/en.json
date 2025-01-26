@@ -637,7 +637,7 @@
 		},
 		"ComManagerAnnouncementPanel": {
 			"title": "General Announcement",
-			"tips": "As the *Comms Officer* you may broadcast a general announcement. //// All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel. Any new announcement will override the previous one."
+			"tips": "As a *Comms Manager*, you can make a general announcement. //// All your teammates will be **notified**, and the announcement will remain in the :tip: **Tips** tab. Each new announcement replaces the previous one."
 		},
 		"popUp": {
 			"close": "Close",

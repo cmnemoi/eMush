@@ -48,13 +48,13 @@ export default defineComponent ({
             case ChannelType.FAVORITES:
                 return getImgUrl('comms/fav.png');
             case ChannelType.MUSH:
-                return getImgUrl('comms/mush.png'); //should return comms/pheromodem.png if player is human
+                return getImgUrl('comms/mush.png'); //TODO should return comms/pheromodem.png if player is human
             case ChannelType.PRIVATE:
                 return getImgUrl('comms/private.png');
             case ChannelType.PUBLIC:
                 return getImgUrl('comms/wall.png');
             case ChannelType.ROOM_LOG:
-                return getImgUrl('comms/local.png');
+                return getImgUrl('comms/local_2.png');
             case ChannelType.TIPS:
                 return getImgUrl('comms/tip.png');
             case "new":

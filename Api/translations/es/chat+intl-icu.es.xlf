@@ -77,6 +77,10 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
         <source>tips.missions.accept</source>
         <target>¿Aceptar?</target>
       </segment>
+      <segment id="announcements.title" state="initial">
+        <source>tips.announcements.title</source>
+        <target>tips.announcements.title</target>
+      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="translated">

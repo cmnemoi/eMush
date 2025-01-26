@@ -637,7 +637,7 @@
 		},
 		"ComManagerAnnouncementPanel": {
 			"title": "General Announcement",
-			"tips": "As the *Comms Officer* you may broadcast a general announcement. //// All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel. Any new announcement will override the previous one."
+			"tips": "As a *Comms Manager*, you can make a general announcement. //// All your teammates will be **notified**, and the announcement will remain in the :tip: **Tips** tab. Each new announcement replaces the previous one."
 		},
 		"popUp": {
 			"close": "Close",
@@ -818,7 +818,8 @@
 			"player": "Player concerned by the complaint",
 			"seeContext": "See in context",
 			"message": "If you feel that a teammate is violating eMush's rules, please make sure you have selected a message illustrating the problem and explain in detail the reason for your complaint.",
-			"commanderMission": "Commander mission"
+			"commanderMission": "Commander mission",
+			"comManagerAnnouncement": "General announcement"
 		},
 		"actions": {
 			"name": "Actions",

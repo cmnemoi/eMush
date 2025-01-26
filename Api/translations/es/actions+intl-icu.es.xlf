@@ -1595,5 +1595,15 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
         <target>open_container.description</target>
       </segment>
     </unit>
+    <unit id="com_manager_announcement">
+      <segment id="name" state="initial">
+        <source>com_manager_announcement.name</source>
+        <target>com_manager_announcement.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>com_manager_announcement.description</source>
+        <target>com_manager_announcement.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

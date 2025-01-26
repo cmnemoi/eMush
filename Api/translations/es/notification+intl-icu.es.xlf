@@ -61,5 +61,25 @@
         <target>exploration_closed_by_u_turn.description</target>
       </segment>
     </unit>
+    <unit id="announcement_received">
+      <segment state="initial">
+        <source>announcement_received.title</source>
+        <target>announcement_received.title</target>
+      </segment>
+      <segment state="initial">
+        <source>announcement_received.description</source>
+        <target>announcement_received.description</target>
+      </segment>
+    </unit>
+    <unit id="announcement_created">
+      <segment state="initial">
+        <source>announcement_created.title</source>
+        <target>announcement_created.title</target>
+      </segment>
+      <segment state="initial">
+        <source>announcement_created.description</source>
+        <target>announcement_created.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

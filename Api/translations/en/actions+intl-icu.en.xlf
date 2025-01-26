@@ -719,7 +719,7 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
     <unit id="shoot">
       <segment id="name" state="translated">
         <source>shoot.name</source>
-        <target>Shoot : Blaster</target>
+        <target>Shoot : {equipment}</target>
       </segment>
       <segment id="description" state="translated">
         <source>shoot.description</source>
@@ -1585,7 +1585,7 @@ Or you simply need some fresh air.... or not.</target>
     <unit id="shoot_cat">
       <segment id="name" state="translated">
         <source>shoot_cat.name</source>
-        <target>Shoot: Blaster</target>
+        <target>Shoot: {equipment}</target>
       </segment>
       <segment id="description" state="translated">
         <source>shoot_cat.description</source>
@@ -1609,7 +1609,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>com_manager_announcement.description</source>
-        <target>As the *Comms Officer* you may broadcast a general announcement. // All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel.</target>
+        <target>As the *Comms Officer* you may broadcast a general announcement. //// All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel. Any new announcement will override the previous one.</target>
       </segment>
     </unit>
   </file>

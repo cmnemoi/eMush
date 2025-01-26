@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,6 +27,8 @@ use Mush\Equipment\ConfigData\PlantDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
+use Mush\Equipment\ConfigData\WeaponEffectConfigDataLoader;
+use Mush\Equipment\ConfigData\WeaponEventConfigDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorConfigDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorEventConfigDataLoader;
 use Mush\Game\ConfigData\ConfigDataLoader;
@@ -49,6 +53,9 @@ use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\ContentStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class ConfigDataLoaderService
 {
     private ArrayCollection $dataLoaders;
@@ -76,6 +83,8 @@ class ConfigDataLoaderService
         PlantDataLoader $plantDataLoader,
         RationDataLoader $rationDataLoader,
         ToolDataLoader $toolDataLoader,
+        WeaponEventConfigDataLoader $weaponEventConfigDataLoader,
+        WeaponEffectConfigDataLoader $weaponEffectConfigDataLoader,
         WeaponDataLoader $weaponDataLoader,
         PatrolShipDataLoader $patrolShipDataLoader,
         ItemConfigDataLoader $itemConfigDataLoader,
@@ -126,6 +135,8 @@ class ConfigDataLoaderService
                 $rationDataLoader,
                 $toolDataLoader,
                 $patrolShipDataLoader,
+                $weaponEventConfigDataLoader,
+                $weaponEffectConfigDataLoader,
                 $weaponDataLoader,
                 $equipmentConfigDataLoader,
                 $itemConfigDataLoader,

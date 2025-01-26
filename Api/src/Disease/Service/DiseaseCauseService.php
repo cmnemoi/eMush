@@ -10,36 +10,26 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface;
+use Mush\Game\Service\Random\ProbaCollectionRandomElementServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
-class DiseaseCauseService implements DiseaseCauseServiceInterface
+final readonly class DiseaseCauseService implements DiseaseCauseServiceInterface
 {
-    private const HAZARDOUS_RATE = 50;
-    private const DECOMPOSING_RATE = 90;
-
-    private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private RandomServiceInterface $randomService;
-    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+    private const int HAZARDOUS_RATE = 50;
+    private const int DECOMPOSING_RATE = 90;
 
     public function __construct(
-        PlayerDiseaseServiceInterface $playerDiseaseService,
-        RandomServiceInterface $randomService,
-        ConsumableDiseaseServiceInterface $consumableDiseaseService,
-    ) {
-        $this->playerDiseaseService = $playerDiseaseService;
-        $this->randomService = $randomService;
-        $this->consumableDiseaseService = $consumableDiseaseService;
-    }
+        private ConsumableDiseaseServiceInterface $consumableDiseaseService,
+        private D100RollServiceInterface $d100Roll,
+        private ProbaCollectionRandomElementServiceInterface $probaCollectionRandomElement,
+        private PlayerDiseaseServiceInterface $playerDiseaseService,
+    ) {}
 
     public function handleSpoiledFood(Player $player, GameEquipment $gameEquipment): void
     {
-        if (($gameEquipment->hasStatus(EquipmentStatusEnum::HAZARDOUS)
-                && $this->randomService->isSuccessful(self::HAZARDOUS_RATE))
-            || ($gameEquipment->hasStatus(EquipmentStatusEnum::DECOMPOSING)
-                && $this->randomService->isSuccessful(self::DECOMPOSING_RATE))
-        ) {
+        if ($this->foodShouldMakePlayerSick($gameEquipment)) {
             $this->handleDiseaseForCause(DiseaseCauseEnum::PERISHED_FOOD, $player);
         }
     }
@@ -51,7 +41,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
         if ($consumableEffect !== null) {
             /** @var ConsumableDiseaseAttribute $disease */
             foreach ($consumableEffect->getDiseases() as $disease) {
-                if ($this->randomService->isSuccessful($disease->getRate())) {
+                if ($this->d100Roll->isSuccessful($disease->getRate())) {
                     $this->playerDiseaseService->createDiseaseFromName(
                         $disease->getDisease(),
                         $player,
@@ -65,7 +55,7 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
             /** @var ConsumableDiseaseAttribute $cure */
             foreach ($consumableEffect->getCures() as $cure) {
                 $disease = $player->getMedicalConditionByName($cure->getDisease());
-                if ($disease?->isActive() && $this->randomService->isSuccessful($cure->getRate())) {
+                if ($disease?->isActive() && $this->d100Roll->isSuccessful($cure->getRate())) {
                     $this->playerDiseaseService->removePlayerDisease($disease, [DiseaseStatusEnum::DRUG_HEALED], new \DateTime(), VisibilityEnum::PUBLIC);
                 }
             }
@@ -85,10 +75,25 @@ class DiseaseCauseService implements DiseaseCauseServiceInterface
 
     public function handleDiseaseForCause(string $cause, Player $player, ?int $delayMin = null, ?int $delayLength = null): PlayerDisease
     {
-        $diseasesProbaArray = $this->findCauseConfigByDaedalus($cause, $player->getDaedalus())->getDiseases();
+        $diseasesProbaCollection = $this->findCauseConfigByDaedalus($cause, $player->getDaedalus())->getDiseases();
 
-        $diseaseName = (string) $this->randomService->getSingleRandomElementFromProbaCollection($diseasesProbaArray);
+        $diseaseName = (string) $this->probaCollectionRandomElement->generateFrom($diseasesProbaCollection);
 
         return $this->playerDiseaseService->createDiseaseFromName($diseaseName, $player, [$cause], $delayMin, $delayLength);
+    }
+
+    public function foodShouldMakePlayerSick(GameEquipment $gameEquipment): bool
+    {
+        return $this->hazardousFoodShouldMakePlayerSick($gameEquipment) || $this->decomposingFoodShouldMakePlayerSick($gameEquipment);
+    }
+
+    public function hazardousFoodShouldMakePlayerSick(GameEquipment $gameEquipment): bool
+    {
+        return $gameEquipment->hasStatus(EquipmentStatusEnum::HAZARDOUS) && $this->d100Roll->isSuccessful(self::HAZARDOUS_RATE);
+    }
+
+    public function decomposingFoodShouldMakePlayerSick(GameEquipment $gameEquipment): bool
+    {
+        return $gameEquipment->hasStatus(EquipmentStatusEnum::DECOMPOSING) && $this->d100Roll->isSuccessful(self::DECOMPOSING_RATE);
     }
 }

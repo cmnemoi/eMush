@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Enum;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communication\Enum\DiseaseMessagesEnum;
 use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Equipment\Enum\WeaponEventEnum;
 
 abstract class LogDeclinationEnum
 {
@@ -36,10 +37,6 @@ abstract class LogDeclinationEnum
             ActionLogEnum::ATTACK_CRITICAL_SUCCESS => [self::VERSION => 9],
             ActionLogEnum::ATTACK_CRITICAL_FAIL => [self::VERSION => 2],
             ActionLogEnum::ATTACK_ONE_SHOT => [self::VERSION => 2],
-            ActionLogEnum::SHOOT_SUCCESS => [self::VERSION => 6],
-            ActionLogEnum::SHOOT_CRITICAL_SUCCESS => [self::VERSION => 6],
-            ActionLogEnum::SHOOT_FAIL => [self::VERSION => 4],
-            ActionLogEnum::SHOOT_CRITICAL_FAIL => [self::VERSION => 2],
             ActionLogEnum::SHRED_SUCCESS => [self::VERSION => 4],
             ActionLogEnum::THROW_GRENADE_SUCCESS => [self::VERSION => 2],
             ActionEnum::RETRIEVE_OXYGEN->value => [self::VERSION => 10],
@@ -93,6 +90,11 @@ abstract class LogDeclinationEnum
             LogEnum::CAT_HISS => [self::VERSION => 17],
             ActionLogEnum::SHOOT_CAT_FAIL => [self::VERSION => 4],
             ActionLogEnum::SHOOT_CAT_CRITICAL_FAIL => [self::VERSION => 2],
+            WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
+            WeaponEventEnum::BLASTER_FAILED_SHOT->value => [self::VERSION => 100],
+            WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
+            WeaponEventEnum::NATAMY_RIFLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => [self::VERSION => 2],
+            WeaponEventEnum::NATAMY_RIFLE_FAILED_SHOT->value => [self::VERSION => 100],
         ];
     }
 }

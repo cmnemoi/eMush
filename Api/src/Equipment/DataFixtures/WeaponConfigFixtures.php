@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -92,20 +93,17 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $actions25->add($slimeObjectAction);
         $actions25->add($reinforce);
 
-        /** @TODO more details are needed on the output of each weapon */
         $blasterMechanic = new Weapon();
         $blasterMechanic
             ->setBaseAccuracy(50)
-            ->setBaseDamageRange([
-                2 => 45,
-                3 => 45,
-                4 => 5,
-                5 => 5,
+            ->setDamageSpread([2, 3])
+            ->setSuccessfulEventKeys([
+                WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->toString() => 1,
+            ])
+            ->setFailedEventKeys([
+                WeaponEventEnum::BLASTER_FAILED_SHOT->toString() => 1,
             ])
             ->setExpeditionBonus(1)
-            ->setCriticalSuccessRate(5)
-            ->setCriticalFailRate(1)
-            ->setOneShotRate(1)
             ->addAction($shootAction)
             ->addAction($shootCatAction)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::BLASTER, GameConfigEnum::DEFAULT);
@@ -202,10 +200,10 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $natamyMechanic = new Weapon();
         $natamyMechanic
+            ->setDamageSpread([2, 4])
             ->setBaseAccuracy(50)
-            ->setBaseDamageRange([2 => 12])
             ->setExpeditionBonus(1)
-            ->addAction($attackAction)
+            ->addAction($shootAction)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::NATAMY_RIFLE, GameConfigEnum::DEFAULT);
 
         $natamy = new ItemConfig();

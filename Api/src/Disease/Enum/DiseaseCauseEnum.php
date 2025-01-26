@@ -22,4 +22,5 @@ abstract class DiseaseCauseEnum
     public const string CRITICAL_FAIL_BLASTER = 'critical_fail_blaster';
     public const string CRITICAL_SUCCESS_BLASTER = 'critical_success_blaster';
     public const string OVERRODE = 'overrode';
+    public const string RANDOM_INJURY = 'random_injury';
 }

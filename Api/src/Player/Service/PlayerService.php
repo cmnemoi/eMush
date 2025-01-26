@@ -3,8 +3,8 @@
 namespace Mush\Player\Service;
 
 use Doctrine\DBAL\LockMode;
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
@@ -22,8 +22,9 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Repository\ClosedPlayerRepositoryInterface;
 use Mush\Player\Repository\PlayerInfoRepositoryInterface;
-use Mush\Player\Repository\PlayerRepository;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
@@ -40,46 +41,32 @@ final class PlayerService implements PlayerServiceInterface
     public const int DAY_MORAL_CHANGE = -2;
     public const int SELF_SACRIFICE_HEALTH_LOSS = -1;
 
-    private EntityManagerInterface $entityManager;
-    private EventServiceInterface $eventService;
-    private PlayerRepository $repository;
-    private RoomLogServiceInterface $roomLogService;
-    private PlayerInfoRepositoryInterface $playerInfoRepository;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
-        PlayerRepository $repository,
-        RoomLogServiceInterface $roomLogService,
-        PlayerInfoRepositoryInterface $playerInfoRepository,
-    ) {
-        $this->entityManager = $entityManager;
-        $this->eventService = $eventService;
-        $this->repository = $repository;
-        $this->roomLogService = $roomLogService;
-        $this->playerInfoRepository = $playerInfoRepository;
-    }
+        private ClosedPlayerRepositoryInterface $closedPlayerRepository,
+        private DaedalusRepositoryInterface $daedalusRepository,
+        private EventServiceInterface $eventService,
+        private PlayerRepositoryInterface $playerRepository,
+        private RoomLogServiceInterface $roomLogService,
+        private PlayerInfoRepositoryInterface $playerInfoRepository,
+    ) {}
 
     public function persist(Player $player): Player
     {
-        $this->entityManager->persist($player);
-        $this->entityManager->flush();
+        $this->playerRepository->save($player);
 
         return $player;
     }
 
     public function persistPlayerInfo(PlayerInfo $player): PlayerInfo
     {
-        $this->entityManager->persist($player);
-        $this->entityManager->flush();
+        $this->playerInfoRepository->save($player);
 
         return $player;
     }
 
     public function persistClosedPlayer(ClosedPlayer $player): ClosedPlayer
     {
-        $this->entityManager->persist($player);
-        $this->entityManager->flush();
+        $this->closedPlayerRepository->save($player);
 
         return $player;
     }
@@ -92,34 +79,31 @@ final class PlayerService implements PlayerServiceInterface
 
         $daedalus = $player->getDaedalus();
         $daedalus->removePlayer($player);
-        $this->entityManager->persist($daedalus);
+        $this->daedalusRepository->save($daedalus);
 
         $this->eventService->callEvent(
             event: new PlayerEvent(player: $player, tags: [], time: new \DateTime()),
             name: PlayerEvent::DELETE_PLAYER
         );
 
-        $this->entityManager->remove($player);
-        $this->entityManager->flush();
+        $this->playerRepository->delete($player);
 
         return true;
     }
 
     public function findAll(): array
     {
-        return $this->repository->findAll();
+        return $this->playerRepository->getAll();
     }
 
     public function findById(int $id): ?Player
     {
-        $player = $this->repository->find($id);
-
-        return $player instanceof Player ? $player : null;
+        return $this->playerRepository->findById($id);
     }
 
     public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player
     {
-        return $this->repository->findOneByName($character, $daedalus);
+        return $this->playerRepository->findOneByNameAndDaedalus($character, $daedalus);
     }
 
     public function findUserCurrentGame(User $user): ?Player
@@ -144,7 +128,7 @@ final class PlayerService implements PlayerServiceInterface
 
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
-        $this->entityManager->beginTransaction();
+        $this->playerRepository->startTransaction();
 
         try {
             $time = new \DateTime();
@@ -152,11 +136,10 @@ final class PlayerService implements PlayerServiceInterface
             $player = $this->buildPlayer($daedalus, $user, $character);
             $this->dispatchNewPlayerEvent($player, $time);
 
-            $this->entityManager->flush();
-            $this->entityManager->commit();
+            $this->playerRepository->save($player);
+            $this->playerRepository->commitTransaction();
         } catch (\Throwable $e) {
-            $this->entityManager->rollback();
-            $this->entityManager->close();
+            $this->playerRepository->rollbackTransaction();
 
             throw $e;
         }
@@ -259,11 +242,10 @@ final class PlayerService implements PlayerServiceInterface
 
     public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), ?Player $author = null): Player
     {
-        $this->entityManager->beginTransaction();
+        $this->playerRepository->startTransaction();
 
         try {
-            $this->entityManager->lock($player, LockMode::PESSIMISTIC_WRITE);
-            $this->entityManager->refresh($player);
+            $this->playerRepository->lockAndRefresh($player, LockMode::PESSIMISTIC_WRITE);
 
             if ($player->isDead()) {
                 return $player;
@@ -273,11 +255,10 @@ final class PlayerService implements PlayerServiceInterface
             $this->removePlayerTitles($player);
             $this->createClosedPlayer($player, $endReason, $time);
             $this->dispatchPlayerDeathEvent($player, $endReason, $time, $author);
-            $this->entityManager->flush();
-            $this->entityManager->commit();
+            $this->playerRepository->save($player);
+            $this->playerRepository->commitTransaction();
         } catch (\Throwable $e) {
-            $this->entityManager->rollback();
-            $this->entityManager->close();
+            $this->playerRepository->rollbackTransaction();
 
             throw $e;
         }

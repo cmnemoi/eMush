@@ -672,19 +672,7 @@ class ActionsFixtures extends Fixture
         $selfSurgeryAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SELF_SURGERY));
         $manager->persist($selfSurgeryAction);
 
-        $shootAction = new ActionConfig();
-        $shootAction
-            ->setName(ActionEnum::SHOOT->value)
-            ->setActionName(ActionEnum::SHOOT)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
-            ->setActionCost(1)
-            ->setSuccessRate(50)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
-            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC);
+        $shootAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT));
         $manager->persist($shootAction);
 
         $playArcade = new ActionConfig();

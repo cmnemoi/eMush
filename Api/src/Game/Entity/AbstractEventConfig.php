@@ -3,6 +3,16 @@
 namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Equipment\Entity\Config\WeaponEffect\BreakWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\DropWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\InflictInjuryWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\InflictRandomInjuryWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\ModifyDamageWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\ModifyMaxDamageWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\MultiplyDamageOnMushTargetWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\OneShotWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\RemoveActionPointsWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEventConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 
 /**
@@ -15,6 +25,16 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 #[ORM\DiscriminatorMap([
     'variable_event_config' => VariableEventConfig::class,
     'planet_sector_event_config' => PlanetSectorEventConfig::class,
+    'weapon_event_config' => WeaponEventConfig::class,
+    'one_shot_weapon_effect_config' => OneShotWeaponEffectConfig::class,
+    'inflict_random_injury_weapon_effect_config' => InflictRandomInjuryWeaponEffectConfig::class,
+    'inflict_injury_weapon_effect_config' => InflictInjuryWeaponEffectConfig::class,
+    'remove_action_points_weapon_effect_config' => RemoveActionPointsWeaponEffectConfig::class,
+    'modify_max_damage_weapon_effect_config' => ModifyMaxDamageWeaponEffectConfig::class,
+    'modify_damage_weapon_effect_config' => ModifyDamageWeaponEffectConfig::class,
+    'break_weapon_effect_config' => BreakWeaponEffectConfig::class,
+    'drop_weapon_effect_config' => DropWeaponEffectConfig::class,
+    'multiply_damage_on_mush_target_weapon_effect_config' => MultiplyDamageOnMushTargetWeaponEffectConfig::class,
 ])]
 abstract class AbstractEventConfig
 {
@@ -28,6 +48,12 @@ abstract class AbstractEventConfig
 
     #[ORM\Column(type: 'string', nullable: false)]
     protected string $eventName;
+
+    public function __construct(string $name = '', string $eventName = '')
+    {
+        $this->name = $name;
+        $this->eventName = $eventName;
+    }
 
     public function getId(): ?int
     {

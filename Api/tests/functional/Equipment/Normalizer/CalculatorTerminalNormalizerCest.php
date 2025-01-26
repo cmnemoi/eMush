@@ -78,7 +78,7 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         $this->whenINormalizeTerminalForPlayer();
 
         $I->assertEquals(
-            expected: 'Rien à calculer pour le moment.',
+            expected: 'Rien à calculer pour le moment. // En attente de matériel dans l\'étagère...',
             actual: $this->normalizedTerminal['infos']['nothingToCompute']
         );
     }

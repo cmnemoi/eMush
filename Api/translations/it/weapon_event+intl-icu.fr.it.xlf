@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="weapon_event.ext">
+    <unit id="blaster_successful_shot">
+      <segment id="blaster_successful_shot" state="initial">
+        <source>blaster_successful_shot</source>
+        <target>blaster_successful_shot</target>
+      </segment>
+    </unit>
+    <unit id="blaster_failed_shot">
+      <segment id="blaster_failed_shot" state="initial">
+        <source>blaster_failed_shot</source>
+        <target>blaster_failed_shot</target>
+      </segment>
+    </unit>
+    <unit id="blaster_target_headshot">
+      <segment id="blaster_target_headshot" state="initial">
+        <source>blaster_target_headshot</source>
+        <target>blaster_target_headshot</target>
+      </segment>
+    </unit>
+    <unit id="blaster_target_random_injury">
+      <segment id="blaster_target_random_injury" state="initial">
+        <source>blaster_target_random_injury</source>
+        <target>blaster_target_random_injury</target>
+      </segment>
+    </unit>
+    <unit id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target">
+      <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="initial">
+        <source>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</source>
+        <target>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</target>
+      </segment>
+    </unit>
+    <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
+      <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="initial">
+        <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
+        <target>blaster_shooter_plus_1_damage_target_damaged_ears</target>
+      </segment>
+    </unit>
+    <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">
+      <segment id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma" state="initial">
+        <source>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</source>
+        <target>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</target>
+      </segment>
+    </unit>
+    <unit id="blaster_shooter_plus_1_damage_target_remove_2_ap">
+      <segment id="blaster_shooter_plus_1_damage_target_remove_2_ap" state="initial">
+        <source>blaster_shooter_plus_1_damage_target_remove_2_ap</source>
+        <target>blaster_shooter_plus_1_damage_target_remove_2_ap</target>
+      </segment>
+    </unit>
+    <unit id="blaster_break_weapon">
+      <segment id="blaster_break_weapon" state="initial">
+        <source>blaster_break_weapon</source>
+        <target>blaster_break_weapon</target>
+      </segment>
+    </unit>
+    <unit id="blaster_shooter_drop_weapon">
+      <segment id="blaster_shooter_drop_weapon" state="initial">
+        <source>blaster_shooter_drop_weapon</source>
+        <target>blaster_shooter_drop_weapon</target>
+      </segment>
+    </unit>
+    <unit id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury">
+      <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="initial">
+        <source>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</source>
+        <target>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</target>
+      </segment>
+    </unit>
+    <unit id="blaster_shooter_minus_1_ap_break_weapon">
+      <segment id="blaster_shooter_minus_1_ap_break_weapon" state="initial">
+        <source>blaster_shooter_minus_1_ap_break_weapon</source>
+        <target>blaster_shooter_minus_1_ap_break_weapon</target>
+      </segment>
+    </unit>
+    <unit id="blaster_shooter_minus_1_ap">
+      <segment id="blaster_shooter_minus_1_ap" state="initial">
+        <source>blaster_shooter_minus_1_ap</source>
+        <target>blaster_shooter_minus_1_ap</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_successful_shot">
+      <segment id="natamy_rifle_successful_shot" state="initial">
+        <source>natamy_rifle_successful_shot</source>
+        <target>natamy_rifle_successful_shot</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_headshot">
+      <segment id="natamy_rifle_headshot" state="initial">
+        <source>natamy_rifle_headshot</source>
+        <target>natamy_rifle_headshot</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
+      <segment id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+        <source>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
+        <target>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_target_minus_1ap">
+      <segment id="natamy_rifle_target_minus_1ap" state="initial">
+        <source>natamy_rifle_target_minus_1ap</source>
+        <target>natamy_rifle_target_minus_1ap</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_headshot_2">
+      <segment id="natamy_rifle_headshot_2" state="initial">
+        <source>natamy_rifle_headshot_2</source>
+        <target>natamy_rifle_headshot_2</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_target_mashed_foot">
+      <segment id="natamy_rifle_target_mashed_foot" state="initial">
+        <source>natamy_rifle_target_mashed_foot</source>
+        <target>natamy_rifle_target_mashed_foot</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
+      <segment id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+        <source>natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
+        <target>natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_break_weapon">
+      <segment id="natamy_rifle_break_weapon" state="initial">
+        <source>natamy_rifle_break_weapon</source>
+        <target>natamy_rifle_break_weapon</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_shooter_burnt_hand">
+      <segment id="natamy_rifle_shooter_burnt_hand" state="initial">
+        <source>natamy_rifle_shooter_burnt_hand</source>
+        <target>natamy_rifle_shooter_burnt_hand</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_shooter_broken_shoulder">
+      <segment id="natamy_rifle_shooter_broken_shoulder" state="initial">
+        <source>natamy_rifle_shooter_broken_shoulder</source>
+        <target>natamy_rifle_shooter_broken_shoulder</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_failed_shot">
+      <segment id="natamy_rifle_failed_shot" state="initial">
+        <source>natamy_rifle_failed_shot</source>
+        <target>natamy_rifle_failed_shot</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_shooter_mashed_foot">
+      <segment id="natamy_rifle_shooter_mashed_foot" state="initial">
+        <source>natamy_rifle_shooter_mashed_foot</source>
+        <target>natamy_rifle_shooter_mashed_foot</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_drop_weapon">
+      <segment id="natamy_rifle_drop_weapon" state="initial">
+        <source>natamy_rifle_drop_weapon</source>
+        <target>natamy_rifle_drop_weapon</target>
+      </segment>
+    </unit>
+    <unit id="natamy_rifle_shooter_plus_2_damage">
+      <segment id="natamy_rifle_shooter_plus_2_damage" state="initial">
+        <source>natamy_rifle_shooter_plus_2_damage</source>
+        <target>natamy_rifle_shooter_plus_2_damage</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

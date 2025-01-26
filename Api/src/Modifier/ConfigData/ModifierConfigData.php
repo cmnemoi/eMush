@@ -1249,11 +1249,11 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-1_moralPoint',
             'modifierActivationRequirements' => [
                 'player_in_room_not_alone',
-                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
             ],
             'tagConstraints' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
+            'visibility' => VisibilityEnum::PRIVATE,
         ],
         [
             'name' => 'lost_modifier_for_player_-2moralPoint_on_new_cycle',
@@ -3570,7 +3570,6 @@ abstract class ModifierConfigData
             'targetVariable' => PlayerVariableEnum::MORAL_POINT,
             'mode' => VariableModifierModeEnum::ADDITIVE,
             'modifierActivationRequirements' => [
-                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
             ],
             'tagConstraints' => [
                 'cat_death' => ModifierRequirementEnum::ANY_TAGS,
@@ -3866,11 +3865,11 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-1_moralPoint',
             'modifierActivationRequirements' => [
                 'player_status_dirty',
-                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
             ],
             'tagConstraints' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
+            'visibility' => VisibilityEnum::PRIVATE,
         ],
     ];
 

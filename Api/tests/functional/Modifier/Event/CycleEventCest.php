@@ -196,32 +196,23 @@ final class CycleEventCest extends AbstractFunctionalTest
 
     public function testGermaphobeStatusCycleSubscriber(FunctionalTester $I): void
     {
+        // setup day to 0 to avoid panic crisis
+        $this->daedalus->setDay(0);
+
         // given player has germaphobe status
         $this->statusService->createStatusFromName(PlayerStatusEnum::GERMAPHOBE, $this->player1, [], new \DateTime());
         // given player has dirty status
         $this->statusService->createStatusFromName(PlayerStatusEnum::DIRTY, $this->player1, [], new \DateTime());
 
         $germaphobeStatus = -1;
-        $PlayerExpectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + $germaphobeStatus;
+        $playerExpectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + $germaphobeStatus;
 
         // when new cycle event is called
         $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        // players might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
-        $PlayerPanicCrisis = $this->roomLogRepository->getOneBy([
-            'place' => $this->player->getPlace()->getLogName(),
-            'playerInfo' => $this->player->getPlayerInfo(),
-            'log' => PlayerModifierLogEnum::PANIC_CRISIS,
-            'visibility' => VisibilityEnum::PRIVATE,
-        ]);
-
-        if ($PlayerPanicCrisis) {
-            $PlayerExpectedMoralPoint -= $this->getPanicCrisisPlayerDamage();
-        }
-
         // then players have the expected morale points
-        $I->assertEquals($PlayerExpectedMoralPoint, $this->player1->getMoralPoint());
+        $I->assertEquals($playerExpectedMoralPoint, $this->player1->getMoralPoint());
 
         // then I can see germaphobe morale loss in first player room logs
         $I->seeInRepository(RoomLog::class, [

@@ -61,7 +61,7 @@
         <target>You may consult {exploration_link} to discover what happened...</target>
       </segment>
     </unit>
-        <unit id="announcement_received">
+    <unit id="announcement_received">
       <segment state="translated">
         <source>announcement_received.title</source>
         <target>General Announcement</target>

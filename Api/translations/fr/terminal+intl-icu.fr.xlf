@@ -318,7 +318,7 @@
       </segment>
       <segment id="nothing_to_compute" state="final">
         <source>calculator.nothing_to_compute</source>
-        <target>Rien à calculer pour le moment.</target>
+        <target>Rien à calculer pour le moment. // En attente de matériel dans l'étagère...</target>
       </segment>
       <segment id="eden_computed" state="final">
         <source>calculator.eden_computed</source>

@@ -725,7 +725,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="shoot">
       <segment id="name" state="translated">
         <source>shoot.name</source>
-        <target>Tirer : {equipment}</target>
+        <target>Tirer : Blaster</target>
       </segment>
       <segment id="description" state="translated">
         <source>shoot.description</source>
@@ -1607,7 +1607,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="shoot_cat">
       <segment id="name" state="translated">
         <source>shoot_cat.name</source>
-        <target>Tirer : {equipment}</target>
+        <target>Tirer : Blaster</target>
       </segment>
       <segment id="description" state="translated">
         <source>shoot_cat.description</source>

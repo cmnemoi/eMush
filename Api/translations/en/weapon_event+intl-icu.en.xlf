@@ -2,165 +2,183 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="weapon_event.ext">
     <unit id="blaster_successful_shot">
-      <segment id="blaster_successful_shot" state="initial">
+      <segment id="blaster_successful_shot" state="translated">
         <source>blaster_successful_shot</source>
-        <target>blaster_successful_shot</target>
+        <target>{version, select,
+            1 {Premeditated or not, **{character}** took out {character_gender, select, female {her} other {his}} weapon and opened fire on **{target_character}**.}
+            2 {**{character}** turns around suddenly and fires at **{target_character}**.}
+            3 {**{character}** quickly performs a few wrist flicks and fires at **{target_character}**, who is staggered for a few moments.}
+            4 {**{character}** draws without hesitation and fires at **{target_character}**.}
+            other {**{target_character}** takes a well-aimed shot from **{character}**.}}</target>
       </segment>
     </unit>
     <unit id="blaster_failed_shot">
-      <segment id="blaster_failed_shot" state="initial">
+      <segment id="blaster_failed_shot" state="translated">
         <source>blaster_failed_shot</source>
-        <target>blaster_failed_shot</target>
+        <target>{version, select,
+            1 {**{character}** fires but only hits the wall... What skill!}
+            other {**{character}** fired at **{target_character}** but unfortunately missed entirely...}}</target>
       </segment>
     </unit>
     <unit id="blaster_target_headshot">
-      <segment id="blaster_target_headshot" state="initial">
+      <segment id="blaster_target_headshot" state="translated">
         <source>blaster_target_headshot</source>
-        <target>blaster_target_headshot</target>
+        <target>Sometimes, time seems to slow down. Some say time changes; duration doesn’t matter, and every moment feels eternal. In such a moment, **{character}** effortlessly shoots **{target_character}** in the head, and they collapse.</target>
       </segment>
     </unit>
     <unit id="blaster_target_random_injury">
-      <segment id="blaster_target_random_injury" state="initial">
+      <segment id="blaster_target_random_injury" state="translated">
         <source>blaster_target_random_injury</source>
-        <target>blaster_target_random_injury</target>
+        <target>**{character}** grabs {character_gender, select, female {her} other {his}} blaster and fires precise shots at **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target">
-      <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="initial">
+      <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="translated">
         <source>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</source>
-        <target>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</target>
+        <target>There’s barely a blink between **{character}**’s shot and the impact on **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
-      <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="initial">
+      <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="translated">
         <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
-        <target>blaster_shooter_plus_1_damage_target_damaged_ears</target>
+        <target>Let the roar of blasters echo—only the survivors will talk about it. **{character}** is well-positionned to witness it. **{target_character}** loses {target_character_gender, select, female {her} other {his}} hearing.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">
-      <segment id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma" state="initial">
+      <segment id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma" state="translated">
         <source>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</source>
-        <target>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</target>
+        <target>**{character}** bends, draws, and fires quickly at **{target_character}**, who is hit in the head!</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_remove_2_ap">
-      <segment id="blaster_shooter_plus_1_damage_target_remove_2_ap" state="initial">
+      <segment id="blaster_shooter_plus_1_damage_target_remove_2_ap" state="translated">
         <source>blaster_shooter_plus_1_damage_target_remove_2_ap</source>
-        <target>blaster_shooter_plus_1_damage_target_remove_2_ap</target>
+        <target>A quick shot from **{character}** knocks **{target_character}** off balance.</target>
       </segment>
     </unit>
     <unit id="blaster_break_weapon">
-      <segment id="blaster_break_weapon" state="initial">
+      <segment id="blaster_break_weapon" state="translated">
         <source>blaster_break_weapon</source>
-        <target>blaster_break_weapon</target>
+        <target>Click... Click... **{character}** just missed a big opportunity...</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_drop_weapon">
-      <segment id="blaster_shooter_drop_weapon" state="initial">
+      <segment id="blaster_shooter_drop_weapon" state="translated">
         <source>blaster_shooter_drop_weapon</source>
-        <target>blaster_shooter_drop_weapon</target>
+        <target>Violence is the refuge of incompetence. **{character}** should have refrained. {character_gender, select, female {Her} other {His}} weapon is now on the ground, much to **{target_character}**’s delight.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury">
-      <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="initial">
+      <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="translated">
         <source>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</source>
-        <target>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</target>
+        <target>**{character}** fails spectacularly, accidentally turning {character_gender, select, female {her} other {his}} weapon against themselves.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_break_weapon">
-      <segment id="blaster_shooter_minus_1_ap_break_weapon" state="initial">
+      <segment id="blaster_shooter_minus_1_ap_break_weapon" state="translated">
         <source>blaster_shooter_minus_1_ap_break_weapon</source>
-        <target>blaster_shooter_minus_1_ap_break_weapon</target>
+        <target>**{character}** trips on an imaginary pony and falls backward!</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap">
-      <segment id="blaster_shooter_minus_1_ap" state="initial">
+      <segment id="blaster_shooter_minus_1_ap" state="translated">
         <source>blaster_shooter_minus_1_ap</source>
-        <target>blaster_shooter_minus_1_ap</target>
+        <target>Click... Click... **{character}**’s weapon has jammed.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_successful_shot">
-      <segment id="natamy_rifle_successful_shot" state="initial">
+      <segment id="natamy_rifle_successful_shot" state="translated">
         <source>natamy_rifle_successful_shot</source>
-        <target>natamy_rifle_successful_shot</target>
+        <target>{version, select,
+            1 {**{character}** just fired at **{target_character}**!}
+            2 {**{character}** opens fire on **{target_character}**.}
+            3 {**{character}** unleashes a torrent of bullets at **{target_character}**.}
+            4 {**{character}** lands a bullet on **{target_character}**...}
+            other {**{character}** fires a burst at **{target_character}**.}}</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_headshot">
-      <segment id="natamy_rifle_headshot" state="initial">
+      <segment id="natamy_rifle_headshot" state="translated">
         <source>natamy_rifle_headshot</source>
-        <target>natamy_rifle_headshot</target>
+        <target>**{character}** successfully lands a headshot on **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
-      <segment id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+      <segment id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
-        <target>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
+        <target>**{character}** takes {character_gender, select, female {her} other {his}} time to aim at **{target_character}**. Ouch...</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_minus_1ap">
-      <segment id="natamy_rifle_target_minus_1ap" state="initial">
+      <segment id="natamy_rifle_target_minus_1ap" state="translated">
         <source>natamy_rifle_target_minus_1ap</source>
-        <target>natamy_rifle_target_minus_1ap</target>
+        <target>**{target_character}** miraculously dodges a burst from **{character}**.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_headshot_2">
-      <segment id="natamy_rifle_headshot_2" state="initial">
+      <segment id="natamy_rifle_headshot_2" state="translated">
         <source>natamy_rifle_headshot_2</source>
-        <target>natamy_rifle_headshot_2</target>
+        <target>**{character}** empties {character_gender, select, female {her} other {his}} magazine into **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_mashed_foot">
-      <segment id="natamy_rifle_target_mashed_foot" state="initial">
+      <segment id="natamy_rifle_target_mashed_foot" state="translated">
         <source>natamy_rifle_target_mashed_foot</source>
-        <target>natamy_rifle_target_mashed_foot</target>
+        <target>The buttstock of {character_gender, select, female {her} other {his}} rifle gets in **{character}**’s way. **{target_character}**’s foot is now a mess.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
-      <segment id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+      <segment id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="translated">
         <source>natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
-        <target>natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
+        <target>{version, select,
+            1 {The bullet in **{target_character}**’s shoulder will leave a painful memory.}
+            other {The salvo from **{character}** went through **{target_character}** 's shoulder, watch out for rebounds...}}</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_break_weapon">
-      <segment id="natamy_rifle_break_weapon" state="initial">
+      <segment id="natamy_rifle_break_weapon" state="translated">
         <source>natamy_rifle_break_weapon</source>
-        <target>natamy_rifle_break_weapon</target>
+        <target>Click click click... **{character}**’s weapon jams. **{target_character}** might be grateful for it.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_burnt_hand">
-      <segment id="natamy_rifle_shooter_burnt_hand" state="initial">
+      <segment id="natamy_rifle_shooter_burnt_hand" state="translated">
         <source>natamy_rifle_shooter_burnt_hand</source>
-        <target>natamy_rifle_shooter_burnt_hand</target>
+        <target>When firing at **{target_character}**, **{character}** got burnt with {character_gender, select, female {her} other {his}} weapon. Spectacular work.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_broken_shoulder">
-      <segment id="natamy_rifle_shooter_broken_shoulder" state="initial">
+      <segment id="natamy_rifle_shooter_broken_shoulder" state="translated">
         <source>natamy_rifle_shooter_broken_shoulder</source>
-        <target>natamy_rifle_shooter_broken_shoulder</target>
+        <target>**{character}** should have better anticipated the recoil, missing **{target_character}** and injuring {character_gender, select, female {her} other {his}} own shoulder. Bravo.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_failed_shot">
-      <segment id="natamy_rifle_failed_shot" state="initial">
+      <segment id="natamy_rifle_failed_shot" state="translated">
         <source>natamy_rifle_failed_shot</source>
-        <target>natamy_rifle_failed_shot</target>
+        <target>{version, select,
+            1 {**{character}** tries to shoot at **{target_character}**, but a cramp stops them...}
+            2 {A whistle rings past **{target_character}**’s ears...}
+            3 {**{character}**’s blanks ricochet powerfully off **{target_character}**. Oops...}
+            other {**{character}** fired at **{target_character}**, but {character_gender, select, female {she} other {he}} couldn’t aim properly...}}</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_mashed_foot">
-      <segment id="natamy_rifle_shooter_mashed_foot" state="initial">
+      <segment id="natamy_rifle_shooter_mashed_foot" state="translated">
         <source>natamy_rifle_shooter_mashed_foot</source>
-        <target>natamy_rifle_shooter_mashed_foot</target>
+        <target>A heavy weapon deals major damage—especially to **{character}**’s foot...</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_drop_weapon">
-      <segment id="natamy_rifle_drop_weapon" state="initial">
+      <segment id="natamy_rifle_drop_weapon" state="translated">
         <source>natamy_rifle_drop_weapon</source>
-        <target>natamy_rifle_drop_weapon</target>
+        <target>No words can describe the incredible acrobatics of **{character}**’s weapon as it lands on the ground...</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_plus_2_damage">
-      <segment id="natamy_rifle_shooter_plus_2_damage" state="initial">
+      <segment id="natamy_rifle_shooter_plus_2_damage" state="translated">
         <source>natamy_rifle_shooter_plus_2_damage</source>
-        <target>natamy_rifle_shooter_plus_2_damage</target>
+        <target>With sharp eyes and a fiery resolve, **{character}** magnificently lands a shot right in **{target_character}**’s chest...</target>
       </segment>
     </unit>
   </file>

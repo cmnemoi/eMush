@@ -448,6 +448,51 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(10, $this->kuanTi->getMoralPoint());
     }
 
+    public function testGermaphobeMushDoesNotLoseMoraleAtCycleChange(FunctionalTester $I): void
+    {
+        // given I have a Mush player
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given this player is germaphobic
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::GERMAPHOBE,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when a new cycle event is triggered
+        $event = new PlayerCycleEvent(
+            $this->player,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, PlayerCycleEvent::PLAYER_NEW_CYCLE);
+
+        // then the player should not lose morale
+        $expectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint();
+        $I->assertEquals(
+            expected: $expectedMoralPoint,
+            actual: $this->player->getMoralPoint()
+        );
+
+        // then I don't see the germaphobe modifier room log
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->player->getPlace()->getName(),
+                'log' => LogEnum::GERMAPHOBE_MORALE_LOSS,
+                'playerInfo' => $this->player->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+    }
+
     public function shrinkShouldNotGiveMoraleToHimself(FunctionalTester $I): void
     {
         // given Janice is lying down

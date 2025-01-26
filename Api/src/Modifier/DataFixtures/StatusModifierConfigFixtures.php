@@ -45,6 +45,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const string STARVING_MODIFIER = 'starving_modifier';
+    public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
 
     public const string INCREASE_CYCLE_DISEASE_CHANCES_30 = 'increase_cycle_disease_chances_30';
     public const string MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
@@ -324,6 +325,25 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $fitfulSleepModifier->setTriggeredEvent($eventConfig);
         $manager->persist($fitfulSleepModifier);
 
+        $dirtyActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
+        $dirtyActivationRequirement
+            ->setActivationRequirement('player_status_dirty')
+            ->buildName();
+        $manager->persist($dirtyActivationRequirement);
+
+        $manager->persist($modifierRequirementNotMush);
+        $germaphobeModifier = new TriggerEventModifierConfig(ModifierNameEnum::GERMAPHOBE_MODIFIER);
+        $germaphobeModifier
+            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
+            ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
+            ->setApplyWhenTargeted(true)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->addModifierRequirement($dirtyActivationRequirement)
+            ->addModifierRequirement($modifierRequirementNotMush)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->setModifierName(ModifierNameEnum::GERMAPHOBE_MODIFIER);
+        $manager->persist($germaphobeModifier);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -352,6 +372,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference($catOwnerModifierSchrodingerCantHurt->getName(), $catOwnerModifierSchrodingerCantHurt);
         $this->addReference($catOwnerModifierMoraleLossOnSchrodingerDeath->getName(), $catOwnerModifierMoraleLossOnSchrodingerDeath);
         $this->addReference($fitfulSleepModifier->getName(), $fitfulSleepModifier);
+        $this->addReference(self::GERMAPHOBE_MODIFIER, $germaphobeModifier);
     }
 
     public function getDependencies(): array

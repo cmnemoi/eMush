@@ -94,6 +94,7 @@ abstract class LogEnum
     public const string LETHARGY_WORKED = 'lethargy_worked';
     public const string RESEARCH_COMPLETED = 'research_completed';
     public const string MYCO_ALARM_RING = 'myco_alarm_ring';
+    public const string GERMAPHOBE_MORALE_LOSS = 'germaphobe_morale_loss';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [
@@ -120,6 +121,7 @@ abstract class LogEnum
             ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::ANTISOCIAL_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::CREATIVE_MODIFIER => VisibilityEnum::PRIVATE,
+            ModifierNameEnum::GERMAPHOBE_MODIFIER => VisibilityEnum::PRIVATE,
         ],
         self::VALUE => [
             ModifierNameEnum::MUSH_CONSUME => self::CONSUME_MUSH,
@@ -143,6 +145,7 @@ abstract class LogEnum
             ModifierNameEnum::LOST_MODIFIER => self::LOST_ON_PLANET,
             ModifierNameEnum::ANTISOCIAL_MODIFIER => self::ANTISOCIAL_MORALE_LOSS,
             ModifierNameEnum::CREATIVE_MODIFIER => self::CREATIVE_WORKED,
+            ModifierNameEnum::GERMAPHOBE_MODIFIER => self::GERMAPHOBE_MORALE_LOSS,
         ],
     ];
 

@@ -1138,5 +1138,11 @@
         <target>You have earned {quantity} :pa_cook:.</target>
       </segment>
     </unit>
+    <unit id="germaphobe_morale_loss">
+      <segment state="translated">
+        <source>germaphobe_morale_loss</source>
+        <target>You feel dirty... This saddens you.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

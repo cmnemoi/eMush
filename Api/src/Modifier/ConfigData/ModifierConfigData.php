@@ -1249,6 +1249,7 @@ abstract class ModifierConfigData
             'triggeredEvent' => 'change.variable_player_-1_moralPoint',
             'modifierActivationRequirements' => [
                 'player_in_room_not_alone',
+                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
             ],
             'tagConstraints' => [],
             'targetFilters' => [],
@@ -3569,6 +3570,7 @@ abstract class ModifierConfigData
             'targetVariable' => PlayerVariableEnum::MORAL_POINT,
             'mode' => VariableModifierModeEnum::ADDITIVE,
             'modifierActivationRequirements' => [
+                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
             ],
             'tagConstraints' => [
                 'cat_death' => ModifierRequirementEnum::ANY_TAGS,
@@ -3848,6 +3850,25 @@ abstract class ModifierConfigData
                 ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
             ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+        ],
+        [
+            'name' => 'germaphobe_modifier_for_player_-1moralPoint_on_new_cycle_if_player_dirty',
+            'modifierName' => 'germaphobe_modifier',
+            'targetEvent' => 'player.new.cycle',
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => 'change.variable_player_-1_moralPoint',
+            'modifierActivationRequirements' => [
+                'player_status_dirty',
+                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
+            ],
+            'tagConstraints' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
         ],

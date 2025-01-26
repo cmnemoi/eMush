@@ -268,10 +268,12 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($gagged);
 
+        $germaphobeModifier = $this->getReference(StatusModifierConfigFixtures::GERMAPHOBE_MODIFIER);
         $germaphobe = new StatusConfig();
         $germaphobe
             ->setStatusName(PlayerStatusEnum::GERMAPHOBE)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs([$germaphobeModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($germaphobe);
 

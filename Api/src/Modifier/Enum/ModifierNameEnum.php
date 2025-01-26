@@ -147,4 +147,5 @@ abstract class ModifierNameEnum
     public const string SELF_SACRIFICE_MODIFIER = 'self_sacrifice_modifier';
     public const string IMMUNIZED_MODIFIER = 'immunized_modifier';
     public const string MUTE_PREVENT_MESSAGES_MODIFIER = 'mute_prevent_messages';
+    public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
 }

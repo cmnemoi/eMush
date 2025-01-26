@@ -379,7 +379,9 @@ abstract class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                'germaphobe_modifier_for_player_-1moralPoint_on_new_cycle_if_player_dirty',
+            ],
             'actionConfigs' => [],
         ],
         [

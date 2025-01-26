@@ -91,10 +91,10 @@ abstract class LogDeclinationEnum
             ActionLogEnum::SHOOT_CAT_FAIL => [self::VERSION => 4],
             ActionLogEnum::SHOOT_CAT_CRITICAL_FAIL => [self::VERSION => 2],
             WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
-            WeaponEventEnum::BLASTER_FAILED_SHOT->value => [self::VERSION => 2],
+            WeaponEventEnum::BLASTER_FAILED_SHOT->value => [self::VERSION => 100],
             WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
             WeaponEventEnum::NATAMY_RIFLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => [self::VERSION => 2],
-            WeaponEventEnum::NATAMY_RIFLE_FAILED_SHOT->value => [self::VERSION => 3],
+            WeaponEventEnum::NATAMY_RIFLE_FAILED_SHOT->value => [self::VERSION => 100],
         ];
     }
 }

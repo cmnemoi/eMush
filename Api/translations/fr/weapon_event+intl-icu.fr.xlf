@@ -16,8 +16,8 @@
         <segment id="blaster_failed_shot" state="translated">
             <source>blaster_failed_shot</source>
             <target>{version, select,
-            1 {**{character}** a fait feu sur **{target_character}** mais n'est hélas juste pas capable de viser correctement...}
-            other {**{character}** fait feu mais ne touche que le mur... Quel talent !}}</target>
+            1 {**{character}** fait feu mais ne touche que le mur... Quel talent !}
+            other {**{character}** a fait feu sur **{target_character}** mais n'est hélas juste pas capable de viser correctement...}}</target>
         </segment>
     </unit>
     <unit id="blaster_target_headshot">
@@ -98,7 +98,7 @@
             <target>{version, select,
             1 {**{character}** vient de tirer sur **{target_character}** !}
             2 {**{character}** ouvre le feu sur **{target_character}**.}
-            3 {**{character}** déverse un torrent de balle sur **{target_character}**.}
+            3 {**{character}** déverse un torrent de balles sur **{target_character}**.}
             4 {**{character}** vient de mettre une balle dans **{target_character}**...}
             other {**{character}** tire une rafale sur **{target_character}**.}}</target>
         </segment>
@@ -165,7 +165,8 @@
             <target>{version, select,
             1 {**{character}** tente de tirer sur **{target_character}** mais une crampe l'en empêche...}
             2 {Un sifflement retentit aux oreilles de **{target_character}**...}
-            other {Les balles à blanc de **{character}** rebondissent avec force sur **{target_character}**. Oups...}}</target>
+            3 {Les balles à blanc de **{character}** rebondissent avec force sur **{target_character}**. Oups...}
+            other {**{character}** a fait feu sur **{target_character}** mais n'est hélas juste pas capable de viser correctement...}}</target>
         </segment>
     </unit>
     <unit id="natamy_rifle_shooter_mashed_foot">

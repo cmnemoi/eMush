@@ -1125,6 +1125,9 @@ class ActionsFixtures extends Fixture
         $travelToEden = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TRAVEL_TO_EDEN));
         $manager->persist($travelToEden);
 
+        $comManagerAnnouncement = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COM_MANAGER_ANNOUNCEMENT));
+        $manager->persist($comManagerAnnouncement);
+
         $openContainerCost0 = new ActionConfig();
         $openContainerCost0
             ->setName('open_container_cost_0')
@@ -1281,5 +1284,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::COMPUTE_EDEN->value, $computeEden);
         $this->addReference(ActionEnum::TRAVEL_TO_EDEN->value, $travelToEden);
         $this->addReference(self::OPEN_CONTAINER_COST_0, $openContainerCost0);
+        $this->addReference(ActionEnum::COM_MANAGER_ANNOUNCEMENT->value, $comManagerAnnouncement);
     }
 }

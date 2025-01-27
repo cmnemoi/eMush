@@ -2304,7 +2304,9 @@ class EquipmentConfigData
                 'hide',
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'gear_invertebrate_shell_default',
+            ],
             'initStatuses' => [
                 'alien_artefact_default',
                 'heavy_default',

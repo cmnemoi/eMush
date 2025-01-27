@@ -1132,9 +1132,9 @@
         <target>**{character}** emerges from {character_gender, select, female {her} other {his}} pile of debris looking delighted, {character_gender, select, female {she} other {he}} has made a find! And {target_equipment_first_letter, select, vowel {an **{target_equipment}**} other {a **{target_equipment}**}}!</target>
       </segment>
     </unit>
-    <unit id="gain_it_chef_point">
+    <unit id="gain_chef_point">
       <segment state="translated">
-        <source>gain_it_chef_point</source>
+        <source>gain_chef_point</source>
         <target>You have earned {quantity} :pa_cook:.</target>
       </segment>
     </unit>

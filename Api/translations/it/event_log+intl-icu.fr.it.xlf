@@ -901,10 +901,10 @@
         <target>gen_metal_success</target>
       </segment>
     </unit>
-    <unit id="gain_it_chef_point">
+    <unit id="gain_chef_point">
       <segment state="initial">
-        <source>gain_it_chef_point</source>
-        <target>gain_it_chef_point</target>
+        <source>gain_chef_point</source>
+        <target>gain_chef_point</target>
       </segment>
     </unit>
   </file>

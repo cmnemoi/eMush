@@ -9,6 +9,8 @@ use Mush\Status\Enum\PlayerStatusEnum;
 
 class ModifierActivationRequirementData
 {
+    public const string PLAYER_STATUS_DIRTY = 'player_status_dirty';
+
     public static array $dataArray = [
         [
             'name' => 'random_10',
@@ -65,7 +67,7 @@ class ModifierActivationRequirementData
             'value' => 100,
         ],
         [
-            'name' => 'player_status_dirty',
+            'name' => self::PLAYER_STATUS_DIRTY,
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => PlayerStatusEnum::DIRTY,
             'value' => 100,

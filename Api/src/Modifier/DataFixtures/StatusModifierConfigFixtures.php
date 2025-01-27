@@ -17,6 +17,7 @@ use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
@@ -125,8 +126,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setActivationRequirement(PlayerStatusEnum::MUSH)
             ->setValue(ModifierRequirementEnum::ABSENT_STATUS)
             ->setName('player_not_mush_requirement_test');
-
         $manager->persist($modifierRequirementNotMush);
+
         $antisocialModifier = new TriggerEventModifierConfig(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $antisocialModifier
             ->setTriggeredEvent($eventConfigLoseOneMorale)
@@ -325,20 +326,16 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $fitfulSleepModifier->setTriggeredEvent($eventConfigGainOneLessAP);
         $manager->persist($fitfulSleepModifier);
 
-        $dirtyActivationRequirement = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
-        $dirtyActivationRequirement
-            ->setActivationRequirement('player_status_dirty')
-            ->buildName();
+        $dirtyActivationRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierActivationRequirementData::PLAYER_STATUS_DIRTY)
+        );
         $manager->persist($dirtyActivationRequirement);
-
-        $manager->persist($modifierRequirementNotMush);
 
         $germaphobeModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName('germaphobe_modifier_for_player_-1moralPoint_on_new_cycle_if_player_dirty')
         );
         $germaphobeModifier->addModifierRequirement($dirtyActivationRequirement);
         $germaphobeModifier->setTriggeredEvent($eventConfigLoseOneMorale);
-
         $manager->persist($germaphobeModifier);
 
         $manager->flush();

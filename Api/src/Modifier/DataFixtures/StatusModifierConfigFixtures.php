@@ -17,6 +17,7 @@ use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
@@ -45,6 +46,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const string STARVING_MODIFIER = 'starving_modifier';
+    public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
 
     public const string INCREASE_CYCLE_DISEASE_CHANCES_30 = 'increase_cycle_disease_chances_30';
     public const string MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
@@ -117,18 +119,18 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         $manager->persist($burdenedModifier);
 
-        /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
-        $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::MORAL_REDUCE_1);
+        /** @var AbstractEventConfig $eventConfigLoseOneMorale */
+        $eventConfigLoseOneMorale = $this->getReference(EventConfigFixtures::MORAL_REDUCE_1);
         $modifierRequirementNotMush = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
         $modifierRequirementNotMush
             ->setActivationRequirement(PlayerStatusEnum::MUSH)
             ->setValue(ModifierRequirementEnum::ABSENT_STATUS)
             ->setName('player_not_mush_requirement_test');
-
         $manager->persist($modifierRequirementNotMush);
+
         $antisocialModifier = new TriggerEventModifierConfig(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $antisocialModifier
-            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
+            ->setTriggeredEvent($eventConfigLoseOneMorale)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
@@ -138,11 +140,11 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $manager->persist($antisocialModifier);
 
-        /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
-        $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::MORAL_REDUCE_2);
+        /** @var AbstractEventConfig $eventConfigLoseTwoMorale */
+        $eventConfigLoseTwoMorale = $this->getReference(EventConfigFixtures::MORAL_REDUCE_2);
         $lostModifier = new TriggerEventModifierConfig('lostModifier');
         $lostModifier
-            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
+            ->setTriggeredEvent($eventConfigLoseTwoMorale)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyWhenTargeted(true)
@@ -163,11 +165,11 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $lyingDownModifier->buildName();
         $manager->persist($lyingDownModifier);
 
-        /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
-        $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
+        /** @var AbstractEventConfig $eventConfigLoseOneHealth */
+        $eventConfigLoseOneHealth = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
         $starvingModifier = new TriggerEventModifierConfig('starvingModifier');
         $starvingModifier
-            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
+            ->setTriggeredEvent($eventConfigLoseOneHealth)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyWhenTargeted(true)
@@ -187,11 +189,11 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($increaseCycleDiseaseChances30);
 
-        /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
-        $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_3);
+        /** @var AbstractEventConfig $eventConfigLoseThreeHealth */
+        $eventConfigLoseThreeHealth = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_3);
         $mushShowerModifier = new TriggerEventModifierConfig(ModifierNameEnum::MUSH_SHOWER_MALUS);
         $mushShowerModifier
-            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
+            ->setTriggeredEvent($eventConfigLoseThreeHealth)
             ->setTargetEvent(ActionEvent::POST_ACTION)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
@@ -316,13 +318,25 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $catOwnerModifierMoraleLossOnSchrodingerDeath = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('cat_owner_modifier_-4morale_on_cat_death'));
         $manager->persist($catOwnerModifierMoraleLossOnSchrodingerDeath);
 
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference(EventConfigFixtures::ACTION_REDUCE_1);
+        /** @var VariableEventConfig $eventConfigGainOneLessAP */
+        $eventConfigGainOneLessAP = $this->getReference(EventConfigFixtures::ACTION_REDUCE_1);
         $fitfulSleepModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::FITFUL_SLEEP_MINUS_ONE_ACTION_POINT)
         );
-        $fitfulSleepModifier->setTriggeredEvent($eventConfig);
+        $fitfulSleepModifier->setTriggeredEvent($eventConfigGainOneLessAP);
         $manager->persist($fitfulSleepModifier);
+
+        $dirtyActivationRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierActivationRequirementData::PLAYER_STATUS_DIRTY)
+        );
+        $manager->persist($dirtyActivationRequirement);
+
+        $germaphobeModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('germaphobe_modifier_for_player_-1moralPoint_on_new_cycle_if_player_dirty')
+        );
+        $germaphobeModifier->addModifierRequirement($dirtyActivationRequirement);
+        $germaphobeModifier->setTriggeredEvent($eventConfigLoseOneMorale);
+        $manager->persist($germaphobeModifier);
 
         $manager->flush();
 
@@ -352,6 +366,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference($catOwnerModifierSchrodingerCantHurt->getName(), $catOwnerModifierSchrodingerCantHurt);
         $this->addReference($catOwnerModifierMoraleLossOnSchrodingerDeath->getName(), $catOwnerModifierMoraleLossOnSchrodingerDeath);
         $this->addReference($fitfulSleepModifier->getName(), $fitfulSleepModifier);
+        $this->addReference(self::GERMAPHOBE_MODIFIER, $germaphobeModifier);
     }
 
     public function getDependencies(): array

@@ -14,6 +14,7 @@ use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\ConfigData\StatusConfigData;
@@ -181,7 +182,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($reinforced);
 
-        /** @var VariableEventModifierConfig $antisocialModifier */
+        /** @var TriggerEventModifierConfig $antisocialModifier */
         $antisocialModifier = $this->getReference(StatusModifierConfigFixtures::ANTISOCIAL_MODIFIER);
 
         $antisocial = new StatusConfig();
@@ -268,10 +269,13 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($gagged);
 
+        /** @var TriggerEventModifierConfig $germaphobeModifier */
+        $germaphobeModifier = $this->getReference(StatusModifierConfigFixtures::GERMAPHOBE_MODIFIER);
         $germaphobe = new StatusConfig();
         $germaphobe
             ->setStatusName(PlayerStatusEnum::GERMAPHOBE)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs([$germaphobeModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($germaphobe);
 

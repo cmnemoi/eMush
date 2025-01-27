@@ -1253,6 +1253,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
+            'visibility' => VisibilityEnum::PRIVATE,
         ],
         [
             'name' => 'lost_modifier_for_player_-2moralPoint_on_new_cycle',
@@ -3850,6 +3851,25 @@ abstract class ModifierConfigData
             ],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
+        ],
+        [
+            'name' => 'germaphobe_modifier_for_player_-1moralPoint_on_new_cycle_if_player_dirty',
+            'modifierName' => 'germaphobe_modifier',
+            'targetEvent' => 'player.new.cycle',
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => 'change.variable_player_-1_moralPoint',
+            'modifierActivationRequirements' => [
+                'player_status_dirty',
+            ],
+            'tagConstraints' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+            'visibility' => VisibilityEnum::PRIVATE,
         ],
     ];
 

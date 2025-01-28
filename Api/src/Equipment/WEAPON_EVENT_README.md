@@ -40,11 +40,11 @@ new ModifyDamageWeaponEffectConfigDto(
 5. Add the event to your weapon in [MechanicsData](./ConfigData/MechanicsData.php):
 ```php
 'successfulEventKeys' => [
-    WeaponEventEnum::YOUR_WEAPON_EVENT->value => 75, // probability (75%)
+    WeaponEventEnum::YOUR_WEAPON_EVENT->value => 75, // weight (75)
 ],
 // Or for failed events:
 'failedEventKeys' => [
-    WeaponEventEnum::YOUR_WEAPON_EVENT->value => 25, // probability (25%)
+    WeaponEventEnum::YOUR_WEAPON_EVENT->value => 25, // weight (25)
 ],
 ```
 
@@ -108,6 +108,6 @@ new InflictInjuryWeaponEffectConfigDto(
 5. Add to weapon in [MechanicsData](./ConfigData/MechanicsData.php):
 ```php
 'successfulEventKeys' => [
-    WeaponEventEnum::SUPER_SHOT->value => 10, // 10% chance to trigger
+    WeaponEventEnum::SUPER_SHOT->value => 10, // weighted chance to trigger
 ],
 ```

@@ -152,6 +152,11 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lostModifier);
 
+        $playerIsNotHyperactiveRequirement = ModifierActivationRequirement::fromConfigData(
+            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::PLAYER_IS_NOT_HYPERACTIVE)
+        );
+        $manager->persist($playerIsNotHyperactiveRequirement);
+
         $lyingDownModifier = new VariableEventModifierConfig(ModifierNameEnum::LYING_DOWN_MODIFIER);
         $lyingDownModifier
             ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
@@ -161,7 +166,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyWhenTargeted(true)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints(['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
+            ->addModifierRequirement($playerIsNotHyperactiveRequirement);
         $lyingDownModifier->buildName();
         $manager->persist($lyingDownModifier);
 

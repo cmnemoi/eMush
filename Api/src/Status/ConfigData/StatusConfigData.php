@@ -426,7 +426,9 @@ abstract class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                'hyperactive_modifier_for_player_+1movementPoint_on_new_cycle',
+            ],
             'actionConfigs' => [],
         ],
         [

@@ -302,10 +302,17 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($highlyInactive);
 
+        /** @var VariableEventModifierConfig $hyperactiveModifier */
+        $hyperactiveModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('hyperactive_modifier_for_player_+1movementPoint_on_new_cycle')
+        );
+        $manager->persist($hyperactiveModifier);
+
         $hyperactive = new StatusConfig();
         $hyperactive
             ->setStatusName(PlayerStatusEnum::HYPERACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setModifierConfigs([$hyperactiveModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($hyperactive);
 

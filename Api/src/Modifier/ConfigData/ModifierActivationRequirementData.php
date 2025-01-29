@@ -180,6 +180,12 @@ class ModifierActivationRequirementData
             'activationRequirement' => '',
             'value' => 50,
         ],
+        [
+            'name' => ModifierRequirementEnum::PLAYER_IS_NOT_HYPERACTIVE,
+            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
+            'activationRequirement' => PlayerStatusEnum::HYPERACTIVE,
+            'value' => ModifierRequirementEnum::ABSENT_STATUS,
+        ],
     ];
 
     public static function getByName(string $name): array

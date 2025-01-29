@@ -662,6 +662,61 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $I->assertSame($initialTriumph, $this->player->getTriumph(), 'The triumph count has shifted when it shouldn\'t!');
     }
 
+    public function hyperactivePreventsLyingDownGainAndGivesMovementPoint(FunctionalTester $I): void
+    {
+        $this->givenChunHasHyperactive();
+
+        $this->givenChunIsLyingDown();
+
+        $this->givenChunHasAPMP(0, 0);
+
+        $this->whenNewCycleEventIsTriggered();
+
+        $this->thenChunShouldHaveAPMP($I, 1, 2);
+    }
+
+    private function givenChunHasHyperactive(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HYPERACTIVE,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenChunIsLyingDown(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenChunHasAPMP(int $AP, int $MP): void
+    {
+        $this->chun->setActionPoint($AP);
+        $this->chun->setMovementPoint($MP);
+    }
+
+    private function whenNewCycleEventIsTriggered(): void
+    {
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+    }
+
+    private function thenChunShouldHaveAPMP(FunctionalTester $I, int $AP, int $MP): void
+    {
+        $I->assertEquals($AP, $this->chun->getActionPoint());
+        $I->assertEquals($MP, $this->chun->getMovementPoint());
+    }
+
     private function getPanicCrisisPlayerDamage(): int
     {
         return array_keys($this->daedalus->getGameConfig()->getDifficultyConfig()->getPanicCrisisPlayerDamage()->toArray())[0];

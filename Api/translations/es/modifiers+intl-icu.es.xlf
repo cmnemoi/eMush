@@ -109,10 +109,16 @@
         <target>foaming_mouth.description</target>
       </segment>
     </unit>
-    <unit id="mute_modifier_on_new_message">
+    <unit id="mute_prevent_messages_on_new_message">
+      <segment id="description" state="initial">
+        <source>mute_prevent_messages_on_new_message.description</source>
+        <target>mute_prevent_messages_on_new_message.description</target>
+      </segment>
+    </unit>
+    <unit id="mute_prevent_actions_on_pre.action.description">
       <segment id="description" state="translated">
-        <source>mute_modifier_on_new_message.description</source>
-        <target>mute.description</target>
+        <source>mute_prevent_actions_on_pre.action.description</source>
+        <target>mute_prevent_actions_on_pre.action.description</target>
       </segment>
     </unit>
     <unit id="sneezing_on_post.action">

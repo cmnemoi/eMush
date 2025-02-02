@@ -248,6 +248,9 @@ final class PlayerService implements PlayerServiceInterface
             $this->playerRepository->lockAndRefresh($player, LockMode::PESSIMISTIC_WRITE);
 
             if ($player->isDead()) {
+                $this->playerRepository->save($player);
+                $this->playerRepository->commitTransaction();
+
                 return $player;
             }
 

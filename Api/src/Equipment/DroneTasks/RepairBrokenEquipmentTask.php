@@ -7,6 +7,7 @@ namespace Mush\Equipment\DroneTasks;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\DroneRepairedEvent;
+use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
@@ -26,13 +27,13 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
 
     protected function applyEffect(Drone $drone, \DateTime $time): void
     {
-        // If there is no broken equipment in the room, the task is not applicable.
-        $equipmentToRepair = $this->getEquipmentToRepair($drone);
-        if (!$equipmentToRepair) {
+        if ($drone->cannotApplyTask($this)) {
             $this->taskNotApplicable = true;
 
             return;
         }
+
+        $equipmentToRepair = $this->getEquipmentToRepairOrThrow($drone);
 
         // If the repair fails, increase the number of failed repair attempts and abort.
         if ($this->d100Roll->isAFailure($drone->getRepairSuccessRateForEquipment($equipmentToRepair))) {
@@ -49,7 +50,7 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
         $this->repairEquipment($drone, $equipmentToRepair, $time);
     }
 
-    private function getEquipmentToRepair(Drone $drone): ?GameEquipment
+    private function getEquipmentToRepairOrThrow(Drone $drone): GameEquipment
     {
         $brokenRoomEquipment = $drone->getBrokenDoorsAndEquipmentsInRoom();
         $equipmentToRepair = $this->getRandomElementsFromArray->execute(
@@ -57,7 +58,16 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
             number: 1
         )->first();
 
-        return $equipmentToRepair ?: null;
+        if (!$equipmentToRepair) {
+            $brokenEquipmentList = '';
+            foreach ($brokenRoomEquipment as $equipment) {
+                $brokenEquipmentList = $brokenEquipmentList . $equipment->getName() . ' ';
+            }
+
+            throw new GameException($drone->getNickname() . ' failed to select an equipment to repair, even though the following broken equipments have been detected in ' . $drone->getPlace()->getName() . ': ' . $brokenEquipmentList . '. If the code got this far, the error is in GetRandomElementsFromArrayService. If this throw isnt triggering yet drones are still reported leaving rooms with broken items, then getBrokenDoorsAndEquipmentsInRoom is to blame.');
+        }
+
+        return $equipmentToRepair;
     }
 
     private function repairEquipment(Drone $drone, GameEquipment $equipmentToRepair, \DateTime $time): void

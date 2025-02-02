@@ -11,6 +11,7 @@ use Mush\Action\Repository\ActionConfigRepositoryInterface;
 use Mush\Equipment\DroneTasks\AbstractDroneTask;
 use Mush\Equipment\DroneTasks\ExtinguishFireTask;
 use Mush\Equipment\DroneTasks\LandTask;
+use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -54,6 +55,7 @@ class Drone extends GameItem
     public function cannotApplyTask(AbstractDroneTask $task): bool
     {
         return match ($task->name()) {
+            RepairBrokenEquipmentTask::class => $this->cannotRepair(),
             ExtinguishFireTask::class => $this->cannotExtinguish(),
             LandTask::class => $this->cannotLand(),
             ShootHunterTask::class => $this->cannotShootHunter(),
@@ -166,6 +168,11 @@ class Drone extends GameItem
         return $this->hasStatus(EquipmentStatusEnum::PILOT_DRONE_UPGRADE);
     }
 
+    private function cannotRepair(): bool
+    {
+        return $this->nothingBrokenInRoom();
+    }
+
     private function cannotExtinguish(): bool
     {
         return $this->isNotFirefighter() || $this->noFireInRoom();
@@ -184,6 +191,11 @@ class Drone extends GameItem
     private function cannotTakeoff(): bool
     {
         return $this->isNotPilot() || $this->isInAPatrolShip() || $this->noAttackingHunters() || $this->noPatrolShipTakeoffActionAvailable();
+    }
+
+    private function nothingBrokenInRoom(): bool
+    {
+        return $this->getBrokenDoorsAndEquipmentsInRoom()->isEmpty();
     }
 
     private function noFireInRoom(): bool

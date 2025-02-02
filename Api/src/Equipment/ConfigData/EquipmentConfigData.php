@@ -588,7 +588,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_bacta_default',
             ],
             'initStatuses' => [],
         ],
@@ -609,7 +609,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_betapropyl_default',
             ],
             'initStatuses' => [],
         ],
@@ -630,7 +630,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_eufurylate_default',
             ],
             'initStatuses' => [],
         ],
@@ -651,7 +651,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_newke_default',
             ],
             'initStatuses' => [],
         ],
@@ -672,7 +672,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_phuxx_default',
             ],
             'initStatuses' => [],
         ],
@@ -693,7 +693,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_pinq_default',
             ],
             'initStatuses' => [],
         ],
@@ -714,7 +714,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_pymp_default',
             ],
             'initStatuses' => [],
         ],
@@ -735,7 +735,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_rosebud_default',
             ],
             'initStatuses' => [],
         ],
@@ -756,7 +756,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_soma_default',
             ],
             'initStatuses' => [],
         ],
@@ -777,7 +777,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_spyce_default',
             ],
             'initStatuses' => [],
         ],
@@ -798,7 +798,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_twinoid_default',
             ],
             'initStatuses' => [],
         ],
@@ -819,7 +819,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'drug_default',
+                'drug_xenox_default',
             ],
             'initStatuses' => [],
         ],

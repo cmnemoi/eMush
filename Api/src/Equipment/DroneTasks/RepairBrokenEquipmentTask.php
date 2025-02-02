@@ -120,10 +120,7 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
             $time,
         );
 
-        return $this->getRandomElementsFromArray->execute(
-            elements: $brokenRoomEquipment->toArray(),
-            number: 1
-        )->first() ?: null;
+        return $brokenRoomEquipment->first() ?: null;
     }
 
     private function repairEquipment(Drone $drone, GameEquipment $equipmentToRepair, \DateTime $time): void

@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\Config\DroneConfig;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Drone;
+use Mush\Equipment\Entity\DroneInfo;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -35,6 +36,8 @@ final class GameEquipmentFactory
             EquipmentStatusEnum::ELECTRIC_CHARGES,
             $drone,
         );
+
+        $drone->setDroneInfo(new DroneInfo($drone, nickName: 0, serialNumber: 0));
 
         return $drone;
     }

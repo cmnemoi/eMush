@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="debug.ext">
+  <unit id="drone_repair_debug_charges_count">
+      <segment id="drone_repair_debug_charges_count" state="translated">
+        <source>drone_repair_debug_charges_count</source>
+        <target>debug: {drone} has {charge} actions left.</target>
+      </segment>
+    </unit>
+    <unit id="drone_repair_debug_nothing_broken_found">
+      <segment id="drone_repair_debug_nothing_broken_found" state="translated">
+        <source>drone_repair_debug_nothing_broken_found</source>
+        <target>debug: {drone} did not find anything to repair. Moving to next task...</target>
+      </segment>
+    </unit>
+    <unit id="drone_repair_debug_broken_item_list">
+      <segment id="drone_repair_debug_broken_item_list" state="translated">
+        <source>drone_repair_debug_broken_item_list</source>
+        <target>debug: {drone} found the following broken equipments: {broken_equipments}.</target>
+      </segment>
+    </unit>
+    <unit id="drone_repair_debug_fail_select">
+      <segment id="drone_repair_debug_fail_select" state="translated">
+        <source>drone_repair_debug_fail_select</source>
+        <target>debug: getRandomElementsFromArray failed to return an equipment! {drone} moving to next task...</target>
+      </segment>
+    </unit>
+        <unit id="drone_repair_debug_fail_select">
+      <segment id="drone_repair_debug_fail_select" state="translated">
+        <source>drone_repair_debug_success_select</source>
+        <target>debug: {drone} attempting repairs of {equipment}.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

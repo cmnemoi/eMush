@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="debug.ext">
+  <unit id="drone_repair_debug_charges_count">
+      <segment id="drone_repair_debug_charges_count" state="translated">
+        <source>drone_repair_debug_charges_count</source>
+        <target>debug: {drone} has {charge} actions left.</target>
+      </segment>
+    </unit>
     <unit id="drone_repair_debug_nothing_broken_found">
       <segment id="drone_repair_debug_nothing_broken_found" state="translated">
         <source>drone_repair_debug_nothing_broken_found</source>

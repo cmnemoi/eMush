@@ -30,6 +30,18 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
 
     protected function applyEffect(Drone $drone, \DateTime $time): void
     {
+        $logParameters = $this->getDroneName($drone);
+        $logParameters['charge'] = $drone->getNumberOfActions();
+        $this->roomLogService->createLog(
+            'drone_repair_debug_charges_count',
+            $drone->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'debug',
+            null,
+            $logParameters,
+            $time,
+        );
+
         if ($drone->cannotApplyTask($this)) {
             $this->taskNotApplicable = true;
 
@@ -65,7 +77,7 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
 
             return;
         }
-        $logParameters = $this->getDroneName($drone);
+
         $logParameters['equipment'] = $equipmentToRepair->getLogName();
         $this->roomLogService->createLog(
             'drone_repair_debug_success_select',

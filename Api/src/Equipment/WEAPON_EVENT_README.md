@@ -55,6 +55,7 @@ You can use these effect types when configuring weapon effects:
 - **ModifyDamageWeaponEffectConfigDto**: Modify the damage dealt
 - **ModifyMaxDamageWeaponEffectConfigDto**: Modify the maximum possible damage
 - **BreakWeaponEffectConfigDto**: Break the weapon
+- **DestroyWeaponEffectConfigDto**: Destroy the weapon
 - **DropWeaponEffectConfigDto**: Make the shooter drop their weapon
 - **InflictInjuryWeaponEffectConfigDto**: Inflict a specific injury
 - **InflictRandomInjuryWeaponEffectConfigDto**: Inflict a random injury

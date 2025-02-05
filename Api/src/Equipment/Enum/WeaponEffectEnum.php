@@ -9,6 +9,7 @@ enum WeaponEffectEnum: string
     // general effects
     case BREAK_WEAPON = 'break_weapon';
     case DROP_WEAPON = 'drop_weapon';
+    case DESTROY_WEAPON = 'destroy_weapon';
     case INFLICT_INJURY = 'inflict_injury';
     case INFLICT_RANDOM_INJURY = 'inflict_random_injury';
     case MODIFY_DAMAGE = 'modify_damage';
@@ -21,6 +22,7 @@ enum WeaponEffectEnum: string
     case BLASTER_ONE_SHOT = 'blaster_one_shot';
     case BIG_GUN_ONE_SHOT = 'big_gun_one_shot';
     case NATAMY_RIFLE_INJURY_ONE_SHOT = 'natamy_rifle_injury_one_shot';
+    case KNIFE_ONE_SHOT = 'knife_one_shot';
 
     // modify damage effects
     case ADD_ONE_DAMAGE = 'add_one_damage';
@@ -42,12 +44,19 @@ enum WeaponEffectEnum: string
     case INFLICT_BURNT_HAND_INJURY_TO_SHOOTER = 'inflict_burnt_hand_injury_to_shooter';
     case INFLICT_BROKEN_SHOULDER_INJURY_TO_SHOOTER = 'inflict_broken_shoulder_injury_to_shooter';
     case INFLICT_MASHED_FOOT_TO_SHOOTER = 'inflict_mashed_foot_to_shooter';
+    case INFLICT_MINOR_HAEMORRHAGE_TO_TARGET_10_PERCENTS = 'inflict_minor_haemorrhage_to_target_10_percents';
+    case INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_50_PERCENTS = 'inflict_critical_haemorrhage_injury_to_target_50_percents';
+    case INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_60_PERCENTS = 'inflict_critical_haemorrhage_injury_to_target_60_percents';
+    case INFLICT_BUSTED_ARM_JOINT_TO_TARGET = 'inflict_busted_arm_joint_to_target';
+    case INFLICT_PUNCTURED_LUNG_TO_TARGET = 'inflict_punctured_lung_to_target';
+    case INFLICT_TORN_TONGUE_INJURY_TO_TARGET_30_PERCENTS = 'inflict_torn_tongue_injury_to_target_30_percents';
+    case INFLICT_TORN_TONGUE_INJURY_TO_SHOOTER = 'inflict_torn_tongue_injury_to_shooter';
+    case INFLICT_BRUISED_SHOULDER_INJURY_TO_SHOOTER = 'inflict_bruised_shoulder_injury_to_shooter';
 
     // inflict random injury effects
     case INFLICT_RANDOM_INJURY_TO_SHOOTER = 'inflict_random_injury_to_shooter';
     case INFLICT_RANDOM_INJURY_TO_TARGET = 'inflict_random_injury_to_target';
     case INFLICT_RANDOM_INJURY_TO_TARGET_20_PERCENTS = 'inflict_random_injury_to_target_20_percents';
-    case INFLICT_TORN_TONGUE_INJURY_TO_TARGET_30_PERCENTS = 'inflict_torn_tongue_injury_to_target_30_percents';
 
     // remove action point effects
     case REMOVE_ONE_ACTION_POINT_TO_SHOOTER = 'remove_one_action_point_to_shooter';

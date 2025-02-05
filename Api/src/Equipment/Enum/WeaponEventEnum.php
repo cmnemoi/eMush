@@ -37,6 +37,21 @@ enum WeaponEventEnum: string
     case NATAMY_RIFLE_DROP_WEAPON = 'natamy_rifle_drop_weapon';
     case NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE = 'natamy_rifle_shooter_plus_2_damage';
 
+    // knife
+    case KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE = 'knife_successful_hit_10_minor_haemorrhage';
+    case KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY = 'knife_plus_2_damage_random_injury';
+    case KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE = 'knife_plus_2_damage_50_critical_haemorrhage';
+    case KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE_RANDOM_INJURY = 'knife_plus_2_damage_50_critical_haemorrhage_random_injury';
+    case KNIFE_PLUS_2_DAMAGE_60_CRITICAL_HAEMORRHAGE_BUSTED_ARM_JOINT = 'knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint';
+    case KNIFE_INSTAGIB_BLED = 'knife_instagib_bled';
+    case KNIFE_PLUS_2_DAMAGE_PUNCTURED_LUNG = 'knife_plus_2_damage_punctured_lung';
+    case KNIFE_FAILED_HIT = 'knife_failed_hit';
+    case KNIFE_DESTROY_WEAPON = 'knife_destroy_weapon';
+    case KNIFE_DESTROY_WEAPON_SHOOTER_TORN_TONGUE = 'knife_destroy_weapon_shooter_torn_tongue';
+    case KNIFE_SHOOTER_BRUISED_SHOULDER = 'knife_shooter_bruised_shoulder';
+    case KNIFE_SHOOTER_DROP_WEAPON = 'knife_shooter_drop_weapon';
+    case KNIFE_SHOOTER_MINUS_2_AP = 'knife_shooter_minus_2_ap';
+
     public function toString(): string
     {
         return $this->value;

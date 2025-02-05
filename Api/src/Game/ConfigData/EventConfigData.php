@@ -1011,6 +1011,115 @@ class EventConfigData
                     WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
                 ]
             ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString(),
+                eventName: WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString(),
+                eventType: WeaponEventType::NORMAL,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_MINOR_HAEMORRHAGE_TO_TARGET_10_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->toString(),
+                eventName: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE->toString(),
+                eventName: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_50_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE_RANDOM_INJURY->toString(),
+                eventName: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_50_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_60_CRITICAL_HAEMORRHAGE_BUSTED_ARM_JOINT->toString(),
+                eventName: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_60_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_BUSTED_ARM_JOINT_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_INSTAGIB_BLED->toString(),
+                eventName: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::KNIFE_ONE_SHOT->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_PUNCTURED_LUNG->toString(),
+                eventName: WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_PUNCTURED_LUNG_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_FAILED_HIT->toString(),
+                eventName: WeaponEventEnum::KNIFE_FAILED_HIT->toString(),
+                eventType: WeaponEventType::MISS,
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_DESTROY_WEAPON->toString(),
+                eventName: WeaponEventEnum::KNIFE_DESTROY_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::DESTROY_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_DESTROY_WEAPON_SHOOTER_TORN_TONGUE->toString(),
+                eventName: WeaponEventEnum::KNIFE_DESTROY_WEAPON_SHOOTER_TORN_TONGUE->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::DESTROY_WEAPON->toString(),
+                    WeaponEffectEnum::INFLICT_TORN_TONGUE_INJURY_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_SHOOTER_BRUISED_SHOULDER->toString(),
+                eventName: WeaponEventEnum::KNIFE_SHOOTER_BRUISED_SHOULDER->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_BRUISED_SHOULDER_INJURY_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_SHOOTER_DROP_WEAPON->toString(),
+                eventName: WeaponEventEnum::KNIFE_SHOOTER_DROP_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::DROP_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::KNIFE_SHOOTER_MINUS_2_AP->toString(),
+                eventName: WeaponEventEnum::KNIFE_SHOOTER_MINUS_2_AP->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::REMOVE_TWO_ACTION_POINTS_TO_TARGET->toString(),
+                ]
+            ),
         ];
     }
 
@@ -1121,6 +1230,10 @@ class EventConfigData
                 name: WeaponEffectEnum::DROP_WEAPON->toString(),
                 eventName: WeaponEffectEnum::DROP_WEAPON->toString(),
             ),
+            new DropWeaponEffectConfigDto(
+                name: WeaponEffectEnum::DESTROY_WEAPON->toString(),
+                eventName: WeaponEffectEnum::DESTROY_WEAPON->toString(),
+            ),
             new MultiplyDamageOnMushTargetWeaponEffectConfigDto(
                 name: WeaponEffectEnum::DOUBLE_DAMAGE_ON_MUSH_TARGET->toString(),
                 eventName: WeaponEffectEnum::MULTIPLY_DAMAGE_ON_MUSH_TARGET->toString(),
@@ -1163,6 +1276,51 @@ class EventConfigData
                 name: WeaponEffectEnum::INFLICT_MASHED_FOOT_TO_SHOOTER->toString(),
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
                 injuryName: InjuryEnum::MASHED_FOOT,
+                toShooter: true,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_MINOR_HAEMORRHAGE_TO_TARGET_10_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::MINOR_HAEMORRHAGE,
+                triggerRate: 10,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_50_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
+                triggerRate: 50,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_60_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::CRITICAL_HAEMORRHAGE,
+                triggerRate: 60,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_BUSTED_ARM_JOINT_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::BUSTED_ARM_JOINT,
+            ),
+            new OneShotWeaponEffectConfigDto(
+                name: WeaponEffectEnum::KNIFE_ONE_SHOT->toString(),
+                eventName: WeaponEffectEnum::ONE_SHOT->toString(),
+                endCause: EndCauseEnum::BLED,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_PUNCTURED_LUNG_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::PUNCTURED_LUNG,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_TORN_TONGUE_INJURY_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::TORN_TONGUE,
+                toShooter: true,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_BRUISED_SHOULDER_INJURY_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::BRUISED_SHOULDER,
                 toShooter: true,
             ),
         ];

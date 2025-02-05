@@ -1146,7 +1146,7 @@ abstract class MechanicsData
         [
             'name' => 'weapon_knife_default',
             'type' => 'weapon',
-            'damageSpread' => [1, 5],
+            'damageSpread' => [1, 3],
             'successfulEventKeys' => [
                 WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->value => 75,
                 WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->value => 5,

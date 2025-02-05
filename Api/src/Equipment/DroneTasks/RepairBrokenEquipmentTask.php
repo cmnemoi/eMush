@@ -10,7 +10,6 @@ use Mush\Equipment\Event\DroneRepairedEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
-use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -22,8 +21,6 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
         protected EventServiceInterface $eventService,
         protected StatusServiceInterface $statusService,
         private D100RollServiceInterface $d100Roll,
-        private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray,
-
         // remove these once bug found
         private RoomLogServiceInterface $roomLogService,
         private TranslationServiceInterface $translationService

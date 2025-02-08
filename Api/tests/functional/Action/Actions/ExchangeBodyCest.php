@@ -8,7 +8,7 @@ use Mush\Action\Actions\ExchangeBody;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Chat\Entity\ChannelPlayer;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;

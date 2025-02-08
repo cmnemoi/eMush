@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Modifier\ModifierHandler;
 
-use Mush\Communication\Services\MessageService;
+use Mush\Chat\Services\MessageService;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;

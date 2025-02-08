@@ -2,8 +2,8 @@
 
 namespace Mush\Tests\functional\Daedalus\Service;
 
-use Mush\Communication\Entity\Message;
-use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Enum\GameFruitEnum;

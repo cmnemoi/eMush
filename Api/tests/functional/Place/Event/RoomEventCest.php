@@ -3,10 +3,10 @@
 namespace Mush\Tests\functional\Place\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Entity\Message;
-use Mush\Communication\Enum\ChannelScopeEnum;
-use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Chat\Entity\Channel;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;

@@ -3,7 +3,7 @@
 namespace Mush\Tests\unit\Game\Service;
 
 use Mockery;
-use Mush\Communication\Enum\DiseaseMessagesEnum;
+use Mush\Chat\Enum\DiseaseMessagesEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;

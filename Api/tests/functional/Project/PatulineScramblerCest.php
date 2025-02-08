@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Project;
 
-use Mush\Communication\Entity\Dto\CreateMessage;
-use Mush\Communication\Entity\Message;
-use Mush\Communication\Services\MessageServiceInterface;
+use Mush\Chat\Entity\Dto\CreateMessage;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;

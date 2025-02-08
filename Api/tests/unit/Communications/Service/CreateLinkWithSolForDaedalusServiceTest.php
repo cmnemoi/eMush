@@ -26,10 +26,13 @@ final class CreateLinkWithSolForDaedalusServiceTest extends TestCase
 
     public function testShouldCreateLinkWithSolForDaedalus(): void
     {
+        // when I create a link with Sol for Daedalus
         $this->createLinkWithSolForDaedalusService->execute(daedalusId: 1);
 
+        // then a link with Sol should be properly created
         $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow(1);
 
+        // with expected values
         self::assertEquals(1, $linkWithSol->getDaedalusId());
         self::assertEquals(0, $linkWithSol->getStrength());
         self::assertFalse($linkWithSol->isEstablished());

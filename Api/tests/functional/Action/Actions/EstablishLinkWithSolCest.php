@@ -55,21 +55,11 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldIncreaseLinkStrength(FunctionalTester $I): void
     {
-        // given link strength is 12
-        $linkWithSol = $this->getLinkWithSol();
-        $linkWithSol->increaseStrength(12);
+        $this->givenLinkWithSolStrengthIs(12);
 
-        // when chun establish link with sol
-        $this->establishLinkWithSol->loadParameters(
-            actionConfig: $this->actionConfig,
-            actionProvider: $this->commsCenter,
-            player: $this->chun,
-            target: $this->commsCenter,
-        );
-        $this->establishLinkWithSol->execute();
+        $this->whenChunEstablishLinkWithSol();
 
-        // then link strength is increased by 4%
-        $I->assertEquals($linkWithSol->getStrength(), 16);
+        $this->thenLinkStrengthIs($I, 16);
     }
 
     private function givenACommsCenterInChunRoom(): void
@@ -101,5 +91,27 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function givenLinkWithSolIsNotEstablished(): void
     {
         $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
+    }
+
+    private function whenChunEstablishLinkWithSol(): void
+    {
+        $this->establishLinkWithSol->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commsCenter,
+            player: $this->chun,
+            target: $this->commsCenter,
+        );
+        $this->establishLinkWithSol->execute();
+    }
+
+    private function givenLinkWithSolStrengthIs(int $strength): void
+    {
+        $linkWithSol = $this->getLinkWithSol();
+        $linkWithSol->increaseStrength($strength);
+    }
+
+    private function thenLinkStrengthIs(FunctionalTester $I, int $expectedStrength): void
+    {
+        $I->assertEquals($this->getLinkWithSol()->getStrength(), $expectedStrength, message: "Link strength should be $expectedStrength");
     }
 }

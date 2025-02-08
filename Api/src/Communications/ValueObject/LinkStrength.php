@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Communications\ValueObject;
 
-final readonly class SignalStrength
+final readonly class LinkStrength
 {
     public int $value;
 

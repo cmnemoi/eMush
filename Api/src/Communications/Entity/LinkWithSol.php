@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Communications\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Communications\ValueObject\SignalStrength;
+use Mush\Communications\ValueObject\LinkStrength;
 use Mush\Daedalus\Entity\Daedalus;
 
 #[ORM\Entity]
@@ -30,7 +30,7 @@ class LinkWithSol
 
     public function __construct(int $daedalusId, int $strength = 0, bool $isEstablished = false)
     {
-        $this->strength = SignalStrength::create($strength)->value;
+        $this->strength = LinkStrength::create($strength)->value;
         $this->isEstablished = $isEstablished;
         $this->daedalusId = $daedalusId;
     }
@@ -86,8 +86,8 @@ class LinkWithSol
         $this->isEstablished = true;
     }
 
-    private function getStrengthAsValueObject(): SignalStrength
+    private function getStrengthAsValueObject(): LinkStrength
     {
-        return SignalStrength::create($this->strength);
+        return LinkStrength::create($this->strength);
     }
 }

@@ -1,4 +1,4 @@
-Mush\Communication\Entity\Channel:
+Mush\Chat\Entity\Channel:
   attributes:
     id:
       groups: [ 'channel_read', 'moderation_read'  ]

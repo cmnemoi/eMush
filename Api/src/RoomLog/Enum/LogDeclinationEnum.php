@@ -3,8 +3,8 @@
 namespace Mush\RoomLog\Enum;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Communication\Enum\DiseaseMessagesEnum;
-use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Chat\Enum\DiseaseMessagesEnum;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Equipment\Enum\WeaponEventEnum;
 
 abstract class LogDeclinationEnum

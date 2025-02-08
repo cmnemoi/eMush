@@ -8,7 +8,7 @@ use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use Mush\Communication\Entity\Message;
+use Mush\Chat\Entity\Message;
 use Mush\Daedalus\Entity\ComManagerAnnouncement;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Enum\ModerationSanctionEnum;

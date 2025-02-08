@@ -7,7 +7,7 @@ namespace Mush\RoomLog\Service;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Communication\Enum\NeronPersonalitiesEnum;
+use Mush\Chat\Enum\NeronPersonalitiesEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\ValueObject\DaedalusDate;

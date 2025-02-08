@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\ConfigData;
 
-use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Chat\Enum\MessageModificationEnum;
 use Mush\Equipment\ConfigData\ReplaceEquipmentConfigData;
 use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 use Mush\Modifier\Enum\ModifierNameEnum;

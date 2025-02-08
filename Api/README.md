@@ -8,7 +8,7 @@
     |-- src/
         |-- Action/
         |-- Alert/
-        |-- Communication/
+        |-- Chat/
         |-- Daedalus/
             |-- config
             |-- Controller
@@ -101,7 +101,7 @@ Factory classes, there are mostly used to easily create entities with some defau
 #### Listener
 Event listeners and suscribers.
 
-Events are used to share information between modules. For example, when a project is finished, the event `PROJECT_FINISHED` is triggered from the `Project` module, so it can be handled by the `Communication` module to create a NERON announcement.
+Events are used to share information between modules. For example, when a project is finished, the event `PROJECT_FINISHED` is triggered from the `Project` module, so it can be handled by the `Chat` module to create a NERON announcement.
 
 Documentation : https://symfony.com/doc/6.2/components/event_dispatcher.html#introduction
 
@@ -169,7 +169,7 @@ Obvious example:
 ## Module documentation
 - [Action](./src/Action/README.md): handles actions performed by the player
 - [Alert](./src/Alert/README.md): track Daedalus and crew critical points
-- [Communication](./src/Communication/README.md): handle chat between players and NERON announcements
+- [Chat](src/Chat/README.md): handle chat between players and NERON announcements
 - [Daedalus](./src/Daedalus/README.md) : handles the Daedalus cycle of life
 - [Disease](./src/Disease/README.md) : handles diseases (physical diseases, troubles, injuries)
 - [Equipment](./src/Equipment/README.md) : handles equipment, items and doors

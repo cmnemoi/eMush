@@ -164,9 +164,9 @@
             "php vendor/bin/codecept run tests/unit/Alert",
             "php vendor/bin/codecept run tests/functional/Alert"
         ],
-        "test:communication": [
-            "php vendor/bin/codecept run tests/unit/Communication",
-            "php vendor/bin/codecept run tests/functional/Communication"
+        "test:chat": [
+            "php vendor/bin/codecept run tests/unit/Chat",
+            "php vendor/bin/codecept run tests/functional/Chat"
         ],
         "test:daedalus": [
             "php vendor/bin/codecept run tests/unit/Daedalus",

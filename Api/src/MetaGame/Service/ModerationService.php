@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\MetaGame\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Communication\Entity\Message;
+use Mush\Chat\Entity\Message;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Entity\SanctionEvidence;

@@ -2,8 +2,8 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Mush\Communication\Entity\Message;
-use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;

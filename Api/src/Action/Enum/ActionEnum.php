@@ -188,6 +188,7 @@ enum ActionEnum: string
     case PARTICIPATE_RESEARCH = 'participate_research';
     case COMPUTE_EDEN = 'compute_eden';
     case TRAVEL_TO_EDEN = 'travel_to_eden';
+    case ESTABLISH_LINK_WITH_SOL = 'establish_link_with_sol';
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';

@@ -2093,6 +2093,7 @@ abstract class MechanicsData
             'actions' => [
                 ActionEnum::ACCESS_TERMINAL->value,
                 ActionEnum::EXIT_TERMINAL->value,
+                ActionEnum::ESTABLISH_LINK_WITH_SOL->value,
                 ActionEnum::SEARCH_FOR_MUSH_GENOME->value,
             ],
         ],

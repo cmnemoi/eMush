@@ -103,7 +103,13 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $searchForMushGenome */
         $searchForMushGenome = $this->getReference(ActionEnum::SEARCH_FOR_MUSH_GENOME->value);
 
-        $commsCenterTool = $this->createTool([$searchForMushGenome], EquipmentEnum::COMMUNICATION_CENTER);
+        /** @var ActionConfig $establishLinkWithSol */
+        $establishLinkWithSol = $this->getReference(ActionEnum::ESTABLISH_LINK_WITH_SOL->value);
+
+        $commsCenterTool = $this->createTool(
+            [$searchForMushGenome, $establishLinkWithSol],
+            EquipmentEnum::COMMUNICATION_CENTER
+        );
         $manager->persist($commsCenterTool);
 
         $comsCenter = new EquipmentConfig();

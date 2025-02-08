@@ -2706,7 +2706,7 @@ class ActionData
         [
             'name' => ActionEnum::ESTABLISH_LINK_WITH_SOL->value,
             'action_name' => ActionEnum::ESTABLISH_LINK_WITH_SOL,
-            'types' => [ActionTypeEnum::ACTION_IT],
+            'types' => [ActionTypeEnum::ACTION_COMMS_CENTER, ActionTypeEnum::ACTION_IT],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, 'fail' => VisibilityEnum::PRIVATE],

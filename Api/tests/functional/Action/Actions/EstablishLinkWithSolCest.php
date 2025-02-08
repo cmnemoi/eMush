@@ -13,6 +13,8 @@ use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -32,6 +34,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private EstablishLinkWithSol $establishLinkWithSol;
 
     private GameEquipment $commsCenter;
+    private GameEquipment $antenna;
 
     public function _before(FunctionalTester $I): void
     {
@@ -49,6 +52,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->establishLinkWithSol = $I->grabService(EstablishLinkWithSol::class);
 
         $this->givenLinkWithSolIsNotEstablished();
+        $this->givenAnAntennaInDaedalus();
         $this->givenACommsCenterInChunRoom();
         $this->givenChunIsFocusedOnCommsCenter();
     }
@@ -60,6 +64,17 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->whenChunEstablishLinkWithSol();
 
         $this->thenLinkStrengthIs($I, 16);
+    }
+
+    public function brokenAntennaShouldIncreasesAPCost(FunctionalTester $I): void
+    {
+        $this->givenChunHasActionPoints(3);
+
+        $this->givenAntennaIsBroken();
+
+        $this->whenChunEstablishLinkWithSol();
+
+        $this->thenChunHasActionPoints($I, 0);
     }
 
     private function givenACommsCenterInChunRoom(): void
@@ -93,6 +108,37 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
     }
 
+    private function givenLinkWithSolStrengthIs(int $strength): void
+    {
+        $linkWithSol = $this->getLinkWithSol();
+        $linkWithSol->increaseStrength($strength);
+    }
+
+    private function givenAnAntennaInDaedalus(): void
+    {
+        $this->antenna = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::ANTENNA,
+            equipmentHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenChunHasActionPoints(int $quantity): void
+    {
+        $this->chun->setActionPoint($quantity);
+    }
+
+    private function givenAntennaIsBroken(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->antenna,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenChunEstablishLinkWithSol(): void
     {
         $this->establishLinkWithSol->loadParameters(
@@ -104,14 +150,13 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->establishLinkWithSol->execute();
     }
 
-    private function givenLinkWithSolStrengthIs(int $strength): void
-    {
-        $linkWithSol = $this->getLinkWithSol();
-        $linkWithSol->increaseStrength($strength);
-    }
-
     private function thenLinkStrengthIs(FunctionalTester $I, int $expectedStrength): void
     {
-        $I->assertEquals($this->getLinkWithSol()->getStrength(), $expectedStrength, message: "Link strength should be $expectedStrength");
+        $I->assertEquals($this->getLinkWithSol()->getStrength(), $expectedStrength, message: "Link strength should be {$expectedStrength}");
+    }
+
+    private function thenChunHasActionPoints(FunctionalTester $I, int $quantity)
+    {
+        $I->assertEquals($this->chun->getActionPoint(), $quantity, message: "Chun should have {$quantity} action points");
     }
 }

@@ -204,15 +204,9 @@ class GearModifierConfigFixtures extends Fixture implements DependentFixtureInte
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($oscilloscopeRepairModifier);
 
-        $antennaModifier = new VariableEventModifierConfig('decreaseCommunicationActionCost1Action');
-        $antennaModifier
-            ->setTargetVariable(PlayerVariableEnum::ACTION_POINT)
-            ->setDelta(-1)
-            ->setMode(VariableModifierModeEnum::ADDITIVE)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setTagConstraints([])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $antennaModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_daedalus_-1actionPoint_on_comms_action')
+        );
         $manager->persist($antennaModifier);
 
         $gravityConversionModifier = new VariableEventModifierConfig('gravityDecreaseMovementConversionGain1Movement');

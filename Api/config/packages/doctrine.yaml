@@ -118,4 +118,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Skill/Entity'
                 prefix: 'Mush\Skill\Entity'
                 alias: Skill
+            Communications:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Communications/Entity'
+                prefix: 'Mush\Communications\Entity'
+                alias: Communications
 

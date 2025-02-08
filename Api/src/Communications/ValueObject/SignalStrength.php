@@ -8,16 +8,18 @@ final readonly class SignalStrength
 {
     public int $value;
 
-    public function __construct(int $value)
+    private function __construct(int $value)
     {
         $this->value = max(0, min(100, $value));
     }
 
+    public static function create(int $value): self
+    {
+        return new self($value);
+    }
+
     public function increase(int $delta): self
     {
-        $newValue = $this->value + $delta;
-        $newValue = min(100, $newValue);
-
-        return new self($newValue);
+        return new self($this->value + $delta);
     }
 }

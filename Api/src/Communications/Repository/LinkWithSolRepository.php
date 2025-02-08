@@ -6,7 +6,7 @@ namespace Mush\Communications\Repository;
 
 use Mush\Communications\Entity\LinkWithSol;
 
-interface LinkWithSolRepositoryInterface
+interface LinkWithSolRepository
 {
     public function findByDaedalusIdOrThrow(int $daedalusId): LinkWithSol;
 

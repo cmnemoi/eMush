@@ -6,7 +6,7 @@ namespace Mush\Communications\Repository;
 
 use Mush\Communications\Entity\LinkWithSol;
 
-final class InMemoryLinkWithSolRepository implements LinkWithSolRepositoryInterface
+final class InMemoryLinkWithSolRepository implements LinkWithSolRepository
 {
     private array $linkWithSols = [];
 

@@ -28,7 +28,7 @@ class LinkWithSol
     #[ORM\JoinColumn(name: 'daedalus_id')]
     private Daedalus $daedalus;
 
-    public function __construct(int $strength, bool $isEstablished, int $daedalusId)
+    public function __construct(int $daedalusId, int $strength = 0, bool $isEstablished = false)
     {
         $this->strength = SignalStrength::create($strength)->value;
         $this->isEstablished = $isEstablished;
@@ -48,6 +48,27 @@ class LinkWithSol
     public function getDaedalusId(): int
     {
         return $this->daedalusId;
+    }
+
+    public function setDaedalusId(int $daedalusId): void
+    {
+        $this->daedalusId = $daedalusId;
+    }
+
+    /**
+     * @deprecated Should be used only in Doctrine repositories. Use getDaedalusId() instead.
+     */
+    public function getDaedalus(): Daedalus
+    {
+        return $this->daedalus;
+    }
+
+    /**
+     * @deprecated should be used only in Doctrine repositories
+     */
+    public function setDaedalus(Daedalus $daedalus): void
+    {
+        $this->daedalus = $daedalus;
     }
 
     public function isEstablished(): bool

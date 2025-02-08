@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Communications\Service;
 
-use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
+use Mush\Communications\Repository\LinkWithSolRepository;
 
 final readonly class EstablishLinkWithSolService
 {
-    public function __construct(private LinkWithSolRepositoryInterface $linkWithSolRepository) {}
+    public function __construct(private LinkWithSolRepository $linkWithSolRepository) {}
 
     public function execute(int $daedalusId, int $strengthIncrease): void
     {

@@ -2091,6 +2091,8 @@ abstract class MechanicsData
             'name' => self::TOOL_COMMS_CENTER,
             'type' => EquipmentMechanicEnum::TOOL,
             'actions' => [
+                ActionEnum::ACCESS_TERMINAL->value,
+                ActionEnum::EXIT_TERMINAL->value,
                 ActionEnum::SEARCH_FOR_MUSH_GENOME->value,
             ],
         ],

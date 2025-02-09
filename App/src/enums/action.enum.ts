@@ -8,6 +8,7 @@ export enum ActionEnum {
     COM_MANAGER_ANNOUNCEMENT = "com_manager_announcement",
     COMPUTE_EDEN = "compute_eden",
     DELETE_PLANET = "delete_planet",
+    ESTABLISH_LINK_WITH_SOL = "establish_link_with_sol",
     EXCHANGE_BODY = "exchange_body",
     EXIT_TERMINAL = "exit_terminal",
     LEAVE_ORBIT = "leave_orbit",

@@ -8,4 +8,5 @@ export enum TerminalEnum {
     NERON_CORE_TERMINAL = "neron_core",
     RESEARCH_LAB_TERMINAL = "research_laboratory",
     PILGRED_TERMINAL = "pilgred",
+    COMMUNICATIONS_TERMINAL = "communication_center"
 };

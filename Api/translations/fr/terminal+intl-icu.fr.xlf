@@ -325,5 +325,15 @@
         <target>Le calcul des coordonnées d'Eden a été achevé avec succès. Les coordonnées ont été transférées vers NERON : consultez votre ***Commandant*** pour plus d'informations.</target>
       </segment>
     </unit>
+    <unit id="communication_center">
+      <segment id="name" state="translated">
+        <source>communication_center.name</source>
+        <target>Centre de communication</target>
+      </segment>
+      <segment id="tips" state="translated">
+        <source>communication_center.tips</source>
+        <target>Toute communication commence par **établir une liaison**.//Cette action simple peut être réalisée par n'importe quel membre de l'équipage. La liaison apporte des points de moral à toute l'équipe et débloque des nouvelles actions pour le Responsable Comm.//Si le contact échoue, au moins ça **améliorera la qualité du signal** et augmentera les chances de contact lors du prochain essai.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

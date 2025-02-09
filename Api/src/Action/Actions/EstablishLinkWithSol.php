@@ -93,44 +93,12 @@ final class EstablishLinkWithSol extends AbstractAction
         $this->markPlayerHasContactedSolToday();
     }
 
-    private function increaseStrength(LinkWithSol $linkWithSol): void
-    {
-        $linkWithSol->increaseStrength($this->getOutputQuantity());
-        $this->linkWithSolRepository->save($linkWithSol);
-    }
-
-    private function markAsEstablished(LinkWithSol $linkWithSol): void
-    {
-        $linkWithSol->markAsEstablished();
-        $this->linkWithSolRepository->save($linkWithSol);
-    }
-
-    private function isLinkEstablished(LinkWithSol $linkWithSol): bool
-    {
-        return $this->d100Roll->isSuccessful($linkWithSol->getStrength());
-    }
-
-    private function giveFirstTimeContactMoraleBonus(LinkWithSol $linkWithSol): void
+    private function giveFirstTimeContactMoraleBonus(): void
     {
         if ($this->daedalus()->doesNotHaveStatus(DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE)) {
             $this->addMoraleToAllPlayers();
             $this->markFirstContactMoraleBonusWasGiven();
         }
-    }
-
-    private function daedalus(): Daedalus
-    {
-        return $this->player->getDaedalus();
-    }
-
-    private function daedalusId(): int
-    {
-        return $this->daedalus()->getId();
-    }
-
-    private function linkWithSol(): LinkWithSol
-    {
-        return $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalusId());
     }
 
     private function markFirstContactMoraleBonusWasGiven(): void
@@ -167,5 +135,37 @@ final class EstablishLinkWithSol extends AbstractAction
                 name: VariableEventInterface::CHANGE_VARIABLE
             );
         }
+    }
+
+    private function increaseStrength(LinkWithSol $linkWithSol): void
+    {
+        $linkWithSol->increaseStrength($this->getOutputQuantity());
+        $this->linkWithSolRepository->save($linkWithSol);
+    }
+
+    private function markAsEstablished(LinkWithSol $linkWithSol): void
+    {
+        $linkWithSol->markAsEstablished();
+        $this->linkWithSolRepository->save($linkWithSol);
+    }
+
+    private function isLinkEstablished(LinkWithSol $linkWithSol): bool
+    {
+        return $this->d100Roll->isSuccessful($linkWithSol->getStrength());
+    }
+
+    private function daedalus(): Daedalus
+    {
+        return $this->player->getDaedalus();
+    }
+
+    private function daedalusId(): int
+    {
+        return $this->daedalus()->getId();
+    }
+
+    private function linkWithSol(): LinkWithSol
+    {
+        return $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalusId());
     }
 }

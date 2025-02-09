@@ -8,6 +8,8 @@ use Mush\Action\Actions\EstablishLinkWithSol;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Equipment\Entity\GameEquipment;
@@ -59,7 +61,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     {
         $this->givenLinkWithSolStrengthIs(12);
 
-        $this->whenChunEstablishLinkWithSol();
+        $this->whenChunEstablishesLinkWithSol();
 
         $this->thenLinkStrengthIs($I, 16);
     }
@@ -70,7 +72,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
         $this->givenAntennaIsBroken();
 
-        $this->whenChunEstablishLinkWithSol();
+        $this->whenChunEstablishesLinkWithSol();
 
         $this->thenChunHasActionPoints($I, 0);
     }
@@ -79,7 +81,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     {
         $this->givenLinkWithSolStrengthIs(100);
 
-        $this->whenChunEstablishLinkWithSol();
+        $this->whenChunEstablishesLinkWithSol();
 
         $this->thenLinkIsEstablished($I);
     }
@@ -100,6 +102,39 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->whenChunTriesToEstablishLinkWithSol();
 
         $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DIRTY_RESTRICTION);
+    }
+
+    public function shouldGiveMoraleToAllCrewWhenSucceedsForTheFirstTime(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->givenAllPlayersHaveMorale(0);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->thenAllPlayersShouldHaveMorale(3, $I);
+    }
+
+    public function shouldNotGiveMoraleToAllCrewWhenSucceedsForTheSecondTime(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->givenAllPlayersHaveMorale(0);
+
+        $this->givenChunEstablishesLinkWithSol();
+
+        $this->whenKuanTiEstablishesLinkWithSol();
+
+        $this->thenAllPlayersShouldHaveMorale(3, $I);
+    }
+
+    public function shouldCreateANeronAnnouncementWhenSucceedsForTheFirstTime(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->givenChunEstablishesLinkWithSol();
+
+        $this->thenNeronAnnouncementShouldBeCreatedWithMessage(NeronMessageEnum::SOL_CONTACT, $I);
     }
 
     private function givenACommsCenterInChunRoom(): void
@@ -165,7 +200,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenChunEstablishLinkWithSol(): void
+    private function whenChunEstablishesLinkWithSol(): void
     {
         $this->establishLinkWithSol->loadParameters(
             actionConfig: $this->actionConfig,
@@ -203,7 +238,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     private function givenChunEstablishesLinkWithSol(): void
     {
-        $this->whenChunEstablishLinkWithSol();
+        $this->whenChunEstablishesLinkWithSol();
     }
 
     private function whenChunTriesToEstablishLinkWithSol(): void
@@ -219,5 +254,40 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
     {
         $I->assertEquals($this->establishLinkWithSol->cannotExecuteReason(), $message, message: "Action should not be executable with message '{$message}'");
+    }
+
+    private function givenAllPlayersHaveMorale(int $quantity): void
+    {
+        foreach ($this->players as $player) {
+            $player->setMoralPoint($quantity);
+        }
+    }
+
+    private function thenAllPlayersShouldHaveMorale(int $quantity, FunctionalTester $I): void
+    {
+        foreach ($this->players as $player) {
+            $I->assertEquals($player->getMoralPoint(), $quantity, message: "{$player->getName()} should have {$quantity} morale");
+        }
+    }
+
+    private function whenKuanTiEstablishesLinkWithSol(): void
+    {
+        $this->establishLinkWithSol->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commsCenter,
+            player: $this->kuanTi,
+            target: $this->commsCenter,
+        );
+        $this->establishLinkWithSol->execute();
+    }
+
+    private function thenNeronAnnouncementShouldBeCreatedWithMessage(string $message, FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'message' => $message,
+            ]
+        );
     }
 }

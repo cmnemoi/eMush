@@ -1801,6 +1801,14 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE . '_default',
+            'statusName' => DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

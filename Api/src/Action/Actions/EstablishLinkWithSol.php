@@ -13,10 +13,15 @@ use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -24,6 +29,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class EstablishLinkWithSol extends AbstractAction
 {
+    private const int FIRST_CONTACT_MORALE_BONUS = 3;
     protected ActionEnum $name = ActionEnum::ESTABLISH_LINK_WITH_SOL;
 
     public function __construct(
@@ -72,8 +78,10 @@ final class EstablishLinkWithSol extends AbstractAction
         $linkWithSol = $this->linkWithSol();
         $linkWithSol->increaseStrength($this->getOutputQuantity());
 
-        if ($this->d100Roll->isSuccessful($linkWithSol->getStrength())) {
+        if ($this->isLinkEstablished($linkWithSol)) {
             $linkWithSol->markAsEstablished();
+            $this->handleFirstTimeContactMoraleBonus($linkWithSol);
+            $this->markLinkWithSolWasEstablished();
         }
 
         $this->linkWithSolRepository->save($linkWithSol);
@@ -81,14 +89,41 @@ final class EstablishLinkWithSol extends AbstractAction
         $this->markPlayerHasContactedSolToday();
     }
 
+    private function isLinkEstablished(LinkWithSol $linkWithSol): bool
+    {
+        return $this->d100Roll->isSuccessful($linkWithSol->getStrength());
+    }
+
+    private function handleFirstTimeContactMoraleBonus(LinkWithSol $linkWithSol): void
+    {
+        if ($this->daedalus()->doesNotHaveStatus(DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE)) {
+            $this->addMoraleToAllPlayers();
+        }
+    }
+
+    private function daedalus(): Daedalus
+    {
+        return $this->player->getDaedalus();
+    }
+
     private function daedalusId(): int
     {
-        return $this->player->getDaedalus()->getId();
+        return $this->daedalus()->getId();
     }
 
     private function linkWithSol(): LinkWithSol
     {
         return $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalusId());
+    }
+
+    private function markLinkWithSolWasEstablished(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE,
+            holder: $this->daedalus(),
+            tags: $this->getTags(),
+            time: new \DateTime(),
+        );
     }
 
     private function markPlayerHasContactedSolToday(): void
@@ -99,5 +134,21 @@ final class EstablishLinkWithSol extends AbstractAction
             tags: $this->getTags(),
             time: new \DateTime(),
         );
+    }
+
+    private function addMoraleToAllPlayers(): void
+    {
+        foreach ($this->daedalus()->getAlivePlayers() as $player) {
+            $this->eventService->callEvent(
+                event: new PlayerVariableEvent(
+                    player: $player,
+                    variableName: PlayerVariableEnum::MORAL_POINT,
+                    quantity: self::FIRST_CONTACT_MORALE_BONUS,
+                    tags: $this->getTags(),
+                    time: new \DateTime(),
+                ),
+                name: VariableEventInterface::CHANGE_VARIABLE
+            );
+        }
     }
 }

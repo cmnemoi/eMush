@@ -600,6 +600,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($edenComputed);
 
+        $linkWithSolEstablishedOnce = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE . '_default')
+        );
+        $manager->persist($linkWithSolEstablishedOnce);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -670,7 +675,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($fitfulSleep)
             ->addStatusConfig($mushGenomeDiskFound)
-            ->addStatusConfig($edenComputed);
+            ->addStatusConfig($edenComputed)
+            ->addStatusConfig($linkWithSolEstablishedOnce);
 
         $manager->persist($gameConfig);
 

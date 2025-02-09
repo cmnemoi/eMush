@@ -48,6 +48,12 @@ final class StatusSubscriber implements EventSubscriberInterface
             StatusEnum::FIRE => $this->neronMessageService->createNewFireMessage($event->getDaedalus(), $event->getTime(), $event->getTags()),
             PlayerStatusEnum::LOST => $this->channelService->updatePlayerPrivateChannels($event->getPlayerStatusHolder(), PlayerStatusEnum::LOST, $event->getTime()),
             EquipmentStatusEnum::CAT_INFECTED => $this->messageService->createSystemMessage(MushMessageEnum::MUSH_CONVERT_CAT_EVENT, $mushChannel, $params, $time),
+            DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE => $this->neronMessageService->createNeronMessage(
+                messageKey: NeronMessageEnum::SOL_CONTACT,
+                daedalus: $event->getDaedalus(),
+                parameters: $params,
+                dateTime: $time,
+            ),
             default => null,
         };
     }

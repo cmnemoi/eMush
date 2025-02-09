@@ -47,6 +47,13 @@ final class EstablishLinkWithSol extends AbstractAction
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::COMS_ALREADY_ATTEMPTED,
             ]),
+            new HasStatus([
+                'status' => PlayerStatusEnum::DIRTY,
+                'contain' => false,
+                'target' => HasStatus::PLAYER,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
+            ]),
         ]);
     }
 

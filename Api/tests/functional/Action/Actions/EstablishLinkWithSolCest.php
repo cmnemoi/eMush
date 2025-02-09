@@ -93,6 +93,15 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::COMS_ALREADY_ATTEMPTED);
     }
 
+    public function shouldNotBeExecutableIfPlayerIsDirty(FunctionalTester $I): void
+    {
+        $this->givenChunIsDirty();
+
+        $this->whenChunTriesToEstablishLinkWithSol();
+
+        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DIRTY_RESTRICTION);
+    }
+
     private function givenACommsCenterInChunRoom(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -182,9 +191,14 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $I->assertTrue($this->getLinkWithSol()->isEstablished(), message: 'Link should be established');
     }
 
-    private function thenLinkIsNotEstablished(FunctionalTester $I): void
+    private function givenChunIsDirty(): void
     {
-        $I->assertFalse($this->getLinkWithSol()->isEstablished(), message: 'Link should not be established');
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::DIRTY,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     private function givenChunEstablishesLinkWithSol(): void

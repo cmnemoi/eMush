@@ -173,7 +173,6 @@ export default defineComponent({
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-transform: uppercase;
 
     p {
         margin: 0;
@@ -181,6 +180,7 @@ export default defineComponent({
         font-weight: normal;
         line-height: 1.5;
         text-align: center;
+        text-transform: uppercase;
     }
 
     :deep(.action-button) {

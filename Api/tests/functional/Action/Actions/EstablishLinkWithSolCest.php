@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\EstablishLinkWithSol;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Equipment\Entity\GameEquipment;
@@ -76,12 +77,20 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     public function shouldEstablishLinkWithSolOnSuccess(FunctionalTester $I): void
     {
-        $linkWithSol = $this->getLinkWithSol();
-        $linkWithSol->increaseStrength(100);
+        $this->givenLinkWithSolStrengthIs(100);
 
         $this->whenChunEstablishLinkWithSol();
 
         $this->thenLinkIsEstablished($I);
+    }
+
+    public function shouldBeExecutableOnePerDay(FunctionalTester $I): void
+    {
+        $this->givenChunEstablishesLinkWithSol();
+
+        $this->whenChunTriesToEstablishLinkWithSol();
+
+        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::COMS_ALREADY_ATTEMPTED);
     }
 
     private function givenACommsCenterInChunRoom(): void
@@ -176,5 +185,25 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function thenLinkIsNotEstablished(FunctionalTester $I): void
     {
         $I->assertFalse($this->getLinkWithSol()->isEstablished(), message: 'Link should not be established');
+    }
+
+    private function givenChunEstablishesLinkWithSol(): void
+    {
+        $this->whenChunEstablishLinkWithSol();
+    }
+
+    private function whenChunTriesToEstablishLinkWithSol(): void
+    {
+        $this->establishLinkWithSol->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commsCenter,
+            player: $this->chun,
+            target: $this->commsCenter,
+        );
+    }
+
+    private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
+    {
+        $I->assertEquals($this->establishLinkWithSol->cannotExecuteReason(), $message, message: "Action should not be executable with message '{$message}'");
     }
 }

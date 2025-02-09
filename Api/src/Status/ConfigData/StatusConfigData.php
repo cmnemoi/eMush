@@ -1787,6 +1787,20 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::CONTACTED_SOL_TODAY . '_default',
+            'statusName' => PlayerStatusEnum::CONTACTED_SOL_TODAY,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_DECREMENT,
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

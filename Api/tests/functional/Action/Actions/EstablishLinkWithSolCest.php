@@ -18,6 +18,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -129,6 +130,28 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->whenKuanTiEstablishesLinkWithSol();
 
         $this->thenAllPlayersShouldHaveMorale(3, $I);
+    }
+
+    public function radioExpertInRoomShouldGiveBonusToLinkStrength(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(0);
+
+        $this->givenChunIsARadioExpert($I);
+
+        $this->whenKuanTiEstablishesLinkWithSol();
+
+        $this->thenLinkStrengthIs($I, 6);
+    }
+
+    public function radioExpertShouldHaveBonusToLinkStrength(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(0);
+
+        $this->givenChunIsARadioExpert($I);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->thenLinkStrengthIs($I, 8);
     }
 
     public function shouldCreateANeronAnnouncementWhenSucceedsForTheFirstTime(FunctionalTester $I): void
@@ -326,5 +349,10 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
                 'message' => $message,
             ]
         );
+    }
+
+    private function givenChunIsARadioExpert(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::RADIO_EXPERT, $I);
     }
 }

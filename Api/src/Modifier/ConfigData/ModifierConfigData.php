@@ -2652,7 +2652,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -3513,7 +3513,7 @@ abstract class ModifierConfigData
             'modifierName' => ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_SELF,
             'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'priority' => ModifierPriorityEnum::BEFORE_MULTIPLICATIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
@@ -3522,7 +3522,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
                 ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -3540,7 +3540,8 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_SELF => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

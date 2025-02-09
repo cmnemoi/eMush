@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
@@ -3542,6 +3544,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
                 ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_SELF => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

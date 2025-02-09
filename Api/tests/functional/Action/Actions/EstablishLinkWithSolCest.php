@@ -15,6 +15,7 @@ use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -234,6 +235,17 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->thenChunHasITPoints(0, $I);
     }
 
+    public function radioExpertInRoomBonusDoNotStack(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(0);
+        $this->givenChunIsARadioExpert($I);
+        $this->givenJaniceIsARadioExpert($I);
+
+        $this->whenKuanTiEstablishesLinkWithSol();
+
+        $this->thenLinkStrengthIs($I, 6);
+    }
+
     public function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
     {
         $this->finishProject(
@@ -400,6 +412,13 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function givenChunIsARadioExpert(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::RADIO_EXPERT, $I);
+    }
+
+    private function givenJaniceIsARadioExpert(FunctionalTester $I): void
+    {
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+
+        $this->addSkillToPlayer(SkillEnum::RADIO_EXPERT, $I, $janice);
     }
 
     private function whenKuanTiTriesToEstablishLinkWithSol(): void

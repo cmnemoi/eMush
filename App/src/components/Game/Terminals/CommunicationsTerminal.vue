@@ -8,7 +8,7 @@
             <div class="contact-status">
                 <div class="sensor-icon">
                     <img
-                        v-for="n in 4"
+                        v-for="n in sensorFramesCount"
                         :key="n"
                         :src="getImgUrl(`sensor0${n}.png`)"
                         :class="['sensor-frame', `frame-${n}`]"
@@ -16,14 +16,14 @@
                     />
                 </div>
                 <div class="status-text">
-                    <p>{{ terminal.infos?.linkStrength?.toUpperCase() }}</p>
+                    <p>{{ terminal.infos?.linkStrength }}</p>
                     <ActionButton
                         v-if="establishLinkWithSolAction"
-                        :key="establishLinkWithSolAction?.name"
+                        :key="establishLinkWithSolAction.name || ''"
                         :action="establishLinkWithSolAction"
                         @click="executeTargetAction(terminal, establishLinkWithSolAction)"
                     />
-                    <p v-else>{{ terminal.infos?.linkEstablished?.toUpperCase() }}</p>
+                    <p v-else>{{ terminal.infos?.linkEstablished }}</p>
                 </div>
             </div>
         </div>
@@ -48,6 +48,28 @@ export default defineComponent({
     computed: {
         establishLinkWithSolAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.ESTABLISH_LINK_WITH_SOL);
+        },
+        sensorFramesCount(): number {
+            const linkStrength = this.terminal.infos?.linkStrength;
+            if (!linkStrength) {
+                return 0;
+            }
+
+            const match = linkStrength.match(/\d+/);
+            if (!match) {
+                return 0;
+            }
+
+            const strengthValue = parseInt(match[0], 10);
+            if (strengthValue <= 25) {
+                return 1;
+            } else if (strengthValue <= 50) {
+                return 2;
+            } else if (strengthValue <= 75) {
+                return 3;
+            } else {
+                return 4;
+            }
         }
     },
     props: {
@@ -94,6 +116,7 @@ export default defineComponent({
         gap: 0.1em;
         font-weight: bold;
         margin: 0 0 1em;
+        text-transform: uppercase;
     }
 
     background-image: url("/src/assets/images/sensor_bg.svg");
@@ -121,15 +144,26 @@ export default defineComponent({
         width: 100%;
         height: 100%;
         opacity: 0;
+
+        &.frame-1 {
+            opacity: 1;
+            animation: none;
+        }
     }
 
     .sensor-frame {
-        animation: sensorAnimation 2s infinite;
-
-        &.frame-1 { animation-delay: 0s; }
-        &.frame-2 { animation-delay: 0.5s; }
-        &.frame-3 { animation-delay: 1s; }
-        &.frame-4 { animation-delay: 1.5s; }
+        &.frame-2 {
+            animation: sensorAnimation 4s infinite;
+            animation-delay: 0s;
+        }
+        &.frame-3 {
+            animation: sensorAnimation 3s infinite;
+            animation-delay: 1s;
+        }
+        &.frame-4 {
+            animation: sensorAnimation 2s infinite;
+            animation-delay: 0.5s;
+        }
     }
 }
 
@@ -139,6 +173,7 @@ export default defineComponent({
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-transform: uppercase;
 
     p {
         margin: 0;

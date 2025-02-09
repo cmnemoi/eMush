@@ -8,7 +8,8 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Communications\Service\EstablishLinkWithSolService;
+use Mush\Communications\Entity\LinkWithSol;
+use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -22,7 +23,7 @@ final class EstablishLinkWithSol extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private readonly EstablishLinkWithSolService $establishLinkWithSol
+        private readonly LinkWithSolRepository $linkWithSolRepository,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -39,7 +40,14 @@ final class EstablishLinkWithSol extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->establishLinkWithSol->execute(daedalusId: $this->daedalusId(), strengthIncrease: $this->getOutputQuantity());
+        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalusId());
+        $this->increaseStrength($linkWithSol);
+    }
+
+    private function increaseStrength(LinkWithSol $linkWithSol): void
+    {
+        $linkWithSol->increaseStrength($this->getOutputQuantity());
+        $this->linkWithSolRepository->save($linkWithSol);
     }
 
     private function daedalusId(): int

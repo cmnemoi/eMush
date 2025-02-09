@@ -9,7 +9,6 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
-use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -28,7 +27,6 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private LinkWithSolRepository $linkWithSolRepository;
-    private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
 
     private ActionConfig $actionConfig;
     private EstablishLinkWithSol $establishLinkWithSol;
@@ -43,7 +41,6 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
-        $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
 
         $this->actionConfig = $I->grabEntityFromRepository(
             ActionConfig::class,
@@ -105,7 +102,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     private function givenLinkWithSolIsNotEstablished(): void
     {
-        $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
+        $linkWithSol = new LinkWithSol($this->daedalus->getId());
+        $this->linkWithSolRepository->save($linkWithSol);
     }
 
     private function givenLinkWithSolStrengthIs(int $strength): void

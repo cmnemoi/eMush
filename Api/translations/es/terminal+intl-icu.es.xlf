@@ -352,5 +352,15 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
         <target>El cálculo de las coordenadas de Eden se ha completado con éxito. Las coordenadas se han enviado a NERON. Consulta a tu ***Comandante*** para obtener más información.</target>
       </segment>
     </unit>
+    <unit id="communication_center">
+      <segment id="name" state="initial">
+        <source>communication_center.name</source>
+        <target>communication_center.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>communication_center.tips</source>
+        <target>communication_center.tips</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

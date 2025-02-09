@@ -1634,5 +1634,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>En tant que *Resp. Communications* vous pouvez réaliser une annonce générale. // Tous vos camarades seront **notifiés** et l'annonce restera dans l'onglet :tip: **Conseils**.</target>
       </segment>
     </unit>
+    <unit id="establish_link_with_sol">
+      <segment id="name" state="translated">
+        <source>establish_link_with_sol.name</source>
+        <target>Établir</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>establish_link_with_sol.description</source>
+        <target>Cette action tente d'**établir contact**avec Sol, le système solaire.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

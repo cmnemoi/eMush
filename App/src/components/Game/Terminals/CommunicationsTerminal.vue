@@ -1,7 +1,10 @@
 <template>
     <div class="terminal-container" v-if="terminal">
         <div class="contact-section">
-            <h3><img :src="getImgUrl('spot2.svg')"> {{ fakeTerminal.terminalSectionTitles.contact }}</h3>
+            <h3>
+                <img :src="getImgUrl('spot2.svg')" alt="spot" />
+                {{ terminal.sectionTitles.contact }}
+            </h3>
             <div class="contact-status">
                 <div class="sensor-icon">
                     <img
@@ -13,14 +16,14 @@
                     />
                 </div>
                 <div class="status-text">
-                    <p>{{ fakeTerminal.solLink.strength }}</p>
+                    <p>{{ terminal.infos?.linkStrength?.toUpperCase() }}</p>
                     <ActionButton
                         v-if="establishLinkWithSolAction"
                         :key="establishLinkWithSolAction?.name"
                         :action="establishLinkWithSolAction"
-                        @click="console.log('establish link')"
+                        @click="executeTargetAction(terminal, establishLinkWithSolAction)"
                     />
-                    <p v-else>{{ fakeTerminal.terminalInfos.connectionEstablished }}</p>
+                    <p v-else>{{ terminal.infos?.linkEstablished?.toUpperCase() }}</p>
                 </div>
             </div>
         </div>
@@ -34,9 +37,14 @@ import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "@/entities/Action";
+import ActionButton from "@/components/Utils/ActionButton.vue";
+import { mapActions } from "vuex";
 
 export default defineComponent({
     name: "CommunicationsTerminal",
+    components: {
+        ActionButton
+    },
     computed: {
         establishLinkWithSolAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.ESTABLISH_LINK_WITH_SOL);
@@ -49,23 +57,16 @@ export default defineComponent({
         }
     },
     methods: {
+        ...mapActions({
+            'executeAction': 'action/executeAction'
+        }),
+        async executeTargetAction(target: Terminal, action: Action): Promise<void> {
+            if (action.canExecute) {
+                await this.executeAction({ target, action });
+            }
+        },
         formatText,
         getImgUrl
-    },
-    data() {
-        return {
-            fakeTerminal: {
-                terminalSectionTitles: {
-                    contact: "CONTACT"
-                },
-                terminalInfos: {
-                    connectionEstablished: "CONNECTION ESTABLISHED!"
-                },
-                solLink: {
-                    strength: "SIGNAL: 70%"
-                }
-            }
-        };
     }
 });
 </script>
@@ -134,6 +135,10 @@ export default defineComponent({
 
 .status-text {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     p {
         margin: 0;
@@ -141,6 +146,10 @@ export default defineComponent({
         font-weight: normal;
         line-height: 1.5;
         text-align: center;
+    }
+
+    :deep(.action-button) {
+        width: fit-content;
     }
 }
 </style>

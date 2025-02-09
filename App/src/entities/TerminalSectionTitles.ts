@@ -17,6 +17,7 @@ export class TerminalSectionTitles {
     public neronInhibitionDescription: string|null = null;
     public toANewEdenTitle: string|null = null;
     public toANewEdenDescription: string|null = null;
+    public contact: string|null = null;
 
     public load(object: any): TerminalSectionTitles {
         if (object) {
@@ -38,6 +39,7 @@ export class TerminalSectionTitles {
             this.neronInhibitionDescription = object['neron_inhibition_description'];
             this.toANewEdenTitle = object['to_a_new_eden_title'];
             this.toANewEdenDescription = object['to_a_new_eden_description'];
+            this.contact = object['contact'];
         }
         return this;
     }

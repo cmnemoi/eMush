@@ -78,6 +78,7 @@ class EquipmentEnum
             'to_a_new_eden_title',
             'to_a_new_eden_description',
         ],
+        self::COMMUNICATION_CENTER => ['contact'],
     ];
 
     public static array $terminalButtonsMap = [

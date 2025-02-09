@@ -116,7 +116,7 @@
       </segment>
     </unit>
     <unit id="mute_prevent_actions_on_pre.action.description">
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>mute_prevent_actions_on_pre.action.description</source>
         <target>mute_prevent_actions_on_pre.action.description</target>
       </segment>

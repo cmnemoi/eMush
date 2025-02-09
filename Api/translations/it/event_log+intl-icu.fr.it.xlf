@@ -907,5 +907,11 @@
         <target>gain_chef_point</target>
       </segment>
     </unit>
+    <unit id="germaphobe_morale_loss">
+      <segment state="initial">
+        <source>germaphobe_morale_loss</source>
+        <target>germaphobe_morale_loss</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

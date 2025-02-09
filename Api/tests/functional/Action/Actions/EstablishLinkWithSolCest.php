@@ -74,6 +74,16 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->thenChunHasActionPoints($I, 0);
     }
 
+    public function shouldEstablishLinkWithSolOnSuccess(FunctionalTester $I): void
+    {
+        $linkWithSol = $this->getLinkWithSol();
+        $linkWithSol->increaseStrength(100);
+
+        $this->whenChunEstablishLinkWithSol();
+
+        $this->thenLinkIsEstablished($I);
+    }
+
     private function givenACommsCenterInChunRoom(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -153,8 +163,18 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $I->assertEquals($this->getLinkWithSol()->getStrength(), $expectedStrength, message: "Link strength should be {$expectedStrength}");
     }
 
-    private function thenChunHasActionPoints(FunctionalTester $I, int $quantity)
+    private function thenChunHasActionPoints(FunctionalTester $I, int $quantity): void
     {
         $I->assertEquals($this->chun->getActionPoint(), $quantity, message: "Chun should have {$quantity} action points");
+    }
+
+    private function thenLinkIsEstablished(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->getLinkWithSol()->isEstablished(), message: 'Link should be established');
+    }
+
+    private function thenLinkIsNotEstablished(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->getLinkWithSol()->isEstablished(), message: 'Link should not be established');
     }
 }

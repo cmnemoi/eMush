@@ -12,6 +12,7 @@ use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -23,6 +24,7 @@ final class EstablishLinkWithSol extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
+        private readonly D100RollServiceInterface $d100Roll,
         private readonly LinkWithSolRepository $linkWithSolRepository,
     ) {
         parent::__construct($eventService, $actionService, $validator);
@@ -40,18 +42,23 @@ final class EstablishLinkWithSol extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalusId());
-        $this->increaseStrength($linkWithSol);
-    }
-
-    private function increaseStrength(LinkWithSol $linkWithSol): void
-    {
+        $linkWithSol = $this->linkWithSol();
         $linkWithSol->increaseStrength($this->getOutputQuantity());
+
+        if ($this->d100Roll->isSuccessful($linkWithSol->getStrength())) {
+            $linkWithSol->markAsEstablished();
+        }
+
         $this->linkWithSolRepository->save($linkWithSol);
     }
 
     private function daedalusId(): int
     {
         return $this->player->getDaedalus()->getId();
+    }
+
+    private function linkWithSol(): LinkWithSol
+    {
+        return $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalusId());
     }
 }

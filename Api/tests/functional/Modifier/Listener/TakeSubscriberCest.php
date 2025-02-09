@@ -322,7 +322,7 @@ class TakeSubscriberCest
         $I->haveInRepository($takeActionEntity);
 
         $modifierConfig = $I->grabEntityFromRepository(VariableEventModifierConfig::class, [
-            'name' => 'decreaseCommunicationActionCost1Action',
+            'name' => 'modifier_for_daedalus_-1actionPoint_on_comms_action',
         ]);
 
         $gear = new Gear();

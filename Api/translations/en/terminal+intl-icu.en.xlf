@@ -356,5 +356,15 @@ That's not all: only one project per set can be brought to fruition. **When a pr
         <target>The calculation of the coordinates of Eden has been successfully completed. The coordinates have been forwarded to NERON. Consult your ***Commander*** for more information.</target>
       </segment>
     </unit>
+    <unit id="communication_center">
+      <segment id="name" state="initial">
+        <source>communication_center.name</source>
+        <target>communication_center.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>communication_center.tips</source>
+        <target>communication_center.tips</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

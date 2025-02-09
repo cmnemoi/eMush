@@ -328,7 +328,7 @@
     <unit id="communication_center">
       <segment id="name" state="translated">
         <source>communication_center.name</source>
-        <target>Terminal de communication</target>
+        <target>Centre de communication</target>
       </segment>
       <segment id="tips" state="translated">
         <source>communication_center.tips</source>

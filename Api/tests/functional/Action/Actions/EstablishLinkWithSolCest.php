@@ -209,6 +209,17 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->thenLinkStrengthIs($I, 8);
     }
 
+    public function shouldNotBeVisibleIfLinkIsAlreadyEstablished(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->givenChunEstablishesLinkWithSol();
+
+        $this->whenKuanTiTriesToEstablishLinkWithSol();
+
+        $this->thenActionIsNotVisible($I);
+    }
+
     public function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
     {
         $this->finishProject(
@@ -375,5 +386,20 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function givenChunIsARadioExpert(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::RADIO_EXPERT, $I);
+    }
+
+    private function whenKuanTiTriesToEstablishLinkWithSol(): void
+    {
+        $this->establishLinkWithSol->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commsCenter,
+            player: $this->kuanTi,
+            target: $this->commsCenter,
+        );
+    }
+
+    private function thenActionIsNotVisible(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->establishLinkWithSol->isVisible(), message: 'Action should not be visible');
     }
 }

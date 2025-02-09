@@ -12,6 +12,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\LinkWithSolConstraint;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Daedalus\Entity\Daedalus;
@@ -47,6 +48,10 @@ final class EstablishLinkWithSol extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new LinkWithSolConstraint([
+                'shouldBeEstablished' => false,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
             new HasStatus([
                 'status' => PlayerStatusEnum::CONTACTED_SOL_TODAY,
                 'contain' => false,

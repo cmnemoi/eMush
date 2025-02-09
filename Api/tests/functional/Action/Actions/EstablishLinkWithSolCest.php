@@ -15,12 +15,15 @@ use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -135,6 +138,40 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->givenChunEstablishesLinkWithSol();
 
         $this->thenNeronAnnouncementShouldBeCreatedWithMessage(NeronMessageEnum::SOL_CONTACT, $I);
+    }
+
+    public function shouldPrintAPrivateLogOnFailure(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(0);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: "Vous n'avez pas réussi à établir une communication avec le système solaire Sol, mais vous avez **amélioré la qualité du signal**. Vous aurez le droit à un nouvel essai demain.",
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::ESTBALISH_LINK_WITH_SOL_FAIL,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I,
+        );
+    }
+
+    public function shouldPrintAPrivateLogOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Vous avez réussi à établir une communication entre le Daedalus et le système solaire Sol !',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->chun,
+                log: ActionLogEnum::ESTBALISH_LINK_WITH_SOL_SUCCESS,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I,
+        );
     }
 
     private function givenACommsCenterInChunRoom(): void

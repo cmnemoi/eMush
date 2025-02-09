@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
@@ -70,23 +71,33 @@ final class EstablishLinkWithSol extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        return new Success();
+        $linkWithSol = $this->linkWithSol();
+        $this->increaseStrength($linkWithSol);
+
+        return $this->isLinkEstablished($linkWithSol) ? new Success() : new Fail();
     }
 
     protected function applyEffect(ActionResult $result): void
     {
         $linkWithSol = $this->linkWithSol();
-        $linkWithSol->increaseStrength($this->getOutputQuantity());
-
-        if ($this->isLinkEstablished($linkWithSol)) {
-            $linkWithSol->markAsEstablished();
-            $this->handleFirstTimeContactMoraleBonus($linkWithSol);
-            $this->markLinkWithSolWasEstablished();
+        if ($result->isASuccess()) {
+            $this->markAsEstablished($linkWithSol);
+            $this->giveFirstTimeContactMoraleBonus($linkWithSol);
         }
 
-        $this->linkWithSolRepository->save($linkWithSol);
-
         $this->markPlayerHasContactedSolToday();
+    }
+
+    private function increaseStrength(LinkWithSol $linkWithSol): void
+    {
+        $linkWithSol->increaseStrength($this->getOutputQuantity());
+        $this->linkWithSolRepository->save($linkWithSol);
+    }
+
+    private function markAsEstablished(LinkWithSol $linkWithSol): void
+    {
+        $linkWithSol->markAsEstablished();
+        $this->linkWithSolRepository->save($linkWithSol);
     }
 
     private function isLinkEstablished(LinkWithSol $linkWithSol): bool
@@ -94,10 +105,11 @@ final class EstablishLinkWithSol extends AbstractAction
         return $this->d100Roll->isSuccessful($linkWithSol->getStrength());
     }
 
-    private function handleFirstTimeContactMoraleBonus(LinkWithSol $linkWithSol): void
+    private function giveFirstTimeContactMoraleBonus(LinkWithSol $linkWithSol): void
     {
         if ($this->daedalus()->doesNotHaveStatus(DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE)) {
             $this->addMoraleToAllPlayers();
+            $this->markFirstContactMoraleBonusWasGiven();
         }
     }
 
@@ -116,7 +128,7 @@ final class EstablishLinkWithSol extends AbstractAction
         return $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalusId());
     }
 
-    private function markLinkWithSolWasEstablished(): void
+    private function markFirstContactMoraleBonusWasGiven(): void
     {
         $this->statusService->createStatusFromName(
             statusName: DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE,

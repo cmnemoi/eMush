@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -194,6 +195,26 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
                 visibility: VisibilityEnum::PRIVATE,
             ),
             I: $I,
+        );
+    }
+
+    public function spatialWaveRadarProjectShouldDoubleSignalStrength(FunctionalTester $I): void
+    {
+        $this->givenSpatialWaveRadarProjectIsFinished($I);
+
+        $this->givenLinkWithSolStrengthIs(0);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->thenLinkStrengthIs($I, 8);
+    }
+
+    public function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
+    {
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::RADAR_TRANS_VOID),
+            $this->chun,
+            $I
         );
     }
 

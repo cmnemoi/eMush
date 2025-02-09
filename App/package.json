@@ -1,6 +1,6 @@
 {
   "name": "mush-front",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "scripts": {
@@ -14,7 +14,7 @@
   "dependencies": {
     "@unhead/vue": "^1.11.10",
     "@vitejs/plugin-vue": "^5.1.4",
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "jl-datatable": "^1.1.1",
     "phaser": "^3.86.0",
@@ -27,7 +27,7 @@
     "vue": "^3.5.12",
     "vue-axios": "^3.5.2",
     "vue-class-component": "^8.0.0-rc.1",
-    "vue-i18n": "^10.0.4",
+    "vue-i18n": "^10.0.5",
     "vue-router": "^4.4.5",
     "vue-tippy": "~6.5.0",
     "vue3-uuid": "^1.0.0",

@@ -50,6 +50,9 @@ class LinkWithSol
         return $this->daedalusId;
     }
 
+    /**
+     * @deprecated should be used only in Doctrine repositories
+     */
     public function setDaedalusId(int $daedalusId): void
     {
         $this->daedalusId = $daedalusId;

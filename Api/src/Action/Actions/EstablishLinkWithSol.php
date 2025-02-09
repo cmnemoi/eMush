@@ -87,7 +87,7 @@ final class EstablishLinkWithSol extends AbstractAction
         $linkWithSol = $this->linkWithSol();
         if ($result->isASuccess()) {
             $this->markAsEstablished($linkWithSol);
-            $this->giveFirstTimeContactMoraleBonus($linkWithSol);
+            $this->giveFirstTimeContactMoraleBonus();
         }
 
         $this->markPlayerHasContactedSolToday();

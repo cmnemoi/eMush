@@ -16,12 +16,15 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -220,6 +223,17 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->thenActionIsNotVisible($I);
     }
 
+    public function shouldUseITPointsInsteadOfActionPoints(FunctionalTester $I): void
+    {
+        $this->givenChunHasITPoints(1);
+        $this->givenChunHasActionPoints(2);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->thenChunHasActionPoints($I, 2);
+        $this->thenChunHasITPoints(0, $I);
+    }
+
     public function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
     {
         $this->finishProject(
@@ -401,5 +415,29 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function thenActionIsNotVisible(FunctionalTester $I): void
     {
         $I->assertFalse($this->establishLinkWithSol->isVisible(), message: 'Action should not be visible');
+    }
+
+    private function givenChunHasITPoints(int $quantity): void
+    {
+        /** @var ChargeStatus $itPointsStatus */
+        $itPointsStatus = $this->statusService->createStatusFromName(
+            statusName: SkillPointsEnum::IT_EXPERT_POINTS->toString(),
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->updateCharge(
+            chargeStatus: $itPointsStatus,
+            delta: $quantity,
+            tags: [],
+            time: new \DateTime(),
+            mode: VariableEventInterface::SET_VALUE,
+        );
+    }
+
+    private function thenChunHasITPoints(int $quantity, FunctionalTester $I): void
+    {
+        $itPointsStatus = $this->chun->getChargeStatusByNameOrThrow(SkillPointsEnum::IT_EXPERT_POINTS->toString());
+        $I->assertEquals($itPointsStatus->getCharge(), $quantity, message: "Chun should have {$quantity} IT points, but has {$itPointsStatus->getCharge()}");
     }
 }

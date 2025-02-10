@@ -29,6 +29,9 @@ abstract class AbstractDroneTask
         if ($this->taskNotApplicable && $this->thereIsANextTask()) {
             $this->nextTask?->execute($drone, $time);
 
+            // In case drone is turbo and wants to execute this task again.
+            $this->resetApplicability();
+
             return;
         }
 
@@ -73,6 +76,11 @@ abstract class AbstractDroneTask
             event: new DroneTurboWorkedEvent(drone: $drone, time: $time),
             name: DroneTurboWorkedEvent::class,
         );
+    }
+
+    private function resetApplicability(): void
+    {
+        $this->taskNotApplicable = false;
     }
 
     private function thereIsANextTask(): bool

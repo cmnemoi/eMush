@@ -465,6 +465,19 @@ final class DroneCest extends AbstractFunctionalTest
         $this->thenDroneShouldBeInPatrolShipDockingPlace($I);
     }
 
+    public function turboShouldMoveThenRepair(FunctionalTester $I): void
+    {
+        $this->givenDroneHasTurboUpgrade();
+        $this->givenFrontCorridorExists($I);
+        $mycoscan = $this->givenBrokenMycoscanInFrontCorridor($I);
+        $this->givenDroneHas100PercentChanceToRepairEquipment($mycoscan);
+
+        $this->whenDroneActs();
+
+        $this->thenDroneShouldBeInFrontCorridor($I);
+        $this->thenEquipmentShouldBeRepaired($mycoscan, $I);
+    }
+
     private function givenABrokenDoor(FunctionalTester $I): Door
     {
         $door = Door::createFromRooms(
@@ -586,6 +599,24 @@ final class DroneCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenBrokenMycoscanInFrontCorridor(): GameEquipment
+    {
+        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::MYCOSCAN,
+            equipmentHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_CORRIDOR),
+            reasons: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $mycoscan,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        return $mycoscan;
+    }
+
     private function whenDroneActs(): void
     {
         $this->droneTasksHandler->execute($this->drone, new \DateTime());
@@ -593,20 +624,12 @@ final class DroneCest extends AbstractFunctionalTest
 
     private function thenEquipmentShouldBeRepaired(GameEquipment $equipment, FunctionalTester $I): void
     {
-        $I->assertFalse($equipment->hasStatus(EquipmentStatusEnum::BROKEN));
+        $I->assertFalse($equipment->hasStatus(EquipmentStatusEnum::BROKEN), \sprintf('Equipment %s should not be broken', $equipment->getLogName()));
     }
 
     private function thenFireShouldBeExtinguished(FunctionalTester $I): void
     {
         $I->assertFalse($this->chun->getPlace()->hasStatus(StatusEnum::FIRE));
-    }
-
-    private function thenDroneShouldMove(FunctionalTester $I): void
-    {
-        $I->assertEquals(
-            expected: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getName(),
-            actual: $this->drone->getPlace()->getName(),
-        );
     }
 
     private function thenDroneShouldBeInPatrolShipPlace(FunctionalTester $I): void
@@ -631,6 +654,22 @@ final class DroneCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: RoomEnum::ALPHA_BAY,
+            actual: $this->drone->getPlace()->getName(),
+        );
+    }
+
+    private function thenDroneShouldMoveToFrontCorridor(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: RoomEnum::FRONT_CORRIDOR,
+            actual: $this->drone->getPlace()->getName(),
+        );
+    }
+
+    private function thenDroneShouldBeInFrontCorridor(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: RoomEnum::FRONT_CORRIDOR,
             actual: $this->drone->getPlace()->getName(),
         );
     }

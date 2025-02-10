@@ -8,6 +8,7 @@ use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -25,7 +26,10 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => 'onNewCycle',
+            EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => [
+                ['onNewCycle', EventPriorityEnum::LOW],
+                ['onDroneNewCycle', EventPriorityEnum::HIGH],
+            ],
         ];
     }
 
@@ -43,6 +47,11 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
                 $cycleHandler->handleNewCycle($equipment, $event->getTime());
             }
         }
+    }
+
+    public function onDroneNewCycle(EquipmentCycleEvent $event): void
+    {
+        $equipment = $event->getGameEquipment();
 
         if ($equipment instanceof Drone) {
             $this->droneTasksHandler->execute($equipment, $event->getTime());

@@ -504,7 +504,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Daedalus has 8 oxygen (-3 base + 1 per healthy plant)
-        $I->assertEquals(8, $this->daedalus->getOxygen());
+        $I->assertEquals(8, $this->daedalus->getOxygen(), 'Daedalus should have 8 oxygen (-3 base + 1 per healthy plant)');
     }
 
     public function youngPlantShouldProduceFruitAtMaturationCycle(FunctionalTester $I)
@@ -529,7 +529,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then a banana fruit is created
-        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA));
+        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA), 'Plant should have produced a banana fruit');
     }
 
     public function youngPlantShouldProduceLogAtMaturationCycle(FunctionalTester $I)

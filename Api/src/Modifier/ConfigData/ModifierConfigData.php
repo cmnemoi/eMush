@@ -3896,6 +3896,25 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => [],
             'visibility' => VisibilityEnum::PRIVATE,
         ],
+        [
+            'name' => ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS,
+            'modifierName' => ModifierNameEnum::FIRST_SOL_CONTACT_MODIFIER,
+            'targetEvent' => StatusEvent::STATUS_APPLIED,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE => ModifierRequirementEnum::ALL_TAGS,
+            ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

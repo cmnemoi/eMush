@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
@@ -344,6 +345,14 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $germaphobeModifier->setTriggeredEvent($eventConfigLoseOneMorale);
         $manager->persist($germaphobeModifier);
 
+        /** @var VariableEventConfig $firstSolContactModifierEventConfig */
+        $firstSolContactModifierEventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT);
+        $firstSolContactModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS)
+        );
+        $firstSolContactModifier->setTriggeredEvent($firstSolContactModifierEventConfig);
+        $manager->persist($firstSolContactModifier);
+
         $manager->flush();
 
         $this->addReference(self::FROZEN_MODIFIER, $frozenModifier);
@@ -373,6 +382,7 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference($catOwnerModifierMoraleLossOnSchrodingerDeath->getName(), $catOwnerModifierMoraleLossOnSchrodingerDeath);
         $this->addReference($fitfulSleepModifier->getName(), $fitfulSleepModifier);
         $this->addReference(self::GERMAPHOBE_MODIFIER, $germaphobeModifier);
+        $this->addReference($firstSolContactModifier->getName(), $firstSolContactModifier);
     }
 
     public function getDependencies(): array

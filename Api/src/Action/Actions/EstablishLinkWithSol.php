@@ -17,11 +17,8 @@ use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -31,7 +28,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class EstablishLinkWithSol extends AbstractAction
 {
-    private const int FIRST_CONTACT_MORALE_BONUS = 3;
     protected ActionEnum $name = ActionEnum::ESTABLISH_LINK_WITH_SOL;
 
     public function __construct(
@@ -87,21 +83,13 @@ final class EstablishLinkWithSol extends AbstractAction
         $linkWithSol = $this->linkWithSol();
         if ($result->isASuccess()) {
             $this->markAsEstablished($linkWithSol);
-            $this->giveFirstTimeContactMoraleBonus();
+            $this->markContactWithSolWasMade();
         }
 
         $this->markPlayerHasContactedSolToday();
     }
 
-    private function giveFirstTimeContactMoraleBonus(): void
-    {
-        if ($this->daedalus()->doesNotHaveStatus(DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE)) {
-            $this->addMoraleToAllPlayers();
-            $this->markFirstContactMoraleBonusWasGiven();
-        }
-    }
-
-    private function markFirstContactMoraleBonusWasGiven(): void
+    private function markContactWithSolWasMade(): void
     {
         $this->statusService->createStatusFromName(
             statusName: DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE,
@@ -119,22 +107,6 @@ final class EstablishLinkWithSol extends AbstractAction
             tags: $this->getTags(),
             time: new \DateTime(),
         );
-    }
-
-    private function addMoraleToAllPlayers(): void
-    {
-        foreach ($this->daedalus()->getAlivePlayers() as $player) {
-            $this->eventService->callEvent(
-                event: new PlayerVariableEvent(
-                    player: $player,
-                    variableName: PlayerVariableEnum::MORAL_POINT,
-                    quantity: self::FIRST_CONTACT_MORALE_BONUS,
-                    tags: $this->getTags(),
-                    time: new \DateTime(),
-                ),
-                name: VariableEventInterface::CHANGE_VARIABLE
-            );
-        }
     }
 
     private function increaseStrength(LinkWithSol $linkWithSol): void

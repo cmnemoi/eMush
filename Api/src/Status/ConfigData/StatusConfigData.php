@@ -1806,7 +1806,9 @@ abstract class StatusConfigData
             'statusName' => DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS,
+            ],
             'actionConfigs' => [],
         ],
     ];

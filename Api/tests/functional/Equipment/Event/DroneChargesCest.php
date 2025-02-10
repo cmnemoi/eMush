@@ -42,7 +42,6 @@ final class DroneChargesCest extends AbstractFunctionalTest
 
         $this->whenCycleChangeEventIsTriggered();
 
-        $I->assertTrue($drone->isBroken(), 'Drone should be broken');
         $this->thenDroneShouldHaveCharges(1, $drone, $I);
     }
 

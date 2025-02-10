@@ -9,6 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\ValueObject\DaedalusDate;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
@@ -1000,6 +1001,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getLatestAnnouncement(): ?ComManagerAnnouncement
     {
         return $this->getGeneralAnnouncements()->last() ?: null;
+    }
+
+    public function isPrintedCircuitJellyInNexus(): bool
+    {
+        return $this->getPlaceByNameOrThrow(RoomEnum::NEXUS)->hasEquipmentByName(GearItemEnum::PRINTED_CIRCUIT_JELLY);
     }
 
     private function getCreatedAtOrThrow(): \DateTime

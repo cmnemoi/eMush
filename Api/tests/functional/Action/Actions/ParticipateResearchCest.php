@@ -13,6 +13,7 @@ use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\GameStatusEnum;
@@ -47,6 +48,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->actionConfig->setDirtyRate(0);
+        $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);
 
         $this->givenLabTerminal();
 
@@ -185,6 +187,50 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $I->assertEquals(new PlayerEfficiency(2, 3), $this->chun->getEfficiencyForProject($reasearchProject));
     }
 
+    public function shouldPutEfficiencyToFourSixPercentsWithPrintedCircuitJellyInNexus(FunctionalTester $I): void
+    {
+        $researchProject = $this->daedalus->getProjectByName(ProjectName::RETRO_FUNGAL_SERUM);
+
+        $this->givenPrintedCircuitJellyInNexus();
+
+        // when Chun participates in the project with Printed Circuit Jelly in Nexus
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $researchProject
+        );
+        $this->participateAction->execute();
+
+        // then Chun's efficiency should be reduced 4-6%
+        $I->assertEquals(new PlayerEfficiency(4, 6), $this->chun->getEfficiencyForProject($researchProject));
+    }
+
+    public function shouldPutEfficiencyToFiveSevenPercentsWithCpuPriorityAndPrintedCircuitJellyInNexus(FunctionalTester $I): void
+    {
+        $researchProject = $this->daedalus->getProjectByName(ProjectName::RETRO_FUNGAL_SERUM);
+
+        $this->givenPrintedCircuitJellyInNexus();
+
+        // given CPU priority is set to research
+        $this->neronService->changeCpuPriority(
+            neron: $this->daedalus->getNeron(),
+            cpuPriority: NeronCpuPriorityEnum::RESEARCH,
+        );
+
+        // when Chun participates in the project with CPU priority and Printed Circuit Jelly in Nexus
+        $this->participateAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->terminal,
+            player: $this->chun,
+            target: $researchProject
+        );
+        $this->participateAction->execute();
+
+        // then Chun's efficiency should be reduced 5-7%
+        $I->assertEquals(new PlayerEfficiency(5, 7), $this->chun->getEfficiencyForProject($researchProject));
+    }
+
     private function givenChunIsNotInLab()
     {
         $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
@@ -295,5 +341,15 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     private function thenKuanTiDoesNotHaveGeniusIdeaStatus(FunctionalTester $I): void
     {
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
+    }
+
+    private function givenPrintedCircuitJellyInNexus(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::PRINTED_CIRCUIT_JELLY,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::NEXUS),
+            reasons: [],
+            time: new \DateTime()
+        );
     }
 }

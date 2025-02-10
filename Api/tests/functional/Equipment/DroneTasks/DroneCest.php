@@ -349,12 +349,8 @@ final class DroneCest extends AbstractFunctionalTest
 
     public function firefighterShouldExtinguishFire(FunctionalTester $I): void
     {
-        $this->givenFrontCorridorExists($I);
-
         $this->givenFireInTheRoom();
-
         $this->givenDroneIsFirefighter();
-
         $this->givenDroneHas100PercentChanceToExtinguishFire($I);
 
         $this->whenDroneActs();
@@ -390,19 +386,18 @@ final class DroneCest extends AbstractFunctionalTest
         $this->givenDroneIsFirefighter();
         $this->givenDroneHas100PercentChanceToExtinguishFire($I);
         $this->givenDroneHasTurboUpgrade();
+        $this->givenFrontCorridorExists($I);
 
         $this->whenDroneActs();
 
         $this->thenFireShouldBeExtinguished($I);
-        $this->thenDroneShouldMove($I);
+        $this->thenDroneShouldMoveToFrontCorridor($I);
     }
 
     public function turboShouldPrintLog(FunctionalTester $I): void
     {
         $this->givenFireInTheRoom();
-
         $this->givenDroneIsFirefighter();
-
         $this->givenDroneHasTurboUpgrade();
 
         $this->whenDroneActs();
@@ -417,6 +412,15 @@ final class DroneCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
+    }
+
+    public function turboShouldAbortGracefullyIfNoneTaskIsApplicable(FunctionalTester $I): void
+    {
+        $this->givenDroneHasTurboUpgrade();
+
+        $this->whenDroneActs();
+
+        $I->expect('No infinite loop.');
     }
 
     public function pilotShouldTakeOff(FunctionalTester $I): void

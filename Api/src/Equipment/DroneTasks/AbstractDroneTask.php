@@ -26,7 +26,7 @@ abstract class AbstractDroneTask
         $this->applyEffect($drone, $time);
 
         // If current task is not applicable anymore, move to the next task.
-        if ($this->taskNotApplicable) {
+        if ($this->taskNotApplicable && $this->thereIsANextTask()) {
             $this->nextTask?->execute($drone, $time);
 
             return;
@@ -73,5 +73,10 @@ abstract class AbstractDroneTask
             event: new DroneTurboWorkedEvent(drone: $drone, time: $time),
             name: DroneTurboWorkedEvent::class,
         );
+    }
+
+    private function thereIsANextTask(): bool
+    {
+        return $this->nextTask !== null;
     }
 }

@@ -41,7 +41,9 @@ class DroneTasksHandler
         $this->applyTurboUpgrade($drone, $time);
 
         // Each task will call the next one if it cannot be executed, starting with the first one.
-        $this->extinguishFireTask->execute($drone, $time);
+        while ($drone->isOperational()) {
+            $this->extinguishFireTask->execute($drone, $time);
+        }
     }
 
     private function applyTurboUpgrade(Drone $drone, \DateTime $time): void

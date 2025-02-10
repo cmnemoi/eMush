@@ -22,24 +22,22 @@ abstract class AbstractDroneTask
 
     public function execute(Drone $drone, \DateTime $time): void
     {
-        while ($drone->isOperational()) {
-            // Apply current task effect.
-            $this->applyEffect($drone, $time);
+        // Apply current task effect.
+        $this->applyEffect($drone, $time);
 
-            // If current task is not applicable anymore, move to the next task.
-            if ($this->taskNotApplicable) {
-                $this->nextTask?->execute($drone, $time);
+        // If current task is not applicable anymore, move to the next task.
+        if ($this->taskNotApplicable) {
+            $this->nextTask?->execute($drone, $time);
 
-                return;
-            }
-
-            if ($drone->turboWorked()) {
-                $this->dispatchTurboWorkedEvent($drone, $time);
-            }
-
-            // Drone acts, so it consumes a charge.
-            $this->removeOneDroneCharge($drone, $time);
+            return;
         }
+
+        if ($drone->turboWorked()) {
+            $this->dispatchTurboWorkedEvent($drone, $time);
+        }
+
+        // Drone acts, so it consumes a charge.
+        $this->removeOneDroneCharge($drone, $time);
     }
 
     public function setNextDroneTask(self $task): void

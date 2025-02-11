@@ -1160,5 +1160,17 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         } wanted...</target>
       </segment>
     </unit>
+    <unit id="establish_link_with_sol_fail">
+      <segment id="establish_link_with_sol_fail" state="initial">
+        <source>establish_link_with_sol_fail</source>
+        <target>establish_link_with_sol_fail</target>
+      </segment>
+    </unit>
+    <unit id="establish_link_with_sol_success">
+      <segment id="establish_link_with_sol_success" state="initial">
+        <source>establish_link_with_sol_success</source>
+        <target>establish_link_with_sol_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

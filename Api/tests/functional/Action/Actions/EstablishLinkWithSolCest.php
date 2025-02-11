@@ -8,10 +8,13 @@ use Mush\Action\Actions\EstablishLinkWithSol;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -36,6 +39,7 @@ use Mush\Tests\RoomLogDto;
  */
 final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 {
+    private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private LinkWithSolRepository $linkWithSolRepository;
@@ -50,6 +54,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
+        $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
@@ -246,6 +251,21 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->thenLinkStrengthIs($I, 6);
     }
 
+    public function shouldRemoveCommunicationsDownAlertOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $I->dontSeeInRepository(
+            entity: Alert::class,
+            params: [
+                'name' => AlertEnum::COMMUNICATIONS_DOWN,
+                'daedalus' => $this->daedalus,
+            ]
+        );
+    }
+
     public function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
     {
         $this->finishProject(
@@ -283,8 +303,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
     private function givenLinkWithSolIsNotEstablished(): void
     {
-        $linkWithSol = new LinkWithSol($this->daedalus->getId());
-        $this->linkWithSolRepository->save($linkWithSol);
+        $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
     }
 
     private function givenLinkWithSolStrengthIs(int $strength): void

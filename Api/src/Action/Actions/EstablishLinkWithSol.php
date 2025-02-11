@@ -15,6 +15,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\LinkWithSolConstraint;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Service\EstablishLinkWithSolService;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
@@ -35,6 +36,7 @@ final class EstablishLinkWithSol extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         private readonly D100RollServiceInterface $d100Roll,
+        private readonly EstablishLinkWithSolService $establishLinkWithSol,
         private readonly LinkWithSolRepository $linkWithSolRepository,
         private readonly StatusServiceInterface $statusService,
     ) {
@@ -81,7 +83,7 @@ final class EstablishLinkWithSol extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         if ($result->isASuccess()) {
-            $this->establishLinkWithSol();
+            $this->establishLinkWithSol->execute($this->daedalusId());
             $this->markContactWithSolWasMade();
         }
 
@@ -114,16 +116,9 @@ final class EstablishLinkWithSol extends AbstractAction
         $this->linkWithSolRepository->save($linkWithSol);
     }
 
-    private function establishLinkWithSol(): void
-    {
-        $linkWithSol = $this->linkWithSol();
-        $linkWithSol->establish();
-        $this->linkWithSolRepository->save($linkWithSol);
-    }
-
     private function isLinkEstablished(LinkWithSol $linkWithSol): bool
     {
-        return $this->d100Roll->isSuccessful($linkWithSol->getStrength());
+        return $this->d100Roll->isSuccessful(100);
     }
 
     private function daedalus(): Daedalus

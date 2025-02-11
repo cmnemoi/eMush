@@ -131,7 +131,7 @@ abstract class EndCauseEnum
 
     public static function doesNotRemoveMorale(string $endCause): bool
     {
-        return self::getNotDeathEndCauses()->contains($endCause) === true || self::getEndCausesWhichDoNotRemoveMorale()->contains($endCause) === true;
+        return self::getNotDeathEndCauses()->contains($endCause) || self::getEndCausesWhichDoNotRemoveMorale()->contains($endCause);
     }
 
     public static function mapEndCause(array $tags): string

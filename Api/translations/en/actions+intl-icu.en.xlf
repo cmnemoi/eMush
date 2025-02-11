@@ -1612,5 +1612,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>As the *Comms Officer* you may broadcast a general announcement. //// All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel. Any new announcement will override the previous one.</target>
       </segment>
     </unit>
+    <unit id="establish_link_with_sol">
+      <segment id="name" state="initial">
+        <source>establish_link_with_sol.name</source>
+        <target>establish_link_with_sol.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>establish_link_with_sol.description</source>
+        <target>establish_link_with_sol.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1787,6 +1787,30 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::CONTACTED_SOL_TODAY . '_default',
+            'statusName' => PlayerStatusEnum::CONTACTED_SOL_TODAY,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::DAILY_DECREMENT,
+            'maxCharge' => 1,
+            'startCharge' => 1,
+            'dischargeStrategies' => ['none'],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE . '_default',
+            'statusName' => DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [
+                ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS,
+            ],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

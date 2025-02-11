@@ -1412,5 +1412,17 @@
         } voulait...</target>
       </segment>
     </unit>
+    <unit id="establish_link_with_sol_fail">
+      <segment id="establish_link_with_sol_fail" state="translated">
+        <source>establish_link_with_sol_fail</source>
+        <target>Vous n'avez pas réussi à établir une communication avec le système solaire Sol, mais vous avez **amélioré la qualité du signal**. Vous aurez le droit à un nouvel essai demain.</target>
+      </segment>
+    </unit>
+    <unit id="establish_link_with_sol_success">
+      <segment id="establish_link_with_sol_success" state="translated">
+        <source>establish_link_with_sol_success</source>
+        <target>Vous avez réussi à établir une communication entre le Daedalus et le système solaire Sol !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

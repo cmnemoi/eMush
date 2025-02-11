@@ -168,6 +168,8 @@ abstract class ActionLogEnum
     public const string COMPUTE_EDEN_FAIL = 'compute_eden_fail';
     public const string OPEN_ANNIVERSARY_GIFT = 'open_anniversary_gift';
     public const string OPEN_COFFEE_THERMOS = 'open_coffee_thermos';
+    public const string ESTBALISH_LINK_WITH_SOL_SUCCESS = 'establish_link_with_sol_success';
+    public const string ESTBALISH_LINK_WITH_SOL_FAIL = 'establish_link_with_sol_fail';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -578,6 +580,10 @@ abstract class ActionLogEnum
         ActionEnum::COMPUTE_EDEN->value => [
             ActionOutputEnum::SUCCESS => self::COMPUTE_EDEN_SUCCESS,
             ActionOutputEnum::FAIL => self::COMPUTE_EDEN_FAIL,
+        ],
+        ActionEnum::ESTABLISH_LINK_WITH_SOL->value => [
+            ActionOutputEnum::SUCCESS => self::ESTBALISH_LINK_WITH_SOL_SUCCESS,
+            ActionOutputEnum::FAIL => self::ESTBALISH_LINK_WITH_SOL_FAIL,
         ],
     ];
 

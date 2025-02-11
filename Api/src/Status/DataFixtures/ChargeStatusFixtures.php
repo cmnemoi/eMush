@@ -608,6 +608,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($coffeeThermosCharge);
 
+        $contactedSolToday = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::CONTACTED_SOL_TODAY . '_default')
+        );
+        $manager->persist($contactedSolToday);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -662,7 +667,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($lyingDown)
             ->addStatusConfig($antiquePerfumeImmunized)
             ->addStatusConfig($hasDaunted)
-            ->addStatusConfig($coffeeThermosCharge);
+            ->addStatusConfig($coffeeThermosCharge)
+            ->addStatusConfig($contactedSolToday);
 
         $manager->persist($gameConfig);
 

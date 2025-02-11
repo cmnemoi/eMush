@@ -168,6 +168,10 @@
             "php vendor/bin/codecept run tests/unit/Chat",
             "php vendor/bin/codecept run tests/functional/Chat"
         ],
+        "test:communications": [
+            "php vendor/bin/codecept run tests/unit/Communications",
+            "php vendor/bin/codecept run tests/functional/Communications"
+        ],
         "test:daedalus": [
             "php vendor/bin/codecept run tests/unit/Daedalus",
             "php vendor/bin/codecept run tests/functional/Daedalus"

@@ -334,6 +334,18 @@
         <source>communication_center.tips</source>
         <target>Toute communication commence par **établir une liaison**.//Cette action simple peut être réalisée par n'importe quel membre de l'équipage. La liaison apporte des points de moral à toute l'équipe et débloque des nouvelles actions pour le Responsable Comm.//Si le contact échoue, au moins ça **améliorera la qualité du signal** et augmentera les chances de contact lors du prochain essai.</target>
       </segment>
+      <segment id="contact" state="translated">
+        <source>communication_center.contact</source>
+        <target>Contact</target>
+      </segment>
+      <segment id="link_strength" state="translated">
+        <source>communication_center.link_strength</source>
+        <target>Signal : {quantity}%</target>
+      </segment>
+      <segment id="link_established" state="translated">
+        <source>communication_center.link_established</source>
+        <target>Connexion établie !</target>
+      </segment>
     </unit>
   </file>
 </xliff>

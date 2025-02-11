@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
@@ -710,7 +712,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [ActionEnum::STRENGTHEN_HULL->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
-            'name' => 'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
+            'name' => 'modifier_for_daedalus_-1actionPoint_on_comms_action',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -724,7 +726,9 @@ abstract class ModifierConfigData
             'targetVariable' => 'actionPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ALL_TAGS],
+            'tagConstraints' => [
+                ActionTypeEnum::ACTION_COMMS_CENTER->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
         ],
         [
             'name' => 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
@@ -2631,7 +2635,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -3492,7 +3496,7 @@ abstract class ModifierConfigData
             'modifierName' => ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_SELF,
             'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
+            'priority' => ModifierPriorityEnum::BEFORE_MULTIPLICATIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
@@ -3501,7 +3505,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
                 ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -3519,7 +3523,9 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_SELF => ModifierRequirementEnum::NONE_TAGS,
+                ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -3889,6 +3895,25 @@ abstract class ModifierConfigData
             'targetFilters' => [],
             'eventActivationRequirements' => [],
             'visibility' => VisibilityEnum::PRIVATE,
+        ],
+        [
+            'name' => ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS,
+            'modifierName' => ModifierNameEnum::FIRST_SOL_CONTACT_MODIFIER,
+            'targetEvent' => StatusEvent::STATUS_APPLIED,
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE => ModifierRequirementEnum::ALL_TAGS,
+            ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
     ];
 

@@ -39,6 +39,7 @@ class EventConfigData
     public const string CHANGE_VALUE_MINUS_2_MAX_DAEDALUS_SPORES = 'change.value.max_daedalus_-2_spores';
     public const string CHANGE_VARIABLE_TURRET_MAX_CHARGE_4 = 'change.variable_turret_max_charge_+4';
     public const string CHANGE_VARIABLE_TURRET_CHARGE_8 = 'change.variable_turret_charge_+8';
+    public const string CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT = 'change.variable_player_+3_moralePoint';
 
     public static array $variableEventConfigData = [
         [
@@ -392,6 +393,14 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::EQUIPMENT,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => self::CHANGE_VARIABLE_TURRET_CHARGE_8,
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 3,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => self::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT,
         ],
     ];
 

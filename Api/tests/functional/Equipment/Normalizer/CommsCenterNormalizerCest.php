@@ -147,7 +147,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
     private function givenLinkIsEstablished(): void
     {
         $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
-        $linkWithSol->markAsEstablished();
+        $linkWithSol->establish();
         $this->linkWithSolRepository->save($linkWithSol);
     }
 }

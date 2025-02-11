@@ -1328,7 +1328,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
             return 100;
         }
-        
+
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
         $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
 

@@ -4,8 +4,8 @@ namespace Mush\Tests;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NoResultException;
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Chat\Entity\Channel;
+use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;

@@ -2,8 +2,8 @@
 
 namespace Mush\Tests\unit\Player\Voter;
 
-use Mush\Communication\Entity\Message;
-use Mush\Communication\Voter\MessageVoter;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Voter\MessageVoter;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;

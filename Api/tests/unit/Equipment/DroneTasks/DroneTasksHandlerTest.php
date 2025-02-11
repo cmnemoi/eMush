@@ -28,9 +28,11 @@ use Mush\Game\Service\Random\FakeD100RollService as D100Roll;
 use Mush\Game\Service\Random\FakeGetRandomIntegerService as GetRandomInteger;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayService as GetRandomElementsFromArray;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Factory\StatusFactory;
@@ -232,7 +234,8 @@ final class DroneTasksHandlerTest extends TestCase
             $this->createStub(EventServiceInterface::class),
             $this->statusService,
             new D100Roll(isSuccessful: $isSuccessful),
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+            $this->createStub(RoomLogServiceInterface::class),
+            $this->createStub(TranslationServiceInterface::class),
         );
     }
 

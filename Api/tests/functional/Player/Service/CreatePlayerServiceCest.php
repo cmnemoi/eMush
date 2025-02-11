@@ -3,8 +3,8 @@
 namespace Mush\Tests\functional\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Chat\Entity\Channel;
+use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;

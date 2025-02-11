@@ -4,7 +4,7 @@ namespace Mush\MetaGame\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Communication\Entity\Message;
+use Mush\Chat\Entity\Message;
 use Mush\Daedalus\Entity\ComManagerAnnouncement;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\CommanderMission;

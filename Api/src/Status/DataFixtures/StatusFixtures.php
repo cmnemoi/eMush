@@ -600,6 +600,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($edenComputed);
 
+        /** @var TriggerEventModifierConfig $firstContactWithSolModifier */
+        $firstContactWithSolModifier = $this->getReference(ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS);
+        $linkWithSolEstablishedOnce = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE . '_default')
+        );
+        $linkWithSolEstablishedOnce->setModifierConfigs([$firstContactWithSolModifier]);
+        $manager->persist($linkWithSolEstablishedOnce);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -670,7 +678,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($fitfulSleep)
             ->addStatusConfig($mushGenomeDiskFound)
-            ->addStatusConfig($edenComputed);
+            ->addStatusConfig($edenComputed)
+            ->addStatusConfig($linkWithSolEstablishedOnce);
 
         $manager->persist($gameConfig);
 

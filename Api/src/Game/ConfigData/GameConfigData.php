@@ -503,6 +503,8 @@ class GameConfigData
                 DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default',
                 DaedalusStatusEnum::EDEN_COMPUTED . '_default',
                 'electric_charges_coffee_thermos_default',
+                PlayerStatusEnum::CONTACTED_SOL_TODAY . '_default',
+                DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

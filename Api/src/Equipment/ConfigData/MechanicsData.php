@@ -1308,7 +1308,7 @@ abstract class MechanicsData
             'type' => 'gear',
             'actions' => [],
             'modifierConfigs' => [
-                'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
+                'modifier_for_daedalus_-1actionPoint_on_comms_action',
             ],
         ],
         [
@@ -1316,7 +1316,7 @@ abstract class MechanicsData
             'type' => 'gear',
             'actions' => [],
             'modifierConfigs' => [
-                'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
+                'modifier_for_daedalus_-1actionPoint_on_comms_action',
                 'modifier_for_daedalus_x2_signal_on_action_contact_sol',
             ],
         ],
@@ -2091,6 +2091,9 @@ abstract class MechanicsData
             'name' => self::TOOL_COMMS_CENTER,
             'type' => EquipmentMechanicEnum::TOOL,
             'actions' => [
+                ActionEnum::ACCESS_TERMINAL->value,
+                ActionEnum::EXIT_TERMINAL->value,
+                ActionEnum::ESTABLISH_LINK_WITH_SOL->value,
                 ActionEnum::SEARCH_FOR_MUSH_GENOME->value,
             ],
         ],

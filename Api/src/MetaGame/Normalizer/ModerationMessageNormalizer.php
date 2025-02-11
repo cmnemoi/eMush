@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Normalizer;
 
-use Mush\Communication\Entity\Message;
+use Mush\Chat\Entity\Message;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;

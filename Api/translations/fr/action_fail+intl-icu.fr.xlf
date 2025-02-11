@@ -355,7 +355,7 @@
     <unit id="mage_book_already_have_skill">
       <segment id="description" state="translated">
         <source>mage_book_already_have_skill.description</source>
-        <target>Votre soif de connaissance est trop grande... Vous possédez déjà cette ||Compétence||.</target>
+        <target>Votre soif de connaissance est trop grande... Vous possédez déjà cette *Compétence*.</target>
       </segment>
     </unit>
     <unit id="mage_book_already_have_read">

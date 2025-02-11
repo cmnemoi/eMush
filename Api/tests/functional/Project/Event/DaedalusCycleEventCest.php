@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Project\Event;
 
-use Mush\Communication\Entity\Message;
-use Mush\Communication\Enum\NeronMessageEnum;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;

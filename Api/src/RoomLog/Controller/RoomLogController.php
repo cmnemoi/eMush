@@ -5,7 +5,7 @@ namespace Mush\RoomLog\Controller;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use Mush\Communication\Enum\ChannelScopeEnum;
+use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;

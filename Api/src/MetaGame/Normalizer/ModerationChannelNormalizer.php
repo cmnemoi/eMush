@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Normalizer;
 
-use Mush\Communication\Entity\Channel;
-use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Chat\Entity\Channel;
+use Mush\Chat\Entity\ChannelPlayer;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;

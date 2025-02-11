@@ -148,4 +148,6 @@ abstract class ModifierNameEnum
     public const string IMMUNIZED_MODIFIER = 'immunized_modifier';
     public const string MUTE_PREVENT_MESSAGES_MODIFIER = 'mute_prevent_messages';
     public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
+    public const string PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS = 'plus_3_morale_points_for_all_players';
+    public const string FIRST_SOL_CONTACT_MODIFIER = 'first_sol_contact_modifier';
 }

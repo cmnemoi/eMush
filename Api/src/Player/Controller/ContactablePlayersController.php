@@ -6,7 +6,7 @@ namespace Mush\Player\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use Mush\Communication\UseCase\GetContactablePlayersUseCase;
+use Mush\Chat\UseCase\GetContactablePlayersUseCase;
 use Mush\Game\Controller\AbstractGameController;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Player;

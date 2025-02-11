@@ -64,12 +64,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Action/Entity'
                 prefix: 'Mush\Action\Entity'
                 alias: ActionConfig
-            Communication:
+            Chat:
                 is_bundle: false
                 type: attribute
-                dir: '%kernel.project_dir%/src/Communication/Entity'
-                prefix: 'Mush\Communication\Entity'
-                alias: Communication
+                dir: '%kernel.project_dir%/src/Chat/Entity'
+                prefix: 'Mush\Chat\Entity'
+                alias: Chat
             Disease:
                 is_bundle: false
                 type: attribute
@@ -118,4 +118,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Skill/Entity'
                 prefix: 'Mush\Skill\Entity'
                 alias: Skill
+            Communications:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Communications/Entity'
+                prefix: 'Mush\Communications\Entity'
+                alias: Communications
 

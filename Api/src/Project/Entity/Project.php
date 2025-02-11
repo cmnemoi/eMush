@@ -30,6 +30,7 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     public const int CPU_PRIORITY_BONUS = 1;
     public const int PARTICIPATION_MALUS = 2;
     public const int SKILL_BONUS = 4;
+    public const int PRINTED_CIRCUIT_JELLY = 3;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

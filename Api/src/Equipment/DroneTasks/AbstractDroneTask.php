@@ -22,24 +22,25 @@ abstract class AbstractDroneTask
 
     public function execute(Drone $drone, \DateTime $time): void
     {
-        while ($drone->isOperational()) {
-            // Apply current task effect.
-            $this->applyEffect($drone, $time);
+        // Apply current task effect.
+        $this->applyEffect($drone, $time);
 
-            // If current task is not applicable anymore, move to the next task.
-            if ($this->taskNotApplicable) {
-                $this->nextTask?->execute($drone, $time);
+        // If current task is not applicable anymore, move to the next task.
+        if ($this->taskNotApplicable && $this->thereIsANextTask()) {
+            $this->nextTask?->execute($drone, $time);
 
-                return;
-            }
+            // In case drone is turbo and wants to execute this task again.
+            $this->resetApplicability();
 
-            if ($drone->turboWorked()) {
-                $this->dispatchTurboWorkedEvent($drone, $time);
-            }
-
-            // Drone acts, so it consumes a charge.
-            $this->removeOneDroneCharge($drone, $time);
+            return;
         }
+
+        if ($drone->turboWorked()) {
+            $this->dispatchTurboWorkedEvent($drone, $time);
+        }
+
+        // Drone acts, so it consumes a charge.
+        $this->removeOneDroneCharge($drone, $time);
     }
 
     public function setNextDroneTask(self $task): void
@@ -75,5 +76,15 @@ abstract class AbstractDroneTask
             event: new DroneTurboWorkedEvent(drone: $drone, time: $time),
             name: DroneTurboWorkedEvent::class,
         );
+    }
+
+    private function resetApplicability(): void
+    {
+        $this->taskNotApplicable = false;
+    }
+
+    private function thereIsANextTask(): bool
+    {
+        return $this->nextTask !== null;
     }
 }

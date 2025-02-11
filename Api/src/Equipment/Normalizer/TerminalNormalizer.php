@@ -9,6 +9,7 @@ use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
+use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
@@ -32,19 +33,12 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlanetServiceInterface $planetService;
-    private TranslationServiceInterface $translationService;
-
     public function __construct(
-        GameEquipmentServiceInterface $gameEquipmentService,
-        PlanetServiceInterface $planetService,
-        TranslationServiceInterface $translationService
-    ) {
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->planetService = $planetService;
-        $this->translationService = $translationService;
-    }
+        private readonly GameEquipmentServiceInterface $gameEquipmentService,
+        private readonly LinkWithSolRepository $linkWithSolRepository,
+        private readonly PlanetServiceInterface $planetService,
+        private readonly TranslationServiceInterface $translationService
+    ) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -114,6 +108,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $neronCoreInfos = $this->getNormalizedNeronCoreInfos($terminal);
         $researchTerminalInfos = $this->getNormalizedResearchTerminalInfos($terminal);
         $calculatorInfos = $this->getNormalizedCalculatorInfos($terminal);
+        $commsCenterInfos = $this->getNormalizedCommsCenterInfos($terminal);
 
         $normalizedTerminal['infos'] = array_merge(
             $astroTerminalInfos,
@@ -122,7 +117,8 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             $pilgredTerminalInfos,
             $neronCoreInfos,
             $researchTerminalInfos,
-            $calculatorInfos
+            $calculatorInfos,
+            $commsCenterInfos,
         );
 
         return $normalizedTerminal;
@@ -528,5 +524,35 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $neronInhibitionToggles;
+    }
+
+    private function getNormalizedCommsCenterInfos(GameEquipment $terminal)
+    {
+        $terminalKey = $terminal->getName();
+        if ($terminalKey !== EquipmentEnum::COMMUNICATION_CENTER) {
+            return [];
+        }
+
+        $link = $this->linkWithSolRepository->findByDaedalusIdOrThrow($terminal->getDaedalus()->getId());
+
+        $infos = [
+            'linkStrength' => $this->translationService->translate(
+                key: $terminalKey . '.link_strength',
+                parameters: ['quantity' => $link->getStrength()],
+                domain: 'terminal',
+                language: $terminal->getDaedalus()->getLanguage()
+            ),
+        ];
+
+        if ($link->isEstablished()) {
+            $infos['linkEstablished'] = $this->translationService->translate(
+                key: $terminalKey . '.link_established',
+                parameters: [],
+                domain: 'terminal',
+                language: $terminal->getDaedalus()->getLanguage()
+            );
+        }
+
+        return $infos;
     }
 }

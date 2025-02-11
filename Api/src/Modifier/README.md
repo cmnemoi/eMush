@@ -84,7 +84,7 @@ The choice of [priority](./Enum/PriorityEnum) depends on the type of eventModifi
   - Typical use cases: change the cost of an action - change the success rate of an action - increase or decrease the modification of a Daedalus or Player variable
 - [MessageModifier](./ModifierHandler/MessageModifier.php):
   - Modify the content of a message
-  - ModifierName should be set to the corresponding [effect](../Communication/Enum/MessageModificationEnum.php).
+  - ModifierName should be set to the corresponding [effect](../Chat/Enum/MessageModificationEnum.php).
 
 
 ### Listener

@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Chat\Enum\MessageModificationEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -161,15 +161,7 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($noiseReducerModifier);
         $this->addReference($noiseReducerModifier->getName(), $noiseReducerModifier);
 
-        $radarTransVoidModifier = new VariableEventModifierConfig('modifier_for_daedalus_x2_signal_on_action_contact_sol');
-        $radarTransVoidModifier
-            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
-            ->setDelta(2)
-            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
-            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
-            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $radarTransVoidModifier = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('modifier_for_daedalus_x2_signal_on_action_contact_sol'));
         $manager->persist($radarTransVoidModifier);
         $this->addReference($radarTransVoidModifier->getName(), $radarTransVoidModifier);
 

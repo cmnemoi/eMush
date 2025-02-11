@@ -43,7 +43,7 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
     {
         $this->whenPlayerSearchesForMushGenome();
 
-        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED);
+        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::COMS_NOT_OFFICER);
     }
 
     public function shouldSpawnMushGenomeDiskOnSuccess(FunctionalTester $I): void

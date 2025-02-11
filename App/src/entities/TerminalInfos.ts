@@ -25,6 +25,8 @@ export class TerminalInfos {
     public isNeronInhibited: boolean|null = null;
     public nothingToCompute: string|null = null;
     public edenComputed: string|null = null;
+    public linkStrength: string|null = null;
+    public linkEstablished: string|null = null;
 
     constructor() {
         this.requirements = [];
@@ -63,6 +65,8 @@ export class TerminalInfos {
             this.isNeronInhibited = object.isNeronInhibited;
             this.nothingToCompute = object.nothingToCompute;
             this.edenComputed = object.edenComputed;
+            this.linkStrength = object.linkStrength;
+            this.linkEstablished = object.linkEstablished;
         }
         return this;
     }

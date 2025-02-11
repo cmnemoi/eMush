@@ -13,7 +13,7 @@ use Mush\Action\Validator\CanContactACrewmate;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NeedTitle;
-use Mush\Communication\UseCase\GetContactablePlayersUseCase;
+use Mush\Chat\UseCase\GetContactablePlayersUseCase;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;

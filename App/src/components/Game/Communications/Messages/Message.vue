@@ -277,8 +277,16 @@ export default defineComponent ({
     background: white;
     word-break: break-word;
 
-    &::v-deep(em), &::v-deep(a) {
-        color: $red; // Make italics and links red
+    :deep(em) {
+        color: $red;
+    }
+
+    :deep(a) {
+        color: $green;
+
+        &:hover {
+            color: lighten($green, 5%);
+        }
     }
 
     &.read {

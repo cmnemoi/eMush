@@ -9,13 +9,14 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
-use Mush\Action\Validator\HasNeededTitleForTerminal;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\NeedTitle;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -46,10 +47,10 @@ final class SearchForMushGenome extends AttemptAction
                 'reach' => ReachEnum::ROOM,
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
-            new HasNeededTitleForTerminal([
-                'allowAccess' => true,
+            new NeedTitle([
+                'title' => TitleEnum::COM_MANAGER,
                 'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::TERMINAL_ROLE_RESTRICTED,
+                'message' => ActionImpossibleCauseEnum::COMS_NOT_OFFICER,
             ]),
             new HasStatus([
                 'status' => DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND,

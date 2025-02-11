@@ -16,8 +16,9 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Service\EventService;
 use Mush\Game\Service\Random\FakeD100RollService as FakeD100Roll;
-use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\FakeStatusService;
@@ -41,11 +42,18 @@ final class RepairBrokenEquipmentTaskTest extends TestCase
         /** @var EventService $stubEventService */
         $stubEventService = $this->createStub(EventService::class);
 
+        /** @var RoomLogServiceInterface $roomLogService */
+        $roomLogService = $this->createStub(RoomLogServiceInterface::class);
+
+        /** @var TranslationServiceInterface $translationService */
+        $translationService = $this->createStub(TranslationServiceInterface::class);
+
         $this->task = new RepairBrokenEquipmentTask(
             $stubEventService,
             new FakeStatusService(),
             new FakeD100Roll(isSuccessful: false),
-            new FakeGetRandomElementsFromArrayService(),
+            $roomLogService,
+            $translationService,
         );
 
         $this->daedalus = DaedalusFactory::createDaedalus();

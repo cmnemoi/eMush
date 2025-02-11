@@ -10,7 +10,7 @@ use FOS\RestBundle\View\View;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Communication\Services\NeronMessageServiceInterface;
+use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Service\ExplorationServiceInterface;

@@ -1332,7 +1332,9 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
         $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
 
-        return $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
+        $efficiency = $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
+
+        return $this->getEfficiencyWithExternalItems($efficiency, $project);
     }
 
     private function getMaxEfficiencyForProject(Project $project): int
@@ -1365,6 +1367,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
         if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::RESEARCH) && $project->isResearchProject()) {
             return $efficiency + Project::CPU_PRIORITY_BONUS;
+        }
+
+        return $efficiency;
+    }
+
+    private function getEfficiencyWithExternalItems(int $efficiency, Project $project): int
+    {
+        if ($project->isResearchProject() && $this->daedalus->isPrintedCircuitJellyInNexus()) {
+            return $efficiency + Project::PRINTED_CIRCUIT_JELLY;
         }
 
         return $efficiency;

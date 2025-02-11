@@ -66,6 +66,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             domain: 'terminal',
             language: $this->daedalus->getLanguage(),
         );
+        $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);
 
         $this->givenGameHasStarted();
     }

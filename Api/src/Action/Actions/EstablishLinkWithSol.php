@@ -118,7 +118,7 @@ final class EstablishLinkWithSol extends AbstractAction
 
     private function isLinkEstablished(LinkWithSol $linkWithSol): bool
     {
-        return $this->d100Roll->isSuccessful(100);
+        return $this->d100Roll->isSuccessful($linkWithSol->getStrength());
     }
 
     private function daedalus(): Daedalus

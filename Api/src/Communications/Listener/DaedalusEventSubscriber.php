@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Mush\Communications\Listener;
 
-use Mush\Communications\Entity\LinkWithSol;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private LinkWithSolRepository $linkWithSolRepository) {}
+    public function __construct(private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -22,6 +21,6 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function onDaedalusStart(DaedalusEvent $event): void
     {
-        $this->linkWithSolRepository->save(new LinkWithSol($event->getDaedalus()->getId()));
+        $this->createLinkWithSolForDaedalus->execute($event->getDaedalus()->getId());
     }
 }

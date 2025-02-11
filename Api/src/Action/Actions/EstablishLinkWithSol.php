@@ -80,9 +80,8 @@ final class EstablishLinkWithSol extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $linkWithSol = $this->linkWithSol();
         if ($result->isASuccess()) {
-            $this->markAsEstablished($linkWithSol);
+            $this->establishLinkWithSol();
             $this->markContactWithSolWasMade();
         }
 
@@ -115,9 +114,10 @@ final class EstablishLinkWithSol extends AbstractAction
         $this->linkWithSolRepository->save($linkWithSol);
     }
 
-    private function markAsEstablished(LinkWithSol $linkWithSol): void
+    private function establishLinkWithSol(): void
     {
-        $linkWithSol->markAsEstablished();
+        $linkWithSol = $this->linkWithSol();
+        $linkWithSol->establish();
         $this->linkWithSolRepository->save($linkWithSol);
     }
 

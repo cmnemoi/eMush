@@ -124,11 +124,6 @@ abstract class EndCauseEnum
         return self::getDeathEndCauses()->contains($endCause);
     }
 
-    public static function isEndCauseWhichRemovesMorale(string $endCause): bool
-    {
-        return self::getEndCausesWhichRemovesMorale()->contains($endCause);
-    }
-
     public static function isNotDeathEndCause(string $endCause): bool
     {
         return self::getNotDeathEndCauses()->contains($endCause);
@@ -136,7 +131,7 @@ abstract class EndCauseEnum
 
     public static function doesNotRemoveMorale(string $endCause): bool
     {
-        return self::getEndCausesWhichRemovesMorale()->contains($endCause) === false;
+        return self::getNotDeathEndCauses()->contains($endCause) === true || self::getEndCausesWhichDoNotRemoveMorale()->contains($endCause) === true;
     }
 
     public static function mapEndCause(array $tags): string
@@ -150,37 +145,15 @@ abstract class EndCauseEnum
         throw new \LogicException('Cannot find a matching end cause');
     }
 
-    private static function getEndCausesWhichRemovesMorale(): ArrayCollection
+    private static function getEndCausesWhichDoNotRemoveMorale(): ArrayCollection
     {
         return new ArrayCollection([
-            self::ABANDONED,
-            self::ALIEN_ABDUCTED,
-            self::ALLERGY,
-            self::ASPHYXIA,
-            self::ASSASSINATED,
-            self::BEHEADED,
-            self::BLACK_BITE,
-            self::BLED,
-            self::BURNT,
-            self::CLUMSINESS,
+            self::SUICIDE,
             self::DAEDALUS_DESTROYED,
-            self::ELECTROCUTED,
-            self::EXPLORATION_COMBAT,
-            self::EXPLORATION_LOST,
-            self::EXPLORATION,
-            self::INFECTION,
-            self::INJURY,
             self::KILLED_BY_NERON,
-            self::MANKAROG,
-            self::METAL_PLATE,
-            self::NO_INFIRMERIE,
-            self::PATROL_SHIP_EXPLOSION,
-            self::ROCKETED,
-            self::SELF_EXTRACTED,
-            self::SPACE_ASPHYXIATED,
-            self::SPACE_BATTLE,
-            self::STARVATION,
             self::SUPER_NOVA,
+            self::DEPRESSION,
+            self::QUARANTINE,
         ]);
     }
 

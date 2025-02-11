@@ -202,7 +202,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         );
         $this->participateAction->execute();
 
-        // then Chun's efficiency should be reduced 4-6%
+        // then Chun's efficiency should be increased to 4-6%
         $I->assertEquals(new PlayerEfficiency(4, 6), $this->chun->getEfficiencyForProject($researchProject));
     }
 
@@ -227,7 +227,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         );
         $this->participateAction->execute();
 
-        // then Chun's efficiency should be reduced 5-7%
+        // then Chun's efficiency should be increased to 5-7%
         $I->assertEquals(new PlayerEfficiency(5, 7), $this->chun->getEfficiencyForProject($researchProject));
     }
 

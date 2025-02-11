@@ -106,9 +106,10 @@ export function formatText(text: string|null): string {
     Object.values(SkillPointEnum).forEach((skillPoint: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${skillPoint}:`, 'g'), helpers.computeSkillPointIconHtmlByKey(skillPoint));
     });
-    // "Markdown style" linking i.e. [text of the link](https://google.com) will have 'text of the link' be a hyperlink to google. The actual link is also saved to the title, so that players can hover over and have it show up as a tooltip, for safety reasons
-    formattedText = formattedText.replaceAll(/\[([^\]]+)\]\(([^\)]+)\)/g,'<a href=\'$2\' title=\'$2\'>$1</a>');
-
+    // "Markdown style" linking i.e. [text of the link](https://google.com) will have 'text of the link' be a hyperlink to google. The actual link is also saved to the title, so that players can hover over and have it show up as a tooltip, for safety reasons. All blank links to emush.eternaltwin also work
+    const markdownLinkRegex = /\[(?<text>[^\]]+)\]\((?<link>[^\)]+)\)|(?<text>(?<link>(https:\/\/)?emush\.eternaltwin\.org\/[^\s\)\"\'\< ]*))/g;
+    const markdownSubstitution = '<a href=\'$<link>\' title=\'$<link>\'>$<text></a>';
+    formattedText = formattedText.replaceAll(markdownLinkRegex,markdownSubstitution);
 
     return formattedText;
 }

@@ -328,6 +328,18 @@
         <source>communication_center.tips</source>
         <target>communication_center.tips</target>
       </segment>
+      <segment id="contact" state="initial">
+        <source>communication_center.contact</source>
+        <target>communication_center.contact</target>
+      </segment>
+      <segment id="link_strength" state="initial">
+        <source>communication_center.link_strength</source>
+        <target>communication_center.link_strength</target>
+      </segment>
+      <segment id="link_established" state="initial">
+        <source>communication_center.link_established</source>
+        <target>communication_center.link_established</target>
+      </segment>
     </unit>
   </file>
 </xliff>

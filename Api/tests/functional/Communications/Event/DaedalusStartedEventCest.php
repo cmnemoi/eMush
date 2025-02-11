@@ -65,7 +65,7 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
             entity: Alert::class,
             params: [
                 'name' => AlertEnum::COMMUNICATIONS_DOWN,
-                //                'daedalus' => $this->daedalus,
+                'daedalus' => $this->daedalus,
             ]
         );
     }

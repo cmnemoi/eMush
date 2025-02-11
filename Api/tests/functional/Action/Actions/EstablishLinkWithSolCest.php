@@ -257,16 +257,10 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
 
         $this->whenChunEstablishesLinkWithSol();
 
-        $I->dontSeeInRepository(
-            entity: Alert::class,
-            params: [
-                'name' => AlertEnum::COMMUNICATIONS_DOWN,
-                'daedalus' => $this->daedalus,
-            ]
-        );
+        $this->thenCommsDownAlertIsDeleted($I);
     }
 
-    public function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
+    private function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
     {
         $this->finishProject(
             $this->daedalus->getProjectByName(ProjectName::RADAR_TRANS_VOID),
@@ -477,5 +471,16 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     {
         $itPointsStatus = $this->chun->getChargeStatusByNameOrThrow(SkillPointsEnum::IT_EXPERT_POINTS->toString());
         $I->assertEquals($itPointsStatus->getCharge(), $quantity, message: "Chun should have {$quantity} IT points, but has {$itPointsStatus->getCharge()}");
+    }
+
+    private function thenCommsDownAlertIsDeleted(FunctionalTester $I): void
+    {
+        $I->dontSeeInRepository(
+            entity: Alert::class,
+            params: [
+                'name' => AlertEnum::COMMUNICATIONS_DOWN,
+                'daedalus' => $this->daedalus,
+            ]
+        );
     }
 }

@@ -115,6 +115,5 @@ export function formatText(text: string|null): string {
     const eMushLinkRegex = /^(https:\/\/)?emush\.eternaltwin\.org\/[^\s)"']*/g;
     formattedText = formattedText.replaceAll(eMushLinkRegex, '<a href=\'$&\'>$&</a>');
 
-
     return formattedText;
 }

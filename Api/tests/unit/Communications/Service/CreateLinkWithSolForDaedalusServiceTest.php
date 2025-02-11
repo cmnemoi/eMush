@@ -6,6 +6,7 @@ namespace Mush\Tests\unit\Communications\Service;
 
 use Mush\Communications\Repository\InMemoryLinkWithSolRepository;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
+use Mush\Game\Service\EventServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,8 +19,10 @@ final class CreateLinkWithSolForDaedalusServiceTest extends TestCase
 
     protected function setUp(): void
     {
+        $eventService = $this->createStub(EventServiceInterface::class);
         $this->linkWithSolRepository = new InMemoryLinkWithSolRepository();
         $this->createLinkWithSolForDaedalusService = new CreateLinkWithSolForDaedalusService(
+            $eventService,
             $this->linkWithSolRepository
         );
     }

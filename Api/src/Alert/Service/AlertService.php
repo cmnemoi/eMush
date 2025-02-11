@@ -452,6 +452,13 @@ class AlertService implements AlertServiceInterface
         $this->delete($alert);
     }
 
+    public function createCommunicationsDownAlertForDaedalus(Daedalus $daedalus): void
+    {
+        $alert = $this->getAlert($daedalus, AlertEnum::COMMUNICATIONS_DOWN);
+
+        $this->persist($alert);
+    }
+
     private function getAlert(Daedalus $daedalus, string $alertName): Alert
     {
         $alert = $this->findByNameAndDaedalus($alertName, $daedalus);

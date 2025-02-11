@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Communications\Event;
 
+use Mush\Alert\Entity\Alert;
+use Mush\Alert\Enum\AlertEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -14,7 +16,7 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class DaedalusEventCest extends AbstractFunctionalTest
+final class DaedalusStartedEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
@@ -28,11 +30,18 @@ final class DaedalusEventCest extends AbstractFunctionalTest
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
     }
 
-    public function shouldCreateLinkWithSolAtDaedalusStart(FunctionalTester $I): void
+    public function shouldCreateLinkWithSol(FunctionalTester $I): void
     {
         $this->whenDaedalusStarts();
 
         $this->thenDaedalusShouldHaveLinkWithSol($I);
+    }
+
+    public function shouldCreateCommunicationsDownAlert(FunctionalTester $I): void
+    {
+        $this->whenDaedalusStarts();
+
+        $this->thenCommunicationsDownAlertShouldBeCreated($I);
     }
 
     private function whenDaedalusStarts(): void
@@ -48,5 +57,16 @@ final class DaedalusEventCest extends AbstractFunctionalTest
         $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
 
         $I->assertInstanceOf(LinkWithSol::class, $linkWithSol);
+    }
+
+    private function thenCommunicationsDownAlertShouldBeCreated(FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            entity: Alert::class,
+            params: [
+                'name' => AlertEnum::COMMUNICATIONS_DOWN,
+                //                'daedalus' => $this->daedalus,
+            ]
+        );
     }
 }

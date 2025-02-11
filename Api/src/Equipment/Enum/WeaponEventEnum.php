@@ -37,6 +37,22 @@ enum WeaponEventEnum: string
     case NATAMY_RIFLE_DROP_WEAPON = 'natamy_rifle_drop_weapon';
     case NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE = 'natamy_rifle_shooter_plus_2_damage';
 
+    // Old Faithful
+    case OLD_FAITHFUL_SUCCESSFUL_SHOT = 'old_faithful_successful_shot';
+    case OLD_FAITHFUL_FAILED_SHOT = 'old_faithful_failed_shot';
+    case OLD_FAITHFUL_HEADSHOT = 'old_faithful_headshot';
+    case OLD_FAITHFUL_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY = 'old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury';
+    case OLD_FAITHFUL_TARGET_MINUS_1AP = 'old_faithful_target_minus_1ap';
+    case OLD_FAITHFUL_HEADSHOT_2 = 'old_faithful_headshot_2';
+    case OLD_FAITHFUL_TARGET_MASHED_FOOT = 'old_faithful_target_mashed_foot';
+    case OLD_FAITHFUL_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS = 'old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents';
+    case OLD_FAITHFUL_BREAK_WEAPON = 'old_faithful_break_weapon';
+    case OLD_FAITHFUL_SHOOTER_BURNT_HAND = 'old_faithful_shooter_burnt_hand';
+    case OLD_FAITHFUL_SHOOTER_BROKEN_SHOULDER = 'old_faithful_shooter_broken_shoulder';
+    case OLD_FAITHFUL_SHOOTER_MASHED_FOOT = 'old_faithful_shooter_mashed_foot';
+    case OLD_FAITHFUL_DROP_WEAPON = 'old_faithful_drop_weapon';
+    case OLD_FAITHFUL_SHOOTER_PLUS_2_DAMAGE = 'old_faithful_shooter_plus_2_damage';
+
     public function toString(): string
     {
         return $this->value;

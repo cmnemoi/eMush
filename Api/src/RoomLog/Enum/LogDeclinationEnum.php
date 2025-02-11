@@ -95,6 +95,9 @@ abstract class LogDeclinationEnum
             WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
             WeaponEventEnum::NATAMY_RIFLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => [self::VERSION => 2],
             WeaponEventEnum::NATAMY_RIFLE_FAILED_SHOT->value => [self::VERSION => 100],
+            WeaponEventEnum::OLD_FAITHFUL_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
+            WeaponEventEnum::OLD_FAITHFUL_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => [self::VERSION => 2],
+            WeaponEventEnum::OLD_FAITHFUL_FAILED_SHOT->value => [self::VERSION => 100],
         ];
     }
 }

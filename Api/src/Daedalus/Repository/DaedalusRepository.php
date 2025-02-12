@@ -134,4 +134,15 @@ class DaedalusRepository extends ServiceEntityRepository implements DaedalusRepo
 
         return new DaedalusCollection($qb->getQuery()->getResult());
     }
+
+    public function findByIdOrThrow(int $id): Daedalus
+    {
+        $daedalus = $this->find($id);
+
+        if ($daedalus === null) {
+            throw new \RuntimeException("Daedalus with id {$id} not found.");
+        }
+
+        return $daedalus;
+    }
 }

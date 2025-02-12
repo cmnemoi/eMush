@@ -61,4 +61,8 @@ interface AlertServiceInterface
     public function handlePariahApplied(Player $player): void;
 
     public function handlePariahRemoved(Player $player): void;
+
+    public function createCommunicationsDownAlertForDaedalus(Daedalus $daedalus): void;
+
+    public function deleteCommunicationsDownAlertForDaedalus(Daedalus $daedalus);
 }

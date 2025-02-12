@@ -151,5 +151,15 @@
         <target>Alertes :</target>
       </segment>
     </unit>
+    <unit id="communications_down">
+      <segment id="name" state="translated">
+        <source>communications_down.name</source>
+        <target>Pas de liaison</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>communications_down.description</source>
+        <target>Le Daedalus n'a pas de **liaison de communication** avec Sol ! Garder un lien avec Sol est important pour le moral du groupe et essentiel pour survivre.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -264,7 +264,6 @@ final class ShootActionCest extends AbstractFunctionalTest
 
         $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(11, $I);
         $this->thenKuanTiShouldHaveAnInjury($I);
-        
     }
 
     public function oldFaithfulHeadshotEventShouldKillTarget(FunctionalTester $I): void

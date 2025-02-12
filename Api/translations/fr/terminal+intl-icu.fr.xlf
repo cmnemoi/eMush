@@ -338,6 +338,14 @@
         <source>communication_center.contact</source>
         <target>Contact</target>
       </segment>
+      <segment id="contact" state="translated">
+        <source>communication_center.neron_version</source>
+        <target>NERON v{neronVersion}</target>
+      </segment>
+      <segment id="contact" state="translated">
+        <source>communication_center.neron_update_status</source>
+        <target>Mise à jour : {quantity}%</target>
+      </segment>
       <segment id="link_strength" state="translated">
         <source>communication_center.link_strength</source>
         <target>Signal : {quantity}%</target>

@@ -546,9 +546,9 @@ other {invalid version input}
       </segment>
     </unit>
     <unit id="suicide_success">
-      <segment id="suicide_success" state="initial">
+      <segment id="suicide_success" state="translated">
         <source>suicide_success</source>
-        <target>suicide_success</target>
+        <target>**{character}** tenía una prisa muy visible, abre un portal espaciotemporal y salta con sus dos pies. No deberíamos verle pronto otra vez.</target>
       </segment>
     </unit>
     <unit id="attack_one_shot">

@@ -38,10 +38,15 @@ final readonly class FinishRandomDaedalusProjectService
     {
         $daedalus = $this->daedalusRepository->findByIdOrThrow($daedalusId);
 
-        /** @var Project $project */
-        return $this->getRandomElementsFromArray->execute(
+        $project = $this->getRandomElementsFromArray->execute(
             elements: $daedalus->getAvailableNeronProjects()->toArray(),
             number: 1
         )->first();
+
+        if (!$project) {
+            throw new \RuntimeException('There should be at least one NERON project available');
+        }
+
+        return $project;
     }
 }

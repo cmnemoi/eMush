@@ -59,14 +59,14 @@ final class UpgradeNeron extends AbstractAction
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
             ]),
+            new NoMoreNeronProjects([
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::MAX_NERON_VERSION_REACHED,
+            ]),
             new LinkWithSolConstraint([
                 'shouldBeEstablished' => true,
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::LINK_WITH_SOL_NOT_ESTABLISHED,
-            ]),
-            new NoMoreNeronProjects([
-                'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::MAX_NERON_VERSION_REACHED,
             ]),
         ]);
     }

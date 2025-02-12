@@ -27,6 +27,19 @@
                 </div>
             </div>
         </div>
+        <div class="contact-section">
+            <h3>
+                <img :src="getImgUrl('spot2.svg')" alt="spot" />
+                {{ terminal.sectionTitles.neronVersion }}
+            </h3>
+            <div>
+                <ActionButton
+                    :key="upgradeNeron.name || ''"
+                    :action="upgradeNeron"
+                    @click="executeTargetAction(terminal, upgradeNeron)"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -48,6 +61,9 @@ export default defineComponent({
     computed: {
         establishLinkWithSolAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.ESTABLISH_LINK_WITH_SOL);
+        },
+        upgradeNeron(): Action {
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.UPGRADE_NERON);
         },
         sensorFramesCount(): number {
             const linkStrength = this.terminal.infos?.linkStrength;

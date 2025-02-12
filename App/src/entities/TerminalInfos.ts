@@ -27,6 +27,7 @@ export class TerminalInfos {
     public edenComputed: string|null = null;
     public linkStrength: string|null = null;
     public linkEstablished: string|null = null;
+    public neronUpdateStatus: string|null = null;
 
     constructor() {
         this.requirements = [];
@@ -67,6 +68,7 @@ export class TerminalInfos {
             this.edenComputed = object.edenComputed;
             this.linkStrength = object.linkStrength;
             this.linkEstablished = object.linkEstablished;
+            this.neronUpdateStatus = object.neronUpdateStatus;
         }
         return this;
     }

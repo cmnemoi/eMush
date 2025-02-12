@@ -39,6 +39,11 @@ class NeronVersion
         return $this->major;
     }
 
+    public function getMinor(): int
+    {
+        return $this->minor;
+    }
+
     public function getDaedalusId(): int
     {
         return $this->daedalusId;

@@ -10,6 +10,7 @@ use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
@@ -36,6 +37,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     public function __construct(
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
         private readonly LinkWithSolRepository $linkWithSolRepository,
+        private readonly NeronVersionRepositoryInterface $neronVersionRepository,
         private readonly PlanetServiceInterface $planetService,
         private readonly TranslationServiceInterface $translationService
     ) {}
@@ -128,11 +130,17 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         $titles = [];
         $terminalKey = $terminal->getName();
+        $daedalusId = $terminal->getDaedalus()->getId();
+        $parameters = [];
+        if ($terminal->getName() === EquipmentEnum::COMMUNICATION_CENTER) {
+            $parameters['neronVersion'] = $this->neronVersionRepository->findByDaedalusIdOrThrow($daedalusId)->toString();
+        }
+
         if (\array_key_exists($terminalKey, EquipmentEnum::$terminalSectionTitlesMap)) {
             foreach (EquipmentEnum::$terminalSectionTitlesMap[$terminalKey] as $sectionKey) {
                 $titles[$sectionKey] = $this->translationService->translate(
                     $terminalKey . '.' . $sectionKey,
-                    [],
+                    $parameters,
                     'terminal',
                     $terminal->getDaedalus()->getLanguage(),
                 );
@@ -534,11 +542,18 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         $link = $this->linkWithSolRepository->findByDaedalusIdOrThrow($terminal->getDaedalus()->getId());
+        $neronVersion = $this->neronVersionRepository->findByDaedalusIdOrThrow($terminal->getDaedalus()->getId());
 
         $infos = [
             'linkStrength' => $this->translationService->translate(
                 key: $terminalKey . '.link_strength',
                 parameters: ['quantity' => $link->getStrength()],
+                domain: 'terminal',
+                language: $terminal->getDaedalus()->getLanguage()
+            ),
+            'neronUpdateStatus' => $this->translationService->translate(
+                key: $terminalKey . '.neron_update_status',
+                parameters: ['quantity' => $neronVersion->getMinor()],
                 domain: 'terminal',
                 language: $terminal->getDaedalus()->getLanguage()
             ),

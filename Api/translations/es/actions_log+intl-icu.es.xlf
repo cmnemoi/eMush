@@ -237,7 +237,7 @@ other {invalid gender input}
     <unit id="shower_human">
       <segment id="shower_human" state="translated">
         <source>shower_human</source>
-        <target>Te lavas intensamente en la ducha. Mmm, sientes mucho mejor...</target>
+        <target>Te lavas intensamente en la ducha. Mmm, te sientes mucho mejor...</target>
       </segment>
     </unit>
     <unit id="shower_mush">
@@ -363,7 +363,7 @@ female {Que extraño, **{character}** ha hecho que salga humo de la **{target_eq
     <unit id="extinguish_fail">
       <segment id="extinguish_fail" state="translated">
         <source>extinguish_fail</source>
-        <target>Tu intento por apagar el fuego ha fallado...</target>
+        <target>No has logrado apagar el incendio...</target>
       </segment>
     </unit>
     <unit id="comfort_success">
@@ -467,45 +467,46 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       </segment>
     </unit>
     <unit id="fake_disease">
-      <segment id="fake_disease" state="initial">
+      <segment id="fake_disease" state="translated">
         <source>fake_disease</source>
-        <target>fake_disease</target>
+        <target>Que extraño. **{character}** saca una polvera y se embadurna de blanco y negro. No luce nada bien.</target>
       </segment>
     </unit>
     <unit id="fail_surgery">
-      <segment id="fail_surgery" state="initial">
+      <segment id="fail_surgery" state="translated">
         <source>fail_surgery</source>
-        <target>fail_surgery</target>
+        <target>La operación parece durar una eternidad, **{character}** finalmente da su veredicto con una expresión de derrota... **{target_character}** sufre un shock séptico...</target>
       </segment>
     </unit>
     <unit id="fail_self_surgery">
-      <segment id="fail_self_surgery" state="initial">
+      <segment id="fail_self_surgery" state="translated">
         <source>fail_self_surgery</source>
-        <target>fail_self_surgery</target>
+        <target>La operación parece durar una eternidad, **{character}** sufre un shock séptico...</target>
       </segment>
     </unit>
     <unit id="gag_success">
-      <segment id="gag_success" state="initial">
+      <segment id="gag_success" state="translated">
         <source>gag_success</source>
-        <target>gag_success</target>
+        <target>**{character}** ha amordazado a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="ungag_success">
-      <segment id="ungag_success" state="initial">
+      <segment id="ungag_success" state="translated">
         <source>ungag_success</source>
-        <target>ungag_success</target>
+        <target>**{character}** se ha desamordazado.
+</target>
       </segment>
     </unit>
     <unit id="screw_talkie_success">
-      <segment id="screw_talkie_success" state="initial">
+      <segment id="screw_talkie_success" state="translated">
         <source>screw_talkie_success</source>
-        <target>screw_talkie_success</target>
+        <target>**{character}** se acerca a **{target_character}** y parece haber colocado algo pegajoso en su *talkie*...</target>
       </segment>
     </unit>
     <unit id="update_talkie_success">
-      <segment id="update_talkie_success" state="initial">
+      <segment id="update_talkie_success" state="translated">
         <source>update_talkie_success</source>
-        <target>update_talkie_success</target>
+        <target>Un trozo de cinta por aquí, una soldadura por allá... y pensar que con eso basta para tener un iTrackie®© de última generación. Solo falta instalar las actualizaciones.</target>
       </segment>
     </unit>
     <unit id="attack_success">
@@ -515,9 +516,17 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       </segment>
     </unit>
     <unit id="attack_fail">
-      <segment id="attack_fail" state="initial">
+      <segment id="attack_fail" state="translated">
         <source>attack_fail</source>
-        <target>attack_fail</target>
+        <target>{version, select,
+1 {**{character}** saca su cuchillo y ataca a **{target_character}** pero falla.}
+2  {¡CRASH! **{target_character}** esquiva elegantemente el arma de **{character}** y esta termina chocando contra la pared.}
+3 {**target_character}** se gira hacia **{character}**, quien le amenaza con su arma. Con mucha fuerza, rapidez, precisión, con... el esfuerzo superhumano de **{character}** casi le hace desmayarse...}
+4 {Mientras atacaba a **{target_character}**, **{character}** se resbala con una alfombra imaginaria y falla su objetivo.}
+5 {Quién diría que **{target_character}** tiene tan buenos reflejos... **{character}** falla su ataque miserablemente.}
+other {invalid version input}
+}
+</target>
       </segment>
     </unit>
     <unit id="attack_critical_success">
@@ -527,9 +536,13 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       </segment>
     </unit>
     <unit id="attack_critical_fail">
-      <segment id="attack_critical_fail" state="initial">
+      <segment id="attack_critical_fail" state="translated">
         <source>attack_critical_fail</source>
-        <target>attack_critical_fail</target>
+        <target>{version, select,
+1 {**{character}** falla en su ataque y no solo se da contra la pared, sino que se muerde la lengua...} 
+2 {Mientras hacía un salto impresionante, **{character}** se rompe un músculo dorsal. Eso debió doler.}
+other {invalid version input}
+}</target>
       </segment>
     </unit>
     <unit id="suicide_success">

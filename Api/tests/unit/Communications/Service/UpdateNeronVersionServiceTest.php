@@ -59,7 +59,7 @@ final class UpdateNeronVersionServiceTest extends TestCase
 
     private function givenNeronVersionIs(int $major, int $minor): void
     {
-        $neronVersion = new NeronVersion($major, $minor, $this->daedalus->getId());
+        $neronVersion = new NeronVersion($this->daedalus->getId(), $major, $minor);
         $this->neronVersionRepository->save($neronVersion);
     }
 

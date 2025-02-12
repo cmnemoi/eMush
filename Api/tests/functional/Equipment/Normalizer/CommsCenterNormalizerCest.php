@@ -75,7 +75,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: [
-                'contact' => 'Contact',
+                'contact' => 'Liaison',
                 'neron_version' => 'NERON v2.09',
             ],
             actual: $this->normalizedTerminal['sectionTitles']
@@ -91,7 +91,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'linkStrength' => 'Signal : 10%',
-                'neronUpdateStatus' => 'Mise à jour : 9%',
+                'neronUpdateStatus' => 'État de mise à jour : 9%',
             ],
             actual: $this->normalizedTerminal['infos']
         );
@@ -107,7 +107,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'linkStrength' => 'Signal : 10%',
-                'neronUpdateStatus' => 'Mise à jour : 9%',
+                'neronUpdateStatus' => 'État de mise à jour : 9%',
                 'linkEstablished' => 'Connexion établie !',
             ],
             actual: $this->normalizedTerminal['infos']

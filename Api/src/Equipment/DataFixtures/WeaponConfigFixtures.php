@@ -234,10 +234,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $oldFaithfulMechanic = new Weapon();
         $oldFaithfulMechanic
+            ->setDamageSpread([2, 4])
             ->setBaseAccuracy(50)
-            ->setBaseDamageRange([2 => 3])
             ->setExpeditionBonus(2)
-            ->addAction($attackAction)
+            ->addAction($shootAction)
+            ->addAction($shootCatAction)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::OLD_FAITHFUL, GameConfigEnum::DEFAULT);
 
         /** @var ChargeStatusConfig $oldFaithfulCharge */

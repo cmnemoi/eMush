@@ -32,6 +32,7 @@ final class ShootActionCest extends AbstractFunctionalTest
 
     private GameItem $blaster;
     private GameItem $natamyRifle;
+    private GameItem $oldFaithful;
 
     public function _before(FunctionalTester $I)
     {
@@ -244,6 +245,57 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(10, $I);
     }
 
+    public function oldFaithfulSuccessfulShotShouldRemoveHealthPoints(FunctionalTester $I): void
+    {
+        $this->givenChunHasAOldFaithful();
+        $this->givenOldFaithfulHas100ChanceToDispatchEvent(WeaponEventEnum::OLD_FAITHFUL_SUCCESSFUL_SHOT->toString());
+
+        $this->whenChunShootsAtKuanTiWithOldFaithful();
+
+        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(12, $I);
+    }
+
+    public function oldFaithfulBrokenShoulderEventShouldRemoveHealthPointsAndAddAnInjury(FunctionalTester $I): void
+    {
+        $this->givenChunHasAOldFaithful();
+        $this->givenOldFaithfulHas100ChanceToDispatchEvent(WeaponEventEnum::OLD_FAITHFUL_TARGET_MASHED_FOOT->toString());
+
+        $this->whenChunShootsAtKuanTiWithOldFaithful();
+
+        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(11, $I);
+        $this->thenKuanTiShouldHaveAnInjury($I);
+    }
+
+    public function oldFaithfulHeadshotEventShouldKillTarget(FunctionalTester $I): void
+    {
+        $this->givenChunHasAOldFaithful();
+        $this->givenOldFaithfulHas100ChanceToDispatchEvent(WeaponEventEnum::OLD_FAITHFUL_HEADSHOT_2->toString());
+
+        $this->whenChunShootsAtKuanTiWithOldFaithful();
+
+        $this->thenKuanTiShouldBeDead($I);
+    }
+
+    public function oldFaithfulFailedShotShouldNotRemoveHealthPoints(FunctionalTester $I): void
+    {
+        $this->givenChunHasAOldFaithful();
+        $this->givenOldFaithfulHas100ChanceToDispatchEvent(WeaponEventEnum::OLD_FAITHFUL_FAILED_SHOT->toString());
+
+        $this->whenChunShootsAtKuanTiWithOldFaithful();
+
+        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(14, $I);
+    }
+
+    public function oldFaithfulFumbleBurntHandEventShouldAddAnInjuryToShooter(FunctionalTester $I): void
+    {
+        $this->givenChunHasAOldFaithful();
+        $this->givenOldFaithfulHas100ChanceToDispatchEvent(WeaponEventEnum::OLD_FAITHFUL_SHOOTER_BURNT_HAND->toString());
+
+        $this->whenChunShootsAtKuanTiWithOldFaithful();
+
+        $this->thenChunShouldHaveAnInjury($I);
+    }
+
     public function plasteniteArmorShouldReduceDamage(FunctionalTester $I): void
     {
         $this->givenBlasterHas100ChanceToDispatchEvent(WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->toString());
@@ -328,6 +380,26 @@ final class ShootActionCest extends AbstractFunctionalTest
         ]);
     }
 
+    private function givenChunHasAOldFaithful(): void
+    {
+        $this->oldFaithful = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::OLD_FAITHFUL,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenOldFaithfulHas100ChanceToDispatchEvent(string $event): void
+    {
+        $this->oldFaithful->getWeaponMechanicOrThrow()->setSuccessfulEventKeys([
+            $event => 1,
+        ]);
+        $this->oldFaithful->getWeaponMechanicOrThrow()->setFailedEventKeys([
+            $event => 1,
+        ]);
+    }
+
     private function givenKuanTiHasPlasteniteArmor(): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -354,6 +426,17 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->shootAction->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->natamyRifle,
+            player: $this->chun,
+            target: $this->kuanTi,
+        );
+        $this->shootAction->execute();
+    }
+
+    private function whenChunShootsAtKuanTiWithOldFaithful(): void
+    {
+        $this->shootAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->oldFaithful,
             player: $this->chun,
             target: $this->kuanTi,
         );
@@ -504,6 +587,46 @@ final class ShootActionCest extends AbstractFunctionalTest
             ],
             WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE->toString() => [
                 WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_DAMAGE->toString(),
+                'L\'oeil vif, la rage au corps, **Chun** réussit magnifiquement son tir en plein dans la poitrine de **Kuan Ti**...',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString(),
+                '**Chun** prend son temps pour ajuster **Kuan Ti**. Aïe...',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_TARGET_MINUS_1AP->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_TARGET_MINUS_1AP->toString(),
+                '**Kuan Ti** esquive miraculeusement une rafale de **Chun**.',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_HEADSHOT_2->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_HEADSHOT_2->toString(),
+                '**Chun** vide son chargeur dans **Kuan Ti**.',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_TARGET_MASHED_FOOT->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_TARGET_MASHED_FOOT->toString(),
+                'La crosse de son fusil gêne **Chun**. Le pied de **Kuan Ti** est maintenant en purée.',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_BREAK_WEAPON->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_BREAK_WEAPON->toString(),
+                'Clic clic clic... L\'arme de **Chun** est enrayée. **Kuan Ti** devrait lui en être reconnaissant.',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_SHOOTER_BURNT_HAND->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_SHOOTER_BURNT_HAND->toString(),
+                'En tirant sur **Kuan Ti**, **Chun** s\'est brûlée avec son arme. Grandiose.',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_SHOOTER_BROKEN_SHOULDER->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_SHOOTER_BROKEN_SHOULDER->toString(),
+                '**Chun** aurait dû mieux anticiper le recul, ratant **Kuan Ti** en se démontant l\'épaule. Bravo.',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_SHOOTER_MASHED_FOOT->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_SHOOTER_MASHED_FOOT->toString(),
+                'Une arme lourde fait de gros dégâts sur les pieds de **Chun**...',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_DROP_WEAPON->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_DROP_WEAPON->toString(),
+                'Nul mot de saurait décrire l\'incroyable acrobatie de l\'arme de **Chun** qui finit par atterrir par terre...',
+            ],
+            WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_DAMAGE->toString() => [
+                WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_DAMAGE->toString(),
                 'L\'oeil vif, la rage au corps, **Chun** réussit magnifiquement son tir en plein dans la poitrine de **Kuan Ti**...',
             ],
         ];

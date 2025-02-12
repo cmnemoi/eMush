@@ -403,45 +403,49 @@ female {Que extraño, **{character}** ha hecho que salga humo de la **{target_eq
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="initial">
+      <segment id="spread_fire_success" state="translated">
         <source>spread_fire_success</source>
-        <target>spread_fire_success</target>
+        <target>:mush: Vaya... hace mucho calor aquí... **{character}** ha iniciado un incendio en la sala...</target>
       </segment>
     </unit>
     <unit id="install_camera">
-      <segment id="install_camera" state="initial">
+      <segment id="install_camera" state="translated">
         <source>install_camera</source>
-        <target>install_camera</target>
+        <target>**{character}** instala su pequeña **Cámara** con mucho empeño.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
-      <segment id="remove_camera" state="initial">
+      <segment id="remove_camera" state="translated">
         <source>remove_camera</source>
-        <target>remove_camera</target>
+        <target>**{character}** quita la **Cámara**. Ya no serviría...</target>
       </segment>
     </unit>
     <unit id="try_kube">
-      <segment id="try_kube" state="initial">
+      <segment id="try_kube" state="translated">
         <source>try_kube</source>
-        <target>try_kube</target>
+        <target>**{character}** intenta resolver ese condenado Kube.</target>
       </segment>
     </unit>
     <unit id="remove_spore_success">
-      <segment id="remove_spore_fail" state="initial">
+      <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_success</source>
-        <target>remove_spore_success</target>
+        <target>Usas el extractor en este miserable forúnculo. El ruido es algo aterrador, al igual que la cantidad de sangre... Espera, ¿qué diablos es eso?</target>
       </segment>
     </unit>
     <unit id="remove_spore_fail">
-      <segment id="remove_spore_fail" state="initial">
+      <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_fail</source>
-        <target>remove_spore_fail</target>
+        <target>Usas el extractor en este miserable forúnculo. El ruido es algo aterrador, al igual que la cantidad de sangre... Afortunadamente, no hay ninguna espora que extraer.</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
-      <segment id="public_broadcast" state="initial">
+      <segment id="public_broadcast" state="translated">
         <source>public_broadcast</source>
-        <target>public_broadcast</target>
+        <target>Todo el mundo mira fijamente a la pantalla chica.
+Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo que dice.
+¡Pero no importa! [...] Aplaudes cuando Blouzorg le pega a su suegra [...].
+¡Quién hubiera pensado que Blouzorg y su perro espacial podrían bailar así! [...]
+¿Se casará Blouzorg con Blourka? [...] Las luces se apagan. Estas series de extraterrestres son realmente increíbles...</target>
       </segment>
     </unit>
     <unit id="motivational_speech">
@@ -457,9 +461,9 @@ female {Que extraño, **{character}** ha hecho que salga humo de la **{target_eq
       </segment>
     </unit>
     <unit id="make_sick">
-      <segment id="make_sick" state="initial">
+      <segment id="make_sick" state="translated">
         <source>make_sick</source>
-        <target>make_sick</target>
+        <target>:mush: **{character}** sopla sobre **{target_character}** una extraña nube...</target>
       </segment>
     </unit>
     <unit id="fake_disease">

@@ -163,5 +163,89 @@
         <target>natamy_rifle_shooter_plus_2_damage</target>
       </segment>
     </unit>
+    <unit id="old_faithful_successful_shot">
+      <segment id="old_faithful_successful_shot" state="initial">
+        <source>old_faithful_successful_shot</source>
+        <target>old_faithful_successful_shot</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_headshot">
+      <segment id="old_faithful_headshot" state="initial">
+        <source>old_faithful_headshot</source>
+        <target>old_faithful_headshot</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
+      <segment id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+        <source>old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
+        <target>old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_target_minus_1ap">
+      <segment id="old_faithful_target_minus_1ap" state="initial">
+        <source>old_faithful_target_minus_1ap</source>
+        <target>old_faithful_target_minus_1ap</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_headshot_2">
+      <segment id="old_faithful_headshot_2" state="initial">
+        <source>old_faithful_headshot_2</source>
+        <target>old_faithful_headshot_2</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_target_mashed_foot">
+      <segment id="old_faithful_target_mashed_foot" state="initial">
+        <source>old_faithful_target_mashed_foot</source>
+        <target>old_faithful_target_mashed_foot</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
+      <segment id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+        <source>old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
+        <target>old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_break_weapon">
+      <segment id="old_faithful_break_weapon" state="initial">
+        <source>old_faithful_break_weapon</source>
+        <target>old_faithful_break_weapon</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_shooter_burnt_hand">
+      <segment id="old_faithful_shooter_burnt_hand" state="initial">
+        <source>old_faithful_shooter_burnt_hand</source>
+        <target>old_faithful_shooter_burnt_hand</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_shooter_broken_shoulder">
+      <segment id="old_faithful_shooter_broken_shoulder" state="initial">
+        <source>old_faithful_shooter_broken_shoulder</source>
+        <target>old_faithful_shooter_broken_shoulder</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_failed_shot">
+      <segment id="old_faithful_failed_shot" state="initial">
+        <source>old_faithful_failed_shot</source>
+        <target>old_faithful_failed_shot</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_shooter_mashed_foot">
+      <segment id="old_faithful_shooter_mashed_foot" state="initial">
+        <source>old_faithful_shooter_mashed_foot</source>
+        <target>old_faithful_shooter_mashed_foot</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_drop_weapon">
+      <segment id="old_faithful_drop_weapon" state="initial">
+        <source>old_faithful_drop_weapon</source>
+        <target>old_faithful_drop_weapon</target>
+      </segment>
+    </unit>
+    <unit id="old_faithful_shooter_plus_2_damage">
+      <segment id="old_faithful_shooter_plus_2_damage" state="initial">
+        <source>old_faithful_shooter_plus_2_damage</source>
+        <target>old_faithful_shooter_plus_2_damage</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

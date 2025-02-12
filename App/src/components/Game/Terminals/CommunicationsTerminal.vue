@@ -182,4 +182,21 @@ export default defineComponent({
         width: fit-content;
     }
 }
+
+.neron-update-section {
+    padding: 1em;
+
+    h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.1em;
+        font-weight: bold;
+        margin: 0 0 1em;
+        text-transform: uppercase;
+    }
+
+    background-image: url("/src/assets/images/neron_bg.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
 </style>

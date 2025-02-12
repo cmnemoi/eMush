@@ -60,7 +60,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
 
         $this->createLinkWithSolForDaedalus();
         $this->createNeronVersionForDaedalus();
-        $this->givenACommsCenterInChunRoom($I);
+        $this->givenACommsCenterInChunRoom();
         $this->givenChunIsFocusedOnCommsCenter();
     }
 
@@ -182,7 +182,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenACommsCenterInChunRoom(FunctionalTester $I)
+    private function givenACommsCenterInChunRoom(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::COMMUNICATION_CENTER,

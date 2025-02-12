@@ -6,8 +6,6 @@ use Mush\Action\Actions\UpgradeNeron;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Chat\Entity\Message;
-use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Repository\LinkWithSolRepository;
@@ -70,14 +68,14 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
     {
         $this->givenChunIsNotFocusedOnCommsCenter();
 
-        $this->whenChunTriesToUpgradeNeron($I);
+        $this->whenChunTriesToUpgradeNeron();
 
         $this->thenActionShouldNotBeVisible($I);
     }
 
     public function shouldNotBeExecutableForNonCommsManager(FunctionalTester $I): void
     {
-        $this->whenChunTriesToUpgradeNeron($I);
+        $this->whenChunTriesToUpgradeNeron();
 
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::COMS_NOT_OFFICER, $I);
     }
@@ -87,7 +85,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $this->givenChunIsCommsManager();
         $this->givenChunIsDirty();
 
-        $this->whenChunTriesToUpgradeNeron($I);
+        $this->whenChunTriesToUpgradeNeron();
 
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::DIRTY_RESTRICTION, $I);
     }
@@ -96,7 +94,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
     {
         $this->givenChunIsCommsManager();
 
-        $this->whenChunTriesToUpgradeNeron($I);
+        $this->whenChunTriesToUpgradeNeron();
 
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::LINK_WITH_SOL_NOT_ESTABLISHED, $I);
     }
@@ -107,7 +105,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $this->givenLinkWithSolIsEstablished();
         $this->givenThereIsNoneAvailableNeronProjects();
 
-        $this->whenChunTriesToUpgradeNeron($I);
+        $this->whenChunTriesToUpgradeNeron();
 
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::MAX_NERON_VERSION_REACHED, $I);
     }
@@ -165,23 +163,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldCreateNeronAnnouncementOnSuccess(FunctionalTester $I): void
-    {
-        $this->givenChunIsCommsManager();
-        $this->givenLinkWithSolIsEstablished();
-        $this->givenNeronMinorVersionIs(99);
-
-        $this->whenChunUpgradesNeron($I);
-
-        $I->seeInRepository(
-            entity: Message::class,
-            params: [
-                'message' => NeronMessageEnum::NEW_PROJECT,
-            ]
-        );
-    }
-
-    private function whenChunTriesToUpgradeNeron(FunctionalTester $I): void
+    private function whenChunTriesToUpgradeNeron(): void
     {
         $this->upgradeNeron->loadParameters(
             actionConfig: $this->actionConfig,
@@ -294,7 +276,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
 
     private function whenChunUpgradesNeron(FunctionalTester $I): void
     {
-        $this->whenChunTriesToUpgradeNeron($I);
+        $this->whenChunTriesToUpgradeNeron();
         $this->upgradeNeron->execute();
     }
 

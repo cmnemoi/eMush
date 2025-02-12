@@ -8,6 +8,7 @@ use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Service\UpdateNeronVersionService;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Tests\unit\Communications\TestDoubles\Repository\InMemoryNeronVersionRepository;
 use Mush\Tests\unit\Communications\TestDoubles\Service\FixedNeronMinorVersionIncrementService as FixedNeronMinorVersionIncrement;
 use PHPUnit\Framework\TestCase;
@@ -65,7 +66,9 @@ final class UpdateNeronVersionServiceTest extends TestCase
 
     private function givenMinorVersionIncrementIs(int $increment): void
     {
+        $eventService = $this->createStub(EventServiceInterface::class);
         $this->updateNeronVersion = new UpdateNeronVersionService(
+            $eventService,
             new FixedNeronMinorVersionIncrement($increment),
             $this->neronVersionRepository,
         );

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Mush\Communications\Listener;
 
 use Mush\Communications\Entity\NeronVersion;
-use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
+use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

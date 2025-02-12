@@ -24,11 +24,11 @@ class DaedalusRepository extends ServiceEntityRepository implements DaedalusRepo
         $this->getEntityManager()->getConnection()->executeStatement('DELETE FROM daedalus');
     }
 
-    public function findByIdOrThrow(int $daedalusId): Daedalus
+    public function findByIdOrThrow(int $id): Daedalus
     {
-        $daedalus = $this->find($daedalusId);
+        $daedalus = $this->find($id);
         if ($daedalus === null) {
-            throw new \RuntimeException("Daedalus with id {$daedalusId} not found.");
+            throw new \RuntimeException("Daedalus with id {$id} not found.");
         }
 
         return $daedalus;
@@ -143,16 +143,5 @@ class DaedalusRepository extends ServiceEntityRepository implements DaedalusRepo
             ->setParameter('cycleChange', [true]);
 
         return new DaedalusCollection($qb->getQuery()->getResult());
-    }
-
-    public function findByIdOrThrow(int $id): Daedalus
-    {
-        $daedalus = $this->find($id);
-
-        if ($daedalus === null) {
-            throw new \RuntimeException("Daedalus with id {$id} not found.");
-        }
-
-        return $daedalus;
     }
 }

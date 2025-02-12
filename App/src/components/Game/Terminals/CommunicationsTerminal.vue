@@ -27,11 +27,12 @@
                 </div>
             </div>
         </div>
-        <div class="contact-section">
+        <div class="neron-update-section">
             <h3>
                 <img :src="getImgUrl('spot2.svg')" alt="spot" />
                 {{ terminal.sectionTitles.neronVersion }}
             </h3>
+            <p>{{ formatText(terminal.infos?.neronUpdateStatus) }}</p>
             <div>
                 <ActionButton
                     :key="upgradeNeron.name || ''"
@@ -65,7 +66,10 @@ export default defineComponent({
         upgradeNeron(): Action {
             return this.terminal.getActionByKeyOrThrow(ActionEnum.UPGRADE_NERON);
         },
-        sensorFramesCount(): number {
+        neronMinorVersion(): integer {
+            return Number(this.terminal.infos?.neronUpdateStatus?.split('.')[1]);
+        },
+        sensorFramesCount(): integer {
             const linkStrength = this.terminal.infos?.linkStrength;
             if (!linkStrength) {
                 return 0;
@@ -110,11 +114,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@keyframes sensorAnimation {
-    0%, 25% { opacity: 1; }
-    50%, 100% { opacity: 0; }
-}
-
 .terminal-container {
     display: flex;
     flex-direction: column;
@@ -125,6 +124,7 @@ export default defineComponent({
 
 .contact-section {
     padding: 1em;
+    margin-bottom: 1em;
 
     h3 {
         display: flex;
@@ -159,27 +159,6 @@ export default defineComponent({
         inset: 0;
         width: 100%;
         height: 100%;
-        opacity: 0;
-
-        &.frame-1 {
-            opacity: 1;
-            animation: none;
-        }
-    }
-
-    .sensor-frame {
-        &.frame-2 {
-            animation: sensorAnimation 4s infinite;
-            animation-delay: 0s;
-        }
-        &.frame-3 {
-            animation: sensorAnimation 3s infinite;
-            animation-delay: 1s;
-        }
-        &.frame-4 {
-            animation: sensorAnimation 2s infinite;
-            animation-delay: 0.5s;
-        }
     }
 }
 

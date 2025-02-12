@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Communications\Service;
 
+use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Event\NeronVersionUpdatedEvent;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -18,25 +19,22 @@ final readonly class UpdateNeronVersionService
 
     public function execute(int $daedalusId): bool
     {
-        $majorUpdated = $this->incrementNeronVersionForDaedalus($daedalusId);
+        $neronVersion = $this->neronVersionRepository->findByDaedalusIdOrThrow($daedalusId);
+        $this->incrementNeronVersion($neronVersion);
 
         $this->eventService->callEvent(
-            event: new NeronVersionUpdatedEvent($daedalusId, $majorUpdated),
+            event: new NeronVersionUpdatedEvent($daedalusId, $neronVersion->majorHasBeenUpdated()),
             name: NeronVersionUpdatedEvent::class,
         );
 
-        return $majorUpdated;
+        return $neronVersion->majorHasBeenUpdated();
     }
 
-    public function incrementNeronVersionForDaedalus(int $daedalusId): bool
+    private function incrementNeronVersion(NeronVersion $neronVersion): void
     {
-        $neronVersion = $this->neronVersionRepository->findByDaedalusIdOrThrow($daedalusId);
-
         $minorVersionIncrement = $this->neronMinorVersionIncrement->generateFrom($neronVersion->getMajor());
-        $majorUpdated = $neronVersion->increment($minorVersionIncrement);
+        $neronVersion->increment($minorVersionIncrement);
 
         $this->neronVersionRepository->save($neronVersion);
-
-        return $majorUpdated;
     }
 }

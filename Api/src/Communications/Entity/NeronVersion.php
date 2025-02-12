@@ -49,24 +49,24 @@ class NeronVersion
         return $this->daedalusId;
     }
 
-    public function increment(int $minorIncrement): bool
+    public function increment(int $minorIncrement): void
     {
-        $majorUpdated = false;
-        if ($this->minor + $minorIncrement >= 100) {
+        $this->minor += $minorIncrement;
+
+        if ($this->minor >= 100) {
             ++$this->major;
-            $majorUpdated = true;
+            $this->minor = 0;
         }
+    }
 
-        $this->minor = ($this->minor + $minorIncrement) % 100;
-
-        return $majorUpdated;
+    public function majorHasBeenUpdated(): bool
+    {
+        return $this->minor === 0;
     }
 
     public function toString(): string
     {
-        $minor = str_pad((string) $this->minor, 2, '0', STR_PAD_LEFT);
-
-        return "{$this->major}.{$minor}";
+        return \sprintf('%d.%02d', $this->major, $this->minor);
     }
 
     /**

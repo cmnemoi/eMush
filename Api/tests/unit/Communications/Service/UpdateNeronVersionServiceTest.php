@@ -55,7 +55,7 @@ final class UpdateNeronVersionServiceTest extends TestCase
 
         $this->whenUpdatingNeronVersion();
 
-        $this->thenNeronVersionShouldBe('2.09');
+        $this->thenNeronVersionShouldBe('2.00');
     }
 
     private function givenNeronVersionIs(int $major, int $minor): void

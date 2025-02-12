@@ -150,5 +150,15 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
         <target>Alertas:</target>
       </segment>
     </unit>
+    <unit id="communications_down">
+      <segment id="name" state="initial">
+        <source>communications_down.name</source>
+        <target>communications_down.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>communications_down.description</source>
+        <target>communications_down.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -24,6 +24,16 @@ class DaedalusRepository extends ServiceEntityRepository implements DaedalusRepo
         $this->getEntityManager()->getConnection()->executeStatement('DELETE FROM daedalus');
     }
 
+    public function findByIdOrThrow(int $daedalusId): Daedalus
+    {
+        $daedalus = $this->find($daedalusId);
+        if ($daedalus === null) {
+            throw new \RuntimeException("Daedalus with id {$daedalusId} not found.");
+        }
+
+        return $daedalus;
+    }
+
     public function existAvailableDaedalus(): bool
     {
         $qb = $this->createQueryBuilder('daedalus');

@@ -44,13 +44,17 @@ class NeronVersion
         return $this->daedalusId;
     }
 
-    public function increment(int $minorIncrement): void
+    public function increment(int $minorIncrement): bool
     {
+        $majorUpdated = false;
         if ($this->minor + $minorIncrement >= 100) {
             ++$this->major;
+            $majorUpdated = true;
         }
 
         $this->minor = ($this->minor + $minorIncrement) % 100;
+
+        return $majorUpdated;
     }
 
     public function toString(): string

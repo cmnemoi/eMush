@@ -106,8 +106,11 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $establishLinkWithSol */
         $establishLinkWithSol = $this->getReference(ActionEnum::ESTABLISH_LINK_WITH_SOL->value);
 
+        /** @var ActionConfig $upgradeNeron */
+        $upgradeNeron = $this->getReference(ActionEnum::UPGRADE_NERON->value);
+
         $commsCenterTool = $this->createTool(
-            [$searchForMushGenome, $establishLinkWithSol],
+            [$searchForMushGenome, $establishLinkWithSol, $upgradeNeron, $accessTerminalAction, $exitTerminalAction],
             EquipmentEnum::COMMUNICATION_CENTER
         );
         $manager->persist($commsCenterTool);

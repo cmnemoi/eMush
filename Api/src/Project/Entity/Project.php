@@ -216,6 +216,7 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     public function finish(): void
     {
         $this->progress = 100;
+        $this->unpropose();
     }
 
     public function getClassName(): string

@@ -1424,5 +1424,11 @@
         <target>Vous avez réussi à établir une communication entre le Daedalus et le système solaire Sol !</target>
       </segment>
     </unit>
+    <unit id="upgrade_neron_success">
+      <segment id="upgrade_neron_success" state="translated">
+        <source>upgrade_neron_success</source>
+        <target>**{character}** achève la mise à jour. La version majeure de NERON a augmenté. Le surplus de CPU générée par la joie de NERON a été injecté dans un projet.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

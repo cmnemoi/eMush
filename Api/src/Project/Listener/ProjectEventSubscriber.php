@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
@@ -38,6 +39,9 @@ final readonly class ProjectEventSubscriber implements EventSubscriberInterface
     public function onProjectFinished(ProjectEvent $event): void
     {
         if ($event->isNotAboutNeronProject()) {
+            return;
+        }
+        if ($event->hasTag(ActionEnum::UPGRADE_NERON->toString())) {
             return;
         }
 

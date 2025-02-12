@@ -170,6 +170,8 @@ abstract class ActionLogEnum
     public const string OPEN_COFFEE_THERMOS = 'open_coffee_thermos';
     public const string ESTBALISH_LINK_WITH_SOL_SUCCESS = 'establish_link_with_sol_success';
     public const string ESTBALISH_LINK_WITH_SOL_FAIL = 'establish_link_with_sol_fail';
+    public const string UPGRADE_NERON_SUCCESS = 'upgrade_neron_success';
+    public const string UPGRADE_NERON_FAIL = 'upgrade_neron_fail';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -584,6 +586,10 @@ abstract class ActionLogEnum
         ActionEnum::ESTABLISH_LINK_WITH_SOL->value => [
             ActionOutputEnum::SUCCESS => self::ESTBALISH_LINK_WITH_SOL_SUCCESS,
             ActionOutputEnum::FAIL => self::ESTBALISH_LINK_WITH_SOL_FAIL,
+        ],
+        ActionEnum::UPGRADE_NERON->value => [
+            ActionOutputEnum::SUCCESS => self::UPGRADE_NERON_SUCCESS,
+            ActionOutputEnum::FAIL => self::UPGRADE_NERON_FAIL,
         ],
     ];
 

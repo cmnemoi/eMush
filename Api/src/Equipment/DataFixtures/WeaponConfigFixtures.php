@@ -265,10 +265,11 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $lizaroJungleMechanic = new Weapon();
         $lizaroJungleMechanic
+            ->setDamageSpread([3, 3])
             ->setBaseAccuracy(99)
-            ->setBaseDamageRange([3 => 5])
             ->setExpeditionBonus(1)
-            ->addAction($attackAction)
+            ->addAction($shootAction)
+            ->addAction($shootCatAction)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::LIZARO_JUNGLE, GameConfigEnum::DEFAULT);
 
         $lizaroJungle = new ItemConfig();

@@ -53,6 +53,22 @@ enum WeaponEventEnum: string
     case OLD_FAITHFUL_DROP_WEAPON = 'old_faithful_drop_weapon';
     case OLD_FAITHFUL_SHOOTER_PLUS_2_DAMAGE = 'old_faithful_shooter_plus_2_damage';
 
+    // Old Faithful
+    case LIZARO_JUNGLE_SUCCESSFUL_SHOT = 'lizaro_jungle_successful_shot';
+    case LIZARO_JUNGLE_FAILED_SHOT = 'lizaro_jungle_failed_shot';
+    case LIZARO_JUNGLE_HEADSHOT = 'lizaro_jungle_headshot';
+    case LIZARO_JUNGLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY = 'lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury';
+    case LIZARO_JUNGLE_TARGET_MINUS_1AP = 'lizaro_jungle_target_minus_1ap';
+    case LIZARO_JUNGLE_HEADSHOT_2 = 'lizaro_jungle_headshot_2';
+    case LIZARO_JUNGLE_TARGET_MASHED_FOOT = 'lizaro_jungle_target_mashed_foot';
+    case LIZARO_JUNGLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS = 'lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents';
+    case LIZARO_JUNGLE_BREAK_WEAPON = 'lizaro_jungle_break_weapon';
+    case LIZARO_JUNGLE_SHOOTER_BURNT_HAND = 'lizaro_jungle_shooter_burnt_hand';
+    case LIZARO_JUNGLE_SHOOTER_BROKEN_SHOULDER = 'lizaro_jungle_shooter_broken_shoulder';
+    case LIZARO_JUNGLE_SHOOTER_MASHED_FOOT = 'lizaro_jungle_shooter_mashed_foot';
+    case LIZARO_JUNGLE_DROP_WEAPON = 'lizaro_jungle_drop_weapon';
+    case LIZARO_JUNGLE_SHOOTER_PLUS_2_DAMAGE = 'lizaro_jungle_shooter_plus_2_damage';
+
     public function toString(): string
     {
         return $this->value;

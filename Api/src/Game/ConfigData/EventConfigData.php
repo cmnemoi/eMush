@@ -1137,6 +1137,123 @@ class EventConfigData
                     WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
                 ]
             ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_SUCCESSFUL_SHOT->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_SUCCESSFUL_SHOT->toString(),
+                eventType: WeaponEventType::NORMAL,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_10_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::BIG_GUN_ONE_SHOT->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_MAX_DAMAGE->toString(),
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_TARGET_MINUS_1AP->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_TARGET_MINUS_1AP->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT_2->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT_2->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::LIZARO_JUNGLE_INJURY_ONE_SHOT->toString(),
+                    WeaponEffectEnum::REMOVE_ONE_ACTION_POINT_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_TARGET_MASHED_FOOT->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_TARGET_MASHED_FOOT->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_MASHED_FOOT_INJURY_TO_TARGET->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_BROKEN_SHOULDER_INJURY_TO_TARGET->toString(),
+                    WeaponEffectEnum::INFLICT_CRITICAL_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                    WeaponEffectEnum::INFLICT_HAEMORRHAGE_INJURY_TO_TARGET_40_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_BREAK_WEAPON->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_BREAK_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::BREAK_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_BURNT_HAND->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_BURNT_HAND->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_BURNT_HAND_INJURY_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_BROKEN_SHOULDER->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_BROKEN_SHOULDER->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_BROKEN_SHOULDER_INJURY_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_FAILED_SHOT->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_FAILED_SHOT->toString(),
+                eventType: WeaponEventType::MISS,
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_MASHED_FOOT->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_MASHED_FOOT->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_MASHED_FOOT_TO_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_DROP_WEAPON->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_DROP_WEAPON->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::DROP_WEAPON->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_PLUS_2_DAMAGE->toString(),
+                eventName: WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_PLUS_2_DAMAGE->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
+                ]
+            ),
         ];
     }
 
@@ -1182,6 +1299,11 @@ class EventConfigData
             ),
             new OneShotWeaponEffectConfigDto(
                 name: WeaponEffectEnum::OLD_FAITHFUL_INJURY_ONE_SHOT->toString(),
+                eventName: WeaponEffectEnum::ONE_SHOT->toString(),
+                endCause: EndCauseEnum::INJURY,
+            ),
+            new OneShotWeaponEffectConfigDto(
+                name: WeaponEffectEnum::LIZARO_JUNGLE_INJURY_ONE_SHOT->toString(),
                 eventName: WeaponEffectEnum::ONE_SHOT->toString(),
                 endCause: EndCauseEnum::INJURY,
             ),

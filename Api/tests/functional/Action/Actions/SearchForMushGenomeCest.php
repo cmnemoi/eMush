@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\functional\Action\Actions;
+namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\SearchForMushGenome;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -15,6 +17,8 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -26,7 +30,11 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private SearchForMushGenome $searchForMushGenome;
+
+    private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private LinkWithSolRepository $linkWithSolRepository;
+    private StatusServiceInterface $statusService;
     private GameEquipment $commsCenter;
 
     public function _before(FunctionalTester $I): void
@@ -34,20 +42,49 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SEARCH_FOR_MUSH_GENOME->value]);
         $this->searchForMushGenome = $I->grabService(SearchForMushGenome::class);
+
+        $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
 
         $this->givenPlaceHasCommsCenter();
     }
 
+    public function shouldNotBeExecutableIfLinkWithSolIsNotEstablished(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsCommsOfficer();
+
+        $this->whenPlayerSearchesForMushGenome();
+
+        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::LINK_WITH_SOL_NOT_ESTABLISHED);
+    }
+
     public function shouldNotBeExecutableIfPlayerIsNotCommsOfficer(FunctionalTester $I): void
     {
+        $this->givenLinkWithSolIsEstablished();
+
         $this->whenPlayerSearchesForMushGenome();
 
         $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::COMS_NOT_OFFICER);
     }
 
+    public function shouldNotBeExecutableIfPlayerIsDirty(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenPlayerIsCommsOfficer();
+        $this->givenPlayerIsDirty();
+
+        $this->whenPlayerSearchesForMushGenome();
+
+        $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DIRTY_RESTRICTION);
+    }
+
     public function shouldSpawnMushGenomeDiskOnSuccess(FunctionalTester $I): void
     {
+        $this->givenLinkWithSolIsEstablished();
         $this->givenPlayerIsCommsOfficer();
 
         $this->givenActionSuccessRateIs(100);
@@ -59,6 +96,7 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
 
     public function shouldPrintPrivateLogOnFail(FunctionalTester $I): void
     {
+        $this->givenLinkWithSolIsEstablished();
         $this->givenPlayerIsCommsOfficer();
 
         $this->givenActionSuccessRateIs(0);
@@ -78,6 +116,7 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
 
     public function shouldPrintPrivateLogOnSuccess(FunctionalTester $I): void
     {
+        $this->givenLinkWithSolIsEstablished();
         $this->givenPlayerIsCommsOfficer();
 
         $this->givenActionSuccessRateIs(100);
@@ -97,6 +136,7 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
 
     public function shouldNotBeVisibleIfGenomeDiskAlreadyFound(FunctionalTester $I): void
     {
+        $this->givenLinkWithSolIsEstablished();
         $this->givenPlayerIsCommsOfficer();
 
         $this->givenActionSuccessRateIs(100);
@@ -167,5 +207,21 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void
     {
         $I->assertFalse($this->searchForMushGenome->isVisible());
+    }
+
+    private function givenLinkWithSolIsEstablished(): void
+    {
+        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
+        $linkWithSol->establish();
+    }
+
+    private function givenPlayerIsDirty(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::DIRTY,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 }

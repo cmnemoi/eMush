@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\LinkWithSolConstraint;
 use Mush\Action\Validator\NeedTitle;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
@@ -21,6 +22,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -47,16 +49,28 @@ final class SearchForMushGenome extends AttemptAction
                 'reach' => ReachEnum::ROOM,
                 'groups' => [ClassConstraint::VISIBILITY],
             ]),
+            new HasStatus([
+                'status' => DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND,
+                'target' => HasStatus::DAEDALUS,
+                'contain' => false,
+                'groups' => [ClassConstraint::VISIBILITY],
+            ]),
+            new LinkWithSolConstraint([
+                'shouldBeEstablished' => true,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::LINK_WITH_SOL_NOT_ESTABLISHED,
+            ]),
             new NeedTitle([
                 'title' => TitleEnum::COM_MANAGER,
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::COMS_NOT_OFFICER,
             ]),
             new HasStatus([
-                'status' => DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND,
-                'target' => HasStatus::DAEDALUS,
+                'status' => PlayerStatusEnum::DIRTY,
                 'contain' => false,
-                'groups' => [ClassConstraint::VISIBILITY],
+                'target' => HasStatus::PLAYER,
+                'groups' => [ClassConstraint::EXECUTE],
+                'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
             ]),
         ]);
     }

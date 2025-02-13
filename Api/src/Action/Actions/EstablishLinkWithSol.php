@@ -18,6 +18,7 @@ use Mush\Communications\Repository\LinkWithSolRepository;
 use Mush\Communications\Service\EstablishLinkWithSolService;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -46,6 +47,12 @@ final class EstablishLinkWithSol extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
+            new HasStatus([
+                'status' => PlayerStatusEnum::FOCUSED,
+                'target' => HasStatus::PLAYER,
+                'groups' => [ClassConstraint::VISIBILITY],
+                'statusTargetName' => EquipmentEnum::COMMUNICATION_CENTER,
+            ]),
             new LinkWithSolConstraint([
                 'shouldBeEstablished' => false,
                 'groups' => [ClassConstraint::VISIBILITY],

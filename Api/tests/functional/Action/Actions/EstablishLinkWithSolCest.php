@@ -69,6 +69,16 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->givenAnAntennaInDaedalus();
         $this->givenACommsCenterInChunRoom();
         $this->givenChunIsFocusedOnCommsCenter();
+        $this->givenKuanTiIsFocusedOnCommsCenter();
+    }
+
+    public function shouldNotBeVisibleIfPLayerIsNotFocusedOnCommsCenter(FunctionalTester $I): void
+    {
+        $this->givenChunIsNotFocusedOnCommsCenter();
+
+        $this->whenChunTriesToEstablishLinkWithSol();
+
+        $this->thenActionShouldNotBeVisible($I);
     }
 
     public function shouldIncreaseLinkStrength(FunctionalTester $I): void
@@ -481,6 +491,32 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
                 'name' => AlertEnum::COMMUNICATIONS_DOWN,
                 'daedalus' => $this->daedalus,
             ]
+        );
+    }
+
+    private function givenChunIsNotFocusedOnCommsCenter(): void
+    {
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->establishLinkWithSol->isVisible(), message: 'Action should not be visible');
+    }
+
+    private function givenKuanTiIsFocusedOnCommsCenter(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->commsCenter,
         );
     }
 }

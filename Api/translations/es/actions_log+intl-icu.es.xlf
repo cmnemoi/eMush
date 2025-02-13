@@ -552,9 +552,13 @@ other {invalid version input}
       </segment>
     </unit>
     <unit id="attack_one_shot">
-      <segment state="initial">
+      <segment state="translated">
         <source>attack_one_shot</source>
-        <target>attack_one_shot</target>
+        <target>{version, select,
+1 {Con una mirada malvada, **{character}** se cuela por detrás de **{target_character}** y le corta su arteria carótida.
+2 {Las últimas palabras de **{target_character}** fueron "Tú también, **{character}**..." justo antes de morir de una puñalada.
+other {invalid version input}
+}</target>
       </segment>
     </unit>
     <unit id="shoot_one_shot">

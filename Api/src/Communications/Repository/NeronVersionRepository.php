@@ -14,6 +14,16 @@ final class NeronVersionRepository extends ServiceEntityRepository implements Ne
         parent::__construct($registry, NeronVersion::class);
     }
 
+    public function deleteByDaedalusId(int $daedalusId): void
+    {
+        $this->createQueryBuilder('neronVersion')
+            ->delete()
+            ->where('neronVersion.daedalus = :daedalusId')
+            ->setParameter('daedalusId', $daedalusId)
+            ->getQuery()
+            ->execute();
+    }
+
     public function findByDaedalusIdOrThrow(int $daedalusId): NeronVersion
     {
         $neronVersion = $this->hydrate($this->findOneBy(['daedalus' => $daedalusId]));

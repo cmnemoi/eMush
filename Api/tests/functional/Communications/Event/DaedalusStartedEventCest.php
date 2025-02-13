@@ -8,7 +8,7 @@ use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -22,7 +22,7 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
 
-    private LinkWithSolRepository $linkWithSolRepository;
+    private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
 
     public function _before(FunctionalTester $I): void
@@ -30,7 +30,7 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
     }
 

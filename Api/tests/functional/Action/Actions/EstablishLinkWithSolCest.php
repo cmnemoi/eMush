@@ -13,7 +13,7 @@ use Mush\Alert\Enum\AlertEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Communications\Entity\LinkWithSol;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -42,7 +42,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private LinkWithSolRepository $linkWithSolRepository;
+    private LinkWithSolRepositoryInterface $linkWithSolRepository;
 
     private ActionConfig $actionConfig;
     private EstablishLinkWithSol $establishLinkWithSol;
@@ -57,7 +57,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
 
         $this->actionConfig = $I->grabEntityFromRepository(
             ActionConfig::class,

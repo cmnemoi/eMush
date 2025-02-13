@@ -4,14 +4,14 @@ namespace Mush\Communications\Service;
 
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Event\LinkWithSolCreatedEvent;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 
 final readonly class CreateLinkWithSolForDaedalusService
 {
     public function __construct(
         private EventServiceInterface $eventService,
-        private LinkWithSolRepository $linkWithSolRepository
+        private LinkWithSolRepositoryInterface $linkWithSolRepository
     ) {}
 
     public function execute(int $daedalusId): void

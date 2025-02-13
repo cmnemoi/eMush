@@ -8,7 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -30,7 +30,7 @@ use Mush\Tests\RoomLogDto;
 final class UpgradeNeronCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private LinkWithSolRepository $linkWithSolRepository;
+    private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private StatusServiceInterface $statusService;
 
@@ -44,7 +44,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 

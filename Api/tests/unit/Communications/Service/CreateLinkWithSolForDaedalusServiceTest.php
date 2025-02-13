@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Communications\Service;
 
-use Mush\Communications\Repository\InMemoryLinkWithSolRepository;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Tests\unit\Communications\TestDoubles\Repository\InMemoryLinkWithSolRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class LinkWithSolConstraintValidator extends ConstraintValidator
 {
-    public function __construct(private readonly LinkWithSolRepository $linkWithSolRepository) {}
+    public function __construct(private readonly LinkWithSolRepositoryInterface $linkWithSolRepository) {}
 
     public function validate(mixed $value, Constraint $constraint): void
     {

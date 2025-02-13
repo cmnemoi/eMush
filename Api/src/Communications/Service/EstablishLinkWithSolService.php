@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Mush\Communications\Service;
 
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 
 final readonly class EstablishLinkWithSolService
 {
     public function __construct(
         private EventServiceInterface $eventService,
-        private LinkWithSolRepository $linkWithSolRepository
+        private LinkWithSolRepositoryInterface $linkWithSolRepository
     ) {}
 
     public function execute(int $daedalusId): void

@@ -6,7 +6,7 @@ namespace Mush\Tests\functional\Equipment\Normalizer;
 
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -25,7 +25,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private LinkWithSolRepository $linkWithSolRepository;
+    private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
 
     private GameEquipment $commsCenter;
@@ -39,7 +39,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
 
         $this->createLinkWithSol();

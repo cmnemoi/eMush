@@ -8,7 +8,7 @@ use Mush\Action\Actions\SearchForMushGenome;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -33,7 +33,7 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
 
     private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private LinkWithSolRepository $linkWithSolRepository;
+    private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private StatusServiceInterface $statusService;
     private GameEquipment $commsCenter;
 
@@ -45,7 +45,7 @@ final class SearchForMushGenomeCest extends AbstractFunctionalTest
 
         $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());

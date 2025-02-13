@@ -2,13 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Mush\Communications\Repository;
+namespace Mush\Tests\unit\Communications\TestDoubles\Repository;
 
 use Mush\Communications\Entity\LinkWithSol;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 
-final class InMemoryLinkWithSolRepository implements LinkWithSolRepository
+final class InMemoryLinkWithSolRepository implements LinkWithSolRepositoryInterface
 {
     private array $linkWithSols = [];
+
+    public function deleteByDaedalusId(int $daedalusId): void
+    {
+        unset($this->linkWithSols[$daedalusId]);
+    }
 
     public function findByDaedalusIdOrThrow(int $daedalusId): LinkWithSol
     {

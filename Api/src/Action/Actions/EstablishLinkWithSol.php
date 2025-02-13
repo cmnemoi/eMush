@@ -14,7 +14,7 @@ use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\LinkWithSolConstraint;
 use Mush\Communications\Entity\LinkWithSol;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Service\EstablishLinkWithSolService;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
@@ -38,7 +38,7 @@ final class EstablishLinkWithSol extends AbstractAction
         ValidatorInterface $validator,
         private readonly D100RollServiceInterface $d100Roll,
         private readonly EstablishLinkWithSolService $establishLinkWithSol,
-        private readonly LinkWithSolRepository $linkWithSolRepository,
+        private readonly LinkWithSolRepositoryInterface $linkWithSolRepository,
         private readonly StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator);

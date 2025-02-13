@@ -12,6 +12,11 @@ final class InMemoryNeronVersionRepository implements NeronVersionRepositoryInte
     /** @var NeronVersion[] */
     private array $neronVersions = [];
 
+    public function deleteByDaedalusId(int $daedalusId): void
+    {
+        unset($this->neronVersions[$daedalusId]);
+    }
+
     public function findByDaedalusIdOrThrow(int $daedalusId): NeronVersion
     {
         if (!isset($this->neronVersions[$daedalusId])) {

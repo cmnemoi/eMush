@@ -9,7 +9,7 @@ use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
-use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
@@ -36,7 +36,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
     public function __construct(
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
-        private readonly LinkWithSolRepository $linkWithSolRepository,
+        private readonly LinkWithSolRepositoryInterface $linkWithSolRepository,
         private readonly NeronVersionRepositoryInterface $neronVersionRepository,
         private readonly PlanetServiceInterface $planetService,
         private readonly TranslationServiceInterface $translationService

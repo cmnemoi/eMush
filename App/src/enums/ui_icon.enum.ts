@@ -66,6 +66,13 @@ export enum UiIconEnum {
     SRF = 'srf',
 
     SPORE_SUCKER = 'spore_sucker',
+
+    HULL = 'hull', //alternatives for alerts/low_hull
+    SHIELD = 'shield',
+
+    //watch icon from the cycle timer
+    CASIO = 'casio',
+    WATCH = 'watch', //Alternative spelling for players
 }
 
 export const UiIconIcons: {[index: string]: string} = {
@@ -107,6 +114,10 @@ export const UiIconIcons: {[index: string]: string} = {
     [UiIconEnum.SERUM]: getImgUrl('ui_icons/rf_serum.png'),
     [UiIconEnum.RFS]: getImgUrl('ui_icons/rf_serum.png'),
     [UiIconEnum.SRF]: getImgUrl('ui_icons/rf_serum.png'),
-    [UiIconEnum.SPORE_SUCKER]: getImgUrl('ui_icons/spore_sucker.png')
+    [UiIconEnum.SPORE_SUCKER]: getImgUrl('ui_icons/spore_sucker.png'),
+    [UiIconEnum.HULL]: getImgUrl('shield.png'),
+    [UiIconEnum.SHIELD]: getImgUrl('shield.png'),
+    [UiIconEnum.CASIO]: getImgUrl('casio.png'),
+    [UiIconEnum.WATCH]: getImgUrl('casio.png')
 }
 ;

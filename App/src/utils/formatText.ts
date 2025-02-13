@@ -106,6 +106,19 @@ export function formatText(text: string|null): string {
     Object.values(SkillPointEnum).forEach((skillPoint: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${skillPoint}:`, 'g'), helpers.computeSkillPointIconHtmlByKey(skillPoint));
     });
+    // "Markdown style" linking i.e. [text of the link](https://google.com) will have 'text of the link' be a hyperlink to google. The actual link is also saved to the title, so that players can hover over and have it show up as a tooltip, for safety reasons. All blank links to emush.eternaltwin also work
+    const markdownLinkRegex = /\[([^\]]+)\]\(([^\)]+)\)|((https:\/\/)?emush\.eternaltwin\.org\/[^\s\)\"\'\< ]*)/g;
+    //const markdownSubstitution = '<a href=\'$2\' title=\'$2\'>$1</a>';
+
+    function markdownSubstitution(substring: string, p1: string, p2: string, p3: string): string{
+        if(p1 === undefined){
+            return `<a href=\'${p3}\' title=\'${p3}\'>${p3}</a>`;
+        }else{
+            return `<a href=\'${p2}\' title=\'${p2}\'>${p1}</a>`;
+        }
+    }
+
+    formattedText = formattedText.replaceAll(markdownLinkRegex,markdownSubstitution);
 
     return formattedText;
 }

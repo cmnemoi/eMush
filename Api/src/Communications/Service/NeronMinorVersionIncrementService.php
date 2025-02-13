@@ -12,6 +12,6 @@ final readonly class NeronMinorVersionIncrementService implements NeronMinorVers
 
     public function generateFrom(int $neronMajorVersion): int
     {
-        return (int) round($this->getRandomInteger->execute(1, 100) / $neronMajorVersion);
+        return (int) ceil($this->getRandomInteger->execute(1, 100) / $neronMajorVersion);
     }
 }

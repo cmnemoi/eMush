@@ -28,6 +28,28 @@ final class UpdateNeronVersionServiceTest extends TestCase
         $this->neronVersionRepository = new InMemoryNeronVersionRepository();
     }
 
+    public function testShouldThrowWhenGivenNegativeMinorIncrement(): void
+    {
+        $this->givenNeronVersionIs(1, 50);
+        $this->givenMinorVersionIncrementIs(-1);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->whenUpdatingNeronVersion();
+
+        $this->thenNeronVersionShouldBe('1.50');
+    }
+
+    public function testShouldIncrementMajorWhenMinorExceeds100(): void
+    {
+        $this->givenNeronVersionIs(1, 99);
+        $this->givenMinorVersionIncrementIs(10);
+
+        $this->whenUpdatingNeronVersion();
+
+        $this->thenNeronVersionShouldBe('2.00');
+    }
+
     public function testShouldNotIncrementMajorIfMinorDoesNotReach100(): void
     {
         $this->givenNeronVersionIs(1, 98);
@@ -42,16 +64,6 @@ final class UpdateNeronVersionServiceTest extends TestCase
     {
         $this->givenNeronVersionIs(1, 99);
         $this->givenMinorVersionIncrementIs(1);
-
-        $this->whenUpdatingNeronVersion();
-
-        $this->thenNeronVersionShouldBe('2.00');
-    }
-
-    public function testShouldIncrementMajorWhenMinorExceeds100(): void
-    {
-        $this->givenNeronVersionIs(1, 99);
-        $this->givenMinorVersionIncrementIs(10);
 
         $this->whenUpdatingNeronVersion();
 

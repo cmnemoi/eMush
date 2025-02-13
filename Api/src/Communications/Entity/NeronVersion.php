@@ -29,6 +29,13 @@ class NeronVersion
 
     public function __construct(int $daedalusId, int $major = 1, int $minor = 0)
     {
+        if ($major < 1) {
+            throw new \InvalidArgumentException('Major version must be greater than 0');
+        }
+        if ($minor < 0 || $minor >= 100) {
+            throw new \InvalidArgumentException('Minor version must be between 0 and 99');
+        }
+
         $this->major = $major;
         $this->minor = $minor;
         $this->daedalusId = $daedalusId;
@@ -51,6 +58,10 @@ class NeronVersion
 
     public function increment(int $minorIncrement): void
     {
+        if ($minorIncrement <= 0) {
+            throw new \InvalidArgumentException('The minor increment cannot be negative');
+        }
+
         $this->minor += $minorIncrement;
 
         if ($this->minor >= 100) {

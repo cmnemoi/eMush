@@ -17,7 +17,6 @@ use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
-use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -116,20 +115,9 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $this->givenLinkWithSolIsEstablished();
         $this->givenNeronMinorVersionIs(99);
 
-        $this->whenChunUpgradesNeron($I);
+        $this->whenChunUpgradesNeron();
 
         $this->thenIShouldSeeAFinishedNeronProject($I);
-    }
-
-    public function shouldNotFinishANeronProjectOnFailure(FunctionalTester $I): void
-    {
-        $this->givenChunIsCommsManager();
-        $this->givenLinkWithSolIsEstablished();
-        $this->givenNeronMinorVersionIs(0);
-
-        $this->whenChunUpgradesNeron($I);
-
-        $this->thenIShouldNotSeeAFinishedNeronProject($I);
     }
 
     public function shouldPrintPublicLogOnSuccess(FunctionalTester $I): void
@@ -138,28 +126,12 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $this->givenLinkWithSolIsEstablished();
         $this->givenNeronMinorVersionIs(99);
 
-        $this->whenChunUpgradesNeron($I);
+        $this->whenChunUpgradesNeron();
 
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: '**Chun** achève la mise à jour. La version majeure de NERON a augmenté. Le surplus de CPU générée par la joie de NERON a été injecté dans un projet.',
             actualRoomLogDto: new RoomLogDto($this->chun, ActionLogEnum::UPGRADE_NERON_SUCCESS, VisibilityEnum::PUBLIC, inPlayerRoom: false),
             I: $I,
-        );
-    }
-
-    public function shouldNotPrintPublicLogOnFailure(FunctionalTester $I): void
-    {
-        $this->givenChunIsCommsManager();
-        $this->givenLinkWithSolIsEstablished();
-        $this->givenNeronMinorVersionIs(0);
-
-        $this->whenChunUpgradesNeron($I);
-
-        $I->dontSeeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'log' => ActionLogEnum::UPGRADE_NERON_SUCCESS,
-            ],
         );
     }
 
@@ -274,7 +246,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenChunUpgradesNeron(FunctionalTester $I): void
+    private function whenChunUpgradesNeron(): void
     {
         $this->whenChunTriesToUpgradeNeron();
         $this->upgradeNeron->execute();

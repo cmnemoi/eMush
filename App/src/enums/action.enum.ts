@@ -18,6 +18,7 @@ export enum ActionEnum {
     REPAIR_PILGRED = "repair_pilgred",
     REJECT_MISSION = "reject_mission",
     RETURN_TO_SOL = "return_to_sol",
+    UPGRADE_NERON = "upgrade_neron",
     SCAN = "scan",
     SHOOT_HUNTER = "shoot_hunter",
     SHOOT_HUNTER_PATROL_SHIP = "shoot_hunter_patrol_ship",

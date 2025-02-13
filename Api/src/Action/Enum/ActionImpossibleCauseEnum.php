@@ -118,4 +118,6 @@ abstract class ActionImpossibleCauseEnum
     public const string INFECT_CAT_NO_SPORE = 'infect_cat_no_spore';
     public const string PLAYER_IS_GERMAPHOBIC = 'player_is_germaphobic';
     public const string EDEN_NOT_COMPUTED = 'eden_not_computed';
+    public const string LINK_WITH_SOL_NOT_ESTABLISHED = 'link_with_sol_not_established';
+    public const string MAX_NERON_VERSION_REACHED = 'max_neron_version_reached';
 }

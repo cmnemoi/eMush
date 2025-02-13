@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Equipment\Normalizer;
 
 use Mush\Communications\Entity\LinkWithSol;
+use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Repository\LinkWithSolRepository;
+use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
@@ -24,6 +26,8 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private LinkWithSolRepository $linkWithSolRepository;
+    private NeronVersionRepositoryInterface $neronVersionRepository;
+
     private GameEquipment $commsCenter;
     private array $normalizedTerminal;
 
@@ -36,9 +40,11 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepository::class);
+        $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
 
         $this->createLinkWithSol();
 
+        $this->givenNeronVersionIs(major: 2, minor: 9);
         $this->givenCommsCenterInPlayerRoom();
         $this->givenPlayerIsFocusedOnCommsCenter();
 
@@ -69,7 +75,8 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: [
-                'contact' => 'Contact',
+                'contact' => 'Liaison',
+                'neron_version' => 'NERON v2.09',
             ],
             actual: $this->normalizedTerminal['sectionTitles']
         );
@@ -84,6 +91,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'linkStrength' => 'Signal : 10%',
+                'neronUpdateStatus' => 'État de mise à jour : 9%',
             ],
             actual: $this->normalizedTerminal['infos']
         );
@@ -99,6 +107,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 'linkStrength' => 'Signal : 10%',
+                'neronUpdateStatus' => 'État de mise à jour : 9%',
                 'linkEstablished' => 'Connexion établie !',
             ],
             actual: $this->normalizedTerminal['infos']
@@ -149,5 +158,11 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
         $linkWithSol->establish();
         $this->linkWithSolRepository->save($linkWithSol);
+    }
+
+    private function givenNeronVersionIs(int $major, int $minor): void
+    {
+        $neronVersion = new NeronVersion($this->daedalus->getId(), $major, $minor);
+        $this->neronVersionRepository->save($neronVersion);
     }
 }

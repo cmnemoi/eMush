@@ -27,6 +27,20 @@
                 </div>
             </div>
         </div>
+        <div class="neron-update-section">
+            <h3>
+                <img :src="getImgUrl('spot2.svg')" alt="spot" />
+                {{ terminal.sectionTitles.neronVersion }}
+            </h3>
+            <p>{{ formatText(terminal.infos?.neronUpdateStatus) }}</p>
+            <div>
+                <ActionButton
+                    :key="upgradeNeron.name || ''"
+                    :action="upgradeNeron"
+                    @click="executeTargetAction(terminal, upgradeNeron)"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -49,7 +63,13 @@ export default defineComponent({
         establishLinkWithSolAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.ESTABLISH_LINK_WITH_SOL);
         },
-        sensorFramesCount(): number {
+        upgradeNeron(): Action {
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.UPGRADE_NERON);
+        },
+        neronMinorVersion(): integer {
+            return Number(this.terminal.infos?.neronUpdateStatus?.split('.')[1]);
+        },
+        sensorFramesCount(): integer {
             const linkStrength = this.terminal.infos?.linkStrength;
             if (!linkStrength) {
                 return 0;
@@ -94,11 +114,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@keyframes sensorAnimation {
-    0%, 25% { opacity: 1; }
-    50%, 100% { opacity: 0; }
-}
-
 .terminal-container {
     display: flex;
     flex-direction: column;
@@ -109,6 +124,7 @@ export default defineComponent({
 
 .contact-section {
     padding: 1em;
+    margin-bottom: 1em;
 
     h3 {
         display: flex;
@@ -143,27 +159,6 @@ export default defineComponent({
         inset: 0;
         width: 100%;
         height: 100%;
-        opacity: 0;
-
-        &.frame-1 {
-            opacity: 1;
-            animation: none;
-        }
-    }
-
-    .sensor-frame {
-        &.frame-2 {
-            animation: sensorAnimation 4s infinite;
-            animation-delay: 0s;
-        }
-        &.frame-3 {
-            animation: sensorAnimation 3s infinite;
-            animation-delay: 1s;
-        }
-        &.frame-4 {
-            animation: sensorAnimation 2s infinite;
-            animation-delay: 0.5s;
-        }
     }
 }
 
@@ -186,5 +181,22 @@ export default defineComponent({
     :deep(.action-button) {
         width: fit-content;
     }
+}
+
+.neron-update-section {
+    padding: 1em;
+
+    h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.1em;
+        font-weight: bold;
+        margin: 0 0 1em;
+        text-transform: uppercase;
+    }
+
+    background-image: url("/src/assets/images/neron_bg.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
 }
 </style>

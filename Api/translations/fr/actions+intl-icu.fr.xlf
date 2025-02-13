@@ -1644,5 +1644,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action tente d'**établir contact** avec Sol, le système solaire.</target>
       </segment>
     </unit>
+    <unit id="upgrade_neron">
+      <segment id="name" state="translated">
+        <source>upgrade_neron.name</source>
+        <target>Mettre à jour NERON</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_neron.description</source>
+        <target>Mettre à jour NERON permet de profiter de certains miracles de ce qu'aurait dû être le NERON du projet Magellan.//**Une fois complété, permet de faire aboutir un Projet.**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

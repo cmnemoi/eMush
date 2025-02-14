@@ -89,6 +89,11 @@ class LinkWithSol
         $this->isEstablished = true;
     }
 
+    public function unestablish(): void
+    {
+        $this->isEstablished = false;
+    }
+
     private function getStrengthAsValueObject(): LinkStrength
     {
         return LinkStrength::create($this->strength);

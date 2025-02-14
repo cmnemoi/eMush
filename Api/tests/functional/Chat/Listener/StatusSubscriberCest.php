@@ -8,6 +8,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\ChannelPlayer;
 use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communications\Entity\LinkWithSol;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
@@ -37,13 +39,15 @@ use Mush\User\Entity\User;
 class StatusSubscriberCest
 {
     private EventServiceInterface $eventService;
+    private LinkWithSolRepositoryInterface $linkWithSolRepository;
 
     public function _before(FunctionalTester $I)
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
     }
 
-    public function testChatCenterBreak(FunctionalTester $I)
+    public function testCommsCenterBreak(FunctionalTester $I)
     {
         $statusConfig = new StatusConfig();
         $statusConfig
@@ -66,6 +70,9 @@ class StatusSubscriberCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo->setNeron($neron);
         $I->haveInRepository($daedalusInfo);
+
+        $linkWithSol = new LinkWithSol($daedalus->getId());
+        $this->linkWithSolRepository->save($linkWithSol);
 
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);

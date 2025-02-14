@@ -22,6 +22,7 @@ enum WeaponEffectEnum: string
     case BIG_GUN_ONE_SHOT = 'big_gun_one_shot';
     case NATAMY_RIFLE_INJURY_ONE_SHOT = 'natamy_rifle_injury_one_shot';
     case OLD_FAITHFUL_INJURY_ONE_SHOT = 'old_faithful_injury_one_shot';
+    case LIZARO_JUNGLE_INJURY_ONE_SHOT = 'lizaro_jungle_injury_one_shot';
 
     // modify damage effects
     case ADD_ONE_DAMAGE = 'add_one_damage';

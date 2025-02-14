@@ -27,18 +27,21 @@ use Mush\Tests\RoomLogDto;
 final class ShootActionCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
+    private ActionConfig $action99Config;
     private Shoot $shootAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     private GameItem $blaster;
     private GameItem $natamyRifle;
     private GameItem $oldFaithful;
+    private GameItem $lizaroJungle;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT]);
+        $this->action99Config = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SHOOT_99]);
         $this->shootAction = $I->grabService(Shoot::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
@@ -242,7 +245,7 @@ final class ShootActionCest extends AbstractFunctionalTest
 
         $this->whenChunShootsAtKuanTiWithNatamyRifle();
 
-        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(10, $I);
+        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(8, $I);
     }
 
     public function oldFaithfulSuccessfulShotShouldRemoveHealthPoints(FunctionalTester $I): void
@@ -252,7 +255,7 @@ final class ShootActionCest extends AbstractFunctionalTest
 
         $this->whenChunShootsAtKuanTiWithOldFaithful();
 
-        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(12, $I);
+        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(8, $I);
     }
 
     public function oldFaithfulBrokenShoulderEventShouldRemoveHealthPointsAndAddAnInjury(FunctionalTester $I): void
@@ -262,7 +265,7 @@ final class ShootActionCest extends AbstractFunctionalTest
 
         $this->whenChunShootsAtKuanTiWithOldFaithful();
 
-        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(11, $I);
+        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(8, $I);
         $this->thenKuanTiShouldHaveAnInjury($I);
     }
 
@@ -278,12 +281,14 @@ final class ShootActionCest extends AbstractFunctionalTest
 
     public function oldFaithfulFailedShotShouldNotRemoveHealthPoints(FunctionalTester $I): void
     {
+        $this->givenKuanTiHasHealthPoints(10);
+        $this->actionConfig->setSuccessRate(0);
         $this->givenChunHasAOldFaithful();
         $this->givenOldFaithfulHas100ChanceToDispatchEvent(WeaponEventEnum::OLD_FAITHFUL_FAILED_SHOT->toString());
 
         $this->whenChunShootsAtKuanTiWithOldFaithful();
 
-        $this->thenKuanTiShouldHaveLessOrEqualHealthPoints(14, $I);
+        $this->thenKuanTiShouldHaveExactlyHealthPoints(10, $I);
     }
 
     public function oldFaithfulFumbleBurntHandEventShouldAddAnInjuryToShooter(FunctionalTester $I): void
@@ -294,6 +299,35 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->whenChunShootsAtKuanTiWithOldFaithful();
 
         $this->thenChunShouldHaveAnInjury($I);
+    }
+
+    public function lizaroJungleSuccessfulShotShouldRemoveThreeHealthPoints(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasHealthPoints(5);
+        $this->action99Config->setSuccessRate(100);
+        $this->givenChunHasALizaroJungle();
+        $this->givenLizaroJungleHas100ChanceToDispatchEvent(WeaponEventEnum::LIZARO_JUNGLE_SUCCESSFUL_SHOT->toString());
+
+        $this->whenChunShootsAtKuanTiWithLizaroJungle();
+
+        $this->thenKuanTiShouldHaveExactlyHealthPoints(2, $I);
+    }
+
+    public function lizaroJungleShouldHaveNinetyNinePercentHitRate(FunctionalTester $I): void
+    {
+        $this->whenChunWantToShootsAtKuanTiWithLizaroJungle($I);
+    }
+
+    public function lizaroJungleFailedShotShouldNotRemoveHealthPoints(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasHealthPoints(10);
+        $this->action99Config->setSuccessRate(0);
+        $this->givenChunHasALizaroJungle();
+        $this->givenLizaroJungleHas100ChanceToDispatchEvent(WeaponEventEnum::LIZARO_JUNGLE_FAILED_SHOT->toString());
+
+        $this->whenChunShootsAtKuanTiWithLizaroJungle();
+
+        $this->thenKuanTiShouldHaveExactlyHealthPoints(10, $I);
     }
 
     public function plasteniteArmorShouldReduceDamage(FunctionalTester $I): void
@@ -400,6 +434,26 @@ final class ShootActionCest extends AbstractFunctionalTest
         ]);
     }
 
+    private function givenChunHasALizaroJungle(): void
+    {
+        $this->lizaroJungle = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::LIZARO_JUNGLE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenLizaroJungleHas100ChanceToDispatchEvent(string $event): void
+    {
+        $this->lizaroJungle->getWeaponMechanicOrThrow()->setSuccessfulEventKeys([
+            $event => 1,
+        ]);
+        $this->lizaroJungle->getWeaponMechanicOrThrow()->setFailedEventKeys([
+            $event => 1,
+        ]);
+    }
+
     private function givenKuanTiHasPlasteniteArmor(): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -443,9 +497,36 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->shootAction->execute();
     }
 
+    private function whenChunShootsAtKuanTiWithLizaroJungle(): void
+    {
+        $this->shootAction->loadParameters(
+            actionConfig: $this->action99Config,
+            actionProvider: $this->lizaroJungle,
+            player: $this->chun,
+            target: $this->kuanTi,
+        );
+        $this->shootAction->execute();
+    }
+
+    private function whenChunWantToShootsAtKuanTiWithLizaroJungle(FunctionalTester $I): void
+    {
+        $this->shootAction->loadParameters(
+            actionConfig: $this->action99Config,
+            actionProvider: $this->lizaroJungle,
+            player: $this->chun,
+            target: $this->kuanTi,
+        );
+        $I->assertEquals(99, $this->shootAction->getSuccessRate());
+    }
+
     private function thenKuanTiShouldHaveLessOrEqualHealthPoints(int $healthPoints, FunctionalTester $I): void
     {
         $I->assertLessThanOrEqual($healthPoints, $this->kuanTi->getHealthPoint());
+    }
+
+    private function thenKuanTiShouldHaveExactlyHealthPoints(int $healthPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals($healthPoints, $this->kuanTi->getHealthPoint());
     }
 
     private function thenKuanTiShouldHaveAnInjury(FunctionalTester $I): void
@@ -628,6 +709,10 @@ final class ShootActionCest extends AbstractFunctionalTest
             WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_DAMAGE->toString() => [
                 WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_DAMAGE->toString(),
                 'L\'oeil vif, la rage au corps, **Chun** réussit magnifiquement son tir en plein dans la poitrine de **Kuan Ti**...',
+            ],
+            WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT_2->toString() => [
+                WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT_2->toString(),
+                '**Chun** vide son chargeur dans **Kuan Ti**.',
             ],
         ];
     }

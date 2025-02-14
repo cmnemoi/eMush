@@ -276,5 +276,100 @@
         <target>With sharp eyes and a fiery resolve, **{character}** magnificently lands a shot right in **{target_character}**’s chest...</target>
       </segment>
     </unit>
+    <unit id="lizaro_jungle_successful_shot">
+      <segment id="lizaro_jungle_successful_shot" state="translated">
+        <source>lizaro_jungle_successful_shot</source>
+        <target>{version, select,
+            1 {**{character}** just fired at **{target_character}**!}
+            2 {**{character}** opens fire on **{target_character}**.}
+            3 {**{character}** unleashes a torrent of bullets at **{target_character}**.}
+            4 {**{character}** lands a bullet on **{target_character}**...}
+            other {**{character}** fires a burst at **{target_character}**.}}</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_headshot">
+      <segment id="lizaro_jungle_headshot" state="translated">
+        <source>lizaro_jungle_headshot</source>
+        <target>**{character}** successfully lands a headshot on **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
+      <segment id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
+        <source>lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
+        <target>**{character}** takes {character_gender, select, female {her} other {his}} time to aim at **{target_character}**. Ouch...</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_target_minus_1ap">
+      <segment id="lizaro_jungle_target_minus_1ap" state="translated">
+        <source>lizaro_jungle_target_minus_1ap</source>
+        <target>**{target_character}** miraculously dodges a burst from **{character}**.</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_headshot_2">
+      <segment id="lizaro_jungle_headshot_2" state="translated">
+        <source>lizaro_jungle_headshot_2</source>
+        <target>**{character}** empties {character_gender, select, female {her} other {his}} magazine into **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_target_mashed_foot">
+      <segment id="lizaro_jungle_target_mashed_foot" state="translated">
+        <source>lizaro_jungle_target_mashed_foot</source>
+        <target>The buttstock of {character_gender, select, female {her} other {his}} rifle gets in **{character}**’s way. **{target_character}**’s foot is now a mess.</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
+      <segment id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="translated">
+        <source>lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
+        <target>{version, select,
+            1 {The bullet in **{target_character}**’s shoulder will leave a painful memory.}
+            other {The salvo from **{character}** went through **{target_character}** 's shoulder, watch out for rebounds...}}</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_break_weapon">
+      <segment id="lizaro_jungle_break_weapon" state="translated">
+        <source>lizaro_jungle_break_weapon</source>
+        <target>Click click click... **{character}**’s weapon jams. **{target_character}** might be grateful for it.</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_burnt_hand">
+      <segment id="lizaro_jungle_shooter_burnt_hand" state="translated">
+        <source>lizaro_jungle_shooter_burnt_hand</source>
+        <target>When firing at **{target_character}**, **{character}** got burnt with {character_gender, select, female {her} other {his}} weapon. Spectacular work.</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_broken_shoulder">
+      <segment id="lizaro_jungle_shooter_broken_shoulder" state="translated">
+        <source>lizaro_jungle_shooter_broken_shoulder</source>
+        <target>**{character}** should have better anticipated the recoil, missing **{target_character}** and injuring {character_gender, select, female {her} other {his}} own shoulder. Bravo.</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_failed_shot">
+      <segment id="lizaro_jungle_failed_shot" state="translated">
+        <source>lizaro_jungle_failed_shot</source>
+        <target>{version, select,
+            1 {**{character}** tries to shoot at **{target_character}**, but a cramp stops them...}
+            2 {A whistle rings past **{target_character}**’s ears...}
+            3 {**{character}**’s blanks ricochet powerfully off **{target_character}**. Oops...}
+            other {**{character}** fired at **{target_character}**, but {character_gender, select, female {she} other {he}} couldn’t aim properly...}}</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_mashed_foot">
+      <segment id="lizaro_jungle_shooter_mashed_foot" state="translated">
+        <source>lizaro_jungle_shooter_mashed_foot</source>
+        <target>A heavy weapon deals major damage—especially to **{character}**’s foot...</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_drop_weapon">
+      <segment id="lizaro_jungle_drop_weapon" state="translated">
+        <source>lizaro_jungle_drop_weapon</source>
+        <target>No words can describe the incredible acrobatics of **{character}**’s weapon as it lands on the ground...</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_plus_2_damage">
+      <segment id="lizaro_jungle_shooter_plus_2_damage" state="translated">
+        <source>lizaro_jungle_shooter_plus_2_damage</source>
+        <target>With sharp eyes and a fiery resolve, **{character}** magnificently lands a shot right in **{target_character}**’s chest...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

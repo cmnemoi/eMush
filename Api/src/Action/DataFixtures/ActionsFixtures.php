@@ -81,6 +81,7 @@ class ActionsFixtures extends Fixture
     public const string SURGERY = 'surgery';
     public const string SELF_SURGERY = 'self_surgery';
     public const string SHOOT = 'shoot';
+    public const string SHOOT_99 = 'shoot_99_percent';
     public const string PLAY_ARCADE = 'play_arcade';
     public const string SHOOT_HUNTER_TURRET = 'shoot_hunter_turret';
     public const string SHOOT_RANDOM_HUNTER_TURRET = 'shoot_random_hunter_turret';
@@ -675,6 +676,9 @@ class ActionsFixtures extends Fixture
         $shootAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT));
         $manager->persist($shootAction);
 
+        $shoot99Action = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_99));
+        $manager->persist($shoot99Action);
+
         $playArcade = new ActionConfig();
         $playArcade
             ->setName(ActionEnum::PLAY_ARCADE->value)
@@ -1216,6 +1220,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SURGERY, $surgeryAction);
         $this->addReference(self::SELF_SURGERY, $selfSurgeryAction);
         $this->addReference(self::SHOOT, $shootAction);
+        $this->addReference(self::SHOOT_99, $shoot99Action);
         $this->addReference(self::PLAY_ARCADE, $playArcade);
         $this->addReference(self::SHOOT_HUNTER_TURRET, $shootHunterTurret);
         $this->addReference(self::SHOOT_RANDOM_HUNTER_TURRET, $shootRandomHunterTurret);

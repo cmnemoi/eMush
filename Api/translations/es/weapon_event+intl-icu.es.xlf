@@ -247,5 +247,89 @@
         <target>old_faithful_shooter_plus_2_damage</target>
       </segment>
     </unit>
+    <unit id="lizaro_jungle_successful_shot">
+      <segment id="lizaro_jungle_successful_shot" state="initial">
+        <source>lizaro_jungle_successful_shot</source>
+        <target>lizaro_jungle_successful_shot</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_headshot">
+      <segment id="lizaro_jungle_headshot" state="initial">
+        <source>lizaro_jungle_headshot</source>
+        <target>lizaro_jungle_headshot</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
+      <segment id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+        <source>lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
+        <target>lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_target_minus_1ap">
+      <segment id="lizaro_jungle_target_minus_1ap" state="initial">
+        <source>lizaro_jungle_target_minus_1ap</source>
+        <target>lizaro_jungle_target_minus_1ap</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_headshot_2">
+      <segment id="lizaro_jungle_headshot_2" state="initial">
+        <source>lizaro_jungle_headshot_2</source>
+        <target>lizaro_jungle_headshot_2</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_target_mashed_foot">
+      <segment id="lizaro_jungle_target_mashed_foot" state="initial">
+        <source>lizaro_jungle_target_mashed_foot</source>
+        <target>lizaro_jungle_target_mashed_foot</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
+      <segment id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+        <source>lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
+        <target>lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_break_weapon">
+      <segment id="lizaro_jungle_break_weapon" state="initial">
+        <source>lizaro_jungle_break_weapon</source>
+        <target>lizaro_jungle_break_weapon</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_burnt_hand">
+      <segment id="lizaro_jungle_shooter_burnt_hand" state="initial">
+        <source>lizaro_jungle_shooter_burnt_hand</source>
+        <target>lizaro_jungle_shooter_burnt_hand</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_broken_shoulder">
+      <segment id="lizaro_jungle_shooter_broken_shoulder" state="initial">
+        <source>lizaro_jungle_shooter_broken_shoulder</source>
+        <target>lizaro_jungle_shooter_broken_shoulder</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_failed_shot">
+      <segment id="lizaro_jungle_failed_shot" state="initial">
+        <source>lizaro_jungle_failed_shot</source>
+        <target>lizaro_jungle_failed_shot</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_mashed_foot">
+      <segment id="lizaro_jungle_shooter_mashed_foot" state="initial">
+        <source>lizaro_jungle_shooter_mashed_foot</source>
+        <target>lizaro_jungle_shooter_mashed_foot</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_drop_weapon">
+      <segment id="lizaro_jungle_drop_weapon" state="initial">
+        <source>lizaro_jungle_drop_weapon</source>
+        <target>lizaro_jungle_drop_weapon</target>
+      </segment>
+    </unit>
+    <unit id="lizaro_jungle_shooter_plus_2_damage">
+      <segment id="lizaro_jungle_shooter_plus_2_damage" state="initial">
+        <source>lizaro_jungle_shooter_plus_2_damage</source>
+        <target>lizaro_jungle_shooter_plus_2_damage</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

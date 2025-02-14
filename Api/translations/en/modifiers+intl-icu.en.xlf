@@ -94,10 +94,16 @@
                     }</target>
       </segment>
     </unit>
+    <unit id="deaf_listen_on_read_message">
+      <segment id="description" state="translated">
+        <source>deaf_listen_on_read_message.description</source>
+        <target>Makes you deaf.</target>
+      </segment>
+    </unit>
     <unit id="deaf_speak_on_new_message">
       <segment id="description" state="translated">
         <source>deaf_speak_on_new_message.description</source>
-        <target>Makes you deaf.</target>
+        <target>Removes volume control.</target>
       </segment>
     </unit>
     <unit id="drooling_on_post.action">

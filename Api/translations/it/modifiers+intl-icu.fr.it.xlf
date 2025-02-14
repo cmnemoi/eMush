@@ -85,8 +85,14 @@
         <target>dirtiness_on_player.new.cycle.description</target>
       </segment>
     </unit>
-    <unit id="deaf_speak_on_new_message">
+    <unit id="deaf_listen_on_read_message">
       <segment id="description" state="initial">
+        <source>deaf_listen_on_read_message.description</source>
+        <target>deaf_listen_on_read_message.description</target>
+      </segment>
+    </unit>
+    <unit id="deaf_speak_on_new_message">
+      <segment id="description" state="translated">
         <source>deaf_speak_on_new_message.description</source>
         <target>deaf_speak_on_new_message.description</target>
       </segment>

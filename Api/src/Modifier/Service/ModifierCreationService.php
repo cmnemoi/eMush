@@ -51,6 +51,14 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void {
+        if ($this->holderAlreadyHasModifierFromThisProvider(
+            $holder,
+            $modifierConfig,
+            $modifierProvider
+        )) {
+            return;
+        }
+
         if ($modifierConfig instanceof DirectModifierConfig) {
             $this->createDirectModifier(
                 modifierConfig: $modifierConfig,
@@ -170,5 +178,17 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         if ($modifier) {
             $this->delete($modifier);
         }
+    }
+
+    private function holderAlreadyHasModifierFromThisProvider($holder, $modifierConfig, $modifierProvider): bool
+    {
+        foreach ($holder->getModifiers() as $gameModifier) {
+            if ($gameModifier->getModifierProvider() === $modifierProvider
+            && $gameModifier->getModifierConfig() === $modifierConfig) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

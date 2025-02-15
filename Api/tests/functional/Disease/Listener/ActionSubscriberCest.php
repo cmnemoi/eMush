@@ -33,6 +33,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -1134,8 +1135,14 @@ class ActionSubscriberCest
 
         $knifeMechanic = new Weapon();
         $knifeMechanic
-            ->setBaseDamageRange([1 => 100])
+            ->setDamageSpread([1, 1])
             ->setActions(new ArrayCollection([$attackAction]))
+            ->setSuccessfulEventKeys([
+                WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString() => 1,
+            ])
+            ->setFailedEventKeys([
+                WeaponEventEnum::KNIFE_FAILED_HIT->toString() => 1,
+            ])
             ->setName('weapon_knife_test');
         $I->haveInRepository($knifeMechanic);
 

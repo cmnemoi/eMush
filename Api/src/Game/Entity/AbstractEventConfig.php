@@ -4,6 +4,7 @@ namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Config\WeaponEffect\BreakWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\DestroyWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\DropWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\InflictInjuryWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\InflictRandomInjuryWeaponEffectConfig;
@@ -35,6 +36,7 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
     'break_weapon_effect_config' => BreakWeaponEffectConfig::class,
     'drop_weapon_effect_config' => DropWeaponEffectConfig::class,
     'multiply_damage_on_mush_target_weapon_effect_config' => MultiplyDamageOnMushTargetWeaponEffectConfig::class,
+    'destroy_weapon_effect_config' => DestroyWeaponEffectConfig::class,
 ])]
 abstract class AbstractEventConfig
 {

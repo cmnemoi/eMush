@@ -133,17 +133,14 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $knifeMechanic = new Weapon();
         $knifeMechanic
             ->setBaseAccuracy(60)
-            ->setBaseDamageRange([
-                1 => 25,
-                2 => 25,
-                3 => 25,
-                4 => 12,
-                5 => 12,
+            ->setDamageSpread([1, 3])
+            ->setSuccessfulEventKeys([
+                WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString() => 1,
+            ])
+            ->setFailedEventKeys([
+                WeaponEventEnum::KNIFE_FAILED_HIT->toString() => 1,
             ])
             ->setExpeditionBonus(1)
-            ->setCriticalSuccessRate(25)
-            ->setCriticalFailRate(20)
-            ->setOneShotRate(2)
             ->addAction($attackAction)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::KNIFE, GameConfigEnum::DEFAULT);
 

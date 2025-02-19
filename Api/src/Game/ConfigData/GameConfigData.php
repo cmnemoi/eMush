@@ -26,10 +26,10 @@ class GameConfigData
             'difficultyConfig' => 'default',
             'name' => 'default',
             'characterConfigs' => [
-                'andie',
                 'chun',
-                'derek',
+                'chao',
                 'eleesha',
+                'finola',
                 'frieda',
                 'gioele',
                 'hua',

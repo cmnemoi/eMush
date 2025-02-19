@@ -4,6 +4,7 @@ namespace Mush\Game\Command;
 
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\ConfigData\GameConfigData;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\CharacterConfigRepository;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -42,6 +43,7 @@ class FillDaedalusCommand extends Command
     private string $identityServerUri;
     private string $oAuthCallback;
     private string $oAuthClientId;
+    private array $allowedCharacters;
 
     public function __construct(
         HttpClientInterface $httpClient,
@@ -61,6 +63,11 @@ class FillDaedalusCommand extends Command
         $this->identityServerUri = $_ENV['IDENTITY_SERVER_URI'];
         $this->oAuthCallback = $_ENV['OAUTH_CALLBACK'];
         $this->oAuthClientId = $_ENV['OAUTH_CLIENT_ID'];
+        foreach (array_column(GameConfigData::$dataArray, 'characterConfigs') as $column) {
+            foreach ($column as $value) {
+                $this->allowedCharacters[] = $value;
+            }
+        }
     }
 
     public function isAndieOrDerek(string $name): bool
@@ -71,6 +78,11 @@ class FillDaedalusCommand extends Command
     public function isChaoOrFinola(string $name): bool
     {
         return $name === 'chao' || $name === 'finola';
+    }
+
+    public function isntInGameConfig(string $name): bool
+    {
+        return !\in_array($name, $this->allowedCharacters, true);
     }
 
     protected function configure(): void
@@ -133,6 +145,11 @@ class FillDaedalusCommand extends Command
             }
             if ($isChaoAndFinola && $this->isAndieOrDerek($name)) {
                 $io->info("{$name} not allowed on daedalus, skipping ...");
+
+                continue;
+            }
+            if ($this->isntInGameConfig($name)) {
+                $io->info("{$name} not in config, skipping ...");
 
                 continue;
             }

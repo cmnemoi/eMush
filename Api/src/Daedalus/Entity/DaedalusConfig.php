@@ -399,11 +399,11 @@ class DaedalusConfig
     {
         $currentDate = new \DateTime();
 
-        if ($currentDate->format('j') >= 10 && $currentDate->format('j') <= 24 && $currentDate->format('F') === 'January') {
+        if ($currentDate->format('j') >= 3 && $currentDate->format('j') <= 31 && $currentDate->format('F') === 'January') {
             return HolidayEnum::ANNIVERSARY;
         }
 
-        if (($currentDate->format('j') >= 24 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 7 && $currentDate->format('F') === 'November')) {
+        if (($currentDate->format('j') >= 17 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 14 && $currentDate->format('F') === 'November')) {
             return HolidayEnum::HALLOWEEN;
         }
 

@@ -1323,23 +1323,34 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $hasTracker && $pheromodemIsFinished;
     }
 
+    private function getScalableEfficiencyForProject(Project $project): int
+    {
+        $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
+        $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
+
+        return $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
+    }
+
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
             return 100;
         }
 
-        $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
-        $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
-
-        $efficiency = $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
+        $efficiency = $this->getScalableEfficiencyForProject($project);
 
         return $this->getEfficiencyWithExternalItems($efficiency, $project);
     }
 
     private function getMaxEfficiencyForProject(Project $project): int
     {
-        $efficiency = (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
+        if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
+            return 100;
+        }
+
+        $efficiency = $this->getScalableEfficiencyForProject($project);
+        $efficiency = (int) ($efficiency + $efficiency / 2);
+        $efficiency = $this->getEfficiencyWithExternalItems($efficiency, $project);
 
         return min($efficiency, 100);
     }

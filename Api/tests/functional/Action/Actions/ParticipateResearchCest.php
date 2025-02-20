@@ -187,7 +187,7 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $I->assertEquals(new PlayerEfficiency(2, 3), $this->chun->getEfficiencyForProject($reasearchProject));
     }
 
-    public function shouldPutEfficiencyToFourSixPercentsWithPrintedCircuitJellyInNexus(FunctionalTester $I): void
+    public function shouldPutEfficiencyToFourPercentsWithPrintedCircuitJellyInNexus(FunctionalTester $I): void
     {
         $researchProject = $this->daedalus->getProjectByName(ProjectName::RETRO_FUNGAL_SERUM);
 
@@ -202,11 +202,11 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         );
         $this->participateAction->execute();
 
-        // then Chun's efficiency should be increased to 4-6%
-        $I->assertEquals(new PlayerEfficiency(4, 6), $this->chun->getEfficiencyForProject($researchProject));
+        // then Chun's efficiency should be increased to 4-4%
+        $I->assertEquals(new PlayerEfficiency(4, 4), $this->chun->getEfficiencyForProject($researchProject));
     }
 
-    public function shouldPutEfficiencyToFiveSevenPercentsWithCpuPriorityAndPrintedCircuitJellyInNexus(FunctionalTester $I): void
+    public function shouldPutEfficiencyToFiveSixPercentsWithCpuPriorityAndPrintedCircuitJellyInNexus(FunctionalTester $I): void
     {
         $researchProject = $this->daedalus->getProjectByName(ProjectName::RETRO_FUNGAL_SERUM);
 
@@ -227,8 +227,8 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         );
         $this->participateAction->execute();
 
-        // then Chun's efficiency should be increased to 5-7%
-        $I->assertEquals(new PlayerEfficiency(5, 7), $this->chun->getEfficiencyForProject($researchProject));
+        // then Chun's efficiency should be increased to 5-6%
+        $I->assertEquals(new PlayerEfficiency(5, 6), $this->chun->getEfficiencyForProject($researchProject));
     }
 
     private function givenChunIsNotInLab()

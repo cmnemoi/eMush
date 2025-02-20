@@ -64,7 +64,7 @@ final class TranslationServiceTest extends TestCase
 
         $this->translator
             ->shouldReceive('trans')
-            ->with('key', ['character' => 'Andie', 'character_gender' => 'female'], 'someOtherDomain', LanguageEnum::FRENCH)
+            ->with('key', ['character' => 'Andie', 'character_gender' => 'female', 'character_icon' => ':paola:'], 'someOtherDomain', LanguageEnum::FRENCH)
             ->andReturn('translated message')
             ->once();
 
@@ -80,7 +80,7 @@ final class TranslationServiceTest extends TestCase
             ->andReturn('Andie');
 
         $this->translator->shouldReceive('trans')
-            ->with('key', ['target_character' => 'Andie', 'target_character_gender' => 'female'], 'someOtherDomain', LanguageEnum::FRENCH)
+            ->with('key', ['target_character' => 'Andie', 'target_character_gender' => 'female', 'target_character_icon' => ':paola:'], 'someOtherDomain', LanguageEnum::FRENCH)
             ->andReturn('translated message')
             ->once();
         $this->translationService->translate('key', ['target_character' => CharacterEnum::PAOLA], 'someOtherDomain', LanguageEnum::FRENCH);

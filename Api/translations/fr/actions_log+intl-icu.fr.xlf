@@ -752,7 +752,7 @@
     <unit id="motivational_speech">
       <segment id="motivational_speech" state="translated">
         <source>motivational_speech</source>
-        <target>{version, select,
+        <target>{character_icon} **{character} :** {version, select,
                     1 {Bon les cocos, ça ne va pas du tout là. Vous assurez tellement bien que le Mush va se suicider de désespoir. Je vous rappelle qu'on doit l'étudier avant, alors simulez un peu de pessimisme, ok ?}
                     2 {Bonjour - Excusez ma tenue, je sors de la douche. Je suis convaincu que la solution à nos problèmes se trouve dans la bonne utilisation du Sofa Suédois qui se trouve à bord. Il nous faut pénétrer les défenses du Mush et le bâillonner !}
                     3 {Chers équipiers, nous sommes chargés d'une mission comme il n'en existe pas de plus grande, et nous avons les moyens de l'accomplir ! La FDS ne le sait que trop bien, pour quelle autre raison est-ce qu'elle nous attaquerait ?}
@@ -779,7 +779,7 @@
     <unit id="boring_speech">
       <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
-        <target>{version, select,
+        <target>{character_icon} **{character} :** {version, select,
                     1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. PITIÉ FAITES LE TAIRE.}
                     2 {Moi Commandant du Daedalus, je promets la fin de la crise Mush. Moi Commandant du Daedalus, je prônerais l'égalité homme/femme. Moi Commandant du Daedalus, il faudra Le Faire une fois par jour. Moi Commandant du Daedalus, les femmes enceintes seront exemptées de travail. Moi Commandant du Daedalus, je ne vendrais aucun d'entre vous à des esclavagistes. Moi Commandant du Daedalus, nous mangerons 5 fruits et légumes par jour. Moi Commandant du Daedalus, NERON sera de bonne humeur. Moi Commandant du Daedalus, les douches seront publiques. Moi Commandant du Daedalus, nous irons sur Eden. Moi Commandant du Daedalus, …}
                     3 {Comme le dit le grand Président Maubrick, il faut toujours croire en la FDS, ne pas frapper ses voisins, et traiter les femmes avec respect. Comme le dit le grand Président Maubrick, le Mush ne peut rien face à nous. Moi d'mon temps, le Président Maubrick il...}

@@ -87,6 +87,7 @@ class TranslationService implements TranslationServiceInterface
 
         if ($domain === LanguageEnum::CHARACTERS) {
             $parameters[$parameterKey . '_gender'] = CharacterEnum::exists($parameterTranslationId) ? CharacterEnum::gender($parameterTranslationId) : 'male';
+            $parameters[$parameterKey . '_icon'] = ':' . $parameterTranslationId . ':';
         }
 
         return $parameters;

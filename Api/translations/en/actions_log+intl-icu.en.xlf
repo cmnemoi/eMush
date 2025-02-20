@@ -505,7 +505,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="motivational_speech">
       <segment id="motivational_speech" state="translated">
         <source>motivational_speech</source>
-        <target>{version, select,
+        <target>{character_icon} **{character} :** {version, select,
     1 {OK guys, this isn't working at all. You seem convinced that the Mush will commit suicide from despair. I remind you that we must study it first, so a little pessimism is ok, yeah?}
     2 {Greetings! Apologies for my looks, I just got out of the shower. I am convinced that the solution to our problems lies in the proper utilization of the Swedish Sofa that can be found on board. We must penetrate the defenses of the Mush and silence them!}
     3 {Fellow crew members, we have been charged with a mission the greatness of which is yet to be surpassed, and we have the means to succeed! The SDF knows this only too well, why else would they attack us?}
@@ -532,7 +532,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="boring_speech">
       <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
-        <target>{version, select,
+        <target>{character_icon} **{character} :** {version, select,
                     1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. SHUT UP ALREADY!}
                     2 {I, Commander of the Daedalus, promise an end to the Mush crisis. I, Commander of Daedalus, would advocate for equality between men and women. I, Commander of the Daedalus, am obligated to Do It once a day. I, Commander of the Daedalus, pregnant women will be exempt from working. I, Commander of the Daedalus, vow not sell any of you to the slavers. I, Commander of the Daedalus, we shall eat 5 fruits and vegetables a day. I, Commander of the Daedalus, NERON will be in a good spirits. I, Commander of the Daedalus, showering shall become public. I, Commander of the Daedalus, we will go to Eden. I, Commander of the Daedalus, …}
                     3 {As the great President Maubrick says: always believe in the SDF, don't hit your neighbors and treat women with respect. As the great President Maubrick says: the Mush can't do anything against us. Back in the day, President Maubrick...}

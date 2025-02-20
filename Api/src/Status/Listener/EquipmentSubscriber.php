@@ -73,6 +73,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $equipment = $event->getGameEquipment();
+        $this->makeLaidDownPlayersGetUp($equipment, $event->getTags(), $event->getTime());
         $this->statusService->removeAllStatuses($equipment, $event->getTags(), $event->getTime());
 
         if ($event->hasAllTags([GearItemEnum::INVERTEBRATE_SHELL, EventEnum::FIRE])) {
@@ -135,6 +136,28 @@ final class EquipmentSubscriber implements EventSubscriberInterface
                 time: $event->getTime(),
                 visibility: VisibilityEnum::PUBLIC,
             );
+        }
+    }
+
+    private function makeLaidDownPlayersGetUp(
+        GameEquipment $equipment,
+        array $tags,
+        \DateTime $time
+    ): void {
+        if (!$equipment->isSofa()) {
+            return;
+        }
+
+        foreach ($equipment->getPlace()->getPlayers()->getPlayerAlive() as $player) {
+            if ($player->getStatusByName(PlayerStatusEnum::LYING_DOWN)?->getTarget()?->getName() === $equipment->getName()) {
+                $this->statusService->removeStatus(
+                    PlayerStatusEnum::LYING_DOWN,
+                    $player,
+                    $tags,
+                    $time,
+                    VisibilityEnum::PUBLIC,
+                );
+            }
         }
     }
 }

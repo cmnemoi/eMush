@@ -109,24 +109,6 @@
         <target>hide_success</target>
       </segment>
     </unit>
-    <unit id="hit_success">
-      <segment id="hit_success" state="initial">
-        <source>hit_success</source>
-        <target>hit_success</target>
-      </segment>
-    </unit>
-    <unit id="hit_critical_success">
-      <segment id="hit_critical_success" state="initial">
-        <source>hit_critical_success</source>
-        <target>hit_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="hit_fail">
-      <segment id="hit_fail" state="initial">
-        <source>hit_fail</source>
-        <target>hit_fail</target>
-      </segment>
-    </unit>
     <unit id="hyperfreeze_success">
       <segment id="hyperfreeze_success" state="initial">
         <source>hyperfreeze_success</source>

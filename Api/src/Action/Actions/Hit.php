@@ -5,6 +5,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PlaceType;
@@ -12,19 +13,32 @@ use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Event\VariableEventInterface;
+use Mush\Equipment\Service\UseWeaponService;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Hit extends AttemptAction
 {
-    private const int DAMAGE_SPREAD = 2;
-
     protected ActionEnum $name = ActionEnum::HIT;
+
+    public function __construct(
+        EventServiceInterface $eventService,
+        ActionServiceInterface $actionService,
+        ValidatorInterface $validator,
+        RandomServiceInterface $randomService,
+        private UseWeaponService $useWeaponService,
+    ) {
+        parent::__construct(
+            $eventService,
+            $actionService,
+            $validator,
+            $randomService
+        );
+    }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -49,30 +63,9 @@ final class Hit extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        if ($result->isAFail()) {
-            return;
-        }
-
-        /** @var Player $target */
-        $target = $this->target;
-
-        $damage = $this->randomService->random(
-            min: $this->getOutputQuantity(),
-            max: $this->getOutputQuantity() + self::DAMAGE_SPREAD
+        $this->useWeaponService->execute(
+            result: $result,
+            tags: $this->getTags(),
         );
-
-        $damageEvent = new PlayerVariableEvent(
-            $target,
-            PlayerVariableEnum::HEALTH_POINT,
-            -$damage,
-            $this->getTags(),
-            new \DateTime()
-        );
-
-        if ($result->isACriticalSuccess()) {
-            $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
-        }
-
-        $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

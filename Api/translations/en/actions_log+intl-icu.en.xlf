@@ -136,32 +136,6 @@
         <target>**{character}** has hidden a **{target_equipment}**.</target>
       </segment>
     </unit>
-    <unit id="hit_success">
-      <segment id="hit_success" state="translated">
-        <source>hit_success</source>
-        <target>{version, select,
-    1 {**{character}** hits **{target_character}** with a right...}
-    2 {**{character}** caught **{target_character}** with a majestic uppercut...}
-    other {**{character}** hits **{target_character}** with a right...}
-}</target>
-      </segment>
-    </unit>
-    <unit id="hit_critical_success">
-      <segment id="hit_critical_success" state="translated">
-        <source>hit_critical_success</source>
-        <target>**{character}** caught **{target_character}** with a big right hook... who then repainted the wall with their nose...</target>
-      </segment>
-    </unit>
-    <unit id="hit_fail">
-      <segment id="hit_fail" state="translated">
-        <source>hit_fail</source>
-        <target>{version, select,
-    1 {**{character}** tried to hit **{target_character}**, alas their feeble attempt missed and hit the wall... Ouch...}
-    2 {**{character}** misses their hit on **{target_character}**.}
-    other {**{character}** misses their hit on **{target_character}**.}
-}</target>
-      </segment>
-    </unit>
     <unit id="hyperfreeze_success">
       <segment id="hyperfreeze_success" state="translated">
         <source>hyperfreeze_success</source>

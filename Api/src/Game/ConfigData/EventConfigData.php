@@ -1364,6 +1364,37 @@ class EventConfigData
                     WeaponEffectEnum::ADD_TWO_DAMAGE->toString(),
                 ]
             ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString(),
+                eventName: WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString(),
+                eventType: WeaponEventType::NORMAL,
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BARE_HANDS_PLUS_1_DAMAGE->toString(),
+                eventName: WeaponEventEnum::BARE_HANDS_PLUS_1_DAMAGE->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ADD_ONE_DAMAGE->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS->toString(),
+                eventName: WeaponEventEnum::BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_BURST_NOSE_INJURY_TO_TARGET_10_PERCENTS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BARE_HANDS_FAILED_HIT->toString(),
+                eventName: WeaponEventEnum::BARE_HANDS_FAILED_HIT->toString(),
+                eventType: WeaponEventType::MISS,
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::BARE_HANDS_FUMBLE->toString(),
+                eventName: WeaponEventEnum::BARE_HANDS_FUMBLE->toString(),
+                eventType: WeaponEventType::FUMBLE,
+            ),
         ];
     }
 
@@ -1440,6 +1471,12 @@ class EventConfigData
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
                 injuryName: InjuryEnum::TORN_TONGUE,
                 triggerRate: 30,
+            ),
+            new InflictInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_BURST_NOSE_INJURY_TO_TARGET_10_PERCENTS->toString(),
+                eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
+                injuryName: InjuryEnum::BURST_NOSE,
+                triggerRate: 10,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_BURST_NOSE_INJURY_TO_TARGET_30_PERCENTS->toString(),

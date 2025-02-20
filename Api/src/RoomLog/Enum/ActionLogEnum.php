@@ -284,7 +284,6 @@ abstract class ActionLogEnum
         ActionEnum::HIT->value => [
             ActionOutputEnum::SUCCESS => self::HIT_SUCCESS,
             ActionOutputEnum::FAIL => self::HIT_FAIL,
-            ActionOutputEnum::CRITICAL_SUCCESS => self::HIT_CRITICAL_SUCCESS,
         ],
         ActionEnum::COMFORT->value => [
             ActionOutputEnum::SUCCESS => self::COMFORT_SUCCESS,

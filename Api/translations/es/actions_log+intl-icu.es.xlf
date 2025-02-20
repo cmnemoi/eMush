@@ -129,32 +129,6 @@ other {invalid gender input}
 }</target>
       </segment>
     </unit>
-    <unit id="hit_success">
-      <segment id="hit_success" state="translated">
-        <source>hit_success</source>
-        <target>{version, select,
-1 {**{character}** le da un espectacular puñetazo a **{target_character}**...} 
-2 {**{character}** le da un formidable cabezazo a **{target_character}** y le provoca un gran chorro de sangre...}
-other {**{character}** le da un derechazo a **{target_character}**}
-}</target>
-      </segment>
-    </unit>
-    <unit id="hit_critical_success">
-      <segment id="hit_critical_success" state="initial">
-        <source>hit_critical_success</source>
-        <target>hit_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="hit_fail">
-      <segment id="hit_fail" state="translated">
-        <source>hit_fail</source>
-        <target>{version, select,
-1 {**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy...}
-2 {**{character}** falla su ataque contra **{target_character}**
-other {invalid version number}
-}</target>
-      </segment>
-    </unit>
     <unit id="hyperfreeze_success">
       <segment id="hyperfreeze_success" state="translated">
         <source>hyperfreeze_success</source>

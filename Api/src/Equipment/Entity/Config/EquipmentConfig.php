@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
@@ -176,6 +177,20 @@ class EquipmentConfig
         $equipmentMechanics = $this->mechanics->filter(static fn (EquipmentMechanic $equipmentMechanic) => \in_array($mechanic, $equipmentMechanic->getMechanics(), true));
 
         return $equipmentMechanics->first() ?: null;
+    }
+
+    public function getMechanicByNameOrThrow(string $mechanic): ?EquipmentMechanic
+    {
+        $equipmentMechanics = $this->mechanics->filter(static fn (EquipmentMechanic $equipmentMechanic) => \in_array($mechanic, $equipmentMechanic->getMechanics(), true));
+
+        return $equipmentMechanics->first() ?: throw new \RuntimeException("No mechanics with name {$this->name} found.");
+    }
+
+    public function getWeaponMechanicOrThrow(): Weapon
+    {
+        $weapon = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::WEAPON);
+
+        return $weapon instanceof Weapon ? $weapon : throw new \RuntimeException("Equipment {$this->name} does not have a weapon mechanic.");
     }
 
     // this is needed for api_platform to work

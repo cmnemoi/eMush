@@ -1315,6 +1315,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this->hasModifierByModifierName(ModifierNameEnum::MUTE_PREVENT_MESSAGES_MODIFIER);
     }
 
+    public function shouldBeAnonymous($tags): bool
+    {
+        return \in_array(ActionEnum::HIT->value, $tags, true) && $this->hasSkill(SkillEnum::NINJA);
+    }
+
     private function hasPheromodemConnectedTracker(): bool
     {
         $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);

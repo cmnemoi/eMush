@@ -331,5 +331,35 @@
         <target>lizaro_jungle_shooter_plus_2_damage</target>
       </segment>
     </unit>
+    <unit id="bare_hands_successful_hit">
+      <segment id="bare_hands_successful_hit" state="initial">
+        <source>bare_hands_successful_hit</source>
+        <target>bare_hands_successful_hit</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_target_burst_nose_10_percent">
+      <segment id="bare_hands_target_burst_nose_10_percent" state="initial">
+        <source>bare_hands_target_burst_nose_10_percent</source>
+        <target>bare_hands_target_burst_nose_10_percent</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_plus_1_damage">
+      <segment id="bare_hands_plus_1_damage" state="initial">
+        <source>bare_hands_plus_1_damage</source>
+        <target>bare_hands_plus_1_damage</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_failed_hit">
+      <segment id="bare_hands_failed_hit" state="initial">
+        <source>bare_hands_failed_hit</source>
+        <target>bare_hands_failed_hit</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_fumble">
+      <segment id="bare_hands_fumble" state="initial">
+        <source>bare_hands_fumble</source>
+        <target>bare_hands_fumble</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -170,11 +170,6 @@ class ActionEvent extends AbstractGameEvent
             && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
     }
 
-    public function shouldBeAnonymous(): bool
-    {
-        return $this->getActionName() === ActionEnum::HIT && $this->author?->hasSkill(SkillEnum::NINJA);
-    }
-
     public function shouldCreateParfumeAntiqueImmunizedStatus(): bool
     {
         return $this->author?->hasSkill(SkillEnum::ANTIQUE_PERFUME)

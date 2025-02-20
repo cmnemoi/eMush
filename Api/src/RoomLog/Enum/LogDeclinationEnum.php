@@ -28,8 +28,6 @@ abstract class LogDeclinationEnum
             ActionLogEnum::CONSUME_SUCCESS => [self::VERSION => 46],
             ActionLogEnum::REPAIR_SUCCESS => [self::VERSION => 7],
             ActionLogEnum::REPAIR_FAIL => [self::VERSION_PART_1 => 10, self::VERSION_PART_2 => 50],
-            ActionLogEnum::HIT_SUCCESS => [self::VERSION => 5],
-            ActionLogEnum::HIT_FAIL => [self::VERSION => 2],
             ActionLogEnum::MOTIVATIONAL_SPEECH => [self::VERSION => 19],
             ActionLogEnum::BORING_SPEECH => [self::VERSION => 3],
             ActionLogEnum::ATTACK_SUCCESS => [self::VERSION => 9],
@@ -105,6 +103,8 @@ abstract class LogDeclinationEnum
             WeaponEventEnum::LIZARO_JUNGLE_SUCCESSFUL_SHOT->value => [self::VERSION => 5],
             WeaponEventEnum::LIZARO_JUNGLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => [self::VERSION => 2],
             WeaponEventEnum::LIZARO_JUNGLE_FAILED_SHOT->value => [self::VERSION => 100],
+            WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->value => [self::VERSION => 3],
+            WeaponEventEnum::BARE_HANDS_FAILED_HIT->value => [self::VERSION => 3],
         ];
     }
 }

@@ -34,6 +34,7 @@ enum WeaponEffectEnum: string
     case ADD_TWO_MAX_DAMAGE = 'add_two_max_damage';
 
     // inflict injury effects
+    case INFLICT_BURST_NOSE_INJURY_TO_TARGET_10_PERCENTS = 'inflict_burst_nose_injury_to_target_10_percents';
     case INFLICT_BURST_NOSE_INJURY_TO_TARGET_30_PERCENTS = 'inflict_burst_nose_injury_to_target_30_percents';
     case INFLICT_HEAD_TRAUMA_INJURY_TO_TARGET_30_PERCENTS = 'inflict_head_trauma_injury_to_target_30_percents';
     case INFLICT_MASHED_EAR_INJURY_TO_TARGET = 'inflict_mashed_ear_injury_to_target';

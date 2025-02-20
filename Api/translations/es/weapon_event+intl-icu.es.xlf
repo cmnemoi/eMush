@@ -331,5 +331,43 @@
         <target>lizaro_jungle_shooter_plus_2_damage</target>
       </segment>
     </unit>
+    <unit id="bare_hands_successful_hit">
+      <segment id="bare_hands_successful_hit" state="translated">
+        <source>bare_hands_successful_hit</source>
+        <target>{version, select,
+        1 {**{character}** le da un espectacular puñetazo a **{target_character}**...} 
+        2 {**{character}** le da un formidable cabezazo a **{target_character}** y le provoca un gran chorro de sangre...}
+        other {**{character}** le da un derechazo a **{target_character}**}
+      }</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_target_burst_nose_10_percent">
+      <segment id="bare_hands_target_burst_nose_10_percent" state="translated">
+        <source>bare_hands_target_burst_nose_10_percent</source>
+        <target>**{character}** le da un formidable cabezazo a **{target_character}** y le provoca un gran chorro de sangre...</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_plus_1_damage">
+      <segment id="bare_hands_plus_1_damage" state="translated">
+        <source>bare_hands_plus_1_damage</source>
+        <target>**{character}** le da un espectacular puñetazo a **{target_character}**...</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_failed_hit">
+      <segment id="bare_hands_failed_hit" state="translated">
+        <source>bare_hands_failed_hit</source>
+        <target>{version, select,
+      1 {**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy...}
+      2 {**{character}** falla su ataque contra **{target_character}**
+      other {invalid version number}
+      }</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_fumble">
+      <segment id="bare_hands_fumble" state="translated">
+        <source>bare_hands_fumble</source>
+        <target>**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

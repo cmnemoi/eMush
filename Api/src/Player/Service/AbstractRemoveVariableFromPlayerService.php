@@ -18,6 +18,7 @@ abstract class AbstractRemoveVariableFromPlayerService
         int $quantity,
         Player $player,
         array $tags = [],
+        ?Player $author = null,
         \DateTime $time = new \DateTime(),
         string $visibility = VisibilityEnum::HIDDEN
     ): void {
@@ -29,6 +30,7 @@ abstract class AbstractRemoveVariableFromPlayerService
             time: $time,
         );
         $playerVariableEvent->setVisibility($visibility);
+        $playerVariableEvent->setAuthor($author);
 
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }

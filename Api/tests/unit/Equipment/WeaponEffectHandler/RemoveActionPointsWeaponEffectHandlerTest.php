@@ -114,7 +114,7 @@ final class RemoveActionPointsWeaponEffectHandlerTest extends TestCase
 
 final class FakeRemoveActionPointsFromPlayer implements RemoveActionPointsFromPlayerServiceInterface
 {
-    public function execute(int $quantity, Player $player, array $tags = [], \DateTime $time = new \DateTime(), string $visibility = VisibilityEnum::HIDDEN): void
+    public function execute(int $quantity, Player $player, array $tags = [], ?Player $author = null, \DateTime $time = new \DateTime(), string $visibility = VisibilityEnum::HIDDEN): void
     {
         $player->setActionPoint($player->getActionPoint() - $quantity);
     }

@@ -13,6 +13,7 @@ interface RemoveHealthFromPlayerServiceInterface
         int $quantity,
         Player $player,
         array $tags = [],
+        ?Player $author = null,
         \DateTime $time = new \DateTime(),
         string $visibility = VisibilityEnum::HIDDEN
     ): void;

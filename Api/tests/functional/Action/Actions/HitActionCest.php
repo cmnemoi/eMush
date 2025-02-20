@@ -4,16 +4,18 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Entity\ActionResult\CriticalSuccess;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -28,6 +30,7 @@ final class HitActionCest extends AbstractFunctionalTest
 {
     private Hit $hitAction;
     private ActionConfig $action;
+    private Weapon $bareHandMechanic;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -45,10 +48,14 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
+
+        $this->bareHandMechanic = $I->grabEntityFromRepository(Weapon::class, ['name' => EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::BARE_HANDS . '_' . GameConfigEnum::DEFAULT]);
+        $this->givenHitDamageIs([1, 1]);
     }
 
     public function testHitSuccess(FunctionalTester $I)
     {
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
         $this->action->setSuccessRate(101);
         $I->refreshEntities($this->action);
 
@@ -70,6 +77,7 @@ final class HitActionCest extends AbstractFunctionalTest
 
     public function testHitFail(FunctionalTester $I)
     {
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_FAILED_HIT->toString());
         $this->action->setSuccessRate(0);
         $I->refreshEntities($this->action);
 
@@ -91,8 +99,8 @@ final class HitActionCest extends AbstractFunctionalTest
 
     public function testHitArmor(FunctionalTester $I)
     {
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
         $this->action->setSuccessRate(100);
-        $this->action->setCriticalRate(0);
         $I->refreshEntities($this->action);
 
         $this->hitAction->loadParameters(
@@ -129,8 +137,8 @@ final class HitActionCest extends AbstractFunctionalTest
 
     public function testHitCriticalSuccess(FunctionalTester $I)
     {
-        $this->action->setSuccessRate(101);
-        $this->action->setCriticalRate(101);
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS->toString());
+        $this->action->setSuccessRate(100);
         $I->refreshEntities($this->action);
 
         $this->hitAction->loadParameters(
@@ -150,9 +158,7 @@ final class HitActionCest extends AbstractFunctionalTest
         $I->haveInRepository($modifier);
         $I->refreshEntities($this->player2);
 
-        $result = $this->hitAction->execute();
-
-        $I->assertTrue($result instanceof CriticalSuccess);
+        $this->whenChunHitsKuanTi();
 
         // critical hits should bypass armor
         $I->assertNotEquals(
@@ -206,9 +212,11 @@ final class HitActionCest extends AbstractFunctionalTest
 
         $this->givenChunHasSolidSkill();
 
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
+
         $this->whenChunHitsKuanTi();
 
-        $this->thenKuanTiShouldHaveLessOrEqualThanHealthPoint(8, $I);
+        $this->thenKuanTiShouldHaveExactlyHealthPoint(8, $I);
     }
 
     public function wrestlerPlayerShouldDoMoreDamage(FunctionalTester $I): void
@@ -219,9 +227,11 @@ final class HitActionCest extends AbstractFunctionalTest
 
         $this->givenChunHasWrestlerSkill();
 
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
+
         $this->whenChunHitsKuanTi();
 
-        $this->thenKuanTiShouldHaveLessOrEqualThanHealthPoint(7, $I);
+        $this->thenKuanTiShouldHaveExactlyHealthPoint(7, $I);
     }
 
     public function shouldNotBeVisibleIfPlayerHasAKnife(FunctionalTester $I): void
@@ -235,11 +245,11 @@ final class HitActionCest extends AbstractFunctionalTest
 
     public function shouldDealLessDamageOnHardBoiledPlayer(FunctionalTester $I): void
     {
-        $this->givenHitMinDamageIs(0);
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
+
+        $this->givenHitDamageIs([2, 2]);
 
         $this->givenHitActionHasSuccessRate(100);
-
-        $this->givenHitActionHasCriticalSuccessRate(0);
 
         $this->givenKuanTiHasHealthPoint(10);
 
@@ -252,9 +262,9 @@ final class HitActionCest extends AbstractFunctionalTest
 
     public function ninjaLogShouldBeAnonymous(FunctionalTester $I): void
     {
-        $this->givenHitActionHasSuccessRate(100);
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
 
-        $this->givenHitActionHasCriticalSuccessRate(0);
+        $this->givenHitActionHasSuccessRate(100);
 
         $this->givenChunIsANinja($I);
 
@@ -263,7 +273,7 @@ final class HitActionCest extends AbstractFunctionalTest
         $roomLog = $I->grabEntityFromRepository(
             entity: RoomLog::class,
             params: [
-                'log' => ActionLogEnum::HIT_SUCCESS,
+                'log' => WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT,
             ]
         );
 
@@ -274,11 +284,11 @@ final class HitActionCest extends AbstractFunctionalTest
 
     public function armorsShouldNotHealPlayer(FunctionalTester $I): void
     {
-        $this->givenHitMinDamageIs(0);
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
+
+        $this->givenHitDamageIs([0, 0]);
 
         $this->givenHitActionHasSuccessRate(100);
-
-        $this->givenHitActionHasCriticalSuccessRate(0);
 
         $this->givenKuanTiHasHealthPoint(10);
 
@@ -346,14 +356,9 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->kuanTi->setHealthPoint($healthPoint);
     }
 
-    private function givenHitMinDamageIs(int $damage): void
+    private function givenHitDamageIs(array $damage): void
     {
-        $this->action->setOutputQuantity($damage);
-    }
-
-    private function givenHitActionHasCriticalSuccessRate(int $criticalSuccessRate): void
-    {
-        $this->action->setCriticalRate($criticalSuccessRate);
+        $this->bareHandMechanic->setDamageSpread($damage);
     }
 
     private function givenChunIsANinja(FunctionalTester $I): void
@@ -374,6 +379,16 @@ final class HitActionCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime()
         );
+    }
+
+    private function givenBareHandsHas100ChanceToDispatchEvent(string $event): void
+    {
+        $this->bareHandMechanic->setSuccessfulEventKeys([
+            $event => 1,
+        ]);
+        $this->bareHandMechanic->setFailedEventKeys([
+            $event => 1,
+        ]);
     }
 
     private function whenKuanTiTriesToHitChun(): void
@@ -405,6 +420,11 @@ final class HitActionCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveLessOrEqualThanHealthPoint(int $expectedHealthPoint, FunctionalTester $I): void
     {
         $I->assertLessThanOrEqual($expectedHealthPoint, $this->kuanTi->getHealthPoint());
+    }
+
+    private function thenKuanTiShouldHaveExactlyHealthPoint(int $expectedHealthPoint, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedHealthPoint, $this->kuanTi->getHealthPoint());
     }
 
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void

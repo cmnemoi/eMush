@@ -483,5 +483,44 @@
         <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_character}**...</target>
       </segment>
     </unit>
+    <unit id="bare_hands_successful_hit">
+      <segment id="bare_hands_successful_hit" state="translated">
+        <source>bare_hands_successful_hit</source>
+        <target>{version, select,
+                        1 {**{character}** met un uppercut du droit à **{target_character}**...}
+                        2 {**{character}** met une droite à **{target_character}**...}
+                        other {**{character}** met une terrible beigne à **{target_character}**...}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_target_burst_nose_10_percent">
+      <segment id="bare_hands_target_burst_nose_10_percent" state="translated">
+        <source>bare_hands_target_burst_nose_10_percent</source>
+        <target>**{character}** met un formidable crochet du droit à **{target_character}**... Qui repeint le mur avec son nez...</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_plus_1_damage">
+      <segment id="bare_hands_plus_1_damage" state="translated">
+        <source>bare_hands_plus_1_damage</source>
+        <target>**{character}** met un magistral uppercut à **{target_character}**...</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_failed_hit">
+      <segment id="bare_hands_failed_hit" state="translated">
+        <source>bare_hands_failed_hit</source>
+        <target>{version, select,
+                        1 {**{character}** tente de frapper **{target_character}** qui esquive habilement.}
+                        2 {**{character}** tente de frapper **{target_character}** mais rate lamentablement.}
+                        3 {**{character}** tente de frapper **{target_character}** mais en semble bien incapable....}
+                        other {"invalid version number"}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_fumble">
+      <segment id="bare_hands_fumble" state="translated">
+        <source>bare_hands_fumble</source>
+        <target>**{character}** tente de frapper **{target_character}**, hélas son coup faible trouve seulement le mur... Aïe...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -30,6 +30,7 @@ class ItemEnum
     public const string NATAMY_RIFLE = 'natamy_rifle';
     public const string GRENADE = 'grenade';
     public const string ROCKET_LAUNCHER = 'rocket_launcher';
+    public const string BARE_HANDS = 'bare_hands';
     public const string TRACKER = 'tracker';
     public const string WALKIE_TALKIE = 'walkie_talkie';
     public const string ITRACKIE = 'itrackie';

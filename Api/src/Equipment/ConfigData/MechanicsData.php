@@ -1309,6 +1309,30 @@ abstract class MechanicsData
             'modifierConfigs' => [],
         ],
         [
+            'name' => 'weapon_bare_hands_default',
+            'type' => 'weapon',
+            'damageSpread' => [1, 2],
+            'successfulEventKeys' => [
+                WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->value => 15,
+                WeaponEventEnum::BARE_HANDS_PLUS_1_DAMAGE->value => 5,
+                WeaponEventEnum::BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS->value => 5,
+            ],
+            'failedEventKeys' => [
+                WeaponEventEnum::BARE_HANDS_FAILED_HIT->value => 30,
+                WeaponEventEnum::BARE_HANDS_FUMBLE->value => 10,
+            ],
+            'baseAccuracy' => 60,
+            'baseDamageRange' => [],
+            'expeditionBonus' => 0,
+            'criticalSuccessRate' => 0,
+            'criticalFailRate' => 0,
+            'oneShotRate' => 0,
+            'actions' => [
+                ActionEnum::HIT,
+            ],
+            'modifierConfigs' => [],
+        ],
+        [
             'name' => 'tools_kitchen_default',
             'type' => 'tool',
             'actions' => [

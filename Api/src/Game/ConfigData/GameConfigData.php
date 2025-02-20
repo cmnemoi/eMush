@@ -277,6 +277,7 @@ class GameConfigData
                 'old_faithful_default',
                 'rocket_launcher_default',
                 'natamy_rifle_default',
+                'bare_hands_default',
                 'icarus_default',
                 'door_default',
                 'communication_center_default',

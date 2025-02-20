@@ -2525,6 +2525,22 @@ class EquipmentConfigData
             ],
         ],
         [
+            'name' => 'bare_hands_default',
+            'equipmentName' => 'bare_hands',
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [],
+            'mechanics' => [
+                'weapon_bare_hands_default',
+            ],
+            'initStatuses' => [],
+        ],
+        [
             'name' => 'icarus_default',
             'equipmentName' => 'icarus',
             'isBreakable' => false,

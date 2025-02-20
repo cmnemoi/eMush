@@ -84,6 +84,13 @@ enum WeaponEventEnum: string
     case LIZARO_JUNGLE_DROP_WEAPON = 'lizaro_jungle_drop_weapon';
     case LIZARO_JUNGLE_SHOOTER_PLUS_2_DAMAGE = 'lizaro_jungle_shooter_plus_2_damage';
 
+    // Bare Hands
+    case BARE_HANDS_SUCCESSFUL_HIT = 'bare_hands_successful_hit';
+    case BARE_HANDS_FAILED_HIT = 'bare_hands_failed_hit';
+    case BARE_HANDS_PLUS_1_DAMAGE = 'bare_hands_plus_1_damage';
+    case BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS = 'bare_hands_target_burst_nose_10_percent';
+    case BARE_HANDS_FUMBLE = 'bare_hands_fumble';
+
     public function toString(): string
     {
         return $this->value;

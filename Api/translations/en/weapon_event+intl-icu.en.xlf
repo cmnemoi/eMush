@@ -371,5 +371,43 @@
         <target>With sharp eyes and a fiery resolve, **{character}** magnificently lands a shot right in **{target_character}**’s chest...</target>
       </segment>
     </unit>
+    <unit id="bare_hands_successful_hit">
+      <segment id="bare_hands_successful_hit" state="translated">
+        <source>bare_hands_successful_hit</source>
+        <target>{version, select,
+          1 {**{character}** hits **{target_character}** with a right...}
+          2 {**{character}** caught **{target_character}** with a uppercut...}
+          other {**{character}** hits **{target_character}** with a left...}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_target_burst_nose_10_percent">
+      <segment id="bare_hands_target_burst_nose_10_percent" state="translated">
+        <source>bare_hands_target_burst_nose_10_percent</source>
+        <target>**{character}** caught **{target_character}** with a big right hook... who then repainted the wall with their nose...</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_plus_1_damage">
+      <segment id="bare_hands_plus_1_damage" state="translated">
+        <source>bare_hands_plus_1_damage</source>
+        <target>**{character}** caught **{target_character}** with a majestic uppercut...</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_failed_hit">
+      <segment id="bare_hands_failed_hit" state="translated">
+        <source>bare_hands_failed_hit</source>
+        <target>{version, select,
+          1 {**{character}** tried to hit **{target_character}** who dodged deftly.}
+          2 {**{character}** misses their hit on **{target_character}**.}
+          other {**{character}** tried to hit **{target_character}** but missed miserably.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="bare_hands_fumble">
+      <segment id="bare_hands_fumble" state="translated">
+        <source>bare_hands_fumble</source>
+        <target>**{character}** tried to hit **{target_character}**, alas their feeble attempt missed and hit the wall... Ouch...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

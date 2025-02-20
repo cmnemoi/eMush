@@ -39,6 +39,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $hideAction */
         $hideAction = $this->getReference(ActionsFixtures::HIDE_DEFAULT);
 
+        /** @var ActionConfig $hitAction */
+        $hitAction = $this->getReference(ActionsFixtures::HIT_DEFAULT);
+
         /** @var ActionConfig $attackAction */
         $attackAction = $this->getReference(ActionsFixtures::ATTACK_DEFAULT);
 
@@ -312,10 +315,38 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($rocketLauncher);
         $manager->persist($rocketLauncherMechanic);
 
+        $bareHandsMechanic = new Weapon();
+        $bareHandsMechanic
+            ->setDamageSpread([1, 2])
+            ->setBaseAccuracy(60)
+            ->setExpeditionBonus(0)
+            ->setSuccessfulEventKeys(successfulEventKeys: [
+                WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString() => 1,
+            ])
+            ->setFailedEventKeys([
+                WeaponEventEnum::BARE_HANDS_FAILED_HIT->toString() => 1,
+            ])
+            ->addAction($hitAction)
+            ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::BARE_HANDS, GameConfigEnum::DEFAULT);
+
+        $bareHands = new ItemConfig();
+        $bareHands
+            ->setEquipmentName(ItemEnum::BARE_HANDS)
+            ->setMechanics([$bareHandsMechanic])
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setIsBreakable(false)
+            ->buildName(GameConfigEnum::DEFAULT);
+
+        $manager->persist($bareHands);
+        $manager->persist($bareHandsMechanic);
+
         $this->addReference(ItemEnum::GRENADE, $grenade);
         $this->addReference(ItemEnum::OLD_FAITHFUL, $oldFaithful);
         $this->addReference(ItemEnum::LIZARO_JUNGLE, $lizaroJungle);
         $this->addReference(ItemEnum::ROCKET_LAUNCHER, $rocketLauncher);
+        $this->addReference(ItemEnum::BARE_HANDS, $bareHands);
 
         $gameConfig
             ->addEquipmentConfig($blaster)
@@ -324,7 +355,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($grenade)
             ->addEquipmentConfig($oldFaithful)
             ->addEquipmentConfig($rocketLauncher)
-            ->addEquipmentConfig($natamy);
+            ->addEquipmentConfig($natamy)
+            ->addEquipmentConfig($bareHands);
+
         $manager->persist($gameConfig);
 
         $manager->flush();

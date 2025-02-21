@@ -10,23 +10,61 @@
             @pagination-click="paginationClick"
             @sort-table="sortTable"
         >
+            <template #header-id>
+                #
+            </template>
+            <template #row-id="report">
+                {{ report.id }}
+            </template>
+
+            <template #header-authorName>
+                {{ $t('moderation.sanction.author') }}
+            </template>
+            <template #row-authorName="report">
+                {{ report.authorName }}
+            </template>
+            
+            <template #header-username>
+                {{ $t('moderation.sanction.target') }}
+            </template>
+            <template #row-username="report">
+                <img :src="getCharacterBodyFromKey(report?.playerName)" alt="Character Image" style="max-width: 16px;" />
+                {{ report.username }}        
+            </template>
+
+            <template #header-reason>
+                {{ $t('moderation.sanction.reason') }}
+            </template>
+            <template #row-reason="report">
+                {{  getReasonTranslation(report.reason) }}
+            </template>
+
             <template #header-evidence>
-                {{ $t('moderation.sanctionDetail.evidence') }}
+                {{ $t('moderation.sanctionDetail.message') }}
             </template>
             <template #row-evidence="report">
-                {{ report.sanctionEvidence.message }}
+                {{ report.message }}
+            </template>
+
+            <template #header-startDate>
+                {{ $t('moderation.sanction.date') }}
+            </template>
+            <template #row-startDate="report">
+                {{ formatDate(report.startDate) }}
+            </template>
+
+            <template #header-actions>
+                {{ $t('moderation.sanction.actions') }}
+            </template>
+            <template #row-actions="report">
+                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
                 <button
                     class="action-button"
                     @click="goToSanctionEvidence(report)">
                     {{ $t('moderation.report.seeContext') }}
                 </button>
-            </template>
-            <template #header-actions>
-                Actions
-            </template>
-            <template #row-actions="report">
-                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
-            </template>
+            </template>       
+
         </Datatable>
         <SanctionDetailPage
             :is-open="showDetailPopup"
@@ -50,6 +88,7 @@ import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_r
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import router from "@/router";
+import { characterEnum } from "@/enums/character";
 
 interface SanctionListData {
     userId: string,
@@ -80,7 +119,10 @@ export default defineComponent({
         ...mapGetters({
             isAdmin: 'auth/isAdmin',
             isModerator: 'auth/isModerator'
-        })
+        }),
+        currentLocale() {
+            return this.$i18n.locale;
+        }
     },
     data(): SanctionListData {
         return {
@@ -88,12 +130,24 @@ export default defineComponent({
             username: '',
             fields: [
                 {
+                    key: 'id',
+                    name: 'moderation.sanction.id',
+                    slot:true
+                },
+                {
+                    key: 'authorName',
+                    name: 'moderation.sanctionDetail.author',
+                    slot:true
+                },
+                {
                     key: 'username',
-                    name: 'admin.user.username'
+                    name: 'admin.user.username',
+                    slot:true
                 },
                 {
                     key: 'reason',
-                    name: 'moderation.sanctionReason'
+                    name: 'moderation.sanctionReason',
+                    slot: true
                 },
                 {
                     key: 'evidence',
@@ -102,7 +156,8 @@ export default defineComponent({
                 },
                 {
                     key: 'startDate',
-                    name: 'moderation.sanctionDetail.date'
+                    name: 'moderation.sanctionDetail.date',
+                    slot: true
                 },
                 {
                     key: 'actions',
@@ -136,6 +191,28 @@ export default defineComponent({
         };
     },
     methods: {
+        getCharacterBodyFromKey(characterKey: string) {
+            return characterEnum[characterKey].body;
+        },
+        getReasonTranslation(reason) {
+            const reasonObj = moderationReasons.find(item => item.value === reason);
+            return reasonObj ? this.$t(reasonObj.key) : reason;
+        },
+        formatDate(date: string): string {
+            const currentDate = new Date();
+            const reportDate = new Date(date);
+
+            // if today or yesterday, special format
+            if(currentDate.toDateString() === reportDate.toDateString()) {
+                return `${this.$t('moderation.sanctionDetail.today')} ${this.$t('moderation.sanctionDetail.to')} ${reportDate.toLocaleTimeString(this.currentLocale, { hour: "numeric", minute: "numeric" })}`;
+            }
+
+            if(new Date(currentDate.setDate(currentDate.getDate() - 1)).toDateString() === reportDate.toDateString()) {
+                return `${this.$t('moderation.sanctionDetail.yesterday')} ${this.$t('moderation.sanctionDetail.to')} ${reportDate.toLocaleTimeString(this.currentLocale, { hour: "numeric", minute: "numeric" })}`;
+            }
+
+            return reportDate.toLocaleDateString(this.currentLocale, { month: "long", day: "numeric", hour: "numeric", minute: "numeric" });
+        },
         closeDetailAndUpdate() {
             this.showDetailPopup = false;
             this.loadData();
@@ -170,6 +247,8 @@ export default defineComponent({
         },
         loadData() {
             this.loading = true;
+            this.rowData = [];
+
             const params: any = {
                 header: {
                     'accept': 'application/ld+json'

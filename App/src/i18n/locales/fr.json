@@ -747,6 +747,13 @@
 			"roles": "Rôles"
 		},
 		"sanction": {
+			"id": "Numéro",
+			"author": "Auteur",
+			"target": "Cible",
+			"reason": "Motif",
+			"evidence": "Message plainté",
+			"date": "Date",
+			"actions": "Actions",
 			"delete": "Supprimer",
 			"ban_user": "Bannir",
 			"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
@@ -795,18 +802,21 @@
 		},
 		"sanctionDetail": {
 			"sanction": "Détails de la sanction",
-			"report": "Détails de la plainte",
+			"report": "Détails",
 			"user": "Nom d'utilisateur : ",
 			"player": "Personage joué : ",
 			"endDate": "Fin de la sanction : ",
 			"startDate": "Début de la sanction : ",
 			"reportDate": "Date de la plainte : ",
 			"date": "Date : ",
-			"author": "Modérateur : ",
-			"message": "Message :",
+			"author": "Auteur",
+			"message": "Message",
 			"sanctionType": "Type de sanction : ",
 			"reason": "Raison : ",
-			"evidence": "Message plainté"
+			"evidence": "Message plainté",
+			"today": "Aujourd'hui",
+			"yesterday": "Hier",
+			"to": "à"
 		},
 		"report": {
 			"name": "Plainte",
@@ -816,7 +826,7 @@
 			"choosePlayer": "Sélectionner le coéquipier",
 			"playerMessage": "Description de la situation :",
 			"player": "Joueur visé par la plainte",
-			"seeContext": "Voir dans son contexte",
+			"seeContext": "Voir contexte",
 			"message": "Si vous pensez qu'un coéquipier enfreint le règlement de eMush, merci de vous assurer d'avoir sélectionné un message illustrant le problème et d'expliquer en détail le motif de votre plainte.",
 			"commanderMission": "Mission du commandant",
 			"comManagerAnnouncement": "Annonce générale"

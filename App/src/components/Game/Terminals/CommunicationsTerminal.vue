@@ -1,46 +1,66 @@
 <template>
     <div class="terminal-container" v-if="terminal">
-        <div class="contact-section">
-            <h3>
-                <img :src="getImgUrl('spot2.svg')" alt="spot" />
-                {{ terminal.sectionTitles.contact }}
-            </h3>
-            <div class="contact-status">
-                <div class="sensor-icon">
-                    <img
-                        v-for="n in sensorFramesCount"
-                        :key="n"
-                        :src="getImgUrl(`sensor0${n}.png`)"
-                        :class="['sensor-frame', `frame-${n}`]"
-                        alt="connection status"
-                    />
-                </div>
-                <div class="status-text">
-                    <p>{{ terminal.infos?.linkStrength }}</p>
-                    <ActionButton
-                        v-if="establishLinkWithSolAction"
-                        :key="establishLinkWithSolAction.name || ''"
-                        :action="establishLinkWithSolAction"
-                        @click="executeTargetAction(terminal, establishLinkWithSolAction)"
-                    />
-                    <p v-else>{{ terminal.infos?.linkEstablished }}</p>
+        <section class="left-section">
+            <div class="sol-link container">
+                <h3 class="title">
+                    <img :src="getImgUrl('spot2.svg')" alt="spot"/>
+                    {{ terminal.sectionTitles?.contact }}
+                </h3>
+                <div class="link-infos">
+                    <div class="link-infos-img">
+                        <img
+                            v-for="n in sensorFramesCount"
+                            :key="n"
+                            :src="getImgUrl(`sensor0${n}.png`)"
+                            :class="['sensor-frame', `frame-${n}`]"
+                            alt="connection status"
+                        />
+                    </div>
+                    <div class="link-infos-content">
+                        <p class="link-strength text">
+                            {{ terminal.infos.linkStrength }}
+                        </p>
+                        <ActionButton
+                            v-if="establishLinkWithSolAction"
+                            :key="establishLinkWithSolAction.name || ''"
+                            class="terminal-button"
+                            :action="establishLinkWithSolAction"
+                            @click="executeTargetAction(terminal, establishLinkWithSolAction)"
+                        />
+                        <p class="link-established text" v-else>
+                            {{ terminal.infos.linkEstablished }}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="neron-update-section">
-            <h3>
-                <img :src="getImgUrl('spot2.svg')" alt="spot" />
-                {{ terminal.sectionTitles.neronVersion }}
-            </h3>
-            <p>{{ formatText(terminal.infos?.neronUpdateStatus) }}</p>
-            <div>
-                <ActionButton
-                    :key="upgradeNeron.name || ''"
-                    :action="upgradeNeron"
-                    @click="executeTargetAction(terminal, upgradeNeron)"
-                />
+            <div class="neron container">
+                <h3 class="title">
+                    <img :src="getImgUrl('spot2.svg')" alt="spot"/>
+                    {{ terminal.sectionTitles?.neronVersion }}
+                </h3>
+                <div class="neron-infos">
+                    <div class="neron-infos-img">
+                        <img :src="getImgUrl('neron.png')" alt="neron"/>
+                    </div>
+                    <div class="neron-infos-content">
+                        <p class="neron-version text">
+                            {{ terminal.infos.neronUpdateStatus }}
+                        </p>
+                        <div class="neron-progress-bar-container">
+                            <span class="neron-version-progress-bar" :style="{ width: `${neronMinorVersion}%` }" />
+                            <span class="progress-text">{{ neron }}</span>
+                        </div>
+                        <ActionButton
+                            v-if="upgradeNeron"
+                            :key="upgradeNeron.name || ''"
+                            class="terminal-button"
+                            :action="upgradeNeron"
+                            @click="executeTargetAction(terminal, upgradeNeron)"
+                        />
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 </template>
 
@@ -66,8 +86,11 @@ export default defineComponent({
         upgradeNeron(): Action {
             return this.terminal.getActionByKeyOrThrow(ActionEnum.UPGRADE_NERON);
         },
+        neron(): string {
+            return this.terminal.sectionTitles?.neronVersion?.split('.')[0].split(' ')[0] || '';
+        },
         neronMinorVersion(): integer {
-            return Number(this.terminal.infos?.neronUpdateStatus?.split('.')[1]);
+            return Number(this.terminal.sectionTitles?.neronVersion?.split('.')[1]);
         },
         sensorFramesCount(): integer {
             const linkStrength = this.terminal.infos?.linkStrength;
@@ -114,89 +137,107 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.terminal-container {
+/* Layout */
+.left-section {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
-    background-color: #9FE8FC;
 }
 
-.contact-section {
-    padding: 1em;
-    margin-bottom: 1em;
+/* Common styles */
+.text {
+    color: #75C7E5;
+    text-transform: uppercase;
+}
 
-    h3 {
-        display: flex;
-        align-items: center;
-        gap: 0.1em;
-        font-weight: bold;
-        margin: 0 0 1em;
+/* Container styles */
+.container {
+    background-color: #A5EEFB;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+
+    .title {
         text-transform: uppercase;
+        margin: 0;
+        padding: 5px;
+    }
+}
+
+/* Info sections shared styles */
+.link-infos,
+.neron-infos {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+
+    &-img {
+        margin: 0;
+        padding: 0;
     }
 
+    &-content {
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        flex: 1;
+
+        .terminal-button {
+            margin: 5px;
+            padding: 0;
+            width: 80%;
+        }
+
+        .text {
+            margin: 0;
+            padding: 3px;
+        }
+    }
+}
+
+/* Sol link specific styles */
+.link-infos {
     background-image: url("/src/assets/images/sensor_bg.svg");
     background-repeat: no-repeat;
     background-position: right bottom;
 }
 
-.contact-status {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1em;
-}
+/* NERON specific styles */
 
-.sensor-icon {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    border-radius: 2px;
-    flex-shrink: 0;
-
-    img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-    }
-}
-
-.status-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    p {
-        margin: 0;
-        font-size: 0.9em;
-        font-weight: normal;
-        line-height: 1.5;
-        text-align: center;
-        text-transform: uppercase;
-    }
-
-    :deep(.action-button) {
-        width: fit-content;
-    }
-}
-
-.neron-update-section {
-    padding: 1em;
-
-    h3 {
-        display: flex;
-        align-items: center;
-        gap: 0.1em;
-        font-weight: bold;
-        margin: 0 0 1em;
-        text-transform: uppercase;
-    }
-
+.neron-infos {
     background-image: url("/src/assets/images/neron_bg.png");
     background-repeat: no-repeat;
     background-position: right bottom;
+}
+
+.neron-infos-content {
+    .neron-progress-bar-container {
+        width: 60%;
+        height: 25px;
+        background-color: #2C569A;
+        border: 2px solid #1D4176;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+
+        .neron-version-progress-bar {
+            height: 100%;
+            background-color: #75DF00;
+            position: relative;
+        }
+
+        .progress-text {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2C6800;
+            font-weight: bold;
+            white-space: nowrap;
+            pointer-events: none;
+            clip-path: inset(0 calc(100% - var(--progress-width)) 0 0);
+            --progress-width: v-bind('neronMinorVersion * 4 + "%"');
+        }
+    }
 }
 </style>

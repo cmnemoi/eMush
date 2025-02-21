@@ -289,6 +289,14 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>pilgred.pilgred_finished_description</source>
         <target>PILGRED is fully operational.</target>
       </segment>
+      <segment id="share_projects_button_name" state="translated">
+        <source>pilgred.share_projects_button_name</source>
+        <target>Share</target>
+      </segment>
+      <segment id="share_projects_button_description" state="translated">
+        <source>pilgred.share_projects_button_description</source>
+        <target>Share the advancement of the PILGRED repairs with the crew.</target>
+      </segment>
     </unit>
     <unit id="neron_core">
       <segment id="name" state="translated">
@@ -309,6 +317,14 @@ That's not all: only one project per set can be brought to fruition. **When a pr
         <source>neron_core.no_proposed_neron_projects_description</source>
         <target>There are no more projects to be completed.</target>
       </segment>
+      <segment id="share_projects_button_name" state="translated">
+        <source>neron_core.share_projects_button_name</source>
+        <target>Share</target>
+      </segment>
+      <segment id="share_projects_button_description" state="translated">
+        <source>neron_core.share_projects_button_description</source>
+        <target>Share these projects with the crew.</target>
+      </segment>
     </unit>
     <unit id="auxiliary_terminal">
       <segment id="name" state="translated">
@@ -328,6 +344,14 @@ That's not all: only one project per set can be brought to fruition. **When a pr
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>There are no more projects to be completed.</target>
+      </segment>
+            <segment id="share_projects_button_name" state="translated">
+        <source>auxiliary_terminal.share_projects_button_name</source>
+        <target>Share</target>
+      </segment>
+      <segment id="share_projects_button_description" state="translated">
+        <source>auxiliary_terminal.share_projects_button_description</source>
+        <target>Share these projects with the crew.</target>
       </segment>
     </unit>
     <unit id="calculator">

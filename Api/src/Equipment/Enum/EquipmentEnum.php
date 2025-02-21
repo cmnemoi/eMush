@@ -83,6 +83,9 @@ class EquipmentEnum
 
     public static array $terminalButtonsMap = [
         self::ASTRO_TERMINAL => ['share_planet'],
+        self::NERON_CORE => ['share_projects'],
+        self::AUXILIARY_TERMINAL => ['share_projects'],
+        self::PILGRED => ['share_projects'],
     ];
 
     public static function getBeds(): array

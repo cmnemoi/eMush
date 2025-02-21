@@ -270,6 +270,14 @@
         <source>pilgred.pilgred_finished_description</source>
         <target>PILGRED est pleinement opérationnel.</target>
       </segment>
+      <segment id="share_projects_button_name" state="translated">
+        <source>pilgred.share_projects_button_name</source>
+        <target>Partager</target>
+      </segment>
+      <segment id="share_projects_button_description" state="translated">
+        <source>pilgred.share_projects_button_description</source>
+        <target>Partager l'avancement des réparations du PILGRED avec l'équipage.</target>
+      </segment>
     </unit>
     <unit id="neron_core">
       <segment id="name" state="translated">
@@ -284,6 +292,14 @@
         <source>neron_core.no_proposed_neron_projects_description</source>
         <target>Il n'y a plus de projets à faire aboutir.</target>
       </segment>
+      <segment id="share_projects_button_name" state="translated">
+        <source>neron_core.share_projects_button_name</source>
+        <target>Partager</target>
+      </segment>
+      <segment id="share_projects_button_description" state="translated">
+        <source>neron_core.share_projects_button_description</source>
+        <target>Partager ces projets avec l'équipage.</target>
+      </segment>
     </unit>
     <unit id="auxiliary_terminal">
       <segment id="name" state="translated">
@@ -297,6 +313,14 @@
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>Il n'y a plus de projets à faire aboutir.</target>
+      </segment>
+      <segment id="share_projects_button_name" state="translated">
+        <source>auxiliary_terminal.share_projects_button_name</source>
+        <target>Partager</target>
+      </segment>
+      <segment id="share_projects_button_description" state="translated">
+        <source>auxiliary_terminal.share_projects_button_description</source>
+        <target>Partager ces projets avec l'équipage.</target>
       </segment>
     </unit>
     <unit id="calculator">

@@ -172,6 +172,18 @@
         <target>Vous mourrez si vous devenez **sale**.</target>
       </segment>
     </unit>
+    <unit id="septicemia_on_post.action">
+      <segment id="description" state="translated">
+        <source>septicemia_on_post.action.description</source>
+        <target>Vous mourrez si vous devenez **sale**.</target>
+      </segment>
+    </unit>
+    <unit id="septicemia_on_player.new.cycle">
+      <segment id="description" state="translated">
+        <source>septicemia_on_player.new.cycle.description</source>
+        <target>Vous mourrez si vous restez **sale**.</target>
+      </segment>
+    </unit>
     <unit id="vomiting_on_post.action">
       <segment id="description" state="translated">
         <source>vomiting_on_post.action.description</source>
@@ -218,6 +230,18 @@
       <segment id="description" state="translated">
         <source>apply.cost_increase_if_player_in_room_four_people.description</source>
         <target>S'il y a au moins **4** personnes dans la pièce, chaque action coûte **{quantity}** {emote} de plus.</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_move_if_item_in_room_schrodinger">
+      <segment id="description" state="translated">
+        <source>apply.cost_increase_move_if_item_in_room_schrodinger.description</source>
+        <target>Chaque déplacement coûte **{quantity}** :pm: de plus si un chat est dans la pièce.</target>
+      </segment>
+    </unit>
+    <unit id="apply.cost_increase_if_item_in_room_schrodinger">
+      <segment id="description" state="translated">
+        <source>apply.cost_increase_if_item_in_room_schrodinger.description</source>
+        <target>Chaque action coûte **{quantity}** {emote} de plus si un chat est dans la pièce.</target>
       </segment>
     </unit>
   </file>

@@ -2229,7 +2229,7 @@ class ActionData
             'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_AGGRESSIVE],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
-            'visibilities' => ['success' => 'public', 'fail' => 'private'],
+            'visibilities' => [ActionOutputEnum::SUCCESS => VisibilityEnum::HIDDEN, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
             'actionPoint' => ['value' => 1, 'min_value' => 0, 'max_value' => null],
             'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
             'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],

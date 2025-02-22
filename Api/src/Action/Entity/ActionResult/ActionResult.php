@@ -48,13 +48,22 @@ abstract class ActionResult
         return $this->target ?? throw new \RuntimeException('Target is not set');
     }
 
-    public function getTargetAsPlayer(): Player
+    public function getTargetAsPlayer(): ?Player
     {
         if ($this->target instanceof Player) {
             return $this->target;
         }
 
-        throw new \RuntimeException('Target is not a Player');
+        return null;
+    }
+
+    public function getTargetAsPlayerOrThrow(): Player
+    {
+        if ($this->target instanceof Player) {
+            return $this->target;
+        }
+
+        throw new \RuntimeException('Target is not Player');
     }
 
     public function setActionProvider(ActionProviderInterface $actionProvider): self

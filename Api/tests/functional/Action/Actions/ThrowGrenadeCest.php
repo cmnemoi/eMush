@@ -8,12 +8,14 @@ use Mush\Action\Actions\ThrowGrenade;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -106,10 +108,30 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
             entity: RoomLog::class,
             params: [
                 'place' => $this->chun->getPlace()->getName(),
-                'log' => ActionLogEnum::THROW_GRENADE_SUCCESS,
+                'log' => WeaponEventEnum::GRENADE_SUCCESSFUL_THROW_SPLASH_DAMAGE_ALL,
                 'visibility' => VisibilityEnum::PUBLIC,
             ]
         );
+    }
+
+    public function shouldInjureOnCriticalThrow(FunctionalTester $I): void
+    {
+        $this->givenGrenadeHas100ChanceToDispatchEvent(WeaponEventEnum::GRENADE_CRITICAL_THROW_SPLASH_DAMAGE_ALL_BREAK_ITEMS_SPLASH_WOUNDS->toString());
+
+        $this->whenChunThrowsGrenade();
+
+        $this->thenKuanTiShouldHaveAnInjury($I);
+    }
+
+    public function shouldBreakItemsOnCriticalThrow(FunctionalTester $I): void
+    {
+        $this->givenGrenadeHas100ChanceToDispatchEvent(WeaponEventEnum::GRENADE_CRITICAL_THROW_SPLASH_DAMAGE_ALL_BREAK_ITEMS_SPLASH_WOUNDS->toString());
+
+        $this->givenMycoAlarmInRoom();
+
+        $this->whenChunThrowsGrenade();
+
+        $this->thenMycoAlarmIsBroken($I);
     }
 
     private function givenChunHasAGrenade(): void
@@ -162,6 +184,26 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenGrenadeHas100ChanceToDispatchEvent(string $event): void
+    {
+        $this->grenade->getWeaponMechanicOrThrow()->setSuccessfulEventKeys([
+            $event => 1,
+        ]);
+        $this->grenade->getWeaponMechanicOrThrow()->setFailedEventKeys([
+            $event => 1,
+        ]);
+    }
+
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenChunThrowsGrenade(): void
     {
         $this->throwGrenade->loadParameters(
@@ -201,5 +243,15 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     private function thenActionIsExecutable(FunctionalTester $I): void
     {
         $I->assertNull($this->throwGrenade->cannotExecuteReason());
+    }
+
+    private function thenKuanTiShouldHaveAnInjury(FunctionalTester $I): void
+    {
+        $I->assertNotEmpty($this->kuanTi->getMedicalConditions()->filter(static fn (PlayerDisease $disease) => $disease->isAnInjury()));
+    }
+
+    private function thenMycoAlarmIsBroken(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->chun->getPlace()->getEquipmentByName(ItemEnum::MYCO_ALARM)->hasStatus(EquipmentStatusEnum::BROKEN));
     }
 }

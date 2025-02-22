@@ -522,5 +522,23 @@
         <target>**{character}** tente de frapper **{target_character}**, hélas son coup faible trouve seulement le mur... Aïe...</target>
       </segment>
     </unit>
+    <unit id="grenade_successful_throw_splash_damage_all">
+      <segment id="grenade_successful_throw_splash_damage_all" state="translated">
+        <source>grenade_successful_throw_splash_damage_all</source>
+        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leur pieds. L'explosion souffle tout le monde !</target>
+      </segment>
+    </unit>
+    <unit id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds">
+      <segment id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds" state="translated">
+        <source>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</source>
+        <target>:grenade: Ploc...poc...poc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leur pieds. Tiens, une gre...</target>
+      </segment>
+    </unit>
+    <unit id="grenade_failure_placeholder">
+      <segment id="grenade_failure_placeholder" state="translated">
+        <source>grenade_failure_placeholder</source>
+        <target>:grenade: Ploc...poc...poc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leur pieds. Mais...? Rien ne se passe... Les admins sont impressionnés, vous avez réussi l'impossible.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

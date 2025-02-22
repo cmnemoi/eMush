@@ -33,7 +33,7 @@ enum WeaponEffectEnum: string
     // modify max damage effects
     case ADD_TWO_MAX_DAMAGE = 'add_two_max_damage';
 
-    // inflict injury effects
+    // inflict specific injuries effects
     case INFLICT_BURST_NOSE_INJURY_TO_TARGET_10_PERCENTS = 'inflict_burst_nose_injury_to_target_10_percents';
     case INFLICT_BURST_NOSE_INJURY_TO_TARGET_30_PERCENTS = 'inflict_burst_nose_injury_to_target_30_percents';
     case INFLICT_HEAD_TRAUMA_INJURY_TO_TARGET_30_PERCENTS = 'inflict_head_trauma_injury_to_target_30_percents';
@@ -68,6 +68,15 @@ enum WeaponEffectEnum: string
 
     // multiply damage on mush target effects
     case DOUBLE_DAMAGE_ON_MUSH_TARGET = 'double_damage_on_mush_target';
+
+    // 'splash' effects
+    case SPLASH_DAMAGE_ALL = 'splash_damage_all';
+    case SPLASH_RANDOM_WOUND = 'splash_random_wound';
+    case SPLASH_TWO_RANDOM_WOUNDS = 'splash_two_random_wounds';
+
+    // damage items in room effects
+    case DAMAGE_RANDOM_ITEM = 'damage_random_item';
+    case DAMAGE_FOUR_RANDOM_ITEMS = 'damage_four_random_items';
 
     public function toString(): string
     {

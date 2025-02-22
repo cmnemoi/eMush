@@ -1178,19 +1178,16 @@ abstract class MechanicsData
         [
             'name' => 'weapon_grenade_default',
             'type' => 'weapon',
-            'damageSpread' => [],
-            'successfulEventKeys' => [],
-            'failedEventKeys' => [],
-            'baseAccuracy' => 100.0,
-            'baseDamageRange' => [
-                2 => 1,
-                3 => 1,
-                4 => 1,
-                5 => 1,
-                6 => 1,
-                7 => 1,
-                8 => 1,
+            'damageSpread' => [2, 8],
+            'successfulEventKeys' => [
+                WeaponEventEnum::GRENADE_SUCCESSFUL_THROW_SPLASH_DAMAGE_ALL->value => 40,
+                WeaponEventEnum::GRENADE_CRITICAL_THROW_SPLASH_DAMAGE_ALL_BREAK_ITEMS_SPLASH_WOUNDS->value => 10,
             ],
+            'failedEventKeys' => [
+                WeaponEventEnum::GRENADE_FAILURE_PLACEHOLDER->value => 1,
+            ],
+            'baseAccuracy' => 100.0,
+            'baseDamageRange' => [],
             'expeditionBonus' => 3.0,
             'criticalSuccessRate' => 0.0,
             'criticalFailRate' => 0.0,

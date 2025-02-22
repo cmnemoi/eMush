@@ -38,7 +38,7 @@ final readonly class UseWeaponService
     {
         $weaponMechanic = $this->getWeaponMechanic($result);
         $weaponEvent = $this->getRandomWeaponEventConfig($result, $weaponMechanic);
-        $target = $result->getTargetAsPlayer();
+        $target = $result->getTargetAsPlayerOrThrow();
 
         $this->createEventLog($result, $weaponEvent, $tags);
         $damageSpread = $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
@@ -46,6 +46,15 @@ final readonly class UseWeaponService
         if ($this->shouldRemoveHealthToTarget($result, $target)) {
             $this->removeHealthToTarget($result, $weaponEvent, $damageSpread, $target, $tags);
         }
+    }
+
+    public function executeWithoutTarget(ActionResult $result, array $tags): void
+    {
+        $weaponMechanic = $this->getWeaponMechanic($result);
+        $weaponEvent = $this->getRandomWeaponEventConfig($result, $weaponMechanic);
+
+        $this->createEventLog($result, $weaponEvent, $tags);
+        $damageSpread = $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
     }
 
     private function getRandomWeaponEventConfig(ActionResult $result, Weapon $weaponMechanic): WeaponEventConfig
@@ -74,16 +83,15 @@ final readonly class UseWeaponService
         $attacker = $result->getPlayer();
         $target = $result->getTargetAsPlayer();
 
+        $parameters = $this->getLogParameters($result, $tags);
+
         $this->roomLogService->createLog(
             logKey: $weaponEventConfig->getName(),
             place: $attacker->getPlace(),
             visibility: VisibilityEnum::PUBLIC,
             type: 'weapon_event',
             player: $attacker,
-            parameters: [
-                $attacker->getLogKey() => $attacker->shouldBeAnonymous($tags) ? CharacterEnum::SOMEONE : $attacker->getLogName(),
-                'target_' . $target->getLogKey() => $target->getLogName(),
-            ],
+            parameters: $parameters,
         );
     }
 
@@ -142,5 +150,20 @@ final readonly class UseWeaponService
         }
 
         throw new \RuntimeException('Action provider should be a weapon or a player\'s bare hands!');
+    }
+
+    private function getLogParameters(ActionResult $result, array $tags): array
+    {
+        $attacker = $result->getPlayer();
+        $target = $result->getTargetAsPlayer();
+
+        $parameters = [
+            $attacker->getLogKey() => $attacker->shouldBeAnonymous($tags) ? CharacterEnum::SOMEONE : $attacker->getLogName(),
+        ];
+        if ($target !== null) {
+            $parameters['target_' . $target->getLogKey()] = $target->getLogName();
+        }
+
+        return $parameters;
     }
 }

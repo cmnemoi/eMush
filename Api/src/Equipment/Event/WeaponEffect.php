@@ -20,7 +20,7 @@ final class WeaponEffect extends AbstractGameEvent
     public function __construct(
         private readonly AbstractEventConfig $weaponEffectConfig,
         private readonly Player $attacker,
-        private readonly Player $target,
+        private readonly ?Player $target,
         private readonly GameItem $weapon,
         private DamageSpread $damageSpread,
         array $tags = [],
@@ -37,7 +37,11 @@ final class WeaponEffect extends AbstractGameEvent
 
     public function getTarget(): Player
     {
-        return $this->target;
+        if ($this->target instanceof Player) {
+            return $this->target;
+        }
+
+        throw new \RuntimeException('Target is null!');
     }
 
     public function getWeapon(): GameItem

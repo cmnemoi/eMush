@@ -168,14 +168,12 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $grenadeMechanic = new Weapon();
         $grenadeMechanic
             ->setBaseAccuracy(100)
-            ->setBaseDamageRange([
-                2 => 1,
-                3 => 1,
-                4 => 1,
-                5 => 1,
-                6 => 1,
-                7 => 1,
-                8 => 1,
+            ->setDamageSpread([2, 8])
+            ->setSuccessfulEventKeys([
+                WeaponEventEnum::GRENADE_SUCCESSFUL_THROW_SPLASH_DAMAGE_ALL->toString() => 1,
+            ])
+            ->setFailedEventKeys([
+                WeaponEventEnum::GRENADE_FAILURE_PLACEHOLDER->toString() => 1,
             ])
             ->setExpeditionBonus(3)
             ->addAction($throwGrenade)
@@ -187,6 +185,7 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setIsStackable(true)
             ->setIsFireDestroyable(false)
             ->setIsFireBreakable(false)
+            ->setIsBreakable(false)
             ->setMechanics([$grenadeMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);

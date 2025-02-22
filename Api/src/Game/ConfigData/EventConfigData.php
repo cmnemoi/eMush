@@ -4,6 +4,7 @@ namespace Mush\Game\ConfigData;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Disease\Enum\InjuryEnum;
+use Mush\Equipment\Entity\Dto\WeaponEffect\BreakRandomItemsWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\BreakWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\DestroyWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\DropWeaponEffectConfigDto;
@@ -14,6 +15,8 @@ use Mush\Equipment\Entity\Dto\WeaponEffect\ModifyMaxDamageWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\MultiplyDamageOnMushTargetWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\OneShotWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\RemoveActionPointsWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\SplashDamageAllWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\SplashInjuryWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\WeaponEffectDto;
 use Mush\Equipment\Entity\Dto\WeaponEventConfigDto;
 use Mush\Equipment\Enum\WeaponEffectEnum;
@@ -1413,6 +1416,34 @@ class EventConfigData
                 eventName: WeaponEventEnum::BARE_HANDS_FUMBLE->toString(),
                 eventType: WeaponEventType::FUMBLE,
             ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::GRENADE_SUCCESSFUL_THROW_SPLASH_DAMAGE_ALL->toString(),
+                eventName: WeaponEventEnum::GRENADE_SUCCESSFUL_THROW_SPLASH_DAMAGE_ALL->toString(),
+                eventType: WeaponEventType::NORMAL,
+                effectKeys: [
+                    WeaponEffectEnum::DESTROY_WEAPON->toString(),
+                    WeaponEffectEnum::SPLASH_DAMAGE_ALL->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::GRENADE_CRITICAL_THROW_SPLASH_DAMAGE_ALL_BREAK_ITEMS_SPLASH_WOUNDS->toString(),
+                eventName: WeaponEventEnum::GRENADE_CRITICAL_THROW_SPLASH_DAMAGE_ALL_BREAK_ITEMS_SPLASH_WOUNDS->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::DESTROY_WEAPON->toString(),
+                    WeaponEffectEnum::SPLASH_DAMAGE_ALL->toString(),
+                    WeaponEffectEnum::DAMAGE_FOUR_RANDOM_ITEMS->toString(),
+                    WeaponEffectEnum::SPLASH_TWO_RANDOM_WOUNDS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::GRENADE_FAILURE_PLACEHOLDER->toString(),
+                eventName: WeaponEventEnum::GRENADE_FAILURE_PLACEHOLDER->toString(),
+                eventType: WeaponEventType::MISS,
+                effectKeys: [
+                    WeaponEffectEnum::DESTROY_WEAPON->toString(),
+                ]
+            ),
         ];
     }
 
@@ -1631,6 +1662,20 @@ class EventConfigData
                 eventName: WeaponEffectEnum::INFLICT_INJURY->toString(),
                 injuryName: InjuryEnum::BRUISED_SHOULDER,
                 toShooter: true,
+            ),
+            new SplashDamageAllWeaponEffectConfigDto(
+                name: WeaponEffectEnum::SPLASH_DAMAGE_ALL->toString(),
+                eventName: WeaponEffectEnum::SPLASH_DAMAGE_ALL->toString(),
+            ),
+            new BreakRandomItemsWeaponEffectConfigDto(
+                name: WeaponEffectEnum::DAMAGE_FOUR_RANDOM_ITEMS->toString(),
+                eventName: WeaponEffectEnum::DAMAGE_RANDOM_ITEM->toString(),
+                quantity: 4,
+            ),
+            new SplashInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::SPLASH_TWO_RANDOM_WOUNDS->toString(),
+                eventName: WeaponEffectEnum::SPLASH_RANDOM_WOUND->toString(),
+                quantity: 2,
             ),
         ];
     }

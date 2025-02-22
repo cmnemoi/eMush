@@ -91,6 +91,14 @@ enum WeaponEventEnum: string
     case BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS = 'bare_hands_target_burst_nose_10_percent';
     case BARE_HANDS_FUMBLE = 'bare_hands_fumble';
 
+    // Grenade
+
+    case GRENADE_SUCCESSFUL_THROW_SPLASH_DAMAGE_ALL = 'grenade_successful_throw_splash_damage_all';
+    case GRENADE_CRITICAL_THROW_SPLASH_DAMAGE_ALL_BREAK_ITEMS_SPLASH_WOUNDS = 'grenade_critical_throw_splash_damage_all_break_items_splash_wounds';
+
+    // grenade cannot fail throwing in mush Twinoid/current eMush. There is unused data for grenade fails, but implementing it should be discussed first.
+    case GRENADE_FAILURE_PLACEHOLDER = 'grenade_failure_placeholder';
+
     public function toString(): string
     {
         return $this->value;

@@ -15,16 +15,10 @@ use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Event\EquipmentEvent;
-use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Event\VariableEventInterface;
+use Mush\Equipment\Service\UseWeaponService;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -38,6 +32,7 @@ final class ThrowGrenade extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         private RandomServiceInterface $randomService,
+        private UseWeaponService $useWeaponService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -77,44 +72,9 @@ final class ThrowGrenade extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $this->destroyGrenade();
-        $this->removeHealthToPlayersInRoom();
-    }
-
-    private function destroyGrenade(): void
-    {
-        $equipmentEvent = new InteractWithEquipmentEvent(
-            equipment: $this->grenade(),
-            author: $this->player,
-            visibility: VisibilityEnum::HIDDEN,
+        $this->useWeaponService->executeWithoutTarget(
+            result: $result,
             tags: $this->getTags(),
-            time: new \DateTime()
         );
-        $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
-    }
-
-    private function removeHealthToPlayersInRoom(): void
-    {
-        foreach ($this->player->getAlivePlayersInRoomExceptSelf() as $player) {
-            $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($this->grenadeMechanic()->getBaseDamageRange());
-            $playerVariableEvent = new PlayerVariableEvent(
-                player: $player,
-                variableName: PlayerVariableEnum::HEALTH_POINT,
-                quantity: -$damage,
-                tags: $this->getTags(),
-                time: new \DateTime(),
-            );
-            $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-        }
-    }
-
-    private function grenade(): GameItem
-    {
-        return $this->actionProvider instanceof GameItem ? $this->actionProvider : throw new \RuntimeException('Action provider is not a GameItem');
-    }
-
-    private function grenadeMechanic(): Weapon
-    {
-        return $this->grenade()->getWeaponMechanicOrThrow();
     }
 }

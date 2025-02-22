@@ -8,7 +8,6 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\InjuryEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -68,11 +67,7 @@ final class AttackCest extends AbstractFunctionalTest
 
         $this->whenChunAttacksKuanTi();
 
-        if ($this->ifKuanTiHasAMinorHaemorrhage()) {
-            $this->thenKuanTiShouldHaveHealthPoints(9, $I);
-        } else {
-            $this->thenKuanTiShouldHaveHealthPoints(10, $I);
-        }
+        $this->thenKuanTiShouldHaveHealthPoints(10, $I);
     }
 
     public function criticalHitEventShouldInflictInjuryToTarget(FunctionalTester $I): void
@@ -197,11 +192,6 @@ final class AttackCest extends AbstractFunctionalTest
             target: $this->kuanTi,
         );
         $this->attack->execute();
-    }
-
-    private function ifKuanTiHasAMinorHaemorrhage(): bool
-    {
-        return $this->kuanTi->getMedicalConditionByName(InjuryEnum::MINOR_HAEMORRHAGE) ? true : false;
     }
 
     private function thenKuanTiShouldHaveLessOrEqualHealthPoints(int $healthPoints, FunctionalTester $I): void

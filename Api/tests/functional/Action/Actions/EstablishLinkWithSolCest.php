@@ -186,6 +186,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     public function shouldPrintAPrivateLogOnFailure(FunctionalTester $I): void
     {
         $this->givenLinkWithSolStrengthIs(0);
+        $this->givenLinkProgressWillBe(0);
 
         $this->whenChunEstablishesLinkWithSol();
 
@@ -518,5 +519,10 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
             time: new \DateTime(),
             target: $this->commsCenter,
         );
+    }
+
+    private function givenLinkProgressWillBe(int $progress): void
+    {
+        $this->actionConfig->setOutputQuantity($progress);
     }
 }

@@ -41,6 +41,8 @@ class EventConfigData
     public const string CHANGE_VARIABLE_TURRET_MAX_CHARGE_4 = 'change.variable_turret_max_charge_+4';
     public const string CHANGE_VARIABLE_TURRET_CHARGE_8 = 'change.variable_turret_charge_+8';
     public const string CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT = 'change.variable_player_+3_moralePoint';
+    public const string CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS = 'change.variable_player_+8_triumphPoints';
+    public const string CHANGE_VARIABLE_PLAYER_PLUS_6_MORALE_POINTS = 'change.variable_player_+6_moralePoint';
 
     public static array $variableEventConfigData = [
         [
@@ -402,6 +404,22 @@ class EventConfigData
             'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
             'eventName' => VariableEventInterface::CHANGE_VARIABLE,
             'name' => self::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT,
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 8,
+            'targetVariable' => PlayerVariableEnum::TRIUMPH,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => self::CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS,
+        ],
+        [
+            'type' => 'variable_event_config',
+            'quantity' => 6,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'variableHolderClass' => ModifierHolderClassEnum::PLAYER,
+            'eventName' => VariableEventInterface::CHANGE_VARIABLE,
+            'name' => self::CHANGE_VARIABLE_PLAYER_PLUS_6_MORALE_POINTS,
         ],
     ];
 

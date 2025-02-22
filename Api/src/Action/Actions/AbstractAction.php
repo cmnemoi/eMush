@@ -294,6 +294,11 @@ abstract class AbstractAction
 
     abstract protected function applyEffect(ActionResult $result): void;
 
+    protected function getParameterOrThrow(string $key): mixed
+    {
+        return $this->parameters[$key] ?? throw new \InvalidArgumentException("Parameter {$key} is not set.");
+    }
+
     private function getActionResult(): ActionResult
     {
         $result = $this->checkResult();

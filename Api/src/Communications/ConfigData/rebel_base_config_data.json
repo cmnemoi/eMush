@@ -1,0 +1,16 @@
+[
+    {   
+        "key": "wolf_default",
+        "name": "wolf",
+        "modifierConfigs": [
+            "plus_8_triumph_points_for_all_players"
+        ]
+    },
+    {
+        "key": "kaladaan_default",
+        "name": "kaladaan",
+        "modifierConfigs": [
+            "plus_6_morale_points_for_all_players"
+        ]
+    }
+]

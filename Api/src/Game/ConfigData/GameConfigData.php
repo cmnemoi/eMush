@@ -2,6 +2,7 @@
 
 namespace Mush\Game\ConfigData;
 
+use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -748,6 +749,10 @@ class GameConfigData
                 SkillEnum::U_TURN,
                 SkillEnum::VICTIMIZER,
                 SkillEnum::WRESTLER,
+            ],
+            'rebelBaseConfigs' => [
+                RebelBaseEnum::WOLF,
+                RebelBaseEnum::KALADAAN,
             ],
         ],
     ];

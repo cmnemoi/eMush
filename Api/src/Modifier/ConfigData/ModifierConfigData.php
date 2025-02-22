@@ -3915,6 +3915,30 @@ abstract class ModifierConfigData
             'targetFilters' => [],
             'eventActivationRequirements' => [],
         ],
+        [
+            'name' => ModifierNameEnum::PLUS_8_TRIUMPH_POINTS_FOR_ALL_PLAYERS,
+            'modifierName' => ModifierNameEnum::WOLF_REBEL_BASE_MODIFIER,
+            'revertOnRemove' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS,
+            'modifierActivationRequirements' => [],
+        ],
+        [
+            'name' => ModifierNameEnum::PLUS_6_MORALE_POINTS_FOR_ALL_PLAYERS,
+            'modifierName' => ModifierNameEnum::KALADAAN_REBEL_BASE_MODIFIER,
+            'revertOnRemove' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_6_MORALE_POINTS,
+            'modifierActivationRequirements' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

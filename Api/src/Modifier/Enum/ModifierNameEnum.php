@@ -150,4 +150,8 @@ abstract class ModifierNameEnum
     public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
     public const string PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS = 'plus_3_morale_points_for_all_players';
     public const string FIRST_SOL_CONTACT_MODIFIER = 'first_sol_contact_modifier';
+    public const string PLUS_8_TRIUMPH_POINTS_FOR_ALL_PLAYERS = 'plus_8_triumph_points_for_all_players';
+    public const string WOLF_REBEL_BASE_MODIFIER = 'wolf_rebel_base_modifier';
+    public const string PLUS_6_MORALE_POINTS_FOR_ALL_PLAYERS = 'plus_6_morale_points_for_all_players';
+    public const string KALADAAN_REBEL_BASE_MODIFIER = 'kaladaan_rebel_base_modifier';
 }

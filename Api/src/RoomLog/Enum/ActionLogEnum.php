@@ -172,6 +172,7 @@ abstract class ActionLogEnum
     public const string ESTBALISH_LINK_WITH_SOL_FAIL = 'establish_link_with_sol_fail';
     public const string UPGRADE_NERON_SUCCESS = 'upgrade_neron_success';
     public const string UPGRADE_NERON_FAIL = 'upgrade_neron_fail';
+    public const string DECODE_REBEL_SIGNAL_SUCCESS = 'decode_rebel_signal_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -589,6 +590,9 @@ abstract class ActionLogEnum
         ActionEnum::UPGRADE_NERON->value => [
             ActionOutputEnum::SUCCESS => self::UPGRADE_NERON_SUCCESS,
             ActionOutputEnum::FAIL => self::UPGRADE_NERON_FAIL,
+        ],
+        ActionEnum::DECODE_REBEL_SIGNAL->value => [
+            ActionOutputEnum::SUCCESS => self::DECODE_REBEL_SIGNAL_SUCCESS,
         ],
     ];
 

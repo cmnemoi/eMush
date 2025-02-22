@@ -2167,6 +2167,7 @@ abstract class MechanicsData
                 ActionEnum::ESTABLISH_LINK_WITH_SOL->value,
                 ActionEnum::UPGRADE_NERON->value,
                 ActionEnum::SEARCH_FOR_MUSH_GENOME->value,
+                ActionEnum::DECODE_REBEL_SIGNAL->value,
             ],
         ],
         [

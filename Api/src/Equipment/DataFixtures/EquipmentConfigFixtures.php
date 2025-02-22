@@ -109,8 +109,18 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $upgradeNeron */
         $upgradeNeron = $this->getReference(ActionEnum::UPGRADE_NERON->value);
 
+        /** @var ActionConfig $decodeRebelSignal */
+        $decodeRebelSignal = $this->getReference(ActionEnum::DECODE_REBEL_SIGNAL->value);
+
         $commsCenterTool = $this->createTool(
-            [$searchForMushGenome, $establishLinkWithSol, $upgradeNeron, $accessTerminalAction, $exitTerminalAction],
+            [
+                $searchForMushGenome,
+                $establishLinkWithSol,
+                $upgradeNeron,
+                $decodeRebelSignal,
+                $accessTerminalAction,
+                $exitTerminalAction,
+            ],
             EquipmentEnum::COMMUNICATION_CENTER
         );
         $manager->persist($commsCenterTool);

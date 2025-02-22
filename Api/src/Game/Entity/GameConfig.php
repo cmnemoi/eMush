@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
@@ -78,6 +79,9 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
     private Collection $skillConfigs;
 
+    #[ORM\ManyToMany(targetEntity: RebelBaseConfig::class)]
+    private Collection $rebelBaseConfigs;
+
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -95,6 +99,7 @@ class GameConfig
         $this->titleConfigs = new ArrayCollection();
         $this->projectConfigs = new ArrayCollection();
         $this->skillConfigs = new ArrayCollection();
+        $this->rebelBaseConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -477,5 +482,21 @@ class GameConfig
     public function getMaxPlayer(): int
     {
         return $this->charactersConfig->count();
+    }
+
+    public function getRebelBaseConfigs(): Collection
+    {
+        return $this->rebelBaseConfigs;
+    }
+
+    public function addRebelBaseConfig(RebelBaseConfig $rebelBaseConfig): static
+    {
+        if ($this->rebelBaseConfigs->contains($rebelBaseConfig)) {
+            return $this;
+        }
+
+        $this->rebelBaseConfigs->add($rebelBaseConfig);
+
+        return $this;
     }
 }

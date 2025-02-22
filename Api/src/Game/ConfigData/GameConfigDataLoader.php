@@ -4,6 +4,7 @@ namespace Mush\Game\ConfigData;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
@@ -52,6 +53,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigTitleConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigProjectConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigSkillConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigRebelBaseConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -272,5 +274,19 @@ class GameConfigDataLoader extends ConfigDataLoader
         }
 
         $gameConfig->setSkillConfigs(new ArrayCollection($mushSkillConfigs));
+    }
+
+    private function setGameConfigRebelBaseConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        foreach ($gameConfigData['rebelBaseConfigs'] as $rebelBaseConfigName) {
+            $rebelBaseConfigKey = "{$rebelBaseConfigName->toString()}_" . $gameConfig->getName();
+            $rebelBaseConfig = $this->entityManager->getRepository(RebelBaseConfig::class)->findOneBy(['key' => $rebelBaseConfigKey]);
+
+            if ($rebelBaseConfig === null) {
+                throw new \Exception("Rebel base config {$rebelBaseConfigKey} not found");
+            }
+
+            $gameConfig->addRebelBaseConfig($rebelBaseConfig);
+        }
     }
 }

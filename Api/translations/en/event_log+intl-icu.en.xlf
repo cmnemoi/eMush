@@ -1117,13 +1117,13 @@
     <unit id="research_completed">
       <segment id="research_completed" state="translated">
         <source>research_completed</source>
-        <target>Research has advanced. The **{project}** article has been published and immediate applications are ready. </target>
+        <target>Research has advanced. The **{project}** article has been published and immediate applications are ready.</target>
       </segment>
     </unit>
     <unit id="myco_alarm_ring">
       <segment id="myco_alarm_ring" state="translated">
         <source>myco_alarm_ring</source>
-        <target>:mycoalarm: BBBRRRRIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!! </target>
+        <target>:mycoalarm: BBBRRRRIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!</target>
       </segment>
     </unit>
     <unit id="gen_metal_success">

@@ -747,6 +747,13 @@
 			"roles": "Roles"
 		},
 		"sanction": {
+			"id": "Number",
+			"author": "Author",
+			"target": "Target",
+			"reason": "Reason",
+			"evidence": "Complained message",
+			"date": "Date",
+			"actions": "Actions",
 			"delete": "Delete",
 			"ban_user": "Ban",
 			"banDescription": "Ban this user from joining ships (you can unban him at any time).",
@@ -765,7 +772,8 @@
 			"banned": "Banned",
 			"report": "Complaint",
 			"report_abusive": "Abusive complaint",
-			"report_processed": "Complaint processed"
+			"report_processed": "Complaint processed",
+			"alive": "ALIVE"
 		},
 		"reason": {
 			"multi_account": "Multiaccount",
@@ -806,7 +814,10 @@
 			"message": "Message :",
 			"sanctionType": "Sanction type:",
 			"reason": "Reason:",
-			"evidence": "Reported message:"
+			"evidence": "Reported message:",
+			"today": "Today",
+			"yesterday": "Yesterday",
+			"to": "at"
 		},
 		"report": {
 			"name": "Report",

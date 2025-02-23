@@ -181,6 +181,112 @@
         <target>With sharp eyes and a fiery resolve, **{character}** magnificently lands a shot right in **{target_character}**’s chest...</target>
       </segment>
     </unit>
+    <unit id="knife_successful_hit_10_minor_haemorrhage">
+      <segment id="knife_successful_hit_10_minor_haemorrhage" state="translated">
+        <source>knife_successful_hit_10_minor_haemorrhage</source>
+        <target>{version, select,
+            1 {{character}**'s blade, skillfully wielded, makes a huge gash in **{target_character}**}.
+            2 {{target_character}**'s face twists as **{character}** withdraws the blade that {character_gender, select, 
+                female {she} 
+                male {he}
+                other {they} just thrust into her}.}
+            3 {Despite a nice dodge, **{character}** cuts **{target_character}**, who spills some of her blood}.
+            4 {Dueling with blades rarely ends well, **{character}** makes a drastic cut in **{target_character}**'s health}.
+            other {Blade duels rarely end well, **{character}** takes a drastic cut in **{target_character}**'s health capital.}}</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_random_injury">
+      <segment id="knife_plus_2_damage_random_injury" state="translated">
+        <source>knife_plus_2_damage_random_injury</source>
+        <target>A reminiscence of fencing lessons or just a stroke of luck, **{character}** pierces through **{target_character}**'s defense effortlessly.</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_50_critical_haemorrhage">
+      <segment id="knife_plus_2_damage_50_critical_haemorrhage" state="translated">
+        <source>knife_plus_2_damage_50_critical_haemorrhage</source>
+        <target>**{character}** thrusts at **{target_character}** with mastery.</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_50_critical_haemorrhage_random_injury">
+      <segment id="knife_plus_2_damage_50_critical_haemorrhage_random_injury" state="translated">
+        <source>knife_plus_2_damage_50_critical_haemorrhage_random_injury</source>
+        <target>**{character}** slashes off a large chunk of **{target_character}**, it's disgusting...</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint">
+      <segment id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint" state="translated">
+        <source>knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint</source>
+        <target>**{character}** drives their blade into one of **{target_character}**'s arm joints, which now dangles sadly...</target>
+      </segment>
+    </unit>
+    <unit id="knife_instagib_bled">
+      <segment id="knife_instagib_bled" state="translated">
+        <source>knife_instagib_bled</source>
+        <target>{version, select,  
+            1 {The last words of **{target_character}** could have been "You too, **{character}**..." as **{target_character}** dies, {target_character_gender, select,  
+                female {stabbed}  
+                male {stabbed}  
+                other {stabbed}  
+                } right in the heart.}  
+            2 {With a wicked gaze, **{character}** stealthily slips behind **{target_character}** and slashes their carotid artery.}  
+            other {With a wicked gaze, **{character}** stealthily slips behind **{target_character}** and slashes their carotid artery.}  
+}</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_punctured_lung">
+      <segment id="knife_plus_2_damage_punctured_lung" state="translated">
+        <source>knife_plus_2_damage_punctured_lung</source>
+        <target>Perhaps a mistimed dodge, perhaps a wrong move, perhaps a poor imitation of combat seen in a holodisc... **{target_character}** impales themselves heavily on **{character}**'s blade.</target>
+      </segment>
+    </unit>
+    <unit id="knife_failed_hit">
+      <segment id="knife_failed_hit" state="translated">
+        <source>knife_failed_hit</source>
+        <target>{version, select,  
+                  1 {Despite appearances sometimes being deceiving, **{target_character}** is too quick and dodges **{character}**'s blade.}  
+                  2 {**{character}** gracefully slides their blade over **{target_character}**'s suit—missed.}  
+                  3 {**{character}** brushes a lock of hair off **{target_character}** but nothing more...}  
+                  other {**{character}** brushes a lock of hair off **{target_character}** but nothing more...}}</target>
+      </segment>
+    </unit>
+    <unit id="knife_break_weapon">
+      <segment id="knife_break_weapon" state="translated">
+        <source>knife_break_weapon</source>
+        <target>Zip, **{character}**'s weapon elegantly dodges **{target_character}** only to crash into an insolent wall. The blade breaks.</target>
+      </segment>
+    </unit>
+    <unit id="knife_break_weapon_shooter_torn_tongue">
+      <segment id="knife_break_weapon_shooter_torn_tongue" state="translated">
+        <source>knife_break_weapon_shooter_torn_tongue</source>
+        <target>**{character}** misses **{target_character}** by a wide margin, and the impact against the nearby wall makes them bite their tongue and break their blade...</target>
+      </segment>
+    </unit>
+    <unit id="knife_shooter_bruised_shoulder">
+      <segment id="knife_shooter_bruised_shoulder" state="translated">
+        <source>knife_shooter_bruised_shoulder</source>
+        <target>In a grand, impressive motion aimed at **{target_character}**, **{character}** pulls a back muscle. Unfortunate.</target>
+      </segment>
+    </unit>
+    <unit id="knife_shooter_drop_weapon">
+      <segment id="knife_shooter_drop_weapon" state="translated">
+        <source>knife_shooter_drop_weapon</source>
+        <target>{version, select,  
+                  1 {Who would have thought **{target_character}** had such good reflexes... **{character}** loses their knife in the exchange.}  
+                  2 {As **{character}** moves to attack **{target_character}**, they trip over an imaginary rug and drop their blade.}  
+                  other {As **{character}** moves to attack **{target_character}**, they trip over an imaginary rug and drop their blade.}  
+}</target>
+      </segment>
+    </unit>
+    <unit id="knife_shooter_minus_2_ap">
+      <segment id="knife_shooter_minus_2_ap" state="translated">
+        <source>knife_shooter_minus_2_ap</source>
+        <target>**{target_character}** turns towards **{character}**, who threatens {target_character_gender, select,  
+                female {her}  
+                male {him}  
+                other {them}  
+                } with their blade. Too quick, too fast, too precise—in short, too much... **{character}** makes a superhuman effort but suddenly feels overcome with dizziness...</target>
+      </segment>
+    </unit>
     <unit id="old_faithful_successful_shot">
       <segment id="old_faithful_successful_shot" state="translated">
         <source>old_faithful_successful_shot</source>

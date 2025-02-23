@@ -1134,5 +1134,23 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         } wanted...</target>
       </segment>
     </unit>
+    <unit id="establish_link_with_sol_fail">
+      <segment id="establish_link_with_sol_fail" state="translated">
+        <source>establish_link_with_sol_fail</source>
+        <target>You failed to establish communication with the Sol system, but you did **improve the signal quality**. You can try again tomorrow. </target>
+      </segment>
+    </unit>
+    <unit id="establish_link_with_sol_success">
+      <segment id="establish_link_with_sol_success" state="translated">
+        <source>establish_link_with_sol_success</source>
+        <target>You have managed to establish a connection between the Daedalus and the Sol solar system! </target>
+      </segment>
+    </unit>
+    <unit id="upgrade_neron_success">
+      <segment id="upgrade_neron_success" state="translated">
+        <source>upgrade_neron_success</source>
+        <target>**{character}** has successfully completed the update. The version number of NERON has increased. The surplus CPU processing power freed up by a happier NERON has been injected into a project.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

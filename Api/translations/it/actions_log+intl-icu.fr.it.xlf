@@ -877,5 +877,23 @@
         <target>open_anniversary_gift</target>
       </segment>
     </unit>
+    <unit id="establish_link_with_sol_fail">
+      <segment id="establish_link_with_sol_fail" state="initial">
+        <source>establish_link_with_sol_fail</source>
+        <target>establish_link_with_sol_fail</target>
+      </segment>
+    </unit>
+    <unit id="establish_link_with_sol_success">
+      <segment id="establish_link_with_sol_success" state="initial">
+        <source>establish_link_with_sol_success</source>
+        <target>establish_link_with_sol_success</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_neron_success">
+      <segment id="upgrade_neron_success" state="initial">
+        <source>upgrade_neron_success</source>
+        <target>upgrade_neron_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

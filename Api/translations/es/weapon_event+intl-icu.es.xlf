@@ -163,6 +163,84 @@
         <target>natamy_rifle_shooter_plus_2_damage</target>
       </segment>
     </unit>
+    <unit id="knife_successful_hit_10_minor_haemorrhage">
+      <segment id="knife_successful_hit_10_minor_haemorrhage" state="initial">
+        <source>knife_successful_hit_10_minor_haemorrhage</source>
+        <target>knife_successful_hit_10_minor_haemorrhage</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_random_injury">
+      <segment id="knife_plus_2_damage_random_injury" state="initial">
+        <source>knife_plus_2_damage_random_injury</source>
+        <target>knife_plus_2_damage_random_injury</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_50_critical_haemorrhage">
+      <segment id="knife_plus_2_damage_50_critical_haemorrhage" state="initial">
+        <source>knife_plus_2_damage_50_critical_haemorrhage</source>
+        <target>knife_plus_2_damage_50_critical_haemorrhage</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_50_critical_haemorrhage_random_injury">
+      <segment id="knife_plus_2_damage_50_critical_haemorrhage_random_injury" state="initial">
+        <source>knife_plus_2_damage_50_critical_haemorrhage_random_injury</source>
+        <target>knife_plus_2_damage_50_critical_haemorrhage_random_injury</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint">
+      <segment id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint" state="initial">
+        <source>knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint</source>
+        <target>knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint</target>
+      </segment>
+    </unit>
+    <unit id="knife_instagib_bled">
+      <segment id="knife_instagib_bled" state="initial">
+        <source>knife_instagib_bled</source>
+        <target>knife_instagib_bled</target>
+      </segment>
+    </unit>
+    <unit id="knife_plus_2_damage_punctured_lung">
+      <segment id="knife_plus_2_damage_punctured_lung" state="initial">
+        <source>knife_plus_2_damage_punctured_lung</source>
+        <target>knife_plus_2_damage_punctured_lung</target>
+      </segment>
+    </unit>
+    <unit id="knife_failed_hit">
+      <segment id="knife_failed_hit" state="initial">
+        <source>knife_failed_hit</source>
+        <target>knife_failed_hit</target>
+      </segment>
+    </unit>
+    <unit id="knife_break_weapon">
+      <segment id="knife_break_weapon" state="initial">
+        <source>knife_break_weapon</source>
+        <target>knife_break_weapon</target>
+      </segment>
+    </unit>
+    <unit id="knife_break_weapon_shooter_torn_tongue">
+      <segment id="knife_break_weapon_shooter_torn_tongue" state="initial">
+        <source>knife_break_weapon_shooter_torn_tongue</source>
+        <target>knife_break_weapon_shooter_torn_tongue</target>
+      </segment>
+    </unit>
+    <unit id="knife_shooter_bruised_shoulder">
+      <segment id="knife_shooter_bruised_shoulder" state="initial">
+        <source>knife_shooter_bruised_shoulder</source>
+        <target>knife_shooter_bruised_shoulder</target>
+      </segment>
+    </unit>
+    <unit id="knife_shooter_drop_weapon">
+      <segment id="knife_shooter_drop_weapon" state="initial">
+        <source>knife_shooter_drop_weapon</source>
+        <target>knife_shooter_drop_weapon</target>
+      </segment>
+    </unit>
+    <unit id="knife_shooter_minus_2_ap">
+      <segment id="knife_shooter_minus_2_ap" state="initial">
+        <source>knife_shooter_minus_2_ap</source>
+        <target>knife_shooter_minus_2_ap</target>
+      </segment>
+    </unit>
     <unit id="old_faithful_successful_shot">
       <segment id="old_faithful_successful_shot" state="initial">
         <source>old_faithful_successful_shot</source>
@@ -332,41 +410,51 @@
       </segment>
     </unit>
     <unit id="bare_hands_successful_hit">
-      <segment id="bare_hands_successful_hit" state="translated">
+      <segment id="bare_hands_successful_hit" state="initial">
         <source>bare_hands_successful_hit</source>
-        <target>{version, select,
-        1 {**{character}** le da un espectacular puñetazo a **{target_character}**...} 
-        2 {**{character}** le da un formidable cabezazo a **{target_character}** y le provoca un gran chorro de sangre...}
-        other {**{character}** le da un derechazo a **{target_character}**}
-      }</target>
+        <target>bare_hands_successful_hit</target>
       </segment>
     </unit>
     <unit id="bare_hands_target_burst_nose_10_percent">
-      <segment id="bare_hands_target_burst_nose_10_percent" state="translated">
+      <segment id="bare_hands_target_burst_nose_10_percent" state="initial">
         <source>bare_hands_target_burst_nose_10_percent</source>
-        <target>**{character}** le da un formidable cabezazo a **{target_character}** y le provoca un gran chorro de sangre...</target>
+        <target>bare_hands_target_burst_nose_10_percent</target>
       </segment>
     </unit>
     <unit id="bare_hands_plus_1_damage">
-      <segment id="bare_hands_plus_1_damage" state="translated">
+      <segment id="bare_hands_plus_1_damage" state="initial">
         <source>bare_hands_plus_1_damage</source>
-        <target>**{character}** le da un espectacular puñetazo a **{target_character}**...</target>
+        <target>bare_hands_plus_1_damage</target>
       </segment>
     </unit>
     <unit id="bare_hands_failed_hit">
-      <segment id="bare_hands_failed_hit" state="translated">
+      <segment id="bare_hands_failed_hit" state="initial">
         <source>bare_hands_failed_hit</source>
-        <target>{version, select,
-      1 {**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy...}
-      2 {**{character}** falla su ataque contra **{target_character}**
-      other {invalid version number}
-      }</target>
+        <target>bare_hands_failed_hit</target>
       </segment>
     </unit>
     <unit id="bare_hands_fumble">
-      <segment id="bare_hands_fumble" state="translated">
+      <segment id="bare_hands_fumble" state="initial">
         <source>bare_hands_fumble</source>
-        <target>**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy...</target>
+        <target>bare_hands_fumble</target>
+      </segment>
+    </unit>
+    <unit id="grenade_successful_throw_splash_damage_all">
+      <segment id="grenade_successful_throw_splash_damage_all" state="initial">
+        <source>grenade_successful_throw_splash_damage_all</source>
+        <target>grenade_successful_throw_splash_damage_all</target>
+      </segment>
+    </unit>
+    <unit id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds">
+      <segment id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds" state="initial">
+        <source>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</source>
+        <target>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</target>
+      </segment>
+    </unit>
+    <unit id="grenade_failure_placeholder">
+      <segment id="grenade_failure_placeholder" state="initial">
+        <source>grenade_failure_placeholder</source>
+        <target>grenade_failure_placeholder</target>
       </segment>
     </unit>
   </file>

@@ -199,7 +199,7 @@
     <unit id="knife_plus_2_damage_random_injury">
       <segment id="knife_plus_2_damage_random_injury" state="translated">
         <source>knife_plus_2_damage_random_injury</source>
-        <target>Une reminescence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.</target>
+        <target>Une réminiscence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_50_critical_haemorrhage">
@@ -244,11 +244,10 @@
         <source>knife_failed_hit</source>
         <target>{version, select,
                   1{Malgré les apparences parfois trompeuses, **{target_character}** est trop vif, il esquive la lame de **{character}**.}
-                  2{**{character}** a grâcieusement fait glisser sa lame sur la combinaison de **{target_character}**, raté.}
+                  2{**{character}** a gracieusement fait glisser sa lame sur la combinaison de **{target_character}**, raté.}
                   3{**{character}** enlève une mèche de cheveux de **{target_character}** mais rien de plus...}
                   other{**{character}** enlève une mèche de cheveux de **{target_character}** mais rien de plus...}
-                }
-        </target>
+                }</target>
       </segment>
     </unit>
     <unit id="knife_break_weapon">
@@ -293,7 +292,7 @@
                 } d'un malaise...</target>
       </segment>
     </unit>
-     <unit id="old_faithful_successful_shot">
+    <unit id="old_faithful_successful_shot">
       <segment id="old_faithful_successful_shot" state="translated">
         <source>old_faithful_successful_shot</source>
         <target>{version, select,

@@ -679,5 +679,17 @@
         <target>The Eden coordinates have not been calculated.</target>
       </segment>
     </unit>
+    <unit id="link_with_sol_not_established">
+      <segment id="description" state="translated">
+        <source>link_with_sol_not_established.description</source>
+        <target>Contact with Sol must be established to carry out this action.</target>
+      </segment>
+    </unit>
+    <unit id="max_neron_version_reached">
+      <segment id="description" state="translated">
+        <source>max_neron_version_reached.description</source>
+        <target>You have reached the highest NERON level possible.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

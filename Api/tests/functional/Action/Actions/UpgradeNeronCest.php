@@ -129,7 +129,7 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $this->whenChunUpgradesNeron();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: '**Chun** achève la mise à jour. La version majeure de NERON a augmenté. Le surplus de CPU générée par la joie de NERON a été injecté dans un projet.',
+            expectedRoomLog: '**Chun** achève la mise à jour. La version majeure de NERON a augmenté. Le surplus de CPU généré par la joie de NERON a été injecté dans un projet.',
             actualRoomLogDto: new RoomLogDto($this->chun, ActionLogEnum::UPGRADE_NERON_SUCCESS, VisibilityEnum::PUBLIC, inPlayerRoom: false),
             I: $I,
         );

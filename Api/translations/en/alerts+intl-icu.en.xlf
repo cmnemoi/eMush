@@ -149,5 +149,15 @@
         <target>Alerts:</target>
       </segment>
     </unit>
+    <unit id="communications_down">
+      <segment id="name" state="translated">
+        <source>communications_down.name</source>
+        <target>No Link</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>communications_down.description</source>
+        <target>The Daedalus has no **communication link** with Sol! Maintening a link with Sol is important for the morale of the group and essential for survival.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1399,7 +1399,7 @@
     <unit id="upgrade_neron_success">
       <segment id="upgrade_neron_success" state="translated">
         <source>upgrade_neron_success</source>
-        <target>**{character}** achève la mise à jour. La version majeure de NERON a augmenté. Le surplus de CPU générée par la joie de NERON a été injecté dans un projet.</target>
+        <target>**{character}** achève la mise à jour. La version majeure de NERON a augmenté. Le surplus de CPU généré par la joie de NERON a été injecté dans un projet.</target>
       </segment>
     </unit>
   </file>

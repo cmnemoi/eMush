@@ -19,10 +19,16 @@
         <target>debug: getEquipmentToRepair failed to return an equipment! {drone} moving to next task...</target>
       </segment>
     </unit>
-        <unit id="drone_repair_debug_success_select">
+    <unit id="drone_repair_debug_success_select">
       <segment id="drone_repair_debug_success_select" state="translated">
         <source>drone_repair_debug_success_select</source>
         <target>debug: {drone} attempting repairs of {equipment}.</target>
+      </segment>
+    </unit>
+    <unit id="drone_repair_debug_charges_count">
+      <segment state="translated">
+        <source>drone_repair_debug_charges_count</source>
+        <target>debug: {drone} has {charge} actions left.</target>
       </segment>
     </unit>
   </file>

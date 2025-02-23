@@ -356,7 +356,7 @@ Disponible solo durante el alpha.
       </segment>
       <segment id="description" state="translated">
         <source>insert_oxygen.description</source>
-        <target>Inserta oxígeno en el tanque.</target>
+        <target>Inyecta oxígeno en el tanque.</target>
       </segment>
     </unit>
     <unit id="retrieve_oxygen">
@@ -377,7 +377,7 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
       </segment>
       <segment id="description" state="translated">
         <source>insert_fuel.description</source>
-        <target>Inserta combustible en la Cámara de Combustión del motor</target>
+        <target>Inyecta combustible en la Cámara de Combustión del motor</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel">
@@ -446,7 +446,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
     <unit id="self_heal">
       <segment id="name" state="translated">
         <source>self_heal.name</source>
-        <target>self_heal</target>
+        <target>Curarse</target>
       </segment>
       <segment id="description" state="translated">
         <source>self_heal.description</source>
@@ -490,7 +490,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
       </segment>
       <segment id="description" state="translated">
         <source>open.description</source>
-        <target>Abrir una cápsula es algo delicado y puede traerte sorpresas. Peor aún, hay quienes se vuelve adictos a ello y no vuelven nunca a la normalidad.</target>
+        <target>Abrir una cápsula es algo delicado y puede traerte sorpresas. Peor aún, hay quienes se vuelven adictos a ello y no vuelven nunca a la normalidad.</target>
       </segment>
     </unit>
     <unit id="strengthen_hull">
@@ -954,9 +954,9 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
         <source>check_fuel_chamber_level.name</source>
         <target>Verificar combustible</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>check_fuel_chamber_level.description</source>
-        <target>check_fuel_chamber_level.description</target>
+        <target>Verifica la cantidad de combustible disponible en la cámara.</target>
       </segment>
     </unit>
     <unit id="hack">
@@ -1010,9 +1010,9 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
     </unit>
     <unit id="turn_daedalus_left">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>turn_daedalus_left.name</source>
-        <target>turn_daedalus_left.name</target>
+        <target>Girar a la izquierda</target>
       </segment>
       <segment id="description" state="translated">
         <source>turn_daedalus_left.description</source>
@@ -1100,205 +1100,211 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
         <source>return_to_sol.name</source>
         <target>Volver al Sistema Solar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>return_to_sol.description</source>
-        <target>return_to_sol.description</target>
+        <target>Después de mucho tiempo, tal vez sea hora de que echemos un vistazo de lo que está pasando en Sol.</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>return_to_sol.confirmation</source>
-        <target>return_to_sol.confirmation</target>
+        <target>Esta acción puede tener consecuencias graves. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="participate">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>participate.name</source>
-        <target>participate.name</target>
+        <target>Colaborar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>participate.description</source>
-        <target>participate.description</target>
+        <target>Avanza un proyecto según tus capacidades.</target>
       </segment>
     </unit>
     <unit id="trap_closet">
-      <segment id="trap_closet" state="initial">
+      <segment id="trap_closet" state="translated">
         <source>trap_closet.name</source>
-        <target>trap_closet.name</target>
+        <target>Colocar trampa</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>trap_closet.description</source>
-        <target>trap_closet.description</target>
+        <target>Coloca una trampa en la estantería para infectar a alguien.
+Esta acción es **Discreta**. Será vista solo por las **Cámaras** y las **personas presentes** en la sala, incluso de *tu bando*.</target>
       </segment>
     </unit>
     <unit id="chitchat">
-      <segment id="chitchat" state="initial">
+      <segment id="chitchat" state="translated">
         <source>chitchat.name</source>
-        <target>chitchat.name</target>
+        <target>Charlar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chitchat.description</source>
-        <target>chitchat.description</target>
+        <target>Revela alguna de tus últimas acciones a un jugador confidente.</target>
       </segment>
     </unit>
     <unit id="graft">
-      <segment id="graft" state="initial">
+      <segment id="graft" state="translated">
         <source>graft.name</source>
-        <target>graft.name</target>
+        <target>Injertar: {equipment}</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>graft.description</source>
-        <target>graft.description</target>
+        <target>Sacrifica un fruto y una planta para crear una planta nueva. Este empieza como un pequeño brote. Se requieren condiciones de higiene óptimas.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>graft.confirmation</source>
-        <target>graft.confirmation</target>
+        <target>Esta acción requiere condiciones de higiene óptimas. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="learn">
-      <segment id="learn" state="initial">
+      <segment id="learn" state="translated">
         <source>learn.name</source>
-        <target>learn.name</target>
+        <target>Entrenamiento</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>learn.description</source>
-        <target>learn.description</target>
+        <target>Permite aprender una habilidad de alguien presente en esta sala.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>learn.confirmation</source>
-        <target>learn.confirmation</target>
+        <target>Esta acción solo es posible una vez por partida. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="put_through_door">
-      <segment id="put_through_door" state="initial">
+      <segment id="put_through_door" state="translated">
         <source>put_through_door.name</source>
-        <target>put_through_door.name</target>
+        <target>Expulsar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>put_through_door.description</source>
-        <target>put_through_door.description</target>
+        <target>Expulsa a este tripulante fuera de la sala//:point: Cuesta 1 :pa: menos en inactivos.
+Esta acción es **Agresiva**. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="become_genius">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>become_genius.name</source>
-        <target>become_genius.name</target>
+        <target>Golpe de suerte</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>become_genius.description</source>
-        <target>become_genius.description</target>
+        <target>Hace que tu próxima reparación, proyecto o investigación sea un éxito inmediato. Esta acción es **única**.</target>
       </segment>
     </unit>
     <unit id="premonition">
-      <segment id="premonition" state="initial">
+      <segment id="premonition" state="translated">
         <source>premonition.name</source>
-        <target>premonition.name</target>
+        <target>Presentimiento</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>premonition.description</source>
-        <target>premonition.description</target>
+        <target>Te muestra la última acción realizada por el personaje elegido.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>premonition.confirmation</source>
-        <target>premonition.confirmation</target>
+        <target>¡Atención! Esta acción te costará 1 Punto de Ánimo, ¿deseas continuar?</target>
       </segment>
     </unit>
     <unit id="ceasefire">
-      <segment id="ceasefire" state="initial">
+      <segment id="ceasefire" state="translated">
         <source>ceasefire.name</source>
-        <target>ceasefire.name</target>
+        <target>Cese al fuego</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ceasefire.description</source>
-        <target>ceasefire.description</target>
+        <target>Nadie puede realizar ninguna acción agresiva en la sala hasta que te vayas.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>ceasefire.confirmation</source>
-        <target>ceasefire.confirmation</target>
+        <target>Esta acción solo es posible una vez por partida. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="guard">
-      <segment id="guard" state="initial">
+      <segment id="guard" state="translated">
         <source>guard.name</source>
-        <target>guard.name</target>
+        <target>Reservar sala</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>guard.description</source>
-        <target>guard.description</target>
+        <target>Obliga a los tripulantes que entran a la sala a volver por donde vinieron. La acción termina cuando te desplazas.
+Esta acción es **Agresiva**. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="exchange_body">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>exchange_body.name</source>
-        <target>exchange_body.name</target>
+        <target>Cambiar cuerpo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>exchange_body.description</source>
-        <target>exchange_body.description</target>
+        <target>Te permite tomar el control del cuerpo de tu objetivo. Esta acción es irreversible. Todas tus habilidades se reinician.</target>
       </segment>
     </unit>
     <unit id="accept_mission">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>accept_mission.name</source>
-        <target>accept_mission.name</target>
+        <target>:online: Sí + {outputQuantity} :pa:</target>
       </segment>
     </unit>
     <unit id="reject_mission">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>reject_mission.name</source>
-        <target>reject_mission.name</target>
+        <target>:offline: No</target>
       </segment>
     </unit>
     <unit id="commander_order">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>commander_order.name</source>
-        <target>commander_order.name</target>
+        <target>Dar una misión</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>commander_order.description</source>
-        <target>commander_order.description</target>
+        <target>Permite dar una misión a uno de tus subalternos. Si la acepta, recibirá 3 :pa: para poder completarla. // Esta acción solo está disponible una vez al día. // La acción se restituye si el jugador no acepta la misión.</target>
       </segment>
     </unit>
     <unit id="print_ze_list">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>print_ze_list.name</source>
-        <target>print_ze_list.name</target>
+        <target>Imprimir LA lista</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>print_ze_list.description</source>
-        <target>print_ze_list.description</target>
+        <target>Te devuelve la lista con los nombres de los potencialmente infectados. Cada día esta lista muestra un nombre menos.
+Esta lista contiene actualmente **{numberOfNames}** nombres.</target>
       </segment>
     </unit>
     <unit id="depress">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>depress.name</source>
-        <target>depress.name</target>
+        <target>Deprimir</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>depress.description</source>
-        <target>depress.description</target>
+        <target>Hace perder 2 :pmo: a tu objetivo.
+Esta acción es **Furtiva**. Será revelada por las **Cámaras**.
+Esta acción es **Agresiva**. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="delog">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>delog.name</source>
-        <target>delog.name</target>
+        <target>Borrar registro</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>delog.description</source>
-        <target>delog.description</target>
+        <target>Los registros de esta sala se eliminarán y no se reanudarán hasta el próximo ciclo.</target>
       </segment>
     </unit>
     <unit id="run_home">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>run_home.name</source>
-        <target>run_home.name</target>
+        <target>¡RETORNAR!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>run_home.description</source>
-        <target>run_home.description</target>
+        <target>No te sientes muy a gusto con esta expedición. ¡Larguémonos de aquí!</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>run_home.confirmation</source>
-        <target>run_home.confirmation</target>
+        <target>Esta acción interrumpirá la expedición para todo el equipo. ¿Continuar?</target>
       </segment>
     </unit>
     <unit id="putsch">
@@ -1316,89 +1322,95 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
     </unit>
     <unit id="anathema">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>anathema.name</source>
-        <target>anathema.name</target>
+        <target>Conjuro</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>anathema.description</source>
-        <target>anathema.description</target>
+        <target>Permite lanzar un conjuro que da el estado de Paria.//El Paria sufre una penalidad importante y si muere y es Mush, te hará ganar :triumph:. Si es humano, perderás :triumph:.
+Si el Mush eres tú, esta acción no afectará tú :triumph:.
+Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>anathema.confirmation</source>
-        <target>anathema.confirmation</target>
+        <target>Esta acción es muy poderosa y podría provocar represalias. ¿Deseas continuar?</target>
       </segment>
     </unit>
     <unit id="mix_ration_spore">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mix_ration_spore.name</source>
-        <target>mix_ration_spore.name</target>
+        <target>Contaminar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mix_ration_spore.description</source>
-        <target>mix_ration_spore.description</target>
+        <target>Permite colocar una espora en un alimento.</target>
       </segment>
     </unit>
     <unit id="slime_trap">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>slime_trap.name</source>
-        <target>slime_trap.name</target>
+        <target>Ensuciar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>slime_trap.description</source>
-        <target>slime_trap.description</target>
+        <target>Permite provocar el estado de suciedad en los próximos ciclos.
+Esta acción es *Furtiva*. Será revelada por las *Cámaras*.</target>
       </segment>
     </unit>
     <unit id="slime_object">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>slime_object.name</source>
-        <target>slime_object.name</target>
+        <target>Embarrar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>slime_object.description</source>
-        <target>slime_object.description</target>
+        <target>El objeto seleccionado dejará de funcionar dentro de 1 o {outputQuantity} ciclos.
+Esta acción es *Furtiva*. Será revelada por las *Cámaras*.</target>
       </segment>
     </unit>
     <unit id="mass_ggeddon">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mass_ggeddon.name</source>
-        <target>mass_ggeddon.name</target>
+        <target>Enmohecer en masa</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mass_ggeddon.description</source>
-        <target>mass_ggeddon.description</target>
+        <target>Aplica una pérdida de 2 :pa: y el estado sucio a toda la tripulación.
+Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas presentes* en la sala, incluso de *tu bando*.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>mass_ggeddon.confirmation</source>
-        <target>mass_ggeddon.confirmation</target>
+        <target>Esta acción es muy poderosa y podría provocar represalias. ¿Deseas continuar?</target>
       </segment>
     </unit>
     <unit id="reinforce">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>reinforce.name</source>
-        <target>reinforce.name</target>
+        <target>Blindar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>reinforce.description</source>
-        <target>reinforce.description</target>
+        <target>Permite proteger un objeto desarmable para que ya no lo sea. Protege también contra los sabotajes.//Consume 1 **Pieza metálica**.</target>
       </segment>
     </unit>
     <unit id="throw_grenade.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>throw_grenade.name</source>
-        <target>throw_grenade.name</target>
+        <target>Lanzar</target>
       </segment>
     </unit>
     <unit id="throw_grenade.description">
-      <segment state="initial">
+      <segment state="translated">
         <source>throw_grenade.description</source>
-        <target>throw_grenade.description</target>
+        <target>Permite lanzar una granada en la sala. Con eso puedes estar seguro del resultado.
+Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="throw_grenade.confirmation">
-      <segment state="initial">
+      <segment state="translated">
         <source>throw_grenade.confirmation</source>
-        <target>throw_grenade.confirmation</target>
+        <target>Esta acción es peligrosa, ¿deseas continuar?</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_turbo">
@@ -1603,6 +1615,26 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       <segment id="description" state="initial">
         <source>com_manager_announcement.description</source>
         <target>com_manager_announcement.description</target>
+      </segment>
+    </unit>
+    <unit id="establish_link_with_sol">
+      <segment id="name" state="initial">
+        <source>establish_link_with_sol.name</source>
+        <target>establish_link_with_sol.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>establish_link_with_sol.description</source>
+        <target>establish_link_with_sol.description</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_neron">
+      <segment id="name" state="initial">
+        <source>upgrade_neron.name</source>
+        <target>upgrade_neron.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>upgrade_neron.description</source>
+        <target>upgrade_neron.description</target>
       </segment>
     </unit>
   </file>

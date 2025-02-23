@@ -679,5 +679,17 @@
         <target>eden_not_computed.description</target>
       </segment>
     </unit>
+    <unit id="link_with_sol_not_established">
+      <segment id="description" state="initial">
+        <source>link_with_sol_not_established.description</source>
+        <target>link_with_sol_not_established.description</target>
+      </segment>
+    </unit>
+    <unit id="max_neron_version_reached">
+      <segment id="description" state="initial">
+        <source>max_neron_version_reached.description</source>
+        <target>max_neron_version_reached.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

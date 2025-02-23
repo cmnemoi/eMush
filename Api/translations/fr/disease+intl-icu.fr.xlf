@@ -518,7 +518,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>destroyed_ears.description</source>
-        <target>Vos oreilles ont disparues. Peut-être qu'en cherchant bien...</target>
+        <target>Vos oreilles ont disparu. Peut-être qu'en cherchant bien...</target>
       </segment>
     </unit>
     <unit id="dysfunctional_liver">

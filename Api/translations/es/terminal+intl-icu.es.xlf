@@ -291,6 +291,14 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>pilgred.pilgred_finished_description</source>
         <target>pilgred.pilgred_finished_description</target>
       </segment>
+      <segment id="share_projects_button_name" state="initial">
+        <source>pilgred.share_projects_button_name</source>
+        <target>pilgred.share_projects_button_name</target>
+      </segment>
+      <segment id="share_projects_button_description" state="initial">
+        <source>pilgred.share_projects_button_description</source>
+        <target>pilgred.share_projects_button_description</target>
+      </segment>
     </unit>
     <unit id="neron_core">
       <segment id="name" state="translated">
@@ -308,6 +316,14 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
         <source>neron_core.no_proposed_neron_projects_description</source>
         <target>Ya no hay más proyectos por completar.</target>
       </segment>
+      <segment id="share_projects_button_name" state="initial">
+        <source>neron_core.share_projects_button_name</source>
+        <target>neron_core.share_projects_button_name</target>
+      </segment>
+      <segment id="share_projects_button_description" state="initial">
+        <source>neron_core.share_projects_button_description</source>
+        <target>neron_core.share_projects_button_description</target>
+      </segment>
     </unit>
     <unit id="auxiliary_terminal">
       <segment id="name" state="translated">
@@ -324,6 +340,14 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>Ya no hay más proyectos por completar.</target>
+      </segment>
+      <segment id="share_projects_button_name" state="initial">
+        <source>auxiliary_terminal.share_projects_button_name</source>
+        <target>auxiliary_terminal.share_projects_button_name</target>
+      </segment>
+      <segment id="share_projects_button_description" state="initial">
+        <source>auxiliary_terminal.share_projects_button_description</source>
+        <target>auxiliary_terminal.share_projects_button_description</target>
       </segment>
     </unit>
     <unit id="calculator">
@@ -350,6 +374,36 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
       <segment id="eden_computed" state="translated">
         <source>calculator.eden_computed</source>
         <target>El cálculo de las coordenadas de Eden se ha completado con éxito. Las coordenadas se han enviado a NERON. Consulta a tu ***Comandante*** para obtener más información.</target>
+      </segment>
+    </unit>
+    <unit id="communication_center">
+      <segment id="name" state="initial">
+        <source>communication_center.name</source>
+        <target>communication_center.name</target>
+      </segment>
+      <segment id="tips" state="initial">
+        <source>communication_center.tips</source>
+        <target>communication_center.tips</target>
+      </segment>
+      <segment id="contact" state="initial">
+        <source>communication_center.contact</source>
+        <target>communication_center.contact</target>
+      </segment>
+      <segment id="contact" state="initial">
+        <source>communication_center.neron_version</source>
+        <target>communication_center.neron_version</target>
+      </segment>
+      <segment id="contact" state="initial">
+        <source>communication_center.neron_update_status</source>
+        <target>communication_center.neron_update_status</target>
+      </segment>
+      <segment id="link_strength" state="initial">
+        <source>communication_center.link_strength</source>
+        <target>communication_center.link_strength</target>
+      </segment>
+      <segment id="link_established" state="initial">
+        <source>communication_center.link_established</source>
+        <target>communication_center.link_established</target>
       </segment>
     </unit>
   </file>

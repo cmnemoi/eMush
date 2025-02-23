@@ -1612,5 +1612,25 @@ Or you simply need some fresh air.... or not.</target>
         <target>As the *Comms Officer* you may broadcast a general announcement. //// All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel. Any new announcement will override the previous one.</target>
       </segment>
     </unit>
+    <unit id="establish_link_with_sol">
+      <segment id="name" state="translated">
+        <source>establish_link_with_sol.name</source>
+        <target>Establish Comms</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>establish_link_with_sol.description</source>
+        <target>This action allows you to attempt to **establish contact** with the solar system Sol.</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_neron">
+      <segment id="name" state="translated">
+        <source>upgrade_neron.name</source>
+        <target>Update NERON</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_neron.description</source>
+        <target>Updating NERON allows you to take advantage of the miracle that NERON could have been in the Magellan project.//**Once the update is complete, a project is completed.**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

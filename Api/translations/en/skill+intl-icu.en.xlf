@@ -901,7 +901,7 @@
       </segment>
       <segment id="metalworker.description" state="translated">
         <source>metalworker.description</source>
-        <target>It seems pretty clear that you're a really productive person.//:point: **Daily**: If you find yourself in a **storage**, you have a chance of finding scraps or better for **0** :pa:. </target>
+        <target>It seems pretty clear that you're a really productive person.//:point: **Daily**: If you find yourself in a **storage**, you have a chance of finding scraps or better for **0** :pa:.</target>
       </segment>
     </unit>
     <unit id="doorman">
@@ -951,7 +951,7 @@
       </segment>
       <segment id="ninja.description" state="translated">
         <source>ninja.description</source>
-        <target>Thanks to your overcharged myelin, your speed of movement is incredible.//:point: Your **hand-to-hand** attacks are now **anonymous** actions. </target>
+        <target>Thanks to your overcharged myelin, your speed of movement is incredible.//:point: Your **hand-to-hand** attacks are now **anonymous** actions.</target>
       </segment>
     </unit>
     <unit id="neron_depression">

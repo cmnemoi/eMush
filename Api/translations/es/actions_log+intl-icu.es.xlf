@@ -584,13 +584,13 @@ other {invalid version input}
       </segment>
     </unit>
     <unit id="takeoff_success">
-      <segment state="translated">
+      <segment id="takeoff_success" state="translated">
         <source>takeoff_success</source>
         <target>**{character}** ha despegado.</target>
       </segment>
     </unit>
     <unit id="land_success">
-      <segment state="translated">
+      <segment id="land_success" state="translated">
         <source>land_success</source>
         <target>El patrullero de **{character}** ha aterrizado.</target>
       </segment>

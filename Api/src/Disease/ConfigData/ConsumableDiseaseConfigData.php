@@ -185,13 +185,13 @@ class ConsumableDiseaseConfigData
         [
             'name' => 'supervitamin_bar_default',
             'causeName' => 'supervitamin_bar',
-            'diseasesName' => [],
+            'diseasesName' => ['slight_nausea' => 1],
             'curesName' => [],
-            'diseasesChances' => [],
+            'diseasesChances' => [55 => 1],
             'curesChances' => [],
-            'diseasesDelayMin' => [],
-            'diseasesDelayLength' => [],
-            'effectNumber' => [],
+            'diseasesDelayMin' => [0 => 1],
+            'diseasesDelayLength' => [0 => 1],
+            'effectNumber' => [1 => 1],
         ],
         [
             'name' => 'eufurylate_default',

@@ -106,6 +106,13 @@ class ActionEvent extends AbstractGameEvent
         return $door instanceof Door ? $door : throw new \RuntimeException('Action target is not a door');
     }
 
+    public function getEquipmentActionTargetOrThrow(): GameEquipment
+    {
+        $equipment = $this->getActionTarget();
+
+        return $equipment instanceof GameEquipment ? $equipment : throw new \RuntimeException('Action target is not a game equipment');
+    }
+
     public function getActionParameters(): array
     {
         return $this->actionParameters;

@@ -937,21 +937,19 @@
     <unit id="takeoff_no_pilot">
       <segment id="takeoff_no_pilot" state="translated">
         <source>takeoff_no_pilot</source>
-        <target>{character_gender, select,
-    male {Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.}
-    female {Le décollage de **{character}** est si mauvais qu'elle a endommagé son appareil.}
-    other {Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.}
-}</target>
+        <target>Le décollage de **{character}** est si mauvais {character_gender, select,
+    male {qu'il a}
+    female {qu'elle a}
+    other {qu'il a}} endommagé {is_tracker, select, true {{patrol_ship}} other {son appareil}}.</target>
       </segment>
     </unit>
     <unit id="land_no_pilot">
       <segment id="land_no_pilot" state="translated">
         <source>land_no_pilot</source>
-        <target>{character_gender, select,
-    male {L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.}
-    female {L'atterrissage de **{character}** est si mauvais qu'elle a endommagé son appareil.}
-    other {L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.}
-}</target>
+        <target>L'atterrissage de **{character}** est si mauvais {character_gender, select,
+    male {qu'il a}
+    female {qu'elle a}
+    other {qu'il a}} endommagé {is_tracker, select, true {{patrol_ship}} other {son appareil}}.</target>
       </segment>
     </unit>
     <unit id="access_terminal_success">
@@ -961,15 +959,15 @@
       </segment>
     </unit>
     <unit id="takeoff_success">
-      <segment state="translated">
+      <segment id="takeoff_success" state="translated">
         <source>takeoff_success</source>
-        <target>**{character}** vient de décoller.</target>
+        <target>**{character}** vient de décoller avec {is_tracker, select, true {{patrol_ship}} other {son patrouilleur}}.</target>
       </segment>
     </unit>
     <unit id="land_success">
-      <segment state="translated">
+      <segment id="land_success" state="translated">
         <source>land_success</source>
-        <target>Le patrouilleur de **{character}** vient d'atterrir.</target>
+        <target>**{character}** vient d'atterrir avec {is_tracker, select, true {{patrol_ship}} other {son patrouilleur}}.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship_success">

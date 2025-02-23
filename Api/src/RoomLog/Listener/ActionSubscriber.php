@@ -5,6 +5,7 @@ namespace Mush\RoomLog\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
@@ -148,6 +149,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $actionResult = $event->getActionResultOrThrow();
         $player = $event->getAuthor();
+        $patrolShip = $event->getEquipmentActionTargetOrThrow();
 
         $this->roomLogService->createLog(
             $actionResult->isACriticalSuccess() ? ActionLogEnum::LAND_SUCCESS : ActionLogEnum::LAND_NO_PILOT,
@@ -155,7 +157,10 @@ final class ActionSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC,
             'actions_log',
             $player,
-            [$player->getLogKey() => $player->getLogName()],
+            [
+                $player->getLogKey() => $player->getLogName(),
+                ...$this->getPatrolShipLogParameters($player, $patrolShip),
+            ],
             $event->getTime()
         );
     }
@@ -202,6 +207,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $actionResult = $event->getActionResultOrThrow();
         $player = $event->getAuthor();
+        $patrolShip = $event->getEquipmentActionTargetOrThrow();
 
         $this->roomLogService->createLog(
             $actionResult->isACriticalSuccess() ? ActionLogEnum::TAKEOFF_SUCCESS : ActionLogEnum::TAKEOFF_NO_PILOT,
@@ -209,7 +215,10 @@ final class ActionSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC,
             'actions_log',
             $player,
-            [$player->getLogKey() => $player->getLogName()],
+            [
+                $player->getLogKey() => $player->getLogName(),
+                ...$this->getPatrolShipLogParameters($player, $patrolShip),
+            ],
             $event->getTime()
         );
     }
@@ -243,6 +252,21 @@ final class ActionSubscriber implements EventSubscriberInterface
         return [
             'place' => $placeName,
             'exit_loc_prep' => $exitLocPrep,
+        ];
+    }
+
+    private function getPatrolShipLogParameters(Player $player, GameEquipment $patrolShip): array
+    {
+        $patrolShipLog = $patrolShip->getLogName();
+        $patrolShipName = $this->translationService->translate(
+            "{$patrolShipLog}.name",
+            [],
+            'equipments',
+            $player->getLanguage()
+        );
+
+        return [
+            'patrol_ship' => $patrolShipName,
         ];
     }
 

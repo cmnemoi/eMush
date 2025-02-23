@@ -698,9 +698,9 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="takeoff_no_pilot" state="translated">
         <source>takeoff_no_pilot</source>
         <target>{character_gender, select,
-    male {**{character}**'s takeoff was so bad that he's damaged his equipment.}
-    female {**{character}**'s takeoff was so bad that she's damaged her equipment.}
-   other {**{character}**'s takeoff was so bad that they've damaged their equipment.}
+    male {**{character}**'s takeoff was so bad that he's damaged {is_tracker, select, true {{patrol_ship}} other {his equipment}}.}
+    female {**{character}**'s takeoff was so bad that she's damaged {is_tracker, select, true {{patrol_ship}} other {her equipment}}.}
+   other {**{character}**'s takeoff was so bad that they've damaged {is_tracker, select, true {{patrol_ship}} other {their equipment}}.}
 }</target>
       </segment>
     </unit>
@@ -708,9 +708,9 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="land_no_pilot" state="translated">
         <source>land_no_pilot</source>
         <target>{character_gender, select,
-    male {**{character}**'s landing was so bad that he's damaged his equipment.}
-    female {**{character}**'s landing was so bad that she's damaged her equipment.}
-   other {**{character}**'s landing was so bad that they've damaged their equipment.}
+    male {**{character}**'s landing was so bad that he's damaged {is_tracker, select, true {{patrol_ship}} other {his equipment}}.}
+    female {**{character}**'s landing was so bad that she's damaged {is_tracker, select, true {{patrol_ship}} other {her equipment}}.}
+   other {**{character}**'s landing was so bad that they've damaged {is_tracker, select, true {{patrol_ship}} other {their equipment}}.}
 }</target>
       </segment>
     </unit>
@@ -721,15 +721,15 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       </segment>
     </unit>
     <unit id="takeoff_success">
-      <segment state="translated">
+      <segment id="takeoff_success" state="translated">
         <source>takeoff_success</source>
-        <target>**{character}** has just taken off.</target>
+        <target>**{character}** has just taken off{is_tracker, select, true { using {patrol_ship}} other {}}.</target>
       </segment>
     </unit>
     <unit id="land_success">
-      <segment state="translated">
+      <segment id="land_success" state="translated">
         <source>land_success</source>
-        <target>**{character}**'s patrol ship has just landed.</target>
+        <target>**{character}**'s {is_tracker, select, true {{patrol_ship}} other {patrol ship}} has just landed.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship_success">

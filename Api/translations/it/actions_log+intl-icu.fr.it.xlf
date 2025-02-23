@@ -512,13 +512,13 @@
       </segment>
     </unit>
     <unit id="takeoff_success">
-      <segment state="initial">
+      <segment id="takeoff_success" state="initial">
         <source>takeoff_success</source>
         <target>takeoff_success</target>
       </segment>
     </unit>
     <unit id="land_success">
-      <segment state="initial">
+      <segment id="land_success" state="initial">
         <source>land_success</source>
         <target>land_success</target>
       </segment>

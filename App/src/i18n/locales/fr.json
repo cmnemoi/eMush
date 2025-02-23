@@ -772,7 +772,8 @@
 			"banned": "Banni",
 			"report": "Plainte",
 			"report_abusive": "Plainte abusive",
-			"report_processed": "Plainte traitée"
+			"report_processed": "Plainte traitée",
+			"alive": "EN VIE"
 		},
 		"reason": {
 			"multi_account": "Multicompte",

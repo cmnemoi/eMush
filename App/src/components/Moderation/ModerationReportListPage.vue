@@ -17,19 +17,32 @@
                 {{ report.id }}
             </template>
 
+            <template #header-daedalusId>
+                Daedalus
+            </template>
+            <template #row-daedalusId="report">
+                {{ getDaedalusId(report.playerId) }}
+            </template>
+
             <template #header-authorName>
                 {{ $t('moderation.sanction.author') }}
             </template>
             <template #row-authorName="report">
                 {{ report.authorName }}
             </template>
-            
+
             <template #header-username>
                 {{ $t('moderation.sanction.target') }}
             </template>
             <template #row-username="report">
                 <img :src="getCharacterBodyFromKey(report?.playerName)" alt="Character Image" style="max-width: 16px;" />
-                {{ report.username }}        
+                {{ report.username }}
+                <div v-if="getPlayerStatus(report.playerId)" class="alive">
+                    {{ $t('moderation.sanction.alive') }}
+                </div>
+                <div v-if="getPlayerMush(report.playerId)" class="isMush">
+                    MUSH
+                </div>
             </template>
 
             <template #header-reason>
@@ -63,7 +76,7 @@
                     @click="goToSanctionEvidence(report)">
                     {{ $t('moderation.report.seeContext') }}
                 </button>
-            </template>       
+            </template>
 
         </Datatable>
         <SanctionDetailPage
@@ -89,6 +102,7 @@ import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import router from "@/router";
 import { characterEnum } from "@/enums/character";
+import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 
 interface SanctionListData {
     userId: string,
@@ -97,6 +111,7 @@ interface SanctionListData {
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number },
     rowData: ModerationSanction[],
     filter: string,
+    playerInfo: ModerationViewPlayer[],
     sortField: string,
     sortDirection: string,
     loading: boolean,
@@ -132,6 +147,11 @@ export default defineComponent({
                 {
                     key: 'id',
                     name: 'moderation.sanction.id',
+                    slot:true
+                },
+                {
+                    key: 'daedalusId',
+                    name: 'Daedalus',
                     slot:true
                 },
                 {
@@ -173,6 +193,7 @@ export default defineComponent({
                 totalPage: 1
             },
             rowData: [],
+            playerInfo: [],
             filter: '',
             sortField: '',
             sortDirection: 'DESC',
@@ -191,6 +212,40 @@ export default defineComponent({
         };
     },
     methods: {
+        getDaedalusId(playerId: number) {
+            const player = this.playerInfo.find(player => player.id === playerId);
+            if(player) {
+                return player.daedalusId;
+            } else {
+                return null;
+            }
+        },
+        getPlayerStatus(playerId: number) {
+            const player = this.playerInfo.find(player => player.id === playerId);
+            if(player) {
+                return player.isAlive;
+            } else {
+                return null;
+            }
+        },
+        getPlayerMush(playerId: number) {
+            const player = this.playerInfo.find(player => player.id === playerId);
+            if(player) {
+                return player.isMush;
+            } else {
+                return null;
+            }
+        },
+        async loadPlayerInfo(playerId: number) {
+            if (!this.playerInfo.find(player => player.id === playerId)) {
+                try {
+                    const response = await ModerationService.getModerationViewPlayer(playerId);
+                    this.playerInfo.push(new ModerationViewPlayer().load(response.data));
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        },
         getCharacterBodyFromKey(characterKey: string) {
             return characterEnum[characterKey].body;
         },
@@ -245,7 +300,7 @@ export default defineComponent({
             this.showDetailPopup = false;
             this.loadData();
         },
-        loadData() {
+        async loadData() {
             this.loading = true;
             this.rowData = [];
 
@@ -268,20 +323,24 @@ export default defineComponent({
 
             params.params['moderationAction'] = 'report';
 
-            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
-                .then((result) => {
-                    return result.data;
-                })
-                .then((remoteRowData: any) => {
-                    for (const reportData of remoteRowData['hydra:member']) {
-                        if (reportData) {
-                            this.rowData.push((new ModerationSanction()).load(reportData));
-                        }
+            try {
+                const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params);
+                const remoteRowData = result.data;
+
+                for (const reportData of remoteRowData['hydra:member']) {
+                    if (reportData) {
+                        const moderationSanction = new ModerationSanction().load(reportData);
+                        await this.loadPlayerInfo(reportData.playerId);
+                        this.rowData.push(moderationSanction);
                     }
-                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
-                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
-                    this.loading = false;
-                });
+                }
+                this.pagination.totalItem = remoteRowData['hydra:totalItems'];
+                this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
+            } catch (error) {
+                console.error(error);
+            } finally {
+                this.loading = false;
+            }
         },
         sortTable(selectedField: any): void {
             if (!selectedField.sortable) {
@@ -351,5 +410,13 @@ export default defineComponent({
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
+  }
+
+  .alive {
+    color:red;
+  }
+
+  .isMush {
+    color: pink;
   }
 </style>

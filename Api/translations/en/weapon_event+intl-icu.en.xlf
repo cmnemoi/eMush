@@ -185,11 +185,11 @@
       <segment id="knife_successful_hit_10_minor_haemorrhage" state="translated">
         <source>knife_successful_hit_10_minor_haemorrhage</source>
         <target>{version, select,
-            1 {{character}**'s blade, skillfully wielded, makes a huge gash in **{target_character}**}.
-            2 {{target_character}**'s face twists as **{character}** withdraws the blade that {character_gender, select, 
+            1 {**{character}**'s blade, skillfully wielded, makes a huge gash in **{target_character}**}.
+            2 {**{target_character}**'s face twists as **{character}** withdraws the blade that {character_gender, select, 
                 female {she} 
                 male {he}
-                other {they} just thrust into her}.}
+                other {they}} just thrust into {target_character_gender, select, female {her} other {him}}.}
             3 {Despite a nice dodge, **{character}** cuts **{target_character}**, who spills some of her blood}.
             4 {Dueling with blades rarely ends well, **{character}** makes a drastic cut in **{target_character}**'s health}.
             other {Blade duels rarely end well, **{character}** takes a drastic cut in **{target_character}**'s health capital.}}</target>

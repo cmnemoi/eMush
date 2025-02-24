@@ -182,7 +182,7 @@
       </segment>
     </unit>
     <unit id="knife_successful_hit_10_minor_haemorrhage">
-      <segment id="knife_successful_hit_10_minor_haemorrhage" state="translated">
+      <segment id="knife_successful_hit_10_minor_haemorrhage" state="final">
         <source>knife_successful_hit_10_minor_haemorrhage</source>
         <target>{version, select,
             1 {**{character}**'s blade, skillfully wielded, makes a huge gash in **{target_character}**.}

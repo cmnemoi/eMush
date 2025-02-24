@@ -1563,7 +1563,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
     <unit id="search_for_mush_genome">
       <segment id="search_for_mush_genome" state="translated">
         <source>search_for_mush_genome.name</source>
-        <target>Téléverser le génome Mush</target>
+        <target>Télécharger le génome Mush</target>
       </segment>
       <segment id="description" state="translated">
         <source>search_for_mush_genome.description</source>

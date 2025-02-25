@@ -56,8 +56,9 @@ final class EquipmentSubscriber implements EventSubscriberInterface
 
         $statuses = $oldEquipment->getStatuses();
         if ($event->isFromCookAction() || ($event->isFromHyperfreezeAction() && $newEquipment->isAStandardRation())) {
-            $statuses = $statuses->filter(static fn (Status $status) => $status->getName() !== EquipmentStatusEnum::CONTAMINATED);
+            $statuses = $this->removeStatusIfExists($statuses, EquipmentStatusEnum::CONTAMINATED);
         }
+        $statuses = $this->removeStatusIfExists($statuses, EquipmentStatusEnum::HIDDEN);
 
         /** @var Status $status */
         foreach ($statuses as $status) {
@@ -159,5 +160,10 @@ final class EquipmentSubscriber implements EventSubscriberInterface
                 );
             }
         }
+    }
+
+    private function removeStatusIfExists(object $statuses, string $statusToRemove): object
+    {
+        return $statuses->filter(static fn (Status $status) => $status->getName() !== $statusToRemove);
     }
 }

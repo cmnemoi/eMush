@@ -3,13 +3,17 @@
 namespace Mush\Tests\functional\Status\Listener;
 
 use Mush\Action\Actions\Drop;
+use Mush\Action\Actions\Hide;
+use Mush\Action\Actions\Hyperfreeze;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -20,13 +24,18 @@ use Mush\Tests\FunctionalTester;
 final class EquipmentSubscriberCest extends AbstractFunctionalTest
 {
     private Drop $dropAction;
+    private Hide $hideAction;
+    private Hyperfreeze $hyperfreezeAction;
     private Take $takeAction;
 
     private ActionConfig $dropActionConfig;
+    private ActionConfig $hideActionConfig;
+    private ActionConfig $hyperfreezeActionConfig;
     private ActionConfig $takeActionConfig;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
 
+    private GameItem $cookedRation;
     private GameItem $superfreezer;
 
     public function _before(FunctionalTester $I)
@@ -34,9 +43,13 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->dropAction = $I->grabService(Drop::class);
+        $this->hideAction = $I->grabService(Hide::class);
+        $this->hyperfreezeAction = $I->grabService(Hyperfreeze::class);
         $this->takeAction = $I->grabService(Take::class);
 
         $this->dropActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DROP]);
+        $this->hideActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HIDE]);
+        $this->hyperfreezeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::HYPERFREEZE]);
         $this->takeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE]);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -114,6 +127,16 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
         $this->thenPlayerShouldCarryTheFollowingAmountOfItems(2, $I);
     }
 
+    public function shouldFoodTransformRemoveHiddenStatus(FunctionalTester $I): void
+    {
+        $this->givenCookedRationIsInPlayerRoom();
+        $this->givenSuperfreezerIsInPlayerRoom();
+        $this->whenPlayerHides($this->cookedRation);
+        $this->whenPlayerFreezes($this->cookedRation);
+        $this->thenPlayerShouldHaveStandardRation($I);
+        $this->thenPlayerShouldHaveNoHiddenItems($I);
+    }
+
     private function givenPlayerHasSuperfreezer(): void
     {
         $this->superfreezer = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -154,6 +177,16 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenCookedRationIsInPlayerRoom(): void
+    {
+        $this->cookedRation = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameRationEnum::COOKED_RATION,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenPlayerDropsSuperfreezer(): void
     {
         $this->dropAction->loadParameters($this->dropActionConfig, $this->superfreezer, $this->player, $this->superfreezer);
@@ -164,6 +197,18 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
     {
         $this->takeAction->loadParameters($this->takeActionConfig, $this->superfreezer, $this->player, $this->superfreezer);
         $this->takeAction->execute();
+    }
+
+    private function whenPlayerHides(GameItem $item): void
+    {
+        $this->hideAction->loadParameters($this->hideActionConfig, $item, $this->player, $item);
+        $this->hideAction->execute();
+    }
+
+    private function whenPlayerFreezes(GameItem $item): void
+    {
+        $this->hyperfreezeAction->loadParameters($this->hyperfreezeActionConfig, $this->superfreezer, $this->player, $item);
+        $this->hyperfreezeAction->execute();
     }
 
     private function thenPlayerShouldBeBurdened(FunctionalTester $I): void
@@ -179,5 +224,17 @@ final class EquipmentSubscriberCest extends AbstractFunctionalTest
     private function thenPlayerShouldCarryTheFollowingAmountOfItems(int $itemCount, FunctionalTester $I): void
     {
         $I->assertCount($itemCount, $this->player->getEquipments());
+    }
+
+    private function thenPlayerShouldHaveStandardRation(FunctionalTester $I): void
+    {
+        $I->assertNotNull($this->player->getEquipmentByName(GameRationEnum::STANDARD_RATION));
+    }
+
+    private function thenPlayerShouldHaveNoHiddenItems(FunctionalTester $I): void
+    {
+        foreach ($this->player->getEquipments() as $playerItem) {
+            $I->assertFalse($playerItem->hasStatus(EquipmentStatusEnum::HIDDEN));
+        }
     }
 }

@@ -20,6 +20,8 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -45,6 +47,8 @@ class CreatePlayerServiceCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
+        $rebelBaseContactDurationStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['name' => DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_' . GameConfigEnum::DEFAULT]);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
@@ -59,7 +63,7 @@ class CreatePlayerServiceCest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig, $rebelBaseContactDurationStatusConfig]),
             'daedalusConfig' => $daedalusConfig,
             'equipmentsConfig' => $equipmentConfigs,
         ]);

@@ -91,6 +91,12 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $numberOfCyclesBeforeNextRebelBaseContact = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $rebelBaseContactDurationMin = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $rebelBaseContactDurationMax = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -406,6 +412,30 @@ class DaedalusConfig
     public function setNumberOfCyclesBeforeNextRebelBaseContact(int $numberOfCyclesBeforeNextRebelBaseContact): static
     {
         $this->numberOfCyclesBeforeNextRebelBaseContact = $numberOfCyclesBeforeNextRebelBaseContact;
+
+        return $this;
+    }
+
+    public function getRebelBaseContactDurationMin(): int
+    {
+        return $this->rebelBaseContactDurationMin;
+    }
+
+    public function setRebelBaseContactDurationMin(int $rebelBaseContactDurationMin): static
+    {
+        $this->rebelBaseContactDurationMin = $rebelBaseContactDurationMin;
+
+        return $this;
+    }
+
+    public function getRebelBaseContactDurationMax(): int
+    {
+        return $this->rebelBaseContactDurationMax;
+    }
+
+    public function setRebelBaseContactDurationMax(int $rebelBaseContactDurationMax): static
+    {
+        $this->rebelBaseContactDurationMax = $rebelBaseContactDurationMax;
 
         return $this;
     }

@@ -20,4 +20,5 @@ abstract class DaedalusStatusEnum
     public const string ZE_LIST_HAS_BEEN_PRINTED = 'ze_list_has_been_printed';
     public const string EDEN_COMPUTED = 'eden_computed';
     public const string LINK_WITH_SOL_ESTABLISHED_ONCE = 'link_with_sol_established_once';
+    public const string REBEL_BASE_CONTACT_DURATION = 'rebel_base_contact_duration';
 }

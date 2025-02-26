@@ -178,4 +178,9 @@ class DaedalusInfo
     {
         return $this->localizationConfig->getLanguage();
     }
+
+    public function startDaedalus(): void
+    {
+        $this->gameStatus = GameStatusEnum::CURRENT;
+    }
 }

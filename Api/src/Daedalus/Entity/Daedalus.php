@@ -18,6 +18,7 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\DifficultyEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
@@ -691,6 +692,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->daedalusInfo->getGameStatus();
     }
 
+    public function isFilling(): bool
+    {
+        return \in_array($this->getGameStatus(), [GameStatusEnum::STANDBY, GameStatusEnum::STARTING], true);
+    }
+
     public function getName(): string
     {
         return $this->daedalusInfo->getName();
@@ -1011,6 +1017,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function isPrintedCircuitJellyInNexus(): bool
     {
         return $this->getPlaceByNameOrThrow(RoomEnum::NEXUS)->hasEquipmentByName(GearItemEnum::PRINTED_CIRCUIT_JELLY);
+    }
+
+    public function numberOfCyclesBeforeNextRebelBaseContact(): int
+    {
+        return $this->getDaedalusConfig()->getNumberOfCyclesBeforeNextRebelBaseContact();
     }
 
     private function getCreatedAtOrThrow(): \DateTime

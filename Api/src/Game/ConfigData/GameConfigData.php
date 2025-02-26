@@ -507,6 +507,7 @@ class GameConfigData
                 'electric_charges_coffee_thermos_default',
                 PlayerStatusEnum::CONTACTED_SOL_TODAY . '_default',
                 DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE . '_default',
+                DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

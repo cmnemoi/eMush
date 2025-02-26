@@ -11,7 +11,15 @@ interface RebelBaseRepositoryInterface
 {
     public function deleteAllByDaedalusId(int $daedalusId): void;
 
+    /**
+     * @return RebelBase[]
+     */
     public function findAllByDaedalusId(int $daedalusId): array;
+
+    /**
+     * @return RebelBase[]
+     */
+    public function findAllContactingRebelBases(int $daedalusId): array;
 
     public function findByDaedalusIdAndNameOrThrow(int $daedalusId, RebelBaseEnum $name): RebelBase;
 

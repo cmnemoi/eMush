@@ -69,7 +69,8 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setNumberOfProjectsByBatch(3)
             ->setHumanSkillSlots(3)
             ->setMushSkillSlots(4)
-            ->setNumberOfCyclesBeforeNextRebelBaseContact(8)
+            ->setRebelBaseContactDurationMin(8)
+            ->setRebelBaseContactDurationMax(16)
             ->setHoliday(HolidayEnum::NONE);
 
         $randomStorageItemPlaces = new RandomItemPlaces();

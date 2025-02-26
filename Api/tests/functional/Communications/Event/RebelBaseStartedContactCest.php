@@ -32,6 +32,8 @@ final class RebelBaseStartedContactCest extends AbstractFunctionalTest
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->triggerNextRebelBaseContact = $I->grabService(TriggerNextRebelBaseContactService::class);
+
+        $this->givenDaedalusIsFull();
     }
 
     public function shouldTriggerNeronAnnouncementIfLinkWithSolIsEstablished(FunctionalTester $I): void
@@ -66,6 +68,11 @@ final class RebelBaseStartedContactCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenDaedalusIsFull(): void
+    {
+        $this->daedalus->getDaedalusInfo()->startDaedalus();
+    }
+
     private function givenRebelBasesExists(array $rebelBaseNames, FunctionalTester $I): void
     {
         foreach ($rebelBaseNames as $rebelBaseName) {
@@ -92,6 +99,6 @@ final class RebelBaseStartedContactCest extends AbstractFunctionalTest
 
     private function whenRebelBaseStartedContact(): void
     {
-        $this->triggerNextRebelBaseContact->execute($this->daedalus->getId());
+        $this->triggerNextRebelBaseContact->execute($this->daedalus->getId(), new \DateTime());
     }
 }

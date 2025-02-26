@@ -613,6 +613,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($contactedSolToday);
 
+        $baseRebelContactDuration = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_default')
+        );
+        $manager->persist($baseRebelContactDuration);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -668,7 +673,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($antiquePerfumeImmunized)
             ->addStatusConfig($hasDaunted)
             ->addStatusConfig($coffeeThermosCharge)
-            ->addStatusConfig($contactedSolToday);
+            ->addStatusConfig($contactedSolToday)
+            ->addStatusConfig($baseRebelContactDuration);
 
         $manager->persist($gameConfig);
 
@@ -728,6 +734,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_SABOTAGED_DOOR, $hasSabotagedDoor);
         $this->addReference(DaedalusStatusEnum::NERON_DEPRESSION, $neronDepression);
         $this->addReference(self::COFFEE_THERMOS_CHARGE, $coffeeThermosCharge);
+        $this->addReference(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION, $baseRebelContactDuration);
     }
 
     public function getDependencies(): array

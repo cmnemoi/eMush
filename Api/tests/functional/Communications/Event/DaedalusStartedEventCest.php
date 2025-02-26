@@ -15,6 +15,7 @@ use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -67,6 +68,13 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
         $this->thenAllRebelBasesShouldBeCreated($I);
     }
 
+    public function shouldCreateRebelBaseContactDurationStatus(FunctionalTester $I): void
+    {
+        $this->whenDaedalusStarts();
+
+        $this->thenRebelBaseContactDurationStatusShouldBeCreated($I);
+    }
+
     private function whenDaedalusStarts(): void
     {
         $this->eventService->callEvent(
@@ -108,5 +116,17 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
             expected: $this->daedalus->getDaedalusInfo()->getGameConfig()->getRebelBaseConfigs()->map(static fn (RebelBaseConfig $rebelBaseConfig) => $rebelBaseConfig->getName())->toArray(),
             actual: array_map(static fn (RebelBase $rebelBase) => $rebelBase->getName(), $rebelBases)
         );
+    }
+
+    private function thenRebelBaseContactDurationStatusShouldBeCreated(FunctionalTester $I): void
+    {
+        $expectedMin = $this->daedalus->getDaedalusConfig()->getRebelBaseContactDurationMin();
+        $expectedMax = $this->daedalus->getDaedalusConfig()->getRebelBaseContactDurationMax();
+
+        $status = $this->daedalus->getChargeStatusByName(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION);
+
+        $I->assertNotNull($status, 'Daedalus should have a rebel base contact duration charge status');
+        $I->assertGreaterThanOrEqual($expectedMin, $status->getCharge(), "Rebel base contact duration charge status should be greater than or equal to {$expectedMin}");
+        $I->assertLessThanOrEqual($expectedMax, $status->getCharge(), "Rebel base contact duration charge status should be less than or equal to {$expectedMax}");
     }
 }

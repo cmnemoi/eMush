@@ -10,20 +10,20 @@ use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
+use Mush\Communications\Service\KillExpiredRebelBaseContactsService;
 use Mush\Communications\Service\TriggerNextRebelBaseContactService;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\EventPriorityEnum;
-use Mush\Game\Service\CycleServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus,
-        private CycleServiceInterface $cycleService,
         private LinkWithSolRepositoryInterface $linkWithSolRepository,
+        private KillExpiredRebelBaseContactsService $killExpiredRebelBaseContacts,
         private RebelBaseRepositoryInterface $rebelBaseRepository,
         private NeronVersionRepositoryInterface $neronVersionRepository,
         private TriggerNextRebelBaseContactService $triggerNextRebelBaseContact,
@@ -41,16 +41,10 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function onDaedalusNewCycle(DaedalusCycleEvent $event): void
     {
-        $daedalus = $event->getDaedalus();
+        $daedalusId = $event->getDaedalus()->getId();
 
-        $mostRecentContactingRebelBase = $this->rebelBaseRepository->findMostRecentContactingRebelBase($daedalus->getId());
-        if (!$mostRecentContactingRebelBase) {
-            return;
-        }
-
-        if ($this->numberOfCyclesSinceContact($mostRecentContactingRebelBase, $event) >= $this->numberOfCyclesBeforeNextRebelBaseContact($daedalus)) {
-            $this->triggerNextRebelBaseContact->execute($daedalus->getId());
-        }
+        $this->triggerNextRebelBaseContact->execute($daedalusId, $event->getTime());
+        $this->killExpiredRebelBaseContacts->execute($daedalusId, $event->getTime());
     }
 
     public function onDaedalusDelete(DaedalusEvent $event): void
@@ -62,7 +56,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function onDaedalusFull(DaedalusEvent $event): void
     {
-        $this->triggerNextRebelBaseContact->execute($event->getDaedalus()->getId());
+        $this->triggerNextRebelBaseContact->execute($event->getDaedalus()->getId(), $event->getTime());
     }
 
     public function onDaedalusStart(DaedalusEvent $event): void
@@ -77,19 +71,5 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         foreach ($daedalus->getDaedalusInfo()->getGameConfig()->getRebelBaseConfigs() as $rebelBaseConfig) {
             $this->rebelBaseRepository->save(new RebelBase($rebelBaseConfig, $daedalus->getId()));
         }
-    }
-
-    private function numberOfCyclesSinceContact(RebelBase $rebelBase, DaedalusCycleEvent $event): int
-    {
-        return $this->cycleService->getNumberOfCycleElapsed(
-            start: $rebelBase->getContactStartDateOrThrow(),
-            end: $event->getTime(),
-            daedalusInfo: $event->getDaedalus()->getDaedalusInfo(),
-        );
-    }
-
-    private function numberOfCyclesBeforeNextRebelBaseContact(Daedalus $daedalus): int
-    {
-        return $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getNumberOfCyclesBeforeNextRebelBaseContact();
     }
 }

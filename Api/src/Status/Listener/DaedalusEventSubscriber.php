@@ -9,6 +9,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -20,23 +22,24 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
 {
-    private PlanetServiceInterface $planetService;
-    private StatusServiceInterface $statusService;
-
     public function __construct(
-        PlanetServiceInterface $planetService,
-        StatusServiceInterface $statusService
-    ) {
-        $this->planetService = $planetService;
-        $this->statusService = $statusService;
-    }
+        private GetRandomIntegerServiceInterface $getRandomInteger,
+        private PlanetServiceInterface $planetService,
+        private StatusServiceInterface $statusService,
+    ) {}
 
     public static function getSubscribedEvents()
     {
         return [
+            DaedalusEvent::START_DAEDALUS => 'onStartDaedalus',
             DaedalusEvent::TRAVEL_LAUNCHED => ['onTravelLaunched', EventPriorityEnum::HIGH],
             DaedalusEvent::TRAVEL_FINISHED => ['onTravelFinished', EventPriorityEnum::LOW],
         ];
+    }
+
+    public function onStartDaedalus(DaedalusEvent $event): void
+    {
+        $this->setupRebelBaseContactDuration($event);
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void
@@ -61,6 +64,22 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onTravelFinished(DaedalusEvent $event): void
     {
         $this->resetNumberOfCatchingUpHunters($event);
+    }
+
+    private function setupRebelBaseContactDuration(DaedalusEvent $event): void
+    {
+        $min = $event->getDaedalus()->getDaedalusConfig()->getRebelBaseContactDurationMin();
+        $max = $event->getDaedalus()->getDaedalusConfig()->getRebelBaseContactDurationMax();
+
+        /** @var ChargeStatus $chargeStatus */
+        $chargeStatus = $this->createDaedalusStatusFromName(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION, $event);
+        $this->statusService->updateCharge(
+            chargeStatus: $chargeStatus,
+            delta: $this->getRandomInteger->execute($min, $max),
+            tags: $event->getTags(),
+            time: $event->getTime(),
+            mode: VariableEventInterface::SET_VALUE,
+        );
     }
 
     private function createDaedalusStatusFromName(string $name, DaedalusEvent $event): Status

@@ -11,7 +11,10 @@ use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -23,6 +26,7 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
     private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
     private EventServiceInterface $eventService;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -31,18 +35,42 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
     }
 
-    public function shouldTriggerNextRebelBaseContactAfter8Cycles(FunctionalTester $I): void
+    public function shouldNotTriggerContactIfDaedalusIsNotFull(FunctionalTester $I): void
+    {
+        $this->givenRebelBaseContactStopsAfterXCycles(10);
+        $this->givenKaladaanExists($I);
+
+        $this->whenXCyclesPass(1);
+
+        $this->thenRebelBaseShouldNotContact(RebelBaseEnum::KALADAAN, $I);
+    }
+
+    public function shouldTriggerNextRebelBaseContactAfterEightCycles(FunctionalTester $I): void
     {
         $this->givenWolfContactedToday($I);
         $this->givenKaladaanExists($I);
+        $this->givenRebelBaseContactStopsAfterXCycles(10);
+        $this->givenDaedalusIsFull();
 
         $this->whenXCyclesPass(8);
 
         $this->thenRebelBaseShouldContact(RebelBaseEnum::KALADAAN, $I);
+    }
+
+    public function shouldKillRebelBaseContactAfterSetUpDuration(FunctionalTester $I): void
+    {
+        $this->givenWolfContactedToday($I);
+        $this->givenRebelBaseContactStopsAfterXCycles(2);
+        $this->givenDaedalusIsFull();
+
+        $this->whenXCyclesPass(2);
+
+        $this->thenRebelBaseShouldNotContact(RebelBaseEnum::WOLF, $I);
     }
 
     private function givenWolfContactedToday(FunctionalTester $I): void
@@ -59,6 +87,28 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         $this->rebelBaseRepository->save(
             new RebelBase($kaladaanConfig, $this->daedalus->getId())
         );
+    }
+
+    private function givenRebelBaseContactStopsAfterXCycles(int $numberOfCycles): void
+    {
+        $rebelBaseContactDurationStatus = $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION,
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime()
+        );
+        $this->statusService->updateCharge(
+            chargeStatus: $rebelBaseContactDurationStatus,
+            delta: $numberOfCycles,
+            tags: [],
+            time: new \DateTime(),
+            mode: VariableEventInterface::SET_VALUE
+        );
+    }
+
+    private function givenDaedalusIsFull(): void
+    {
+        $this->daedalus->getDaedalusInfo()->startDaedalus();
     }
 
     private function whenXCyclesPass(int $x): void
@@ -81,5 +131,15 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         );
 
         $I->assertFalse($rebelBase->isNotContacting(), "Rebel base {$rebelBaseName->toString()} should be contacting");
+    }
+
+    private function thenRebelBaseShouldNotContact(RebelBaseEnum $rebelBaseName, FunctionalTester $I): void
+    {
+        $rebelBase = $this->rebelBaseRepository->findByDaedalusIdAndNameOrThrow(
+            $this->daedalus->getId(),
+            $rebelBaseName
+        );
+
+        $I->assertTrue($rebelBase->isNotContacting(), "Rebel base {$rebelBaseName->toString()} should not be contacting");
     }
 }

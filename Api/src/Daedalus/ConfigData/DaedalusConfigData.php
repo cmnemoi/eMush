@@ -89,6 +89,8 @@ class DaedalusConfigData
             'mushSkillSlots' => 4,
             'applyHoliday' => HolidayEnum::CURRENT,
             'numberOfCyclesBeforeNextRebelBaseContact' => 8,
+            'rebelBaseContactDurationMin' => 8,
+            'rebelBaseContactDurationMax' => 16,
         ],
     ];
 }

@@ -6,7 +6,6 @@ use Mush\Action\Actions\UpgradeNeron;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
@@ -57,7 +56,6 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
             ->filter(static fn (Project $project) => !\in_array($project->getName(), [ProjectName::FIRE_SENSOR->toString(), ProjectName::DOOR_SENSOR->toString()], true))
             ->map(static fn (Project $project) => $project->unpropose());
 
-        $this->createLinkWithSolForDaedalus();
         $this->createNeronVersionForDaedalus();
         $this->givenACommsCenterInChunRoom();
         $this->givenChunIsFocusedOnCommsCenter();
@@ -208,11 +206,6 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
         $this->chun->addTitle(TitleEnum::COM_MANAGER);
     }
 
-    private function createLinkWithSolForDaedalus(): void
-    {
-        $this->linkWithSolRepository->save(new LinkWithSol($this->daedalus->getId()));
-    }
-
     private function givenThereIsNoneAvailableNeronProjects(): void
     {
         $this->daedalus
@@ -250,14 +243,5 @@ final class UpgradeNeronCest extends AbstractFunctionalTest
     {
         $this->whenChunTriesToUpgradeNeron();
         $this->upgradeNeron->execute();
-    }
-
-    private function thenIShouldNotSeeAFinishedNeronProject(FunctionalTester $I): void
-    {
-        $I->assertCount(
-            expectedCount: 0,
-            haystack: $this->daedalus->getFinishedNeronProjects(),
-            message: 'There should be 0 finished neron project, found: ' . \count($this->daedalus->getFinishedNeronProjects()),
-        );
     }
 }

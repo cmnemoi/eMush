@@ -93,6 +93,9 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $startingHuntersNumberOfTruceCycles = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $linkWithSolCycleFailureRate = 0;
+
     public function __construct()
     {
         $this->firePlayerDamage = [];
@@ -405,6 +408,18 @@ class DifficultyConfig
     public function setStartingHuntersNumberOfTruceCycles(int $startingHuntersNumberOfTruceCycles): static
     {
         $this->startingHuntersNumberOfTruceCycles = $startingHuntersNumberOfTruceCycles;
+
+        return $this;
+    }
+
+    public function getLinkWithSolCycleFailureRate(): int
+    {
+        return $this->linkWithSolCycleFailureRate;
+    }
+
+    public function setLinkWithSolCycleFailureRate(int $linkWithSolCycleFailureRate): static
+    {
+        $this->linkWithSolCycleFailureRate = $linkWithSolCycleFailureRate;
 
         return $this;
     }

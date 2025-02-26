@@ -6,7 +6,6 @@ namespace Mush\Tests\functional\Communications\Event;
 
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
-use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Enum\RebelBaseEnum;
@@ -83,18 +82,14 @@ final class RebelBaseStartedContactCest extends AbstractFunctionalTest
 
     private function givenLinkWithSolIsEstablished(): void
     {
-        $this->linkWithSolRepository->save(new LinkWithSol(
-            $this->daedalus->getId(),
-            isEstablished: true,
-        ));
+        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
+        $linkWithSol->establish();
     }
 
     private function givenLinkWithSolIsNotEstablished(): void
     {
-        $this->linkWithSolRepository->save(new LinkWithSol(
-            $this->daedalus->getId(),
-            isEstablished: false,
-        ));
+        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
+        $linkWithSol->unestablish();
     }
 
     private function whenRebelBaseStartedContact(): void

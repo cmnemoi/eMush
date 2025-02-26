@@ -35,7 +35,7 @@ final class RebelBaseRepository extends ServiceEntityRepository implements Rebel
      */
     public function findAllByDaedalusId(int $daedalusId): array
     {
-        return $this->findBy(['daedalus' => $daedalusId]);
+        return array_map(fn (RebelBase $rebelBase) => $this->hydrate($rebelBase), $this->findBy(['daedalus' => $daedalusId]));
     }
 
     /**
@@ -51,7 +51,7 @@ final class RebelBaseRepository extends ServiceEntityRepository implements Rebel
             ->andWhere('rebelBase.contactEndDate IS NULL')
             ->setParameter('daedalusId', $daedalusId);
 
-        return $queryBuilder->getQuery()->getResult();
+        return array_map(fn (RebelBase $rebelBase) => $this->hydrate($rebelBase), $queryBuilder->getQuery()->getResult());
     }
 
     public function findByDaedalusIdAndNameOrThrow(int $daedalusId, RebelBaseEnum $name): RebelBase

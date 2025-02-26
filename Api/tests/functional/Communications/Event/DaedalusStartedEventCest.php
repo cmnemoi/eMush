@@ -38,6 +38,8 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
+
+        $this->linkWithSolRepository->deleteByDaedalusId($this->daedalus->getId());
     }
 
     public function shouldCreateLinkWithSol(FunctionalTester $I): void

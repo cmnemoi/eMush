@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Communications\Event;
 
-use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
@@ -40,8 +39,6 @@ final class DaedalusDeletedEventCest extends AbstractFunctionalTest
 
     public function shouldDeleteLinkWithSol(FunctionalTester $I): void
     {
-        $this->givenALinkWithSolExists();
-
         $this->whenDaedalusIsDeleted();
 
         $this->thenLinkWithSolShouldBeDeleted($I);
@@ -63,11 +60,6 @@ final class DaedalusDeletedEventCest extends AbstractFunctionalTest
         $this->whenDaedalusIsDeleted();
 
         $this->thenAllRebelBasesShouldBeDeleted($I);
-    }
-
-    private function givenALinkWithSolExists(): void
-    {
-        $this->linkWithSolRepository->save(new LinkWithSol($this->daedalus->getId()));
     }
 
     private function givenNeronVersionExists(): void

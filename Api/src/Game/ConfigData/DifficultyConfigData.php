@@ -73,6 +73,7 @@ class DifficultyConfigData
             'hunterSpawnRate' => 20,
             'hunterSafeCycles' => [2, 3],
             'startingHuntersNumberOfTruceCycles' => 2,
+            'linkWithSolCycleFailureRate' => 3,
         ],
     ];
 }

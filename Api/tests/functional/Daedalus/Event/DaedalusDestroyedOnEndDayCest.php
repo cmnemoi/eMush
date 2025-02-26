@@ -5,6 +5,8 @@ namespace Mush\Tests\functional\Daedalus\Event;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communications\Entity\LinkWithSol;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -34,10 +36,12 @@ use Mush\User\Entity\User;
 class DaedalusDestroyedOnEndDayCest
 {
     private EventServiceInterface $eventService;
+    private LinkWithSolRepositoryInterface $linkWithSolRepository;
 
     public function _before(FunctionalTester $I)
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
     }
 
     public function testDestroyDaedalus(FunctionalTester $I)
@@ -82,6 +86,9 @@ class DaedalusDestroyedOnEndDayCest
             ->setNeron($neron)
             ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
+
+        $linkWithSol = new LinkWithSol($daedalus->getId());
+        $this->linkWithSolRepository->save($linkWithSol);
 
         $this->createProjects($I, $daedalus);
 

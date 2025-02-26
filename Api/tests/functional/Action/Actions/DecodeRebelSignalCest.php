@@ -13,7 +13,6 @@ use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
-use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -32,7 +31,6 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private DecodeRebelSignal $decodeRebelBase;
 
-    private CreateLinkWithSolForDaedalusService $createLinkWithSol;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
@@ -46,13 +44,11 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DECODE_REBEL_SIGNAL]);
         $this->decodeRebelBase = $I->grabService(DecodeRebelSignal::class);
 
-        $this->createLinkWithSol = $I->grabService(CreateLinkWithSolForDaedalusService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->createLinkWithSol->execute($this->daedalus->getId());
         $this->givenCommsCenterInRoom();
     }
 

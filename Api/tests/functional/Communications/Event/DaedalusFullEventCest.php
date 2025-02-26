@@ -8,7 +8,6 @@ use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
-use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -20,7 +19,6 @@ use Mush\Tests\FunctionalTester;
  */
 final class DaedalusFullEventCest extends AbstractFunctionalTest
 {
-    private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
     private EventServiceInterface $eventService;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
 
@@ -28,12 +26,10 @@ final class DaedalusFullEventCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
 
         $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
-        $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
     }
 
     public function shouldMakeFirstRebelBaseContactingTheDaedalus(FunctionalTester $I): void

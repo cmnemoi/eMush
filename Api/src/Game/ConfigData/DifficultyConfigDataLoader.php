@@ -53,7 +53,8 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
                 ->setHunterSpawnRate($difficultyConfigData['hunterSpawnRate'])
                 ->setHunterSafeCycles($difficultyConfigData['hunterSafeCycles'])
                 ->setStartingHuntersNumberOfTruceCycles($difficultyConfigData['startingHuntersNumberOfTruceCycles'])
-                ->setMaximumAllowedSpreadingFires($difficultyConfigData['maximumAllowedSpreadingFires']);
+                ->setMaximumAllowedSpreadingFires($difficultyConfigData['maximumAllowedSpreadingFires'])
+                ->setLinkWithSolCycleFailureRate($difficultyConfigData['linkWithSolCycleFailureRate']);
 
             $this->entityManager->persist($difficultyConfig);
         }

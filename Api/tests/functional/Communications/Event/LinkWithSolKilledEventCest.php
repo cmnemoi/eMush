@@ -8,7 +8,6 @@ use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
-use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Event\LinkWithSolKilledEvent;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -21,15 +20,16 @@ use Mush\Tests\FunctionalTester;
 final class LinkWithSolKilledEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
+    private LinkWithSolRepositoryInterface $linkWithSolRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
+        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
 
-        $this->givenLinkWithSolIsEstablished($linkWithSolRepository);
+        $this->givenLinkWithSolIsEstablished();
     }
 
     public function shouldCreateCommsDownAlert(FunctionalTester $I): void
@@ -65,11 +65,10 @@ final class LinkWithSolKilledEventCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenLinkWithSolIsEstablished(mixed $linkWithSolRepository): void
+    private function givenLinkWithSolIsEstablished(): void
     {
-        $linkWithSolRepository->save(
-            new LinkWithSol($this->daedalus->getId(), isEstablished: true)
-        );
+        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
+        $linkWithSol->establish();
     }
 
     private function thenIShouldSeeNeronAnnouncementInGeneralChannel(FunctionalTester $I)

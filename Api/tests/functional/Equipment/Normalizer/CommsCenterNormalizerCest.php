@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Equipment\Normalizer;
 
-use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
@@ -41,8 +40,6 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
-
-        $this->createLinkWithSol();
 
         $this->givenNeronVersionIs(major: 2, minor: 9);
         $this->givenCommsCenterInPlayerRoom();
@@ -117,12 +114,6 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
     private function whenINormalizeTerminalForPlayer(): void
     {
         $this->normalizedTerminal = $this->terminalNormalizer->normalize($this->commsCenter, format: null, context: ['currentPlayer' => $this->player]);
-    }
-
-    private function createLinkWithSol(): void
-    {
-        $linkWithSol = new LinkWithSol($this->daedalus->getId());
-        $this->linkWithSolRepository->save($linkWithSol);
     }
 
     private function givenCommsCenterInPlayerRoom(): void

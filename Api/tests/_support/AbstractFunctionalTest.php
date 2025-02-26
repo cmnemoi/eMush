@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NoResultException;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -48,8 +49,12 @@ class AbstractFunctionalTest
     protected Channel $publicChannel;
     protected Channel $mushChannel;
 
+    private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
+
     public function _before(FunctionalTester $I)
     {
+        $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
+
         $this->daedalus = $this->createDaedalus($I);
         $this->players = $this->createPlayers($I, $this->daedalus);
         $this->daedalus->setPlayers($this->players);
@@ -62,6 +67,7 @@ class AbstractFunctionalTest
         $this->kuanTi = $this->player2;
 
         $this->createAllProjects($I);
+        $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
     }
 
     protected function createDaedalus(FunctionalTester $I): Daedalus

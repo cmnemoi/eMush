@@ -80,7 +80,8 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
             ])
             ->setHunterSpawnRate(0)
             ->setHunterSafeCycles([2, 3])
-            ->setStartingHuntersNumberOfTruceCycles(2);
+            ->setStartingHuntersNumberOfTruceCycles(2)
+            ->setLinkWithSolCycleFailureRate(0);
 
         $manager->persist($difficultyConfig);
 

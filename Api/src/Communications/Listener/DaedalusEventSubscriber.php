@@ -11,6 +11,7 @@ use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Communications\Service\KillExpiredRebelBaseContactsService;
+use Mush\Communications\Service\KillLinkWithSolService;
 use Mush\Communications\Service\TriggerNextRebelBaseContactService;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
@@ -22,6 +23,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus,
+        private KillLinkWithSolService $killLinkWithSol,
         private LinkWithSolRepositoryInterface $linkWithSolRepository,
         private KillExpiredRebelBaseContactsService $killExpiredRebelBaseContacts,
         private RebelBaseRepositoryInterface $rebelBaseRepository,
@@ -41,34 +43,33 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function onDaedalusNewCycle(DaedalusCycleEvent $event): void
     {
-        $daedalusId = $event->getDaedalus()->getId();
-
-        $this->triggerNextRebelBaseContact->execute($daedalusId, $event->getTime());
-        $this->killExpiredRebelBaseContacts->execute($daedalusId, $event->getTime());
+        $this->triggerNextRebelBaseContact->execute($event->getDaedalusId(), $event->getTime());
+        $this->killExpiredRebelBaseContacts->execute($event->getDaedalusId(), $event->getTime());
+        $this->killLinkWithSol->execute($event->getDaedalusId(), successRate: $event->getLinkWithSolCycleKillChance());
     }
 
     public function onDaedalusDelete(DaedalusEvent $event): void
     {
-        $this->linkWithSolRepository->deleteByDaedalusId($event->getDaedalus()->getId());
-        $this->neronVersionRepository->deleteByDaedalusId($event->getDaedalus()->getId());
-        $this->rebelBaseRepository->deleteAllByDaedalusId($event->getDaedalus()->getId());
+        $this->linkWithSolRepository->deleteByDaedalusId($event->getDaedalusId());
+        $this->neronVersionRepository->deleteByDaedalusId($event->getDaedalusId());
+        $this->rebelBaseRepository->deleteAllByDaedalusId($event->getDaedalusId());
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void
     {
-        $this->triggerNextRebelBaseContact->execute($event->getDaedalus()->getId(), $event->getTime());
+        $this->triggerNextRebelBaseContact->execute($event->getDaedalusId(), $event->getTime());
     }
 
     public function onDaedalusStart(DaedalusEvent $event): void
     {
-        $this->createLinkWithSolForDaedalus->execute($event->getDaedalus()->getId());
-        $this->neronVersionRepository->save(new NeronVersion($event->getDaedalus()->getId()));
+        $this->createLinkWithSolForDaedalus->execute($event->getDaedalusId());
+        $this->neronVersionRepository->save(new NeronVersion($event->getDaedalusId()));
         $this->createRebelBases($event->getDaedalus());
     }
 
     private function createRebelBases(Daedalus $daedalus): void
     {
-        foreach ($daedalus->getDaedalusInfo()->getGameConfig()->getRebelBaseConfigs() as $rebelBaseConfig) {
+        foreach ($daedalus->getGameConfig()->getRebelBaseConfigs() as $rebelBaseConfig) {
             $this->rebelBaseRepository->save(new RebelBase($rebelBaseConfig, $daedalus->getId()));
         }
     }

@@ -34,6 +34,7 @@ final class AlertServiceCest extends AbstractFunctionalTest
         $I->haveInRepository($this->mycoscan);
 
         $this->alertService = $I->grabService(AlertServiceInterface::class);
+        $this->alertService->deleteCommunicationsDownAlertForDaedalus($this->daedalus);
     }
 
     public function testHandleEquipmentBreakCreateAnAlertElement(FunctionalTester $I): void

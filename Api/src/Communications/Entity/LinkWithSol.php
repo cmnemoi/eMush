@@ -50,6 +50,31 @@ class LinkWithSol
         return $this->daedalusId;
     }
 
+    public function isEstablished(): bool
+    {
+        return $this->isEstablished;
+    }
+
+    public function isNotEstablished(): bool
+    {
+        return $this->isEstablished === false;
+    }
+
+    public function increaseStrength(int $strengthIncrease): void
+    {
+        $this->strength = $this->getStrengthAsValueObject()->increase($strengthIncrease)->value;
+    }
+
+    public function establish(): void
+    {
+        $this->isEstablished = true;
+    }
+
+    public function unestablish(): void
+    {
+        $this->isEstablished = false;
+    }
+
     /**
      * @deprecated should be used only in Doctrine repositories
      */
@@ -72,26 +97,6 @@ class LinkWithSol
     public function setDaedalus(Daedalus $daedalus): void
     {
         $this->daedalus = $daedalus;
-    }
-
-    public function isEstablished(): bool
-    {
-        return $this->isEstablished;
-    }
-
-    public function increaseStrength(int $strengthIncrease): void
-    {
-        $this->strength = $this->getStrengthAsValueObject()->increase($strengthIncrease)->value;
-    }
-
-    public function establish(): void
-    {
-        $this->isEstablished = true;
-    }
-
-    public function unestablish(): void
-    {
-        $this->isEstablished = false;
     }
 
     private function getStrengthAsValueObject(): LinkStrength

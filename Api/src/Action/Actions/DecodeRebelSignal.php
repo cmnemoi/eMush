@@ -94,6 +94,7 @@ final class DecodeRebelSignal extends AbstractAction
 
         if ($rebelBase->isDecoded()) {
             $this->createRebelBaseModifiers($rebelBase);
+            $this->endRebelBaseContact($rebelBase);
         }
     }
 
@@ -115,6 +116,12 @@ final class DecodeRebelSignal extends AbstractAction
                 time: new \DateTime(),
             );
         }
+    }
+
+    private function endRebelBaseContact(RebelBase $rebelBase): void
+    {
+        $rebelBase->endContact();
+        $this->rebelBaseRepository->save($rebelBase);
     }
 
     private function rebelBase(): RebelBase

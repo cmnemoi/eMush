@@ -21,7 +21,7 @@ abstract class EventPriorityEnum
     public const int EQUIPMENTS = 8;  // recharge, effect of statuses
     public const int DAEDALUS_INCIDENTS = 6; // trigger incident in the daedalus (falling ceiling electric arcs...)
     public const int ROOMS = 4; // fires
-
     public const int HUNTERS = 4; // hunter joining the party
     public const int ATTRIBUTE_TITTLES = -2;
+    public const int REBEL_BASES = -4; // trigger / lose contact with rebel bases
 }

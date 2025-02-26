@@ -88,6 +88,9 @@ class DaedalusConfig
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => 'none'])]
     private string $holiday = 'none';
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $numberOfCyclesBeforeNextRebelBaseContact = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -391,6 +394,18 @@ class DaedalusConfig
             HolidayEnum::NONE => HolidayEnum::NONE,
             default => throw new \LogicException("{$holiday} is not a valid holiday check method"),
         };
+
+        return $this;
+    }
+
+    public function getNumberOfCyclesBeforeNextRebelBaseContact(): int
+    {
+        return $this->numberOfCyclesBeforeNextRebelBaseContact;
+    }
+
+    public function setNumberOfCyclesBeforeNextRebelBaseContact(int $numberOfCyclesBeforeNextRebelBaseContact): static
+    {
+        $this->numberOfCyclesBeforeNextRebelBaseContact = $numberOfCyclesBeforeNextRebelBaseContact;
 
         return $this;
     }

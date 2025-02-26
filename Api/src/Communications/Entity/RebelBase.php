@@ -7,6 +7,7 @@ namespace Mush\Communications\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
+use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
@@ -20,11 +21,14 @@ class RebelBase implements ModifierProviderInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $id;
 
-    #[ORM\OneToOne(targetEntity: RebelBaseConfig::class)]
+    #[ORM\ManyToOne(targetEntity: RebelBaseConfig::class)]
     private RebelBaseConfig $rebelBaseConfig;
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
-    private bool $isContacting;
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $contactStartDate;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $contactEndDate;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $signal = 0;
@@ -34,16 +38,31 @@ class RebelBase implements ModifierProviderInterface
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    public function __construct(RebelBaseConfig $rebelBaseConfig, int $daedalusId, bool $isContacting = false)
+    public function __construct(RebelBaseConfig $rebelBaseConfig, int $daedalusId, ?\DateTimeImmutable $contactStartDate = null)
     {
         $this->rebelBaseConfig = $rebelBaseConfig;
         $this->daedalusId = $daedalusId;
-        $this->isContacting = $isContacting;
+        $this->contactStartDate = $contactStartDate;
+        $this->contactEndDate = null;
     }
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getName(): RebelBaseEnum
+    {
+        return $this->rebelBaseConfig->getName();
+    }
+
+    public function getContactStartDateOrThrow(): \DateTime
+    {
+        if ($this->contactDidNotStart()) {
+            throw new \RuntimeException("Rebel base {$this->getName()->toString()} did not start contact");
+        }
+
+        return \DateTime::createFromImmutable($this->getContactStartDate());
     }
 
     public function isDecoded(): bool
@@ -53,7 +72,22 @@ class RebelBase implements ModifierProviderInterface
 
     public function isNotContacting(): bool
     {
-        return $this->isContacting === false;
+        return $this->contactDidNotStart() || $this->contactEnded();
+    }
+
+    public function increaseDecodingProgress(int $amount): void
+    {
+        $this->signal += $amount;
+    }
+
+    public function triggerContact(): void
+    {
+        $this->contactStartDate = \DateTimeImmutable::createFromMutable($this->daedalus->getCycleStartedAtOrThrow());
+    }
+
+    public function endContact(): void
+    {
+        $this->contactEndDate = $this->now();
     }
 
     /**
@@ -62,11 +96,6 @@ class RebelBase implements ModifierProviderInterface
     public function getModifierConfigs(): ArrayCollection
     {
         return new ArrayCollection($this->rebelBaseConfig->getModifierConfigs()->toArray());
-    }
-
-    public function increaseDecodingProgress(int $amount): void
-    {
-        $this->signal += $amount;
     }
 
     public function getUsedCharge(string $actionName): ?ChargeStatus
@@ -118,5 +147,25 @@ class RebelBase implements ModifierProviderInterface
     public function setDaedalus(Daedalus $daedalus): void
     {
         $this->daedalus = $daedalus;
+    }
+
+    private function contactDidNotStart(): bool
+    {
+        return $this->contactStartDate === null;
+    }
+
+    private function contactEnded(): bool
+    {
+        return $this->contactEndDate !== null;
+    }
+
+    private function now(): \DateTimeImmutable
+    {
+        return new \DateTimeImmutable();
+    }
+
+    private function getContactStartDate(): \DateTimeImmutable
+    {
+        return $this->contactStartDate ?? throw new \RuntimeException("Rebel base {$this->getName()->toString()} did not start contact");
     }
 }

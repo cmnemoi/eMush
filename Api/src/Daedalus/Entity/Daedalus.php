@@ -593,6 +593,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function getCycleStartedAtOrThrow(): \DateTime
+    {
+        return $this->cycleStartedAt ?? throw new \RuntimeException("Daedalus {$this->getId()} should have a cycle started at date");
+    }
+
     public function isCycleChange(): bool
     {
         return $this->isCycleChange;

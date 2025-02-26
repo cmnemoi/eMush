@@ -20,25 +20,19 @@ final class RebelBaseRepository extends ServiceEntityRepository implements Rebel
         parent::__construct($registry, RebelBase::class);
     }
 
-    public function hasNoContactingRebelBase(int $daedalusId): bool
+    public function deleteAllByDaedalusId(int $daedalusId): void
     {
-        $connection = $this->getEntityManager()->getConnection();
+        $this->createQueryBuilder('rebelBase')
+            ->delete()
+            ->where('rebelBase.daedalus = :daedalusId')
+            ->setParameter('daedalusId', $daedalusId)
+            ->getQuery()
+            ->execute();
+    }
 
-        $query = <<<'EOD'
-        SELECT EXISTS (
-            SELECT 1
-            FROM rebel_base
-            WHERE daedalus_id = :daedalusId
-            AND is_contacting = true
-        ) as has_contacting_base
-        EOD;
-
-        $result = $connection->executeQuery(
-            $query,
-            ['daedalusId' => $daedalusId]
-        )->fetchOne();
-
-        return !$result;
+    public function findAllByDaedalusId(int $daedalusId): array
+    {
+        return $this->findBy(['daedalus' => $daedalusId]);
     }
 
     public function findByDaedalusIdAndNameOrThrow(int $daedalusId, RebelBaseEnum $name): RebelBase
@@ -58,6 +52,58 @@ final class RebelBaseRepository extends ServiceEntityRepository implements Rebel
         }
 
         return $rebelBase;
+    }
+
+    public function findMostRecentContactingRebelBase(int $daedalusId): ?RebelBase
+    {
+        $queryBuilder = $this->createQueryBuilder('rebelBase')
+            ->select('rebelBase')
+            ->innerJoin('rebelBase.rebelBaseConfig', 'rebelBaseConfig')
+            ->innerJoin('rebelBase.daedalus', 'daedalus')
+            ->where('rebelBase.daedalus = :daedalusId')
+            ->andWhere('rebelBase.contactStartDate IS NOT NULL')
+            ->setParameter('daedalusId', $daedalusId)
+            ->orderBy('rebelBase.contactStartDate', 'DESC')
+            ->setMaxResults(1);
+
+        return $this->hydrate($queryBuilder->getQuery()->getOneOrNullResult());
+    }
+
+    public function findNextContactingRebelBase(int $daedalusId): ?RebelBase
+    {
+        $queryBuilder = $this->createQueryBuilder('rebelBase')
+            ->select('rebelBase')
+            ->innerJoin('rebelBase.rebelBaseConfig', 'rebelBaseConfig')
+            ->innerJoin('rebelBase.daedalus', 'daedalus')
+            ->where('rebelBase.daedalus = :daedalusId')
+            ->andWhere('rebelBase.contactStartDate IS NULL')
+            ->andWhere('rebelBase.contactEndDate IS NULL')
+            ->setParameter('daedalusId', $daedalusId)
+            ->orderBy('rebelBaseConfig.contactOrder', 'ASC')
+            ->setMaxResults(1);
+
+        return $this->hydrate($queryBuilder->getQuery()->getOneOrNullResult());
+    }
+
+    public function hasNoContactingRebelBase(int $daedalusId): bool
+    {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $query = <<<'EOD'
+        SELECT EXISTS (
+            SELECT 1
+            FROM rebel_base
+            WHERE daedalus_id = :daedalusId
+            AND contact_start_date IS NOT NULL
+        ) as has_contacting_base
+        EOD;
+
+        $result = $connection->executeQuery(
+            $query,
+            ['daedalusId' => $daedalusId]
+        )->fetchOne();
+
+        return !$result;
     }
 
     public function save(RebelBase $rebelBase): void

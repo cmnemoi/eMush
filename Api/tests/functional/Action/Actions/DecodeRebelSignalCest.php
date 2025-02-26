@@ -118,20 +118,17 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         });
     }
 
-    public function kaladaanRebelBaseShouldNotGiveSixMoralePointsOnFailure(FunctionalTester $I): void
+    public function shouldMarkRebelBaseAsNonContactingOnSuccess(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
         $this->givenLinkWithSolIsEstablished();
-        $this->givenRebelBaseIsContacting(RebelBaseEnum::KALADAAN, $I);
-        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::KALADAAN, 0);
-        $this->givenChunHasMoralePoints(0);
-        $this->givenKuanTiHasMoralePoints(0);
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::WOLF, 99);
 
-        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::KALADAAN);
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
 
-        $this->thenChunShouldHaveMoralePoints(0, $I);
-        $this->thenKuanTiShouldHaveMoralePoints(0, $I);
+        $this->thenRebelBaseShouldNotContact(RebelBaseEnum::WOLF, $I);
     }
 
     public function kaladaanRebelBaseShouldGiveSixMoralePointsOnSuccess(FunctionalTester $I): void
@@ -148,6 +145,22 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
 
         $this->thenChunShouldHaveMoralePoints(6, $I);
         $this->thenKuanTiShouldHaveMoralePoints(6, $I);
+    }
+
+    public function kaladaanRebelBaseShouldNotGiveSixMoralePointsOnFailure(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::KALADAAN, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::KALADAAN, 0);
+        $this->givenChunHasMoralePoints(0);
+        $this->givenKuanTiHasMoralePoints(0);
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::KALADAAN);
+
+        $this->thenChunShouldHaveMoralePoints(0, $I);
+        $this->thenKuanTiShouldHaveMoralePoints(0, $I);
     }
 
     private function givenCommsCenterInRoom(): void
@@ -218,7 +231,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $rebelBase = new RebelBase(
             rebelBaseConfig: $config,
             daedalusId: $this->daedalus->getId(),
-            isContacting: true,
+            contactStartDate: new \DateTimeImmutable(),
         );
         $this->rebelBaseRepository->save($rebelBase);
     }
@@ -273,5 +286,15 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveMoralePoints(int $points, FunctionalTester $I): void
     {
         $I->assertEquals($points, $this->kuanTi->getMoralPoint(), "Kuan Ti should have {$points} morale points, but has " . $this->kuanTi->getMoralPoint());
+    }
+
+    private function thenRebelBaseShouldNotContact(RebelBaseEnum $rebelBaseEnum, FunctionalTester $I): void
+    {
+        $rebelBase = $this->rebelBaseRepository->findByDaedalusIdAndNameOrThrow(
+            daedalusId: $this->daedalus->getId(),
+            name: $rebelBaseEnum,
+        );
+
+        $I->assertTrue($rebelBase->isNotContacting(), "Rebel base {$rebelBaseEnum->toString()} should not be contacting");
     }
 }

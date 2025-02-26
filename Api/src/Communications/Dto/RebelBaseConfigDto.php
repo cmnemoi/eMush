@@ -11,6 +11,7 @@ final readonly class RebelBaseConfigDto
     public function __construct(
         public string $key,
         public RebelBaseEnum $name,
+        public int $contactOrder,
         /** @var string[] */
         public array $modifierConfigs,
     ) {}
@@ -19,8 +20,9 @@ final readonly class RebelBaseConfigDto
     {
         $key = $data['key'] ?? throw new \Exception('Please provide a key for the Rebel base config');
         $name = $data['name'] ?? throw new \Exception('Please provide a name for the Rebel base config');
+        $contactOrder = $data['contactOrder'] ?? throw new \Exception('Please provide a contact order for the Rebel base config');
         $modifierConfigs = $data['modifierConfigs'] ?? throw new \Exception("Please provide modifier configs for the Rebel base config {$name} (can be an empty array)");
 
-        return new self($key, RebelBaseEnum::from($name), $modifierConfigs);
+        return new self($key, RebelBaseEnum::from($name), $contactOrder, $modifierConfigs);
     }
 }

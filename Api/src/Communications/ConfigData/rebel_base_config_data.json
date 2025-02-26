@@ -2,6 +2,7 @@
     {   
         "key": "wolf_default",
         "name": "wolf",
+        "contactOrder": 1,
         "modifierConfigs": [
             "plus_8_triumph_points_for_all_players"
         ]
@@ -9,6 +10,7 @@
     {
         "key": "kaladaan_default",
         "name": "kaladaan",
+        "contactOrder": 4,
         "modifierConfigs": [
             "plus_6_morale_points_for_all_players"
         ]

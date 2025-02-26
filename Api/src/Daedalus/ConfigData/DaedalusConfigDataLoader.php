@@ -58,7 +58,8 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setNumberOfProjectsByBatch($daedalusConfigData['numberOfProjectsByBatch'])
                 ->setHumanSkillSlots($daedalusConfigData['humanSkillSlots'])
                 ->setMushSkillSlots($daedalusConfigData['mushSkillSlots'])
-                ->setHoliday($daedalusConfigData['applyHoliday']);
+                ->setHoliday($daedalusConfigData['applyHoliday'])
+                ->setNumberOfCyclesBeforeNextRebelBaseContact($daedalusConfigData['numberOfCyclesBeforeNextRebelBaseContact']);
 
             $this->setDaedalusConfigRandomItemPlaces($daedalusConfig, $daedalusConfigData);
             $this->setDaedalusConfigPlaceConfigs($daedalusConfig, $daedalusConfigData);

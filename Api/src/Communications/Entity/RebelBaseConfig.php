@@ -24,14 +24,23 @@ class RebelBaseConfig
     #[ORM\Column(type: 'string', nullable: false, enumType: RebelBaseEnum::class, options: ['default' => RebelBaseEnum::NULL])]
     private RebelBaseEnum $name;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $contactOrder;
+
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
-    public function __construct(string $key, RebelBaseEnum $name, ArrayCollection $modifierConfigs)
+    public function __construct(string $key, RebelBaseEnum $name, int $contactOrder, ArrayCollection $modifierConfigs)
     {
         $this->key = $key;
         $this->name = $name;
+        $this->contactOrder = $contactOrder;
         $this->modifierConfigs = $modifierConfigs;
+    }
+
+    public function getName(): RebelBaseEnum
+    {
+        return $this->name;
     }
 
     public function getModifierConfigs(): Collection
@@ -43,6 +52,7 @@ class RebelBaseConfig
     {
         $this->key = $rebelBaseConfig->key;
         $this->name = $rebelBaseConfig->name;
+        $this->contactOrder = $rebelBaseConfig->contactOrder;
         $this->modifierConfigs = $rebelBaseConfig->modifierConfigs;
     }
 }

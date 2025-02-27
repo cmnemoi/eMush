@@ -9,10 +9,8 @@
                 <div class="link-infos">
                     <div class="link-infos-img">
                         <img
-                            v-for="n in sensorFramesCount"
-                            :key="n"
-                            :src="getImgUrl(`sensor0${n}.png`)"
-                            :class="['sensor-frame', `frame-${n}`]"
+                            :src="getImgUrl(`sensor0${sensorFramesCount}.png`)"
+                            class="sensor-frame"
                             alt="connection status"
                         />
                     </div>

@@ -49,7 +49,7 @@ class AbstractFunctionalTest
     protected Channel $publicChannel;
     protected Channel $mushChannel;
 
-    private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
+    protected CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
 
     public function _before(FunctionalTester $I)
     {
@@ -306,7 +306,7 @@ class AbstractFunctionalTest
         $addSkillToPlayer->execute($skill, $player);
     }
 
-    private function createAllProjects(FunctionalTester $I): void
+    protected function createAllProjects(FunctionalTester $I): void
     {
         foreach (ProjectConfigData::getAll() as $projectConfigData) {
             $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $projectConfigData['name']]);

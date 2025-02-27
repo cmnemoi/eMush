@@ -33,13 +33,11 @@ final class JukeboxProjectTest extends TestCase
 {
     public function testShouldGiveTwoMoralePointsToPlayer(): void
     {
-        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
+        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints();
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
         $jukebox = $this->givenAJukeboxEquipmentInPlayerRoom($player);
-
-        $this->givenJukeBoxPlaysPlayerMusic($jukebox, $player);
 
         $this->whenJukeboxWorksAtCycleChange($jukebox);
 
@@ -48,7 +46,7 @@ final class JukeboxProjectTest extends TestCase
 
     public function testShouldNotGiveMoralePointsIfPlayerIsNotInJukeBoxRoom(): void
     {
-        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
+        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints();
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
@@ -61,11 +59,13 @@ final class JukeboxProjectTest extends TestCase
 
     public function testShouldNotGiveMoralePointsIfJukeBoxDoesNotPlayPlayerMusic(): void
     {
-        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
+        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints([CharacterEnum::ROLAND, CharacterEnum::RALUCA]);
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
         $jukebox = $this->givenAJukeboxEquipmentInPlayerRoom($player);
+
+        $this->givenJukeBoxPlaysPlayerMusic($jukebox, $player);
 
         $this->whenJukeboxWorksAtCycleChange($jukebox);
 
@@ -74,7 +74,7 @@ final class JukeboxProjectTest extends TestCase
 
     public function testShouldNotGiveMoralePointsIfJukeboxIsBroken(): void
     {
-        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
+        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints();
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
@@ -89,13 +89,18 @@ final class JukeboxProjectTest extends TestCase
         $this->thenThePlayerShouldHaveMoralePoints(10, $player);
     }
 
-    private function givenAPlayerWithTenMoralePoints(): array
+    private function givenAPlayerWithTenMoralePoints(array $characters = [CharacterEnum::RALUCA]): array
     {
         $daedalus = $this->createDaedalusWithJukeboxProject();
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
-        $player->setMoralPoint(10);
+        $players = [];
 
-        return [$player, $daedalus];
+        foreach ($characters as $character) {
+            $player = PlayerFactory::createPlayerByNameAndDaedalus($character, $daedalus);
+            $player->setMoralPoint(10);
+            $players[] = $player;
+        }
+
+        return [$players, $daedalus];
     }
 
     private function givenJukeboxProjectIsFinished(Daedalus $daedalus): void

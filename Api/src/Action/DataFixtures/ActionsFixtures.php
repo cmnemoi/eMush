@@ -344,7 +344,8 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::EXPRESS_COOK)
             ->setRange(ActionRangeEnum::SHELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(20);
+            ->setDirtyRate(20)
+            ->setOutputQuantity(30);
 
         $manager->persist($expressCookAction);
 

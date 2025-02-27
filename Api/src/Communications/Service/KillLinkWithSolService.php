@@ -18,7 +18,7 @@ final readonly class KillLinkWithSolService
         private LinkWithSolRepositoryInterface $linkWithSolRepository
     ) {}
 
-    public function execute(int $daedalusId, int $successRate = 100): void
+    public function execute(int $daedalusId, int $successRate = 100, array $tags = []): void
     {
         $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($daedalusId);
 
@@ -30,7 +30,7 @@ final readonly class KillLinkWithSolService
         $this->linkWithSolRepository->save($linkWithSol);
 
         $this->eventService->callEvent(
-            event: new LinkWithSolKilledEvent($daedalusId),
+            event: new LinkWithSolKilledEvent($daedalusId, tags: $tags),
             name: LinkWithSolKilledEvent::class
         );
     }

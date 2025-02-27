@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Communications\Event;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Chat\Entity\Message;
@@ -46,6 +47,13 @@ final class LinkWithSolKilledEventCest extends AbstractFunctionalTest
         $this->thenIShouldSeeNeronAnnouncementInGeneralChannel($I);
     }
 
+    public function shouldCreateSpecificAnnouncementWhenItsMicrowaveThatKilledLinkWithSol(FunctionalTester $I): void
+    {
+        $this->whenMicrowaveKillsLinkWithSol();
+
+        $this->thenIShouldSeeSpecificAnnouncementInGeneralChannel($I);
+    }
+
     private function whenLinkWithSolIsKilled(): void
     {
         $this->eventService->callEvent(
@@ -78,6 +86,24 @@ final class LinkWithSolKilledEventCest extends AbstractFunctionalTest
             params: [
                 'neron' => $this->daedalus->getNeron(),
                 'message' => NeronMessageEnum::LOST_SIGNAL,
+            ]
+        );
+    }
+
+    private function whenMicrowaveKillsLinkWithSol(): void
+    {
+        $this->eventService->callEvent(
+            event: new LinkWithSolKilledEvent($this->daedalus->getId(), tags: [ActionEnum::EXPRESS_COOK->toString()]),
+            name: LinkWithSolKilledEvent::class
+        );
+    }
+
+    private function thenIShouldSeeSpecificAnnouncementInGeneralChannel(FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'message' => NeronMessageEnum::LOST_SIGNAL_OVEN,
             ]
         );
     }

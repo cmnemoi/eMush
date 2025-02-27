@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Chat\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Communications\Event\LinkWithSolKilledEvent;
@@ -29,7 +30,7 @@ final readonly class LinkWithSolEventSubscriber implements EventSubscriberInterf
         $daedalus = $this->daedalusRepository->findByIdOrThrow($event->daedalusId);
 
         $this->neronMessageService->createNeronMessage(
-            messageKey: NeronMessageEnum::LOST_SIGNAL,
+            messageKey: $event->hasTag(ActionEnum::EXPRESS_COOK->toString()) ? NeronMessageEnum::LOST_SIGNAL_OVEN : NeronMessageEnum::LOST_SIGNAL,
             daedalus: $daedalus,
             parameters: [],
             dateTime: $event->getTime()

@@ -232,4 +232,9 @@ class ActionEvent extends AbstractGameEvent
     {
         return \in_array($this->getActionName(), $actions, true) === false;
     }
+
+    public function getDaedalusId(): int
+    {
+        return $this->getAuthor()->getDaedalus()->getId();
+    }
 }

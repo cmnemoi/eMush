@@ -539,5 +539,66 @@
         <target>:grenade: Ploc...poc...poc...pschhhhh...**{character}** se jette à couvert pendant que les autres regardent à leur pieds. Mais...? Rien ne se passe... Les admins sont impressionnés, vous avez réussi l'impossible.</target>
       </segment>
     </unit>
+    <unit id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash">
+      <segment id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash" state="translated">
+        <source>rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash</source>
+        <target>{version, select,
+                        1 {Une roquette fuse et explose près de **{target_character}**. Pour ce qu'il doit en rester...}
+                        2 {**{target_character}** se retourne pour voir une roquette lui arriver en plein dans le buffet.}
+                        other {"invalid version number"}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_rocketted">
+      <segment id="rocket_launcher_rocketted" state="translated">
+        <source>rocket_launcher_rocketted</source>
+        <target>{version, select,
+                        1 {**{target_character}** se retourne et se retrouve nez à nez avec **{character}** qui le vise au lance-roquette. Une roquette fuse et explose aux pieds de **{target_character}**, celui-ci prend un envol non désiré...mais désarticulé retombe lourdement...}
+                        2 {Depuis des temps immémoriaux, l'humanité explore les possiblité des outils. On dirait même sûrement que ce sont ces outils qui font la grandeur de l'humanité. Il est clair que **{target_character}** ne peut pas être de cet avis. En effet, un outil connu sous le nom de lance-roquette vient de le propulser dans les limbes.}
+                        3 {Un jour un grand cuisinier un peu empereur, appelé "le fléau des dieux", ou était-ce un de ses laquais...? Peu importe. Il décida que pour passer moins de temps à préparer à manger pour ses armées. Ses cavalier mettrait la viande à s'attendrir sur leur monture pendant les voyages. De là viendrait le steak Tartare. L'aspect désormais similaire de **{target_character}** ne devrait cependant pas vous inspirer grand appétit.}
+                        other {"invalid version number"}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items">
+      <segment id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items" state="translated">
+        <source>rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items</source>
+        <target>**{character}** ajuste **{target_character}** mais glisse et tire sa roquette par mégarde. Ratant de peu sa cible, une explosion puissante souffle **{character}** et **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_critical_3_random_wounds_2_items">
+      <segment id="rocket_launcher_critical_3_random_wounds_2_items" state="translated">
+        <source>rocket_launcher_critical_3_random_wounds_2_items</source>
+        <target>{version, select,
+                        1 {**{character}** fait feu. Vue l'ampleur de la déflagration qui vient de survrenir près de **{target_character}**, on peut s'attendre à ne pas l'avoir sur pied tout de suite...}
+                        2 {**{character}** fait feu. Une étoile s'éteint, une roquette se meurt, **{target_character}** s'éclipse dans un nuage de fumée et la mort s'approche.}
+                        other {"invalid version number"}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_6_items">
+      <segment id="rocket_launcher_fumble_6_items" state="translated">
+        <source>rocket_launcher_fumble_6_items</source>
+        <target>Une migraine surprise prend **{character}** au dépourvu, il rate sa roquette sans aucune élégance, **{target_character}** peut lui en être reconnaissant.</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_6_items_backfire_rocketted">
+      <segment id="rocket_launcher_fumble_6_items_backfire_rocketted" state="translated">
+        <source>rocket_launcher_fumble_6_items_backfire_rocketted</source>
+        <target>Comble de malchance, le manuel d'utilisation du lance-roquette compte 2234 pages. Malheureusement pour **{character}** qui n'en a lu que 2233. Sur la dernière était bien précisé de ne pas appuyer sur le bouton rouge.</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_8_splash_50_percent_4_items">
+      <segment id="rocket_launcher_fumble_8_splash_50_percent_4_items" state="translated">
+        <source>rocket_launcher_fumble_8_splash_50_percent_4_items</source>
+        <target>Un vent solaire vient déranger la conversation qui allait s'engager entre le lance-roquette de **{character}** et **{target_character}**. La roquette part en vrille et les débris pleuvent aux alentours.</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_miss_10_items">
+      <segment id="rocket_launcher_miss_10_items" state="translated">
+        <source>rocket_launcher_miss_10_items</source>
+        <target>Par on ne sait pas quel miracle, ou était-ce un heureux hasard... **{target_character}** esquive la roquette de **{character}** qui vient s'écraser dans le décor...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

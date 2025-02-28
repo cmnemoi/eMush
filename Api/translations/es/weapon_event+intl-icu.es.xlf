@@ -457,5 +457,53 @@
         <target>grenade_failure_placeholder</target>
       </segment>
     </unit>
+    <unit id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash">
+      <segment id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash" state="initial">
+        <source>rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash</source>
+        <target>rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_rocketted">
+      <segment id="rocket_launcher_rocketted" state="initial">
+        <source>rocket_launcher_rocketted</source>
+        <target>rocket_launcher_rocketted</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items">
+      <segment id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items" state="initial">
+        <source>rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items</source>
+        <target>rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_critical_3_random_wounds_2_items">
+      <segment id="rocket_launcher_critical_3_random_wounds_2_items" state="initial">
+        <source>rocket_launcher_critical_3_random_wounds_2_items</source>
+        <target>rocket_launcher_critical_3_random_wounds_2_items</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_6_items">
+      <segment id="rocket_launcher_fumble_6_items" state="initial">
+        <source>rocket_launcher_fumble_6_items</source>
+        <target>rocket_launcher_fumble_6_items</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_6_items_backfire_rocketted">
+      <segment id="rocket_launcher_fumble_6_items_backfire_rocketted" state="initial">
+        <source>rocket_launcher_fumble_6_items_backfire_rocketted</source>
+        <target>rocket_launcher_fumble_6_items_backfire_rocketted</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_8_splash_50_percent_4_items">
+      <segment id="rocket_launcher_fumble_8_splash_50_percent_4_items" state="initial">
+        <source>rocket_launcher_fumble_8_splash_50_percent_4_items</source>
+        <target>rocket_launcher_fumble_8_splash_50_percent_4_items</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_miss_10_items">
+      <segment id="rocket_launcher_miss_10_items" state="initial">
+        <source>rocket_launcher_miss_10_items</source>
+        <target>rocket_launcher_miss_10_items</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

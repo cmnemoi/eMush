@@ -268,12 +268,12 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $this->equipments;
     }
 
-    public function getBreakableWorkingEquipments(): Collection
+    public function getDestroyableOrBreakableWorkingEquipments(): Collection
     {
         return $this
             ->getEquipments()
             ->filter(static fn (GameEquipment $equipment) => (!$equipment->isBroken()))
-            ->filter(static fn (GameEquipment $equipment) => $equipment->isBreakable());
+            ->filter(static fn (GameEquipment $equipment) => $equipment->isBreakable() || $equipment->isDestroyable());
     }
 
     public function setEquipments(ArrayCollection $equipments): static

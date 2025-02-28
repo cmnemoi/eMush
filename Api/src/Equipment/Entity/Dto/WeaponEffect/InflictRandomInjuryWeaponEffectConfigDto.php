@@ -11,6 +11,8 @@ final readonly class InflictRandomInjuryWeaponEffectConfigDto extends WeaponEffe
     public function __construct(
         public string $name,
         public string $eventName,
+        public int $triggerRate = 100,
+        public int $quantity = 1,
         public bool $toShooter = false,
     ) {}
 
@@ -19,6 +21,8 @@ final readonly class InflictRandomInjuryWeaponEffectConfigDto extends WeaponEffe
         return new InflictRandomInjuryWeaponEffectConfig(
             $this->name,
             $this->eventName,
+            $this->triggerRate,
+            $this->quantity,
             $this->toShooter,
         );
     }

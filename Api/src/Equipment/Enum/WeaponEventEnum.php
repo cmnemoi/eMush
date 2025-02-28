@@ -99,6 +99,17 @@ enum WeaponEventEnum: string
     // grenade cannot fail throwing in mush Twinoid/current eMush. There is unused data for grenade fails, but implementing it should be discussed first.
     case GRENADE_FAILURE_PLACEHOLDER = 'grenade_failure_placeholder';
 
+    // Rocket Launcher
+
+    case ROCKET_LAUNCHER_SUCCESSFUL_HIT_2_RANDOM_WOUNDS_4_ITEMS_6_SPLASH = 'rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash';
+    case ROCKET_LAUNCHER_ROCKETTED = 'rocket_launcher_rocketted';
+    case ROCKET_LAUNCHER_CRITICAL_MINUS_8_DAMAGE_2_RANDOM_WOUNDS_2_BACKFIRE_WOUNDS_2_ITEMS = 'rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items';
+    case ROCKET_LAUNCHER_CRITICAL_3_RANDOM_WOUNDS_2_ITEMS = 'rocket_launcher_critical_3_random_wounds_2_items';
+    case ROCKET_LAUNCHER_FUMBLE_6_ITEMS = 'rocket_launcher_fumble_6_items';
+    case ROCKET_LAUNCHER_FUMBLE_6_ITEMS_BACKFIRE_ROCKETTED = 'rocket_launcher_fumble_6_items_backfire_rocketted';
+    case ROCKET_LAUNCHER_FUMBLE_8_SPLASH_50_PERCENT_4_ITEMS = 'rocket_launcher_fumble_8_splash_50_percent_4_items';
+    case ROCKET_LAUNCHER_MISS_10_ITEMS = 'rocket_launcher_miss_10_items';
+
     public function toString(): string
     {
         return $this->value;

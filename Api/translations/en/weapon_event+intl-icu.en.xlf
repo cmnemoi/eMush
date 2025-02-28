@@ -533,5 +533,66 @@
         <target>:grenade: Ploc...poc...poc...pschhhhh...**{character}** takes cover while the others look at their feet. But...? Nothing happens... The admins are impressed, you've managed to do the impossible.</target>
       </segment>
     </unit>
+    <unit id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash">
+      <segment id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash" state="translated">
+        <source>rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash</source>
+        <target>{version, select,
+                        1 {A rocket fires and explodes near **{target_character}**. For what's left of them...}
+                        2 {**{target_character}** turns around to see a rocket flying straight at them.}
+                        other {"invalid version number"}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_rocketted">
+      <segment id="rocket_launcher_rocketted" state="translated">
+        <source>rocket_launcher_rocketted</source>
+        <target>{version, select,
+                        1 {**{target_character}** turns and comes face to face with **{character}**, who is aiming a rocket launcher at them. A rocket flies and explodes at **{target_character}**'s feet, and they take an unwanted flight... then land with a heavy thud...}
+                        2 {Since time immemorial, mankind has been exploring the possibilities of tools. It might even be said that tools are what makes mankind great. Clearly, **{target_character}** would beg to differ. Indeed, a tool known as a rocket launcher has just propelled them into limbo.}
+                        3 {One day a great cook, who was also an emperor, nicknamed “the scourge of the gods”-- or was it one of his lackeys...? Anyway. He decided that in order to spend less time preparing food for his armies, his riders would tie the meat to tenderize to their mounts while traveling. From this would come Steak tartare. The now similar appearance of **{target_character}** shouldn't whet your appetite, however.}
+                        other {"invalid version number"}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items">
+      <segment id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items" state="translated">
+        <source>rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items</source>
+        <target>**{character}** adjusts their aim on **{target_character}** but inadvertently slips and fires their rocket. Just missing its target, a powerful explosion blows away both **{character}** and **{target_character}**.</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_critical_3_random_wounds_2_items">
+      <segment id="rocket_launcher_critical_3_random_wounds_2_items" state="translated">
+        <source>rocket_launcher_critical_3_random_wounds_2_items</source>
+        <target>{version, select,
+                        1 {**{character}** fires. Given the magnitude of the explosion that has just occurred near **{target_character}**, we can expect that they won't be on their feet right away...}
+                        2 {**{character}** fires. A star fades, a rocket lands, **{target_character}** disappears in a cloud of smoke and death looms.}
+                        other {"invalid version number"}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_6_items">
+      <segment id="rocket_launcher_fumble_6_items" state="translated">
+        <source>rocket_launcher_fumble_6_items</source>
+        <target>A surprise migraine catches **{character}** off guard, they miss their rocket shot recklessly, **{target_character}** can be grateful for that.</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_6_items_backfire_rocketted">
+      <segment id="rocket_launcher_fumble_6_items_backfire_rocketted" state="translated">
+        <source>rocket_launcher_fumble_6_items_backfire_rocketted</source>
+        <target>Due to direly poor luck, the manual for the rocket launcher is 2234 pages long. Unfortunate for **{character}**, who only read 2233 of them. On the last one, it was clearly stated not to press the red button.</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_fumble_8_splash_50_percent_4_items">
+      <segment id="rocket_launcher_fumble_8_splash_50_percent_4_items" state="translated">
+        <source>rocket_launcher_fumble_8_splash_50_percent_4_items</source>
+        <target>A solar wind disturbs the conversation between **{character}**'s rocket launcher and **{target_character}**. The rocket spins out of control and debris rain down.</target>
+      </segment>
+    </unit>
+    <unit id="rocket_launcher_miss_10_items">
+      <segment id="rocket_launcher_miss_10_items" state="translated">
+        <source>rocket_launcher_miss_10_items</source>
+        <target>By some miracle, or was it serendipity... **{target_character}** dodges **{character}**'s rocket which crashes into the background...</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

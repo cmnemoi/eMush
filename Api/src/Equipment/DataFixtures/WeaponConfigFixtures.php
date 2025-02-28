@@ -293,9 +293,9 @@ class WeaponConfigFixtures extends Fixture implements DependentFixtureInterface
         $rocketLauncherMechanic = new Weapon();
         $rocketLauncherMechanic
             ->setBaseAccuracy(50)
-            ->setBaseDamageRange([0 => 8])
+            ->setDamageSpread([6, 12])
             ->setExpeditionBonus(3)
-            ->addAction($attackAction)
+            ->addAction($shootAction)
             ->buildName(EquipmentMechanicEnum::WEAPON . '_' . ItemEnum::ROCKET_LAUNCHER, GameConfigEnum::DEFAULT);
 
         $rocketLauncher = new ItemConfig();

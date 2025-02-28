@@ -12,10 +12,16 @@ final readonly class OneShotWeaponEffectConfigDto extends WeaponEffectDto
         public string $name,
         public string $eventName,
         public string $endCause,
+        public bool $toShooter = false,
     ) {}
 
     public function toEntity(): OneShotWeaponEffectConfig
     {
-        return new OneShotWeaponEffectConfig($this->name, $this->eventName, $this->endCause);
+        return new OneShotWeaponEffectConfig(
+            $this->name,
+            $this->eventName,
+            $this->endCause,
+            $this->toShooter,
+        );
     }
 }

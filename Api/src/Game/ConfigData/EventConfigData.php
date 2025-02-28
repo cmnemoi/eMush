@@ -4,8 +4,8 @@ namespace Mush\Game\ConfigData;
 
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Disease\Enum\InjuryEnum;
-use Mush\Equipment\Entity\Dto\WeaponEffect\BreakRandomItemsWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\BreakWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\DestroyOrBreakRandomItemsWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\DestroyWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\DropWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\InflictInjuryWeaponEffectConfigDto;
@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\Dto\WeaponEffect\OneShotWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\RemoveActionPointsWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\SplashDamageAllWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\SplashInjuryWeaponEffectConfigDto;
+use Mush\Equipment\Entity\Dto\WeaponEffect\SplashRandomWeaponEffectConfigDto;
 use Mush\Equipment\Entity\Dto\WeaponEffect\WeaponEffectDto;
 use Mush\Equipment\Entity\Dto\WeaponEventConfigDto;
 use Mush\Equipment\Enum\WeaponEffectEnum;
@@ -1444,6 +1445,78 @@ class EventConfigData
                     WeaponEffectEnum::DESTROY_WEAPON->toString(),
                 ]
             ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::ROCKET_LAUNCHER_SUCCESSFUL_HIT_2_RANDOM_WOUNDS_4_ITEMS_6_SPLASH->toString(),
+                eventName: WeaponEventEnum::ROCKET_LAUNCHER_SUCCESSFUL_HIT_2_RANDOM_WOUNDS_4_ITEMS_6_SPLASH->toString(),
+                eventType: WeaponEventType::NORMAL,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_TWO_RANDOM_INJURY_TO_TARGET->toString(),
+                    WeaponEffectEnum::SPLASH_SIX_DAMAGE->toString(),
+                    WeaponEffectEnum::DAMAGE_FOUR_RANDOM_ITEMS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::ROCKET_LAUNCHER_ROCKETTED->toString(),
+                eventName: WeaponEventEnum::ROCKET_LAUNCHER_ROCKETTED->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::ROCKET_LAUNCHER_ONE_SHOT->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::ROCKET_LAUNCHER_CRITICAL_3_RANDOM_WOUNDS_2_ITEMS->toString(),
+                eventName: WeaponEventEnum::ROCKET_LAUNCHER_CRITICAL_3_RANDOM_WOUNDS_2_ITEMS->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::INFLICT_THREE_RANDOM_INJURY_TO_TARGET->toString(),
+                    WeaponEffectEnum::DAMAGE_TWO_RANDOM_ITEMS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::ROCKET_LAUNCHER_CRITICAL_MINUS_8_DAMAGE_2_RANDOM_WOUNDS_2_BACKFIRE_WOUNDS_2_ITEMS->toString(),
+                eventName: WeaponEventEnum::ROCKET_LAUNCHER_CRITICAL_MINUS_8_DAMAGE_2_RANDOM_WOUNDS_2_BACKFIRE_WOUNDS_2_ITEMS->toString(),
+                eventType: WeaponEventType::CRITIC,
+                effectKeys: [
+                    WeaponEffectEnum::REMOVE_EIGHT_DAMAGE->toString(),
+                    WeaponEffectEnum::INFLICT_TWO_RANDOM_INJURY_TO_TARGET->toString(),
+                    WeaponEffectEnum::INFLICT_TWO_RANDOM_INJURY_TO_SHOOTER->toString(),
+                    WeaponEffectEnum::DAMAGE_TWO_RANDOM_ITEMS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::ROCKET_LAUNCHER_MISS_10_ITEMS->toString(),
+                eventName: WeaponEventEnum::ROCKET_LAUNCHER_MISS_10_ITEMS->toString(),
+                eventType: WeaponEventType::MISS,
+                effectKeys: [
+                    WeaponEffectEnum::DAMAGE_TEN_RANDOM_ITEMS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_6_ITEMS->toString(),
+                eventName: WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_6_ITEMS->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::DAMAGE_SIX_RANDOM_ITEMS->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_6_ITEMS_BACKFIRE_ROCKETTED->toString(),
+                eventName: WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_6_ITEMS_BACKFIRE_ROCKETTED->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::DAMAGE_SIX_RANDOM_ITEMS->toString(),
+                    WeaponEffectEnum::ROCKET_LAUNCHER_ONE_SHOT_SHOOTER->toString(),
+                ]
+            ),
+            new WeaponEventConfigDto(
+                name: WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_8_SPLASH_50_PERCENT_4_ITEMS->toString(),
+                eventName: WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_8_SPLASH_50_PERCENT_4_ITEMS->toString(),
+                eventType: WeaponEventType::FUMBLE,
+                effectKeys: [
+                    WeaponEffectEnum::SPLASH_EIGHT_DAMAGE_50_PERCENT->toString(),
+                    WeaponEffectEnum::DAMAGE_FOUR_RANDOM_ITEMS->toString(),
+                ]
+            ),
         ];
     }
 
@@ -1509,6 +1582,7 @@ class EventConfigData
             new InflictRandomInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_RANDOM_INJURY_TO_TARGET_20_PERCENTS->toString(),
                 eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
+                triggerRate: 20,
             ),
             new InflictInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::INFLICT_MASHED_EAR_INJURY_TO_TARGET->toString(),
@@ -1667,15 +1741,68 @@ class EventConfigData
                 name: WeaponEffectEnum::SPLASH_DAMAGE_ALL->toString(),
                 eventName: WeaponEffectEnum::SPLASH_DAMAGE_ALL->toString(),
             ),
-            new BreakRandomItemsWeaponEffectConfigDto(
+            new DestroyOrBreakRandomItemsWeaponEffectConfigDto(
                 name: WeaponEffectEnum::DAMAGE_FOUR_RANDOM_ITEMS->toString(),
                 eventName: WeaponEffectEnum::DAMAGE_RANDOM_ITEM->toString(),
                 quantity: 4,
+            ),
+            new DestroyOrBreakRandomItemsWeaponEffectConfigDto(
+                name: WeaponEffectEnum::DAMAGE_SIX_RANDOM_ITEMS->toString(),
+                eventName: WeaponEffectEnum::DAMAGE_RANDOM_ITEM->toString(),
+                quantity: 6,
+            ),
+            new DestroyOrBreakRandomItemsWeaponEffectConfigDto(
+                name: WeaponEffectEnum::DAMAGE_TEN_RANDOM_ITEMS->toString(),
+                eventName: WeaponEffectEnum::DAMAGE_RANDOM_ITEM->toString(),
+                quantity: 10,
             ),
             new SplashInjuryWeaponEffectConfigDto(
                 name: WeaponEffectEnum::SPLASH_TWO_RANDOM_WOUNDS->toString(),
                 eventName: WeaponEffectEnum::SPLASH_RANDOM_WOUND->toString(),
                 quantity: 2,
+            ),
+            new ModifyMaxDamageWeaponEffectConfigDto(
+                name: WeaponEffectEnum::REMOVE_EIGHT_DAMAGE->toString(),
+                eventName: WeaponEffectEnum::MODIFY_DAMAGE->toString(),
+                quantity: -8,
+            ),
+            new OneShotWeaponEffectConfigDto(
+                name: WeaponEffectEnum::ROCKET_LAUNCHER_ONE_SHOT->toString(),
+                eventName: WeaponEffectEnum::ONE_SHOT->toString(),
+                endCause: EndCauseEnum::ROCKETED,
+            ),
+            new OneShotWeaponEffectConfigDto(
+                name: WeaponEffectEnum::ROCKET_LAUNCHER_ONE_SHOT_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::ONE_SHOT->toString(),
+                endCause: EndCauseEnum::ROCKETED,
+                toShooter: true,
+            ),
+            new InflictRandomInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_TWO_RANDOM_INJURY_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
+                quantity: 2,
+            ),
+            new InflictRandomInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_TWO_RANDOM_INJURY_TO_SHOOTER->toString(),
+                eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
+                quantity: 2,
+                toShooter: true,
+            ),
+            new InflictRandomInjuryWeaponEffectConfigDto(
+                name: WeaponEffectEnum::INFLICT_THREE_RANDOM_INJURY_TO_TARGET->toString(),
+                eventName: WeaponEffectEnum::INFLICT_RANDOM_INJURY->toString(),
+                quantity: 3,
+            ),
+            new SplashRandomWeaponEffectConfigDto(
+                name: WeaponEffectEnum::SPLASH_SIX_DAMAGE->toString(),
+                eventName: WeaponEffectEnum::SPLASH_DAMAGE_RANDOM->toString(),
+                quantity: 6,
+            ),
+            new SplashRandomWeaponEffectConfigDto(
+                name: WeaponEffectEnum::SPLASH_EIGHT_DAMAGE_50_PERCENT->toString(),
+                eventName: WeaponEffectEnum::SPLASH_DAMAGE_RANDOM->toString(),
+                quantity: 8,
+                triggerRate: 50,
             ),
         ];
     }

@@ -105,6 +105,9 @@ abstract class LogDeclinationEnum
             WeaponEventEnum::LIZARO_JUNGLE_FAILED_SHOT->value => [self::VERSION => 100],
             WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->value => [self::VERSION => 3],
             WeaponEventEnum::BARE_HANDS_FAILED_HIT->value => [self::VERSION => 3],
+            WeaponEventEnum::ROCKET_LAUNCHER_SUCCESSFUL_HIT_2_RANDOM_WOUNDS_4_ITEMS_6_SPLASH->value => [self::VERSION => 2],
+            WeaponEventEnum::ROCKET_LAUNCHER_ROCKETTED->value => [self::VERSION => 3],
+            WeaponEventEnum::ROCKET_LAUNCHER_CRITICAL_3_RANDOM_WOUNDS_2_ITEMS->value => [self::VERSION => 3],
         ];
     }
 }

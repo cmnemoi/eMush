@@ -17,6 +17,10 @@ enum WeaponEffectEnum: string
     case ONE_SHOT = 'one_shot';
     case REMOVE_ACTION_POINTS = 'remove_action_points';
     case MULTIPLY_DAMAGE_ON_MUSH_TARGET = 'multiply_damage_on_mush_target';
+    case SPLASH_RANDOM_WOUND = 'splash_random_wound';
+    case SPLASH_DAMAGE_ALL = 'splash_damage_all';
+    case SPLASH_DAMAGE_RANDOM = 'splash_damage_random';
+    case DAMAGE_RANDOM_ITEM = 'damage_random_item';
 
     // one shot effects
     case BLASTER_ONE_SHOT = 'blaster_one_shot';
@@ -25,6 +29,8 @@ enum WeaponEffectEnum: string
     case KNIFE_ONE_SHOT = 'knife_one_shot';
     case OLD_FAITHFUL_INJURY_ONE_SHOT = 'old_faithful_injury_one_shot';
     case LIZARO_JUNGLE_INJURY_ONE_SHOT = 'lizaro_jungle_injury_one_shot';
+    case ROCKET_LAUNCHER_ONE_SHOT = 'rocket_launcher_one_shot';
+    case ROCKET_LAUNCHER_ONE_SHOT_SHOOTER = 'rocket_launcher_one_shot_shooter';
 
     // modify damage effects
     case ADD_ONE_DAMAGE = 'add_one_damage';
@@ -32,6 +38,7 @@ enum WeaponEffectEnum: string
 
     // modify max damage effects
     case ADD_TWO_MAX_DAMAGE = 'add_two_max_damage';
+    case REMOVE_EIGHT_DAMAGE = 'remove_eight_damage';
 
     // inflict specific injuries effects
     case INFLICT_BURST_NOSE_INJURY_TO_TARGET_10_PERCENTS = 'inflict_burst_nose_injury_to_target_10_percents';
@@ -59,6 +66,9 @@ enum WeaponEffectEnum: string
     // inflict random injury effects
     case INFLICT_RANDOM_INJURY_TO_SHOOTER = 'inflict_random_injury_to_shooter';
     case INFLICT_RANDOM_INJURY_TO_TARGET = 'inflict_random_injury_to_target';
+    case INFLICT_TWO_RANDOM_INJURY_TO_TARGET = 'inflict_two_random_injury_to_target';
+    case INFLICT_TWO_RANDOM_INJURY_TO_SHOOTER = 'inflict_two_random_injury_to_shooter';
+    case INFLICT_THREE_RANDOM_INJURY_TO_TARGET = 'inflict_three_random_injury_to_target';
     case INFLICT_RANDOM_INJURY_TO_TARGET_20_PERCENTS = 'inflict_random_injury_to_target_20_percents';
 
     // remove action point effects
@@ -69,14 +79,18 @@ enum WeaponEffectEnum: string
     // multiply damage on mush target effects
     case DOUBLE_DAMAGE_ON_MUSH_TARGET = 'double_damage_on_mush_target';
 
-    // 'splash' effects
-    case SPLASH_DAMAGE_ALL = 'splash_damage_all';
-    case SPLASH_RANDOM_WOUND = 'splash_random_wound';
+    // splash wounds
     case SPLASH_TWO_RANDOM_WOUNDS = 'splash_two_random_wounds';
 
+    // splash damage
+    case SPLASH_SIX_DAMAGE = 'splash_six_damage';
+    case SPLASH_EIGHT_DAMAGE_50_PERCENT = 'splash_eight_damage_50_percent';
+
     // damage items in room effects
-    case DAMAGE_RANDOM_ITEM = 'damage_random_item';
+    case DAMAGE_TWO_RANDOM_ITEMS = 'damage_two_random_items';
     case DAMAGE_FOUR_RANDOM_ITEMS = 'damage_four_random_items';
+    case DAMAGE_SIX_RANDOM_ITEMS = 'damage_six_random_items';
+    case DAMAGE_TEN_RANDOM_ITEMS = 'damage_ten_random_items';
 
     public function toString(): string
     {

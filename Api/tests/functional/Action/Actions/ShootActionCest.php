@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -35,6 +36,7 @@ final class ShootActionCest extends AbstractFunctionalTest
     private GameItem $natamyRifle;
     private GameItem $oldFaithful;
     private GameItem $lizaroJungle;
+    private GameItem $rocketLauncher;
 
     public function _before(FunctionalTester $I)
     {
@@ -330,6 +332,34 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveExactlyHealthPoints(10, $I);
     }
 
+    public function rocketLauncherSixSplashDamageShouldDealSixDamageAtRandom(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasHealthPoints(7);
+        $this->givenChunHasHealthPoints(7);
+        $this->actionConfig->setSuccessRate(0);
+        $this->givenChunHasARocketLauncher();
+        $this->givenRocketLauncherHasDamage([0, 0]);
+        $this->givenRocketLauncherHas100ChanceToDispatchEvent(WeaponEventEnum::ROCKET_LAUNCHER_SUCCESSFUL_HIT_2_RANDOM_WOUNDS_4_ITEMS_6_SPLASH->toString());
+
+        $this->whenChunShootsAtKuanTiWithRocketLauncher();
+
+        $this->thenHealthPointsLostShouldBeExactly(7, 6, $I);
+    }
+
+    public function rocketLauncherSuccessfulHitShouldBreakOrDestroyFourItems(FunctionalTester $I): void
+    {
+        $this->actionConfig->setSuccessRate(100);
+        $this->givenChunHasARocketLauncher();
+        $this->givenRocketLauncherHas100ChanceToDispatchEvent(WeaponEventEnum::ROCKET_LAUNCHER_SUCCESSFUL_HIT_2_RANDOM_WOUNDS_4_ITEMS_6_SPLASH->toString());
+        $this->givenMycoAlarmInRoom();
+        $this->givenPostItInRoom();
+
+        $this->whenChunShootsAtKuanTiWithRocketLauncher();
+
+        $this->thenMycoAlarmIsBroken($I);
+        $this->thenPostItShouldBeDestroyed($I);
+    }
+
     public function plasteniteArmorShouldReduceDamage(FunctionalTester $I): void
     {
         $this->givenBlasterHas100ChanceToDispatchEvent(WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->toString());
@@ -394,6 +424,11 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->kuanTi->setHealthPoint($healthPoints);
     }
 
+    private function givenChunHasHealthPoints(int $healthPoints): void
+    {
+        $this->chun->setHealthPoint($healthPoints);
+    }
+
     private function givenChunHasANatamyRifle(): void
     {
         $this->natamyRifle = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -454,6 +489,31 @@ final class ShootActionCest extends AbstractFunctionalTest
         ]);
     }
 
+    private function givenChunHasARocketLauncher(): void
+    {
+        $this->rocketLauncher = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::ROCKET_LAUNCHER,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenRocketLauncherHasDamage(array $damage): void
+    {
+        $this->rocketLauncher->getWeaponMechanicOrThrow()->setDamageSpread($damage);
+    }
+
+    private function givenRocketLauncherHas100ChanceToDispatchEvent(string $event): void
+    {
+        $this->rocketLauncher->getWeaponMechanicOrThrow()->setSuccessfulEventKeys([
+            $event => 1,
+        ]);
+        $this->rocketLauncher->getWeaponMechanicOrThrow()->setFailedEventKeys([
+            $event => 1,
+        ]);
+    }
+
     private function givenKuanTiHasPlasteniteArmor(): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -462,6 +522,28 @@ final class ShootActionCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime()
         );
+    }
+
+    private function givenMycoAlarmInRoom(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::MYCO_ALARM,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPostItInRoom(): void
+    {
+        for ($i = 0; $i < 3; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::POST_IT,
+                equipmentHolder: $this->player->getPlace(),
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
     }
 
     private function whenChunShootsAtKuanTi(): void
@@ -502,6 +584,17 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->shootAction->loadParameters(
             actionConfig: $this->action99Config,
             actionProvider: $this->lizaroJungle,
+            player: $this->chun,
+            target: $this->kuanTi,
+        );
+        $this->shootAction->execute();
+    }
+
+    private function whenChunShootsAtKuanTiWithRocketLauncher(): void
+    {
+        $this->shootAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->rocketLauncher,
             player: $this->chun,
             target: $this->kuanTi,
         );
@@ -577,6 +670,21 @@ final class ShootActionCest extends AbstractFunctionalTest
     private function thenChunShouldHaveAnInjury(FunctionalTester $I): void
     {
         $I->assertNotEmpty($this->chun->getMedicalConditions()->filter(static fn (PlayerDisease $disease) => $disease->isAnInjury()));
+    }
+
+    private function thenMycoAlarmIsBroken(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->chun->getPlace()->getEquipmentByName(ItemEnum::MYCO_ALARM)->hasStatus(EquipmentStatusEnum::BROKEN));
+    }
+
+    private function thenPostItShouldBeDestroyed(FunctionalTester $I): void
+    {
+        $I->assertNull($this->chun->getPlace()->getEquipmentByName(ItemEnum::POST_IT));
+    }
+
+    private function thenHealthPointsLostShouldBeExactly(int $originalHealthPoints, int $healthPointsLost, FunctionalTester $I): void
+    {
+        $I->assertEquals($originalHealthPoints * 2, $this->chun->getHealthPoint() + $this->kuanTi->getHealthPoint() + $healthPointsLost);
     }
 
     private function weaponEventLogProvider(): array

@@ -78,7 +78,8 @@ final class RandomInjuryWeaponEffectHandlerTest extends TestCase
                     new FakeGetRandomIntegerService(result: 0)
                 ),
                 consumableDiseaseService: $consumableDiseaseService,
-            )
+            ),
+            new FakeD100Roll()
         );
     }
 

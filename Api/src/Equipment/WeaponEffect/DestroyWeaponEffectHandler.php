@@ -29,7 +29,7 @@ final readonly class DestroyWeaponEffectHandler extends AbstractWeaponEffectHand
         $equipmentEvent = new InteractWithEquipmentEvent(
             equipment: $effect->getWeapon(),
             author: $effect->getAuthor(),
-            visibility: VisibilityEnum::PUBLIC,
+            visibility: VisibilityEnum::HIDDEN,
             tags: $effect->getTags(),
             time: new \DateTime()
         );

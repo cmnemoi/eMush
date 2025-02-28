@@ -3,8 +3,8 @@
 namespace Mush\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Entity\Config\WeaponEffect\BreakRandomItemsWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\BreakWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\DestroyOrBreakRandomItemsWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\DestroyWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\DropWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\InflictInjuryWeaponEffectConfig;
@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Config\WeaponEffect\OneShotWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\RemoveActionPointsWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\SplashDamageAllWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEffect\SplashInjuryWeaponEffectConfig;
+use Mush\Equipment\Entity\Config\WeaponEffect\SplashRandomWeaponEffectConfig;
 use Mush\Equipment\Entity\Config\WeaponEventConfig;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 
@@ -42,7 +43,8 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
     'destroy_weapon_effect_config' => DestroyWeaponEffectConfig::class,
     'splash_damage_all_weapon_effect_config' => SplashDamageAllWeaponEffectConfig::class,
     'splash_injury_weapon_effect_config' => SplashInjuryWeaponEffectConfig::class,
-    'break_random_items_weapon_effect_config' => BreakRandomItemsWeaponEffectConfig::class,
+    'destroy_or_break_random_items_weapon_effect_config' => DestroyOrBreakRandomItemsWeaponEffectConfig::class,
+    'splash_random_weapon_effect_config' => SplashRandomWeaponEffectConfig::class,
 ])]
 abstract class AbstractEventConfig
 {

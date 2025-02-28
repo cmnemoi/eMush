@@ -43,6 +43,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
         PlanetSectorEvent::ITEM_LOST => LogEnum::LOST_ITEM_IN_EXPLORATION,
         ActionEnum::SHOOT_CAT->value => LogEnum::CAT_SHOT_DEAD,
         ActionEnum::ATTACK->value => LogEnum::EQUIPMENT_DESTROYED,
+        ActionEnum::SHOOT->value => LogEnum::EQUIPMENT_DESTROYED,
+        ActionEnum::THROW_GRENADE->value => LogEnum::EQUIPMENT_DESTROYED,
     ];
 
     private const MOVE_EQUIPMENT_LOG_MAP = [

@@ -249,6 +249,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getEquipment()->isBreakable();
     }
 
+    public function isDestroyable(): bool
+    {
+        return $this->getEquipment()->isFireDestroyable();
+    }
+
     public function shouldTriggerRoomTrap(): bool
     {
         return true;

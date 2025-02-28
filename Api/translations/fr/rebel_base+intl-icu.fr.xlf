@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="rebel_base.ext">
+    <unit id="wolf">
+            <segment id="name">
+                <source>wolf.name</source>
+                <target>Wolf</target>
+            </segment>
+            <segment id="hoverName">
+                <source>wolf.hoverName</source>
+                <target>Message des Enfants Perdus de Wolf</target>
+            </segment>
+            <segment id="description">
+                <source>wolf.description</source>
+                <target>Les enfants perdus de Wolf ont installé plusieurs antennes sur Terre ainsi qu'un centre d’émission à Mumbaï. Nous allons pouvoir émettre sur les ondes radios terriennes les nouvelles de votre odyssée. Vous êtes des héros.</target>
+            </segment>
+        </unit>
+        <unit id="unknown">
+            <segment id="name">
+                <source>unknown.name</source>
+                <target>???</target>
+            </segment>
+            <segment id="hoverName">
+                <source>unknown.hoverName</source>
+                <target>???</target>
+            </segment>
+        </unit>
+        <unit id="lost">
+            <segment id="description">
+                <source>lost.description</source>
+                <target>Cette base rebelle a lancé un signal mais personne n'a pu le décoder. Les apports de cette base sont perdus à jamais.</target>
+            </segment>
+        </unit>
+        <unit id="not_contacting">
+            <segment id="description">
+                <source>not_contacting.description</source>
+                <target>Cette base rebelle semble inactive pour le moment. À un moment du voyage, elle enverra un signal à décoder. Assurez-vous qu'il soit intercepté pour bénéficier de ses avantages.</target>
+            </segment>
+        </unit>
+        <unit id="contacting">
+            <segment id="description">
+                <source>contacting.description</source>
+                <target>Cette base rebelle a lancé un signal. En le décodant, vous obtiendrez des informations précieuses voir même des avantages pour l'équipage. Si vous tardez à le traiter, ce signal sera perdu à jamais.</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

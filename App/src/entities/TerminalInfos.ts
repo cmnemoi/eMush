@@ -28,6 +28,7 @@ export class TerminalInfos {
     public linkStrength: string|null = null;
     public linkEstablished: string|null = null;
     public neronUpdateStatus: string|null = null;
+    public selectRebelBaseToDecode: string|null = null;
 
     constructor() {
         this.requirements = [];
@@ -69,6 +70,7 @@ export class TerminalInfos {
             this.linkStrength = object.linkStrength;
             this.linkEstablished = object.linkEstablished;
             this.neronUpdateStatus = object.neronUpdateStatus;
+            this.selectRebelBaseToDecode = object.selectRebelBaseToDecode;
         }
         return this;
     }

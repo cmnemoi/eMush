@@ -58,6 +58,36 @@
                     </div>
                 </div>
             </div>
+            <div class="rebel-bases container">
+                <h3 class="title">
+                    <img :src="getImgUrl('spot2.svg')" alt="spot"/>
+                    {{ terminal.sectionTitles?.rebelBasesNetwork }}
+                </h3>
+                <div class="rebel-bases-grid">
+                    <Tippy
+                        tag="div"
+                        v-for="(base, index) in terminal.rebelBases"
+                        :key="index"
+                        class="rebel-base-item"
+                        :class="{ 'not-contacted' : base.name === '???', 'contacting' : base.isContacting, 'contacted' : base.name !== '???', 'selected' : base.key === selectedRebelBase }"
+                        @click="selectRebelBase(base)"
+                    >
+                        <p class="base-name">{{ base.name }}</p>
+                        <p :class="{ 'base-signal' : base.isContacting, 'base-signal-lost' : base.isLost }" v-if="base.isContacting || base.isLost">{{ base.signal }}</p>
+                        <img :src="getImgUrl(`rebel_bases/${base.key}.png`)" :alt="base.key" class="base-image" />
+                        <template #content>
+                            <h1 class="base-hover-name">{{ base.hoverName }}</h1>
+                            <p class="base-description">{{ base.description }}</p>
+                        </template>
+                    </Tippy>
+                </div>
+                <ActionButton
+                    :key="decodeRebelSignalAction.name || ''"
+                    class="terminal-button"
+                    :action="decodeRebelSignalAction"
+                    @click="executeTargetAction(terminal, decodeRebelSignalAction, { rebel_base: selectedRebelBase })"
+                />
+            </div>
         </section>
     </div>
 </template>
@@ -69,6 +99,7 @@ import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "@/entities/Action";
+import { RebelBase } from "@/entities/RebelBase";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { mapActions } from "vuex";
 
@@ -84,11 +115,25 @@ export default defineComponent({
         upgradeNeron(): Action {
             return this.terminal.getActionByKeyOrThrow(ActionEnum.UPGRADE_NERON);
         },
+        decodeRebelSignalAction(): Action {
+            const action = new Action();
+            action.load(this.terminal.getActionByKeyOrThrow(ActionEnum.DECODE_REBEL_SIGNAL));
+
+            if (this.selectedRebelBase === '' && action.canExecute) {
+                action.canExecute = false;
+                action.description = this.terminal.infos.selectRebelBaseToDecode;
+            }
+
+            return action;
+        },
         neron(): string {
             return this.terminal.sectionTitles?.neronVersion?.split('.')[0].split(' ')[0] || '';
         },
         neronMinorVersion(): integer {
             return Number(this.terminal.sectionTitles?.neronVersion?.split('.')[1]);
+        },
+        selectedRebelBase(): string {
+            return this.d_selectedRebelBase;
         },
         sensorFramesCount(): integer {
             const linkStrength = this.terminal.infos?.linkStrength;
@@ -123,13 +168,26 @@ export default defineComponent({
         ...mapActions({
             'executeAction': 'action/executeAction'
         }),
-        async executeTargetAction(target: Terminal, action: Action): Promise<void> {
+        async executeTargetAction(target: Terminal, action: Action, params: object = {}): Promise<void> {
             if (action.canExecute) {
-                await this.executeAction({ target, action });
+                await this.executeAction({ target, action, params });
             }
         },
         formatText,
-        getImgUrl
+        getImgUrl,
+        selectRebelBase(base: RebelBase) {
+            if (!base.isContacting) {
+                return;
+            }
+
+            this.d_selectedRebelBase = base.key;
+            this.decodeRebelSignalAction = this.terminal.getActionByKeyOrThrow(ActionEnum.DECODE_REBEL_SIGNAL);
+        }
+    },
+    data() {
+        return {
+            d_selectedRebelBase: ''
+        };
     }
 });
 </script>
@@ -142,9 +200,12 @@ export default defineComponent({
 }
 
 /* Common styles */
+p {
+    text-transform: uppercase;
+}
+
 .text {
     color: #75C7E5;
-    text-transform: uppercase;
 }
 
 /* Container styles */
@@ -237,5 +298,64 @@ export default defineComponent({
             --progress-width: v-bind('neronMinorVersion * 4 + "%"');
         }
     }
+}
+
+/* Rebel bases grid */
+.rebel-bases-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.rebel-base-item {
+    background-color: #81E0FD;
+    text-align: center;
+    opacity: 0.5;
+    position: relative;
+
+    &.contacting, &.contacted {
+        opacity: 1;
+    }
+
+    &.contacting {
+        &:hover,
+        &.selected {
+            background-color: $green;
+            cursor: pointer;
+        }
+    }
+
+    .base-signal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        margin: 0;
+        font-size: 2rem;
+        font-weight: bold;
+        text-shadow: 1px 1px 5px white;
+    }
+
+    .base-signal-lost {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        margin: 0;
+        text-shadow: 1px 1px 2px white;
+    }
+
+    .base-image {
+        position: relative;
+        z-index: 1;
+        max-width: 100%;
+    }
+}
+
+.base-description {
+    text-transform: none;
 }
 </style>

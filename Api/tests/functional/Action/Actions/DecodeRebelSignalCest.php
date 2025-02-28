@@ -225,7 +225,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     {
         $config = $I->grabEntityFromRepository(RebelBaseConfig::class, ['key' => $rebelBaseEnum->toString() . '_default']);
         $rebelBase = new RebelBase(
-            rebelBaseConfig: $config,
+            config: $config,
             daedalusId: $this->daedalus->getId(),
             contactStartDate: new \DateTimeImmutable(),
         );
@@ -246,7 +246,7 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     {
         $config = $I->grabEntityFromRepository(RebelBaseConfig::class, ['key' => $rebelBaseEnum->toString() . '_default']);
         $rebelBase = new RebelBase(
-            rebelBaseConfig: $config,
+            config: $config,
             daedalusId: $this->daedalus->getId(),
         );
         $this->rebelBaseRepository->save($rebelBase);

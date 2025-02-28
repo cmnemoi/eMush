@@ -38,9 +38,9 @@ class RebelBase implements ModifierProviderInterface
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
     private Daedalus $daedalus;
 
-    public function __construct(RebelBaseConfig $rebelBaseConfig, int $daedalusId, ?\DateTimeImmutable $contactStartDate = null)
+    public function __construct(RebelBaseConfig $config, int $daedalusId, ?\DateTimeImmutable $contactStartDate = null)
     {
-        $this->rebelBaseConfig = $rebelBaseConfig;
+        $this->rebelBaseConfig = $config;
         $this->daedalusId = $daedalusId;
         $this->contactStartDate = $contactStartDate;
         $this->contactEndDate = null;
@@ -54,6 +54,16 @@ class RebelBase implements ModifierProviderInterface
     public function getName(): RebelBaseEnum
     {
         return $this->rebelBaseConfig->getName();
+    }
+
+    public function getContactOrder(): int
+    {
+        return $this->rebelBaseConfig->getContactOrder();
+    }
+
+    public function getSignal(): int
+    {
+        return $this->signal;
     }
 
     public function getContactStartDateOrThrow(): \DateTime
@@ -73,6 +83,16 @@ class RebelBase implements ModifierProviderInterface
     public function isNotContacting(): bool
     {
         return $this->contactDidNotStart() || $this->contactEnded();
+    }
+
+    public function isContacting(): bool
+    {
+        return !$this->isNotContacting() && !$this->isDecoded();
+    }
+
+    public function isLost(): bool
+    {
+        return $this->contactEnded() && !$this->isDecoded();
     }
 
     public function increaseDecodingProgress(int $amount): void

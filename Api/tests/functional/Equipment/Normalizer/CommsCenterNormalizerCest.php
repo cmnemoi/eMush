@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Equipment\Normalizer;
 
 use Mush\Communications\Entity\NeronVersion;
+use Mush\Communications\Entity\RebelBase;
+use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
+use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
@@ -26,7 +30,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
-
+    private RebelBaseRepositoryInterface $rebelBaseRepository;
     private GameEquipment $commsCenter;
     private array $normalizedTerminal;
 
@@ -40,6 +44,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
+        $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
 
         $this->givenNeronVersionIs(major: 2, minor: 9);
         $this->givenCommsCenterInPlayerRoom();
@@ -74,6 +79,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
             expected: [
                 'contact' => 'Liaison',
                 'neron_version' => 'NERON v2.09',
+                'rebel_bases_network' => 'Réseau de bases rebelles',
             ],
             actual: $this->normalizedTerminal['sectionTitles']
         );
@@ -89,6 +95,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
             expected: [
                 'linkStrength' => 'Signal : 10%',
                 'neronUpdateStatus' => 'État de mise à jour : 9%',
+                'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
             ],
             actual: $this->normalizedTerminal['infos']
         );
@@ -105,9 +112,21 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
             expected: [
                 'linkStrength' => 'Signal : 10%',
                 'neronUpdateStatus' => 'État de mise à jour : 9%',
+                'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
                 'linkEstablished' => 'Connexion établie !',
             ],
             actual: $this->normalizedTerminal['infos']
+        );
+    }
+
+    public function shouldNormalizeRebelBases(FunctionalTester $I): void
+    {
+        $this->givenRebelBasesExists([RebelBaseEnum::WOLF, RebelBaseEnum::KALADAAN], $I);
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertEquals(
+            expected: [RebelBaseEnum::WOLF->toString(), RebelBaseEnum::KALADAAN->toString()],
+            actual: array_map(static fn (array $rebelBase) => $rebelBase['key'], $this->normalizedTerminal['rebelBases'])
         );
     }
 
@@ -155,5 +174,13 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
     {
         $neronVersion = new NeronVersion($this->daedalus->getId(), $major, $minor);
         $this->neronVersionRepository->save($neronVersion);
+    }
+
+    private function givenRebelBasesExists(array $rebelBaseNames, FunctionalTester $I): void
+    {
+        foreach ($rebelBaseNames as $rebelBaseName) {
+            $config = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => $rebelBaseName]);
+            $this->rebelBaseRepository->save(new RebelBase($config, $this->daedalus->getId()));
+        }
     }
 }

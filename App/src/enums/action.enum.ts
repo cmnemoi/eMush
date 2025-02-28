@@ -7,6 +7,7 @@ export enum ActionEnum {
     COMMANDER_ORDER = "commander_order",
     COM_MANAGER_ANNOUNCEMENT = "com_manager_announcement",
     COMPUTE_EDEN = "compute_eden",
+    DECODE_REBEL_SIGNAL = "decode_rebel_signal",
     DELETE_PLANET = "delete_planet",
     ESTABLISH_LINK_WITH_SOL = "establish_link_with_sol",
     EXCHANGE_BODY = "exchange_body",

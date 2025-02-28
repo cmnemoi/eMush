@@ -1654,5 +1654,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Mettre à jour NERON permet de profiter de certains miracles de ce qu'aurait dû être le NERON du projet Magellan.//**Une fois complété, permet de faire aboutir un Projet.**</target>
       </segment>
     </unit>
+    <unit id="decode_rebel_signal">
+      <segment id="name" state="translated">
+        <source>decode_rebel_signal.name</source>
+        <target>Décoder un signal rebelle</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>decode_rebel_signal.description</source>
+        <target>**Chaque signal décodé vous permettra de récupérer un nouvel avantage.**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

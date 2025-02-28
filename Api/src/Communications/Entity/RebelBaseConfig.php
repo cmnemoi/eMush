@@ -43,6 +43,11 @@ class RebelBaseConfig
         return $this->name;
     }
 
+    public function getContactOrder(): int
+    {
+        return $this->contactOrder;
+    }
+
     public function getModifierConfigs(): Collection
     {
         return $this->modifierConfigs;

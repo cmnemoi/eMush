@@ -8,6 +8,7 @@ enum RebelBaseEnum: string
 {
     case NULL = '';
     case KALADAAN = 'kaladaan';
+    case UNKNOWN = 'unknown';
     case WOLF = 'wolf';
 
     public function toString(): string

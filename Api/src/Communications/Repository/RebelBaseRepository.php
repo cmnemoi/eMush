@@ -114,6 +114,7 @@ final class RebelBaseRepository extends ServiceEntityRepository implements Rebel
             FROM rebel_base
             WHERE daedalus_id = :daedalusId
             AND contact_start_date IS NOT NULL
+            AND contact_end_date IS NULL
         ) as has_contacting_base
         EOD;
 

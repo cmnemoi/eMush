@@ -19,6 +19,7 @@ export class TerminalSectionTitles {
     public toANewEdenDescription: string|null = null;
     public contact: string|null = null;
     public neronVersion: string|null = null;
+    public rebelBasesNetwork: string|null = null;
 
     public load(object: any): TerminalSectionTitles {
         if (object) {
@@ -42,6 +43,7 @@ export class TerminalSectionTitles {
             this.toANewEdenDescription = object['to_a_new_eden_description'];
             this.contact = object['contact'];
             this.neronVersion = object['neron_version'];
+            this.rebelBasesNetwork = object['rebel_bases_network'];
         }
         return this;
     }

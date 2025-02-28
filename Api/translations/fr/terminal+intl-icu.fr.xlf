@@ -378,6 +378,14 @@
         <source>communication_center.link_established</source>
         <target>Connexion établie !</target>
       </segment>
+      <segment id="rebel_bases_network" state="translated">
+        <source>communication_center.rebel_bases_network</source>
+        <target>Réseau de bases rebelles</target>
+      </segment>
+      <segment id="select_rebel_base_to_decode" state="translated">
+        <source>communication_center.select_rebel_base_to_decode</source>
+        <target>Choisissez une base rebelle pour pouvoir décoder son signal.</target>
+      </segment>
     </unit>
   </file>
 </xliff>

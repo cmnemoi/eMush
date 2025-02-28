@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Mush\Equipment\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Order;
 use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
+use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
+use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
@@ -39,6 +42,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         private readonly LinkWithSolRepositoryInterface $linkWithSolRepository,
         private readonly NeronVersionRepositoryInterface $neronVersionRepository,
         private readonly PlanetServiceInterface $planetService,
+        private readonly RebelBaseRepositoryInterface $rebelBaseRepository,
         private readonly TranslationServiceInterface $translationService
     ) {}
 
@@ -101,6 +105,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'buttons' => $this->getNormalizedTerminalButtons($terminal),
             'projects' => $this->getNormalizedTerminalProjects($terminal, $format, $context),
             'items' => $this->getNormalizedTerminalItems($terminal, $format, $context),
+            'rebelBases' => $this->getNormalizedRebelBases($terminal, $format, $context),
         ];
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($terminal, $format, $context);
@@ -217,6 +222,20 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $buttons;
+    }
+
+    private function getNormalizedRebelBases(GameEquipment $terminal, ?string $format, array $context): array
+    {
+        $daedalus = $terminal->getDaedalus();
+        $rebelBases = $this->rebelBaseRepository->findAllByDaedalusId($daedalus->getId());
+        $rebelBases = $this->sortRebelBasesByContactOrder($rebelBases);
+
+        $normalizedRebelBases = [];
+        foreach ($rebelBases as $rebelBase) {
+            $normalizedRebelBases[] = $this->normalizer->normalize($rebelBase, $format, $context);
+        }
+
+        return $normalizedRebelBases;
     }
 
     private function normalizeCommandTerminalInfos(GameEquipment $terminal): array
@@ -557,6 +576,12 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 domain: 'terminal',
                 language: $terminal->getDaedalus()->getLanguage()
             ),
+            'selectRebelBaseToDecode' => $this->translationService->translate(
+                key: $terminalKey . '.select_rebel_base_to_decode',
+                parameters: [],
+                domain: 'terminal',
+                language: $terminal->getDaedalus()->getLanguage()
+            ),
         ];
 
         if ($link->isEstablished()) {
@@ -569,5 +594,14 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $infos;
+    }
+
+    private function sortRebelBasesByContactOrder(array $rebelBases, Order $order = Order::Ascending): array
+    {
+        usort($rebelBases, static function (RebelBase $a, RebelBase $b) use ($order) {
+            return $order === Order::Ascending ? $a->getContactOrder() - $b->getContactOrder() : $b->getContactOrder() - $a->getContactOrder();
+        });
+
+        return $rebelBases;
     }
 }

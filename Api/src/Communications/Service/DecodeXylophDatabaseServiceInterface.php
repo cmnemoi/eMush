@@ -7,7 +7,7 @@ use Mush\Player\Entity\Player;
 
 interface DecodeXylophDatabaseServiceInterface
 {
-    public function decode(
+    public function execute(
         XylophEntry $xylophEntry,
         Player $player,
         array $tags = [],

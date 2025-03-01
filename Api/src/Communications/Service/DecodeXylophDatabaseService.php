@@ -4,6 +4,8 @@ namespace Mush\Communications\Service;
 
 use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\XylophEnum;
+use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
+use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -17,9 +19,11 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
         private ModifierCreationServiceInterface $modifierCreationService,
         private GameEquipmentServiceInterface $gameEquipmentService,
         private KillLinkWithSolService $killLinkWithSol,
+        private LinkWithSolRepositoryInterface $linkWithSolRepository,
+        private XylophRepositoryInterface $xylophRepository,
     ) {}
 
-    public function decode(
+    public function execute(
         XylophEntry $xylophEntry,
         Player $player,
         array $tags = [],
@@ -33,9 +37,18 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
         match ($xylophEntry->getName()) {
             XylophEnum::NOTHING => null,
             XylophEnum::SNOW => $this->killLinkWithSol($daedalus->getId(), $tags),
+            XylophEnum::MAGNETITE => $this->ruinLinkWithSol($daedalus->getId(), $xylophEntry->getQuantity(), $tags),
             XylophEnum::DISK => $this->createMushGenomeDisk($player->getPlace(), $tags),
             default => throw new \LogicException('undefined xyloph entry name'),
         };
+
+        $this->markXylophDatabaseDecoded($xylophEntry);
+    }
+
+    private function markXylophDatabaseDecoded(XylophEntry $xylophEntry)
+    {
+        $xylophEntry->unlockDatabase();
+        $this->xylophRepository->save($xylophEntry);
     }
 
     private function createMushGenomeDisk(EquipmentHolderInterface $holder, array $tags): void
@@ -54,5 +67,12 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
             daedalusId: $daedalusId,
             tags: $tags,
         );
+    }
+
+    private function ruinLinkWithSol(int $daedalusId, int $quantity, array $tags): void
+    {
+        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($daedalusId);
+        $linkWithSol->reduceStrength($quantity);
+        $this->killLinkWithSol($daedalusId, $tags);
     }
 }

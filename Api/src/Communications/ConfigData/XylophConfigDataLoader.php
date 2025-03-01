@@ -25,6 +25,7 @@ final class XylophConfigDataLoader extends ConfigDataLoader
                     $xylophConfigDto->key,
                     $xylophConfigDto->name,
                     $xylophConfigDto->weight,
+                    $xylophConfigDto->quantity,
                     $this->getModifierConfigs($xylophConfigDto->modifierConfigs)
                 );
             } else {

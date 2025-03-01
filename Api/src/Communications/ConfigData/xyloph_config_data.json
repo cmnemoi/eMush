@@ -3,30 +3,35 @@
         "key": "nothing_default",
         "name": "nothing",
         "weight": 1,
+        "quantity": -1,
         "modifierConfigs": []
     },
     {
         "key": "snow_default",
         "name": "snow",
         "weight": 1,
+        "quantity": -1,
         "modifierConfigs": []
     },
     {
-        "key": "magneite_default",
+        "key": "magnetite_default",
         "name": "magnetite",
         "weight": 1,
+        "quantity": 20,
         "modifierConfigs": []
     },
     {
         "key": "disk_default",
         "name": "disk",
         "weight": 1,
+        "quantity": -1,
         "modifierConfigs": []
     },
     {
         "key": "version_default",
         "name": "version",
         "weight": 1,
+        "quantity": 25,
         "modifierConfigs": []
     }
 ]

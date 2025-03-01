@@ -74,6 +74,11 @@ class XylophEntry implements ModifierProviderInterface
         $this->xylophConfig->setWeight($quantity);
     }
 
+    public function getQuantity(): int
+    {
+        return $this->xylophConfig->getQuantity();
+    }
+
     /**
      * @return ArrayCollection<int, AbstractModifierConfig>
      */

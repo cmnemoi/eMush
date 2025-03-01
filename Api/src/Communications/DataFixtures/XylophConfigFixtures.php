@@ -31,6 +31,7 @@ final class XylophConfigFixtures extends Fixture implements DependentFixtureInte
                 $xylophConfigDto->key,
                 $xylophConfigDto->name,
                 $xylophConfigDto->weight,
+                $xylophConfigDto->quantity,
                 $this->getModifierConfigs($xylophConfigDto->modifierConfigs)
             );
             $manager->persist($xylophConfig);

@@ -112,17 +112,10 @@ final class ContactXyloph extends AbstractAction
 
     private function decodeXylophDatabase(XylophEntry $xylophEntry): void
     {
-        $this->decodeXylophDatabaseService->decode(
+        $this->decodeXylophDatabaseService->execute(
             xylophEntry: $xylophEntry,
             player: $this->player,
             tags: $this->getTags(),
         );
-        $this->markXylophDatabaseDecoded($xylophEntry);
-    }
-
-    private function markXylophDatabaseDecoded(XylophEntry $xylophEntry)
-    {
-        $xylophEntry->unlockDatabase();
-        $this->xylophRepository->save($xylophEntry);
     }
 }

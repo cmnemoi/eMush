@@ -18,23 +18,27 @@ class XylophConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', nullable: false)]
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $key;
 
     #[ORM\Column(type: 'string', nullable: false, enumType: XylophEnum::class, options: ['default' => XylophEnum::NULL])]
     private XylophEnum $name;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '0'])]
     private int $weight;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '-1'])]
+    private int $quantity;
 
     #[ORM\ManyToMany(targetEntity: AbstractModifierConfig::class)]
     private Collection $modifierConfigs;
 
-    public function __construct(string $key, XylophEnum $name, int $weight, ArrayCollection $modifierConfigs)
+    public function __construct(string $key, XylophEnum $name, int $weight, int $quantity, ArrayCollection $modifierConfigs)
     {
         $this->key = $key;
         $this->name = $name;
         $this->weight = $weight;
+        $this->quantity = $quantity;
         $this->modifierConfigs = $modifierConfigs;
     }
 
@@ -51,6 +55,17 @@ class XylophConfig
     public function setWeight(int $quantity): void
     {
         $this->weight = $quantity;
+    }
+
+    public function getQuantity(): int
+    {
+        $result = $this->quantity;
+
+        if ($result < 0) {
+            throw new \LogicException('called xyloph modifier with negative quantity');
+        }
+
+        return $result;
     }
 
     public function getModifierConfigs(): Collection

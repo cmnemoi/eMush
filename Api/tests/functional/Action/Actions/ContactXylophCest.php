@@ -184,6 +184,36 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->thenLinkWithSolShouldBeBroken($I);
     }
 
+    public function shouldDecreaseLinkStrengthToZeroWhenLessThanTwentyOnMagnetiteXyloph(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenLinkStrengthIsIncreasedBy(12);
+
+        $this->givenThereIsXylophAvailable(XylophEnum::MAGNETITE, $I);
+
+        $this->whenPlayerContactsXyloph();
+
+        $this->thenLinkStrengthShouldBe(0, $I);
+        $this->thenLinkWithSolShouldBeBroken($I);
+    }
+
+    public function shouldDecreaseLinkStrengthByExactlyTwentyOnMagnetiteXyloph(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenLinkStrengthIsIncreasedBy(32);
+
+        $this->givenThereIsXylophAvailable(XylophEnum::MAGNETITE, $I);
+
+        $this->whenPlayerContactsXyloph();
+
+        $this->thenLinkStrengthShouldBe(12, $I);
+        $this->thenLinkWithSolShouldBeBroken($I);
+    }
+
     public function shouldGiveMushGenomeDiskOnDiskXyloph(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();
@@ -276,6 +306,11 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->linkWithSol->establish();
     }
 
+    private function givenLinkStrengthIsIncreasedBy(int $quantity): void
+    {
+        $this->linkWithSol->increaseStrength($quantity);
+    }
+
     private function givenThereIsXylophAvailable(XylophEnum $xylophEnum, FunctionalTester $I): void
     {
         $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => $xylophEnum->toString() . '_default']);
@@ -358,6 +393,11 @@ final class ContactXylophCest extends AbstractFunctionalTest
     private function thenLinkWithSolShouldBeBroken(FunctionalTester $I): void
     {
         $I->assertTrue($this->linkWithSol->isNotEstablished());
+    }
+
+    private function thenLinkStrengthShouldBe(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->linkWithSol->getStrength());
     }
 
     private function thenDiskShouldBeInRoom(FunctionalTester $I): void

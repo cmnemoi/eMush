@@ -28,7 +28,7 @@ final class Version20250228172347 extends AbstractMigration
         $this->addSql('CREATE TABLE xyloph_entry (id INT NOT NULL, xyloph_config_id INT DEFAULT NULL, daedalus_id INT DEFAULT NULL, is_decoded BOOLEAN DEFAULT false NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_FC5CF88BFBDB82CE ON xyloph_entry (xyloph_config_id)');
         $this->addSql('CREATE INDEX IDX_FC5CF88B74B5A52D ON xyloph_entry (daedalus_id)');
-        $this->addSql('CREATE TABLE xyloph_config (id INT NOT NULL, key VARCHAR(255) NOT NULL, name VARCHAR(255) DEFAULT \'\' NOT NULL, weight INT NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE xyloph_config (id INT NOT NULL, key VARCHAR(255) NOT NULL, name VARCHAR(255) DEFAULT \'\' NOT NULL, weight INT NOT NULL, quantity INT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE xyloph_config_abstract_modifier_config (xyloph_config_id INT NOT NULL, abstract_modifier_config_id INT NOT NULL, PRIMARY KEY(xyloph_config_id, abstract_modifier_config_id))');
         $this->addSql('CREATE INDEX IDX_458DF03FBDB82CE ON xyloph_config_abstract_modifier_config (xyloph_config_id)');
         $this->addSql('CREATE INDEX IDX_458DF03BFA8DC8C ON xyloph_config_abstract_modifier_config (abstract_modifier_config_id)');

@@ -65,6 +65,11 @@ class LinkWithSol
         $this->strength = $this->getStrengthAsValueObject()->increase($strengthIncrease)->value;
     }
 
+    public function reduceStrength(int $strengthIncrease): void
+    {
+        $this->increaseStrength(-$strengthIncrease);
+    }
+
     public function establish(): void
     {
         $this->isEstablished = true;

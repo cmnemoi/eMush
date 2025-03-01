@@ -58,7 +58,7 @@
                         </template>
                     </Tippy>
                     <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="openEditDialog(goldNovaPlayer)">
-                        <img :src="getImgUrl('ui_icons/pa_core.png')" alt="Edit message">
+                        <img :src="getImgUrl('ui_icons/action_points/pa_core.png')" alt="Edit message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                             <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>

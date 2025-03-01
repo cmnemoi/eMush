@@ -112,6 +112,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $decodeRebelSignal */
         $decodeRebelSignal = $this->getReference(ActionEnum::DECODE_REBEL_SIGNAL->value);
 
+        /** @var ActionConfig $decodeRebelSignal */
+        $contactXyloph = $this->getReference(ActionEnum::CONTACT_XYLOPH->value);
+
         $commsCenterTool = $this->createTool(
             [
                 $searchForMushGenome,
@@ -120,6 +123,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $decodeRebelSignal,
                 $accessTerminalAction,
                 $exitTerminalAction,
+                $contactXyloph,
             ],
             EquipmentEnum::COMMUNICATION_CENTER
         );

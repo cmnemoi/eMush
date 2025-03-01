@@ -1142,6 +1142,9 @@ class ActionsFixtures extends Fixture
         $decodeRebelSignal = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DECODE_REBEL_SIGNAL));
         $manager->persist($decodeRebelSignal);
 
+        $contactXyloph = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CONTACT_XYLOPH));
+        $manager->persist($contactXyloph);
+
         $openContainerCost0 = new ActionConfig();
         $openContainerCost0
             ->setName('open_container_cost_0')
@@ -1303,5 +1306,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::ESTABLISH_LINK_WITH_SOL->value, $establishLinkWithSol);
         $this->addReference(ActionEnum::UPGRADE_NERON->value, $upgradeNeron);
         $this->addReference(ActionEnum::DECODE_REBEL_SIGNAL->value, $decodeRebelSignal);
+        $this->addReference(ActionEnum::CONTACT_XYLOPH->value, $contactXyloph);
     }
 }

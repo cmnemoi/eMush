@@ -6,9 +6,11 @@ namespace Mush\Communications\Listener;
 
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Entity\RebelBase;
+use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
 use Mush\Communications\Service\KillExpiredRebelBaseContactsService;
 use Mush\Communications\Service\KillLinkWithSolService;
@@ -29,6 +31,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         private RebelBaseRepositoryInterface $rebelBaseRepository,
         private NeronVersionRepositoryInterface $neronVersionRepository,
         private TriggerNextRebelBaseContactService $triggerNextRebelBaseContact,
+        private XylophRepositoryInterface $xylophRepository,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -53,6 +56,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         $this->linkWithSolRepository->deleteByDaedalusId($event->getDaedalusId());
         $this->neronVersionRepository->deleteByDaedalusId($event->getDaedalusId());
         $this->rebelBaseRepository->deleteAllByDaedalusId($event->getDaedalusId());
+        $this->xylophRepository->deleteAllByDaedalusId($event->getDaedalusId());
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void
@@ -65,12 +69,20 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         $this->createLinkWithSolForDaedalus->execute($event->getDaedalusId());
         $this->neronVersionRepository->save(new NeronVersion($event->getDaedalusId()));
         $this->createRebelBases($event->getDaedalus());
+        $this->createXylophDatabases($event->getDaedalus());
     }
 
     private function createRebelBases(Daedalus $daedalus): void
     {
         foreach ($daedalus->getGameConfig()->getRebelBaseConfigs() as $rebelBaseConfig) {
             $this->rebelBaseRepository->save(new RebelBase($rebelBaseConfig, $daedalus->getId()));
+        }
+    }
+
+    private function createXylophDatabases(Daedalus $daedalus): void
+    {
+        foreach ($daedalus->getGameConfig()->getXylophConfigs() as $xylophConfig) {
+            $this->xylophRepository->save(new XylophEntry($xylophConfig, $daedalus->getId()));
         }
     }
 }

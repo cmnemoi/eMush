@@ -191,6 +191,7 @@ enum ActionEnum: string
     case TRAVEL_TO_EDEN = 'travel_to_eden';
     case ESTABLISH_LINK_WITH_SOL = 'establish_link_with_sol';
     case UPGRADE_NERON = 'upgrade_neron';
+    case CONTACT_XYLOPH = 'contact_xyloph';
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';

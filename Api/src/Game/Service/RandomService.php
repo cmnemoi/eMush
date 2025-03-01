@@ -264,6 +264,13 @@ class RandomService implements RandomServiceInterface
         return $this->getPlanetSectorCollectionFromIds($sectorIdsToVisit);
     }
 
+    public function getRandomXylophNameToDecode(array $xylophArray): null|int|string
+    {
+        $xylophProbaCollection = $this->getXylophNameProbaCollection($xylophArray);
+
+        return $this->getSingleRandomElementFromProbaCollection($xylophProbaCollection);
+    }
+
     private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
     {
         $probaCollection = new ProbaCollection();
@@ -305,5 +312,16 @@ class RandomService implements RandomServiceInterface
         }
 
         return $sectors;
+    }
+
+    private function getXylophNameProbaCollection(array $xylophArray): ProbaCollection
+    {
+        $probaCollection = new ProbaCollection();
+
+        foreach ($xylophArray as $xylophEntry) {
+            $probaCollection->setElementProbability($xylophEntry->getName()->toString(), $xylophEntry->getWeight());
+        }
+
+        return $probaCollection;
     }
 }

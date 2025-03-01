@@ -10,9 +10,12 @@ use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\XylophConfig;
+use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -29,6 +32,7 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
+    private XylophRepositoryInterface $xylophRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -38,6 +42,7 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
+        $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 
         $this->linkWithSolRepository->deleteByDaedalusId($this->daedalus->getId());
     }
@@ -75,6 +80,13 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
         $this->whenDaedalusStarts();
 
         $this->thenRebelBaseContactDurationStatusShouldBeCreated($I);
+    }
+
+    public function shouldCreateAllXylophDatabases(FunctionalTester $I): void
+    {
+        $this->whenDaedalusStarts();
+
+        $this->thenAllXylophDatabasesShouldBeCreated($I);
     }
 
     private function whenDaedalusStarts(): void
@@ -130,5 +142,15 @@ final class DaedalusStartedEventCest extends AbstractFunctionalTest
         $I->assertNotNull($status, 'Daedalus should have a rebel base contact duration charge status');
         $I->assertGreaterThanOrEqual($expectedMin, $status->getCharge(), "Rebel base contact duration charge status should be greater than or equal to {$expectedMin}");
         $I->assertLessThanOrEqual($expectedMax, $status->getCharge(), "Rebel base contact duration charge status should be less than or equal to {$expectedMax}");
+    }
+
+    private function thenAllXylophDatabasesShouldBeCreated(FunctionalTester $I): void
+    {
+        $xylophDatabases = $this->xylophRepository->findAllByDaedalusId($this->daedalus->getId());
+
+        $I->assertEquals(
+            expected: $this->daedalus->getDaedalusInfo()->getGameConfig()->getXylophConfigs()->map(static fn (XylophConfig $xylophConfig) => $xylophConfig->getName())->toArray(),
+            actual: array_map(static fn (XylophEntry $xylophEntry) => $xylophEntry->getName(), $xylophDatabases)
+        );
     }
 }

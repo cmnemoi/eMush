@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\XylophConfig;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
@@ -82,6 +83,9 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: RebelBaseConfig::class)]
     private Collection $rebelBaseConfigs;
 
+    #[ORM\ManyToMany(targetEntity: XylophConfig::class)]
+    private Collection $xylophConfigs;
+
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -100,6 +104,7 @@ class GameConfig
         $this->projectConfigs = new ArrayCollection();
         $this->skillConfigs = new ArrayCollection();
         $this->rebelBaseConfigs = new ArrayCollection();
+        $this->xylophConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -496,6 +501,22 @@ class GameConfig
         }
 
         $this->rebelBaseConfigs->add($rebelBaseConfig);
+
+        return $this;
+    }
+
+    public function getXylophConfigs(): Collection
+    {
+        return $this->xylophConfigs;
+    }
+
+    public function addXylophConfig(XylophConfig $xylophConfig): static
+    {
+        if ($this->xylophConfigs->contains($xylophConfig)) {
+            return $this;
+        }
+
+        $this->xylophConfigs->add($xylophConfig);
 
         return $this;
     }

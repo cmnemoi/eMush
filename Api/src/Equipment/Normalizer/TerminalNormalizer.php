@@ -14,6 +14,7 @@ use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
@@ -43,7 +44,8 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         private readonly NeronVersionRepositoryInterface $neronVersionRepository,
         private readonly PlanetServiceInterface $planetService,
         private readonly RebelBaseRepositoryInterface $rebelBaseRepository,
-        private readonly TranslationServiceInterface $translationService
+        private readonly TranslationServiceInterface $translationService,
+        private readonly XylophRepositoryInterface $xylophEntryRepository
     ) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
@@ -106,6 +108,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'projects' => $this->getNormalizedTerminalProjects($terminal, $format, $context),
             'items' => $this->getNormalizedTerminalItems($terminal, $format, $context),
             'rebelBases' => $this->getNormalizedRebelBases($terminal, $format, $context),
+            'xylophEntries' => $this->getNormalizedXylophEntries($terminal, $format, $context),
         ];
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($terminal, $format, $context);
@@ -603,5 +606,18 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         });
 
         return $rebelBases;
+    }
+
+    private function getNormalizedXylophEntries(GameEquipment $terminal, ?string $format, array $context): array
+    {
+        $daedalus = $terminal->getDaedalus();
+        $xylophEntries = $this->xylophEntryRepository->findAllByDaedalusId($daedalus->getId());
+
+        $normalizedXylophEntries = [];
+        foreach ($xylophEntries as $xylophEntry) {
+            $normalizedXylophEntries[] = $this->normalizer->normalize($xylophEntry, $format, $context);
+        }
+
+        return $normalizedXylophEntries;
     }
 }

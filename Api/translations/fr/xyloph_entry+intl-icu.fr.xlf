@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="xyloph_entry.ext">
+        <unit id="unknown">
+            <segment id="name">
+                <source>unknown.name</source>
+                <target>???</target>
+            </segment>
+            <segment id="description">
+                <source>unknown.description</source>
+                <target>???</target>
+            </segment>
+        </unit>
+        <unit id="disk">
+            <segment id="name">
+                <source>disk.name</source>
+                <target>Génome</target>
+            </segment>
+            <segment id="description">
+                <source>disk.description</source>
+                <target>Ce disque regroupe des informations cruciales sur le génome Mush rassemblées par Ian Soulton juste avant le départ du Daedalus.//**Fournit la disquette contenant l'analyse du génome Mush.**</target>
+            </segment>
+        </unit>
+        <unit id="magnetite">
+            <segment id="name">
+                <source>magnetite.name</source>
+                <target>Infidélité du sans-fil...</target>
+            </segment>
+            <segment id="description">
+                <source>magnetite.description</source>
+                <target>La liaison est de mauvaise qualité...très mauvaise, sans doute le nuage de magnetite que vous traversez en ce moment.//**Provoque une perte de liaison et une baisse de signal significative.**</target>
+            </segment>
+        </unit>
+        <unit id="nothing">
+            <segment id="name">
+                <source>nothing.name</source>
+                <target>Donnée corrompue</target>
+            </segment>
+            <segment id="description">
+                <source>nothing.description</source>
+                <target>Rien à en tirer... La donnée a été corrompue par un virus rhizhomal.//**Ne fait rien.**</target>
+            </segment>
+        </unit>
+        <unit id="snow">
+            <segment id="name">
+                <source>snow.name</source>
+                <target>De la neige...</target>
+            </segment>
+            <segment id="description">
+                <source>snow.description</source>
+                <target>Votre écran est couvert de neige grésillante, ça fait mal au crâne, vous arrêtez vos tentatives...//**Provoque une perte de liaison.**</target>
+            </segment>
+        </unit>
+        <unit id="version">
+            <segment id="name">
+                <source>version.name</source>
+                <target>Accès à la base de données perdue de NERON</target>
+            </segment>
+            <segment id="description">
+                <source>version.description</source>
+                <target>Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de NERON.//**Fait avancer le niveau de mise à jour de NERON de 25%.**</target>
+            </segment>
+        </unit>
+    </file>
+ </xliff>

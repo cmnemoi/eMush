@@ -3,6 +3,7 @@
 namespace Mush\Game\ConfigData;
 
 use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Enum\XylophEnum;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -754,6 +755,13 @@ class GameConfigData
             'rebelBaseConfigs' => [
                 RebelBaseEnum::WOLF,
                 RebelBaseEnum::KALADAAN,
+            ],
+            'xylophConfigs' => [
+                XylophEnum::DISK,
+                XylophEnum::MAGNETITE,
+                XylophEnum::NOTHING,
+                XylophEnum::SNOW,
+                XylophEnum::VERSION,
             ],
         ],
     ];

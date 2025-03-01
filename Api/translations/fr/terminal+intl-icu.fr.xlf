@@ -386,6 +386,10 @@
         <source>communication_center.select_rebel_base_to_decode</source>
         <target>Choisissez une base rebelle pour pouvoir décoder son signal.</target>
       </segment>
+      <segment id="xyloph_db" state="translated">
+        <source>communication_center.xyloph_db</source>
+        <target>Xyloph BDD</target>
+      </segment>
     </unit>
   </file>
 </xliff>

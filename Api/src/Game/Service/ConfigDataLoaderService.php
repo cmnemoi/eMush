@@ -7,6 +7,7 @@ namespace Mush\Game\Service;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Communications\ConfigData\RebelBaseConfigDataLoader;
+use Mush\Communications\ConfigData\XylophConfigDataLoader;
 use Mush\Daedalus\ConfigData\DaedalusConfigDataLoader;
 use Mush\Daedalus\ConfigData\RandomItemPlacesDataLoader;
 use Mush\Disease\ConfigData\ConsumableDiseaseConfigDataLoader;
@@ -107,6 +108,7 @@ class ConfigDataLoaderService
         ProjectRequirementsDataLoader $projectRequirementsDataLoader,
         ProjectConfigDataLoader $projectConfigDataLoader,
         RebelBaseConfigDataLoader $rebelBaseConfigDataLoader,
+        XylophConfigDataLoader $xylophConfigDataLoader,
         GameConfigDataLoader $gameConfigDataLoader,
         LocalizationConfigDataLoader $localizationConfigDataLoader,
     ) {
@@ -159,6 +161,7 @@ class ConfigDataLoaderService
                 $projectRequirementsDataLoader,
                 $projectConfigDataLoader,
                 $rebelBaseConfigDataLoader,
+                $xylophConfigDataLoader,
                 $gameConfigDataLoader,
                 $localizationConfigDataLoader,
             ]

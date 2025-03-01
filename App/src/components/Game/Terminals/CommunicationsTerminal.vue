@@ -1,94 +1,119 @@
 <template>
     <div class="terminal-container" v-if="terminal">
-        <section class="left-section">
-            <div class="sol-link container">
-                <h3 class="title">
-                    <img :src="getImgUrl('spot2.svg')" alt="spot"/>
-                    {{ terminal.sectionTitles?.contact }}
-                </h3>
-                <div class="link-infos">
-                    <div class="link-infos-img">
-                        <img
-                            :src="getImgUrl(`sensor0${sensorFramesCount}.png`)"
-                            class="sensor-frame"
-                            alt="connection status"
-                        />
-                    </div>
-                    <div class="link-infos-content">
-                        <p class="link-strength text">
-                            {{ terminal.infos.linkStrength }}
-                        </p>
-                        <ActionButton
-                            v-if="establishLinkWithSolAction"
-                            :key="establishLinkWithSolAction.name || ''"
-                            class="terminal-button"
-                            :action="establishLinkWithSolAction"
-                            @click="executeTargetAction(terminal, establishLinkWithSolAction)"
-                        />
-                        <p class="link-established text" v-else>
-                            {{ terminal.infos.linkEstablished }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="neron container">
-                <h3 class="title">
-                    <img :src="getImgUrl('spot2.svg')" alt="spot"/>
-                    {{ terminal.sectionTitles?.neronVersion }}
-                </h3>
-                <div class="neron-infos">
-                    <div class="neron-infos-img">
-                        <img :src="getImgUrl('neron.png')" alt="neron"/>
-                    </div>
-                    <div class="neron-infos-content">
-                        <p class="neron-version text">
-                            {{ terminal.infos.neronUpdateStatus }}
-                        </p>
-                        <div class="neron-progress-bar-container">
-                            <span class="neron-version-progress-bar" :style="{ width: `${neronMinorVersion}%` }" />
-                            <span class="progress-text">{{ neron }}</span>
+        <div class="upper-container">
+            <section class="left-section">
+                <div class="sol-link container">
+                    <h3 class="title">
+                        <img :src="getImgUrl('spot2.svg')" alt="spot"/>
+                        {{ terminal.sectionTitles?.contact }}
+                    </h3>
+                    <div class="link-infos">
+                        <div class="link-infos-img">
+                            <img
+                                :src="getImgUrl(`sensor0${sensorFramesCount}.png`)"
+                                class="sensor-frame"
+                                alt="connection status"
+                            />
                         </div>
-                        <ActionButton
-                            v-if="upgradeNeron"
-                            :key="upgradeNeron.name || ''"
-                            class="terminal-button"
-                            :action="upgradeNeron"
-                            @click="executeTargetAction(terminal, upgradeNeron)"
-                        />
+                        <div class="link-infos-content">
+                            <p class="link-strength text">
+                                {{ terminal.infos.linkStrength }}
+                            </p>
+                            <ActionButton
+                                v-if="establishLinkWithSolAction"
+                                :key="establishLinkWithSolAction.name || ''"
+                                class="terminal-button"
+                                :action="establishLinkWithSolAction"
+                                @click="executeTargetAction(terminal, establishLinkWithSolAction)"
+                            />
+                            <p class="link-established text" v-else>
+                                {{ terminal.infos.linkEstablished }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="rebel-bases container">
-                <h3 class="title">
-                    <img :src="getImgUrl('spot2.svg')" alt="spot"/>
-                    {{ terminal.sectionTitles?.rebelBasesNetwork }}
-                </h3>
-                <div class="rebel-bases-grid">
-                    <Tippy
-                        tag="div"
-                        v-for="(base, index) in terminal.rebelBases"
-                        :key="index"
-                        class="rebel-base-item"
-                        :class="{ 'not-contacted' : base.name === '???', 'contacting' : base.isContacting, 'contacted' : base.name !== '???', 'selected' : base.key === selectedRebelBase }"
-                        @click="selectRebelBase(base)"
-                    >
-                        <p class="base-name">{{ base.name }}</p>
-                        <p :class="{ 'base-signal' : base.isContacting, 'base-signal-lost' : base.isLost }" v-if="base.isContacting || base.isLost">{{ base.signal }}</p>
-                        <img :src="getImgUrl(`rebel_bases/${base.key}.png`)" :alt="base.key" class="base-image" />
-                        <template #content>
-                            <h1 class="base-hover-name">{{ base.hoverName }}</h1>
-                            <p class="base-description">{{ base.description }}</p>
-                        </template>
-                    </Tippy>
+                <div class="neron container">
+                    <h3 class="title">
+                        <img :src="getImgUrl('spot2.svg')" alt="spot"/>
+                        {{ terminal.sectionTitles?.neronVersion }}
+                    </h3>
+                    <div class="neron-infos">
+                        <div class="neron-infos-img">
+                            <img :src="getImgUrl('neron.png')" alt="neron"/>
+                        </div>
+                        <div class="neron-infos-content">
+                            <p class="neron-version text">
+                                {{ terminal.infos.neronUpdateStatus }}
+                            </p>
+                            <div class="neron-progress-bar-container">
+                                <span class="neron-version-progress-bar" :style="{ width: `${neronMinorVersion}%` }" />
+                                <span class="progress-text">{{ neron }}</span>
+                            </div>
+                            <ActionButton
+                                v-if="upgradeNeron"
+                                :key="upgradeNeron.name || ''"
+                                class="terminal-button"
+                                :action="upgradeNeron"
+                                @click="executeTargetAction(terminal, upgradeNeron)"
+                            />
+                        </div>
+                    </div>
                 </div>
-                <ActionButton
-                    :key="decodeRebelSignalAction.name || ''"
-                    class="terminal-button"
-                    :action="decodeRebelSignalAction"
-                    @click="executeTargetAction(terminal, decodeRebelSignalAction, { rebel_base: selectedRebelBase })"
-                />
+            </section>
+            <section class="right-section">
+                <div class="xyloph container">
+                    <h3 class="title">
+                        <img :src="getImgUrl('spot2.svg')" alt="spot"/>
+                        {{ terminal.sectionTitles?.xylophDb }}
+                    </h3>
+                    <div class="xyloph-grid">
+                        <Tippy v-for="(xylophEntry, index) in terminal.xylophEntries" :key="index" tag="span">
+                            <img :src="getXylophEntryImage(xylophEntry)" alt="Xyloph entry" class="xyloph-entry" />
+                            <template #content>
+                                <h1 class="xyloph-entry-name">{{ xylophEntry.name }}</h1>
+                                <p class="xyloph-entry-description" v-html="formatText(xylophEntry.description)" />
+                            </template>
+                        </Tippy>
+                    </div>
+                    <ActionButton
+                        :key="contactXylophAction.name || ''"
+                        class="terminal-button"
+                        :action="contactXylophAction"
+                        @click="executeTargetAction(terminal, contactXylophAction)"
+                    />
+                </div>
+            </section>
+        </div>
+        <div class="rebel-bases container">
+            <h3 class="title">
+                <img :src="getImgUrl('spot2.svg')" alt="spot"/>
+                {{ terminal.sectionTitles?.rebelBasesNetwork }}
+            </h3>
+            <div class="rebel-bases-grid">
+                <Tippy
+                    tag="div"
+                    v-for="(base, index) in terminal.rebelBases"
+                    :key="index"
+                    class="rebel-base-item"
+                    :class="{ 'not-contacted' : base.name === '???', 'contacting' : base.isContacting, 'contacted' : base.name !== '???', 'selected' : base.key === selectedRebelBase }"
+                    @click="selectRebelBase(base)"
+                >
+                    <p class="base-name">{{ base.name }}</p>
+                    <p :class="{ 'base-signal' : base.isContacting, 'base-signal-lost' : base.isLost }" v-if="base.isContacting || base.isLost">{{ base.signal }}</p>
+                    <img :src="getImgUrl(`rebel_bases/${base.key}.png`)" :alt="base.key" class="base-image" />
+                    <template #content>
+                        <h1 class="base-hover-name">{{ base.hoverName }}</h1>
+                        <p class="base-description" v-html="formatText(base.description)" />
+                    </template>
+                </Tippy>
             </div>
-        </section>
+            <ActionButton
+                :key="decodeRebelSignalAction.name || ''"
+                class="terminal-button"
+                :action="decodeRebelSignalAction"
+                @click="executeTargetAction(terminal, decodeRebelSignalAction, { rebel_base: selectedRebelBase })"
+            />
+        </div>
     </div>
 </template>
 
@@ -100,6 +125,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "@/entities/Action";
 import { RebelBase } from "@/entities/RebelBase";
+import { XylophEntry } from "@/entities/XylophEntry";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { mapActions } from "vuex";
 
@@ -125,6 +151,9 @@ export default defineComponent({
             }
 
             return action;
+        },
+        contactXylophAction(): Action {
+            return this.terminal.getActionByKey(ActionEnum.CONTACT_XYLOPH) || new Action();
         },
         neron(): string {
             return this.terminal.sectionTitles?.neronVersion?.split('.')[0].split(' ')[0] || '';
@@ -175,6 +204,9 @@ export default defineComponent({
         },
         formatText,
         getImgUrl,
+        getXylophEntryImage(xylophEntry: XylophEntry): string {
+            return xylophEntry.isDecoded ? getImgUrl('bdd.png') : getImgUrl('bdd_off.png');
+        },
         selectRebelBase(base: RebelBase) {
             if (!base.isContacting) {
                 return;
@@ -194,7 +226,17 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 /* Layout */
+.upper-container {
+    display: flex;
+    flex-direction: row;
+}
+
 .left-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-section {
     display: flex;
     flex-direction: column;
 }
@@ -211,7 +253,7 @@ p {
 /* Container styles */
 .container {
     background-color: #A5EEFB;
-    margin: 5px;
+    margin: 2px;
     padding: 5px;
     border-radius: 5px;
 
@@ -219,6 +261,28 @@ p {
         text-transform: uppercase;
         margin: 0;
         padding: 5px;
+    }
+}
+
+/* Specific container styles */
+.xyloph {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.xyloph .xyloph-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.xyloph-entry {
+    &:hover {
+        background-color: $green;
+        border-radius: 5px;
+        cursor: pointer;
     }
 }
 
@@ -308,6 +372,17 @@ p {
     gap: 5px;
 }
 
+/* Xyloph grid */
+.xyloph-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 15px;
+    column-gap: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .rebel-base-item {
     background-color: #81E0FD;
     text-align: center;
@@ -355,7 +430,7 @@ p {
     }
 }
 
-.base-description {
+.base-description, .xyloph-entry-description {
     text-transform: none;
 }
 </style>

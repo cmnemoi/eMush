@@ -5,6 +5,7 @@ namespace Mush\Game\ConfigData;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\XylophConfig;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
@@ -54,6 +55,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigProjectConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigSkillConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigRebelBaseConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigXylophConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -287,6 +289,20 @@ class GameConfigDataLoader extends ConfigDataLoader
             }
 
             $gameConfig->addRebelBaseConfig($rebelBaseConfig);
+        }
+    }
+
+    private function setGameConfigXylophConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        foreach ($gameConfigData['xylophConfigs'] as $xylophConfigName) {
+            $xylophConfigKey = "{$xylophConfigName->toString()}_" . $gameConfig->getName();
+            $xylophConfig = $this->entityManager->getRepository(XylophConfig::class)->findOneBy(['key' => $xylophConfigKey]);
+
+            if ($xylophConfig === null) {
+                throw new \Exception("Xyloph config {$xylophConfigKey} not found");
+            }
+
+            $gameConfig->addXylophConfig($xylophConfig);
         }
     }
 }

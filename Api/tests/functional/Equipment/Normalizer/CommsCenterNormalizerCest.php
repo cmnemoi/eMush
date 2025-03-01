@@ -7,10 +7,14 @@ namespace Mush\Tests\functional\Equipment\Normalizer;
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\XylophConfig;
+use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
@@ -31,6 +35,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
+    private XylophRepositoryInterface $xylophEntryRepository;
     private GameEquipment $commsCenter;
     private array $normalizedTerminal;
 
@@ -45,6 +50,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
+        $this->xylophEntryRepository = $I->grabService(XylophRepositoryInterface::class);
 
         $this->givenNeronVersionIs(major: 2, minor: 9);
         $this->givenCommsCenterInPlayerRoom();
@@ -80,6 +86,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
                 'contact' => 'Liaison',
                 'neron_version' => 'NERON v2.09',
                 'rebel_bases_network' => 'Réseau de bases rebelles',
+                'xyloph_db' => 'Xyloph BDD',
             ],
             actual: $this->normalizedTerminal['sectionTitles']
         );
@@ -127,6 +134,17 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [RebelBaseEnum::WOLF->toString(), RebelBaseEnum::KALADAAN->toString()],
             actual: array_map(static fn (array $rebelBase) => $rebelBase['key'], $this->normalizedTerminal['rebelBases'])
+        );
+    }
+
+    public function shouldNormalizeXylophEntries(FunctionalTester $I): void
+    {
+        $this->givenXylophEntriesExists([XylophEnum::DISK, XylophEnum::MAGNETITE], $I);
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertEquals(
+            expected: [XylophEnum::DISK->toString(), XylophEnum::MAGNETITE->toString()],
+            actual: array_map(static fn (array $xylophEntry) => $xylophEntry['key'], $this->normalizedTerminal['xylophEntries'])
         );
     }
 
@@ -181,6 +199,14 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         foreach ($rebelBaseNames as $rebelBaseName) {
             $config = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => $rebelBaseName]);
             $this->rebelBaseRepository->save(new RebelBase($config, $this->daedalus->getId()));
+        }
+    }
+
+    private function givenXylophEntriesExists(array $xylophEntryNames, FunctionalTester $I): void
+    {
+        foreach ($xylophEntryNames as $xylophEntryName) {
+            $config = $I->grabEntityFromRepository(XylophConfig::class, ['name' => $xylophEntryName]);
+            $this->xylophEntryRepository->save(new XylophEntry($config, $this->daedalus->getId()));
         }
     }
 }

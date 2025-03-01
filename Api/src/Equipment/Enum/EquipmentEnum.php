@@ -78,7 +78,7 @@ class EquipmentEnum
             'to_a_new_eden_title',
             'to_a_new_eden_description',
         ],
-        self::COMMUNICATION_CENTER => ['contact', 'neron_version', 'rebel_bases_network'],
+        self::COMMUNICATION_CENTER => ['contact', 'neron_version', 'rebel_bases_network', 'xyloph_db'],
     ];
 
     public static array $terminalButtonsMap = [

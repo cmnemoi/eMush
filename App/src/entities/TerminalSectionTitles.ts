@@ -20,7 +20,7 @@ export class TerminalSectionTitles {
     public contact: string|null = null;
     public neronVersion: string|null = null;
     public rebelBasesNetwork: string|null = null;
-
+    public xylophDb: string|null = null;
     public load(object: any): TerminalSectionTitles {
         if (object) {
             this.orientateDaedalus = object['orientate_daedalus'];
@@ -44,6 +44,7 @@ export class TerminalSectionTitles {
             this.contact = object['contact'];
             this.neronVersion = object['neron_version'];
             this.rebelBasesNetwork = object['rebel_bases_network'];
+            this.xylophDb = object['xyloph_db'];
         }
         return this;
     }

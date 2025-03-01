@@ -6,11 +6,12 @@ namespace Mush\Communications\Enum;
 
 enum XylophEnum: string
 {
-    case NULL = '';
-    case NOTHING = 'nothing';
     case DISK = 'disk';
-    case SNOW = 'snow';
     case MAGNETITE = 'magnetite';
+    case NOTHING = 'nothing';
+    case NULL = '';
+    case SNOW = 'snow';
+    case UNKNOWN = 'unknown';
     case VERSION = 'version';
 
     public function toString(): string

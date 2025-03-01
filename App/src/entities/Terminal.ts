@@ -5,6 +5,8 @@ import { TerminalButtons } from "@/entities/TerminalButtons";
 import { Project } from "@/entities/Project";
 import { Item } from "./Item";
 import { RebelBase } from "@/entities/RebelBase";
+import { XylophEntry } from "@/entities/XylophEntry";
+
 export class Terminal {
     public id!: number;
     public key!: string;
@@ -17,6 +19,7 @@ export class Terminal {
     public projects!: Project[];
     public items!: Item[];
     public rebelBases: RebelBase[] = [];
+    public xylophEntries: XylophEntry[] = [];
 
     public load(object: any): Terminal {
         if (object) {
@@ -36,6 +39,7 @@ export class Terminal {
             this.buttons = new TerminalButtons().load(object.buttons);
             this.projects = object.projects?.map((project: any) => new Project().load(project));
             this.rebelBases = object.rebelBases?.map((rebelBase: any) => new RebelBase().load(rebelBase));
+            this.xylophEntries = object.xylophEntries?.map((xylophEntry: any) => new XylophEntry().load(xylophEntry));
         }
         return this;
     }

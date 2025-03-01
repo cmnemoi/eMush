@@ -1664,5 +1664,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>**Chaque signal décodé vous permettra de récupérer un nouvel avantage.**</target>
       </segment>
     </unit>
+    <unit id="contact_xyloph">
+      <segment id="name" state="translated">
+        <source>contact_xyloph.name</source>
+        <target>Contacter Xyloph</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>contact_xyloph.description</source>
+        <target>Permet de contacter le port d'attache de Daedalus, que reste-t-il là-bas...//**Chaque contact vous permettra de récupérer un nouvel avantage (des plans pour l'atelier, des informations sur le Mush, etc.).**</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

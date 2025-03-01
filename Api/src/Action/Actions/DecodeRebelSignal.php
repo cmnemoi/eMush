@@ -17,13 +17,13 @@ use Mush\Action\Validator\NeedTitle;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Service\DecodeRebelSignalService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
-use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -37,9 +37,9 @@ final class DecodeRebelSignal extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private GetRandomIntegerServiceInterface $getRandomInteger,
-        private ModifierCreationServiceInterface $modifierCreationService,
-        private RebelBaseRepositoryInterface $rebelBaseRepository,
+        private readonly DecodeRebelSignalService $decodeRebelBase,
+        private readonly GetRandomIntegerServiceInterface $getRandomInteger,
+        private readonly RebelBaseRepositoryInterface $rebelBaseRepository,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -89,39 +89,10 @@ final class DecodeRebelSignal extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $rebelBase = $this->rebelBase();
-        $this->increaseDecodingProgress($rebelBase);
-
-        if ($rebelBase->isDecoded()) {
-            $this->createRebelBaseModifiers($rebelBase);
-            $this->endRebelBaseContact($rebelBase);
-        }
-    }
-
-    private function increaseDecodingProgress(RebelBase $rebelBase): void
-    {
-        $progress = $this->getRandomInteger->execute(1, $this->getOutputQuantity());
-        $rebelBase->increaseDecodingProgress($progress);
-        $this->rebelBaseRepository->save($rebelBase);
-    }
-
-    private function createRebelBaseModifiers(RebelBase $rebelBase): void
-    {
-        foreach ($rebelBase->getModifierConfigs() as $modifierConfig) {
-            $this->modifierCreationService->createModifier(
-                modifierConfig: $modifierConfig,
-                holder: $this->player->getDaedalus(),
-                modifierProvider: $rebelBase,
-                tags: $this->getTags(),
-                time: new \DateTime(),
-            );
-        }
-    }
-
-    private function endRebelBaseContact(RebelBase $rebelBase): void
-    {
-        $rebelBase->endContact();
-        $this->rebelBaseRepository->save($rebelBase);
+        $this->decodeRebelBase->execute(
+            rebelBase: $this->rebelBase(),
+            progress: $this->getRandomInteger->execute(1, $this->getOutputQuantity())
+        );
     }
 
     private function rebelBase(): RebelBase

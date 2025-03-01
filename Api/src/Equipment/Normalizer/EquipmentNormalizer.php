@@ -4,6 +4,7 @@ namespace Mush\Equipment\Normalizer;
 
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
+use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
@@ -30,19 +31,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
-    private TranslationServiceInterface $translationService;
-    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
-    private EquipmentEffectServiceInterface $equipmentEffectService;
-
     public function __construct(
-        TranslationServiceInterface $translationService,
-        ConsumableDiseaseServiceInterface $consumableDiseaseService,
-        EquipmentEffectServiceInterface $equipmentEffectService
-    ) {
-        $this->translationService = $translationService;
-        $this->consumableDiseaseService = $consumableDiseaseService;
-        $this->equipmentEffectService = $equipmentEffectService;
-    }
+        private ConsumableDiseaseServiceInterface $consumableDiseaseService,
+        private EquipmentEffectServiceInterface $equipmentEffectService,
+        private RebelBaseRepositoryInterface $rebelBaseRepository,
+        private TranslationServiceInterface $translationService,
+    ) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -201,6 +195,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $actionPoint = $consumableEffect->getActionPoint();
         if ($actionPoint) {
             $actionPoint += $this->getFrugivoreBonus($food, $player);
+            $actionPoint += $this->getSiriusRebelBaseBonus($player->getDaedalus());
             $effects[] = $this->createEffectLine($actionPoint, 'action_point', $language);
         }
         $movementPoint = $consumableEffect->getMovementPoint();
@@ -308,5 +303,18 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
 
         return 0;
+    }
+
+    private function getSiriusRebelBaseBonus(Daedalus $daedalus): int
+    {
+        if (!$daedalus->hasModifierByModifierName(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)) {
+            return 0;
+        }
+
+        return (int) $daedalus
+            ->getModifiers()
+            ->getModifierByModifierNameOrThrow(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)
+            ->getVariableModifierConfigOrThrow()
+            ->getDelta();
     }
 }

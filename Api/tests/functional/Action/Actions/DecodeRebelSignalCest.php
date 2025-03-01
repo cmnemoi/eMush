@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
+use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\DecodeRebelSignal;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -15,6 +18,8 @@ use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
@@ -159,6 +164,39 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveMoralePoints(0, $I);
     }
 
+    #[DataProvider('rationTypesProvider')]
+    public function siriusShouldAddPlusOneActionPointForRationsOnSuccess(FunctionalTester $I, Example $rationExample): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::SIRIUS, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::SIRIUS, 99);
+        $this->givenPlayerDecodesRebelSignal(RebelBaseEnum::SIRIUS);
+        $this->givenPlayerHasFood($rationExample['ration']);
+        $this->givenPlayerHasActionPoints(0);
+
+        $this->whenPlayerConsumesFood($rationExample['ration'], $I);
+
+        $this->thenPlayerShouldHaveActionPoints(5, $I);
+    }
+
+    public function siriusDoesNotAddPlusOneActionPointForBananasOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::SIRIUS, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::SIRIUS, 99);
+        $this->givenPlayerDecodesRebelSignal(RebelBaseEnum::SIRIUS);
+        $this->givenPlayerHasFood(GameFruitEnum::BANANA);
+        $this->givenPlayerHasActionPoints(0);
+
+        $this->whenPlayerConsumesFood(GameFruitEnum::BANANA, $I);
+
+        $this->thenPlayerShouldHaveActionPoints(1, $I);
+    }
+
     private function givenCommsCenterInRoom(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -262,6 +300,33 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->kuanTi->setMoralPoint($points);
     }
 
+    private function givenPlayerHasFood(string $food): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $food,
+            equipmentHolder: $this->player,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerHasActionPoints(int $points): void
+    {
+        $this->player->setActionPoint($points);
+    }
+
+    private function givenPlayerDecodesRebelSignal(RebelBaseEnum $signal): void
+    {
+        $this->decodeRebelBase->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commsCenter,
+            player: $this->player,
+            target: $this->commsCenter,
+            parameters: ['rebel_base' => $signal->toString()],
+        );
+        $this->decodeRebelBase->execute();
+    }
+
     private function whenPlayerDecodesRebelSignal(RebelBaseEnum $signal): void
     {
         $this->decodeRebelBase->loadParameters(
@@ -272,6 +337,19 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
             parameters: ['rebel_base' => $signal->toString()],
         );
         $this->decodeRebelBase->execute();
+    }
+
+    private function whenPlayerConsumesFood(string $food, FunctionalTester $I): void
+    {
+        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::CONSUME->toString()]);
+        $action = $I->grabService(Consume::class);
+        $action->loadParameters(
+            actionConfig: $actionConfig,
+            actionProvider: $this->player->getEquipmentByNameOrThrow($food),
+            player: $this->player,
+            target: $this->player->getEquipmentByNameOrThrow($food),
+        );
+        $action->execute();
     }
 
     private function thenChunShouldHaveMoralePoints(int $points, FunctionalTester $I): void
@@ -292,5 +370,18 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         );
 
         $I->assertTrue($rebelBase->isNotContacting(), "Rebel base {$rebelBaseEnum->toString()} should not be contacting");
+    }
+
+    private function thenPlayerShouldHaveActionPoints(int $points, FunctionalTester $I): void
+    {
+        $I->assertEquals($points, $this->player->getActionPoint(), "Player should have {$points} action points, but has " . $this->player->getActionPoint());
+    }
+
+    private function rationTypesProvider(): array
+    {
+        return [
+            ['ration' => GameRationEnum::STANDARD_RATION],
+            ['ration' => GameRationEnum::COOKED_RATION],
+        ];
     }
 }

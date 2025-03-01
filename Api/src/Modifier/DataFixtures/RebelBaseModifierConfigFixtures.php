@@ -10,6 +10,7 @@ use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Modifier\ConfigData\ModifierConfigData;
 use Mush\Modifier\Entity\Config\DirectModifierConfig;
+use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 
 /** @codeCoverageIgnore */
@@ -25,6 +26,12 @@ final class RebelBaseModifierConfigFixtures extends Fixture
         $wolfTriumphModifier->setTriggeredEvent($plus8TriumphEventConfig);
         $manager->persist($wolfTriumphModifier);
         $this->addReference($wolfTriumphModifier->getName(), $wolfTriumphModifier);
+
+        $siriusActionPointModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINT_ON_CONSUME_ACTION_IF_STANDARD_RATION)
+        );
+        $manager->persist($siriusActionPointModifier);
+        $this->addReference($siriusActionPointModifier->getName(), $siriusActionPointModifier);
 
         /** @var VariableEventConfig $plus6MoralEventConfig */
         $plus6MoralEventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_6_MORALE_POINTS);

@@ -4,6 +4,7 @@ namespace Mush\Tests\unit\Equipment\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
+use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
@@ -56,9 +57,10 @@ final class EquipmentNormalizerTest extends TestCase
         $this->equipmentEffectService = \Mockery::mock(EquipmentEffectServiceInterface::class);
 
         $this->normalizer = new EquipmentNormalizer(
-            $this->translationService,
             $this->consumableDiseaseService,
-            $this->equipmentEffectService
+            $this->equipmentEffectService,
+            $this->createStub(RebelBaseRepositoryInterface::class),
+            $this->translationService,
         );
     }
 

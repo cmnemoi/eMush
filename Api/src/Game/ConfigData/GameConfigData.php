@@ -754,6 +754,7 @@ class GameConfigData
             ],
             'rebelBaseConfigs' => [
                 RebelBaseEnum::WOLF,
+                RebelBaseEnum::SIRIUS,
                 RebelBaseEnum::KALADAAN,
             ],
             'xylophConfigs' => [

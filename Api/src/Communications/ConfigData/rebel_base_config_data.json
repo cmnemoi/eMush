@@ -8,6 +8,14 @@
         ]
     },
     {
+        "key": "sirius_default",
+        "name": "sirius",
+        "contactOrder": 2,
+        "modifierConfigs": [
+            "player_plus_1_action_point_on_consume_action_if_standard_ration"
+        ]
+    },
+    {
         "key": "kaladaan_default",
         "name": "kaladaan",
         "contactOrder": 4,

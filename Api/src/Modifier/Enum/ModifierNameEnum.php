@@ -154,4 +154,6 @@ abstract class ModifierNameEnum
     public const string WOLF_REBEL_BASE_MODIFIER = 'wolf_rebel_base_modifier';
     public const string PLUS_6_MORALE_POINTS_FOR_ALL_PLAYERS = 'plus_6_morale_points_for_all_players';
     public const string KALADAAN_REBEL_BASE_MODIFIER = 'kaladaan_rebel_base_modifier';
+    public const string PLAYER_PLUS_1_ACTION_POINT_ON_CONSUME_ACTION_IF_STANDARD_RATION = 'player_plus_1_action_point_on_consume_action_if_standard_ration';
+    public const string SIRIUS_REBEL_BASE_MODIFIER = 'sirius_rebel_base_modifier';
 }

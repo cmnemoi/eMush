@@ -1,10 +1,10 @@
 <template>
-    <PopUp :is-open="popUp.isOpen">
+    <PopUp :is-open="popUp.isOpen" @close="closeAction">
         <h1 class="title" v-html="formatText(popUp.title)" v-if="popUp.title" />
         <h3 class="sub-title" v-html="formatText(popUp.subTitle)" v-if="popUp.subTitle" />
         <p class="message" v-html="formatText(popUp.description)" />
         <div class="actions">
-            <button class="action-button" @click="close">{{ $t('game.popUp.ok') }}</button>
+            <button class="action-button" @click="closeAction">{{ $t('game.popUp.ok') }}</button>
         </div>
     </PopUp>
 </template>
@@ -29,7 +29,7 @@ export default defineComponent ({
             closePopUp: 'popup/closePlayerNotificationPopUp',
             deleteNotification: 'player/deleteNotification'
         }),
-        async close() {
+        async closeAction() {
             await Promise.all([this.closePopUp(), this.deleteNotification()]);
         }
     }
@@ -52,6 +52,11 @@ export default defineComponent ({
 }
 
 .message {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 15px;
+
     :deep(a) {
         color: $green;
     }

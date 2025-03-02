@@ -9,6 +9,7 @@ enum RebelBaseEnum: string
     case NULL = '';
     case KALADAAN = 'kaladaan';
     case SIRIUS = 'sirius';
+    case CENTAURI = 'centauri';
     case UNKNOWN = 'unknown';
     case WOLF = 'wolf';
 

@@ -21,6 +21,7 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
         private KillLinkWithSolService $killLinkWithSol,
         private LinkWithSolRepositoryInterface $linkWithSolRepository,
         private XylophRepositoryInterface $xylophRepository,
+        private UpdateNeronVersionService $updateNeronVersionService,
     ) {}
 
     public function execute(
@@ -39,6 +40,7 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
             XylophEnum::SNOW => $this->killLinkWithSol($daedalus->getId(), $tags),
             XylophEnum::MAGNETITE => $this->ruinLinkWithSol($daedalus->getId(), $xylophEntry->getQuantity(), $tags),
             XylophEnum::DISK => $this->createMushGenomeDisk($player->getPlace(), $tags),
+            XylophEnum::VERSION => $this->increaseNeronVersion($daedalus->getId(), $xylophEntry->getQuantity()),
             default => throw new \LogicException('undefined xyloph entry name'),
         };
 
@@ -74,5 +76,13 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
         $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($daedalusId);
         $linkWithSol->reduceStrength($quantity);
         $this->killLinkWithSol($daedalusId, $tags);
+    }
+
+    private function increaseNeronVersion(int $daedalusId, int $quantity): void
+    {
+        $this->updateNeronVersionService->execute(
+            daedalusId: $daedalusId,
+            fixedIncrement: $quantity,
+        );
     }
 }

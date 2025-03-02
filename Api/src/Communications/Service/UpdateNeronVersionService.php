@@ -17,10 +17,10 @@ final readonly class UpdateNeronVersionService
         private NeronVersionRepositoryInterface $neronVersionRepository,
     ) {}
 
-    public function execute(int $daedalusId): bool
+    public function execute(int $daedalusId, ?int $fixedIncrement = null): bool
     {
         $neronVersion = $this->neronVersionRepository->findByDaedalusIdOrThrow($daedalusId);
-        $this->incrementNeronVersion($neronVersion);
+        $this->incrementNeronVersion($neronVersion, $fixedIncrement);
 
         $this->eventService->callEvent(
             event: new NeronVersionUpdatedEvent($daedalusId, $neronVersion->majorHasBeenUpdated()),
@@ -30,9 +30,9 @@ final readonly class UpdateNeronVersionService
         return $neronVersion->majorHasBeenUpdated();
     }
 
-    private function incrementNeronVersion(NeronVersion $neronVersion): void
+    private function incrementNeronVersion(NeronVersion $neronVersion, ?int $fixedIncrement): void
     {
-        $minorVersionIncrement = $this->neronMinorVersionIncrement->generateFrom($neronVersion->getMajor());
+        $minorVersionIncrement = $fixedIncrement ?? $this->neronMinorVersionIncrement->generateFrom($neronVersion->getMajor());
         $neronVersion->increment($minorVersionIncrement);
 
         $this->neronVersionRepository->save($neronVersion);

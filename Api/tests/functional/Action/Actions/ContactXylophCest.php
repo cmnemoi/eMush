@@ -9,10 +9,12 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communications\Entity\LinkWithSol;
+use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Entity\XylophConfig;
 use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
+use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -20,6 +22,8 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -39,6 +43,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private XylophRepositoryInterface $xylophRepository;
     private StatusServiceInterface $statusService;
+    private NeronVersionRepositoryInterface $neronVersionRepository;
 
     private GameEquipment $commsCenter;
     private GameEquipment $antenna;
@@ -54,6 +59,13 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
+
+        // setup projects which do not need specific room to exist to avoid errors in tests
+        $this->daedalus
+            ->getAllAvailableProjects()
+            ->filter(static fn (Project $project) => !\in_array($project->getName(), [ProjectName::FIRE_SENSOR->toString(), ProjectName::DOOR_SENSOR->toString()], true))
+            ->map(static fn (Project $project) => $project->unpropose());
 
         $this->givenCommsCenterInRoom();
     }
@@ -227,6 +239,23 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->thenDiskShouldBeInRoom($I);
     }
 
+    public function shouldIncreaseNeronVersionOnVersionXyloph(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenNeronVersionIsAt(8, 76, $I);
+
+        $amountOfProjects = $this->finishedNeronProjectCount();
+
+        $this->givenThereIsXylophAvailable(XylophEnum::VERSION, $I);
+
+        $this->whenPlayerContactsXyloph();
+
+        $this->thenNeronVersionShouldDisplay('9.00', $I);
+        $this->thenProjectCountShouldBe($amountOfProjects + 1, $I);
+    }
+
     public function shouldGiveMostWeightedXyloph(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();
@@ -342,6 +371,22 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I, $this->player);
     }
 
+    private function givenNeronVersionIsAt(int $majorVersion, int $minorVersion, FunctionalTester $I): void
+    {
+        $neronVersion = new NeronVersion($this->daedalus->getId());
+        $I->assertGreaterThan(0, $majorVersion);
+        for ($i = 1; $i < $majorVersion; ++$i) {
+            $neronVersion->increment(100);
+        }
+        $neronVersion->increment($minorVersion);
+        $this->neronVersionRepository->save($neronVersion);
+    }
+
+    private function finishedNeronProjectCount(): int
+    {
+        return $this->daedalus->getFinishedNeronProjects()->count();
+    }
+
     private function whenPlayerTriesToContactXyloph(): void
     {
         $this->contactXyloph->loadParameters(
@@ -404,5 +449,16 @@ final class ContactXylophCest extends AbstractFunctionalTest
     {
         $I->assertCount(1, $this->player->getPlace()->getItems());
         $I->assertNotEmpty($this->player->getPlace()->getEquipmentByName(ItemEnum::MUSH_GENOME_DISK));
+    }
+
+    private function thenNeronVersionShouldDisplay(string $expectedVersion, FunctionalTester $I): void
+    {
+        $actualVersion = $this->neronVersionRepository->findByDaedalusIdOrThrow($this->daedalus->getId());
+        $I->assertEquals($expectedVersion, $actualVersion->toString());
+    }
+
+    private function thenProjectCountShouldBe(int $expectedCount, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedCount, $this->finishedNeronProjectCount());
     }
 }

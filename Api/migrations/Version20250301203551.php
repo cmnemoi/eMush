@@ -20,7 +20,7 @@ final class Version20250301203551 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE xyloph_config ADD quantity INT DEFAULT -1 NOT NULL');
+        $this->addSql('ALTER TABLE xyloph_config ALTER quantity SET DEFAULT -1');
         $this->addSql('ALTER TABLE xyloph_config ALTER key SET DEFAULT \'\'');
         $this->addSql('ALTER TABLE xyloph_config ALTER weight SET DEFAULT 0');
         $this->addSql('ALTER INDEX idx_fc5cf88bfbdb82ce RENAME TO IDX_902FB4C5FBDB82CE');

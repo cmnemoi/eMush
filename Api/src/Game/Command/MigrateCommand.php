@@ -55,7 +55,14 @@ class MigrateCommand extends Command
         ];
 
         $loadConfigDataInput = new ArrayInput($loadConfigDataArguments);
-        $this->loadConfigDataCommand->execute($loadConfigDataInput, $output);
+
+        try {
+            $this->loadConfigDataCommand->execute($loadConfigDataInput, $output);
+        } catch (\Exception $e) {
+            $output->writeln('<error>Error loading config data: ' . $e->getMessage() . '</error>');
+
+            throw new \RuntimeException('Error loading config data: ' . $e->getMessage());
+        }
     }
 
     private function updateSchema(OutputInterface $output): void
@@ -72,6 +79,13 @@ class MigrateCommand extends Command
         if ($application === null) {
             throw new \RuntimeException('Application not found.');
         }
-        $application->find('doctrine:migrations:migrate')->run($input, $output);
+
+        try {
+            $application->find('doctrine:migrations:migrate')->run($input, $output);
+        } catch (\Exception $e) {
+            $output->writeln('<error>Error updating schema: ' . $e->getMessage() . '</error>');
+
+            throw new \RuntimeException('Error updating schema: ' . $e->getMessage());
+        }
     }
 }

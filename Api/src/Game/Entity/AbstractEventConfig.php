@@ -43,7 +43,7 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
     'destroy_weapon_effect_config' => DestroyWeaponEffectConfig::class,
     'splash_damage_all_weapon_effect_config' => SplashDamageAllWeaponEffectConfig::class,
     'splash_injury_weapon_effect_config' => SplashInjuryWeaponEffectConfig::class,
-    'destroy_or_break_random_items_weapon_effect_config' => DestroyOrBreakRandomItemsWeaponEffectConfig::class,
+    'break_random_items_weapon_effect_config' => DestroyOrBreakRandomItemsWeaponEffectConfig::class,
     'splash_random_weapon_effect_config' => SplashRandomWeaponEffectConfig::class,
 ])]
 abstract class AbstractEventConfig

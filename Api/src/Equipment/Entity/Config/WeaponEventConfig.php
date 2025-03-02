@@ -43,6 +43,7 @@ class WeaponEventConfig extends AbstractEventConfig
     {
         $this->name = $dto->name;
         $this->eventName = $dto->eventName;
+        $this->weaponEventType = $dto->eventType;
         $this->effectKeys = $dto->effectKeys;
     }
 

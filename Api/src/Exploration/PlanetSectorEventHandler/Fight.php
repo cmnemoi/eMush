@@ -22,6 +22,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -118,11 +119,14 @@ final class Fight extends AbstractPlanetSectorEventHandler
                 ->filter(static fn (GameItem $item) => $item->isOperational())
                 ->filter(static fn (GameItem $item) => $item->getName() !== ItemEnum::GRENADE || $includeGrenades);
 
-            // @TODO: +1 point for blasters if the rebel base Centauri has been contacted
             foreach ($fighterWeapons as $weapon) {
                 /** @var ?Weapon $weaponMechanic */
                 $weaponMechanic = $weapon->getEquipment()->getMechanicByName(EquipmentMechanicEnum::WEAPON);
                 $expeditionStrength += $weaponMechanic?->getExpeditionBonus() ?? 0;
+                if ($weapon->getName() === ItemEnum::BLASTER
+                && $weapon->getDaedalus()->hasModifierByModifierName(ModifierNameEnum::CENTAURI_REBEL_BASE_MODIFIER)) {
+                    ++$expeditionStrength;
+                }
             }
 
             // If fighter is also a Shooter, add 1 point to the expedition strength if they have a loaded gun

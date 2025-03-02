@@ -8,11 +8,11 @@
         </segment>
         <segment id="hoverName">
             <source>wolf.hoverName</source>
-            <target>Message des Enfants Perdus de Wolf</target>
+            <target>Message from The Lost Children of Wolf</target>
         </segment>
         <segment id="description">
             <source>wolf.description</source>
-            <target>Les enfants perdus de Wolf ont installé plusieurs antennes sur Terre ainsi qu'un centre d’émission à Mumbaï. Nous allons pouvoir émettre sur les ondes radios terriennes les nouvelles de votre odyssée. Vous êtes des héros.</target>
+            <target>The Lost Children of Wolf installed many antennae on Earth along with a broadcasting station in Mumbai. We will be able to broadcast the news of your odyssey on terrestrial radio. You are heroes.</target>
         </segment>
     </unit>
     <unit id="sirius">
@@ -22,11 +22,11 @@
         </segment>
         <segment id="hoverName">
             <source>sirius.hoverName</source>
-            <target>Message de Mages noirs de Sirius</target>
+            <target>Message from The Black Mages of Sirius</target>
         </segment>
         <segment id="description">
             <source>sirius.description</source>
-            <target>Nous vous remercions pour tous les renseignements sur le Mush que vous nous avez apportés. En échange, nous vous avons transféré les plans de la molécule de Shkunz. En l'appliquant à doses homéopathiques dans vos rations, vous devriez améliorer le rendement de votre équipage.</target>
+            <target>We thank you for all the Mush information you have brought to the table. In exchange, we have sent you the plans to the Shkunz molecule. By administering a homeopathic dose to your rations, you should be able to increase your crew's productivity.</target>
         </segment>
     </unit>
     <unit id="centauri">
@@ -36,11 +36,11 @@
         </segment>
         <segment id="hoverName">
             <source>centauri.hoverName</source>
-            <target>Message des Amants de Centauri</target>
+            <target>Message from the Centauri Lovers</target>
         </segment>
         <segment id="description">
             <source>centauri.description</source>
-            <target>Nous sommes heureux de pouvoir rencontrer les héros de la guerre anti-Mush. Dans notre secteur, la guerre pour le contrôle des colonies fait rage. Pour faciliter vos opérations d'exploration de surface nous venons de vous transférer les plans du PL80-Blaster, un puissant canon à plasma qui doit être manipulé avec précaution. Battez-vous jusqu'au bout !</target>
+            <target>It was a pleasure to meet the heroes of the anti-Mush war. In our sector, the war for the control of the colonies is raging. We have sent you the plans for the PL80-Blaster, a powerful plasma cannon which should be handled with care, to facilitate your surface exploration expeditions. Fight until the end!</target>
         </segment>
     </unit>
     <unit id="kaladaan">
@@ -50,11 +50,11 @@
         </segment>
         <segment id="hoverName">
             <source>kaladaan.hoverName</source>
-            <target>Message des Fondateurs de Kaladaan</target>
+            <target>Message from the Founders of Kaladaan</target>
         </segment>
         <segment id="description">
             <source>kaladaan.description</source>
-            <target>Ici Kaladaan ! Nous remercions tout l'équipage du Daedalus pour avoir donné au peuple de Sol l'espoir d'un avenir meilleur. Depuis votre départ la résistance s'organise et nous avons déjà infiltré plusieurs administrations Mush. La Fédération sera bientôt renversée et nous reprendrons le contrôle de Sol !</target>
+            <target>Kaladaan here! We thank all members of the Daedalus for giving the hope of a promising future to the people of Sol. Since you left, the resistance has mobilized and we have already managed to infiltrate several Mush governmental agencies. The Federation shall soon be overthrown and we will retake control of Sol!</target>
         </segment>
     </unit>
     <unit id="unknown">
@@ -70,19 +70,19 @@
     <unit id="lost">
         <segment id="description">
             <source>lost.description</source>
-            <target>Cette base rebelle a lancé un signal mais personne n'a pu le décoder. Les apports de cette base sont perdus à jamais.</target>
+            <target>This rebel base was transmitting but nobody was able to decode it. Anything that was to be gained from contact with this rebel base is lost forever.</target>
         </segment>
     </unit>
     <unit id="not_contacting">
         <segment id="description">
             <source>not_contacting.description</source>
-            <target>Cette base rebelle semble inactive pour le moment. À un moment du voyage, elle enverra un signal à décoder. Assurez-vous qu'il soit intercepté pour bénéficier de ses avantages.</target>
+            <target>This rebel base currently appears to be inactive. At some stage in the voyage, it will send a signal to be decoded. Ensure that it is intercepted and decoded if you want the associated benefits...</target>
         </segment>
     </unit>
     <unit id="contacting">
         <segment id="description">
             <source>contacting.description</source>
-            <target>Cette base rebelle a lancé un signal. En le décodant, vous obtiendrez des informations précieuses voir même des avantages pour l'équipage. Si vous tardez à le traiter, ce signal sera perdu à jamais.</target>
+            <target>This rebel base has sent a signal. By decoding it, you will obtain precious information and bonuses for the crew. Act with haste though: if you fail to decode it in time, its benefits will be lost forever.</target>
         </segment>
     </unit>
     </file>

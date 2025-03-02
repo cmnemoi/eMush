@@ -156,4 +156,6 @@ abstract class ModifierNameEnum
     public const string KALADAAN_REBEL_BASE_MODIFIER = 'kaladaan_rebel_base_modifier';
     public const string PLAYER_PLUS_1_ACTION_POINT_ON_CONSUME_ACTION_IF_STANDARD_RATION = 'player_plus_1_action_point_on_consume_action_if_standard_ration';
     public const string SIRIUS_REBEL_BASE_MODIFIER = 'sirius_rebel_base_modifier';
+    public const string BLASTER_PLUS_1_STRENGTH_IN_EXPEDITION = 'blaster_plus_1_strength_in_expedition';
+    public const string CENTAURI_REBEL_BASE_MODIFIER = 'centauri_rebel_base_modifier';
 }

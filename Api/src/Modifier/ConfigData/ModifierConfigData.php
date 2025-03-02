@@ -3958,6 +3958,21 @@ abstract class ModifierConfigData
                 GameRationEnum::COOKED_RATION => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::BLASTER_PLUS_1_STRENGTH_IN_EXPEDITION,
+            'modifierName' => ModifierNameEnum::CENTAURI_REBEL_BASE_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::EQUIPMENT,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => 'expeditionBonus',
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

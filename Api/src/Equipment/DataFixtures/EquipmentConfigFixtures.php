@@ -100,9 +100,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($door);
 
-        /** @var ActionConfig $searchForMushGenome */
-        $searchForMushGenome = $this->getReference(ActionEnum::SEARCH_FOR_MUSH_GENOME->value);
-
         /** @var ActionConfig $establishLinkWithSol */
         $establishLinkWithSol = $this->getReference(ActionEnum::ESTABLISH_LINK_WITH_SOL->value);
 
@@ -117,7 +114,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $commsCenterTool = $this->createTool(
             [
-                $searchForMushGenome,
                 $establishLinkWithSol,
                 $upgradeNeron,
                 $decodeRebelSignal,

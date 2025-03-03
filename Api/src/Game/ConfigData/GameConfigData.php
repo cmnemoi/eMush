@@ -503,7 +503,6 @@ class GameConfigData
                 PlayerStatusEnum::HAS_SABOTAGED_DOOR . '_default',
                 PlayerStatusEnum::FITFUL_SLEEP . '_default',
                 DaedalusStatusEnum::NERON_DEPRESSION . '_default',
-                DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default',
                 DaedalusStatusEnum::EDEN_COMPUTED . '_default',
                 'electric_charges_coffee_thermos_default',
                 PlayerStatusEnum::CONTACTED_SOL_TODAY . '_default',

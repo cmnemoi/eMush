@@ -12,7 +12,6 @@ abstract class DaedalusStatusEnum
     public const string EXPLORATION_OXYGEN = 'exploration_oxygen';
     public const string FOLLOWING_HUNTERS = 'following_hunters';
     public const string IN_ORBIT = 'in_orbit';
-    public const string MUSH_GENOME_DISK_FOUND = 'mush_genome_disk_found';
     public const string NERON_DEPRESSION = 'neron_depression_at_cycle_change';
     public const string NO_GRAVITY = 'no_gravity';
     public const string NO_GRAVITY_REPAIRED = 'no_gravity_repaired';

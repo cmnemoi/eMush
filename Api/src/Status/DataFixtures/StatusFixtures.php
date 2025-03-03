@@ -590,11 +590,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $fitfulSleep->setModifierConfigs([$fitfulSleepModifier]);
         $manager->persist($fitfulSleep);
 
-        $mushGenomeDiskFound = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default')
-        );
-        $manager->persist($mushGenomeDiskFound);
-
         $edenComputed = StatusConfig::fromConfigData(
             StatusConfigData::getByName(DaedalusStatusEnum::EDEN_COMPUTED . '_default')
         );
@@ -677,7 +672,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($catInfected)
             ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($fitfulSleep)
-            ->addStatusConfig($mushGenomeDiskFound)
             ->addStatusConfig($edenComputed)
             ->addStatusConfig($linkWithSolEstablishedOnce);
 
@@ -744,7 +738,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(EquipmentStatusEnum::CAT_INFECTED, $catInfected);
         $this->addReference(PlayerStatusEnum::HAS_PETTED_CAT, $hasPettedCat);
         $this->addReference(PlayerStatusEnum::FITFUL_SLEEP, $fitfulSleep);
-        $this->addReference(DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND, $mushGenomeDiskFound);
         $this->addReference(DaedalusStatusEnum::EDEN_COMPUTED, $edenComputed);
 
         $manager->flush();

@@ -1758,14 +1758,6 @@ abstract class StatusConfigData
             'actionConfigs' => [],
         ],
         [
-            'name' => DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default',
-            'statusName' => DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND,
-            'visibility' => VisibilityEnum::HIDDEN,
-            'type' => 'status_config',
-            'modifierConfigs' => [],
-            'actionConfigs' => [],
-        ],
-        [
             'name' => DaedalusStatusEnum::EDEN_COMPUTED . '_default',
             'statusName' => DaedalusStatusEnum::EDEN_COMPUTED,
             'visibility' => VisibilityEnum::HIDDEN,

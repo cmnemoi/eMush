@@ -13,7 +13,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\Enum\SkillEnum;
 
 /** @codeCoverageIgnore */
-abstract class MechanicsData
+class MechanicsData
 {
     public const string TOOL_COMMS_CENTER = 'tool_comms_center_default';
     public const string TOOL_CALCULATOR = 'tool_calculator_default';
@@ -2175,7 +2175,6 @@ abstract class MechanicsData
                 ActionEnum::EXIT_TERMINAL->value,
                 ActionEnum::ESTABLISH_LINK_WITH_SOL->value,
                 ActionEnum::UPGRADE_NERON->value,
-                ActionEnum::SEARCH_FOR_MUSH_GENOME->value,
                 ActionEnum::DECODE_REBEL_SIGNAL->value,
                 ActionEnum::CONTACT_XYLOPH->value,
             ],

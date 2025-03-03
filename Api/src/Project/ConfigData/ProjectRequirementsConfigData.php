@@ -32,7 +32,7 @@ abstract class ProjectRequirementsConfigData
             ),
             new ProjectRequirementConfigDto(
                 name: ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
-                type: ProjectRequirementType::ITEM_IN_LABORATORY,
+                type: ProjectRequirementType::MUSH_SAMPLE_IN_LABORATORY,
                 target: ItemEnum::MUSH_SAMPLE
             ),
             new ProjectRequirementConfigDto(

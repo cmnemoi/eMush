@@ -5,12 +5,19 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Action\Actions\ParticipateResearch;
+use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Communications\Entity\XylophConfig;
+use Mush\Communications\Entity\XylophEntry;
+use Mush\Communications\Enum\XylophEnum;
+use Mush\Communications\Repository\XylophRepositoryInterface;
+use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Service\NeronServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -33,9 +40,11 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private ParticipateResearch $participateAction;
+    private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private NeronServiceInterface $neronService;
     private StatusServiceInterface $statusService;
+    private XylophRepositoryInterface $xylophRepository;
     private GameEquipment $terminal;
 
     public function _before(FunctionalTester $I): void
@@ -44,9 +53,11 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PARTICIPATE_RESEARCH->value]);
         $this->participateAction = $I->grabService(ParticipateResearch::class);
+        $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->neronService = $I->grabService(NeronServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
         $this->actionConfig->setDirtyRate(0);
         $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);
 
@@ -231,6 +242,38 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $I->assertEquals(new PlayerEfficiency(5, 6), $this->chun->getEfficiencyForProject($researchProject));
     }
 
+    public function shouldBeExecutableWithGhostSample(FunctionalTester $I): void
+    {
+        $this->givenGameHasStarted();
+
+        $this->givenGhostSampleTakesEffect($I);
+
+        $project = $this->daedalus->getProjectByName(ProjectName::ANTISPORE_GAS);
+
+        $this->whenKuanTiTriesToParticipateInProject($project);
+
+        $this->thenActionIsExecutable($I);
+    }
+
+    public function shouldBeExecutableWithGhostSampleWhenMushSampleIsTaken(FunctionalTester $I): void
+    {
+        $this->givenGameHasStarted();
+
+        $this->givenGhostSampleTakesEffect($I);
+
+        $mushSample = $this->givenMushSampleInLaboratory();
+
+        $project = $this->daedalus->getProjectByName(ProjectName::ANTISPORE_GAS);
+
+        $this->whenChunTakes($mushSample, $I);
+
+        $this->givenChunIsNotInLab();
+
+        $this->whenKuanTiTriesToParticipateInProject($project);
+
+        $this->thenActionIsExecutable($I);
+    }
+
     private function givenChunIsNotInLab()
     {
         $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
@@ -275,9 +318,9 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenMushSampleInLaboratory(): void
+    private function givenMushSampleInLaboratory(): GameItem
     {
-        $this->gameEquipmentService->createGameEquipmentFromName(
+        return $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::MUSH_SAMPLE,
             equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
             reasons: [],
@@ -292,6 +335,21 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
             equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
             reasons: [],
             time: new \DateTime()
+        );
+    }
+
+    private function givenGhostSampleTakesEffect(FunctionalTester $I): void
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::GHOST_SAMPLE->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
         );
     }
 
@@ -336,6 +394,19 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
             target: $project
         );
         $this->participateAction->execute();
+    }
+
+    private function whenChunTakes(GameItem $item, FunctionalTester $I): void
+    {
+        $takeAction = $I->grabService(Take::class);
+        $takeConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::TAKE->value]);
+        $takeAction->loadParameters(
+            actionConfig: $takeConfig,
+            actionProvider: $this->chun,
+            player: $this->chun,
+            target: $item
+        );
+        $takeAction->execute();
     }
 
     private function thenKuanTiDoesNotHaveGeniusIdeaStatus(FunctionalTester $I): void

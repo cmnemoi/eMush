@@ -603,6 +603,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $linkWithSolEstablishedOnce->setModifierConfigs([$firstContactWithSolModifier]);
         $manager->persist($linkWithSolEstablishedOnce);
 
+        $ghostSample = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::GHOST_SAMPLE . '_default')
+        );
+        $manager->persist($ghostSample);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -673,7 +678,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($fitfulSleep)
             ->addStatusConfig($edenComputed)
-            ->addStatusConfig($linkWithSolEstablishedOnce);
+            ->addStatusConfig($linkWithSolEstablishedOnce)
+            ->addStatusConfig($ghostSample);
 
         $manager->persist($gameConfig);
 
@@ -739,6 +745,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_PETTED_CAT, $hasPettedCat);
         $this->addReference(PlayerStatusEnum::FITFUL_SLEEP, $fitfulSleep);
         $this->addReference(DaedalusStatusEnum::EDEN_COMPUTED, $edenComputed);
+        $this->addReference(DaedalusStatusEnum::GHOST_SAMPLE, $ghostSample);
 
         $manager->flush();
     }

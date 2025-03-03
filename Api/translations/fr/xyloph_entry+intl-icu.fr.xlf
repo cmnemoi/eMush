@@ -61,5 +61,15 @@
                 <target>Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de NERON.//**Fait avancer le niveau de mise à jour de NERON de 25%.**</target>
             </segment>
         </unit>
+        <unit id="ghost_sample">
+            <segment id="name">
+                <source>ghost_sample.name</source>
+                <target>Contact avec Nils Carlsson !</target>
+            </segment>
+            <segment id="description">
+                <source>ghost_sample.description</source>
+                <target>Vous avez rétabli le contact avec Nils Carlsson, son aide pour les recherches du laboratoire sera précieuse.//**La communication avec Nils remplace une** ***Souche de Test*** **dans le module de recherche**</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

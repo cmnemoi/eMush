@@ -7,6 +7,7 @@ namespace Mush\Communications\Enum;
 enum XylophEnum: string
 {
     case DISK = 'disk';
+    case GHOST_SAMPLE = 'ghost_sample';
     case MAGNETITE = 'magnetite';
     case NOTHING = 'nothing';
     case NULL = '';

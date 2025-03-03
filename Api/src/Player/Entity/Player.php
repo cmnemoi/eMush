@@ -67,6 +67,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -315,6 +316,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         $placeFood = $this->getPlace()->getEquipments()->filter(static fn (GameEquipment $equipment) => $equipment->isARation());
 
         return $playerFood->count() > 0 || $placeFood->count() > 0;
+    }
+
+    public function hasSampleAvailable(): bool
+    {
+        return $this->getDaedalus()->getStatusByName(DaedalusStatusEnum::GHOST_SAMPLE)
+        || $this->canReachEquipmentByName(ItemEnum::MUSH_SAMPLE);
     }
 
     public function getEquipments(): Collection

@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Mush\Communications\Service;
 
 use Mush\Communications\Entity\RebelBase;
-use Mush\Communications\Event\RebelBaseDecodedEvent;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 
 final readonly class DecodeRebelSignalService
@@ -17,7 +15,6 @@ final readonly class DecodeRebelSignalService
         private DaedalusRepositoryInterface $daedalusRepository,
         private ModifierCreationServiceInterface $modifierCreationService,
         private RebelBaseRepositoryInterface $rebelBaseRepository,
-        private EventServiceInterface $eventService,
     ) {}
 
     public function execute(RebelBase $rebelBase, int $progress, array $tags = []): void
@@ -47,12 +44,6 @@ final readonly class DecodeRebelSignalService
                 time: new \DateTime(),
             );
         }
-
-        $tags[] = $rebelBase->getName();
-        $this->eventService->callEvent(
-            event: new RebelBaseDecodedEvent($rebelBase->getDaedalusId(), $tags),
-            name: RebelBaseDecodedEvent::class,
-        );
     }
 
     private function endRebelBaseContact(RebelBase $rebelBase): void

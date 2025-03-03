@@ -7,12 +7,11 @@ namespace Mush\Communications\Enum;
 enum RebelBaseEnum: string
 {
     case NULL = '';
-    case WOLF = 'wolf';
+    case KALADAAN = 'kaladaan';
     case SIRIUS = 'sirius';
     case CENTAURI = 'centauri';
-    case KALADAAN = 'kaladaan';
-    case LUYTEN_CETI = 'luyten_ceti';
     case UNKNOWN = 'unknown';
+    case WOLF = 'wolf';
 
     public function toString(): string
     {

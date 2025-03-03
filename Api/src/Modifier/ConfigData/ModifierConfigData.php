@@ -3990,6 +3990,20 @@ abstract class ModifierConfigData
                 ActionEnum::DECODE_REBEL_SIGNAL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PLUS_8_TRIUMPH_POINTS_FOR_PAOLA,
+            'modifierName' => ModifierNameEnum::PAOLA_PERSONAL_TRIUMPH_MODIFIER,
+            'revertOnRemove' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'direct_modifier',
+            'targetFilters' => [],
+            'eventActivationRequirements' => [
+                ModifierRequirementEnum::PLAYER_IS_PAOLA,
+            ],
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS,
+            'modifierActivationRequirements' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

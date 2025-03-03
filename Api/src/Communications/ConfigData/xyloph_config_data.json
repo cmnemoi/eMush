@@ -53,6 +53,6 @@
         "name": "kivanc",
         "weight": 8,
         "quantity": -1,
-        "modifierConfigs": ["double_decode_base_signal"]
+        "modifierConfigs": ["double_decode_base_signal", "plus_8_triumph_points_for_paola"]
     }
 ]

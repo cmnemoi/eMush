@@ -160,4 +160,6 @@ abstract class ModifierNameEnum
     public const string CENTAURI_REBEL_BASE_MODIFIER = 'centauri_rebel_base_modifier';
     public const string DOUBLE_DECODE_BASE_SIGNAL = 'double_decode_base_signal';
     public const string KIVANC_MODIFIER = 'kivanc_modifier';
+    public const string PLUS_8_TRIUMPH_POINTS_FOR_PAOLA = 'plus_8_triumph_points_for_paola';
+    public const string PAOLA_PERSONAL_TRIUMPH_MODIFIER = 'paola_personal_triumph_modifier';
 }

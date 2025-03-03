@@ -509,6 +509,7 @@ class GameConfigData
                 DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE . '_default',
                 DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_default',
                 DaedalusStatusEnum::GHOST_SAMPLE . '_default',
+                DaedalusStatusEnum::GHOST_CHUN . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -756,9 +757,11 @@ class GameConfigData
                 RebelBaseEnum::WOLF,
                 RebelBaseEnum::SIRIUS,
                 RebelBaseEnum::KALADAAN,
+                RebelBaseEnum::CENTAURI,
             ],
             'xylophConfigs' => [
                 XylophEnum::DISK,
+                XylophEnum::GHOST_CHUN,
                 XylophEnum::GHOST_SAMPLE,
                 XylophEnum::MAGNETITE,
                 XylophEnum::NOTHING,

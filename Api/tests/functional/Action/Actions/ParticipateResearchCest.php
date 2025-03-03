@@ -274,6 +274,21 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
         $this->thenActionIsExecutable($I);
     }
 
+    public function shouldBeExecutableWithGhostChunWhenChunIsNotThere(FunctionalTester $I): void
+    {
+        $this->givenGameHasStarted();
+
+        $this->givenGhostChunTakesEffect($I);
+
+        $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN);
+
+        $this->givenChunIsNotInLab();
+
+        $this->whenKuanTiTriesToParticipateInProject($project);
+
+        $this->thenActionIsExecutable($I);
+    }
+
     private function givenChunIsNotInLab()
     {
         $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
@@ -341,6 +356,21 @@ final class ParticipateResearchCest extends AbstractFunctionalTest
     private function givenGhostSampleTakesEffect(FunctionalTester $I): void
     {
         $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::GHOST_SAMPLE->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
+        );
+    }
+
+    private function givenGhostChunTakesEffect(FunctionalTester $I): void
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::GHOST_CHUN->toString() . '_default']);
         $xylophEntry = new XylophEntry(
             xylophConfig: $config,
             daedalusId: $this->daedalus->getId(),

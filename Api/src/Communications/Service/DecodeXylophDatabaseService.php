@@ -43,6 +43,7 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
 
         match ($xylophEntry->getName()) {
             XylophEnum::DISK => $this->createMushGenomeDisk($player->getPlace(), $tags),
+            XylophEnum::GHOST_CHUN => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_CHUN, $tags),
             XylophEnum::GHOST_SAMPLE => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_SAMPLE, $tags),
             XylophEnum::MAGNETITE => $this->ruinLinkWithSol($daedalus->getId(), $xylophEntry->getQuantity(), $tags),
             XylophEnum::NOTHING => null,

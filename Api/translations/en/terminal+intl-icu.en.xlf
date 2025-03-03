@@ -413,6 +413,18 @@ If contact is not established, at least **signal quality will be improved** and 
         <source>communication_center.link_established</source>
         <target>Connection established!</target>
       </segment>
+      <segment id="rebel_bases_network" state="translated">
+        <source>communication_center.rebel_bases_network</source>
+        <target>Rebel Bases Network</target>
+      </segment>
+      <segment id="select_rebel_base_to_decode" state="translated">
+        <source>communication_center.select_rebel_base_to_decode</source>
+        <target>Select Rebel Base to decode</target>
+      </segment>
+      <segment id="xyloph_db" state="translated">
+        <source>communication_center.xyloph_db</source>
+        <target>Xyloph DB</target>
+      </segment>
     </unit>
   </file>
 </xliff>

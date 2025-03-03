@@ -1601,5 +1601,15 @@
         <target>upgrade_neron.description</target>
       </segment>
     </unit>
+    <unit id="contact_xyloph">
+      <segment id="name" state="initial">
+        <source>contact_xyloph.name</source>
+        <target>contact_xyloph.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>contact_xyloph.description</source>
+        <target>contact_xyloph.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

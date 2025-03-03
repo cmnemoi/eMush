@@ -608,6 +608,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($ghostSample);
 
+        $ghostChun = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::GHOST_CHUN . '_default')
+        );
+        $manager->persist($ghostChun);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -679,7 +684,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($fitfulSleep)
             ->addStatusConfig($edenComputed)
             ->addStatusConfig($linkWithSolEstablishedOnce)
-            ->addStatusConfig($ghostSample);
+            ->addStatusConfig($ghostSample)
+            ->addStatusConfig($ghostChun);
 
         $manager->persist($gameConfig);
 
@@ -746,6 +752,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::FITFUL_SLEEP, $fitfulSleep);
         $this->addReference(DaedalusStatusEnum::EDEN_COMPUTED, $edenComputed);
         $this->addReference(DaedalusStatusEnum::GHOST_SAMPLE, $ghostSample);
+        $this->addReference(DaedalusStatusEnum::GHOST_CHUN, $ghostChun);
 
         $manager->flush();
     }

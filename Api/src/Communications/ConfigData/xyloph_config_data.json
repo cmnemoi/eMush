@@ -37,8 +37,15 @@
     {
         "key": "ghost_sample_default",
         "name": "ghost_sample",
-        "weight": 12,
-        "quantity": 25,
+        "weight": 2,
+        "quantity": -1,
+        "modifierConfigs": []
+    },
+    {
+        "key": "ghost_chun_default",
+        "name": "ghost_chun",
+        "weight": 8,
+        "quantity": -1,
         "modifierConfigs": []
     }
 ]

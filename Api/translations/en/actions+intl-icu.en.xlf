@@ -1632,5 +1632,25 @@ Or you simply need some fresh air.... or not.</target>
         <target>Updating NERON allows you to take advantage of the miracle that NERON could have been in the Magellan project.//**Once the update is complete, a project is completed.**</target>
       </segment>
     </unit>
+    <unit id="decode_rebel_signal">
+      <segment id="name" state="translated">
+        <source>decode_rebel_signal.name</source>
+        <target>Decode rebel signal</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>decode_rebel_signal.description</source>
+        <target>decode_rebel_signal.description</target>
+      </segment>
+    </unit>
+    <unit id="contact_xyloph">
+      <segment id="name" state="translated">
+        <source>contact_xyloph.name</source>
+        <target>Contact Xyloph</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>contact_xyloph.description</source>
+        <target>contact_xyloph.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

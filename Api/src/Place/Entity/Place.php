@@ -35,6 +35,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -611,6 +612,11 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     public function isChunIn(): bool
     {
         return $this->getAlivePlayers()->hasPlayerByName(CharacterEnum::CHUN);
+    }
+
+    public function isChunForResearch(): bool
+    {
+        return $this->isChunIn() || $this->getDaedalus()->hasStatus(DaedalusStatusEnum::GHOST_CHUN);
     }
 
     public function hasAGuardian(): bool

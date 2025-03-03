@@ -372,10 +372,9 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         if ($terminalKey !== EquipmentEnum::RESEARCH_LABORATORY) {
             return [];
         }
-        $daedalus = $terminal->getDaedalus();
 
         return [
-            'requirements' => $this->getFullfilledResearchRequirements($daedalus, $terminalKey),
+            'requirements' => $this->getFullfilledResearchRequirements($terminal, $terminalKey),
         ];
     }
 
@@ -419,21 +418,21 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         ) : null;
     }
 
-    private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array
+    private function getFullfilledResearchRequirements(GameEquipment $terminal, string $terminalKey): array
     {
         $allRequirements = new ArrayCollection(
             [
                 [
                     'key' => 'chun_present',
-                    'fullfilled' => $daedalus->isChunInLaboratory(),
+                    'fullfilled' => $terminal->getPlace()->isChunForResearch(),
                 ],
                 [
                     'key' => 'mush_dead',
-                    'fullfilled' => $daedalus->hasAnyMushDied(),
+                    'fullfilled' => $terminal->getDaedalus()->hasAnyMushDied(),
                 ],
             ]
         );
-        $language = $daedalus->getLanguage();
+        $language = $terminal->getDaedalus()->getLanguage();
 
         return $allRequirements
             ->filter(static fn ($requirement) => $requirement['fullfilled'])

@@ -372,6 +372,18 @@
         <source>communication_center.link_established</source>
         <target>communication_center.link_established</target>
       </segment>
+      <segment id="rebel_bases_network" state="initial">
+        <source>communication_center.rebel_bases_network</source>
+        <target>communication_center.rebel_bases_network</target>
+      </segment>
+      <segment id="select_rebel_base_to_decode" state="initial">
+        <source>communication_center.select_rebel_base_to_decode</source>
+        <target>communication_center.select_rebel_base_to_decode</target>
+      </segment>
+      <segment id="xyloph_db" state="initial">
+        <source>communication_center.xyloph_db</source>
+        <target>communication_center.xyloph_db</target>
+      </segment>
     </unit>
   </file>
 </xliff>

@@ -6,6 +6,7 @@ namespace Mush\Modifier\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Communications\Entity\RebelBase;
+use Mush\Communications\Entity\XylophEntry;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
@@ -36,6 +37,9 @@ class ModifierProvider
     #[ORM\ManyToOne(targetEntity: RebelBase::class)]
     private ?RebelBase $rebelBase = null;
 
+    #[ORM\ManyToOne(targetEntity: XylophEntry::class)]
+    private ?XylophEntry $xylophEntry = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -57,6 +61,9 @@ class ModifierProvider
         }
         if ($this->rebelBase) {
             return $this->rebelBase;
+        }
+        if ($this->xylophEntry) {
+            return $this->xylophEntry;
         }
 
         throw new LogicException("this modifier don't have any valid provider");
@@ -92,6 +99,11 @@ class ModifierProvider
         }
         if ($modifierProvider instanceof RebelBase) {
             $this->rebelBase = $modifierProvider;
+
+            return $this;
+        }
+        if ($modifierProvider instanceof XylophEntry) {
+            $this->xylophEntry = $modifierProvider;
 
             return $this;
         }

@@ -81,5 +81,15 @@
                 <target>Zong Chun est le seul être humain résistant a l'infection Mush, l'analyse de son génome est la clé pour l'élaboration d'un vaccin anti-Mush ainsi que de nombreuses autres recherches.//**Ajoute dans l'interface du laboratoire un "ghost" de Zong Chun équivalent a sa présence**</target>
             </segment>
         </unit>
+        <unit id="kivanc">
+            <segment id="name">
+                <source>kivanc.name</source>
+                <target>Contact avec Kivanç Terzi rétabli !</target>
+            </segment>
+            <segment id="description">
+                <source>kivanc.description</source>
+                <target>Vous êtes en contact avec Kivanç Terzi qui fédère une grande partie de la rebellion sur le système Sol, son aide vous sera précieuse pour décoder les messages de bases rebelles.//**Vous accorde 100%de bonus sur les décodages de bases rebelles.**</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

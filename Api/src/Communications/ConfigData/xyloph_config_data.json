@@ -47,5 +47,12 @@
         "weight": 8,
         "quantity": -1,
         "modifierConfigs": []
+    },
+    {
+        "key": "kivanc_default",
+        "name": "kivanc",
+        "weight": 8,
+        "quantity": -1,
+        "modifierConfigs": ["double_decode_base_signal"]
     }
 ]

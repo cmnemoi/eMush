@@ -761,6 +761,7 @@ class GameConfigData
             ],
             'xylophConfigs' => [
                 XylophEnum::DISK,
+                XylophEnum::KIVANC,
                 XylophEnum::GHOST_CHUN,
                 XylophEnum::GHOST_SAMPLE,
                 XylophEnum::MAGNETITE,

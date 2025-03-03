@@ -42,8 +42,6 @@ final class RebelBaseModifierConfigFixtures extends Fixture
         $manager->persist($kaladaanMoralModifier);
         $this->addReference($kaladaanMoralModifier->getName(), $kaladaanMoralModifier);
 
-        $manager->flush();
-
         $centauriActionPointModifier = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::BLASTER_PLUS_1_STRENGTH_IN_EXPEDITION)
         );

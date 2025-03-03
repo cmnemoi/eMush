@@ -9,6 +9,7 @@ enum XylophEnum: string
     case DISK = 'disk';
     case GHOST_CHUN = 'ghost_chun';
     case GHOST_SAMPLE = 'ghost_sample';
+    case KIVANC = 'kivanc';
     case MAGNETITE = 'magnetite';
     case NOTHING = 'nothing';
     case NULL = '';

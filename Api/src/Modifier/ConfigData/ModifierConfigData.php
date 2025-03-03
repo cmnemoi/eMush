@@ -3973,6 +3973,23 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => ModifierNameEnum::DOUBLE_DECODE_BASE_SIGNAL,
+            'modifierName' => ModifierNameEnum::KIVANC_MODIFIER,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'variable_event_modifier',
+            'delta' => 2,
+            'targetVariable' => 'outputQuantity',
+            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::DECODE_REBEL_SIGNAL->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

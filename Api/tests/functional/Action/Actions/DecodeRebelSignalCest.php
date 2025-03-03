@@ -13,9 +13,14 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\XylophConfig;
+use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\XylophRepositoryInterface;
+use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
@@ -23,6 +28,7 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -36,10 +42,12 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private DecodeRebelSignal $decodeRebelBase;
 
+    private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private StatusServiceInterface $statusService;
+    private XylophRepositoryInterface $xylophRepository;
 
     private GameEquipment $commsCenter;
 
@@ -49,10 +57,12 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DECODE_REBEL_SIGNAL]);
         $this->decodeRebelBase = $I->grabService(DecodeRebelSignal::class);
 
+        $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 
         $this->givenCommsCenterInRoom();
     }
@@ -197,6 +207,49 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionPoints(1, $I);
     }
 
+    public function shouldDoubleOutputQuantityOnRebelSkill(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+
+        $initialSignalMaxEfficiency = $this->decodeRebelSignalOutputQuantity();
+
+        $this->givenPlayerIsRebel($I);
+
+        $this->thenMaxEfficiencyShouldBeDoubleTo($initialSignalMaxEfficiency, $I);
+    }
+
+    public function shouldDoubleOutputQuantityOnKivancDecoded(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+
+        $initialSignalMaxEfficiency = $this->decodeRebelSignalOutputQuantity();
+
+        $this->givenHasContactedKivanc($I);
+
+        $this->thenMaxEfficiencyShouldBeDoubleTo($initialSignalMaxEfficiency, $I);
+    }
+
+    public function shouldQuadrupleOutputQuantityWhenRebelHasContactedKivanc(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+
+        $initialSignalMaxEfficiency = $this->decodeRebelSignalOutputQuantity();
+
+        $this->givenPlayerIsRebel($I);
+        $this->givenHasContactedKivanc($I);
+
+        $this->thenMaxEfficiencyShouldBeQuadrupleTo($initialSignalMaxEfficiency, $I);
+    }
+
     private function givenCommsCenterInRoom(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -327,6 +380,26 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->decodeRebelBase->execute();
     }
 
+    private function givenPlayerIsRebel(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::REBEL, $I, $this->player);
+    }
+
+    private function givenHasContactedKivanc(FunctionalTester $I): void
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::KIVANC->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
+        );
+    }
+
     private function whenPlayerDecodesRebelSignal(RebelBaseEnum $signal): void
     {
         $this->decodeRebelBase->loadParameters(
@@ -377,11 +450,37 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $I->assertEquals($points, $this->player->getActionPoint(), "Player should have {$points} action points, but has " . $this->player->getActionPoint());
     }
 
+    private function thenMaxEfficiencyShouldBeDoubleTo(int $initialEfficiency, FunctionalTester $I): void
+    {
+        $expectedOutput = $initialEfficiency * 2;
+        $actualOutput = $this->decodeRebelSignalOutputQuantity();
+        $I->assertEquals($expectedOutput, $actualOutput, "Player should have output {$expectedOutput}%, but has {$actualOutput}%");
+    }
+
+    private function thenMaxEfficiencyShouldBeQuadrupleTo(int $initialEfficiency, FunctionalTester $I): void
+    {
+        $expectedOutput = $initialEfficiency * 4;
+        $actualOutput = $this->decodeRebelSignalOutputQuantity();
+        $I->assertEquals($expectedOutput, $actualOutput, "Player should have output {$expectedOutput}%, but has {$actualOutput}%");
+    }
+
     private function rationTypesProvider(): array
     {
         return [
             ['ration' => GameRationEnum::STANDARD_RATION],
             ['ration' => GameRationEnum::COOKED_RATION],
         ];
+    }
+
+    private function decodeRebelSignalOutputQuantity(): int
+    {
+        $this->decodeRebelBase->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->commsCenter,
+            player: $this->player,
+            target: $this->commsCenter,
+        );
+
+        return $this->decodeRebelBase->getOutputQuantity();
     }
 }

@@ -45,6 +45,7 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
             XylophEnum::DISK => $this->createMushGenomeDisk($player->getPlace(), $tags),
             XylophEnum::GHOST_CHUN => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_CHUN, $tags),
             XylophEnum::GHOST_SAMPLE => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_SAMPLE, $tags),
+            XylophEnum::KIVANC => $this->createXylophModifiers($daedalus, $xylophEntry, $tags),
             XylophEnum::MAGNETITE => $this->ruinLinkWithSol($daedalus->getId(), $xylophEntry->getQuantity(), $tags),
             XylophEnum::NOTHING => null,
             XylophEnum::SNOW => $this->killLinkWithSol($daedalus->getId(), $tags),
@@ -102,5 +103,18 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
             tags: $tags,
             time: new \DateTime(),
         );
+    }
+
+    private function createXylophModifiers(Daedalus $daedalus, XylophEntry $entry, array $tags): void
+    {
+        foreach ($entry->getModifierConfigs() as $modifierConfig) {
+            $this->modifierCreationService->createModifier(
+                modifierConfig: $modifierConfig,
+                holder: $daedalus,
+                modifierProvider: $entry,
+                tags: $tags,
+                time: new \DateTime(),
+            );
+        }
     }
 }

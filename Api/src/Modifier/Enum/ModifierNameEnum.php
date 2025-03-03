@@ -158,4 +158,6 @@ abstract class ModifierNameEnum
     public const string SIRIUS_REBEL_BASE_MODIFIER = 'sirius_rebel_base_modifier';
     public const string BLASTER_PLUS_1_STRENGTH_IN_EXPEDITION = 'blaster_plus_1_strength_in_expedition';
     public const string CENTAURI_REBEL_BASE_MODIFIER = 'centauri_rebel_base_modifier';
+    public const string CREATE_BRAINSYNC_STATUS_FOR_ALL_PLAYERS = 'create_brainsync_status_for_all_players';
+    public const string LUYTEN_CETI_REBEL_BASE_MODIFIER = 'luyten_ceti_rebel_base_modifier';
 }

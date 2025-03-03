@@ -3973,6 +3973,22 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
+        [
+            'name' => ModifierNameEnum::CREATE_BRAINSYNC_STATUS_FOR_ALL_PLAYERS,
+            'modifierName' => ModifierNameEnum::LUYTEN_CETI_REBEL_BASE_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT, // this modifier does not listen to any event, it is just used to store the status
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => PlayerStatusEnum::BRAINSYNC,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_6_MORALE_POINTS,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

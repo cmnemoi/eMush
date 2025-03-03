@@ -755,7 +755,9 @@ class GameConfigData
             'rebelBaseConfigs' => [
                 RebelBaseEnum::WOLF,
                 RebelBaseEnum::SIRIUS,
+                RebelBaseEnum::CENTAURI,
                 RebelBaseEnum::KALADAAN,
+                RebelBaseEnum::LUYTEN_CETI,
             ],
             'xylophConfigs' => [
                 XylophEnum::DISK,

@@ -30,5 +30,13 @@
         "modifierConfigs": [
             "plus_6_morale_points_for_all_players"
         ]
+    },
+    {
+        "key": "luyten_ceti_default",
+        "name": "luyten_ceti",
+        "contactOrder": 5,
+        "modifierConfigs": [
+            "create_brainsync_status_for_all_players"
+        ]
     }
 ]

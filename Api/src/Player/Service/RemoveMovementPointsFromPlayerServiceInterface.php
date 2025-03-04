@@ -15,6 +15,6 @@ interface RemoveMovementPointsFromPlayerServiceInterface
         array $tags = [],
         ?Player $author = null,
         \DateTime $time = new \DateTime(),
-        string $visibility = VisibilityEnum::HIDDEN
+        string $visibility = VisibilityEnum::PRIVATE
     ): void;
 }

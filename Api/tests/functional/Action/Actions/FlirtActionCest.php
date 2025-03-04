@@ -107,8 +107,8 @@ class FlirtActionCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        $I->assertTrue($player->HasFlirtedWith($targetPlayer));
-        $I->assertFalse($targetPlayer->HasFlirtedWith($player));
+        $I->assertTrue($player->hasFlirtedWith($targetPlayer));
+        $I->assertFalse($targetPlayer->hasFlirtedWith($player));
     }
 
     public function testCoupleOfMenFlirt(FunctionalTester $I)
@@ -301,8 +301,8 @@ class FlirtActionCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        $I->assertTrue($player->HasFlirtedWith($targetPlayer));
-        $I->assertFalse($targetPlayer->HasFlirtedWith($player));
+        $I->assertTrue($player->hasFlirtedWith($targetPlayer));
+        $I->assertFalse($targetPlayer->hasFlirtedWith($player));
     }
 
     public function testAndieAndManFlirt(FunctionalTester $I)
@@ -377,7 +377,7 @@ class FlirtActionCest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
 
-        $I->assertTrue($player->HasFlirtedWith($targetPlayer));
-        $I->assertFalse($targetPlayer->HasFlirtedWith($player));
+        $I->assertTrue($player->hasFlirtedWith($targetPlayer));
+        $I->assertFalse($targetPlayer->hasFlirtedWith($player));
     }
 }

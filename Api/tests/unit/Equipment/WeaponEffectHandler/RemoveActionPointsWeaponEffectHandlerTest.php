@@ -11,10 +11,9 @@ use Mush\Equipment\Event\WeaponEffect;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\ValueObject\DamageSpread;
 use Mush\Equipment\WeaponEffect\RemoveActionPointsWeaponEffectHandler;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
-use Mush\Player\Service\RemoveActionPointsFromPlayerServiceInterface;
+use Mush\Tests\unit\Equipment\TestDoubles\FakeRemoveActionPointsFromPlayer;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -109,13 +108,5 @@ final class RemoveActionPointsWeaponEffectHandlerTest extends TestCase
             name: ItemEnum::BLASTER,
             holder: $this->attacker,
         );
-    }
-}
-
-final class FakeRemoveActionPointsFromPlayer implements RemoveActionPointsFromPlayerServiceInterface
-{
-    public function execute(int $quantity, Player $player, array $tags = [], ?Player $author = null, \DateTime $time = new \DateTime(), string $visibility = VisibilityEnum::HIDDEN): void
-    {
-        $player->setActionPoint($player->getActionPoint() - $quantity);
     }
 }

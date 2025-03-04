@@ -31,7 +31,7 @@ class FlirtedAlreadyValidator extends ConstraintValidator
             throw new UnexpectedTypeException($target, Player::class);
         }
 
-        if ($initiator->HasFlirtedWith($target) !== $constraint->expectedValue) {
+        if ($initiator->hasFlirtedWith($target) !== $constraint->expectedValue) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

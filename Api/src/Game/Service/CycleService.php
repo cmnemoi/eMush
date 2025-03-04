@@ -12,6 +12,7 @@ use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\ValueObject\CycleChangeResult;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Lock\LockFactory;
 
@@ -310,32 +311,5 @@ class CycleService implements CycleServiceInterface
         $exploration->setIsChangingCycle(false);
         $this->entityManager->persist($exploration);
         $this->entityManager->flush();
-    }
-}
-
-class CycleChangeResult
-{
-    public int $daedalusCyclesElapsed;
-    public int $explorationCyclesElapsed;
-
-    public function __construct(int $daedalusCyclesElapsed, int $explorationCyclesElapsed)
-    {
-        $this->daedalusCyclesElapsed = $daedalusCyclesElapsed;
-        $this->explorationCyclesElapsed = $explorationCyclesElapsed;
-    }
-
-    public function noCycleElapsed(): bool
-    {
-        return $this->daedalusCyclesElapsed === 0 && $this->explorationCyclesElapsed === 0;
-    }
-
-    public function hasDaedalusCycleElapsed(): bool
-    {
-        return $this->daedalusCyclesElapsed > 0;
-    }
-
-    public function hasExplorationCycleElapsed(): bool
-    {
-        return $this->explorationCyclesElapsed > 0;
     }
 }

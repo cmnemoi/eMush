@@ -14,11 +14,11 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\Random\FakeGetRandomIntegerService;
 use Mush\Game\Service\Random\RandomString;
-use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\FakeStatusService;
+use Mush\Tests\unit\Chat\TestDoubles\FakeTranslationService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -42,7 +42,7 @@ final class MessageNormalizerOnPheromodemTest extends TestCase
     {
         $this->normalizer = new MessageNormalizer(
             new RandomString(new FakeGetRandomIntegerService(result: 5)),
-            new MessageNormalizerOnPheromodemTranslationService(),
+            new FakeTranslationService(),
         );
         $this->statusService = new FakeStatusService();
 
@@ -215,18 +215,5 @@ final class MessageNormalizerOnPheromodemTest extends TestCase
         foreach ($names as $name) {
             self::assertStringContainsString($name, $messageText);
         }
-    }
-}
-
-final class MessageNormalizerOnPheromodemTranslationService implements TranslationServiceInterface
-{
-    public function translate(string $key, array $parameters, string $domain, ?string $language = null): string
-    {
-        return match ($key) {
-            'derek.name' => 'Derek',
-            'mush.name' => 'Mush',
-            'infect_trap' => "**{$parameters['target_character']}** a été contaminé en ouvrant une étagère piégée par **{$parameters['character']}**. Son niveau de contamination est maintenant de **{$parameters['quantity']}**.",
-            default => 'à l\'instant',
-        };
     }
 }

@@ -17,10 +17,10 @@ use Mush\Player\Repository\InMemoryPlayerRepository;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\Repository\SkillRepositoryInterface;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\FakeStatusService;
+use Mush\Tests\unit\Skill\TestDoubles\InMemorySkillRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -225,27 +225,5 @@ final class DeletePlayerSkillServiceTest extends TestCase
     {
         $player = $this->playerRepository->findOneByName($this->player->getName());
         self::assertFalse($player?->hasStatus($skillPoints->toString()));
-    }
-}
-final class InMemorySkillRepository implements SkillRepositoryInterface
-{
-    private array $skills = [];
-
-    public function delete(Skill $skill): void
-    {
-        $player = $skill->getPlayer();
-        $player->removeSkill($skill);
-
-        unset($this->skills[$skill->getName()->toString()]);
-    }
-
-    public function save(Skill $skill): void
-    {
-        $this->skills[$skill->getName()->toString()] = $skill;
-    }
-
-    public function clear(): void
-    {
-        $this->skills = [];
     }
 }

@@ -5,7 +5,7 @@ namespace Mush\Chat\Specification;
 use Mush\Chat\Services\ChannelServiceInterface;
 use Mush\Player\Entity\Player;
 
-class canCreateChannel implements SpecificationInterface
+final class CanCreateChannel implements SpecificationInterface
 {
     private ChannelServiceInterface $channelService;
 

@@ -28,7 +28,7 @@ final class PlayerFactory
             ->setUsername(Uuid::v4()->toRfc4122());
 
         $characterConfig = new CharacterConfig();
-        $characterConfig->setCharacterName(CharacterEnum::null);
+        $characterConfig->setCharacterName(CharacterEnum::NULL);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -94,13 +94,13 @@ final class PlayerFactory
     public static function createPlayerForUser(User $user): Player
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setCharacterName(CharacterEnum::null);
+        $characterConfig->setCharacterName(CharacterEnum::NULL);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlayerVariables($characterConfig);
-        $player->setPlace(Place::createRoomByName(RoomEnum::null));
+        $player->setPlace(Place::createRoomByName(RoomEnum::NULL));
 
         return $player;
     }

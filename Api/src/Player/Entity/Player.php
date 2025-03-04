@@ -551,7 +551,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return $this;
     }
 
-    public function HasFlirtedWith(self $playerTarget): bool
+    public function hasFlirtedWith(self $playerTarget): bool
     {
         return $this->getFlirts()->exists(static fn (int $id, Player $player) => $player === $playerTarget);
     }
@@ -1072,7 +1072,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function isNull(): bool
     {
-        return $this->getName() === CharacterEnum::null;
+        return $this->getName() === CharacterEnum::NULL;
     }
 
     public function isDead(): bool

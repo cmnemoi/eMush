@@ -179,7 +179,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function TakeDropHeavyItem(FunctionalTester $I)
+    public function testTakeDropHeavyItem(FunctionalTester $I)
     {
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
@@ -328,7 +328,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function TakeHiddenItem(FunctionalTester $I)
+    public function testTakeHiddenItem(FunctionalTester $I)
     {
         $hiddenConfig = new StatusConfig();
         $hiddenConfig
@@ -426,7 +426,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function HideHeavyItemInInventory(FunctionalTester $I)
+    public function testHideHeavyItemInInventory(FunctionalTester $I)
     {
         $hiddenStatusConfig = new StatusConfig();
         $hiddenStatusConfig

@@ -79,7 +79,7 @@ final class AttackCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveAnInjury($I);
     }
 
-    public function InstagibEventShouldKillTarget(FunctionalTester $I): void
+    public function instagibEventShouldKillTarget(FunctionalTester $I): void
     {
         $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_INSTAGIB_BLED->toString());
 
@@ -88,7 +88,7 @@ final class AttackCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldBeDead($I);
     }
 
-    public function InstagibEventShouldKillTargetWithCauseBledOut(FunctionalTester $I): void
+    public function instagibEventShouldKillTargetWithCauseBledOut(FunctionalTester $I): void
     {
         $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_INSTAGIB_BLED->toString());
 
@@ -97,7 +97,7 @@ final class AttackCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldDieBledOut($I);
     }
 
-    public function BruisedShoulderEventShouldInflictInjuryToPlayer(FunctionalTester $I): void
+    public function bruisedShoulderEventShouldInflictInjuryToPlayer(FunctionalTester $I): void
     {
         $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SHOOTER_BRUISED_SHOULDER->toString());
 
@@ -106,7 +106,7 @@ final class AttackCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveAnInjury($I);
     }
 
-    public function BreakWeaponEventShouldBreakKnife(FunctionalTester $I): void
+    public function breakWeaponEventShouldBreakKnife(FunctionalTester $I): void
     {
         $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_BREAK_WEAPON->toString());
 
@@ -115,7 +115,7 @@ final class AttackCest extends AbstractFunctionalTest
         $this->thenKnifeShouldBeBroken($I);
     }
 
-    public function DropWeaponEventShouldDropKnife(FunctionalTester $I): void
+    public function dropWeaponEventShouldDropKnife(FunctionalTester $I): void
     {
         $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SHOOTER_DROP_WEAPON->toString());
 

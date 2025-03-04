@@ -111,7 +111,7 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
     {
         $place = new self();
         $place
-            ->setName(RoomEnum::null)
+            ->setName(RoomEnum::NULL)
             ->setType('');
         (new \ReflectionProperty($place, 'id'))->setValue($place, 0);
 

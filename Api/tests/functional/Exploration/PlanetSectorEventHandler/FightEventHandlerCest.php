@@ -109,12 +109,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
 
-        $explorationLog = $this->WhenIHandleTheEvent($event);
+        $explorationLog = $this->whenIHandleTheEvent($event);
 
         // 2 points from Chun : 1 (base) + 1 (loaded blaster)
         // 1 points from Kuan-Ti : 1 (base) + 0 (unloaded blaster)
         // 0 points from Derek and Janice as they are lost or stuck in the ship
-        $this->ThenExpeditionStrengthShouldBe(3, $explorationLog, $I);
+        $this->thenExpeditionStrengthShouldBe(3, $explorationLog, $I);
     }
 
     public function testFightEventExpeditionStrengthIsImprovedByShooterSkill(FunctionalTester $I): void
@@ -132,12 +132,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
 
-        $explorationLog = $this->WhenIHandleTheEvent($event);
+        $explorationLog = $this->whenIHandleTheEvent($event);
 
         // 4 points from Chun : 1 (base) + 2 (2 blasters) + 1 (shooter skill with a loaded gun)
         // 1 points from Kuan-Ti : 1 (base) + 0 (unloaded blaster) + 0 (shooter skill but unloaded gun)
         // 0 points from Derek and Janice as they are lost or stuck in the ship
-        $this->ThenExpeditionStrengthShouldBe(5, $explorationLog, $I);
+        $this->thenExpeditionStrengthShouldBe(5, $explorationLog, $I);
     }
 
     public function testFightEventUsesGrenades(FunctionalTester $I): void
@@ -155,7 +155,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
 
-        $explorationLog = $this->WhenIHandleTheEvent($event);
+        $explorationLog = $this->whenIHandleTheEvent($event);
 
         // 3 base points from Chun, Kuan-Ti, and Raluca (0 from Derek and Janice as they are lost or stuck in the ship)
         // + 3 points from Chun's first grenade (6)
@@ -163,13 +163,13 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         // + 3 points from Kuan-Ti's first grenade (12) - here we have enough points to kill the creature
         // + 3 points from Kuan-Ti's second grenade (15)
         // + 3 points from Raluca's grenade (18)
-        $this->ThenExpeditionStrengthShouldBe(18, $explorationLog, $I);
+        $this->thenExpeditionStrengthShouldBe(18, $explorationLog, $I);
 
-        $this->ThenPlayerShouldHaveGrenades(0, $this->chun, $I);
+        $this->thenPlayerShouldHaveGrenades(0, $this->chun, $I);
 
-        $this->ThenPlayerShouldHaveGrenades(1, $this->kuanTi, $I);
+        $this->thenPlayerShouldHaveGrenades(1, $this->kuanTi, $I);
 
-        $this->ThenPlayerShouldHaveGrenades(1, $raluca, $I);
+        $this->thenPlayerShouldHaveGrenades(1, $raluca, $I);
     }
 
     public function testFightEventNotUsingGrenadesIfWeHaveEnoughPointsToKillWithoutThem(FunctionalTester $I): void
@@ -185,9 +185,9 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength2($exploration, $I);
 
-        $this->WhenIHandleTheEvent($event);
+        $this->whenIHandleTheEvent($event);
 
-        $this->ThenPlayerShouldHaveGrenades(1, $this->chun, $I);
+        $this->thenPlayerShouldHaveGrenades(1, $this->chun, $I);
     }
 
     public function testFightEventInflictsTheRightAmountOfDamage(FunctionalTester $I): void
@@ -200,11 +200,11 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
 
-        $this->WhenIHandleTheEvent($event);
+        $this->whenIHandleTheEvent($event);
 
-        $this->ThenPlayerShouldHaveHealthPoints(3, $this->chun, $I);
+        $this->thenPlayerShouldHaveHealthPoints(3, $this->chun, $I);
 
-        $this->ThenThereShouldBeRoomLogForPlayerWithHealthLoss(11, $this->chun, $I);
+        $this->thenThereShouldBeRoomLogForPlayerWithHealthLoss(11, $this->chun, $I);
     }
 
     public function testFightEventInflictsTheRightAmountOfDamageWithPlasteniteArmor(FunctionalTester $I): void
@@ -219,11 +219,11 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
 
-        $this->WhenIHandleTheEvent($event);
+        $this->whenIHandleTheEvent($event);
 
-        $this->ThenPlayerShouldHaveHealthPoints(4, $this->chun, $I);
+        $this->thenPlayerShouldHaveHealthPoints(4, $this->chun, $I);
 
-        $this->ThenThereShouldBeRoomLogForPlayerWithHealthLoss(10, $this->chun, $I);
+        $this->thenThereShouldBeRoomLogForPlayerWithHealthLoss(10, $this->chun, $I);
     }
 
     public function testFightEventPlayerDeathCauseIsExplorationCombat(FunctionalTester $I): void
@@ -236,11 +236,11 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
 
-        $this->WhenIHandleTheEvent($event);
+        $this->whenIHandleTheEvent($event);
 
-        $this->ThenPlayerIsDead($this->chun, $I);
+        $this->thenPlayerIsDead($this->chun, $I);
 
-        $this->ThenThereShouldBeRoomLogForPlayerWithDeathCauseCombat($this->chun, $I);
+        $this->thenThereShouldBeRoomLogForPlayerWithDeathCauseCombat($this->chun, $I);
     }
 
     public function testFightEventPlayerDeathCauseIsMankarogInMankarogSector(FunctionalTester $I): void
@@ -253,11 +253,11 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsMankarog($exploration, $I);
 
-        $this->WhenIHandleTheEvent($event);
+        $this->whenIHandleTheEvent($event);
 
-        $this->ThenPlayerIsDead($this->chun, $I);
+        $this->thenPlayerIsDead($this->chun, $I);
 
-        $this->ThenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog($this->chun, $I);
+        $this->thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog($this->chun, $I);
     }
 
     public function testFightEventPlayerDeathCauseIsMankarogIfFightingACreatureWithMankarogStrength(FunctionalTester $I): void
@@ -270,11 +270,11 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength32($exploration, $I);
 
-        $this->WhenIHandleTheEvent($event);
+        $this->whenIHandleTheEvent($event);
 
-        $this->ThenPlayerIsDead($this->chun, $I);
+        $this->thenPlayerIsDead($this->chun, $I);
 
-        $this->ThenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog($this->chun, $I);
+        $this->thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog($this->chun, $I);
     }
 
     public function testFightEventGivesDisease(FunctionalTester $I): void
@@ -287,11 +287,11 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $this->givenEventGuaranteesADisease($event);
 
-        $this->WhenIHandleTheEvent($event);
+        $this->whenIHandleTheEvent($event);
 
-        $this->ThenPlayerHasDisease($this->chun, $I);
+        $this->thenPlayerHasDisease($this->chun, $I);
 
-        $this->ThenThereShouldBeRoomLogForPlayerDiseaseCauseFight($this->chun, $I);
+        $this->thenThereShouldBeRoomLogForPlayerDiseaseCauseFight($this->chun, $I);
     }
 
     public function testFightEventExpeditionStrengthIsImprovedByCentauriBase(FunctionalTester $I): void
@@ -304,10 +304,10 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
 
-        $explorationLog = $this->WhenIHandleTheEvent($event);
+        $explorationLog = $this->whenIHandleTheEvent($event);
 
         // 3 points from Chun : 1 (base) + 2 (1 blaster)
-        $this->ThenExpeditionStrengthShouldBe(3, $explorationLog, $I);
+        $this->thenExpeditionStrengthShouldBe(3, $explorationLog, $I);
     }
 
     private function givenNoAccidentWhenLanding()
@@ -487,27 +487,27 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         );
     }
 
-    private function WhenIHandleTheEvent(PlanetSectorEvent $event): ExplorationLog
+    private function whenIHandleTheEvent(PlanetSectorEvent $event): ExplorationLog
     {
         return $this->fightEventHandler->handle($event);
     }
 
-    private function ThenExpeditionStrengthShouldBe(int $expectedStrength, ExplorationLog $explorationLog, FunctionalTester $I)
+    private function thenExpeditionStrengthShouldBe(int $expectedStrength, ExplorationLog $explorationLog, FunctionalTester $I)
     {
         $I->assertEquals($expectedStrength, $explorationLog->getParameters()['expedition_strength']);
     }
 
-    private function ThenPlayerShouldHaveGrenades(int $expectedCount, Player $player, FunctionalTester $I)
+    private function thenPlayerShouldHaveGrenades(int $expectedCount, Player $player, FunctionalTester $I)
     {
         $I->assertCount($expectedCount, $player->getEquipments()->filter(static fn ($equipment) => $equipment->getName() === ItemEnum::GRENADE));
     }
 
-    private function ThenPlayerShouldHaveHealthPoints(int $expectedCount, Player $player, FunctionalTester $I)
+    private function thenPlayerShouldHaveHealthPoints(int $expectedCount, Player $player, FunctionalTester $I)
     {
         $I->assertEquals($expectedCount, $player->getHealthPoint());
     }
 
-    private function ThenThereShouldBeRoomLogForPlayerWithHealthLoss(int $expectedCount, Player $player, FunctionalTester $I)
+    private function thenThereShouldBeRoomLogForPlayerWithHealthLoss(int $expectedCount, Player $player, FunctionalTester $I)
     {
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
@@ -521,12 +521,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals($expectedCount, $log->getParameters()['quantity']);
     }
 
-    private function ThenPlayerIsDead(Player $player, FunctionalTester $I)
+    private function thenPlayerIsDead(Player $player, FunctionalTester $I)
     {
         $I->assertFalse($player->isAlive());
     }
 
-    private function ThenThereShouldBeRoomLogForPlayerWithDeathCauseCombat(Player $player, FunctionalTester $I)
+    private function thenThereShouldBeRoomLogForPlayerWithDeathCauseCombat(Player $player, FunctionalTester $I)
     {
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
@@ -540,7 +540,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals(EndCauseEnum::EXPLORATION_COMBAT, $log->getParameters()['end_cause']);
     }
 
-    private function ThenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog(Player $player, FunctionalTester $I)
+    private function thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog(Player $player, FunctionalTester $I)
     {
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
@@ -554,12 +554,12 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals(EndCauseEnum::MANKAROG, $log->getParameters()['end_cause']);
     }
 
-    private function ThenPlayerHasDisease(Player $player, FunctionalTester $I)
+    private function thenPlayerHasDisease(Player $player, FunctionalTester $I)
     {
         $I->assertCount(1, $player->getMedicalConditions());
     }
 
-    private function ThenThereShouldBeRoomLogForPlayerDiseaseCauseFight(Player $player, FunctionalTester $I)
+    private function thenThereShouldBeRoomLogForPlayerDiseaseCauseFight(Player $player, FunctionalTester $I)
     {
         $I->seeInRepository(
             entity: RoomLog::class,

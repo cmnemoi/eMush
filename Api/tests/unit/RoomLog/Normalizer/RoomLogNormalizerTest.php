@@ -10,7 +10,6 @@ use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\DateProviderInterface;
 use Mush\Game\Service\FixedDateProvider;
-use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
@@ -19,6 +18,7 @@ use Mush\RoomLog\Normalizer\RoomLogNormalizer;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Tests\unit\RoomLog\TestDoubles\TranslationService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 final class RoomLogNormalizerTest extends TestCase
 {
     private RoomLogNormalizer $normalizer;
-    private RoomLogNormalizerTestTranslationService $translationService;
+    private TranslationService $translationService;
     private DateProviderInterface $dateProvider;
     private Player $player;
     private \DateTime $currentDate;
@@ -39,7 +39,7 @@ final class RoomLogNormalizerTest extends TestCase
      */
     public function before(): void
     {
-        $this->translationService = new RoomLogNormalizerTestTranslationService();
+        $this->translationService = new TranslationService();
         $this->currentDate = new \DateTime('2024-12-28T10:56:24+01:00');
         $this->dateProvider = new FixedDateProvider($this->currentDate);
         $this->normalizer = new RoomLogNormalizer($this->dateProvider, $this->translationService);
@@ -285,29 +285,5 @@ final class RoomLogNormalizerTest extends TestCase
         $reflection = new \ReflectionClass($object);
         $property = $reflection->getProperty($propertyName);
         $property->setValue($object, $value);
-    }
-}
-
-final class RoomLogNormalizerTestTranslationService implements TranslationServiceInterface
-{
-    private array $translations = [];
-
-    public function setTranslation(string $key, array $parameters, string $domain, string $language, string $translation): void
-    {
-        $this->translations[$this->buildKey($key, $parameters, $domain, $language)] = $translation;
-    }
-
-    public function translate(string $key, array $parameters = [], ?string $domain = null, ?string $language = null): string
-    {
-        $builtKey = $this->buildKey($key, $parameters, $domain, $language);
-
-        return $this->translations[$builtKey] ?? "translation_not_found_{$builtKey}";
-    }
-
-    private function buildKey(string $key, array $parameters, ?string $domain, ?string $language): string
-    {
-        $parametersString = json_encode($parameters);
-
-        return "{$key}_{$parametersString}_{$domain}_{$language}";
     }
 }

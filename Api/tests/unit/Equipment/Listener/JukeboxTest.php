@@ -11,10 +11,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
-use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Event\AbstractGameEvent;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
@@ -25,6 +22,7 @@ use Mush\Project\Factory\ProjectFactory;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Factory\StatusFactory;
+use Mush\Tests\unit\Equipment\TestDoubles\FakePlayerMoralVariableEventService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -114,7 +112,7 @@ final class JukeboxTest extends TestCase
     private function whenJukeboxWorksAtCycleChange(GameEquipment $jukebox): void
     {
         $jukeboxCycleHandler = new JukeboxCycleHandler(
-            new FakePlayerVariableEventService(),
+            new FakePlayerMoralVariableEventService(),
             new InMemoryGameEquipmentRepository(),
             new FakeGetRandomElementsFromArrayService(),
             $this->createStub(RoomLogServiceInterface::class),
@@ -125,31 +123,5 @@ final class JukeboxTest extends TestCase
     private function thenJukeboxShouldBePlayingPlayerSong(GameEquipment $jukebox, Player $player): void
     {
         self::assertTrue($jukebox->currentSongMatchesPlayerFavorite($player));
-    }
-}
-
-/**
- * Class to fake PlayerVariableEvent handling.
- * For this test we are just interested in the morale point increment (we trust everything related to event handling is tested outside)
- * so we basically hardcoding it.
- */
-final class FakePlayerVariableEventService implements EventServiceInterface
-{
-    public function callEvent(AbstractGameEvent $event, string $name, ?AbstractGameEvent $caller = null): EventChain
-    {
-        $player = $event->getPlayer();
-        $player->setMoralPoint($player->getMoralPoint() + 2);
-
-        return new EventChain();
-    }
-
-    public function computeEventModifications(AbstractGameEvent $event, string $name): ?AbstractGameEvent
-    {
-        return null;
-    }
-
-    public function eventCancelReason(AbstractGameEvent $event, string $name): ?string
-    {
-        return null;
     }
 }

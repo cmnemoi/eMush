@@ -23,7 +23,7 @@ abstract class CharacterEnum
     public const string CHAO = 'chao';
     public const string CHUN = 'chun';
     public const string NERON = 'neron';
-    public const string null = '';
+    public const string NULL = '';
     public const string SOMEONE = 'someone';
     public const string MUSH = 'mush';
 

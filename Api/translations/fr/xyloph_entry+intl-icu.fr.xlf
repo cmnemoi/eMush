@@ -91,5 +91,15 @@
                 <target>Vous êtes en contact avec Kivanç Terzi qui fédère une grande partie de la rebellion sur le système Sol, son aide vous sera précieuse pour décoder les messages de bases rebelles.//**Vous accorde 100%de bonus sur les décodages de bases rebelles.**</target>
             </segment>
         </unit>
+        <unit id="cook">
+            <segment id="name">
+                <source>cook.name</source>
+                <target>Le Labrousse de Cuisine édition 2830</target>
+            </segment>
+            <segment id="description">
+                <source>cook.description</source>
+                <target>Vous tombez sur un fichier contenant des recettes. Beaucoup de recettes. Beaucoup Beaucoup de recettes.//**Provoque l'impression d'un Apprentron pour devenir Cuistot.**</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

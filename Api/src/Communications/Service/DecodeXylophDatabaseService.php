@@ -9,6 +9,7 @@ use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Exception\GameException;
@@ -17,7 +18,7 @@ use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceInterface
+final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceInterface
 {
     public function __construct(
         private DaedalusRepositoryInterface $daedalusRepository,
@@ -25,6 +26,7 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
         private GameEquipmentServiceInterface $gameEquipmentService,
         private KillLinkWithSolService $killLinkWithSol,
         private LinkWithSolRepositoryInterface $linkWithSolRepository,
+        private PrintDocumentServiceInterface $printDocumentService,
         private StatusServiceInterface $statusService,
         private XylophRepositoryInterface $xylophRepository,
         private UpdateNeronVersionService $updateNeronVersionService,
@@ -42,6 +44,7 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
         $daedalus = $player->getDaedalus();
 
         match ($xylophEntry->getName()) {
+            XylophEnum::COOK => $this->printChefBook($player, $tags),
             XylophEnum::DISK => $this->createMushGenomeDisk($player->getPlace(), $tags),
             XylophEnum::GHOST_CHUN => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_CHUN, $tags),
             XylophEnum::GHOST_SAMPLE => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_SAMPLE, $tags),
@@ -116,5 +119,31 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
                 time: new \DateTime(),
             );
         }
+    }
+
+    private function printChefBook(Player $player, array $tags): void
+    {
+        $tabulatrix = $player->getPlace()->getEquipmentByName(EquipmentEnum::TABULATRIX);
+
+        if (!$tabulatrix) {
+            // TODO: Tabulatrix non-existent private log.
+            return;
+        }
+
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: 'apprentron_chef',
+            equipmentHolder: $player->getDaedalus()->getTabulatrixQueue(),
+            reasons: $tags,
+            time: new \DateTime()
+        );
+
+        if ($tabulatrix->isNotOperational()) {
+            // TODO: Tabulatrix broken private log.
+            return;
+        }
+
+        // TODO: Tabulatrix printing chef book private log? (or somewhere else)
+
+        $this->printDocumentService->execute($tabulatrix, $tags);
     }
 }

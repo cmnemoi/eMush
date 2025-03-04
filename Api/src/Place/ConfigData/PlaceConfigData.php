@@ -339,5 +339,13 @@ class PlaceConfigData
             'items' => [],
             'equipments' => [],
         ],
+        [
+            'name' => RoomEnum::TABULATRIX_QUEUE . '_default',
+            'placeName' => RoomEnum::TABULATRIX_QUEUE,
+            'type' => PlaceTypeEnum::QUEUE,
+            'doors' => [],
+            'items' => [],
+            'equipments' => [],
+        ],
     ];
 }

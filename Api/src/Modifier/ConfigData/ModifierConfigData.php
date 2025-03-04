@@ -2561,7 +2561,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
             'targetFilters' => [],
-            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_epicure'],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_2_wallis'],
         ],
         [
             'name' => 'modifier_for_daedalus_x2_turret_charges_on_new_cycle',

@@ -6,6 +6,7 @@ namespace Mush\Communications\Enum;
 
 enum XylophEnum: string
 {
+    case COOK = 'cook';
     case DISK = 'disk';
     case GHOST_CHUN = 'ghost_chun';
     case GHOST_SAMPLE = 'ghost_sample';

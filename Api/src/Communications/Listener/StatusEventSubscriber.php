@@ -37,11 +37,7 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
     public function onStatusDeleted(StatusEvent $event): void
     {
         if ($this->isTabulatrixFixed($event)) {
-            $tabulatrix = $event->getStatusHolder();
-
-            if (!$tabulatrix instanceof GameEquipment) {
-                throw new \Exception();
-            }
+            $tabulatrix = $event->getGameEquipmentStatusHolder();
 
             $this->printDocumentService->execute(
                 printer: $tabulatrix,

@@ -633,7 +633,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getName() === EquipmentEnum::SWEDISH_SOFA;
     }
 
-    public function IsTabulatrix()
+    public function isTabulatrix()
     {
         return $this->getName() === EquipmentEnum::TABULATRIX;
     }

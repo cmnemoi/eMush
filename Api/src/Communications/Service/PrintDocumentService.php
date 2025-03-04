@@ -19,7 +19,7 @@ class PrintDocumentService implements PrintDocumentServiceInterface
         GameEquipment $printer,
         array $tags = [],
     ): void {
-        if (!$printer->IsTabulatrix()) {
+        if (!$printer->isTabulatrix()) {
             throw new \LogicException('undefined printer');
         }
 

@@ -44,6 +44,7 @@ class RoomEnum
     public const string PATROL_SHIP_ALPHA_2_WALLIS = 'patrol_ship_alpha_2_wallis';
     public const string PASIPHAE = 'pasiphae';
     public const string PLANET_DEPTHS = 'planet_depths';
+    public const string TABULATRIX_QUEUE = 'tabulatrix_queue';
     public const string NULL = '';
 
     public static function getAllDaedalusRooms(): array

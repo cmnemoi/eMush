@@ -6,7 +6,6 @@ namespace Mush\Communications\Listener;
 
 use Mush\Communications\Service\KillLinkWithSolService;
 use Mush\Communications\Service\PrintDocumentServiceInterface;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Event\StatusEvent;

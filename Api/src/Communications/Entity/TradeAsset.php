@@ -24,10 +24,10 @@ class TradeAsset
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $quantity = 0;
 
-    public function __construct(TradeAssetEnum $type, string $assetName, int $quantity)
+    public function __construct(TradeAssetEnum $type, int $quantity, string $assetName = '')
     {
         $this->type = $type;
-        $this->assetName = $assetName;
         $this->quantity = $quantity;
+        $this->assetName = $assetName;
     }
 }

@@ -15,6 +15,8 @@ use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Hunter\ConfigData\HunterConfigData;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -43,6 +45,7 @@ final class DaedalusFactory
 
         $gameConfig->setDifficultyConfig(self::getDifficultyConfig());
         $gameConfig->setSkillConfigs(self::getMushSkillConfigs());
+        $gameConfig->setHunterConfigs(self::getHunterConfigs());
 
         return $daedalus;
     }
@@ -110,5 +113,15 @@ final class DaedalusFactory
         }
 
         return $mushSkillConfigs;
+    }
+
+    private static function getHunterConfigs(): ArrayCollection
+    {
+        $hunterConfigs = new ArrayCollection();
+        foreach (HunterConfigData::$dataArray as $hunterConfigDto) {
+            $hunterConfigs->add(HunterConfig::fromConfigData($hunterConfigDto));
+        }
+
+        return $hunterConfigs;
     }
 }

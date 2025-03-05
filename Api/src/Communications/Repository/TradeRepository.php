@@ -63,7 +63,7 @@ final class TradeRepository extends ServiceEntityRepository implements TradeRepo
     {
         $entityManager = $this->getEntityManager();
 
-        $trade->setHunter($entityManager->getReference(Hunter::class, $trade->getHunterId()));
+        $trade->setTransport($entityManager->getReference(Hunter::class, $trade->getTransportId()));
 
         $entityManager->persist($trade);
         $entityManager->flush();
@@ -75,7 +75,7 @@ final class TradeRepository extends ServiceEntityRepository implements TradeRepo
             return null;
         }
 
-        $trade->setHunterId($trade->getHunter()->getId());
+        $trade->setTransportId($trade->getTransport()->getId());
 
         return $trade;
     }

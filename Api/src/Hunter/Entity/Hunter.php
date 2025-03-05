@@ -62,6 +62,9 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
         $this->hunterConfig = $hunterConfig;
         $this->statuses = new ArrayCollection();
         $this->target = null;
+
+        $this->setHunterVariables($hunterConfig);
+        $daedalus->addHunter($this);
     }
 
     public function getId(): int

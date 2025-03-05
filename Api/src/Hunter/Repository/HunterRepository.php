@@ -24,6 +24,17 @@ final class HunterRepository extends ServiceEntityRepository implements HunterRe
         $this->entityManager = $this->getEntityManager();
     }
 
+    public function findByIdOrThrow(int $id): Hunter
+    {
+        $hunter = $this->find($id);
+
+        if ($hunter === null) {
+            throw new \RuntimeException("Hunter not found for id {$id}");
+        }
+
+        return $hunter;
+    }
+
     public function findOneByTargetOrThrow(HunterTarget $hunterTarget): Hunter
     {
         $hunter = $this->findOneBy(['target' => $hunterTarget]);

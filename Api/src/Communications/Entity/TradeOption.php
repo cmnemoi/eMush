@@ -25,13 +25,10 @@ class TradeOption
     #[ORM\OneToMany(targetEntity: TradeAsset::class, mappedBy: 'tradeOption', cascade: ['all'], orphanRemoval: true)]
     private Collection $offeredAssets;
 
-    public function __construct(
-        SkillEnum $requiredSkill,
-        Collection $requiredAssets,
-        Collection $offeredAssets,
-    ) {
-        $this->requiredSkill = $requiredSkill;
+    public function __construct(Collection $requiredAssets, Collection $offeredAssets, SkillEnum $requiredSkill = SkillEnum::NULL)
+    {
         $this->requiredAssets = $requiredAssets;
         $this->offeredAssets = $offeredAssets;
+        $this->requiredSkill = $requiredSkill;
     }
 }

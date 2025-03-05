@@ -23,19 +23,21 @@ class Trade
     #[ORM\OneToMany(targetEntity: TradeOption::class, mappedBy: 'trade', cascade: ['all'], orphanRemoval: true)]
     private Collection $tradeOptions;
 
-    private int $hunterId;
+    private int $transportId;
 
     #[ORM\OneToOne(targetEntity: Hunter::class)]
-    private Hunter $hunter;
+    private Hunter $transport;
 
-    public function __construct(
-        TradeEnum $name,
-        Collection $tradeOptions,
-        int $hunterId,
-    ) {
+    public function __construct(TradeEnum $name, Collection $tradeOptions, int $transportId)
+    {
         $this->name = $name;
         $this->tradeOptions = $tradeOptions;
-        $this->hunterId = $hunterId;
+        $this->transportId = $transportId;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getName(): TradeEnum
@@ -43,32 +45,32 @@ class Trade
         return $this->name;
     }
 
-    public function getHunterId(): int
+    public function getTransportId(): int
     {
-        return $this->hunterId;
+        return $this->transportId;
     }
 
     /**
      * @deprecated should be used only in Doctrine repositories
      */
-    public function setHunterId(int $hunterId): void
+    public function setTransportId(int $transportId): void
     {
-        $this->hunterId = $hunterId;
+        $this->transportId = $transportId;
     }
 
     /**
      * @deprecated Should be used only in Doctrine repositories. Use getHunterId() instead.
      */
-    public function getHunter(): Hunter
+    public function getTransport(): Hunter
     {
-        return $this->hunter;
+        return $this->transport;
     }
 
     /**
      * @deprecated should be used only in Doctrine repositories
      */
-    public function setHunter(Hunter $hunter): void
+    public function setTransport(Hunter $transport): void
     {
-        $this->hunter = $hunter;
+        $this->transport = $transport;
     }
 }

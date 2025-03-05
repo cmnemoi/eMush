@@ -279,10 +279,7 @@ final class HunterService implements HunterServiceInterface
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
     {
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow($hunterName);
-
         $hunter = new Hunter($hunterConfig, $daedalus);
-        $hunter->setHunterVariables($hunterConfig);
-        $daedalus->addHunter($hunter);
 
         $this->persist([$hunter, $daedalus]);
 

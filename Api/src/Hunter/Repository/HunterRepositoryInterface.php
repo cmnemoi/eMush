@@ -9,6 +9,8 @@ use Mush\Hunter\Entity\HunterTarget;
 
 interface HunterRepositoryInterface
 {
+    public function findByIdOrThrow(int $id): Hunter;
+
     public function findOneByTargetOrThrow(HunterTarget $hunterTarget): Hunter;
 
     public function save(Hunter $hunter): void;

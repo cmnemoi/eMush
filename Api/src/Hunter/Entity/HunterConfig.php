@@ -17,57 +17,79 @@ class HunterConfig
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false, unique: true)]
-    private string $name;
+    #[ORM\Column(type: 'string', length: 255, nullable: false, unique: true, options: ['default' => ''])]
+    private string $name = '';
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    private string $hunterName;
+    #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
+    private string $hunterName = '';
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $initialHealth;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $initialHealth = 0;
 
     #[ORM\ManyToMany(targetEntity: StatusConfig::class)]
     private Collection $initialStatuses;
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $damageRange = [];
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $hitChance;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $hitChance = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $dodgeChance;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $dodgeChance = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $drawCost;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $drawCost = 0;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $maxPerWave;
+    private ?int $maxPerWave = null;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $drawWeight;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $drawWeight = 0;
 
-    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private int $spawnDifficulty;
+    #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
+    private int $spawnDifficulty = 0;
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $scrapDropTable = [];
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $numberOfDroppedScrap = [];
 
-    #[ORM\Column(type: 'array', nullable: true)]
+    #[ORM\Column(type: 'array', nullable: true, options: ['default' => 'a:0:{}'])]
     private ?array $targetProbabilities = [];
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '0'])]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $bonusAfterFailedShot = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => '1'])]
-    private int $numberOfActionsPerCycle = 1;
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $numberOfActionsPerCycle = 0;
 
     public function __construct()
     {
         $this->initialStatuses = new ArrayCollection();
+    }
+
+    public static function fromConfigData(array $configData): self
+    {
+        $hunterConfig = new self();
+        $hunterConfig->setName($configData['name']);
+        $hunterConfig->setHunterName($configData['hunterName']);
+        $hunterConfig->setInitialHealth($configData['initialHealth']);
+        $hunterConfig->setDamageRange($configData['damageRange']);
+        $hunterConfig->setHitChance($configData['hitChance']);
+        $hunterConfig->setDodgeChance($configData['dodgeChance']);
+        $hunterConfig->setDrawCost($configData['drawCost']);
+        $hunterConfig->setMaxPerWave($configData['maxPerWave']);
+        $hunterConfig->setDrawWeight($configData['drawWeight']);
+        $hunterConfig->setSpawnDifficulty($configData['spawnDifficulty']);
+        $hunterConfig->setScrapDropTable($configData['scrapDropTable']);
+        $hunterConfig->setNumberOfDroppedScrap($configData['numberOfDroppedScrap']);
+        $hunterConfig->setTargetProbabilities($configData['targetProbabilities']);
+        $hunterConfig->setBonusAfterFailedShot($configData['bonusAfterFailedShot']);
+        $hunterConfig->setNumberOfActionsPerCycle($configData['numberOfActionsPerCycle']);
+
+        return $hunterConfig;
     }
 
     public function getId(): int

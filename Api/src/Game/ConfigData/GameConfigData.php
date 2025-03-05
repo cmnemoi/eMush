@@ -562,6 +562,7 @@ class GameConfigData
                 HunterEnum::HUNTER . '_default',
                 HunterEnum::SPIDER . '_default',
                 HunterEnum::TRAX . '_default',
+                HunterEnum::TRANSPORT . '_default',
             ],
             'planetSectorConfigs' => [
                 PlanetSectorEnum::LANDING . '_default',

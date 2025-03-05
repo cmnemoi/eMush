@@ -15,6 +15,7 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\DifficultyEnum;
+use Mush\Hunter\ConfigData\HunterConfigData;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
@@ -190,6 +191,9 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($trax);
 
+        $transport = HunterConfig::fromConfigData(HunterConfigData::getByName(HunterEnum::TRANSPORT));
+        $manager->persist($transport);
+
         /** @var ArrayCollection $hunters */
         $hunters = new ArrayCollection([
             $asteroid,
@@ -197,6 +201,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             $hunter,
             $spider,
             $trax,
+            $transport,
         ]);
         $gameConfig->setHunterConfigs($hunters);
 

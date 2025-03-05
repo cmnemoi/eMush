@@ -117,6 +117,7 @@ final class DaedalusFactory
 
     private static function getHunterConfigs(): ArrayCollection
     {
+        /** @var ArrayCollection<array-key, HunterConfig> $hunterConfigs */
         $hunterConfigs = new ArrayCollection();
         foreach (HunterConfigData::$dataArray as $hunterConfigDto) {
             $hunterConfigs->add(HunterConfig::fromConfigData($hunterConfigDto));

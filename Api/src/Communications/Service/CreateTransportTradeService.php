@@ -15,6 +15,9 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Repository\HunterRepositoryInterface;
 
+/**
+ * @psalm-suppress InvalidArgument
+ */
 final readonly class CreateTransportTradeService
 {
     public function __construct(
@@ -32,6 +35,7 @@ final readonly class CreateTransportTradeService
 
         // @TODO: randomize trade name
         // @TODO: randomize trade asset quantity
+
         $trade = new Trade(
             name: TradeEnum::HUMAN_VS_OXY,
             tradeOptions: new ArrayCollection(

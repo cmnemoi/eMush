@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Communications\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Communications\Enum\TradeEnum;
@@ -28,7 +29,7 @@ class Trade
     #[ORM\OneToOne(targetEntity: Hunter::class)]
     private Hunter $transport;
 
-    public function __construct(TradeEnum $name, Collection $tradeOptions, int $transportId)
+    public function __construct(TradeEnum $name, ArrayCollection $tradeOptions, int $transportId)
     {
         $this->name = $name;
         $this->tradeOptions = $tradeOptions;

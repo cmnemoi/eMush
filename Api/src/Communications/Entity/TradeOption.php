@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Communications\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Skill\Enum\SkillEnum;
@@ -25,7 +26,7 @@ class TradeOption
     #[ORM\OneToMany(targetEntity: TradeAsset::class, mappedBy: 'tradeOption', cascade: ['all'], orphanRemoval: true)]
     private Collection $offeredAssets;
 
-    public function __construct(Collection $requiredAssets, Collection $offeredAssets, SkillEnum $requiredSkill = SkillEnum::NULL)
+    public function __construct(ArrayCollection $requiredAssets, ArrayCollection $offeredAssets, SkillEnum $requiredSkill = SkillEnum::NULL)
     {
         $this->requiredAssets = $requiredAssets;
         $this->offeredAssets = $offeredAssets;

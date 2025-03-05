@@ -8,6 +8,7 @@ use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
+use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -18,13 +19,16 @@ class EquipmentSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventServiceInterface $eventService;
+    private DeleteEquipmentServiceInterface $deleteEquipmentService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        DeleteEquipmentServiceInterface $deleteEquipmentService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventService = $eventService;
+        $this->deleteEquipmentService = $deleteEquipmentService;
     }
 
     public static function getSubscribedEvents(): array

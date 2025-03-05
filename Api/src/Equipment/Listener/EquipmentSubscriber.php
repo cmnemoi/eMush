@@ -139,7 +139,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $itemsToDestroy = $event->getDaedalus()->getTabulatrixQueue()->getEquipments();
 
         foreach ($itemsToDestroy as $item) {
-            $this->gameEquipmentService->delete($item);
+            $this->deleteEquipmentService->execute($item);
         }
     }
 }

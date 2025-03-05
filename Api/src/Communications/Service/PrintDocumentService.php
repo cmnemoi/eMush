@@ -38,7 +38,7 @@ class PrintDocumentService implements PrintDocumentServiceInterface
                 tags: $tags,
                 time: new \DateTime(),
             );
-            $printEvent->AddTag(EventEnum::PRINT_DOCUMENT);
+            $printEvent->addTag(EventEnum::PRINT_DOCUMENT);
             $this->eventService->callEvent($printEvent, EquipmentEvent::CHANGE_HOLDER);
         }
     }

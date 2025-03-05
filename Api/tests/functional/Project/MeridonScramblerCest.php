@@ -139,7 +139,7 @@ final class MeridonScramblerCest extends AbstractFunctionalTest
 
         $hunter = new Hunter($hunterConfig, $this->daedalus);
         $hunter->setHunterVariables($hunterConfig);
-        $this->daedalus->addHunter($hunter);
+        $this->daedalus->getSpace()->addHunter($hunter);
 
         $I->haveInRepository($hunter);
     }

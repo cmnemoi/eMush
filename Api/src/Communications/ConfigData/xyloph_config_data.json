@@ -61,5 +61,12 @@
         "weight": 4,
         "quantity": -1,
         "modifierConfigs": []
+    },
+    {
+        "key": "mage_books_default",
+        "name": "mage_books",
+        "weight": 4,
+        "quantity": 2,
+        "modifierConfigs": []
     }
 ]

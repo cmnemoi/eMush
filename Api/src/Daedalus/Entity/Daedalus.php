@@ -9,6 +9,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\ValueObject\DaedalusDate;
+use Mush\Equipment\Entity\UniqueItems;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\SpaceCoordinates;
@@ -19,7 +20,6 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -115,6 +115,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private Collection $generalAnnouncements;
 
+    #[ORM\OneToOne(targetEntity: UniqueItems::class, cascade: ['persist'])]
+    private UniqueItems $uniqueItems;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -124,6 +127,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->projects = new ArrayCollection();
         $this->titlePriorities = new ArrayCollection();
         $this->generalAnnouncements = new ArrayCollection();
+        $this->uniqueItems = new UniqueItems();
     }
 
     public function getId(): int
@@ -350,20 +354,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function setHunters(ArrayCollection $hunters): static
     {
         $this->getSpace()->setHunters($hunters);
-
-        return $this;
-    }
-
-    public function addHunter(Hunter $hunter): static
-    {
-        $this->getSpace()->addHunter($hunter);
-
-        return $this;
-    }
-
-    public function removeHunter(Hunter $hunter): static
-    {
-        $this->getSpace()->removeHunter($hunter);
 
         return $this;
     }
@@ -1028,6 +1018,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function numberOfCyclesBeforeNextRebelBaseContact(): int
     {
         return $this->getDaedalusConfig()->getNumberOfCyclesBeforeNextRebelBaseContact();
+    }
+
+    public function getUniqueItems(): UniqueItems
+    {
+        return $this->uniqueItems;
     }
 
     private function getCreatedAtOrThrow(): \DateTime

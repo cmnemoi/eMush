@@ -282,7 +282,7 @@ final class HunterService implements HunterServiceInterface
 
         $hunter = new Hunter($hunterConfig, $daedalus);
         $hunter->setHunterVariables($hunterConfig);
-        $daedalus->addHunter($hunter);
+        $daedalus->getSpace()->addHunter($hunter);
 
         $this->persist([$hunter, $daedalus]);
 

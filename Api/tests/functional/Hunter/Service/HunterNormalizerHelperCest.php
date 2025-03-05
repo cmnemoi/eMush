@@ -181,7 +181,7 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
 
         $hunter = new Hunter($hunterConfig, $daedalus);
         $hunter->setHunterVariables($hunterConfig);
-        $daedalus->addHunter($hunter);
+        $daedalus->getSpace()->addHunter($hunter);
 
         return $hunter;
     }

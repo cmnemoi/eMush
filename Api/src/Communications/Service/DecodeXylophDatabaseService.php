@@ -9,12 +9,16 @@ use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Exception\GameException;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -31,6 +35,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         private LinkWithSolRepositoryInterface $linkWithSolRepository,
         private PrintDocumentServiceInterface $printDocumentService,
         private RoomLogServiceInterface $roomLogService,
+        private RandomServiceInterface $randomService,
         private StatusServiceInterface $statusService,
         private XylophRepositoryInterface $xylophRepository,
         private UpdateNeronVersionService $updateNeronVersionService,
@@ -50,11 +55,12 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $this->createXylophDecodedLog($xylophEntry->getName(), $player);
 
         match ($xylophEntry->getName()) {
-            XylophEnum::COOK => $this->printChefBook($player, $tags),
+            XylophEnum::COOK => $this->printXylophDocument($player, $xylophEntry, $tags),
             XylophEnum::DISK => $this->createMushGenomeDisk($player->getPlace(), $tags),
             XylophEnum::GHOST_CHUN => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_CHUN, $tags),
             XylophEnum::GHOST_SAMPLE => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_SAMPLE, $tags),
             XylophEnum::KIVANC => $this->createXylophModifiers($daedalus, $xylophEntry, $tags),
+            XylophEnum::MAGE_BOOKS => $this->printXylophDocument($player, $xylophEntry, $tags),
             XylophEnum::MAGNETITE => $this->ruinLinkWithSol($daedalus->getId(), $xylophEntry->getQuantity(), $tags),
             XylophEnum::NOTHING => null,
             XylophEnum::SNOW => $this->killLinkWithSol($daedalus->getId(), $tags),
@@ -153,7 +159,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         }
     }
 
-    private function printChefBook(Player $player, array $tags): void
+    private function printXylophDocument(Player $player, XylophEntry $entry, array $tags): void
     {
         $tabulatrix = $player->getPlace()->getEquipmentByName(EquipmentEnum::TABULATRIX);
 
@@ -161,17 +167,45 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
             return;
         }
 
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: 'apprentron_chef',
-            equipmentHolder: $player->getDaedalus()->getTabulatrixQueue(),
-            reasons: $tags,
-            time: new \DateTime()
-        );
+        $queue = $player->getDaedalus()->getTabulatrixQueue();
+
+        match ($entry->getName()) {
+            XylophEnum::COOK => $this->receiveChefBook($queue, $tags),
+            XylophEnum::MAGE_BOOKS => $this->receiveMageBooks($queue, $entry->getQuantity(), $tags),
+            default => throw new \LogicException('received an entry unrelated to printing'),
+        };
 
         if ($tabulatrix->isNotOperational()) {
             return;
         }
 
         $this->printDocumentService->execute($tabulatrix, $tags);
+    }
+
+    private function receiveChefBook(Place $queue, array $tags)
+    {
+        $this->queueDocumentOfName('apprentron_chef', $queue, $tags);
+    }
+
+    private function receiveMageBooks(Place $queue, int $quantity, array $tags)
+    {
+        for ($i = 0; $i < $quantity; ++$i) {
+            $uniqueMageBookName = (string) $this->randomService->getRandomUniqueMageBookName($queue->getDaedalus());
+            $this->queueDocumentOfName($uniqueMageBookName, $queue, $tags);
+        }
+    }
+
+    private function queueDocumentOfName(string $documentName, Place $queue, array $tags): GameEquipment
+    {
+        if ($queue->getType() !== PlaceTypeEnum::QUEUE) {
+            throw new \LogicException('the type should be queue');
+        }
+
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $documentName,
+            equipmentHolder: $queue,
+            reasons: $tags,
+            time: new \DateTime()
+        );
     }
 }

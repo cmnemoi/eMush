@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\DroneInfo;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\DroneNicknameEnum;
@@ -334,6 +335,8 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
                 }
             } elseif ($mechanic instanceof Document && $mechanic->getContent()) {
                 $this->initDocument($gameEquipment, $mechanic);
+            } elseif ($mechanic instanceof Book && $mechanic->isMageBook()) {
+                $daedalus->getUniqueItems()->addUniqueMageBookByGameEquipment($gameEquipment);
             }
         }
 

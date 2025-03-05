@@ -11,6 +11,7 @@ enum XylophEnum: string
     case GHOST_CHUN = 'ghost_chun';
     case GHOST_SAMPLE = 'ghost_sample';
     case KIVANC = 'kivanc';
+    case MAGE_BOOKS = 'mage_books';
     case MAGNETITE = 'magnetite';
     case NOTHING = 'nothing';
     case NULL = '';

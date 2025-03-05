@@ -333,7 +333,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         $arack = new Hunter($arackConfig, $this->daedalus);
         $arack->setHunterVariables($arackConfig);
-        $this->daedalus->addHunter($arack);
+        $this->daedalus->getSpace()->addHunter($arack);
 
         $I->haveInRepository($arack);
 
@@ -753,7 +753,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         $hunter = new Hunter($hunterConfig, $this->daedalus);
         $hunter->setHunterVariables($hunterConfig);
-        $this->daedalus->addHunter($hunter);
+        $this->daedalus->getSpace()->addHunter($hunter);
 
         $I->haveInRepository($hunter);
 

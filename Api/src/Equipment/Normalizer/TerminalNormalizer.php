@@ -14,6 +14,7 @@ use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\TradeRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
@@ -26,6 +27,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -45,6 +47,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         private readonly PlanetServiceInterface $planetService,
         private readonly RebelBaseRepositoryInterface $rebelBaseRepository,
         private readonly TranslationServiceInterface $translationService,
+        private readonly TradeRepositoryInterface $tradeRepository,
         private readonly XylophRepositoryInterface $xylophEntryRepository
     ) {}
 
@@ -109,6 +112,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'items' => $this->getNormalizedTerminalItems($terminal, $format, $context),
             'rebelBases' => $this->getNormalizedRebelBases($terminal, $format, $context),
             'xylophEntries' => $this->getNormalizedXylophEntries($terminal, $format, $context),
+            'trades' => $this->getNormalizedTrades($terminal, $format, $context),
         ];
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($terminal, $format, $context);
@@ -562,27 +566,29 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             return [];
         }
 
-        $link = $this->linkWithSolRepository->findByDaedalusIdOrThrow($terminal->getDaedalus()->getId());
-        $neronVersion = $this->neronVersionRepository->findByDaedalusIdOrThrow($terminal->getDaedalus()->getId());
+        $daedalus = $terminal->getDaedalus();
+
+        $link = $this->linkWithSolRepository->findByDaedalusIdOrThrow($daedalus->getId());
+        $neronVersion = $this->neronVersionRepository->findByDaedalusIdOrThrow($daedalus->getId());
 
         $infos = [
             'linkStrength' => $this->translationService->translate(
                 key: $terminalKey . '.link_strength',
                 parameters: ['quantity' => $link->getStrength()],
                 domain: 'terminal',
-                language: $terminal->getDaedalus()->getLanguage()
+                language: $daedalus->getLanguage()
             ),
             'neronUpdateStatus' => $this->translationService->translate(
                 key: $terminalKey . '.neron_update_status',
                 parameters: ['quantity' => $neronVersion->getMinor()],
                 domain: 'terminal',
-                language: $terminal->getDaedalus()->getLanguage()
+                language: $daedalus->getLanguage()
             ),
             'selectRebelBaseToDecode' => $this->translationService->translate(
                 key: $terminalKey . '.select_rebel_base_to_decode',
                 parameters: [],
                 domain: 'terminal',
-                language: $terminal->getDaedalus()->getLanguage()
+                language: $daedalus->getLanguage()
             ),
         ];
 
@@ -591,7 +597,19 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
                 key: $terminalKey . '.link_established',
                 parameters: [],
                 domain: 'terminal',
-                language: $terminal->getDaedalus()->getLanguage()
+                language: $daedalus->getLanguage()
+            );
+        }
+
+        if (
+            $this->tradeRepository->isThereAvailableTrade($daedalus->getId())
+            && $daedalus->getAttackingHunters()->getAllExceptTypes([HunterEnum::TRANSPORT, HunterEnum::ASTEROID])->count() > 0
+        ) {
+            $infos['cannotTradeUnderAttack'] = $this->translationService->translate(
+                key: $terminalKey . '.cannot_trade_under_attack',
+                parameters: [],
+                domain: 'terminal',
+                language: $daedalus->getLanguage()
             );
         }
 
@@ -618,5 +636,24 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $normalizedXylophEntries;
+    }
+
+    private function getNormalizedTrades(GameEquipment $terminal, ?string $format, array $context): array
+    {
+        $daedalus = $terminal->getDaedalus();
+        if ($daedalus->getAttackingHunters()->getAllExceptTypes([HunterEnum::TRANSPORT, HunterEnum::ASTEROID])->count() > 0) {
+            return [];
+        }
+
+        $trades = $this->tradeRepository->findAllByDaedalusId($daedalus->getId());
+
+        $normalizedTrades = [];
+        foreach ($trades as $trade) {
+            $normalizedTrades[] = [
+                'key' => $trade->getName()->toString(),
+            ];
+        }
+
+        return $normalizedTrades;
     }
 }

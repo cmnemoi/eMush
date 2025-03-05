@@ -390,6 +390,10 @@
         <source>communication_center.xyloph_db</source>
         <target>Xyloph BDD</target>
       </segment>
+      <segment id="cannot_trade_under_attack" state="translated">
+        <source>communication_center.cannot_trade_under_attack</source>
+        <target>Un vaisseau ennemi est à portée, il n'est pas prudent de commercer sous la menace !</target>
+      </segment>
     </unit>
   </file>
 </xliff>

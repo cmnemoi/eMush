@@ -10,6 +10,7 @@ use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Status\Service\StatusServiceInterface;
 
 final readonly class DecodeRebelSignalService
 {
@@ -18,6 +19,7 @@ final readonly class DecodeRebelSignalService
         private ModifierCreationServiceInterface $modifierCreationService,
         private RebelBaseRepositoryInterface $rebelBaseRepository,
         private EventServiceInterface $eventService,
+        private StatusServiceInterface $statusService,
     ) {}
 
     public function execute(RebelBase $rebelBase, int $progress, array $tags = []): void
@@ -26,6 +28,7 @@ final readonly class DecodeRebelSignalService
 
         if ($rebelBase->isDecoded()) {
             $this->createRebelBaseModifiers($rebelBase, $tags);
+            $this->createRebelBaseStatus($rebelBase, $tags);
             $this->endRebelBaseContact($rebelBase);
         }
     }
@@ -53,6 +56,22 @@ final readonly class DecodeRebelSignalService
             event: new RebelBaseDecodedEvent($rebelBase->getDaedalusId(), $tags),
             name: RebelBaseDecodedEvent::class,
         );
+    }
+
+    private function createRebelBaseStatus(RebelBase $rebelBase, array $tags): void
+    {
+        $daedalus = $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId());
+        $statusConfig = $rebelBase->getStatusConfigs();
+        foreach ($statusConfig as $status) {
+            foreach ($daedalus->getAlivePlayers() as $player) {
+                $this->statusService->createStatusFromConfig(
+                    statusConfig: $status,
+                    holder: $player,
+                    tags: $tags,
+                    time: new \DateTime(),
+                );
+            }
+        }
     }
 
     private function endRebelBaseContact(RebelBase $rebelBase): void

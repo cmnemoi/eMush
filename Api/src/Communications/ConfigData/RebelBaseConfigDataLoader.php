@@ -9,6 +9,7 @@ use Mush\Communications\Dto\RebelBaseConfigDto;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 final class RebelBaseConfigDataLoader extends ConfigDataLoader
 {
@@ -25,7 +26,8 @@ final class RebelBaseConfigDataLoader extends ConfigDataLoader
                     $rebelBaseConfigDto->key,
                     $rebelBaseConfigDto->name,
                     $rebelBaseConfigDto->contactOrder,
-                    $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs)
+                    $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs),
+                    $this->getStatusConfigs($rebelBaseConfigDto->statusConfigs)
                 );
             } else {
                 $rebelBaseConfig->update($rebelBaseConfig);
@@ -52,6 +54,23 @@ final class RebelBaseConfigDataLoader extends ConfigDataLoader
         }
 
         return $modifierConfigs;
+    }
+
+    private function getStatusConfigs(array $names): ArrayCollection
+    {
+        /** @var ArrayCollection<int, StatusConfig> $statusConfigs */
+        $statusConfigs = new ArrayCollection();
+        $statusConfigRepository = $this->entityManager->getRepository(StatusConfig::class);
+        foreach ($names as $name) {
+            /** @var ?StatusConfig $statusConfig */
+            $statusConfig = $statusConfigRepository->findOneBy(['name' => $name]);
+            if ($statusConfig === null) {
+                throw new \Exception("Status config {$name} not found");
+            }
+            $statusConfigs->add($statusConfig);
+        }
+
+        return $statusConfigs;
     }
 
     /**

@@ -118,6 +118,11 @@ class RebelBase implements ModifierProviderInterface
         return new ArrayCollection($this->rebelBaseConfig->getModifierConfigs()->toArray());
     }
 
+    public function getStatusConfigs(): ArrayCollection
+    {
+        return new ArrayCollection($this->rebelBaseConfig->getStatusConfigs()->toArray());
+    }
+
     public function getUsedCharge(string $actionName): ?ChargeStatus
     {
         return null;

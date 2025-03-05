@@ -14,6 +14,7 @@ use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Modifier\DataFixtures\RebelBaseModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 final class RebelBaseConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -31,7 +32,8 @@ final class RebelBaseConfigFixtures extends Fixture implements DependentFixtureI
                 $rebelBaseConfigDto->key,
                 $rebelBaseConfigDto->name,
                 $rebelBaseConfigDto->contactOrder,
-                $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs)
+                $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs),
+                $this->getStatusConfigs($rebelBaseConfigDto->statusConfigs)
             );
             $manager->persist($rebelBaseConfig);
             $gameConfig->addRebelBaseConfig($rebelBaseConfig);
@@ -62,6 +64,22 @@ final class RebelBaseConfigFixtures extends Fixture implements DependentFixtureI
         }
 
         return $modifierConfigs;
+    }
+
+    private function getStatusConfigs(array $names): ArrayCollection
+    {
+        /** @var ArrayCollection<int, StatusConfig> $statusConfigs */
+        $statusConfigs = new ArrayCollection();
+
+        foreach ($names as $name) {
+            $statusConfig = $this->getReference($name);
+            if (!$statusConfig instanceof StatusConfig) {
+                throw new \Exception("Status config {$name} is not an instance of StatusConfig");
+            }
+            $statusConfigs->add($statusConfig);
+        }
+
+        return $statusConfigs;
     }
 
     /**

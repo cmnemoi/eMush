@@ -126,7 +126,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $tabulatrix = $player->getPlace()->getEquipmentByName(EquipmentEnum::TABULATRIX);
 
         if (!$tabulatrix) {
-            // TODO: Tabulatrix non-existent private log.
+            // @TODO: Tabulatrix non-existent private log.
             return;
         }
 
@@ -138,11 +138,11 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         );
 
         if ($tabulatrix->isNotOperational()) {
-            // TODO: Tabulatrix broken private log.
+            // @TODO: Tabulatrix broken private log.
             return;
         }
 
-        // TODO: Tabulatrix printing chef book private log? (or somewhere else)
+        // @TODO: Tabulatrix printing chef book private log? (or somewhere else)
 
         $this->printDocumentService->execute($tabulatrix, $tags);
     }

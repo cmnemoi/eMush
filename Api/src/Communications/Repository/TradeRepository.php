@@ -21,12 +21,12 @@ final class TradeRepository extends ServiceEntityRepository implements TradeRepo
     {
         $rsm = new ResultSetMappingBuilder($this->getEntityManager());
         $rsm->addRootEntityFromClassMetadata(Trade::class, 't');
-        $rsm->addJoinedEntityFromClassMetadata(Hunter::class, 'h', 't', 'hunter', ['id' => 'hunter_id']);
+        $rsm->addJoinedEntityFromClassMetadata(Hunter::class, 'h', 't', 'transport', ['id' => 'transport_id']);
 
         $sql = <<<'SQL'
             SELECT trade.*, hunter.*
             FROM trade
-            INNER JOIN hunter ON trade.hunter_id = hunter.id
+            INNER JOIN hunter ON trade.transport_id = hunter.id
             INNER JOIN room ON hunter.space_id = room.id
             WHERE room.daedalus_id = :daedalusId
         SQL;
@@ -45,7 +45,7 @@ final class TradeRepository extends ServiceEntityRepository implements TradeRepo
             SELECT EXISTS (
                 SELECT 1
                 FROM trade
-                INNER JOIN hunter ON trade.hunter_id = hunter.id
+                INNER JOIN hunter ON trade.transport_id = hunter.id
                 INNER JOIN room ON hunter.space_id = room.id
                 WHERE room.daedalus_id = :daedalusId
             )

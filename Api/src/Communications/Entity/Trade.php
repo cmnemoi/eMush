@@ -27,6 +27,7 @@ class Trade
     private int $transportId;
 
     #[ORM\OneToOne(targetEntity: Hunter::class)]
+    #[ORM\JoinColumn(name: 'transport_id')]
     private Hunter $transport;
 
     public function __construct(TradeEnum $name, ArrayCollection $tradeOptions, int $transportId)

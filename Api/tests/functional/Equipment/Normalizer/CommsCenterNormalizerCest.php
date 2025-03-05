@@ -164,7 +164,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $trade = new Trade(
             name: TradeEnum::FOREST_DEAL,
             tradeOptions: new ArrayCollection(),
-            hunterId: $transport->getId()
+            transportId: $transport->getId()
         );
         $this->tradeRepository->save($trade);
 
@@ -186,7 +186,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $trade = new Trade(
             name: TradeEnum::FOREST_DEAL,
             tradeOptions: new ArrayCollection(),
-            hunterId: $transport->getId()
+            transportId: $transport->getId()
         );
         $this->tradeRepository->save($trade);
 
@@ -208,7 +208,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $trade = new Trade(
             name: TradeEnum::FOREST_DEAL,
             tradeOptions: new ArrayCollection(),
-            hunterId: $transport->getId()
+            transportId: $transport->getId()
         );
         $this->tradeRepository->save($trade);
 
@@ -230,7 +230,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $trade = new Trade(
             name: TradeEnum::FOREST_DEAL,
             tradeOptions: new ArrayCollection(),
-            hunterId: $transport->getId()
+            transportId: $transport->getId()
         );
         $this->tradeRepository->save($trade);
 

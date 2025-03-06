@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communications\Entity\Trade;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;

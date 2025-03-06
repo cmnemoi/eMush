@@ -7,6 +7,7 @@ namespace Mush\Communications\Normalizer;
 use Mush\Communications\Entity\TradeOption;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class TradeOptionNormalizer implements NormalizerInterface

@@ -43,7 +43,7 @@ class TradeOption
      */
     public function getRequiredAssets(): ArrayCollection
     {
-        return $this->requiredAssets;
+        return new ArrayCollection($this->requiredAssets->toArray());
     }
 
     /**
@@ -51,6 +51,6 @@ class TradeOption
      */
     public function getOfferedAssets(): ArrayCollection
     {
-        return $this->offeredAssets;
+        return new ArrayCollection($this->offeredAssets->toArray());
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+    <file id="trade.ext">
+        <unit id="human_vs_oxy">
+            <segment id="human_vs_oxy">
+                <source>human_vs_oxy</source>
+                <target>Aloha, vos organismes sont vraiment passionnants surtout la métanisation de vos déchets organiques, incroyable... Nous vous échangeons un de vos amis contre des réserves d'oxygène conséquentes !</target>
+            </segment>
+        </unit>
+        <unit id="random_player">
+            <segment id="random_player">
+                <source>random_player</source>
+                <target>{quantity, plural, one {# équipier} other {# équipiers}} au hasard</target>
+            </segment>
+        </unit>
+        <unit id="oxygen">
+            <segment id="oxygen">
+                <source>oxygen</source>
+                <target>{quantity, plural, one {# unité d'oxygène} other {# unités d'oxygène}}</target>
+            </segment>
+        </unit>
+        <unit id="trade_option">
+            <segment id="trade_option">
+                <source>trade_option</source>
+                <target>Vendre {requiredAsset} vous rapportera... {offeredAsset}.</target>
+            </segment>
+        </unit>
+    </file>
+</xliff>

@@ -32,4 +32,25 @@ class TradeOption
         $this->offeredAssets = $offeredAssets;
         $this->requiredSkill = $requiredSkill;
     }
+
+    public function getRequiredSkill(): SkillEnum
+    {
+        return $this->requiredSkill;
+    }
+
+    /**
+     * @return ArrayCollection<array-key, TradeAsset>
+     */
+    public function getRequiredAssets(): ArrayCollection
+    {
+        return $this->requiredAssets;
+    }
+
+    /**
+     * @return ArrayCollection<array-key, TradeAsset>
+     */
+    public function getOfferedAssets(): ArrayCollection
+    {
+        return $this->offeredAssets;
+    }
 }

@@ -12,4 +12,9 @@ enum TradeAssetEnum: string
     case RANDOM_PROJECT = 'random_project';
     case SPECIFIC_PLAYER = 'specific_player';
     case NULL = '';
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
 }

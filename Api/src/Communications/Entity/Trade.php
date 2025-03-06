@@ -47,6 +47,11 @@ class Trade
         return $this->name;
     }
 
+    public function getTradeOptions(): ArrayCollection
+    {
+        return new ArrayCollection($this->tradeOptions->toArray());
+    }
+
     public function getTransportId(): int
     {
         return $this->transportId;

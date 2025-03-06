@@ -30,4 +30,19 @@ class TradeAsset
         $this->quantity = $quantity;
         $this->assetName = $assetName;
     }
+
+    public function getType(): TradeAssetEnum
+    {
+        return $this->type;
+    }
+
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    public function getTranslationKey(): string
+    {
+        return $this->assetName ? $this->assetName : $this->type->toString();
+    }
 }

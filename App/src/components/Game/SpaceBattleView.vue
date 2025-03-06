@@ -301,6 +301,11 @@ $hit-color: #fd1f07;
         top: -12px;
         left: -10px;
     }
+
+    .transport-img {
+        top: -35px;
+        left: 0;
+    }
 }
 
 .hunters-container .ship-img-container {

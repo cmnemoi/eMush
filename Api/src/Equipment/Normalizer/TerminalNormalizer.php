@@ -649,9 +649,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
 
         $normalizedTrades = [];
         foreach ($trades as $trade) {
-            $normalizedTrades[] = [
-                'key' => $trade->getName()->toString(),
-            ];
+            $normalizedTrades[] = $this->normalizer->normalize($trade, $format, $context);
         }
 
         return $normalizedTrades;

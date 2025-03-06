@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Communications\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Communications\Entity\Trade;
 use Mush\Hunter\Entity\Hunter;
@@ -19,22 +18,14 @@ final class TradeRepository extends ServiceEntityRepository implements TradeRepo
 
     public function findAllByDaedalusId(int $daedalusId): array
     {
-        $rsm = new ResultSetMappingBuilder($this->getEntityManager());
-        $rsm->addRootEntityFromClassMetadata(Trade::class, 't');
-        $rsm->addJoinedEntityFromClassMetadata(Hunter::class, 'h', 't', 'transport', ['id' => 'transport_id']);
+        $qb = $this->createQueryBuilder('trade')
+            ->select('trade', 'hunter', 'room')
+            ->innerJoin('trade.transport', 'hunter')
+            ->innerJoin('hunter.space', 'room')
+            ->where('room.daedalus = :daedalusId')
+            ->setParameter('daedalusId', $daedalusId);
 
-        $sql = <<<'SQL'
-            SELECT trade.*, hunter.*
-            FROM trade
-            INNER JOIN hunter ON trade.transport_id = hunter.id
-            INNER JOIN room ON hunter.space_id = room.id
-            WHERE room.daedalus_id = :daedalusId
-        SQL;
-
-        $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
-        $query->setParameter('daedalusId', $daedalusId);
-
-        $result = $query->getResult();
+        $result = $qb->getQuery()->getResult();
 
         return array_map(fn (Trade $trade) => $this->hydrate($trade), $result);
     }

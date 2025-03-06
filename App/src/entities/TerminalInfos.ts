@@ -29,6 +29,7 @@ export class TerminalInfos {
     public linkEstablished: string|null = null;
     public neronUpdateStatus: string|null = null;
     public selectRebelBaseToDecode: string|null = null;
+    public cannotTradeUnderAttack: boolean|null = null;
 
     constructor() {
         this.requirements = [];
@@ -71,6 +72,7 @@ export class TerminalInfos {
             this.linkEstablished = object.linkEstablished;
             this.neronUpdateStatus = object.neronUpdateStatus;
             this.selectRebelBaseToDecode = object.selectRebelBaseToDecode;
+            this.cannotTradeUnderAttack = object.cannotTradeUnderAttack;
         }
         return this;
     }

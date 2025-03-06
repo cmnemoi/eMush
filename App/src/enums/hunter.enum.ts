@@ -5,6 +5,7 @@ const ASTEROID = 'asteroid';
 const D1000 = 'dice';
 const HUNTER = 'hunter';
 const TRAX = 'trax';
+const TRANSPORT = 'transport';
 
 export const hunterEnum: {[index: string]: any} = {
     [ARACK]: {
@@ -18,6 +19,9 @@ export const hunterEnum: {[index: string]: any} = {
     },
     [HUNTER]: {
         'image': getImgUrl('hunters/hunter.png')
+    },
+    [TRANSPORT]: {
+        'image': getImgUrl('hunters/transport.png')
     },
     [TRAX]: {
         'image': getImgUrl('hunters/trax.png')

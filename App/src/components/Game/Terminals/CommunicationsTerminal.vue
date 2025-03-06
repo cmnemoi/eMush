@@ -1,6 +1,7 @@
 <template>
     <div class="terminal-container" v-if="terminal">
-        <div class="upper-container">
+        <button @click="toggleTradeView">{{ tradeViewEnabled ? 'See communications' : 'See trades' }}</button>
+        <div class="upper-container" v-if="!tradeViewEnabled">
             <section class="left-section">
                 <div class="sol-link container">
                     <h3 class="title">
@@ -60,7 +61,7 @@
                     </div>
                 </div>
             </section>
-            <section class="right-section">
+            <section class="right-section" v-if="!tradeViewEnabled">
                 <div class="xyloph container">
                     <h3 class="title">
                         <img :src="getImgUrl('spot2.svg')" alt="spot"/>
@@ -84,7 +85,7 @@
                 </div>
             </section>
         </div>
-        <div class="rebel-bases container">
+        <div class="rebel-bases container" v-if="!tradeViewEnabled">
             <h3 class="title">
                 <img :src="getImgUrl('spot2.svg')" alt="spot"/>
                 {{ terminal.sectionTitles?.rebelBasesNetwork }}
@@ -114,6 +115,27 @@
                 @click="executeTargetAction(terminal, decodeRebelSignalAction, { rebel_base: selectedRebelBase })"
             />
         </div>
+        <section class="trade-view" v-if="tradeViewEnabled">
+            <div class="trade container">
+                <h3 class="title">
+                    <img :src="getImgUrl('spot2.svg')" alt="spot"/>
+                    {{ terminal.sectionTitles?.trade || 'Radio ondes courtes' }}
+                </h3>
+                <p class="cannot-trade-under-attack" v-if="terminal.infos.cannotTradeUnderAttack">
+                    {{ terminal.infos.cannotTradeUnderAttack }}
+                </p>
+                <div class="trade-options">
+                    <div class="trade-option" v-for="trade in terminal.trades" :key="trade.key">
+                        <p class="trade-option-name">{{ trade.name }}</p>
+                        <p class="trade-option-description">{{ trade.description }}</p>
+                        <button v-for="option in trade.options" :key="option.key">
+                            <p class="trade-option-name">{{ option.name }}</p>
+                            <p class="trade-option-description">{{ option.description }}</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -214,11 +236,15 @@ export default defineComponent({
 
             this.d_selectedRebelBase = base.key;
             this.decodeRebelSignalAction = this.terminal.getActionByKeyOrThrow(ActionEnum.DECODE_REBEL_SIGNAL);
+        },
+        toggleTradeView() {
+            this.tradeViewEnabled = !this.tradeViewEnabled;
         }
     },
     data() {
         return {
-            d_selectedRebelBase: ''
+            d_selectedRebelBase: '',
+            tradeViewEnabled: false
         };
     }
 });

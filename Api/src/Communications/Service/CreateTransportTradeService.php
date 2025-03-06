@@ -36,27 +36,27 @@ final readonly class CreateTransportTradeService
         // @TODO: randomize trade name
         // @TODO: randomize trade asset quantity
 
+        $randomPlayerAsset = new TradeAsset(
+            type: TradeAssetEnum::RANDOM_PLAYER,
+            quantity: 1,
+        );
+        $oxygenAsset = new TradeAsset(
+            type: TradeAssetEnum::DAEDALUS_VARIABLE,
+            assetName: DaedalusVariableEnum::OXYGEN,
+            quantity: 10,
+        );
+        $tradeOption = new TradeOption(
+            requiredAssets: new ArrayCollection([
+                $randomPlayerAsset,
+            ]),
+            offeredAssets: new ArrayCollection([
+                $oxygenAsset,
+            ]),
+        );
+
         $trade = new Trade(
             name: TradeEnum::HUMAN_VS_OXY,
-            tradeOptions: new ArrayCollection(
-                [
-                    new TradeOption(
-                        requiredAssets: new ArrayCollection([
-                            new TradeAsset(
-                                type: TradeAssetEnum::RANDOM_PLAYER,
-                                quantity: 1,
-                            ),
-                        ]),
-                        offeredAssets: new ArrayCollection([
-                            new TradeAsset(
-                                type: TradeAssetEnum::DAEDALUS_VARIABLE,
-                                assetName: DaedalusVariableEnum::OXYGEN,
-                                quantity: 10,
-                            ),
-                        ]),
-                    ),
-                ]
-            ),
+            tradeOptions: new ArrayCollection([$tradeOption]),
             transportId: $transport->getId()
         );
         $this->tradeRepository->save($trade);

@@ -15,6 +15,12 @@ class TradeAsset
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
+    #[ORM\ManyToOne(targetEntity: TradeOption::class, inversedBy: 'requiredAssets')]
+    private ?TradeOption $requiredTradeOption;
+
+    #[ORM\ManyToOne(targetEntity: TradeOption::class, inversedBy: 'offeredAssets')]
+    private ?TradeOption $offeredTradeOption;
+
     #[ORM\Column(type: 'string', enumType: TradeAssetEnum::class, nullable: false, options: ['default' => TradeAssetEnum::NULL])]
     private TradeAssetEnum $type = TradeAssetEnum::NULL;
 
@@ -44,5 +50,15 @@ class TradeAsset
     public function getTranslationKey(): string
     {
         return $this->assetName ? $this->assetName : $this->type->toString();
+    }
+
+    public function setRequiredTradeOption(TradeOption $requiredTradeOption): void
+    {
+        $this->requiredTradeOption = $requiredTradeOption;
+    }
+
+    public function setOfferedTradeOption(TradeOption $offeredTradeOption): void
+    {
+        $this->offeredTradeOption = $offeredTradeOption;
     }
 }

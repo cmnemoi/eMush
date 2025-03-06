@@ -10,26 +10,23 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Service\CreateHunterService;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
-    private HunterServiceInterface $hunterService;
-
     public function __construct(
-        EventServiceInterface $eventService,
-        HunterServiceInterface $hunterService
-    ) {
-        $this->eventService = $eventService;
-        $this->hunterService = $hunterService;
-    }
+        private CreateHunterService $createHunter,
+        private EventServiceInterface $eventService,
+        private HunterServiceInterface $hunterService,
+    ) {}
 
     public static function getSubscribedEvents()
     {
         return [
             DaedalusEvent::DELETE_DAEDALUS => ['onDeleteDaedalus', EventPriorityEnum::HIGHEST],
+            DaedalusEvent::FULL_DAEDALUS => 'onFullDaedalus',
             DaedalusEvent::TRAVEL_LAUNCHED => 'onTravelLaunched',
             DaedalusEvent::TRAVEL_FINISHED => 'onTravelFinished',
         ];
@@ -53,6 +50,12 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         $this->hunterService->persist($attackingHunters->toArray());
         $this->hunterService->persist($pooledHunters->toArray());
+    }
+
+    public function onFullDaedalus(DaedalusEvent $event): void
+    {
+        $daedalusId = $event->getDaedalusId();
+        $this->createHunter->execute(HunterEnum::TRANSPORT, $daedalusId);
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void

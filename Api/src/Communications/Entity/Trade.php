@@ -33,8 +33,12 @@ class Trade
     public function __construct(TradeEnum $name, ArrayCollection $tradeOptions, int $transportId)
     {
         $this->name = $name;
-        $this->tradeOptions = $tradeOptions;
+        $this->tradeOptions = new ArrayCollection();
         $this->transportId = $transportId;
+
+        foreach ($tradeOptions as $tradeOption) {
+            $this->addTradeOption($tradeOption);
+        }
     }
 
     public function getId(): int
@@ -79,5 +83,13 @@ class Trade
     public function setTransport(Hunter $transport): void
     {
         $this->transport = $transport;
+    }
+
+    private function addTradeOption(TradeOption $tradeOption): void
+    {
+        if (!$this->tradeOptions->contains($tradeOption)) {
+            $this->tradeOptions->add($tradeOption);
+            $tradeOption->setTrade($this);
+        }
     }
 }

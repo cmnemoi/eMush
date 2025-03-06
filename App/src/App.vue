@@ -9,7 +9,6 @@
         <ConfirmPopup />
         <PlayerNotificationPopUp />
         <Thanks />
-        <ReloadPWA />
         <ModerationWarningBanner :user-sanctions="userSanctions" />
         <LocaleChange />
     </div>
@@ -30,7 +29,6 @@ import { defineComponent } from "vue";
 import ToastContainer from "./components/ToastContainer.vue";
 import PlayerNotificationPopUp from "@/components/Game/PlayerNotificationPopUp.vue";
 import UserService from "@/services/user.service";
-import ReloadPWA from "./components/ReloadPWA.vue";
 
 export default defineComponent({
     name: 'App',
@@ -55,8 +53,7 @@ export default defineComponent({
         Thanks,
         MaintenancePage,
         ToastContainer,
-        PlayerNotificationPopUp,
-        ReloadPWA
+        PlayerNotificationPopUp
     },
     computed: {
         ...mapGetters({

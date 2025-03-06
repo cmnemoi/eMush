@@ -2,11 +2,13 @@
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\EquipmentInitEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
+use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -17,13 +19,16 @@ class EquipmentSubscriber implements EventSubscriberInterface
 {
     private GameEquipmentServiceInterface $gameEquipmentService;
     private EventServiceInterface $eventService;
+    private DeleteEquipmentServiceInterface $deleteEquipmentService;
 
     public function __construct(
         GameEquipmentServiceInterface $gameEquipmentService,
-        EventServiceInterface $eventService
+        EventServiceInterface $eventService,
+        DeleteEquipmentServiceInterface $deleteEquipmentService
     ) {
         $this->gameEquipmentService = $gameEquipmentService;
         $this->eventService = $eventService;
+        $this->deleteEquipmentService = $deleteEquipmentService;
     }
 
     public static function getSubscribedEvents(): array
@@ -38,6 +43,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
             ],
             EquipmentEvent::EQUIPMENT_DESTROYED => [
                 ['onEquipmentDestroyed', -1000], // the equipment is deleted after every other effect has been applied
+                ['beforeEquipmentDestroyed', 10],
             ],
             EquipmentEvent::EQUIPMENT_DELETE => [
                 ['onEquipmentDelete'],
@@ -73,6 +79,11 @@ class EquipmentSubscriber implements EventSubscriberInterface
     public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_DELETE);
+    }
+
+    public function beforeEquipmentDestroyed(EquipmentEvent $event): void
+    {
+        $this->removeQueuedItemsIfTabulatrixDestroyed($event);
     }
 
     public function onEquipmentDelete(EquipmentEvent $event): void
@@ -121,5 +132,18 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $equipment->setHolder($newHolder);
 
         $this->gameEquipmentService->persist($equipment);
+    }
+
+    private function removeQueuedItemsIfTabulatrixDestroyed(EquipmentEvent $event): void
+    {
+        if ($event->getGameEquipment()->getName() !== EquipmentEnum::TABULATRIX) {
+            return;
+        }
+
+        $itemsToDestroy = $event->getDaedalus()->getTabulatrixQueue()->getEquipments();
+
+        foreach ($itemsToDestroy as $item) {
+            $this->deleteEquipmentService->execute($item);
+        }
     }
 }

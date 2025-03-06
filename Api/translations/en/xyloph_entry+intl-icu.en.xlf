@@ -91,5 +91,15 @@
                 <target>You have established contact with Kivanç Terzi, who united a large part of the rebellion in the Sol system. His help will be vital in decoding messages from rebel bases.//**Gives a 100% bonus on decoding rebel base transmissions.**</target>
             </segment>
         </unit>
+        <unit id="cook">
+            <segment id="name">
+                <source>cook.name</source>
+                <target>Roger's Kitchenary 2830</target>
+            </segment>
+            <segment id="description">
+                <source>cook.description</source>
+                <target>You find a file containing dozens of recipes. Lots of recipes. Lots and lots of recipes.//**Gives the impression of being an apprentice chef**</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

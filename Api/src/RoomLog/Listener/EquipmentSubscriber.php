@@ -49,6 +49,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
 
     private const MOVE_EQUIPMENT_LOG_MAP = [
         ActionEnum::COLLECT_SCRAP->value => LogEnum::SCRAP_COLLECTED,
+        EventEnum::PRINT_DOCUMENT => LogEnum::TABULATRIX_PRINTS,
         ProjectName::FOOD_RETAILER->value => LogEnum::FRUIT_TRANSPORTED,
         Takeoff::DROP_CRITICAL_ITEM => LogEnum::DROP_SUCCESS,
     ];

@@ -9,15 +9,19 @@ use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceInterface
+final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceInterface
 {
     public function __construct(
         private DaedalusRepositoryInterface $daedalusRepository,
@@ -25,6 +29,8 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
         private GameEquipmentServiceInterface $gameEquipmentService,
         private KillLinkWithSolService $killLinkWithSol,
         private LinkWithSolRepositoryInterface $linkWithSolRepository,
+        private PrintDocumentServiceInterface $printDocumentService,
+        private RoomLogServiceInterface $roomLogService,
         private StatusServiceInterface $statusService,
         private XylophRepositoryInterface $xylophRepository,
         private UpdateNeronVersionService $updateNeronVersionService,
@@ -41,7 +47,10 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
 
         $daedalus = $player->getDaedalus();
 
+        $this->createXylophDecodedLog($xylophEntry->getName(), $player);
+
         match ($xylophEntry->getName()) {
+            XylophEnum::COOK => $this->printChefBook($player, $tags),
             XylophEnum::DISK => $this->createMushGenomeDisk($player->getPlace(), $tags),
             XylophEnum::GHOST_CHUN => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_CHUN, $tags),
             XylophEnum::GHOST_SAMPLE => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_SAMPLE, $tags),
@@ -60,6 +69,32 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
     {
         $xylophEntry->unlockDatabase();
         $this->xylophRepository->save($xylophEntry);
+    }
+
+    private function createXylophDecodedLog(XylophEnum $xylophEnum, Player $player): void
+    {
+        $logKey = 'xyloph_decoded_' . $xylophEnum->toString();
+        $visibility = VisibilityEnum::PRIVATE;
+        if (XylophEnum::requiresPrinting($xylophEnum)) {
+            $tabulatrix = $player->getPlace()->getEquipmentByName(EquipmentEnum::TABULATRIX);
+            if (!$tabulatrix) {
+                $logKey = 'xyloph_decoded_tabulatrix_none';
+                $visibility = VisibilityEnum::PUBLIC;
+            } elseif ($tabulatrix->hasStatus(EquipmentStatusEnum::BROKEN)) {
+                $logKey = 'xyloph_decoded_tabulatrix_broken';
+                $visibility = VisibilityEnum::PUBLIC;
+            }
+        }
+
+        $this->roomLogService->createLog(
+            logKey: $logKey,
+            place: $player->getPlace(),
+            visibility: $visibility,
+            type: 'xyloph_log',
+            player: $player,
+            parameters: [],
+            dateTime: new \DateTime()
+        );
     }
 
     private function createMushGenomeDisk(EquipmentHolderInterface $holder, array $tags): void
@@ -116,5 +151,27 @@ final class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceIn
                 time: new \DateTime(),
             );
         }
+    }
+
+    private function printChefBook(Player $player, array $tags): void
+    {
+        $tabulatrix = $player->getPlace()->getEquipmentByName(EquipmentEnum::TABULATRIX);
+
+        if (!$tabulatrix) {
+            return;
+        }
+
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: 'apprentron_chef',
+            equipmentHolder: $player->getDaedalus()->getTabulatrixQueue(),
+            reasons: $tags,
+            time: new \DateTime()
+        );
+
+        if ($tabulatrix->isNotOperational()) {
+            return;
+        }
+
+        $this->printDocumentService->execute($tabulatrix, $tags);
     }
 }

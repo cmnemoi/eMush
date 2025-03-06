@@ -83,6 +83,7 @@ class DaedalusConfigData
                 RoomEnum::PASIPHAE . '_default',
                 RoomEnum::PLANET . '_default',
                 RoomEnum::PLANET_DEPTHS . '_default',
+                RoomEnum::TABULATRIX_QUEUE . '_default',
             ],
             'numberOfProjectsByBatch' => 3,
             'humanSkillSlots' => 3,

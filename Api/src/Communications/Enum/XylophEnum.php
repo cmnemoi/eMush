@@ -6,6 +6,7 @@ namespace Mush\Communications\Enum;
 
 enum XylophEnum: string
 {
+    case COOK = 'cook';
     case DISK = 'disk';
     case GHOST_CHUN = 'ghost_chun';
     case GHOST_SAMPLE = 'ghost_sample';
@@ -20,5 +21,12 @@ enum XylophEnum: string
     public function toString(): string
     {
         return $this->value;
+    }
+
+    public static function requiresPrinting(self $entry): bool
+    {
+        return \in_array($entry, [
+            self::COOK,
+        ], true);
     }
 }

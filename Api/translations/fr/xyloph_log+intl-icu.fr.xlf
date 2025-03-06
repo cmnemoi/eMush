@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="xyloph_log.ext">
+    <unit id="xyloph_decoded_nothing">
+      <segment id="xyloph_decoded_nothing" state="translated">
+        <source>xyloph_decoded_nothing</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. Rien à en tirer...La donnée a été corrompue par un virus rhizhomal.</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_magnetite">
+      <segment id="xyloph_decoded_magnetite" state="translated">
+        <source>xyloph_decoded_magnetite</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. La liaison est de mauvaise qualité...très mauvaise, sans doute le nuage de magnetite que vous traversez en ce moment.</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_snow">
+      <segment id="xyloph_decoded_snow" state="translated">
+        <source>xyloph_decoded_snow</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. Votre écran est couvert de neige grésillante, ça fait mal au crâne, vous arrêtez vos tentatives...</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_disk">
+      <segment id="xyloph_decoded_disk" state="translated">
+        <source>xyloph_decoded_disk</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. Ce disque regroupe des informations cruciales sur le gênome Mush rassemblée par Ian Soulton juste avant le départ du Daedalus.</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_version">
+      <segment id="xyloph_decoded_version" state="translated">
+        <source>xyloph_decoded_version</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de Neron.</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_ghost_sample">
+      <segment id="xyloph_decoded_ghost_sample" state="translated">
+        <source>xyloph_decoded_ghost_sample</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. Vous avez rétabli le contact avec Nils Carlsson, son aide pour les recherches du laboratoire sera précieuse.</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_ghost_chun">
+      <segment id="xyloph_decoded_ghost_chun" state="translated">
+        <source>xyloph_decoded_ghost_chun</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. Zong Chun est le seul être humain résistant a l'infection Mush, l'analyse de son génome est la clé pour l'élaboration d'un vaccin anti-Mush ainsi que de nombreuses autres recherches.</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_kivanc">
+      <segment id="xyloph_decoded_kivanc" state="translated">
+        <source>xyloph_decoded_kivanc</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. Vous êtes en contact avec Kivanç Terzi qui fédère une grande partie de la rebellion sur le système Sol, son aide vous sera précieuse pour décoder les messages de bases rebelles.</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_cook">
+      <segment id="xyloph_decoded_cook" state="translated">
+        <source>xyloph_decoded_cook</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. Vous tombez sur un fichier contenant des recettes. Beaucoup de recettes. Beaucoup Beaucoup de recettes.</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_tabulatrix_broken">
+      <segment id="xyloph_decoded_tabulatrix_broken" state="translated">
+        <source>xyloph_decoded_tabulatrix_broken</source>
+        <target>Impossible de perforer le document sans une tabulatrice fonctionelle...</target>
+      </segment>
+    </unit>
+    <unit id="xyloph_decoded_tabulatrix_none">
+      <segment id="xyloph_decoded_tabulatrix_none" state="translated">
+        <source>xyloph_decoded_tabulatrix_none</source>
+        <target>Le document ne peut être récupéré sans tabulatrice.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

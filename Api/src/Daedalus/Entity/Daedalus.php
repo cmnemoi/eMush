@@ -245,6 +245,17 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $space;
     }
 
+    public function getTabulatrixQueue(): Place
+    {
+        $queue = $this->getPlaces()
+            ->filter(static fn (Place $place) => $place->getName() === RoomEnum::TABULATRIX_QUEUE)->first();
+        if (!$queue) {
+            throw new \RuntimeException('Daedalus should have a place named TabulatrixQueue');
+        }
+
+        return $queue;
+    }
+
     /**
      * @throws \RuntimeException if no planet place have been found
      */
@@ -985,11 +996,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function hasAPariah(): bool
     {
         return $this->getAlivePlayers()->hasPlayerWithStatus(PlayerStatusEnum::PARIAH);
-    }
-
-    public function isChunInLaboratory(): bool
-    {
-        return $this->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn();
     }
 
     public function isExplorationChangingCycle(): bool

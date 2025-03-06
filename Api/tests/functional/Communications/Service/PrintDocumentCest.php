@@ -63,6 +63,8 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->thenDaedalusEquipmentCountShouldBe($initialEquipmentCount, $I);
 
         $this->thenPlayerShouldSeeLackOfTabulatrixLog($I);
+
+        $this->thenOtherPlayerShouldSeeLackOfTabulatrixLog($I);
     }
 
     public function shouldPrintDocumentAfterFixingTabulatrix(FunctionalTester $I): void
@@ -82,6 +84,8 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->thenRoomShouldHaveChefBook($I);
 
         $this->thenPlayerShouldSeeTabulatrixBrokenLog($I);
+
+        $this->thenOtherPlayerShouldSeeTabulatrixBrokenLog($I);
 
         $this->thenPlayerShouldNotSeeCookXylophDecodedLog($I);
     }
@@ -298,10 +302,28 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         );
     }
 
+    private function thenOtherPlayerShouldSeeTabulatrixBrokenLog(FunctionalTester $I)
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player2)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_broken'
+            )->toArray()
+        );
+    }
+
     private function thenPlayerShouldSeeLackOfTabulatrixLog(FunctionalTester $I)
     {
         $I->assertNotEmpty(
             $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_none'
+            )->toArray()
+        );
+    }
+
+    private function thenOtherPlayerShouldSeeLackOfTabulatrixLog(FunctionalTester $I)
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player2)->filter(
                 static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_none'
             )->toArray()
         );

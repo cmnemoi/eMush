@@ -47,15 +47,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
 
         $daedalus = $player->getDaedalus();
 
-        $this->roomLogService->createLog(
-            logKey: $this->getXylophLogKey($xylophEntry->getName(), $player),
-            place: $player->getPlace(),
-            visibility: VisibilityEnum::PRIVATE,
-            type: 'xyloph_log',
-            player: $player,
-            parameters: [],
-            dateTime: new \DateTime()
-        );
+        $this->createXylophDecodedLog($xylophEntry->getName(), $player);
 
         match ($xylophEntry->getName()) {
             XylophEnum::COOK => $this->printChefBook($player, $tags),
@@ -79,19 +71,30 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $this->xylophRepository->save($xylophEntry);
     }
 
-    private function getXylophLogKey(XylophEnum $xylophEnum, Player $player): string
+    private function createXylophDecodedLog(XylophEnum $xylophEnum, Player $player): void
     {
+        $logKey = 'xyloph_decoded_' . $xylophEnum->toString();
+        $visibility = VisibilityEnum::PRIVATE;
         if (XylophEnum::requiresPrinting($xylophEnum)) {
             $tabulatrix = $player->getPlace()->getEquipmentByName(EquipmentEnum::TABULATRIX);
             if (!$tabulatrix) {
-                return 'xyloph_decoded_tabulatrix_none';
-            }
-            if ($tabulatrix->hasStatus(EquipmentStatusEnum::BROKEN)) {
-                return 'xyloph_decoded_tabulatrix_broken';
+                $logKey = 'xyloph_decoded_tabulatrix_none';
+                $visibility = VisibilityEnum::PUBLIC;
+            } elseif ($tabulatrix->hasStatus(EquipmentStatusEnum::BROKEN)) {
+                $logKey = 'xyloph_decoded_tabulatrix_broken';
+                $visibility = VisibilityEnum::PUBLIC;
             }
         }
 
-        return 'xyloph_decoded_' . $xylophEnum->toString();
+        $this->roomLogService->createLog(
+            logKey: $logKey,
+            place: $player->getPlace(),
+            visibility: $visibility,
+            type: 'xyloph_log',
+            player: $player,
+            parameters: [],
+            dateTime: new \DateTime()
+        );
     }
 
     private function createMushGenomeDisk(EquipmentHolderInterface $holder, array $tags): void

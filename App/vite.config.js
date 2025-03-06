@@ -57,8 +57,8 @@ export default defineConfig({
         "orientation": "portrait",
       },
       workbox: {
-        cleanupOutdatedCaches: false,
-        maximumFileSizeToCacheInBytes: 3000000
+        cleanupOutdatedCaches: true,
+        maximumFileSizeToCacheInBytes: 3_000_000
       },
       devOptions: {
         enabled: true

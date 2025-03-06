@@ -58,13 +58,13 @@
     <unit id="xyloph_decoded_tabulatrix_broken">
       <segment id="xyloph_decoded_tabulatrix_broken" state="translated">
         <source>xyloph_decoded_tabulatrix_broken</source>
-        <target>xyloph_decoded_tabulatrix_broken</target>
+        <target>Impossible de perforer le document sans une tabulatrice fonctionelle...</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_tabulatrix_none">
       <segment id="xyloph_decoded_tabulatrix_none" state="translated">
         <source>xyloph_decoded_tabulatrix_none</source>
-        <target>xyloph_decoded_tabulatrix_none</target>
+        <target>Le document ne peut être récupéré sans tabulatrice.</target>
       </segment>
     </unit>
   </file>

@@ -14,12 +14,10 @@ use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
@@ -35,7 +33,6 @@ use Mush\Tests\FunctionalTester;
 final class PrintDocumentCest extends AbstractFunctionalTest
 {
     private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
-    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
@@ -48,14 +45,12 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 
         $this->createExtraPlace(RoomEnum::TABULATRIX_QUEUE, $I, $this->daedalus);
-        $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
     }
 
     public function shouldNotAddEquipmentWithNoTabulatrixInTheRoom(FunctionalTester $I): void
@@ -157,20 +152,16 @@ final class PrintDocumentCest extends AbstractFunctionalTest
 
         $this->thenRoomEquipmentCountShouldBe($initialEquipmentCount + 2, $I);
 
-        $this->thenAllMageBooksShouldBeUniqueWithCount(2, $I);
+        $this->thenReceivedMageBooksShouldBeUniqueWithCount(2, $I);
     }
 
     public function shouldMageBooksBeUnique(FunctionalTester $I): void
     {
         $this->givenTabulatrixInRoom();
 
-        $this->whenDaedalusIsFull();
+        $this->whenXylophSendsMageBooksOfAmount(15, $I);
 
-        $this->thenMageBookExists($I);
-
-        $this->whenXylophSendsMageBooksOfAmount(14, $I);
-
-        $this->thenAllMageBooksShouldBeUniqueWithCount(15, $I);
+        $this->thenReceivedMageBooksShouldBeUniqueWithCount(15, $I);
     }
 
     public function shouldPrintAllDocumentsFromMultipleXylophEntriesAfterTabulatrixFix(FunctionalTester $I): void
@@ -188,21 +179,6 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->whenPlayerFixesTabulatrix($I);
 
         $this->thenRoomEquipmentCountShouldBe($initialEquipmentCount + 3, $I);
-    }
-
-    public function shouldMageBooksBeUniqueEvenRelatedToExpiredOne(FunctionalTester $I): void
-    {
-        $this->givenTabulatrixInRoom();
-
-        $this->whenDaedalusIsFull();
-
-        $storageBookSkill = $this->whenTheOtherPlayerReadsTheStorageBook($I);
-
-        $this->whenXylophSendsMageBooksOfAmount(14, $I);
-
-        $this->thenAllMageBooksShouldBeUniqueWithCount(14, $I);
-
-        $this->thenNoMageBooksShouldBeOfThisSkill($storageBookSkill, $I);
     }
 
     private function givenTabulatrixInRoom(): void
@@ -322,36 +298,6 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $dismantleAction->execute();
     }
 
-    private function whenDaedalusIsFull(): void
-    {
-        $this->eventService->callEvent(
-            event: new DaedalusEvent(daedalus: $this->daedalus, tags: [], time: new \DateTime()),
-            name: DaedalusEvent::FULL_DAEDALUS,
-        );
-    }
-
-    private function whenTheOtherPlayerReadsTheStorageBook(FunctionalTester $I): SkillEnum
-    {
-        $this->player2->getPlace()->removePlayer($this->player2);
-        $this->player2->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_STORAGE));
-
-        $readAction = $I->grabService(ReadBook::class);
-        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::READ_BOOK]);
-
-        $storageBook = $this->player2->getPlace()->getEquipmentByName('apprentron');
-        $skill = $storageBook->getBookMechanicOrThrow()->getSkill();
-
-        $readAction->loadParameters(
-            actionConfig: $actionConfig,
-            actionProvider: $storageBook,
-            player: $this->player2,
-            target: $storageBook
-        );
-        $readAction->execute();
-
-        return $skill;
-    }
-
     private function thenDaedalusEquipmentCountShouldBe(int $expectedCount, FunctionalTester $I): void
     {
         $I->assertEquals($expectedCount, $this->daedalusEquipmentCount());
@@ -392,14 +338,9 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $I->assertFalse($this->doesMageBookExist());
     }
 
-    private function thenAllMageBooksShouldBeUniqueWithCount(int $mageBookCount, FunctionalTester $I): void
+    private function thenReceivedMageBooksShouldBeUniqueWithCount(int $mageBookCount, FunctionalTester $I): void
     {
         $skills = [];
-        $startingBook = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_STORAGE)
-            ->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::BOOK);
-        if ($startingBook) {
-            $skills[] = $startingBook->getBookMechanicOrThrow()->getSkill()->value;
-        }
         foreach ($this->player->getPlace()->getItems() as $gameItem) {
             if ($gameItem->hasMechanicByName(EquipmentMechanicEnum::BOOK)) {
                 $skills[] = $gameItem->getBookMechanicOrThrow()->getSkill()->value;
@@ -407,18 +348,6 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         }
         $I->assertCount($mageBookCount, $skills);
         $I->assertEquals($skills, array_unique($skills));
-    }
-
-    private function thenNoMageBooksShouldBeOfThisSkill(SkillEnum $excludedSkill, FunctionalTester $I): void
-    {
-        $doesTheSkillExist = false;
-        foreach ($this->player->getPlace()->getItems() as $gameItem) {
-            if ($gameItem->hasMechanicByName(EquipmentMechanicEnum::BOOK)
-            && $gameItem->getBookMechanicOrThrow()->getSkill() === $excludedSkill) {
-                $doesTheSkillExist = true;
-            }
-        }
-        $I->assertFalse($doesTheSkillExist);
     }
 
     private function daedalusEquipmentCount(): int

@@ -55,6 +55,12 @@
         <target>xyloph_decoded_cook</target>
       </segment>
     </unit>
+    <unit id="xyloph_decoded_mage_books">
+      <segment id="xyloph_decoded_mage_books" state="initial">
+        <source>xyloph_decoded_mage_books</source>
+        <target>xyloph_decoded_mage_books</target>
+      </segment>
+    </unit>
     <unit id="xyloph_decoded_tabulatrix_broken">
       <segment id="xyloph_decoded_tabulatrix_broken" state="initial">
         <source>xyloph_decoded_tabulatrix_broken</source>

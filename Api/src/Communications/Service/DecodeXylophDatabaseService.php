@@ -189,9 +189,12 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
 
     private function receiveMageBooks(Place $queue, int $quantity, array $tags)
     {
+        $mageBookNames = $this->randomService->getRandomElementsFromProbaCollection(
+            $queue->getDaedalus()->getDaedalusConfig()->getStartingApprentrons(),
+            $quantity
+        );
         for ($i = 0; $i < $quantity; ++$i) {
-            $uniqueMageBookName = (string) $this->randomService->getRandomUniqueMageBookName($queue->getDaedalus());
-            $this->queueDocumentOfName($uniqueMageBookName, $queue, $tags);
+            $this->queueDocumentOfName($mageBookNames[$i], $queue, $tags);
         }
     }
 

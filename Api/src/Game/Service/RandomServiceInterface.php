@@ -61,6 +61,4 @@ interface RandomServiceInterface
     public function getRandomPlanetSectorsToVisit(Planet $planet, int $number): ArrayCollection;
 
     public function getRandomXylophNameToDecode(array $xylophArray): null|int|string;
-
-    public function getRandomUniqueMageBookName(Daedalus $daedalus): null|int|string;
 }

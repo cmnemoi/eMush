@@ -271,13 +271,6 @@ class RandomService implements RandomServiceInterface
         return $this->getSingleRandomElementFromProbaCollection($xylophProbaCollection);
     }
 
-    public function getRandomUniqueMageBookName(Daedalus $daedalus): null|int|string
-    {
-        $mageBookProbaCollection = $this->getUniqueMageBookProbaCollection($daedalus);
-
-        return $this->getSingleRandomElementFromProbaCollection($mageBookProbaCollection);
-    }
-
     private function getPlanetSectorsToRevealProbaCollection(Planet $planet): ProbaCollection
     {
         $probaCollection = new ProbaCollection();
@@ -330,13 +323,5 @@ class RandomService implements RandomServiceInterface
         }
 
         return $probaCollection;
-    }
-
-    private function getUniqueMageBookProbaCollection(Daedalus $daedalus): ProbaCollection
-    {
-        $apprentronProbaCollection = $daedalus->getDaedalusConfig()->getStartingApprentrons();
-        $apprentronNamesToExclude = $daedalus->getUniqueItems()->getUniqueItemNames();
-
-        return $apprentronProbaCollection->withdrawElements($apprentronNamesToExclude);
     }
 }

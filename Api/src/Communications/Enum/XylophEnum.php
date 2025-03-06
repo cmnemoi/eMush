@@ -28,6 +28,7 @@ enum XylophEnum: string
     {
         return \in_array($entry, [
             self::COOK,
+            self::MAGE_BOOKS,
         ], true);
     }
 }

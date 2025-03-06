@@ -35,4 +35,15 @@ class HunterEnum
             self::TRAX,
         ]);
     }
+
+    public static function getHostiles(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ASTEROID,
+            self::DICE,
+            self::HUNTER,
+            self::SPIDER,
+            self::TRAX,
+        ]);
+    }
 }

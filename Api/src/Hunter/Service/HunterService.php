@@ -161,7 +161,7 @@ final class HunterService implements HunterServiceInterface
 
     private function unpoolHuntersForRandomWave(Daedalus $daedalus, int $hunterPoints, \DateTime $time): void
     {
-        $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getAll());
+        $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getHostiles());
 
         /** @var ArrayCollection<array-key, string> $hunterTypes */
         $hunterTypes = new ArrayCollection($hunterProbaCollection->getKeys());

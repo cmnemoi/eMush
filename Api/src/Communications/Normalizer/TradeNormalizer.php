@@ -40,7 +40,7 @@ final class TradeNormalizer implements NormalizerAwareInterface, NormalizerInter
         $daedalus = $this->getDaedalusFromContext($context);
 
         return [
-            'key' => $trade->getName()->toString(),
+            'id' => $trade->getId(),
             'description' => $this->translationService->translate(
                 key: $trade->getName()->toString(),
                 parameters: [],

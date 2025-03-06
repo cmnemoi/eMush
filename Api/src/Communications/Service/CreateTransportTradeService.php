@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Communications\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Communications\Entity\Trade;
 use Mush\Communications\Entity\TradeAsset;
 use Mush\Communications\Entity\TradeOption;
@@ -46,17 +45,13 @@ final readonly class CreateTransportTradeService
             quantity: 10,
         );
         $tradeOption = new TradeOption(
-            requiredAssets: new ArrayCollection([
-                $randomPlayerAsset,
-            ]),
-            offeredAssets: new ArrayCollection([
-                $oxygenAsset,
-            ]),
+            requiredAssets: [$randomPlayerAsset],
+            offeredAssets: [$oxygenAsset],
         );
 
         $trade = new Trade(
             name: TradeEnum::HUMAN_VS_OXY,
-            tradeOptions: new ArrayCollection([$tradeOption]),
+            tradeOptions: [$tradeOption],
             transportId: $transport->getId()
         );
         $this->tradeRepository->save($trade);

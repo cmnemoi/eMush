@@ -62,15 +62,17 @@ final class TradeOptionNormalizer implements NormalizerInterface
             );
         }
 
-        $translatedRequiredSkill = $this->translationService->translate(
-            key: \sprintf('%s.name', $tradeOption->getRequiredSkill()->toString()),
-            parameters: [],
-            domain: 'skill',
-            language: $language,
-        );
-        $translatedRequiredSkill = $translatedRequiredSkill !== '.name' ? "{$translatedRequiredSkill}" : '';
+        $translatedRequiredSkill = '';
+        if ($requiredSkill = $tradeOption->getRequiredSkill()->toString()) {
+            $translatedRequiredSkill = $this->translationService->translate(
+                key: \sprintf('%s.name', $requiredSkill),
+                parameters: [],
+                domain: 'skill',
+                language: $language,
+            );
+        }
 
-        $translatedName = $translatedRequiredSkill !== '' ? \sprintf('[%s] Vendu !', $translatedRequiredSkill) : 'Vendu !';
+        $translatedName = $translatedRequiredSkill ? \sprintf('[%s] Vendu !', $translatedRequiredSkill) : 'Vendu !';
 
         return [
             'name' => $translatedName,

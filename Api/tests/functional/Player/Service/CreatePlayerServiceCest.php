@@ -15,6 +15,8 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Hunter\Entity\HunterConfig;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -61,11 +63,14 @@ class CreatePlayerServiceCest
         $equipmentConfigs->add($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'apprentron_technician_default']));
         $equipmentConfigs->add($I->grabEntityFromRepository(ItemConfig::class, ['name' => 'mush_sample_default']));
 
+        $hunterConfig = $I->grabEntityFromRepository(HunterConfig::class, ['name' => HunterEnum::TRANSPORT . '_' . GameConfigEnum::DEFAULT]);
+
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig, $rebelBaseContactDurationStatusConfig]),
             'daedalusConfig' => $daedalusConfig,
             'equipmentsConfig' => $equipmentConfigs,
+            'hunterConfigs' => new ArrayCollection([$hunterConfig]),
         ]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */

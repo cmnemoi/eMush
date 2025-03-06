@@ -30,7 +30,7 @@ class Trade
     #[ORM\JoinColumn(name: 'transport_id')]
     private Hunter $transport;
 
-    public function __construct(TradeEnum $name, ArrayCollection $tradeOptions, int $transportId)
+    public function __construct(TradeEnum $name, array $tradeOptions, int $transportId)
     {
         $this->name = $name;
         $this->tradeOptions = new ArrayCollection();

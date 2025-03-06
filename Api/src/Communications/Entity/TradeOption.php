@@ -29,7 +29,7 @@ class TradeOption
     #[ORM\OneToMany(targetEntity: TradeAsset::class, mappedBy: 'offeredTradeOption', cascade: ['all'], orphanRemoval: true)]
     private Collection $offeredAssets;
 
-    public function __construct(ArrayCollection $requiredAssets, ArrayCollection $offeredAssets, SkillEnum $requiredSkill = SkillEnum::NULL)
+    public function __construct(array $requiredAssets, array $offeredAssets, SkillEnum $requiredSkill = SkillEnum::NULL)
     {
         $this->requiredAssets = new ArrayCollection();
         $this->offeredAssets = new ArrayCollection();

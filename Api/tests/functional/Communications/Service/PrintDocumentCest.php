@@ -18,6 +18,8 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -31,6 +33,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
 {
     private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
     private XylophRepositoryInterface $xylophRepository;
 
@@ -42,6 +45,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
 
         $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 
@@ -57,6 +61,8 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->thenRoomShouldNotHaveChefBook($I);
 
         $this->thenDaedalusEquipmentCountShouldBe($initialEquipmentCount, $I);
+
+        $this->thenPlayerShouldSeeLackOfTabulatrixLog($I);
     }
 
     public function shouldPrintDocumentAfterFixingTabulatrix(FunctionalTester $I): void
@@ -74,6 +80,10 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->thenTabulatrixShouldBeFixed($I);
 
         $this->thenRoomShouldHaveChefBook($I);
+
+        $this->thenPlayerShouldSeeTabulatrixBrokenLog($I);
+
+        $this->thenPlayerShouldNotSeeCookXylophDecodedLog($I);
     }
 
     public function shouldPrintFunctionalChefBook(FunctionalTester $I): void
@@ -87,6 +97,8 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->whenPlayerReadsChefBook($I);
 
         $this->thenShouldHaveSkill(SkillEnum::CHEF, $I);
+
+        $this->thenPlayerShouldSeeCookXylophDecodedLog($I);
     }
 
     public function shouldNotDuplicateItemWhenTabulatrixFixedAgain(FunctionalTester $I): void
@@ -275,5 +287,41 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         }
 
         return false;
+    }
+
+    private function thenPlayerShouldSeeTabulatrixBrokenLog(FunctionalTester $I)
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_broken'
+            )->toArray()
+        );
+    }
+
+    private function thenPlayerShouldSeeLackOfTabulatrixLog(FunctionalTester $I)
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_none'
+            )->toArray()
+        );
+    }
+
+    private function thenPlayerShouldSeeCookXylophDecodedLog(FunctionalTester $I)
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_cook'
+            )->toArray()
+        );
+    }
+
+    private function thenPlayerShouldNotSeeCookXylophDecodedLog(FunctionalTester $I)
+    {
+        $I->assertEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_cook'
+            )->toArray()
+        );
     }
 }

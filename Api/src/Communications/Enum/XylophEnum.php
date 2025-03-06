@@ -22,4 +22,11 @@ enum XylophEnum: string
     {
         return $this->value;
     }
+
+    public static function requiresPrinting(self $entry): bool
+    {
+        return \in_array($entry, [
+            self::COOK,
+        ], true);
+    }
 }

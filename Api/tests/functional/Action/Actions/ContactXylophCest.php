@@ -24,6 +24,8 @@ use Mush\Game\Enum\TitleEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -44,6 +46,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
     private XylophRepositoryInterface $xylophRepository;
     private StatusServiceInterface $statusService;
     private NeronVersionRepositoryInterface $neronVersionRepository;
+    private RoomLogServiceInterface $roomLogService;
 
     private GameEquipment $commsCenter;
     private GameEquipment $antenna;
@@ -60,6 +63,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
+        $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
 
         // setup projects which do not need specific room to exist to avoid errors in tests
         $this->daedalus
@@ -130,6 +134,8 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
         $this->whenPlayerContactsXyloph();
         $this->thenXylophDatabaseShouldBeDecoded(XylophEnum::NOTHING, $I);
+        $this->thenPlayerShouldSeeXylophContactLog(XylophEnum::NOTHING, $I);
+        $this->thenOtherPlayerShouldNotSeeXylophContactLog(XylophEnum::NOTHING, $I);
     }
 
     public function shouldConsumeThreeActionPointsIfAntennaIsBroken(FunctionalTester $I): void
@@ -460,5 +466,23 @@ final class ContactXylophCest extends AbstractFunctionalTest
     private function thenProjectCountShouldBe(int $expectedCount, FunctionalTester $I): void
     {
         $I->assertEquals($expectedCount, $this->finishedNeronProjectCount());
+    }
+
+    private function thenPlayerShouldSeeXylophContactLog(XylophEnum $entry, FunctionalTester $I)
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_' . $entry->toString()
+            )->toArray()
+        );
+    }
+
+    private function thenOtherPlayerShouldNotSeeXylophContactLog(XylophEnum $entry, FunctionalTester $I)
+    {
+        $I->assertEmpty(
+            $this->roomLogService->getRoomLog($this->player2)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_' . $entry->toString()
+            )->toArray()
+        );
     }
 }

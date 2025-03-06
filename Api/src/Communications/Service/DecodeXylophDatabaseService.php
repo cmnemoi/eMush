@@ -12,10 +12,13 @@ use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabaseServiceInterface
@@ -27,6 +30,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         private KillLinkWithSolService $killLinkWithSol,
         private LinkWithSolRepositoryInterface $linkWithSolRepository,
         private PrintDocumentServiceInterface $printDocumentService,
+        private RoomLogServiceInterface $roomLogService,
         private StatusServiceInterface $statusService,
         private XylophRepositoryInterface $xylophRepository,
         private UpdateNeronVersionService $updateNeronVersionService,
@@ -42,6 +46,16 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         }
 
         $daedalus = $player->getDaedalus();
+
+        $this->roomLogService->createLog(
+            logKey: $this->getXylophLogKey($xylophEntry->getName(), $player),
+            place: $player->getPlace(),
+            visibility: VisibilityEnum::PRIVATE,
+            type: 'xyloph_log',
+            player: $player,
+            parameters: [],
+            dateTime: new \DateTime()
+        );
 
         match ($xylophEntry->getName()) {
             XylophEnum::COOK => $this->printChefBook($player, $tags),
@@ -63,6 +77,21 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
     {
         $xylophEntry->unlockDatabase();
         $this->xylophRepository->save($xylophEntry);
+    }
+
+    private function getXylophLogKey(XylophEnum $xylophEnum, Player $player): string
+    {
+        if (XylophEnum::requiresPrinting($xylophEnum)) {
+            $tabulatrix = $player->getPlace()->getEquipmentByName(EquipmentEnum::TABULATRIX);
+            if (!$tabulatrix) {
+                return 'xyloph_decoded_tabulatrix_none';
+            }
+            if ($tabulatrix->hasStatus(EquipmentStatusEnum::BROKEN)) {
+                return 'xyloph_decoded_tabulatrix_broken';
+            }
+        }
+
+        return 'xyloph_decoded_' . $xylophEnum->toString();
     }
 
     private function createMushGenomeDisk(EquipmentHolderInterface $holder, array $tags): void
@@ -126,7 +155,6 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $tabulatrix = $player->getPlace()->getEquipmentByName(EquipmentEnum::TABULATRIX);
 
         if (!$tabulatrix) {
-            // @TODO: Tabulatrix non-existent private log.
             return;
         }
 
@@ -138,11 +166,8 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         );
 
         if ($tabulatrix->isNotOperational()) {
-            // @TODO: Tabulatrix broken private log.
             return;
         }
-
-        // @TODO: Tabulatrix printing chef book private log? (or somewhere else)
 
         $this->printDocumentService->execute($tabulatrix, $tags);
     }

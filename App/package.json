@@ -55,7 +55,9 @@
     "stylelint-config-standard": "^36.0.1",
     "ts-node": "^10.9.2",
     "typescript": "~5.6.3",
-    "vitest": "^2.1.4"
+    "vite-plugin-pwa": "^0.21.1",
+    "vitest": "^2.1.4",
+    "workbox-precaching": "^7.3.0"
   },
   "browserslist": [
     "> 1%",

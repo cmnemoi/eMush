@@ -68,6 +68,11 @@ class XylophConfig
         return $result;
     }
 
+    public function setQuantity(int $value): void
+    {
+        $this->quantity = $value;
+    }
+
     public function getModifierConfigs(): Collection
     {
         return $this->modifierConfigs;

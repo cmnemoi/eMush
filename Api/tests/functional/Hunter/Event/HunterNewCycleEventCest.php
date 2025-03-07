@@ -142,7 +142,7 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         // create hunter
         $hunter = new Hunter($hunterConfig, $daedalus);
         $hunter->setHunterVariables($hunterConfig);
-        $daedalus->addHunter($hunter);
+        $daedalus->getSpace()->addHunter($hunter);
 
         // given this hunter aims at the daedalus
         $hunter->setTarget(new HunterTarget($hunter));

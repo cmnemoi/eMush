@@ -2,103 +2,113 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
     <file id="xyloph_entry.ext">
         <unit id="unknown">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>unknown.name</source>
                 <target>???</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>unknown.description</source>
                 <target>???</target>
             </segment>
         </unit>
         <unit id="disk">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>disk.name</source>
                 <target>Genome Data</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>disk.description</source>
                 <target>This disk contains a wealth of information on the Mush genome collected by Ian Soulton just before the departure of the Daedalus.//**Supplies the disk containing data on the Mush genome**</target>
             </segment>
         </unit>
         <unit id="magnetite">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>magnetite.name</source>
                 <target>Wireless Infidelity</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>magnetite.description</source>
                 <target>The connection is bad... really bad, no doubt due to the massive magnetite cloud you're currently crossing.//**Causes com link failure and a significant decrease in signal quality.**</target>
             </segment>
         </unit>
         <unit id="nothing">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>nothing.name</source>
                 <target>Corrupted Data</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>nothing.description</source>
                 <target>There's nothing there... The data has been corrupted by a rhizomal virus.//**Useless**</target>
             </segment>
         </unit>
         <unit id="snow">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>snow.name</source>
                 <target>Blizzard Documentary...</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>snow.description</source>
                 <target>Your screen is covered in greyish snow, it's giving you a headache, so you give up...//**Causes com link failure.**</target>
             </segment>
         </unit>
         <unit id="version">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>version.name</source>
                 <target>Access the Lost NERON Database</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>version.description</source>
                 <target>Some of Janice's research findings from Xyloph-17 are added to NERON's memory.//**Advances the NERON update progress by 25%**</target>
             </segment>
         </unit>
         <unit id="ghost_sample">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>ghost_sample.name</source>
                 <target>Contact made with Nils Carlsson!</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>ghost_sample.description</source>
                 <target>You have re-established contact with Nils Carlsson, whose help with your lab research will be invaluable.//**Communication with Nils will replace a** ***Test Sample*** **in the research module.**</target>
             </segment>
         </unit>
         <unit id="ghost_chun">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>ghost_chun.name</source>
                 <target>Zhong Chun's Genome Codex</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>ghost_chun.description</source>
                 <target>Zhong Chun is the only human who has proved immune to the Mush infection, and the analysis of her genome is the key to developing and anti-Mush vaccine as well as several other pieces of research.//**Adds a "ghost" to Zhong Chun's laboratory interface which is the equivalent of her being there in person.**</target>
             </segment>
         </unit>
         <unit id="kivanc">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>kivanc.name</source>
                 <target>Contact established with Kivanç Terzi!</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>kivanc.description</source>
                 <target>You have established contact with Kivanç Terzi, who united a large part of the rebellion in the Sol system. His help will be vital in decoding messages from rebel bases.//**Gives a 100% bonus on decoding rebel base transmissions.**</target>
             </segment>
         </unit>
         <unit id="cook">
-            <segment id="name">
+            <segment id="name" state="translated">
                 <source>cook.name</source>
                 <target>Roger's Kitchenary 2830</target>
             </segment>
-            <segment id="description">
+            <segment id="description" state="translated">
                 <source>cook.description</source>
                 <target>You find a file containing dozens of recipes. Lots of recipes. Lots and lots of recipes.//**Gives the impression of being an apprentice chef**</target>
+            </segment>
+        </unit>
+        <unit id="mage_books">
+            <segment id="name" state="translated">
+                <source>mage_books.name</source>
+                <target>School Workbooks</target>
+            </segment>
+            <segment id="description" state="translated">
+                <source>mage_books.description</source>
+                <target>You've managed to get your hands on the Teaching centre archive from Xyloph! This intellectual treasure should help you educate your dumbwitted crewmates.//**Tabulatrix prints 2x** ***Workbooks***</target>
             </segment>
         </unit>
     </file>

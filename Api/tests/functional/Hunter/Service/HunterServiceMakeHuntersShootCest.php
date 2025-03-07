@@ -659,7 +659,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         // delete hunters
         $hunters = $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER);
         foreach ($hunters as $hunter) {
-            $this->daedalus->removeHunter($hunter);
+            $this->daedalus->getSpace()->removeHunter($hunter);
         }
 
         return $this->daedalus;
@@ -751,7 +751,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $hunter->setHitChance(100);
         $hunter->getHunterConfig()->setDamageRange([6 => 1]);
 
-        $this->daedalus->addHunter($hunter);
+        $this->daedalus->getSpace()->addHunter($hunter);
 
         $I->haveInRepository($hunter);
         $I->haveInRepository($this->daedalus);

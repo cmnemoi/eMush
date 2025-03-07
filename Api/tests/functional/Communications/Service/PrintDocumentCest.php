@@ -16,6 +16,7 @@ use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -56,7 +57,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     {
         $initialEquipmentCount = $this->daedalusEquipmentCount();
 
-        $this->givenXylophSendsChefBook($I);
+        $this->whenXylophSendsChefBook($I);
 
         $this->thenRoomShouldNotHaveChefBook($I);
 
@@ -73,7 +74,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
 
         $this->givenTabulatrixIsBroken();
 
-        $this->givenXylophSendsChefBook($I);
+        $this->whenXylophSendsChefBook($I);
 
         $this->thenRoomShouldNotHaveChefBook($I);
 
@@ -94,7 +95,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     {
         $this->givenTabulatrixInRoom();
 
-        $this->givenXylophSendsChefBook($I);
+        $this->whenXylophSendsChefBook($I);
 
         $this->thenRoomShouldHaveChefBook($I);
 
@@ -111,7 +112,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
 
         $this->givenTabulatrixIsBroken();
 
-        $this->givenXylophSendsChefBook($I);
+        $this->whenXylophSendsChefBook($I);
 
         $this->whenPlayerFixesTabulatrix($I);
 
@@ -132,7 +133,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
 
         $this->givenPlayerIsTechnician($I);
 
-        $this->givenXylophSendsChefBook($I);
+        $this->whenXylophSendsChefBook($I);
 
         $this->thenMageBookExists($I);
 
@@ -141,19 +142,43 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->thenMageBookDoesNotExist($I);
     }
 
-    private function givenXylophSendsChefBook(FunctionalTester $I): void
+    public function shouldSendTwoMageBooks(FunctionalTester $I): void
     {
-        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::COOK->toString() . '_default']);
-        $xylophEntry = new XylophEntry(
-            xylophConfig: $config,
-            daedalusId: $this->daedalus->getId(),
-        );
-        $this->xylophRepository->save($xylophEntry);
+        $this->givenTabulatrixInRoom();
 
-        $this->decodeXylophDatabaseService->execute(
-            xylophEntry: $xylophEntry,
-            player: $this->player,
-        );
+        $initialEquipmentCount = $this->playerRoomEquipmentCount();
+
+        $this->whenXylophSendsMageBooks($I);
+
+        $this->thenRoomEquipmentCountShouldBe($initialEquipmentCount + 2, $I);
+
+        $this->thenReceivedMageBooksShouldBeUniqueWithCount(2, $I);
+    }
+
+    public function shouldMageBooksBeUnique(FunctionalTester $I): void
+    {
+        $this->givenTabulatrixInRoom();
+
+        $this->whenXylophSendsMageBooksOfAmount(15, $I);
+
+        $this->thenReceivedMageBooksShouldBeUniqueWithCount(15, $I);
+    }
+
+    public function shouldPrintAllDocumentsFromMultipleXylophEntriesAfterTabulatrixFix(FunctionalTester $I): void
+    {
+        $this->givenTabulatrixInRoom();
+
+        $this->givenTabulatrixIsBroken();
+
+        $this->whenXylophSendsChefBook($I);
+
+        $this->whenXylophSendsMageBooks($I);
+
+        $initialEquipmentCount = $this->playerRoomEquipmentCount();
+
+        $this->whenPlayerFixesTabulatrix($I);
+
+        $this->thenRoomEquipmentCountShouldBe($initialEquipmentCount + 3, $I);
     }
 
     private function givenTabulatrixInRoom(): void
@@ -179,6 +204,52 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     private function givenPlayerIsTechnician(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->player);
+    }
+
+    private function whenXylophSendsChefBook(FunctionalTester $I): void
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::COOK->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
+        );
+    }
+
+    private function whenXylophSendsMageBooks(FunctionalTester $I): void
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::MAGE_BOOKS->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
+        );
+    }
+
+    private function whenXylophSendsMageBooksOfAmount(int $quantity, FunctionalTester $I): void
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::MAGE_BOOKS->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $xylophEntry->setQuantity($quantity);
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
+        );
     }
 
     private function whenPlayerFixesTabulatrix(FunctionalTester $I): void
@@ -265,6 +336,18 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     private function thenMageBookDoesNotExist(FunctionalTester $I): void
     {
         $I->assertFalse($this->doesMageBookExist());
+    }
+
+    private function thenReceivedMageBooksShouldBeUniqueWithCount(int $mageBookCount, FunctionalTester $I): void
+    {
+        $skills = [];
+        foreach ($this->player->getPlace()->getItems() as $gameItem) {
+            if ($gameItem->hasMechanicByName(EquipmentMechanicEnum::BOOK)) {
+                $skills[] = $gameItem->getBookMechanicOrThrow()->getSkill()->value;
+            }
+        }
+        $I->assertCount($mageBookCount, $skills);
+        $I->assertEquals($skills, array_unique($skills));
     }
 
     private function daedalusEquipmentCount(): int

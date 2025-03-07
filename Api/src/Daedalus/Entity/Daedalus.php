@@ -19,7 +19,6 @@ use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -350,20 +349,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function setHunters(ArrayCollection $hunters): static
     {
         $this->getSpace()->setHunters($hunters);
-
-        return $this;
-    }
-
-    public function addHunter(Hunter $hunter): static
-    {
-        $this->getSpace()->addHunter($hunter);
-
-        return $this;
-    }
-
-    public function removeHunter(Hunter $hunter): static
-    {
-        $this->getSpace()->removeHunter($hunter);
 
         return $this;
     }

@@ -61,6 +61,12 @@
         <target>Accès à la base de donnée de Xyloph autorisée. Vous avis mis la main sur l'archive du centre de formation de Xyloph ! Ce trésor d'intelligence vous aidera a former les abrutis de votre équipage...</target>
       </segment>
     </unit>
+    <unit id="xyloph_decoded_list">
+      <segment id="xyloph_decoded_list" state="translated">
+        <source>xyloph_decoded_list</source>
+        <target>Accès à la base de donnée de Xyloph autorisée. L'analyse anti-Mush de Finola s'est achevée apres le départ du Daedalus Les résultats ont été envoyé à la tabulatrice, en les lisant, vous saurez quel état l'etat d'infection du Daedalus au départ !</target>
+      </segment>
+    </unit>
     <unit id="xyloph_decoded_tabulatrix_broken">
       <segment id="xyloph_decoded_tabulatrix_broken" state="translated">
         <source>xyloph_decoded_tabulatrix_broken</source>

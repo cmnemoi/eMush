@@ -111,5 +111,15 @@
                 <target>Vous avis mis la main sur l'archive du centre de formation de Xyloph ! Ce trésor d'intelligence vous aidera a former les abrutis de votre équipage...//**Provoque l'impression de 2x** ***Apprentron***</target>
             </segment>
         </unit>
+        <unit id="list">
+            <segment id="name" state="translated">
+                <source>list.name</source>
+                <target>L'analyse perdue de Finola.</target>
+            </segment>
+            <segment id="description" state="translated">
+                <source>list.description</source>
+                <target>L'analyse anti-Mush de Finola s'est achevée apres le départ du Daedalus Les résultats ont été envoyé à la tabulatrice, en les lisant, vous saurez quel état l'etat d'infection du Daedalus au départ !//**Provoque l'impression de la liste du niveau d'infection de l'équipage.**</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

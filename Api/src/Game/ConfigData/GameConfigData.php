@@ -765,6 +765,7 @@ class GameConfigData
                 XylophEnum::KIVANC,
                 XylophEnum::GHOST_CHUN,
                 XylophEnum::GHOST_SAMPLE,
+                XylophEnum::LIST,
                 XylophEnum::MAGE_BOOKS,
                 XylophEnum::MAGNETITE,
                 XylophEnum::NOTHING,

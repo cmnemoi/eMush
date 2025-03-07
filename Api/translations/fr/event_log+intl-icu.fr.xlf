@@ -1072,6 +1072,18 @@
         other {L'un d'entre eux était un agent infecté du Mush quand on a fui Xyloph. J'en mettrais ma main au feu... {firstPlayers} et {lastPlayer}. Mais qui...}}</target>
       </segment>
     </unit>
+    <unit id="lost_research">
+      <segment id="lost_research_headline" state="translated">
+        <source>lost_research_headline</source>
+        <target>Xyloph, 4 Janvier 3154, Résultat d'analyse fongique du personnel :</target>
+      </segment>
+      <segment id="lost_research_sample" state="translated">
+        <source>lost_research_sample</source>
+        <target>Sujet : {character} Etat : {is_negative, select,
+        true {Négatif}
+        other {échantillon insuffisant !!!}}</target>
+      </segment>
+    </unit>
     <unit id="observant_noticed_something">
       <segment id="observant_noticed_something" state="translated">
         <source>observant_noticed_something</source>

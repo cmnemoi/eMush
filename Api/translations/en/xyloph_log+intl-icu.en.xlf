@@ -61,6 +61,12 @@
         <target>Xyloph database access granted. You managed to get your hands on the Teaching centre archive from Xyloph! This intellectual treasure should help you educate your dumbwitted crewmates...</target>
       </segment>
     </unit>
+    <unit id="xyloph_decoded_list">
+      <segment id="xyloph_decoded_list" state="translated">
+        <source>xyloph_decoded_list</source>
+        <target>Xyloph database access granted. The anti-Mush research carried out by Finola was completed after the departure of the Daedalus. The findings were sent to the tabulatrix, and by reading them, you'll know the status of infection aboard the Daedalus from Day 1!</target>
+      </segment>
+    </unit>
     <unit id="xyloph_decoded_tabulatrix_broken">
       <segment id="xyloph_decoded_tabulatrix_broken" state="translated">
         <source>xyloph_decoded_tabulatrix_broken</source>

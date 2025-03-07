@@ -929,6 +929,18 @@
         other {At the very least one of them were an agent of Mush when we fled Xyloph. I'd bet my life on it... {firstPlayers} and {lastPlayer}. But which one...}}</target>
       </segment>
     </unit>
+    <unit id="lost_research">
+      <segment id="lost_research_headline" state="translated">
+        <source>lost_research_headline</source>
+        <target>Xyloph, 4th January 3154, Crew fungal analysis results:</target>
+      </segment>
+      <segment id="lost_research_sample" state="translated">
+        <source>lost_research_sample</source>
+        <target>Subject : {character} Result : {is_negative, select,
+        true {Negative}
+        other {Inconclusive. Sample insufficient!!!}}</target>
+      </segment>
+    </unit>
     <unit id="observant_noticed_something">
       <segment id="observant_noticed_something" state="translated">
         <source>observant_noticed_something</source>

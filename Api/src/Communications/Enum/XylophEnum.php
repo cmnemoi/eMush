@@ -11,6 +11,7 @@ enum XylophEnum: string
     case GHOST_CHUN = 'ghost_chun';
     case GHOST_SAMPLE = 'ghost_sample';
     case KIVANC = 'kivanc';
+    case LIST = 'list';
     case MAGE_BOOKS = 'mage_books';
     case MAGNETITE = 'magnetite';
     case NOTHING = 'nothing';
@@ -28,6 +29,7 @@ enum XylophEnum: string
     {
         return \in_array($entry, [
             self::COOK,
+            self::LIST,
             self::MAGE_BOOKS,
         ], true);
     }

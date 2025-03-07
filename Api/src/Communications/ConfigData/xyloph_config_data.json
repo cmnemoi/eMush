@@ -68,5 +68,12 @@
         "weight": 4,
         "quantity": 2,
         "modifierConfigs": []
+    },
+    {
+        "key": "list_default",
+        "name": "list",
+        "weight": 1,
+        "quantity": 20,
+        "modifierConfigs": []
     }
 ]

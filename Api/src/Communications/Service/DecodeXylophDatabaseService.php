@@ -16,6 +16,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -37,6 +38,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         private RoomLogServiceInterface $roomLogService,
         private RandomServiceInterface $randomService,
         private StatusServiceInterface $statusService,
+        private TranslationServiceInterface $translationService,
         private XylophRepositoryInterface $xylophRepository,
         private UpdateNeronVersionService $updateNeronVersionService,
     ) {}
@@ -60,6 +62,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
             XylophEnum::GHOST_CHUN => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_CHUN, $tags),
             XylophEnum::GHOST_SAMPLE => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_SAMPLE, $tags),
             XylophEnum::KIVANC => $this->createXylophModifiers($daedalus, $xylophEntry, $tags),
+            XylophEnum::LIST => $this->printXylophDocument($player, $xylophEntry, $tags),
             XylophEnum::MAGE_BOOKS => $this->printXylophDocument($player, $xylophEntry, $tags),
             XylophEnum::MAGNETITE => $this->ruinLinkWithSol($daedalus->getId(), $xylophEntry->getQuantity(), $tags),
             XylophEnum::NOTHING => null,
@@ -171,6 +174,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
 
         match ($entry->getName()) {
             XylophEnum::COOK => $this->receiveChefBook($queue, $tags),
+            XylophEnum::LIST => $this->receiveLostResearch($queue, $entry->getQuantity(), $tags),
             XylophEnum::MAGE_BOOKS => $this->receiveMageBooks($queue, $entry->getQuantity(), $tags),
             default => throw new \LogicException('received an entry unrelated to printing'),
         };
@@ -196,6 +200,60 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         foreach ($mageBookNames as $mageBook) {
             $this->queueDocumentOfName($mageBook, $queue, $tags);
         }
+    }
+
+    private function receiveLostResearch(Place $queue, int $negativePercent, array $tags)
+    {
+        $document = $this->queueDocumentOfName(ItemEnum::DOCUMENT, $queue, $tags);
+        $this->statusService->createContentStatus(
+            content: $this->translatedList($queue->getDaedalus(), $negativePercent),
+            holder: $document,
+            tags: $tags,
+        );
+    }
+
+    private function translatedList(Daedalus $daedalus, int $negativePercent): string
+    {
+        $players = $daedalus->getPlayers();
+
+        $translatedContent = $this->translationService->translate(
+            key: 'lost_research_headline',
+            parameters: [],
+            domain: 'event_log',
+            language: $daedalus->getLanguage()
+        );
+
+        foreach ($players as $player) {
+            $translatedPlayer = $this->translationService->translate(
+                key: \sprintf('%s.name', $player->getLogName()),
+                parameters: [],
+                domain: 'characters',
+                language: $daedalus->getLanguage()
+            );
+
+            $translatedSample = $this->translationService->translate(
+                key: 'lost_research_sample',
+                parameters: [
+                    'character' => $translatedPlayer,
+                    'is_negative' => $this->isNegativeResult($player, $negativePercent),
+                ],
+                domain: 'event_log',
+                language: $daedalus->getLanguage()
+            );
+
+            $translatedContent = $translatedContent . '//' . $translatedSample;
+        }
+
+        return $translatedContent;
+    }
+
+    private function isNegativeResult(Player $player, int $negativePercent): string
+    {
+        if ($player->isAlphaMush()) {
+            return 'false';
+        }
+
+        return $this->randomService->isSuccessful($negativePercent) ? 'true' : 'false';
     }
 
     private function queueDocumentOfName(string $documentName, Place $queue, array $tags): GameEquipment

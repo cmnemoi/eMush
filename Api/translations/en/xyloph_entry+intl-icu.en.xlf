@@ -111,5 +111,15 @@
                 <target>You've managed to get your hands on the Teaching centre archive from Xyloph! This intellectual treasure should help you educate your dumbwitted crewmates.//**Tabulatrix prints 2x** ***Workbooks***</target>
             </segment>
         </unit>
+        <unit id="list">
+            <segment id="name" state="translated">
+                <source>list.name</source>
+                <target>Finola's Lost Research</target>
+            </segment>
+            <segment id="description" state="translated">
+                <source>list.description</source>
+                <target>The anti-Mush research carried out by Finola was completed after the departure of the Daedalus. The findings were sent to the tabulatrix, and by reading them, you'll know the status of infection aboard the Daedalus from day 1!//**Tabulatrix prints the current crew infection status report**</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

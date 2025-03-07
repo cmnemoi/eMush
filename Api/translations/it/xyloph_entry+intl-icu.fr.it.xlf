@@ -111,5 +111,15 @@
                 <target>mage_books.description</target>
             </segment>
         </unit>
+        <unit id="list">
+            <segment id="name" state="initial">
+                <source>list.name</source>
+                <target>list.name</target>
+            </segment>
+            <segment id="description" state="initial">
+                <source>list.description</source>
+                <target>list.description</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

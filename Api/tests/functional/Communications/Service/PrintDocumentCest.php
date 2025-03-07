@@ -6,6 +6,7 @@ namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Disassemble;
 use Mush\Action\Actions\ReadBook;
+use Mush\Action\Actions\ReadDocument;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -14,18 +15,26 @@ use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -33,9 +42,11 @@ use Mush\Tests\FunctionalTester;
 final class PrintDocumentCest extends AbstractFunctionalTest
 {
     private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
+    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private RoomLogServiceInterface $roomLogService;
     private StatusServiceInterface $statusService;
+    private TranslationServiceInterface $translationService;
     private XylophRepositoryInterface $xylophRepository;
 
     private GameEquipment $tabulatrix;
@@ -45,9 +56,11 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         parent::_before($I);
 
         $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->roomLogService = $I->grabService(RoomLogServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->translationService = $I->grabService(TranslationServiceInterface::class);
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 
         $this->createExtraPlace(RoomEnum::TABULATRIX_QUEUE, $I, $this->daedalus);
@@ -181,6 +194,25 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->thenRoomEquipmentCountShouldBe($initialEquipmentCount + 3, $I);
     }
 
+    public function shouldPrintLostResearchWithContent(FunctionalTester $I): void
+    {
+        $this->givenTabulatrixInRoom();
+
+        $this->givenKuanTiIsAlphaMush();
+
+        $initialEquipmentCount = $this->playerRoomEquipmentCount();
+
+        $this->whenXylophSendsLostResearchWithGuaranteedNegatives($I);
+
+        $this->whenPlayerReadsTheDocument($I);
+
+        $this->thenRoomEquipmentCountShouldBe($initialEquipmentCount + 1, $I);
+
+        $this->thenTheLogShouldShowKuanTiWithUnknownResult($I);
+
+        $this->thenTheLogShouldShowTheOtherPlayerWithNegativeResult($I);
+    }
+
     private function givenTabulatrixInRoom(): void
     {
         $this->tabulatrix = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -204,6 +236,16 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     private function givenPlayerIsTechnician(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->player);
+    }
+
+    private function givenKuanTiIsAlphaMush(): void
+    {
+        $playerEvent = new PlayerEvent(
+            $this->kuanTi,
+            [DaedalusEvent::FULL_DAEDALUS],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
     }
 
     private function whenXylophSendsChefBook(FunctionalTester $I): void
@@ -244,6 +286,22 @@ final class PrintDocumentCest extends AbstractFunctionalTest
             daedalusId: $this->daedalus->getId(),
         );
         $xylophEntry->setQuantity($quantity);
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
+        );
+    }
+
+    private function whenXylophSendsLostResearchWithGuaranteedNegatives(FunctionalTester $I): void
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::LIST->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $xylophEntry->setQuantity(100); // people with possible negative result have 100% chance of being negative
         $this->xylophRepository->save($xylophEntry);
 
         $this->decodeXylophDatabaseService->execute(
@@ -298,6 +356,22 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $dismantleAction->execute();
     }
 
+    private function whenPlayerReadsTheDocument(FunctionalTester $I): void
+    {
+        $readAction = $I->grabService(ReadDocument::class);
+        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::READ_DOCUMENT]);
+
+        $document = $this->player->getPlace()->getEquipmentByName(ItemEnum::DOCUMENT);
+
+        $readAction->loadParameters(
+            actionConfig: $actionConfig,
+            actionProvider: $document,
+            player: $this->player,
+            target: $document
+        );
+        $readAction->execute();
+    }
+
     private function thenDaedalusEquipmentCountShouldBe(int $expectedCount, FunctionalTester $I): void
     {
         $I->assertEquals($expectedCount, $this->daedalusEquipmentCount());
@@ -350,6 +424,110 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $I->assertEquals($skills, array_unique($skills));
     }
 
+    private function thenPlayerShouldSeeTabulatrixBrokenLog(FunctionalTester $I): void
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_broken'
+            )->toArray()
+        );
+    }
+
+    private function thenOtherPlayerShouldSeeTabulatrixBrokenLog(FunctionalTester $I): void
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player2)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_broken'
+            )->toArray()
+        );
+    }
+
+    private function thenPlayerShouldSeeLackOfTabulatrixLog(FunctionalTester $I): void
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_none'
+            )->toArray()
+        );
+    }
+
+    private function thenOtherPlayerShouldSeeLackOfTabulatrixLog(FunctionalTester $I): void
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player2)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_none'
+            )->toArray()
+        );
+    }
+
+    private function thenPlayerShouldSeeCookXylophDecodedLog(FunctionalTester $I): void
+    {
+        $I->assertNotEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_cook'
+            )->toArray()
+        );
+    }
+
+    private function thenPlayerShouldNotSeeCookXylophDecodedLog(FunctionalTester $I): void
+    {
+        $I->assertEmpty(
+            $this->roomLogService->getRoomLog($this->player)->filter(
+                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_cook'
+            )->toArray()
+        );
+    }
+
+    private function thenTheLogShouldShowKuanTiWithUnknownResult(FunctionalTester $I): void
+    {
+        $roomLogDto = new RoomLogDto(
+            player: $this->player,
+            log: ActionLogEnum::READ_CONTENT,
+            visibility: VisibilityEnum::PRIVATE,
+        );
+
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: $roomLogDto->toArray(),
+        );
+
+        $translatedLog = $this->translationService->translate(
+            key: $roomLog->getLog(),
+            parameters: $roomLog->getParameters(),
+            domain: $roomLog->getType(),
+            language: $roomLogDto->player->getLanguage(),
+        );
+
+        $searchedResult = 'Sujet : Kuan Ti Etat : échantillon insuffisant !!!';
+
+        $I->assertTrue(str_contains($translatedLog, $searchedResult));
+    }
+
+    private function thenTheLogShouldShowTheOtherPlayerWithNegativeResult(FunctionalTester $I): void
+    {
+        $roomLogDto = new RoomLogDto(
+            player: $this->player,
+            log: ActionLogEnum::READ_CONTENT,
+            visibility: VisibilityEnum::PRIVATE,
+        );
+
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: $roomLogDto->toArray(),
+        );
+
+        $translatedLog = $this->translationService->translate(
+            key: $roomLog->getLog(),
+            parameters: $roomLog->getParameters(),
+            domain: $roomLog->getType(),
+            language: $roomLogDto->player->getLanguage(),
+        );
+
+        $searchedResult = 'Sujet : Chun Etat : Négatif';
+
+        $I->assertTrue(str_contains($translatedLog, $searchedResult));
+    }
+
     private function daedalusEquipmentCount(): int
     {
         $equipmentCount = 0;
@@ -374,59 +552,5 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         }
 
         return false;
-    }
-
-    private function thenPlayerShouldSeeTabulatrixBrokenLog(FunctionalTester $I)
-    {
-        $I->assertNotEmpty(
-            $this->roomLogService->getRoomLog($this->player)->filter(
-                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_broken'
-            )->toArray()
-        );
-    }
-
-    private function thenOtherPlayerShouldSeeTabulatrixBrokenLog(FunctionalTester $I)
-    {
-        $I->assertNotEmpty(
-            $this->roomLogService->getRoomLog($this->player2)->filter(
-                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_broken'
-            )->toArray()
-        );
-    }
-
-    private function thenPlayerShouldSeeLackOfTabulatrixLog(FunctionalTester $I)
-    {
-        $I->assertNotEmpty(
-            $this->roomLogService->getRoomLog($this->player)->filter(
-                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_none'
-            )->toArray()
-        );
-    }
-
-    private function thenOtherPlayerShouldSeeLackOfTabulatrixLog(FunctionalTester $I)
-    {
-        $I->assertNotEmpty(
-            $this->roomLogService->getRoomLog($this->player2)->filter(
-                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_tabulatrix_none'
-            )->toArray()
-        );
-    }
-
-    private function thenPlayerShouldSeeCookXylophDecodedLog(FunctionalTester $I)
-    {
-        $I->assertNotEmpty(
-            $this->roomLogService->getRoomLog($this->player)->filter(
-                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_cook'
-            )->toArray()
-        );
-    }
-
-    private function thenPlayerShouldNotSeeCookXylophDecodedLog(FunctionalTester $I)
-    {
-        $I->assertEmpty(
-            $this->roomLogService->getRoomLog($this->player)->filter(
-                static fn (RoomLog $log) => $log->getLog() === 'xyloph_decoded_cook'
-            )->toArray()
-        );
     }
 }

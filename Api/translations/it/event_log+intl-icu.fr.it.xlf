@@ -739,6 +739,16 @@
         <target>ze_list</target>
       </segment>
     </unit>
+    <unit id="lost_research">
+      <segment id="lost_research_headline" state="initial">
+        <source>lost_research_headline</source>
+        <target>lost_research_headline</target>
+      </segment>
+      <segment id="lost_research_sample" state="initial">
+        <source>lost_research_sample</source>
+        <target>lost_research_sample</target>
+      </segment>
+    </unit>
     <unit id="observant_noticed_something">
       <segment id="observant_noticed_something" state="initial">
         <source>observant_noticed_something</source>

@@ -71,6 +71,22 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ->setMushSkillSlots(4)
             ->setRebelBaseContactDurationMin(8)
             ->setRebelBaseContactDurationMax(16)
+            ->setStartingRandomBlueprintCount(4)
+            ->setRandomBlueprints([
+                'oscilloscope_blueprint' => 4,
+                'sniper_helmet_blueprint' => 2,
+                'rocket_launcher_blueprint' => 2,
+                'lizaro_jungle_blueprint' => 4,
+                'old_faithful_blueprint' => 2,
+                'white_flag_blueprint' => 4,
+                'babel_module_blueprint' => 4,
+                'echolocator_blueprint' => 8,
+                'thermosensor_blueprint' => 2,
+                'extinguisher_blueprint' => 4,
+                'swedish_sofa_blueprint' => 4,
+                'grenade_blueprint' => 2,
+                'support_drone_blueprint' => 1,
+            ])
             ->setHoliday(HolidayEnum::NONE);
 
         $randomStorageItemPlaces = new RandomItemPlaces();
@@ -99,6 +115,8 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
                 GearItemEnum::STAINPROOF_APRON,
                 ToolItemEnum::MEDIKIT,
                 GearItemEnum::ANTIGRAV_SCOOTER,
+                'swedish_sofa_blueprint',
+                'grenade_blueprint',
             ])
             ->setPlaces(RoomEnum::getStorages());
 

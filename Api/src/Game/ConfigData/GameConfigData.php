@@ -760,6 +760,7 @@ class GameConfigData
                 RebelBaseEnum::CENTAURI,
             ],
             'xylophConfigs' => [
+                XylophEnum::BLUEPRINTS,
                 XylophEnum::COOK,
                 XylophEnum::DISK,
                 XylophEnum::KIVANC,

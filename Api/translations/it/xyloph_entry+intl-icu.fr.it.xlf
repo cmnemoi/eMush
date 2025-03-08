@@ -121,5 +121,15 @@
                 <target>list.description</target>
             </segment>
         </unit>
+        <unit id="blueprints">
+            <segment id="name" state="initial">
+                <source>blueprints.name</source>
+                <target>blueprints.name</target>
+            </segment>
+            <segment id="description" state="initial">
+                <source>blueprints.description</source>
+                <target>blueprints.description</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

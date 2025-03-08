@@ -67,6 +67,12 @@
         <target>xyloph_decoded_list</target>
       </segment>
     </unit>
+    <unit id="xyloph_decoded_blueprints">
+      <segment id="xyloph_decoded_blueprints" state="initial">
+        <source>xyloph_decoded_blueprints</source>
+        <target>xyloph_decoded_blueprints</target>
+      </segment>
+    </unit>
     <unit id="xyloph_decoded_tabulatrix_broken">
       <segment id="xyloph_decoded_tabulatrix_broken" state="initial">
         <source>xyloph_decoded_tabulatrix_broken</source>

@@ -57,6 +57,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $this->createXylophDecodedLog($xylophEntry->getName(), $player);
 
         match ($xylophEntry->getName()) {
+            XylophEnum::BLUEPRINTS => $this->printXylophDocument($player, $xylophEntry, $tags),
             XylophEnum::COOK => $this->printXylophDocument($player, $xylophEntry, $tags),
             XylophEnum::DISK => $this->createMushGenomeDisk($player->getPlace(), $tags),
             XylophEnum::GHOST_CHUN => $this->createDaedalusStatus($daedalus, DaedalusStatusEnum::GHOST_CHUN, $tags),
@@ -173,6 +174,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         $queue = $player->getDaedalus()->getTabulatrixQueue();
 
         match ($entry->getName()) {
+            XylophEnum::BLUEPRINTS => $this->receiveBlueprints($queue, $entry->getQuantity(), $tags),
             XylophEnum::COOK => $this->receiveChefBook($queue, $tags),
             XylophEnum::LIST => $this->receiveLostResearch($queue, $entry->getQuantity(), $tags),
             XylophEnum::MAGE_BOOKS => $this->receiveMageBooks($queue, $entry->getQuantity(), $tags),
@@ -199,6 +201,16 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
         );
         foreach ($mageBookNames as $mageBook) {
             $this->queueDocumentOfName($mageBook, $queue, $tags);
+        }
+    }
+
+    private function receiveBlueprints(Place $queue, int $quantity, array $tags)
+    {
+        $daedalus = $queue->getDaedalus();
+        $availableBlueprints = $daedalus->getDaedalusConfig()->getRandomBlueprints()->withdrawElements($daedalus->getUniqueItems()->getStartingBlueprints());
+        $selectedBlueprints = $this->randomService->getRandomElementsFromProbaCollection($availableBlueprints, $quantity);
+        foreach ($selectedBlueprints as $blueprint) {
+            $this->queueDocumentOfName($blueprint, $queue, $tags);
         }
     }
 

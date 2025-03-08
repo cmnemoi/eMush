@@ -61,7 +61,9 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setHoliday($daedalusConfigData['applyHoliday'])
                 ->setNumberOfCyclesBeforeNextRebelBaseContact($daedalusConfigData['numberOfCyclesBeforeNextRebelBaseContact'])
                 ->setRebelBaseContactDurationMin($daedalusConfigData['rebelBaseContactDurationMin'])
-                ->setRebelBaseContactDurationMax($daedalusConfigData['rebelBaseContactDurationMax']);
+                ->setRebelBaseContactDurationMax($daedalusConfigData['rebelBaseContactDurationMax'])
+                ->setStartingRandomBlueprintCount($daedalusConfigData['startingRandomBlueprintCount'])
+                ->setRandomBlueprints($daedalusConfigData['randomBlueprints']);
 
             $this->setDaedalusConfigRandomItemPlaces($daedalusConfig, $daedalusConfigData);
             $this->setDaedalusConfigPlaceConfigs($daedalusConfig, $daedalusConfigData);

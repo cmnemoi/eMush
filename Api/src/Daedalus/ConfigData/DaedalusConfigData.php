@@ -92,6 +92,22 @@ class DaedalusConfigData
             'numberOfCyclesBeforeNextRebelBaseContact' => 8,
             'rebelBaseContactDurationMin' => 8,
             'rebelBaseContactDurationMax' => 16,
+            'startingRandomBlueprintCount' => 4,
+            'randomBlueprints' => [
+                'oscilloscope_blueprint' => 4,
+                'sniper_helmet_blueprint' => 2,
+                'rocket_launcher_blueprint' => 2,
+                'lizaro_jungle_blueprint' => 4,
+                'old_faithful_blueprint' => 2,
+                'white_flag_blueprint' => 4,
+                'babel_module_blueprint' => 4,
+                'echolocator_blueprint' => 8,
+                'thermosensor_blueprint' => 2,
+                'extinguisher_blueprint' => 4,
+                'swedish_sofa_blueprint' => 4,
+                'grenade_blueprint' => 2,
+                'support_drone_blueprint' => 1,
+            ],
         ],
     ];
 }

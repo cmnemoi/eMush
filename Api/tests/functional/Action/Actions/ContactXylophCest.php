@@ -113,7 +113,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
         $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::DIRTY_RESTRICTION, $I);
     }
 
-    public function shouldNotBeExecutableIfThereIsNoUndecodedXyloph(FunctionalTester $I): void
+    public function shouldNotBeVisibleIfThereIsNoUndecodedXyloph(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
@@ -121,7 +121,7 @@ final class ContactXylophCest extends AbstractFunctionalTest
 
         $this->whenPlayerTriesToContactXyloph();
 
-        $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::NO_XYLOPH_LEFT, $I);
+        $this->thenActionIsNotVisible($I);
     }
 
     public function shouldSuccessfullyContactXylophWhenAllRequirementsAreMet(FunctionalTester $I): void

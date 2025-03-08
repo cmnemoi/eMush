@@ -16,10 +16,12 @@ use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Event\DaedalusInitEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Listener\DaedalusInitEventSubscriber;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -41,6 +43,7 @@ use Mush\Tests\RoomLogDto;
  */
 final class PrintDocumentCest extends AbstractFunctionalTest
 {
+    private DaedalusInitEventSubscriber $daedalusInitEventSubscriber;
     private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -55,6 +58,7 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
+        $this->daedalusInitEventSubscriber = $I->grabService(DaedalusInitEventSubscriber::class);
         $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -64,6 +68,11 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
 
         $this->createExtraPlace(RoomEnum::TABULATRIX_QUEUE, $I, $this->daedalus);
+        $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
+        $this->createExtraPlace(RoomEnum::CENTER_ALPHA_STORAGE, $I, $this->daedalus);
+        $this->createExtraPlace(RoomEnum::CENTER_BRAVO_STORAGE, $I, $this->daedalus);
+        $this->createExtraPlace(RoomEnum::REAR_ALPHA_STORAGE, $I, $this->daedalus);
+        $this->createExtraPlace(RoomEnum::REAR_BRAVO_STORAGE, $I, $this->daedalus);
     }
 
     public function shouldNotAddEquipmentWithNoTabulatrixInTheRoom(FunctionalTester $I): void
@@ -213,6 +222,32 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->thenTheLogShouldShowTheOtherPlayerWithNegativeResult($I);
     }
 
+    public function shouldReceiveThreeBlueprints(FunctionalTester $I): void
+    {
+        $this->givenTabulatrixInRoom();
+
+        $initialEquipmentCount = $this->playerRoomEquipmentCount();
+
+        $this->whenXylophSendsBlueprints($I);
+
+        $this->thenRoomEquipmentCountShouldBe($initialEquipmentCount + 3, $I);
+
+        $this->thenReceivedBlueprintsShouldBeUniqueWithCount(3, $I);
+    }
+
+    public function shouldSpawnedBlueprintsBeUniqueToStartingRandomOnes(FunctionalTester $I): void
+    {
+        $this->givenTabulatrixInRoom();
+
+        $this->givenDaedalusInitEventIsListened();
+
+        $this->thenDaedalusShouldHaveBlueprintsOfAmount(6, $I);
+
+        $this->whenXylophSendsBlueprintsOfAmount(9, $I);
+
+        $this->thenAllRandomlySpawnedBlueprintsShouldBeUnique($I);
+    }
+
     private function givenTabulatrixInRoom(): void
     {
         $this->tabulatrix = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -248,6 +283,17 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
     }
 
+    private function givenDaedalusInitEventIsListened(): void
+    {
+        $daedalusInitEvent = new DaedalusInitEvent(
+            daedalus: $this->daedalus,
+            daedalusConfig: $this->daedalus->getDaedalusConfig(),
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->daedalusInitEventSubscriber->onNewDaedalus($daedalusInitEvent);
+    }
+
     private function whenXylophSendsChefBook(FunctionalTester $I): void
     {
         $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::COOK->toString() . '_default']);
@@ -281,6 +327,37 @@ final class PrintDocumentCest extends AbstractFunctionalTest
     private function whenXylophSendsMageBooksOfAmount(int $quantity, FunctionalTester $I): void
     {
         $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::MAGE_BOOKS->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $xylophEntry->setQuantity($quantity);
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
+        );
+    }
+
+    private function whenXylophSendsBlueprints(FunctionalTester $I)
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::BLUEPRINTS->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $config,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $this->xylophRepository->save($xylophEntry);
+
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->player,
+        );
+    }
+
+    private function whenXylophSendsBlueprintsOfAmount(int $quantity, FunctionalTester $I)
+    {
+        $config = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::BLUEPRINTS->toString() . '_default']);
         $xylophEntry = new XylophEntry(
             xylophConfig: $config,
             daedalusId: $this->daedalus->getId(),
@@ -421,7 +498,19 @@ final class PrintDocumentCest extends AbstractFunctionalTest
             }
         }
         $I->assertCount($mageBookCount, $skills);
-        $I->assertEquals($skills, array_unique($skills));
+        $I->assertEquals(array_unique($skills), $skills);
+    }
+
+    private function thenReceivedBlueprintsShouldBeUniqueWithCount(int $blueprintCount, FunctionalTester $I): void
+    {
+        $products = [];
+        foreach ($this->player->getPlace()->getItems() as $gameItem) {
+            if ($gameItem->hasMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
+                $products[] = $gameItem->getBlueprintMechanicOrThrow()->getCraftedEquipmentName();
+            }
+        }
+        $I->assertCount($blueprintCount, $products);
+        $I->assertEquals(array_unique($products), $products);
     }
 
     private function thenPlayerShouldSeeTabulatrixBrokenLog(FunctionalTester $I): void
@@ -526,6 +615,30 @@ final class PrintDocumentCest extends AbstractFunctionalTest
         $searchedResult = 'Sujet : Chun Etat : Négatif';
 
         $I->assertTrue(str_contains($translatedLog, $searchedResult));
+    }
+
+    private function thenDaedalusShouldHaveBlueprintsOfAmount(int $quantity, FunctionalTester $I): void
+    {
+        $blueprintCount = 0;
+        foreach ($this->daedalus->getRooms() as $room) {
+            $blueprintCount += $room->getAllEquipmentsByName('blueprint')->count();
+        }
+        $I->assertEquals($quantity, $blueprintCount);
+    }
+
+    private function thenAllRandomlySpawnedBlueprintsShouldBeUnique(FunctionalTester $I): void
+    {
+        $productsOfGuaranteedBlueprints = [EquipmentEnum::SWEDISH_SOFA, ItemEnum::GRENADE];
+        $blueprintProducts = [];
+        foreach ($this->daedalus->getRooms() as $room) {
+            foreach ($room->getAllEquipmentsByName('blueprint') as $blueprint) {
+                $blueprintProducts[] = $blueprint->getBlueprintMechanicOrThrow()->getCraftedEquipmentName();
+            }
+        }
+        $I->assertEqualsCanonicalizing(
+            expected: array_merge(array_unique($blueprintProducts), $productsOfGuaranteedBlueprints),
+            actual: $blueprintProducts
+        );
     }
 
     private function daedalusEquipmentCount(): int

@@ -97,6 +97,12 @@ class DaedalusConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $rebelBaseContactDurationMax = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $startingRandomBlueprintCount = 0;
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $randomBlueprints = [];
+
     public function getId(): int
     {
         return $this->id;
@@ -436,6 +442,30 @@ class DaedalusConfig
     public function setRebelBaseContactDurationMax(int $rebelBaseContactDurationMax): static
     {
         $this->rebelBaseContactDurationMax = $rebelBaseContactDurationMax;
+
+        return $this;
+    }
+
+    public function getStartingRandomBlueprintCount(): int
+    {
+        return $this->startingRandomBlueprintCount;
+    }
+
+    public function setStartingRandomBlueprintCount(int $startingRandomBlueprintCount): static
+    {
+        $this->startingRandomBlueprintCount = $startingRandomBlueprintCount;
+
+        return $this;
+    }
+
+    public function getRandomBlueprints(): ProbaCollection
+    {
+        return new ProbaCollection($this->randomBlueprints);
+    }
+
+    public function setRandomBlueprints(array $randomBlueprints): static
+    {
+        $this->randomBlueprints = $randomBlueprints;
 
         return $this;
     }

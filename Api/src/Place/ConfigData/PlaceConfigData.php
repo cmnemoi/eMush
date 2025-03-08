@@ -41,7 +41,7 @@ class PlaceConfigData
             'placeName' => 'alpha_bay_2',
             'type' => 'room',
             'doors' => ['alpha_bay_alpha_bay_2', 'engine_room_bay_alpha_2', 'rear_corridor_bay_alpha_2', 'rear_alpha_turret_bay_alpha_2'],
-            'items' => ['oscilloscope_blueprint', 'sniper_helmet_blueprint'],
+            'items' => [],
             'equipments' => ['patrol_ship_alpha_2_wallis', 'pasiphae'],
         ],
         [
@@ -184,15 +184,7 @@ class PlaceConfigData
             'placeName' => 'icarus_bay',
             'type' => 'room',
             'doors' => ['rear_corridor_bay_icarus', 'rear_bravo_turret_bay_icarus', 'engine_room_bay_icarus'],
-            'items' => [
-                'rocket_launcher_blueprint',
-                'lizaro_jungle_blueprint',
-                'old_faithful_blueprint',
-                'white_flag_blueprint',
-                'babel_module_blueprint',
-                'echolocator_blueprint',
-                'thermosensor_blueprint',
-            ],
+            'items' => [],
             'equipments' => ['icarus'],
         ],
         [

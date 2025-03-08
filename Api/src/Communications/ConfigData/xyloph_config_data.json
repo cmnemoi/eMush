@@ -75,5 +75,12 @@
         "weight": 1,
         "quantity": 20,
         "modifierConfigs": []
+    },
+    {
+        "key": "blueprints_default",
+        "name": "blueprints",
+        "weight": 4,
+        "quantity": 3,
+        "modifierConfigs": []
     }
 ]

@@ -75,8 +75,7 @@ final class ContactXyloph extends AbstractAction
                 'message' => ActionImpossibleCauseEnum::DIRTY_RESTRICTION,
             ]),
             new AllXylophDatabasesDecoded([
-                'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::NO_XYLOPH_LEFT,
+                'groups' => [ClassConstraint::VISIBILITY],
             ]),
         ]);
     }

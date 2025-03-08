@@ -121,5 +121,15 @@
                 <target>The anti-Mush research carried out by Finola was completed after the departure of the Daedalus. The findings were sent to the tabulatrix, and by reading them, you'll know the status of infection aboard the Daedalus from day 1!//**Tabulatrix prints the current crew infection status report**</target>
             </segment>
         </unit>
+        <unit id="blueprints">
+            <segment id="name" state="translated">
+                <source>blueprints.name</source>
+                <target>Workshop Manuals</target>
+            </segment>
+            <segment id="description" state="translated">
+                <source>blueprints.description</source>
+                <target>Here are multiple plans for basic tools aboard the Daedalus if we dismantle one or two surplus pieces of kit we should hav enough material to build them.//**Prints 3x** ***Plans***</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

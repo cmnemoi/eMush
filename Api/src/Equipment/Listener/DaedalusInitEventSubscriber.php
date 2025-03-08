@@ -51,5 +51,22 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
                 );
             }
         }
+        $blueprintCount = $daedalusConfig->getStartingRandomBlueprintCount();
+        $spawnedBlueprints = $this->randomService->getRandomElementsFromProbaCollection(
+            array: $daedalusConfig->getRandomBlueprints(),
+            number: $blueprintCount,
+        );
+        $possiblePlaces = $daedalus->getRooms()->toArray();
+        foreach ($spawnedBlueprints as $blueprintName) {
+            $room = $this->randomService->getRandomElement($possiblePlaces)->getPlace();
+
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                $blueprintName,
+                $room,
+                $reasons,
+                $time
+            );
+        }
+        $daedalus->getUniqueItems()->makeStartingBlueprintsUnique($spawnedBlueprints);
     }
 }

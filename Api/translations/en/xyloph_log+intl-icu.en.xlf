@@ -67,6 +67,12 @@
         <target>Xyloph database access granted. The anti-Mush research carried out by Finola was completed after the departure of the Daedalus. The findings were sent to the tabulatrix, and by reading them, you'll know the status of infection aboard the Daedalus from Day 1!</target>
       </segment>
     </unit>
+    <unit id="xyloph_decoded_blueprints">
+      <segment id="xyloph_decoded_blueprints" state="translated">
+        <source>xyloph_decoded_blueprints</source>
+        <target>Xyloph database access granted. Here are multiple plans for basic tools aboard the Daedalus if we dismantle one or two surplus pieces of kit we should have enough materials to build them.</target>
+      </segment>
+    </unit>
     <unit id="xyloph_decoded_tabulatrix_broken">
       <segment id="xyloph_decoded_tabulatrix_broken" state="translated">
         <source>xyloph_decoded_tabulatrix_broken</source>

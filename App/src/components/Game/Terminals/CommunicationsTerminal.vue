@@ -19,18 +19,18 @@
                             <p class="link-strength text">
                                 {{ terminal.infos.linkStrength }}
                             </p>
-                            <ActionButton
-                                v-if="establishLinkWithSolAction"
-                                :key="establishLinkWithSolAction.name || ''"
-                                class="terminal-button"
-                                :action="establishLinkWithSolAction"
-                                @click="executeTargetAction(terminal, establishLinkWithSolAction)"
-                            />
-                            <p class="link-established text" v-else>
+                            <p v-if="!establishLinkWithSolAction" class="link-established text">
                                 {{ terminal.infos.linkEstablished }}
                             </p>
                         </div>
                     </div>
+                    <ActionButton
+                        v-if="establishLinkWithSolAction"
+                        :key="establishLinkWithSolAction.name || ''"
+                        class="terminal-button"
+                        :action="establishLinkWithSolAction"
+                        @click="executeTargetAction(terminal, establishLinkWithSolAction)"
+                    />
                 </div>
                 <div class="neron container">
                     <h3 class="title">
@@ -49,15 +49,15 @@
                                 <span class="neron-version-progress-bar" :style="{ width: `${neronMinorVersion}%` }" />
                                 <span class="progress-text">{{ neron }}</span>
                             </div>
-                            <ActionButton
-                                v-if="upgradeNeron"
-                                :key="upgradeNeron.name || ''"
-                                class="terminal-button"
-                                :action="upgradeNeron"
-                                @click="executeTargetAction(terminal, upgradeNeron)"
-                            />
                         </div>
                     </div>
+                    <ActionButton
+                        v-if="upgradeNeron"
+                        :key="upgradeNeron.name || ''"
+                        class="terminal-button"
+                        :action="upgradeNeron"
+                        @click="executeTargetAction(terminal, upgradeNeron)"
+                    />
                 </div>
             </section>
             <section class="right-section">
@@ -80,6 +80,7 @@
                         class="terminal-button"
                         :action="contactXylophAction"
                         @click="executeTargetAction(terminal, contactXylophAction)"
+                        v-if="contactXylophAction.name"
                     />
                 </div>
             </section>
@@ -248,6 +249,7 @@ p {
 
 .text {
     color: #75C7E5;
+    text-align: center;
 }
 
 /* Container styles */
@@ -323,6 +325,7 @@ p {
     background-image: url("/src/assets/images/sensor_bg.svg");
     background-repeat: no-repeat;
     background-position: right bottom;
+    margin-left: 10px;
 }
 
 /* NERON specific styles */
@@ -335,7 +338,7 @@ p {
 
 .neron-infos-content {
     .neron-progress-bar-container {
-        width: 60%;
+        width: 90%;
         height: 25px;
         background-color: #2C569A;
         border: 2px solid #1D4176;
@@ -377,7 +380,6 @@ p {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    row-gap: 15px;
     column-gap: 10px;
     margin-top: 5px;
     margin-bottom: 5px;

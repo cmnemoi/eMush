@@ -6,6 +6,7 @@ namespace Mush\Communications\Enum;
 
 enum XylophEnum: string
 {
+    case BLUEPRINTS = 'blueprints';
     case COOK = 'cook';
     case DISK = 'disk';
     case GHOST_CHUN = 'ghost_chun';
@@ -28,6 +29,7 @@ enum XylophEnum: string
     public static function requiresPrinting(self $entry): bool
     {
         return \in_array($entry, [
+            self::BLUEPRINTS,
             self::COOK,
             self::LIST,
             self::MAGE_BOOKS,

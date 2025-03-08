@@ -121,5 +121,15 @@
                 <target>L'analyse anti-Mush de Finola s'est achevée apres le départ du Daedalus Les résultats ont été envoyé à la tabulatrice, en les lisant, vous saurez quel état l'etat d'infection du Daedalus au départ !//**Provoque l'impression de la liste du niveau d'infection de l'équipage.**</target>
             </segment>
         </unit>
+        <unit id="blueprints">
+            <segment id="name" state="translated">
+                <source>blueprints.name</source>
+                <target>Manuel de l'atelier</target>
+            </segment>
+            <segment id="description" state="translated">
+                <source>blueprints.description</source>
+                <target>Voici plusieurs plans d'outils de bases du Daedalus en démontant un ou deux trucs on devrait disposer des matériaux nécessaire pour les construire.//**Provoque l'impression de 3x** ***Plan***</target>
+            </segment>
+        </unit>
     </file>
  </xliff>

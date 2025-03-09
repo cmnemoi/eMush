@@ -37,6 +37,7 @@ export enum StatusPlayerNameEnum {
     DISORDER = 'disorder',
     GERMAPHOBE = 'germaphobe',
     HYPERACTIVE = 'hyperactive',
+    BRAINSYNC = 'brainsync',
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -147,5 +148,8 @@ export const statusPlayerEnum: {[index: string]: any} = {
     },
     [StatusPlayerNameEnum.HYPERACTIVE]: {
         'icon': getImgUrl('status/hyperactive.png')
+    },
+    [StatusPlayerNameEnum.BRAINSYNC]: {
+        'icon': getImgUrl('status/thinklinked.png')
     }
 };

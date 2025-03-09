@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Mush\Communications\Service;
 
 use Mush\Communications\Entity\RebelBase;
+use Mush\Communications\Event\RebelBaseDecodedEvent;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
+use Mush\Status\Service\StatusServiceInterface;
 
 final readonly class DecodeRebelSignalService
 {
@@ -15,6 +18,8 @@ final readonly class DecodeRebelSignalService
         private DaedalusRepositoryInterface $daedalusRepository,
         private ModifierCreationServiceInterface $modifierCreationService,
         private RebelBaseRepositoryInterface $rebelBaseRepository,
+        private EventServiceInterface $eventService,
+        private StatusServiceInterface $statusService,
     ) {}
 
     public function execute(RebelBase $rebelBase, int $progress, array $tags = []): void
@@ -23,6 +28,7 @@ final readonly class DecodeRebelSignalService
 
         if ($rebelBase->isDecoded()) {
             $this->createRebelBaseModifiers($rebelBase, $tags);
+            $this->createRebelBaseStatus($rebelBase, $tags);
             $this->endRebelBaseContact($rebelBase);
         }
     }
@@ -40,6 +46,30 @@ final readonly class DecodeRebelSignalService
                 modifierConfig: $modifierConfig,
                 holder: $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId()),
                 modifierProvider: $rebelBase,
+                tags: $tags,
+                time: new \DateTime(),
+            );
+        }
+
+        $tags[] = $rebelBase->getName();
+        $this->eventService->callEvent(
+            event: new RebelBaseDecodedEvent($rebelBase->getDaedalusId(), $tags),
+            name: RebelBaseDecodedEvent::class,
+        );
+    }
+
+    private function createRebelBaseStatus(RebelBase $rebelBase, array $tags): void
+    {
+        $statusConfig = $rebelBase->getStatusConfig();
+        if ($statusConfig === null) {
+            return;
+        }
+
+        $daedalus = $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId());
+        foreach ($daedalus->getAlivePlayers() as $player) {
+            $this->statusService->createStatusFromConfig(
+                statusConfig: $statusConfig,
+                holder: $player,
                 tags: $tags,
                 time: new \DateTime(),
             );

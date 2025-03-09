@@ -1664,5 +1664,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de contacter le port d'attache de Daedalus, que reste-t-il là-bas...//**Chaque contact vous permettra de récupérer un nouvel avantage (des plans pour l'atelier, des informations sur le Mush, etc.).**</target>
       </segment>
     </unit>
+    <unit id="trigger_all_rebel_contacts">
+      <segment id="name" state="translated">
+        <source>trigger_all_rebel_contacts.name</source>
+        <target>Déclencher tous les contacts rebelles</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>trigger_all_rebel_contacts.description</source>
+        <target>Déclenche tous les contacts rebelles.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

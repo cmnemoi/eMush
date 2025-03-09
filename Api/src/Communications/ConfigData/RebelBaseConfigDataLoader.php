@@ -9,6 +9,7 @@ use Mush\Communications\Dto\RebelBaseConfigDto;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
+use Mush\Status\Entity\Config\StatusConfig;
 
 final class RebelBaseConfigDataLoader extends ConfigDataLoader
 {
@@ -25,7 +26,8 @@ final class RebelBaseConfigDataLoader extends ConfigDataLoader
                     $rebelBaseConfigDto->key,
                     $rebelBaseConfigDto->name,
                     $rebelBaseConfigDto->contactOrder,
-                    $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs)
+                    $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs),
+                    $this->getStatusConfig($rebelBaseConfigDto->statusConfig)
                 );
             } else {
                 $rebelBaseConfig->update($rebelBaseConfig);
@@ -52,6 +54,17 @@ final class RebelBaseConfigDataLoader extends ConfigDataLoader
         }
 
         return $modifierConfigs;
+    }
+
+    private function getStatusConfig(?string $name): ?StatusConfig
+    {
+        if ($name === null) {
+            return null;
+        }
+
+        $statusConfigRepository = $this->entityManager->getRepository(StatusConfig::class);
+
+        return $statusConfigRepository->findOneBy(['name' => $name . '_default']);
     }
 
     /**

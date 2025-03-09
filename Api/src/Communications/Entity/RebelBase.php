@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
 class RebelBase implements ModifierProviderInterface
@@ -116,6 +117,11 @@ class RebelBase implements ModifierProviderInterface
     public function getModifierConfigs(): ArrayCollection
     {
         return new ArrayCollection($this->rebelBaseConfig->getModifierConfigs()->toArray());
+    }
+
+    public function getStatusConfig(): ?StatusConfig
+    {
+        return $this->rebelBaseConfig->getStatusConfig();
     }
 
     public function getUsedCharge(string $actionName): ?ChargeStatus

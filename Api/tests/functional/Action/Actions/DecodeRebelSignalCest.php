@@ -207,6 +207,20 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionPoints(1, $I);
     }
 
+    public function luytenCetiShouldCreateBrainsyncStatusOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::LUYTEN_CETI, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::LUYTEN_CETI, 99);
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::LUYTEN_CETI);
+
+        $this->thenChunShouldHaveBrainsync($I);
+        $this->thenKuanTiShouldHaveBrainsync($I);
+    }
+
     public function shouldDoubleOutputQuantityOnRebelSkill(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();
@@ -462,6 +476,16 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $expectedOutput = $initialEfficiency * 4;
         $actualOutput = $this->decodeRebelSignalOutputQuantity();
         $I->assertEquals($expectedOutput, $actualOutput, "Player should have output {$expectedOutput}%, but has {$actualOutput}%");
+    }
+
+    private function thenChunShouldHaveBrainsync(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::BRAINSYNC));
+    }
+
+    private function thenKuanTiShouldHaveBrainsync(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::BRAINSYNC));
     }
 
     private function rationTypesProvider(): array

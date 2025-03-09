@@ -14,6 +14,7 @@ final readonly class RebelBaseConfigDto
         public int $contactOrder,
         /** @var string[] */
         public array $modifierConfigs,
+        public ?string $statusConfig
     ) {}
 
     public static function fromJson(array $data): self
@@ -22,7 +23,8 @@ final readonly class RebelBaseConfigDto
         $name = $data['name'] ?? throw new \Exception('Please provide a name for the Rebel base config');
         $contactOrder = $data['contactOrder'] ?? throw new \Exception('Please provide a contact order for the Rebel base config');
         $modifierConfigs = $data['modifierConfigs'] ?? throw new \Exception("Please provide modifier configs for the Rebel base config {$name} (can be an empty array)");
+        $statusConfig = $data['statusConfig'] ?? null;
 
-        return new self($key, RebelBaseEnum::from($name), $contactOrder, $modifierConfigs);
+        return new self($key, RebelBaseEnum::from($name), $contactOrder, $modifierConfigs, $statusConfig);
     }
 }

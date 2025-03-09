@@ -57,6 +57,20 @@
             <target>Ici Kaladaan ! Nous remercions tout l'équipage du Daedalus pour avoir donné au peuple de Sol l'espoir d'un avenir meilleur. Depuis votre départ la résistance s'organise et nous avons déjà infiltré plusieurs administrations Mush. La Fédération sera bientôt renversée et nous reprendrons le contrôle de Sol !</target>
         </segment>
     </unit>
+    <unit id="luyten_ceti">
+        <segment id="name">
+            <source>luyten_ceti.name</source>
+            <target>Luyten-Ceti</target>
+        </segment>
+        <segment id="hoverName">
+            <source>luyten_ceti.hoverName</source>
+            <target>Message des Ombres de Luyten-Ceti</target>
+        </segment>
+        <segment id="description">
+            <source>luyten_ceti.description</source>
+            <target>Notre système est encore sous le contrôle du Mush. Nous devons travailler dans la plus grande discrétion et pour cela nous avons développé de minuscules sondes com placées directement à l'interieur de nos cerveaux. Leur modèles viennent de vous d'être transférés. Les ombres de Luyten-Ceti veillent sur vous.//**Les équipiers n'ont plus besoin de Talkie-Walkie pour les communications distantes.**</target>
+        </segment>
+    </unit>
     <unit id="unknown">
         <segment id="name">
             <source>unknown.name</source>

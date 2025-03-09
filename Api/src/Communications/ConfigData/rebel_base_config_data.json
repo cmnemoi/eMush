@@ -5,7 +5,8 @@
         "contactOrder": 1,
         "modifierConfigs": [
             "plus_8_triumph_points_for_all_players"
-        ]
+        ],
+        "statusConfig": null
     },
     {
         "key": "sirius_default",
@@ -13,7 +14,8 @@
         "contactOrder": 2,
         "modifierConfigs": [
             "player_plus_1_action_point_on_consume_action_if_standard_ration"
-        ]
+        ],
+        "statusConfig": null
     },
     {
         "key": "centauri_default",
@@ -21,7 +23,8 @@
         "contactOrder": 3,
         "modifierConfigs": [
             "blaster_plus_1_strength_in_expedition"
-        ]
+        ],
+        "statusConfig": null
     },
     {
         "key": "kaladaan_default",
@@ -29,6 +32,14 @@
         "contactOrder": 4,
         "modifierConfigs": [
             "plus_6_morale_points_for_all_players"
-        ]
+        ],
+        "statusConfig": null
+    },
+    {
+        "key": "luyten_ceti_default",
+        "name": "luyten_ceti",
+        "contactOrder": 5,
+        "modifierConfigs": [],
+        "statusConfig": "brainsync"
     }
 ]

@@ -20,6 +20,7 @@ class CharacterConfigData
         'kill_player',
         'rejuvenate_alpha',
         'fake_disease',
+        'trigger_all_rebel_contacts',
         ActionEnum::ACCEPT_MISSION->value,
         ActionEnum::REJECT_MISSION->value,
         ActionEnum::COMMANDER_ORDER->value,

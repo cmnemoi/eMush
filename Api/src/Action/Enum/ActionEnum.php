@@ -13,6 +13,7 @@ enum ActionEnum: string
     case AUTO_DESTROY = 'auto_destroy';
     case KILL_PLAYER = 'kill_player';
     case RESET_SKILL_POINTS = 'reset_skill_points';
+    case TRIGGER_ALL_REBEL_CONTACTS = 'trigger_all_rebel_contacts';
 
     // alpha actions
     case REJUVENATE = 'rejuvenate';

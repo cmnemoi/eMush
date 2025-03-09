@@ -45,7 +45,7 @@
     {
         "key": "cygni_default",
         "name": "cygni",
-        "contactOrder": 5,
+        "contactOrder": 6,
         "modifierConfigs": [
             "cygni_plus_3_morale_points_for_all_players",
             "cygni_plus_1_damage_patrol_ships"

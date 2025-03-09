@@ -35,7 +35,17 @@ final class RebelBaseRepository extends ServiceEntityRepository implements Rebel
      */
     public function findAllByDaedalusId(int $daedalusId): array
     {
-        return array_map(fn (RebelBase $rebelBase) => $this->hydrate($rebelBase), $this->findBy(['daedalus' => $daedalusId]));
+        $queryBuilder = $this->createQueryBuilder('rebelBase')
+            ->select('rebelBase')
+            ->innerJoin('rebelBase.daedalus', 'daedalus')
+            ->innerJoin('rebelBase.rebelBaseConfig', 'rebelBaseConfig')
+            ->where('rebelBase.daedalus = :daedalusId')
+            ->setParameter('daedalusId', $daedalusId)
+            ->orderBy('rebelBaseConfig.contactOrder', 'ASC');
+
+        $rebelBases = $queryBuilder->getQuery()->getResult();
+
+        return array_map(fn (RebelBase $rebelBase) => $this->hydrate($rebelBase), $rebelBases);
     }
 
     /**

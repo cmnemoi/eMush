@@ -21,16 +21,18 @@ final class RebelBaseConfigDataLoader extends ConfigDataLoader
             /** @var ?RebelBaseConfig $rebelBaseConfig */
             $rebelBaseConfig = $this->entityManager->getRepository(RebelBaseConfig::class)->findOneBy(['key' => $rebelBaseConfigDto->key]);
 
+            $newRebelBaseConfig = new RebelBaseConfig(
+                $rebelBaseConfigDto->key,
+                $rebelBaseConfigDto->name,
+                $rebelBaseConfigDto->contactOrder,
+                $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs),
+                $this->getStatusConfig($rebelBaseConfigDto->statusConfig)
+            );
+
             if ($rebelBaseConfig === null) {
-                $rebelBaseConfig = new RebelBaseConfig(
-                    $rebelBaseConfigDto->key,
-                    $rebelBaseConfigDto->name,
-                    $rebelBaseConfigDto->contactOrder,
-                    $this->getModifierConfigs($rebelBaseConfigDto->modifierConfigs),
-                    $this->getStatusConfig($rebelBaseConfigDto->statusConfig)
-                );
+                $rebelBaseConfig = $newRebelBaseConfig;
             } else {
-                $rebelBaseConfig->update($rebelBaseConfig);
+                $rebelBaseConfig->update($newRebelBaseConfig);
             }
 
             $this->entityManager->persist($rebelBaseConfig);
@@ -72,9 +74,6 @@ final class RebelBaseConfigDataLoader extends ConfigDataLoader
      */
     private function getDtosFromJsonFile(string $fileName): array
     {
-        $jsonFile = file_get_contents($fileName);
-        $data = json_decode($jsonFile, true);
-
-        return array_map(static fn (array $data) => RebelBaseConfigDto::fromJson($data), $data);
+        return array_map(static fn (array $data) => RebelBaseConfigDto::fromJson($data), json_decode(file_get_contents($fileName), true));
     }
 }

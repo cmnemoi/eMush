@@ -20,16 +20,18 @@ final class XylophConfigDataLoader extends ConfigDataLoader
             /** @var ?XylophConfig $xylophConfig */
             $xylophConfig = $this->entityManager->getRepository(XylophConfig::class)->findOneBy(['key' => $xylophConfigDto->key]);
 
+            $newXylophConfig = new XylophConfig(
+                $xylophConfigDto->key,
+                $xylophConfigDto->name,
+                $xylophConfigDto->weight,
+                $xylophConfigDto->quantity,
+                $this->getModifierConfigs($xylophConfigDto->modifierConfigs)
+            );
+
             if ($xylophConfig === null) {
-                $xylophConfig = new XylophConfig(
-                    $xylophConfigDto->key,
-                    $xylophConfigDto->name,
-                    $xylophConfigDto->weight,
-                    $xylophConfigDto->quantity,
-                    $this->getModifierConfigs($xylophConfigDto->modifierConfigs)
-                );
+                $xylophConfig = $newXylophConfig;
             } else {
-                $xylophConfig->update($xylophConfig);
+                $xylophConfig->update($newXylophConfig);
             }
 
             $this->entityManager->persist($xylophConfig);

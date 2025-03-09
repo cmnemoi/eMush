@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Mush\Equipment\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Order;
 use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
-use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
@@ -231,7 +229,6 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         $daedalus = $terminal->getDaedalus();
         $rebelBases = $this->rebelBaseRepository->findAllByDaedalusId($daedalus->getId());
-        $rebelBases = $this->sortRebelBasesByContactOrder($rebelBases);
 
         $normalizedRebelBases = [];
         foreach ($rebelBases as $rebelBase) {
@@ -596,15 +593,6 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $infos;
-    }
-
-    private function sortRebelBasesByContactOrder(array $rebelBases, Order $order = Order::Ascending): array
-    {
-        usort($rebelBases, static function (RebelBase $a, RebelBase $b) use ($order) {
-            return $order === Order::Ascending ? $a->getContactOrder() - $b->getContactOrder() : $b->getContactOrder() - $a->getContactOrder();
-        });
-
-        return $rebelBases;
     }
 
     private function getNormalizedXylophEntries(GameEquipment $terminal, ?string $format, array $context): array

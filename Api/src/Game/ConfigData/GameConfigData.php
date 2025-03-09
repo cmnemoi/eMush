@@ -759,6 +759,7 @@ class GameConfigData
                 RebelBaseEnum::CENTAURI,
                 RebelBaseEnum::KALADAAN,
                 RebelBaseEnum::LUYTEN_CETI,
+                RebelBaseEnum::CYGNI,
             ],
             'xylophConfigs' => [
                 XylophEnum::BLUEPRINTS,

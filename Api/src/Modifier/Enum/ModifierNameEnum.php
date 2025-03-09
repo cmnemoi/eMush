@@ -158,6 +158,8 @@ abstract class ModifierNameEnum
     public const string SIRIUS_REBEL_BASE_MODIFIER = 'sirius_rebel_base_modifier';
     public const string BLASTER_PLUS_1_STRENGTH_IN_EXPEDITION = 'blaster_plus_1_strength_in_expedition';
     public const string CENTAURI_REBEL_BASE_MODIFIER = 'centauri_rebel_base_modifier';
+    public const string CYGNI_PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS = 'cygni_plus_3_morale_points_for_all_players';
+    public const string CYGNI_PLUS_1_DAMAGE_PATROL_SHIPS = 'cygni_plus_1_damage_patrol_ships';
     public const string DOUBLE_DECODE_BASE_SIGNAL = 'double_decode_base_signal';
     public const string KIVANC_MODIFIER = 'kivanc_modifier';
     public const string PLUS_8_TRIUMPH_POINTS_FOR_PAOLA = 'plus_8_triumph_points_for_paola';

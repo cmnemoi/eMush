@@ -71,6 +71,20 @@
             <target>Notre système est encore sous le contrôle du Mush. Nous devons travailler dans la plus grande discrétion et pour cela nous avons développé de minuscules sondes com placées directement à l'interieur de nos cerveaux. Leur modèles viennent de vous d'être transférés. Les ombres de Luyten-Ceti veillent sur vous.//**Les équipiers n'ont plus besoin de Talkie-Walkie pour les communications distantes.**</target>
         </segment>
     </unit>
+    <unit id="cygni">
+        <segment id="name">
+            <source>cygni.name</source>
+            <target>Cygni</target>
+        </segment>
+        <segment id="hoverName">
+            <source>cygni.hoverName</source>
+            <target>Message des Aurores de Cygni</target>
+        </segment>
+        <segment id="description">
+            <source>cygni.description</source>
+            <target>Nous saluons l'équipage du Daedalus. 61 Cygni a été exploré durant votre voyage. La fédération ne sait pas que l'intégralité de notre formation est humaine. Nous simulons des envois d'information réguliers a l'aide d'un Pheromodem évolué. En trompant la vigilance du Mush nous préparons la contre-attaque armée de la rébellion depuis ce système. Les plans de notre missile SP2SP-230 ont été transférés vers NERON.//:point: **L'équipage gagne 3 moral.**//:point: **Les dégats des Patrouilleurs sont augmentés d'un point.**</target>
+        </segment>
+    </unit>
     <unit id="unknown">
         <segment id="name">
             <source>unknown.name</source>

@@ -12,6 +12,7 @@ enum RebelBaseEnum: string
     case CENTAURI = 'centauri';
     case KALADAAN = 'kaladaan';
     case LUYTEN_CETI = 'luyten_ceti';
+    case CYGNI = 'cygni';
     case UNKNOWN = 'unknown';
 
     public function toString(): string

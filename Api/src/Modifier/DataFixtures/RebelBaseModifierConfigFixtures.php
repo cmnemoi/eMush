@@ -48,6 +48,21 @@ final class RebelBaseModifierConfigFixtures extends Fixture
         $manager->persist($centauriActionPointModifier);
         $this->addReference($centauriActionPointModifier->getName(), $centauriActionPointModifier);
 
+        /** @var VariableEventConfig $plus3MoralEventConfig */
+        $plus3MoralEventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT);
+        $cygniMoralModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::CYGNI_PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS)
+        );
+        $cygniMoralModifier->setTriggeredEvent($plus3MoralEventConfig);
+        $manager->persist($cygniMoralModifier);
+        $this->addReference($cygniMoralModifier->getName(), $cygniMoralModifier);
+
+        $cygniPatrolShipDamageModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::CYGNI_PLUS_1_DAMAGE_PATROL_SHIPS)
+        );
+        $manager->persist($cygniPatrolShipDamageModifier);
+        $this->addReference($cygniPatrolShipDamageModifier->getName(), $cygniPatrolShipDamageModifier);
+
         $manager->flush();
     }
 }

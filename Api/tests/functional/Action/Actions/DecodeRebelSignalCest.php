@@ -221,6 +221,22 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveBrainsync($I);
     }
 
+    public function cygniRebelBaseShouldGiveThreeMoralePointsOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::CYGNI, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::CYGNI, 99);
+        $this->givenChunHasMoralePoints(0);
+        $this->givenKuanTiHasMoralePoints(0);
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::CYGNI);
+
+        $this->thenChunShouldHaveMoralePoints(3, $I);
+        $this->thenKuanTiShouldHaveMoralePoints(3, $I);
+    }
+
     public function shouldDoubleOutputQuantityOnRebelSkill(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();

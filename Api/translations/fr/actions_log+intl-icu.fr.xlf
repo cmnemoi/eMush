@@ -815,71 +815,6 @@
         <target>Un bout de scotch par ici, une soudure par là... et dire qu'il suffit de ça pour avoir un iTrackie®© dernier cri. Il ne reste plus qu'à installer les mises à jour.</target>
       </segment>
     </unit>
-    <unit id="attack_success">
-      <segment id="attack_success" state="translated">
-        <source>attack_success</source>
-        <target>{version, select,
-                    1 {**{character}** enfonce sa lame dans une des articulations de **{target_character}** qui pendouille maintenant tristement...}
-                    2 {**{character}** estoque **{target_character}** avec maestria.}
-                    3 {**{character}** taillade un gros morceau de **{target_character}**, c'est dégoûtant...}
-                    4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
-                    5 {{character_gender, select,
-                        male {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'il vient de lui enfoncer.}
-                        female {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'elle vient de lui enfoncer.}
-                        other {invalid gender input}
-                      }}
-                    6 {Les duels à la lame finissent rarement bien, **{character}** opère une coupe drastique dans le capital santé de **{target_character}**.}
-                    7 {Malgré une jolie esquive, **{target_character}** verse un peu de son sang.}
-                    8 {Peut-être l'esquive malencontreuse, peut-être le mauvais mouvement, peut-être une mauvaise imitation de combat vue dans un holodisque... **{target_character}** s'empale sur la lame de **{character}** avec lourdeur.}
-                    9 {Une réminiscence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="attack_fail">
-      <segment id="attack_fail" state="translated">
-        <source>attack_fail</source>
-        <target>{version, select,
-                    1 {**{character}** dégaine sa lame et tente de frapper **{target_character}** mais rate sa cible.}
-                    2 {Zip, l'arme de **{character}** esquive fort élégamment **{target_character}** pour se heurter à un mur insolent.}
-                    3 {**{target_character}** se retourne vers **{character}** qui le menace de sa lame. Trop vif, trop rapide, trop précis, bref, trop...**{character}** fait un effort surhumain mais se trouve pris d'un malaise...}
-                    4 {Au moment d’agresser **{target_character}**, **{character}** se prend les pieds dans un tapis imaginaire et rate sa cible.}
-                    5 {Qui eut crû que **{target_character}** aie de si bons réflexes...**{character}** rate lamentablement son coup.}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="attack_critical_success">
-      <segment id="attack_critical_success" state="translated">
-        <source>attack_critical_success</source>
-        <target>{version, select,
-                    1 {**{character}** enfonce sa lame dans une des articulations de **{target_character}** qui pendouille maintenant tristement...}
-                    2 {**{character}** estoque **{target_character}** avec maestria.}
-                    3 {**{character}** taillade un gros morceau de **{target_character}**, c'est dégoûtant...}
-                    4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
-                    5 {{character_gender, select,
-                        male {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'il vient de lui enfoncer.}
-                        female {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'elle vient de lui enfoncer.}
-                        other {invalid gender input}
-                      }}
-                    6 {Les duels à la lame finissent rarement bien, **{character}** opère une coupe drastique dans le capital santé de **{target_character}**.}
-                    7 {Malgré une jolie esquive, **{target_character}** verse un peu de son sang.}
-                    8 {Peut-être l'esquive malencontreuse, peut-être le mauvais mouvement, peut-être une mauvaise imitation de combat vue dans un holodisque... **{target_character}** s'empale sur la lame de **{character}** avec lourdeur.}
-                    9 {Une reminescence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="attack_critical_fail">
-      <segment id="attack_critical_fail" state="translated">
-        <source>attack_critical_fail</source>
-        <target>{version, select,
-                    1 {**{character}** rate sa cible assez largement et le choc contre le mur qui se trouve à proximité lui fait se mordre la langue...}
-                    2 {Dans son grand mouvement impressionnant, **{character}** se claque un muscle dorsal. Dommage.}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
     <unit id="suicide_success">
       <segment id="suicide_success" state="translated">
         <source>suicide_success</source>
@@ -888,12 +823,6 @@
                 female {**{character}** était visiblement très pressée, elle ouvre un portail spatio-temporel et saute dedans à pieds joints. On ne devrait pas la revoir de sitôt.}
                 other {invalid character_gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="attack_one_shot">
-      <segment state="translated">
-        <source>attack_one_shot</source>
-        <target/>
       </segment>
     </unit>
     <unit id="shoot_one_shot">

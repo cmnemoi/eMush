@@ -130,7 +130,7 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>block_of_post_it.name</source>
         <target>Block of post-it notes</target>
       </segment>
-      <segment id="tips" state="final">
+      <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>

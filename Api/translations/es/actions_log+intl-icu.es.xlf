@@ -481,55 +481,10 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
         <target>Un trozo de cinta por aquí, una soldadura por allá... y pensar que con eso basta para tener un iTrackie®© de última generación. Solo falta instalar las actualizaciones.</target>
       </segment>
     </unit>
-    <unit id="attack_success">
-      <segment id="attack_success" state="initial">
-        <source>attack_success</source>
-        <target>attack_success</target>
-      </segment>
-    </unit>
-    <unit id="attack_fail">
-      <segment id="attack_fail" state="translated">
-        <source>attack_fail</source>
-        <target>{version, select,
-1 {**{character}** saca su cuchillo y ataca a **{target_character}** pero falla.}
-2  {¡CRASH! **{target_character}** esquiva elegantemente el arma de **{character}** y esta termina chocando contra la pared.}
-3 {**target_character}** se gira hacia **{character}**, quien le amenaza con su arma. Con mucha fuerza, rapidez, precisión, con... el esfuerzo superhumano de **{character}** casi le hace desmayarse...}
-4 {Mientras atacaba a **{target_character}**, **{character}** se resbala con una alfombra imaginaria y falla su objetivo.}
-5 {Quién diría que **{target_character}** tiene tan buenos reflejos... **{character}** falla su ataque miserablemente.}
-other {invalid version input}
-}</target>
-      </segment>
-    </unit>
-    <unit id="attack_critical_success">
-      <segment id="attack_critical_success" state="initial">
-        <source>attack_critical_success</source>
-        <target>attack_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="attack_critical_fail">
-      <segment id="attack_critical_fail" state="translated">
-        <source>attack_critical_fail</source>
-        <target>{version, select,
-1 {**{character}** falla en su ataque y no solo se da contra la pared, sino que se muerde la lengua...} 
-2 {Mientras hacía un salto impresionante, **{character}** se rompe un músculo dorsal. Eso debió doler.}
-other {invalid version input}
-}</target>
-      </segment>
-    </unit>
     <unit id="suicide_success">
       <segment id="suicide_success" state="translated">
         <source>suicide_success</source>
         <target>**{character}** tenía una prisa muy visible, abre un portal espaciotemporal y salta con sus dos pies. No deberíamos verle pronto otra vez.</target>
-      </segment>
-    </unit>
-    <unit id="attack_one_shot">
-      <segment state="translated">
-        <source>attack_one_shot</source>
-        <target>{version, select,
-1 {Con una mirada malvada, **{character}** se cuela por detrás de **{target_character}** y le corta su arteria carótida.
-2 {Las últimas palabras de **{target_character}** fueron "Tú también, **{character}**..." justo antes de morir de una puñalada.
-other {invalid version input}
-}</target>
       </segment>
     </unit>
     <unit id="shoot_one_shot">

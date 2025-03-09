@@ -427,40 +427,10 @@
         <target>update_talkie_success</target>
       </segment>
     </unit>
-    <unit id="attack_success">
-      <segment id="attack_success" state="initial">
-        <source>attack_success</source>
-        <target>attack_success</target>
-      </segment>
-    </unit>
-    <unit id="attack_fail">
-      <segment id="attack_fail" state="initial">
-        <source>attack_fail</source>
-        <target>attack_fail</target>
-      </segment>
-    </unit>
-    <unit id="attack_critical_success">
-      <segment id="attack_critical_success" state="initial">
-        <source>attack_critical_success</source>
-        <target>attack_critical_success</target>
-      </segment>
-    </unit>
-    <unit id="attack_critical_fail">
-      <segment id="attack_critical_fail" state="initial">
-        <source>attack_critical_fail</source>
-        <target>attack_critical_fail</target>
-      </segment>
-    </unit>
     <unit id="suicide_success">
       <segment id="suicide_success" state="initial">
         <source>suicide_success</source>
         <target>suicide_success</target>
-      </segment>
-    </unit>
-    <unit id="attack_one_shot">
-      <segment state="initial">
-        <source>attack_one_shot</source>
-        <target>attack_one_shot</target>
       </segment>
     </unit>
     <unit id="shoot_one_shot">

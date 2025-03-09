@@ -575,75 +575,6 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>A piece of tape here, a weld there... and to think that this is all it takes to have a state-of-the-art iTrackie®©. All that's left to do is install the updates.</target>
       </segment>
     </unit>
-    <unit id="attack_success">
-      <segment id="attack_success" state="translated">
-        <source>attack_success</source>
-        <target>{version, select,
-    1 {**{character}** thrusts at **{target_character}** with flair.}
-    2 {**{character}** plunges their blade into one of **{target_character}**'s joints.}
-    3 {**{character}** carves a chunk out of **{target_character}**, it's gross...}
-    4 {Despite a good dodge, **{target_character}** has lost a little blood.}
-    5 {**{character}**'s adeptly wielded blade makes a huge gash in **{target_character}**.}
-    other {**{character}** thrusts at **{target_character}** with flair.}
-}</target>
-      </segment>
-    </unit>
-    <unit id="attack_fail">
-      <segment id="attack_fail" state="translated">
-        <source>attack_fail</source>
-        <target>{version, select,
-	1 {**{character}** unsheathed their blade and tried to attack **{target_character}**, but missed the target.}
-	2 {Crash! **{character}**'s weapon elegantly avoids **{target_character}** and instead crashes against a concrete bystander.}
-	3 {{character_gender, select,
-		male {{target_character_gender, select,
-			male {**{target_character}** turns to **{character}**, who threatens him with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds himself feeling dizzy...}
-			female {**{target_character}** turns to **{character}**, who threatens her with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds himself feeling dizzy...}
-			other {**{target_character}** turns to **{character}**, who threatens them with his blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds himself feeling dizzy...}
-				}}
-		female {{target_character_gender, select,
-			male {**{target_character}** turns to **{character}**, who threatens him with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds herself feeling dizzy...}
-			female {**{target_character}** turns to **{character}**, who threatens her with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds herself feeling dizzy...}
-			other {**{target_character}** turns to **{character}**, who threatens them with her blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds herself feeling dizzy...}
-				}}
-		other {{target_character_gender, select,
-			male {**{target_character}** turns to **{character}**, who threatens him with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds themselves feeling dizzy...}
-			female {**{target_character}** turns to **{character}**, who threatens her with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds themselves feeling dizzy...}
-			other {**{target_character}** turns to **{character}**, who threatens them with their blade. Too lively, too quick, too precise, too... **{character}** makes a superhuman effort, but finds themselves feeling dizzy...}
-				}}
-		}}
-	4 {When attacking **{target_character}**, **{character}** trips on an imaginary carpet and misses the target.}
-	5 {{character_gender, select,
-		male {Who would have thought that **{target_character}** had such good reflexes... **{character}** misses his mark miserably.}
-		female {Who would have thought that **{target_character}** had such good reflexes... **{character}** misses her mark miserably.}
-		other {Who would have thought that **{target_character}** had such good reflexes... **{character}** misses their mark miserably.}
-		}}
-	other {invalid version input}
-	}</target>
-      </segment>
-    </unit>
-    <unit id="attack_critical_success">
-      <segment id="attack_critical_success" state="translated">
-        <source>attack_critical_success</source>
-        <target>{version, select,
-    1 {**{character}** thrusts at **{target_character}** with flair.}
-    2 {**{character}** plunges their blade into one of **{target_character}**'s joints.}
-    3 {**{character}** carves a chunk out of **{target_character}**, it's gross...}
-    4 {Despite a good dodge, **{target_character}** has lost a little blood.}
-    5 {**{character}**'s adeptly wielded blade makes a huge gash in **{target_character}**.}
-    other {**{character}** thrusts at **{target_character}** with flair.}
-}</target>
-      </segment>
-    </unit>
-    <unit id="attack_critical_fail">
-      <segment id="attack_critical_fail" state="translated">
-        <source>attack_critical_fail</source>
-        <target>{version, select,
-    1 {**{character}** missed their target by a good distance and the clash against a nearby wall made them bite their tongue...}
-    2 {In their great impressive movement, **{character}** snaps a back muscle. Too bad.}
-    other {In their great impressive movement, **{character}** snaps a back muscle. Too bad.}
-}</target>
-      </segment>
-    </unit>
     <unit id="suicide_success">
       <segment id="suicide_success" state="translated">
         <source>suicide_success</source>
@@ -652,12 +583,6 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
                 female {**{character}** was obviously in a hurry, she opens a space-time portal and jumps in with both feet. We should not see her again soon.}
                 other {invalid character_gender input}
                 }</target>
-      </segment>
-    </unit>
-    <unit id="attack_one_shot">
-      <segment state="translated">
-        <source>attack_one_shot</source>
-        <target/>
       </segment>
     </unit>
     <unit id="shoot_one_shot">

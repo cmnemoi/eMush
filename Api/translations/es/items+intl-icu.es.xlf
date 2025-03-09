@@ -384,11 +384,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>meztine.description</source>
-        <target>La Balargina es un fruto delicado y dulce. Su pulpa rica en colágeno es muy apreciada. </target>
+        <target>La Balargina es un fruto delicado y dulce. Su pulpa rica en colágeno es muy apreciada.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>meztine.examine</source>
-        <target>La Balargina es un fruto delicado y dulce. Su pulpa rica en colágeno es muy apreciada. </target>
+        <target>La Balargina es un fruto delicado y dulce. Su pulpa rica en colágeno es muy apreciada.</target>
       </segment>
     </unit>
     <unit id="guntiflop">
@@ -488,11 +488,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>bottine.description</source>
-        <target>El fruto del Buitalien es muy decorativo pero su sabor no es agradable. </target>
+        <target>El fruto del Buitalien es muy decorativo pero su sabor no es agradable.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bottine.examine</source>
-        <target>El fruto del Buitalien es muy decorativo pero su sabor no es agradable. </target>
+        <target>El fruto del Buitalien es muy decorativo pero su sabor no es agradable.</target>
       </segment>
     </unit>
     <unit id="fragilane">
@@ -514,11 +514,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>fragilane.description</source>
-        <target>La Fragilana es una fruta sabrosa pero poco nutritiva. </target>
+        <target>La Fragilana es una fruta sabrosa pero poco nutritiva.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>fragilane.examine</source>
-        <target>La Fragilana es una fruta sabrosa pero poco nutritiva. </target>
+        <target>La Fragilana es una fruta sabrosa pero poco nutritiva.</target>
       </segment>
     </unit>
     <unit id="anemole">
@@ -708,7 +708,7 @@ Sirve para comunicarse a distancia con otros tripulantes.
 //
 También da acceso a un minimapa aumentado del Daedalus.
 //
-Una gran revolución en tus manos. **Cuidado con él**, el servicio post-venta de esto te puede costar un riñón. </target>
+Una gran revolución en tus manos. **Cuidado con él**, el servicio post-venta de esto te puede costar un riñón.</target>
       </segment>
     </unit>
     <unit id="adjustable_wrench">
@@ -3168,7 +3168,7 @@ Sirve para colocar una planta en el jardín.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>filandra.examine</source>
-        <target>El Filandru es el fruto más difícil de comer que haya existido... </target>
+        <target>El Filandru es el fruto más difícil de comer que haya existido...</target>
       </segment>
     </unit>
     <unit id="bumpjumpkin">

@@ -78,7 +78,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>extreme_tinnitus.description</source>
-        <target>Oyes un silbido constantemente, eso puede agotarte rápidamente. </target>
+        <target>Oyes un silbido constantemente, eso puede agotarte rápidamente.</target>
       </segment>
     </unit>
     <unit id="flu">

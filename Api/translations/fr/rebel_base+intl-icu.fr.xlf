@@ -1,117 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-    <file id="rebel_base.ext">
+  <file id="rebel_base.ext">
     <unit id="wolf">
-        <segment id="name">
-            <source>wolf.name</source>
-            <target>Wolf</target>
-        </segment>
-        <segment id="hoverName">
-            <source>wolf.hoverName</source>
-            <target>Message des Enfants Perdus de Wolf</target>
-        </segment>
-        <segment id="description">
-            <source>wolf.description</source>
-            <target>Les enfants perdus de Wolf ont installé plusieurs antennes sur Terre ainsi qu'un centre d’émission à Mumbaï. Nous allons pouvoir émettre sur les ondes radios terriennes les nouvelles de votre odyssée. Vous êtes des héros.</target>
-        </segment>
+      <segment id="name" state="translated">
+        <source>wolf.name</source>
+        <target>Wolf</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>wolf.hoverName</source>
+        <target>Message des Enfants Perdus de Wolf</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>wolf.description</source>
+        <target>Les enfants perdus de Wolf ont installé plusieurs antennes sur Terre ainsi qu'un centre d’émission à Mumbaï. Nous allons pouvoir émettre sur les ondes radios terriennes les nouvelles de votre odyssée. Vous êtes des héros.</target>
+      </segment>
     </unit>
     <unit id="sirius">
-        <segment id="name">
-            <source>sirius.name</source>
-            <target>Sirius</target>
-        </segment>
-        <segment id="hoverName">
-            <source>sirius.hoverName</source>
-            <target>Message de Mages noirs de Sirius</target>
-        </segment>
-        <segment id="description">
-            <source>sirius.description</source>
-            <target>Nous vous remercions pour tous les renseignements sur le Mush que vous nous avez apportés. En échange, nous vous avons transféré les plans de la molécule de Shkunz. En l'appliquant à doses homéopathiques dans vos rations, vous devriez améliorer le rendement de votre équipage.</target>
-        </segment>
+      <segment id="name" state="translated">
+        <source>sirius.name</source>
+        <target>Sirius</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>sirius.hoverName</source>
+        <target>Message de Mages noirs de Sirius</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>sirius.description</source>
+        <target>Nous vous remercions pour tous les renseignements sur le Mush que vous nous avez apportés. En échange, nous vous avons transféré les plans de la molécule de Shkunz. En l'appliquant à doses homéopathiques dans vos rations, vous devriez améliorer le rendement de votre équipage.//**Les Rations rapportent 1:pa: supplémentaire.**</target>
+      </segment>
     </unit>
     <unit id="centauri">
-        <segment id="name">
-            <source>centauri.name</source>
-            <target>Centauri</target>
-        </segment>
-        <segment id="hoverName">
-            <source>centauri.hoverName</source>
-            <target>Message des Amants de Centauri</target>
-        </segment>
-        <segment id="description">
-            <source>centauri.description</source>
-            <target>Nous sommes heureux de pouvoir rencontrer les héros de la guerre anti-Mush. Dans notre secteur, la guerre pour le contrôle des colonies fait rage. Pour faciliter vos opérations d'exploration de surface nous venons de vous transférer les plans du PL80-Blaster, un puissant canon à plasma qui doit être manipulé avec précaution. Battez-vous jusqu'au bout !</target>
-        </segment>
+      <segment id="name" state="translated">
+        <source>centauri.name</source>
+        <target>Centauri</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>centauri.hoverName</source>
+        <target>Message des Amants de Centauri</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>centauri.description</source>
+        <target>Nous sommes heureux de pouvoir rencontrer les héros de la guerre anti-Mush. Dans notre secteur, la guerre pour le contrôle des colonies fait rage. Pour faciliter vos opérations d'exploration de surface nous venons de vous transférer les plans du PL80-Blaster, un puissant canon à plasma qui doit être manipulé avec précaution. Battez-vous jusqu'au bout !//**Chaque Blaster apporte un point de puissance supplémentaire lors d'une expédition.**</target>
+      </segment>
     </unit>
     <unit id="kaladaan">
-        <segment id="name">
-            <source>kaladaan.name</source>
-            <target>Kaladaan</target>
-        </segment>
-        <segment id="hoverName">
-            <source>kaladaan.hoverName</source>
-            <target>Message des Fondateurs de Kaladaan</target>
-        </segment>
-        <segment id="description">
-            <source>kaladaan.description</source>
-            <target>Ici Kaladaan ! Nous remercions tout l'équipage du Daedalus pour avoir donné au peuple de Sol l'espoir d'un avenir meilleur. Depuis votre départ la résistance s'organise et nous avons déjà infiltré plusieurs administrations Mush. La Fédération sera bientôt renversée et nous reprendrons le contrôle de Sol !</target>
-        </segment>
+      <segment id="name" state="translated">
+        <source>kaladaan.name</source>
+        <target>Kaladaan</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>kaladaan.hoverName</source>
+        <target>Message des Fondateurs de Kaladaan</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kaladaan.description</source>
+        <target>Ici Kaladaan ! Nous remercions tout l'équipage du Daedalus pour avoir donné au peuple de Sol l'espoir d'un avenir meilleur. Depuis votre départ la résistance s'organise et nous avons déjà infiltré plusieurs administrations Mush. La Fédération sera bientôt renversée et nous reprendrons le contrôle de Sol !//**L'équipage gagne 6:pmo:.**</target>
+      </segment>
     </unit>
     <unit id="luyten_ceti">
-        <segment id="name">
-            <source>luyten_ceti.name</source>
-            <target>Luyten-Ceti</target>
-        </segment>
-        <segment id="hoverName">
-            <source>luyten_ceti.hoverName</source>
-            <target>Message des Ombres de Luyten-Ceti</target>
-        </segment>
-        <segment id="description">
-            <source>luyten_ceti.description</source>
-            <target>Notre système est encore sous le contrôle du Mush. Nous devons travailler dans la plus grande discrétion et pour cela nous avons développé de minuscules sondes com placées directement à l'interieur de nos cerveaux. Leur modèles viennent de vous d'être transférés. Les ombres de Luyten-Ceti veillent sur vous.//**Les équipiers n'ont plus besoin de Talkie-Walkie pour les communications distantes.**</target>
-        </segment>
+      <segment id="name" state="translated">
+        <source>luyten_ceti.name</source>
+        <target>Luyten-Ceti</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>luyten_ceti.hoverName</source>
+        <target>Message des Ombres de Luyten-Ceti</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>luyten_ceti.description</source>
+        <target>Notre système est encore sous le contrôle du Mush. Nous devons travailler dans la plus grande discrétion et pour cela nous avons développé de minuscules sondes com placées directement à l'interieur de nos cerveaux. Leur modèles viennent de vous d'être transférés. Les ombres de Luyten-Ceti veillent sur vous.//**Les équipiers n'ont plus besoin de Talkie-Walkie pour les communications distantes.**</target>
+      </segment>
     </unit>
     <unit id="cygni">
-        <segment id="name">
-            <source>cygni.name</source>
-            <target>Cygni</target>
-        </segment>
-        <segment id="hoverName">
-            <source>cygni.hoverName</source>
-            <target>Message des Aurores de Cygni</target>
-        </segment>
-        <segment id="description">
-            <source>cygni.description</source>
-            <target>Nous saluons l'équipage du Daedalus. 61 Cygni a été exploré durant votre voyage. La fédération ne sait pas que l'intégralité de notre formation est humaine. Nous simulons des envois d'information réguliers a l'aide d'un Pheromodem évolué. En trompant la vigilance du Mush nous préparons la contre-attaque armée de la rébellion depuis ce système. Les plans de notre missile SP2SP-230 ont été transférés vers NERON.//:point: **L'équipage gagne 3 moral.**//:point: **Les dégats des Patrouilleurs sont augmentés d'un point.**</target>
-        </segment>
+      <segment id="name" state="translated">
+        <source>cygni.name</source>
+        <target>Cygni</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>cygni.hoverName</source>
+        <target>Message des Aurores de Cygni</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cygni.description</source>
+        <target>Nous saluons l'équipage du Daedalus. 61 Cygni a été exploré durant votre voyage. La fédération ne sait pas que l'intégralité de notre formation est humaine. Nous simulons des envois d'information réguliers a l'aide d'un Pheromodem évolué. En trompant la vigilance du Mush nous préparons la contre-attaque armée de la rébellion depuis ce système. Les plans de notre missile SP2SP-230 ont été transférés vers NERON.//**L'équipage gagne 3:pmo:.**//**Les dégâts des Patrouilleurs sont augmentés d'un point.**</target>
+      </segment>
     </unit>
     <unit id="unknown">
-        <segment id="name">
-            <source>unknown.name</source>
-            <target>???</target>
-        </segment>
-        <segment id="hoverName">
-            <source>unknown.hoverName</source>
-            <target>???</target>
-        </segment>
+      <segment id="name" state="translated">
+        <source>unknown.name</source>
+        <target>???</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>unknown.hoverName</source>
+        <target>???</target>
+      </segment>
     </unit>
     <unit id="lost">
-        <segment id="description">
-            <source>lost.description</source>
-            <target>Cette base rebelle a lancé un signal mais personne n'a pu le décoder. Les apports de cette base sont perdus à jamais.</target>
-        </segment>
+      <segment id="description" state="translated">
+        <source>lost.description</source>
+        <target>Cette base rebelle a lancé un signal mais personne n'a pu le décoder. Les apports de cette base sont perdus à jamais.</target>
+      </segment>
     </unit>
     <unit id="not_contacting">
-        <segment id="description">
-            <source>not_contacting.description</source>
-            <target>Cette base rebelle semble inactive pour le moment. À un moment du voyage, elle enverra un signal à décoder. Assurez-vous qu'il soit intercepté pour bénéficier de ses avantages.</target>
-        </segment>
+      <segment id="description" state="translated">
+        <source>not_contacting.description</source>
+        <target>Cette base rebelle semble inactive pour le moment. À un moment du voyage, elle enverra un signal à décoder. Assurez-vous qu'il soit intercepté pour bénéficier de ses avantages.</target>
+      </segment>
     </unit>
     <unit id="contacting">
-        <segment id="description">
-            <source>contacting.description</source>
-            <target>Cette base rebelle a lancé un signal. En le décodant, vous obtiendrez des informations précieuses voir même des avantages pour l'équipage. Si vous tardez à le traiter, ce signal sera perdu à jamais.</target>
-        </segment>
+      <segment id="description" state="translated">
+        <source>contacting.description</source>
+        <target>Cette base rebelle a lancé un signal. En le décodant, vous obtiendrez des informations précieuses voir même des avantages pour l'équipage. Si vous tardez à le traiter, ce signal sera perdu à jamais.</target>
+      </segment>
     </unit>
-    </file>
+  </file>
 </xliff>

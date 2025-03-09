@@ -756,7 +756,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
 //
 Ya sea por una mutación genética incomprensible o por pura locura homicida, una cosa es segura: este jugador es muy peligroso como para dejarlo libre.
 //
-**Advertencia**, esta acción matará a este jugador **inmediatamente**! </target>
+**Advertencia**, esta acción matará a este jugador **inmediatamente**!</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>kill_player.confirmation</source>
@@ -1543,16 +1543,6 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
         <target>neron_depress.description</target>
       </segment>
     </unit>
-    <unit id="search_for_mush_genome">
-      <segment id="search_for_mush_genome" state="initial">
-        <source>search_for_mush_genome.name</source>
-        <target>search_for_mush_genome.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>search_for_mush_genome.description</source>
-        <target>search_for_mush_genome.description</target>
-      </segment>
-    </unit>
     <unit id="participate_research">
       <segment id="name" state="initial">
         <source>participate_research.name</source>
@@ -1635,6 +1625,36 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
       <segment id="description" state="initial">
         <source>upgrade_neron.description</source>
         <target>upgrade_neron.description</target>
+      </segment>
+    </unit>
+    <unit id="decode_rebel_signal">
+      <segment id="name" state="initial">
+        <source>decode_rebel_signal.name</source>
+        <target>decode_rebel_signal.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>decode_rebel_signal.description</source>
+        <target>decode_rebel_signal.description</target>
+      </segment>
+    </unit>
+    <unit id="contact_xyloph">
+      <segment id="name" state="initial">
+        <source>contact_xyloph.name</source>
+        <target>contact_xyloph.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>contact_xyloph.description</source>
+        <target>contact_xyloph.description</target>
+      </segment>
+    </unit>
+    <unit id="trigger_all_rebel_contacts">
+      <segment id="name" state="initial">
+        <source>trigger_all_rebel_contacts.name</source>
+        <target>trigger_all_rebel_contacts.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>trigger_all_rebel_contacts.description</source>
+        <target>trigger_all_rebel_contacts.description</target>
       </segment>
     </unit>
   </file>

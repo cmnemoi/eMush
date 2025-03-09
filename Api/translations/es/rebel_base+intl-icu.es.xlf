@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="rebel_base.ext">
+    <unit id="wolf">
+      <segment id="name" state="initial">
+        <source>wolf.name</source>
+        <target>wolf.name</target>
+      </segment>
+      <segment id="hoverName" state="initial">
+        <source>wolf.hoverName</source>
+        <target>wolf.hoverName</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>wolf.description</source>
+        <target>wolf.description</target>
+      </segment>
+    </unit>
+    <unit id="sirius">
+      <segment id="name" state="initial">
+        <source>sirius.name</source>
+        <target>sirius.name</target>
+      </segment>
+      <segment id="hoverName" state="initial">
+        <source>sirius.hoverName</source>
+        <target>sirius.hoverName</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>sirius.description</source>
+        <target>sirius.description</target>
+      </segment>
+    </unit>
+    <unit id="centauri">
+      <segment id="name" state="initial">
+        <source>centauri.name</source>
+        <target>centauri.name</target>
+      </segment>
+      <segment id="hoverName" state="initial">
+        <source>centauri.hoverName</source>
+        <target>centauri.hoverName</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>centauri.description</source>
+        <target>centauri.description</target>
+      </segment>
+    </unit>
+    <unit id="kaladaan">
+      <segment id="name" state="initial">
+        <source>kaladaan.name</source>
+        <target>kaladaan.name</target>
+      </segment>
+      <segment id="hoverName" state="initial">
+        <source>kaladaan.hoverName</source>
+        <target>kaladaan.hoverName</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>kaladaan.description</source>
+        <target>kaladaan.description</target>
+      </segment>
+    </unit>
+    <unit id="luyten_ceti">
+      <segment id="name" state="initial">
+        <source>luyten_ceti.name</source>
+        <target>luyten_ceti.name</target>
+      </segment>
+      <segment id="hoverName" state="initial">
+        <source>luyten_ceti.hoverName</source>
+        <target>luyten_ceti.hoverName</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>luyten_ceti.description</source>
+        <target>luyten_ceti.description</target>
+      </segment>
+    </unit>
+    <unit id="cygni">
+      <segment id="name" state="initial">
+        <source>cygni.name</source>
+        <target>cygni.name</target>
+      </segment>
+      <segment id="hoverName" state="initial">
+        <source>cygni.hoverName</source>
+        <target>cygni.hoverName</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cygni.description</source>
+        <target>cygni.description</target>
+      </segment>
+    </unit>
+    <unit id="unknown">
+      <segment id="name" state="initial">
+        <source>unknown.name</source>
+        <target>unknown.name</target>
+      </segment>
+      <segment id="hoverName" state="initial">
+        <source>unknown.hoverName</source>
+        <target>unknown.hoverName</target>
+      </segment>
+    </unit>
+    <unit id="lost">
+      <segment id="description" state="initial">
+        <source>lost.description</source>
+        <target>lost.description</target>
+      </segment>
+    </unit>
+    <unit id="not_contacting">
+      <segment id="description" state="initial">
+        <source>not_contacting.description</source>
+        <target>not_contacting.description</target>
+      </segment>
+    </unit>
+    <unit id="contacting">
+      <segment id="description" state="initial">
+        <source>contacting.description</source>
+        <target>contacting.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

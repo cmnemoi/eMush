@@ -841,18 +841,6 @@
         <target>neron_depress_success</target>
       </segment>
     </unit>
-    <unit id="search_for_mush_genome_fail">
-      <segment id="search_for_mush_genome_fail" state="initial">
-        <source>search_for_mush_genome_fail</source>
-        <target>search_for_mush_genome_fail</target>
-      </segment>
-    </unit>
-    <unit id="search_for_mush_genome_success">
-      <segment id="search_for_mush_genome_success" state="initial">
-        <source>search_for_mush_genome_success</source>
-        <target>search_for_mush_genome_success</target>
-      </segment>
-    </unit>
     <unit id="compute_eden_success">
       <segment id="compute_eden_success" state="initial">
         <source>compute_eden_success</source>

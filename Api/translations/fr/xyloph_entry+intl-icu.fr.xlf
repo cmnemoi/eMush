@@ -1,135 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
-    <file id="xyloph_entry.ext">
-        <unit id="unknown">
-            <segment id="name" state="translated">
-                <source>unknown.name</source>
-                <target>???</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>unknown.description</source>
-                <target>???</target>
-            </segment>
-        </unit>
-        <unit id="disk">
-            <segment id="name" state="translated">
-                <source>disk.name</source>
-                <target>Génome</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>disk.description</source>
-                <target>Ce disque regroupe des informations cruciales sur le génome Mush rassemblées par Ian Soulton juste avant le départ du Daedalus.//**Fournit la disquette contenant l'analyse du génome Mush.**</target>
-            </segment>
-        </unit>
-        <unit id="magnetite">
-            <segment id="name" state="translated">
-                <source>magnetite.name</source>
-                <target>Infidélité du sans-fil...</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>magnetite.description</source>
-                <target>La liaison est de mauvaise qualité...très mauvaise, sans doute le nuage de magnetite que vous traversez en ce moment.//**Provoque une perte de liaison et une baisse de signal significative.**</target>
-            </segment>
-        </unit>
-        <unit id="nothing">
-            <segment id="name" state="translated">
-                <source>nothing.name</source>
-                <target>Donnée corrompue</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>nothing.description</source>
-                <target>Rien à en tirer... La donnée a été corrompue par un virus rhizhomal.//**Ne fait rien.**</target>
-            </segment>
-        </unit>
-        <unit id="snow">
-            <segment id="name" state="translated">
-                <source>snow.name</source>
-                <target>De la neige...</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>snow.description</source>
-                <target>Votre écran est couvert de neige grésillante, ça fait mal au crâne, vous arrêtez vos tentatives...//**Provoque une perte de liaison.**</target>
-            </segment>
-        </unit>
-        <unit id="version">
-            <segment id="name" state="translated">
-                <source>version.name</source>
-                <target>Accès à la base de données perdue de NERON</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>version.description</source>
-                <target>Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de NERON.//**Fait avancer le niveau de mise à jour de NERON de 25%.**</target>
-            </segment>
-        </unit>
-        <unit id="ghost_sample">
-            <segment id="name" state="translated">
-                <source>ghost_sample.name</source>
-                <target>Contact avec Nils Carlsson !</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>ghost_sample.description</source>
-                <target>Vous avez rétabli le contact avec Nils Carlsson, son aide pour les recherches du laboratoire sera précieuse.//**La communication avec Nils remplace une** ***Souche de Test*** **dans le module de recherche**</target>
-            </segment>
-        </unit>
-        <unit id="ghost_chun">
-            <segment id="name" state="translated">
-                <source>ghost_chun.name</source>
-                <target>Codex du genome de Zong Chun</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>ghost_chun.description</source>
-                <target>Zong Chun est le seul être humain résistant a l'infection Mush, l'analyse de son génome est la clé pour l'élaboration d'un vaccin anti-Mush ainsi que de nombreuses autres recherches.//**Ajoute dans l'interface du laboratoire un "ghost" de Zong Chun équivalent a sa présence**</target>
-            </segment>
-        </unit>
-        <unit id="kivanc">
-            <segment id="name" state="translated">
-                <source>kivanc.name</source>
-                <target>Contact avec Kivanç Terzi rétabli !</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>kivanc.description</source>
-                <target>Vous êtes en contact avec Kivanç Terzi qui fédère une grande partie de la rebellion sur le système Sol, son aide vous sera précieuse pour décoder les messages de bases rebelles.//**Vous accorde 100%de bonus sur les décodages de bases rebelles.**</target>
-            </segment>
-        </unit>
-        <unit id="cook">
-            <segment id="name" state="translated">
-                <source>cook.name</source>
-                <target>Le Labrousse de Cuisine édition 2830</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>cook.description</source>
-                <target>Vous tombez sur un fichier contenant des recettes. Beaucoup de recettes. Beaucoup Beaucoup de recettes.//**Provoque l'impression d'un Apprentron pour devenir Cuistot.**</target>
-            </segment>
-        </unit>
-        <unit id="mage_books">
-            <segment id="name" state="translated">
-                <source>mage_books.name</source>
-                <target>Manuel scolaires</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>mage_books.description</source>
-                <target>Vous avis mis la main sur l'archive du centre de formation de Xyloph ! Ce trésor d'intelligence vous aidera a former les abrutis de votre équipage...//**Provoque l'impression de 2x** ***Apprentron***</target>
-            </segment>
-        </unit>
-        <unit id="list">
-            <segment id="name" state="translated">
-                <source>list.name</source>
-                <target>L'analyse perdue de Finola.</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>list.description</source>
-                <target>L'analyse anti-Mush de Finola s'est achevée apres le départ du Daedalus Les résultats ont été envoyé à la tabulatrice, en les lisant, vous saurez quel état l'etat d'infection du Daedalus au départ !//**Provoque l'impression de la liste du niveau d'infection de l'équipage.**</target>
-            </segment>
-        </unit>
-        <unit id="blueprints">
-            <segment id="name" state="translated">
-                <source>blueprints.name</source>
-                <target>Manuel de l'atelier</target>
-            </segment>
-            <segment id="description" state="translated">
-                <source>blueprints.description</source>
-                <target>Voici plusieurs plans d'outils de bases du Daedalus en démontant un ou deux trucs on devrait disposer des matériaux nécessaire pour les construire.//**Provoque l'impression de 3x** ***Plan***</target>
-            </segment>
-        </unit>
-    </file>
- </xliff>
+  <file id="xyloph_entry.ext">
+    <unit id="unknown">
+      <segment id="name" state="translated">
+        <source>unknown.name</source>
+        <target>???</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>unknown.description</source>
+        <target>???</target>
+      </segment>
+    </unit>
+    <unit id="disk">
+      <segment id="name" state="translated">
+        <source>disk.name</source>
+        <target>Génome</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>disk.description</source>
+        <target>Ce disque regroupe des informations cruciales sur le génome Mush rassemblées par Ian Soulton juste avant le départ du Daedalus.//**Fournit la disquette contenant l'analyse du génome Mush.**</target>
+      </segment>
+    </unit>
+    <unit id="magnetite">
+      <segment id="name" state="translated">
+        <source>magnetite.name</source>
+        <target>Infidélité du sans-fil...</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>magnetite.description</source>
+        <target>La liaison est de mauvaise qualité...très mauvaise, sans doute le nuage de magnetite que vous traversez en ce moment.//**Provoque une perte de liaison et une baisse de signal significative.**</target>
+      </segment>
+    </unit>
+    <unit id="nothing">
+      <segment id="name" state="translated">
+        <source>nothing.name</source>
+        <target>Donnée corrompue</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>nothing.description</source>
+        <target>Rien à en tirer... La donnée a été corrompue par un virus rhizhomal.//**Ne fait rien.**</target>
+      </segment>
+    </unit>
+    <unit id="snow">
+      <segment id="name" state="translated">
+        <source>snow.name</source>
+        <target>De la neige...</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>snow.description</source>
+        <target>Votre écran est couvert de neige grésillante, ça fait mal au crâne, vous arrêtez vos tentatives...//**Provoque une perte de liaison.**</target>
+      </segment>
+    </unit>
+    <unit id="version">
+      <segment id="name" state="translated">
+        <source>version.name</source>
+        <target>Accès à la base de données perdue de NERON</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>version.description</source>
+        <target>Une partie des travaux de recherche de Janice sur Xyloph-17 sont intégrés à la mémoire de NERON.//**Fait avancer le niveau de mise à jour de NERON de 25%.**</target>
+      </segment>
+    </unit>
+    <unit id="ghost_sample">
+      <segment id="name" state="translated">
+        <source>ghost_sample.name</source>
+        <target>Contact avec Nils Carlsson !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ghost_sample.description</source>
+        <target>Vous avez rétabli le contact avec Nils Carlsson, son aide pour les recherches du laboratoire sera précieuse.//**La communication avec Nils remplace une** ***Souche de Test*** **dans le module de recherche.**</target>
+      </segment>
+    </unit>
+    <unit id="ghost_chun">
+      <segment id="name" state="translated">
+        <source>ghost_chun.name</source>
+        <target>Codex du genome de Zhong Chun</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ghost_chun.description</source>
+        <target>Zhong Chun est le seul être humain résistant à l'infection Mush, l'analyse de son génome est la clé pour l'élaboration d'un vaccin anti-Mush ainsi que de nombreuses autres recherches.//**Ajoute dans l'interface du laboratoire un "ghost" de Zhong Chun équivalent à sa présence.**</target>
+      </segment>
+    </unit>
+    <unit id="kivanc">
+      <segment id="name" state="translated">
+        <source>kivanc.name</source>
+        <target>Contact avec Kivanç Terzi rétabli !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>kivanc.description</source>
+        <target>Vous êtes en contact avec Kivanç Terzi qui fédère une grande partie de la rébellion sur le système Sol, son aide vous sera précieuse pour décoder les messages de bases rebelles.//**Vous accorde 100% de bonus sur les décodages de bases rebelles.**</target>
+      </segment>
+    </unit>
+    <unit id="cook">
+      <segment id="name" state="translated">
+        <source>cook.name</source>
+        <target>Le Labrousse de Cuisine édition 2830</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cook.description</source>
+        <target>Vous tombez sur un fichier contenant des recettes. Beaucoup de recettes. Beaucoup Beaucoup de recettes.//**Provoque l'impression d'un Apprentron pour devenir Cuistot.**</target>
+      </segment>
+    </unit>
+    <unit id="mage_books">
+      <segment id="name" state="translated">
+        <source>mage_books.name</source>
+        <target>Manuel scolaires</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>mage_books.description</source>
+        <target>Vous avis mis la main sur l'archive du centre de formation de Xyloph ! Ce trésor d'intelligence vous aidera a former les abrutis de votre équipage...//**Provoque l'impression de 2** ***Apprentrons***.</target>
+      </segment>
+    </unit>
+    <unit id="list">
+      <segment id="name" state="translated">
+        <source>list.name</source>
+        <target>L'analyse perdue de Finola.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>list.description</source>
+        <target>L'analyse anti-Mush de Finola s'est achevée après le départ du Daedalus. Les résultats ont été envoyés à la tabulatrice, en les lisant, vous saurez l'état d'infection du Daedalus au départ !//**Provoque l'impression de la liste du niveau d'infection de l'équipage.**</target>
+      </segment>
+    </unit>
+    <unit id="blueprints">
+      <segment id="name" state="translated">
+        <source>blueprints.name</source>
+        <target>Manuel de l'atelier</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>blueprints.description</source>
+        <target>Voici plusieurs plans d'outils de bases du Daedalus en démontant un ou deux trucs, on devrait disposer des matériaux nécessaires pour les construire.//**Provoque l'impression de 3** ***Plans***.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

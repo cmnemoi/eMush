@@ -51,7 +51,7 @@
     <unit id="cook_success">
       <segment id="cook_success" state="translated">
         <source>cook_success</source>
-        <target>**{character}** se ha preparado algo para más tarde. </target>
+        <target>**{character}** se ha preparado algo para más tarde.</target>
       </segment>
     </unit>
     <unit id="disassemble_fail">
@@ -116,7 +116,7 @@ other {invalid gender input}
     <unit id="get_up">
       <segment id="get_up" state="translated">
         <source>get_up</source>
-        <target>**{character}** se levanta lentamente... </target>
+        <target>**{character}** se levanta lentamente...</target>
       </segment>
     </unit>
     <unit id="hide_success">
@@ -138,13 +138,13 @@ other {invalid gender input}
     <unit id="infect_success">
       <segment id="infect_success" state="translated">
         <source>infect_success</source>
-        <target>:mush: **{character}** se ha acercado a **{target_character}** con un instinto predador... ¡y le ha picado discretamente! </target>
+        <target>:mush: **{character}** se ha acercado a **{target_character}** con un instinto predador... ¡y le ha picado discretamente!</target>
       </segment>
     </unit>
     <unit id="lie_down">
       <segment id="lie_down" state="translated">
         <source>lie_down</source>
-        <target>**{character}** se recuesta... El descanso le hará bien. ¡Rumbo al país de los sueños! </target>
+        <target>**{character}** se recuesta... El descanso le hará bien. ¡Rumbo al país de los sueños!</target>
       </segment>
     </unit>
     <unit id="enter_room">
@@ -240,8 +240,7 @@ other {invalid gender input}
 2 {**{character}** rompe un papel con cara de preocupación.}
 3 {**{character}** rompe un papel con cara de alivio.}
 other {"invalid version number"}
-}
-</target>
+}</target>
       </segment>
     </unit>
     <unit id="take">
@@ -331,7 +330,7 @@ female {Que extraño, **{character}** ha hecho que salga humo de la **{target_eq
     <unit id="extinguish_success">
       <segment id="extinguish_success" state="translated">
         <source>extinguish_success</source>
-        <target>:fires: ¡**{character}** ha apagado un incendio! </target>
+        <target>:fires: ¡**{character}** ha apagado un incendio!</target>
       </segment>
     </unit>
     <unit id="extinguish_fail">
@@ -343,7 +342,7 @@ female {Que extraño, **{character}** ha hecho que salga humo de la **{target_eq
     <unit id="comfort_success">
       <segment id="comfort_success" state="translated">
         <source>comfort_success</source>
-        <target>**{character}** reconforta a **{target_character}**, mañana todo irá bien, solo espera y verás... </target>
+        <target>**{character}** reconforta a **{target_character}**, mañana todo irá bien, solo espera y verás...</target>
       </segment>
     </unit>
     <unit id="heal_success">
@@ -361,7 +360,7 @@ female {Que extraño, **{character}** ha hecho que salga humo de la **{target_eq
     <unit id="ultraheal_success">
       <segment id="ultraheal_success" state="translated">
         <source>ultraheal_success</source>
-        <target>Una luz rodea a **{character}**. Unos horribles tentáculos azules iridiscentes recorren su cuerpo. La luz que emiten es cegadora. ¡Sus heridas han sanado perfectamente! </target>
+        <target>Una luz rodea a **{character}**. Unos horribles tentáculos azules iridiscentes recorren su cuerpo. La luz que emiten es cegadora. ¡Sus heridas han sanado perfectamente!</target>
       </segment>
     </unit>
     <unit id="strengthen_success">
@@ -431,7 +430,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="boring_speech">
       <segment id="boring_speech" state="translated">
         <source>boring_speech</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="make_sick">
@@ -467,8 +466,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="ungag_success">
       <segment id="ungag_success" state="translated">
         <source>ungag_success</source>
-        <target>**{character}** se ha desamordazado.
-</target>
+        <target>**{character}** se ha desamordazado.</target>
       </segment>
     </unit>
     <unit id="screw_talkie_success">
@@ -499,8 +497,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
 4 {Mientras atacaba a **{target_character}**, **{character}** se resbala con una alfombra imaginaria y falla su objetivo.}
 5 {Quién diría que **{target_character}** tiene tan buenos reflejos... **{character}** falla su ataque miserablemente.}
 other {invalid version input}
-}
-</target>
+}</target>
       </segment>
     </unit>
     <unit id="attack_critical_success">
@@ -911,18 +908,6 @@ other {invalid version input}
       <segment id="neron_depress_success" state="initial">
         <source>neron_depress_success</source>
         <target>neron_depress_success</target>
-      </segment>
-    </unit>
-    <unit id="search_for_mush_genome_fail">
-      <segment id="search_for_mush_genome_fail" state="initial">
-        <source>search_for_mush_genome_fail</source>
-        <target>search_for_mush_genome_fail</target>
-      </segment>
-    </unit>
-    <unit id="search_for_mush_genome_success">
-      <segment id="search_for_mush_genome_success" state="initial">
-        <source>search_for_mush_genome_success</source>
-        <target>search_for_mush_genome_success</target>
       </segment>
     </unit>
     <unit id="compute_eden_success">

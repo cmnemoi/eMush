@@ -321,7 +321,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Once they begin their task, nothing can distract the determined player.//:point: If an action **fails**, the chances of subsequent success **increases more rapidly**.</target>
+        <target>Once they begin their task, nothing can distract the determined crewmate.//:point: If an action **fails**, the chances of subsequent success **increases more rapidly**.</target>
       </segment>
     </unit>
     <unit id="optimist">
@@ -811,7 +811,7 @@
       </segment>
       <segment id="rebel.description" state="translated">
         <source>rebel.description</source>
-        <target>Your links to the anti-Mush resistance allow you to understand and decode rebel transmissions much quicker than any other radio expert.//:point: **Doubles** your chances of contacting a rebel base.</target>
+        <target>Your links to the anti-Mush resistance allow you to understand and decode rebel transmissions much quicker than any other radio expert.//:point: **Doubles** your progress when decoding a rebel base.</target>
       </segment>
     </unit>
     <unit id="torturer">

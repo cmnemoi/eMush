@@ -1212,7 +1212,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disabled.description</source>
-        <target>L'handicapé moteur gagne 2 :pm: de moins lors des conversions :pa:-:pm:. En revanche, il peut se déplacer gratuitement tant qu'il est dans une salle contenant au moins un membre d'équipage.</target>
+        <target>L'handicapé moteur gagne 2 :pm: de moins lors des conversions :pa:-:pm:. En revanche, il consomme 1:pm: de moins pour se déplacer tant qu'il est dans une salle contenant au moins un membre d'équipage.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>disabled.examine</source>

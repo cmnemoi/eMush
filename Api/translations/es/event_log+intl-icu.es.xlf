@@ -10,7 +10,7 @@
     <unit id="open_success">
       <segment id="open_success" state="translated">
         <source>open_success</source>
-        <target> **{character}** ha encontrado una **{target_equipments}** en una cápsula espacial.</target>
+        <target>**{character}** ha encontrado una **{target_equipments}** en una cápsula espacial.</target>
       </segment>
     </unit>
     <unit id="transplant_success">
@@ -46,7 +46,7 @@
     <unit id="loss_health_point">
       <segment state="translated">
         <source>loss_health_point</source>
-        <target>Has perdido {quantity} :hp:. </target>
+        <target>Has perdido {quantity} :hp:.</target>
       </segment>
     </unit>
     <unit id="gain_moral_point">
@@ -259,7 +259,7 @@
     <unit id="disease_curred_player">
       <segment state="translated">
         <source>disease_cured_player</source>
-        <target>**{character}** ha logrado curar a **{target_character}** de su enfermedad ({disease}). </target>
+        <target>**{character}** ha logrado curar a **{target_character}** de su enfermedad ({disease}).</target>
       </segment>
     </unit>
     <unit id="disease_healed_player">
@@ -283,7 +283,7 @@
     <unit id="disorder_treated_player">
       <segment state="translated">
         <source>disorder_treated_player</source>
-        <target>**{character}** está feliz. La sesión de **{target_character}** fue muy positiva, pero habrá que hacer más. </target>
+        <target>**{character}** está feliz. La sesión de **{target_character}** fue muy positiva, pero habrá que hacer más.</target>
       </segment>
     </unit>
     <unit id="disorder_cured_player">
@@ -385,8 +385,7 @@
     <unit id="surgery_success">
       <segment id="surgery_success" state="translated">
         <source>surgery_success</source>
-        <target>
-Parecía interminable, **{character}** finalmente da su veredicto con una sonrisa...
+        <target>Parecía interminable, **{character}** finalmente da su veredicto con una sonrisa...
                                             {version, select,
                                             1 {la operación fue un éxito. **{target_character}** está bien y pronto estará de pie.}
                                             2 {**{target_character}** se recupera satisfactoriamente.}
@@ -775,6 +774,16 @@ Parecía interminable, **{character}** finalmente da su veredicto con una sonris
       <segment id="ze_list" state="initial">
         <source>ze_list</source>
         <target>ze_list</target>
+      </segment>
+    </unit>
+    <unit id="lost_research">
+      <segment id="lost_research_headline" state="initial">
+        <source>lost_research_headline</source>
+        <target>lost_research_headline</target>
+      </segment>
+      <segment id="lost_research_sample" state="initial">
+        <source>lost_research_sample</source>
+        <target>lost_research_sample</target>
       </segment>
     </unit>
     <unit id="observant_noticed_something">

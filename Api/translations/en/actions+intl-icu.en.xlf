@@ -1538,16 +1538,6 @@ Or you simply need some fresh air.... or not.</target>
         <target>Depresses NERON, which will completely derail it in the next cycle.</target>
       </segment>
     </unit>
-    <unit id="search_for_mush_genome">
-      <segment id="search_for_mush_genome" state="translated">
-        <source>search_for_mush_genome.name</source>
-        <target>Download the Mush genome</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>search_for_mush_genome.description</source>
-        <target>The Daedalus had to leave much earlier than expected.//Use the weak link you have left with Xyloph to create a **disquette of the Mush genome**, which may enable you to create a cure.</target>
-      </segment>
-    </unit>
     <unit id="participate_research">
       <segment id="name" state="translated">
         <source>participate_research.name</source>
@@ -1637,9 +1627,9 @@ Or you simply need some fresh air.... or not.</target>
         <source>decode_rebel_signal.name</source>
         <target>Decode rebel signal</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>decode_rebel_signal.description</source>
-        <target>decode_rebel_signal.description</target>
+        <target>**Every signal decoded gives you an advantage.**</target>
       </segment>
     </unit>
     <unit id="contact_xyloph">
@@ -1647,9 +1637,19 @@ Or you simply need some fresh air.... or not.</target>
         <source>contact_xyloph.name</source>
         <target>Contact Xyloph</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>contact_xyloph.description</source>
-        <target>contact_xyloph.description</target>
+        <target>Allows you to contact the home port of the Daedalus, whatever is left of it…//**Every time contact is made, a new advantage is unlocked (workshop plans, information on the Mush, etc…).**</target>
+      </segment>
+    </unit>
+    <unit id="trigger_all_rebel_contacts">
+      <segment id="name" state="translated">
+        <source>trigger_all_rebel_contacts.name</source>
+        <target>Trigger all rebel contacts</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>trigger_all_rebel_contacts.description</source>
+        <target>Trigger all rebel contacts.</target>
       </segment>
     </unit>
   </file>

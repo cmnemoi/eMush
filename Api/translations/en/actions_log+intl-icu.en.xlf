@@ -657,11 +657,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="attack_one_shot">
       <segment state="translated">
         <source>attack_one_shot</source>
-        <target>{version, select,
-    1 {With an evil eye, **{character}** sneaks up behind **{target_character}** and cuts their carotid artery.}
-    2 {The last words of **{target_character}** could have been "You too **{character}**..." who dies stabbed in the heart.}
-    other {The last words of **{target_character}** could have been "You too **{character}**..." who dies stabbed in the heart.}
-}</target>
+        <target/>
       </segment>
     </unit>
     <unit id="shoot_one_shot">
@@ -1085,18 +1081,6 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="neron_depress_success" state="translated">
         <source>neron_depress_success</source>
         <target>:mush: **{character}** seems to be deep in conversation with... NERON. But what on earth could this two have to talk about?</target>
-      </segment>
-    </unit>
-    <unit id="search_for_mush_genome_fail">
-      <segment id="search_for_mush_genome_fail" state="translated">
-        <source>search_for_mush_genome_fail</source>
-        <target>Access to Xyloph database denied. Nothing to show for it... Bloody coward admin.</target>
-      </segment>
-    </unit>
-    <unit id="search_for_mush_genome_success">
-      <segment id="search_for_mush_genome_success" state="translated">
-        <source>search_for_mush_genome_success</source>
-        <target>Access to Xyloph database accepted. This disk contains crucial information on the Mush genome gathered by Ian Soulton just before the Daedalus left.</target>
       </segment>
     </unit>
     <unit id="compute_eden_success">

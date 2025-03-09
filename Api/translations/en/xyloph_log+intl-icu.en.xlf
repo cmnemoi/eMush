@@ -10,7 +10,7 @@
     <unit id="xyloph_decoded_magnetite">
       <segment id="xyloph_decoded_magnetite" state="translated">
         <source>xyloph_decoded_magnetite</source>
-        <target>Xyloph database access granted. The connection is bad...really bad, no doubt due to the massive magnetite cloud you're currently crossing.</target>
+        <target>Xyloph database access granted. The connection is bad... Really bad, no doubt due to the massive magnetite cloud you're currently crossing.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_snow">
@@ -34,7 +34,7 @@
     <unit id="xyloph_decoded_ghost_sample">
       <segment id="xyloph_decoded_ghost_sample" state="translated">
         <source>xyloph_decoded_ghost_sample</source>
-        <target>Xyloph database access granted. You have re-estabilshed contact with Nils Carlsson, whose help with your lab reseatch will be invaluable.</target>
+        <target>Xyloph database access granted. You have re-established contact with Nils Carlsson, whose help with your lab research will be invaluable.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_ghost_chun">
@@ -58,7 +58,7 @@
     <unit id="xyloph_decoded_mage_books">
       <segment id="xyloph_decoded_mage_books" state="translated">
         <source>xyloph_decoded_mage_books</source>
-        <target>Xyloph database access granted. You managed to get your hands on the Teaching centre archive from Xyloph! This intellectual treasure should help you educate your dumbwitted crewmates...</target>
+        <target>Xyloph database access granted. You managed to get your hands on the teaching center archive from Xyloph! This intellectual treasure should help you educate your dumb witted crewmates...</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_list">
@@ -70,7 +70,7 @@
     <unit id="xyloph_decoded_blueprints">
       <segment id="xyloph_decoded_blueprints" state="translated">
         <source>xyloph_decoded_blueprints</source>
-        <target>Xyloph database access granted. Here are multiple plans for basic tools aboard the Daedalus if we dismantle one or two surplus pieces of kit we should have enough materials to build them.</target>
+        <target>Xyloph database access granted. Here are multiple plans for basic tools aboard the Daedalus. If we dismantle one or two surplus pieces of kit we should have enough materials to build them.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_tabulatrix_broken">

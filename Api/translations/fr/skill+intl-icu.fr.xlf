@@ -324,7 +324,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Une fois qu'il a commencé sa tâche, rien ne peut perturber le joueur persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent plus vite**.</target>
+        <target>Une fois qu'il a commencé sa tâche, rien ne peut perturber l'équipier persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent plus vite**.</target>
       </segment>
     </unit>
     <unit id="optimist">
@@ -660,7 +660,7 @@
       </segment>
       <segment id="fungal_kitchen.description" state="translated">
         <source>fungal_kitchen.description</source>
-        <target>Un grand classique de la gastonomie moderne sur Sol.//:point: Vous pouvez créer un **aliment piégé** en mélangeant un **spore** et un **consommable** pour **1** :pa:.</target>
+        <target>Un grand classique de la gastronomie moderne sur Sol.//:point: Vous pouvez créer un **aliment piégé** en mélangeant un **spore** et un **consommable** pour **1** :pa:.</target>
       </segment>
     </unit>
     <unit id="hard_boiled">
@@ -820,7 +820,7 @@
       </segment>
       <segment id="rebel.description" state="translated">
         <source>rebel.description</source>
-        <target>Vos liens avec la résistance anti-Mush vous permettent de comprendre et décoder les signaux rebelles bien plus rapidement que n'importe quel autre expert radio.//:point: Chances **doublées** pour contacter les bases rebelles.</target>
+        <target>Vos liens avec la résistance anti-Mush vous permettent de comprendre et décoder les signaux rebelles bien plus rapidement que n'importe quel autre expert radio.//:point: **Double** le progrès du décodage des bases rebelles.</target>
       </segment>
     </unit>
     <unit id="torturer">
@@ -880,7 +880,7 @@
       </segment>
       <segment id="antique_perfume.description" state="translated">
         <source>antique_perfume.description</source>
-        <target>Ah cha il chavait faire de frai parfums chez fraigonard en mille neuf chent quatreving douche...//:point: A chaque **douche**, vous gagnez une immunité de **2** cycles contre les **infections Mush**.</target>
+        <target>Ah cha ils chavaient faire de frais parfums chez Fraigonard en mille neuf chent quatre-ving douche...//:point: A chaque **douche**, vous gagnez une immunité de **2** cycles contre les **infections Mush**.</target>
       </segment>
     </unit>
     <unit id="self_sacrifice">
@@ -910,7 +910,7 @@
       </segment>
       <segment id="metalworker.description" state="translated">
         <source>metalworker.description</source>
-        <target>Vous, on peut dire que vous êtes vraiment quelqu'un de productif !//:point: **Jounalier** : Si vous vous trouvez dans un **Stockage**, pour **0** :pa:, vous avez une chance de trouver des débris voir mieux.</target>
+        <target>Vous, on peut dire que vous êtes vraiment quelqu'un de productif !//:point: **Journalier** : Si vous vous trouvez dans un **Stockage**, pour **0** :pa:, vous avez une chance de trouver des débris voire mieux.</target>
       </segment>
     </unit>
     <unit id="doorman">

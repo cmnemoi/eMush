@@ -344,7 +344,7 @@
       </segment>
       <segment id="employment" state="translated">
         <source>frieda.employment</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
       </segment>
       <segment id="abstract" state="translated">
         <source>frieda.abstract</source>

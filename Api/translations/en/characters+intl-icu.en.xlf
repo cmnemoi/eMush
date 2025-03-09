@@ -903,9 +903,9 @@
         <source>janice.age</source>
         <target>26</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>janice.description</source>
-        <target>A Digital Psychologist and one-woman enigma solver.</target>
+        <target>A Digital Psychologist and one-woman enigma machine.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>

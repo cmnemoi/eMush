@@ -903,9 +903,9 @@
         <source>janice.age</source>
         <target>26 ans</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>janice.description</source>
-        <target>Psychologue Digitale et pionnière des relations IA.</target>
+        <target>Psychologue Digitale aux atouts certains.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>

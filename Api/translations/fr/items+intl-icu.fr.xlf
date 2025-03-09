@@ -686,7 +686,7 @@ Un seul moyen pour s'en assurer, l'avaler !</target>
     <unit id="itrackie">
       <segment id="name" state="translated">
         <source>itrackie.name</source>
-        <target>iTrakie®©</target>
+        <target>iTrackie®©</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>itrackie.short_name</source>

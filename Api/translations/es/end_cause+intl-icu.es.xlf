@@ -232,7 +232,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>exploration.description</source>
-        <target>A veces la historia es sórdida, a veces es cruel, a veces es triste y a veces es gloriosa. El relato de tus aventuras puede o no ser parte de la historia... En cualquier caso, has fallecido, ¡es oficial! </target>
+        <target>A veces la historia es sórdida, a veces es cruel, a veces es triste y a veces es gloriosa. El relato de tus aventuras puede o no ser parte de la historia... En cualquier caso, has fallecido, ¡es oficial!</target>
       </segment>
     </unit>
     <unit id="exploration_combat">
@@ -538,7 +538,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mankarog.description</source>
-        <target>A veces la historia es sórdida, a veces es cruel, a veces es triste y a veces es gloriosa. El relato de tus aventuras puede o no ser parte de la historia... En cualquier caso, has fallecido, ¡es oficial! </target>
+        <target>A veces la historia es sórdida, a veces es cruel, a veces es triste y a veces es gloriosa. El relato de tus aventuras puede o no ser parte de la historia... En cualquier caso, has fallecido, ¡es oficial!</target>
       </segment>
     </unit>
     <unit id="no_infirmerie">

@@ -101,9 +101,9 @@ class RebelBase implements ModifierProviderInterface
         $this->signal += $amount;
     }
 
-    public function triggerContact(): void
+    public function triggerContact(?\DateTime $contactDate = null): void
     {
-        $this->contactStartDate = \DateTimeImmutable::createFromMutable($this->daedalus->getCycleStartedAtOrThrow());
+        $this->contactStartDate = \DateTimeImmutable::createFromMutable($contactDate ?? $this->daedalus->getCycleStartedAtOrThrow());
     }
 
     public function endContact(): void

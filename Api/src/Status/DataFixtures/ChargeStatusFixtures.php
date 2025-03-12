@@ -616,6 +616,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $baseRebelContactDuration = ChargeStatusConfig::fromConfigData(
             StatusConfigData::getByName(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_default')
         );
+        $baseRebelContactDuration->setStartCharge(8);
         $manager->persist($baseRebelContactDuration);
 
         $gameConfig

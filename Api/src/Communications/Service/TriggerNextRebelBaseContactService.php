@@ -30,7 +30,7 @@ final readonly class TriggerNextRebelBaseContactService
         }
 
         if ($this->shouldTriggerContact($daedalusId, $time)) {
-            $this->triggerRebelBaseContact($nextContactingRebelBase);
+            $this->triggerRebelBaseContact($nextContactingRebelBase, $time);
         }
     }
 
@@ -56,9 +56,9 @@ final readonly class TriggerNextRebelBaseContactService
         return $cyclesSinceLastContact >= $daedalus->numberOfCyclesBeforeNextRebelBaseContact();
     }
 
-    private function triggerRebelBaseContact(RebelBase $rebelBase): void
+    private function triggerRebelBaseContact(RebelBase $rebelBase, \DateTime $contactDate): void
     {
-        $rebelBase->triggerContact();
+        $rebelBase->triggerContact($contactDate);
         $this->rebelBaseRepository->save($rebelBase);
 
         $this->eventService->callEvent(

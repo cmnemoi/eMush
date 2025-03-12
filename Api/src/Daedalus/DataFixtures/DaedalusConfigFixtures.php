@@ -5,6 +5,7 @@ namespace Mush\Daedalus\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Mush\Daedalus\ConfigData\DaedalusConfigData;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Equipment\Enum\GearItemEnum;
@@ -12,8 +13,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Enum\RoomEnum;
 
 /**
@@ -30,64 +29,7 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $daedalusConfig = new DaedalusConfig();
-
-        $daedalusConfig
-            ->setName(GameConfigEnum::DEFAULT)
-            ->setInitOxygen(32)
-            ->setInitFuel(20)
-            ->setInitHull(100)
-            ->setInitShield(50)
-            ->setInitHunterPoints(40)
-            ->setInitCombustionChamberFuel(0)
-            ->setDailySporeNb(4)
-            ->setStartingApprentrons([
-                'apprentron_technician' => 14,
-                'apprentron_pilot' => 12,
-                'apprentron_astrophysicist' => 10,
-                'apprentron_biologist' => 10,
-                'apprentron_botanist' => 10,
-                'apprentron_shooter' => 10,
-                'apprentron_radio_expert' => 9,
-                'apprentron_medic' => 8,
-                'apprentron_sprinter' => 8,
-                'apprentron_shrink' => 6,
-                'apprentron_robotics_expert' => 4,
-                'apprentron_firefighter' => 2,
-                'apprentron_it_expert' => 2,
-                'apprentron_diplomat' => 2,
-                'apprentron_logistics_expert' => 2,
-            ])
-            ->setMaxOxygen(32)
-            ->setMaxFuel(32)
-            ->setMaxHull(100)
-            ->setMaxShield(100)
-            ->setMaxCombustionChamberFuel(9)
-            ->setNbMush(3)
-            ->setCyclePerGameDay(8)
-            ->setCycleLength(3 * 60)
-            ->setNumberOfProjectsByBatch(3)
-            ->setHumanSkillSlots(3)
-            ->setMushSkillSlots(4)
-            ->setRebelBaseContactDurationMin(8)
-            ->setRebelBaseContactDurationMax(16)
-            ->setStartingRandomBlueprintCount(4)
-            ->setRandomBlueprints([
-                'oscilloscope_blueprint' => 4,
-                'sniper_helmet_blueprint' => 2,
-                'rocket_launcher_blueprint' => 2,
-                'lizaro_jungle_blueprint' => 4,
-                'old_faithful_blueprint' => 2,
-                'white_flag_blueprint' => 4,
-                'babel_module_blueprint' => 4,
-                'echolocator_blueprint' => 8,
-                'thermosensor_blueprint' => 2,
-                'extinguisher_blueprint' => 4,
-                'swedish_sofa_blueprint' => 4,
-                'grenade_blueprint' => 2,
-                'support_drone_blueprint' => 1,
-            ])
-            ->setHoliday(HolidayEnum::NONE);
+        $daedalusConfig = DaedalusConfig::fromConfigData(DaedalusConfigData::getByName('default'));
 
         $randomStorageItemPlaces = new RandomItemPlaces();
         $randomStorageItemPlaces

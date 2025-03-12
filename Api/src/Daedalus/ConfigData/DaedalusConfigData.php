@@ -110,4 +110,14 @@ class DaedalusConfigData
             ],
         ],
     ];
+
+    public static function getByName(string $name): array
+    {
+        return current(
+            array_filter(
+                self::$dataArray,
+                static fn (array $data) => $data['name'] === $name
+            )
+        );
+    }
 }

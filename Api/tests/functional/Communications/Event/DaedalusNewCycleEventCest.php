@@ -45,6 +45,17 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         $this->thenRebelBaseShouldNotContact(RebelBaseEnum::KALADAAN, $I);
     }
 
+    public function shouldNotTriggerNextRebelBaseContactBeforeEightCycles(FunctionalTester $I): void
+    {
+        $this->givenWolfContactedToday($I);
+        $this->givenKaladaanExists($I);
+        $this->givenRebelBaseContactStopsAfterXCycles(10);
+        $this->givenDaedalusIsFull();
+
+        $this->whenXCyclesPass(7);
+        $this->thenRebelBaseShouldNotContact(RebelBaseEnum::KALADAAN, $I);
+    }
+
     public function shouldTriggerNextRebelBaseContactAfterEightCycles(FunctionalTester $I): void
     {
         $this->givenWolfContactedToday($I);
@@ -53,7 +64,6 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         $this->givenDaedalusIsFull();
 
         $this->whenXCyclesPass(8);
-
         $this->thenRebelBaseShouldContact(RebelBaseEnum::KALADAAN, $I);
     }
 
@@ -106,15 +116,27 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         $this->daedalus->getDaedalusInfo()->startDaedalus();
     }
 
+    private function givenRebelBasesExist(array $rebelBases, FunctionalTester $I): void
+    {
+        foreach ($rebelBases as $rebelBase) {
+            $kaladaanConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => $rebelBase]);
+            $this->rebelBaseRepository->save(
+                new RebelBase($kaladaanConfig, $this->daedalus->getId())
+            );
+        }
+    }
+
     private function whenXCyclesPass(int $x): void
     {
-        $time = new \DateTime();
+        $time = $this->daedalus->getCycleStartedAtOrThrow();
+        $daedalusConfig = $this->daedalus->getGameConfig()->getDaedalusConfig();
         for ($i = 0; $i < $x; ++$i) {
-            $time->modify(\sprintf('+%d minutes', $this->daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCycleLength()));
+            $time->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
             $this->eventService->callEvent(
                 new DaedalusCycleEvent($this->daedalus, tags: [EventEnum::NEW_CYCLE], time: $time),
                 DaedalusCycleEvent::DAEDALUS_NEW_CYCLE
             );
+            $this->daedalus->setCycleStartedAt($time);
         }
     }
 

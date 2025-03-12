@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Daedalus\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Daedalus\ConfigData\DaedalusConfigData;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -29,7 +30,7 @@ final class DaedalusFactory
         $daedalus = new Daedalus();
 
         $gameConfig = new GameConfig();
-        $gameConfig->setDaedalusConfig(new DaedalusConfig());
+        $gameConfig->setDaedalusConfig(DaedalusConfig::fromConfigData(DaedalusConfigData::getByName('default')));
 
         $daedalus->setDaedalusVariables($gameConfig->getDaedalusConfig());
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, self::getFrenchLocalizationConfig());

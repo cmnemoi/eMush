@@ -103,6 +103,40 @@ class DaedalusConfig
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $randomBlueprints = [];
 
+    public static function fromConfigData(array $configData): self
+    {
+        $daedalusConfig = new self();
+        $daedalusConfig
+            ->setName($configData['name'])
+            ->setInitOxygen($configData['initOxygen'])
+            ->setInitFuel($configData['initFuel'])
+            ->setInitHull($configData['initHull'])
+            ->setInitShield($configData['initShield'])
+            ->setInitHunterPoints($configData['initHunterPoints'])
+            ->setInitCombustionChamberFuel($configData['initCombustionChamberFuel'])
+            ->setStartingApprentrons($configData['startingApprentrons'])
+            ->setMaxOxygen($configData['maxOxygen'])
+            ->setMaxFuel($configData['maxFuel'])
+            ->setMaxHull($configData['maxHull'])
+            ->setMaxShield($configData['maxShield'])
+            ->setMaxCombustionChamberFuel($configData['maxCombustionChamberFuel'])
+            ->setDailySporeNb($configData['dailySporeNb'])
+            ->setNbMush($configData['nbMush'])
+            ->setCyclePerGameDay($configData['cyclePerGameDay'])
+            ->setCycleLength($configData['cycleLength'])
+            ->setNumberOfProjectsByBatch($configData['numberOfProjectsByBatch'])
+            ->setHumanSkillSlots($configData['humanSkillSlots'])
+            ->setMushSkillSlots($configData['mushSkillSlots'])
+            ->setHoliday($configData['applyHoliday'])
+            ->setNumberOfCyclesBeforeNextRebelBaseContact($configData['numberOfCyclesBeforeNextRebelBaseContact'])
+            ->setRebelBaseContactDurationMin($configData['rebelBaseContactDurationMin'])
+            ->setRebelBaseContactDurationMax($configData['rebelBaseContactDurationMax'])
+            ->setStartingRandomBlueprintCount($configData['startingRandomBlueprintCount'])
+            ->setRandomBlueprints($configData['randomBlueprints']);
+
+        return $daedalusConfig;
+    }
+
     public function getId(): int
     {
         return $this->id;

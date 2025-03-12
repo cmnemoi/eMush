@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Equipment\Normalizer;
 
+use Mush\Communications\Entity\RebelBase;
+use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Service\DecodeRebelSignalService;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Dto\ChooseSkillDto;
@@ -26,6 +30,8 @@ final class DrugCest extends AbstractFunctionalTest
 
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private DecodeRebelSignalService $decodeRebelBase;
+    private RebelBaseRepositoryInterface $rebelBaseRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -35,9 +41,11 @@ final class DrugCest extends AbstractFunctionalTest
         $this->equipmentNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+        $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
+        $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
 
         $this->drug = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GameDrugEnum::TWINOID,
+            equipmentName: 'plus_one_ap_drug',
             equipmentHolder: $this->chun,
             reasons: [],
             time: new \DateTime(),
@@ -120,6 +128,28 @@ final class DrugCest extends AbstractFunctionalTest
         $I->assertEmpty($normalizedDrug['effects']);
     }
 
+    public function shouldNotDisplaySiriusRebelBaseModifierOnStandardRation(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsANurse($I);
+        $this->givenSiriusRebelBaseIsDecoded($I);
+
+        $normalizedFood = $this->equipmentNormalizer->normalize(
+            $this->drug,
+            format: null,
+            context: ['currentPlayer' => $this->player]
+        );
+
+        $I->assertEquals(
+            expected: [
+                'title' => 'Données sur les effets :',
+                'effects' => [
+                    '+ 1 :pa:',
+                ],
+            ],
+            actual: $normalizedFood['effects']
+        );
+    }
+
     private function givenPlayerIsAPolyvalent(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I);
@@ -146,5 +176,17 @@ final class DrugCest extends AbstractFunctionalTest
     private function givenPlayerIsAChef(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::CHEF, $I);
+    }
+
+    private function givenSiriusRebelBaseIsDecoded(FunctionalTester $I): void
+    {
+        $siriusConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => RebelBaseEnum::SIRIUS]);
+        $siriusRebelBase = new RebelBase(config: $siriusConfig, daedalusId: $this->daedalus->getId());
+        $this->rebelBaseRepository->save($siriusRebelBase);
+
+        $this->decodeRebelBase->execute(
+            rebelBase: $siriusRebelBase,
+            progress: 100,
+        );
     }
 }

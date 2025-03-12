@@ -195,7 +195,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $actionPoint = $consumableEffect->getActionPoint();
         if ($actionPoint) {
             $actionPoint += $this->getFrugivoreBonus($food, $player);
-            $actionPoint += $this->getSiriusRebelBaseBonus($player->getDaedalus());
+            $actionPoint += $this->getSiriusRebelBaseBonus($food);
             $effects[] = $this->createEffectLine($actionPoint, 'action_point', $language);
         }
         $movementPoint = $consumableEffect->getMovementPoint();
@@ -305,16 +305,19 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         return 0;
     }
 
-    private function getSiriusRebelBaseBonus(Daedalus $daedalus): int
+    private function getSiriusRebelBaseBonus(GameEquipment $food): int
     {
+        $daedalus = $food->getDaedalus();
+
         if (!$daedalus->hasModifierByModifierName(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)) {
             return 0;
         }
 
-        return (int) $daedalus
-            ->getModifiers()
-            ->getModifierByModifierNameOrThrow(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)
-            ->getVariableModifierConfigOrThrow()
-            ->getDelta();
+        $siriusModifierConfig = $daedalus->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)->getVariableModifierConfigOrThrow();
+        if (!\in_array($food->getName(), array_keys($siriusModifierConfig->getTagConstraints()), true)) {
+            return 0;
+        }
+
+        return (int) $siriusModifierConfig->getDelta();
     }
 }

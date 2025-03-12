@@ -76,6 +76,25 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($prozacTest);
         $gameConfig->addEquipmentConfig($prozacTest);
 
+        $oneApDrugMechanic = new Drug();
+        $oneApDrugMechanic
+            ->setActionPoints([1 => 1])
+            ->addAction($consumeDrugAction)
+            ->buildName('plus_one_ap_drug', GameConfigEnum::DEFAULT);
+        $manager->persist($oneApDrugMechanic);
+
+        $oneApDrug = new ItemConfig();
+        $oneApDrug
+            ->setEquipmentName('plus_one_ap_drug')
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
+            ->setMechanics([$oneApDrugMechanic])
+            ->setActionConfigs($actions)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($oneApDrug);
+        $gameConfig->addEquipmentConfig($oneApDrug);
+
         $manager->flush();
     }
 

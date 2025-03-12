@@ -43,6 +43,11 @@ class RebelBaseConfig
         $this->statusConfig = $statusConfig;
     }
 
+    public static function createNull(): self
+    {
+        return new self('', RebelBaseEnum::NULL, 0, new ArrayCollection(), null);
+    }
+
     public function getName(): RebelBaseEnum
     {
         return $this->name;

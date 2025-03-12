@@ -12,6 +12,7 @@ use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
+use Mush\Communications\Service\KillAllRebelBaseContactsService;
 use Mush\Communications\Service\KillExpiredRebelBaseContactsService;
 use Mush\Communications\Service\KillLinkWithSolService;
 use Mush\Communications\Service\TriggerNextRebelBaseContactService;
@@ -27,6 +28,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         private CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus,
         private KillLinkWithSolService $killLinkWithSol,
         private LinkWithSolRepositoryInterface $linkWithSolRepository,
+        private KillAllRebelBaseContactsService $killAllRebelBaseContacts,
         private KillExpiredRebelBaseContactsService $killExpiredRebelBaseContacts,
         private RebelBaseRepositoryInterface $rebelBaseRepository,
         private NeronVersionRepositoryInterface $neronVersionRepository,
@@ -41,6 +43,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
             DaedalusEvent::DELETE_DAEDALUS => 'onDaedalusDelete',
             DaedalusEvent::FULL_DAEDALUS => 'onDaedalusFull',
             DaedalusEvent::START_DAEDALUS => 'onDaedalusStart',
+            DaedalusEvent::TRAVEL_LAUNCHED => 'onDaedalusTravelLaunched',
         ];
     }
 
@@ -70,6 +73,11 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
         $this->neronVersionRepository->save(new NeronVersion($event->getDaedalusId()));
         $this->createRebelBases($event->getDaedalus());
         $this->createXylophDatabases($event->getDaedalus());
+    }
+
+    public function onDaedalusTravelLaunched(DaedalusEvent $event): void
+    {
+        $this->killAllRebelBaseContacts->execute($event->getDaedalusId());
     }
 
     private function createRebelBases(Daedalus $daedalus): void

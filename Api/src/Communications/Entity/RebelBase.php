@@ -175,14 +175,14 @@ class RebelBase implements ModifierProviderInterface
         $this->daedalus = $daedalus;
     }
 
+    public function contactEnded(): bool
+    {
+        return $this->contactEndDate !== null;
+    }
+
     private function contactDidNotStart(): bool
     {
         return $this->contactStartDate === null;
-    }
-
-    private function contactEnded(): bool
-    {
-        return $this->contactEndDate !== null;
     }
 
     private function now(): \DateTimeImmutable

@@ -3,51 +3,28 @@
 namespace Mush\RoomLog\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\ValueObject\GameDate;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\Skill\Enum\SkillEnum;
 
 final class InMemoryRoomLogRepository implements RoomLogRepositoryInterface
 {
     /** @var array<RoomLog> */
     private array $roomLogs = [];
 
-    public function getPlayerRoomLog(PlayerInfo $playerInfo, \DateTime $limitDate = new \DateTime('1 day ago')): array
+    public function getPlayerRoomLog(Player $player): array
     {
-        $player = $playerInfo->getPlayer();
-        $logs = [];
+        $daedalus = $player->getDaedalus();
+        $daedalusDate = $daedalus->getGameDate();
+        $numberOfCyclesToCheck = $this->getNumberOfCyclesToCheck($player);
 
-        foreach ($this->roomLogs as $roomLog) {
-            if (
-                $roomLog->getDaedalusInfo() === $player?->getDaedalus()->getDaedalusInfo()
-                && $roomLog->getPlace() === $player?->getPlace()->getName()
-                && $roomLog->getCreatedAt() >= $limitDate
-                && (
-                    $roomLog->isPublicOrRevealed()
-                    || (
-                        $roomLog->getPlayerInfo() === $playerInfo
-                        && \in_array($roomLog->getVisibility(), [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT], true)
-                    )
-                )
-            ) {
-                $logs[] = $roomLog;
-            }
-        }
+        $logs = $this->filterRelevantLogsForPlayer($player, $daedalus, $daedalusDate, $numberOfCyclesToCheck);
 
-        // Sort by created date desc and id desc
-        usort($logs, static function ($a, $b) {
-            $dateCompare = $b->getCreatedAt() <=> $a->getCreatedAt();
-            if ($dateCompare === 0) {
-                return $b->getId() <=> $a->getId();
-            }
-
-            return $dateCompare;
-        });
-
-        return $logs;
+        return $this->sortLogsByDateAndIdDescending($logs);
     }
 
     public function getAllRoomLogsByDaedalus(Daedalus $daedalus): array
@@ -192,5 +169,72 @@ final class InMemoryRoomLogRepository implements RoomLogRepositoryInterface
         }
 
         return null;
+    }
+
+    private function getNumberOfCyclesToCheck(Player $player): int
+    {
+        return $player->hasSkill(SkillEnum::TRACKER) ? 16 : 8;
+    }
+
+    private function filterRelevantLogsForPlayer(
+        Player $player,
+        Daedalus $daedalus,
+        GameDate $daedalusDate,
+        int $numberOfCyclesToCheck
+    ): array {
+        $logs = [];
+
+        foreach ($this->roomLogs as $roomLog) {
+            $roomLogDate = new GameDate($daedalus, $roomLog->getDay(), $roomLog->getCycle());
+            if (
+                $this->isLogInPlayerDaedalus($roomLog, $daedalus)
+                && $this->isLogInPlayerPlace($roomLog, $player)
+                && $this->isLogWithinTimeRange($roomLogDate, $daedalusDate, $numberOfCyclesToCheck)
+                && $this->isLogVisibleToPlayer($roomLog, $player)
+            ) {
+                $logs[] = $roomLog;
+            }
+        }
+
+        return $logs;
+    }
+
+    private function isLogInPlayerDaedalus(RoomLog $roomLog, Daedalus $daedalus): bool
+    {
+        return $roomLog->getDaedalusInfo() === $daedalus->getDaedalusInfo();
+    }
+
+    private function isLogInPlayerPlace(RoomLog $roomLog, Player $player): bool
+    {
+        return $roomLog->getPlace() === $player->getPlace()->getName();
+    }
+
+    private function isLogWithinTimeRange(GameDate $roomLogDate, GameDate $daedalusDate, int $numberOfCyclesToCheck): bool
+    {
+        return $daedalusDate->equals($roomLogDate)
+            || $daedalusDate->cyclesAgo($numberOfCyclesToCheck)->lessThanOrEqual($roomLogDate);
+    }
+
+    private function isLogVisibleToPlayer(RoomLog $roomLog, Player $player): bool
+    {
+        return $roomLog->isPublicOrRevealed()
+            || (
+                $roomLog->getPlayerInfo() === $player->getPlayerInfo()
+                && \in_array($roomLog->getVisibility(), [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT], true)
+            );
+    }
+
+    private function sortLogsByDateAndIdDescending(array $logs): array
+    {
+        usort($logs, static function ($a, $b) {
+            $dateCompare = $b->getCreatedAt() <=> $a->getCreatedAt();
+            if ($dateCompare === 0) {
+                return $b->getId() <=> $a->getId();
+            }
+
+            return $dateCompare;
+        });
+
+        return $logs;
     }
 }

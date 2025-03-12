@@ -162,7 +162,7 @@ class StatusSubscriber implements EventSubscriberInterface
         $deloggedLog = $this->roomLogService->findOneByPlaceAndDaedalusDateOrThrow(
             logKey: LogEnum::DELOGGED,
             place: $event->getPlaceOrThrow(),
-            date: $daedalus->getPreviousGameDate(),
+            date: $daedalus->getGameDate()->previous(),
         );
 
         $deloggedLog->hide();

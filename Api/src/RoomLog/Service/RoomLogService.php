@@ -10,7 +10,7 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Chat\Enum\NeronPersonalitiesEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\ValueObject\DaedalusDate;
+use Mush\Daedalus\ValueObject\GameDate;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -135,9 +135,7 @@ final class RoomLogService implements RoomLogServiceInterface
 
     public function getRoomLog(Player $player): RoomLogCollection
     {
-        $dateLimit = $player->hasSkill(SkillEnum::TRACKER) ? new \DateTime('-2 days') : new \DateTime('-1 day');
-
-        return new RoomLogCollection($this->roomLogRepository->getPlayerRoomLog($player->getPlayerInfo(), $dateLimit));
+        return new RoomLogCollection($this->roomLogRepository->getPlayerRoomLog($player));
     }
 
     public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection
@@ -182,14 +180,14 @@ final class RoomLogService implements RoomLogServiceInterface
         }
     }
 
-    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, DaedalusDate $date): RoomLog
+    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, GameDate $date): RoomLog
     {
         $parameters = [
             'log' => $logKey,
             'daedalusInfo' => $place->getDaedalus()->getDaedalusInfo()->getId(),
             'place' => $place->getName(),
-            'day' => $date->day,
-            'cycle' => $date->cycle,
+            'day' => $date->day(),
+            'cycle' => $date->cycle(),
         ];
 
         $roomLog = $this->roomLogRepository->getOneBy($parameters);
@@ -200,13 +198,13 @@ final class RoomLogService implements RoomLogServiceInterface
         return $roomLog;
     }
 
-    public function findAllByPlaceAndDaedalusDate(Place $place, DaedalusDate $date): RoomLogCollection
+    public function findAllByPlaceAndDaedalusDate(Place $place, GameDate $date): RoomLogCollection
     {
         $logs = $this->roomLogRepository->getBy([
             'daedalusInfo' => $place->getDaedalus()->getDaedalusInfo(),
             'place' => $place->getName(),
-            'day' => $date->day,
-            'cycle' => $date->cycle,
+            'day' => $date->day(),
+            'cycle' => $date->cycle(),
         ]);
 
         return new RoomLogCollection($logs);

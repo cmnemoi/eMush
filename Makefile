@@ -10,7 +10,7 @@ bash-api-root:
 	docker exec -it mush_php bash
 
 bash-eternaltwin:
-	docker exec -it musheternaltwin bash
+	docker exec -it eternaltwin bash
 
 bash-front:
 	docker exec -it mush_front bash

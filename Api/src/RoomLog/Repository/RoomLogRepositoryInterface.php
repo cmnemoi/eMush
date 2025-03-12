@@ -4,7 +4,7 @@ namespace Mush\RoomLog\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Place\Entity\Place;
-use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 
 interface RoomLogRepositoryInterface
@@ -12,7 +12,7 @@ interface RoomLogRepositoryInterface
     /**
      * @psalm-suppress TooManyArguments
      */
-    public function getPlayerRoomLog(PlayerInfo $playerInfo, \DateTime $limitDate = new \DateTime('1 day ago')): array;
+    public function getPlayerRoomLog(Player $player): array;
 
     public function getAllRoomLogsByDaedalus(Daedalus $daedalus): array;
 

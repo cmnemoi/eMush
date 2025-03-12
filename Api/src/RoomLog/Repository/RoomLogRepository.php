@@ -8,8 +8,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\Skill\Enum\SkillEnum;
 
 /**
  * @template-extends ServiceEntityRepository<RoomLog>
@@ -24,10 +24,15 @@ final class RoomLogRepository extends ServiceEntityRepository implements RoomLog
     /**
      * @psalm-suppress TooManyArguments
      */
-    public function getPlayerRoomLog(PlayerInfo $playerInfo, \DateTime $limitDate = new \DateTime('1 day ago')): array
+    public function getPlayerRoomLog(Player $player): array
     {
-        /** @var Player $player */
-        $player = $playerInfo->getPlayer();
+        $playerInfo = $player->getPlayerInfo();
+        $daedalus = $player->getDaedalus();
+        $gameDate = $daedalus->getGameDate();
+
+        // Determine how many cycles to look back based on whether the player has the TRACKER skill
+        $numberOfCyclesToCheck = $player->hasSkill(SkillEnum::TRACKER) ? 16 : 8;
+        $cyclesToCheck = $gameDate->cyclesAgo($numberOfCyclesToCheck);
 
         $queryBuilder = $this->createQueryBuilder('roomLog');
 
@@ -35,7 +40,31 @@ final class RoomLogRepository extends ServiceEntityRepository implements RoomLog
             ->where($queryBuilder->expr()->andX(
                 $queryBuilder->expr()->eq('roomLog.daedalusInfo', ':daedalusInfo'),
                 $queryBuilder->expr()->eq('roomLog.place', ':place'),
-                $queryBuilder->expr()->gte('roomLog.createdAt', ':date'),
+                $queryBuilder->expr()->orX(
+                    // Get logs from current date
+                    $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->eq('roomLog.day', ':currentDay'),
+                        $queryBuilder->expr()->eq('roomLog.cycle', ':currentCycle')
+                    ),
+                    // Get logs from X cycles ago or less
+                    $queryBuilder->expr()->orX(
+                        // Get logs from same day but earlier cycle
+                        $queryBuilder->expr()->andX(
+                            $queryBuilder->expr()->eq('roomLog.day', ':currentDay'),
+                            $queryBuilder->expr()->lt('roomLog.cycle', ':currentCycle')
+                        ),
+                        // Get logs from previous days with cycle >= X cycles ago
+                        $queryBuilder->expr()->andX(
+                            $queryBuilder->expr()->eq('roomLog.day', ':cyclesToCheckDay'),
+                            $queryBuilder->expr()->gte('roomLog.cycle', ':cyclesToCheckCycle')
+                        ),
+                        // Get logs from days in between
+                        $queryBuilder->expr()->andX(
+                            $queryBuilder->expr()->gt('roomLog.day', ':cyclesToCheckDay'),
+                            $queryBuilder->expr()->lt('roomLog.day', ':currentDay')
+                        )
+                    )
+                ),
                 $queryBuilder->expr()->orX(
                     $queryBuilder->expr()->in('roomLog.visibility', ':publicArray'),
                     $queryBuilder->expr()->andX(
@@ -46,12 +75,15 @@ final class RoomLogRepository extends ServiceEntityRepository implements RoomLog
             ))
             ->orderBy('roomLog.createdAt', 'desc')
             ->addOrderBy('roomLog.id', 'desc')
-            ->setParameter('daedalusInfo', $player->getDaedalus()->getDaedalusInfo())
+            ->setParameter('daedalusInfo', $daedalus->getDaedalusInfo())
             ->setParameter('place', $player->getPlace()->getName())
+            ->setParameter('currentDay', $gameDate->day())
+            ->setParameter('currentCycle', $gameDate->cycle())
+            ->setParameter('cyclesToCheckDay', $cyclesToCheck->day())
+            ->setParameter('cyclesToCheckCycle', $cyclesToCheck->cycle())
             ->setParameter('publicArray', [VisibilityEnum::PUBLIC, VisibilityEnum::REVEALED])
             ->setParameter('privateArray', [VisibilityEnum::PRIVATE, VisibilityEnum::SECRET, VisibilityEnum::COVERT])
-            ->setParameter('player', $playerInfo)
-            ->setParameter('date', $limitDate);
+            ->setParameter('player', $playerInfo);
 
         return $queryBuilder->getQuery()->getResult();
     }

@@ -476,6 +476,8 @@ final class RoomLogServiceTest extends TestCase
     public function testGetLogs()
     {
         $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->setDay(1);
+        $daedalus->setCycle(4);
         $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
 
         $date = new \DateTime();
@@ -628,7 +630,101 @@ final class RoomLogServiceTest extends TestCase
         self::assertSame(VisibilityEnum::REVEALED, $roomLog->getVisibility());
     }
 
-    private function roomLogFactory(PlayerInfo $playerInfo, int $number = 1): RoomLogCollection
+    public function testCanSeeLogsFromEightCyclesAgo(): void
+    {
+        // given daedalus is D2C8
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus
+            ->setDay(2)
+            ->setCycle(8);
+
+        // given a log created D1C8
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 8)->first();
+
+        // when player ask for logs
+        $roomLogs = $this->service->getRoomLog($player);
+
+        // then they should see the log
+        self::assertEquals([$roomLog->getId()], $roomLogs->map(static fn (RoomLog $roomLog) => $roomLog->getId())->toArray());
+    }
+
+    public function testCanSeeLogsFromCurrentCycle(): void
+    {
+        // given daedalus is D1C1
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->setDay(1);
+        $daedalus->setCycle(1);
+
+        // given a log created D1C1
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 1)->first();
+
+        // when player ask for logs
+        $roomLogs = $this->service->getRoomLog($player);
+
+        // then they should see the log
+        self::assertEquals([$roomLog->getId()], $roomLogs->map(static fn (RoomLog $roomLog) => $roomLog->getId())->toArray());
+    }
+
+    public function testCanSeeLogsFromPreviousCycle(): void
+    {
+        // given daedalus is D2C1
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->setDay(2);
+        $daedalus->setCycle(1);
+
+        // given a log created D1C8
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 8)->first();
+
+        // when player ask for logs
+        $roomLogs = $this->service->getRoomLog($player);
+
+        // then they should see the log
+        self::assertEquals([$roomLog->getId()], $roomLogs->map(static fn (RoomLog $roomLog) => $roomLog->getId())->toArray());
+    }
+
+    public function testCannotSeeLogsFromNineCyclesAgo(): void
+    {
+        // given daedalus is D2C2
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->setDay(2);
+        $daedalus->setCycle(2);
+
+        // given a log created D1C1
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 1)->first();
+
+        // when player ask for logs
+        $roomLogs = $this->service->getRoomLog($player);
+
+        // then they should not see the log
+        self::assertSame(0, $roomLogs->count());
+    }
+
+    public function testTrackerCanSeeLogsFromSixteenCyclesAgo(): void
+    {
+        // given daedalus is D2C8
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->setDay(2);
+        $daedalus->setCycle(8);
+
+        // given player is a tracker
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        Skill::createByNameForPlayer(SkillEnum::TRACKER, $player);
+
+        // given a log created D1C1
+        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 1)->first();
+
+        // when player ask for logs
+        $roomLogs = $this->service->getRoomLog($player);
+
+        // then they should see the log
+        self::assertEquals([$roomLog->getId()], $roomLogs->map(static fn (RoomLog $roomLog) => $roomLog->getId())->toArray());
+    }
+
+    private function roomLogFactory(PlayerInfo $playerInfo, int $day = 1, int $cycle = 1, int $number = 1): RoomLogCollection
     {
         $roomLogs = new RoomLogCollection();
 
@@ -642,8 +738,8 @@ final class RoomLogServiceTest extends TestCase
                 ->setDaedalusInfo($playerInfo->getPlayer()->getDaedalusInfo())
                 ->setPlace($playerInfo->getPlayer()->getPlace()->getName())
                 ->setParameters([])
-                ->setDay(1)
-                ->setCycle(1)
+                ->setDay($day)
+                ->setCycle($cycle)
                 ->setType('log');
 
             $roomLogs->add($roomLog);

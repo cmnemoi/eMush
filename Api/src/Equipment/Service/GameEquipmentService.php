@@ -106,6 +106,11 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         return new ArrayCollection($this->repository->findEquipmentByNameAndPlace($name, $place, $quantity));
     }
 
+    public function findEquipmentByNameAndPlayer(string $name, Player $player, int $quantity): ArrayCollection
+    {
+        return new ArrayCollection($this->repository->findEquipmentByNameAndPlayer($name, $player, $quantity));
+    }
+
     public function createGameEquipmentFromName(
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,

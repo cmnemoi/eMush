@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Equipment\Listener;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Project\Event\ProjectEvent;
@@ -48,11 +47,10 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
 
     private function replaceProjectEquipment(ProjectEvent $projectEvent): void
     {
-        $daedalus = $projectEvent->getDaedalus();
         $project = $projectEvent->getProject();
 
         foreach ($project->getReplaceEquipmentConfigs() as $replaceEquipmentConfig) {
-            $equipmentToReplace = $this->equipmentToReplace($replaceEquipmentConfig, $daedalus);
+            $equipmentToReplace = $this->equipmentToReplace($replaceEquipmentConfig, $projectEvent);
 
             foreach ($equipmentToReplace as $replacedEquipment) {
                 $holder = $replacedEquipment->getHolder();
@@ -67,19 +65,39 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function equipmentToReplace(ReplaceEquipmentConfig $replaceEquipmentConfig, Daedalus $daedalus): ArrayCollection
+    private function equipmentToReplace(ReplaceEquipmentConfig $replaceEquipmentConfig, ProjectEvent $projectEvent): ArrayCollection
     {
+        $daedalus = $projectEvent->getDaedalus();
+
+        $equipmentName = $replaceEquipmentConfig->getReplacedEquipmentName();
+        $quantity = $replaceEquipmentConfig->getQuantity();
+
         if ($replaceEquipmentConfig->shouldReplaceInSpecificPlace()) {
-            return $this->gameEquipmentService->findEquipmentByNameAndPlace(
-                name: $replaceEquipmentConfig->getReplacedEquipmentName(),
-                place: $daedalus->getPlaceByNameOrThrow($replaceEquipmentConfig->getPlaceName()),
-                quantity: $replaceEquipmentConfig->getQuantity()
-            );
+            return $this->findEquipmentForSpecificPlace($replaceEquipmentConfig, $projectEvent, $equipmentName, $quantity);
         }
 
-        return $this->gameEquipmentService->findEquipmentByNameAndDaedalus(
-            name: $replaceEquipmentConfig->getReplacedEquipmentName(),
-            daedalus: $daedalus
-        );
+        return $this->gameEquipmentService->findEquipmentByNameAndDaedalus($equipmentName, $daedalus);
+    }
+
+    private function findEquipmentForSpecificPlace(
+        ReplaceEquipmentConfig $replaceEquipmentConfig,
+        ProjectEvent $projectEvent,
+        string $equipmentName,
+        int $quantity
+    ): ArrayCollection {
+        $place = $projectEvent->getDaedalus()->getPlaceByNameOrThrow($replaceEquipmentConfig->getPlaceName());
+        $equipments = $this->gameEquipmentService->findEquipmentByNameAndPlace($equipmentName, $place, $quantity);
+
+        if (!$equipments->isEmpty()) {
+            return $equipments;
+        }
+
+        $equipments = $this->gameEquipmentService->findEquipmentByNameAndPlayer($equipmentName, $projectEvent->getAuthor(), $quantity);
+
+        if ($equipments->isEmpty()) {
+            throw new \RuntimeException("No equipment found for replacement: {$equipmentName}.");
+        }
+
+        return $equipments;
     }
 }

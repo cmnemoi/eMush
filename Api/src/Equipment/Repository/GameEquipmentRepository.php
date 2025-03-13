@@ -144,6 +144,22 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function findEquipmentByNameAndPlayer(string $name, Player $player, int $limit): array
+    {
+        $queryBuilder = $this->createQueryBuilder('equipment');
+
+        $queryBuilder
+            ->innerJoin(GameItem::class, 'item', Join::WITH, 'item = equipment')
+            ->innerJoin(Player::class, 'item_player', Join::WITH, 'item.player = item_player')
+            ->where('item_player = :player')
+            ->andWhere('item.name = :name')
+            ->setParameter('player', $player)
+            ->setParameter('name', $name)
+            ->setMaxResults($limit);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function save(GameEquipment $gameEquipment): void
     {
         $this->_em->persist($gameEquipment);

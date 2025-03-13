@@ -53,7 +53,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($technicianPoints);
 
         $itExpertPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_IT_EXPERT)
+            ModifierConfigData::getByName('modifier_skill_point_it_expert')
         );
         $manager->persist($itExpertPointsModifier);
 
@@ -119,7 +119,7 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $manager->persist($chefPoints);
 
         $polymathItPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS)
+            ModifierConfigData::getByName('modifier_skill_point_polymath_it_points')
         );
         $manager->persist($polymathItPointsModifier);
 

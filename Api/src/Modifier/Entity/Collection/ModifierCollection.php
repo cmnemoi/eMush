@@ -28,7 +28,7 @@ class ModifierCollection extends ArrayCollection
         $array = $this->toArray();
 
         usort($array, static function ($a, $b) {
-            return ($a->getModifierConfig()->getPriority() < $b->getModifierConfig()->getPriority()) ? -1 : 1;
+            return ($a->getModifierConfig()->getPriorityAsInteger() < $b->getModifierConfig()->getPriorityAsInteger()) ? -1 : 1;
         });
 
         return new self($array);

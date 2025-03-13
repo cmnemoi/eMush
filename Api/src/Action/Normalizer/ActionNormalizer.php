@@ -260,7 +260,7 @@ class ActionNormalizer implements NormalizerInterface
             }
         }
 
-        return $skillPointCosts;
+        return $this->prioritizeCorePointsOverITPoints($skillPointCosts);
     }
 
     private function getTranslatedInOrbitPlanet(Player $currentPlayer): ?string
@@ -275,5 +275,16 @@ class ActionNormalizer implements NormalizerInterface
                 domain: 'planet',
                 language: $daedalus->getLanguage()
             ) : null;
+    }
+
+    private function prioritizeCorePointsOverITPoints(array $skillPointCosts): array
+    {
+        $itIndex = array_search('computer', $skillPointCosts, true);
+        $coreIndex = array_search('core', $skillPointCosts, true);
+        if ($coreIndex && $itIndex !== false && $coreIndex > $itIndex) {
+            [$skillPointCosts[$itIndex], $skillPointCosts[$coreIndex]] = [$skillPointCosts[$coreIndex], $skillPointCosts[$itIndex]];
+        }
+
+        return $skillPointCosts;
     }
 }

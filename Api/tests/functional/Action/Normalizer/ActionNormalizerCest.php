@@ -12,6 +12,8 @@ use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Project\Entity\Project;
+use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
@@ -204,5 +206,89 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
             ],
             actual: $normalizedAction,
         );
+    }
+
+    public function shouldShowCoreIconActionForITDesigner(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsITExpert($I);
+        $this->givenPlayerIsDesigner($I);
+        $neronCore = $this->givenRoomHasNeronCore();
+        $project = $this->givenThereIsProjectAvailable();
+        $this->givenPlayerFocusesOn($neronCore);
+        $participateAction = $this->givenParticipateActionIn($neronCore, $I);
+        $normalizedAction = $this->whenActionIsNormalized($participateAction, $project);
+        $this->thenPlayerShouldSeeCorePointsIcon($normalizedAction, $I);
+    }
+
+    public function shouldShowCoreIconActionForDesignerIT(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsDesigner($I);
+        $this->givenPlayerIsITExpert($I);
+        $neronCore = $this->givenRoomHasNeronCore();
+        $project = $this->givenThereIsProjectAvailable();
+        $this->givenPlayerFocusesOn($neronCore);
+        $participateAction = $this->givenParticipateActionIn($neronCore, $I);
+        $normalizedAction = $this->whenActionIsNormalized($participateAction, $project);
+        $this->thenPlayerShouldSeeCorePointsIcon($normalizedAction, $I);
+    }
+
+    private function givenRoomHasNeronCore(): GameEquipment
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::NERON_CORE,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerFocusesOn(GameEquipment $terminal): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+            target: $terminal,
+        );
+    }
+
+    private function givenThereIsProjectAvailable(): Project
+    {
+        $project = $this->daedalus->getProjectByName(ProjectName::TRAIL_REDUCER);
+        $project->propose();
+
+        return $project;
+    }
+
+    private function givenParticipateActionIn(GameEquipment $terminal): Action
+    {
+        return $terminal
+            ->getActions($this->player, ActionHolderEnum::PROJECT)
+            ->first();
+    }
+
+    private function givenPlayerIsITExpert(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I, $this->player);
+    }
+
+    private function givenPlayerIsDesigner(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::CONCEPTOR, $I, $this->player);
+    }
+
+    private function whenActionIsNormalized(Action $action, Project $project): array
+    {
+        return $this->normalizer->normalize($action, format: null, context: [
+            'currentPlayer' => $this->player,
+            $project->getClassName() => $project,
+        ]);
+    }
+
+    private function thenPlayerShouldSeeCorePointsIcon(array $normalizedAction, FunctionalTester $I): void
+    {
+        $skillPointCosts = $normalizedAction['skillPointCosts'];
+        $I->assertEquals('core', $skillPointCosts[0], "Expected core icon, got {$skillPointCosts[0]}");
     }
 }

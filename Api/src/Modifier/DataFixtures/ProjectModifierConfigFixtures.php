@@ -483,6 +483,12 @@ final class ProjectModifierConfigFixtures extends Fixture
         $this->manager->persist($constipasporeSerumModifier);
         $this->addReference($constipasporeSerumModifier->getName(), $constipasporeSerumModifier);
 
+        $guaranaCappuccinoModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE)
+        );
+        $this->manager->persist($guaranaCappuccinoModifier);
+        $this->addReference($guaranaCappuccinoModifier->getName(), $guaranaCappuccinoModifier);
+
         $this->manager->flush();
     }
 

@@ -923,11 +923,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getChargeStatusByName(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES)?->getCharge() ?? 0;
     }
 
-    public function fissionCoffeeRoasterNotReady(): bool
-    {
-        return $this->hasFinishedProject(ProjectName::FISSION_COFFEE_ROASTER) === false || $this->cycle !== 4;
-    }
-
     public function doesNotHaveAutoReturnIcarusProject(): bool
     {
         return $this->hasFinishedProject(ProjectName::AUTO_RETURN_ICARUS) === false;

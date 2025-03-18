@@ -164,4 +164,6 @@ abstract class ModifierNameEnum
     public const string KIVANC_MODIFIER = 'kivanc_modifier';
     public const string PLUS_8_TRIUMPH_POINTS_FOR_PAOLA = 'plus_8_triumph_points_for_paola';
     public const string PAOLA_PERSONAL_TRIUMPH_MODIFIER = 'paola_personal_triumph_modifier';
+    public const string PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE = 'player_+1_action_points_on_consume_action_if_coffee';
+    public const string GUARANA_CAPPUCCINO_MODIFIER = 'guarana_cappuccino_modifier';
 }

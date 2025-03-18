@@ -72,6 +72,7 @@ enum ProjectName: string
     case SUPER_CALCULATOR = 'super_calculator';
     case TESLA_SUP2X = 'tesla_sup2x';
     case ULTRA_HEALING_POMADE = 'ultra_healing_pomade';
+    case GUARANA_CAPPUCCINO = 'guarana_cappuccino';
 
     public function toString(): string
     {

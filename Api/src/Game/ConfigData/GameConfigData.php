@@ -641,6 +641,7 @@ class GameConfigData
                 ProjectName::ANTISPORE_GAS,
                 ProjectName::CONSTIPASPORE_SERUM,
                 ProjectName::CREATE_MYCOSCAN,
+                ProjectName::GUARANA_CAPPUCCINO,
                 ProjectName::MERIDON_SCRAMBLER,
                 ProjectName::MUSH_HUNTER_ZC16H,
                 ProjectName::MUSH_LANGUAGE,

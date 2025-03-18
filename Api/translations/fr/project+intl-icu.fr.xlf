@@ -1189,5 +1189,23 @@
         <target>Grâce à quelques astuces basiques de chimie organique, vous pensez pouvoir mettre au point un medikit de base bien supérieur à ces vieux machins de la FDS.</target>
       </segment>
     </unit>
+    <unit id="guarana_cappuccino">
+      <segment id="guarana_cappuccino.type" state="translated">
+        <source>guarana_cappuccino.type</source>
+        <target>Rech.</target>
+      </segment>
+      <segment id="guarana_cappuccino.name" state="translated">
+        <source>guarana_cappuccino.name</source>
+        <target>Cappuccino au guarana</target>
+      </segment>
+      <segment id="guarana_cappuccino.description" state="translated">
+        <source>guarana_cappuccino.description</source>
+        <target>Les **Cafés** accordent 1 :pa: supplémentaire à leur buveur.</target>
+      </segment>
+      <segment id="guarana_cappuccino.lore" state="translated">
+        <source>guarana_cappuccino.lore</source>
+        <target>Le dose de cafféine incluse dans le café de notre cher distributeur est bien trop élevée pour que nous puissions envisager un nouveau surdosage. Cependant, en ajoutant des extraits de guarana sous forme d'une émulsion crémeuse sur la partie supérieure de chaque expresso, il devrait être possible d'augmenter encore un peu le caractère énergisant de la boisson.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

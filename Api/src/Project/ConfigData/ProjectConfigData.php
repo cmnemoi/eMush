@@ -902,6 +902,21 @@ abstract class ProjectConfigData
                     ProjectRequirementName::MEDIKIT_IN_LABORATORY,
                 ],
             ],
+            [
+                'name' => ProjectName::GUARANA_CAPPUCCINO,
+                'type' => ProjectType::RESEARCH,
+                'efficiency' => 6,
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE,
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::COFFEE_IN_LABORATORY,
+                ],
+            ],
         ];
     }
 }

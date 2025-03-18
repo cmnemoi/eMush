@@ -1189,5 +1189,23 @@
         <target>Thanks to a few basic skills in organic chemistry you reckon you can put together a basic medikit which is much superior to the antiquated models used by the SDF.</target>
       </segment>
     </unit>
+    <unit id="guarana_cappuccino">
+      <segment id="guarana_cappuccino.type" state="translated">
+        <source>guarana_cappuccino.type</source>
+        <target>Res.</target>
+      </segment>
+      <segment id="guarana_cappuccino.name" state="translated">
+        <source>guarana_cappuccino.name</source>
+        <target>Guarana Cappuccino</target>
+      </segment>
+      <segment id="guarana_cappuccino.description" state="translated">
+        <source>guarana_cappuccino.description</source>
+        <target>**Coffees** give +1 :pa:.</target>
+      </segment>
+      <segment id="guarana_cappuccino.lore" state="translated">
+        <source>guarana_cappuccino.lore</source>
+        <target>The caffeine dosage from our beloved coffee machine is way too high to safely raise it any further. However, by carefully adding some guarana-based foam atop every expresso, it should be feasible to raise the energizing properties of our beloved drink just a bit higher.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -17,5 +17,6 @@ enum ProjectRequirementName: string
     case MEDIKIT_IN_LABORATORY = 'medikit_in_laboratory';
     case SCHRODINGER_IN_PLAYER_INVENTORY = 'schrodinger_in_player_inventory';
     case FOOD_IN_LABORATORY = 'food_in_laboratory';
+    case COFFEE_IN_LABORATORY = 'coffee_in_laboratory';
     case GAME_STARTED = 'game_started';
 }

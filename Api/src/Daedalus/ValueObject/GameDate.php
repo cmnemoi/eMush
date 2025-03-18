@@ -47,6 +47,11 @@ final class GameDate
         return new self($this->daedalus, $this->day, $this->cycle - 1);
     }
 
+    public function previousCycle(): int
+    {
+        return $this->previous()->cycle();
+    }
+
     public function equals(self $otherDate): bool
     {
         return $this->day === $otherDate->day && $this->cycle === $otherDate->cycle;

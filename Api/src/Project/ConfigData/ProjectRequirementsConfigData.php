@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\ConfigData;
 
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
@@ -73,6 +74,11 @@ abstract class ProjectRequirementsConfigData
             new ProjectRequirementConfigDto(
                 name: ProjectRequirementName::FOOD_IN_LABORATORY,
                 type: ProjectRequirementType::FOOD_IN_LABORATORY,
+            ),
+            new ProjectRequirementConfigDto(
+                name: ProjectRequirementName::COFFEE_IN_LABORATORY,
+                type: ProjectRequirementType::ITEM_IN_LABORATORY,
+                target: GameRationEnum::COFFEE,
             ),
             new ProjectRequirementConfigDto(
                 name: ProjectRequirementName::GAME_STARTED,

@@ -2,9 +2,9 @@
 
 namespace Mush\Game\Command;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Game\ConfigData\GameConfigData;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\CharacterConfigRepository;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -30,8 +30,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class FillDaedalusCommand extends Command
 {
     private const string OPTION_NUMBER = 'number';
-    private const string OPTION_CHAO_FINOLA = 'chao_finola';
-    private const string OPTION_ANDIE_DEREK = 'andie_derek';
     private const string OPTION_DAEDALUS_ID = 'daedalus_id';
     private const string OPTION_DAEDALUS_LOCALE = 'daedalus_locale';
     private HttpClientInterface $httpClient;
@@ -43,7 +41,6 @@ class FillDaedalusCommand extends Command
     private string $identityServerUri;
     private string $oAuthCallback;
     private string $oAuthClientId;
-    private array $allowedCharacters;
 
     public function __construct(
         HttpClientInterface $httpClient,
@@ -63,33 +60,21 @@ class FillDaedalusCommand extends Command
         $this->identityServerUri = $_ENV['IDENTITY_SERVER_URI'];
         $this->oAuthCallback = $_ENV['OAUTH_CALLBACK'];
         $this->oAuthClientId = $_ENV['OAUTH_CLIENT_ID'];
-        foreach (array_column(GameConfigData::$dataArray, 'characterConfigs') as $column) {
-            foreach ($column as $value) {
-                $this->allowedCharacters[] = $value;
-            }
+    }
+
+    public function isntAvailable(string $name, Daedalus $daedalus): bool
+    {
+        $availableCharacters = [];
+        foreach ($this->daedalusService->findAvailableCharacterForDaedalus($daedalus) as $character) {
+            $availableCharacters[] = $character->getName();
         }
-    }
 
-    public function isAndieOrDerek(string $name): bool
-    {
-        return $name === 'andie' || $name === 'derek';
-    }
-
-    public function isChaoOrFinola(string $name): bool
-    {
-        return $name === 'chao' || $name === 'finola';
-    }
-
-    public function isntInGameConfig(string $name): bool
-    {
-        return !\in_array($name, $this->allowedCharacters, true);
+        return !\in_array($name, $availableCharacters, true);
     }
 
     protected function configure(): void
     {
         $this->addOption($this::OPTION_NUMBER, null, InputOption::VALUE_OPTIONAL, 'Number of member to board ?', 16);
-        $this->addOption($this::OPTION_CHAO_FINOLA, null, InputOption::VALUE_OPTIONAL, 'Accept Chao and Finola on board', false);
-        $this->addOption($this::OPTION_ANDIE_DEREK, null, InputOption::VALUE_OPTIONAL, 'Accept Andie and Derek on board ?', false);
         $this->addOption($this::OPTION_DAEDALUS_ID, null, InputOption::VALUE_OPTIONAL, 'Daedalus id ?', null);
         $this->addOption($this::OPTION_DAEDALUS_LOCALE, null, InputOption::VALUE_REQUIRED, 'Daedalus locale ?', 'fr');
     }
@@ -112,44 +97,41 @@ class FillDaedalusCommand extends Command
 
         $io->info("{$numberOfMemberToBoard} character will be added to daedalus {$daedalusId}");
 
-        $isChaoAndFinola = $input->getOption($this::OPTION_CHAO_FINOLA) === null;
-        $isAndieAndDerek = $input->getOption($this::OPTION_ANDIE_DEREK) === null;
-        if ($isAndieAndDerek && $isChaoAndFinola) {
-            $io->error($this::OPTION_CHAO_FINOLA . ' and ' . $this::OPTION_ANDIE_DEREK . ' are mutually exclusive');
-
-            return Command::INVALID;
-        }
-
-        if ($isChaoAndFinola) {
-            $io->info('Andie and Derek wont be added to daedalus');
-        }
-        if ($isAndieAndDerek) {
-            $io->info('Chao and Finola wont be added to daedalus');
-        }
-
         $io->title('Filling Daedalus...');
 
         /** @var CharacterConfig[] $allCharacter */
         $allCharacter = $this->characterConfigRepository->findAll();
 
         $count = 0;
+
+        if ($daedalusId === null) {
+            if ($locale !== 'fr' && $locale !== 'en') {
+                $io->error("locale must be fr or en. Found : {$locale}");
+
+                return Command::FAILURE;
+            }
+            $daedalus = $this->daedalusService->findAvailableDaedalusInLanguage($locale);
+            if ($daedalus === null) {
+                $io->error("Can't find any available daedalus for {$locale}.");
+
+                return Command::FAILURE;
+            }
+            $daedalusId = $daedalus->getId();
+        } else {
+            $daedalus = $this->daedalusRepository->find($daedalusId);
+            if ($daedalus === null) {
+                $io->error("Can't fin daedalus with id {$daedalusId} !");
+
+                return Command::FAILURE;
+            }
+        }
         foreach ($allCharacter as $character) {
             $name = $character->getName();
 
             $io->info($name . ' on boarding ...');
 
-            if ($isAndieAndDerek && $this->isChaoOrFinola($name)) {
-                $io->info("{$name} not allowed on daedalus, skipping ...");
-
-                continue;
-            }
-            if ($isChaoAndFinola && $this->isAndieOrDerek($name)) {
-                $io->info("{$name} not allowed on daedalus, skipping ...");
-
-                continue;
-            }
-            if ($this->isntInGameConfig($name)) {
-                $io->info("{$name} not in config, skipping ...");
+            if ($this->isntAvailable($name, $daedalus)) {
+                $io->info("{$name} not available, skipping ...");
 
                 continue;
             }
@@ -198,27 +180,6 @@ class FillDaedalusCommand extends Command
 
                 $user = $this->loginService->login($fistTokenApi);
 
-                if ($daedalusId === null) {
-                    if ($locale !== 'fr' && $locale !== 'en') {
-                        $io->error("locale must be fr or en. Found : {$locale}");
-
-                        return Command::FAILURE;
-                    }
-                    $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($locale, $user);
-                    if ($daedalus === null) {
-                        $io->error("Can't find any available daedalus for {$locale} / {$name}. Skipping ...");
-
-                        continue;
-                    }
-                    $daedalusId = $daedalus->getId();
-                } else {
-                    $daedalus = $this->daedalusRepository->find($daedalusId);
-                    if ($daedalus === null) {
-                        $io->error("Can't fin daedalus with id {$daedalusId} !");
-
-                        return Command::FAILURE;
-                    }
-                }
                 $player = $this->playerService->createPlayer($daedalus, $user, $name);
                 ++$count;
                 $io->info($name . ' joined Daedalus ' . $daedalusId . '!');
@@ -228,13 +189,6 @@ class FillDaedalusCommand extends Command
                 $io->warning("{$name} cannot join Daedalus. Error while joining daedalus : {$message} -> {$trace}");
 
                 continue;
-            }
-
-            if ($this->isAndieOrDerek($name)) {
-                $isAndieAndDerek = true;
-            }
-            if ($this->isChaoOrFinola($name)) {
-                $isChaoAndFinola = true;
             }
 
             if ($count === $numberOfMemberToBoard) {

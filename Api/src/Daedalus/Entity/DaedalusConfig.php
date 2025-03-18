@@ -5,6 +5,7 @@ namespace Mush\Daedalus\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Enum\CharacterSetEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\HolidayEnum;
@@ -102,6 +103,12 @@ class DaedalusConfig
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $randomBlueprints = [];
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 16])]
+    private int $playerCount = 16;
+
+    #[ORM\Column(type: 'string', nullable: false, options: ['default' => CharacterSetEnum::FINOLA_CHAO])]
+    private string $chaolaToggle = CharacterSetEnum::FINOLA_CHAO;
 
     public static function fromConfigData(array $configData): self
     {
@@ -438,6 +445,7 @@ class DaedalusConfig
             HolidayEnum::ANNIVERSARY => HolidayEnum::ANNIVERSARY,
             HolidayEnum::HALLOWEEN => HolidayEnum::HALLOWEEN,
             HolidayEnum::NONE => HolidayEnum::NONE,
+            HolidayEnum::APRIL_FOOLS => HolidayEnum::APRIL_FOOLS,
             default => throw new \LogicException("{$holiday} is not a valid holiday check method"),
         };
 
@@ -504,18 +512,65 @@ class DaedalusConfig
         return $this;
     }
 
-    private function getCurrentHoliday(): string
+    public function getCurrentHoliday(): string
     {
-        $currentDate = new \DateTime();
-
-        if ($currentDate->format('j') >= 3 && $currentDate->format('j') <= 31 && $currentDate->format('F') === 'January') {
+        if ($this->isAnniversary()) {
             return HolidayEnum::ANNIVERSARY;
         }
 
-        if (($currentDate->format('j') >= 17 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 14 && $currentDate->format('F') === 'November')) {
+        if ($this->isAprilFools()) {
+            return HolidayEnum::APRIL_FOOLS;
+        }
+
+        if ($this->isHalloween()) {
             return HolidayEnum::HALLOWEEN;
         }
 
         return HolidayEnum::NONE;
+    }
+
+    public function getPlayerCount(): int
+    {
+        return $this->playerCount;
+    }
+
+    public function setPlayerCount(int $playerCount): static
+    {
+        $this->playerCount = $playerCount;
+
+        return $this;
+    }
+
+    public function getChaolaToggle(): string
+    {
+        return $this->chaolaToggle;
+    }
+
+    public function setChaolaToggle(string $chaolaToggle): static
+    {
+        $this->chaolaToggle = $chaolaToggle;
+
+        return $this;
+    }
+
+    private function isAnniversary(): bool
+    {
+        $currentDate = new \DateTime();
+
+        return $currentDate->format('j') >= 3 && $currentDate->format('j') <= 31 && $currentDate->format('F') === 'January';
+    }
+
+    private function isAprilFools(): bool
+    {
+        $currentDate = new \DateTime();
+
+        return $currentDate->format('j') <= 14 && $currentDate->format('F') === 'April';
+    }
+
+    private function isHalloween(): bool
+    {
+        $currentDate = new \DateTime();
+
+        return ($currentDate->format('j') >= 17 && $currentDate->format('F') === 'October') || ($currentDate->format('j') <= 14 && $currentDate->format('F') === 'November');
     }
 }

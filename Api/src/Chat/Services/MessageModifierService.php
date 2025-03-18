@@ -209,7 +209,7 @@ final class MessageModifierService implements MessageModifierServiceInterface
 
     private function getRandomOtherPlayer(Player $player): string
     {
-        $characterConfigs = $player->getDaedalus()->getGameConfig()->getCharactersConfig();
+        $characterConfigs = $player->getDaedalus()->getAvailableCharacters();
 
         $characters = [];
 

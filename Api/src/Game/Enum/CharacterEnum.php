@@ -114,4 +114,19 @@ abstract class CharacterEnum
     {
         return self::isMale($character) ? 'male' : 'female';
     }
+
+    public static function chaolaPair(): array
+    {
+        return [self::CHAO, self::FINOLA];
+    }
+
+    public static function andrekPair(): array
+    {
+        return [self::ANDIE, self::DEREK];
+    }
+
+    public static function allPairs(): array
+    {
+        return array_merge(self::chaolaPair(), self::andrekPair());
+    }
 }

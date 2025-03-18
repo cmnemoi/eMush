@@ -193,6 +193,8 @@ class AbstractFunctionalTest
     {
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => $characterName]);
 
+        $daedalus->addAvailableCharacter($characterConfig);
+
         $player = new Player();
 
         $user = new User();

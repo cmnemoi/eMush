@@ -66,7 +66,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         /** @var ArrayCollection<array-key, ClosedPlayer> $closedPlayers */
         $closedPlayers = $players->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
 
-        $cryoPlayers = $gameConfig->getCharactersConfig()->count() - $daedalus->getPlayers()->count();
+        $cryoPlayers = $gameConfig->getDaedalusConfig()->getPlayerCount() - $daedalus->getPlayers()->count();
         $humanAlive = $daedalus->getAlivePlayers()->getNumberOfHumanAndAnonymushPlayers();
         $mushAlive = $daedalus->getAlivePlayers()->getNumberOfVisibleMushPlayers();
         $humanDead = $closedPlayers->filter(static fn (ClosedPlayer $player) => $player->isDead() && $player->isHuman())->count();

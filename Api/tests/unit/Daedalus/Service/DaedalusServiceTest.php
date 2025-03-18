@@ -35,6 +35,7 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -211,12 +212,14 @@ final class DaedalusServiceTest extends TestCase
 
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $characterConfigCollection = new ArrayCollection();
+        $characterConfigCollection = new CharacterConfigCollection();
         $gameConfig->setCharactersConfig($characterConfigCollection);
 
         $characterConfig = new CharacterConfig();
         $characterConfig->setCharacterName('character_1');
         $characterConfigCollection->add($characterConfig);
+
+        $daedalus->setAvailableCharacters($characterConfigCollection);
 
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
 
@@ -312,7 +315,7 @@ final class DaedalusServiceTest extends TestCase
 
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $characterConfigCollection = new ArrayCollection();
+        $characterConfigCollection = new CharacterConfigCollection();
         $gameConfig->setCharactersConfig($characterConfigCollection);
 
         $player1 = $this->createPlayer($daedalus, 'player1');
@@ -334,6 +337,8 @@ final class DaedalusServiceTest extends TestCase
         $characterConfigImunized = $imunizedPlayer->getPlayerInfo()->getCharacterConfig();
         $characterConfigImunized->setInitStatuses(new ArrayCollection([$statusConfig]));
         $characterConfigCollection->add($characterConfigImunized);
+
+        $daedalus->setAvailableCharacters($characterConfigCollection);
 
         $this->randomService->shouldReceive('getRandomElementsFromProbaCollection')
             ->withArgs(static fn ($probaCollection, $number) => (

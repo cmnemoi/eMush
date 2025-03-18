@@ -28,4 +28,11 @@ class CharacterConfigCollection extends ArrayCollection
 
         return $character;
     }
+
+    public function getAllExcept(array $names): self
+    {
+        return $this->filter(
+            static fn (CharacterConfig $character) => !\in_array($character->getName(), $names, true)
+        );
+    }
 }

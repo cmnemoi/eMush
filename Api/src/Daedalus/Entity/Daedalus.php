@@ -31,6 +31,8 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Collection\ProjectCollection;
 use Mush\Project\Entity\Project;
@@ -118,6 +120,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\OneToOne(targetEntity: UniqueItems::class, cascade: ['persist'])]
     private UniqueItems $uniqueItems;
 
+    #[ORM\ManyToMany(targetEntity: CharacterConfig::class)]
+    private Collection $availableCharacters;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -128,6 +133,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->titlePriorities = new ArrayCollection();
         $this->generalAnnouncements = new ArrayCollection();
         $this->uniqueItems = new UniqueItems();
+        $this->availableCharacters = new ArrayCollection();
     }
 
     public function getId(): int
@@ -170,11 +176,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
-    public function getActivePlayers(): PlayerCollection
-    {
-        return $this->getPlayers()->getActivePlayers();
-    }
-
     public function removePlayer(Player $player): static
     {
         $this->players->removeElement($player);
@@ -185,16 +186,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getAlivePlayers(): PlayerCollection
     {
         return $this->getPlayers()->getPlayerAlive();
-    }
-
-    public function getAlivePlayersInRoom(): PlayerCollection
-    {
-        return $this->getPlayers()->getPlayerAliveAndInRoom();
-    }
-
-    public function getPlayerByName(string $name): ?Player
-    {
-        return $this->getPlayers()->getPlayerByName($name);
     }
 
     public function deadMushCount(): int
@@ -290,11 +281,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $place;
     }
 
-    public function getRoomsOnFire(): Collection
-    {
-        return $this->getRooms()->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE));
-    }
-
     public function getRoomsWithoutFire(): Collection
     {
         return $this->getRooms()->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE));
@@ -349,13 +335,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getHunterPool(): HunterCollection
     {
         return $this->getSpace()->getHunterPool();
-    }
-
-    public function setHunters(ArrayCollection $hunters): static
-    {
-        $this->getSpace()->setHunters($hunters);
-
-        return $this;
     }
 
     public function getVariableByName(string $variableName): GameVariable
@@ -486,13 +465,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function setCombustionChamberFuel(int $combustionChamberFuel): static
     {
         $this->setVariableValueByName($combustionChamberFuel, DaedalusVariableEnum::COMBUSTION_CHAMBER_FUEL);
-
-        return $this;
-    }
-
-    public function addCombustionChamberFuel(int $combustionChamberFuel): static
-    {
-        $this->setCombustionChamberFuel($this->getCombustionChamberFuel() + $combustionChamberFuel);
 
         return $this;
     }
@@ -1008,6 +980,27 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getUniqueItems(): UniqueItems
     {
         return $this->uniqueItems;
+    }
+
+    public function getAvailableCharacters(): CharacterConfigCollection
+    {
+        return new CharacterConfigCollection($this->availableCharacters->toArray());
+    }
+
+    public function setAvailableCharacters(CharacterConfigCollection $characters): static
+    {
+        $this->availableCharacters = $characters;
+
+        return $this;
+    }
+
+    public function addAvailableCharacter(CharacterConfig $character): static
+    {
+        if (!$this->getAvailableCharacters()->contains($character)) {
+            $this->availableCharacters->add($character);
+        }
+
+        return $this;
     }
 
     private function getCreatedAtOrThrow(): \DateTime

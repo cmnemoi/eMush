@@ -508,7 +508,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
             return null;
         }
 
-        return $this->getDaedalus()->getPlayerByName($target->getName());
+        return $this->getDaedalus()->getPlayers()->getPlayerByName($target->getName());
     }
 
     public function updateSongWithPlayerFavorite(Player $player): void

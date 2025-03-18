@@ -18,6 +18,7 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -56,6 +57,8 @@ class CreatePlayerServiceCest
         $daedalusConfig->setStartingApprentrons([
             'apprentron_technician' => 14,
         ]);
+
+        $daedalusConfig->setPlayerCount(2);
 
         $equipmentConfigs = new ArrayCollection();
         $equipmentConfigs->add($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'apprentron_technician_default']));
@@ -106,11 +109,12 @@ class CreatePlayerServiceCest
         /** @var User $user */
         $user = $I->have(User::class);
 
-        $charactersConfig = new ArrayCollection();
+        $charactersConfig = new CharacterConfigCollection();
         $charactersConfig->add($gioeleCharacterConfig);
         $charactersConfig->add($andieCharacterConfig);
 
         $gameConfig->setCharactersConfig($charactersConfig);
+        $daedalus->setAvailableCharacters($charactersConfig);
         $daedalusInfo->setGameConfig($gameConfig);
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);

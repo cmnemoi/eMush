@@ -29,6 +29,7 @@ class CharacterConfigData
         ActionEnum::REPORT_FIRE->value,
         ActionEnum::COM_MANAGER_ANNOUNCEMENT->value,
     ];
+
     public static array $dataArray = [
         [
             'name' => 'andie',

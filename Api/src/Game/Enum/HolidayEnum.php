@@ -8,4 +8,5 @@ abstract class HolidayEnum
     public const string NONE = 'none'; // CONFIGDATA ONLY: force no holiday
     public const string ANNIVERSARY = 'anniversary';
     public const string HALLOWEEN = 'halloween';
+    public const string APRIL_FOOLS = 'april_fools';
 }

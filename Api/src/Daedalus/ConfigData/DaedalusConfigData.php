@@ -2,6 +2,7 @@
 
 namespace Mush\Daedalus\ConfigData;
 
+use Mush\Daedalus\Enum\CharacterSetEnum;
 use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Enum\RoomEnum;
 
@@ -108,6 +109,8 @@ class DaedalusConfigData
                 'grenade_blueprint' => 2,
                 'support_drone_blueprint' => 1,
             ],
+            'playerCount' => 16,
+            'chaolaToggle' => CharacterSetEnum::FINOLA_CHAO,
         ],
     ];
 

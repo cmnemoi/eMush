@@ -98,7 +98,8 @@ final class DaedalusNormalizerTest extends TestCase
             ->setInitFuel(24)
             ->setInitHull(100)
             ->setInitOxygen(24)
-            ->setInitShield(100);
+            ->setInitShield(100)
+            ->setPlayerCount(0);
 
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 

@@ -63,7 +63,9 @@ class DaedalusConfigDataLoader extends ConfigDataLoader
                 ->setRebelBaseContactDurationMin($daedalusConfigData['rebelBaseContactDurationMin'])
                 ->setRebelBaseContactDurationMax($daedalusConfigData['rebelBaseContactDurationMax'])
                 ->setStartingRandomBlueprintCount($daedalusConfigData['startingRandomBlueprintCount'])
-                ->setRandomBlueprints($daedalusConfigData['randomBlueprints']);
+                ->setRandomBlueprints($daedalusConfigData['randomBlueprints'])
+                ->setPlayerCount($daedalusConfigData['playerCount'])
+                ->setChaolaToggle($daedalusConfigData['chaolaToggle']);
 
             $this->setDaedalusConfigRandomItemPlaces($daedalusConfig, $daedalusConfigData);
             $this->setDaedalusConfigPlaceConfigs($daedalusConfig, $daedalusConfigData);

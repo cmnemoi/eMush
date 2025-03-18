@@ -534,7 +534,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var ArrayCollection $characters */
         $characters = new ArrayCollection([
-            $andie, $chun, $derek, $eleesha, $frieda, $gioele, $hua, $ian,
+            $andie, $chun, $chao, $derek, $eleesha, $finola, $frieda, $gioele, $hua, $ian,
             $janice, $jinSu, $kuanTi, $paola, $raluca, $roland, $stephen, $terrence,
         ]);
 

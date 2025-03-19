@@ -376,6 +376,7 @@ class GameConfigData
                 'apprentron_opportunist_default',
                 'apprentron_rebel_default',
                 'apprentron_self_sacrifice_default',
+                'lunchbox_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',
@@ -512,6 +513,7 @@ class GameConfigData
                 DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_default',
                 DaedalusStatusEnum::GHOST_SAMPLE . '_default',
                 DaedalusStatusEnum::GHOST_CHUN . '_default',
+                'electric_charges_lunchbox_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

@@ -47,6 +47,7 @@ class ItemEnum
     public const string SUPPORT_DRONE = 'support_drone';
     public const string ANNIVERSARY_GIFT = 'anniversary_gift';
     public const string COFFEE_THERMOS = 'coffee_thermos';
+    public const string LUNCHBOX = 'lunchbox';
 
     public static function getArtefacts(): ArrayCollection
     {

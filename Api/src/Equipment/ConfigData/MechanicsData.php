@@ -2215,6 +2215,14 @@ class MechanicsData
             'containerContents' => ContainerContentEnum::COFFEE_THERMOS_CONTENT,
         ],
         [
+            'name' => 'container_lunchbox_default',
+            'type' => EquipmentMechanicEnum::CONTAINER,
+            'actions' => [
+                'open_container_cost_0',
+            ],
+            'containerContents' => ContainerContentEnum::LUNCHBOX_CONTENT,
+        ],
+        [
             'name' => 'apprentron_optimist_default',
             'type' => 'book',
             'skill' => SkillEnum::OPTIMIST,

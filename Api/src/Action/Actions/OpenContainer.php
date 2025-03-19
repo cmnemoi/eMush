@@ -10,8 +10,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Container;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -35,6 +33,7 @@ class OpenContainer extends AbstractAction
     private const array CONTAINER_LIST = [
         ItemEnum::ANNIVERSARY_GIFT => ActionLogEnum::OPEN_ANNIVERSARY_GIFT,
         ItemEnum::COFFEE_THERMOS => ActionLogEnum::OPEN_COFFEE_THERMOS,
+        ItemEnum::LUNCHBOX => ActionLogEnum::OPEN_LUNCHBOX,
     ];
     protected ActionEnum $name = ActionEnum::OPEN_CONTAINER;
 
@@ -79,24 +78,20 @@ class OpenContainer extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $target */
-        $target = $this->target;
+        $target = $this->gameEquipmentTarget();
 
-        /** @var Container $containerType */
-        $containerType = $target->getMechanicByNameOrThrow(EquipmentMechanicEnum::CONTAINER);
-
-        $time = new \DateTime();
+        $containerType = $target->getContainerMechanicOrThrow();
 
         $contentName = (string) $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights($this->player));
         $contentQuantity = $containerType->getQuantityOfItemOrThrow($contentName);
 
         $this->createOpeningLog($contentName, $contentQuantity);
 
-        $this->createContents($contentName, $contentQuantity);
-
         if ($target->isOnLastChargeOrSingleUse()) {
             $this->destroyEmptyContainer();
         }
+
+        $this->createContents($contentName, $contentQuantity);
     }
 
     private function createOpeningLog(string $contentName, int $contentQuantity): void
@@ -119,14 +114,14 @@ class OpenContainer extends AbstractAction
         );
     }
 
-    private function createContents(string $EquipmentName, int $Quantity): void
+    private function createContents(string $equipmentName, int $quantity): void
     {
         $this->gameEquipmentService->createGameEquipmentsFromName(
-            $EquipmentName,
+            $equipmentName,
             $this->player,
-            $this->getActionConfig()->getActionTags(),
+            $quantity,
+            $this->getTags(),
             new \DateTime(),
-            $Quantity,
             VisibilityEnum::PUBLIC
         );
     }
@@ -137,7 +132,7 @@ class OpenContainer extends AbstractAction
             $this->gameEquipmentTarget(),
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

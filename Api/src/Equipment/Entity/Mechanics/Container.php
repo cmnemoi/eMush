@@ -29,6 +29,11 @@ class Container extends EquipmentMechanic
         return $mechanics;
     }
 
+    public function getContents(): array
+    {
+        return $this->contents;
+    }
+
     public function setContents(array $containerData): static
     {
         foreach ($containerData as $itemData) {

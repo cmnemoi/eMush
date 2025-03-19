@@ -2517,13 +2517,13 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
       </segment>
       <segment id="description" state="translated">
         <source>lunchbox.description</source>
-        <target>Oh des Rations ! Un petit plaisir à partager.
-Contient {quantity} x Rations standards.</target>
+        <target>Oh des Rations ! Un petit plaisir à partager.//
+Contient {quantity} **Rations standards**.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
-        <target>Oh des Rations ! Un petit plaisir à partager.
-Contient {quantity} x Rations standards.
+        <target>Oh des Rations ! Un petit plaisir à partager.//
+Contient {quantity} **Rations standards**.//
 L'équivalent galactique de la soupe chaude quand le zéro absolu vous guette.</target>
       </segment>
     </unit>

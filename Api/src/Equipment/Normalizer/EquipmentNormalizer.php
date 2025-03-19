@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Normalizer;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
@@ -276,7 +277,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
     private function getDefinition(GameEquipment $equipment, string $key, string $type, string $language): string
     {
-        $description = $this->translationService->translate("{$key}.description", [], $type, $language);
+        $translationParameters = [];
+        if ($equipment->hasMechanicByName(EquipmentMechanicEnum::CONTAINER)) {
+            $translationParameters['quantity'] = $equipment->getUsedCharge(ActionEnum::OPEN_CONTAINER->toString())?->getCharge();
+        }
+
+        $description = $this->translationService->translate("{$key}.description", $translationParameters, $type, $language);
 
         if (($blueprint = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
             foreach ($blueprint->getIngredients() as $name => $number) {

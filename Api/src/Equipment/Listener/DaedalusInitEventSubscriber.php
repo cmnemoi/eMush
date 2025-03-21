@@ -1,26 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Equipment\Listener;
 
 use Mush\Daedalus\Event\DaedalusInitEvent;
+use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Entity\Place;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class DaedalusInitEventSubscriber implements EventSubscriberInterface
+final readonly class DaedalusInitEventSubscriber implements EventSubscriberInterface
 {
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private RandomServiceInterface $randomService;
-
     public function __construct(
-        GameEquipmentServiceInterface $gameEquipmentService,
-        RandomServiceInterface $randomService,
-    ) {
-        $this->gameEquipmentService = $gameEquipmentService;
-        $this->randomService = $randomService;
-    }
+        private DaedalusRepositoryInterface $daedalusRepository,
+        private GameEquipmentServiceInterface $gameEquipmentService,
+        private RandomServiceInterface $randomService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -36,37 +33,37 @@ class DaedalusInitEventSubscriber implements EventSubscriberInterface
         $reasons = $event->getTags();
         $time = $event->getTime();
 
-        $randomItemPlaces = $daedalusConfig->getRandomItemPlaces();
-
-        if (null !== $randomItemPlaces) {
-            foreach ($randomItemPlaces->getItems() as $itemName) {
-                $roomName = $randomItemPlaces->getPlaces()[$this->randomService->random(0, \count($randomItemPlaces->getPlaces()) - 1)];
-                $room = $daedalus->getRooms()->filter(static fn (Place $room) => $roomName === $room->getName())->first();
-
-                $this->gameEquipmentService->createGameEquipmentFromName(
-                    $itemName,
-                    $room,
-                    $reasons,
-                    $time
-                );
-            }
-        }
-        $blueprintCount = $daedalusConfig->getStartingRandomBlueprintCount();
+        // spawn random blueprints
         $spawnedBlueprints = $this->randomService->getRandomElementsFromProbaCollection(
             array: $daedalusConfig->getRandomBlueprints(),
-            number: $blueprintCount,
+            number: $daedalusConfig->getStartingRandomBlueprintCount(),
         );
-        $possiblePlaces = $daedalus->getRooms()->toArray();
-        foreach ($spawnedBlueprints as $blueprintName) {
-            $room = $this->randomService->getRandomElement($possiblePlaces)->getPlace();
 
+        foreach ($spawnedBlueprints as $blueprintName) {
             $this->gameEquipmentService->createGameEquipmentFromName(
-                $blueprintName,
-                $room,
-                $reasons,
-                $time
+                equipmentName: $blueprintName,
+                equipmentHolder: $this->randomService->getRandomElement($daedalus->getStorages()->toArray()),
+                reasons: $reasons,
+                time: $time
             );
         }
         $daedalus->getUniqueItems()->makeStartingBlueprintsUnique($spawnedBlueprints);
+        $this->daedalusRepository->save($daedalus);
+
+        // spawn random items
+        $randomItemPlaces = $daedalusConfig->getRandomItemPlaces();
+        if ($randomItemPlaces) {
+            foreach ($randomItemPlaces->getItems() as $itemName) {
+                $roomName = $this->randomService->getRandomElement($randomItemPlaces->getPlaces());
+                $room = $daedalus->getPlaceByNameOrThrow($roomName);
+
+                $this->gameEquipmentService->createGameEquipmentFromName(
+                    equipmentName: $itemName,
+                    equipmentHolder: $room,
+                    reasons: $reasons,
+                    time: $time
+                );
+            }
+        }
     }
 }

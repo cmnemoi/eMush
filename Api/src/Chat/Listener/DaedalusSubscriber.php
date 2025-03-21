@@ -91,6 +91,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
             HolidayEnum::ANNIVERSARY => $this->neronMessageService->createNeronMessage(NeronMessageEnum::ANNIVERSARY_BEGIN, $daedalus, $tags, $time),
             HolidayEnum::HALLOWEEN => $this->neronMessageService->createNeronMessage(NeronMessageEnum::HALLOWEEN_BEGIN, $daedalus, $tags, $time),
             default => null,
+            HolidayEnum::APRIL_FOOLS => $this->neronMessageService->createNeronMessage(NeronMessageEnum::APRIL_FOOLS_BEGIN, $daedalus, $tags, $time),
         };
     }
 }

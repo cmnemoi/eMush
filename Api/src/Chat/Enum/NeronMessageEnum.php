@@ -54,4 +54,5 @@ class NeronMessageEnum
     public const CYCLE_FAILURES = 'cycle_failures';
     public const ANNIVERSARY_BEGIN = 'anniversary_begin';
     public const HALLOWEEN_BEGIN = 'halloween_begin';
+    public const APRIL_FOOLS_BEGIN = 'april_fools_begin';
 }

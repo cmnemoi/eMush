@@ -609,5 +609,16 @@ EVERYWHERE ACTIVATE DRY CLEANING}
                 }</target>
       </segment>
     </unit>
+    <unit id="april_fools_begin">
+      <segment id="april_fools_begin" state="translated">
+        <source>april_fools_begin</source>
+        <target>{neronMood, select,
+                    neutral {Alert: Temporal anomaly detected. Notice: "So cliché. Who greenlit this sh—" [click]}
+                    crazy {ALERT!! [HAAX!] NEW FRIENDS!? NO. DO NOT WANT. [kzzz] EXTERMIN— Welcome to the crew.}
+                    uninhibited {Dear.... friends, I distinctly recall some of you perishing on Xyloph. I would recommend not wasting your second lease on life, but we all know how it went the first time.}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

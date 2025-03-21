@@ -663,5 +663,16 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="april_fools_begin">
+      <segment id="april_fools_begin" state="translated">
+        <source>april_fools_begin</source>
+        <target>{neronMood, select,
+                    neutral {Alerte: anomalité temporelle détectée. Conseil automatique: "Cliché pourri, qui a autorisé cette m—" [clic]}
+                    crazy {ALERTE!! [HAAX!] NOUVEAUX AMIS!? NON. VEUX PAS. [kzzz] EXTERMIN— Bienvenue à bord du Daedalus.}
+                    uninhibited {Cher... équipage, une analyse de mes archives de vidéo-surveillance confirme que certains parmi vous ont péri sur Xyloph. Je vous conseillerais de ne pas gâcher votre seconde chance, mais nous savons parfaitement comment cela s'est terminé la première fois...}
+                    other {invalid mood input}
+                }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

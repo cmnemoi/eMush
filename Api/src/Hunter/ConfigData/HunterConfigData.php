@@ -31,7 +31,7 @@ class HunterConfigData
                 ToolItemEnum::SPACE_CAPSULE => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 1,
+                1 => 2,
                 2 => 1,
                 3 => 1,
             ],
@@ -65,7 +65,7 @@ class HunterConfigData
                 ItemEnum::PLASTIC_SCRAPS => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 1,
+                1 => 2,
                 2 => 1,
                 3 => 1,
                 4 => 1,
@@ -99,7 +99,7 @@ class HunterConfigData
                 ItemEnum::PLASTIC_SCRAPS => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 1,
+                1 => 2,
                 2 => 1,
             ],
             'targetProbabilities' => [
@@ -131,7 +131,7 @@ class HunterConfigData
                 ItemEnum::PLASTIC_SCRAPS => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 1,
+                1 => 2,
                 2 => 1,
             ],
             'targetProbabilities' => [
@@ -162,7 +162,7 @@ class HunterConfigData
                 ItemEnum::PLASTIC_SCRAPS => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 1,
+                1 => 2,
                 2 => 1,
                 3 => 1,
             ],

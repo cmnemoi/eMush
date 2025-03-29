@@ -3,6 +3,7 @@
 namespace Mush\Game\ConfigData;
 
 use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Enum\TradeEnum;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -513,6 +514,7 @@ class GameConfigData
                 DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_default',
                 DaedalusStatusEnum::GHOST_SAMPLE . '_default',
                 DaedalusStatusEnum::GHOST_CHUN . '_default',
+                HunterStatusEnum::AGGROED . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',
@@ -565,6 +567,7 @@ class GameConfigData
                 HunterEnum::HUNTER . '_default',
                 HunterEnum::SPIDER . '_default',
                 HunterEnum::TRAX . '_default',
+                HunterEnum::TRANSPORT . '_default',
             ],
             'planetSectorConfigs' => [
                 PlanetSectorEnum::LANDING . '_default',
@@ -778,6 +781,15 @@ class GameConfigData
                 XylophEnum::NOTHING,
                 XylophEnum::SNOW,
                 XylophEnum::VERSION,
+            ],
+            'tradeConfigs' => [
+                TradeEnum::FOREST_DEAL,
+                TradeEnum::PILGREDISSIM,
+                TradeEnum::GOOD_PROJECTIONS,
+                TradeEnum::TECHNO_REWRITE,
+                TradeEnum::HUMAN_VS_FUEL,
+                TradeEnum::HUMAN_VS_OXY,
+                TradeEnum::HUMAN_VS_TREE,
             ],
         ],
     ];

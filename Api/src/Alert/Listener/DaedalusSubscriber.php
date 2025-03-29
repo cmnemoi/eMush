@@ -40,7 +40,7 @@ class DaedalusSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $hunterAlert = $this->alertService->findByNameAndDaedalus(AlertEnum::HUNTER, $daedalus);
 
-        if ($hunterAlert !== null && $daedalus->getAttackingHunters()->isEmpty()) {
+        if ($hunterAlert && $daedalus->getAttackingHunters()->isEmpty()) {
             $this->alertService->delete($hunterAlert);
         }
     }

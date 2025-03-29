@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Equipment\Event;
 
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Equipment\Entity\Mechanics\Fruit;
-use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -89,6 +88,9 @@ final class PlantNewDayCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
+        // given banana tree cannot get sick at cycle change to prevent false positives
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setPlantDiseaseRate(0);
+
         // when day change event is triggered
         $event = new DaedalusCycleEvent(
             $this->daedalus,
@@ -98,7 +100,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then a banana fruit is created
-        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA));
+        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA), 'Plant should have produced a fruit');
     }
 
     public function healthyPlantShouldProduceLog(FunctionalTester $I)

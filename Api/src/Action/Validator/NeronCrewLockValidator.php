@@ -35,10 +35,7 @@ final class NeronCrewLockValidator extends ConstraintValidator
         $skillNeeded = $this->getSkillNeeded($crewLock);
         $restrictedTerminals = $this->getRestrictedTerminals($crewLock);
 
-        if (
-            $player->hasAnySkill($skillNeeded) === false
-            && $restrictedTerminals->contains($terminal->getName())
-        ) {
+        if ($player->hasAnySkill($skillNeeded) === false && $restrictedTerminals->contains($terminal->getName())) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

@@ -21,6 +21,7 @@ class CharacterConfigData
         'rejuvenate_alpha',
         'fake_disease',
         'trigger_all_rebel_contacts',
+        'create_trade',
         ActionEnum::ACCEPT_MISSION->value,
         ActionEnum::REJECT_MISSION->value,
         ActionEnum::COMMANDER_ORDER->value,

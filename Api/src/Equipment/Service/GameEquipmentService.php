@@ -19,7 +19,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
-use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -35,7 +35,7 @@ use Mush\Status\Service\StatusServiceInterface;
 final class GameEquipmentService implements GameEquipmentServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private GameEquipmentRepository $repository;
+    private GameEquipmentRepositoryInterface $repository;
     private EquipmentServiceInterface $equipmentService;
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
@@ -44,7 +44,7 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        GameEquipmentRepository $repository,
+        GameEquipmentRepositoryInterface $repository,
         EquipmentServiceInterface $equipmentService,
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
@@ -62,21 +62,19 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function persist(GameEquipment $equipment): GameEquipment
     {
-        $this->entityManager->persist($equipment);
-        $this->entityManager->flush();
+        $this->repository->save($equipment);
 
         return $equipment;
     }
 
     public function delete(GameEquipment $equipment): void
     {
-        $this->entityManager->remove($equipment);
-        $this->entityManager->flush();
+        $this->repository->delete($equipment);
     }
 
     public function findById(int $id): ?GameEquipment
     {
-        $equipment = $this->repository->find($id);
+        $equipment = $this->repository->findById($id);
 
         return $equipment instanceof GameEquipment ? $equipment : null;
     }
@@ -98,7 +96,7 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function findByOwner(Player $player): ArrayCollection
     {
-        return new ArrayCollection($this->repository->findBy(['owner' => $player]));
+        return new ArrayCollection($this->repository->findByOwner($player));
     }
 
     public function findEquipmentByNameAndPlace(string $name, Place $place, int $quantity): ArrayCollection
@@ -130,9 +128,9 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
     public function createGameEquipmentsFromName(
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
-        array $reasons,
-        \DateTime $time,
         int $quantity,
+        array $reasons = [],
+        \DateTime $time = new \DateTime(),
         string $visibility = VisibilityEnum::HIDDEN,
         ?Player $author = null
     ): array {

@@ -85,7 +85,15 @@ final class PlayerFactory
 
     public static function createPlayerInPlace(Place $place): Player
     {
-        $player = self::createPlayer();
+        $player = self::createPlayerWithDaedalus($place->getDaedalus());
+        $player->setPlace($place);
+
+        return $player;
+    }
+
+    public static function createPlayerByNameAndPlace(string $characterName, Place $place): Player
+    {
+        $player = self::createPlayerByNameAndDaedalus($characterName, $place->getDaedalus());
         $player->setPlace($place);
 
         return $player;

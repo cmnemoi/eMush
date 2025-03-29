@@ -7,18 +7,24 @@ namespace Mush\Tests\functional\Equipment\Normalizer;
 use Mush\Communications\Entity\NeronVersion;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\Trade;
 use Mush\Communications\Entity\XylophConfig;
 use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Enum\TradeEnum;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\TradeRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -36,6 +42,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
     private NeronVersionRepositoryInterface $neronVersionRepository;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private XylophRepositoryInterface $xylophEntryRepository;
+    private TradeRepositoryInterface $tradeRepository;
     private GameEquipment $commsCenter;
     private array $normalizedTerminal;
 
@@ -51,6 +58,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->xylophEntryRepository = $I->grabService(XylophRepositoryInterface::class);
+        $this->tradeRepository = $I->grabService(TradeRepositoryInterface::class);
 
         $this->givenNeronVersionIs(major: 2, minor: 9);
         $this->givenCommsCenterInPlayerRoom();
@@ -103,6 +111,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
                 'linkStrength' => 'Signal : 10%',
                 'neronUpdateStatus' => 'État de mise à jour : 9%',
                 'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
+                'never' => 'Jamais !',
             ],
             actual: $this->normalizedTerminal['infos']
         );
@@ -121,6 +130,7 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
                 'neronUpdateStatus' => 'État de mise à jour : 9%',
                 'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
                 'linkEstablished' => 'Connexion établie !',
+                'never' => 'Jamais !',
             ],
             actual: $this->normalizedTerminal['infos']
         );
@@ -145,6 +155,99 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [XylophEnum::DISK->toString(), XylophEnum::MAGNETITE->toString()],
             actual: array_map(static fn (array $xylophEntry) => $xylophEntry['key'], $this->normalizedTerminal['xylophEntries'])
+        );
+    }
+
+    public function shouldNormalizeTrades(FunctionalTester $I): void
+    {
+        // given a transport with a trade
+        $transport = $this->createHunterFromName($this->daedalus, HunterEnum::TRANSPORT, $I);
+        $trade = new Trade(
+            name: TradeEnum::FOREST_DEAL,
+            tradeOptions: [],
+            transportId: $transport->getId()
+        );
+        $this->tradeRepository->save($trade);
+
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertEquals(
+            expected: [$trade->getId()],
+            actual: array_map(static fn (array $trade) => $trade['id'], $this->normalizedTerminal['trades'])
+        );
+    }
+
+    public function shouldNotNormalizeTradesIfHuntersAreAttacking(FunctionalTester $I): void
+    {
+        // given an attacking hunter
+        $this->createHunterFromName($this->daedalus, HunterEnum::HUNTER, $I);
+
+        // given a transport with a trade
+        $transport = $this->createHunterFromName($this->daedalus, HunterEnum::TRANSPORT, $I);
+        $trade = new Trade(
+            name: TradeEnum::FOREST_DEAL,
+            tradeOptions: [],
+            transportId: $transport->getId()
+        );
+        $this->tradeRepository->save($trade);
+
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertEquals(
+            expected: [],
+            actual: $this->normalizedTerminal['trades']
+        );
+    }
+
+    public function shouldNormalizeTradesIfAsteroidIsAttacking(FunctionalTester $I): void
+    {
+        // given an asteroid attacking
+        $this->createHunterFromName($this->daedalus, HunterEnum::ASTEROID, $I);
+
+        // given a transport with a trade
+        $transport = $this->createHunterFromName($this->daedalus, HunterEnum::TRANSPORT, $I);
+        $trade = new Trade(
+            name: TradeEnum::FOREST_DEAL,
+            tradeOptions: [],
+            transportId: $transport->getId()
+        );
+        $this->tradeRepository->save($trade);
+
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertEquals(
+            expected: [$trade->getId()],
+            actual: array_map(static fn (array $trade) => $trade['id'], $this->normalizedTerminal['trades'])
+        );
+    }
+
+    public function shouldNormalizeTradeInfosWhenHunterAreAttacking(FunctionalTester $I): void
+    {
+        // given an attacking hunter
+        $this->createHunterFromName($this->daedalus, HunterEnum::HUNTER, $I);
+
+        // given a transport with a trade
+        $transport = $this->createHunterFromName($this->daedalus, HunterEnum::TRANSPORT, $I);
+        $trade = new Trade(
+            name: TradeEnum::FOREST_DEAL,
+            tradeOptions: [],
+            transportId: $transport->getId()
+        );
+        $this->tradeRepository->save($trade);
+
+        $this->whenINormalizeTerminalForPlayer();
+
+        $I->assertEquals(
+            expected: [
+                'linkStrength' => 'Signal : 0%',
+                'neronUpdateStatus' => 'État de mise à jour : 9%',
+                'selectRebelBaseToDecode' => 'Choisissez une base rebelle pour pouvoir décoder son signal.',
+                'cannotTradeUnderAttack' => 'Un autre vaisseau nous menace, il est impossible de commercer !',
+                'never' => 'Jamais !',
+                'seeCommunications' => 'Voir les communications',
+                'seeTrades' => 'Voir les échanges',
+            ],
+            actual: $this->normalizedTerminal['infos']
         );
     }
 
@@ -208,5 +311,17 @@ final class CommsCenterNormalizerCest extends AbstractFunctionalTest
             $config = $I->grabEntityFromRepository(XylophConfig::class, ['name' => $xylophEntryName]);
             $this->xylophEntryRepository->save(new XylophEntry($config, $this->daedalus->getId()));
         }
+    }
+
+    private function createHunterFromName(Daedalus $daedalus, string $hunterName, FunctionalTester $I): Hunter
+    {
+        $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow($hunterName);
+
+        $hunter = new Hunter($hunterConfig, $daedalus);
+        $hunter->setHunterVariables($hunterConfig);
+        $daedalus->getSpace()->addHunter($hunter);
+        $I->haveInRepository($hunter);
+
+        return $hunter;
     }
 }

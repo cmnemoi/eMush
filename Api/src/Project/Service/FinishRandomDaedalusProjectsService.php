@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Mush\Project\Service;
 
-use Mush\Action\Enum\ActionEnum;
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Project\Entity\Project;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Project\Repository\ProjectRepositoryInterface;
 
-final readonly class FinishRandomDaedalusProjectService
+final readonly class FinishRandomDaedalusProjectsService
 {
     public function __construct(
         private DaedalusRepositoryInterface $daedalusRepository,
@@ -22,31 +21,34 @@ final readonly class FinishRandomDaedalusProjectService
         private ProjectRepositoryInterface $projectRepository,
     ) {}
 
-    public function execute(int $daedalusId): void
+    public function execute(int $daedalusId, int $quantity = 1): void
     {
-        $project = $this->getRandomProjectFromDaedalus($daedalusId);
-        $project->finish();
-        $this->projectRepository->save($project);
+        $projects = $this->getRandomProjectsFromDaedalus($daedalusId, $quantity);
 
-        $this->eventService->callEvent(
-            event: new ProjectEvent($project, author: Player::createNull(), tags: [ActionEnum::UPGRADE_NERON->toString()]),
-            name: ProjectEvent::PROJECT_FINISHED
-        );
+        foreach ($projects as $project) {
+            $project->finish();
+            $this->projectRepository->save($project);
+
+            $this->eventService->callEvent(
+                event: new ProjectEvent($project, author: Player::createNull()),
+                name: ProjectEvent::PROJECT_FINISHED
+            );
+        }
     }
 
-    private function getRandomProjectFromDaedalus(int $daedalusId): Project
+    private function getRandomProjectsFromDaedalus(int $daedalusId, int $quantity): ArrayCollection
     {
         $daedalus = $this->daedalusRepository->findByIdOrThrow($daedalusId);
 
-        $project = $this->getRandomElementsFromArray->execute(
+        $projects = $this->getRandomElementsFromArray->execute(
             elements: $daedalus->getAvailableNeronProjects()->toArray(),
-            number: 1
-        )->first();
+            number: $quantity
+        );
 
-        if (!$project) {
+        if ($projects->isEmpty()) {
             throw new \RuntimeException('There should be at least one NERON project available');
         }
 
-        return $project;
+        return $projects;
     }
 }

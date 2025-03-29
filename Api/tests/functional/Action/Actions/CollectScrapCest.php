@@ -22,6 +22,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Service\CreateHunterService;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
@@ -50,6 +51,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
     private ChargeStatus $patrolShipArmor;
     private Land $landAction;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private CreateHunterService $createHunter;
 
     public function _before(FunctionalTester $I)
     {
@@ -90,6 +92,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->createHunter = $I->grabService(CreateHunterService::class);
     }
 
     public function testCollectScrapActionNoScrapToCollect(FunctionalTester $I): void
@@ -235,7 +238,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($hunterEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
-        $I->assertNotEmpty($this->daedalus->getAttackingHunters());
+        $I->assertNotEmpty($this->daedalus->getHuntersAroundDaedalus());
 
         $this->collectScrapAction->loadParameters(
             actionConfig: $this->collectScrapActionConfig,
@@ -327,8 +330,8 @@ final class CollectScrapCest extends AbstractFunctionalTest
             new \DateTime(),
         );
         $this->eventService->callEvent($hunterEvent, HunterPoolEvent::UNPOOL_HUNTERS);
-        $I->assertNotEmpty($this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::ASTEROID));
-        $I->assertEmpty($this->daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::ASTEROID));
+        $I->assertNotEmpty($this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::ASTEROID));
+        $I->assertEmpty($this->daedalus->getHuntersAroundDaedalus()->getAllExceptType(HunterEnum::ASTEROID));
 
         // when player collects scrap
         $this->collectScrapAction->loadParameters(
@@ -498,6 +501,36 @@ final class CollectScrapCest extends AbstractFunctionalTest
                 visibility: VisibilityEnum::PUBLIC,
             ),
             I: $I,
+        );
+    }
+
+    public function transportShouldNotHurtPlayer(FunctionalTester $I): void
+    {
+        // given there is a transport
+        $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
+
+        // given there is some scrap in space
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->daedalus->getSpace(),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+
+        // when player collects scrap
+        $this->collectScrapAction->loadParameters(
+            actionConfig: $this->collectScrapActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->player1,
+            target: $this->pasiphae
+        );
+        $this->collectScrapAction->execute();
+
+        // then player should not be damaged
+        $I->assertEquals(
+            expected: $this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint(),
+            actual: $this->player1->getHealthPoint(),
         );
     }
 

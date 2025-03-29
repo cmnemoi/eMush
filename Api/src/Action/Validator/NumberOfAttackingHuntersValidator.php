@@ -23,30 +23,16 @@ class NumberOfAttackingHuntersValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, NumberOfAttackingHunters::class);
         }
 
-        $nbAttackingHunters = $value->getPlayer()->getDaedalus()->getAttackingHunters()->count();
+        $nbAttackingHunters = $value->getPlayer()->getDaedalus()->getHuntersAroundDaedalus()->getAllExceptTypes($constraint->exclude)->count();
 
-        $buildViolation = false;
+        $shouldBuildViolation = match ($constraint->mode) {
+            self::GREATER_THAN => $nbAttackingHunters > $constraint->number,
+            self::LESS_THAN => $nbAttackingHunters < $constraint->number,
+            self::EQUAL => $nbAttackingHunters === $constraint->number,
+        };
 
-        switch ($constraint->mode) {
-            case self::GREATER_THAN:
-                $buildViolation = $nbAttackingHunters > $constraint->number;
-
-                break;
-
-            case self::LESS_THAN:
-                $buildViolation = $nbAttackingHunters < $constraint->number;
-
-                break;
-
-            case self::EQUAL:
-                $buildViolation = $nbAttackingHunters === $constraint->number;
-
-                break;
-        }
-
-        if ($buildViolation) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
+        if ($shouldBuildViolation) {
+            $this->context->buildViolation($constraint->message)->addViolation();
         }
     }
 }

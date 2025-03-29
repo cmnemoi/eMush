@@ -16,6 +16,6 @@ class HunterPoolEvent extends AbstractHunterEvent
 
     public function shouldNotGenerateNeronAnnouncement(): bool
     {
-        return $this->daedalus->getAttackingHunters()->isEmpty() || $this->hasTag(EventEnum::CREATE_DAEDALUS);
+        return $this->daedalus->getHuntersAroundDaedalus()->isEmpty() || $this->hasTag(EventEnum::CREATE_DAEDALUS);
     }
 }

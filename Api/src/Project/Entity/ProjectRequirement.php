@@ -60,7 +60,7 @@ class ProjectRequirement
             ProjectRequirementType::CHUN_IN_LABORATORY->value => $laboratory->isChunForResearch(),
             ProjectRequirementType::ITEM_IN_LABORATORY->value => $player->canReachEquipmentByName($this->getTargetOrThrow()),
             ProjectRequirementType::ITEM_IN_PLAYER_INVENTORY->value => $player->hasEquipmentByName($this->getTargetOrThrow()),
-            ProjectRequirementType::MUSH_PLAYER_DEAD->value => $daedalus->hasAnyMushDied(),
+            ProjectRequirementType::MUSH_PLAYER_DEAD->value => $daedalus->getPlayers()->isThereAMushUnlockingProjects(),
             ProjectRequirementType::MUSH_SAMPLE_IN_LABORATORY->value => $player->hasSampleAvailable(),
             ProjectRequirementType::FOOD_IN_LABORATORY->value => $player->canReachFood(),
             default => throw new \LogicException("Unknown project requirement type: {$this->type}"),

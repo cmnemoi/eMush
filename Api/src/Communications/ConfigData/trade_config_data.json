@@ -1,0 +1,532 @@
+[
+    {
+        "key": "forest_deal_default",
+        "name": "forest_deal",
+        "tradeOptions": [
+            {   
+                "name": "forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules",
+                "requiredSkill": "",
+                "requiredAssets": [
+                    {
+                        "name": "1_hydropot",
+                        "type": "item",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": "hydropot"
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "8-12_oxygen_capsules",
+                        "type": "item",
+                        "minQuantity": 8,
+                        "maxQuantity": 12,
+                        "assetName": "oxygen_capsule"
+                    },
+                    {
+                        "name": "1-4_fuel_capsules",
+                        "type": "item",
+                        "minQuantity": 1,
+                        "maxQuantity": 4,
+                        "assetName": "fuel_capsule"
+                    }
+                ]
+            },
+            {
+                "name": "forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "2_hydropots",
+                        "type": "item",
+                        "minQuantity": 2,
+                        "maxQuantity": 2,
+                        "assetName": "hydropot"
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "12-20_oxygen_capsules",
+                        "type": "item",
+                        "minQuantity": 12,
+                        "maxQuantity": 20,
+                        "assetName": "oxygen_capsule"
+                    },
+                    {
+                        "name": "3-4_fuel_capsules",
+                        "type": "item",
+                        "minQuantity": 3,
+                        "maxQuantity": 4,
+                        "assetName": "fuel_capsule"
+                    }
+                ]
+            },
+            {
+                "name": "forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "1_hydropot",
+                        "type": "item",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": "hydropot"
+                    },
+                    {
+                        "name": "0-1_microwave",
+                        "type": "item",
+                        "minQuantity": 0,
+                        "maxQuantity": 1,
+                        "assetName": "microwave"
+                    },
+                    {
+                        "name": "0-1_blaster",
+                        "type": "item",
+                        "minQuantity": 0,
+                        "maxQuantity": 1,
+                        "assetName": "blaster"
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "12_oxygen_capsules",
+                        "type": "item",
+                        "minQuantity": 12,
+                        "maxQuantity": 12,
+                        "assetName": "oxygen_capsule"
+                    },
+                    {
+                        "name": "1_standard_ration",
+                        "type": "item",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": "standard_ration"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "pilgredissim_default",
+        "name": "pilgredissim",
+        "tradeOptions": [
+            {   
+                "name": "pilgredissim_3_random_players_vs_pilgred_project",
+                "requiredSkill": "",
+                "requiredAssets": [
+                    {
+                        "name": "3_random_players",
+                        "type": "random_player",
+                        "minQuantity": 3,
+                        "maxQuantity": 3,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "1_pilgred_project",
+                        "type": "specific_project",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": "pilgred"
+                    }
+                ]
+            },
+            {
+                "name": "pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "24_oxygen",
+                        "type": "daedalus_variable",
+                        "minQuantity": 24,
+                        "maxQuantity": 24,
+                        "assetName": "oxygen"
+                    },
+                    {
+                        "name": "24_fuel",
+                        "type": "daedalus_variable",
+                        "minQuantity": 24,
+                        "maxQuantity": 24,
+                        "assetName": "fuel"
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "1_pilgred_project",
+                        "type": "specific_project",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": "pilgred"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "good_projections_default",
+        "name": "good_projections",
+        "tradeOptions": [
+            {   
+                "name": "good_projections_one_random_player_vs_one_random_project",
+                "requiredSkill": "",
+                "requiredAssets": [
+                    {
+                        "name": "1_random_player",
+                        "type": "random_player",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "1_random_project",
+                        "type": "random_project",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": ""
+                    }
+                ]
+            },
+            {
+                "name": "good_projections_diplomat_two_random_players_vs_two_random_projects",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "2_random_players",
+                        "type": "random_player",
+                        "minQuantity": 2,
+                        "maxQuantity": 2,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "2_random_projects",
+                        "type": "random_project",
+                        "minQuantity": 2,
+                        "maxQuantity": 2,
+                        "assetName": ""
+                    }
+                ]
+            },
+            {
+                "name": "good_projections_diplomat_mixed_resources_vs_one_random_project",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "4-10_standard_rations",
+                        "type": "item",
+                        "minQuantity": 4,
+                        "maxQuantity": 10,
+                        "assetName": "standard_ration"
+                    },
+                    {
+                        "name": "4-10_metal_scraps",
+                        "type": "item",
+                        "minQuantity": 4,
+                        "maxQuantity": 10,
+                        "assetName": "metal_scraps"
+                    },
+                    {
+                        "name": "1-2_plastic_scraps",
+                        "type": "item",
+                        "minQuantity": 1,
+                        "maxQuantity": 2,
+                        "assetName": "plastic_scraps"
+                    },
+                    {
+                        "name": "4-10_oxygen",
+                        "type": "daedalus_variable",
+                        "minQuantity": 4,
+                        "maxQuantity": 10,
+                        "assetName": "oxygen"
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "1_random_project",
+                        "type": "random_project",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "techno_rewrite_default",
+        "name": "techno_rewrite",
+        "tradeOptions": [
+            {
+                "name": "techno_rewrite_two_random_projects_vs_one_random_project",
+                "requiredSkill": "",
+                "requiredAssets": [
+                    {
+                        "name": "2_random_projects",
+                        "type": "random_project",
+                        "minQuantity": 2,
+                        "maxQuantity": 2,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "1_random_project",
+                        "type": "random_project",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": ""
+                    }
+                ]
+            },
+            {
+                "name": "techno_rewrite_diplomat_three_random_projects_vs_two_random_projects",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "3_random_projects",
+                        "type": "random_project",
+                        "minQuantity": 3,
+                        "maxQuantity": 3,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "2_random_projects",
+                        "type": "random_project",
+                        "minQuantity": 2,
+                        "maxQuantity": 2,
+                        "assetName": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "human_vs_fuel_default",
+        "name": "human_vs_fuel",
+        "tradeOptions": [
+            {
+                "name": "human_vs_fuel_1_random_player_vs_8-12_fuel_capsules",
+                "requiredSkill": "",
+                "requiredAssets": [
+                    {
+                        "name": "1_random_player",
+                        "type": "random_player",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "8-12_fuel_capsules",
+                        "type": "item",
+                        "minQuantity": 8,
+                        "maxQuantity": 12,
+                        "assetName": "fuel_capsule"
+                    }
+                ]
+            },
+            {
+                "name": "human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "2_random_players",
+                        "type": "random_player",
+                        "minQuantity": 2,
+                        "maxQuantity": 2,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "10-30_fuel_capsules",
+                        "type": "item",
+                        "minQuantity": 10,
+                        "maxQuantity": 30,
+                        "assetName": "fuel_capsule"
+                    }
+                ]
+            },
+            {
+                "name": "human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules",
+                "requiredSkill": "botanist",
+                "requiredAssets": [
+                    {
+                        "name": "4_standard_rations",
+                        "type": "item",
+                        "minQuantity": 4,
+                        "maxQuantity": 4,
+                        "assetName": "standard_ration"
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "2-4_fuel_capsules",
+                        "type": "item",
+                        "minQuantity": 2,
+                        "maxQuantity": 4,
+                        "assetName": "fuel_capsule"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "human_vs_oxy_default",
+        "name": "human_vs_oxy",
+        "tradeOptions": [
+            {   
+                "name": "human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules",
+                "requiredSkill": "",
+                "requiredAssets": [
+                    {
+                        "name": "1_random_player",
+                        "type": "random_player",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "5-10_oxygen_capsules",
+                        "type": "item",
+                        "minQuantity": 5,
+                        "maxQuantity": 10,
+                        "assetName": "oxygen_capsule"
+                    }
+                ]
+            },
+            {
+                "name": "human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "5-10_fuel",
+                        "type": "daedalus_variable",
+                        "minQuantity": 5,
+                        "maxQuantity": 10,
+                        "assetName": "fuel"
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "10-20_oxygen_capsules",
+                        "type": "item",
+                        "minQuantity": 10,
+                        "maxQuantity": 20,
+                        "assetName": "oxygen_capsule"
+                    }
+                ]
+            },
+            {
+                "name": "human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "2_random_players",
+                        "type": "random_player",
+                        "minQuantity": 2,
+                        "maxQuantity": 2,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "10-20_oxygen_capsules",
+                        "type": "item",
+                        "minQuantity": 10,
+                        "maxQuantity": 20,
+                        "assetName": "oxygen_capsule"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "human_vs_tree_default",
+        "name": "human_vs_tree",
+        "tradeOptions": [
+            {
+                "name": "human_vs_tree_1_random_player_vs_one_hydropot",
+                "requiredSkill": "",
+                "requiredAssets": [
+                    {
+                        "name": "1_random_player",
+                        "type": "random_player",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "1_hydropot",
+                        "type": "item",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": "hydropot"
+                    }
+                ]
+            },
+            {
+                "name": "human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "ian_player",
+                        "type": "specific_player",
+                        "minQuantity": 1,
+                        "maxQuantity": 1,
+                        "assetName": "ian"
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "4_hydropots",
+                        "type": "item",
+                        "minQuantity": 4,
+                        "maxQuantity": 4,
+                        "assetName": "hydropot"
+                    },
+                    {
+                        "name": "4_oxygen_capsules",
+                        "type": "item",
+                        "minQuantity": 4,
+                        "maxQuantity": 4,
+                        "assetName": "oxygen_capsule"
+                    }
+                ]
+            },
+            {
+                "name": "human_vs_tree_diplomat_2_random_players_vs_3_hydropots",
+                "requiredSkill": "diplomat",
+                "requiredAssets": [
+                    {
+                        "name": "2_random_players",
+                        "type": "random_player",
+                        "minQuantity": 2,
+                        "maxQuantity": 2,
+                        "assetName": ""
+                    }
+                ],
+                "offeredAssets": [
+                    {
+                        "name": "3_hydropots",
+                        "type": "item",
+                        "minQuantity": 3,
+                        "maxQuantity": 3,
+                        "assetName": "hydropot"
+                    }
+                ]
+            }
+        ]
+    }
+] 

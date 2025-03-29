@@ -24,6 +24,8 @@ use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\HunterStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -36,17 +38,16 @@ class ShootHunter extends AttemptAction
         ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ActionLogEnum::SHOOT_HUNTER_PATROL_SHIP_SUCCESS,
     ];
     protected ActionEnum $name = ActionEnum::SHOOT_HUNTER;
-    private RoomLogServiceInterface $roomLogService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        RoomLogServiceInterface $roomLogService,
+        private RoomLogServiceInterface $roomLogService,
+        private StatusServiceInterface $statusService,
     ) {
         parent::__construct($eventService, $actionService, $validator, $randomService);
-        $this->roomLogService = $roomLogService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -76,6 +77,15 @@ class ShootHunter extends AttemptAction
         $hunter = $this->selectHunterToShoot();
         $hunterId = $hunter->getId();
         $initialHunterHealth = $hunter->getHealth();
+
+        if ($hunter->isTransport()) {
+            $this->statusService->createStatusFromName(
+                statusName: HunterStatusEnum::AGGROED,
+                holder: $hunter,
+                tags: $this->getTags(),
+                time: new \DateTime(),
+            );
+        }
 
         $damage = $this->damageHunter($hunter, $this->getPatrolShipBaseDamage());
 
@@ -141,7 +151,7 @@ class ShootHunter extends AttemptAction
             return $this->target;
         }
 
-        $hunters = $this->player->getDaedalus()->getAttackingHunters()->toArray();
+        $hunters = $this->player->getDaedalus()->getHuntersAroundDaedalus()->toArray();
 
         return $this->randomService->getRandomElement($hunters);
     }

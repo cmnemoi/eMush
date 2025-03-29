@@ -16,7 +16,9 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Service\CreateHunterService;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Place\Enum\RoomEnum;
@@ -31,6 +33,7 @@ use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -45,6 +48,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
     private ActionConfig $action;
     private GameEquipment $turret;
 
+    private CreateHunterService $createHunterService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private ChooseSkillUseCase $chooseSkillUseCase;
 
@@ -52,6 +56,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
+        $this->createHunterService = $I->grabService(CreateHunterService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
@@ -100,7 +105,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $status->setCharge(0);
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
         $this->shootHunterAction->loadParameters(
             actionConfig: $this->action,
@@ -119,7 +124,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->player1);
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
         $this->shootHunterAction->loadParameters(
             actionConfig: $this->action,
@@ -146,7 +151,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $I->haveInRepository($turret);
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
         $this->shootHunterAction->loadParameters(
             actionConfig: $this->action,
@@ -161,7 +166,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
     public function testShootHunterSuccess(FunctionalTester $I)
     {
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
         $this->shootHunterAction->loadParameters(
             actionConfig: $this->action,
@@ -193,7 +198,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->action->setSuccessRate(0);
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
         $this->shootHunterAction->loadParameters(
             actionConfig: $this->action,
@@ -223,7 +228,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
     public function testShootHunterWhenDeadOnlySeeDeathLog(FunctionalTester $I)
     {
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
         $hunter->setHealth(1); // make sure hunter will die after the shot
         $I->haveInRepository($hunter);
 
@@ -264,7 +269,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->action->setSuccessRate(40);
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
         $hunter->setHealth(1); // make sure hunter will die after the shot
         $I->haveInRepository($hunter);
 
@@ -296,7 +301,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
     {
         // given aimed hunters has 6 health
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
         $hunter->setHealth(6);
 
         // given turret in the room always does 2 damage
@@ -363,6 +368,17 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         $this->thenHunterHealthShouldBe(2, $I);
     }
 
+    public function shouldMarkTransportAsAggroed(FunctionalTester $I): void
+    {
+        $this->givenActionSuccessRateIs(100);
+        $this->createHunterService->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
+
+        $transport = $this->daedalus->getHuntersAroundDaedalus()->getOneHunterByType(HunterEnum::TRANSPORT);
+        $this->whenPlayerShootsAtHunter($transport);
+
+        $I->assertTrue($transport->hasStatus(HunterStatusEnum::AGGROED), 'Transport should be marked as aggroed');
+    }
+
     private function givenPlayerIsAGunner(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->addSkillConfig(
@@ -388,7 +404,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
     private function givenHunterHasHealth(int $health): void
     {
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
         $hunter->setHealth($health);
     }
 
@@ -401,7 +417,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
 
     private function whenPlayerWantsToShootHunter(): void
     {
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
         $this->shootHunterAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->turret,
@@ -410,9 +426,9 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenPlayerShootsAtHunter(): void
+    private function whenPlayerShootsAtHunter(?Hunter $hunter = null): void
     {
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $hunter ?? $this->daedalus->getHuntersAroundDaedalus()->first();
         $this->shootHunterAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $this->turret,
@@ -429,6 +445,6 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
 
     private function thenHunterHealthShouldBe(int $health, FunctionalTester $I): void
     {
-        $I->assertEquals($health, $this->daedalus->getAttackingHunters()->first()->getHealth());
+        $I->assertEquals($health, $this->daedalus->getHuntersAroundDaedalus()->first()->getHealth());
     }
 }

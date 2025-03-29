@@ -1159,6 +1159,12 @@ class ActionsFixtures extends Fixture
         $playWithDog = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PLAY_WITH_DOG));
         $manager->persist($playWithDog);
 
+        $acceptTrade = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ACCEPT_TRADE));
+        $manager->persist($acceptTrade);
+
+        $refuseTrade = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REFUSE_TRADE));
+        $manager->persist($refuseTrade);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1307,5 +1313,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::DECODE_REBEL_SIGNAL->value, $decodeRebelSignal);
         $this->addReference(ActionEnum::CONTACT_XYLOPH->value, $contactXyloph);
         $this->addReference(ActionEnum::PLAY_WITH_DOG->value, $playWithDog);
+        $this->addReference(ActionEnum::ACCEPT_TRADE->value, $acceptTrade);
+        $this->addReference(ActionEnum::REFUSE_TRADE->value, $refuseTrade);
     }
 }

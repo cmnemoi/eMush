@@ -74,6 +74,19 @@ class DifficultyConfigData
             'hunterSafeCycles' => [2, 3],
             'startingHuntersNumberOfTruceCycles' => 2,
             'linkWithSolCycleFailureRate' => 3,
+            'minTransportSpawnRate' => 5,
+            'maxTransportSpawnRate' => 15, // exclusive
         ],
     ];
+
+    public static function getByName(string $name): array
+    {
+        foreach (self::$dataArray as $data) {
+            if ($data['name'] === $name) {
+                return $data;
+            }
+        }
+
+        throw new \Exception("Difficulty config not found: {$name}");
+    }
 }

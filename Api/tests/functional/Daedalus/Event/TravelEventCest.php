@@ -61,6 +61,10 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->explorationService = $I->grabService(ExplorationServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        // do not try to spawn transports
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setMinTransportSpawnRate(0);
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setMaxTransportSpawnRate(0);
     }
 
     public function testHunterAlertIsDeletedIfNoHunterAttackingOnTravelLaunched(FunctionalTester $I): void
@@ -82,7 +86,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($daedalusEvent, DaedalusEvent::TRAVEL_LAUNCHED);
 
         // then no hunter is attacking, therefore no hunter alert is present
-        $I->assertEmpty($this->daedalus->getAttackingHunters());
+        $I->assertEmpty($this->daedalus->getHuntersAroundDaedalus());
         $I->dontSeeInRepository(Alert::class, [
             'name' => AlertEnum::HUNTER,
             'daedalus' => $this->daedalus,
@@ -295,19 +299,19 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->launchAndFinishesTravel();
 
         // then 5 hunters are spawn
-        $I->assertCount(5, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+        $I->assertCount(5, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
 
         // then 4 trax are still there
-        $I->assertCount(4, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX));
+        $I->assertCount(4, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRAX));
 
         // when another travel is launched and finished
         $this->launchAndFinishesTravel();
 
         // then 3 hunters are spawn
-        $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+        $I->assertCount(3, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
 
         // then 4 trax are still there
-        $I->assertCount(4, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX));
+        $I->assertCount(4, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRAX));
     }
 
     public function testTravelFinishedSpawnsAHalfPowerWaveIfThereWereNoHunterToFleeFrom(FunctionalTester $I): void
@@ -319,13 +323,13 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->launchAndFinishesTravel();
 
         // then 6 hunters are spawn
-        $I->assertCount(6, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+        $I->assertCount(6, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
     public function testTravelFinishedSpawnsOneHunterIfThereWasNoHunterToFleeFromAndNoEnoughPower(FunctionalTester $I): void
     {
         // given there are no attacking hunters
-        $I->assertEquals(0, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count());
+        $I->assertEquals(0, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER)->count());
 
         // given daedalus has no points to spawn hunters
         $this->daedalus->setHunterPoints(0);
@@ -334,7 +338,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->launchAndFinishesTravel();
 
         // then 1 hunter is spawn
-        $I->assertCount(1, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+        $I->assertCount(1, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
     public function testTravelFinishedSpawnsMinusSeventyFivePercentsOfPreviousWaveWithTrailReducer(FunctionalTester $I): void
@@ -355,7 +359,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->launchAndFinishesTravel();
 
         // then 3 hunters are spawn
-        $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+        $I->assertCount(3, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
     public function testTravelFinishedSpawnsAQuarterPowerWaveWithTrailReducerIfThereWereNoHunterToFleeFrom(FunctionalTester $I): void
@@ -371,7 +375,7 @@ final class TravelEventCest extends AbstractFunctionalTest
         $this->launchAndFinishesTravel();
 
         // then 3 hunters are spawn
-        $I->assertCount(3, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER));
+        $I->assertCount(3, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER));
     }
 
     // TODO: Fix this test

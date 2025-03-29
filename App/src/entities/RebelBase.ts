@@ -1,18 +1,13 @@
 export class RebelBase {
-    public key : string|null;
-    public name: string|null;
-    public hoverName: string|null;
-    public description: string|null;
-    public signal: string|null;
+    public key!: string;
+    public name!: string;
+    public hoverName!: string;
+    public description!: string;
+    public signal!: string;
     public isContacting: boolean;
     public isLost: boolean;
 
     constructor() {
-        this.key = null;
-        this.name = null;
-        this.hoverName = null;
-        this.description = null;
-        this.signal = null;
         this.isContacting = false;
         this.isLost = false;
     }

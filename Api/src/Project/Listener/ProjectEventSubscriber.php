@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Project\Listener;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
@@ -15,8 +14,8 @@ final readonly class ProjectEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private EventServiceInterface $eventService,
-        private ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
-        private UnproposeCurrentNeronProjectsUseCase $unproposeCurrentNeronProjectsUseCase
+        private ProposeNewNeronProjectsUseCase $proposeNewNeronProjects,
+        private UnproposeCurrentNeronProjectsUseCase $unproposeCurrentNeronProjects
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -33,7 +32,7 @@ final readonly class ProjectEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->eventService->callEvent(new ProjectEvent(...$event->toArray()), ProjectEvent::PROJECT_FINISHED);
+        $this->dispatchFinishedProjectEvent($event);
     }
 
     public function onProjectFinished(ProjectEvent $event): void
@@ -41,16 +40,24 @@ final readonly class ProjectEventSubscriber implements EventSubscriberInterface
         if ($event->isNotAboutNeronProject()) {
             return;
         }
-        if ($event->hasTag(ActionEnum::UPGRADE_NERON->toString())) {
+        if ($event->doesNotHaveTag(ProjectEvent::PROJECT_ADVANCED)) {
             return;
         }
 
         $daedalus = $event->getDaedalus();
 
-        // first, unpropose all current NERON projects
-        $this->unproposeCurrentNeronProjectsUseCase->execute($daedalus);
+        $this->unproposeCurrentNeronProjects->execute($daedalus);
+        $this->proposeNewNeronProjects->execute(daedalus: $daedalus, number: $daedalus->getNumberOfProjectsByBatch());
+    }
 
-        // then, propose new NERON projects
-        $this->proposeNewNeronProjectsUseCase->execute(daedalus: $daedalus, number: $daedalus->getNumberOfProjectsByBatch());
+    private function dispatchFinishedProjectEvent(ProjectEvent $event): void
+    {
+        $finishedProjectEvent = new ProjectEvent(...$event->toArray());
+        $finishedProjectEvent->addTag($event->getEventName());
+
+        $this->eventService->callEvent(
+            event: $finishedProjectEvent,
+            name: ProjectEvent::PROJECT_FINISHED
+        );
     }
 }

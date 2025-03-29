@@ -191,4 +191,45 @@ final class EquipmentCycleEventCest extends AbstractFunctionalTest
             actual: $log->getParameters()['target_item'],
         );
     }
+
+    public function shouldNotTransportFruitThroughFoodRetailerProjectIfPlantIsNotInGarden(FunctionalTester $I): void
+    {
+        // given Food Retailer project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::FOOD_RETAILER),
+            author: $this->player,
+            I: $I,
+        );
+
+        // given refectory
+        $refectory = $this->createExtraPlace(RoomEnum::REFECTORY, $I, $this->daedalus);
+
+        // given a banana tree in laboratory
+        $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GamePlantEnum::BANANA_TREE,
+            equipmentHolder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given the banana tree is not young, so it will produce a banana at cycle change
+        $this->statusService->removeStatus(
+            statusName: EquipmentStatusEnum::PLANT_YOUNG,
+            holder: $bananaTree,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when day changes
+        $equipmentCycleEvent = new EquipmentCycleEvent(
+            gameEquipment: $bananaTree,
+            daedalus: $this->daedalus,
+            tags: [EventEnum::NEW_DAY, EventEnum::NEW_CYCLE],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($equipmentCycleEvent, EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE);
+
+        // then banana should not be in refectory
+        $I->assertFalse($refectory->hasEquipmentByName(GameFruitEnum::BANANA), 'Banana should not be transported to refectory');
+    }
 }

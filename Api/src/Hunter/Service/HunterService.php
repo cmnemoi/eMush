@@ -45,6 +45,7 @@ final class HunterService implements HunterServiceInterface
 {
     public function __construct(
         private D100RollServiceInterface $d100Roll,
+        private DeleteTransportService $deleteTransport,
         private EntityManagerInterface $entityManager,
         private EventServiceInterface $eventService,
         private GameEquipmentServiceInterface $gameEquipmentService,
@@ -73,9 +74,13 @@ final class HunterService implements HunterServiceInterface
 
         $daedalus->getDaedalusInfo()->getClosedDaedalus()->incrementNumberOfHuntersKilled();
 
-        $daedalus->getAttackingHunters()->removeElement($hunter);
+        $daedalus->getHuntersAroundDaedalus()->removeElement($hunter);
 
-        $this->delete([$hunter]);
+        if ($hunter->isTransport()) {
+            $this->deleteTransport->byId($hunter->getId());
+        } else {
+            $this->delete([$hunter]);
+        }
 
         $hunterDeathEvent = new HunterEvent(
             $hunter,
@@ -161,7 +166,7 @@ final class HunterService implements HunterServiceInterface
 
     private function unpoolHuntersForRandomWave(Daedalus $daedalus, int $hunterPoints, \DateTime $time): void
     {
-        $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getAll());
+        $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getHostiles());
 
         /** @var ArrayCollection<array-key, string> $hunterTypes */
         $hunterTypes = new ArrayCollection($hunterProbaCollection->getKeys());
@@ -279,10 +284,7 @@ final class HunterService implements HunterServiceInterface
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
     {
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow($hunterName);
-
         $hunter = new Hunter($hunterConfig, $daedalus);
-        $hunter->setHunterVariables($hunterConfig);
-        $daedalus->getSpace()->addHunter($hunter);
 
         $this->persist([$hunter, $daedalus]);
 
@@ -406,24 +408,33 @@ final class HunterService implements HunterServiceInterface
 
     private function selectHunterTarget(Hunter $hunter): void
     {
-        // aim at Daedalus by default
+        // Aim at Daedalus by default
         $hunter->aimAtDaedalus();
 
-        // apply meridon scrambler
+        // Apply meridon scrambler
         if ($hunter->isScrambled($this->d100Roll)) {
-            $this->applyMeridonScrambler($hunter);
+            $this->selectRandomHunterAsTarget($hunter);
 
             return;
         }
 
         $daedalus = $hunter->getDaedalus();
         $targetProbabilities = $hunter->getHunterConfig()->getTargetProbabilities();
+        $hunterTarget = $hunter->getTargetOrThrow();
+
+        // Try to aim at a transport
+        $transportsInBattle = $daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRANSPORT);
+        $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::TRANSPORT);
+        if (!$transportsInBattle->isEmpty() && $this->randomService->isSuccessful($successRate)) {
+            $transport = $this->randomService->getRandomElement($transportsInBattle->toArray());
+            $hunterTarget->setTargetEntity($transport);
+
+            return;
+        }
 
         // Try to aim at one patrol ship in battle
         $patrolShipsInBattle = $this->patrolShipsInBattle($daedalus);
         $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PATROL_SHIP);
-        $hunterTarget = $hunter->getTargetOrThrow();
-
         if (!$patrolShipsInBattle->isEmpty() && $this->randomService->isSuccessful($successRate)) {
             $patrolShip = $this->randomService->getRandomElement($patrolShipsInBattle->toArray());
             $hunterTarget->setTargetEntity($patrolShip);
@@ -522,11 +533,11 @@ final class HunterService implements HunterServiceInterface
 
     private function shootAtHunter(Hunter $hunter): void
     {
-        /** @var Hunter $hunter */
-        $hunter = $hunter->getTargetEntityOrThrow();
+        /** @var Hunter $targetHunter */
+        $targetHunter = $hunter->getTargetEntityOrThrow();
 
         $hunterVariableEvent = new HunterVariableEvent(
-            hunter: $hunter,
+            hunter: $targetHunter,
             variableName: HunterVariableEnum::HEALTH,
             quantity: -$this->getHunterDamage($hunter),
             tags: [HunterEvent::HUNTER_SHOT],
@@ -535,12 +546,12 @@ final class HunterService implements HunterServiceInterface
         $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function applyMeridonScrambler(Hunter $hunter): void
+    private function selectRandomHunterAsTarget(Hunter $hunter): void
     {
         $hunterTarget = $hunter->getTargetOrThrow();
         $daedalus = $hunter->getDaedalus();
 
-        $attackingHunters = $daedalus->getAttackingHunters()->getAllExcept($hunter);
+        $attackingHunters = $daedalus->getHuntersAroundDaedalus()->getAllExcept($hunter);
         if ($attackingHunters->isEmpty()) {
             return;
         }

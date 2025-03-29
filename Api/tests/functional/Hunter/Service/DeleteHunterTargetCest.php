@@ -79,7 +79,7 @@ final class DeleteHunterTargetCest extends AbstractFunctionalTest
 
         // when hunter is deleted
         $attackedHunter = $this->daedalus
-            ->getAttackingHunters()
+            ->getHuntersAroundDaedalus()
             ->filter(fn (Hunter $hunter) => $hunter->notEquals($this->hunter))
             ->first();
         $attackedHunterId = $attackedHunter->getId();
@@ -135,7 +135,7 @@ final class DeleteHunterTargetCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
 
-        $this->hunter = $this->daedalus->getAttackingHunters()->first();
+        $this->hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
     }
 
     private function givenAPatrolShipInBattle(FunctionalTester $I): void
@@ -163,7 +163,7 @@ final class DeleteHunterTargetCest extends AbstractFunctionalTest
     private function givenHunterIsAimingAtHunter(FunctionalTester $I): void
     {
         $attackedHunter = $this->daedalus
-            ->getAttackingHunters()
+            ->getHuntersAroundDaedalus()
             ->filter(fn (Hunter $hunter) => $hunter->notEquals($this->hunter))
             ->first();
 

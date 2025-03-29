@@ -473,7 +473,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // then the 2 traxs are not in the pool
         $I->assertEquals(0, $this->daedalus->getHunterPool()->getAllHuntersByType(HunterEnum::TRAX)->count());
-        $I->assertEquals(2, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX)->count());
+        $I->assertEquals(2, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRAX)->count());
     }
 
     public function testMoveDaedalusActionDeletesAllAttackingHuntersExceptHuntersAndTraxes(FunctionalTester $I): void

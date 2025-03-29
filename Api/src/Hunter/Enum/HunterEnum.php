@@ -10,6 +10,7 @@ class HunterEnum
     public const DICE = 'dice';
     public const HUNTER = 'hunter';
     public const SPIDER = 'spider';
+    public const TRANSPORT = 'transport';
     public const TRAX = 'trax';
 
     public static function getAll(): ArrayCollection
@@ -19,6 +20,7 @@ class HunterEnum
             self::DICE,
             self::HUNTER,
             self::SPIDER,
+            self::TRANSPORT,
             self::TRAX,
         ]);
     }
@@ -28,6 +30,18 @@ class HunterEnum
         return new ArrayCollection([
             self::ASTEROID,
             self::DICE,
+            self::SPIDER,
+            self::TRANSPORT,
+            self::TRAX,
+        ]);
+    }
+
+    public static function getHostiles(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::ASTEROID,
+            self::DICE,
+            self::HUNTER,
             self::SPIDER,
             self::TRAX,
         ]);

@@ -28,6 +28,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
@@ -253,6 +254,11 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function isIn(string $placeName): bool
     {
         return $this->getPlace()->getName() === $placeName;
+    }
+
+    public function isInAny(array $placeNames): bool
+    {
+        return \in_array($this->getPlace()->getName(), $placeNames, true);
     }
 
     public function isNotIn(string $placeName): bool
@@ -607,9 +613,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasSkill(SkillEnum $skillName): bool
     {
-        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName)
-        || $skillName->isPolyvalentSkill()
-        && $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === SkillEnum::POLYVALENT);
+        return $this->hasStandaloneSkill($skillName) || $this->hasSkillThroughPolyvalent($skillName);
     }
 
     /** @param array<SkillEnum> $expectedSkills */
@@ -969,7 +973,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function getEfficiencyForProject(Project $project): PlayerEfficiency
     {
         $max = $this->getMaxEfficiencyForProject($project);
-        $min = $this->daedalus->hasAliveNeronOnlyFriend() && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
+        $min = $this->daedalus->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND) && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
 
         return new PlayerEfficiency($min, $max);
     }
@@ -1327,6 +1331,27 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         return \in_array(ActionEnum::HIT->value, $tags, true) && $this->hasSkill(SkillEnum::NINJA);
     }
 
+    public function canTradePlayer(self $player): bool
+    {
+        // If player is dead, they cannot be traded
+        if ($player->isDead()) {
+            return false;
+        }
+
+        // Player is always tradable if highly inactive
+        if ($player->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE)) {
+            return true;
+        }
+
+        // Player must be in a storage to be tradable
+        if ($player->isNotInAny(RoomEnum::getStorages())) {
+            return false;
+        }
+
+        // Player in storage is tradable if trader is Mush or player is inactive
+        return $this->isMush() || $player->isInactive();
+    }
+
     private function hasPheromodemConnectedTracker(): bool
     {
         $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);
@@ -1395,7 +1420,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getEfficiencyWithExternalItems(int $efficiency, Project $project): int
     {
-        if ($project->isResearchProject() && $this->daedalus->isPrintedCircuitJellyInNexus()) {
+        if ($project->isResearchProject() && $this->daedalus->getPlaceByNameOrThrow(RoomEnum::NEXUS)->hasEquipmentByName(GearItemEnum::PRINTED_CIRCUIT_JELLY)) {
             return $efficiency + Project::PRINTED_CIRCUIT_JELLY;
         }
 
@@ -1464,5 +1489,15 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
         }
 
         return $result;
+    }
+
+    private function hasStandaloneSkill(SkillEnum $skillName): bool
+    {
+        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
+    }
+
+    private function hasSkillThroughPolyvalent(SkillEnum $skillName): bool
+    {
+        return $skillName->isPolyvalentSkill() && $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === SkillEnum::POLYVALENT);
     }
 }

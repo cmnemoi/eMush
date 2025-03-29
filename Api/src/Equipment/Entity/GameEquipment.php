@@ -70,7 +70,7 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    protected int $id;
+    protected ?int $id = null;
 
     #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     private Collection $statuses;
@@ -98,6 +98,10 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
 
     public function getId(): int
     {
+        if ($this->id === null) {
+            throw new \RuntimeException('Equipment is not persisted, or is about to be deleted');
+        }
+
         return $this->id;
     }
 
@@ -128,6 +132,11 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         }
 
         return $place;
+    }
+
+    public function isIn(string $placeName): bool
+    {
+        return $this->getPlace()->getName() === $placeName;
     }
 
     public function getHolder(): EquipmentHolderInterface
@@ -591,6 +600,28 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return max(0, $maturationTimeLeft);
     }
 
+    public function canProduceFruit(): bool
+    {
+        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {
+            if ($this->hasStatus($status)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function canProduceOxygen(): bool
+    {
+        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED] as $status) {
+            if ($this->hasStatus($status)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function getAllModifierConfigs(): ArrayCollection
     {
         $modifierConfigs = [];
@@ -646,26 +677,9 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         return $this->getName() === EquipmentEnum::TABULATRIX;
     }
 
-    private function canProduceFruit(): bool
+    public function isNull(): bool
     {
-        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {
-            if ($this->hasStatus($status)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private function canProduceOxygen(): bool
-    {
-        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED] as $status) {
-            if ($this->hasStatus($status)) {
-                return false;
-            }
-        }
-
-        return true;
+        return $this->id === null;
     }
 
     private function isActionProvidedByMechanic(string $actionName): bool

@@ -126,7 +126,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
         // given some hunters are targeting a player
         /** @var Hunter $hunter */
-        $hunter1 = $this->daedalus->getAttackingHunters()->first();
+        $hunter1 = $this->daedalus->getHuntersAroundDaedalus()->first();
         $hunterTarget = new HunterTarget($hunter1);
         $hunterTarget->setTargetEntity($this->player);
         $hunter1->setTarget($hunterTarget);
@@ -136,7 +136,7 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
         // given other hunters are targeting the Daedalus
         /** @var Hunter $hunter */
-        foreach ($this->daedalus->getAttackingHunters() as $hunter) {
+        foreach ($this->daedalus->getHuntersAroundDaedalus() as $hunter) {
             if ($hunter === $hunter1) {
                 continue;
             }

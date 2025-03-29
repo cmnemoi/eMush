@@ -100,6 +100,6 @@ final class HunterNormalizerCest extends AbstractFunctionalTest
         );
         $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
-        return $this->daedalus->getAttackingHunters()->first();
+        return $this->daedalus->getHuntersAroundDaedalus()->first();
     }
 }

@@ -53,7 +53,7 @@ final readonly class TriggerNextRebelBaseContactService
     {
         $cyclesSinceLastContact = $this->numberOfCyclesSinceContact($rebelBase, $daedalus, $time);
 
-        return $cyclesSinceLastContact >= $daedalus->numberOfCyclesBeforeNextRebelBaseContact();
+        return $cyclesSinceLastContact >= $daedalus->getDaedalusConfig()->getNumberOfCyclesBeforeNextRebelBaseContact();
     }
 
     private function triggerRebelBaseContact(RebelBase $rebelBase, \DateTime $contactDate): void

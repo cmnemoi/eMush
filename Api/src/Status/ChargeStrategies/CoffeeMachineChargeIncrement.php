@@ -17,7 +17,7 @@ final class CoffeeMachineChargeIncrement extends AbstractChargeStrategy
 
         $chargeCycle = $daedalus->getNumberOfCyclesPerDay();
 
-        if ($daedalus->isPilgredFinished()) {
+        if ($daedalus->getPilgred()->isFinished()) {
             $chargeCycle = ceil($chargeCycle / 4);
         }
 

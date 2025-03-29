@@ -23,6 +23,22 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
         parent::__construct($registry, GameEquipment::class);
     }
 
+    public function delete(GameEquipment $gameEquipment): void
+    {
+        $this->getEntityManager()->remove($gameEquipment);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findById(int $id): ?GameEquipment
+    {
+        return $this->find($id);
+    }
+
+    public function findByOwner(Player $player): array
+    {
+        return $this->findBy(['owner' => $player]);
+    }
+
     public function findByCriteria(GameEquipmentCriteria $criteria): array
     {
         $queryBuilder = $this->createQueryBuilder('equipment');
@@ -162,7 +178,7 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
 
     public function save(GameEquipment $gameEquipment): void
     {
-        $this->_em->persist($gameEquipment);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($gameEquipment);
+        $this->getEntityManager()->flush();
     }
 }

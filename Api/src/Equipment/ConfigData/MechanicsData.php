@@ -2177,6 +2177,8 @@ class MechanicsData
                 ActionEnum::UPGRADE_NERON->value,
                 ActionEnum::DECODE_REBEL_SIGNAL->value,
                 ActionEnum::CONTACT_XYLOPH->value,
+                ActionEnum::ACCEPT_TRADE->value,
+                ActionEnum::REFUSE_TRADE->value,
             ],
         ],
         [

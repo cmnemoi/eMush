@@ -97,7 +97,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
 
         /** @var Hunter $hunter */
-        foreach ($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER) as $hunter) {
+        foreach ($daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER) as $hunter) {
             /** @var ?ChargeStatus $truceStatus */
             $truceStatus = $hunter->getStatusByName(HunterStatusEnum::TRUCE_CYCLES);
             if ($truceStatus) {
@@ -173,7 +173,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
      */
     private function getNumberOfCatchingUpHunters(Daedalus $daedalus): int
     {
-        $numberOfCatchingUpHunters = (int) ceil($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2);
+        $numberOfCatchingUpHunters = (int) ceil($daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER)->count() / 2);
         if ($numberOfCatchingUpHunters <= 0) {
             $hunterDrawCost = $daedalus->getGameConfig()->getHunterConfigs()->getHunter(HunterEnum::HUNTER)?->getDrawCost();
             $numberOfCatchingUpHunters = (int) (ceil($daedalus->getHunterPoints() / $hunterDrawCost / 2)) ?: 1;

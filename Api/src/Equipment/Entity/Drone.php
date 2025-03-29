@@ -230,7 +230,7 @@ class Drone extends GameItem
 
     private function noAttackingHunters(): bool
     {
-        return $this->getDaedalus()->getAttackingHunters()->isEmpty();
+        return $this->getDaedalus()->getHuntersAroundDaedalus()->isEmpty();
     }
 
     private function noShootHunterActionAvailable(): bool
@@ -255,7 +255,7 @@ class Drone extends GameItem
 
     private function huntersAreAttacking(): bool
     {
-        return $this->getDaedalus()->getAttackingHunters()->count() > 0;
+        return $this->getDaedalus()->getHuntersAroundDaedalus()->count() > 0;
     }
 
     private function numberOfActions(): int

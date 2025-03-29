@@ -14,6 +14,7 @@ enum ActionEnum: string
     case KILL_PLAYER = 'kill_player';
     case RESET_SKILL_POINTS = 'reset_skill_points';
     case TRIGGER_ALL_REBEL_CONTACTS = 'trigger_all_rebel_contacts';
+    case CREATE_TRADE = 'create_trade';
 
     // alpha actions
     case REJUVENATE = 'rejuvenate';
@@ -193,6 +194,8 @@ enum ActionEnum: string
     case ESTABLISH_LINK_WITH_SOL = 'establish_link_with_sol';
     case UPGRADE_NERON = 'upgrade_neron';
     case CONTACT_XYLOPH = 'contact_xyloph';
+    case ACCEPT_TRADE = 'accept_trade';
+    case REFUSE_TRADE = 'refuse_trade';
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';

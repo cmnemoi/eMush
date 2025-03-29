@@ -48,7 +48,12 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
                 if ($event->hasTag(EventEnum::NEW_DAY)) {
                     $cycleHandler->handleNewDay($equipment, $event->getTime());
                 }
-                $cycleHandler->handleNewCycle($equipment, $event->getTime());
+
+                // some equipment may have been deleted by previous handler (e.g. dried out plant)
+                // so we don't want to handle cycle for them
+                if (!$equipment->isNull()) {
+                    $cycleHandler->handleNewCycle($equipment, $event->getTime());
+                }
             }
         }
     }

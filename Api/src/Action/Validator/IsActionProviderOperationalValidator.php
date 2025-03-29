@@ -77,7 +77,7 @@ class IsActionProviderOperationalValidator extends ConstraintValidator
         return match ($chargeStatus->getStrategy()) {
             ChargeStrategyTypeEnum::CYCLE_INCREMENT => ActionImpossibleCauseEnum::CYCLE_LIMIT,
             ChargeStrategyTypeEnum::DAILY_INCREMENT => ActionImpossibleCauseEnum::DAILY_LIMIT,
-            ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT => $daedalus->isPilgredFinished() ? ActionImpossibleCauseEnum::CYCLE_LIMIT : ActionImpossibleCauseEnum::DAILY_LIMIT,
+            ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT => $daedalus->getPilgred()->isFinished() ? ActionImpossibleCauseEnum::CYCLE_LIMIT : ActionImpossibleCauseEnum::DAILY_LIMIT,
             default => $defaultMessage,
         };
     }

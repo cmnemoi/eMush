@@ -180,6 +180,11 @@ enum SkillEnum: string
         return $this->isIn([self::BOTANIST, self::BIOLOGIST, self::DIPLOMAT, self::POLYVALENT]);
     }
 
+    public function isNull(): bool
+    {
+        return $this === self::NULL;
+    }
+
     private function isIn(array $array): bool
     {
         return \in_array($this, $array, true);

@@ -15,6 +15,7 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\DifficultyEnum;
+use Mush\Hunter\ConfigData\HunterConfigData;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
@@ -59,6 +60,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setTargetProbabilities([
                 HunterTargetEnum::PATROL_SHIP => 0,
                 HunterTargetEnum::PLAYER => 0,
+                HunterTargetEnum::TRANSPORT => 0,
             ])
             ->setBonusAfterFailedShot(0)
             ->setNumberOfActionsPerCycle(1);
@@ -91,6 +93,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setTargetProbabilities([
                 HunterTargetEnum::PATROL_SHIP => 0,
                 HunterTargetEnum::PLAYER => 0,
+                HunterTargetEnum::TRANSPORT => 0,
             ])
             ->setBonusAfterFailedShot(10)
             ->setNumberOfActionsPerCycle(3);
@@ -121,6 +124,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setTargetProbabilities([
                 HunterTargetEnum::PATROL_SHIP => 0,
                 HunterTargetEnum::PLAYER => 0,
+                HunterTargetEnum::TRANSPORT => 0,
             ])
             ->setBonusAfterFailedShot(10)
             ->setNumberOfActionsPerCycle(1);
@@ -152,6 +156,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setTargetProbabilities([
                 HunterTargetEnum::PATROL_SHIP => 0,
                 HunterTargetEnum::PLAYER => 0,
+                HunterTargetEnum::TRANSPORT => 0,
             ])
             ->setBonusAfterFailedShot(10)
             ->setNumberOfActionsPerCycle(1);
@@ -184,11 +189,15 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             ->setTargetProbabilities([
                 HunterTargetEnum::PATROL_SHIP => 0,
                 HunterTargetEnum::PLAYER => 0,
+                HunterTargetEnum::TRANSPORT => 0,
             ])
             ->setBonusAfterFailedShot(10)
             ->setNumberOfActionsPerCycle(1);
 
         $manager->persist($trax);
+
+        $transport = HunterConfig::fromConfigData(HunterConfigData::getByName(HunterEnum::TRANSPORT));
+        $manager->persist($transport);
 
         /** @var ArrayCollection $hunters */
         $hunters = new ArrayCollection([
@@ -197,6 +206,7 @@ class HunterConfigFixtures extends Fixture implements DependentFixtureInterface
             $hunter,
             $spider,
             $trax,
+            $transport,
         ]);
         $gameConfig->setHunterConfigs($hunters);
 

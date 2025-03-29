@@ -14,11 +14,13 @@ use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -176,45 +178,6 @@ final class PlantCycleHandlerTest extends TestCase
         self::assertCount(1, $gamePlant->getStatuses());
     }
 
-    public function testNewCycleAlreadyDiseased(): void
-    {
-        $plant = new ItemConfig();
-
-        $plantType = new Plant();
-        $plant->setMechanics(new ArrayCollection([$plantType]));
-
-        $difficultyConfig = new DifficultyConfig();
-        $difficultyConfig->setPlantDiseaseRate(50);
-        $gameConfig = new GameConfig();
-        $gameConfig->setDifficultyConfig($difficultyConfig);
-        $this->daedalus->getDaedalusInfo()->setGameConfig($gameConfig);
-
-        $place = new Place();
-        $place
-            ->setDaedalus($this->daedalus)
-            ->setName(RoomEnum::LABORATORY);
-
-        $gamePlant = new GameItem($place);
-        $gamePlant->setEquipment($plant);
-
-        // Plant already diseased can't get disease
-        $diseaseConfig = new StatusConfig();
-        $diseaseConfig->setStatusName(EquipmentStatusEnum::PLANT_DISEASED);
-        $diseaseStatus = new Status($gamePlant, $diseaseConfig);
-
-        $plantEffect = new PlantEffect();
-        $plantEffect
-            ->setMaturationTime(10)
-            ->setOxygen(10);
-
-        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($plantEffect);
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
-
-        $this->plantCycleHandler->handleNewCycle($gamePlant, new \DateTime());
-
-        self::assertCount(1, $gamePlant->getStatuses());
-    }
-
     public function testNewDayPlantHealthy(): void
     {
         $daedalusConfig = new DaedalusConfig();
@@ -258,7 +221,6 @@ final class PlantCycleHandlerTest extends TestCase
 
         $this->statusService->shouldReceive('createStatusFromName')->once();
         $this->statusService->shouldReceive('removeStatus')->never();
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once();
 
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(fn (AbstractGameEvent $event) => $event instanceof DaedalusVariableEvent
@@ -404,7 +366,7 @@ final class PlantCycleHandlerTest extends TestCase
         $this->eventService->shouldReceive('callEvent')->once();
         $this->statusService->shouldReceive('createStatusFromName')->once();
 
-        // Given universe is a state in which Heat Lamps will be activated
+        // Given universe is in a state in which Heat Lamps will be activated
         $this->randomService->shouldReceive('isSuccessful')->with($this->heatLamps->getActivationRate())->andReturn(true);
 
         // Then I expect 2 fruits to be created
@@ -425,7 +387,7 @@ final class PlantCycleHandlerTest extends TestCase
         $gamePlant = $this->createPlant($place);
 
         // given Heat Lamps project is finished
-        $this->heatLamps->makeProgressAndUpdateParticipationDate(100);
+        $this->heatLamps->finish();
 
         // Setup universe state
         $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($this->getPlantEffect());
@@ -437,6 +399,37 @@ final class PlantCycleHandlerTest extends TestCase
 
         // Then I expect 1 fruits to be created
         $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+
+        // When a new day comes for the plant
+        $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());
+    }
+
+    public function testShouldCreateJumpkinFruitIfHalloweenEvent(): void
+    {
+        $place = new Place();
+        $place
+            ->setDaedalus($this->daedalus)
+            ->setName(RoomEnum::LABORATORY);
+
+        // given I have a plant
+        $gamePlant = $this->createPlant($place);
+
+        // given the daedalus is in a halloween event
+        $this->daedalus->getDaedalusConfig()->setHoliday(HolidayEnum::HALLOWEEN);
+
+        // Setup universe state
+        $this->equipmentEffectService->shouldReceive('getPlantEffect')->andReturn($this->getPlantEffect());
+        $this->eventService->shouldReceive('callEvent')->once();
+        $this->statusService->shouldReceive('createStatusFromName')->once();
+
+        // given universe state allows jumpkin fruit creation
+        $this->randomService->shouldReceive('rollTwiceAndAverage')->with(1, 100)->andReturn(100);
+
+        // Then I expect 2 fruits to be created : 1 normal and 1 jumpkin
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->once();
+        $this->gameEquipmentService->shouldReceive('createGameEquipmentFromName')->withArgs(
+            static fn ($fruitName) => $fruitName === GameFruitEnum::JUMPKIN
+        )->once();
 
         // When a new day comes for the plant
         $this->plantCycleHandler->handleNewDay($gamePlant, new \DateTime());

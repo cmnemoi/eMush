@@ -120,6 +120,7 @@ abstract class ActionImpossibleCauseEnum
     public const string EDEN_NOT_COMPUTED = 'eden_not_computed';
     public const string LINK_WITH_SOL_NOT_ESTABLISHED = 'link_with_sol_not_established';
     public const string MAX_NERON_VERSION_REACHED = 'max_neron_version_reached';
+    public const string TRADE_TERMS_NOT_MET = 'trade_terms_not_met';
 
     // April Fools Dog messages
     public const string DOG_IS_SEASICK = 'dog_is_seasick';

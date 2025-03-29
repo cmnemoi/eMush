@@ -34,19 +34,19 @@ final class HunterServiceKillHunterCest extends AbstractFunctionalTest
         $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
-        $this->hunter = $this->daedalus->getAttackingHunters()->first();
+        $this->hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
     }
 
     public function testKillHunterDeleteHunter(FunctionalTester $I): void
     {
         // given 1 hunter is attacking
-        $I->assertCount(1, $this->daedalus->getAttackingHunters());
+        $I->assertCount(1, $this->daedalus->getHuntersAroundDaedalus());
 
         // when we kill this hunter
         $this->hunterService->killHunter($this->hunter, [ActionEnum::SHOOT_HUNTER->value], $this->player1);
 
         // then there is no more hunter attacking
-        $I->assertEmpty($this->daedalus->getAttackingHunters());
+        $I->assertEmpty($this->daedalus->getHuntersAroundDaedalus());
     }
 
     public function testKillHunterDeletesAlertIfItWasLastHunter(FunctionalTester $I): void

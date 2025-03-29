@@ -10,6 +10,7 @@ class NumberOfAttackingHunters extends ClassConstraint
 
     public string $mode;
     public int $number;
+    public array $exclude = [];
 
     public string $message = 'the number of attacking hunters required is not matched';
 }

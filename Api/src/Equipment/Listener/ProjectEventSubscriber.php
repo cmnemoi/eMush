@@ -36,11 +36,11 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
         foreach ($project->getSpawnEquipmentConfigs() as $spawnEquipmentConfig) {
             $holder = $projectEvent->getDaedalus()->getPlaceByNameOrThrow($spawnEquipmentConfig->getPlaceName());
             $this->gameEquipmentService->createGameEquipmentsFromName(
-                $spawnEquipmentConfig->getEquipmentName(),
-                $holder,
-                $projectEvent->getTags(),
-                $projectEvent->getTime(),
-                $spawnEquipmentConfig->getQuantity()
+                equipmentName: $spawnEquipmentConfig->getEquipmentName(),
+                equipmentHolder: $holder,
+                reasons: $projectEvent->getTags(),
+                time: $projectEvent->getTime(),
+                quantity: $spawnEquipmentConfig->getQuantity(),
             );
         }
     }

@@ -62,6 +62,9 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
         $this->hunterConfig = $hunterConfig;
         $this->statuses = new ArrayCollection();
         $this->target = null;
+
+        $this->setHunterVariables($hunterConfig);
+        $this->space->addHunter($this);
     }
 
     public function getId(): int
@@ -344,6 +347,11 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function hasNoHealth(): bool
     {
         return $this->getHealth() <= 0;
+    }
+
+    public function isTransport(): bool
+    {
+        return $this->getHunterConfig()->getHunterName() === HunterEnum::TRANSPORT;
     }
 
     private function isSimpleHunter(): bool

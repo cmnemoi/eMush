@@ -6,14 +6,21 @@ namespace Mush\Tests\unit\Hunter\Normalizer;
 
 use Mockery;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Communications\Factory\TradeFactory;
+use Mush\Communications\Repository\TradeRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Hunter\ConfigData\HunterConfigData;
 use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Normalizer\HunterNormalizer;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Tests\unit\Communications\TestDoubles\Repository\InMemoryTradeRepository;
+use Mush\Tests\unit\Hunter\TestDoubles\InMemoryHunterRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,13 +38,16 @@ final class HunterNormalizerTest extends TestCase
     /** @var Mockery\Mock|TranslationServiceInterface */
     private TranslationServiceInterface $translationService;
 
+    private TradeRepositoryInterface $tradeRepository;
+
     /**
      * @before
      */
     public function before()
     {
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
-        $this->normalizer = new HunterNormalizer($this->translationService);
+        $this->tradeRepository = new InMemoryTradeRepository();
+        $this->normalizer = new HunterNormalizer($this->tradeRepository, $this->translationService);
     }
 
     /**
@@ -180,5 +190,23 @@ final class HunterNormalizerTest extends TestCase
         ];
 
         self::assertSame($expected, $this->normalizer->normalize($hunter, context: $context));
+    }
+
+    public function testNormalizeReturnsTransportImage(): void
+    {
+        $hunter = new Hunter(
+            hunterConfig: HunterConfig::fromConfigData(HunterConfigData::getByName(HunterEnum::TRANSPORT)),
+            daedalus: DaedalusFactory::createDaedalus(),
+        );
+        (new InMemoryHunterRepository())->save($hunter);
+
+        $trade = TradeFactory::createForestDealTrade(requiredHydropot: 1, offeredOxygen: 1, transportId: $hunter->getId());
+        $this->tradeRepository->save($trade);
+
+        $this->translationService->shouldIgnoreMissing();
+
+        $normalizedHunter = $this->normalizer->normalize($hunter, context: ['currentPlayer' => Player::createNull()]);
+
+        self::assertEquals('transport_2', $normalizedHunter['transportImage']);
     }
 }

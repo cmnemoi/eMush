@@ -22,6 +22,7 @@ use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -613,6 +614,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($ghostChun);
 
+        $aggroed = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(HunterStatusEnum::AGGROED . '_default')
+        );
+        $manager->persist($aggroed);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -685,7 +691,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($edenComputed)
             ->addStatusConfig($linkWithSolEstablishedOnce)
             ->addStatusConfig($ghostSample)
-            ->addStatusConfig($ghostChun);
+            ->addStatusConfig($ghostChun)
+            ->addStatusConfig($aggroed);
 
         $manager->persist($gameConfig);
 
@@ -753,6 +760,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::EDEN_COMPUTED, $edenComputed);
         $this->addReference(DaedalusStatusEnum::GHOST_SAMPLE, $ghostSample);
         $this->addReference(DaedalusStatusEnum::GHOST_CHUN, $ghostChun);
+        $this->addReference(HunterStatusEnum::AGGROED, $aggroed);
 
         $manager->flush();
     }

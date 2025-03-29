@@ -112,6 +112,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $decodeRebelSignal */
         $contactXyloph = $this->getReference(ActionEnum::CONTACT_XYLOPH->value);
 
+        /** @var ActionConfig $acceptTrade */
+        $acceptTrade = $this->getReference(ActionEnum::ACCEPT_TRADE->value);
+
+        /** @var ActionConfig $refuseTrade */
+        $refuseTrade = $this->getReference(ActionEnum::REFUSE_TRADE->value);
+
         $commsCenterTool = $this->createTool(
             [
                 $establishLinkWithSol,
@@ -120,6 +126,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $accessTerminalAction,
                 $exitTerminalAction,
                 $contactXyloph,
+                $acceptTrade,
+                $refuseTrade,
             ],
             EquipmentEnum::COMMUNICATION_CENTER
         );

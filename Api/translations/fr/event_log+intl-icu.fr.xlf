@@ -1366,5 +1366,16 @@
                 other{invalid version input}}</target>
       </segment>
     </unit>
+    <unit id="trade_assets_created">
+      <segment state="translated">
+        <source>trade_assets_created</source>
+        <target>{quantity, plural,
+        one {{equipment_gender, select, 
+             female {Une **{equipment}** a été téléportée sur le pont !}
+             other {Un **{equipment}** a été téléporté sur le pont !}} Bon allez, circulez...}
+        other {Une cargaison de # **{equipment_plural_name}** a été téléportée sur le pont ! Sympa la technologie alien !}
+        }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

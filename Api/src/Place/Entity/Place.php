@@ -475,9 +475,9 @@ class Place implements StatusHolderInterface, ModifierHolderInterface, Equipment
         return $allModifiers->addModifiers($this->daedalus->getModifiers());
     }
 
-    public function getAttackingHunters(): HunterCollection
+    public function getHuntersAroundDaedalus(): HunterCollection
     {
-        return (new HunterCollection($this->hunters->toArray()))->getAttackingHunters();
+        return (new HunterCollection($this->hunters->toArray()))->getHuntersAroundDaedalus();
     }
 
     public function getHunterPool(): HunterCollection

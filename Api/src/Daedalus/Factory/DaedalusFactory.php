@@ -5,22 +5,32 @@ declare(strict_types=1);
 namespace Mush\Daedalus\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Communications\Entity\TradeAssetConfig;
+use Mush\Communications\Entity\TradeConfig;
+use Mush\Communications\Entity\TradeOptionConfig;
+use Mush\Communications\Enum\TradeAssetEnum;
+use Mush\Communications\Enum\TradeEnum;
 use Mush\Daedalus\ConfigData\DaedalusConfigData;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Equipment\ConfigData\EquipmentConfigData;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Hunter\ConfigData\HunterConfigData;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\Uid\Uuid;
 
 final class DaedalusFactory
@@ -44,6 +54,9 @@ final class DaedalusFactory
 
         $gameConfig->setDifficultyConfig(self::getDifficultyConfig());
         $gameConfig->setSkillConfigs(self::getMushSkillConfigs());
+        $gameConfig->setHunterConfigs(self::getHunterConfigs());
+        $gameConfig->setEquipmentsConfig(self::getEquipmentConfigs());
+        $gameConfig->setTradeConfigs(self::getTradeConfigs());
 
         return $daedalus;
     }
@@ -111,5 +124,60 @@ final class DaedalusFactory
         }
 
         return $mushSkillConfigs;
+    }
+
+    private static function getHunterConfigs(): ArrayCollection
+    {
+        /** @var ArrayCollection<array-key, HunterConfig> $hunterConfigs */
+        $hunterConfigs = new ArrayCollection();
+        foreach (HunterConfigData::$dataArray as $hunterConfigDto) {
+            $hunterConfigs->add(HunterConfig::fromConfigData($hunterConfigDto));
+        }
+
+        return $hunterConfigs;
+    }
+
+    private static function getEquipmentConfigs(): ArrayCollection
+    {
+        /** @var ArrayCollection<array-key, EquipmentConfig> $equipmentConfigs */
+        $equipmentConfigs = new ArrayCollection();
+        foreach (EquipmentConfigData::$dataArray as $equipmentConfigData) {
+            $equipmentConfigs->add(EquipmentConfig::fromConfigData($equipmentConfigData));
+        }
+
+        return $equipmentConfigs;
+    }
+
+    private static function getTradeConfigs(): ArrayCollection
+    {
+        /** @var ArrayCollection<array-key, TradeConfig> $tradeConfigs */
+        $tradeConfigs = new ArrayCollection();
+        foreach (TradeEnum::getAll() as $tradeEnum) {
+            $tradeConfigs->add(new TradeConfig(
+                key: $tradeEnum->value,
+                name: $tradeEnum,
+                tradeOptionConfigs: [
+                    new TradeOptionConfig(
+                        requiredSkill: SkillEnum::NULL,
+                        requiredAssetConfigs: [
+                            new TradeAssetConfig(
+                                type: TradeAssetEnum::NULL,
+                                minQuantity: 0,
+                                maxQuantity: 0,
+                            ),
+                        ],
+                        offeredAssetConfigs: [
+                            new TradeAssetConfig(
+                                type: TradeAssetEnum::NULL,
+                                minQuantity: 0,
+                                maxQuantity: 0,
+                            ),
+                        ],
+                    ),
+                ],
+            ));
+        }
+
+        return $tradeConfigs;
     }
 }

@@ -85,7 +85,7 @@ final class SkillPointCest extends AbstractFunctionalTest
     public function testShootWithGunmanSkillPoints(FunctionalTester $I)
     {
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHOOTER, $this->chao));
 

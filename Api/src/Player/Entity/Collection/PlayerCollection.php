@@ -4,6 +4,7 @@ namespace Mush\Player\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Skill\Enum\SkillEnum;
 
 /**
@@ -125,6 +126,29 @@ class PlayerCollection extends ArrayCollection
         return $this
             ->filter(static fn (Player $player) => $player->isDead())
             ->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
+    }
+
+    public function getAlivePlayerByName(string $name): ?Player
+    {
+        return $this->filter(static fn (Player $player) => $player->isAlive() && $player->getName() === $name)->first() ?: null;
+    }
+
+    public function getAllWithStatus(string $status): self
+    {
+        return $this->filter(static fn (Player $player) => $player->hasStatus($status));
+    }
+
+    public function getTradablePlayersFor(Player $trader): self
+    {
+        return $this->filter(static fn (Player $player) => $trader->canTradePlayer($player));
+    }
+
+    public function isThereAMushUnlockingProjects(): bool
+    {
+        return $this->filter(
+            static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer()->isMush()
+            && EndCauseEnum::unlocksNewProjects($player->getPlayerInfo()->getClosedPlayer()->getEndCause())
+        )->count() > 0;
     }
 
     private function getPlayerWithStatus(string $status): ?Player

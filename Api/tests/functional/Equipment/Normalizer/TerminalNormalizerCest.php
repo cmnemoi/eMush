@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Equipment\Normalizer;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -561,6 +563,25 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
+    #[DataProvider('deadCauseProvider')]
+    public function testSomeMushDeadCauseShouldNotUnlockNewProjects(FunctionalTester $I, Example $example)
+    {
+        $this->givenChunIsNotInLab();
+
+        $this->givenAMushIsDeadForCause($example['cause'], $I);
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::NARCOTICS_DISTILLER,
+        ]);
+    }
+
     public function testWhenMedkitIsInLabShouldAddNewProject(FunctionalTester $I)
     {
         $this->givenChunIsNotInLab();
@@ -654,6 +675,14 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             ProjectName::ANABOLICS,
             ProjectName::NARCOTICS_DISTILLER,
         ]);
+    }
+
+    protected function deadCauseProvider(): array
+    {
+        return [
+            ['cause' => EndCauseEnum::QUARANTINE],
+            ['cause' => EndCauseEnum::ALIEN_ABDUCTED],
+        ];
     }
 
     private function givenGameHasStarted(): void
@@ -758,6 +787,16 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->playerService->killPlayer(
             player: $this->chun,
             endReason: EndCauseEnum::EXPLORATION,
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenAMushIsDeadForCause(string $cause, FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->player);
+        $this->playerService->killPlayer(
+            player: $this->player,
+            endReason: $cause,
             time: new \DateTime(),
         );
     }

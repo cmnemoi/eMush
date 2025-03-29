@@ -219,6 +219,11 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         $this->unpropose();
     }
 
+    public function deactivate(): void
+    {
+        $this->progress = 0;
+    }
+
     public function getClassName(): string
     {
         return self::class;

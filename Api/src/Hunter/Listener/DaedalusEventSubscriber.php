@@ -10,21 +10,19 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
+use Mush\Hunter\Service\CreateHunterService;
+use Mush\Hunter\Service\DeleteTransportService;
 use Mush\Hunter\Service\HunterServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class DaedalusEventSubscriber implements EventSubscriberInterface
 {
-    private EventServiceInterface $eventService;
-    private HunterServiceInterface $hunterService;
-
     public function __construct(
-        EventServiceInterface $eventService,
-        HunterServiceInterface $hunterService
-    ) {
-        $this->eventService = $eventService;
-        $this->hunterService = $hunterService;
-    }
+        private CreateHunterService $createHunter,
+        private DeleteTransportService $deleteTransport,
+        private EventServiceInterface $eventService,
+        private HunterServiceInterface $hunterService,
+    ) {}
 
     public static function getSubscribedEvents()
     {
@@ -38,7 +36,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     public function onDeleteDaedalus(DaedalusEvent $event): void
     {
         $daedalus = $event->getDaedalus();
-        $attackingHunters = $daedalus->getAttackingHunters();
+        $attackingHunters = $daedalus->getHuntersAroundDaedalus();
         $pooledHunters = $daedalus->getHunterPool();
 
         /** @var Hunter $hunter */
@@ -68,6 +66,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         $huntersToDelete = $daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::TRAX);
         $this->hunterService->delete($huntersToDelete->toArray());
+
+        $transports = $daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRANSPORT);
+        foreach ($transports as $transport) {
+            $this->deleteTransport->byId($transport->getId());
+        }
     }
 
     public function onTravelFinished(DaedalusEvent $event): void

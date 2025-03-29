@@ -22,18 +22,17 @@ final readonly class KillExpiredRebelBaseContactsService
     public function execute(int $daedalusId, \DateTime $time): void
     {
         $contactingBases = $this->rebelBaseRepository->findAllContactingRebelBases($daedalusId);
+        $daedalus = $this->daedalusRepository->findByIdOrThrow($daedalusId);
 
         foreach ($contactingBases as $rebelBase) {
-            if ($this->rebelBaseContactExpired($rebelBase, $time)) {
+            if ($this->rebelBaseContactExpired($rebelBase, $daedalus, $time)) {
                 $this->terminateContact($rebelBase);
             }
         }
     }
 
-    private function rebelBaseContactExpired(RebelBase $rebelBase, \DateTime $time): bool
+    private function rebelBaseContactExpired(RebelBase $rebelBase, Daedalus $daedalus, \DateTime $time): bool
     {
-        $daedalus = $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId());
-
         return $this->numberOfCyclesSinceContact($rebelBase, $daedalus, $time) >= $this->contactDurationThreshold($daedalus);
     }
 

@@ -6,6 +6,7 @@ namespace Mush\Hunter\Normalizer;
 
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
+use Mush\Communications\Repository\TradeRepositoryInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Player\Entity\Player;
@@ -21,6 +22,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
     use NormalizerAwareTrait;
 
     public function __construct(
+        private TradeRepositoryInterface $tradeRepository,
         private TranslationServiceInterface $translationService
     ) {
         $this->translationService = $translationService;
@@ -54,7 +56,7 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
         $hunterHealth = $hunter->getHealth();
         $hunterKey = $hunter->getName();
 
-        return [
+        $normalizedHunter = [
             'id' => $hunter->getId(),
             'key' => $hunterKey,
             'name' => $this->translationService->translate(
@@ -76,5 +78,12 @@ final class HunterNormalizer implements NormalizerInterface, NormalizerAwareInte
             'charges' => $asteroidTruceCycles,
             'actions' => $this->getNormalizedActions($hunter, ActionHolderEnum::HUNTER, $currentPlayer, $format, $context),
         ];
+
+        $trade = $this->tradeRepository->findByTransportId($hunter->getId());
+        if ($trade) {
+            $normalizedHunter['transportImage'] = $trade->getName()->toImageId();
+        }
+
+        return $normalizedHunter;
     }
 }

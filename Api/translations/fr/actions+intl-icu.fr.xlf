@@ -1684,5 +1684,35 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Enfin! Il est l'heure de jouer!</target>
       </segment>
     </unit>
+    <unit id="accept_trade">
+      <segment id="name" state="translated">
+        <source>accept_trade.name</source>
+        <target>Valider</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>accept_trade.description</source>
+        <target>Vous validez cet accord commercial... Les conséquences peuvent être très lourdes.</target>
+      </segment>
+    </unit>
+    <unit id="refuse_trade">
+      <segment id="name" state="translated">
+        <source>refuse_trade.name</source>
+        <target>Refuser</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>refuse_trade.description</source>
+        <target>Vous refusez cet accord commercial... Les conséquences peuvent être très lourdes.</target>
+      </segment>
+    </unit>
+    <unit id="create_trade">
+      <segment id="name" state="translated">
+        <source>create_trade.name</source>
+        <target>Invoquer : Marchand</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>create_trade.description</source>
+        <target>Permet d'invoquer un marchand (uniquement pour les utilisateurs munis d'une accrédiation de niveau 4).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

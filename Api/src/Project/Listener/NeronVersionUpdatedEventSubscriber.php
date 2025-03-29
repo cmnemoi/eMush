@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Mush\Project\Listener;
 
 use Mush\Communications\Event\NeronVersionUpdatedEvent;
-use Mush\Project\Service\FinishRandomDaedalusProjectService;
+use Mush\Project\Service\FinishRandomDaedalusProjectsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class NeronVersionUpdatedEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private FinishRandomDaedalusProjectService $finishRandomDaedalusProject) {}
+    public function __construct(private FinishRandomDaedalusProjectsService $finishRandomDaedalusProject) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -22,7 +22,7 @@ final readonly class NeronVersionUpdatedEventSubscriber implements EventSubscrib
     public function onNeronVersionUpdated(NeronVersionUpdatedEvent $event): void
     {
         if ($event->majorVersionUpdated) {
-            $this->finishRandomDaedalusProject->execute($event->daedalusId);
+            $this->finishRandomDaedalusProject->execute($event->daedalusId, quantity: 1);
         }
     }
 }

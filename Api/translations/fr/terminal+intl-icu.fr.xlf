@@ -390,6 +390,22 @@
         <source>communication_center.xyloph_db</source>
         <target>Xyloph BDD</target>
       </segment>
+      <segment id="cannot_trade_under_attack" state="translated">
+        <source>communication_center.cannot_trade_under_attack</source>
+        <target>Un autre vaisseau nous menace, il est impossible de commercer !</target>
+      </segment>
+      <segment id="never" state="translated">
+        <source>communication_center.never</source>
+        <target>Jamais !</target>
+      </segment>
+      <segment id="see_communications" state="translated">
+        <source>communication_center.see_communications</source>
+        <target>Voir les communications</target>
+      </segment>
+      <segment id="see_trades" state="translated">
+        <source>communication_center.see_trades</source>
+        <target>Voir les échanges</target>
+      </segment>
     </unit>
   </file>
 </xliff>

@@ -159,7 +159,7 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
 
     private function whenChunShootsWithBlasterGunOnAHunterWithSixHealthPoints(): void
     {
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
         $hunter->setHealth(6);
 
         $this->shootHunterPatrolShipAction->loadParameters(
@@ -173,7 +173,7 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
 
     private function thenHunterShouldHaveLostTwoHealthPoints(FunctionalTester $I): void
     {
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
         $I->assertEquals(4, $hunter->getHealth());
     }
 

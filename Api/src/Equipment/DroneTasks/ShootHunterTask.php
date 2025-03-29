@@ -78,7 +78,7 @@ class ShootHunterTask extends AbstractDroneTask
 
     private function getRandomHunterFrom(Daedalus $daedalus): Hunter
     {
-        $attackingHunters = $daedalus->getAttackingHunters()->toArray();
+        $attackingHunters = $daedalus->getHuntersAroundDaedalus()->toArray();
 
         $hunter = $this->randomService->getRandomElement($attackingHunters);
         if (!$hunter) {

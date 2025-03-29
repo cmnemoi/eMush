@@ -14,6 +14,41 @@ final class InMemoryGameEquipmentRepository implements GameEquipmentRepositoryIn
 {
     private array $gameEquipments = [];
 
+    public function findById(int $id): ?GameEquipment
+    {
+        return $this->gameEquipments[$id] ?? null;
+    }
+
+    public function findByNameAndDaedalus(string $name, Daedalus $daedalus): array
+    {
+        return array_filter($this->gameEquipments, static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name && $gameEquipment->getDaedalus()->equals($daedalus));
+    }
+
+    public function findEquipmentByNameAndDaedalus(string $name, Daedalus $daedalus): array
+    {
+        return array_filter($this->gameEquipments, static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name && $gameEquipment->getDaedalus()->equals($daedalus));
+    }
+
+    public function findByOwner(Player $player): array
+    {
+        return array_filter($this->gameEquipments, static fn (GameEquipment $gameEquipment) => $gameEquipment->getOwner()?->equals($player));
+    }
+
+    public function findEquipmentByNameAndPlace(string $name, Place $place, int $quantity): array
+    {
+        return array_filter($this->gameEquipments, static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name && $gameEquipment->getHolder() === $place);
+    }
+
+    public function findEquipmentByNameAndPlayer(string $name, Player $player, int $quantity): array
+    {
+        return array_filter($this->gameEquipments, static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name && $gameEquipment->getOwner()?->equals($player));
+    }
+
+    public function delete(GameEquipment $gameEquipment): void
+    {
+        unset($this->gameEquipments[$gameEquipment->getId()]);
+    }
+
     public function findByDaedalus(Daedalus $daedalus): array
     {
         /** @var Collection<int, Place> $places */
@@ -30,6 +65,13 @@ final class InMemoryGameEquipmentRepository implements GameEquipmentRepositoryIn
 
     public function save(GameEquipment $gameEquipment): void
     {
-        $this->gameEquipments[] = $gameEquipment;
+        $this->setupId($gameEquipment);
+        $this->gameEquipments[$gameEquipment->getId()] = $gameEquipment;
+    }
+
+    private function setupId(GameEquipment $gameEquipment): void
+    {
+        $reflectionProperty = new \ReflectionProperty(GameEquipment::class, 'id');
+        $reflectionProperty->setValue($gameEquipment, (int) serialize($gameEquipment));
     }
 }

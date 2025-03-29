@@ -10,4 +10,5 @@ class HunterTargetEnum
     public const MERCHANT_SHIP = 'merchant_ship';
     public const PLAYER = 'player';
     public const PATROL_SHIP = 'patrol_ship';
+    public const TRANSPORT = 'transport';
 }

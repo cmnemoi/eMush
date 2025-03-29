@@ -10,7 +10,6 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\ValueObject\GameDate;
 use Mush\Equipment\Entity\UniqueItems;
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
@@ -22,6 +21,7 @@ use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -39,7 +39,6 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Exception\DaedalusShouldHaveProjectException;
 use Mush\Skill\Entity\SkillConfigCollection;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
@@ -188,6 +187,16 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPlayers()->getPlayerAlive();
     }
 
+    public function getPlayerByNameOrThrow(string $name): Player
+    {
+        $player = $this->getPlayers()->getPlayerByName($name);
+        if (!$player) {
+            throw new \RuntimeException("Daedalus should have a player named {$name}");
+        }
+
+        return $player;
+    }
+
     public function deadMushCount(): int
     {
         return $this
@@ -327,9 +336,14 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getModifiers();
     }
 
+    public function getHuntersAroundDaedalus(): HunterCollection
+    {
+        return $this->getSpace()->getHuntersAroundDaedalus();
+    }
+
     public function getAttackingHunters(): HunterCollection
     {
-        return $this->getSpace()->getAttackingHunters();
+        return $this->getHuntersAroundDaedalus()->getAllExceptType(HunterEnum::TRANSPORT);
     }
 
     public function getHunterPool(): HunterCollection
@@ -820,24 +834,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->hasFinishedProject(ProjectName::MAGNETIC_NET) && $this->getNeron()->isMagneticNetActive();
     }
 
-    public function hasNoProposedNeronProjects(): bool
-    {
-        return $this->getProposedNeronProjects()->isEmpty();
-    }
-
     public function getPilgred(): Project
     {
         return $this->getProjectByName(ProjectName::PILGRED);
-    }
-
-    public function isPilgredFinished(): bool
-    {
-        return $this->getPilgred()->isFinished();
-    }
-
-    public function pilgredIsNotFinished(): bool
-    {
-        return $this->isPilgredFinished() === false;
     }
 
     /** @return ArrayCollection<array-key, TitlePriority> */
@@ -857,7 +856,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getTitlePriorityByNameOrThrow(string $name): TitlePriority
     {
-        $titlePriority = $this->getTitlePriorityByName($name);
+        $titlePriority = $this->titlePriorities->filter(static fn (TitlePriority $titlePriority) => $titlePriority->getName() === $name)->first() ?: null;
         if (!$titlePriority) {
             throw new \RuntimeException("Daedalus should have a title priority named {$name}");
         }
@@ -915,11 +914,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return new SkillConfigCollection($this->getGameConfig()->getMushSkillConfigs()->toArray());
     }
 
-    public function hasAliveNeronOnlyFriend(): bool
-    {
-        return $this->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND);
-    }
-
     public function getAlivePlayersWithMeansOfCommunication(): PlayerCollection
     {
         return $this->getAlivePlayers()->filter(static fn (Player $player) => $player->hasMeansOfCommunication());
@@ -967,16 +961,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getGeneralAnnouncements()->last() ?: null;
     }
 
-    public function isPrintedCircuitJellyInNexus(): bool
-    {
-        return $this->getPlaceByNameOrThrow(RoomEnum::NEXUS)->hasEquipmentByName(GearItemEnum::PRINTED_CIRCUIT_JELLY);
-    }
-
-    public function numberOfCyclesBeforeNextRebelBaseContact(): int
-    {
-        return $this->getDaedalusConfig()->getNumberOfCyclesBeforeNextRebelBaseContact();
-    }
-
     public function getUniqueItems(): UniqueItems
     {
         return $this->uniqueItems;
@@ -1011,10 +995,5 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $createdAt;
-    }
-
-    private function getTitlePriorityByName(string $name): ?TitlePriority
-    {
-        return $this->titlePriorities->filter(static fn (TitlePriority $titlePriority) => $titlePriority->getName() === $name)->first() ?: null;
     }
 }

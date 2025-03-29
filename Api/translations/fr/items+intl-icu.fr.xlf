@@ -2451,6 +2451,10 @@ L'archétype de ces objets stellaires qui sont toujours rangés exactement là o
         <source>fuel_capsule.short_name</source>
         <target>Capsule de fuel</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>fuel_capsule.plural_name</source>
+        <target>Capsules de fuel</target>
+      </segment>
       <segment id="genre" state="translated">
         <source>fuel_capsule.gender</source>
         <target>female</target>
@@ -2480,6 +2484,10 @@ Permet de charger du carburant pour le déplacer dans le module de combustion.</
         <source>hydropot.short_name</source>
         <target>Hydropot</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>hydropot.plural_name</source>
+        <target>Hydropots</target>
+      </segment>
       <segment id="genre" state="translated">
         <source>hydropot.gender</source>
         <target>male</target>
@@ -2506,6 +2514,10 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
       <segment id="short_name" state="translated">
         <source>lunchbox.short_name</source>
         <target>Panier repas</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>lunchbox.plural_name</source>
+        <target>Paniers repas</target>
       </segment>
       <segment id="genre" state="translated">
         <source>lunchbox.gender</source>
@@ -2535,6 +2547,10 @@ L'équivalent galactique de la soupe chaude quand le zéro absolu vous guette.</
       <segment id="short_name" state="translated">
         <source>oxygen_capsule.short_name</source>
         <target>Capsule d'oxygène</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>oxygen_capsule.plural_name</source>
+        <target>Capsules d'oxygène</target>
       </segment>
       <segment id="genre" state="translated">
         <source>oxygen_capsule.gender</source>
@@ -3349,6 +3365,10 @@ Impérissable
       <segment id="short_name" state="translated">
         <source>standard_ration.short_name</source>
         <target>Ration standard</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>standard_ration.plural_name</source>
+        <target>Rations standards</target>
       </segment>
       <segment id="genre" state="translated">
         <source>standard_ration.gender</source>

@@ -145,6 +145,11 @@ abstract class EndCauseEnum
         throw new \LogicException('Cannot find a matching end cause');
     }
 
+    public static function unlocksNewProjects(string $endCause): bool
+    {
+        return !\in_array($endCause, [self::ALIEN_ABDUCTED, self::QUARANTINE], true);
+    }
+
     private static function getEndCausesWhichDoNotRemoveMorale(): ArrayCollection
     {
         return new ArrayCollection([

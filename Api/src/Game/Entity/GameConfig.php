@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\TradeConfig;
 use Mush\Communications\Entity\XylophConfig;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
@@ -86,6 +87,9 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: XylophConfig::class)]
     private Collection $xylophConfigs;
 
+    #[ORM\ManyToMany(targetEntity: TradeConfig::class)]
+    private Collection $tradeConfigs;
+
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -105,6 +109,7 @@ class GameConfig
         $this->skillConfigs = new ArrayCollection();
         $this->rebelBaseConfigs = new ArrayCollection();
         $this->xylophConfigs = new ArrayCollection();
+        $this->tradeConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -517,6 +522,33 @@ class GameConfig
         }
 
         $this->xylophConfigs->add($xylophConfig);
+
+        return $this;
+    }
+
+    public function getTradeConfigs(): Collection
+    {
+        return $this->tradeConfigs;
+    }
+
+    public function setTradeConfigs(array|ArrayCollection $tradeConfigs): static
+    {
+        if (\is_array($tradeConfigs)) {
+            $tradeConfigs = new ArrayCollection($tradeConfigs);
+        }
+
+        $this->tradeConfigs = $tradeConfigs;
+
+        return $this;
+    }
+
+    public function addTradeConfig(TradeConfig $tradeConfig): static
+    {
+        if ($this->tradeConfigs->contains($tradeConfig)) {
+            return $this;
+        }
+
+        $this->tradeConfigs->add($tradeConfig);
 
         return $this;
     }

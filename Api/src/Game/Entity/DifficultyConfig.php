@@ -96,6 +96,12 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $linkWithSolCycleFailureRate = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $minTransportSpawnRate = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $maxTransportSpawnRate = 0;
+
     public function __construct()
     {
         $this->firePlayerDamage = [];
@@ -105,6 +111,45 @@ class DifficultyConfig
         $this->metalPlatePlayerDamage = [];
         $this->panicCrisisPlayerDamage = [];
         $this->equipmentBreakRateDistribution = [];
+        $this->difficultyModes = [];
+        $this->hunterSafeCycles = [];
+    }
+
+    public static function fromConfigData(array $configData): self
+    {
+        $difficultyConfig = new self();
+
+        $difficultyConfig
+            ->setName($configData['name'])
+            ->setEquipmentBreakRate($configData['equipmentBreakRate'])
+            ->setDoorBreakRate($configData['doorBreakRate'])
+            ->setEquipmentFireBreakRate($configData['equipmentFireBreakRate'])
+            ->setStartingFireRate($configData['startingFireRate'])
+            ->setPropagatingFireRate($configData['propagatingFireRate'])
+            ->setMaximumAllowedSpreadingFires($configData['maximumAllowedSpreadingFires'])
+            ->setHullFireDamageRate($configData['hullFireDamageRate'])
+            ->setTremorRate($configData['tremorRate'])
+            ->setElectricArcRate($configData['electricArcRate'])
+            ->setMetalPlateRate($configData['metalPlateRate'])
+            ->setPanicCrisisRate($configData['panicCrisisRate'])
+            ->setFirePlayerDamage($configData['firePlayerDamage'])
+            ->setFireHullDamage($configData['fireHullDamage'])
+            ->setElectricArcPlayerDamage($configData['electricArcPlayerDamage'])
+            ->setTremorPlayerDamage($configData['tremorPlayerDamage'])
+            ->setMetalPlatePlayerDamage($configData['metalPlatePlayerDamage'])
+            ->setPanicCrisisPlayerDamage($configData['panicCrisisPlayerDamage'])
+            ->setPlantDiseaseRate($configData['plantDiseaseRate'])
+            ->setCycleDiseaseRate($configData['cycleDiseaseRate'])
+            ->setEquipmentBreakRateDistribution($configData['equipmentBreakRateDistribution'])
+            ->setDifficultyModes($configData['difficultyModes'])
+            ->setHunterSpawnRate($configData['hunterSpawnRate'])
+            ->setHunterSafeCycles($configData['hunterSafeCycles'])
+            ->setStartingHuntersNumberOfTruceCycles($configData['startingHuntersNumberOfTruceCycles'])
+            ->setLinkWithSolCycleFailureRate($configData['linkWithSolCycleFailureRate'])
+            ->setMinTransportSpawnRate($configData['minTransportSpawnRate'])
+            ->setMaxTransportSpawnRate($configData['maxTransportSpawnRate']);
+
+        return $difficultyConfig;
     }
 
     public function getId(): int
@@ -420,6 +465,30 @@ class DifficultyConfig
     public function setLinkWithSolCycleFailureRate(int $linkWithSolCycleFailureRate): static
     {
         $this->linkWithSolCycleFailureRate = $linkWithSolCycleFailureRate;
+
+        return $this;
+    }
+
+    public function getMinTransportSpawnRate(): int
+    {
+        return $this->minTransportSpawnRate;
+    }
+
+    public function setMinTransportSpawnRate(int $minTransportSpawnRate): static
+    {
+        $this->minTransportSpawnRate = $minTransportSpawnRate;
+
+        return $this;
+    }
+
+    public function getMaxTransportSpawnRate(): int
+    {
+        return $this->maxTransportSpawnRate;
+    }
+
+    public function setMaxTransportSpawnRate(int $maxTransportSpawnRate): static
+    {
+        $this->maxTransportSpawnRate = $maxTransportSpawnRate;
 
         return $this;
     }

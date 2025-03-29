@@ -171,7 +171,7 @@ class DaedalusNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     private function getNormalizedProjects(Daedalus $daedalus, ?string $format, array $context): ?array
     {
         $normalizedProjects = [];
-        if ($daedalus->isPilgredFinished()) {
+        if ($daedalus->getPilgred()->isFinished()) {
             $normalizedProjects['pilgred'] = $this->normalizer->normalize($daedalus->getPilgred(), format: $format, context: $context);
         }
 

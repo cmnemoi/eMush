@@ -642,7 +642,7 @@ final class DroneCest extends AbstractFunctionalTest
 
     private function thenHunterShouldBeShot(FunctionalTester $I): void
     {
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
         $I->assertLessThan(
             expected: $hunter->getHunterConfig()->getInitialHealth(),

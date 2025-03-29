@@ -31,7 +31,7 @@ final class HunterVariableSubscriberCest extends AbstractFunctionalTest
         $space = $this->daedalus->getSpace();
 
         // no hunters, scrap or hunter killed at the beginning of the test
-        $I->assertEmpty($this->daedalus->getAttackingHunters());
+        $I->assertEmpty($this->daedalus->getHuntersAroundDaedalus());
         $I->assertEmpty($space->getEquipments());
         $I->assertEquals(0, $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getNumberOfHuntersKilled());
 
@@ -39,7 +39,7 @@ final class HunterVariableSubscriberCest extends AbstractFunctionalTest
         $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
-        $hunter = $this->daedalus->getAttackingHunters()->first();
+        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
         $hunterVariableEvent = new HunterVariableEvent(
             $hunter,
@@ -51,7 +51,7 @@ final class HunterVariableSubscriberCest extends AbstractFunctionalTest
         $hunterVariableEvent->setAuthor($this->player1);
         $this->hunterVariableSubscriber->onChangeVariable($hunterVariableEvent);
 
-        $I->assertEmpty($this->daedalus->getAttackingHunters());
+        $I->assertEmpty($this->daedalus->getHuntersAroundDaedalus());
         $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getNumberOfHuntersKilled());
     }
 }

@@ -1,5 +1,6 @@
 export enum ActionEnum {
     ACCEPT_MISSION = "accept_mission",
+    ACCEPT_TRADE = "accept_trade",
     ADVANCE_DAEDALUS = "advance_daedalus",
     ANALYZE_PLANET = "analyze_planet",
     CHANGE_NERON_CPU_PRIORITY = "change_neron_cpu_priority",
@@ -17,6 +18,7 @@ export enum ActionEnum {
     LEAVE_ORBIT = "leave_orbit",
     PARTICIPATE = "participate",
     PARTICIPATE_RESEARCH = "participate_research",
+    REFUSE_TRADE = "refuse_trade",
     REJECT_MISSION = "reject_mission",
     REPAIR_PILGRED = "repair_pilgred",
     RETURN_TO_SOL = "return_to_sol",

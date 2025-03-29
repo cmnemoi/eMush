@@ -1,6 +1,7 @@
 <template>
     <div class="terminal-container" v-if="terminal">
-        <div class="upper-container">
+        <button v-if="terminal.infos.seeCommunications" @click="toggleTradeView">{{ tradeViewEnabled ? terminal.infos.seeCommunications : terminal.infos.seeTrades }}</button>
+        <div class="upper-container" v-if="!tradeViewEnabled">
             <section class="left-section">
                 <div class="sol-link container">
                     <h3 class="title">
@@ -60,7 +61,7 @@
                     />
                 </div>
             </section>
-            <section class="right-section">
+            <section class="right-section" v-if="!tradeViewEnabled">
                 <div class="xyloph container">
                     <h3 class="title">
                         <img :src="getImgUrl('spot2.svg')" alt="spot"/>
@@ -85,7 +86,7 @@
                 </div>
             </section>
         </div>
-        <div class="rebel-bases container">
+        <div class="rebel-bases container" v-if="!tradeViewEnabled">
             <h3 class="title">
                 <img :src="getImgUrl('spot2.svg')" alt="spot"/>
                 {{ terminal.sectionTitles?.rebelBasesNetwork }}
@@ -96,14 +97,20 @@
                     v-for="(base, index) in terminal.rebelBases"
                     :key="index"
                     class="rebel-base-item"
-                    :class="{ 'not-contacted' : base.name === '???', 'contacting' : base.isContacting, 'contacted' : base.name !== '???', 'selected' : base.key === selectedRebelBase }"
+                    :class="{
+                        'not-contacted' : base.name === '???',
+                        'contacting' : base.isContacting,
+                        'contacted' : base.name !== '???',
+                        'selected' : base.key === selectedRebelBase,
+                        'disabled' : base.isContacting
+                    }"
                     @click="selectRebelBase(base)"
                 >
                     <p class="base-name">{{ base.name }}</p>
                     <p :class="{ 'base-signal' : base.isContacting, 'base-signal-lost' : base.isLost }" v-if="base.isContacting || base.isLost">{{ base.signal }}</p>
                     <img :src="getImgUrl(`rebel_bases/${base.key}.png`)" :alt="base.key" class="base-image" />
                     <template #content>
-                        <h1 class="base-hover-name">{{ base.hoverName }}</h1>
+                        <h1 class="base-hover-name" v-html="formatText(base.hoverName)" />
                         <p class="base-description" v-html="formatText(base.description)" />
                     </template>
                 </Tippy>
@@ -115,6 +122,69 @@
                 @click="executeTargetAction(terminal, decodeRebelSignalAction, { rebel_base: selectedRebelBase })"
             />
         </div>
+        <section class="trade-view" v-if="tradeViewEnabled">
+            <div class="trade-messages">
+                <p class="cannot-trade-under-attack" v-if="terminal.infos.cannotTradeUnderAttack">
+                    {{ terminal.infos.cannotTradeUnderAttack }}
+                </p>
+
+                <div
+                    v-for="trade in terminal.trades"
+                    :key="trade.id"
+                    class="trade-message"
+                    v-else
+                >
+                    <div class="transport-message">
+                        <p v-html="formatText(trade.description)" />
+                        <div class="trade-image" v-if="trade.options && trade.options.length > 0">
+                            <img :src="getImgUrl(`hunters/${trade.image}.png`)" :alt="trade.image" />
+                        </div>
+                    </div>
+
+                    <div class="trade-options-container">
+                        <Tippy
+                            v-for="option in trade.options"
+                            :key="option.id"
+                            class="trade-response"
+                            :class="{
+                                'selected': selectedTradeOption && selectedTradeOption.option.id === option.id,
+                                'disabled': option.tradeConditionsAreNotMet
+                            }"
+                            @click="selectTradeOption(trade, option)"
+                        >
+                            <p class="trade-option-name" v-html="formatText(option.name)" />
+                            <p class="trade-details" v-html="formatText(option.description)" />
+                            <template #content v-if="option.tradeConditionsAreNotMet">
+                                <h1 v-html="formatText(option.name)" />
+                                <p class="trade-not-available" v-html="formatText(option.tradeConditionsAreNotMet)"/>
+                            </template>
+                        </Tippy>
+                        <Tippy
+                            class="trade-response"
+                            :class="{ 'selected': refuseTradeSelected.tradeId === trade.id }"
+                            @click="selectRefuseTrade(trade.id)"
+                        >
+                            <p class="trade-option-name" v-html="formatText(terminal.infos.never)" />
+                        </Tippy>
+                    </div>
+
+                    <ActionButton
+                        v-if="selectedTradeOption && selectedTradeOption.trade.id === trade.id"
+                        :key="acceptTradeAction.name || ''"
+                        class="terminal-button"
+                        :action="acceptTradeAction"
+                        @click="executeTargetAction(terminal, acceptTradeAction, { tradeOptionId: selectedTradeOption.option.id })"
+                    />
+                    <ActionButton
+                        v-if="refuseTradeSelected.tradeId === trade.id"
+                        :key="refuseTradeAction.name || ''"
+                        class="terminal-button"
+                        :action="refuseTradeAction"
+                        @click="executeTargetAction(terminal, refuseTradeAction, { tradeId: trade.id })"
+                    />
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -127,8 +197,15 @@ import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "@/entities/Action";
 import { RebelBase } from "@/entities/RebelBase";
 import { XylophEntry } from "@/entities/XylophEntry";
+import { Trade, TradeOption } from "@/entities/Trade";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { mapActions } from "vuex";
+import { Tippy } from "vue-tippy";
+
+interface SelectedTradeOption {
+    trade: Trade;
+    option: TradeOption;
+}
 
 export default defineComponent({
     name: "CommunicationsTerminal",
@@ -136,6 +213,12 @@ export default defineComponent({
         ActionButton
     },
     computed: {
+        acceptTradeAction(): Action {
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.ACCEPT_TRADE);
+        },
+        refuseTradeAction(): Action {
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.REFUSE_TRADE);
+        },
         establishLinkWithSolAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.ESTABLISH_LINK_WITH_SOL);
         },
@@ -154,7 +237,7 @@ export default defineComponent({
             return action;
         },
         contactXylophAction(): Action {
-            return this.terminal.getActionByKey(ActionEnum.CONTACT_XYLOPH) || new Action();
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.CONTACT_XYLOPH);
         },
         neron(): string {
             return this.terminal.sectionTitles?.neronVersion?.split('.')[0].split(' ')[0] || '';
@@ -215,11 +298,35 @@ export default defineComponent({
 
             this.d_selectedRebelBase = base.key;
             this.decodeRebelSignalAction = this.terminal.getActionByKeyOrThrow(ActionEnum.DECODE_REBEL_SIGNAL);
+        },
+        toggleTradeView() {
+            this.tradeViewEnabled = !this.tradeViewEnabled;
+            this.selectedTradeOption = null;
+            this.refuseTradeSelected.tradeId = 0;
+        },
+        selectTradeOption(trade: Trade, option: TradeOption) {
+            if (option.tradeConditionsAreNotMet) {
+                return;
+            }
+
+            this.selectedTradeOption = { trade, option };
+            // Reset refuse trade selection when a trade option is selected
+            this.refuseTradeSelected.tradeId = 0;
+        },
+        selectRefuseTrade(tradeId: number) {
+            // Reset selected trade option when refuse is selected
+            this.selectedTradeOption = null;
+            this.refuseTradeSelected.tradeId = tradeId;
         }
     },
     data() {
         return {
-            d_selectedRebelBase: ''
+            d_selectedRebelBase: '',
+            tradeViewEnabled: false,
+            selectedTradeOption: null as SelectedTradeOption | null,
+            refuseTradeSelected: {
+                tradeId: 0
+            }
         };
     }
 });
@@ -432,7 +539,177 @@ p {
     }
 }
 
-.base-description, .xyloph-entry-description {
+.base-description, .xyloph-entry-description, .trade-not-available {
     text-transform: none;
+}
+
+/* Trade view styles */
+.trade-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #D8F7FF;
+    border-radius: 5px;
+    overflow: hidden;
+    color: #003366;
+}
+
+.shortwave-radio {
+    background-color: #A5EEFB;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+
+    .title {
+        text-transform: uppercase;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        color: #003366;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .info-banner {
+        background-color: #81E0FD;
+        padding: 8px 15px;
+        margin: 5px 0;
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+            margin: 0;
+            font-style: italic;
+            color: #003366;
+            text-transform: none;
+        }
+
+        .read-more {
+            color: #003366;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+    }
+
+    .trade-header {
+        margin: 10px 0;
+        color: #003366;
+        font-weight: bold;
+        text-transform: none;
+    }
+}
+
+.trade-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+
+    .cannot-trade-under-attack {
+        color: #FF0000;
+        font-weight: bold;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .trade-message {
+        margin-bottom: 20px;
+        border-bottom: 1px dotted #81E0FD;
+        padding-bottom: 15px;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .transport-message {
+            background-color: #A5EEFB;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                margin: 0;
+                color: #003366;
+                text-transform: none;
+                flex: 1;
+            }
+
+            .trade-image {
+                width: 50px;
+                height: 50px;
+                margin-left: 10px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+        }
+
+        .trade-options-container {
+            margin-top: 5px;
+        }
+
+        .trade-response {
+            background-color: #81E0FD;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #75DF00;
+            }
+
+            &.selected {
+                background-color: #75DF00;
+                border: 2px solid #003366;
+            }
+
+            &.disabled {
+                background-color: #81E0FD;
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            &.diplomat {
+                background-color: #B8E8FF;
+
+                &:hover, &.selected {
+                    background-color: #75DF00;
+                }
+            }
+
+            .trade-option-name {
+                margin: 0 0 5px 0;
+                color: #003366;
+                font-weight: bold;
+                text-transform: none;
+
+                .diplomat-tag {
+                    background-color: #003366;
+                    color: white;
+                    padding: 2px 5px;
+                    border-radius: 3px;
+                    font-size: 0.8em;
+                    margin-right: 5px;
+                }
+            }
+
+            .trade-details {
+                margin: 0;
+                color: #003366;
+                text-transform: none;
+                font-size: 0.9em;
+            }
+        }
+
+        .terminal-button {
+            margin: auto;
+        }
+    }
 }
 </style>

@@ -5,6 +5,7 @@ namespace Mush\Game\ConfigData;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\TradeConfig;
 use Mush\Communications\Entity\XylophConfig;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
@@ -56,6 +57,7 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigSkillConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigRebelBaseConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigXylophConfigs($gameConfig, $gameConfigData);
+            $this->setGameConfigTradeConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -303,6 +305,20 @@ class GameConfigDataLoader extends ConfigDataLoader
             }
 
             $gameConfig->addXylophConfig($xylophConfig);
+        }
+    }
+
+    private function setGameConfigTradeConfigs(GameConfig $gameConfig, array $gameConfigData): void
+    {
+        foreach ($gameConfigData['tradeConfigs'] as $tradeConfigName) {
+            $tradeConfigKey = "{$tradeConfigName->toString()}_" . $gameConfig->getName();
+            $tradeConfig = $this->entityManager->getRepository(TradeConfig::class)->findOneBy(['key' => $tradeConfigKey]);
+
+            if ($tradeConfig === null) {
+                throw new \Exception("Trade config {$tradeConfigKey} not found");
+            }
+
+            $gameConfig->addTradeConfig($tradeConfig);
         }
     }
 }

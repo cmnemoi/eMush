@@ -119,15 +119,15 @@ class OpenContainer extends AbstractAction
         );
     }
 
-    private function createContents(string $EquipmentName, int $Quantity): void
+    private function createContents(string $equipmentName, int $quantity): void
     {
         $this->gameEquipmentService->createGameEquipmentsFromName(
-            $EquipmentName,
-            $this->player,
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
-            $Quantity,
-            VisibilityEnum::PUBLIC
+            equipmentName: $equipmentName,
+            equipmentHolder: $this->player,
+            visibility: VisibilityEnum::PUBLIC,
+            time: new \DateTime(),
+            quantity: $quantity,
+            reasons: $this->getTags(),
         );
     }
 
@@ -137,7 +137,7 @@ class OpenContainer extends AbstractAction
             $this->gameEquipmentTarget(),
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);

@@ -87,12 +87,7 @@ final class GameEquipmentServiceTest extends TestCase
             ->setEquipmentName('some Name')
             ->setMechanics(new ArrayCollection([]));
 
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->once();
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->once();
+        $this->repository->shouldReceive('save')->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
         $gameItem = $this->service->createGameEquipment(
@@ -118,12 +113,7 @@ final class GameEquipmentServiceTest extends TestCase
             ->setEquipmentName('equipment Name')
             ->setMechanics(new ArrayCollection([]));
 
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->once();
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->once();
+        $this->repository->shouldReceive('save')->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
         $gameEquipment = $this->service->createGameEquipment(
@@ -153,12 +143,8 @@ final class GameEquipmentServiceTest extends TestCase
         $plantEffect = new PlantEffect();
         $plantEffect->setMaturationTime(8);
 
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->once();
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->once();
+        $this->repository->shouldReceive('save')->once();
+
         $this->equipmentEffectService
             ->shouldReceive('getPlantEffect')
             ->with($plantMechanic, $daedalus)
@@ -213,12 +199,8 @@ final class GameEquipmentServiceTest extends TestCase
         $status = new ContentStatus($gameEquipment, $statusConfig);
         $status->setContent($documentMechanic->getContent());
 
-        $this->entityManager
-            ->shouldReceive('persist')
-            ->once();
-        $this->entityManager
-            ->shouldReceive('flush')
-            ->once();
+        $this->repository->shouldReceive('save')->once();
+
         $this->eventService->shouldReceive('callEvent')->once();
 
         $this->statusService

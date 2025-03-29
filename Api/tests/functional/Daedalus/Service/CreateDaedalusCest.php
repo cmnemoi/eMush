@@ -121,7 +121,7 @@ class CreateDaedalusCest
         $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
 
         /** @var DifficultyConfig $difficultyConfig */
-        $difficultyConfig = $I->grabEntityFromRepository(DifficultyConfig::class, ['name' => 'difficultyConfig_test']);
+        $difficultyConfig = $I->grabEntityFromRepository(DifficultyConfig::class, ['name' => 'default']);
 
         $gameConfig = new GameConfig();
         $gameConfig
@@ -167,7 +167,7 @@ class CreateDaedalusCest
         $I->assertCount(1, $gameWaterStick->getStatuses());
 
         // hunters
-        $I->assertCount(4, $daedalus->getAttackingHunters());
+        $I->assertCount(4, $daedalus->getHuntersAroundDaedalus());
         $I->assertCount(0, $daedalus->getHunterPool());
     }
 

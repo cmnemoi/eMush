@@ -126,6 +126,7 @@ const PROACTIVE_PUFFED_RICE = "proactive_puffed_rice";
 // NPCs
 const SUPPORT_DRONE = "support_drone";
 const SCHRODINGER = "schrodinger";
+const PAVLOV = "pavlov";
 
 // Documents
 const DOCUMENT = "document";
@@ -458,6 +459,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [SCHRODINGER] : {
         'image': getImgUrl('items/body_cat.jpg')
+    },
+    [PAVLOV] : {
+        'image': getImgUrl('items/body_dog.jpg')
     },
     [DOCUMENT]: {
         'image': getImgUrl('items/document.jpg')

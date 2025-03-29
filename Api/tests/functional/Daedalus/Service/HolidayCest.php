@@ -44,40 +44,51 @@ final class HolidayCest extends AbstractFunctionalTest
 
     public function anniversaryGivesGiftsWhenShipIsFull(FunctionalTester $I): void
     {
-        $this->givenHolidayIsAnniversary();
+        $this->givenHolidayIs(HolidayEnum::ANNIVERSARY);
         $this->whenShipIsFull();
         $this->thenChunAndKuanTiShouldHaveGifts($I);
     }
 
     public function anniversaryCreatesNeronAnnouncementWhenShipIsFull(FunctionalTester $I): void
     {
-        $this->givenHolidayIsAnniversary();
+        $this->givenHolidayIs(HolidayEnum::ANNIVERSARY);
         $this->whenShipIsFull();
         $this->thenNeronAnnouncesAnniversary($I);
     }
 
     public function halloweenCreatesJumpkinInGardenWhenShipStarts(FunctionalTester $I): void
     {
-        $this->givenHolidayIsHalloween();
+        $this->givenHolidayIs(HolidayEnum::HALLOWEEN);
         $this->whenGardenIsCreated($I);
         $this->thenJumpkinIsInGarden($I);
     }
 
     public function halloweenCreatesNeronAnnouncementWhenShipIsFull(FunctionalTester $I): void
     {
-        $this->givenHolidayIsHalloween();
+        $this->givenHolidayIs(HolidayEnum::HALLOWEEN);
         $this->whenShipIsFull();
         $this->thenNeronAnnouncesHalloween($I);
     }
 
-    private function givenHolidayIsAnniversary(): void
+    public function aprilFoolsCreatesPavlovInLaboratoryWhenShipCreated(FunctionalTester $I): void
     {
-        $this->daedalus->getDaedalusConfig()->setHoliday(HolidayEnum::ANNIVERSARY);
+        $this->givenHolidayIs(HolidayEnum::APRIL_FOOLS);
+        // remove lab created during parent::_before
+        $this->daedalus->removePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        $this->whenLaboratoryIsCreated($I);
+        $this->thenPavlovIsInLaboratory($I);
     }
 
-    private function givenHolidayIsHalloween(): void
+    public function aprilFoolsCreatesNeronAnnouncementWhenShipIsFull(FunctionalTester $I): void
     {
-        $this->daedalus->getDaedalusConfig()->setHoliday(HolidayEnum::HALLOWEEN);
+        $this->givenHolidayIs(HolidayEnum::APRIL_FOOLS);
+        $this->whenShipIsFull();
+        $this->thenNeronAnnouncesAprilFools($I);
+    }
+
+    private function givenHolidayIs(string $holiday): void
+    {
+        $this->daedalus->getDaedalusConfig()->setHoliday($holiday);
     }
 
     private function whenGardenIsCreated(FunctionalTester $I): void
@@ -86,6 +97,18 @@ final class HolidayCest extends AbstractFunctionalTest
 
         $this->garden = $this->placeService->createPlace(
             $gardenConfig,
+            $this->daedalus,
+            [],
+            new \DateTime(),
+        );
+    }
+
+    private function whenLaboratoryIsCreated(FunctionalTester $I): void
+    {
+        $labConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::LABORATORY]);
+
+        $this->garden = $this->placeService->createPlace(
+            $labConfig,
             $this->daedalus,
             [],
             new \DateTime(),
@@ -113,6 +136,11 @@ final class HolidayCest extends AbstractFunctionalTest
     private function thenJumpkinIsInGarden(FunctionalTester $I): void
     {
         $I->assertTrue($this->daedalus->getPlaceByName(RoomEnum::HYDROPONIC_GARDEN)->hasEquipmentByName(GameFruitEnum::JUMPKIN));
+    }
+
+    private function thenPavlovIsInLaboratory(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->hasEquipmentByName(ItemEnum::PAVLOV));
     }
 
     private function thenNeronAnnouncesAnniversary(FunctionalTester $I): void
@@ -144,6 +172,22 @@ final class HolidayCest extends AbstractFunctionalTest
         $I->seeInRepository(Message::class, [
             'channel' => $this->publicChannel,
             'message' => NeronMessageEnum::HALLOWEEN_BEGIN,
+        ]);
+    }
+
+    private function thenNeronAnnouncesAprilFools(FunctionalTester $I): void
+    {
+        $message = $I->grabEntityFromRepository(Message::class, [
+            'neron' => $this->daedalus->getNeron(),
+            'message' => NeronMessageEnum::APRIL_FOOLS_BEGIN,
+            'channel' => $this->publicChannel,
+            'parent' => null,
+            'createdAt' => $this->dateTime,
+        ]);
+
+        $I->seeInRepository(Message::class, [
+            'channel' => $this->publicChannel,
+            'message' => NeronMessageEnum::APRIL_FOOLS_BEGIN,
         ]);
     }
 }

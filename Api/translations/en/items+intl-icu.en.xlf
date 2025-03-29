@@ -3667,5 +3667,31 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
         <target>One more year of surviving the cold outer space? It's cause for celebration!//Contains something that could be very useful... or maybe not.//Snooping around and opening other people's gifts is frowned upon. These kinds of things are personal!</target>
       </segment>
     </unit>
+    <unit id="pavlov">
+      <segment id="name" state="translated">
+        <source>pavlov.name</source>
+        <target>Pavlov</target>
+      </segment>
+      <segment id="pavlov" state="translated">
+        <source>pavlov.short_name</source>
+        <target>Pavlov</target>
+      </segment>
+      <segment id="genre" state="translated">
+        <source>pavlov.gender</source>
+        <target>male</target>
+      </segment>
+      <segment id="first_letter" state="translated">
+        <source>pavlov.first_letter</source>
+        <target>consonant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>pavlov.description</source>
+        <target>Pavlov is the happiest dog you've ever met.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>pavlov.examine</source>
+        <target>Pavlov is the happiest dog you've ever met. He is extremely playful, energetic and loud, with a tendancy to wander as he pleases. This is @#p↻▦∆ĝ's dog.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

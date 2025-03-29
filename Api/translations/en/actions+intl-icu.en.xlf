@@ -1652,5 +1652,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>Trigger all rebel contacts.</target>
       </segment>
     </unit>
+    <unit id="play_with_dog">
+      <segment id="name" state="translated">
+        <source>play_with_dog.name</source>
+        <target>Play with</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>play_with_dog.description</source>
+        <target>Finally! It's playtime!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

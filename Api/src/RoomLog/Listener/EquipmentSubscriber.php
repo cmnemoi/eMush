@@ -33,6 +33,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ActionEnum::PRINT_ZE_LIST->value => LogEnum::TABULATRIX_PRINTS,
         EquipmentEventReason::AWAKEN_SCHRODINGER => LogEnum::AWAKEN_SCHRODINGER,
         ActionEnum::GEN_METAL->value => ActionLogEnum::GEN_METAL_SUCCESS,
+        EquipmentEventReason::AWAKEN_PAVLOV => LogEnum::AWAKEN_PAVLOV,
     ];
 
     private const DESTRUCTION_LOG_MAP = [

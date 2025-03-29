@@ -4,7 +4,9 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\EquipmentEventReason;
 use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\HolidayEnum;
@@ -84,6 +86,9 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         if ($this->shouldCreateHalloweenJumpkin($event)) {
             $this->createHalloweenJumpkin($event);
         }
+        if ($this->shouldCreateAprilFoolsPavlov($event)) {
+            $this->createAprilFoolsPavlov($event);
+        }
     }
 
     private function shouldCreateHalloweenJumpkin(PlaceInitEvent $event): bool
@@ -100,6 +105,25 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             equipmentName: GameFruitEnum::JUMPKIN,
             equipmentHolder: $event->getPlace(),
             reasons: $event->getTags(),
+            time: $event->getTime(),
+            visibility: VisibilityEnum::HIDDEN,
+        );
+    }
+
+    private function shouldCreateAprilFoolsPavlov(PlaceInitEvent $event): bool
+    {
+        $place = $event->getPlace();
+        $daedalus = $place->getDaedalus();
+
+        return $daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::APRIL_FOOLS && $place->getName() === RoomEnum::LABORATORY;
+    }
+
+    private function createAprilFoolsPavlov(PlaceInitEvent $event): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::PAVLOV,
+            equipmentHolder: $event->getPlace(),
+            reasons: [EquipmentEventReason::AWAKEN_PAVLOV],
             time: $event->getTime(),
             visibility: VisibilityEnum::HIDDEN,
         );

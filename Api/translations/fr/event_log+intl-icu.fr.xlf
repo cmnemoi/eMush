@@ -1306,5 +1306,65 @@
         <target>Vous vous sentez sale, ça vous déprime...</target>
       </segment>
     </unit>
+    <unit id="awaken_pavlov">
+      <segment id="awaken_pavlov" state="translated">
+        <source>awaken_pavlov</source>
+        <target>**{target_equipment}** est là.</target>
+      </segment>
+    </unit>
+    <unit id="dog_bark">
+      <segment id="dog_bark" state="translated">
+        <source>dog_bark</source>
+        <target>:dog: **{equipment} :** {version, select,
+                    1{ouaf}
+                    2{ouaf ouaf!}
+	                  3{ouaf ouaf ouaf!!}
+	                  4{arf arf arf arf}
+	                  5{yip yap yip!}
+	                  6{awooooooo!}
+	                  7{awoowoooooooo}
+	                  8{*remue la queue*}
+	                  9{bork!}
+	                  10{*halète joyeusement*}
+	                  11{aaaaarrrwf!}
+	                  12{wouf}
+	                  13{wouf wouf!!}
+	                  14{bark!}
+	                  15{awOOOOOOOOOO}
+	                  16{MIAOU!}
+	                  17{*penche la tête*}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="npc_entered_room">
+      <segment state="translated">
+        <source>npc_entered_room</source>
+        <target>{equipment, select,
+        pavlov{:dog: }
+        other{}
+        }**{equipment}** est entré.</target>
+      </segment>
+    </unit>
+    <unit id="npc_exited_room">
+      <segment state="translated">
+        <source>npc_exited_room</source>
+        <target>{equipment, select,
+        pavlov{:dog: }
+        other{}
+        }**{equipment}** est sorti.</target>
+      </segment>
+    </unit>
+    <unit id="dog_bother_cat">
+      <segment state="translated">
+        <source>dog_bother_cat</source>
+        <target>{version, select,
+                1{:dog: **Pavlov** se rapproche de :cat: **Schrödinger** avec un regard de prédateur... et lui saute dessus! Le matou râle et se démène, pendant que son agresseur le léchouille.}
+                2{:cat: **Schrödinger** fixe :dog: **Pavlov** du regard alors que le chien lui tourne autour... Le matou finit par hisser, avant que le nuisible ne se fasse des idées.}
+                3{:dog: **Pavlov** lâche soudainement un aboiement énorme! Le pauvre :cat: **Schrödinger** se retrouve tiré de sa sieste et panique, se propulse dans les airs et grimpe le matériel de la pièce pour se trouver une cachette.}
+                4{:dog: **Palvov** fait de son mieux pour attirer l'attention de :cat: **Schrödinger**. La queue du matou fouette contre le sol, sa patience mise à rude épreuve.}
+                other{invalid version input}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

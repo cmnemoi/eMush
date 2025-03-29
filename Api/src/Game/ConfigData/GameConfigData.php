@@ -376,6 +376,7 @@ class GameConfigData
                 'apprentron_opportunist_default',
                 'apprentron_rebel_default',
                 'apprentron_self_sacrifice_default',
+                ItemEnum::PAVLOV . '_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',

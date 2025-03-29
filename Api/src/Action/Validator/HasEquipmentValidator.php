@@ -129,7 +129,7 @@ class HasEquipmentValidator extends ConstraintValidator
 
         $equipments = $this->gameEquipmentService->findByNameAndDaedalus($equipmentName, $player->getDaedalus());
         if ($checkIfOperational) {
-            return !$equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational())->isEmpty();
+            $equipments = $equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational());
         }
 
         return $equipments->count() >= $number;

@@ -691,5 +691,89 @@
         <target>You have reached the highest NERON level possible.</target>
       </segment>
     </unit>
+    <unit id="dog_is_seasick">
+      <segment id="description" state="translated">
+        <source>dog_is_seasick.description</source>
+        <target>Pavlov is looking a little pale... Maybe you should wait for the Daedalus to settle.</target>
+      </segment>
+    </unit>
+    <unit id="dog_is_worried">
+      <segment id="description" state="translated">
+        <source>dog_is_worried.description</source>
+        <target>Pavlov seems worried about the sound of the hunters flying overhead...</target>
+      </segment>
+    </unit>
+    <unit id="bothering_cat">
+      <segment id="description" state="translated">
+        <source>bothering_cat.description</source>
+        <target>Pavlov is already busy playing with Schrodinger, much to the latter's dismay.</target>
+      </segment>
+    </unit>
+    <unit id="distracted_by_food">
+      <segment id="description" state="translated">
+        <source>distracted_by_food.description</source>
+        <target>Pavlov seems distracted by the lovely smell of food in the air...</target>
+      </segment>
+    </unit>
+    <unit id="distracted_by_plant">
+      <segment id="description" state="translated">
+        <source>distracted_by_plant.description</source>
+        <target>Shh... Pavlov is napping by the shade of a potted plant. Now's not the time to bother him.</target>
+      </segment>
+    </unit>
+    <unit id="distracted_by_broken_fuel_tank">
+      <segment id="description" state="translated">
+        <source>distracted_by_broken_fuel_tank.description</source>
+        <target>What? You would play with Pavlov when there are mission critical fuel tanks to repair? For shame.</target>
+      </segment>
+    </unit>
+    <unit id="need_a_ball">
+      <segment id="description" state="translated">
+        <source>need_a_ball.description</source>
+        <target>It might be difficult to play fetch without a ball.</target>
+      </segment>
+    </unit>
+    <unit id="hands_full">
+      <segment id="description" state="translated">
+        <source>hands_full.description</source>
+        <target>You're holding onto too many things... Your good throwing arm is encumbered!</target>
+      </segment>
+    </unit>
+    <unit id="room_too_messy">
+      <segment id="description" state="translated">
+        <source>room_too_messy.description</source>
+        <target>What a mess in here! There isn't a good angle to throw the 'ball' at.</target>
+      </segment>
+    </unit>
+    <unit id="room_too_small">
+      <segment id="description" state="translated">
+        <source>room_too_small.description</source>
+        <target>Fetch isn't very exciting with this little space to play around in.</target>
+      </segment>
+    </unit>
+    <unit id="room_too_tight">
+      <segment id="description" state="translated">
+        <source>room_too_tight.description</source>
+        <target>There isn't room to manoeuver in there...</target>
+      </segment>
+    </unit>
+    <unit id="room_too_sad">
+      <segment id="description" state="translated">
+        <source>room_too_sad.description</source>
+        <target>This isn't quite right... Pavlov feels lonely. If only the room reminded him of his best friend...</target>
+      </segment>
+    </unit>
+    <unit id="wants_walkies">
+      <segment id="description" state="translated">
+        <source>wants_walkies.description</source>
+        <target>Pavlov is barking like crazy at the sight of the planet... It's walkies time! Sadly, we don't have a canine spacesuit...</target>
+      </segment>
+    </unit>
+    <unit id="playtime_solo">
+      <segment id="description" state="translated">
+        <source>playtime_solo.description</source>
+        <target>Two's company, but three's a crowd... Get the hint.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1156,6 +1156,9 @@ class ActionsFixtures extends Fixture
             ->setSuccessRate(100);
         $manager->persist($openContainerCost0);
 
+        $playWithDog = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PLAY_WITH_DOG));
+        $manager->persist($playWithDog);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1303,5 +1306,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::UPGRADE_NERON->value, $upgradeNeron);
         $this->addReference(ActionEnum::DECODE_REBEL_SIGNAL->value, $decodeRebelSignal);
         $this->addReference(ActionEnum::CONTACT_XYLOPH->value, $contactXyloph);
+        $this->addReference(ActionEnum::PLAY_WITH_DOG->value, $playWithDog);
     }
 }

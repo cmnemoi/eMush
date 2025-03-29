@@ -73,6 +73,8 @@ export enum UiIconEnum {
     //watch icon from the cycle timer
     CASIO = 'casio',
     WATCH = 'watch', //Alternative spelling for players
+
+    DOG = 'dog',
 }
 
 export const UiIconIcons: {[index: string]: string} = {
@@ -118,6 +120,7 @@ export const UiIconIcons: {[index: string]: string} = {
     [UiIconEnum.HULL]: getImgUrl('shield.png'),
     [UiIconEnum.SHIELD]: getImgUrl('shield.png'),
     [UiIconEnum.CASIO]: getImgUrl('casio.png'),
-    [UiIconEnum.WATCH]: getImgUrl('casio.png')
+    [UiIconEnum.WATCH]: getImgUrl('casio.png'),
+    [UiIconEnum.DOG]: getImgUrl('ui_icons/dog.png')
 }
 ;

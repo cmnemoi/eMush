@@ -254,6 +254,19 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($schrodinger);
 
+        /** @var ActionConfig $playWithDogAction */
+        $playWithDogAction = $this->getReference(ActionEnum::PLAY_WITH_DOG->value);
+
+        $pavlov = new ItemConfig();
+        $pavlov
+            ->setEquipmentName(ItemEnum::PAVLOV)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(false)
+            ->setActionConfigs([$examineAction, $playWithDogAction])
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($pavlov);
+
         // @TODO add coffee thermos, lunchbox, survival kit
 
         $gameConfig
@@ -270,7 +283,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addEquipmentConfig($oxygenCapsule)
             ->addEquipmentConfig($fuelCapsule)
             ->addEquipmentConfig($drone)
-            ->addEquipmentConfig($schrodinger);
+            ->addEquipmentConfig($schrodinger)
+            ->addEquipmentConfig($pavlov);
         $manager->persist($gameConfig);
 
         $manager->flush();

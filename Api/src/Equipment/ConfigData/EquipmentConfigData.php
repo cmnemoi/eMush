@@ -4495,6 +4495,23 @@ class EquipmentConfigData
             ],
             'initStatuses' => [],
         ],
+        [
+            'name' => 'pavlov_default',
+            'equipmentName' => ItemEnum::PAVLOV,
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'examine',
+                'play_with_dog',
+            ],
+            'mechanics' => [],
+            'initStatuses' => [],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

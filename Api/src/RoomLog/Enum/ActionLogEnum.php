@@ -171,6 +171,7 @@ abstract class ActionLogEnum
     public const string UPGRADE_NERON_SUCCESS = 'upgrade_neron_success';
     public const string UPGRADE_NERON_FAIL = 'upgrade_neron_fail';
     public const string DECODE_REBEL_SIGNAL_SUCCESS = 'decode_rebel_signal_success';
+    public const string PLAY_WITH_DOG = 'play_with_dog';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -587,6 +588,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::DECODE_REBEL_SIGNAL->value => [
             ActionOutputEnum::SUCCESS => self::DECODE_REBEL_SIGNAL_SUCCESS,
+        ],
+        ActionEnum::PLAY_WITH_DOG->value => [
+            ActionOutputEnum::SUCCESS => self::PLAY_WITH_DOG,
         ],
     ];
 

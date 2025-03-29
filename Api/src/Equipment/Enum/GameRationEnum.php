@@ -17,4 +17,20 @@ abstract class GameRationEnum
     public const STANDARD_RATION = 'standard_ration';
     public const SUPERVITAMIN_BAR = 'supervitamin_bar';
     public const NULL = '';
+
+    public static function getAllRations(): array
+    {
+        return [
+            self::LOMBRICK_BAR,
+            self::ORGANIC_WASTE,
+            self::PROACTIVE_PUFFED_RICE,
+            self::ALIEN_STEAK,
+            self::ANABOLIC,
+            self::COFFEE,
+            self::COOKED_RATION,
+            self::SPACE_POTATO,
+            self::STANDARD_RATION,
+            self::SUPERVITAMIN_BAR,
+        ];
+    }
 }

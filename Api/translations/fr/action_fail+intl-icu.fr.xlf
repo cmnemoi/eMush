@@ -738,5 +738,89 @@
         <target>NERON a atteint son numéro de version maximal.</target>
       </segment>
     </unit>
+    <unit id="dog_is_seasick">
+      <segment id="description" state="translated">
+        <source>dog_is_seasick.description</source>
+        <target>Pavlov semble un peu barbouillé... Il vaut mieux attendre que le vaisseau soit immobile.</target>
+      </segment>
+    </unit>
+    <unit id="dog_is_worried">
+      <segment id="description" state="translated">
+        <source>dog_is_worried.description</source>
+        <target>Pavlov semble inquiété par le grondement des hunters qui canardent le vaisseau.</target>
+      </segment>
+    </unit>
+    <unit id="bothering_cat">
+      <segment id="description" state="translated">
+        <source>bothering_cat.description</source>
+        <target>Pavlov est déjà en train d'embêter Schrodinger.</target>
+      </segment>
+    </unit>
+    <unit id="distracted_by_food">
+      <segment id="description" state="translated">
+        <source>distracted_by_food.description</source>
+        <target>Pavlov renifle les environs, alléché par la nourriture qui traîne...</target>
+      </segment>
+    </unit>
+    <unit id="distracted_by_plant">
+      <segment id="description" state="translated">
+        <source>distracted_by_plant.description</source>
+        <target>Shh... Pavlov se repose à l'ombre d'une plante en pot. Ceci n'est pas le bon moment pour l'embêter...</target>
+      </segment>
+    </unit>
+    <unit id="distracted_by_broken_fuel_tank">
+      <segment id="description" state="translated">
+        <source>distracted_by_broken_fuel_tank.description</source>
+        <target>Comment ça, vous voulez jouer avec Pavlov quand il y a des réservoirs de fuel à réparer? Quelle honte.</target>
+      </segment>
+    </unit>
+    <unit id="need_a_ball">
+      <segment id="description" state="translated">
+        <source>need_a_ball.description</source>
+        <target>Il semble difficile de jouer à rapporter la balle... sans balle.</target>
+      </segment>
+    </unit>
+    <unit id="hands_full">
+      <segment id="description" state="translated">
+        <source>hands_full.description</source>
+        <target>Vous avez trop de choses sur vous... Impossible de bien jeter avec vos mains pleines!</target>
+      </segment>
+    </unit>
+    <unit id="room_too_messy">
+      <segment id="description" state="translated">
+        <source>room_too_messy.description</source>
+        <target>Quel bazar là dedans! Impossible de trouver un bon angle pour jeter la balle.</target>
+      </segment>
+    </unit>
+    <unit id="room_too_small">
+      <segment id="description" state="translated">
+        <source>room_too_small.description</source>
+        <target>Pas facile d'envoyer chercher quand on touche les murs des deux bras...</target>
+      </segment>
+    </unit>
+    <unit id="room_too_tight">
+      <segment id="description" state="translated">
+        <source>room_too_tight.description</source>
+        <target>Il n'y a pas assez de place pour manoeuvrer ici...</target>
+      </segment>
+    </unit>
+    <unit id="room_too_sad">
+      <segment id="description" state="translated">
+        <source>room_too_sad.description</source>
+        <target>Presque, mais... Pavlov se sent esseulé. Peut être qu'une pièce qui lui rappelle son meilleur ami...</target>
+      </segment>
+    </unit>
+    <unit id="wants_walkies">
+      <segment id="description" state="translated">
+        <source>wants_walkies.description</source>
+        <target>Pavlov aboie comme un fou! Vu la planète, ça doit l'heure de la promenade! Mais sans combinaison spatiale adaptée, on peut oublier...</target>
+      </segment>
+    </unit>
+    <unit id="playtime_solo">
+      <segment id="description" state="translated">
+        <source>playtime_solo.description</source>
+        <target>Jouer avec Pavlov est un moment spécial. C'est un tête-à-tête, pas plus, pas moins.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

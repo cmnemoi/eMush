@@ -95,6 +95,11 @@ abstract class LogEnum
     public const string RESEARCH_COMPLETED = 'research_completed';
     public const string MYCO_ALARM_RING = 'myco_alarm_ring';
     public const string GERMAPHOBE_MORALE_LOSS = 'germaphobe_morale_loss';
+    public const string AWAKEN_PAVLOV = 'awaken_pavlov';
+    public const string DOG_BARK = 'dog_bark';
+    public const string DOG_BOTHER_CAT = 'dog_bother_cat';
+    public const string NPC_EXITED_ROOM = 'npc_exited_room';
+    public const string NPC_ENTERED_ROOM = 'npc_entered_room';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

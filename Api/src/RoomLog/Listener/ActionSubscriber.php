@@ -284,6 +284,9 @@ final class ActionSubscriber implements EventSubscriberInterface
         if ($this->schrodingerInRoomOrPlayerInventory($event) && $this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
             $this->createCatMeowLog($event);
         }
+        if ($this->pavlovInRoom($event) && $this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE * 2)) {
+            $this->createDogBarkLog($event);
+        }
     }
 
     private function shotAtCatAndFailed(ActionEvent $event): bool
@@ -308,6 +311,24 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
 
         return false;
+    }
+
+    private function pavlovInRoom(ActionEvent $event): bool
+    {
+        return $event->getPlace()->hasEquipmentByName(ItemEnum::PAVLOV);
+    }
+
+    private function createDogBarkLog(ActionEvent $event): void
+    {
+        $this->roomLogService->createLog(
+            LogEnum::DOG_BARK,
+            $event->getPlace(),
+            VisibilityEnum::PUBLIC,
+            'event_log',
+            $event->getAuthor(),
+            [LogParameterKeyEnum::ITEM => ItemEnum::PAVLOV],
+            $event->getTime()
+        );
     }
 
     private function createCatMeowLog(ActionEvent $event): void

@@ -116,4 +116,13 @@ class RoomEnum
             self::REAR_BRAVO_TURRET,
         ]);
     }
+
+    public static function getCorridors(): ArrayCollection
+    {
+        return new ArrayCollection([
+            self::REAR_CORRIDOR,
+            self::FRONT_CORRIDOR,
+            self::CENTRAL_CORRIDOR,
+        ]);
+    }
 }

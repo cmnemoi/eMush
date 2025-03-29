@@ -1156,5 +1156,65 @@
         <target>You feel dirty... This saddens you.</target>
       </segment>
     </unit>
+    <unit id="awaken_pavlov">
+      <segment id="awaken_pavlov" state="translated">
+        <source>awaken_pavlov</source>
+        <target>**{target_equipment}** is here.</target>
+      </segment>
+    </unit>
+        <unit id="dog_bark">
+      <segment id="dog_bark" state="translated">
+        <source>dog_bark</source>
+        <target>:dog: **{equipment} :** {version, select,
+                    1{bark}
+                    2{bark bark!}
+	                  3{bark bark bark!!}
+	                  4{arf arf arf arf}
+	                  5{yip yap yip!}
+	                  6{awooooooo!}
+	                  7{awoowoooooooo}
+	                  8{*tail wags wildly*}
+	                  9{bork!}
+	                  10{*pants happily*}
+	                  11{aaaaarrrwf!}
+	                  12{woof}
+	                  13{woof woof!!}
+	                  14{bwof!}
+	                  15{awOOOOOOOOOO}
+	                  16{MEOW!}
+	                  17{*tilts head*}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="npc_entered_room">
+      <segment state="translated">
+        <source>npc_entered_room</source>
+        <target>{equipment, select,
+        pavlov{:dog: }
+        other{}
+        }**{equipment}** entered the room.</target>
+      </segment>
+    </unit>
+    <unit id="npc_exited_room">
+      <segment state="translated">
+        <source>npc_exited_room</source>
+        <target>{equipment, select,
+        pavlov{:dog: }
+        other{}
+        }**{equipment}** left the room.</target>
+      </segment>
+    </unit>
+    <unit id="dog_bother_cat">
+      <segment state="translated">
+        <source>dog_bother_cat</source>
+        <target>{version, select,
+                1{:dog: **Pavlov** approaches :cat: **Schrödinger** in a predatory manner... and play-pounces! The cat hisses and trashes, having an awful time.}
+                2{:cat: **Schrödinger** keeps its gaze fixed on :dog: **Pavlov** as the dog circles around him... the cat preemptively hisses, before the nuisance gets any funny ideas.}
+                3{:dog: **Pavlov** suddenly barks the loudest bark! It startles the poor, sleeping :cat: **Schrödinger** so hard that he springs into the air and clatters up to the highest hiding spot he can find.}
+                4{:dog: **Palvov** tries its best to get :cat: **Schrödinger**'s attention. The puss's tail thumps repeatedly, his patience wearing thin.}
+                other{invalid version input}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

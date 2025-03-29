@@ -1061,5 +1061,11 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>**{character}** has successfully completed the update. The version number of NERON has increased. The surplus CPU processing power freed up by a happier NERON has been injected into a project.</target>
       </segment>
     </unit>
+    <unit id="play_with_dog">
+      <segment id="play_with_dog" state="translated">
+        <source>play_with_dog</source>
+        <target>After much blood, sweat and tears, **{character}** has finally gotten the stars to align. Everything is just right, the location, the time, a ball, the vibes... {character_gender, select, male {He shares} female {She shares} other {They share}} a transcendental moment, playing catch with **Pavlov**, all is good with the world. A few minutes later, while still recovering from the excitement, **Pavlov** approaches **{character}** with a look on its face that conveys "I have to go now. My planet needs me." **Pavlov** fades away into inexistence. **{character}** weeps.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

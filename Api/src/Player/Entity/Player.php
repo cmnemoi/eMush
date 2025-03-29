@@ -607,16 +607,21 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function hasSkill(SkillEnum $skillName): bool
     {
-        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
+        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName)
+        || $skillName->isPolyvalentSkill()
+        && $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === SkillEnum::POLYVALENT);
     }
 
     /** @param array<SkillEnum> $expectedSkills */
     public function hasAnySkill(array $expectedSkills): bool
     {
-        $expectedSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $expectedSkills);
-        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getNameAsString())->toArray();
+        foreach ($expectedSkills as $skill) {
+            if ($this->hasSkill($skill)) {
+                return true;
+            }
+        }
 
-        return \count(array_intersect($playerSkills, $expectedSkills)) > 0;
+        return false;
     }
 
     public function doesNotHaveSkill(SkillEnum $skillName): bool
@@ -1209,7 +1214,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     public function canReadPlantProperties(GameEquipment $plant): bool
     {
-        return $plant->isAPlant() && $this->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]);
+        return $plant->isAPlant() && $this->hasSkill(SkillEnum::BOTANIST);
     }
 
     public function shouldBeHurtByShower(): bool
@@ -1232,11 +1237,6 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     public function hasFilledTheirMushSkillSlots(): bool
     {
         return $this->getMushSkills()->count() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
-    }
-
-    public function cannotLearnSkill(SkillEnum $skill): bool
-    {
-        return $this->hasSkill($skill) || ($this->hasSkill(SkillEnum::POLYVALENT) && $skill->isPolyvalentSkill());
     }
 
     public function addReceivedMission(CommanderMission $mission): static
@@ -1369,10 +1369,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int
     {
-        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getName()->toString())->toArray();
-        $playerSkills = $this->unpackPolyvalentSkill($playerSkills);
-        $bonusSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $project->getBonusSkills());
-        $numberOfSkillsMatching = \count(array_intersect($playerSkills, $bonusSkills));
+        $numberOfSkillsMatching = $this->getNumberOfMatchingSkills($project->getBonusSkills());
 
         return $efficiency + $numberOfSkillsMatching * Project::SKILL_BONUS;
     }
@@ -1426,12 +1423,12 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
 
     private function canReadFruitProperties(GameEquipment $food): bool
     {
-        return $food->isAFruit() && $this->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]);
+        return $food->isAFruit() && $this->hasSkill(SkillEnum::BOTANIST);
     }
 
     private function canReadDrugProperties(GameEquipment $food): bool
     {
-        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT, SkillEnum::BIOLOGIST, SkillEnum::MEDIC]);
+        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::BIOLOGIST, SkillEnum::MEDIC]);
     }
 
     private function removeDuplicateActions(array $actions): array
@@ -1456,15 +1453,16 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             ->getDelta();
     }
 
-    private function unpackPolyvalentSkill(array $skills): array
+    /** @param array<SkillEnum> $expectedSkills */
+    private function getNumberOfMatchingSkills(array $expectedSkills): int
     {
-        if (\in_array(SkillEnum::POLYVALENT->toString(), $skills, true)) {
-            $skills = array_diff($skills, [SkillEnum::POLYVALENT->toString()]);
-            $polyvalentSkills = [SkillEnum::BIOLOGIST, SkillEnum::BOTANIST, SkillEnum::DIPLOMAT];
-            $polyvalentSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $polyvalentSkills);
-            $skills = array_unique(array_merge($skills, $polyvalentSkills));
+        $result = 0;
+        foreach ($expectedSkills as $skill) {
+            if ($this->hasSkill($skill)) {
+                ++$result;
+            }
         }
 
-        return $skills;
+        return $result;
     }
 }

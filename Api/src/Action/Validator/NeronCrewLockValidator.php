@@ -49,7 +49,7 @@ final class NeronCrewLockValidator extends ConstraintValidator
         return match ($crewLock) {
             NeronCrewLockEnum::PILOTING->value => [SkillEnum::PILOT],
             NeronCrewLockEnum::PROJECTS->value => [SkillEnum::CONCEPTOR],
-            NeronCrewLockEnum::RESEARCH->value => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
+            NeronCrewLockEnum::RESEARCH->value => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
             default => [],
         };
     }

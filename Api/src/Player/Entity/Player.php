@@ -1370,6 +1370,7 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
     private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int
     {
         $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getName()->toString())->toArray();
+        $playerSkills = $this->unpackPolyvalentSkill($playerSkills);
         $bonusSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $project->getBonusSkills());
         $numberOfSkillsMatching = \count(array_intersect($playerSkills, $bonusSkills));
 
@@ -1453,5 +1454,17 @@ class Player implements StatusHolderInterface, LogParameterInterface, ModifierHo
             ->getModifierByModifierNameOrThrow(ModifierNameEnum::HYGIENIST_DISEASE_MODIFIER)
             ->getVariableModifierConfigOrThrow()
             ->getDelta();
+    }
+
+    private function unpackPolyvalentSkill(array $skills): array
+    {
+        if (\in_array(SkillEnum::POLYVALENT->toString(), $skills, true)) {
+            $skills = array_diff($skills, [SkillEnum::POLYVALENT->toString()]);
+            $polyvalentSkills = [SkillEnum::BIOLOGIST, SkillEnum::BOTANIST, SkillEnum::DIPLOMAT];
+            $polyvalentSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $polyvalentSkills);
+            $skills = array_unique(array_merge($skills, $polyvalentSkills));
+        }
+
+        return $skills;
     }
 }

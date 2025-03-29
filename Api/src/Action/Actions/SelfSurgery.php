@@ -16,6 +16,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -39,6 +40,7 @@ class SelfSurgery extends AbstractAction
     public const FAIL_CHANCES = 10;
     public const CRITICAL_SUCCESS_CHANCES = 5;
     protected ActionEnum $name = ActionEnum::SELF_SURGERY;
+    protected DiseaseCauseServiceInterface $diseaseCauseService;
 
     private RandomServiceInterface $randomService;
 
@@ -47,6 +49,7 @@ class SelfSurgery extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
+        DiseaseCauseServiceInterface $diseaseCauseService,
     ) {
         parent::__construct(
             $eventService,
@@ -55,6 +58,7 @@ class SelfSurgery extends AbstractAction
         );
 
         $this->randomService = $randomService;
+        $this->diseaseCauseService = $diseaseCauseService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -126,14 +130,7 @@ class SelfSurgery extends AbstractAction
 
     private function failedSurgery(): void
     {
-        $diseaseEvent = new ApplyEffectEvent(
-            $this->player,
-            $this->player,
-            VisibilityEnum::PUBLIC,
-            [ActionEnum::SURGERY],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
+        $this->diseaseCauseService->handleDiseaseForCause(ActionEnum::SURGERY->toString(), $this->player);
     }
 
     private function getModifiedPercentage(int $percentage, string $mode = ActionVariableEnum::PERCENTAGE_SUCCESS): int

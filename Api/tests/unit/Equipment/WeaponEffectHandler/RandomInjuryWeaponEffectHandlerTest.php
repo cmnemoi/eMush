@@ -6,12 +6,7 @@ namespace Mush\tests\unit\Equipment\WeaponEffectHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Disease\ConfigData\DiseaseConfigData;
-use Mush\Disease\Entity\Config\DiseaseCauseConfig;
-use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\DiseaseCauseEnum;
-use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Repository\InMemoryPlayerDiseaseRepository;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Disease\Service\DiseaseCauseService;
@@ -42,19 +37,7 @@ final class RandomInjuryWeaponEffectHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $diseaseCauseConfig = new DiseaseCauseConfig();
-        $diseaseCauseConfig
-            ->setName(DiseaseCauseEnum::RANDOM_INJURY . '_default')
-            ->setCauseName(DiseaseCauseEnum::RANDOM_INJURY)
-            ->setDiseases([InjuryEnum::BURNS_90_OF_BODY => 1]);
-
-        $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BURNS_90_OF_BODY));
-
         $this->daedalus = DaedalusFactory::createDaedalus();
-        $gameConfig = $this->daedalus
-            ->getGameConfig()
-            ->addDiseaseConfig($diseaseConfig)
-            ->addDiseaseCauseConfig($diseaseCauseConfig);
 
         /** @var EventServiceInterface|Stub $eventService */
         $eventService = $this->createStub(EventServiceInterface::class);

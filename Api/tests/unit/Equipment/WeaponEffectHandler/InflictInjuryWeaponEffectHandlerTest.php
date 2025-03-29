@@ -6,8 +6,6 @@ namespace Mush\tests\unit\Equipment\WeaponEffectHandler;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Disease\ConfigData\DiseaseConfigData;
-use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Repository\InMemoryPlayerDiseaseRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -136,21 +134,12 @@ final class InflictInjuryWeaponEffectHandlerTest extends TestCase
 
     private function setupDaedalusAndPlayers(): void
     {
-        $this->daedalus = $this->createDaedalus();
+        $this->daedalus = DaedalusFactory::createDaedalus();
         $this->attacker = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
         $this->target = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
         $this->blaster = GameEquipmentFactory::createItemByNameForHolder(
             name: ItemEnum::BLASTER,
             holder: $this->attacker,
         );
-    }
-
-    private function createDaedalus(): Daedalus
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::DAMAGED_EARS));
-        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
-
-        return $daedalus;
     }
 }

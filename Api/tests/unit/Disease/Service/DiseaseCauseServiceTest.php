@@ -9,6 +9,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Disease\ConfigData\DiseaseConfigData;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\ConsumableDisease;
@@ -166,12 +167,7 @@ final class DiseaseCauseServiceTest extends TestCase
 
     public function testConsumableWithDiseases()
     {
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setDiseaseName(DiseaseEnum::FOOD_POISONING);
-
         $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
-
         $player = new Player();
         $player->setDaedalus($daedalus);
 
@@ -205,11 +201,7 @@ final class DiseaseCauseServiceTest extends TestCase
 
     public function testConsumableWithCures()
     {
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setDiseaseName(DiseaseEnum::FOOD_POISONING);
-
         $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
 
         $player = new Player();
         $player->setDaedalus($daedalus);
@@ -238,7 +230,7 @@ final class DiseaseCauseServiceTest extends TestCase
         $playerDisease = new PlayerDisease();
         $playerDisease
             ->setPlayer($player)
-            ->setDiseaseConfig($diseaseConfig);
+            ->setDiseaseConfig(DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(DiseaseEnum::FOOD_POISONING)));
         $player->addMedicalCondition($playerDisease);
         $this->playerDiseaseRepository->save($playerDisease);
 

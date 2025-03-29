@@ -15,6 +15,10 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Disease\ConfigData\DiseaseCauseConfigData;
+use Mush\Disease\ConfigData\DiseaseConfigData;
+use Mush\Disease\Entity\Config\DiseaseCauseConfig;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -57,6 +61,8 @@ final class DaedalusFactory
         $gameConfig->setHunterConfigs(self::getHunterConfigs());
         $gameConfig->setEquipmentsConfig(self::getEquipmentConfigs());
         $gameConfig->setTradeConfigs(self::getTradeConfigs());
+        $gameConfig->setDiseaseCauseConfig(self::getDiseaseCauseConfigs());
+        $gameConfig->setDiseaseConfig(self::getDiseaseConfigs());
 
         return $daedalus;
     }
@@ -179,5 +185,27 @@ final class DaedalusFactory
         }
 
         return $tradeConfigs;
+    }
+
+    private static function getDiseaseCauseConfigs(): ArrayCollection
+    {
+        /** @var ArrayCollection<array-key, DiseaseCauseConfig> $diseaseCauseConfigs */
+        $diseaseCauseConfigs = new ArrayCollection();
+        foreach (DiseaseCauseConfigData::$dataArray as $diseaseCauseConfigData) {
+            $diseaseCauseConfigs->add(DiseaseCauseConfig::fromConfigData($diseaseCauseConfigData));
+        }
+
+        return $diseaseCauseConfigs;
+    }
+
+    private static function getDiseaseConfigs(): ArrayCollection
+    {
+        /** @var ArrayCollection<array-key, DiseaseConfig> $diseaseConfigs */
+        $diseaseConfigs = new ArrayCollection();
+        foreach (DiseaseConfigData::$dataArray as $diseaseConfigData) {
+            $diseaseConfigs->add(DiseaseConfig::fromConfigData($diseaseConfigData));
+        }
+
+        return $diseaseConfigs;
     }
 }

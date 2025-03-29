@@ -8,6 +8,7 @@ use Mush\Action\Actions\Surgery;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\ToolItemEnum;
@@ -110,6 +111,8 @@ final class SurgeryCest extends AbstractFunctionalTest
 
         $this->givenKuanTiIsInjured();
 
+        $this->givenKuanTiIsLaidDown();
+
         $this->givenSurgeryFailRateIs(100);
 
         $this->givenSurgeryCriticalRateIs(0);
@@ -117,6 +120,23 @@ final class SurgeryCest extends AbstractFunctionalTest
         $this->whenChunMakesASurgeryOnKuanTi();
 
         $this->thenKuanTiShouldHaveAnInjury($I);
+    }
+
+    public function shouldCreateSepsisOnFail(FunctionalTester $I): void
+    {
+        $this->givenChunHasMedikit();
+
+        $this->givenKuanTiIsInjured();
+
+        $this->givenKuanTiIsLaidDown();
+
+        $this->givenSurgeryFailRateIs(100);
+
+        $this->givenSurgeryCriticalRateIs(0);
+
+        $this->whenChunMakesASurgeryOnKuanTi();
+
+        $this->thenKuanTiShouldHaveASepsis($I);
     }
 
     private function givenKuanTiIsInjured(): void
@@ -196,5 +216,10 @@ final class SurgeryCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveAnInjury(FunctionalTester $I): void
     {
         $I->assertNotNull($this->kuanTi->getMedicalConditionByName(InjuryEnum::BROKEN_FINGER));
+    }
+
+    private function thenKuanTiShouldHaveASepsis(FunctionalTester $I): void
+    {
+        $I->assertNotNull($this->kuanTi->getMedicalConditionByName(DiseaseEnum::SEPSIS), 'Kuan Ti should have sepsis');
     }
 }

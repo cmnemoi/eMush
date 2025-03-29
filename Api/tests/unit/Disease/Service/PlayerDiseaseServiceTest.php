@@ -14,7 +14,6 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\InjuryEnum;
-use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\InMemoryPlayerDiseaseRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -288,7 +287,7 @@ final class PlayerDiseaseServiceTest extends TestCase
 
     public function testHygienistShouldPreventPhysicialDiseaseCreation(): void
     {
-        $daedalus = $this->givenADaedalusWithDisease(DiseaseEnum::ACID_REFLUX);
+        $daedalus = DaedalusFactory::createDaedalus();
 
         $player = $this->givenPlayerWithHygienistSkill($daedalus);
 
@@ -299,35 +298,13 @@ final class PlayerDiseaseServiceTest extends TestCase
 
     public function testHygienistShouldNotPreventDisorderCreation(): void
     {
-        $daedalus = $this->givenADaedalusWithDisorder(DisorderEnum::AGORAPHOBIA);
+        $daedalus = DaedalusFactory::createDaedalus();
 
         $player = $this->givenPlayerWithHygienistSkill($daedalus);
 
         $this->whenDiseaseIsCreatedForPlayer(DisorderEnum::AGORAPHOBIA, $player);
 
         $this->thenPlayerShouldHaveDisease($player, DisorderEnum::AGORAPHOBIA);
-    }
-
-    private function givenADaedalusWithDisease(string $diseaseName): Daedalus
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig->setDiseaseName($diseaseName);
-        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
-
-        return $daedalus;
-    }
-
-    private function givenADaedalusWithDisorder(string $disorderName): Daedalus
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $diseaseConfig = new DiseaseConfig();
-        $diseaseConfig
-            ->setDiseaseName($disorderName)
-            ->setType(MedicalConditionTypeEnum::DISORDER);
-        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
-
-        return $daedalus;
     }
 
     private function givenPlayerWithHygienistSkill(Daedalus $daedalus): Player

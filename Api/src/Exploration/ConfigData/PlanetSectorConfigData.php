@@ -34,8 +34,9 @@ final class PlanetSectorConfigData
             'maxPerPlanet' => 4,
             'explorationEvents' => [
                 PlanetSectorEvent::HARVEST_2 => 4,
-                PlanetSectorEvent::DISEASE => 3,
-                PlanetSectorEvent::AGAIN => 1,
+                PlanetSectorEvent::AGAIN => 3,
+                PlanetSectorEvent::DISEASE => 2,
+                PlanetSectorEvent::PLAYER_LOST => 1,
             ],
         ],
         [

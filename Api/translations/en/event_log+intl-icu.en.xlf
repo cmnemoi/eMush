@@ -1162,7 +1162,7 @@
         <target>**{target_equipment}** is here.</target>
       </segment>
     </unit>
-        <unit id="dog_bark">
+    <unit id="dog_bark">
       <segment id="dog_bark" state="translated">
         <source>dog_bark</source>
         <target>:dog: **{equipment} :** {version, select,
@@ -1214,6 +1214,17 @@
                 3{:dog: **Pavlov** suddenly barks the loudest bark! It startles the poor, sleeping :cat: **Schrödinger** so hard that he springs into the air and clatters up to the highest hiding spot he can find.}
                 4{:dog: **Palvov** tries its best to get :cat: **Schrödinger**'s attention. The puss's tail thumps repeatedly, his patience wearing thin.}
                 other{invalid version input}}</target>
+      </segment>
+    </unit>
+    <unit id="trade_assets_created">
+      <segment state="translated">
+        <source>trade_assets_created</source>
+        <target>{quantity, plural,
+        one {{equipment_first_letter, select, 
+             consonant {A **{equipment}** has been teleported to the bridge! Let everyone know...}
+             other {An **{equipment}** has been teleported to the bridge! Let everyone know...}
+        other {A delivery of # **{equipment_plural_name}** has been teleported to the bridge! Alien technology is cool!}
+        }</target>
       </segment>
     </unit>
   </file>

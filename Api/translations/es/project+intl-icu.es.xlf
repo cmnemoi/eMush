@@ -1189,5 +1189,23 @@
         <target>ultra_healing_pomade.lore</target>
       </segment>
     </unit>
+    <unit id="guarana_cappuccino">
+      <segment id="guarana_cappuccino.type" state="initial">
+        <source>guarana_cappuccino.type</source>
+        <target>guarana_cappuccino.type</target>
+      </segment>
+      <segment id="guarana_cappuccino.name" state="initial">
+        <source>guarana_cappuccino.name</source>
+        <target>guarana_cappuccino.name</target>
+      </segment>
+      <segment id="guarana_cappuccino.description" state="initial">
+        <source>guarana_cappuccino.description</source>
+        <target>guarana_cappuccino.description</target>
+      </segment>
+      <segment id="guarana_cappuccino.lore" state="initial">
+        <source>guarana_cappuccino.lore</source>
+        <target>guarana_cappuccino.lore</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

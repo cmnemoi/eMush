@@ -2465,13 +2465,13 @@ L'archétype de ces objets stellaires qui sont toujours rangés exactement là o
       </segment>
       <segment id="description" state="translated">
         <source>fuel_capsule.description</source>
-        <target>La capsule de fuel permet de déplacer du fuel depuis un réservoir vers les moteurs
+        <target>La capsule de fuel permet de déplacer du fuel depuis un réservoir vers les moteurs.//
 Contient 1 unité de Fuel.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>fuel_capsule.examine</source>
-        <target>La capsule de fuel permet de déplacer du fuel depuis un réservoir vers les moteurs
-Contient 1 unité de Fuel.
+        <target>La capsule de fuel permet de déplacer du fuel depuis un réservoir vers les moteurs.//
+Contient 1 unité de Fuel.//
 Permet de charger du carburant pour le déplacer dans le module de combustion.</target>
       </segment>
     </unit>
@@ -2502,7 +2502,7 @@ Permet de charger du carburant pour le déplacer dans le module de combustion.</
       </segment>
       <segment id="examine" state="translated">
         <source>hydropot.examine</source>
-        <target>L'HydroPot permet de **semer un fruit** et de développer ainsi le Jardin.
+        <target>L'HydroPot permet de **semer un fruit** et de développer ainsi le Jardin.//
 Permet d'accueillir une plante du jardin hydroponique.</target>
       </segment>
     </unit>
@@ -2529,13 +2529,13 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
       </segment>
       <segment id="description" state="translated">
         <source>lunchbox.description</source>
-        <target>Oh des Rations ! Un petit plaisir à partager.
+        <target>Oh des Rations ! Un petit plaisir à partager.//
 Contient {quantity} x Rations standards.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
-        <target>Oh des Rations ! Un petit plaisir à partager.
-Contient {quantity} x Rations standards.
+        <target>Oh des Rations ! Un petit plaisir à partager.//
+Contient {quantity} x Rations standards.//
 L'équivalent galactique de la soupe chaude quand le zéro absolu vous guette.</target>
       </segment>
     </unit>
@@ -2566,7 +2566,7 @@ L'équivalent galactique de la soupe chaude quand le zéro absolu vous guette.</
       </segment>
       <segment id="examine" state="translated">
         <source>oxygen_capsule.examine</source>
-        <target>La capsule d'oxygène renferme une unité standard d'oxygène. Elle peut être remise dans le circuit via les réservoirs dans les salles de stockage.
+        <target>La capsule d'oxygène renferme une unité standard d'oxygène. Elle peut être remise dans le circuit via les réservoirs dans les salles de stockage.//
 La capsule OxyTron de la société AirGaz Permet de déplacer de l'oxygène sous forme liquide. Par bonheur, la pellicule de protection est quasi inviolable.</target>
       </segment>
     </unit>

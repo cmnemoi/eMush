@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="trade.ext">
+    <!-- Trade types -->
+    <unit id="human_vs_oxy">
+      <segment id="human_vs_oxy" state="initial">
+        <source>human_vs_oxy</source>
+        <target>human_vs_oxy</target>
+      </segment>
+    </unit>
+    <unit id="forest_deal">
+      <segment id="forest_deal" state="initial">
+        <source>forest_deal</source>
+        <target>forest_deal</target>
+      </segment>
+    </unit>
+    <unit id="pilgredissim">
+      <segment id="pilgredissim" state="initial">
+        <source>pilgredissim</source>
+        <target>pilgredissim</target>
+      </segment>
+    </unit>
+    <unit id="good_projections">
+      <segment id="good_projections" state="initial">
+        <source>good_projections</source>
+        <target>good_projections</target>
+      </segment>
+    </unit>
+    <unit id="techno_rewrite">
+      <segment id="techno_rewrite" state="initial">
+        <source>techno_rewrite</source>
+        <target>techno_rewrite</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_fuel">
+      <segment id="human_vs_fuel" state="initial">
+        <source>human_vs_fuel</source>
+        <target>human_vs_fuel</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_tree">
+      <segment id="human_vs_tree" state="initial">
+        <source>human_vs_tree</source>
+        <target>human_vs_tree</target>
+      </segment>
+    </unit>
+    <!-- Asset types -->
+    <unit id="random_player">
+      <segment id="random_player" state="initial">
+        <source>random_player</source>
+        <target>random_player</target>
+      </segment>
+    </unit>
+    <unit id="oxygen">
+      <segment id="oxygen" state="initial">
+        <source>oxygen</source>
+        <target>oxygen</target>
+      </segment>
+    </unit>
+    <unit id="fuel">
+      <segment id="fuel" state="initial">
+        <source>fuel</source>
+        <target>fuel</target>
+      </segment>
+    </unit>
+    <unit id="hydropot">
+      <segment id="hydropot" state="initial">
+        <source>hydropot</source>
+        <target>hydropot</target>
+      </segment>
+    </unit>
+    <unit id="oxygen_capsule">
+      <segment id="oxygen_capsule" state="initial">
+        <source>oxygen_capsule</source>
+        <target>oxygen_capsule</target>
+      </segment>
+    </unit>
+    <unit id="fuel_capsule">
+      <segment id="fuel_capsule" state="initial">
+        <source>fuel_capsule</source>
+        <target>fuel_capsule</target>
+      </segment>
+    </unit>
+    <unit id="microwave">
+      <segment id="microwave" state="initial">
+        <source>microwave</source>
+        <target>microwave</target>
+      </segment>
+    </unit>
+    <unit id="blaster">
+      <segment id="blaster" state="initial">
+        <source>blaster</source>
+        <target>blaster</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="pilgred" state="initial">
+        <source>pilgred</source>
+        <target>pilgred</target>
+      </segment>
+    </unit>
+    <unit id="random_project">
+      <segment id="random_project" state="initial">
+        <source>random_project</source>
+        <target>random_project</target>
+      </segment>
+    </unit>
+    <unit id="standard_ration">
+      <segment id="standard_ration" state="initial">
+        <source>standard_ration</source>
+        <target>standard_ration</target>
+      </segment>
+    </unit>
+    <unit id="metal_scraps">
+      <segment id="metal_scraps" state="initial">
+        <source>metal_scraps</source>
+        <target>metal_scraps</target>
+      </segment>
+    </unit>
+    <unit id="plastic_scraps">
+      <segment id="plastic_scraps" state="initial">
+        <source>plastic_scraps</source>
+        <target>plastic_scraps</target>
+      </segment>
+    </unit>
+    <unit id="ian">
+      <segment id="ian" state="initial">
+        <source>ian</source>
+        <target>ian</target>
+      </segment>
+    </unit>
+    <!-- Trade option description -->
+    <unit id="trade_option">
+      <segment id="trade_option" state="initial">
+        <source>trade_option</source>
+        <target>trade_option</target>
+      </segment>
+    </unit>
+    <unit id="trade_conditions_not_met">
+      <segment id="trade_conditions_not_met" state="initial">
+        <source>trade_conditions_not_met</source>
+        <target>trade_conditions_not_met</target>
+      </segment>
+    </unit>
+    <!-- Trade option names -->
+    <unit id="human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules">
+      <segment id="human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules" state="initial">
+        <source>human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules</source>
+        <target>human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules">
+      <segment id="human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules" state="initial">
+        <source>human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules</source>
+        <target>human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules">
+      <segment id="human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules" state="initial">
+        <source>human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules</source>
+        <target>human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules</target>
+      </segment>
+    </unit>
+    <unit id="techno_rewrite_two_random_projects_vs_one_random_project">
+      <segment id="techno_rewrite_two_random_projects_vs_one_random_project" state="initial">
+        <source>techno_rewrite_two_random_projects_vs_one_random_project</source>
+        <target>techno_rewrite_two_random_projects_vs_one_random_project</target>
+      </segment>
+    </unit>
+    <unit id="techno_rewrite_diplomat_three_random_projects_vs_two_random_projects">
+      <segment id="techno_rewrite_diplomat_three_random_projects_vs_two_random_projects" state="initial">
+        <source>techno_rewrite_diplomat_three_random_projects_vs_two_random_projects</source>
+        <target>techno_rewrite_diplomat_three_random_projects_vs_two_random_projects</target>
+      </segment>
+    </unit>
+    <unit id="pilgredissim_3_random_players_vs_pilgred_project">
+      <segment id="pilgredissim_3_random_players_vs_pilgred_project" state="initial">
+        <source>pilgredissim_3_random_players_vs_pilgred_project</source>
+        <target>pilgredissim_3_random_players_vs_pilgred_project</target>
+      </segment>
+    </unit>
+    <unit id="pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project">
+      <segment id="pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project" state="initial">
+        <source>pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project</source>
+        <target>pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_tree_1_random_player_vs_one_hydropot">
+      <segment id="human_vs_tree_1_random_player_vs_one_hydropot" state="initial">
+        <source>human_vs_tree_1_random_player_vs_one_hydropot</source>
+        <target>human_vs_tree_1_random_player_vs_one_hydropot</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules">
+      <segment id="human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules" state="initial">
+        <source>human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules</source>
+        <target>human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_tree_diplomat_2_random_players_vs_3_hydropots">
+      <segment id="human_vs_tree_diplomat_2_random_players_vs_3_hydropots" state="initial">
+        <source>human_vs_tree_diplomat_2_random_players_vs_3_hydropots</source>
+        <target>human_vs_tree_diplomat_2_random_players_vs_3_hydropots</target>
+      </segment>
+    </unit>
+    <unit id="forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules">
+      <segment id="forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules" state="initial">
+        <source>forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules</source>
+        <target>forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules</target>
+      </segment>
+    </unit>
+    <unit id="forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules">
+      <segment id="forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules" state="initial">
+        <source>forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules</source>
+        <target>forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules</target>
+      </segment>
+    </unit>
+    <unit id="forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox">
+      <segment id="forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox" state="initial">
+        <source>forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox</source>
+        <target>forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox</target>
+      </segment>
+    </unit>
+    <unit id="good_projections_one_random_player_vs_one_random_project">
+      <segment id="good_projections_one_random_player_vs_one_random_project" state="initial">
+        <source>good_projections_one_random_player_vs_one_random_project</source>
+        <target>good_projections_one_random_player_vs_one_random_project</target>
+      </segment>
+    </unit>
+    <unit id="good_projections_diplomat_two_random_players_vs_two_random_projects">
+      <segment id="good_projections_diplomat_two_random_players_vs_two_random_projects" state="initial">
+        <source>good_projections_diplomat_two_random_players_vs_two_random_projects</source>
+        <target>good_projections_diplomat_two_random_players_vs_two_random_projects</target>
+      </segment>
+    </unit>
+    <unit id="good_projections_diplomat_mixed_resources_vs_one_random_project">
+      <segment id="good_projections_diplomat_mixed_resources_vs_one_random_project" state="initial">
+        <source>good_projections_diplomat_mixed_resources_vs_one_random_project</source>
+        <target>good_projections_diplomat_mixed_resources_vs_one_random_project</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_fuel_1_random_player_vs_8-12_fuel_capsules">
+      <segment id="human_vs_fuel_1_random_player_vs_8-12_fuel_capsules" state="initial">
+        <source>human_vs_fuel_1_random_player_vs_8-12_fuel_capsules</source>
+        <target>human_vs_fuel_1_random_player_vs_8-12_fuel_capsules</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules">
+      <segment id="human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules" state="initial">
+        <source>human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules</source>
+        <target>human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules">
+      <segment id="human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules" state="initial">
+        <source>human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules</source>
+        <target>human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

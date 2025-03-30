@@ -1662,5 +1662,35 @@ Or you simply need some fresh air.... or not.</target>
         <target>Finally! It's playtime!</target>
       </segment>
     </unit>
+    <unit id="accept_trade">
+      <segment id="name" state="translated">
+        <source>accept_trade.name</source>
+        <target>Close deal</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>accept_trade.description</source>
+        <target>You conclude the dead... Consequences could be serious.</target>
+      </segment>
+    </unit>
+    <unit id="refuse_trade">
+      <segment id="name" state="translated">
+        <source>refuse_trade.name</source>
+        <target>Refuse deal</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>refuse_trade.description</source>
+        <target>You refuse the dead... Consequences could be serious.</target>
+      </segment>
+    </unit>
+    <unit id="create_trade">
+      <segment id="name" state="translated">
+        <source>create_trade.name</source>
+        <target>Invoke : Merchant</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>create_trade.description</source>
+        <target>Invokes a merchant (only for users with level 4 accreditation).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

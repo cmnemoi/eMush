@@ -1,264 +1,261 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="fr" trgLang="en">
-    <file id="trade.ext">
-        <!-- Trade types -->
-        <unit id="human_vs_oxy">
-            <segment id="human_vs_oxy">
-                <source>human_vs_oxy</source>
-                <target>Aloha, your organisms are truly fascinating, especially the methanization of your organic waste, incredible... We offer you one of your friends in exchange for substantial oxygen reserves!</target>
-            </segment>
-        </unit>
-        <unit id="forest_deal">
-            <segment id="forest_deal">
-                <source>forest_deal</source>
-                <target>OOOOOOOOoooooo...... *rahh my sensors* We are ...*chhhhh* Space gardeners, we will gladly exchange your equipment for precious goods.</target>
-            </segment>
-        </unit>
-        <unit id="pilgredissim">
-            <segment id="pilgredissim">
-                <source>pilgredissim</source>
-                <target>[NAc Nac NAc NAc] *beam improvement* [Nac] Rotten engine, never advance in the universe like that. Cardboard civilization... [Naaaaac] Let's repair your PILGRED in exchange for your crew members!</target>
-            </segment>
-        </unit>
-        <unit id="good_projections">
-            <segment id="good_projections">
-                <source>good_projections</source>
-                <target>Greetings humble mammalian creature, we are looking for new toys to satisfy our queen. We have technologies that might be useful to you.</target>
-            </segment>
-        </unit>
-        <unit id="techno_rewrite">
-            <segment id="techno_rewrite">
-                <source>techno_rewrite</source>
-                <target>The great houses of Serres greet you, we have been watching your primitive world for eons and the crazy race of your ship is intriguing. We still have some interest in some of your technologies, a small exchange could benefit everyone.</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_fuel">
-            <segment id="human_vs_fuel">
-                <source>human_vs_fuel</source>
-                <target>We have a surplus of antifreeze and we're missing food for tonight, are you interested?</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_tree">
-            <segment id="human_vs_tree">
-                <source>human_vs_tree</source>
-                <target>Buraroum, we, the Leaf Eaters, need a celestial gardener, we offer you labor in exchange for new pots.</target>
-            </segment>
-        </unit>
-        
-        <!-- Asset types -->
-        <unit id="random_player">
-            <segment id="random_player">
-                <source>random_player</source>
-                <target>{quantity, plural, one {# crew member} other {# crew members}} at random</target>
-            </segment>
-        </unit>
-        <unit id="oxygen">
-            <segment id="oxygen">
-                <source>oxygen</source>
-                <target>{quantity, plural, one {# oxygen unit} other {# oxygen units}}</target>
-            </segment>
-        </unit>
-        <unit id="fuel">
-            <segment id="fuel">
-                <source>fuel</source>
-                <target>{quantity, plural, one {# fuel unit} other {# fuel units}}</target>
-            </segment>
-        </unit>
-        <unit id="hydropot">
-            <segment id="hydropot">
-                <source>hydropot</source>
-                <target>{quantity, plural, one {# hydropot} other {# hydropots}}</target>
-            </segment>
-        </unit>
-        <unit id="oxygen_capsule">
-            <segment id="oxygen_capsule">
-                <source>oxygen_capsule</source>
-                <target>{quantity, plural, one {# oxygen capsule} other {# oxygen capsules}}</target>
-            </segment>
-        </unit>
-        <unit id="fuel_capsule">
-            <segment id="fuel_capsule">
-                <source>fuel_capsule</source>
-                <target>{quantity, plural, one {# fuel capsule} other {# fuel capsules}}</target>
-            </segment>
-        </unit>
-        <unit id="microwave">
-            <segment id="microwave">
-                <source>microwave</source>
-                <target>{quantity, plural, one {# microwave} other {# microwaves}}</target>
-            </segment>
-        </unit>
-        <unit id="blaster">
-            <segment id="blaster">
-                <source>blaster</source>
-                <target>{quantity, plural, one {# blaster} other {# blasters}}</target>
-            </segment>
-        </unit>
-        <unit id="pilgred">
-            <segment id="pilgred">
-                <source>pilgred</source>
-                <target>{quantity, plural, one {# PILGRED repair} other {# PILGRED repairs}}</target>
-            </segment>
-        </unit>
-        <unit id="random_project">
-            <segment id="random_project">
-                <source>random_project</source>
-                <target>{quantity, plural, one {# random project} other {# random projects}}</target>
-            </segment>
-        </unit>
-        <unit id="standard_ration">
-            <segment id="standard_ration">
-                <source>standard_ration</source>
-                <target>{quantity, plural, one {# standard ration} other {# standard rations}}</target>
-            </segment>
-        </unit>
-        <unit id="metal_scraps">
-            <segment id="metal_scraps">
-                <source>metal_scraps</source>
-                <target>{quantity, plural, one {# metal scrap} other {# metal scraps}}</target>
-            </segment>
-        </unit>
-        <unit id="plastic_scraps">
-            <segment id="plastic_scraps">
-                <source>plastic_scraps</source>
-                <target>{quantity, plural, one {# plastic scrap} other {# plastic scraps}}</target>
-            </segment>
-        </unit>
-        <unit id="ian">
-            <segment id="ian">
-                <source>ian</source>
-                <target>Ian Soulton</target>
-            </segment>
-        </unit>
-        
-        <!-- Trade option description -->
-        <unit id="trade_option">
-            <segment id="trade_option">
-                <source>trade_option</source>
-                <target>Trading {requiredAsset} will earn you... {offeredAsset}.</target>
-            </segment>
-        </unit>
-        <unit id="trade_conditions_not_met">
-            <segment id="trade_conditions_not_met">
-                <source>trade_conditions_not_met</source>
-                <target>The conditions for this trade are not met.</target>
-            </segment>
-        </unit>
-
-        <!-- Trade option names -->
-        <unit id="human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules">
-            <segment id="human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules">
-                <source>human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules</source>
-                <target>Sold!</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules">
-            <segment id="human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules">
-                <source>human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules</source>
-                <target>We have more gas reserves if you want!</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules">
-            <segment id="human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules">
-                <source>human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules</source>
-                <target>That's good, we have some extra organic waste...</target>
-            </segment>
-        </unit>
-        <unit id="techno_rewrite_two_random_projects_vs_one_random_project">
-            <segment id="techno_rewrite_two_random_projects_vs_one_random_project">
-                <source>techno_rewrite_two_random_projects_vs_one_random_project</source>
-                <target>Sold!</target>
-            </segment>
-        </unit>
-        <unit id="techno_rewrite_diplomat_three_random_projects_vs_two_random_projects">
-            <segment id="techno_rewrite_diplomat_three_random_projects_vs_two_random_projects">
-                <source>techno_rewrite_diplomat_three_random_projects_vs_two_random_projects</source>
-                <target>In fact, we offer you a group price!</target>
-            </segment>
-        </unit>
-        <unit id="pilgredissim_3_random_players_vs_pilgred_project">
-            <segment id="pilgredissim_3_random_players_vs_pilgred_project">
-                <source>pilgredissim_3_random_players_vs_pilgred_project</source>
-                <target>Sold!</target>
-            </segment>
-        </unit>
-        <unit id="pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project">
-            <segment id="pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project">
-                <source>pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project</source>
-                <target>All in!</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_tree_1_random_player_vs_one_hydropot">
-            <segment id="human_vs_tree_1_random_player_vs_one_hydropot">
-                <source>human_vs_tree_1_random_player_vs_one_hydropot</source>
-                <target>Sold!</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules">
-            <segment id="human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules">
-                <source>human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules</source>
-                <target>We have exactly what you need!</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_tree_diplomat_2_random_players_vs_3_hydropots">
-            <segment id="human_vs_tree_diplomat_2_random_players_vs_3_hydropots">
-                <source>human_vs_tree_diplomat_2_random_players_vs_3_hydropots</source>
-                <target>And otherwise, are you interested?</target>
-            </segment>
-        </unit>
-        <unit id="forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules">
-            <segment id="forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules">
-                <source>forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules</source>
-                <target>Sold!</target>
-            </segment>
-        </unit>
-        <unit id="forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules">
-            <segment id="forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules">
-                <source>forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules</source>
-                <target>Sell more!</target>
-            </segment>
-        </unit>
-        <unit id="forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox">
-            <segment id="forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox">
-                <source>forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox</source>
-                <target>Your diplomat spouts some incomprehensible gibberish that seems to delight the merchants!</target>
-            </segment>
-        </unit>
-        <unit id="good_projections_one_random_player_vs_one_random_project">
-            <segment id="good_projections_one_random_player_vs_one_random_project">
-                <source>good_projections_one_random_player_vs_one_random_project</source>
-                <target>Sold!</target>
-            </segment>
-        </unit>
-        <unit id="good_projections_diplomat_two_random_players_vs_two_random_projects">
-            <segment id="good_projections_diplomat_two_random_players_vs_two_random_projects">
-                <source>good_projections_diplomat_two_random_players_vs_two_random_projects</source>
-                <target>Come on! Would you like a second one?</target>
-            </segment>
-        </unit>
-        <unit id="good_projections_diplomat_mixed_resources_vs_one_random_project">
-            <segment id="good_projections_diplomat_mixed_resources_vs_one_random_project">
-                <source>good_projections_diplomat_mixed_resources_vs_one_random_project</source>
-                <target>And otherwise... Do you accept payments in kind?</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_fuel_1_random_player_vs_8-12_fuel_capsules">
-            <segment id="human_vs_fuel_1_random_player_vs_8-12_fuel_capsules">
-                <source>human_vs_fuel_1_random_player_vs_8-12_fuel_capsules</source>
-                <target>Sold!</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules">
-            <segment id="human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules">
-                <source>human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules</source>
-                <target>We offer you a bulk price, are you interested?</target>
-            </segment>
-        </unit>
-        <unit id="human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules">
-            <segment id="human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules">
-                <source>human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules</source>
-                <target>Do you digest greenery well?</target>
-            </segment>
-        </unit>
-    </file>
-</xliff> 
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="trade.ext">
+    <!-- Trade types -->
+    <unit id="human_vs_oxy">
+      <segment id="human_vs_oxy" state="translated">
+        <source>human_vs_oxy</source>
+        <target>Aloha, your organisms are truly fascinating, especially the methanization of your organic waste, incredible... We offer you one of your friends in exchange for substantial oxygen reserves!</target>
+      </segment>
+    </unit>
+    <unit id="forest_deal">
+      <segment id="forest_deal" state="translated">
+        <source>forest_deal</source>
+        <target>OOOOOOOOoooooo...... *rahh my sensors* We are ...*chhhhh* Space gardeners, we will gladly exchange your equipment for precious goods.</target>
+      </segment>
+    </unit>
+    <unit id="pilgredissim">
+      <segment id="pilgredissim" state="translated">
+        <source>pilgredissim</source>
+        <target>[NAc Nac NAc NAc] *beam improvement* [Nac] Rotten engine, never advance in the universe like that. Cardboard civilization... [Naaaaac] Let's repair your PILGRED in exchange for your crew members!</target>
+      </segment>
+    </unit>
+    <unit id="good_projections">
+      <segment id="good_projections" state="translated">
+        <source>good_projections</source>
+        <target>Greetings humble mammalian creature, we are looking for new toys to satisfy our queen. We have technologies that might be useful to you.</target>
+      </segment>
+    </unit>
+    <unit id="techno_rewrite">
+      <segment id="techno_rewrite" state="translated">
+        <source>techno_rewrite</source>
+        <target>The great houses of Serres greet you, we have been watching your primitive world for eons and the crazy race of your ship is intriguing. We still have some interest in some of your technologies, a small exchange could benefit everyone.</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_fuel">
+      <segment id="human_vs_fuel" state="translated">
+        <source>human_vs_fuel</source>
+        <target>We have a surplus of antifreeze and we're missing food for tonight, are you interested?</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_tree">
+      <segment id="human_vs_tree" state="translated">
+        <source>human_vs_tree</source>
+        <target>Buraroum, we, the Leaf Eaters, need a celestial gardener, we offer you labor in exchange for new pots.</target>
+      </segment>
+    </unit>
+    <!-- Asset types -->
+    <unit id="random_player">
+      <segment id="random_player" state="translated">
+        <source>random_player</source>
+        <target>{quantity, plural, one {# crew member} other {# crew members}} at random</target>
+      </segment>
+    </unit>
+    <unit id="oxygen">
+      <segment id="oxygen" state="translated">
+        <source>oxygen</source>
+        <target>{quantity, plural, one {# oxygen unit} other {# oxygen units}}</target>
+      </segment>
+    </unit>
+    <unit id="fuel">
+      <segment id="fuel" state="translated">
+        <source>fuel</source>
+        <target>{quantity, plural, one {# fuel unit} other {# fuel units}}</target>
+      </segment>
+    </unit>
+    <unit id="hydropot">
+      <segment id="hydropot" state="translated">
+        <source>hydropot</source>
+        <target>{quantity, plural, one {# hydropot} other {# hydropots}}</target>
+      </segment>
+    </unit>
+    <unit id="oxygen_capsule">
+      <segment id="oxygen_capsule" state="translated">
+        <source>oxygen_capsule</source>
+        <target>{quantity, plural, one {# oxygen capsule} other {# oxygen capsules}}</target>
+      </segment>
+    </unit>
+    <unit id="fuel_capsule">
+      <segment id="fuel_capsule" state="translated">
+        <source>fuel_capsule</source>
+        <target>{quantity, plural, one {# fuel capsule} other {# fuel capsules}}</target>
+      </segment>
+    </unit>
+    <unit id="microwave">
+      <segment id="microwave" state="translated">
+        <source>microwave</source>
+        <target>{quantity, plural, one {# microwave} other {# microwaves}}</target>
+      </segment>
+    </unit>
+    <unit id="blaster">
+      <segment id="blaster" state="translated">
+        <source>blaster</source>
+        <target>{quantity, plural, one {# blaster} other {# blasters}}</target>
+      </segment>
+    </unit>
+    <unit id="pilgred">
+      <segment id="pilgred" state="translated">
+        <source>pilgred</source>
+        <target>{quantity, plural, one {# PILGRED repair} other {# PILGRED repairs}}</target>
+      </segment>
+    </unit>
+    <unit id="random_project">
+      <segment id="random_project" state="translated">
+        <source>random_project</source>
+        <target>{quantity, plural, one {# random project} other {# random projects}}</target>
+      </segment>
+    </unit>
+    <unit id="standard_ration">
+      <segment id="standard_ration" state="translated">
+        <source>standard_ration</source>
+        <target>{quantity, plural, one {# standard ration} other {# standard rations}}</target>
+      </segment>
+    </unit>
+    <unit id="metal_scraps">
+      <segment id="metal_scraps" state="translated">
+        <source>metal_scraps</source>
+        <target>{quantity, plural, one {# metal scrap} other {# metal scraps}}</target>
+      </segment>
+    </unit>
+    <unit id="plastic_scraps">
+      <segment id="plastic_scraps" state="translated">
+        <source>plastic_scraps</source>
+        <target>{quantity, plural, one {# plastic scrap} other {# plastic scraps}}</target>
+      </segment>
+    </unit>
+    <unit id="ian">
+      <segment id="ian" state="translated">
+        <source>ian</source>
+        <target>Ian Soulton</target>
+      </segment>
+    </unit>
+    <!-- Trade option description -->
+    <unit id="trade_option">
+      <segment id="trade_option" state="translated">
+        <source>trade_option</source>
+        <target>Trading {requiredAsset} will earn you... {offeredAsset}.</target>
+      </segment>
+    </unit>
+    <unit id="trade_conditions_not_met">
+      <segment id="trade_conditions_not_met" state="translated">
+        <source>trade_conditions_not_met</source>
+        <target>The conditions for this trade are not met.</target>
+      </segment>
+    </unit>
+    <!-- Trade option names -->
+    <unit id="human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules">
+      <segment id="human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules" state="translated">
+        <source>human_vs_oxy_1_random_player_vs_5-10_oxygen_capsules</source>
+        <target>Sold!</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules">
+      <segment id="human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules" state="translated">
+        <source>human_vs_oxy_diplomat_5-10_fuel_capsules_vs_10-20_oxygen_capsules</source>
+        <target>We have more gas reserves if you want!</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules">
+      <segment id="human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules" state="translated">
+        <source>human_vs_oxy_diplomat_2_random_players_vs_10-20_oxygen_capsules</source>
+        <target>That's good, we have some extra organic waste...</target>
+      </segment>
+    </unit>
+    <unit id="techno_rewrite_two_random_projects_vs_one_random_project">
+      <segment id="techno_rewrite_two_random_projects_vs_one_random_project" state="translated">
+        <source>techno_rewrite_two_random_projects_vs_one_random_project</source>
+        <target>Sold!</target>
+      </segment>
+    </unit>
+    <unit id="techno_rewrite_diplomat_three_random_projects_vs_two_random_projects">
+      <segment id="techno_rewrite_diplomat_three_random_projects_vs_two_random_projects" state="translated">
+        <source>techno_rewrite_diplomat_three_random_projects_vs_two_random_projects</source>
+        <target>In fact, we offer you a group price!</target>
+      </segment>
+    </unit>
+    <unit id="pilgredissim_3_random_players_vs_pilgred_project">
+      <segment id="pilgredissim_3_random_players_vs_pilgred_project" state="translated">
+        <source>pilgredissim_3_random_players_vs_pilgred_project</source>
+        <target>Sold!</target>
+      </segment>
+    </unit>
+    <unit id="pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project">
+      <segment id="pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project" state="translated">
+        <source>pilgredissim_diplomat_24_oxygen_24_fuel_vs_pilgred_project</source>
+        <target>All in!</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_tree_1_random_player_vs_one_hydropot">
+      <segment id="human_vs_tree_1_random_player_vs_one_hydropot" state="translated">
+        <source>human_vs_tree_1_random_player_vs_one_hydropot</source>
+        <target>Sold!</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules">
+      <segment id="human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules" state="translated">
+        <source>human_vs_tree_diplomat_ian_vs_4_hydropots_4_oxygen_capsules</source>
+        <target>We have exactly what you need!</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_tree_diplomat_2_random_players_vs_3_hydropots">
+      <segment id="human_vs_tree_diplomat_2_random_players_vs_3_hydropots" state="translated">
+        <source>human_vs_tree_diplomat_2_random_players_vs_3_hydropots</source>
+        <target>And otherwise, are you interested?</target>
+      </segment>
+    </unit>
+    <unit id="forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules">
+      <segment id="forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules" state="translated">
+        <source>forest_deal_1_hydropot_vs_8-12_oxygen_capsules_1-4_fuel_capsules</source>
+        <target>Sold!</target>
+      </segment>
+    </unit>
+    <unit id="forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules">
+      <segment id="forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules" state="translated">
+        <source>forest_deal_2_hydropot_vs_12-20_oxygen_capsules_3-4_fuel_capsules</source>
+        <target>Sell more!</target>
+      </segment>
+    </unit>
+    <unit id="forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox">
+      <segment id="forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox" state="translated">
+        <source>forest_deal_1_hydropot_plus_optional_items_vs_12_oxygen_capsules_optional_lunchbox</source>
+        <target>Your diplomat spouts some incomprehensible gibberish that seems to delight the merchants!</target>
+      </segment>
+    </unit>
+    <unit id="good_projections_one_random_player_vs_one_random_project">
+      <segment id="good_projections_one_random_player_vs_one_random_project" state="translated">
+        <source>good_projections_one_random_player_vs_one_random_project</source>
+        <target>Sold!</target>
+      </segment>
+    </unit>
+    <unit id="good_projections_diplomat_two_random_players_vs_two_random_projects">
+      <segment id="good_projections_diplomat_two_random_players_vs_two_random_projects" state="translated">
+        <source>good_projections_diplomat_two_random_players_vs_two_random_projects</source>
+        <target>Come on! Would you like a second one?</target>
+      </segment>
+    </unit>
+    <unit id="good_projections_diplomat_mixed_resources_vs_one_random_project">
+      <segment id="good_projections_diplomat_mixed_resources_vs_one_random_project" state="translated">
+        <source>good_projections_diplomat_mixed_resources_vs_one_random_project</source>
+        <target>And otherwise... Do you accept payments in kind?</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_fuel_1_random_player_vs_8-12_fuel_capsules">
+      <segment id="human_vs_fuel_1_random_player_vs_8-12_fuel_capsules" state="translated">
+        <source>human_vs_fuel_1_random_player_vs_8-12_fuel_capsules</source>
+        <target>Sold!</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules">
+      <segment id="human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules" state="translated">
+        <source>human_vs_fuel_diplomat_2_random_players_vs_10-30_fuel_capsules</source>
+        <target>We offer you a bulk price, are you interested?</target>
+      </segment>
+    </unit>
+    <unit id="human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules">
+      <segment id="human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules" state="translated">
+        <source>human_vs_fuel_botanist_4_rations_vs_2-4_fuel_capsules</source>
+        <target>Do you digest greenery well?</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

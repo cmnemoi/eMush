@@ -1711,7 +1711,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>create_trade.description</source>
-        <target>Permet d'invoquer un marchand (uniquement pour les utilisateurs munis d'une accrédiation de niveau 4).</target>
+        <target>Permet d'invoquer un marchand (uniquement pour les utilisateurs munis d'une accréditation de niveau 4).</target>
       </segment>
     </unit>
   </file>

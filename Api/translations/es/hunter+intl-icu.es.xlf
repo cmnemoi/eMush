@@ -51,5 +51,15 @@
         <target>trax.description</target>
       </segment>
     </unit>
+    <unit id="transport">
+      <segment id="transport_name" state="initial">
+        <source>transport.name</source>
+        <target>transport.name</target>
+      </segment>
+      <segment id="transport_description" state="initial">
+        <source>transport.description</source>
+        <target>transport.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

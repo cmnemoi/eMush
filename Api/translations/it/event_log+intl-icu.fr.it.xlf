@@ -923,5 +923,41 @@
         <target>germaphobe_morale_loss</target>
       </segment>
     </unit>
+    <unit id="awaken_pavlov">
+      <segment id="awaken_pavlov" state="initial">
+        <source>awaken_pavlov</source>
+        <target>awaken_pavlov</target>
+      </segment>
+    </unit>
+    <unit id="dog_bark">
+      <segment id="dog_bark" state="initial">
+        <source>dog_bark</source>
+        <target>dog_bark</target>
+      </segment>
+    </unit>
+    <unit id="npc_entered_room">
+      <segment state="initial">
+        <source>npc_entered_room</source>
+        <target>npc_entered_room</target>
+      </segment>
+    </unit>
+    <unit id="npc_exited_room">
+      <segment state="initial">
+        <source>npc_exited_room</source>
+        <target>npc_exited_room</target>
+      </segment>
+    </unit>
+    <unit id="dog_bother_cat">
+      <segment state="initial">
+        <source>dog_bother_cat</source>
+        <target>dog_bother_cat</target>
+      </segment>
+    </unit>
+    <unit id="trade_assets_created">
+      <segment state="initial">
+        <source>trade_assets_created</source>
+        <target>trade_assets_created</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

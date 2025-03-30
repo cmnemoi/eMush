@@ -271,5 +271,11 @@
         <target>halloween_begin</target>
       </segment>
     </unit>
+    <unit id="april_fools_begin">
+      <segment id="april_fools_begin" state="initial">
+        <source>april_fools_begin</source>
+        <target>april_fools_begin</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

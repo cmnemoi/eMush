@@ -2555,24 +2555,25 @@ El arquetipo de lo que nunca está donde debe estar.</target>
         <source>fuel_capsule.short_name</source>
         <target>Cápsula de combustible</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="plural_name" state="initial">
+        <source>fuel_capsule.plural_name</source>
+        <target>fuel_capsule.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
         <source>fuel_capsule.gender</source>
-        <target>female</target>
+        <target>fuel_capsule.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>fuel_capsule.first_letter</source>
-        <target>consonant</target>
+        <target>fuel_capsule.first_letter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>fuel_capsule.description</source>
-        <target>Permite desplazar el combustible desde el tanque hacia los motores.
-Contiene una unidad de combustible.</target>
+        <target>fuel_capsule.description</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="initial">
         <source>fuel_capsule.examine</source>
-        <target>Permite desplazar el combustible desde el tanque hacia los motores.
-Contiene una unidad de combustible.
-Carga carburante para llevarlo al módulo de combustión.</target>
+        <target>fuel_capsule.examine</target>
       </segment>
     </unit>
     <unit id="hydropot">
@@ -2584,22 +2585,25 @@ Carga carburante para llevarlo al módulo de combustión.</target>
         <source>hydropot.short_name</source>
         <target>Hydromaceta</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="plural_name" state="initial">
+        <source>hydropot.plural_name</source>
+        <target>hydropot.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
         <source>hydropot.gender</source>
-        <target>female</target>
+        <target>hydropot.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>hydropot.first_letter</source>
-        <target>vowel</target>
+        <target>hydropot.first_letter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>hydropot.description</source>
-        <target>Sirve para **sembrar un fruto** y desarrollar el jardín.</target>
+        <target>hydropot.description</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="initial">
         <source>hydropot.examine</source>
-        <target>Sirve para **sembrar un fruto** y desarrollar el jardín.
-Sirve para colocar una planta en el jardín.</target>
+        <target>hydropot.examine</target>
       </segment>
     </unit>
     <unit id="lunchbox">
@@ -2611,24 +2615,25 @@ Sirve para colocar una planta en el jardín.</target>
         <source>lunchbox.short_name</source>
         <target>Canasta de comida</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="plural_name" state="initial">
+        <source>lunchbox.plural_name</source>
+        <target>lunchbox.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
         <source>lunchbox.gender</source>
-        <target>female</target>
+        <target>lunchbox.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>lunchbox.first_letter</source>
-        <target>consonant</target>
+        <target>lunchbox.first_letter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>lunchbox.description</source>
-        <target>¡Oh, comida! Delicias para compartir.
-Contiene {quantity} x Ración estándar.</target>
+        <target>lunchbox.description</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="initial">
         <source>lunchbox.examine</source>
-        <target>¡Oh, comida! Delicias para compartir.
-Contiene {quantity} x Ración estándar.
-El equivalente galáctico de una sopa caliente cuando el vacío absoluto te rodea.</target>
+        <target>lunchbox.examine</target>
       </segment>
     </unit>
     <unit id="oxygen_capsule">
@@ -2640,22 +2645,25 @@ El equivalente galáctico de una sopa caliente cuando el vacío absoluto te rode
         <source>oxygen_capsule.short_name</source>
         <target>Cápsula de oxígeno</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="plural_name" state="initial">
+        <source>oxygen_capsule.plural_name</source>
+        <target>oxygen_capsule.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
         <source>oxygen_capsule.gender</source>
-        <target>female</target>
+        <target>oxygen_capsule.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>oxygen_capsule.first_letter</source>
-        <target>consonant</target>
+        <target>oxygen_capsule.first_letter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>oxygen_capsule.description</source>
-        <target>Contiene una unidad estándar de oxígeno. Puede ser puesta en el circuito a través de los tanques de los almacenes.</target>
+        <target>oxygen_capsule.description</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="initial">
         <source>oxygen_capsule.examine</source>
-        <target>Contiene una unidad estándar de oxígeno. Puede ser puesta en el circuito a través de los tanques de los almacenes.
-Permite transportar el oxígeno en forma líquida. Su película de protección es casi irrompible.</target>
+        <target>oxygen_capsule.examine</target>
       </segment>
     </unit>
     <unit id="space_capsule">
@@ -3448,21 +3456,25 @@ Sirve para colocar una planta en el jardín.</target>
         <source>standard_ration.short_name</source>
         <target>Ración estándar</target>
       </segment>
-      <segment id="genre" state="translated">
+      <segment id="plural_name" state="initial">
+        <source>standard_ration.plural_name</source>
+        <target>standard_ration.plural_name</target>
+      </segment>
+      <segment id="genre" state="initial">
         <source>standard_ration.gender</source>
-        <target>female</target>
+        <target>standard_ration.gender</target>
       </segment>
-      <segment id="first_letter" state="translated">
+      <segment id="first_letter" state="initial">
         <source>standard_ration.first_letter</source>
-        <target>consonant</target>
+        <target>standard_ration.first_letter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>standard_ration.description</source>
-        <target>Una porción de melaza proteinada y envasada en un recipiente de larga conservación. Estas raciones fueron elaboradas para ser digeridas fácilmente pero también pueden ser inyectadas por intravenosa.</target>
+        <target>standard_ration.description</target>
       </segment>
-      <segment id="examine" state="translated">
+      <segment id="examine" state="initial">
         <source>standard_ration.examine</source>
-        <target>Una porción de melaza proteinada y envasada en un recipiente de larga conservación. Estas raciones fueron elaboradas para ser digeridas fácilmente pero también pueden ser inyectadas por intravenosa.</target>
+        <target>standard_ration.examine</target>
       </segment>
     </unit>
     <unit id="supervitamin_bar">
@@ -3727,6 +3739,32 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
       <segment id="examine" state="initial">
         <source>anniversary_gift.examine</source>
         <target>anniversary_gift.examine</target>
+      </segment>
+    </unit>
+    <unit id="pavlov">
+      <segment id="name" state="initial">
+        <source>pavlov.name</source>
+        <target>pavlov.name</target>
+      </segment>
+      <segment id="pavlov" state="initial">
+        <source>pavlov.short_name</source>
+        <target>pavlov.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>pavlov.gender</source>
+        <target>pavlov.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>pavlov.first_letter</source>
+        <target>pavlov.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pavlov.description</source>
+        <target>pavlov.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>pavlov.examine</source>
+        <target>pavlov.examine</target>
       </segment>
     </unit>
   </file>

@@ -2324,6 +2324,10 @@
         <source>fuel_capsule.short_name</source>
         <target>fuel_capsule.short_name</target>
       </segment>
+      <segment id="plural_name" state="initial">
+        <source>fuel_capsule.plural_name</source>
+        <target>fuel_capsule.plural_name</target>
+      </segment>
       <segment id="genre" state="initial">
         <source>fuel_capsule.gender</source>
         <target>fuel_capsule.gender</target>
@@ -2349,6 +2353,10 @@
       <segment id="short_name" state="initial">
         <source>hydropot.short_name</source>
         <target>hydropot.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>hydropot.plural_name</source>
+        <target>hydropot.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
         <source>hydropot.gender</source>
@@ -2376,6 +2384,10 @@
         <source>lunchbox.short_name</source>
         <target>lunchbox.short_name</target>
       </segment>
+      <segment id="plural_name" state="initial">
+        <source>lunchbox.plural_name</source>
+        <target>lunchbox.plural_name</target>
+      </segment>
       <segment id="genre" state="initial">
         <source>lunchbox.gender</source>
         <target>lunchbox.gender</target>
@@ -2401,6 +2413,10 @@
       <segment id="short_name" state="initial">
         <source>oxygen_capsule.short_name</source>
         <target>oxygen_capsule.short_name</target>
+      </segment>
+      <segment id="plural_name" state="initial">
+        <source>oxygen_capsule.plural_name</source>
+        <target>oxygen_capsule.plural_name</target>
       </segment>
       <segment id="genre" state="initial">
         <source>oxygen_capsule.gender</source>
@@ -3164,6 +3180,10 @@
         <source>standard_ration.short_name</source>
         <target>standard_ration.short_name</target>
       </segment>
+      <segment id="plural_name" state="initial">
+        <source>standard_ration.plural_name</source>
+        <target>standard_ration.plural_name</target>
+      </segment>
       <segment id="genre" state="initial">
         <source>standard_ration.gender</source>
         <target>standard_ration.gender</target>
@@ -3429,6 +3449,32 @@
       <segment id="examine" state="initial">
         <source>anniversary_gift.examine</source>
         <target>anniversary_gift.examine</target>
+      </segment>
+    </unit>
+    <unit id="pavlov">
+      <segment id="name" state="initial">
+        <source>pavlov.name</source>
+        <target>pavlov.name</target>
+      </segment>
+      <segment id="pavlov" state="initial">
+        <source>pavlov.short_name</source>
+        <target>pavlov.short_name</target>
+      </segment>
+      <segment id="genre" state="initial">
+        <source>pavlov.gender</source>
+        <target>pavlov.gender</target>
+      </segment>
+      <segment id="first_letter" state="initial">
+        <source>pavlov.first_letter</source>
+        <target>pavlov.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>pavlov.description</source>
+        <target>pavlov.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>pavlov.examine</source>
+        <target>pavlov.examine</target>
       </segment>
     </unit>
   </file>

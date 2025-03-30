@@ -668,7 +668,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>paola.tips</source>
-        <target>**Download the Mush** genome disk from the communications terminal on the Bridge.//**Eliminate hunters** using the ship's turrets thanks to your Gunner skill.//**Participate in research** at the Laboratory to slow down the Mushs thanks to your Biologist skill.</target>
+        <target>**Respond to contact request from Sol rebel bases, retrieve the Xyloph Database, and improve NERON's software** from the communications terminal on the Bridge.//**Eliminate hunters** using the ship's turrets thanks to your Gunner skill.//**Participate in research** at the Laboratory to slow down the Mushs thanks to your Biologist skill.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>paola.tutorial</source>

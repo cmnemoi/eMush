@@ -110,11 +110,11 @@ To leave orbit, the Commander in charge must give this order from the Command Te
       </segment>
       <segment id="tips" state="translated">
         <source>research_laboratory.tips</source>
-        <target>Here you can carry out research to benefit the entire crew. There are two ways to collaborate: use objects in the laboratory to unblock new research, or advance research that is already underway.
+        <target>Here you can carry out research to benefit the entire crew. There are two ways to collaborate: bring items to the laboratory to unlock new research, or advance research that is already underway.
 //
-To use an object, the object must either be in the room you are in, or in your inventory.
+Some items will unlock the appropriate research while in the room's shelf, while others must be held in hand to render their research visible.
 //
-A solitary person, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. Working alternately with a crewmate is the key!</target>
+A lone crewmember, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. Alternating work with your crewmates is the key!</target>
       </segment>
       <segment id="chun_present" state="translated">
         <source>research_laboratory.chun_present</source>
@@ -130,7 +130,7 @@ A solitary person, even if they have the appropriate skills, will have difficult
         <source>block_of_post_it.name</source>
         <target>Block of post-it notes</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>
@@ -424,6 +424,22 @@ If contact is not established, at least **signal quality will be improved** and 
       <segment id="xyloph_db" state="translated">
         <source>communication_center.xyloph_db</source>
         <target>Xyloph DB</target>
+      </segment>
+      <segment id="cannot_trade_under_attack" state="translated">
+        <source>communication_center.cannot_trade_under_attack</source>
+        <target>Another ship is threatening us, and it's impossible to trade!</target>
+      </segment>
+      <segment id="never" state="translated">
+        <source>communication_center.never</source>
+        <target>Never!</target>
+      </segment>
+      <segment id="see_communications" state="translated">
+        <source>communication_center.see_communications</source>
+        <target>See communications</target>
+      </segment>
+      <segment id="see_trades" state="translated">
+        <source>communication_center.see_trades</source>
+        <target>See trades</target>
       </segment>
     </unit>
   </file>

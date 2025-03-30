@@ -907,5 +907,11 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
         <target>upgrade_neron_success</target>
       </segment>
     </unit>
+    <unit id="play_with_dog">
+      <segment id="play_with_dog" state="initial">
+        <source>play_with_dog</source>
+        <target>play_with_dog</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2475,6 +2475,10 @@ The archetypal interstellar object which is always stored where it shouldn't be.
         <source>fuel_capsule.short_name</source>
         <target>Fuel Capsule</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>fuel_capsule.plural_name</source>
+        <target>Fuel capsules</target>
+      </segment>
       <segment id="genre" state="translated">
         <source>fuel_capsule.gender</source>
         <target>female</target>
@@ -2485,13 +2489,13 @@ The archetypal interstellar object which is always stored where it shouldn't be.
       </segment>
       <segment id="description" state="translated">
         <source>fuel_capsule.description</source>
-        <target>The Fuel Capsule is used to transfer fuel from the fuel tank to the ship's engines.
+        <target>The Fuel Capsule is used to transfer fuel from the fuel tank to the ship's engines.//
 Contains 1 unit of fuel.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>fuel_capsule.examine</source>
-        <target>The Fuel Capsule is used to transfer fuel from the fuel tank to the ship's engines.
-Contains 1 unit of fuel.
+        <target>The Fuel Capsule is used to transfer fuel from the fuel tank to the ship's engines.//
+Contains 1 unit of fuel.//
 Can be filled with fuel in order to transfer it to the combustion chamber.</target>
       </segment>
     </unit>
@@ -2504,21 +2508,25 @@ Can be filled with fuel in order to transfer it to the combustion chamber.</targ
         <source>hydropot.short_name</source>
         <target>HydroPot</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>hydropot.plural_name</source>
+        <target>Hydropots</target>
+      </segment>
       <segment id="genre" state="translated">
         <source>hydropot.gender</source>
         <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>hydropot.first_letter</source>
-        <target>consonant</target>
+        <target>vowel</target>
       </segment>
       <segment id="description" state="translated">
         <source>hydropot.description</source>
-        <target>The HydroPot allows you to plant a fruit and thus develop the garden.</target>
+        <target>The HydroPot allows you to **plant a fruit** and thus develop the garden.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>hydropot.examine</source>
-        <target>The HydroPot allows you to plant a fruit and thus develop the garden.
+        <target>The HydroPot allows you to **plant a fruit** and thus develop the garden.//
 A place to put a plant in the hydroponic garden.</target>
       </segment>
     </unit>
@@ -2531,6 +2539,10 @@ A place to put a plant in the hydroponic garden.</target>
         <source>lunchbox.short_name</source>
         <target>Lunchbox</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>lunchbox.plural_name</source>
+        <target>Lunchboxes</target>
+      </segment>
       <segment id="genre" state="translated">
         <source>lunchbox.gender</source>
         <target>male</target>
@@ -2541,12 +2553,12 @@ A place to put a plant in the hydroponic garden.</target>
       </segment>
       <segment id="description" state="translated">
         <source>lunchbox.description</source>
-        <target>Rations! A joy to share.
+        <target>Rations! A joy to share.//
 Contains {quantity} x Standard Ration.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
-        <target>Rations! A joy to share.
+        <target>Rations! A joy to share.//
 Contains {quantity} x Standard Ration.
 The galactic equivalent of hot soup when you're getting spanked by absolute zero conditions.</target>
       </segment>
@@ -2559,6 +2571,10 @@ The galactic equivalent of hot soup when you're getting spanked by absolute zero
       <segment id="short_name" state="translated">
         <source>oxygen_capsule.short_name</source>
         <target>Oxygen Capsule</target>
+      </segment>
+      <segment id="plural_name" state="translated">
+        <source>oxygen_capsule.plural_name</source>
+        <target>Oxygen Capsules</target>
       </segment>
       <segment id="genre" state="translated">
         <source>oxygen_capsule.gender</source>
@@ -2574,7 +2590,7 @@ The galactic equivalent of hot soup when you're getting spanked by absolute zero
       </segment>
       <segment id="examine" state="translated">
         <source>oxygen_capsule.examine</source>
-        <target>The oxygen capsule contains a standard measure of oxygen. It can be reintroduced to the system via the reservoirs in the storage bays.
+        <target>The oxygen capsule contains a standard measure of oxygen. It can be reintroduced to the system via the reservoirs in the storage bays.//
 The OxyTron capsule by AirGaz Inc. Allows oxygen to be moved in a liquid state. As luck would have it, its protective film is almost unbreakable.</target>
       </segment>
     </unit>
@@ -3383,6 +3399,10 @@ Non-perishable
         <source>standard_ration.short_name</source>
         <target>Standard Ration</target>
       </segment>
+      <segment id="plural_name" state="translated">
+        <source>standard_ration.plural_name</source>
+        <target>Standard rations</target>
+      </segment>
       <segment id="genre" state="translated">
         <source>standard_ration.gender</source>
         <target>female</target>
@@ -3393,11 +3413,11 @@ Non-perishable
       </segment>
       <segment id="description" state="translated">
         <source>standard_ration.description</source>
-        <target>A portion of protein-enriched molasses agglomerate in a galactic long-life tray. These rations are scientifically designed to be easy to digest via the traditional route, but can also be injected intraveinously.</target>
+        <target>A portion of protein-enriched molasses agglomerate in a galactic long-life tray. These rations are scientifically designed to be easy to digest via the traditional route, but can also be injected intravenously.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>standard_ration.examine</source>
-        <target>A portion of protein-enriched molasses agglomerate in a galactic long-life tray. These rations are scientifically designed to be easy to digest via the traditional route, but can also be injected intraveinously.</target>
+        <target>A portion of protein-enriched molasses agglomerate in a galactic long-life tray. These rations are scientifically designed to be easy to digest via the traditional route, but can also be injected intravenously.</target>
       </segment>
     </unit>
     <unit id="supervitamin_bar">

@@ -668,7 +668,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>paola.tips</source>
-        <target>**Téléverser la disquette du génome Mush** depuis le terminal de communication sur le Pont.//**Éliminer les hunters** depuis les tourelles du vaisseau avec votre compétence Canonnier.//**Participer aux recherches** au Laboratoire pour freiner l'avancée des Mushs grâce à votre compétence Biologiste.</target>
+        <target>**Répondre aux contacts des bases rebelles de Sol, retrouver la base de données de Xyloph, et améliorer le logiciel de NERON** depuis le terminal de communication sur le Pont.//**Éliminer les hunters** depuis les tourelles du vaisseau avec votre compétence Canonnier.//**Participer aux recherches** au Laboratoire pour freiner l'avancée des Mushs grâce à votre compétence Biologiste.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>paola.tutorial</source>

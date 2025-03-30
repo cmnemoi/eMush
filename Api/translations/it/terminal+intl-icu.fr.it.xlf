@@ -384,6 +384,22 @@
         <source>communication_center.xyloph_db</source>
         <target>communication_center.xyloph_db</target>
       </segment>
+      <segment id="cannot_trade_under_attack" state="initial">
+        <source>communication_center.cannot_trade_under_attack</source>
+        <target>communication_center.cannot_trade_under_attack</target>
+      </segment>
+      <segment id="never" state="initial">
+        <source>communication_center.never</source>
+        <target>communication_center.never</target>
+      </segment>
+      <segment id="see_communications" state="initial">
+        <source>communication_center.see_communications</source>
+        <target>communication_center.see_communications</target>
+      </segment>
+      <segment id="see_trades" state="initial">
+        <source>communication_center.see_trades</source>
+        <target>communication_center.see_trades</target>
+      </segment>
     </unit>
   </file>
 </xliff>

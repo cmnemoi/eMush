@@ -7,6 +7,8 @@ namespace Mush\Communications\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Communications\ConfigData\TradeOptionConfigData;
+use Mush\Communications\Dto\TradeConfigDto;
 use Mush\Communications\Enum\TradeEnum;
 
 #[ORM\Entity]
@@ -24,7 +26,7 @@ class TradeConfig
     #[ORM\Column(type: 'string', enumType: TradeEnum::class)]
     private TradeEnum $name;
 
-    #[ORM\OneToMany(mappedBy: 'tradeConfig', targetEntity: TradeOptionConfig::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'tradeConfig', targetEntity: TradeOptionConfig::class, cascade: ['persist'])]
     private Collection $tradeOptionConfigs;
 
     public function __construct(
@@ -34,16 +36,30 @@ class TradeConfig
     ) {
         $this->key = $key;
         $this->name = $name;
-        $this->tradeOptionConfigs = new ArrayCollection();
+        $this->tradeOptionConfigs = new ArrayCollection([]);
+        $this->setTradeOptionConfigs($tradeOptionConfigs);
+    }
 
-        foreach ($tradeOptionConfigs as $tradeOptionConfig) {
-            $this->addTradeOptionConfig($tradeOptionConfig);
-        }
+    public static function fromDto(TradeConfigDto $tradeConfigDto): self
+    {
+        return new self(
+            key: $tradeConfigDto->key,
+            name: $tradeConfigDto->name,
+            tradeOptionConfigs: array_map(
+                static fn (string $tradeOptionName) => TradeOptionConfig::fromDto(TradeOptionConfigData::getByName($tradeOptionName)),
+                $tradeConfigDto->tradeOptions,
+            ),
+        );
     }
 
     public function getName(): TradeEnum
     {
         return $this->name;
+    }
+
+    public function getKey(): string
+    {
+        return $this->key;
     }
 
     /**
@@ -54,35 +70,25 @@ class TradeConfig
         return $this->tradeOptionConfigs;
     }
 
-    public function addTradeOptionConfig(TradeOptionConfig $tradeOptionConfig): self
+    public function update(self $tradeConfig): void
     {
-        if (!$this->tradeOptionConfigs->contains($tradeOptionConfig)) {
-            $this->tradeOptionConfigs->add($tradeOptionConfig);
-            $tradeOptionConfig->setTradeConfig($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTradeOptionConfig(TradeOptionConfig $tradeOptionConfig): self
-    {
-        $this->tradeOptionConfigs->removeElement($tradeOptionConfig);
-
-        return $this;
-    }
-
-    public function update(self $tradeConfig): self
-    {
+        $this->key = $tradeConfig->key;
         $this->name = $tradeConfig->name;
+        $this->setTradeOptionConfigs($tradeConfig->tradeOptionConfigs->toArray());
+    }
 
-        foreach ($this->tradeOptionConfigs as $tradeOptionConfig) {
-            $this->removeTradeOptionConfig($tradeOptionConfig);
+    /**
+     * @param TradeOptionConfig[] $tradeOptionConfigs
+     */
+    private function setTradeOptionConfigs(array $tradeOptionConfigs): void
+    {
+        foreach ($tradeOptionConfigs as $tradeOptionConfig) {
+            if ($this->tradeOptionConfigs->contains($tradeOptionConfig)) {
+                continue;
+            }
+
+            $tradeOptionConfig->setTradeConfig($this);
+            $this->tradeOptionConfigs->add($tradeOptionConfig);
         }
-
-        foreach ($tradeConfig->getTradeOptionConfigs() as $tradeOptionConfig) {
-            $this->addTradeOptionConfig($tradeOptionConfig);
-        }
-
-        return $this;
     }
 }

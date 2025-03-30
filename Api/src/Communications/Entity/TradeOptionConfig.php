@@ -7,6 +7,8 @@ namespace Mush\Communications\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Communications\ConfigData\TradeAssetConfigData;
+use Mush\Communications\Dto\TradeOptionConfigDto;
 use Mush\Skill\Enum\SkillEnum;
 
 #[ORM\Entity]
@@ -27,10 +29,10 @@ class TradeOptionConfig
     #[ORM\ManyToOne(targetEntity: TradeConfig::class, inversedBy: 'tradeOptionConfigs')]
     private TradeConfig $tradeConfig;
 
-    #[ORM\OneToMany(mappedBy: 'tradeOptionConfigRequired', targetEntity: TradeAssetConfig::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'tradeOptionConfigRequired', targetEntity: TradeAssetConfig::class, cascade: ['persist'])]
     private Collection $requiredAssetConfigs;
 
-    #[ORM\OneToMany(mappedBy: 'tradeOptionConfigOffered', targetEntity: TradeAssetConfig::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'tradeOptionConfigOffered', targetEntity: TradeAssetConfig::class, cascade: ['persist'])]
     private Collection $offeredAssetConfigs;
 
     public function __construct(
@@ -44,13 +46,24 @@ class TradeOptionConfig
         $this->requiredAssetConfigs = new ArrayCollection();
         $this->offeredAssetConfigs = new ArrayCollection();
 
-        foreach ($requiredAssetConfigs as $requiredAssetConfig) {
-            $this->addRequiredAssetConfig($requiredAssetConfig);
-        }
+        $this->setRequiredAssetConfigs($requiredAssetConfigs);
+        $this->setOfferedAssetConfigs($offeredAssetConfigs);
+    }
 
-        foreach ($offeredAssetConfigs as $offeredAssetConfig) {
-            $this->addOfferedAssetConfig($offeredAssetConfig);
-        }
+    public static function fromDto(TradeOptionConfigDto $tradeOptionConfigDto): self
+    {
+        return new self(
+            name: $tradeOptionConfigDto->name,
+            requiredSkill: $tradeOptionConfigDto->requiredSkill,
+            requiredAssetConfigs: array_map(
+                static fn (string $tradeAssetConfigName) => TradeAssetConfig::fromDto(TradeAssetConfigData::getByName($tradeAssetConfigName)),
+                $tradeOptionConfigDto->requiredAssets,
+            ),
+            offeredAssetConfigs: array_map(
+                static fn (string $tradeAssetConfigName) => TradeAssetConfig::fromDto(TradeAssetConfigData::getByName($tradeAssetConfigName)),
+                $tradeOptionConfigDto->offeredAssets,
+            ),
+        );
     }
 
     public function getName(): string
@@ -71,25 +84,6 @@ class TradeOptionConfig
         return $this->requiredAssetConfigs;
     }
 
-    public function addRequiredAssetConfig(TradeAssetConfig $requiredAssetConfig): self
-    {
-        if (!$this->requiredAssetConfigs->contains($requiredAssetConfig)) {
-            $this->requiredAssetConfigs->add($requiredAssetConfig);
-            $requiredAssetConfig->setRequiredTradeOptionConfig($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRequiredAssetConfig(TradeAssetConfig $requiredAssetConfig): self
-    {
-        if ($this->requiredAssetConfigs->removeElement($requiredAssetConfig)) {
-            $requiredAssetConfig->setRequiredTradeOptionConfig(null);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, TradeAssetConfig>
      */
@@ -98,58 +92,40 @@ class TradeOptionConfig
         return $this->offeredAssetConfigs;
     }
 
-    public function addOfferedAssetConfig(TradeAssetConfig $offeredAssetConfig): self
-    {
-        if (!$this->offeredAssetConfigs->contains($offeredAssetConfig)) {
-            $this->offeredAssetConfigs->add($offeredAssetConfig);
-            $offeredAssetConfig->setOfferedTradeOptionConfig($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOfferedAssetConfig(TradeAssetConfig $offeredAssetConfig): self
-    {
-        if ($this->offeredAssetConfigs->removeElement($offeredAssetConfig)) {
-            $offeredAssetConfig->setOfferedTradeOptionConfig(null);
-        }
-
-        return $this;
-    }
-
-    public function setTradeConfig(TradeConfig $tradeConfig): self
+    public function setTradeConfig(TradeConfig $tradeConfig): void
     {
         $this->tradeConfig = $tradeConfig;
-
-        return $this;
     }
 
-    public function update(self $tradeOptionConfig): self
+    public function update(self $tradeOptionConfig): void
     {
         $this->name = $tradeOptionConfig->name;
         $this->requiredSkill = $tradeOptionConfig->requiredSkill;
+        $this->requiredAssetConfigs = $tradeOptionConfig->requiredAssetConfigs;
+        $this->offeredAssetConfigs = $tradeOptionConfig->offeredAssetConfigs;
+    }
 
-        // Clear and repopulate the collections
-        // First, create copies of the current collections to avoid modification during iteration
-        $currentRequiredAssets = new ArrayCollection($this->requiredAssetConfigs->toArray());
-        $currentOfferedAssets = new ArrayCollection($this->offeredAssetConfigs->toArray());
+    private function setRequiredAssetConfigs(array $requiredAssetConfigs): void
+    {
+        foreach ($requiredAssetConfigs as $requiredAssetConfig) {
+            if ($this->requiredAssetConfigs->contains($requiredAssetConfig)) {
+                continue;
+            }
 
-        // Remove all existing assets
-        foreach ($currentRequiredAssets as $asset) {
-            $this->removeRequiredAssetConfig($asset);
+            $requiredAssetConfig->setTradeOptionConfigRequired($this);
+            $this->requiredAssetConfigs->add($requiredAssetConfig);
         }
-        foreach ($currentOfferedAssets as $asset) {
-            $this->removeOfferedAssetConfig($asset);
-        }
+    }
 
-        // Add the new assets
-        foreach ($tradeOptionConfig->getRequiredAssetConfigs() as $asset) {
-            $this->addRequiredAssetConfig($asset);
-        }
-        foreach ($tradeOptionConfig->getOfferedAssetConfigs() as $asset) {
-            $this->addOfferedAssetConfig($asset);
-        }
+    private function setOfferedAssetConfigs(array $offeredAssetConfigs): void
+    {
+        foreach ($offeredAssetConfigs as $offeredAssetConfig) {
+            if ($this->offeredAssetConfigs->contains($offeredAssetConfig)) {
+                continue;
+            }
 
-        return $this;
+            $offeredAssetConfig->setTradeOptionConfigOffered($this);
+            $this->offeredAssetConfigs->add($offeredAssetConfig);
+        }
     }
 }

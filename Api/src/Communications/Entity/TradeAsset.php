@@ -15,12 +15,6 @@ class TradeAsset
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: TradeOption::class, inversedBy: 'requiredAssets')]
-    private ?TradeOption $requiredTradeOption;
-
-    #[ORM\ManyToOne(targetEntity: TradeOption::class, inversedBy: 'offeredAssets')]
-    private ?TradeOption $offeredTradeOption;
-
     #[ORM\Column(type: 'string', enumType: TradeAssetEnum::class, nullable: false, options: ['default' => TradeAssetEnum::NULL])]
     private TradeAssetEnum $type = TradeAssetEnum::NULL;
 
@@ -29,6 +23,12 @@ class TradeAsset
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $quantity = 0;
+
+    #[ORM\ManyToOne(targetEntity: TradeOption::class, inversedBy: 'requiredAssets')]
+    private ?TradeOption $requiredTradeOption;
+
+    #[ORM\ManyToOne(targetEntity: TradeOption::class, inversedBy: 'offeredAssets')]
+    private ?TradeOption $offeredTradeOption;
 
     public function __construct(TradeAssetEnum $type, int $quantity, string $assetName = '')
     {

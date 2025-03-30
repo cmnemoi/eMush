@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Mush\Daedalus\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Communications\Entity\TradeAssetConfig;
+use Mush\Communications\ConfigData\TradeConfigData;
 use Mush\Communications\Entity\TradeConfig;
-use Mush\Communications\Entity\TradeOptionConfig;
-use Mush\Communications\Enum\TradeAssetEnum;
-use Mush\Communications\Enum\TradeEnum;
 use Mush\Daedalus\ConfigData\DaedalusConfigData;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
@@ -36,7 +33,6 @@ use Mush\Player\ConfigData\CharacterConfigData;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\Uid\Uuid;
 
 final class DaedalusFactory
@@ -162,30 +158,8 @@ final class DaedalusFactory
     {
         /** @var ArrayCollection<array-key, TradeConfig> $tradeConfigs */
         $tradeConfigs = new ArrayCollection();
-        foreach (TradeEnum::getAll() as $tradeEnum) {
-            $tradeConfigs->add(new TradeConfig(
-                key: $tradeEnum->value,
-                name: $tradeEnum,
-                tradeOptionConfigs: [
-                    new TradeOptionConfig(
-                        requiredSkill: SkillEnum::NULL,
-                        requiredAssetConfigs: [
-                            new TradeAssetConfig(
-                                type: TradeAssetEnum::NULL,
-                                minQuantity: 0,
-                                maxQuantity: 0,
-                            ),
-                        ],
-                        offeredAssetConfigs: [
-                            new TradeAssetConfig(
-                                type: TradeAssetEnum::NULL,
-                                minQuantity: 0,
-                                maxQuantity: 0,
-                            ),
-                        ],
-                    ),
-                ],
-            ));
+        foreach (TradeConfigData::getAll() as $tradeConfigDto) {
+            $tradeConfigs->add(TradeConfig::fromDto($tradeConfigDto));
         }
 
         return $tradeConfigs;

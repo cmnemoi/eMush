@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Communications\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Communications\Dto\TradeAssetConfigDto;
 use Mush\Communications\Enum\TradeAssetEnum;
 
 #[ORM\Entity]
@@ -38,17 +39,28 @@ class TradeAssetConfig
     private ?TradeOptionConfig $tradeOptionConfigOffered = null;
 
     public function __construct(
+        string $name,
         TradeAssetEnum $type,
         int $minQuantity,
         int $maxQuantity,
         string $assetName = '',
-        string $name = ''
     ) {
+        $this->name = $name;
         $this->type = $type;
         $this->minQuantity = $minQuantity;
         $this->maxQuantity = $maxQuantity;
         $this->assetName = $assetName;
-        $this->name = $name;
+    }
+
+    public static function fromDto(TradeAssetConfigDto $tradeAssetConfigDto): self
+    {
+        return new self(
+            name: $tradeAssetConfigDto->name,
+            type: $tradeAssetConfigDto->type,
+            minQuantity: $tradeAssetConfigDto->minQuantity,
+            maxQuantity: $tradeAssetConfigDto->maxQuantity,
+            assetName: $tradeAssetConfigDto->assetName,
+        );
     }
 
     public function getId(): int
@@ -56,18 +68,9 @@ class TradeAssetConfig
         return $this->id;
     }
 
-    public function setRequiredTradeOptionConfig(?TradeOptionConfig $tradeOptionConfig): self
+    public function getName(): string
     {
-        $this->tradeOptionConfigRequired = $tradeOptionConfig;
-
-        return $this;
-    }
-
-    public function setOfferedTradeOptionConfig(?TradeOptionConfig $tradeOptionConfig): self
-    {
-        $this->tradeOptionConfigOffered = $tradeOptionConfig;
-
-        return $this;
+        return $this->name;
     }
 
     public function getType(): TradeAssetEnum
@@ -88,6 +91,16 @@ class TradeAssetConfig
     public function getAssetName(): ?string
     {
         return $this->assetName;
+    }
+
+    public function setTradeOptionConfigRequired(TradeOptionConfig $tradeOptionConfig): void
+    {
+        $this->tradeOptionConfigRequired = $tradeOptionConfig;
+    }
+
+    public function setTradeOptionConfigOffered(TradeOptionConfig $tradeOptionConfig): void
+    {
+        $this->tradeOptionConfigOffered = $tradeOptionConfig;
     }
 
     public function update(self $tradeAssetConfig): self

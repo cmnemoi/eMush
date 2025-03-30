@@ -365,11 +365,12 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->showerAction->execute();
 
         // then KT should not have gained any health point, morale point or movement point
-        $expectedKTHealthPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3; // -3 from Mush shower malus
+        $expectedKTHealthPointAverage = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3.5; // -3 or -4 from Mush shower malus
+        $expectedKTHealthPointDelta = 0.5;
         $expectedKTMoralePoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint();
         $expectedKTMovementPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitMovementPoint();
 
-        $I->assertEquals($expectedKTHealthPoint, $this->kuanTi->getHealthPoint());
+        $I->assertEqualsWithDelta($expectedKTHealthPointAverage, $this->kuanTi->getHealthPoint(), $expectedKTHealthPointDelta);
         $I->assertEquals($expectedKTMoralePoint, $this->kuanTi->getMoralPoint());
         $I->assertEquals($expectedKTMovementPoint, $this->kuanTi->getMovementPoint());
     }

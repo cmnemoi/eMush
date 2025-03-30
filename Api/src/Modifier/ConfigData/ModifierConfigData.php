@@ -1359,20 +1359,21 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::MUSH_SHOWER_MALUS_HIGHER => ModifierRequirementEnum::NONE_TAGS,
             ],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
         ],
         [
             'name' => 'mush_shower_malus_for_player_set_-4healthPoint_on_post.action_if_reason_shower_50_chance',
-            'modifierName' => null,
+            'modifierName' => 'mush_shower_malus_higher',
             'targetEvent' => 'post.action',
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'trigger_event_modifier',
-            'replaceEvent' => true,
+            'replaceEvent' => false,
             'triggeredEvent' => 'change.variable_player_-4_healthPoint',
             'modifierActivationRequirements' => [
                 ModifierRequirementEnum::RANDOM_50,
@@ -3108,7 +3109,8 @@ abstract class ModifierConfigData
             'type' => 'event_modifier',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ModifierNameEnum::MUSH_SHOWER_MALUS => ModifierRequirementEnum::ALL_TAGS,
+                ModifierNameEnum::MUSH_SHOWER_MALUS => ModifierRequirementEnum::ANY_TAGS,
+                ModifierNameEnum::MUSH_SHOWER_MALUS_HIGHER => ModifierRequirementEnum::ANY_TAGS,
                 PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],

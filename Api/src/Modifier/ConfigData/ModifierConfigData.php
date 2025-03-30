@@ -1364,6 +1364,27 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => [],
         ],
         [
+            'name' => 'mush_shower_malus_for_player_set_-4healthPoint_on_post.action_if_reason_shower_50_chance',
+            'modifierName' => null,
+            'targetEvent' => 'post.action',
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => true,
+            'triggeredEvent' => 'change.variable_player_-4_healthPoint',
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::RANDOM_50,
+            ],
+            'tagConstraints' => [
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+        ],
+        [
             'name' => 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
             'modifierName' => ModifierNameEnum::MUSH_CONSUME,
             'targetEvent' => 'change.variable',
@@ -1657,7 +1678,7 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => 'cat_allergy_on_take_schrodinger',
+            'name' => 'cat_allergy_on_take_schrodinger_random16',
             'modifierName' => SymptomEnum::CAT_ALLERGY,
             'targetEvent' => ActionEvent::POST_ACTION,
             'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
@@ -1666,9 +1687,10 @@ abstract class ModifierConfigData
             'modifierRange' => 'player',
             'type' => 'event_modifier',
             'modifierActivationRequirements' => [
+                'random_16',
             ],
             'tagConstraints' => [
-                ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
                 SymptomEnum::CAT_ALLERGY => ModifierRequirementEnum::NONE_TAGS,
             ],

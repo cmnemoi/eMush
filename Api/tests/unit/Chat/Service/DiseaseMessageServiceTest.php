@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\unit\Chat\Service;
 
 use Mockery;
@@ -10,6 +12,7 @@ use Mush\Chat\Services\MessageModifierService;
 use Mush\Chat\Services\MessageModifierServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -18,9 +21,9 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationService;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
@@ -187,19 +190,10 @@ final class DiseaseMessageServiceTest extends TestCase
 
     public function testParanoiaPlayerTriggerReplaceAware()
     {
-        $gameConfig = new GameConfig();
-        $localizationConfig = new LocalizationConfig();
-        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-        $daedalus = new Daedalus();
-        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-
-        $player = new Player();
-        $player->setDaedalus($daedalus);
-
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
+        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
 
         $message = new Message();
-        $message->setAuthor($playerInfo)->setMessage('some message');
+        $message->setAuthor($player->getPlayerInfo())->setMessage('some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -280,30 +274,12 @@ final class DiseaseMessageServiceTest extends TestCase
 
     public function testParanoiaPlayerTriggerAccuse()
     {
-        $characterConfig1 = new CharacterConfig();
-        $characterConfig1->setCharacterName(CharacterEnum::ANDIE);
-        $characterConfig2 = new CharacterConfig();
-        $characterConfig2->setCharacterName(CharacterEnum::TERRENCE);
-
-        $gameConfig = new GameConfig();
-        $localizationConfig = new LocalizationConfig();
-        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
-
-        $daedalus = new Daedalus();
-
-        $daedalus
-            ->setAvailableCharacters(new CharacterConfigCollection([$characterConfig1, $characterConfig2]));
-
-        new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-
-        $player = new Player();
-
-        $playerInfo = new PlayerInfo($player, new User(), $characterConfig1);
-
-        $player->setDaedalus($daedalus)->setPlayerInfo($playerInfo);
+        $daedalus = DaedalusFactory::createDaedalus();
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $player2 = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::TERRENCE, $daedalus);
 
         $message = new Message();
-        $message->setAuthor($playerInfo)->setMessage('Some message');
+        $message->setAuthor($player->getPlayerInfo())->setMessage('Some message');
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
@@ -312,11 +288,7 @@ final class DiseaseMessageServiceTest extends TestCase
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->once();
 
         $this->randomService->shouldReceive('random')->andReturn(1)->times(3);
-        $this->randomService
-            ->shouldReceive('getRandomElements')
-            ->with([CharacterEnum::TERRENCE], 1)
-            ->andReturn([CharacterEnum::TERRENCE])
-            ->once();
+        $this->randomService->shouldReceive('getRandomPlayer')->andReturn($player2)->once();
         $this->translationService
             ->shouldReceive('translate')
             ->with(

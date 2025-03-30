@@ -29,7 +29,6 @@ use Mush\Modifier\Entity\ModifierHolderTrait;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
@@ -195,20 +194,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $player;
-    }
-
-    public function deadMushCount(): int
-    {
-        return $this
-            ->getPlayers()
-            ->getDeadClosedPlayers()
-            ->filter(static fn (ClosedPlayer $closedPlayer) => $closedPlayer->isMush())
-            ->count();
-    }
-
-    public function hasAnyMushDied(): bool
-    {
-        return $this->deadMushCount() > 0;
     }
 
     public function getAlivePlayerByNameOrThrow(string $name): Player
@@ -968,6 +953,12 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getAvailableCharacters(): CharacterConfigCollection
     {
+        // Hack for Daedaluses created before April fools update
+        // Should be removed safely after all Daedaluses created before March 30, 2025 18:00:00 UTC+1 are finished
+        if ($this->getCreatedAtOrThrow() <= new \DateTime('2025-03-30 18:00:00', new \DateTimeZone('Europe/Paris'))) {
+            return $this->getGameConfig()->getCharactersConfig()->getAllExceptAndrek();
+        }
+
         return new CharacterConfigCollection($this->availableCharacters->toArray());
     }
 

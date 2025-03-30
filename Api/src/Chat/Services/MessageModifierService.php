@@ -7,7 +7,6 @@ use Mush\Chat\Enum\DiseaseMessagesEnum;
 use Mush\Chat\Enum\MessageModificationEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 
@@ -209,21 +208,7 @@ final class MessageModifierService implements MessageModifierServiceInterface
 
     private function getRandomOtherPlayer(Player $player): string
     {
-        $characterConfigs = $player->getDaedalus()->getAvailableCharacters();
-
-        $characters = [];
-
-        /** @var CharacterConfig $characterConfig */
-        foreach ($characterConfigs as $characterConfig) {
-            $characterName = $characterConfig->getCharacterName();
-            if ($characterName !== $player->getName()) {
-                $characters[] = $characterConfig->getCharacterName();
-            }
-        }
-
-        $characterDraw = $this->randomService->getRandomElements($characters, 1);
-
-        return reset($characterDraw);
+        return $this->randomService->getRandomPlayer($player->getDaedalus()->getPlayers()->getAllExcept($player))->getName();
     }
 
     private function getVersionParameter(array $parameters, string $versionKey): array

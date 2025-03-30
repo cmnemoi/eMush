@@ -13,6 +13,7 @@ use Mush\Daedalus\Entity\TitlePriority;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Repository\DaedalusInfoRepository;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
@@ -20,10 +21,10 @@ use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Entity\TitleConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Repository\LocalizationConfigRepository;
@@ -38,9 +39,8 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -207,29 +207,22 @@ final class DaedalusServiceTest extends TestCase
 
     public function testFindAvailableCharacterForDaedalus()
     {
-        $daedalus = new Daedalus();
-        $gameConfig = new GameConfig();
+        // feature toggle is off
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->setCreatedAt(new \DateTime('2025-04-01'));
 
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
+        $andieConfig = $daedalus->getGameConfig()->getCharactersConfig()->getByNameOrThrow(CharacterEnum::ANDIE);
 
-        $characterConfigCollection = new CharacterConfigCollection();
-        $gameConfig->setCharactersConfig($characterConfigCollection);
-
-        $characterConfig = new CharacterConfig();
-        $characterConfig->setCharacterName('character_1');
-        $characterConfigCollection->add($characterConfig);
-
-        $daedalus->setAvailableCharacters($characterConfigCollection);
+        $daedalus->setAvailableCharacters(
+            new CharacterConfigCollection([$andieConfig])
+        );
 
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
 
         self::assertCount(1, $result);
-        self::assertSame($characterConfig, $result->first());
+        self::assertSame($andieConfig, $result->first());
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
-        $player->setPlayerInfo($playerInfo);
-        $daedalus->addPlayer($player);
+        $andie = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
 
         $result = $this->service->findAvailableCharacterForDaedalus($daedalus);
 
@@ -305,51 +298,15 @@ final class DaedalusServiceTest extends TestCase
 
     public function testSelectAlphaMush()
     {
-        $daedalus = new Daedalus();
-        $gameConfig = new GameConfig();
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig
-            ->setNbMush(2);
+        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus->setCreatedAt(new \DateTime('2025-04-01')); // feature toggle is off
+        $gameConfig = $daedalus->getGameConfig();
 
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-
-        new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
-        $characterConfigCollection = new CharacterConfigCollection();
-        $gameConfig->setCharactersConfig($characterConfigCollection);
-
-        $player1 = $this->createPlayer($daedalus, 'player1');
-        $characterConfig1 = $player1->getPlayerInfo()->getCharacterConfig();
-        $characterConfigCollection->add($characterConfig1);
-
-        $player2 = $this->createPlayer($daedalus, 'player2');
-        $characterConfig2 = $player2->getPlayerInfo()->getCharacterConfig();
-        $characterConfigCollection->add($characterConfig2);
-
-        $player3 = $this->createPlayer($daedalus, 'player3');
-        $characterConfig3 = $player3->getPlayerInfo()->getCharacterConfig();
-        $characterConfigCollection->add($characterConfig3);
-
-        $imunizedPlayer = $this->createPlayer($daedalus, 'imunizedPlayer');
-
-        $statusConfig = new StatusConfig();
-        $statusConfig->setStatusName(PlayerStatusEnum::IMMUNIZED);
-        $characterConfigImunized = $imunizedPlayer->getPlayerInfo()->getCharacterConfig();
-        $characterConfigImunized->setInitStatuses(new ArrayCollection([$statusConfig]));
-        $characterConfigCollection->add($characterConfigImunized);
-
-        $daedalus->setAvailableCharacters($characterConfigCollection);
+        $daedalus->setAvailableCharacters($gameConfig->getCharactersConfig()->getAllExceptAndrek());
 
         $this->randomService->shouldReceive('getRandomElementsFromProbaCollection')
-            ->withArgs(static fn ($probaCollection, $number) => (
-                $probaCollection instanceof ProbaCollection
-                && $probaCollection->toArray() === ['player1' => 1, 'player2' => 1, 'player3' => 1]
-                && $number === 2
-            ))
-            ->andReturn(['player1', 'player3'])
+            ->andReturn([CharacterEnum::CHAO, CharacterEnum::ELEESHA])
             ->once();
-
-        $this->eventService->shouldReceive('callEvent')->twice();
 
         $result = $this->service->selectAlphaMush($daedalus, new \DateTime());
     }

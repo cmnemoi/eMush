@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -77,10 +79,10 @@ class CreatePlayerServiceCest
         ]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */
-        $gioeleCharacterConfig = $I->have(CharacterConfig::class);
+        $gioeleCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::GIOELE]);
 
-        /** @var $andieCharacterConfig $characterConfig */
-        $andieCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+        /** @var CharacterConfig $finolaCharacterConfig */
+        $finolaCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::FINOLA]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -109,14 +111,13 @@ class CreatePlayerServiceCest
 
         $daedalus->addPlace($room);
         $daedalus->addPlace($storage);
-        $I->refreshEntities($daedalus);
 
         /** @var User $user */
         $user = $I->have(User::class);
 
         $charactersConfig = new CharacterConfigCollection();
         $charactersConfig->add($gioeleCharacterConfig);
-        $charactersConfig->add($andieCharacterConfig);
+        $charactersConfig->add($finolaCharacterConfig);
 
         $gameConfig->setCharactersConfig($charactersConfig);
         $daedalus->setAvailableCharacters($charactersConfig);
@@ -127,12 +128,12 @@ class CreatePlayerServiceCest
         $I->assertEquals($gioeleCharacterConfig, $playerGioele->getPlayerInfo()->getCharacterConfig());
         $I->assertEquals($gioeleCharacterConfig->getInitActionPoint(), $playerGioele->getActionPoint());
 
-        $playerAndie = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::ANDIE);
+        $playerFinola = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::FINOLA);
 
-        $I->assertEquals($andieCharacterConfig, $playerAndie->getPlayerInfo()->getCharacterConfig());
-        $I->assertEquals($andieCharacterConfig->getInitActionPoint(), $playerAndie->getActionPoint());
+        $I->assertEquals($finolaCharacterConfig, $playerFinola->getPlayerInfo()->getCharacterConfig());
+        $I->assertEquals($finolaCharacterConfig->getInitActionPoint(), $playerFinola->getActionPoint());
 
-        $I->assertTrue($playerAndie->isMush());
+        $I->assertTrue($playerFinola->isMush());
         $I->assertTrue($playerGioele->isMush());
         $I->assertNotNull($daedalus->getFilledAt());
     }

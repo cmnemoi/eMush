@@ -3,6 +3,7 @@
 namespace Mush\Player\Entity\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Game\Enum\CharacterEnum;
 
 /**
  * @template-extends ArrayCollection<int, CharacterConfig>
@@ -34,5 +35,10 @@ class CharacterConfigCollection extends ArrayCollection
         return $this->filter(
             static fn (CharacterConfig $character) => !\in_array($character->getName(), $names, true)
         );
+    }
+
+    public function getAllExceptAndrek(): self
+    {
+        return $this->getAllExcept([CharacterEnum::ANDIE, CharacterEnum::DEREK]);
     }
 }

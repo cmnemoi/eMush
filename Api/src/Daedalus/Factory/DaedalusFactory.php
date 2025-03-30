@@ -32,6 +32,8 @@ use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\ConfigData\CharacterConfigData;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
@@ -42,6 +44,7 @@ final class DaedalusFactory
     public static function createDaedalus(): Daedalus
     {
         $daedalus = new Daedalus();
+        $daedalus->setCreatedAt(new \DateTime());
 
         $gameConfig = new GameConfig();
         $gameConfig->setDaedalusConfig(DaedalusConfig::fromConfigData(DaedalusConfigData::getByName('default')));
@@ -63,6 +66,7 @@ final class DaedalusFactory
         $gameConfig->setTradeConfigs(self::getTradeConfigs());
         $gameConfig->setDiseaseCauseConfig(self::getDiseaseCauseConfigs());
         $gameConfig->setDiseaseConfig(self::getDiseaseConfigs());
+        $gameConfig->setCharactersConfig(self::getCharacterConfigs());
 
         return $daedalus;
     }
@@ -207,5 +211,16 @@ final class DaedalusFactory
         }
 
         return $diseaseConfigs;
+    }
+
+    private static function getCharacterConfigs(): ArrayCollection
+    {
+        /** @var ArrayCollection<array-key, CharacterConfig> $characterConfigs */
+        $characterConfigs = new ArrayCollection();
+        foreach (CharacterConfigData::$dataArray as $characterConfigData) {
+            $characterConfigs->add(CharacterConfig::fromConfigData($characterConfigData));
+        }
+
+        return $characterConfigs;
     }
 }

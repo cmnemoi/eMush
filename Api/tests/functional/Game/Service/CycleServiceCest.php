@@ -8,10 +8,12 @@ use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Communications\Repository\RebelBaseRepository;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
@@ -77,6 +79,12 @@ final class CycleServiceCest extends AbstractExplorationTester
     public function shouldTriggerRebelBaseContact(FunctionalTester $I): void
     {
         $this->givenRebelBasesExist([RebelBaseEnum::WOLF, RebelBaseEnum::SIRIUS], $I);
+
+        // avoid daedalus to finish before test ends!
+        $this->daedalus->getVariableByName(DaedalusVariableEnum::HULL)->setMaxValue(100000)->setValue(100000);
+        $this->daedalus->getVariableByName(DaedalusVariableEnum::OXYGEN)->setMaxValue(100000)->setValue(100000);
+        $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->setMaxValue(100000)->setValue(100000);
+        $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->setMaxValue(100000)->setValue(100000);
 
         // given Wolf is contacting
         $wolf = $this->rebelBaseRepository->findByDaedalusIdAndNameOrThrow($this->daedalus->getId(), RebelBaseEnum::WOLF);

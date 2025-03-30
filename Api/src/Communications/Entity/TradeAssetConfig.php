@@ -32,12 +32,6 @@ class TradeAssetConfig
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $assetName;
 
-    #[ORM\ManyToOne(targetEntity: TradeOptionConfig::class, inversedBy: 'requiredAssetConfigs')]
-    private ?TradeOptionConfig $tradeOptionConfigRequired = null;
-
-    #[ORM\ManyToOne(targetEntity: TradeOptionConfig::class, inversedBy: 'offeredAssetConfigs')]
-    private ?TradeOptionConfig $tradeOptionConfigOffered = null;
-
     public function __construct(
         string $name,
         TradeAssetEnum $type,
@@ -91,16 +85,6 @@ class TradeAssetConfig
     public function getAssetName(): ?string
     {
         return $this->assetName;
-    }
-
-    public function setTradeOptionConfigRequired(TradeOptionConfig $tradeOptionConfig): void
-    {
-        $this->tradeOptionConfigRequired = $tradeOptionConfig;
-    }
-
-    public function setTradeOptionConfigOffered(TradeOptionConfig $tradeOptionConfig): void
-    {
-        $this->tradeOptionConfigOffered = $tradeOptionConfig;
     }
 
     public function update(self $tradeAssetConfig): self

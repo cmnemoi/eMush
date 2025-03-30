@@ -29,10 +29,16 @@ class TradeOptionConfig
     #[ORM\ManyToOne(targetEntity: TradeConfig::class, inversedBy: 'tradeOptionConfigs')]
     private TradeConfig $tradeConfig;
 
-    #[ORM\OneToMany(mappedBy: 'tradeOptionConfigRequired', targetEntity: TradeAssetConfig::class, cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: TradeAssetConfig::class)]
+    #[ORM\JoinTable(name: 'trade_option_required_assets')]
+    #[ORM\JoinColumn(name: 'trade_option_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'trade_asset_id', referencedColumnName: 'id')]
     private Collection $requiredAssetConfigs;
 
-    #[ORM\OneToMany(mappedBy: 'tradeOptionConfigOffered', targetEntity: TradeAssetConfig::class, cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: TradeAssetConfig::class)]
+    #[ORM\JoinTable(name: 'trade_option_offered_assets')]
+    #[ORM\JoinColumn(name: 'trade_option_id', referencedColumnName: 'id')]
+    #[ORM\InverseJoinColumn(name: 'trade_asset_id', referencedColumnName: 'id')]
     private Collection $offeredAssetConfigs;
 
     public function __construct(
@@ -111,8 +117,6 @@ class TradeOptionConfig
             if ($this->requiredAssetConfigs->contains($requiredAssetConfig)) {
                 continue;
             }
-
-            $requiredAssetConfig->setTradeOptionConfigRequired($this);
             $this->requiredAssetConfigs->add($requiredAssetConfig);
         }
     }
@@ -123,8 +127,6 @@ class TradeOptionConfig
             if ($this->offeredAssetConfigs->contains($offeredAssetConfig)) {
                 continue;
             }
-
-            $offeredAssetConfig->setTradeOptionConfigOffered($this);
             $this->offeredAssetConfigs->add($offeredAssetConfig);
         }
     }

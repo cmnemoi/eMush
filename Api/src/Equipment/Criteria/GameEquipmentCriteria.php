@@ -10,6 +10,8 @@ class GameEquipmentCriteria
 
     private ?bool $breakable = null;
 
+    private ?bool $personal = null;
+
     private ?array $instanceOf = null;
 
     private ?array $notInstanceOf = null;
@@ -39,6 +41,18 @@ class GameEquipmentCriteria
     public function setBreakable(?bool $breakable): self
     {
         $this->breakable = $breakable;
+
+        return $this;
+    }
+
+    public function isPersonal(): ?bool
+    {
+        return $this->personal;
+    }
+
+    public function setPersonal(?bool $personal): self
+    {
+        $this->personal = $personal;
 
         return $this;
     }

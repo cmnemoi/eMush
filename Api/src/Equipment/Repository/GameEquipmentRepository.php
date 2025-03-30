@@ -64,6 +64,13 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
                 ->setParameter('isBreakable', $criteria->isBreakable());
         }
 
+        if ($criteria->isPersonal() !== null) {
+            $queryBuilder
+                ->leftJoin(EquipmentConfig::class, 'equipment_config', Join::WITH, 'equipment.equipment = equipment_config')
+                ->andWhere($queryBuilder->expr()->eq('equipment_config.isPersonal', ':isPersonal'))
+                ->setParameter('isPersonal', $criteria->isPersonal());
+        }
+
         if (($instanceOfs = $criteria->getInstanceOf()) !== null) {
             $types = [];
             foreach ($instanceOfs as $type) {

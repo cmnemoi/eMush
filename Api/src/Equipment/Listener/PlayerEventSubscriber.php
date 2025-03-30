@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Enum\GameRationEnum;
+use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -23,6 +25,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
     public function __construct(
         private DeleteEquipmentServiceInterface $deleteEquipment,
         private EventServiceInterface $eventService,
+        private GameEquipmentRepository $gameEquipmentRepository,
         private GameEquipmentServiceInterface $gameEquipmentService,
         private GetRandomIntegerServiceInterface $getRandomInteger,
     ) {}
@@ -51,6 +54,8 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
 
     private function handlePlayerEquipment(PlayerEvent $event): void
     {
+        $this->destroyPlayerPersonalItemsInDaedalus($event);
+
         $player = $event->getPlayer();
         $playerEquipment = $player->getEquipments();
 
@@ -75,6 +80,21 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         foreach ($player->getEquipments() as $item) {
             $this->deleteEquipment->execute($item, tags: $event->getTags(), time: $event->getTime());
+        }
+    }
+
+    private function destroyPlayerPersonalItemsInDaedalus(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+        $criteria = new GameEquipmentCriteria($event->getDaedalus());
+        $criteria->setPersonal(true);
+
+        $personalItems = $this->gameEquipmentRepository->findByCriteria($criteria);
+
+        foreach ($personalItems as $item) {
+            if ($item->getOwner()?->equals($player)) {
+                $this->deleteEquipment->execute($item, tags: $event->getTags(), time: $event->getTime());
+            }
         }
     }
 

@@ -51,6 +51,11 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         $this->hunterService->persist($attackingHunters->toArray());
         $this->hunterService->persist($pooledHunters->toArray());
+
+        $transports = $daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRANSPORT);
+        foreach ($transports as $transport) {
+            $this->deleteTransport->byId($transport->getId());
+        }
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void

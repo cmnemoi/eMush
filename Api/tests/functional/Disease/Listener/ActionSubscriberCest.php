@@ -232,7 +232,7 @@ class ActionSubscriberCest
 
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
-            ->setActionName(ActionEnum::TAKE)
+            ->setActionName(ActionEnum::TAKE_CAT)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
@@ -272,7 +272,7 @@ class ActionSubscriberCest
             ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
-                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)

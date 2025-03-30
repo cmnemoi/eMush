@@ -1657,7 +1657,7 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => 'cat_allergy_on_take_schrodinger_random16',
+            'name' => 'cat_allergy_on_take_schrodinger',
             'modifierName' => SymptomEnum::CAT_ALLERGY,
             'targetEvent' => ActionEvent::POST_ACTION,
             'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
@@ -1666,10 +1666,9 @@ abstract class ModifierConfigData
             'modifierRange' => 'player',
             'type' => 'event_modifier',
             'modifierActivationRequirements' => [
-                'random_16',
             ],
             'tagConstraints' => [
-                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
                 SymptomEnum::CAT_ALLERGY => ModifierRequirementEnum::NONE_TAGS,
             ],

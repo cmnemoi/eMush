@@ -65,7 +65,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'cat_sneezing_on_move_random16',
-                'cat_allergy_on_take_schrodinger_random16',
+                'cat_allergy_on_take_schrodinger',
             ],
         ],
         [

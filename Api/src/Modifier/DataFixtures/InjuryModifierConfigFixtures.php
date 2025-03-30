@@ -379,7 +379,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ItemEnum::SCHRODINGER . '_action_target' => ModifierRequirementEnum::ALL_TAGS,
-                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierActivationRequirements([])

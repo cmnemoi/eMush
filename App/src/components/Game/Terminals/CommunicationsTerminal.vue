@@ -81,7 +81,7 @@
                         class="terminal-button"
                         :action="contactXylophAction"
                         @click="executeTargetAction(terminal, contactXylophAction)"
-                        v-if="contactXylophAction.name"
+                        v-if="contactXylophAction"
                     />
                 </div>
             </section>
@@ -236,8 +236,8 @@ export default defineComponent({
 
             return action;
         },
-        contactXylophAction(): Action {
-            return this.terminal.getActionByKeyOrThrow(ActionEnum.CONTACT_XYLOPH);
+        contactXylophAction(): Action | null {
+            return this.terminal.getActionByKey(ActionEnum.CONTACT_XYLOPH);
         },
         neron(): string {
             return this.terminal.sectionTitles?.neronVersion?.split('.')[0].split(' ')[0] || '';

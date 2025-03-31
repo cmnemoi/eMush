@@ -4,8 +4,6 @@ namespace Mush\Modifier\Enum;
 
 abstract class ModifierNameEnum
 {
-    public const string MUSH_SHOWER_MALUS = 'mush_shower_malus';
-    public const string MUSH_SHOWER_MALUS_HIGHER = 'mush_shower_malus_higher';
     public const string MUSH_CONSUME = 'mush_consume';
     public const string ANTISOCIAL_MODIFIER = 'antisocial_modifier';
     public const string DISABLED_MOVE_MODIFIER = 'disabled_move_modifier';
@@ -37,7 +35,6 @@ abstract class ModifierNameEnum
     public const string PLAYER_MINUS_1_ACTION_POINT_ON_PUT_THROUGH_DOOR = 'player_-1_action_point_on_put_through_door';
     public const string PLAYER_ALWAYS_SUCCEEDS_REPAIR_ACTION = 'player_always_succeeds_repair_action';
     public const string DAEDALUS_PLUS_1_MAX_SPORES = 'daedalus_+1_max_spores';
-    public const string PREVENT_MUSH_SHOWER_MALUS = 'prevent_mush_shower_malus';
     public const string PLAYER_PLUS_1_INFECTION = 'player_+1_infection';
     public const string PLAYER_MINUS_25_PERCENTAGE_ON_ACTION_HIT_AND_ATTACK = 'player_-25_percentage_on_action_hit_and_attack';
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';

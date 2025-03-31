@@ -8,7 +8,6 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
-use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\ConfigData\EventConfigData;
@@ -50,7 +49,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
 
     public const string INCREASE_CYCLE_DISEASE_CHANCES_30 = 'increase_cycle_disease_chances_30';
-    public const string MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
     public const string MUSH_CONSUME_SATIETY_MODIFIER = 'mush_consume_satiety_modifier';
     public const string MUSH_CONSUME_MODIFIER = 'mush_consume_modifier';
     public const string MUSH_MORALE_MODIFIER = 'mush_morale_modifier';
@@ -195,36 +193,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($increaseCycleDiseaseChances30);
-
-        /** @var AbstractEventConfig $eventConfigLoseThreeHealth */
-        $eventConfigLoseThreeHealth = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_3);
-        $mushShowerModifier = new TriggerEventModifierConfig(ModifierNameEnum::MUSH_SHOWER_MALUS);
-        $mushShowerModifier
-            ->setTriggeredEvent($eventConfigLoseThreeHealth)
-            ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setTagConstraints([
-                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
-        $manager->persist($mushShowerModifier);
-
-        /** @var AbstractEventConfig $eventConfigLoseFourHealth */
-        $eventConfigLoseFourHealth = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_4);
-        $mushShowerModifier = new TriggerEventModifierConfig(ModifierNameEnum::MUSH_SHOWER_MALUS_HIGHER);
-        $mushShowerModifier
-            ->setTriggeredEvent($eventConfigLoseFourHealth)
-            ->setTargetEvent(ActionEvent::POST_ACTION)
-            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
-            ->setTagConstraints([
-                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
-            ])
-            ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS_HIGHER)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
-        $manager->persist($mushShowerModifier);
 
         $mushConsumeSatietyModifier = new VariableEventModifierConfig('mushConsumeSatietyModifier');
         $mushConsumeSatietyModifier
@@ -381,7 +349,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::STARVING_MODIFIER, $starvingModifier);
         $this->addReference(self::INCREASE_CYCLE_DISEASE_CHANCES_30, $increaseCycleDiseaseChances30);
 
-        $this->addReference(self::MUSH_SHOWER_MODIFIER, $mushShowerModifier);
         $this->addReference(self::MUSH_CONSUME_MODIFIER, $mushConsumeModifier);
         $this->addReference(self::MUSH_CONSUME_SATIETY_MODIFIER, $mushConsumeSatietyModifier);
         $this->addReference(self::MUSH_MORALE_MODIFIER, $mushMoraleModifier);

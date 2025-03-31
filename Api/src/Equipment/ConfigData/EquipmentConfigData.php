@@ -3000,7 +3000,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['tool_shower_default', 'gear_thalasso_default'],
+            'mechanics' => ['plumbing_shower_default', 'gear_thalasso_default'],
             'initStatuses' => [],
         ],
         [
@@ -3225,7 +3225,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'tools_kitchen_default',
+                'plumbing_kitchen_default',
             ],
             'initStatuses' => [
                 'sink_charge_default',
@@ -3249,7 +3249,7 @@ class EquipmentConfigData
                 'examine',
             ],
             'mechanics' => [
-                'tools_snc_kitchen_default',
+                'plumbing_snc_kitchen_default',
             ],
             'initStatuses' => [
                 'sink_charge_default',
@@ -3295,7 +3295,7 @@ class EquipmentConfigData
                 'examine',
                 'report_equipment',
             ],
-            'mechanics' => ['tool_shower_default'],
+            'mechanics' => ['plumbing_shower_default'],
             'initStatuses' => [],
         ],
         [

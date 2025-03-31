@@ -11,10 +11,8 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -119,18 +117,6 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $mushStatus = new ChargeStatus($this->player1, $mushStatusConfig);
         $I->haveInRepository($mushStatus);
 
-        /** @var VariableEventModifierConfig $mushShowerModifierConfig */
-        $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(
-            TriggerEventModifierConfig::class,
-            [
-                'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
-        ));
-        $mushShowerModifier = new GameModifier($this->player1, $mushShowerModifierConfig);
-        $mushShowerModifier->setModifierProvider($this->player1);
-        $I->haveInRepository($mushShowerModifier);
-
-        $I->refreshEntities($this->player1);
-
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SHOWER]);
 
@@ -152,7 +138,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
 
         $this->showerAction->execute();
 
-        $I->assertEquals($this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3, $this->player1->getHealthPoint());
+        $I->assertEqualsWithDelta($this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3.5, $this->player1->getHealthPoint(), 0.5);
         $I->assertEquals(
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost(),
             $this->player1->getActionPoint()

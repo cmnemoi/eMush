@@ -11,7 +11,13 @@ use Mush\Action\Validator\AreShowersDismantled;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -22,13 +28,12 @@ class WashInSink extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::WASH_IN_SINK;
 
-    protected StatusServiceInterface $statusService;
-
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        StatusServiceInterface $statusService
+        protected StatusServiceInterface $statusService,
+        private RandomServiceInterface $randomService
     ) {
         parent::__construct($eventService, $actionService, $validator);
 
@@ -53,11 +58,7 @@ class WashInSink extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        if ($this->player->getStatusByName(PlayerStatusEnum::MUSH)) {
-            return new Fail();
-        }
-
-        return new Success();
+        return $this->player->shouldBeHurtByShower() ? new Fail() : new Success();
     }
 
     protected function applyEffect(ActionResult $result): void
@@ -68,5 +69,27 @@ class WashInSink extends AbstractAction
             $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
+
+        if ($result->isAFail()) {
+            $this->handleWaterDamage();
+        }
+    }
+
+    private function handleWaterDamage()
+    {
+        $damageProbaCollection = $this->getGameEquipmentActionProvider()->getPlumbingMechanicOrThrow()->getWaterDamage();
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($damageProbaCollection);
+
+        $playerVariableEvent = new PlayerVariableEvent(
+            $this->player,
+            PlayerVariableEnum::HEALTH_POINT,
+            -$damage,
+            $this->getTags(),
+            new \DateTime(),
+        );
+        $playerVariableEvent->setVisibility(VisibilityEnum::PRIVATE);
+        $playerVariableEvent->addTag(EndCauseEnum::INJURY);
+
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

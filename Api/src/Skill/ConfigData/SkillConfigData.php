@@ -433,9 +433,6 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::SPLASHPROOF,
-                modifierConfigs: [
-                    ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
-                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::SURVIVALIST,

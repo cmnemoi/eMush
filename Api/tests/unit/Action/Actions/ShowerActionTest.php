@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -19,6 +20,7 @@ use Mush\Status\Service\StatusServiceInterface;
 final class ShowerActionTest extends AbstractActionTest
 {
     private Mockery\Mock|StatusServiceInterface $statusService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     /**
      * @before
@@ -29,12 +31,14 @@ final class ShowerActionTest extends AbstractActionTest
 
         $this->createActionEntity(ActionEnum::TAKE_SHOWER, 2);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $this->actionHandler = new Shower(
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->statusService
+            $this->statusService,
+            $this->randomService
         );
     }
 

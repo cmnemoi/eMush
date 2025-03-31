@@ -1342,22 +1342,30 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'tools_kitchen_default',
-            'type' => 'tool',
+            'name' => 'plumbing_kitchen_default',
+            'type' => 'plumbing',
             'actions' => [
                 'cook',
                 'wash_in_sink',
             ],
             'modifierConfigs' => [],
+            'waterDamage' => [
+                3 => 1,
+                4 => 1,
+            ],
         ],
         [
-            'name' => 'tools_snc_kitchen_default',
-            'type' => 'tool',
+            'name' => 'plumbing_snc_kitchen_default',
+            'type' => 'plumbing',
             'actions' => [
                 'cook',
                 'wash_in_sink',
             ],
             'modifierConfigs' => [],
+            'waterDamage' => [
+                3 => 1,
+                4 => 1,
+            ],
         ],
         [
             'name' => 'tools_surgery_plot_default',
@@ -2105,10 +2113,14 @@ class MechanicsData
             ],
         ],
         [
-            'name' => 'tool_shower_default',
-            'type' => 'tool',
+            'name' => 'plumbing_shower_default',
+            'type' => 'plumbing',
             'actions' => [
                 ActionEnum::TAKE_SHOWER->value,
+            ],
+            'waterDamage' => [
+                3 => 1,
+                4 => 1,
             ],
         ],
         [

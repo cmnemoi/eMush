@@ -14,6 +14,7 @@ use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -476,8 +477,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var ActionConfig $showerAction */
         $showerAction = $this->getReference(ActionsFixtures::SHOWER_DEFAULT);
-        $toolShower = $this->createTool([$showerAction], EquipmentEnum::SHOWER);
-        $manager->persist($toolShower);
+        $plumbingShower = $this->createPlumbing([$showerAction], EquipmentEnum::SHOWER);
+        $plumbingShower->setWaterDamage([3 => 1, 4 => 1]);
+        $manager->persist($plumbingShower);
 
         $thalassoGear = $this->createGear(
             [
@@ -496,7 +498,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsFireBreakable(false)
             ->setIsBreakable(true)
             ->setActionConfigs([$repair25, $dismantle25, $examineAction, $reportAction])
-            ->setMechanics([$toolShower, $thalassoGear])
+            ->setMechanics([$plumbingShower, $thalassoGear])
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($thalasso);
@@ -707,7 +709,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $washAction */
         $washAction = $this->getReference(ActionsFixtures::WASH_IN_SINK);
 
-        $kitchenMechanic = $this->createTool([$cookAction, $washAction], EquipmentEnum::KITCHEN);
+        $kitchenMechanic = $this->createPlumbing([$cookAction, $washAction], EquipmentEnum::KITCHEN);
+        $kitchenMechanic->setWaterDamage([3 => 1, 4 => 1]);
 
         /** @var ChargeStatusConfig $sinkCharge */
         $sinkCharge = $this->getReference(ChargeStatusFixtures::SINK_CHARGE);
@@ -780,7 +783,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setIsBreakable(true)
             ->setActionConfigs([$repair25, $dismantle25, $examineAction])
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
-            ->setMechanics([$toolShower])
+            ->setMechanics([$plumbingShower])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($shower);
 
@@ -1108,6 +1111,17 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(EquipmentMechanicEnum::PATROL_SHIP . '_' . $name, GameConfigEnum::DEFAULT);
 
         return $patrolShip;
+    }
+
+    private function createPlumbing(array $actions, string $name): Plumbing
+    {
+        $plumbing = new Plumbing();
+
+        $plumbing
+            ->setActions(new ArrayCollection($actions))
+            ->buildName(EquipmentMechanicEnum::PLUMBING . '_' . $name, GameConfigEnum::DEFAULT);
+
+        return $plumbing;
     }
 
     private function createTool(array $actions, string $name): Tool

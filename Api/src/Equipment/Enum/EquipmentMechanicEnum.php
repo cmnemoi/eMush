@@ -14,6 +14,7 @@ abstract class EquipmentMechanicEnum
     public const string GEAR = 'gear';
     public const string PATROL_SHIP = 'patrol_ship';
     public const string PLANT = 'plant';
+    public const string PLUMBING = 'plumbing';
     public const string PRIVATE_EQUIPMENT = 'private_equipment';
 
     /** Equipment that's only visible to owner. */

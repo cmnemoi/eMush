@@ -16,6 +16,8 @@ use Mush\Player\Entity\Player;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\UseCase\CreateProjectFromConfigForDaedalusUseCase;
 use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -38,6 +40,7 @@ final class AdminActionsController extends AbstractFOSRestController
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
         private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
         private readonly StatusServiceInterface $statusService,
+        private readonly DeletePlayerSkillService $deletePlayerSkillService,
     ) {}
 
     /**
@@ -198,5 +201,30 @@ final class AdminActionsController extends AbstractFOSRestController
         }
 
         return $this->view(['detail' => 'Neron projects proposed successfully.'], Response::HTTP_OK);
+    }
+
+    /**
+     * Delete all skills with a given name.
+     *
+     * @OA\Tag(name="Admin")
+     *
+     * @Security(name="Bearer")
+     *
+     * @Rest\Delete(path="/delete-all-skills-by-name/{name}", requirements={"name"="^[a-zA-Z_]+$"})
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    public function deleteAllSkillsByNameEndpoint(string $name): View
+    {
+        foreach ($this->daedalusRepository->findNonFinishedDaedaluses() as $daedalus) {
+            foreach ($daedalus->getAlivePlayers() as $player) {
+                try {
+                    $this->deletePlayerSkillService->execute(SkillEnum::from($name), $player);
+                } catch (\Exception $e) {
+                    continue;
+                }
+            }
+        }
+
+        return $this->view(['detail' => "All skills with name {$name} deleted successfully."], Response::HTTP_OK);
     }
 }

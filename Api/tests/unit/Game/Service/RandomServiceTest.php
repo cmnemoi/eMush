@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Game\ConfigData\DifficultyConfigData;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
@@ -204,7 +205,7 @@ final class RandomServiceTest extends TestCase
 
     public function testGetRandomDaedalusEquipmentFromProbaArray()
     {
-        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
         $difficultyConfig->setEquipmentBreakRateDistribution(['equipment' => 1]);
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);

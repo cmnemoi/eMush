@@ -20,6 +20,7 @@ use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
+use Mush\Game\ConfigData\DifficultyConfigData;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -110,7 +111,7 @@ final class DaedalusFactory
 
     private static function getDifficultyConfig(): DifficultyConfig
     {
-        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
         $difficultyConfig->setEquipmentBreakRateDistribution([EquipmentEnum::MYCOSCAN => 1]);
 
         return $difficultyConfig;

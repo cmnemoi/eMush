@@ -20,41 +20,15 @@ class DifficultyConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (DifficultyConfigData::$dataArray as $difficultyConfigData) {
+        foreach (DifficultyConfigData::getAll() as $difficultyConfigDto) {
             /** @var DifficultyConfig $difficultyConfig */
-            $difficultyConfig = $this->difficultyConfigRepository->findOneBy(['name' => $difficultyConfigData['name']]);
+            $difficultyConfig = $this->difficultyConfigRepository->findOneBy(['name' => $difficultyConfigDto->name]);
 
             if ($difficultyConfig === null) {
-                $difficultyConfig = new DifficultyConfig();
+                $difficultyConfig = DifficultyConfig::fromDto($difficultyConfigDto);
+            } else {
+                $difficultyConfig->updateFromDto($difficultyConfigDto);
             }
-
-            $difficultyConfig
-                ->setName($difficultyConfigData['name'])
-                ->setEquipmentBreakRate($difficultyConfigData['equipmentBreakRate'])
-                ->setDoorBreakRate($difficultyConfigData['doorBreakRate'])
-                ->setEquipmentFireBreakRate($difficultyConfigData['equipmentFireBreakRate'])
-                ->setStartingFireRate($difficultyConfigData['startingFireRate'])
-                ->setPropagatingFireRate($difficultyConfigData['propagatingFireRate'])
-                ->setHullFireDamageRate($difficultyConfigData['hullFireDamageRate'])
-                ->setTremorRate($difficultyConfigData['tremorRate'])
-                ->setElectricArcRate($difficultyConfigData['electricArcRate'])
-                ->setMetalPlateRate($difficultyConfigData['metalPlateRate'])
-                ->setPanicCrisisRate($difficultyConfigData['panicCrisisRate'])
-                ->setFirePlayerDamage($difficultyConfigData['firePlayerDamage'])
-                ->setFireHullDamage($difficultyConfigData['fireHullDamage'])
-                ->setElectricArcPlayerDamage($difficultyConfigData['electricArcPlayerDamage'])
-                ->setPanicCrisisPlayerDamage($difficultyConfigData['panicCrisisPlayerDamage'])
-                ->setPlantDiseaseRate($difficultyConfigData['plantDiseaseRate'])
-                ->setCycleDiseaseRate($difficultyConfigData['cycleDiseaseRate'])
-                ->setTremorPlayerDamage($difficultyConfigData['tremorPlayerDamage'])
-                ->setMetalPlatePlayerDamage($difficultyConfigData['metalPlatePlayerDamage'])
-                ->setEquipmentBreakRateDistribution($difficultyConfigData['equipmentBreakRateDistribution'])
-                ->setDifficultyModes($difficultyConfigData['difficultyModes'])
-                ->setHunterSpawnRate($difficultyConfigData['hunterSpawnRate'])
-                ->setHunterSafeCycles($difficultyConfigData['hunterSafeCycles'])
-                ->setStartingHuntersNumberOfTruceCycles($difficultyConfigData['startingHuntersNumberOfTruceCycles'])
-                ->setMaximumAllowedSpreadingFires($difficultyConfigData['maximumAllowedSpreadingFires'])
-                ->setLinkWithSolCycleFailureRate($difficultyConfigData['linkWithSolCycleFailureRate']);
 
             $this->entityManager->persist($difficultyConfig);
         }

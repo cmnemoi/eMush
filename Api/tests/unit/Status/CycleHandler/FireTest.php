@@ -12,6 +12,7 @@ use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\ConfigData\DifficultyConfigData;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -90,7 +91,7 @@ final class FireTest extends TestCase
         $date = new \DateTime();
         $room = new Place();
 
-        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
         $daedalusConfig = new DaedalusConfig();
         $daedalusHull = 100;
         $daedalusConfig
@@ -185,7 +186,7 @@ final class FireTest extends TestCase
         self::assertCount($roomNumbers, $rooms);
         self::assertCount($expectedCont, $doors);
         // Propagate all the fire 🔥.
-        $difficultyConfig = (new DifficultyConfig())
+        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'))
             ->setPropagatingFireRate(100)
             ->setMaximumAllowedSpreadingFires(100);
         $daedalusConfig = new DaedalusConfig();
@@ -271,7 +272,7 @@ final class FireTest extends TestCase
         $roomNotFireCapable = (new Place())
             ->setType($placeType);
 
-        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
         $daedalusConfig = new DaedalusConfig();
         $daedalusHull = 100;
         $daedalusConfig

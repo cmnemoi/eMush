@@ -5,6 +5,7 @@ namespace Mush\Game\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Game\ConfigData\DifficultyConfigDto;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
@@ -55,22 +56,22 @@ class DifficultyConfig
     private int $panicCrisisRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $firePlayerDamage;
+    private array $firePlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $fireHullDamage;
+    private array $fireHullDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $electricArcPlayerDamage;
+    private array $electricArcPlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $tremorPlayerDamage;
+    private array $tremorPlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $metalPlatePlayerDamage;
+    private array $metalPlatePlayerDamage = [];
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $panicCrisisPlayerDamage;
+    private array $panicCrisisPlayerDamage = [];
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $plantDiseaseRate = 0;
@@ -79,15 +80,15 @@ class DifficultyConfig
     private int $cycleDiseaseRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $equipmentBreakRateDistribution;
+    private array $equipmentBreakRateDistribution = [];
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $difficultyModes = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $hunterSpawnRate = 0;
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $hunterSafeCycles = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -102,54 +103,14 @@ class DifficultyConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $maxTransportSpawnRate = 0;
 
-    public function __construct()
+    public function __construct() {}
+
+    public static function fromDto(DifficultyConfigDto $dto): self
     {
-        $this->firePlayerDamage = [];
-        $this->fireHullDamage = [];
-        $this->electricArcPlayerDamage = [];
-        $this->tremorPlayerDamage = [];
-        $this->metalPlatePlayerDamage = [];
-        $this->panicCrisisPlayerDamage = [];
-        $this->equipmentBreakRateDistribution = [];
-        $this->difficultyModes = [];
-        $this->hunterSafeCycles = [];
-    }
+        $config = new self();
+        $config->updateFromDto($dto);
 
-    public static function fromConfigData(array $configData): self
-    {
-        $difficultyConfig = new self();
-
-        $difficultyConfig
-            ->setName($configData['name'])
-            ->setEquipmentBreakRate($configData['equipmentBreakRate'])
-            ->setDoorBreakRate($configData['doorBreakRate'])
-            ->setEquipmentFireBreakRate($configData['equipmentFireBreakRate'])
-            ->setStartingFireRate($configData['startingFireRate'])
-            ->setPropagatingFireRate($configData['propagatingFireRate'])
-            ->setMaximumAllowedSpreadingFires($configData['maximumAllowedSpreadingFires'])
-            ->setHullFireDamageRate($configData['hullFireDamageRate'])
-            ->setTremorRate($configData['tremorRate'])
-            ->setElectricArcRate($configData['electricArcRate'])
-            ->setMetalPlateRate($configData['metalPlateRate'])
-            ->setPanicCrisisRate($configData['panicCrisisRate'])
-            ->setFirePlayerDamage($configData['firePlayerDamage'])
-            ->setFireHullDamage($configData['fireHullDamage'])
-            ->setElectricArcPlayerDamage($configData['electricArcPlayerDamage'])
-            ->setTremorPlayerDamage($configData['tremorPlayerDamage'])
-            ->setMetalPlatePlayerDamage($configData['metalPlatePlayerDamage'])
-            ->setPanicCrisisPlayerDamage($configData['panicCrisisPlayerDamage'])
-            ->setPlantDiseaseRate($configData['plantDiseaseRate'])
-            ->setCycleDiseaseRate($configData['cycleDiseaseRate'])
-            ->setEquipmentBreakRateDistribution($configData['equipmentBreakRateDistribution'])
-            ->setDifficultyModes($configData['difficultyModes'])
-            ->setHunterSpawnRate($configData['hunterSpawnRate'])
-            ->setHunterSafeCycles($configData['hunterSafeCycles'])
-            ->setStartingHuntersNumberOfTruceCycles($configData['startingHuntersNumberOfTruceCycles'])
-            ->setLinkWithSolCycleFailureRate($configData['linkWithSolCycleFailureRate'])
-            ->setMinTransportSpawnRate($configData['minTransportSpawnRate'])
-            ->setMaxTransportSpawnRate($configData['maxTransportSpawnRate']);
-
-        return $difficultyConfig;
+        return $config;
     }
 
     public function getId(): int
@@ -489,6 +450,26 @@ class DifficultyConfig
     public function setMaxTransportSpawnRate(int $maxTransportSpawnRate): static
     {
         $this->maxTransportSpawnRate = $maxTransportSpawnRate;
+
+        return $this;
+    }
+
+    public function updateFromDto(DifficultyConfigDto $dto): static
+    {
+        // automatically setting values through reflection to avoid forgetting some
+        // when adding new fields
+        $dtoProperties = (new \ReflectionClass($dto))->getProperties();
+
+        foreach ($dtoProperties as $property) {
+            $propertyName = $property->getName();
+            $setterMethod = 'set' . ucfirst($propertyName);
+
+            if (!method_exists($this, $setterMethod)) {
+                throw new \Exception("Setter method {$setterMethod} not found for property {$propertyName}");
+            }
+
+            $this->{$setterMethod}($property->getValue($dto));
+        }
 
         return $this;
     }

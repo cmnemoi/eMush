@@ -18,6 +18,7 @@ use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\ConfigData\DifficultyConfigData;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\HolidayEnum;
@@ -94,7 +95,7 @@ final class PlantCycleHandlerTest extends TestCase
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(false)->once(); // Plant should not get disease
 
-        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
         $difficultyConfig->setPlantDiseaseRate(50);
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);
@@ -142,7 +143,7 @@ final class PlantCycleHandlerTest extends TestCase
         $plantType = new Plant();
         $plant->setMechanics(new ArrayCollection([$plantType]));
 
-        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
         $difficultyConfig->setPlantDiseaseRate(50);
         $gameConfig = new GameConfig();
         $gameConfig->setDifficultyConfig($difficultyConfig);

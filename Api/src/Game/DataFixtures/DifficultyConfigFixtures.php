@@ -18,7 +18,7 @@ class DifficultyConfigFixtures extends Fixture implements DependentFixtureInterf
         /** @var GameConfig $gameConfig */
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);
 
-        $difficultyConfig = DifficultyConfig::fromConfigData(DifficultyConfigData::getByName('default'));
+        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
 
         $manager->persist($difficultyConfig);
 

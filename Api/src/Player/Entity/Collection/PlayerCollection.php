@@ -146,7 +146,7 @@ class PlayerCollection extends ArrayCollection
     public function isThereAMushUnlockingProjects(): bool
     {
         return $this->filter(
-            static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer()->isMush()
+            static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer()->isMush() && $player->isDead()
             && EndCauseEnum::unlocksNewProjects($player->getPlayerInfo()->getClosedPlayer()->getEndCause())
         )->count() > 0;
     }

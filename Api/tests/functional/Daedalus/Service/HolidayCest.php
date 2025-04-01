@@ -10,11 +10,14 @@ use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\HolidayEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Service\PlaceServiceInterface;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -79,6 +82,15 @@ final class HolidayCest extends AbstractFunctionalTest
         $this->thenPavlovIsInLaboratory($I);
     }
 
+    public function aprilFoolsPavlovCreationLog(FunctionalTester $I): void
+    {
+        $this->givenHolidayIs(HolidayEnum::APRIL_FOOLS);
+        // remove lab created during parent::_before
+        $this->daedalus->removePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY));
+        $this->whenLaboratoryIsCreated($I);
+        $this->thenPavlovAwakensLogInLaboratory($I);
+    }
+
     public function aprilFoolsCreatesNeronAnnouncementWhenShipIsFull(FunctionalTester $I): void
     {
         $this->givenHolidayIs(HolidayEnum::APRIL_FOOLS);
@@ -141,6 +153,18 @@ final class HolidayCest extends AbstractFunctionalTest
     private function thenPavlovIsInLaboratory(FunctionalTester $I): void
     {
         $I->assertTrue($this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->hasEquipmentByName(ItemEnum::PAVLOV));
+    }
+
+    private function thenPavlovAwakensLogInLaboratory(FunctionalTester $I): void
+    {
+        $I->seeInRepository(
+            RoomLog::class,
+            [
+                'place' => $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getLogName(),
+                'log' => LogEnum::AWAKEN_PAVLOV,
+                'visibility' => VisibilityEnum::PUBLIC,
+            ]
+        );
     }
 
     private function thenNeronAnnouncesAnniversary(FunctionalTester $I): void

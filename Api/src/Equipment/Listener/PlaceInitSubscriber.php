@@ -125,7 +125,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             equipmentHolder: $event->getPlace(),
             reasons: [EquipmentEventReason::AWAKEN_PAVLOV],
             time: $event->getTime(),
-            visibility: VisibilityEnum::HIDDEN,
+            visibility: VisibilityEnum::PUBLIC,
         );
     }
 }

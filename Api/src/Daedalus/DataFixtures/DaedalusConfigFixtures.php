@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Enum\RoomEnum;
 
 /**
@@ -62,7 +63,9 @@ class DaedalusConfigFixtures extends Fixture implements DependentFixtureInterfac
             ])
             ->setPlaces(RoomEnum::getStorages());
 
-        $daedalusConfig->setRandomItemPlaces($randomStorageItemPlaces);
+        $daedalusConfig
+            ->setRandomItemPlaces($randomStorageItemPlaces)
+            ->setHoliday(HolidayEnum::NONE);
 
         $manager->persist($daedalusConfig);
 

@@ -190,9 +190,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersAprilFools(FunctionalTester $I): void
     {
-        // feature toggle is off
-        $this->daedalus->setCreatedAt(new \DateTime('2025-04-01'));
-
         $this->givenHolidayIsAprilFools();
 
         $characterLists = [];
@@ -209,9 +206,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleAll(FunctionalTester $I): void
     {
-        // feature toggle is off
-        $this->daedalus->setCreatedAt(new \DateTime('2025-04-01'));
-
         $this->givenChaolaToggleIs(CharacterSetEnum::ALL);
 
         $this->daedalus->getDaedalusConfig()->setPlayerCount(18);
@@ -223,9 +217,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleNames(FunctionalTester $I): void
     {
-        // feature toggle is off
-        $this->daedalus->setCreatedAt(new \DateTime('2025-04-01'));
-
         $this->givenChaolaToggleIs(CharacterSetEnum::ANDIE_DEREK);
 
         $this->whenISetAvailableCharacters();
@@ -249,9 +240,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleNone(FunctionalTester $I): void
     {
-        // feature toggle is off
-        $this->daedalus->setCreatedAt(new \DateTime('2025-04-01'));
-
         $this->givenChaolaToggleIs(CharacterSetEnum::NONE);
 
         $this->whenISetAvailableCharacters();
@@ -261,9 +249,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleOne(FunctionalTester $I): void
     {
-        // feature toggle is off
-        $this->daedalus->setCreatedAt(new \DateTime('2025-04-01'));
-
         $this->givenChaolaToggleIs(CharacterSetEnum::ONE);
 
         $this->whenISetAvailableCharacters();
@@ -273,9 +258,6 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleRandom(FunctionalTester $I): void
     {
-        // feature toggle is off
-        $this->daedalus->setCreatedAt(new \DateTime('2025-04-01'));
-
         $this->givenChaolaToggleIs(CharacterSetEnum::RANDOM);
 
         $characterLists = [];

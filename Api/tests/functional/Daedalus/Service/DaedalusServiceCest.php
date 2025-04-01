@@ -206,6 +206,8 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleAll(FunctionalTester $I): void
     {
+        $this->givenNoHoliday();
+
         $this->givenChaolaToggleIs(CharacterSetEnum::ALL);
 
         $this->daedalus->getDaedalusConfig()->setPlayerCount(18);
@@ -217,6 +219,8 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleNames(FunctionalTester $I): void
     {
+        $this->givenNoHoliday();
+
         $this->givenChaolaToggleIs(CharacterSetEnum::ANDIE_DEREK);
 
         $this->whenISetAvailableCharacters();
@@ -240,6 +244,8 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleNone(FunctionalTester $I): void
     {
+        $this->givenNoHoliday();
+
         $this->givenChaolaToggleIs(CharacterSetEnum::NONE);
 
         $this->whenISetAvailableCharacters();
@@ -249,6 +255,8 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleOne(FunctionalTester $I): void
     {
+        $this->givenNoHoliday();
+
         $this->givenChaolaToggleIs(CharacterSetEnum::ONE);
 
         $this->whenISetAvailableCharacters();
@@ -258,6 +266,8 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
     public function testSetAvailableCharactersChaolaToggleRandom(FunctionalTester $I): void
     {
+        $this->givenNoHoliday();
+
         $this->givenChaolaToggleIs(CharacterSetEnum::RANDOM);
 
         $characterLists = [];
@@ -341,6 +351,11 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
     private function givenHolidayIsAprilFools(): void
     {
         $this->daedalus->getDaedalusConfig()->setHoliday(HolidayEnum::APRIL_FOOLS);
+    }
+
+    private function givenNoHoliday(): void
+    {
+        $this->daedalus->getDaedalusConfig()->setHoliday(HolidayEnum::NONE);
     }
 
     private function givenChaolaToggleIs(string $toggle): void

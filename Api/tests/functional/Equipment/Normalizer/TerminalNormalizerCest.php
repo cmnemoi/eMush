@@ -542,7 +542,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenAMushIsDeadShouldAddNewProjects(FunctionalTester $I)
+    public function testWhenAMushIsDeadShouldAddNewProjects(FunctionalTester $I): void
     {
         $this->givenChunIsNotInLab();
 
@@ -564,11 +564,29 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     }
 
     #[DataProvider('deadCauseProvider')]
-    public function testSomeMushDeadCauseShouldNotUnlockNewProjects(FunctionalTester $I, Example $example)
+    public function testSomeMushDeadCauseShouldNotUnlockNewProjects(FunctionalTester $I, Example $example): void
     {
         $this->givenChunIsNotInLab();
 
         $this->givenAMushIsDeadForCause($example['cause'], $I);
+
+        $terminal = $this->givenLabTerminal();
+
+        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+
+        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+
+        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+            ProjectName::ANABOLICS,
+            ProjectName::NARCOTICS_DISTILLER,
+        ]);
+    }
+
+    public function testAliveMushShouldNotUnlockProjects(FunctionalTester $I): void
+    {
+        $this->givenChunIsNotInLab();
+
+        $this->convertPlayerToMush($I, $this->kuanTi);
 
         $terminal = $this->givenLabTerminal();
 

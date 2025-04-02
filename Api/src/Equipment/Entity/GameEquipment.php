@@ -20,6 +20,7 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -483,6 +484,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         $blueprint = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::BLUEPRINT);
 
         return $blueprint instanceof Blueprint ? $blueprint : throw new \RuntimeException("Equipment {$this->name} does not have a blueprint mechanic.");
+    }
+
+    public function getPlumbingMechanicOrThrow(): Plumbing
+    {
+        $waterSupply = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::PLUMBING);
+
+        return $waterSupply instanceof Plumbing ? $waterSupply : throw new \RuntimeException("Equipment {$this->name} does not have a blueprint mechanic.");
     }
 
     public function hasMechanicByName(string $mechanicName): bool

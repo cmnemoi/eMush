@@ -864,7 +864,6 @@ abstract class StatusConfigData
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [
-                'mush_shower_malus_for_player_set_-3healthPoint_on_post.action_if_reason_shower',
                 'modifier_for_player_prevent_change.variable_if_reason_consume',
                 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
                 'modifier_for_player_set_0moralPoint_on_change.variable',

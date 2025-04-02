@@ -29,6 +29,7 @@ use Mush\Equipment\ConfigData\GearDataLoader;
 use Mush\Equipment\ConfigData\ItemConfigDataLoader;
 use Mush\Equipment\ConfigData\PatrolShipDataLoader;
 use Mush\Equipment\ConfigData\PlantDataLoader;
+use Mush\Equipment\ConfigData\PlumbingDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
@@ -86,6 +87,7 @@ class ConfigDataLoaderService
         FruitDataLoader $fruitDataLoader,
         GearDataLoader $gearDataLoader,
         PlantDataLoader $plantDataLoader,
+        PlumbingDataLoader $plumbingDataLoader,
         RationDataLoader $rationDataLoader,
         ToolDataLoader $toolDataLoader,
         WeaponEventConfigDataLoader $weaponEventConfigDataLoader,
@@ -142,6 +144,7 @@ class ConfigDataLoaderService
                 $fruitDataLoader,
                 $gearDataLoader,
                 $plantDataLoader,
+                $plumbingDataLoader,
                 $rationDataLoader,
                 $toolDataLoader,
                 $patrolShipDataLoader,

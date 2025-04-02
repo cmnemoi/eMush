@@ -125,12 +125,6 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($modifierDaedalusPlus1MaxSpores->getName(), $modifierDaedalusPlus1MaxSpores);
         $manager->persist($modifierDaedalusPlus1MaxSpores);
 
-        $modifierPreventMushShowerMalus = EventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS)
-        );
-        $this->addReference($modifierPreventMushShowerMalus->getName(), $modifierPreventMushShowerMalus);
-        $manager->persist($modifierPreventMushShowerMalus);
-
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS);
 

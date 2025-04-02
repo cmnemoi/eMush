@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -19,6 +20,7 @@ use Mush\Status\Service\StatusServiceInterface;
 final class WashInSinkActionTest extends AbstractActionTest
 {
     private Mockery\Mock|StatusServiceInterface $statusService;
+    private Mockery\Mock|RandomServiceInterface $randomService;
 
     /**
      * @before
@@ -28,13 +30,15 @@ final class WashInSinkActionTest extends AbstractActionTest
         parent::before();
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->createActionEntity(ActionEnum::WASH_IN_SINK, 3);
 
         $this->actionHandler = new WashInSink(
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->statusService
+            $this->statusService,
+            $this->randomService
         );
     }
 

@@ -10,7 +10,13 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -21,17 +27,14 @@ class Shower extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::TAKE_SHOWER;
 
-    protected StatusServiceInterface $statusService;
-
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        StatusServiceInterface $statusService
+        protected StatusServiceInterface $statusService,
+        private RandomServiceInterface $randomService
     ) {
         parent::__construct($eventService, $actionService, $validator);
-
-        $this->statusService = $statusService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -59,5 +62,27 @@ class Shower extends AbstractAction
                 new \DateTime()
             );
         }
+
+        if ($result->isAFail()) {
+            $this->handleWaterDamage();
+        }
+    }
+
+    private function handleWaterDamage()
+    {
+        $damageProbaCollection = $this->getGameEquipmentActionProvider()->getPlumbingMechanicOrThrow()->getWaterDamage();
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($damageProbaCollection);
+
+        $playerVariableEvent = new PlayerVariableEvent(
+            $this->player,
+            PlayerVariableEnum::HEALTH_POINT,
+            -$damage,
+            $this->getTags(),
+            new \DateTime(),
+        );
+        $playerVariableEvent->setVisibility(VisibilityEnum::PRIVATE);
+        $playerVariableEvent->addTag(EndCauseEnum::INJURY);
+
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

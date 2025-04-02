@@ -1345,25 +1345,6 @@ abstract class ModifierConfigData
             'tagConstraints' => [PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
-            'name' => 'mush_shower_malus_for_player_set_-3healthPoint_on_post.action_if_reason_shower',
-            'modifierName' => 'mush_shower_malus',
-            'targetEvent' => 'post.action',
-            'strategy' => ModifierStrategyEnum::ADD_EVENT,
-            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
-            'applyOnTarget' => false,
-            'modifierRange' => 'player',
-            'type' => 'trigger_event_modifier',
-            'replaceEvent' => false,
-            'triggeredEvent' => 'change.variable_player_-3_healthPoint',
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
-            ],
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-        ],
-        [
             'name' => 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
             'modifierName' => ModifierNameEnum::MUSH_CONSUME,
             'targetEvent' => 'change.variable',
@@ -1665,8 +1646,7 @@ abstract class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'event_modifier',
-            'modifierActivationRequirements' => [
-            ],
+            'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
@@ -3073,21 +3053,6 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::EXTRACT_SPORE->value => ModifierRequirementEnum::ANY_TAGS,
-            ],
-        ],
-        [
-            'name' => ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
-            'modifierName' => ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
-            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
-            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
-            'applyOnTarget' => true,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
-            'type' => 'event_modifier',
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ModifierNameEnum::MUSH_SHOWER_MALUS => ModifierRequirementEnum::ALL_TAGS,
-                PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
         [

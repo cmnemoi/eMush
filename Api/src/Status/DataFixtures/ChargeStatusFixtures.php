@@ -248,9 +248,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($firstTime);
 
-        /** @var VariableEventModifierConfig $showerModifier */
-        $showerModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_SHOWER_MODIFIER);
-
         /** @var VariableEventModifierConfig $consumeSatietyModifier */
         $consumeSatietyModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_SATIETY_MODIFIER);
 
@@ -272,7 +269,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(1)
             ->setStartCharge(0)
             ->setModifierConfigs([
-                $showerModifier,
                 $consumeModifier,
                 $consumeSatietyModifier,
                 $moraleModifier,

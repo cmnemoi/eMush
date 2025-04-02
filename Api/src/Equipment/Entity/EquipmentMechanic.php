@@ -18,6 +18,7 @@ use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -37,6 +38,7 @@ use Mush\Equipment\Entity\Mechanics\Weapon;
     'gear' => Gear::class,
     'patrol_ship' => PatrolShip::class,
     'plant' => Plant::class,
+    'plumbing' => Plumbing::class,
     'ration' => Ration::class,
     'tool' => Tool::class,
     'weapon' => Weapon::class,

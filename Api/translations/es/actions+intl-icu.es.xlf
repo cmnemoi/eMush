@@ -1227,6 +1227,10 @@ Esta acción es **Agresiva**. Puede tener restricciones.</target>
         <target>Obliga a los tripulantes que entran a la sala a volver por donde vinieron. La acción termina cuando te desplazas.
 Esta acción es **Agresiva**. Puede tener restricciones.</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>guard.confirmation</source>
+        <target>guard.confirmation</target>
+      </segment>
     </unit>
     <unit id="exchange_body">
       <segment id="name" state="translated">

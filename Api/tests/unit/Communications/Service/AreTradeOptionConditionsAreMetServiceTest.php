@@ -289,6 +289,16 @@ final class AreTradeOptionConditionsAreMetServiceTest extends TestCase
         $this->thenTradeShouldNotBeExecutable($canExecuteTrade, 'Trade option should not be valid if only one of multiple required assets is met');
     }
 
+    public function testShouldReturnFalseIfAskedPlayerNotOnDaedalus(): void
+    {
+        $this->daedalus->getGameConfig()->getCharactersConfig()->removeElement(CharacterEnum::IAN);
+        $this->givenTradeOptionRequiringSpecificPlayer(CharacterEnum::IAN, 1);
+
+        $canExecuteTrade = $this->whenCheckingTradeConditions();
+
+        $this->thenTradeShouldNotBeExecutable($canExecuteTrade, 'Trade option should not be valid if asked player is not on daedalus');
+    }
+
     private function givenTradeOptionRequiringSkill(SkillEnum $skillName): void
     {
         $this->tradeOption = new TradeOption(

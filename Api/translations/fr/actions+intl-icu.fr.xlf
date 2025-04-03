@@ -1253,6 +1253,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>guard.description</source>
         <target>Permet d'obliger les équipiers entrant à repartir d'où ils viennent. L'action prend fin dès que vous vous déplacez.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>guard.confirmation</source>
+        <target>Cette action peut être très mal perçue, êtes-vous sûr de vouloir continuer ?</target>
+      </segment>
     </unit>
     <unit id="exchange_body">
       <segment id="name" state="translated">

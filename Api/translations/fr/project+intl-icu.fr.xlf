@@ -336,7 +336,7 @@
       </segment>
       <segment id="fission_coffee_roaster.description" state="translated">
         <source>fission_coffee_roaster.description</source>
-        <target>La machine à café se régénère également au cycle 4.</target>
+        <target>La machine à café se régénère deux fois plus vite.</target>
       </segment>
       <segment id="fission_coffee_roaster.lore" state="translated">
         <source>fission_coffee_roaster.lore</source>

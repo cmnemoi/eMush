@@ -54,7 +54,7 @@ final readonly class AreTradeOptionConditionsAreMetService
             TradeAssetEnum::ITEM => fn (Player $trader, TradeAsset $requiredAsset) => $this->numberOfItemsInDaedalusStorages($requiredAsset->getAssetName(), $trader->getDaedalus()) >= $requiredAsset->getQuantity(),
             TradeAssetEnum::RANDOM_PLAYER => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->getDaedalus()->getPlayers()->getTradablePlayersFor($trader)->count() >= $requiredAsset->getQuantity(),
             TradeAssetEnum::DAEDALUS_VARIABLE => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->getDaedalus()->getVariableValueByName($requiredAsset->getAssetName()) >= $requiredAsset->getQuantity(),
-            TradeAssetEnum::SPECIFIC_PLAYER => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->canTradePlayer($trader->getDaedalus()->getPlayerByNameOrThrow($requiredAsset->getAssetName())),
+            TradeAssetEnum::SPECIFIC_PLAYER => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->canTradePlayer($trader->getDaedalus()->getPlayers()->getByNameOrDefault($requiredAsset->getAssetName())),
             TradeAssetEnum::RANDOM_PROJECT => static fn (Player $trader, TradeAsset $requiredAsset) => $trader->getDaedalus()->getFinishedNeronProjects()->count() >= $requiredAsset->getQuantity(),
             default => static fn (Player $trader, TradeAsset $requiredAsset) => true,
         };

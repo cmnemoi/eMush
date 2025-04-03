@@ -42,6 +42,16 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->getName() === $name)->first() ?: null;
     }
 
+    public function getByNameOrDefault(string $name): Player
+    {
+        return $this->filter(static fn (Player $player) => $player->getName() === $name)->first() ?: Player::createNull();
+    }
+
+    public function getByNameOrThrow(string $name): Player
+    {
+        return $this->getPlayerByName($name) ?? throw new \RuntimeException("Player with name {$name} not found");
+    }
+
     public function getPlayersWithSkill(SkillEnum $skill): self
     {
         return $this->filter(static fn (Player $player) => $player->hasSkill($skill));

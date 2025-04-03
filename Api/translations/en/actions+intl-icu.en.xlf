@@ -1095,7 +1095,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>repair_pilgred.description</source>
-        <target>Repairing PILGRED allows you to return to Sol.</target>
+        <target>Repairing PILGRED allows you to return to Sol. In addition, the coffee machine will regenerate four times as fast.</target>
       </segment>
     </unit>
     <unit id="return_to_sol">

@@ -2130,7 +2130,7 @@ class ActionData
         [
             'name' => ActionEnum::GUARD->value,
             'action_name' => ActionEnum::GUARD,
-            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::HIDDEN],

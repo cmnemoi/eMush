@@ -1227,6 +1227,10 @@ Or you simply need some fresh air.... or not.</target>
         <source>guard.description</source>
         <target>Allows you to send any entering crew members back from whence they came. The action is over as soon as you move.</target>
       </segment>
+      <segment id="confirmation" state="translated">
+        <source>guard.confirmation</source>
+        <target>This action may be very poorly received, are you sure you want to continue?</target>
+      </segment>
     </unit>
     <unit id="exchange_body">
       <segment id="name" state="translated">

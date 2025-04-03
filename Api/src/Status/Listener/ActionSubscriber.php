@@ -21,7 +21,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::PRE_ACTION => ['onPreAction', EventPriorityEnum::LOW],
-            ActionEvent::RESULT_ACTION => 'onResultAction',
+            ActionEvent::RESULT_ACTION => ['onResultAction', EventPriorityEnum::LOW],
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }
@@ -29,7 +29,10 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function onPreAction(ActionEvent $event): void
     {
         $this->makePlayerActiveService->execute($event->getAuthor());
+    }
 
+    public function onResultAction(ActionEvent $event): void
+    {
         if ($event->shouldTriggerRoomTrap()) {
             $this->statusService->removeStatus(
                 statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
@@ -38,10 +41,7 @@ final class ActionSubscriber implements EventSubscriberInterface
                 time: $event->getTime()
             );
         }
-    }
 
-    public function onResultAction(ActionEvent $event): void
-    {
         if ($event->shouldTriggerAttemptHandling()) {
             $this->statusService->handleAttempt(
                 holder: $event->getAuthor(),

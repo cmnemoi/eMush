@@ -3592,7 +3592,10 @@ abstract class ModifierConfigData
             'replaceEvent' => false,
             'visibility' => VisibilityEnum::PRIVATE,
             'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT,
-            'modifierActivationRequirements' => [ModifierRequirementEnum::LYING_DOWN_STATUS_CHARGE_REACHES_4],
+            'modifierActivationRequirements' => [
+                ModifierRequirementEnum::LYING_DOWN_STATUS_CHARGE_REACHES_4,
+                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
+            ],
             'tagConstraints' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => [],

@@ -8,7 +8,9 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Service\ChangePlayerVariableMaximumServiceInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Handler\ColdBloodedHandler;
@@ -21,6 +23,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class PlayerEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
+        private ChangePlayerVariableMaximumServiceInterface $changePlayerVariableMaximum,
         private ColdBloodedHandler $coldBloodedHandler,
         private DeletePlayerSkillService $deletePlayerSkill,
         private OpportunistHandler $opportunistHandler,
@@ -38,8 +41,13 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
 
     public function onConversionPlayer(PlayerEvent $event): void
     {
+        $player = $event->getPlayer();
+
+        if ($player->hasSkill(SkillEnum::LETHARGY)) {
+            $this->revertLethargyBonus($player);
+        }
         if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
-            $this->deletePlayerHumanSkills($event->getPlayer());
+            $this->deletePlayerHumanSkills($player);
         }
     }
 
@@ -77,5 +85,14 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         $player
             ->getHumanSkills()
             ->map(fn (Skill $skill) => $this->deletePlayerSkill->execute($skill->getName(), $player));
+    }
+
+    private function revertLethargyBonus(Player $player): void
+    {
+        $this->changePlayerVariableMaximum->execute(
+            player: $player,
+            variableName: PlayerVariableEnum::ACTION_POINT,
+            delta: -$player->getCharacterConfig()->getMaxActionPoint()
+        );
     }
 }

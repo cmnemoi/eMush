@@ -26,7 +26,7 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class PreActionEventCest extends AbstractFunctionalTest
+final class TrappedRoomTriggerCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -66,7 +66,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             tags: []
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then the trapped status should be removed from the room
         $I->assertFalse($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
@@ -98,7 +98,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             tags: []
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then KT should get a spore
         $I->assertEquals(
@@ -141,7 +141,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             tags: []
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then Chun should not get a spore
         $I->assertEquals(
@@ -184,7 +184,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             tags: []
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then KT should not get a spore
         $I->assertEquals(
@@ -219,7 +219,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             tags: []
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then a message should be printed in the mush channel
         $I->seeInRepository(
@@ -257,7 +257,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             tags: []
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then the message should have the right parameters
         $mushChannelMessage = $I->grabEntityFromRepository(
@@ -304,7 +304,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             tags: []
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then room trap should not be triggered
         $I->assertTrue($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
@@ -333,7 +333,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             tags: []
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then trap should be triggered
         $I->assertFalse($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
@@ -369,7 +369,7 @@ final class PreActionEventCest extends AbstractFunctionalTest
             actionTarget: $door
         );
         $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::PRE_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
 
         // then trap should not be triggered
         $I->assertTrue($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));

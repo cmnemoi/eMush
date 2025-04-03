@@ -307,12 +307,16 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         );
         $manager->persist($modifierRequirement);
 
+        /** @var ModifierActivationRequirement $playerIsNotMushRequirement */
+        $playerIsNotMushRequirement = $this->getReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH);
+
         $lethargyModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_4_CYCLES_AND_MORE)
         );
         $lethargyModifier
             ->setTriggeredEvent($eventConfig)
-            ->addModifierRequirement($modifierRequirement);
+            ->addModifierRequirement($modifierRequirement)
+            ->addModifierRequirement($playerIsNotMushRequirement);
         $this->addReference($lethargyModifier->getName(), $lethargyModifier);
         $manager->persist($lethargyModifier);
 
@@ -323,9 +327,6 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
             ModifierActivationRequirementData::getByName(ModifierRequirementEnum::MUSH_CREW_PROPORTION_50_PERCENTS)
         );
         $manager->persist($mushCrewProportionRequirement);
-
-        /** @var ModifierActivationRequirement $playerIsNotMushRequirement */
-        $playerIsNotMushRequirement = $this->getReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH);
 
         $panicActionPointModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW)

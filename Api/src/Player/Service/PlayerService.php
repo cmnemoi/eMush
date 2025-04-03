@@ -210,6 +210,8 @@ final class PlayerService implements PlayerServiceInterface
             $this->handleTriumphChange($player, $date);
         }
 
+        $this->handleXPChange($player, $date);
+
         return $this->persist($player);
     }
 
@@ -343,6 +345,36 @@ final class PlayerService implements PlayerServiceInterface
             ['quantity' => $triumphChange],
             $date
         );
+    }
+
+    private function handleXPChange(Player $player, \DateTime $date): void
+    {
+        if ($player->isActive()) {
+            $XPChange = 1;
+            // TODO: Handle SNC Kitchen? Though it should probably be handled in equipmentcyclesubscriber instead.
+
+            $player->getUser()->addExperience($XPChange);
+
+            $this->roomLogService->createLog(
+                PlayerModifierLogEnum::GAIN_XP,
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                ['quantity' => $XPChange],
+                $date
+            );
+        } else {
+            $this->roomLogService->createLog(
+                PlayerModifierLogEnum::NO_XP_INACTIVE,
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'event_log',
+                $player,
+                [],
+                $date
+            );
+        }
     }
 
     private function markPlayerAsDead(Player $player, string $endCause, \DateTime $date): void

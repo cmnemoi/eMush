@@ -83,6 +83,19 @@
         <target>This action completes the personal objectives for your character. You have earned *{quantity} Glory*.</target>
       </segment>
     </unit>
+    </unit>
+    <unit id="gain_xp">
+      <segment state="translated">
+        <source>gain_xp</source>
+        <target>You have earned {quantity} :xp:.</target>
+      </segment>
+    </unit>
+    <unit id="no_xp_inactive">
+      <segment state="translated">
+        <source>no_xp_inactive</source>
+        <target>You are inactive. You will not gain any experience until you act again.</target>
+      </segment>
+    </unit>
     <unit id="death">
       <segment state="translated">
         <source>death</source>

@@ -75,6 +75,9 @@ export enum UiIconEnum {
     WATCH = 'watch', //Alternative spelling for players
 
     DOG = 'dog',
+
+    XP = 'xp',
+    EXPERIENCE = 'experience',
 }
 
 export const UiIconIcons: {[index: string]: string} = {
@@ -121,6 +124,8 @@ export const UiIconIcons: {[index: string]: string} = {
     [UiIconEnum.SHIELD]: getImgUrl('shield.png'),
     [UiIconEnum.CASIO]: getImgUrl('casio.png'),
     [UiIconEnum.WATCH]: getImgUrl('casio.png'),
-    [UiIconEnum.DOG]: getImgUrl('ui_icons/dog.png')
+    [UiIconEnum.DOG]: getImgUrl('ui_icons/dog.png'),
+    [UiIconEnum.XP]: getImgUrl('ui_icons/player_variables/xp.png'),
+    [UiIconEnum.EXPERIENCE]: getImgUrl('ui_icons/player_variables/xp.png')
 }
 ;

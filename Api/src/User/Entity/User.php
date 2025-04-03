@@ -50,6 +50,9 @@ class User implements UserInterface
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $hasReadLatestNews = false;
 
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private int $experience = 0;
+
     public function __construct()
     {
         $this->moderationSanctions = new ArrayCollection();
@@ -226,5 +229,24 @@ class User implements UserInterface
     public function hasNotReadLatestNews(): bool
     {
         return $this->hasReadLatestNews === false;
+    }
+
+    public function setExperience(int $experience): self
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getExperience(): int
+    {
+        return $this->experience;
+    }
+
+    public function addExperience(int $gain): self
+    {
+        $this->experience += $gain;
+
+        return $this;
     }
 }

@@ -38,6 +38,8 @@ abstract class PlayerModifierLogEnum
     public const string LOSS = 'loss';
     public const string VISIBILITY = 'visibility';
     public const string VALUE = 'value';
+    public const string GAIN_XP = 'gain_xp';
+    public const string NO_XP_INACTIVE = 'no_xp_inactive';
 
     public const array PLAYER_VARIABLE_LOGS = [
         self::GAIN => [

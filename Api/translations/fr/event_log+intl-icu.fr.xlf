@@ -94,6 +94,18 @@
         <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *{quantity} Triomphe*.</target>
       </segment>
     </unit>
+    <unit id="gain_xp">
+      <segment state="translated">
+        <source>gain_xp</source>
+        <target>Vous avez gagné {quantity} :xp:.</target>
+      </segment>
+    </unit>
+    <unit id="no_xp_inactive">
+      <segment state="translated">
+        <source>no_xp_inactive</source>
+        <target>Vous êtes Inactif. Vous ne gagnerez plus d'expérience tant que vous n'agisserez pas de nouveau.</target>
+      </segment>
+    </unit>
     <unit id="death">
       <segment state="translated">
         <source>death</source>

@@ -216,6 +216,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setDiseaseConfig($diseaseConfig2)
             ->setDiseasePoint(1);
         $player->addMedicalCondition($diseasePlayer2);
+        $this->playerDiseaseRepository->save($diseasePlayer2);
 
         $this->eventService
             ->shouldReceive('callEvent')
@@ -256,6 +257,7 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setResistancePoint(0);
+        $this->playerDiseaseRepository->save($diseasePlayer);
 
         $this->eventService->shouldReceive('callEvent')->once();
 

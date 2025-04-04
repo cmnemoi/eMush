@@ -135,8 +135,14 @@ final class PlayerSubscriber implements EventSubscriberInterface
     private function removeDeadPlayerDiseases(PlayerEvent $event): void
     {
         $diseases = $event->getPlayer()->getMedicalConditions();
+
         foreach ($diseases as $disease) {
-            $this->playerDiseaseService->delete($disease);
+            $this->playerDiseaseService->removePlayerDisease(
+                playerDisease: $disease,
+                causes: $event->getTags(),
+                time: $event->getTime(),
+                visibility: VisibilityEnum::HIDDEN
+            );
         }
     }
 

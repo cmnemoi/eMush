@@ -2,24 +2,28 @@
 
 namespace Mush\Disease\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Player\Entity\Player;
+use Mush\Status\Entity\ChargeStatus;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'disease_player')]
-class PlayerDisease
+class PlayerDisease implements ModifierProviderInterface
 {
     use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    private ?int $id = 0;
+    private int $id;
 
     #[ORM\ManyToOne(targetEntity: DiseaseConfig::class)]
     private DiseaseConfig $diseaseConfig;
@@ -45,14 +49,9 @@ class PlayerDisease
         return $disease;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getIdOrThrow(): int
-    {
-        return $this->id ?? throw new \RuntimeException('PlayerDisease should have an id');
     }
 
     public function getDiseaseConfig(): DiseaseConfig
@@ -168,5 +167,24 @@ class PlayerDisease
     public function shouldHealSilently(): bool
     {
         return $this->player->isMush() && ($this->isAPhysicalDisease() || $this->isIncubating());
+    }
+
+    public function getUsedCharge(string $actionName): ?ChargeStatus
+    {
+        return null;
+    }
+
+    public function getOperationalStatus(string $actionName): ActionProviderOperationalStateEnum
+    {
+        if ($this->isActive()) {
+            return ActionProviderOperationalStateEnum::OPERATIONAL;
+        }
+
+        return ActionProviderOperationalStateEnum::DEACTIVATED;
+    }
+
+    public function getAllModifierConfigs(): ArrayCollection
+    {
+        return new ArrayCollection($this->diseaseConfig->getModifierConfigs()->toArray());
     }
 }

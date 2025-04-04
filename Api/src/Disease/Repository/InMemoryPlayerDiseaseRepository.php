@@ -12,17 +12,14 @@ final class InMemoryPlayerDiseaseRepository implements PlayerDiseaseRepositoryIn
 
     public function save(PlayerDisease $playerDisease): void
     {
-        if (!$playerDisease->getId()) {
-            $this->setDiseaseId($playerDisease);
-        }
-
-        $this->diseases[$playerDisease->getIdOrThrow()] = $playerDisease;
+        $this->setDiseaseId($playerDisease);
+        $this->diseases[$playerDisease->getId()] = $playerDisease;
     }
 
     public function delete(PlayerDisease $playerDisease): void
     {
         $playerDisease->getPlayer()->removeMedicalCondition($playerDisease);
-        unset($this->diseases[$playerDisease->getIdOrThrow()]);
+        unset($this->diseases[$playerDisease->getId()]);
     }
 
     public function clear(): void

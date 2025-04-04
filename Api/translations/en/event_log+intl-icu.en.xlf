@@ -1221,8 +1221,8 @@
         <source>trade_assets_created</source>
         <target>{quantity, plural,
         one {{equipment_first_letter, select, 
-             consonant {A **{equipment}** has been teleported to the bridge! Let everyone know...}
-             other {An **{equipment}** has been teleported to the bridge! Let everyone know...}
+             consonant {A **{equipment}** has been teleported to the bridge!}
+             other {An **{equipment}** has been teleported to the bridge!}} Let everyone know...}
         other {A delivery of # **{equipment_plural_name}** has been teleported to the bridge! Alien technology is cool!}
         }</target>
       </segment>

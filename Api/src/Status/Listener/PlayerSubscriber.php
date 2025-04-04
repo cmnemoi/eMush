@@ -8,16 +8,20 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
+use Mush\User\Service\UserServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
+    private UserServiceInterface $userService;
 
     public function __construct(
         StatusServiceInterface $statusService,
+        UserServiceInterface $userService,
     ) {
         $this->statusService = $statusService;
+        $this->userService = $userService;
     }
 
     public static function getSubscribedEvents()
@@ -60,6 +64,8 @@ class PlayerSubscriber implements EventSubscriberInterface
                 $time
             );
         }
+
+        $this->createBeginnerStatusForPlayer($playerEvent);
     }
 
     public function onPlayerDeath(PlayerEvent $playerEvent): void
@@ -172,6 +178,20 @@ class PlayerSubscriber implements EventSubscriberInterface
                 holder: $currentPariah,
                 tags: $playerEvent->getTags(),
                 time: $playerEvent->getTime(),
+            );
+        }
+    }
+
+    private function createBeginnerStatusForPlayer(PlayerEvent $event): void
+    {
+        $user = $event->getPlayer()->getUser();
+
+        if ($this->userService->isABeginner($user)) {
+            $this->statusService->createStatusFromName(
+                statusName: PlayerStatusEnum::BEGINNER,
+                holder: $event->getPlayer(),
+                tags: $event->getTags(),
+                time: $event->getTime(),
             );
         }
     }

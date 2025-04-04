@@ -21,6 +21,8 @@ interface UserServiceInterface
 
     public function findUserClosedPlayers(User $user): ArrayCollection;
 
+    public function isABeginner(User $user): bool;
+
     public function acceptRules(User $user): void;
 
     public function readLatestNews(User $user): void;

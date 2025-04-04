@@ -1840,6 +1840,14 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::BEGINNER . '_default',
+            'statusName' => PlayerStatusEnum::BEGINNER,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

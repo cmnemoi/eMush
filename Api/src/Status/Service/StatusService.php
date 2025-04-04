@@ -108,7 +108,7 @@ class StatusService implements StatusServiceInterface
         $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $name);
 
         if ($statusConfigs->count() < 1) {
-            throw new \LogicException("there should be at least 1 statusConfig with this name ({$name}). There are currently {$statusConfigs->count()}");
+            throw new \LogicException("there should be at least 1 statusConfig with this statusName ({$name}). There are currently {$statusConfigs->count()}");
         }
 
         return $statusConfigs->first();

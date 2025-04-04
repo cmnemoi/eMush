@@ -9,6 +9,9 @@ use Mush\User\Repository\UserRepository;
 
 class UserService implements UserServiceInterface
 {
+    public const FOUR_GAMES = 4;
+    public const TWENTY_FOUR_DAYS_IN_CYCLES = 24;
+
     private EntityManagerInterface $entityManager;
 
     private UserRepository $repository;
@@ -66,6 +69,11 @@ class UserService implements UserServiceInterface
     public function findUserClosedPlayers(User $user): ArrayCollection
     {
         return new ArrayCollection($this->repository->findUserClosedPlayers($user));
+    }
+
+    public function isABeginner(User $user): bool
+    {
+        return $this->repository->findUserPastCyclesCount($user) < self::TWENTY_FOUR_DAYS_IN_CYCLES || $this->repository->findUserNumberOfPastGames($user) <= self::FOUR_GAMES;
     }
 
     public function acceptRules(User $user): void

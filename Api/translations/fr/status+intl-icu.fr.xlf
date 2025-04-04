@@ -1665,5 +1665,15 @@
         <target>L'immunisée ne peut pas être contaminée par le Mush. Pratique quand on ne sait plus à qui faire confiance.</target>
       </segment>
     </unit>
+    <unit id="beginner">
+      <segment id="name" state="translated">
+        <source>beginner.name</source>
+        <target>Nouvelle recrue</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>beginner.description</source>
+        <target>Tout droit sortie de l'Académie, cette nouvelle recrue aura besoin d'être épaulée dans sa prise en main des spécificités de la vie à bord du Daedalus. De plus, les chances de contamination mush avant le départ ont été moindres, grâce au régime hygiénique strict de l'Académie.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -619,6 +619,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($aggroed);
 
+        $beginner = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::BEGINNER . '_default')
+        );
+        $manager->persist($beginner);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -692,7 +697,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($linkWithSolEstablishedOnce)
             ->addStatusConfig($ghostSample)
             ->addStatusConfig($ghostChun)
-            ->addStatusConfig($aggroed);
+            ->addStatusConfig($aggroed)
+            ->addStatusConfig($beginner);
 
         $manager->persist($gameConfig);
 
@@ -761,6 +767,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::GHOST_SAMPLE, $ghostSample);
         $this->addReference(DaedalusStatusEnum::GHOST_CHUN, $ghostChun);
         $this->addReference(HunterStatusEnum::AGGROED, $aggroed);
+        $this->addReference(PlayerStatusEnum::BEGINNER, $beginner);
 
         $manager->flush();
     }

@@ -515,6 +515,7 @@ class GameConfigData
                 DaedalusStatusEnum::GHOST_SAMPLE . '_default',
                 DaedalusStatusEnum::GHOST_CHUN . '_default',
                 HunterStatusEnum::AGGROED . '_default',
+                PlayerStatusEnum::BEGINNER . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

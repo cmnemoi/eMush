@@ -52,6 +52,12 @@ class CreatePlayerServiceCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
+        $beginnerStatusConfig = new StatusConfig();
+        $beginnerStatusConfig
+            ->setStatusName(PlayerStatusEnum::BEGINNER)
+            ->buildName(GameConfigEnum::TEST);
+        $I->haveInRepository($beginnerStatusConfig);
+
         $rebelBaseContactDurationStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['name' => DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_' . GameConfigEnum::DEFAULT]);
 
         /** @var LocalizationConfig $localizationConfig */
@@ -72,7 +78,7 @@ class CreatePlayerServiceCest
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$mushStatusConfig, $rebelBaseContactDurationStatusConfig]),
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig, $rebelBaseContactDurationStatusConfig, $beginnerStatusConfig]),
             'daedalusConfig' => $daedalusConfig,
             'equipmentsConfig' => $equipmentConfigs,
             'hunterConfigs' => new ArrayCollection([$hunterConfig]),

@@ -311,11 +311,11 @@ class DaedalusService implements DaedalusServiceInterface
                 continue;
             }
 
-            /**
-             * @TODO lower $mushChance if user is a beginner
-             * @TODO (maybe add a "I want to be mush" setting to increase this proba)
-             */
-            $mushChance = 1;
+            if ($daedalus->getPlayers()->getPlayerByName($characterConfig->getName())?->hasStatus(PlayerStatusEnum::BEGINNER)) {
+                $mushChance = 1;
+            } else {
+                $mushChance = 2;
+            }
             $chancesArray[$characterConfig->getCharacterName()] = $mushChance;
         }
 

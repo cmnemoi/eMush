@@ -72,9 +72,54 @@ final class UserRepository extends ServiceEntityRepository implements UserLoader
         return $qb->getQuery()->getResult();
     }
 
+    public function findUserPastCyclesCount(User $user): int
+    {
+        $query = <<<'SQL'
+            SELECT
+                SUM(
+                    EXTRACT(
+                        EPOCH FROM closed_player.finished_at - closed_player.created_at
+                    ) / 60 / config_daedalus.cycle_length
+                )
+            as nb_cycles_survived
+            FROM closed_player
+            INNER JOIN player_info
+            ON closed_player.id = player_info.closed_player_id
+            INNER JOIN daedalus_closed AS closed_daedalus
+            ON closed_player.closed_daedalus_id = closed_daedalus.id
+            INNER JOIN daedalus_info
+            ON closed_daedalus.daedalus_info_id = daedalus_info.id
+            INNER JOIN config_game
+            ON daedalus_info.game_config_id = config_game.id
+            INNER JOIN config_daedalus
+            ON config_game.daedalus_config_id = config_daedalus.id
+            INNER JOIN users
+            ON player_info.user_id = users.id
+            WHERE users.id = :user_id
+            AND closed_player.finished_at IS NOT NULL;
+        SQL;
+
+        $connection = $this->getEntityManager()->getConnection();
+
+        return (int) $connection->executeQuery($query, ['user_id' => $user->getId()])->fetchOne() ?? 0;
+    }
+
+    public function findUserNumberOfPastGames(User $user): int
+    {
+        $qb = $this->createQueryBuilder('user');
+
+        $qb->select('COUNT(closed_player)')
+            ->innerJoin(PlayerInfo::class, 'player_info', 'WITH', 'player_info.user = user.id')
+            ->innerJoin(ClosedPlayer::class, 'closed_player', 'WITH', 'closed_player.id = player_info.closedPlayer')
+            ->where('user.id = :user_id')
+            ->setParameter('user_id', $user->getId());
+
+        return (int) $qb->getQuery()->getSingleScalarResult() ?? 0;
+    }
+
     public function save(User $user): void
     {
-        $this->_em->persist($user);
-        $this->_em->flush();
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
 }

@@ -74,4 +74,5 @@ abstract class PlayerStatusEnum
     public const string HAS_SABOTAGED_DOOR = 'has_sabotaged_door';
     public const string FITFUL_SLEEP = 'fitful_sleep';
     public const string CONTACTED_SOL_TODAY = 'contacted_sol_today';
+    public const string BEGINNER = 'beginner';
 }

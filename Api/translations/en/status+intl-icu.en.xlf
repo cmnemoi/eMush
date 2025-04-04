@@ -1665,5 +1665,15 @@
         <target>The immunized cannot be infected by mush. Practical when you're not sure who to trust...</target>
       </segment>
     </unit>
+    <unit id="beginner">
+      <segment id="name" state="translated">
+        <source>beginner.name</source>
+        <target>New Recruit</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>beginner.description</source>
+        <target>Freshly graduated from the Academy, this new recruit will need a guiding hand in learning the quirks and specifics of life aboard the Daedalus. In addition, thanks to strict hygiene standards at the Academy, it is less likely they would've had a chance to be contaminated by the Mush prior to boarding.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

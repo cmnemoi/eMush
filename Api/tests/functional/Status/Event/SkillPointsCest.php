@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Status\Event;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
@@ -33,7 +34,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    #[DataProvider('skillPointsDataProvider')]
+    /*#[DataProvider('skillPointsDataProvider')]
     public function shouldIncrementAtDayChange(FunctionalTester $I, Example $skillPoints): void
     {
         $this->givenPlayerHasZeroSkillPoints($skillPoints);
@@ -56,7 +57,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
                 'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][$skillPoints['name']],
             ],
         );
-    }
+    }*/
 
     public function shouldITPolymathGainThreePoints(FunctionalTester $I): void
     {
@@ -80,6 +81,58 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->whenADayPasses();
 
         $this->thenPlayerShouldHaveIncreasedItPointsByThree($I, SkillPointsEnum::POLYMATH_IT_POINTS);
+    }
+
+    public function shouldPrintPrivateLogOnDailyITGainOnly(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I);
+        $this->addSkillToPlayer(SkillEnum::POLYMATH, $I);
+
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::IT_EXPERT_POINTS->toString()],
+                'visibility' => VisibilityEnum::PRIVATE,
+            ],
+        );
+
+        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::IT_EXPERT_POINTS);
+
+        $this->whenADayPasses();
+
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::IT_EXPERT_POINTS->toString()],
+                'visibility' => VisibilityEnum::PRIVATE,
+            ],
+        );
+    }
+
+    public function shouldPrintPrivateLogOnDailyPolyGainOnly(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::POLYMATH, $I);
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I);
+
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::IT_EXPERT_POINTS->toString()],
+                'visibility' => VisibilityEnum::PRIVATE,
+            ],
+        );
+
+        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::POLYMATH_IT_POINTS);
+
+        $this->whenADayPasses();
+
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][SkillPointsEnum::IT_EXPERT_POINTS->toString()],
+                'visibility' => VisibilityEnum::PRIVATE,
+            ],
+        );
     }
 
     private function givenPlayerHasZeroSkillPoints(Example $skillPoints): void

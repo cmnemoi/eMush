@@ -116,6 +116,9 @@ class StatusSubscriber implements EventSubscriberInterface
         if (\array_key_exists($event->getStatusName(), $logMap[StatusEventLogEnum::VALUE])) {
             $logKey = $logMap[StatusEventLogEnum::VALUE][$event->getStatusName()];
             $visibility = $logMap[StatusEventLogEnum::VISIBILITY][$event->getStatusName()] ?? null;
+            if ($event->hasTag(StatusEventLogEnum::CHARGE_EXTENSION)) {
+                $visibility = VisibilityEnum::HIDDEN;
+            }
             $this->createEventLog($logKey, $event, $visibility);
         }
     }

@@ -31,6 +31,7 @@ abstract class StatusEventLogEnum
     public const string CEASEFIRE_END = 'ceasefire_end';
     public const string SOILED_BY_MASS_GGEDON = 'soiled_by_mass_ggedon';
     public const string GAIN_CHEF_POINT = 'gain_chef_point';
+    public const string CHARGE_EXTENSION = 'charge_extension';
 
     public const string VALUE = 'value';
     public const string VISIBILITY = 'visibility';

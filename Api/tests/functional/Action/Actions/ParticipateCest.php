@@ -574,10 +574,10 @@ final class ParticipateCest extends AbstractFunctionalTest
 
     private function thenKuanTiShouldHaveITPoints(int $itPoints, FunctionalTester $I): void
     {
-        $itExpertPoints = $this->kuanTi->hasSkill(SkillEnum::IT_EXPERT) ?
-            $this->kuanTi->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints() : 0;
-        $polymathItPoints = $this->kuanTi->hasSkill(SkillEnum::POLYMATH) ?
-            $this->kuanTi->getSkillByNameOrThrow(SkillEnum::POLYMATH)->getSkillPoints() : 0;
+        $itExpertPoints = $this->kuanTi->hasSkill(SkillEnum::IT_EXPERT)
+            ? $this->kuanTi->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints() : 0;
+        $polymathItPoints = $this->kuanTi->hasSkill(SkillEnum::POLYMATH)
+            ? $this->kuanTi->getSkillByNameOrThrow(SkillEnum::POLYMATH)->getSkillPoints() : 0;
         $itPointsMax = max($itExpertPoints, $polymathItPoints);
         $itPointsSum = $itExpertPoints + $polymathItPoints;
 

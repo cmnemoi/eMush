@@ -63,14 +63,8 @@ class ActionConfig implements GameVariableHolderInterface
             ->setRange($configData['scope']);
 
         $gameVariables = $actionConfig->getGameVariables();
-        $gameVariables->setValuesByName($configData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
-        $gameVariables->setValuesByName($configData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
-        $gameVariables->setValuesByName($configData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
-        $gameVariables->setValuesByName($configData['outputQuantity'], ActionVariableEnum::OUTPUT_QUANTITY);
 
-        $gameVariables->setValuesByName($configData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
-        $gameVariables->setValuesByName($configData['moralPoint'], PlayerVariableEnum::MORAL_POINT);
-        $gameVariables->setValuesByName($configData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
+        $actionConfig->handleGameVariables($gameVariables, $configData);
 
         $gameVariables->setValuesByName($configData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
         if ($configData['percentageDirtiness']['min_value'] >= 100) {
@@ -351,14 +345,8 @@ class ActionConfig implements GameVariableHolderInterface
             ->setRange($configData['scope']);
 
         $gameVariables = $this->getGameVariables();
-        $gameVariables->setValuesByName($configData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
-        $gameVariables->setValuesByName($configData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
-        $gameVariables->setValuesByName($configData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
-        $gameVariables->setValuesByName($configData['outputQuantity'], ActionVariableEnum::OUTPUT_QUANTITY);
 
-        $gameVariables->setValuesByName($configData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
-        $gameVariables->setValuesByName($configData['moralPoint'], PlayerVariableEnum::MORAL_POINT);
-        $gameVariables->setValuesByName($configData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
+        $this->handleGameVariables($gameVariables, $configData);
 
         $gameVariables->setValuesByName($configData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
         if ($configData['percentageDirtiness']['min_value'] >= 100) {
@@ -368,6 +356,31 @@ class ActionConfig implements GameVariableHolderInterface
         $this->setVisibilities($configData['visibilities']);
 
         return $this;
+    }
+
+    private function handleGameVariables(ActionVariables $gameVariables, array $configData): void
+    {
+        if (\array_key_exists('percentageInjury', $configData)) {
+            $gameVariables->setValuesByName($configData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
+        }
+        if (\array_key_exists('percentageSuccess', $configData)) {
+            $gameVariables->setValuesByName($configData['percentageSuccess'], ActionVariableEnum::PERCENTAGE_SUCCESS);
+        }
+        if (\array_key_exists('percentageCritical', $configData)) {
+            $gameVariables->setValuesByName($configData['percentageCritical'], ActionVariableEnum::PERCENTAGE_CRITICAL);
+        }
+        if (\array_key_exists('outputQuantity', $configData)) {
+            $gameVariables->setValuesByName($configData['outputQuantity'], ActionVariableEnum::OUTPUT_QUANTITY);
+        }
+        if (\array_key_exists('actionPoint', $configData)) {
+            $gameVariables->setValuesByName($configData['actionPoint'], PlayerVariableEnum::ACTION_POINT);
+        }
+        if (\array_key_exists('moralPoint', $configData)) {
+            $gameVariables->setValuesByName($configData['moralPoint'], PlayerVariableEnum::MORAL_POINT);
+        }
+        if (\array_key_exists('movementPoint', $configData)) {
+            $gameVariables->setValuesByName($configData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
+        }
     }
 
     private function setVisibilities(array $visibilities): self

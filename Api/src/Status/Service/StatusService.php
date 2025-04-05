@@ -315,7 +315,7 @@ class StatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): ?ChargeStatus {
-        $chargeStatus = $this->getChargeStatusWithSameModifierConfigs($holder, $statusConfig);
+        $chargeStatus = $this->getChargeStatusWithSameDischargeStrategies($holder, $statusConfig);
         if ($chargeStatus instanceof ChargeStatus) {
             $chargeStatus = $this->updateCharge(
                 $chargeStatus,
@@ -434,6 +434,7 @@ class StatusService implements StatusServiceInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private function throwIfWrongBreakableType(StatusConfig $statusConfig, StatusHolderInterface $holder)
     {
         if ($statusConfig->getStatusName() !== EquipmentStatusEnum::BROKEN) {
@@ -445,15 +446,18 @@ class StatusService implements StatusServiceInterface
         }
 =======
     private function getChargeStatusWithSameModifierConfigs(StatusHolderInterface $holder, ChargeStatusConfig $statusConfig): ?ChargeStatus
+=======
+    private function getChargeStatusWithSameDischargeStrategies(StatusHolderInterface $holder, ChargeStatusConfig $statusConfig): ?ChargeStatus
+>>>>>>> 95d49f89c (refactor: Charge status will be updated with same discharge strategies instead of modifier configs)
     {
-        $modifierConfigs = $statusConfig->getModifierConfigs();
+        $dischargeStrategies = $statusConfig->getDischargeStrategies();
 
-        if ($modifierConfigs->isEmpty()) {
+        if (!\count($dischargeStrategies)) {
             return null;
         }
 
         foreach ($holder->getStatuses() as $status) {
-            if ($status instanceof ChargeStatus && $status->getAllModifierConfigs()->toArray() === $modifierConfigs->toArray()) {
+            if ($status instanceof ChargeStatus && $status->getDischargeStrategies() === $dischargeStrategies) {
                 return $status;
             }
         }

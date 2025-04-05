@@ -258,7 +258,6 @@ class StatusService implements StatusServiceInterface
         string $visibility = VisibilityEnum::HIDDEN,
     ): ?ChargeStatus {
         $chargeVariable = $chargeStatus->getVariableByName($chargeStatus->getName());
-
         $statusEvent = new ChargeStatusEvent(
             $chargeStatus,
             $chargeStatus->getOwner(),
@@ -426,26 +425,18 @@ class StatusService implements StatusServiceInterface
 
     private function getChargeStatusWithSameModifierConfigs(StatusHolderInterface $holder, ChargeStatusConfig $statusConfig): ?ChargeStatus
     {
-        // echo "\nChecking for existing status named: {$statusConfig->getName()}\n";
         $modifierConfigs = $statusConfig->getModifierConfigs();
+
         if ($modifierConfigs->isEmpty()) {
             return null;
         }
-        foreach ($modifierConfigs as $config) {
-            // echo "Searched modifier config: {$config->getName()}\n";
-        }
+
         foreach ($holder->getStatuses() as $status) {
-            // echo "Found status: {$status->getName()}\n";
-            foreach ($status->getAllModifierConfigs() as $config) {
-                // echo "Found modifier config: {$config->getName()}\n";
-            }
             if ($status instanceof ChargeStatus && $status->getAllModifierConfigs()->toArray() === $modifierConfigs->toArray()) {
-                // echo "Got existing status!\n";
                 return $status;
             }
         }
 
-        // echo "Did not get existing status.\n";
         return null;
     }
 

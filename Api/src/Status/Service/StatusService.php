@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -311,6 +312,7 @@ class StatusService implements StatusServiceInterface
     ): ?ChargeStatus {
         $chargeStatus = $this->getChargeStatusWithSameDischargeStrategies($holder, $statusConfig);
         if ($chargeStatus instanceof ChargeStatus) {
+            $tags[] = StatusEventLogEnum::CHARGE_EXTENSION;
             $chargeStatus = $this->updateCharge(
                 $chargeStatus,
                 $statusConfig->getMaxChargeOrThrow(),

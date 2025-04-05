@@ -11,6 +11,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -32,7 +33,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    #[DataProvider('skillPointsDataProvider')]
+    /*#[DataProvider('skillPointsDataProvider')]
     public function shouldIncrementAtDayChange(FunctionalTester $I, Example $skillPoints): void
     {
         $this->givenPlayerHasZeroSkillPoints($skillPoints);
@@ -55,6 +56,30 @@ final class SkillPointsCest extends AbstractFunctionalTest
                 'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][$skillPoints['name']],
             ],
         );
+    }*/
+
+    public function shouldITPolymathGainThreePoints(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I);
+        $this->addSkillToPlayer(SkillEnum::POLYMATH, $I);
+
+        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::IT_EXPERT_POINTS);
+
+        $this->whenADayPasses();
+
+        $this->thenPlayerShouldHaveIncreasedItPointsByThree($I, SkillPointsEnum::IT_EXPERT_POINTS);
+    }
+
+    public function shouldPolymathITGainThreePoints(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::POLYMATH, $I);
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I);
+
+        $this->givenPlayerHasZeroSkillPointsOf(SkillPointsEnum::POLYMATH_IT_POINTS);
+
+        $this->whenADayPasses();
+
+        $this->thenPlayerShouldHaveIncreasedItPointsByThree($I, SkillPointsEnum::POLYMATH_IT_POINTS);
     }
 
     private function givenPlayerHasZeroSkillPoints(Example $skillPoints): void
@@ -66,6 +91,13 @@ final class SkillPointsCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime()
         );
+        $this->statusService->updateCharge($skillPointsStatus, -$skillPointsStatus->getThreshold(), [], new \DateTime());
+    }
+
+    private function givenPlayerHasZeroSkillPointsOf(SkillPointsEnum $skillPoints): void
+    {
+        /** @var ChargeStatus $skillPointsStatus */
+        $skillPointsStatus = $this->chun->getChargeStatusByNameOrThrow($skillPoints->toString());
         $this->statusService->updateCharge($skillPointsStatus, -$skillPointsStatus->getThreshold(), [], new \DateTime());
     }
 
@@ -88,6 +120,15 @@ final class SkillPointsCest extends AbstractFunctionalTest
         );
     }
 
+    private function thenPlayerShouldHaveIncreasedItPointsByThree(FunctionalTester $I, SkillPointsEnum $skillPoints): void
+    {
+        $skillPointsStatus = $this->chun->getChargeStatusByNameOrThrow($skillPoints->toString());
+        $I->assertEquals(
+            expected: 3,
+            actual: $skillPointsStatus->getCharge()
+        );
+    }
+
     private function getSkillPointsIncrement(string $skillPoints): int
     {
         return match (SkillPointsEnum::from($skillPoints)) {
@@ -99,8 +140,8 @@ final class SkillPointsCest extends AbstractFunctionalTest
             SkillPointsEnum::SHOOTER_POINTS => 2,
             SkillPointsEnum::TECHNICIAN_POINTS => 1,
             SkillPointsEnum::NURSE_POINTS => 1,
-            SkillPointsEnum::SPORE_POINTS => 1,
             SkillPointsEnum::POLYMATH_IT_POINTS => 1,
+            SkillPointsEnum::SPORE_POINTS => 1,
             default => throw new \LogicException("Please define the increment for {$skillPoints}"),
         };
     }

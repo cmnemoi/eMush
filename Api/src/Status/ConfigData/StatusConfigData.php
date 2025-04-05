@@ -1729,10 +1729,10 @@ abstract class StatusConfigData
             'chargeStrategy' => ChargeStrategyTypeEnum::SKILL_POINTS_INCREMENT,
             'maxCharge' => 2,
             'startCharge' => 2,
-            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS],
+            'dischargeStrategies' => [ModifierNameEnum::SKILL_POINT_IT_EXPERT],
             'autoRemove' => false,
             'modifierConfigs' => [
-                ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS,
+                ModifierNameEnum::SKILL_POINT_IT_EXPERT,
             ],
             'actionConfigs' => [],
         ],

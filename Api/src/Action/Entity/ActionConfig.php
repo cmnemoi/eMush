@@ -64,12 +64,9 @@ class ActionConfig implements GameVariableHolderInterface
 
         $gameVariables = $actionConfig->getGameVariables();
 
-        $actionConfig->handleGameVariables($gameVariables, $configData);
+        $actionConfig->handleGameVariablesData($gameVariables, $configData);
 
-        $gameVariables->setValuesByName($configData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
-        if ($configData['percentageDirtiness']['min_value'] >= 100) {
-            $actionConfig->makeSuperDirty();
-        }
+        $actionConfig->handleDirtinessData($gameVariables, $configData);
 
         $actionConfig->setVisibilities($configData['visibilities']);
 
@@ -346,19 +343,16 @@ class ActionConfig implements GameVariableHolderInterface
 
         $gameVariables = $this->getGameVariables();
 
-        $this->handleGameVariables($gameVariables, $configData);
+        $this->handleGameVariablesData($gameVariables, $configData);
 
-        $gameVariables->setValuesByName($configData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
-        if ($configData['percentageDirtiness']['min_value'] >= 100) {
-            $this->makeSuperDirty();
-        }
+        $this->handleDirtinessData($gameVariables, $configData);
 
         $this->setVisibilities($configData['visibilities']);
 
         return $this;
     }
 
-    private function handleGameVariables(ActionVariables $gameVariables, array $configData): void
+    private function handleGameVariablesData(ActionVariables $gameVariables, array $configData): void
     {
         if (\array_key_exists('percentageInjury', $configData)) {
             $gameVariables->setValuesByName($configData['percentageInjury'], ActionVariableEnum::PERCENTAGE_INJURY);
@@ -380,6 +374,16 @@ class ActionConfig implements GameVariableHolderInterface
         }
         if (\array_key_exists('movementPoint', $configData)) {
             $gameVariables->setValuesByName($configData['movementPoint'], PlayerVariableEnum::MOVEMENT_POINT);
+        }
+    }
+
+    private function handleDirtinessData(ActionVariables $gameVariables, array $configData): void
+    {
+        if (\array_key_exists('percentageDirtiness', $configData)) {
+            $gameVariables->setValuesByName($configData['percentageDirtiness'], ActionVariableEnum::PERCENTAGE_DIRTINESS);
+            if (\array_key_exists('min_value', $configData['percentageDirtiness']) && $configData['percentageDirtiness']['min_value'] >= 100) {
+                $this->makeSuperDirty();
+            }
         }
     }
 

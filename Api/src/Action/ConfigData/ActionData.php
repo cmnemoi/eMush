@@ -22,7 +22,6 @@ class ActionData
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
-            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
         ],
         [
             'name' => 'auto_destroy',

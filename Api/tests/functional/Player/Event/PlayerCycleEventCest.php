@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Player\Event;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
@@ -9,7 +11,6 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Service\PlayerService;
@@ -417,7 +418,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldGiveOneMoralePointToLyingDownPlayersWithShrinkInTheRoom(FunctionalTester $I): void
+    public function shrinkShouldGiveMoraleToLaidDownPlayers(FunctionalTester $I): void
     {
         // given Chun is lying down
         $this->statusService->createStatusFromName(
@@ -438,8 +439,8 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->kuanTi->setMoralPoint(10);
 
         // when cycle change is triggered
-        $cycleEvent = new PlaceCycleEvent($this->chun->getPlace(), [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlaceCycleEvent::PLACE_NEW_CYCLE);
+        $cycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Chun should have 11 morale points
         $I->assertEquals(11, $this->chun->getMoralPoint());
@@ -511,8 +512,8 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $janice->setMoralPoint(10);
 
         // when cycle change is triggered
-        $cycleEvent = new PlaceCycleEvent($janice->getPlace(), [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlaceCycleEvent::PLACE_NEW_CYCLE);
+        $cycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Janice should have 10 morale points
         $I->assertEquals(10, $janice->getMoralPoint());
@@ -536,15 +537,56 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $janice->setMoralPoint(10);
 
         // given there is another shrink in the room
-        $janice2 = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHRINK, $janice2));
+        $paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
+        $this->addSkillToPlayer(SkillEnum::SHRINK, $I, $paola);
 
         // when cycle change is triggered
-        $cycleEvent = new PlaceCycleEvent($janice->getPlace(), [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($cycleEvent, PlaceCycleEvent::PLACE_NEW_CYCLE);
+        $cycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Janice should have 11 morale points
         $I->assertEquals(11, $janice->getMoralPoint());
+    }
+
+    public function shrinkShouldGiveMoraleToOtherLaidDownShrink(FunctionalTester $I): void
+    {
+        // given chun is laid down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given chun is a shrink
+        $this->addSkillToPlayer(SkillEnum::SHRINK, $I, $this->chun);
+
+        // given chun has 10 morale points
+        $this->chun->setMoralPoint(10);
+
+        // given Kuan ti is a shrink
+        $this->addSkillToPlayer(SkillEnum::SHRINK, $I, $this->kuanTi);
+
+        // given Kuan Ti has 10 morale points
+        $this->kuanTi->setMoralPoint(10);
+
+        // given KT is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when cycle change is triggered
+        $cycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
+        $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        // then chun should have 11 morale points
+        $I->assertEquals(11, $this->chun->getMoralPoint());
+
+        // then kuan ti should have 11 morale points
+        $I->assertEquals(11, $this->kuanTi->getMoralPoint());
     }
 
     public function mankindOnlyHopeShouldReduceDailyMoralePointLossByOne(FunctionalTester $I): void

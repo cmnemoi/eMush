@@ -8,9 +8,7 @@ trait ModifierHolderTrait
 {
     public function getModifiers(): ModifierCollection
     {
-        return new ModifierCollection($this->modifiers->map(static function (ModifierHolder $modifier) {
-            return $modifier->getGameModifier();
-        })->toArray());
+        return new ModifierCollection($this->modifiers->map(static fn (ModifierHolder $modifier) => $modifier->getGameModifier())->toArray());
     }
 
     public function addModifier(GameModifier $modifier): static

@@ -147,14 +147,9 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         /** @var ModifierActivationRequirement $lyingDownActivationRequirement */
         $lyingDownActivationRequirement = $this->getReference(ModifierRequirementEnum::HOLDER_HAS_STATUS . '_' . PlayerStatusEnum::LYING_DOWN);
 
-        $shrinkModifier = TriggerEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_for_player_+1morale_point_on_new_cycle_if_lying_down')
+        $shrinkModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM)
         );
-        $shrinkModifier->setTriggeredEvent($eventConfig);
-        $shrinkModifier->setEventTargetRequirements([
-            $lyingDownActivationRequirement,
-        ]);
-
         $this->addReference($shrinkModifier->getName(), $shrinkModifier);
         $manager->persist($shrinkModifier);
 

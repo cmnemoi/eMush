@@ -15,10 +15,12 @@ use Mush\Game\Service\EventServiceInterface;
  */
 final class FakePlayerMoralVariableEventService implements EventServiceInterface
 {
+    public function __construct(private int $moraleGain) {}
+
     public function callEvent(AbstractGameEvent $event, string $name, ?AbstractGameEvent $caller = null): EventChain
     {
         $player = $event->getPlayer();
-        $player->setMoralPoint($player->getMoralPoint() + 2);
+        $player->setMoralPoint($player->getMoralPoint() + $this->moraleGain);
 
         return new EventChain();
     }

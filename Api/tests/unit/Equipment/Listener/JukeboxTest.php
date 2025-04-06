@@ -112,7 +112,7 @@ final class JukeboxTest extends TestCase
     private function whenJukeboxWorksAtCycleChange(GameEquipment $jukebox): void
     {
         $jukeboxCycleHandler = new JukeboxCycleHandler(
-            new FakePlayerMoralVariableEventService(),
+            new FakePlayerMoralVariableEventService(moraleGain: 2),
             new InMemoryGameEquipmentRepository(),
             new FakeGetRandomElementsFromArrayService(),
             $this->createStub(RoomLogServiceInterface::class),

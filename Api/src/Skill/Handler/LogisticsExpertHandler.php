@@ -8,8 +8,8 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Skill\Enum\SkillEnum;
 
@@ -22,10 +22,8 @@ final class LogisticsExpertHandler
         private RandomServiceInterface $randomService
     ) {}
 
-    public function execute(PlayerCycleEvent $event): void
+    public function execute(Player $player, array $tags = [], \DateTime $time = new \DateTime()): void
     {
-        $player = $event->getPlayer();
-
         if ($player->isDead()) {
             return;
         }
@@ -36,21 +34,19 @@ final class LogisticsExpertHandler
             return;
         }
 
-        $this->addActionPointToRandomPlayer($event);
+        $this->addActionPointToRandomPlayer($player, $tags, $time);
     }
 
-    private function addActionPointToRandomPlayer(PlayerCycleEvent $event): void
+    private function addActionPointToRandomPlayer(Player $player, array $tags, \DateTime $time): void
     {
-        $player = $event->getPlayer();
-
         $selectedPlayer = $this->randomService->getRandomPlayer($player->getAlivePlayersInRoomExceptSelf());
 
         $playerVariableEvent = new PlayerVariableEvent(
             player: $selectedPlayer,
             variableName: PlayerVariableEnum::ACTION_POINT,
             quantity: self::LOGISTICS_BONUS,
-            tags: $event->getTags(),
-            time: $event->getTime()
+            tags: $tags,
+            time: $time
         );
         $playerVariableEvent->setAuthor($player);
         $playerVariableEvent->addTag(ModifierNameEnum::LOGISTICS_MODIFIER);

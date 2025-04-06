@@ -42,27 +42,12 @@ final class EventCreationService implements EventCreationServiceInterface
     ): array {
         $eventTarget = $eventConfig->getVariableHolderClass();
 
-        switch ($eventTarget) {
-            case EventTargetNameEnum::DAEDALUS:
-                $daedalus = $range->getDaedalus();
-
-                $eventTargets = [$daedalus];
-
-                break;
-
-            case EventTargetNameEnum::PLAYER:
-                $eventTargets = $this->getPlayersFromModifierHolder($range)->toArray();
-
-                break;
-
-            case EventTargetNameEnum::EQUIPMENT:
-                $eventTargets = $this->getEquipmentsFromModifierHolder($range);
-
-                break;
-
-            default:
-                throw new \Exception("This variableHolderClass {$eventTarget} is not supported");
-        }
+        $eventTargets = match ($eventTarget) {
+            EventTargetNameEnum::DAEDALUS => [$range->getDaedalus()],
+            EventTargetNameEnum::PLAYER => $this->getPlayersFromModifierHolder($range)->toArray(),
+            EventTargetNameEnum::EQUIPMENT => $this->getEquipmentsFromModifierHolder($range),
+            default => throw new \Exception("This variableHolderClass {$eventTarget} is not supported"),
+        };
 
         if (\in_array(EventTargetNameEnum::EXCLUDE_PROVIDER, $targetFilters, true)) {
             $eventTargets = $this->excludeAuthorFromTargets($eventTargets, $author);
@@ -123,15 +108,11 @@ final class EventCreationService implements EventCreationServiceInterface
 
     private function excludeAuthorFromTargets(array $targets, ModifierProviderInterface $author): array
     {
-        return array_filter($targets, static function ($target) use ($author) {
-            return !($target === $author);
-        });
+        return array_filter($targets, static fn ($target) => $target !== $author);
     }
 
     private function checkRequirements(array $targets, ModifierActivationRequirementCollection $targetRequirements): array
     {
-        return array_filter($targets, function ($target) use ($targetRequirements) {
-            return $this->modifierRequirementService->checkRequirements($targetRequirements, $target);
-        });
+        return array_filter($targets, fn ($target) => $this->modifierRequirementService->checkRequirements($targetRequirements, $target));
     }
 }

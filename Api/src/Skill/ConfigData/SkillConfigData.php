@@ -410,7 +410,7 @@ abstract class SkillConfigData
             new SkillConfigDto(
                 name: SkillEnum::SHRINK,
                 modifierConfigs: [
-                    'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',
+                    ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM,
                 ],
                 actionConfigs: [
                     ActionEnum::COMFORT,

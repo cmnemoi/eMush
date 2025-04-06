@@ -953,12 +953,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getAvailableCharacters(): CharacterConfigCollection
     {
-        // Hack for Daedaluses created before April fools update
-        // Should be removed safely after all Daedaluses created before March 30, 2025 18:00:00 UTC+1 are finished
-        if ($this->getCreatedAtOrThrow() <= new \DateTime('2025-03-31 21:30:00', new \DateTimeZone('Europe/Paris'))) {
-            return $this->getGameConfig()->getCharactersConfig()->getAllExceptAndrek();
-        }
-
         return new CharacterConfigCollection($this->availableCharacters->toArray());
     }
 

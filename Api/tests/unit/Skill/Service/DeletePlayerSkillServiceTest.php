@@ -86,7 +86,6 @@ final class DeletePlayerSkillServiceTest extends TestCase
     {
         $modifier = $this->givenPlayerHasSkillWithPlaceRangedModifier(
             SkillEnum::SHRINK,
-            'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',
         );
 
         $this->whenIDeleteSkill(SkillEnum::SHRINK);
@@ -152,10 +151,10 @@ final class DeletePlayerSkillServiceTest extends TestCase
         return $modifier;
     }
 
-    private function givenPlayerHasSkillWithPlaceRangedModifier(SkillEnum $skill, string $modifierName): GameModifier
+    private function givenPlayerHasSkillWithPlaceRangedModifier(SkillEnum $skill): GameModifier
     {
         $modifier = GameModifierFactory::createByNameForHolder(
-            name: $modifierName,
+            name: 'modifier_for_daedalus_+1moral_on_day_change',
             holder: $this->player->getPlace(),
         );
         $this->modifierCreationService->persist($modifier);

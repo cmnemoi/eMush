@@ -207,9 +207,7 @@ final class DaedalusServiceTest extends TestCase
 
     public function testFindAvailableCharacterForDaedalus()
     {
-        // feature toggle is off
         $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->setCreatedAt(new \DateTime('2025-04-01'));
 
         $andieConfig = $daedalus->getGameConfig()->getCharactersConfig()->getByNameOrThrow(CharacterEnum::ANDIE);
 
@@ -299,7 +297,6 @@ final class DaedalusServiceTest extends TestCase
     public function testSelectAlphaMush()
     {
         $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->setCreatedAt(new \DateTime('2025-04-01')); // feature toggle is off
         $gameConfig = $daedalus->getGameConfig();
 
         $daedalus->setAvailableCharacters($gameConfig->getCharactersConfig()->getAllExceptAndrek());

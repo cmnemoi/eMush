@@ -37,7 +37,6 @@ use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -2251,9 +2250,27 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => [],
         ],
         [
+            'name' => ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM,
+            'modifierName' => ModifierNameEnum::SHRINK_MODIFIER,
+            'targetEvent' => self::DUMMY_EVENT,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [
+                'player_status_lying_down',
+            ],
+            'tagConstraints' => [],
+        ],
+        // @TODO: Old shrink modifier below, to be removed after all Daedaluses created before 2025-04-13 6PM UTC+1 are finished
+        [
             'name' => 'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',
             'modifierName' => ModifierNameEnum::SHRINK_MODIFIER,
-            'targetEvent' => PlaceCycleEvent::PLACE_NEW_CYCLE,
+            'targetEvent' => self::DUMMY_EVENT,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -2267,6 +2284,7 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => ['player_status_lying_down'],
             'visibility' => VisibilityEnum::PRIVATE,
         ],
+        // @TODO: Old shrink modifier above, to be removed after all Daedaluses created before 2025-04-13 6PM UTC+1 are finished
         [
             'name' => 'modifier_for_daedalus_+1hull_on_change.variable_if_reason_hunter_shot',
             'modifierName' => null,

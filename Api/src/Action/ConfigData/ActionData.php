@@ -2,18 +2,43 @@
 
 namespace Mush\Action\ConfigData;
 
+use Mush\Action\Entity\ActionVariables;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Action\Dto\ActionConfigDto;
 
 /**
  * @codeCoverageIgnore
  */
 class ActionData
 {
+    /**
+     * @return ActionConfigDto[]
+     */
+    public static function getAll(): array
+    {
+        return[
+            new ActionConfigDto(
+                'suicide',
+                ActionEnum::SUICIDE,
+                [ActionTypeEnum::ACTION_ADMIN],
+                ActionHolderEnum::PLAYER,
+                ActionRangeEnum::PLAYER,
+            ),
+            new ActionConfigDto(
+                'move',
+                ActionEnum::MOVE,
+                [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
+                ActionHolderEnum::EQUIPMENT,
+                ActionRangeEnum::SELF,
+                actionVariables: new ActionVariables()
+            ),
+        ];
+    }
     public static array $dataArray = [
         [
             'name' => 'suicide',

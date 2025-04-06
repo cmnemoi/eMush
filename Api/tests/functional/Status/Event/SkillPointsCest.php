@@ -34,7 +34,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    /*#[DataProvider('skillPointsDataProvider')]
+    #[DataProvider('skillPointsDataProvider')]
     public function shouldIncrementAtDayChange(FunctionalTester $I, Example $skillPoints): void
     {
         $this->givenPlayerHasZeroSkillPoints($skillPoints);
@@ -57,7 +57,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
                 'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][$skillPoints['name']],
             ],
         );
-    }*/
+    }
 
     public function shouldITPolymathGainThreePoints(FunctionalTester $I): void
     {

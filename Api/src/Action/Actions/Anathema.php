@@ -12,7 +12,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NoPariahOnBoard;
-use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -54,9 +53,6 @@ final class Anathema extends AbstractAction
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::ALREADY_OUTCAST_ONBOARD,
             ]),
-            new PreMush([
-                'groups' => ['execute'],
-                'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]),
         ]);
     }
 

@@ -11,7 +11,6 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
-use Mush\Action\Validator\PreMush;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -50,9 +49,6 @@ final class Guard extends AbstractAction
                 'groups' => ['visibility'],
             ])
         );
-        $metadata->addConstraint(new PreMush([
-            'groups' => ['execute'],
-            'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

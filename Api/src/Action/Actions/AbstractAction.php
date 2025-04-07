@@ -13,6 +13,7 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AdminAction;
+use Mush\Action\Validator\AggressivePreMush;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\IsActionProviderOperational;
@@ -84,6 +85,7 @@ abstract class AbstractAction
         $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION]));
         $metadata->addConstraint(new IsActionProviderOperational(['groups' => ['execute']]));
         $metadata->addConstraint(new AdminAction(['groups' => [ClassConstraint::VISIBILITY]]));
+        $metadata->addConstraint(new AggressivePreMush(['groups' => ['execute']]));
     }
 
     public function isVisible(): bool

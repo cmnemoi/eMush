@@ -12,7 +12,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\GrenadeInhibit;
 use Mush\Action\Validator\NumberPlayersAliveInRoom;
-use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
@@ -54,9 +53,6 @@ final class ThrowGrenade extends AbstractAction
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::DMZ_CORE_PEACE,
             ]),
-            new PreMush([
-                'groups' => ['execute'],
-                'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]),
         ]);
     }
 

@@ -80,7 +80,7 @@ class AddSkillToPlayerService
 
     private function createSkillPoints(Skill $skill): void
     {
-        if (!$skill->getSkillPointConfig()->getId()) {
+        if ($skill->getSkillPointConfig()->isNull()) {
             return;
         }
 

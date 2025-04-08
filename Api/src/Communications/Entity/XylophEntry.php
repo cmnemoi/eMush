@@ -6,6 +6,7 @@ namespace Mush\Communications\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Communications\Enum\XylophEnum;
 use Mush\Daedalus\Entity\Daedalus;
@@ -16,6 +17,8 @@ use Mush\Status\Entity\ChargeStatus;
 #[ORM\Entity]
 class XylophEntry implements ModifierProviderInterface
 {
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', nullable: false)]
@@ -117,6 +120,11 @@ class XylophEntry implements ModifierProviderInterface
     public function getDaedalusId(): int
     {
         return $this->daedalusId;
+    }
+
+    public function getUpdatedAtOrThrow(): \DateTime
+    {
+        return $this->updatedAt ?? throw new \RuntimeException("Xyloph entry {$this->id} should have an updated at date");
     }
 
     /**

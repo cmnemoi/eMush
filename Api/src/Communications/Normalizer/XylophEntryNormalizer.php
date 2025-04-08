@@ -45,6 +45,7 @@ final class XylophEntryNormalizer implements NormalizerInterface
                 language: $language
             ),
             'isDecoded' => $xylophEntry->isDecoded(),
+            'updatedAt' => $xylophEntry->getUpdatedAtOrThrow()->format('Y-m-d H:i:s'),
         ];
     }
 

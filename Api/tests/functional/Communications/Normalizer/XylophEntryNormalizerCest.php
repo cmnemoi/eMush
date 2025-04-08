@@ -9,6 +9,7 @@ use Codeception\Example;
 use Mush\Communications\Entity\XylophConfig;
 use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Normalizer\XylophEntryNormalizer;
+use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -18,12 +19,14 @@ use Mush\Tests\FunctionalTester;
 final class XylophEntryNormalizerCest extends AbstractFunctionalTest
 {
     private XylophEntryNormalizer $normalizer;
+    private XylophRepositoryInterface $xylophRepository;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->normalizer = $I->grabService(XylophEntryNormalizer::class);
+        $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
     }
 
     #[DataProvider('xylophEntryDataProvider')]
@@ -31,6 +34,7 @@ final class XylophEntryNormalizerCest extends AbstractFunctionalTest
     {
         $xylophEntryConfig = $I->grabEntityFromRepository(XylophConfig::class, ['name' => $data['key']]);
         $xylophEntry = new XylophEntry($xylophEntryConfig, $this->daedalus->getId(), $data['isDecoded']);
+        $this->xylophRepository->save($xylophEntry);
 
         $normalizedEntry = $this->normalizer->normalize($xylophEntry, format: null, context: ['currentPlayer' => $this->player]);
 
@@ -40,6 +44,7 @@ final class XylophEntryNormalizerCest extends AbstractFunctionalTest
                 'name' => $data['name'],
                 'description' => $data['description'],
                 'isDecoded' => $data['isDecoded'],
+                'updatedAt' => $xylophEntry->getUpdatedAtOrThrow()->format('Y-m-d H:i:s'),
             ],
             actual: $normalizedEntry
         );

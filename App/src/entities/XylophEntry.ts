@@ -3,6 +3,7 @@ export class XylophEntry {
     public name!: string;
     public description!: string;
     public isDecoded!: boolean;
+    public updatedAt!: string;
 
     public load(object: any): XylophEntry {
         if (object) {
@@ -10,6 +11,7 @@ export class XylophEntry {
             this.name = object.name;
             this.description = object.description;
             this.isDecoded = object.isDecoded;
+            this.updatedAt = object.updatedAt;
         }
         return this;
     }

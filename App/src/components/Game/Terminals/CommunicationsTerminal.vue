@@ -68,8 +68,8 @@
                         {{ terminal.sectionTitles?.xylophDb }}
                     </h3>
                     <div class="xyloph-grid">
-                        <Tippy v-for="(xylophEntry, index) in terminal.xylophEntries" :key="index" tag="span">
-                            <img :src="getXylophEntryImage(xylophEntry)" alt="Xyloph entry" class="xyloph-entry" />
+                        <Tippy v-for="xylophEntry in terminal.xylophEntries" :key="`${xylophEntry.key}-${xylophEntry.updatedAt}`" tag="span">
+                            <img :src="getXylophEntryImage(xylophEntry)" :alt="xylophEntry.name" class="xyloph-entry" />
                             <template #content>
                                 <h1 class="xyloph-entry-name">{{ xylophEntry.name }}</h1>
                                 <p class="xyloph-entry-description" v-html="formatText(xylophEntry.description)" />
@@ -210,7 +210,8 @@ interface SelectedTradeOption {
 export default defineComponent({
     name: "CommunicationsTerminal",
     components: {
-        ActionButton
+        ActionButton,
+        Tippy
     },
     computed: {
         acceptTradeAction(): Action {

@@ -104,4 +104,13 @@ class PlanetSector
     {
         return $this->getName() === PlanetSectorEnum::INTELLIGENT;
     }
+
+    public function getUpdatedAtOrThrow(): \DateTime
+    {
+        if ($this->updatedAt === null) {
+            throw new \LogicException('Planet sector should have an updatedAt date');
+        }
+
+        return $this->updatedAt;
+    }
 }

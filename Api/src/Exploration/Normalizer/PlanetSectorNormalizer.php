@@ -37,7 +37,7 @@ final class PlanetSectorNormalizer implements NormalizerInterface, NormalizerAwa
         return [
             'id' => $planetSector->getId(),
             'key' => $key,
-            'updatedAt' => $planetSector->getUpdatedAt()->format('Y-m-d H:i:s'),
+            'updatedAt' => $planetSector->getUpdatedAtOrThrow()->format('Y-m-d H:i:s'),
             'name' => $this->translationService->translate(
                 $key . '.name',
                 parameters: [],

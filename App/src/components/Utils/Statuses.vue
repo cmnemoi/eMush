@@ -1,9 +1,10 @@
 <template>
     <Tippy
         tag="span"
-        v-for="(status, key) in statuses"
-        :key="key"
-        class="status">
+        v-for="status in statuses"
+        :key="status.id"
+        class="status"
+    >
         <img :src="statusIcon(status)">
         <span v-if="status.charge !== null" class="charge">{{ status.charge }}</span>
         <template #content>
@@ -19,10 +20,14 @@ import { statusItemEnum } from "@/enums/status.item.enum";
 import { defineComponent } from "vue";
 import { Status } from "@/entities/Status";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
+    components: {
+        Tippy
+    },
     props: {
-        statuses: Array,
+        statuses: Array<Status>,
         type: String
     },
     computed: {

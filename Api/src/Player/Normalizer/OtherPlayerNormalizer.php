@@ -115,15 +115,9 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
 
     private function getNormalizedPlayerSkills(Player $player, ?string $format = null, array $context = []): array
     {
-        $currentPlayer = $context['currentPlayer'];
         $skills = [];
-        if ($currentPlayer->isMush()) {
-            foreach ($player->getMushSkills() as $skill) {
-                $skills[] = $this->normalizer->normalize($skill, $format, $context);
-            }
-        }
 
-        foreach ($player->getHumanSkills() as $skill) {
+        foreach ($player->getMushAndHumanSkills() as $skill) {
             $skills[] = $this->normalizer->normalize($skill, $format, $context);
         }
 

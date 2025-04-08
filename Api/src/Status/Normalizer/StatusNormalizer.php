@@ -13,13 +13,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class StatusNormalizer implements NormalizerInterface
 {
-    private TranslationServiceInterface $translationService;
-
-    public function __construct(
-        TranslationServiceInterface $translationService
-    ) {
-        $this->translationService = $translationService;
-    }
+    public function __construct(private TranslationServiceInterface $translationService) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -28,9 +22,7 @@ class StatusNormalizer implements NormalizerInterface
 
     public function getSupportedTypes(?string $format): array
     {
-        return [
-            Status::class => false,
-        ];
+        return [Status::class => true];
     }
 
     public function normalize($object, ?string $format = null, array $context = []): array
@@ -48,11 +40,12 @@ class StatusNormalizer implements NormalizerInterface
         }
 
         $normalizedStatus = [
+            'id' => $status->getId(),
             'key' => $statusName,
             'name' => $this->translationService->translate(
                 key: "{$statusName}.name",
                 parameters: [
-                    $currentPlayer->getLogKey() => $currentPlayer->getLogName(),
+                    $status->getVisibleOwner()->getLogKey() => $status->getVisibleOwner()->getLogName(),
                 ],
                 domain: 'status',
                 language: $language
@@ -60,7 +53,7 @@ class StatusNormalizer implements NormalizerInterface
             'description' => $this->translationService->translate(
                 key: "{$statusName}.description",
                 parameters: [
-                    $currentPlayer->getLogKey() => $currentPlayer->getLogName(),
+                    $status->getVisibleOwner()->getLogKey() => $status->getVisibleOwner()->getLogName(),
                 ],
                 domain: 'status',
                 language: $language

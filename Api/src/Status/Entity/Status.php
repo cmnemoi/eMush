@@ -106,6 +106,17 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         throw new \LogicException('There should always be a target on a status target');
     }
 
+    public function getVisibleOwner(): VisibleStatusHolderInterface
+    {
+        $owner = $this->getOwner();
+
+        if (!$owner instanceof VisibleStatusHolderInterface) {
+            throw new \LogicException('Owner is not a VisibleStatusHolderInterface');
+        }
+
+        return $owner;
+    }
+
     public function setTargetOwner(StatusTarget $owner): self
     {
         $this->owner = $owner;

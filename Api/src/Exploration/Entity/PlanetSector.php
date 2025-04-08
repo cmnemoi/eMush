@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Mush\Exploration\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'planet_sector')]
 class PlanetSector
-{
+{   
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]

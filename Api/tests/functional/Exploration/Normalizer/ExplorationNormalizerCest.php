@@ -88,6 +88,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                         [
                             'id' => $this->planet->getSectors()->first()->getId(),
                             'key' => PlanetSectorEnum::UNKNOWN,
+                            'updatedAt' => $this->planet->getSectors()->first()->getUpdatedAt()->format('Y-m-d H:i:s'),
                             'name' => '???',
                             'description' => 'Caractéristique inconnue.',
                             'isVisited' => false,
@@ -172,6 +173,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
                         [
                             'id' => $this->planet->getSectors()->first()->getId(),
                             'key' => PlanetSectorEnum::UNKNOWN,
+                            'updatedAt' => $this->planet->getSectors()->first()->getUpdatedAt()->format('Y-m-d H:i:s'),
                             'name' => '???',
                             'description' => 'Caractéristique inconnue.',
                             'isVisited' => false,

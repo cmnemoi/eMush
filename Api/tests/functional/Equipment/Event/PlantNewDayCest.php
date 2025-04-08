@@ -33,6 +33,9 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        // avoid false positive when fire tries to destroy plants
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentFireBreakRate(0);
     }
 
     // produce oxygen, fruit, log

@@ -29,6 +29,9 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
+
+        // avoid false positive when fire tries to reduce hull at cycle change
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setHullFireDamageRate(0);
     }
 
     public function testMakeHunterShoot(FunctionalTester $I)

@@ -443,10 +443,10 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Chun should have 11 morale points
-        $I->assertEquals(11, $this->chun->getMoralPoint());
+        $I->assertTrue($this->chun->getMoralPoint() === 11 || $this->chun->getMoralPoint() === 11 - $this->getPanicCrisisPlayerDamage());
 
         // then KT should have 10 morale points
-        $I->assertEquals(10, $this->kuanTi->getMoralPoint());
+        $I->assertTrue($this->kuanTi->getMoralPoint() === 10 || $this->kuanTi->getMoralPoint() === 10 - $this->getPanicCrisisPlayerDamage());
     }
 
     public function testGermaphobeMushDoesNotLoseMoraleAtCycleChange(FunctionalTester $I): void
@@ -515,8 +515,22 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $cycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        // then Janice should have 10 morale points
-        $I->assertEquals(10, $janice->getMoralPoint());
+        // then Janice has the expected 10 morale points
+        $expectedMoralPoint = 10;
+
+        // Janice might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
+        $panicCrisis = $this->roomLogRepository->getOneBy([
+            'place' => $janice->getPlace()->getName(),
+            'playerInfo' => $janice->getPlayerInfo(),
+            'log' => PlayerModifierLogEnum::PANIC_CRISIS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+        if ($panicCrisis) {
+            $expectedMoralPoint -= $this->getPanicCrisisPlayerDamage();
+        }
+
+        // then Janice should have 10 morale points (or reduced due to the panic crisis)
+        $I->assertEquals($expectedMoralPoint, $janice->getMoralPoint());
     }
 
     public function shrinkShouldGiveMoraleToOtherShrink(FunctionalTester $I): void
@@ -544,8 +558,22 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $cycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        // then Janice should have 11 morale points
-        $I->assertEquals(11, $janice->getMoralPoint());
+        // then Janice has the expected 11 morale points
+        $expectedMoralPoint = 11;
+
+        // Janice might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
+        $panicCrisis = $this->roomLogRepository->getOneBy([
+            'place' => $janice->getPlace()->getName(),
+            'playerInfo' => $janice->getPlayerInfo(),
+            'log' => PlayerModifierLogEnum::PANIC_CRISIS,
+            'visibility' => VisibilityEnum::PRIVATE,
+        ]);
+        if ($panicCrisis) {
+            $expectedMoralPoint -= $this->getPanicCrisisPlayerDamage();
+        }
+
+        // then Janice should have 11 morale points (or reduced due to the panic crisis)
+        $I->assertEquals($expectedMoralPoint, $janice->getMoralPoint());
     }
 
     public function shrinkShouldGiveMoraleToOtherLaidDownShrink(FunctionalTester $I): void
@@ -582,11 +610,9 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $cycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($cycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
-        // then chun should have 11 morale points
-        $I->assertEquals(11, $this->chun->getMoralPoint());
-
-        // then kuan ti should have 11 morale points
-        $I->assertEquals(11, $this->kuanTi->getMoralPoint());
+        // then Chun and Kuan Ti should have 11 morale points
+        $I->assertTrue($this->chun->getMoralPoint() === 11 || $this->chun->getMoralPoint() === 11 - $this->getPanicCrisisPlayerDamage());
+        $I->assertTrue($this->kuanTi->getMoralPoint() === 11 || $this->kuanTi->getMoralPoint() === 11 - $this->getPanicCrisisPlayerDamage());
     }
 
     public function mankindOnlyHopeShouldReduceDailyMoralePointLossByOne(FunctionalTester $I): void

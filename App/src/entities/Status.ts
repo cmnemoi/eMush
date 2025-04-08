@@ -1,5 +1,5 @@
 export class Status {
-    public id : number|null;
+    public id! : number;
     public key! : string;
     public name : string|null;
     public charge : number|null;
@@ -9,7 +9,6 @@ export class Status {
     public diseaseType : string | null;
 
     constructor() {
-        this.id = null;
         this.name = null;
         this.charge = null;
         this.description = null;

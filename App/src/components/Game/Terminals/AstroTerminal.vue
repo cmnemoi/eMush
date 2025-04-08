@@ -17,7 +17,7 @@
             </div>
             <div class="analysis">
                 <ul>
-                    <li v-for="sector in planet.sectors" :key="`${sector.id}-${sector.updatedAt}`">
+                    <li v-for="sector in planet.sectors" :key="`${sector.id}-${sector.key}`">
                         <Tippy tag="li">
                             <img :src="getSectorImage(sector)" :alt="sector.name">
                             <template #content>

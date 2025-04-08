@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Exploration\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
@@ -13,8 +12,6 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 #[ORM\Table(name: 'planet_sector')]
 class PlanetSector
 {
-    use TimestampableEntity;
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -103,14 +100,5 @@ class PlanetSector
     public function isIntelligentSector(): bool
     {
         return $this->getName() === PlanetSectorEnum::INTELLIGENT;
-    }
-
-    public function getUpdatedAtOrThrow(): \DateTime
-    {
-        if ($this->updatedAt === null) {
-            throw new \LogicException('Planet sector should have an updatedAt date');
-        }
-
-        return $this->updatedAt;
     }
 }

@@ -45,9 +45,38 @@ final class StatusNormalizerCest extends AbstractFunctionalTest
 
         $I->assertEquals(
             expected: [
+                'id' => $status->getId(),
                 'key' => PlayerStatusEnum::LYING_DOWN,
                 'name' => 'Allongée',
                 'description' => 'Vous êtes allongée.',
+                'isPrivate' => false,
+            ],
+            actual: $normalizedStatus,
+        );
+    }
+
+    public function shouldNormalizeOtherPlayerStatus(FunctionalTester $I): void
+    {
+        $status = $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::PUBLIC,
+        );
+
+        $normalizedStatus = $this->statusNormalizer->normalize(
+            object: $status,
+            format: null,
+            context: ['currentPlayer' => $this->chun],
+        );
+
+        $I->assertEquals(
+            expected: [
+                'id' => $status->getId(),
+                'key' => PlayerStatusEnum::LYING_DOWN,
+                'name' => 'Allongé',
+                'description' => 'Vous êtes allongé.',
                 'isPrivate' => false,
             ],
             actual: $normalizedStatus,

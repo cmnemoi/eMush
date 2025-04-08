@@ -12,7 +12,7 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 #[ORM\Entity]
 #[ORM\Table(name: 'planet_sector')]
 class PlanetSector
-{   
+{
     use TimestampableEntity;
 
     #[ORM\Id]

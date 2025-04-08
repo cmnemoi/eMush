@@ -25,11 +25,12 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
+use Mush\Status\Entity\VisibleStatusHolderInterface;
 use Mush\Status\Enum\HunterStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface, ActionHolderInterface, HunterTargetEntityInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface, ActionHolderInterface, HunterTargetEntityInterface, VisibleStatusHolderInterface
 {
     use TargetStatusTrait;
 

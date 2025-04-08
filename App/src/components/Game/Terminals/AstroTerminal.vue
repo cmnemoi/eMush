@@ -17,8 +17,9 @@
             </div>
             <div class="analysis">
                 <ul>
-                    <li v-for="sector in planet.sectors" :key="sector.id">
-                        <Tippy tag="img" :src="getSectorImage(sector)" :alt="sector.name">
+                    <li v-for="sector in planet.sectors" :key="`${sector.id}-${sector.updatedAt}`">
+                        <Tippy tag="li">
+                            <img :src="getSectorImage(sector)" :alt="sector.name">
                             <template #content>
                                 <h1 v-html="formatText(sector.name)" />
                                 <p v-html="formatText(sector.description)" />
@@ -95,11 +96,13 @@ import { formatText } from "@/utils/formatText";
 import { mapActions, mapGetters } from "vuex";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "AstroTerminal",
     components : {
-        ActionButton
+        ActionButton,
+        Tippy
     },
     props: {
         terminal: {

@@ -68,6 +68,13 @@ final class OpenContainerCest extends AbstractFunctionalTest
         $this->thenAnyOfChunGiftShouldBeInInventory($I);
     }
 
+    public function lunchboxShouldGiveRations(FunctionalTester $I): void
+    {
+        $this->givenLunchboxInShelf();
+        $this->whenPlayerOpensLunchbox();
+        $this->thenRationsShouldBeInPlayerInventory($I);
+    }
+
     private function givenThermosInShelf(): void
     {
         $this->container = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -93,7 +100,7 @@ final class OpenContainerCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenPlayerTriesToOpenThermos(): void
+    private function whenPlayerTriesToContainer(): void
     {
         $this->openContainer->loadParameters(
             actionConfig: $this->actionConfig,
@@ -105,7 +112,7 @@ final class OpenContainerCest extends AbstractFunctionalTest
 
     private function whenPlayerOpensThermos(): void
     {
-        $this->whenPlayerTriesToOpenThermos();
+        $this->whenPlayerTriesToContainer();
         $this->openContainer->execute();
     }
 
@@ -148,5 +155,26 @@ final class OpenContainerCest extends AbstractFunctionalTest
             condition: array_intersect(['apprentron_medic', ItemEnum::MUSH_SAMPLE, ItemEnum::MYCO_ALARM, 'apprentron_optimist'], $chunEquipment->toArray()) !== [],
             message: "Chun should have a piece of equipment between Medic mage book, Mush sample, Mycoalarm or Optimist magebook, but she has: {implode(', ', {$chunEquipment})}"
         );
+    }
+
+    private function givenLunchboxInShelf(): void
+    {
+        $this->container = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::LUNCHBOX,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function whenPlayerOpensLunchbox(): void
+    {
+        $this->whenPlayerTriesToContainer();
+        $this->openContainer->execute();
+    }
+
+    private function thenRationsShouldBeInPlayerInventory(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->chun->hasEquipmentByName(GameRationEnum::STANDARD_RATION));
     }
 }

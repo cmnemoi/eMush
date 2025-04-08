@@ -87,6 +87,7 @@ const WHITE_FLAG = "white_flag";
 //containers
 const ANNIVERSARY_GIFT = "anniversary_gift";
 const COFFEE_THERMOS = "coffee_thermos";
+const LUNCHBOX = "lunchbox";
 
 const ITRACKIE = "itrackie";
 const TRACKER = "tracker";
@@ -492,6 +493,9 @@ export const itemEnum: {[index: string]: any} = {
     },
     [COFFEE_THERMOS]:{
         'image': getImgUrl('items/coffee_thermos.jpg')
+    },
+    [LUNCHBOX]:{
+        'image': getImgUrl('items/lunchbox.jpg')
     },
     [SUPERVITAMIN_BAR]:{
         'image': getImgUrl('items/supervitamin_bar.jpg')

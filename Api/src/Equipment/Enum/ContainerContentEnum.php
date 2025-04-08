@@ -22,6 +22,14 @@ class ContainerContentEnum
         ],
     ];
 
+    public const array LUNCHBOX_CONTENT = [
+        [
+            'item' => GameRationEnum::STANDARD_RATION,
+            'quantity' => 1,
+            'weight' => 1,
+        ],
+    ];
+
     public const array ANNIVERSARY_GIFT_CONTENT = [
         [
             'item' => GearItemEnum::PLASTENITE_ARMOR,

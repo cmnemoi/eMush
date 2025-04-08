@@ -10,8 +10,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Entity\Mechanics\Container;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -33,8 +31,18 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class OpenContainer extends AbstractAction
 {
     private const array CONTAINER_LIST = [
-        ItemEnum::ANNIVERSARY_GIFT => ActionLogEnum::OPEN_ANNIVERSARY_GIFT,
-        ItemEnum::COFFEE_THERMOS => ActionLogEnum::OPEN_COFFEE_THERMOS,
+        ItemEnum::ANNIVERSARY_GIFT => [
+            'name' => ActionLogEnum::OPEN_ANNIVERSARY_GIFT,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ],
+        ItemEnum::COFFEE_THERMOS => [
+            'name' => ActionLogEnum::OPEN_COFFEE_THERMOS,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ],
+        ItemEnum::LUNCHBOX => [
+            'name' => ActionLogEnum::OPEN_LUNCHBOX,
+            'visibility' => VisibilityEnum::HIDDEN,
+        ],
     ];
     protected ActionEnum $name = ActionEnum::OPEN_CONTAINER;
 
@@ -79,24 +87,20 @@ class OpenContainer extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameItem $target */
-        $target = $this->target;
+        $target = $this->gameEquipmentTarget();
 
-        /** @var Container $containerType */
-        $containerType = $target->getMechanicByNameOrThrow(EquipmentMechanicEnum::CONTAINER);
-
-        $time = new \DateTime();
+        $containerType = $target->getContainerMechanicOrThrow();
 
         $contentName = (string) $this->randomService->getSingleRandomElementFromProbaCollection($containerType->getContentWeights($this->player));
         $contentQuantity = $containerType->getQuantityOfItemOrThrow($contentName);
 
         $this->createOpeningLog($contentName, $contentQuantity);
 
-        $this->createContents($contentName, $contentQuantity);
-
         if ($target->isOnLastChargeOrSingleUse()) {
             $this->destroyEmptyContainer();
         }
+
+        $this->createContents($contentName, $contentQuantity);
     }
 
     private function createOpeningLog(string $contentName, int $contentQuantity): void
@@ -109,9 +113,9 @@ class OpenContainer extends AbstractAction
             'quantity' => $contentQuantity,
         ];
         $this->roomLogService->createLog(
-            logKey: self::CONTAINER_LIST[$logKey],
+            logKey: self::CONTAINER_LIST[$logKey]['name'],
             place: $this->player->getPlace(),
-            visibility: VisibilityEnum::PUBLIC,
+            visibility: self::CONTAINER_LIST[$logKey]['visibility'],
             type: 'actions_log',
             player: $this->player,
             parameters: $logParameters,

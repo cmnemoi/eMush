@@ -2530,12 +2530,20 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
       <segment id="description" state="translated">
         <source>lunchbox.description</source>
         <target>Oh des Rations ! Un petit plaisir à partager.//
-Contient {quantity} x Rations standards.</target>
+Contient {quantity, plural,
+        one {1 **Ration standard**}
+        other {# **Rations standards**}
+}.
+</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
         <target>Oh des Rations ! Un petit plaisir à partager.//
-Contient {quantity} x Rations standards.//
+Contient {quantity, plural,
+        one {1 **Ration standard**}
+        other {# **Rations standards**}
+}
+//
 L'équivalent galactique de la soupe chaude quand le zéro absolu vous guette.</target>
       </segment>
     </unit>
@@ -2648,12 +2656,18 @@ Qui eût cru que quelques coussins et une structure de contre-plaqué puissent a
       <segment id="description" state="translated">
         <source>coffee_thermos.description</source>
         <target>Rien de tel qu'un café chaud.//
-Contient {charge} x Cafés.</target>
+Contient {quantity, plural,
+        one {1 **Café**}
+        other {# **Cafés**}
+}.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>coffee_thermos.examine</source>
         <target>Rien de tel qu'un café chaud.//
-Contient {charge} x Cafés.//
+Contient {quantity, plural,
+        one {1 **Café**}
+        other {# **Cafés**}
+}.//
 Le nec plus ultra de la solidarité dans les périodes de disettes. Livré sans soupe chaude ni brasero.</target>
       </segment>
     </unit>

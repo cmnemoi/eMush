@@ -66,12 +66,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const HUNTER_TRUCE_CYCLES = 'hunter_truce_cycles';
     public const FOLLOWING_HUNTERS_STATUS = 'following_hunters_status';
     public const CHANGED_CPU_PRIORITY = 'changed_cpu_priority';
+    public const COFFEE_THERMOS_CHARGE = 'coffee_thermos_charge';
+    public const LUNCHBOX_CHARGE = 'lunchbox_charge';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
-
-    public const SHOOTER_SKILL_POC = 'shooter_skill_poc';
-
-    public const COFFEE_THERMOS_CHARGE = 'coffee_thermos_charge';
 
     public function load(ObjectManager $manager): void
     {
@@ -604,6 +602,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($coffeeThermosCharge);
 
+        $lunchboxCharge = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName('electric_charges_lunchbox_default')
+        );
+        $manager->persist($lunchboxCharge);
+
         $contactedSolToday = ChargeStatusConfig::fromConfigData(
             StatusConfigData::getByName(PlayerStatusEnum::CONTACTED_SOL_TODAY . '_default')
         );
@@ -671,7 +674,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasDaunted)
             ->addStatusConfig($coffeeThermosCharge)
             ->addStatusConfig($contactedSolToday)
-            ->addStatusConfig($baseRebelContactDuration);
+            ->addStatusConfig($baseRebelContactDuration)
+            ->addStatusConfig($lunchboxCharge);
 
         $manager->persist($gameConfig);
 
@@ -732,6 +736,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::NERON_DEPRESSION, $neronDepression);
         $this->addReference(self::COFFEE_THERMOS_CHARGE, $coffeeThermosCharge);
         $this->addReference(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION, $baseRebelContactDuration);
+        $this->addReference(self::LUNCHBOX_CHARGE, $lunchboxCharge);
     }
 
     public function getDependencies(): array

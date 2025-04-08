@@ -2554,12 +2554,18 @@ A place to put a plant in the hydroponic garden.</target>
       <segment id="description" state="translated">
         <source>lunchbox.description</source>
         <target>Rations! A joy to share.//
-Contains {quantity} x Standard Ration.</target>
+Contains {quantity, plural,
+        one {1 **Standard Ration**}
+        other {# **Standard Rations**}
+}.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
         <target>Rations! A joy to share.//
-Contains {quantity} x Standard Ration.
+Contains {quantity, plural,
+        one {1 **Standard Ration**}
+        other {# **Standard Rations**}
+}.
 The galactic equivalent of hot soup when you're getting spanked by absolute zero conditions.</target>
       </segment>
     </unit>
@@ -2672,12 +2678,18 @@ Who would have thought that a plywood structure and a few cushions could be so r
       <segment id="description" state="translated">
         <source>coffee_thermos.description</source>
         <target>There is nothing quite like a hot cup of joe...//
-Contains {charge} x Coffee.</target>
+Contains {quantity, plural,
+        one {1 **Coffee**}
+        other {# **Coffees**}
+}.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>coffee_thermos.examine</source>
         <target>There is nothing quite like a hot cup of joe...//
-Contains {charge} x Coffee.//
+Contains {quantity, plural,
+        one {1 **Coffee**}
+        other {# **Coffees**}
+}.//
 The final word in solidarity in times of famine. Delivered without hot soup and without brazier.</target>
       </segment>
     </unit>

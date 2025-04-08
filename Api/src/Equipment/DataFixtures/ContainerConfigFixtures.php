@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Container;
 use Mush\Equipment\Enum\ContainerContentEnum;
@@ -86,6 +87,23 @@ class ContainerConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($anniversaryGift);
 
         $gameConfig->addEquipmentConfig($anniversaryGift);
+
+        $lunchboxMechanic = new Container();
+        $lunchboxMechanic
+            ->addAction($openContainerCost0)
+            ->buildName('container_' . ItemEnum::LUNCHBOX, GameConfigEnum::DEFAULT)
+            ->setContents(ContainerContentEnum::LUNCHBOX_CONTENT);
+        $manager->persist($lunchboxMechanic);
+
+        /** @var StatusConfig $lunchboxCharges */
+        $lunchboxCharges = $this->getReference(ChargeStatusFixtures::LUNCHBOX_CHARGE);
+
+        $lunchbox = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::LUNCHBOX));
+        $lunchbox->setMechanics([$lunchboxMechanic]);
+        $lunchbox->setInitStatuses([$lunchboxCharges]);
+        $manager->persist($lunchbox);
+
+        $gameConfig->addEquipmentConfig($lunchbox);
 
         $manager->flush();
     }

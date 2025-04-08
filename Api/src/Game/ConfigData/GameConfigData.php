@@ -378,6 +378,7 @@ class GameConfigData
                 'apprentron_rebel_default',
                 'apprentron_self_sacrifice_default',
                 ItemEnum::PAVLOV . '_default',
+                'lunchbox_default',
             ],
             'statusConfigs' => [
                 'alien_artefact_default',
@@ -516,6 +517,7 @@ class GameConfigData
                 DaedalusStatusEnum::GHOST_CHUN . '_default',
                 HunterStatusEnum::AGGROED . '_default',
                 PlayerStatusEnum::BEGINNER . '_default',
+                'electric_charges_lunchbox_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

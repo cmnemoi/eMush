@@ -4512,6 +4512,27 @@ class EquipmentConfigData
             'mechanics' => [],
             'initStatuses' => [],
         ],
+        [
+            'name' => 'lunchbox_default',
+            'equipmentName' => ItemEnum::LUNCHBOX,
+            'isBreakable' => false,
+            'isFireDestroyable' => false,
+            'isFireBreakable' => false,
+            'dismountedProducts' => [],
+            'isPersonal' => false,
+            'type' => 'item_config',
+            'isStackable' => false,
+            'actions' => [
+                'take',
+                'drop',
+                'hide',
+                'examine',
+            ],
+            'mechanics' => ['container_lunchbox_default'],
+            'initStatuses' => [
+                'electric_charges_lunchbox_default',
+            ],
+        ],
     ];
 
     public static function getByEquipmentName(string $name): array

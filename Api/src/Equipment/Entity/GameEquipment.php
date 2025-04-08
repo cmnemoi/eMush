@@ -18,6 +18,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Entity\Mechanics\Container;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Entity\Mechanics\Plumbing;
@@ -491,6 +492,13 @@ class GameEquipment implements StatusHolderInterface, LogParameterInterface, Mod
         $waterSupply = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::PLUMBING);
 
         return $waterSupply instanceof Plumbing ? $waterSupply : throw new \RuntimeException("Equipment {$this->name} does not have a blueprint mechanic.");
+    }
+
+    public function getContainerMechanicOrThrow(): Container
+    {
+        $container = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::CONTAINER);
+
+        return $container instanceof Container ? $container : throw new \RuntimeException("Equipment {$this->name} does not have a container mechanic.");
     }
 
     public function hasMechanicByName(string $mechanicName): bool

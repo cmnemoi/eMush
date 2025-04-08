@@ -149,10 +149,13 @@ final class PlayerSubscriber implements EventSubscriberInterface
     private function applyTraumaToDeathAuthor(PlayerEvent $event): void
     {
         $author = $event->getAuthor();
+        $deadPlayer = $event->getPlayer();
 
         if (
             $this->randomService->isSuccessful(self::TRAUMA_AUTHOR_PROBABILTY)
-            && $author?->isHuman() && $author->doesNotHaveSkill(SkillEnum::DETACHED_CREWMEMBER)
+            && $author?->isHuman()
+            && $author->getPlace()->equals($deadPlayer->getPlace())
+            && $author->doesNotHaveSkill(SkillEnum::DETACHED_CREWMEMBER)
         ) {
             $this->roomLogService->createLog(
                 logKey: LogEnum::TRAUMA_DISEASE,

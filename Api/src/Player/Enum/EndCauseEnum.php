@@ -116,6 +116,7 @@ abstract class EndCauseEnum
         return new ArrayCollection([
             self::SOL_RETURN,
             self::EDEN,
+            self::ALIEN_ABDUCTED,
         ]);
     }
 

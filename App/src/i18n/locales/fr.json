@@ -626,7 +626,11 @@
 			"loadMoreMessages": "Charger plus de messages",
 			"markChannelAsRead": "Marquer le canal comme lu",
 			"unbookmark": "Plus favori",
-			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
+			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris.",
+			"shareHealthDescription": "Partager mon état de santé",
+			"shareInventoryDescription": "Partager l'inventaire de la pièce",
+			"shareResearchDescription": "Partager les recherches",
+			"empty": "Vide"
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

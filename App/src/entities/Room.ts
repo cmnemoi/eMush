@@ -114,4 +114,8 @@ export class Room {
 
         return this;
     }
+    inventory(t: any): string {
+        const items = Object.entries(this.items).map(([index, item]) => item.number > 1 ? `${item.name} (x${item.number})` : item.name).join(', ');
+        return items.length > 0 ? `**${this.name}** : ${items}` : `**${this.name}** : ${t('game.communications.empty')}`;
+    }
 }

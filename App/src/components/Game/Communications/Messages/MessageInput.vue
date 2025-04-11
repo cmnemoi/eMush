@@ -1,5 +1,21 @@
 <template>
     <form class="chat-input">
+        <div class="action-buttons">
+            <ActionButtons
+                :actions="['shareHealth']"
+                @share-health="handleShareHealth"
+            />
+            <ActionButtons
+                v-if="!player.isFocused()"
+                :actions="['shareInventory']"
+                @share-inventory="handleShareInventory"
+            />
+            <ActionButtons
+                v-if="player.isFocusedOnTerminal(TerminalEnum.RESEARCH_LAB_TERMINAL)"
+                :actions="['shareResearch']"
+                @share-research="handleShareResearch"
+            />
+        </div>
         <textarea
             v-model="text"
             ref="input"
@@ -27,9 +43,13 @@ import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import ActionButtons from "@/components/Game/Communications/ActionButtons.vue";
+import { TerminalEnum } from "@/enums/terminal.enum";
+import { Project } from "@/entities/Project";
 
 export default defineComponent ({
     name: "MessageInput",
+    components: { ActionButtons },
     props: {
         channel: {
             type: Channel,
@@ -42,13 +62,15 @@ export default defineComponent ({
     },
     data(): any {
         return {
-            text: this.typedMessage
+            text: this.typedMessage,
+            TerminalEnum
         };
     },
     computed: {
-        ...mapGetters('communication', [
-            'typedMessage'
-        ])
+        ...mapGetters({
+            'typedMessage': 'communication/typedMessage',
+            'player': 'player/player'
+        })
     },
     methods: {
         getImgUrl,
@@ -82,6 +104,30 @@ export default defineComponent ({
             const element = this.$refs.input;
             element.style.height = "auto";
             element.style.height = element.scrollHeight + 2 + "px";
+        },
+        handleShareHealth() {
+            const health = `${this.player.healthPoint.quantity}:hp: / ${this.player.moralPoint.quantity}:pmo:`;
+            if (this.typedMessage.length > 0) {
+                this.updateTypedMessage(`${this.typedMessage}\n${health}`);
+            } else {
+                this.updateTypedMessage(health);
+            }
+        },
+        handleShareInventory() {
+            const inventory = this.player.room?.inventory(this.$t);
+            if (this.typedMessage.length > 0) {
+                this.updateTypedMessage(`${this.typedMessage}\n${inventory}`);
+            } else {
+                this.updateTypedMessage(inventory);
+            }
+        },
+        handleShareResearch() {
+            const research = this.player.terminal?.projects.map((project: Project) => project.toString()).join('\n');
+            if (this.typedMessage.length > 0) {
+                this.updateTypedMessage(`${this.typedMessage}\n${research}`);
+            } else {
+                this.updateTypedMessage(research);
+            }
         }
     },
     mounted() {
@@ -98,6 +144,14 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 25px;
+    margin-right: 8px;
+}
 
 .chat-input {
     display: flex;

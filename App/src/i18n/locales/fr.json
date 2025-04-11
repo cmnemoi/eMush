@@ -628,7 +628,11 @@
 			"exportChannelAsPDF": "Exporter le canal au format PDF",
 			"exportChannelAsPDFDescription": "Copiera également la discussion dans le presse-papiers.",
 			"unbookmark": "Plus favori",
-			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
+			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris.",
+			"shareHealthDescription": "Partager mon état de santé",
+			"shareInventoryDescription": "Partager l'inventaire de la pièce",
+			"shareResearchDescription": "Partager les recherches",
+			"empty": "Vide"
 		},
 		"exploration": {
 			"newStep": "Nouvelle étape"

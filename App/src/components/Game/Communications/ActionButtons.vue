@@ -1,17 +1,18 @@
 <template>
     <Tippy
         tag="button"
+        type="button"
         v-for="(actionType, key) in actions"
         :key="key"
+        class="chat-action-button"
         @click="$emit(actionType)"
     >
         <img :src="action(actionType).icon">
         {{ $t(action(actionType).wording) }}
         <template #content>
-            <h1>{{ $t(action(actionType).wording) }}</h1>
-            <p>{{ $t(action(actionType).description) }}</p>
+            <h1 v-if="action(actionType).wording">{{ $t(action(actionType).wording) }}</h1>
+            <p v-if="action(actionType).description">{{ $t(action(actionType).description) }}</p>
         </template>
-
     </Tippy>
 </template>
 
@@ -29,7 +30,10 @@ const availableActions: {[index: string]: any} = {
     refresh: { icon: getImgUrl('comms/refresh.gif'), wording: 'game.communications.refresh', description: 'game.communications.refreshDescription' },
     reply: { icon: getImgUrl('comms/reply.png'), wording: 'game.communications.reply', description: 'game.communications.replyDescription' },
     report: { icon: getImgUrl('comms/alert.png'), wording: 'moderation.report.name', description: 'moderation.report.description' },
-    delete: { icon: getImgUrl('bin.png'), wording: 'moderation.sanction.delete_message', description: 'moderation.sanction.deleteDescription' }
+    delete: { icon: getImgUrl('bin.png'), wording: 'moderation.sanction.delete_message', description: 'moderation.sanction.deleteDescription' },
+    shareHealth: { icon: getImgUrl('ui_icons/action_points/pa_heal.png'), wording: '', description: 'game.communications.shareHealthDescription' },
+    shareInventory: { icon: getImgUrl('ui_icons/action_points/pa_tech.png'), wording: '', description: 'game.communications.shareInventoryDescription' },
+    shareResearch: { icon: getImgUrl('ui_icons/pill.png'), wording: '', description: 'game.communications.shareResearchDescription' }
 };
 
 export default defineComponent ({

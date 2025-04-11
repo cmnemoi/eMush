@@ -213,7 +213,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
         $I->assertEmpty($this->tradeRepository->findAllByDaedalusId($this->daedalus->getId()));
     }
 
-    public function shouldCreateMerchantLeaveNeronAnnouncement(FunctionalTester $I): void
+    public function shouldNotCreateMerchantLeaveNeronAnnouncement(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
@@ -222,7 +222,7 @@ final class AcceptTradeCest extends AbstractFunctionalTest
 
         $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
 
-        $I->seeInRepository(
+        $I->dontSeeInRepository(
             entity: Message::class,
             params: [
                 'neron' => $this->daedalus->getNeron(),

@@ -8,6 +8,7 @@ use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Communications\Event\TradeAssetsCreatedEvent;
 use Mush\Communications\Event\TradeCreatedEvent;
+use Mush\Game\Enum\EventEnum;
 use Mush\Hunter\Event\MerchantLeaveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,6 +27,12 @@ final readonly class MerchantEventSubscriber implements EventSubscriberInterface
 
     public function onMerchantLeave(MerchantLeaveEvent $event): void
     {
+        // NERON announces merchant departure only if it happens at cycle change
+        // (i.e. after being aggroed)
+        if ($event->doesNotHaveTag(EventEnum::NEW_CYCLE)) {
+            return;
+        }
+
         $this->neronMessageService->createNeronMessage(
             messageKey: NeronMessageEnum::MERCHANT_LEAVE,
             daedalus: $event->getDaedalus(),

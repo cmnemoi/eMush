@@ -113,14 +113,14 @@ final class RefuseTradeCest extends AbstractFunctionalTest
         $this->thenTradeShouldBeDeleted($I);
     }
 
-    public function shouldCreateMerchantLeaveNeronAnnouncement(FunctionalTester $I): void
+    public function shouldNotCreateMerchantLeaveNeronAnnouncement(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();
         $this->givenPlayerIsCommsManager();
 
         $this->whenPlayerRefusesTrade();
 
-        $I->seeInRepository(
+        $I->dontSeeInRepository(
             entity: Message::class,
             params: [
                 'neron' => $this->daedalus->getNeron(),

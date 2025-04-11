@@ -36,21 +36,21 @@ final readonly class DeleteTransportService
         $this->deleteTransport($transport);
     }
 
-    public function byId(int $id): void
+    public function byId(int $id, array $tags = []): void
     {
         $transport = $this->hunterRepository->findByIdOrThrow($id);
         $this->tradeRepository->deleteByTransportId($transport->getId());
 
-        $this->deleteTransport($transport);
+        $this->deleteTransport($transport, $tags);
     }
 
-    private function deleteTransport(Hunter $transport): void
+    private function deleteTransport(Hunter $transport, array $tags = []): void
     {
         $this->deleteTargetsInvolvingTransport($transport);
         $this->hunterRepository->delete($transport);
 
         $this->eventService->callEvent(
-            event: new MerchantLeaveEvent($transport->getDaedalus()),
+            event: new MerchantLeaveEvent($transport->getDaedalus(), $tags),
             name: MerchantLeaveEvent::class,
         );
     }

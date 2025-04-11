@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Communications\Event;
 
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
 use Mush\Communications\Enum\RebelBaseEnum;
@@ -12,7 +14,11 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\Hunter;
+use Mush\Hunter\Enum\HunterEnum;
+use Mush\Hunter\Service\CreateHunterService;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -22,6 +28,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
 {
+    private CreateHunterService $createHunter;
     private EventServiceInterface $eventService;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private StatusServiceInterface $statusService;
@@ -30,9 +37,14 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
+        $this->createHunter = $I->grabService(CreateHunterService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setMinTransportSpawnRate(0);
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setMaxTransportSpawnRate(0);
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setHunterSpawnRate(0);
     }
 
     public function shouldNotTriggerContactIfDaedalusIsNotFull(FunctionalTester $I): void
@@ -78,6 +90,51 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         $this->thenRebelBaseShouldNotContact(RebelBaseEnum::WOLF, $I);
     }
 
+    public function shouldMakeAggroedTransportsLeaving(FunctionalTester $I): void
+    {
+        $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
+        $this->givenTransportIsAggroed();
+
+        $this->whenXCyclesPass(1);
+
+        $I->dontSeeInRepository(
+            entity: Hunter::class,
+            params: [
+                'space' => $this->daedalus->getSpace()->getId(),
+            ]
+        );
+    }
+
+    public function shouldNotMakeNonAggroedTransportsLeaving(FunctionalTester $I): void
+    {
+        $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
+
+        $this->whenXCyclesPass(1);
+
+        $I->seeInRepository(
+            entity: Hunter::class,
+            params: [
+                'space' => $this->daedalus->getSpace()->getId(),
+            ]
+        );
+    }
+
+    public function shouldCreateNeronAnnouncementWhenAggroedTransportsLeave(FunctionalTester $I): void
+    {
+        $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
+        $this->givenTransportIsAggroed();
+
+        $this->whenXCyclesPass(1);
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getNeron()->getId(),
+                'message' => NeronMessageEnum::MERCHANT_LEAVE,
+            ]
+        );
+    }
+
     private function givenWolfContactedToday(FunctionalTester $I): void
     {
         $wolfConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => RebelBaseEnum::WOLF]);
@@ -116,14 +173,15 @@ final class DaedalusNewCycleEventCest extends AbstractFunctionalTest
         $this->daedalus->getDaedalusInfo()->startDaedalus();
     }
 
-    private function givenRebelBasesExist(array $rebelBases, FunctionalTester $I): void
+    private function givenTransportIsAggroed(): void
     {
-        foreach ($rebelBases as $rebelBase) {
-            $kaladaanConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => $rebelBase]);
-            $this->rebelBaseRepository->save(
-                new RebelBase($kaladaanConfig, $this->daedalus->getId())
-            );
-        }
+        $transport = $this->daedalus->getHuntersAroundDaedalus()->getOneHunterByType(HunterEnum::TRANSPORT);
+        $this->statusService->createStatusFromName(
+            statusName: HunterStatusEnum::AGGROED,
+            holder: $transport,
+            tags: [],
+            time: new \DateTime()
+        );
     }
 
     private function whenXCyclesPass(int $x): void

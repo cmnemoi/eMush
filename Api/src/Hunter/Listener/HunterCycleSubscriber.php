@@ -47,7 +47,7 @@ final class HunterCycleSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $aggroedTransports = $daedalus->getHuntersAroundDaedalus()->getAggroedTransports();
         foreach ($aggroedTransports as $aggroedTransport) {
-            $this->deleteTransport->byId($aggroedTransport->getId());
+            $this->deleteTransport->byId($aggroedTransport->getId(), $event->getTags());
         }
     }
 

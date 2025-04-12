@@ -8,6 +8,7 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
@@ -42,6 +43,7 @@ final class PlayerSubscriberCest extends AbstractFunctionalTest
     public function testDispatchSickPlayerDeath(FunctionalTester $I): void
     {
         $this->givenPlayerIsSick();
+        $this->givenNoWitnesses(); // avoid false positives caused by trauma diseases when a player is about to die
         $this->thenSicknessShouldExist($I);
         $this->whenPlayerDies();
         $this->thenSicknessShouldBeCorrectlyRemoved($I);
@@ -55,6 +57,14 @@ final class PlayerSubscriberCest extends AbstractFunctionalTest
             player: $this->player,
             reasons: [],
         );
+    }
+
+    private function givenNoWitnesses(): void
+    {
+        foreach ($this->player->getAlivePlayersInRoomExceptSelf() as $witness) {
+            $this->player->getPlace()->removePlayer($witness);
+            $witness->setPlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET));
+        }
     }
 
     private function whenPlayerDies(): void

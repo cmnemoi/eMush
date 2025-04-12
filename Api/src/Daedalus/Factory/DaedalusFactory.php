@@ -51,8 +51,9 @@ final class DaedalusFactory
         $daedalusInfo->setNeron(new Neron());
         $daedalusInfo->setName(Uuid::v4()->toRfc4122());
 
-        self::createSpacePlace($daedalus);
-        self::createLaboratoryPlaceDifferentFromSpacePlace($daedalus);
+        $space = self::createSpacePlace($daedalus);
+        $laboratory = self::createLaboratoryPlace($daedalus);
+        self::makePlacesDifferent($space, $laboratory);
         self::createMycoscanEquipment($daedalus);
         self::setupId($daedalus);
 
@@ -68,7 +69,7 @@ final class DaedalusFactory
         return $daedalus;
     }
 
-    private static function createSpacePlace(Daedalus $daedalus): void
+    private static function createSpacePlace(Daedalus $daedalus): Place
     {
         $space = new Place();
         $space
@@ -77,9 +78,11 @@ final class DaedalusFactory
             ->setDaedalus($daedalus);
 
         (new \ReflectionProperty($space, 'id'))->setValue($space, (int) hash('crc32b', serialize($space)));
+
+        return $space;
     }
 
-    private static function createLaboratoryPlace(Daedalus $daedalus): void
+    private static function createLaboratoryPlace(Daedalus $daedalus): Place
     {
         $laboratory = new Place();
         $laboratory
@@ -88,16 +91,14 @@ final class DaedalusFactory
             ->setDaedalus($daedalus);
 
         (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, (int) hash('crc32b', serialize($laboratory)));
+
+        return $laboratory;
     }
 
-    private static function createLaboratoryPlaceDifferentFromSpacePlace(Daedalus $daedalus): void
+    private static function makePlacesDifferent(Place $place1, Place $place2): void
     {
-        self::createLaboratoryPlace($daedalus);
-        $space = $daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE);
-        $laboratory = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
-
-        if ($space->getId() === $laboratory->getId()) {
-            (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, $laboratory->getId() + 1);
+        if ($place1->getId() === $place2->getId()) {
+            (new \ReflectionProperty($place2, 'id'))->setValue($place2, $place2->getId() + 1);
         }
     }
 

@@ -52,7 +52,7 @@ final class DaedalusFactory
         $daedalusInfo->setName(Uuid::v4()->toRfc4122());
 
         self::createSpacePlace($daedalus);
-        self::createLaboratoryPlace($daedalus);
+        self::createLaboratoryPlaceDifferentFromSpacePlace($daedalus);
         self::createMycoscanEquipment($daedalus);
         self::setupId($daedalus);
 
@@ -88,6 +88,17 @@ final class DaedalusFactory
             ->setDaedalus($daedalus);
 
         (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, (int) hash('crc32b', serialize($laboratory)));
+    }
+
+    private static function createLaboratoryPlaceDifferentFromSpacePlace(Daedalus $daedalus): void
+    {
+        self::createLaboratoryPlace($daedalus);
+        $space = $daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE);
+        $laboratory = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+
+        if ($space->getId() === $laboratory->getId()) {
+            (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, $laboratory->getId() + 1);
+        }
     }
 
     private static function createMycoscanEquipment(Daedalus $daedalus): void

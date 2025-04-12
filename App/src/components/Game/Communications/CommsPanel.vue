@@ -30,6 +30,9 @@
         <button class="action-button" @click="markAsRead()" v-if="currentChannel.isNotTipsChannel()">
             {{ $t('game.communications.markChannelAsRead') }}
         </button>
+        <button class="action-button" @click="exportChannelAsPDF()" id="cmd">
+            {{ $t('game.communications.exportChannelAsPDF') }}
+        </button>
     </div>
 </template>
 
@@ -48,6 +51,8 @@ import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export default defineComponent ({
     name: "CommsPanel",
@@ -129,6 +134,58 @@ export default defineComponent ({
             } else {
                 await this.markCurrentChannelAsRead(this.currentChannel);
             }
+        },
+        async exportChannelAsPDF() : Promise<void> {
+            const chatbox = document.querySelector('.chatbox');
+            if (!chatbox) {
+                console.error("Élément avec classe 'chatbox' non trouvé");
+                return;
+            }
+
+            // Sauvegarder le style original
+            const originalStyle = {
+                height: chatbox.style.height,
+                maxHeight: chatbox.style.maxHeight,
+                overflow: chatbox.style.overflow
+            };
+
+            // Modifier temporairement le style pour afficher tout le contenu
+            chatbox.style.height = 'auto';
+            chatbox.style.maxHeight = 'none';
+            chatbox.style.overflow = 'visible';
+
+            html2canvas(chatbox, {
+                scale: 1,
+                useCORS: true
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm');
+
+                // Dimension du PDF A4
+                const imgWidth = 210;
+                const pageHeight = 295;
+                const scaleFactor = 0.7;
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+
+                // Ajout de la première page
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                // Ajout de pages supplémentaires si nécessaire
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                // Restaurer le style original
+                chatbox.style.height = originalStyle.height;
+                chatbox.style.maxHeight = originalStyle.maxHeight;
+                chatbox.style.overflow = originalStyle.overflow;
+                pdf.save('comms-panel.pdf');
+            });
         }
     }
 });

@@ -625,6 +625,7 @@
 			"report": "Plainte",
 			"loadMoreMessages": "Charger plus de messages",
 			"markChannelAsRead": "Marquer le canal comme lu",
+			"exportChannelAsPDF": "🖨️",
 			"unbookmark": "Plus favori",
 			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
 		},

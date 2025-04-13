@@ -25,7 +25,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 {
     public const int CYCLE_OXYGEN_LOSS = -3;
     public const string BASE_DAEDALUS_CYCLE_CHANGE = 'base_daedalus_cycle_change';
-    public const float LOBBY_TIME_LIMIT = 3 * 24 * 60;
+    public const int LOBBY_TIME_LIMIT = 3 * 24 * 60;
 
     private DaedalusServiceInterface $daedalusService;
     private DispatchCycleIncidentsService $dispatchCycleIncidents;
@@ -130,24 +130,16 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $time = $event->getTime();
 
-        $this->handleOxygen($daedalus, $time);
-
-        $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
-        $timeElapsedSinceStart = ($daedalus->getCycle() + ($daedalus->getDay() - 1) * $daedalusConfig->getCyclePerGameDay()) * $daedalusConfig->getCycleLength();
-        if ($timeElapsedSinceStart >= self::LOBBY_TIME_LIMIT && $daedalus->getGameStatus() === GameStatusEnum::STARTING) {
-            $daedalusEvent = new DaedalusEvent(
-                $daedalus,
-                [EventEnum::NEW_CYCLE],
-                $time
-            );
-            $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
-        }
+        $this->dispatchCycleOxygenLoss($daedalus, $time);
+        $this->endLobby($daedalus, $time);
 
         if ($event->hasTag(EventEnum::NEW_DAY)) {
             $this->resetSpores($event);
+            $this->resetDailyActionPoints($event);
+        }
 
-            $daedalus->setDailyActionSpent(0);
-            $this->daedalusService->persist($daedalus);
+        if ($daedalus->getOxygen() <= 0) {
+            $this->daedalusService->getRandomAsphyxia($daedalus, $time);
         }
     }
 
@@ -156,7 +148,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $daedalus = $event->getDaedalus();
         $time = $event->getTime();
 
-        if ($this->handleDaedalusEnd($daedalus, $time)) {
+        if ($this->finishDaedalusIfNoHumanIsAlive($daedalus, $time)) {
             return;
         }
 
@@ -169,12 +161,10 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $daedalusConfig = $daedalus->getGameConfig()->getDaedalusConfig();
 
         if ($daedalus->getCycle() === $daedalusConfig->getCyclePerGameDay()) {
-            $daedalus->setCycle(1);
-            $daedalus->setDay($daedalus->getDay() + 1);
-
+            $daedalus->incrementDay();
             $event->addTag(EventEnum::NEW_DAY);
         } else {
-            $daedalus->setCycle($daedalus->getCycle() + 1);
+            $daedalus->incrementCycle();
         }
         $this->daedalusService->persist($daedalus);
     }
@@ -190,7 +180,14 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->daedalusService->persist($daedalus);
     }
 
-    private function handleDaedalusEnd(Daedalus $daedalus, \DateTime $time): bool
+    private function resetDailyActionPoints(DaedalusCycleEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $daedalus->setDailyActionSpent(0);
+        $this->daedalusService->persist($daedalus);
+    }
+
+    private function finishDaedalusIfNoHumanIsAlive(Daedalus $daedalus, \DateTime $time): bool
     {
         if ($daedalus->getPlayers()->getHumanPlayer()->getPlayerAlive()->isEmpty()
             && !$daedalus->getPlayers()->getMushPlayer()->getPlayerAlive()->isEmpty()
@@ -208,7 +205,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         return false;
     }
 
-    private function handleOxygen(Daedalus $daedalus, \DateTime $time): void
+    private function dispatchCycleOxygenLoss(Daedalus $daedalus, \DateTime $time): void
     {
         $oxygenLoss = self::CYCLE_OXYGEN_LOSS;
 
@@ -220,9 +217,17 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
             $time
         );
         $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
 
-        if ($daedalus->getOxygen() <= 0) {
-            $this->daedalusService->getRandomAsphyxia($daedalus, $time);
+    private function endLobby(Daedalus $daedalus, \DateTime $time): void
+    {
+        if ($daedalus->isFilling() && $daedalus->getGameDate()->moreThanOrEqualMinutes(self::LOBBY_TIME_LIMIT)) {
+            $daedalusEvent = new DaedalusEvent(
+                $daedalus,
+                [EventEnum::NEW_CYCLE],
+                $time
+            );
+            $this->eventService->callEvent($daedalusEvent, DaedalusEvent::FULL_DAEDALUS);
         }
     }
 }

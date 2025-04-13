@@ -66,6 +66,11 @@ final class GameDate
         return $this->day < $otherDate->day;
     }
 
+    public function moreThanOrEqualMinutes(int $minutes): bool
+    {
+        return $this->toMinutes() >= $minutes;
+    }
+
     private function toElapsedCycles(): int
     {
         return max(1, ($this->day - 1) * $this->daedalus->getNumberOfCyclesPerDay() + $this->cycle);
@@ -79,5 +84,10 @@ final class GameDate
     private function getCycleFromElapsedCycles(int $elapsedCycles): int
     {
         return (($elapsedCycles - 1) % $this->daedalus->getNumberOfCyclesPerDay()) + 1;
+    }
+
+    private function toMinutes(): int
+    {
+        return $this->toElapsedCycles() * $this->daedalus->getGameConfig()->getDaedalusConfig()->getCycleLength();
     }
 }

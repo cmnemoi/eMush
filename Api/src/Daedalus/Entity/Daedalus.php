@@ -519,6 +519,21 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function incrementDay(): static
+    {
+        $this->setCycle(1);
+        $this->setDay($this->getDay() + 1);
+
+        return $this;
+    }
+
+    public function incrementCycle(): static
+    {
+        $this->setCycle($this->getCycle() + 1);
+
+        return $this;
+    }
+
     public function getFilledAt(): ?\DateTime
     {
         return $this->filledAt;

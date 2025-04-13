@@ -6,12 +6,16 @@ namespace Mush\Equipment\Repository;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
 final class InMemoryGameEquipmentRepository implements GameEquipmentRepositoryInterface
 {
+    /**
+     * @var array<int, GameEquipment>
+     */
     private array $gameEquipments = [];
 
     public function findById(int $id): ?GameEquipment
@@ -60,6 +64,20 @@ final class InMemoryGameEquipmentRepository implements GameEquipmentRepositoryIn
         return array_merge(
             $places->map(static fn (Place $place) => $place->getEquipments())->toArray(),
             $players->map(static fn (Player $player) => $player->getEquipments())->toArray()
+        );
+    }
+
+    /**
+     * @psalm-suppress PossiblyNullArgument
+     */
+    public function findByCriteria(GameEquipmentCriteria $criteria): array
+    {
+        return array_filter(
+            $this->gameEquipments,
+            static fn (GameEquipment $gameEquipment) => $gameEquipment->getDaedalus()->equals($criteria->getDaedalus())
+            && ($gameEquipment->isBreakable() === $criteria->isBreakable() || $criteria->isBreakable() === null)
+            && ($criteria->getInstanceOf() === null || \in_array($gameEquipment->getClassName(), $criteria->getInstanceOf(), true))
+            && ($criteria->getNotInstanceOf() === null || !\in_array($gameEquipment->getClassName(), $criteria->getNotInstanceOf(), true))
         );
     }
 

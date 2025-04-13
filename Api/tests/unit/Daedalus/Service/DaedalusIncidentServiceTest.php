@@ -9,16 +9,12 @@ use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
-use Mush\Equipment\Repository\GameEquipmentRepository;
-use Mush\Game\Enum\EventEnum;
+use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
-use Mush\Game\Service\Random\FakeGetRandomPoissonIntegerService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Place\Event\RoomEvent;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -35,13 +31,13 @@ final class DaedalusIncidentServiceTest extends TestCase
     /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
-    /** @var EventServiceInterface|Mockery\Mock */
+    /** @var EventServiceInterface|Mockery\Spy */
     private EventServiceInterface $eventService;
 
-    /** @var GameEquipmentRepository|Mockery\Mock */
-    private GameEquipmentRepository $gameEquipmentRepository;
+    /** @var GameEquipmentRepositoryInterface|Mockery\Mock */
+    private GameEquipmentRepositoryInterface $gameEquipmentRepository;
 
-    /** @var Mockery\Mock|StatusServiceInterface */
+    /** @var Mockery\Spy|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
     private DaedalusIncidentServiceInterface $service;
@@ -52,17 +48,16 @@ final class DaedalusIncidentServiceTest extends TestCase
     public function before()
     {
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
-        $this->eventService = \Mockery::mock(EventServiceInterface::class);
-        $this->gameEquipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
-        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->eventService = \Mockery::spy(EventServiceInterface::class);
+        $this->gameEquipmentRepository = \Mockery::mock(GameEquipmentRepositoryInterface::class);
+        $this->statusService = \Mockery::spy(StatusServiceInterface::class);
 
         $this->service = new DaedalusIncidentService(
-            new FakeGetRandomElementsFromArrayService(),
-            new FakeGetRandomPoissonIntegerService(1), // always one incident
-            $this->randomService,
-            $this->eventService,
-            $this->gameEquipmentRepository,
-            $this->statusService,
+            eventService: $this->eventService,
+            gameEquipmentRepository: $this->gameEquipmentRepository,
+            getRandomElementsFromArray: new FakeGetRandomElementsFromArrayService(),
+            randomService: $this->randomService,
+            statusService: $this->statusService,
         );
     }
 
@@ -79,14 +74,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
 
-        // setup universe state
-        $this->statusService->shouldReceive('createStatusFromName')->once();
-
         // when we handle fire events
-        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
+        $this->service->handleFireEvents($daedalus, new \DateTime());
 
         // then we should have one fire event
-        self::assertSame(1, $fires);
+        $this->statusService
+            ->shouldHaveReceived('createStatusFromName')
+            ->once();
     }
 
     public function testShouldNotHandleFireEventsInBurningRoom(): void
@@ -101,10 +95,10 @@ final class DaedalusIncidentServiceTest extends TestCase
         );
 
         // when we handle fire events
-        $fires = $this->service->handleFireEvents($daedalus, new \DateTime());
+        $this->service->handleFireEvents($daedalus, new \DateTime());
 
         // then we should have no fire event
-        self::assertSame(0, $fires);
+        $this->statusService->shouldNotHaveReceived('createStatusFromName');
     }
 
     public function testShouldHandleTremorEventsInRoomWithAlivePlayers()
@@ -119,17 +113,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
         $player->changePlace($room);
 
-        // setup universe state
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $room && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
-            ->once();
-
         // when we handle tremor events
-        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
+        $this->service->handleTremorEvents($daedalus, new \DateTime());
 
         // then we should have one tremor event
-        self::assertSame(1, $tremorEvents);
+        $this->eventService
+            ->shouldHaveReceived('callEvent')
+            ->once();
     }
 
     public function testShouldNotHandleTremorEventsInRoomWithDeadPlayers()
@@ -148,10 +138,10 @@ final class DaedalusIncidentServiceTest extends TestCase
         $player->kill();
 
         // when we handle tremor events
-        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
+        $this->service->handleTremorEvents($daedalus, new \DateTime());
 
         // then we should have 0 tremor event
-        self::assertSame(0, $tremorEvents);
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldNotHandleTremorEventsInRoomWithoutPlayers()
@@ -160,13 +150,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $daedalus = DaedalusFactory::createDaedalus();
 
         // given a room in this Daedalus
-        Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
 
         // when we handle tremor events
-        $tremorEvents = $this->service->handleTremorEvents($daedalus, new \DateTime());
+        $this->service->handleTremorEvents($daedalus, new \DateTime());
 
         // then we should have 0 tremor event
-        self::assertSame(0, $tremorEvents);
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldHandleElectricArcEvents()
@@ -177,23 +167,19 @@ final class DaedalusIncidentServiceTest extends TestCase
         // given laboratory
         $laboratory = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
-        // setup universe state
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(static fn (RoomEvent $event) => $event->getPlace() === $laboratory && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
-            ->once();
-
         // when we handle electric arc events
-        $electricArcs = $this->service->handleElectricArcEvents($daedalus, new \DateTime());
+        $this->service->handleElectricArcEvents($daedalus, new \DateTime());
 
-        // then we should have one fire event
-        self::assertSame(1, $electricArcs);
+        // then we should have one electric arc event
+        $this->eventService->shouldHaveReceived('callEvent')->once();
     }
 
     public function testShouldHandleEquipmentBreakWithEquipmentToBreak(): void
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
+        $difficultyConfig = $daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setEquipmentBreakRateDistribution([EquipmentEnum::MYCOSCAN => 1]);
 
         $lab = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
         $mycoscan = $lab->getEquipmentByName(EquipmentEnum::MYCOSCAN);
@@ -201,19 +187,22 @@ final class DaedalusIncidentServiceTest extends TestCase
         // setup universe state
         $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$mycoscan]);
         $this->randomService->shouldReceive('getRandomDaedalusEquipmentFromProbaCollection')->once()->andReturn([$mycoscan]);
-        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         // when we handle equipment break events
-        $equipmentBreaks = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
+        $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
         // then we should have one equipment break event
-        self::assertSame(1, $equipmentBreaks);
+        $this->statusService
+            ->shouldHaveReceived('createStatusFromName')
+            ->once();
     }
 
     public function testShouldNotHandleEquipementBreakWithEquipmentAlreadyBroken(): void
     {
         // given a Daedalus
         $daedalus = DaedalusFactory::createDaedalus();
+        $difficultyConfig = $daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setEquipmentBreakRateDistribution([EquipmentEnum::MYCOSCAN => 1]);
 
         $lab = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
         $mycoscan = $lab->getEquipmentByName(EquipmentEnum::MYCOSCAN);
@@ -228,10 +217,10 @@ final class DaedalusIncidentServiceTest extends TestCase
         $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$mycoscan]);
 
         // when we handle equipment break events
-        $equipmentBreaks = $this->service->handleEquipmentBreak($daedalus, new \DateTime());
+        $this->service->handleEquipmentBreak($daedalus, new \DateTime());
 
         // then we should have no equipment break event
-        self::assertSame(0, $equipmentBreaks);
+        $this->statusService->shouldNotHaveReceived('createStatusFromName');
     }
 
     public function testShouldHandleDoorBreakWithBreakableDoor(): void
@@ -247,13 +236,14 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // setup universe state
         $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
-        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         // when we handle door break events
-        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
+        $this->service->handleDoorBreak($daedalus, new \DateTime());
 
         // then we should have one door break event
-        self::assertSame(1, $doorBreaks);
+        $this->statusService
+            ->shouldHaveReceived('createStatusFromName')
+            ->once();
     }
 
     public function testShouldNotHandleDoorBreakWithNotBreakableDoor(): void
@@ -275,13 +265,12 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // setup universe state
         $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
-        $this->statusService->shouldReceive('createStatusFromName')->never();
 
         // when we handle door break events
-        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
+        $this->service->handleDoorBreak($daedalus, new \DateTime());
 
         // then we should have one door break event
-        self::assertSame(0, $doorBreaks);
+        $this->statusService->shouldNotHaveReceived('createStatusFromName');
     }
 
     public function testShouldNotHandleDoorBreakIfBreakableDoorIsAlreadyBroken(): void
@@ -297,13 +286,12 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // setup universe state
         $this->gameEquipmentRepository->shouldReceive('findByCriteria')->once()->andReturn([$door]);
-        $this->statusService->shouldReceive('createStatusFromName')->never();
 
         // when we handle door break events
-        $doorBreaks = $this->service->handleDoorBreak($daedalus, new \DateTime());
+        $this->service->handleDoorBreak($daedalus, new \DateTime());
 
-        // then we should have one door break event
-        self::assertSame(0, $doorBreaks);
+        // then we should not have any door break event
+        $this->statusService->shouldNotHaveReceived('createStatusFromName');
     }
 
     public function testShouldHandlePanicCrisisWithHumanPlayer(): void
@@ -314,17 +302,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         // given a player in this Daedalus
         $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
 
-        // setup universe state
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(static fn (PlayerEvent $event) => $event->getPlayer() === $player)
-            ->once();
-
         // when we handle panic crisis events
-        $panics = $this->service->handlePanicCrisis($daedalus, new \DateTime());
+        $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
         // then we should have one panic event
-        self::assertSame(1, $panics);
+        $this->eventService
+            ->shouldHaveReceived('callEvent')
+            ->once();
     }
 
     public function testShouldNotHandlePanicCrisisWithMushPlayer(): void
@@ -342,10 +326,10 @@ final class DaedalusIncidentServiceTest extends TestCase
         );
 
         // when we handle panic crisis events
-        $panics = $this->service->handlePanicCrisis($daedalus, new \DateTime());
+        $this->service->handlePanicCrisis($daedalus, new \DateTime());
 
         // then we should not have any panic event
-        self::assertSame(0, $panics);
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldHandleMetalPlatesWithPlayersInRoom(): void
@@ -360,17 +344,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
         $player->changePlace($room);
 
-        // setup universe state
-        $this->eventService
-            ->shouldReceive('callEvent')
-            ->withArgs(static fn (PlayerEvent $event) => $event->getPlace() === $room && \in_array(EventEnum::NEW_CYCLE, $event->getTags(), true))
-            ->once();
-
         // when we handle metal plates events
-        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+        $this->service->handleMetalPlates($daedalus, new \DateTime());
 
         // then we should have one metal plates event
-        self::assertSame(1, $metalPlates);
+        $this->eventService
+            ->shouldHaveReceived('callEvent')
+            ->once();
     }
 
     public function testShouldNotHandleMetalPlatesWithNoPlayersInRoom(): void
@@ -379,13 +359,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $daedalus = DaedalusFactory::createDaedalus();
 
         // given a room in this Daedalus
-        Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::LABORATORY, $daedalus);
 
         // when we handle metal plates events
-        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+        $this->service->handleMetalPlates($daedalus, new \DateTime());
 
         // then we should not have any metal plates event
-        self::assertSame(0, $metalPlates);
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldNotHandleMetalPlatesIfPlayerOnAPlanet(): void
@@ -400,10 +380,10 @@ final class DaedalusIncidentServiceTest extends TestCase
         PlayerFactory::createPlayerInPlace($planet);
 
         // when we handle metal plates events
-        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+        $this->service->handleMetalPlates($daedalus, new \DateTime());
 
         // then we should not have any metal plates event
-        self::assertSame(0, $metalPlates);
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldNotHandleMetalPlatesIfPlayerIsInSpace(): void
@@ -412,13 +392,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $daedalus = DaedalusFactory::createDaedalus();
 
         // given a player in space
-        PlayerFactory::createPlayerInPlace($daedalus->getPlaceByName(RoomEnum::SPACE));
+        $player = PlayerFactory::createPlayerInPlace($daedalus->getPlaceByName(RoomEnum::SPACE));
 
         // when we handle metal plates events
-        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+        $this->service->handleMetalPlates($daedalus, new \DateTime());
 
         // then we should not have any metal plates event
-        self::assertSame(0, $metalPlates);
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldNotHandleMetalPlatesIfPlayerIsInPatrolShip(): void
@@ -427,13 +407,13 @@ final class DaedalusIncidentServiceTest extends TestCase
         $daedalus = DaedalusFactory::createDaedalus();
 
         // given a player in patrol ship
-        PlayerFactory::createPlayerInPlace(Place::createPatrolShipPlaceForDaedalus(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE, $daedalus));
+        $player = PlayerFactory::createPlayerInPlace(Place::createPatrolShipPlaceForDaedalus(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE, $daedalus));
 
         // when we handle metal plates events
-        $metalPlates = $this->service->handleMetalPlates($daedalus, new \DateTime());
+        $this->service->handleMetalPlates($daedalus, new \DateTime());
 
         // then we should not have any metal plates event
-        self::assertSame(0, $metalPlates);
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldHandleOxygenTankBreak(): void
@@ -449,13 +429,14 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // setup universe state
         $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$oxygenTank]);
-        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         // when we handle break oxygen tank events
-        $breaks = $this->service->handleOxygenTankBreak($daedalus, new \DateTime());
+        $this->service->handleOxygenTankBreak($daedalus, new \DateTime());
 
         // then we should have one break event
-        self::assertSame(1, $breaks);
+        $this->statusService
+            ->shouldHaveReceived('createStatusFromName')
+            ->once();
     }
 
     public function testShouldHandleFuelTankBreak(): void
@@ -471,12 +452,13 @@ final class DaedalusIncidentServiceTest extends TestCase
 
         // setup universe state
         $this->gameEquipmentRepository->shouldReceive('findByNameAndDaedalus')->once()->andReturn([$fuelTank]);
-        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         // when we handle break fuel tank events
-        $breaks = $this->service->handleFuelTankBreak($daedalus, new \DateTime());
+        $this->service->handleFuelTankBreak($daedalus, new \DateTime());
 
         // then we should have one break event
-        self::assertSame(1, $breaks);
+        $this->statusService
+            ->shouldHaveReceived('createStatusFromName')
+            ->once();
     }
 }

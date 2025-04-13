@@ -20,4 +20,6 @@ services:
   Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface: '@Mush\Game\Service\Random\GetRandomElementsFromArrayService'
   Mush\Game\Service\Random\GetRandomIntegerServiceInterface: '@Mush\Game\Service\Random\GetRandomIntegerService'
   Mush\Game\Service\Random\GetRandomPoissonIntegerServiceInterface: '@Mush\Game\Service\Random\GetRandomPoissonIntegerService'
+  Mush\Game\Service\Random\ProbaCollectionRandomElementServiceInterface: '@Mush\Game\Service\Random\ProbaCollectionRandomElementService'
+  Mush\Game\Service\Random\RandomFloatServiceInterface: '@Mush\Game\Service\Random\RandomFloatService'
   Mush\Game\Service\Random\TranslationServiceInterface: '@Mush\Game\Service\Random\TranslationService'

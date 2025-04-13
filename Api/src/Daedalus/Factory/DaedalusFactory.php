@@ -111,10 +111,7 @@ final class DaedalusFactory
 
     private static function getDifficultyConfig(): DifficultyConfig
     {
-        $difficultyConfig = DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
-        $difficultyConfig->setEquipmentBreakRateDistribution([EquipmentEnum::MYCOSCAN => 1]);
-
-        return $difficultyConfig;
+        return DifficultyConfig::fromDto(DifficultyConfigData::getByName('default'));
     }
 
     private static function setupId(Daedalus $daedalus): void

@@ -98,8 +98,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function testCycleSubscriberDoNotAssignTitleToDeadPlayer(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -129,8 +127,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotAssignTitleToInactivePlayer(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -164,8 +160,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldGiveBackTitleToExInactivePlayers(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -195,8 +189,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotGiveTitlesToHighlyInactivePlayers(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -230,8 +222,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldRemoveTitlesFromInactivePlayers(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -318,8 +308,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldCreateANeronAnnouncementWhenAutoWateringRemovesFires(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given auto watering project is finished
         $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
         $this->finishProject(
@@ -363,8 +351,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotCreateANeronAnnouncementWhenAutoWateringDoesNotRemoveFire(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given auto watering project is finished
         $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
         $this->finishProject(
@@ -478,6 +464,9 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldCreateANeronAnnouncementWhenBricBrocIsActivated(FunctionalTester $I): void
     {
+        // given Daedalus is in game so incidents can happen
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
         // given Bric Broc project is finished
         $this->finishProject(
             $this->daedalus->getProjectByName(ProjectName::BRIC_BROC),
@@ -489,9 +478,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $bricBroc = $this->daedalus->getProjectByName(ProjectName::BRIC_BROC);
         $config = $bricBroc->getConfig();
         (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
-
-        // given Daedalus is Day 100 so a lot of incidents should happen
-        $this->daedalus->setDay(100);
 
         // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
@@ -508,13 +494,5 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
                 'message' => NeronMessageEnum::PATCHING_UP,
             ]
         );
-    }
-
-    private function setupNoIncidents(): void
-    {
-        $this->daedalus->setDay(0);
-        $daedalusConfig = $this->daedalus->getDaedalusConfig();
-        $ref = new \ReflectionClass($daedalusConfig);
-        $ref->getProperty('cyclePerGameDay')->setValue($daedalusConfig, 9_999_999);
     }
 }

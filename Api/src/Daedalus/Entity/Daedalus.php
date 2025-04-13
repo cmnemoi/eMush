@@ -597,6 +597,25 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function getIncidentPoints(): int
+    {
+        return $this->getVariableValueByName(DaedalusVariableEnum::INCIDENT_POINTS);
+    }
+
+    public function addIncidentPoints(int $incidentPoints): static
+    {
+        $this->daedalusVariables->changeValueByName($incidentPoints, DaedalusVariableEnum::INCIDENT_POINTS);
+
+        return $this;
+    }
+
+    public function removeIncidentPoints(int $incidentPoints): static
+    {
+        $this->daedalusVariables->changeValueByName(-$incidentPoints, DaedalusVariableEnum::INCIDENT_POINTS);
+
+        return $this;
+    }
+
     public function getOrientation(): string
     {
         return $this->orientation;

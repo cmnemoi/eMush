@@ -51,8 +51,8 @@ final class DaedalusFactory
         $daedalusInfo->setNeron(new Neron());
         $daedalusInfo->setName(Uuid::v4()->toRfc4122());
 
-        self::createSpacePlace($daedalus);
-        self::createLaboratoryPlace($daedalus);
+        $space = self::createSpacePlace($daedalus);
+        $laboratory = self::createLaboratoryPlace($daedalus);
         self::createMycoscanEquipment($daedalus);
         self::setupId($daedalus);
 
@@ -68,7 +68,7 @@ final class DaedalusFactory
         return $daedalus;
     }
 
-    private static function createSpacePlace(Daedalus $daedalus): void
+    private static function createSpacePlace(Daedalus $daedalus): Place
     {
         $space = new Place();
         $space
@@ -76,10 +76,12 @@ final class DaedalusFactory
             ->setType(PlaceTypeEnum::SPACE)
             ->setDaedalus($daedalus);
 
-        (new \ReflectionProperty($space, 'id'))->setValue($space, (int) hash('crc32b', serialize($space)));
+        (new \ReflectionProperty($space, 'id'))->setValue($space, random_int(1, PHP_INT_MAX));
+
+        return $space;
     }
 
-    private static function createLaboratoryPlace(Daedalus $daedalus): void
+    private static function createLaboratoryPlace(Daedalus $daedalus): Place
     {
         $laboratory = new Place();
         $laboratory
@@ -87,7 +89,9 @@ final class DaedalusFactory
             ->setType(PlaceTypeEnum::ROOM)
             ->setDaedalus($daedalus);
 
-        (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, (int) hash('crc32b', serialize($laboratory)));
+        (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, random_int(1, PHP_INT_MAX));
+
+        return $laboratory;
     }
 
     private static function createMycoscanEquipment(Daedalus $daedalus): void

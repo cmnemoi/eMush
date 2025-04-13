@@ -2,6 +2,7 @@
 
 namespace Mush\Status\ChargeStrategies;
 
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -22,6 +23,7 @@ abstract class AbstractChargeStrategy
         if (
             $status->getName() === EquipmentStatusEnum::ELECTRIC_CHARGES
             && $statusHolder->hasStatus(EquipmentStatusEnum::BROKEN)
+            && (!\in_array($statusHolder->getName(), $this->canChargeWhenBroken(), true))
         ) {
             return null;
         }
@@ -35,4 +37,11 @@ abstract class AbstractChargeStrategy
     }
 
     abstract protected function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus;
+
+    private static function canChargeWhenBroken(): array
+    {
+        return [
+            EquipmentEnum::COFFEE_MACHINE,
+        ];
+    }
 }

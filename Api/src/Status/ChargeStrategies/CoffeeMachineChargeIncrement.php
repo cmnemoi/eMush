@@ -11,11 +11,6 @@ final class CoffeeMachineChargeIncrement extends AbstractChargeStrategy
 {
     protected string $name = ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT;
 
-    public function execute(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
-    {
-        return $this->apply($status, $reasons, $time);
-    }
-
     public function apply(ChargeStatus $status, array $reasons, \DateTime $time): ?ChargeStatus
     {
         $daedalus = $status->getOwner()->getDaedalus();

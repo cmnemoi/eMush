@@ -98,7 +98,8 @@ final class DaedalusFactory
     private static function makePlacesDifferent(Place $place1, Place $place2): void
     {
         if ($place1->getId() === $place2->getId()) {
-            (new \ReflectionProperty($place2, 'id'))->setValue($place2, $place2->getId() + 1);
+            $id = $place2->getId();
+            (new \ReflectionProperty($place2, 'id'))->setValue($place2, $id <= 0 ? $id + 1 : $id - 1);
         }
     }
 

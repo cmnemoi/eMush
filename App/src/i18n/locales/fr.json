@@ -773,7 +773,9 @@
 			"report": "Plainte",
 			"report_abusive": "Plainte abusive",
 			"report_processed": "Plainte traitée",
-			"alive": "EN VIE"
+			"alive": "EN VIE",
+			"name": "Sanction",
+			"showMore": "Afficher"
 		},
 		"reason": {
 			"multi_account": "Multicompte",

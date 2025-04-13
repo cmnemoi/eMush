@@ -299,6 +299,21 @@ final class CycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(1, $electricCharges->getCharge());
     }
 
+    public function testBrokenCoffeeMachineDoesGetElectricChargeUpdateAtCycleChange(FunctionalTester $I): void
+    {
+        $this->givenConditionsForCoffeeMachineToAlwaysCharge($I);
+
+        $coffeeMachine = $this->givenCoffeeMachineIsInTheRoom();
+
+        $this->givenCoffeeMachineHasCharges(0, $coffeeMachine);
+
+        $this->givenCoffeeMachineisBroken($coffeeMachine);
+
+        $this->whenNewCycleEventIsTriggered();
+
+        $this->thenCoffeeMachineShouldHaveOneCharge($coffeeMachine, $I);
+    }
+
     public function shouldMakeStarvingStatusAppearAfterThreeDays(FunctionalTester $I): void
     {
         $this->daedalus->setDay(1)->setCycle(1);
@@ -433,6 +448,34 @@ final class CycleEventCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenCoffeeMachineIsInTheRoom(): GameEquipment
+    {
+        return $this->equipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::COFFEE_MACHINE,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+    }
+
+    private function givenCoffeeMachineHasCharges(int $charge, GameEquipment $coffeeMachine): void
+    {
+        $status = $coffeeMachine->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
+
+        $status->setCharge($charge);
+    }
+
+    private function givenCoffeeMachineisBroken(GameEquipment $coffeeMachine): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $coffeeMachine,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
     private function givenChunSleepsOn(GameEquipment $bed): void
     {
         $this->statusService->createStatusFromName(
@@ -458,6 +501,18 @@ final class CycleEventCest extends AbstractFunctionalTest
     private function givenKuanTiIsTechnician(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
+    }
+
+    private function givenConditionsForCoffeeMachineToAlwaysCharge(FunctionalTester $I)
+    {
+        $this->daedalus->setDay(2);
+        $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentBreakRateDistribution([]);
+        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(100);
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER),
+            author: $this->chun,
+            I: $I
+        );
     }
 
     private function whenKuanTiBreaks(GameEquipment $gameEquipment): void
@@ -507,6 +562,12 @@ final class CycleEventCest extends AbstractFunctionalTest
     {
         $turretCharges = $turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $I->assertEquals(3, $turretCharges->getCharge());
+    }
+
+    private function thenCoffeeMachineShouldHaveOneCharge(GameEquipment $coffeeMachine, FunctionalTester $I): void
+    {
+        $coffeeMachineCharges = $coffeeMachine->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
+        $I->assertEquals(1, $coffeeMachineCharges->getCharge());
     }
 
     private function thenChunShouldNotBeLyingDown(FunctionalTester $I): void

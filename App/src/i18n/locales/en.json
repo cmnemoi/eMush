@@ -773,7 +773,9 @@
 			"report": "Complaint",
 			"report_abusive": "Abusive complaint",
 			"report_processed": "Complaint processed",
-			"alive": "ALIVE"
+			"alive": "ALIVE",
+			"name": "Sanction",
+			"showMore": "Afficher"
 		},
 		"reason": {
 			"multi_account": "Multiaccount",
@@ -845,6 +847,7 @@
 		"reduce": "Reduce",
 		"showAll": "Show all sanctions",
 		"sanctionsFor": "{username}'s sanctions list",
+		"reportsFor": "Liste des plaintes envoyées contre {username}",
 		"isSanctionActive": "Active sanctions",
 		"sanctionType": "Sanction type",
 		"sanctionReason": "Reason",

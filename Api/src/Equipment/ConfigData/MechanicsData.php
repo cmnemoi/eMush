@@ -213,7 +213,7 @@ class MechanicsData
         [
             'name' => 'drug_bacta_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -229,7 +229,7 @@ class MechanicsData
         [
             'name' => 'drug_betapropyl_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -245,7 +245,7 @@ class MechanicsData
         [
             'name' => 'drug_eufurylate_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -261,7 +261,7 @@ class MechanicsData
         [
             'name' => 'drug_newke_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -277,7 +277,7 @@ class MechanicsData
         [
             'name' => 'drug_phuxx_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -293,7 +293,7 @@ class MechanicsData
         [
             'name' => 'drug_pinq_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -309,7 +309,7 @@ class MechanicsData
         [
             'name' => 'drug_pymp_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -325,7 +325,7 @@ class MechanicsData
         [
             'name' => 'drug_rosebud_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -341,7 +341,7 @@ class MechanicsData
         [
             'name' => 'drug_soma_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -357,7 +357,7 @@ class MechanicsData
         [
             'name' => 'drug_spyce_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -373,7 +373,7 @@ class MechanicsData
         [
             'name' => 'drug_twinoid_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -389,7 +389,7 @@ class MechanicsData
         [
             'name' => 'drug_xenox_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
+            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],

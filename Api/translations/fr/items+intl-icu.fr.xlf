@@ -2533,8 +2533,7 @@ Permet d'accueillir une plante du jardin hydroponique.</target>
 Contient {quantity, plural,
         one {1 **Ration standard**}
         other {# **Rations standards**}
-}.
-</target>
+}.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>lunchbox.examine</source>

@@ -156,7 +156,7 @@
       </segment>
       <segment id="pilgred.description" state="translated">
         <source>pilgred.description</source>
-        <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
+        <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre. De plus, la machine à café se régénèrera quatre fois plus vite.</target>
       </segment>
       <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
@@ -336,7 +336,7 @@
       </segment>
       <segment id="fission_coffee_roaster.description" state="translated">
         <source>fission_coffee_roaster.description</source>
-        <target>La machine à café se régénère également au cycle 4.</target>
+        <target>La machine à café se régénère deux fois plus vite.</target>
       </segment>
       <segment id="fission_coffee_roaster.lore" state="translated">
         <source>fission_coffee_roaster.lore</source>

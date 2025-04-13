@@ -130,7 +130,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>block_of_post_it.name</source>
         <target>Block of post-it notes</target>
       </segment>
-      <segment id="tips" state="final">
+      <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>
@@ -427,7 +427,7 @@ If contact is not established, at least **signal quality will be improved** and 
       </segment>
       <segment id="cannot_trade_under_attack" state="translated">
         <source>communication_center.cannot_trade_under_attack</source>
-        <target>Another ship is threatening us, and it's impossible to trade!</target>
+        <target>Another ship is threatening us, it's impossible to trade!</target>
       </segment>
       <segment id="never" state="translated">
         <source>communication_center.never</source>

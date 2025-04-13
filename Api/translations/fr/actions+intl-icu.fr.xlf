@@ -1117,7 +1117,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>repair_pilgred.description</source>
-        <target>Réparer PILGRED vous permettra de revenir sur Sol.</target>
+        <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
       </segment>
     </unit>
     <unit id="return_to_sol">

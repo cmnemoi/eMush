@@ -156,7 +156,7 @@
       </segment>
       <segment id="pilgred.description" state="translated">
         <source>pilgred.description</source>
-        <target>Repairing PILGRED gives you access to new space routes, including the route to Earth.</target>
+        <target>Repairing PILGRED gives you access to new space routes, including the route to Earth. In addition, the coffee machine will regenerate four times as fast.</target>
       </segment>
       <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
@@ -336,7 +336,7 @@
       </segment>
       <segment id="fission_coffee_roaster.description" state="translated">
         <source>fission_coffee_roaster.description</source>
-        <target>The coffee machine also regenerates automatically on Cycle 4.</target>
+        <target>The coffee machine regenerates twice as fast.</target>
       </segment>
       <segment id="fission_coffee_roaster.lore" state="translated">
         <source>fission_coffee_roaster.lore</source>

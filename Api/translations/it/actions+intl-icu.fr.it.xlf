@@ -1200,6 +1200,10 @@
         <source>guard.description</source>
         <target>guard.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>guard.confirmation</source>
+        <target>guard.confirmation</target>
+      </segment>
     </unit>
     <unit id="exchange_body">
       <segment id="name" state="initial">

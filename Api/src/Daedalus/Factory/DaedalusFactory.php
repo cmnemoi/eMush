@@ -53,7 +53,6 @@ final class DaedalusFactory
 
         $space = self::createSpacePlace($daedalus);
         $laboratory = self::createLaboratoryPlace($daedalus);
-        self::makePlacesDifferent($space, $laboratory);
         self::createMycoscanEquipment($daedalus);
         self::setupId($daedalus);
 
@@ -77,7 +76,7 @@ final class DaedalusFactory
             ->setType(PlaceTypeEnum::SPACE)
             ->setDaedalus($daedalus);
 
-        (new \ReflectionProperty($space, 'id'))->setValue($space, (int) hash('crc32b', serialize($space)));
+        (new \ReflectionProperty($space, 'id'))->setValue($space, random_int(1, PHP_INT_MAX));
 
         return $space;
     }
@@ -90,17 +89,9 @@ final class DaedalusFactory
             ->setType(PlaceTypeEnum::ROOM)
             ->setDaedalus($daedalus);
 
-        (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, (int) hash('crc32b', serialize($laboratory)));
+        (new \ReflectionProperty($laboratory, 'id'))->setValue($laboratory, random_int(1, PHP_INT_MAX));
 
         return $laboratory;
-    }
-
-    private static function makePlacesDifferent(Place $place1, Place $place2): void
-    {
-        if ($place1->getId() === $place2->getId()) {
-            $id = $place2->getId();
-            (new \ReflectionProperty($place2, 'id'))->setValue($place2, $id <= 0 ? $id + 1 : $id - 1);
-        }
     }
 
     private static function createMycoscanEquipment(Daedalus $daedalus): void

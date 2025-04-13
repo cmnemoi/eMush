@@ -166,6 +166,7 @@ export default defineComponent ({
                 useCORS: true
             }).then(canvas => {
                 const imgData = canvas.toDataURL('image/jpeg', jpgCompression);
+                copyCanvasToClipboard(canvas);
                 const pdf = new jsPDF({
                     orientation: 'p',
                     unit: 'mm',
@@ -197,7 +198,25 @@ export default defineComponent ({
         }
     }
 });
+function copyCanvasToClipboard(canvas) {
+  // Créer un blob à partir du canvas
+  canvas.toBlob(blob => {
+    // Créer un objet ClipboardItem avec le blob
+    const item = new ClipboardItem({ 'image/png': blob });
+    
+    // Copier dans le presse-papiers
+    navigator.clipboard.write([item])
+      .then(() => {
+        console.log('Canvas copié dans le presse-papiers!');
+        // Vous pourriez afficher une notification de succès ici
+      })
+      .catch(err => {
+        console.error('Erreur lors de la copie: ', err);
+      });
+  });
+}
 </script>
+
 
 <style lang="scss"> //Not scoped to apply to children components
 

@@ -83,7 +83,7 @@ class PlayerModifierEventCest
             'place' => $room,
         ]);
         $player->setPlayerVariables($characterConfig);
-        $player->setMoralPoint(5);
+        $player->setMoralPoint(7);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -100,11 +100,11 @@ class PlayerModifierEventCest
         );
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
-        $I->assertEquals(4, $player->getMoralPoint());
+        $I->assertEquals(6, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
-        $I->assertEquals(3, $player->getMoralPoint());
+        $I->assertEquals(5, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->seeInRepository(
             Status::class,
@@ -117,7 +117,7 @@ class PlayerModifierEventCest
         $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
-            -2,
+            -4,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );

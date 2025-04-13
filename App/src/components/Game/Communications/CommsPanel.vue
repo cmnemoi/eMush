@@ -136,11 +136,11 @@ export default defineComponent ({
             }
         },
         async exportChannelAsPDF() : Promise<void> {
-            const html2canvasScale = 1.5    // enhance quality 
-            const jpgCompression = 0.8      // authorization for quality loss
-            const sizeReduction = 1.0       // scale on pageWidth sheet
-            const pageWidth = 148
-            const pageHeight = 295
+            const html2canvasScale = 1.5;    // enhance quality
+            const jpgCompression = 0.8;      // authorization for quality loss
+            const sizeReduction = 1.0;       // scale on pageWidth sheet
+            const pageWidth = 148;
+            const pageHeight = 295;
             const imgWidth = pageWidth * sizeReduction; // A4 with reduction
 
             const chatbox = document.querySelector('.chatbox');
@@ -156,7 +156,7 @@ export default defineComponent ({
                 overflow: chatbox.style.overflow
             };
 
-            // Forcing full heigh 
+            // Forcing full heigh
             chatbox.style.height = 'auto';
             chatbox.style.maxHeight = 'none';
             chatbox.style.overflow = 'visible';
@@ -167,17 +167,17 @@ export default defineComponent ({
             }).then(canvas => {
                 const imgData = canvas.toDataURL('image/jpeg', jpgCompression);
                 const pdf = new jsPDF({
-                            orientation: 'p',
-                            unit: 'mm',
-                            format: [pageWidth, pageHeight],
-                            compress: true
-                            });
+                    orientation: 'p',
+                    unit: 'mm',
+                    format: [pageWidth, pageHeight],
+                    compress: true
+                });
 
                 const imgHeight = canvas.height * imgWidth / canvas.width;
                 let heightLeft = imgHeight;
                 let position = 0;
 
-                   // Ajout de la première page
+                // Ajout de la première page
                 pdf.addImage(imgData, 'JPEG', (pageWidth-imgWidth)/2, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
 

@@ -38,9 +38,6 @@ final class SlimeTrapCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::SLIMETRAP, $I, $this->kuanTi);
-
-        // setup no incidents
-        $this->daedalus->setDay(0);
     }
 
     public function shouldAddSlimeTrapStatusToTarget(FunctionalTester $I): void

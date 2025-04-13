@@ -65,7 +65,7 @@ final class NewFruitNotHazardousCest extends AbstractFunctionalTest
 
     private function setDaedalusCycle(int $cycle): void
     {
-        $this->daedalus->setDay(-1)->setCycle($cycle);
+        $this->daedalus->setCycle($cycle);
     }
 
     private function triggerNewCycle(): void

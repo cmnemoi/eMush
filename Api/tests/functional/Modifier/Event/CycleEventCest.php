@@ -45,9 +45,6 @@ final class CycleEventCest extends AbstractFunctionalTest
 
     public function testLieDownStatus(FunctionalTester $I)
     {
-        // given daedalus is Day 0 so there will be no panic crisis
-        $this->daedalus->setDay(0);
-
         // given player is lying down
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::LYING_DOWN,
@@ -196,9 +193,6 @@ final class CycleEventCest extends AbstractFunctionalTest
 
     public function testGermaphobeStatusCycleSubscriber(FunctionalTester $I): void
     {
-        // setup day to 0 to avoid panic crisis
-        $this->daedalus->setDay(0);
-
         // given player has germaphobe status
         $this->statusService->createStatusFromName(PlayerStatusEnum::GERMAPHOBE, $this->player1, [], new \DateTime());
         // given player has dirty status

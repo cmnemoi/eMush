@@ -131,7 +131,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $time = $event->getTime();
 
         $this->dispatchCycleOxygenLoss($daedalus, $time);
-        $this->endLobby($daedalus, $time);
+        $this->closeLobbyIfEnoughTimeHasPassed($daedalus, $time);
 
         if ($event->hasTag(EventEnum::NEW_DAY)) {
             $this->resetSpores($event);
@@ -219,7 +219,7 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function endLobby(Daedalus $daedalus, \DateTime $time): void
+    private function closeLobbyIfEnoughTimeHasPassed(Daedalus $daedalus, \DateTime $time): void
     {
         if ($daedalus->isFilling() && $daedalus->getGameDate()->moreThanOrEqualMinutes(self::LOBBY_TIME_LIMIT)) {
             $daedalusEvent = new DaedalusEvent(

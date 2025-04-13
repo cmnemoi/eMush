@@ -15,7 +15,6 @@ use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -60,13 +59,9 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function testOxygenBreakOnCycleChange(FunctionalTester $I)
     {
-        // let's increase the duration of the ship to increase the number of incidents
-        $this->daedalus
-            ->setOxygen(10)
-            ->setDay(100);
-
-        $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->setMaxValue(200)->setValue(200);
-        $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->setMaxValue(200)->setValue(200);
+        // add a lot of incident points so that oxygen breaks
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+        $this->daedalus->addIncidentPoints(500);
 
         $tankConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::OXYGEN_TANK]);
 
@@ -416,8 +411,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $config = $bricBroc->getConfig();
         (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
 
-        // given Daedalus is Day 100 so a lot of incidents should happen
-        $this->daedalus->setDay(100);
+        // given a lot of incident points
+        $this->daedalus->addIncidentPoints(500);
 
         // when cycle change event is triggered
         $event = new DaedalusCycleEvent(

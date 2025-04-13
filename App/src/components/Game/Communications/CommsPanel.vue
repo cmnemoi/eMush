@@ -136,55 +136,63 @@ export default defineComponent ({
             }
         },
         async exportChannelAsPDF() : Promise<void> {
+            const html2canvasScale = 1.5    // enhance quality 
+            const jpgCompression = 0.8      // authorization for quality loss
+            const sizeReduction = 1.0       // scale on pageWidth sheet
+            const pageWidth = 148
+            const pageHeight = 295
+            const imgWidth = pageWidth * sizeReduction; // A4 with reduction
+
             const chatbox = document.querySelector('.chatbox');
             if (!chatbox) {
-                console.error("Élément avec classe 'chatbox' non trouvé");
+                console.error("exportChannelAsPDF: 'chatbox' class not found");
                 return;
             }
 
-            // Sauvegarder le style original
+            // getting original size chatbox settings
             const originalStyle = {
                 height: chatbox.style.height,
                 maxHeight: chatbox.style.maxHeight,
                 overflow: chatbox.style.overflow
             };
 
-            // Modifier temporairement le style pour afficher tout le contenu
+            // Forcing full heigh 
             chatbox.style.height = 'auto';
             chatbox.style.maxHeight = 'none';
             chatbox.style.overflow = 'visible';
 
             html2canvas(chatbox, {
-                scale: 1,
+                scale: html2canvasScale,
                 useCORS: true
             }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'mm');
+                const imgData = canvas.toDataURL('image/jpeg', jpgCompression);
+                const pdf = new jsPDF({
+                            orientation: 'p',
+                            unit: 'mm',
+                            format: [pageWidth, pageHeight],
+                            compress: true
+                            });
 
-                // Dimension du PDF A4
-                const imgWidth = 210;
-                const pageHeight = 295;
-                const scaleFactor = 0.7;
                 const imgHeight = canvas.height * imgWidth / canvas.width;
                 let heightLeft = imgHeight;
                 let position = 0;
 
-                // Ajout de la première page
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                   // Ajout de la première page
+                pdf.addImage(imgData, 'JPEG', (pageWidth-imgWidth)/2, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
 
                 // Ajout de pages supplémentaires si nécessaire
                 while (heightLeft >= 0) {
                     position = heightLeft - imgHeight;
                     pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    pdf.addImage(imgData, 'JPEG', (pageWidth-imgWidth)/2, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
                 }
                 // Restaurer le style original
                 chatbox.style.height = originalStyle.height;
                 chatbox.style.maxHeight = originalStyle.maxHeight;
                 chatbox.style.overflow = originalStyle.overflow;
-                pdf.save('comms-panel.pdf');
+                pdf.save('emush-comm-channel.pdf');
             });
         }
     }

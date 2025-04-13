@@ -847,6 +847,7 @@
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",
 		"sanctionsFor": "Liste des sanctions de {username}",
+		"reportsFor": "Liste des plaintes envoyées contre {username}",
 		"isSanctionActive": "Sanctions en cours",
 		"sanctionType": "Type de sanction",
 		"sanctionReason": "Raison",

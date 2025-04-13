@@ -71,16 +71,16 @@
                 {{ $t("moderation.sanctionDetail.message") }}
             </template>
             <template #row-message="sanction">
-            <div>
-                <details>
-                <summary>
-                    {{ $t('moderation.sanction.showMore') }}
-                </summary>
-                <span>
-                    {{ sanction.message }}
-                </span>
-                </details>
-            </div>
+                <div>
+                    <details>
+                        <summary>
+                            {{ $t('moderation.sanction.showMore') }}
+                        </summary>
+                        <span>
+                            {{ sanction.message }}
+                        </span>
+                    </details>
+                </div>
             </template>
 
             <template #header-startDate>
@@ -93,7 +93,7 @@
             <template #header-endDate>
                 {{ $t("moderation.sanctionDetail.endDate") }}
             </template>
-            
+
             <template #row-endDate="sanction">
                 <template v-if="sanction.moderationAction === 'quarantine_player'">
                     N/A
@@ -110,6 +110,71 @@
                 <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
             </template>
         </Datatable>
+
+        <h2 class="sanction_heading">{{ $t('moderation.reportsFor', { username: username }) }}</h2>
+
+        <Datatable
+            :headers='fields'
+            :uri="uri"
+            :loading="loading"
+            :row-data="reportRowData"
+            :pagination="pagination"
+            :filter="filter"
+            @pagination-click="paginationClick"
+            @sort-table="sortTable"
+        >
+            <template #header-id>
+                #
+            </template>
+            <template #row-id="sanction">
+                {{ sanction.id }}
+            </template>
+
+            <template #header-authorName>
+                {{ $t("moderation.sanction.author") }}
+            </template>
+            <template #row-authorName="sanction">
+                {{ sanction.authorName }}
+            </template>
+
+            <template #header-reason>
+                {{ $t("moderation.sanction.reason") }}
+            </template>
+            <template #row-reason="sanction">
+                {{ $t("moderation.reason." + sanction.reason) }}
+            </template>
+
+            <template #header-message>
+                {{ $t("moderation.sanctionDetail.message") }}
+            </template>
+            <template #row-message="sanction">
+                <div>
+                    <details>
+                        <summary>
+                            {{ $t('moderation.sanction.showMore') }}
+                        </summary>
+                        <span>
+                            {{ sanction.message }}
+                        </span>
+                    </details>
+                </div>
+            </template>
+
+            <template #header-startDate>
+                {{ $t("moderation.sanctionDetail.reportDate") }}
+            </template>
+            <template #row-startDate="sanction">
+                {{ formatDate(sanction.startDate )}}
+            </template>
+
+            <template #header-actions>
+                {{ $t("moderation.actions.name") }}
+            </template>
+            <template #row-actions="sanction">
+                <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
+            </template>
+        </Datatable>
+
         <SanctionDetailPage
             :is-open="showDetailPopup"
             :moderation-sanction="selectedSanction"
@@ -129,6 +194,7 @@ import { mapGetters } from "vuex";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { ModerationSanction } from "@/entities/ModerationSanction";
+import { moderation } from "@/store/moderation.module";
 
 interface SanctionListData {
     userId: string,
@@ -136,6 +202,7 @@ interface SanctionListData {
     fields: Array<{ key: string; name: string; sortable?: boolean; slot?: boolean }>,
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number },
     rowData: never[],
+    reportRowData: never[],
     filter: string,
     sortField: string,
     sortDirection: string,
@@ -168,20 +235,20 @@ export default defineComponent({
             userId: '',
             username: '',
             fields: [
-                { 
+                {
                     key: 'id',
                     name: 'moderation.sanctionId',
-                    slot: true
-                },
-                {
-                    key: 'active',
-                    name: 'moderation.sanctionActive',
                     slot: true
                 },
                 {
                     key: 'moderationAction',
                     name: 'moderation.sanctionType',
                     slot: true
+                },
+                {
+                    key: 'authorName',
+                    name: 'moderation.author',
+                    slot:true
                 },
                 {
                     key: 'reason',
@@ -216,6 +283,7 @@ export default defineComponent({
                 totalPage: 1
             },
             rowData: [],
+            reportRowData: [],
             filter: '',
             sortField: '',
             sortDirection: 'DESC',
@@ -291,6 +359,8 @@ export default defineComponent({
             }
 
             params.params['user.userId'] = this.userId;
+
+            // sanctions
             params.params['isReport'] = false;
 
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
@@ -305,6 +375,24 @@ export default defineComponent({
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
                 });
+
+            // reports
+            params.params['isReport'] = true;
+
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
+                .then((result) => {
+                    return result.data;
+                })
+                .then((remoteRowData: any) => {
+                    this.reportRowData = remoteRowData['hydra:member'].map((reportData: object) => {
+                        console.log(reportData);
+                        return (new ModerationSanction()).load(reportData);
+                    });
+                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
+                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
+                    this.loading = false;
+                });           
+
         },
         sortTable(selectedField: any): void {
             if (!selectedField.sortable) {

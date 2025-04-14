@@ -23,7 +23,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -38,7 +38,7 @@ final class DecodeRebelSignal extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         private readonly DecodeRebelSignalService $decodeRebelBase,
-        private readonly GetRandomIntegerServiceInterface $getRandomInteger,
+        private readonly RandomServiceInterface $randomService,
         private readonly RebelBaseRepositoryInterface $rebelBaseRepository,
     ) {
         parent::__construct($eventService, $actionService, $validator);
@@ -91,7 +91,7 @@ final class DecodeRebelSignal extends AbstractAction
     {
         $this->decodeRebelBase->execute(
             rebelBase: $this->rebelBase(),
-            progress: $this->getRandomInteger->execute(1, $this->getOutputQuantity())
+            progress: $this->randomService->rollTwiceAndAverage(1, $this->getOutputQuantity())
         );
     }
 

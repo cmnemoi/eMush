@@ -625,6 +625,8 @@
 			"report": "Report",
 			"loadMoreMessages": "Load more messages",
 			"markChannelAsRead": "Mark channel as read",
+			"exportChannelAsPDF": "🖨️",
+			"exportChannelAsPDFDescription": "Copiera également la discussion dans le presse-papiers.",
 			"unbookmark": "No more favorite",
 			"unbookmarkDescription": "Remove this thread from your favorites."
 		},

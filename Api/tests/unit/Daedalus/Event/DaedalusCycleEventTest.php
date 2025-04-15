@@ -11,10 +11,15 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Listener\DaedalusCycleSubscriber;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Daedalus\Service\DispatchCycleIncidentsService;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\DifficultyServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\Random\FakeD100RollService;
+use Mush\Game\Service\Random\FakeGetRandomIntegerService;
+use Mush\Game\Service\Random\FakeRandomFloatService;
+use Mush\Game\Service\Random\ProbaCollectionRandomElementService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -35,8 +40,7 @@ final class DaedalusCycleEventTest extends TestCase
     /** @var DaedalusServiceInterface|Mockery\Mock */
     private DaedalusServiceInterface $daedalusService;
 
-    /** @var DaedalusIncidentServiceInterface|Mockery\Mock */
-    private DaedalusIncidentServiceInterface $daedalusIncidentService;
+    private DispatchCycleIncidentsService $dispatchCycleIncidents;
 
     /** @var DifficultyServiceInterface|Mockery\Mock */
     private DifficultyServiceInterface $difficultyService;
@@ -58,7 +62,13 @@ final class DaedalusCycleEventTest extends TestCase
     public function before()
     {
         $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
-        $this->daedalusIncidentService = \Mockery::mock(DaedalusIncidentServiceInterface::class);
+        $this->dispatchCycleIncidents = new DispatchCycleIncidentsService(
+            daedalusIncidentService: $this->createStub(DaedalusIncidentServiceInterface::class),
+            d100Roll: new FakeD100RollService(),
+            eventService: $this->createStub(EventServiceInterface::class),
+            probaCollectionRandomElement: new ProbaCollectionRandomElementService(new FakeGetRandomIntegerService(0)),
+            randomFloat: new FakeRandomFloatService(),
+        );
         $this->difficultyService = \Mockery::Mock(DifficultyServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->lockFactory = \Mockery::spy(LockFactory::class);
@@ -73,7 +83,7 @@ final class DaedalusCycleEventTest extends TestCase
 
         $this->daedalusCycleSubscriber = new DaedalusCycleSubscriber(
             $this->daedalusService,
-            $this->daedalusIncidentService,
+            $this->dispatchCycleIncidents,
             $this->difficultyService,
             $this->eventService,
             $this->lockFactory,
@@ -119,9 +129,6 @@ final class DaedalusCycleEventTest extends TestCase
         $this->eventService->shouldReceive('callEvent')
             ->withArgs(static fn (DaedalusEvent $endDaedalusEvent, string $eventName) => ($endDaedalusEvent->getTime() === $date && $eventName === DaedalusEvent::FINISH_DAEDALUS))
             ->once();
-
-        // bric broc draw
-        $this->randomService->shouldReceive('isSuccessful')->andReturn(false);
 
         $this->daedalusCycleSubscriber->dispatchNewCycleIncidents($event);
     }

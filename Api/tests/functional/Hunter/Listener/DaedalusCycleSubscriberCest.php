@@ -7,6 +7,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterTarget;
@@ -271,7 +272,8 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $daedalus = $this->daedalus;
         $daedalus
             ->setDay(5) // so asteroid can spawn
-            ->setCycle(0);
+            ->setCycle(1);
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
@@ -296,7 +298,8 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $daedalus = $this->daedalus;
         $daedalus
             ->setDay(10) // so D1000 can spawn
-            ->setCycle(0);
+            ->setCycle(1);
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
         $I->haveInRepository($daedalus);
 

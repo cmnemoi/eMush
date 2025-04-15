@@ -15,6 +15,7 @@ abstract class DaedalusVariableEnum
     public const SPORE = 'spore';
     public const HUNTER_POINTS = 'hunter_points';
     public const COMBUSTION_CHAMBER_FUEL = 'combustion_chamber_fuel';
+    public const INCIDENT_POINTS = 'incident_points';
 
     public static function toOfferedTradeItem(string $variable): string
     {

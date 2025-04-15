@@ -1,46 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Game\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
+use Mush\Game\Enum\DifficultyEnum;
 
-class DifficultyService implements DifficultyServiceInterface
+final class DifficultyService implements DifficultyServiceInterface
 {
-    private EntityManagerInterface $entityManager;
+    public function __construct(private DaedalusRepositoryInterface $daedalusRepository) {}
 
-    public function __construct(
-        EntityManagerInterface $entityManager
-    ) {
-        $this->entityManager = $entityManager;
-    }
-
-    public function updateDaedalusDifficultyPoints(Daedalus $daedalus, string $pointsType): void
+    public function updateDaedalusDifficulty(Daedalus $daedalus): void
     {
-        switch ($pointsType) {
-            case DaedalusVariableEnum::HUNTER_POINTS:
-                $this->updateHunterPoints($daedalus);
-
-                break;
-        }
-    }
-
-    /**
-     * This function adds extra difficulty points if players spend too much action points
-     * (dynamic difficulty).
-     */
-    private function getExtraPoints(Daedalus $daedalus): float
-    {
-        $threshold = 7 * $daedalus->getPlayers()->getPlayerAlive()->count();
-        if ($threshold < 1) {
-            return 1;
-        }
-        if ($daedalus->getDailyActionPointsSpent() <= $threshold) {
-            return 1;
-        }
-
-        return $daedalus->getDailyActionPointsSpent() / $threshold;
+        $this->updateIncidentPoints($daedalus);
+        $this->updateHunterPoints($daedalus);
     }
 
     private function updateHunterPoints(Daedalus $daedalus): void
@@ -52,18 +27,53 @@ class DifficultyService implements DifficultyServiceInterface
         if ($daedalus->isInVeryHardMode()) {
             $pointsToAdd += 2;
         }
-        $pointsToAdd = (int) ($pointsToAdd * $this->getExtraPoints($daedalus) + 0.5);
+        $pointsToAdd = (int) round($pointsToAdd * $this->getActivityOverload($daedalus));
 
         $daedalus->addHunterPoints($pointsToAdd);
-        $this->persist([$daedalus]);
+        $this->daedalusRepository->save($daedalus);
     }
 
-    private function persist(array $entities): void
+    private function updateIncidentPoints(Daedalus $daedalus): void
     {
-        foreach ($entities as $entity) {
-            $this->entityManager->persist($entity);
+        $pointsToAdd = $daedalus->getDay() <= 2 ? $daedalus->getDay() : 1;
+
+        if ($daedalus->isInHardMode()) {
+            $pointsToAdd += $this->getHardModeOverload($daedalus);
+        }
+        if ($daedalus->isInVeryHardMode()) {
+            $pointsToAdd += $this->getVeryHardModeOverload($daedalus);
         }
 
-        $this->entityManager->flush();
+        $pointsToAdd = (int) round($pointsToAdd * $this->getActivityOverload($daedalus));
+
+        $daedalus->addIncidentPoints($pointsToAdd);
+        $this->daedalusRepository->save($daedalus);
+    }
+
+    /**
+     * This function adds extra difficulty points if players spend too much action points
+     * (dynamic difficulty).
+     */
+    private function getActivityOverload(Daedalus $daedalus): float
+    {
+        $threshold = 7 * $daedalus->getAlivePlayers()->count();
+        if ($threshold < 1) {
+            return 1;
+        }
+        if ($daedalus->getDailyActionPointsSpent() <= $threshold) {
+            return 1;
+        }
+
+        return $daedalus->getDailyActionPointsSpent() / $threshold;
+    }
+
+    private function getHardModeOverload(Daedalus $daedalus): float
+    {
+        return 1 + $daedalus->getDay() - $daedalus->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::HARD);
+    }
+
+    private function getVeryHardModeOverload(Daedalus $daedalus): float
+    {
+        return 2 + $this->getHardModeOverload($daedalus) + $daedalus->getDay() - $daedalus->getGameConfig()->getDifficultyConfig()->getDifficultyModes()->get(DifficultyEnum::VERY_HARD);
     }
 }

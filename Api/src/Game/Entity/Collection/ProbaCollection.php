@@ -12,6 +12,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 final class ProbaCollection extends ArrayCollection
 {
+    public function __construct(array $elements = [])
+    {
+        foreach ($elements as $key => $value) {
+            $this->setElementProbability($key, $value);
+        }
+    }
+
     public function getElementProbability(int|string $key): int
     {
         $probability = $this->get($key);

@@ -519,6 +519,21 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function incrementDay(): static
+    {
+        $this->setCycle(1);
+        $this->setDay($this->getDay() + 1);
+
+        return $this;
+    }
+
+    public function incrementCycle(): static
+    {
+        $this->setCycle($this->getCycle() + 1);
+
+        return $this;
+    }
+
     public function getFilledAt(): ?\DateTime
     {
         return $this->filledAt;
@@ -593,6 +608,25 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function addDailyActionPointsSpent(int $dailyActionPointsSpent): static
     {
         $this->dailyActionPointsSpent += $dailyActionPointsSpent;
+
+        return $this;
+    }
+
+    public function getIncidentPoints(): int
+    {
+        return $this->getVariableValueByName(DaedalusVariableEnum::INCIDENT_POINTS);
+    }
+
+    public function addIncidentPoints(int $incidentPoints): static
+    {
+        $this->daedalusVariables->changeValueByName($incidentPoints, DaedalusVariableEnum::INCIDENT_POINTS);
+
+        return $this;
+    }
+
+    public function removeIncidentPoints(int $incidentPoints): static
+    {
+        $this->daedalusVariables->changeValueByName(-$incidentPoints, DaedalusVariableEnum::INCIDENT_POINTS);
 
         return $this;
     }

@@ -44,7 +44,6 @@ final class JukeboxCest extends AbstractFunctionalTest
 
     public function shouldGenerateAPublicLogWhenPlayingMusic(FunctionalTester $I): void
     {
-        $this->givenNoIncidents();
         $this->givenJukeboxInPlayerRoom($this->chun);
         $this->whenNewCycleIsTriggered();
         $this->thenJukeboxPlayedPublicLogForPlayerShouldBeGenerated(player: $this->chun, I: $I);
@@ -52,7 +51,6 @@ final class JukeboxCest extends AbstractFunctionalTest
 
     public function shouldGenerateAPublicLogEvenWhenAbsentPlayerSong(FunctionalTester $I): void
     {
-        $this->givenNoIncidents();
         $this->givenJukeboxInPlayerRoom($this->chun);
         $this->chun->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE));
         $this->whenNewCycleIsTriggered();
@@ -61,7 +59,6 @@ final class JukeboxCest extends AbstractFunctionalTest
 
     public function shouldPlayOnlyTheSongForTheOnlyPlayer(FunctionalTester $I): void
     {
-        $this->givenNoIncidents();
         $this->givenJukeboxInPlayerRoom($this->chun);
         $this->whenNewCycleIsTriggered();
         $this->thenJukeboxPlayedPublicLogForPlayerShouldBeGenerated(player: $this->chun, I: $I);
@@ -71,18 +68,11 @@ final class JukeboxCest extends AbstractFunctionalTest
 
     public function shouldChangeTheSongAfterSecondPlayerJoinsDaedalus(FunctionalTester $I): void
     {
-        $this->givenNoIncidents();
         $jukebox = $this->givenJukeboxInPlayerRoom($this->chun);
         $this->givenJukeboxPlaysPlayerSong($jukebox, $this->chun);
         $kuanTi = $this->whenKuanTiJoinsDaedalus($I);
         $this->whenNewCycleIsTriggered();
         $this->thenJukeboxPlayedPublicLogForPlayerShouldBeGenerated(player: $kuanTi, I: $I);
-    }
-
-    private function givenNoIncidents(): void
-    {
-        $this->daedalus->setDay(0);
-        $this->daedalus->getDaedalusConfig()->setCyclePerGameDay(1_000_000);
     }
 
     private function givenJukeboxInPlayerRoom(Player $player): GameEquipment

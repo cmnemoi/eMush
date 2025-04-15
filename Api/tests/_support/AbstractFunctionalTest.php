@@ -12,6 +12,7 @@ use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Entity\TitlePriority;
+use Mush\Daedalus\ValueObject\GameDate;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -116,6 +117,8 @@ class AbstractFunctionalTest
         $daedalus->setDaedalusVariables($daedalusConfig);
 
         $this->createTitlePriorities($daedalus, $I);
+
+        $daedalus->setGameDate(new GameDate($daedalus, 1, 1));
 
         $I->haveInRepository($daedalus);
 

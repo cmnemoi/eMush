@@ -105,7 +105,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
                 'message' => 'Hello, World!',
                 'character' => 'chun',
                 'day' => 1,
-                'cycle' => 0,
+                'cycle' => 1,
             ],
             actual: $this->chun->getNotificationOrThrow()->getParameters(),
         );
@@ -122,7 +122,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
                 'message' => 'Hello, World!',
                 'character' => 'chun',
                 'day' => 1,
-                'cycle' => 0,
+                'cycle' => 1,
             ],
             actual: $this->kuanTi->getNotificationOrThrow()->getParameters(),
         );

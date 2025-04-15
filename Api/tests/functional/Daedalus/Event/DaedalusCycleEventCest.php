@@ -5,17 +5,15 @@ namespace Mush\Tests\functional\Daedalus\Event;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -33,12 +31,14 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function shouldDecreaseOxygen(FunctionalTester $I): void
@@ -60,29 +60,17 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function testOxygenBreakOnCycleChange(FunctionalTester $I)
     {
-        // let's increase the duration of the ship to increase the number of incidents
-        $this->daedalus
-            ->setOxygen(10)
-            ->setDay(100);
+        // add a lot of incident points so that oxygen breaks
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+        $this->daedalus->addIncidentPoints(500);
+        $this->daedalus->setOxygen(10);
 
-        $this->player->getVariableByName(PlayerVariableEnum::MORAL_POINT)->setMaxValue(200)->setValue(200);
-        $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->setMaxValue(200)->setValue(200);
-
-        $tankConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::OXYGEN_TANK]);
-
-        $tankEquipment = $tankConfig->createGameEquipment($this->player->getPlace());
-        $I->haveInRepository($tankEquipment);
-
-        $event = new EquipmentEvent(
-            $tankEquipment,
-            true,
-            VisibilityEnum::PUBLIC,
-            [EventEnum::NEW_CYCLE],
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            EquipmentEnum::OXYGEN_TANK,
+            $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY),
+            [],
             new \DateTime()
         );
-        $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_CREATED);
-
-        $I->assertCount(1, $this->daedalus->getModifiers());
 
         $event = new DaedalusCycleEvent(
             $this->daedalus,
@@ -98,8 +86,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function testCycleSubscriberDoNotAssignTitleToDeadPlayer(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -129,8 +115,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotAssignTitleToInactivePlayer(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -164,8 +148,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldGiveBackTitleToExInactivePlayers(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -195,8 +177,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotGiveTitlesToHighlyInactivePlayers(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -230,8 +210,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldRemoveTitlesFromInactivePlayers(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given daedalus is in game so titles can be assigned
         $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
 
@@ -318,8 +296,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldCreateANeronAnnouncementWhenAutoWateringRemovesFires(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given auto watering project is finished
         $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
         $this->finishProject(
@@ -363,8 +339,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldNotCreateANeronAnnouncementWhenAutoWateringDoesNotRemoveFire(FunctionalTester $I): void
     {
-        $this->setupNoIncidents();
-
         // given auto watering project is finished
         $autoWatering = $this->daedalus->getProjectByName(ProjectName::AUTO_WATERING);
         $this->finishProject(
@@ -430,8 +404,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $config = $bricBroc->getConfig();
         (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
 
-        // given Daedalus is Day 100 so a lot of incidents should happen
-        $this->daedalus->setDay(100);
+        // given a lot of incident points
+        $this->daedalus->addIncidentPoints(500);
 
         // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
@@ -478,6 +452,9 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
     public function shouldCreateANeronAnnouncementWhenBricBrocIsActivated(FunctionalTester $I): void
     {
+        // given Daedalus is in game so incidents can happen
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
         // given Bric Broc project is finished
         $this->finishProject(
             $this->daedalus->getProjectByName(ProjectName::BRIC_BROC),
@@ -489,9 +466,6 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $bricBroc = $this->daedalus->getProjectByName(ProjectName::BRIC_BROC);
         $config = $bricBroc->getConfig();
         (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
-
-        // given Daedalus is Day 100 so a lot of incidents should happen
-        $this->daedalus->setDay(100);
 
         // when cycle change event is triggered
         $event = new DaedalusCycleEvent(
@@ -508,13 +482,5 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
                 'message' => NeronMessageEnum::PATCHING_UP,
             ]
         );
-    }
-
-    private function setupNoIncidents(): void
-    {
-        $this->daedalus->setDay(0);
-        $daedalusConfig = $this->daedalus->getDaedalusConfig();
-        $ref = new \ReflectionClass($daedalusConfig);
-        $ref->getProperty('cyclePerGameDay')->setValue($daedalusConfig, 9_999_999);
     }
 }

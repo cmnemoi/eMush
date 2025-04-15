@@ -10,7 +10,7 @@ use Mush\User\Repository\UserRepository;
 class UserService implements UserServiceInterface
 {
     public const FOUR_GAMES = 4;
-    public const TWENTY_FOUR_DAYS_IN_CYCLES = 24;
+    public const TWENTY_FOUR_DAYS_IN_CYCLES = 192;
 
     private EntityManagerInterface $entityManager;
 

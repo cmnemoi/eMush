@@ -26,7 +26,6 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Factory\UserFactory;
-use Mush\User\Service\UserService;
 
 /**
  * @internal
@@ -282,7 +281,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         // given user has a player one cycle below threshold
         $firstUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-        $threshold = (UserService::TWENTY_FOUR_DAYS_IN_CYCLES - 1) * $this->daedalus->getDaedalusConfig()->getCycleLength();
+        $threshold = (192 - 1) * $this->daedalus->getDaedalusConfig()->getCycleLength();
         $closedPlayer = $firstUserPlayer->getPlayerInfo()->getClosedPlayer();
         $closedPlayer->setFinishedAt($firstUserPlayer->getCreatedAt()->add(new \DateInterval('PT' . $threshold . 'M')));
         $closedPlayer->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
@@ -304,7 +303,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         // given user already has a player reaching cycle threshold
         $firstUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-        $threshold = UserService::TWENTY_FOUR_DAYS_IN_CYCLES * $this->daedalus->getDaedalusConfig()->getCycleLength();
+        $threshold = 192 * $this->daedalus->getDaedalusConfig()->getCycleLength();
         $closedPlayer = $firstUserPlayer->getPlayerInfo()->getClosedPlayer();
         $closedPlayer->setFinishedAt($firstUserPlayer->getCreatedAt()->add(new \DateInterval('PT' . $threshold . 'M')));
         $closedPlayer->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
@@ -333,7 +332,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         // given user already has a player reaching cycle threshold
         $firstUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-        $threshold = UserService::TWENTY_FOUR_DAYS_IN_CYCLES * $this->daedalus->getDaedalusConfig()->getCycleLength();
+        $threshold = 192 * $this->daedalus->getDaedalusConfig()->getCycleLength();
 
         $closedPlayer = $firstUserPlayer->getPlayerInfo()->getClosedPlayer();
         $closedPlayer->setFinishedAt($firstUserPlayer->getCreatedAt()->add(new \DateInterval('PT' . $threshold . 'M')));

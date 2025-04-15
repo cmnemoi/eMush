@@ -60,6 +60,7 @@ build-front:
   stage: build
   needs: 
     - job: check-mr-title
+      optional: true
   <<: *node_template
   script:
     - yarn build
@@ -212,6 +213,7 @@ front-test:
   stage: test
   needs: 
     - job: check-mr-title
+      optional: true
     - job: build-front
       optional: true
   script:

@@ -625,6 +625,7 @@
 			"report": "Report",
 			"loadMoreMessages": "Load more messages",
 			"markChannelAsRead": "Mark channel as read",
+			"exportChannelAsPDF": "🖨️",
 			"unbookmark": "No more favorite",
 			"unbookmarkDescription": "Remove this thread from your favorites."
 		},

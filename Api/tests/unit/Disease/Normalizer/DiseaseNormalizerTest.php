@@ -141,7 +141,7 @@ final class DiseaseNormalizerTest extends TestCase
             'key' => 'name',
             'name' => 'translated one',
             'type' => $diseaseConfig->getType(),
-            'description' => 'translated two//translated three',
+            'description' => 'translated two// :point: translated three',
         ], $normalized);
     }
 
@@ -200,7 +200,7 @@ final class DiseaseNormalizerTest extends TestCase
             'key' => 'name',
             'name' => 'translated one',
             'type' => $diseaseConfig->getType(),
-            'description' => 'translated two//translated three',
+            'description' => 'translated two// :point: translated three',
         ], $normalized);
     }
 }

@@ -1422,7 +1422,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mush.description</source>
-        <target>You have joined the Mush.</target>
+        <target>You have joined the Mush. // :point: You do **not gain energy from eating**, but are **never hungry**. // :point: Your :pmo: morale is always **maxed out**. // :point: You can read **consumable properties**. // :point: You **cannot fall ill**.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>mush.examine</source>

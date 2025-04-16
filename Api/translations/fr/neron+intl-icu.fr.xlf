@@ -674,5 +674,11 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="command_refused">
+      <segment id="command_refused" state="translated">
+        <source>command_refused</source>
+        <target>Rien ne se passe, la commande a été refusée par NERON.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

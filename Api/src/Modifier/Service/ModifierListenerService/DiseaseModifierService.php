@@ -23,14 +23,9 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
     {
         $diseaseConfig = $playerDisease->getDiseaseConfig();
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
-            $holder = $this->getModifierHolderFromConfig($player, $modifierConfig);
-            if ($holder === null) {
-                return;
-            }
-
             $this->modifierCreationService->createModifier(
                 modifierConfig: $modifierConfig,
-                holder: $holder,
+                holder: $this->getModifierHolderFromConfig($player, $modifierConfig),
                 modifierProvider: $playerDisease,
                 tags: $tags,
                 time: $time,
@@ -42,15 +37,10 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
     {
         $diseaseConfig = $playerDisease->getDiseaseConfig();
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
-            $holder = $this->getModifierHolderFromConfig($player, $modifierConfig);
-            if ($holder === null) {
-                return;
-            }
-
             $this->modifierCreationService->deleteModifier(
                 modifierConfig: $modifierConfig,
-                holder: $holder,
-                modifierProvider: $playerDisease,
+                holder: $this->getModifierHolderFromConfig($player, $modifierConfig),
+                modifierProvider: $playerDisease->getCreatedAt() < new \DateTime('2025-04-13 20:30:00') ? $player : $playerDisease, // TODO: Remove feature flag after all Daedalus created before this date are finished
                 tags: $tags,
                 time: $time,
                 revertOnRemove: $playerDisease->isActive()
@@ -58,20 +48,13 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
         }
     }
 
-    private function getModifierHolderFromConfig(Player $player, AbstractModifierConfig $modifierConfig): ?ModifierHolderInterface
+    private function getModifierHolderFromConfig(Player $player, AbstractModifierConfig $modifierConfig): ModifierHolderInterface
     {
-        switch ($modifierConfig->getModifierRange()) {
-            case ModifierHolderClassEnum::DAEDALUS:
-                return $player->getDaedalus();
-
-            case ModifierHolderClassEnum::PLACE:
-                return $player->getPlace();
-
-            case ModifierHolderClassEnum::PLAYER:
-            case ModifierHolderClassEnum::TARGET_PLAYER:
-                return $player;
-        }
-
-        return null;
+        return match ($modifierConfig->getModifierRange()) {
+            ModifierHolderClassEnum::DAEDALUS => $player->getDaedalus(),
+            ModifierHolderClassEnum::PLACE => $player->getPlace(),
+            ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $player,
+            default => throw new \RuntimeException('Invalid modifier range: ' . $modifierConfig->getModifierRange()),
+        };
     }
 }

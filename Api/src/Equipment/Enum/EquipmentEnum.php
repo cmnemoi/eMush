@@ -73,6 +73,8 @@ class EquipmentEnum
             'magnetic_net_description',
             'neron_inhibition_name',
             'neron_inhibition_description',
+            'vocoded_announcements_name',
+            'vocoded_announcements_description',
         ],
         self::CALCULATOR => [
             'to_a_new_eden_title',

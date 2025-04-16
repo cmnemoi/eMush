@@ -2074,6 +2074,7 @@ class MechanicsData
                 ActionEnum::TOGGLE_PLASMA_SHIELD->value,
                 ActionEnum::TOGGLE_MAGNETIC_NET->value,
                 ActionEnum::TOGGLE_NERON_INHIBITION->value,
+                ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value,
                 ActionEnum::ACCESS_TERMINAL->value,
                 ActionEnum::EXIT_TERMINAL->value,
             ],

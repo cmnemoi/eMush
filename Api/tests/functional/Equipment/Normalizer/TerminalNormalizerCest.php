@@ -334,6 +334,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 ActionEnum::TOGGLE_MAGNETIC_NET->value,
                 ActionEnum::TOGGLE_NERON_INHIBITION->value,
                 ActionEnum::TOGGLE_PLASMA_SHIELD->value,
+                ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value,
             ],
             actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
         );
@@ -349,6 +350,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'magnetic_net_description' => 'Active le filet magnétique qui permet d\'abandonner les Patrouilleurs à leur triste sort. Ou pas...',
                 'neron_inhibition_name' => 'Entrave DMZ-CorePeace',
                 'neron_inhibition_description' => 'Active l\'inhibiteur de comportements de NERON. L\'inhibiteur permet de changer un certain nombre de comportements de NERON concernant l\'agressivité.',
+                'vocoded_announcements_name' => 'Annonces vocodées',
+                'vocoded_announcements_description' => 'Active la possibilité pour NERON de porter les message de l\'Admin. NERON.',
             ],
             actual: $normalizedTerminal['sectionTitles']
         );
@@ -389,6 +392,11 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'neronInhibitionToggles' => [
                     ['key' => 'active', 'name' => 'Oui'],
                     ['key' => 'inactive', 'name' => 'Non'],
+                ],
+                'areVocodedAnnouncementsActive' => false,
+                'vocodedAnnouncementsToggles' => [
+                    ['key' => 'active', 'name' => 'Autorisées'],
+                    ['key' => 'inactive', 'name' => 'Pas autorisées'],
                 ],
             ],
             actual: $normalizedTerminal['infos']

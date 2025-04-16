@@ -334,6 +334,8 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'currentCrewLock' => $neron->getCrewLock()->value,
             'neronInhibitionToggles' => $this->getTranslatedNeronInhibitionToggles($terminal),
             'isNeronInhibited' => $neron->isInhibited(),
+            'areVocodedAnnouncementsActive' => $neron->areVocodedAnnouncementsActive(),
+            'vocodedAnnouncementsToggles' => $this->getTranslatedVocodedAnnouncementsToggles($terminal),
         ];
         if ($daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD)) {
             $infos['plasmaShieldToggles'] = $this->getTranslatedPlasmaShieldToggles($terminal);
@@ -659,5 +661,23 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $normalizedTrades;
+    }
+
+    private function getTranslatedVocodedAnnouncementsToggles(GameEquipment $terminal): array
+    {
+        $vocodedAnnouncementsToggles = [];
+        foreach (['active', 'inactive'] as $toggle) {
+            $vocodedAnnouncementsToggles[] = [
+                'key' => $toggle,
+                'name' => $this->translationService->translate(
+                    key: $terminal->getName() . '.vocoded_announcements_toggle_' . $toggle,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                ),
+            ];
+        }
+
+        return $vocodedAnnouncementsToggles;
     }
 }

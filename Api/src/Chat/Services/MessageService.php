@@ -10,6 +10,7 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Dto\CreateMessage;
 use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Event\MessageEvent;
 use Mush\Chat\Repository\MessageRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -34,43 +35,17 @@ final class MessageService implements MessageServiceInterface
         $messageContent = trim($createMessage->getMessage());
         $channel = $createMessage->getChannel();
 
-        $message = new Message();
-        $message
-            ->setAuthor($player->getPlayerInfo())
-            ->setChannel($channel)
-            ->setMessage($messageContent)
-            ->setParent($createMessage->getParent())
-            ->addReader($player)
-            ->setCycle($player->getDaedalus()->getCycle())
-            ->setDay($player->getDaedalus()->getDay());
+        $message = $this->initializeMessage($player, $createMessage);
 
-        $rootMessage = $createMessage->getParent();
-        if ($rootMessage) {
-            $root = $rootMessage;
-            while ($rootMessage = $rootMessage->getParent()) {
-                $root = $rootMessage;
-            }
-
-            $root->setUpdatedAt(new \DateTime());
-            $this->messageRepository->save($root);
+        if ($createMessage->isVocodedAnnouncement()) {
+            $this->handleVocodedAnnouncement($message, $messageContent, $player);
+        } else {
+            $message->setMessage($messageContent);
         }
 
-        $tags = [];
-        if ($player->isMute() && $channel->isMushChannel()) {
-            $tags = [self::MUTE_PLAYER_SPEAKING_IN_MUSH_CHANNEL];
-        }
+        $this->updateRootMessageTimestamp($createMessage->getParent());
 
-        $messageEvent = new MessageEvent(
-            $message,
-            $player,
-            $tags,
-            new \DateTime()
-        );
-        $events = $this->eventService->callEvent($messageEvent, MessageEvent::NEW_MESSAGE);
-
-        /** @var MessageEvent $modifiedEvent */
-        $modifiedEvent = $events->getInitialEvent();
-        $message = $modifiedEvent->getMessage();
+        $message = $this->modifyMessage($message, $player, $channel);
 
         $this->messageRepository->save($message);
 
@@ -214,6 +189,68 @@ final class MessageService implements MessageServiceInterface
             ->cancelTimestampable();
 
         $this->messageRepository->save($rootMessage);
+    }
+
+    private function initializeMessage(Player $player, CreateMessage $createMessage): Message
+    {
+        $message = new Message();
+        $message
+            ->setAuthor($player->getPlayerInfo())
+            ->setChannel($createMessage->getChannel())
+            ->setParent($createMessage->getParent())
+            ->addReader($player)
+            ->setCycle($player->getDaedalus()->getCycle())
+            ->setDay($player->getDaedalus()->getDay());
+
+        return $message;
+    }
+
+    private function handleVocodedAnnouncement(Message $message, string $messageContent, Player $player): void
+    {
+        $neron = $player->getDaedalus()->getNeron();
+        if ($neron->shouldRefuseVocodedAnnouncementsForPlayer($player)) {
+            $message->setMessage(NeronMessageEnum::COMMAND_REFUSED);
+        } else {
+            $messageContent = trim(str_replace('/neron', '', $messageContent));
+            $message->setMessage($messageContent);
+            $message->setNeron($neron);
+        }
+    }
+
+    private function updateRootMessageTimestamp(?Message $parentMessage): void
+    {
+        if (!$parentMessage) {
+            return;
+        }
+
+        $root = $parentMessage;
+        while ($parentMessage = $parentMessage->getParent()) {
+            $root = $parentMessage;
+        }
+
+        $root->setUpdatedAt(new \DateTime());
+        $this->messageRepository->save($root);
+    }
+
+    private function modifyMessage(Message $message, Player $player, Channel $channel): Message
+    {
+        $tags = [];
+        if ($player->isMute() && $channel->isMushChannel()) {
+            $tags = [self::MUTE_PLAYER_SPEAKING_IN_MUSH_CHANNEL];
+        }
+
+        $messageEvent = new MessageEvent(
+            $message,
+            $player,
+            $tags,
+            new \DateTime()
+        );
+        $events = $this->eventService->callEvent($messageEvent, MessageEvent::NEW_MESSAGE);
+
+        /** @var MessageEvent $modifiedEvent */
+        $modifiedEvent = $events->getInitialEvent();
+
+        return $modifiedEvent->getMessage();
     }
 
     private function getByChannelWithTimeLimit(Channel $channel, \DateInterval $timeLimit): Collection

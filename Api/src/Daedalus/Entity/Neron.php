@@ -5,6 +5,8 @@ namespace Mush\Daedalus\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
+use Mush\Game\Enum\TitleEnum;
+use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
 class Neron
@@ -33,6 +35,9 @@ class Neron
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
     private bool $isMagneticNetActive = true;
+
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $vocodedAnnouncements = false;
 
     public function getId(): ?int
     {
@@ -108,5 +113,20 @@ class Neron
     public function toggleMagneticNet(): void
     {
         $this->isMagneticNetActive = !$this->isMagneticNetActive;
+    }
+
+    public function areVocodedAnnouncementsActive(): bool
+    {
+        return $this->vocodedAnnouncements;
+    }
+
+    public function toggleVocodedAnnouncements(): void
+    {
+        $this->vocodedAnnouncements = !$this->vocodedAnnouncements;
+    }
+
+    public function shouldRefuseVocodedAnnouncementsForPlayer(Player $player): bool
+    {
+        return $player->doesNotHaveTitle(TitleEnum::NERON_MANAGER) || $this->vocodedAnnouncements === false;
     }
 }

@@ -391,7 +391,7 @@ export default defineComponent({
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
-                });           
+                });
 
         },
         sortTable(selectedField: any): void {

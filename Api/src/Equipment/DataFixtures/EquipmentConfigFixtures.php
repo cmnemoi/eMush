@@ -277,6 +277,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $toggleNeronInhibitionAction */
         $toggleNeronInhibitionAction = $this->getReference(ActionEnum::TOGGLE_NERON_INHIBITION->value);
 
+        /** @var ActionConfig $toggleVocodedAnnouncementsAction */
+        $toggleVocodedAnnouncementsAction = $this->getReference(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value);
+
         $biosTerminalTool = $this->createTool(
             [
                 $changeNeronCpuPriorityAction,
@@ -284,6 +287,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 $togglePlasmaShieldAction,
                 $toggleMagneticNetAction,
                 $toggleNeronInhibitionAction,
+                $toggleVocodedAnnouncementsAction,
                 $accessTerminalAction,
                 $exitTerminalAction,
             ],

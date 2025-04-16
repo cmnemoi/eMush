@@ -21,6 +21,9 @@ export class TerminalSectionTitles {
     public neronVersion: string|null = null;
     public rebelBasesNetwork: string|null = null;
     public xylophDb: string|null = null;
+    public vocodedAnnouncementName: string|null = null;
+    public vocodedAnnouncementDescription: string|null = null;
+
     public load(object: any): TerminalSectionTitles {
         if (object) {
             this.orientateDaedalus = object['orientate_daedalus'];
@@ -45,6 +48,8 @@ export class TerminalSectionTitles {
             this.neronVersion = object['neron_version'];
             this.rebelBasesNetwork = object['rebel_bases_network'];
             this.xylophDb = object['xyloph_db'];
+            this.vocodedAnnouncementName = object['vocoded_announcements_name'];
+            this.vocodedAnnouncementDescription = object['vocoded_announcements_description'];
         }
         return this;
     }

@@ -593,6 +593,9 @@ abstract class ActionLogEnum
         ActionEnum::PLAY_WITH_DOG->value => [
             ActionOutputEnum::SUCCESS => self::PLAY_WITH_DOG,
         ],
+        ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value => [
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
     ];
 
     public static function dependsOnNeronMood(string $logKey): bool

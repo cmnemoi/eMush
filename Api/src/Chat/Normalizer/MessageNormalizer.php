@@ -55,16 +55,16 @@ class MessageNormalizer implements NormalizerInterface
             $translationParameters = $this->scrambleCharacterNames($translationParameters);
         }
 
-        if ($message->getAuthor()) {
-            return $message->getMessage();
-        }
-        if ($message->getNeron()) {
+        if ($message->isNeronMessage()) {
             return $this->translationService->translate(
                 $message->getMessage(),
                 $translationParameters,
                 'neron',
                 $language
             );
+        }
+        if ($message->getAuthor()) {
+            return $message->getMessage();
         }
 
         return $this->translationService->translate(

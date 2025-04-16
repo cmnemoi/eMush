@@ -6,12 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Chat\Enum\DiseaseMessagesEnum;
 use Mush\Chat\Enum\MessageModificationEnum;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Normalizer\MessageNormalizer;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseStatusEnum;
@@ -28,6 +31,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -321,6 +325,102 @@ final class MessageNormalizerTest extends TestCase
             'character' => ['key' => 'name', 'value' => 'translatedName'],
             'message' => 'modified message',
             'date' => 'translated date',
+            'child' => [],
+            'isUnread' => true,
+        ], $normalizedData);
+    }
+
+    public function testShouldNormalizeVocodedAnnouncement(): void
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $publicChannel = new Channel();
+        $publicChannel
+            ->setDaedalus($daedalus->getDaedalusInfo())
+            ->setScope(ChannelScopeEnum::PUBLIC);
+
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
+
+        $message = new Message();
+        $message->setMessage('azaza');
+        $message->setChannel($publicChannel);
+        $message->setNeron($daedalus->getNeron());
+        $message->setCreatedAt(new \DateTime());
+        $message->setUpdatedAt(new \DateTime());
+        $message->setCycle(1);
+        $message->setDay(1);
+        $message->setAuthor($player->getPlayerInfo());
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with(CharacterEnum::NERON . '.name', [], 'characters', LanguageEnum::FRENCH)
+            ->andReturn('NERON')
+            ->once();
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('à l\'instant')
+            ->once();
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('azaza', [], 'neron', LanguageEnum::FRENCH)
+            ->andReturn('azaza')
+            ->once();
+
+        $normalizedData = $this->normalizer->normalize($message, null, ['currentPlayer' => $player]);
+
+        self::assertSame([
+            'id' => null,
+            'character' => ['key' => 'neron', 'value' => 'NERON'],
+            'message' => 'azaza',
+            'date' => 'à l\'instant',
+            'child' => [],
+            'isUnread' => true,
+        ], $normalizedData);
+    }
+
+    public function testShouldNormalizeRefusedVocodedAnnouncement(): void
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $publicChannel = new Channel();
+        $publicChannel
+            ->setDaedalus($daedalus->getDaedalusInfo())
+            ->setScope(ChannelScopeEnum::PUBLIC);
+
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
+
+        $message = new Message();
+        $message->setMessage(NeronMessageEnum::COMMAND_REFUSED);
+        $message->setChannel($publicChannel);
+        $message->setNeron($daedalus->getNeron());
+        $message->setCreatedAt(new \DateTime());
+        $message->setUpdatedAt(new \DateTime());
+        $message->setCycle(1);
+        $message->setDay(1);
+        $message->setAuthor($player->getPlayerInfo());
+
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with(CharacterEnum::NERON . '.name', [], 'characters', LanguageEnum::FRENCH)
+            ->andReturn('NERON')
+            ->once();
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('message_date.less_minute', [], 'chat', LanguageEnum::FRENCH)
+            ->andReturn('à l\'instant')
+            ->once();
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('command_refused', [], 'neron', LanguageEnum::FRENCH)
+            ->andReturn('Rien ne se passe, la commande a été refusée par NERON.')
+            ->once();
+
+        $normalizedData = $this->normalizer->normalize($message, null, ['currentPlayer' => $player]);
+
+        self::assertSame([
+            'id' => null,
+            'character' => ['key' => 'neron', 'value' => 'NERON'],
+            'message' => 'Rien ne se passe, la commande a été refusée par NERON.',
+            'date' => 'à l\'instant',
             'child' => [],
             'isUnread' => true,
         ], $normalizedData);

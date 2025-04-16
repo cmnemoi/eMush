@@ -33,6 +33,8 @@ export class TerminalInfos {
     public never: string|null = null;
     public seeCommunications: string|null = null;
     public seeTrades: string|null = null;
+    public areVocodedAnnouncementsActive: boolean|null = null;
+    public vocodedAnnouncementsToggles: {key: string, name: string}[]|null = null;
 
     constructor() {
         this.requirements = [];
@@ -79,6 +81,8 @@ export class TerminalInfos {
             this.never = object.never;
             this.seeCommunications = object.seeCommunications;
             this.seeTrades = object.seeTrades;
+            this.areVocodedAnnouncementsActive = object.areVocodedAnnouncementsActive;
+            this.vocodedAnnouncementsToggles = object.vocodedAnnouncementsToggles;
         }
         return this;
     }

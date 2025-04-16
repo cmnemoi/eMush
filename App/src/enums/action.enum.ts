@@ -28,6 +28,7 @@ export enum ActionEnum {
     TOGGLE_MAGNETIC_NET = "toggle_magnetic_net",
     TOGGLE_NERON_INHIBITION = "toggle_neron_inhibition",
     TOGGLE_PLASMA_SHIELD = "toggle_plasma_shield",
+    TOGGLE_VOCODED_ANNOUNCEMENTS = "toggle_vocoded_announcements",
     TRAVEL_TO_EDEN = "travel_to_eden",
     TURN_DAEDALUS_LEFT = "turn_daedalus_left",
     TURN_DAEDALUS_RIGHT = "turn_daedalus_right",

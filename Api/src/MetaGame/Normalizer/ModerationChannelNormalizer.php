@@ -6,7 +6,6 @@ namespace Mush\MetaGame\Normalizer;
 
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\ChannelPlayer;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -33,7 +32,7 @@ final readonly class ModerationChannelNormalizer implements NormalizerInterface
 
     private function normalizeForModerators(Channel $channel): array
     {
-        $language = LanguageEnum::FRENCH;
+        $language = $channel->getDaedalusInfo()->getLanguage();
         $participants = [];
 
         /** @var ChannelPlayer $participant */

@@ -1165,6 +1165,9 @@ class ActionsFixtures extends Fixture
         $refuseTrade = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REFUSE_TRADE));
         $manager->persist($refuseTrade);
 
+        $toggleVocodedAnnouncements = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS));
+        $manager->persist($toggleVocodedAnnouncements);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1315,5 +1318,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::PLAY_WITH_DOG->value, $playWithDog);
         $this->addReference(ActionEnum::ACCEPT_TRADE->value, $acceptTrade);
         $this->addReference(ActionEnum::REFUSE_TRADE->value, $refuseTrade);
+        $this->addReference(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value, $toggleVocodedAnnouncements);
     }
 }

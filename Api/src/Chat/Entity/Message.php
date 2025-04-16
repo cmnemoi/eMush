@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Game\Entity\TimestampableCancelInterface;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
@@ -283,5 +284,10 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
         }
 
         return $createdAt;
+    }
+
+    public function isNeronMessage(): bool
+    {
+        return $this->getNeron() !== null || $this->getMessage() === NeronMessageEnum::COMMAND_REFUSED;
     }
 }

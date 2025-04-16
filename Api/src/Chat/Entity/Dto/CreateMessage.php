@@ -93,4 +93,9 @@ class CreateMessage
 
         return $this;
     }
+
+    public function isVocodedAnnouncement(): bool
+    {
+        return str_starts_with($this->message, '/neron');
+    }
 }

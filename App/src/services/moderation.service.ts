@@ -71,9 +71,13 @@ const ModerationService = {
             ) + '&order[updatedAt]=desc';
 
         const messages = await ApiService.get(`${MESSAGES_ENDPOINT}?${queryParameters}`).then((response) => {
-            return response.data['hydra:member'].map((messageData: object) => {
-                return (new Message()).load(messageData);
-            });
+            return response.data['hydra:member']
+                .filter((messageData: object) => {
+                    return messageData.hasOwnProperty('message');
+                })
+                .map((messageData: object) => {
+                    return (new Message()).load(messageData);
+                });
         });
         await store.dispatch('gameConfig/setLoading', { loading: false });
 

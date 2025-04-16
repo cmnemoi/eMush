@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Normalizer;
 
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -31,7 +30,7 @@ final readonly class ModerationRoomLogNormalizer implements NormalizerInterface
     {
         /** @var RoomLog $roomLog */
         $roomLog = $object;
-        $language = LanguageEnum::FRENCH;
+        $language = $roomLog->getDaedalusInfo()->getLanguage();
 
         $logParameters = $roomLog->getParameters();
         $logParameters['is_tracker'] = 'false';

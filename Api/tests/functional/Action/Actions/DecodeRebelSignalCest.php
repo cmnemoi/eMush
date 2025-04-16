@@ -237,6 +237,23 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveMoralePoints(3, $I);
     }
 
+    public function wolfShouldGiveEightTriumphPointsOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::WOLF, 99);
+
+        $this->chun->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
+
+        $I->assertEquals(8, $this->chun->getTriumph());
+        $I->assertEquals(8, $this->kuanTi->getTriumph());
+    }
+
     public function shouldDoubleOutputQuantityOnRebelSkill(FunctionalTester $I): void
     {
         $this->givenPlayerIsFocusedOnCommsCenter();

@@ -277,7 +277,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
             target: $this->coffeeMachine
         );
         $I->assertEquals(
-            expected: ActionImpossibleCauseEnum::CYCLE_LIMIT,
+            expected: ActionImpossibleCauseEnum::CYCLE_LIMIT_EVERY_2,
             actual: $this->coffeeAction->cannotExecuteReason()
         );
     }

@@ -103,7 +103,7 @@ const ModerationService = {
     },
     getPlayerPrivateChannels: async(player: ModerationViewPlayer): Promise<Channel[]> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?participants.participant.id=${player.id}&scope=private`).then((response) => {
+        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?participants.participant.characterConfig.characterName=${player.character.characterName}&daedalusInfo.id=${player.daedalusId}&scope=private`).then((response) => {
             return response.data['hydra:member'].map((channelData: any) => {
                 return (new Channel()).load(channelData);
             });

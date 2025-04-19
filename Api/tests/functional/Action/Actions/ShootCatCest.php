@@ -14,11 +14,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Tests\RoomLogDto;
 
 /**
  * @internal
@@ -119,6 +121,16 @@ final class ShootCatCest extends AbstractFunctionalTest
         $this->whenPlayerShoots();
 
         $I->assertEquals(6, $this->player->getMoralPoint());
+
+        $this->ISeeTranslatedRoomLogInRepository(
+            expectedRoomLog: 'Vous perdez 4 :pmo:.',
+            actualRoomLogDto: new RoomLogDto(
+                player: $this->player,
+                log: PlayerModifierLogEnum::LOSS_MORAL_POINT,
+                visibility: VisibilityEnum::PRIVATE,
+            ),
+            I: $I
+        );
     }
 
     public function shouldNotRemoveMoraleToNonCatOwner(FunctionalTester $I): void

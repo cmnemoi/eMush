@@ -18,7 +18,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
 {
     // A player variable event cannot change sign through modifiers, so we need to use a tiny negative value to make
     // cat owner lose morale
-    public const float GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH = -0.1;
+    public const float GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH = -PHP_FLOAT_EPSILON;
 
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;

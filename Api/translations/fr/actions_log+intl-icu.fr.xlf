@@ -1176,6 +1176,12 @@
         <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Pilote**.</target>
       </segment>
     </unit>
+    <unit id="upgrade_drone_to_sensor_success">
+      <segment id="upgrade_drone_to_sensor_success" state="translated">
+        <source>upgrade_drone_to_sensor_success</source>
+        <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Senseur**.</target>
+      </segment>
+    </unit>
     <unit id="take_cat">
       <segment id="take_cat" state="translated">
         <source>take_cat</source>

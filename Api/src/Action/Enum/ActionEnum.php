@@ -72,6 +72,7 @@ enum ActionEnum: string
     case UPGRADE_DRONE_TO_TURBO = 'upgrade_drone_to_turbo';
     case UPGRADE_DRONE_TO_FIREFIGHTER = 'upgrade_drone_to_firefighter';
     case UPGRADE_DRONE_TO_PILOT = 'upgrade_drone_to_pilot';
+    case UPGRADE_DRONE_TO_SENSOR = 'upgrade_drone_to_sensor';
     case TAKE_CAT = 'take_cat';
     case PET_CAT = 'pet_cat';
     case SHOOT_CAT = 'shoot_cat';

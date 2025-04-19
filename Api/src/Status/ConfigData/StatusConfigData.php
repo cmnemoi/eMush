@@ -1167,7 +1167,7 @@ abstract class StatusConfigData
             'chargeVisibility' => 'hidden',
             'chargeStrategy' => 'cycle_increment',
             'maxCharge' => null,
-            'startCharge' => 0,
+            'startCharge' => 1,
             'dischargeStrategies' => ['none'],
             'autoRemove' => false,
             'modifierConfigs' => [],
@@ -1857,6 +1857,14 @@ abstract class StatusConfigData
         [
             'name' => PlayerStatusEnum::BEGINNER . '_default',
             'statusName' => PlayerStatusEnum::BEGINNER,
+            'visibility' => VisibilityEnum::PUBLIC,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => EquipmentStatusEnum::SENSOR_DRONE_UPGRADE . '_default',
+            'statusName' => EquipmentStatusEnum::SENSOR_DRONE_UPGRADE,
             'visibility' => VisibilityEnum::PUBLIC,
             'type' => 'status_config',
             'modifierConfigs' => [],

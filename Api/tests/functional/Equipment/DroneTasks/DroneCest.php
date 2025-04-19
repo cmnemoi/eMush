@@ -68,6 +68,7 @@ final class DroneCest extends AbstractFunctionalTest
             delta: 1,
             tags: [],
             time: new \DateTime(),
+            mode: VariableEventInterface::SET_VALUE,
         );
     }
 
@@ -478,6 +479,18 @@ final class DroneCest extends AbstractFunctionalTest
         $this->thenEquipmentShouldBeRepaired($mycoscan, $I);
     }
 
+    public function sensorShouldFindPathToBrokenEquipmentAcrossMultipleRooms(FunctionalTester $I): void
+    {
+        $this->givenDroneHasTurboUpgrade();
+        $this->givenDroneHasSensorUpgrade();
+        $this->givenRoomPathToTurret($I);
+        $this->givenBrokenEquipmentInTurret($I);
+
+        $this->whenDroneActs();
+
+        $this->thenDroneShouldBeInRoom(RoomEnum::CENTRE_BRAVO_TURRET, $I);
+    }
+
     private function givenABrokenDoor(FunctionalTester $I): Door
     {
         $door = Door::createFromRooms(
@@ -680,5 +693,55 @@ final class DroneCest extends AbstractFunctionalTest
         $ref = new \ReflectionClass($droneInfo);
         $ref->getProperty('nickName')->setValue($droneInfo, $nickName);
         $ref->getProperty('serialNumber')->setValue($droneInfo, $serialNumber);
+    }
+
+    private function givenDroneHasSensorUpgrade(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::SENSOR_DRONE_UPGRADE,
+            holder: $this->drone,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenRoomPathToTurret(FunctionalTester $I): void
+    {
+        // Create front corridor connected to laboratory
+        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+        Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
+
+        // Create medlab connected to laboratory
+        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
+        Door::createFromRooms($this->chun->getPlace(), $medlab);
+
+        // Create turret connected to medlab
+        $turret = $this->createExtraPlace(RoomEnum::CENTRE_BRAVO_TURRET, $I, $this->daedalus);
+        Door::createFromRooms($medlab, $turret);
+    }
+
+    private function givenBrokenEquipmentInTurret(FunctionalTester $I): void
+    {
+        $turret = $this->daedalus->getPlaceByName(RoomEnum::CENTRE_BRAVO_TURRET);
+        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::AUXILIARY_TERMINAL,
+            equipmentHolder: $turret,
+            reasons: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $terminal,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function thenDroneShouldBeInRoom(string $roomName, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $roomName,
+            actual: $this->drone->getPlace()->getName()
+        );
     }
 }

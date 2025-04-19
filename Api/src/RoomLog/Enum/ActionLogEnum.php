@@ -148,6 +148,7 @@ abstract class ActionLogEnum
     public const string UPGRADE_DRONE_TO_TURBO_SUCCESS = 'upgrade_drone_to_turbo_success';
     public const string UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS = 'upgrade_drone_to_firefighter_success';
     public const string UPGRADE_DRONE_TO_PILOT_SUCCESS = 'upgrade_drone_to_pilot_success';
+    public const string UPGRADE_DRONE_TO_SENSOR_SUCCESS = 'upgrade_drone_to_sensor_success';
     public const string TAKE_CAT = 'take_cat';
     public const string PET_CAT = 'pet_cat';
     public const string SHOOT_CAT_SUCCESS = 'shoot_cat_success';
@@ -595,6 +596,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
+        ActionEnum::UPGRADE_DRONE_TO_SENSOR->value => [
+            ActionOutputEnum::SUCCESS => self::UPGRADE_DRONE_TO_SENSOR_SUCCESS,
         ],
     ];
 

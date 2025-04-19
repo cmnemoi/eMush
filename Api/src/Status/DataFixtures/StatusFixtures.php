@@ -561,6 +561,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $pilotDroneUpgrade->setModifierConfigs([$pilotDroneModifier]);
         $manager->persist($pilotDroneUpgrade);
 
+        $sensorDroneUpgrade = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(EquipmentStatusEnum::SENSOR_DRONE_UPGRADE . '_default')
+        );
+        $manager->persist($sensorDroneUpgrade);
+
         /** @var VariableEventModifierConfig $catOwnerModifierNiceCat */
         $catOwnerModifierNiceCat = $this->getReference('cat_owner_modifier_for_player_set_schrodinger_cant_hurt');
 
@@ -686,7 +691,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($upgradedFirefighter)
             ->addStatusConfig($pilotDroneUpgrade)
-            ->addStatusConfig(statusConfig: $hasUsedOpportunistAsCommander)
+            ->addStatusConfig($hasUsedOpportunistAsCommander)
             ->addStatusConfig($hasUsedOpportunistAsNeronManager)
             ->addStatusConfig($hasUsedOpportunistAsComManager)
             ->addStatusConfig($catOwner)
@@ -698,8 +703,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($ghostSample)
             ->addStatusConfig($ghostChun)
             ->addStatusConfig($aggroed)
-            ->addStatusConfig($beginner);
-
+            ->addStatusConfig($beginner)
+            ->addStatusConfig($sensorDroneUpgrade);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -759,6 +764,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_READ_MAGE_BOOK, $hasReadMageBook);
         $this->addReference(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE, $upgradedFirefighter);
         $this->addReference(EquipmentStatusEnum::PILOT_DRONE_UPGRADE, $pilotDroneUpgrade);
+        $this->addReference(EquipmentStatusEnum::SENSOR_DRONE_UPGRADE, $sensorDroneUpgrade);
         $this->addReference(PlayerStatusEnum::CAT_OWNER, $catOwner);
         $this->addReference(EquipmentStatusEnum::CAT_INFECTED, $catInfected);
         $this->addReference(PlayerStatusEnum::HAS_PETTED_CAT, $hasPettedCat);

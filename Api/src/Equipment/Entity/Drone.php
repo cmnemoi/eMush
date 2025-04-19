@@ -125,7 +125,7 @@ class Drone extends GameItem
     public function operationalPatrolShipsInRoom(): array
     {
         return $this->getPlace()->getEquipments()
-            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational() && $gameEquipment->isAPatrolShip())
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isAPatrolShip() && $gameEquipment->isOperational())
             ->toArray();
     }
 
@@ -166,6 +166,21 @@ class Drone extends GameItem
     public function isPilot(): bool
     {
         return $this->hasStatus(EquipmentStatusEnum::PILOT_DRONE_UPGRADE);
+    }
+
+    public function isSensor(): bool
+    {
+        return $this->hasStatus(EquipmentStatusEnum::SENSOR_DRONE_UPGRADE);
+    }
+
+    public function isFirefighter(): bool
+    {
+        return $this->hasStatus(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE);
+    }
+
+    public function huntersAreAttacking(): bool
+    {
+        return $this->getDaedalus()->getAttackingHunters()->count() > 0;
     }
 
     private function cannotRepair(): bool
@@ -251,11 +266,6 @@ class Drone extends GameItem
         }
 
         return $patrolShip->hasActionByName(ActionEnum::LAND) === false;
-    }
-
-    private function huntersAreAttacking(): bool
-    {
-        return $this->getDaedalus()->getHuntersAroundDaedalus()->count() > 0;
     }
 
     private function numberOfActions(): int

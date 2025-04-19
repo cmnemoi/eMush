@@ -13,7 +13,7 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\DroneTasks\DroneTasksHandler;
 use Mush\Equipment\DroneTasks\ExtinguishFireTask;
 use Mush\Equipment\DroneTasks\LandTask;
-use Mush\Equipment\DroneTasks\MoveInRandomAdjacentRoomTask;
+use Mush\Equipment\DroneTasks\MoveTask;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
@@ -31,6 +31,7 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Place\Service\FindNextRoomTowardsConditionService;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -47,7 +48,7 @@ final class DroneTasksHandlerTest extends TestCase
     private DroneTasksHandler $droneTasks;
     private ExtinguishFireTask $extinguishFireTask;
     private RepairBrokenEquipmentTask $repairBrokenEquipmentTask;
-    private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask;
+    private MoveTask $moveTask;
     private TakeoffTask $takeoffTask;
     private ShootHunterTask $shootHunterTask;
 
@@ -68,7 +69,7 @@ final class DroneTasksHandlerTest extends TestCase
 
         $this->extinguishFireTask = $this->createExtinguishFireTask(false);
         $this->repairBrokenEquipmentTask = $this->createRepairBrokenEquipmentTask(false);
-        $this->moveInRandomAdjacentRoomTask = $this->createMoveInRandomAdjacentRoomTask();
+        $this->moveTask = $this->createMoveTask();
         $this->takeoffTask = $this->createTakeoffTask();
         $this->shootHunterTask = $this->createShootHunterTask(false);
         $this->landTask = $this->createLandTask();
@@ -113,7 +114,7 @@ final class DroneTasksHandlerTest extends TestCase
         $successfulExtinguishFireTask = $this->createExtinguishFireTask(true);
         $successfulRepairTask = $this->createRepairBrokenEquipmentTask(true);
         $moveEquipmentService = \Mockery::spy(GameEquipmentServiceInterface::class);
-        $moveInRandomAdjacentRoomTask = $this->createMoveInRandomAdjacentRoomTask($moveEquipmentService);
+        $moveInRandomAdjacentRoomTask = $this->createMoveTask($moveEquipmentService);
 
         $droneTasks = $this->createDroneTasksHandler($successfulExtinguishFireTask, $successfulRepairTask, $moveInRandomAdjacentRoomTask);
         $droneTasks->execute($this->drone, new \DateTime());
@@ -131,7 +132,7 @@ final class DroneTasksHandlerTest extends TestCase
 
         $successfulRepairTask = $this->createRepairBrokenEquipmentTask(true);
         $moveEquipmentService = \Mockery::spy(GameEquipmentServiceInterface::class);
-        $moveInRandomAdjacentRoomTask = $this->createMoveInRandomAdjacentRoomTask($moveEquipmentService);
+        $moveInRandomAdjacentRoomTask = $this->createMoveTask($moveEquipmentService);
 
         $droneTasks = $this->createDroneTasksHandler($this->extinguishFireTask, $successfulRepairTask, $moveInRandomAdjacentRoomTask);
         $droneTasks->execute($this->drone, new \DateTime());
@@ -204,7 +205,7 @@ final class DroneTasksHandlerTest extends TestCase
     private function createDroneTasksHandler(
         ?ExtinguishFireTask $extinguishFireTask = null,
         ?RepairBrokenEquipmentTask $repairBrokenEquipmentTask = null,
-        ?MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask = null
+        ?MoveTask $moveInRandomAdjacentRoomTask = null
     ): DroneTasksHandler {
         return new DroneTasksHandler(
             d100Roll: new D100Roll(isSuccessful: true),
@@ -214,7 +215,7 @@ final class DroneTasksHandlerTest extends TestCase
             takeoffTask: $this->takeoffTask,
             shootHunterTask: $this->shootHunterTask,
             landTask: $this->landTask,
-            moveInRandomAdjacentRoomTask: $moveInRandomAdjacentRoomTask ?? $this->moveInRandomAdjacentRoomTask,
+            moveTask: $moveInRandomAdjacentRoomTask ?? $this->moveTask,
         );
     }
 
@@ -239,13 +240,14 @@ final class DroneTasksHandlerTest extends TestCase
         );
     }
 
-    private function createMoveInRandomAdjacentRoomTask($equipmentService = null): MoveInRandomAdjacentRoomTask
+    private function createMoveTask($equipmentService = null): MoveTask
     {
-        return new MoveInRandomAdjacentRoomTask(
-            $this->createStub(EventServiceInterface::class),
-            $this->statusService,
-            $equipmentService ?: $this->createStub(GameEquipmentServiceInterface::class),
-            new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+        return new MoveTask(
+            eventService: $this->createStub(EventServiceInterface::class),
+            statusService: $this->statusService,
+            gameEquipmentService: $equipmentService ?: $this->createStub(GameEquipmentServiceInterface::class),
+            getRandomElementsFromArray: new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
+            findNextRoomTowardsCondition: new FindNextRoomTowardsConditionService()
         );
     }
 

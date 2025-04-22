@@ -53,6 +53,9 @@ class ActionEvent extends AbstractGameEvent
         parent::__construct($tags, new \DateTime());
 
         $player->getSkills()->map(fn (Skill $skill) => $this->addTag($skill->getNameAsString()));
+        if ($actionProvider === $actionTarget) {
+            $this->addTag('action_self');
+        }
     }
 
     public function getAuthor(): Player

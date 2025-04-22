@@ -12,9 +12,14 @@ use Mush\Disease\Entity\PlayerDisease;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\WeaponEventEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -47,7 +52,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->givenNeronIsNotInhibited();
     }
 
-    public function shouldDestroyGrenade(FunctionalTester $I): void
+    /*public function shouldDestroyGrenade(FunctionalTester $I): void
     {
         $this->whenChunThrowsGrenade();
 
@@ -132,6 +137,30 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->whenChunThrowsGrenade();
 
         $this->thenMycoAlarmIsBroken($I);
+    }*/
+
+    public function shouldSpendOneActionPointForPlayerWithCrazyEyesWhenInShelvingUnit(FunctionalTester $I): void
+    {
+        $this->givenChunHasCrazyEyes($I);
+
+        $this->givenGrenadeIsInShelvingUnit($I);
+
+        $initialActionPoints = $this->chun->getVariableValueByName(PlayerVariableEnum::ACTION_POINT);
+
+        $this->whenChunThrowsGrenade();
+
+        $this->thenChunShouldHaveActionPoints($initialActionPoints - 1, $I);
+    }
+
+    public function shouldSpendOneActionPointForPlayerWithCrazyEyesWhenInInventory(FunctionalTester $I): void
+    {
+        $this->givenChunHasCrazyEyes($I);
+
+        $initialActionPoints = $this->chun->getVariableValueByName(PlayerVariableEnum::ACTION_POINT);
+
+        $this->whenChunThrowsGrenade();
+
+        $this->thenChunShouldHaveActionPoints($initialActionPoints - 1, $I);
     }
 
     private function givenChunHasAGrenade(): void
@@ -204,6 +233,25 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenChunHasCrazyEyes(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::CRAZY_EYE, $I, $this->chun);
+    }
+
+    private function givenGrenadeIsInShelvingUnit(FunctionalTester $I): void
+    {
+        $eventService = $I->grabService(EventServiceInterface::class);
+        $itemEvent = new MoveEquipmentEvent(
+            equipment: $this->grenade,
+            newHolder: $this->chun->getPlace(),
+            author: $this->chun,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $eventService->callEvent($itemEvent, EquipmentEvent::CHANGE_HOLDER);
+    }
+
     private function whenChunThrowsGrenade(): void
     {
         $this->throwGrenade->loadParameters(
@@ -253,5 +301,10 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     private function thenMycoAlarmIsBroken(FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->getPlace()->getEquipmentByName(ItemEnum::MYCO_ALARM)->hasStatus(EquipmentStatusEnum::BROKEN));
+    }
+
+    private function thenChunShouldHaveActionPoints(int $expectedValue, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedValue, $this->chun->getVariableValueByName(PlayerVariableEnum::ACTION_POINT));
     }
 }

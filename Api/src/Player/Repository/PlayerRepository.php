@@ -73,7 +73,7 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
 
     public function getAll(): array
     {
-        return $this->findAll();
+        return $this->findBy([], ['createdAt' => 'DESC']);
     }
 
     public function findById(int $id): ?Player

@@ -86,7 +86,8 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $items = $partition[1];
 
         // do not normalize doors
-        $items = $items->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
+        $equipments = $equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
+
         $items = $this->putContaminatedItemsOnTop($items);
 
         $normalizedEquipments = $this->normalizeEquipments(

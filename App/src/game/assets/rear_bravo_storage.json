@@ -561,6 +561,146 @@
                  "width":20,
                  "x":21.6705754022362,
                  "y":91.0568584674121
+                }, 
+                {
+                 "gid":314,
+                 "height":41,
+                 "id":17,
+                 "name":"support_drone",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"drone",
+                 "visible":true,
+                 "width":22,
+                 "x":124.902545681712,
+                 "y":89.8820084335468
+                }, 
+                {
+                 "gid":314,
+                 "height":41,
+                 "id":18,
+                 "name":"support_drone",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"drone",
+                 "visible":true,
+                 "width":22,
+                 "x":189.072466031548,
+                 "y":87.2832266125254
+                }, 
+                {
+                 "gid":314,
+                 "height":41,
+                 "id":19,
+                 "name":"support_drone",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"drone",
+                 "visible":true,
+                 "width":22,
+                 "x":72.7270029673591,
+                 "y":91.6811650788693
+                }, 
+                {
+                 "gid":314,
+                 "height":41,
+                 "id":20,
+                 "name":"support_drone",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"drone",
+                 "visible":true,
+                 "width":22,
+                 "x":134.697954084023,
+                 "y":45.702717476183
+                }, 
+                {
+                 "gid":314,
+                 "height":41,
+                 "id":21,
+                 "name":"support_drone",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"drone",
+                 "visible":true,
+                 "width":22,
+                 "x":66.3300015617679,
+                 "y":46.1025300640325
                 }],
          "opacity":1,
          "properties":[
@@ -575,10 +715,10 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":17,
+ "nextobjectid":22,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.10.1",
+ "tiledversion":"1.11.1",
  "tileheight":16,
  "tilesets":[
         {
@@ -1857,6 +1997,20 @@
          "tilecount":1,
          "tileheight":31,
          "tilewidth":20
+        }, 
+        {
+         "columns":2,
+         "firstgid":314,
+         "image":"tilemaps\/support_drone.png",
+         "imageheight":41,
+         "imagewidth":44,
+         "margin":0,
+         "name":"support_drone",
+         "objectalignment":"bottomleft",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":41,
+         "tilewidth":22
         }],
  "tilewidth":32,
  "type":"map",

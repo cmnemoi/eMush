@@ -11,7 +11,6 @@ use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Plant;
@@ -88,7 +87,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'effects' => $this->getEquipmentEffects($equipment, $currentPlayer),
         ];
 
-        if ($equipment->shouldBeNormalizedAsItem() || $equipment instanceof GameItem) {
+        if ($equipment->shouldBeNormalizedAsItem()) {
             $normalizedEquipment['updatedAt'] = $equipment->getUpdatedAt();
         }
 

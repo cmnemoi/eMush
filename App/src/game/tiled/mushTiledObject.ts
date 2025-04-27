@@ -12,6 +12,7 @@ import ShelfObject from "@/game/objects/shelfObject";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import InteractObject, { InteractionInformation } from "@/game/objects/interactObject";
 import PatrolShipObject from "@/game/objects/patrolShipObject";
+import DroneObject from "@/game/objects/droneObject";
 
 export default class MushTiledObject {
     public tiledObj: Phaser.Types.Tilemaps.TiledObject;
@@ -30,6 +31,7 @@ export default class MushTiledObject {
             });
         case 'patrol_ship':
         case 'equipment':
+        case 'drone':
             return room.equipments.find((equipment: Equipment) => (equipment.key === this.tiledObj.name &&
                 (!(createdObjectId.includes(equipment.id)) || this.isCustomPropertyByName('grouped')))
             );
@@ -108,6 +110,22 @@ export default class MushTiledObject {
         case 'patrol_ship':
             if (equipmentEntity instanceof Equipment) {
                 return new PatrolShipObject(
+                    scene,
+                    cart_coords,
+                    this.getIsometricGeom(),
+                    tileset,
+                    frame,
+                    isFlipped,
+                    equipmentEntity,
+                    collides,
+                    isAnimationYoyo,
+                    group,
+                    interactionInformation
+                );
+            } else {break;}
+        case 'drone':
+            if (equipmentEntity instanceof Equipment) {
+                return new DroneObject(
                     scene,
                     cart_coords,
                     this.getIsometricGeom(),
@@ -264,6 +282,7 @@ export default class MushTiledObject {
         case 'door_ground':
         case 'equipment':
         case 'patrol_ship':
+        case 'drone':
             return this.tiledObj.name;
         case 'shelf':
             return 'shelf';

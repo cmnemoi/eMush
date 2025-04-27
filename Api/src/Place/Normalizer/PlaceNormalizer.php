@@ -75,7 +75,12 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         );
 
         // Split equipments between items and equipments
-        $partition = $room->getEquipments()->partition(static fn ($_, GameEquipment $gameEquipment) => ($gameEquipment->getClassName() === GameEquipment::class && $gameEquipment->shouldBeNormalizedAsItem() === false));
+        $partition = $room
+            ->getEquipments()
+            ->partition(
+                static fn ($_, GameEquipment $gameEquipment) => !$gameEquipment->shouldBeNormalizedAsItem()
+                || ($gameEquipment instanceof GameItem && $gameEquipment->shouldBeNormalizedAsEquipment())
+            );
 
         $equipments = $partition[0];
         $items = $partition[1];

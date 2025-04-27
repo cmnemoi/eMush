@@ -139,4 +139,9 @@ class GameItem extends GameEquipment
     {
         return $this->equipment->isPersonal();
     }
+
+    public function shouldBeNormalizedAsEquipment(): bool
+    {
+        return \in_array($this->getName(), [ItemEnum::SUPPORT_DRONE], true);
+    }
 }

@@ -92,6 +92,7 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $equipment->shouldReceive('getPlace')->andReturn($place);
+        $equipment->shouldReceive('getClassName')->andReturn(GameEquipment::class);
         $equipment->makePartial();
 
         $equipment
@@ -147,6 +148,7 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $time = new \DateTime();
         $equipment->shouldReceive('getUpdatedAt')->andReturn($time);
+        $equipment->shouldReceive('getClassName')->andReturn(GameItem::class);
         $equipment->makePartial();
 
         $equipment
@@ -210,6 +212,7 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $equipment->shouldReceive('getPlace')->andReturn($place);
+        $equipment->shouldReceive('getClassName')->andReturn(GameEquipment::class);
         $equipment->makePartial();
 
         $equipment
@@ -285,6 +288,7 @@ final class EquipmentNormalizerTest extends TestCase
         $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(false);
         $time = new \DateTime();
         $bananaTree->shouldReceive('getUpdatedAt')->andReturn($time);
+        $bananaTree->shouldReceive('getClassName')->andReturn(GameItem::class);
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);
@@ -348,6 +352,7 @@ final class EquipmentNormalizerTest extends TestCase
         $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(true);
         $time = new \DateTime();
         $bananaTree->shouldReceive('getUpdatedAt')->andReturn($time);
+        $bananaTree->shouldReceive('getClassName')->andReturn(GameItem::class);
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);

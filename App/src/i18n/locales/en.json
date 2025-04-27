@@ -626,6 +626,7 @@
 			"loadMoreMessages": "Load more messages",
 			"markChannelAsRead": "Mark channel as read",
 			"exportChannelAsPDF": "🖨️",
+			"exportChannelAsPDFDescription": "Will also copy the discussion to the clipboard.",
 			"unbookmark": "No more favorite",
 			"unbookmarkDescription": "Remove this thread from your favorites."
 		},
@@ -774,7 +775,9 @@
 			"report": "Complaint",
 			"report_abusive": "Abusive complaint",
 			"report_processed": "Complaint processed",
-			"alive": "ALIVE"
+			"alive": "ALIVE",
+			"name": "Sanction",
+			"showMore": "Display"
 		},
 		"reason": {
 			"multi_account": "Multiaccount",
@@ -846,6 +849,7 @@
 		"reduce": "Reduce",
 		"showAll": "Show all sanctions",
 		"sanctionsFor": "{username}'s sanctions list",
+		"reportsFor": "List of complaints sent against {username}.",
 		"isSanctionActive": "Active sanctions",
 		"sanctionType": "Sanction type",
 		"sanctionReason": "Reason",

@@ -745,6 +745,12 @@
         <target>upgrade_drone_to_pilot_success</target>
       </segment>
     </unit>
+    <unit id="upgrade_drone_to_sensor_success">
+      <segment id="upgrade_drone_to_sensor_success" state="initial">
+        <source>upgrade_drone_to_sensor_success</source>
+        <target>upgrade_drone_to_sensor_success</target>
+      </segment>
+    </unit>
     <unit id="take_cat">
       <segment id="take_cat" state="initial">
         <source>take_cat</source>

@@ -631,6 +631,18 @@
         <target>cycle_limit.description</target>
       </segment>
     </unit>
+    <unit id="cycle_limit_every_2">
+      <segment id="description" state="initial">
+        <source>cycle_limit_every_2.description</source>
+        <target>cycle_limit_every_2.description</target>
+      </segment>
+    </unit>
+    <unit id="cycle_limit_every_4">
+      <segment id="description" state="initial">
+        <source>cycle_limit_every_4.description</source>
+        <target>cycle_limit_every_4.description</target>
+      </segment>
+    </unit>
     <unit id="no_working_door">
       <segment id="description" state="initial">
         <source>no_working_door.description</source>

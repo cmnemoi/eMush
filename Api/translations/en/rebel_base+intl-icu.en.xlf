@@ -12,7 +12,8 @@
       </segment>
       <segment id="description" state="translated">
         <source>wolf.description</source>
-        <target>The Lost Children of Wolf installed many antennae on Earth along with a broadcasting station in Mumbai. We will be able to broadcast the news of your odyssey on terrestrial radio. You are heroes.</target>
+        <target>The Lost Children of Wolf installed many antennae on Earth along with a broadcasting station in Mumbai. We will be able to broadcast the news of your odyssey on terrestrial radio. You are heroes.//
+**All crew wins 8:triumph:.**</target>
       </segment>
     </unit>
     <unit id="sirius">

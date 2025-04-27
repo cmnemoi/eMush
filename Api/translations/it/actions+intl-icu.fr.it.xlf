@@ -1411,6 +1411,16 @@
         <target>upgrade_drone_to_pilot.description</target>
       </segment>
     </unit>
+    <unit id="upgrade_drone_to_sensor">
+      <segment id="name" state="initial">
+        <source>upgrade_drone_to_sensor.name</source>
+        <target>upgrade_drone_to_sensor.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>upgrade_drone_to_sensor.description</source>
+        <target>upgrade_drone_to_sensor.description</target>
+      </segment>
+    </unit>
     <unit id="take_cat">
       <segment id="name" state="initial">
         <source>take_cat.name</source>

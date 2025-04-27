@@ -1430,7 +1430,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mush.description</source>
-        <target>Vous faites partie du Mush.</target>
+        <target>Vous faites partie du Mush. // :point: Vous ne gagnez **pas d'énergie en mangeant**, mais **n'avez jamais faim.** // :point: Votre :pmo: moral est toujours au **maximum**. // :point: Vous pouvez lire les **propriétés des consommables**. // :point: Vous ne pouvez **pas tomber malade.**</target>
       </segment>
       <segment id="effect" state="translated">
         <source>mush.examine</source>

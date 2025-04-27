@@ -351,7 +351,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'neron_inhibition_name' => 'Entrave DMZ-CorePeace',
                 'neron_inhibition_description' => 'Active l\'inhibiteur de comportements de NERON. L\'inhibiteur permet de changer un certain nombre de comportements de NERON concernant l\'agressivité.',
                 'vocoded_announcements_name' => 'Annonces vocodées',
-                'vocoded_announcements_description' => 'Active la possibilité pour NERON de porter les message de l\'Admin. NERON.',
+                'vocoded_announcements_description' => 'Active la possibilité pour NERON de porter les messages de l\'Administrateur NERON.',
             ],
             actual: $normalizedTerminal['sectionTitles']
         );

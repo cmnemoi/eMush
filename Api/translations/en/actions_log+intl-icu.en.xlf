@@ -4,7 +4,7 @@
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
         <source>check_spore_level</source>
-        <target>You start seeking traces of Mush... Pre-fungal level {quantity, select, 0 {nul} other {{quantity}}}.</target>
+        <target>You start seeking traces of Mush... Pre-fungal level {quantity, select, 0 {null} other {{quantity}}}.</target>
       </segment>
     </unit>
     <unit id="coffee_success">
@@ -934,6 +934,12 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="upgrade_drone_to_pilot_success" state="translated">
         <source>upgrade_drone_to_pilot_success</source>
         <target>**{character}** has been hammering away at this poor {target_drone}. It's for the best though. {target_drone} has been upgraded to **Pilot**.</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_sensor_success">
+      <segment id="upgrade_drone_to_sensor_success" state="translated">
+        <source>upgrade_drone_to_sensor_success</source>
+        <target>**{character}** has been hammering away at this poor {target_drone}. It's for the best though. {target_drone} has been upgraded to **Sensor**.</target>
       </segment>
     </unit>
     <unit id="take_cat">

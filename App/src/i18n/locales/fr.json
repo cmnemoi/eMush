@@ -625,7 +625,7 @@
 			"report": "Plainte",
 			"loadMoreMessages": "Charger plus de messages",
 			"markChannelAsRead": "Marquer le canal comme lu",
-			"exportChannelAsPDF": "Exporter le canal au format PDF",
+			"exportChannelAsPDF": "🖨️",
 			"exportChannelAsPDFDescription": "Copiera également la discussion dans le presse-papiers.",
 			"unbookmark": "Plus favori",
 			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."

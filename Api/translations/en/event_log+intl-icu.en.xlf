@@ -80,7 +80,7 @@
     <unit id="gain_triumph">
       <segment state="translated">
         <source>gain_triumph</source>
-        <target>This action completes the personal objectives for your character. You have earned *{quantity} Glory*.</target>
+        <target>:triumph: You have earned *{quantity} Glory*.</target>
       </segment>
     </unit>
     <unit id="death">

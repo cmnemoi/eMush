@@ -366,7 +366,7 @@ Thanks for your help!</target>
     <unit id="retrieve_oxygen">
       <segment id="name" state="translated">
         <source>retrieve_oxygen.name</source>
-        <target>Retrieve an oxygen tank</target>
+        <target>Retrieve an oxygen capsule</target>
       </segment>
       <segment id="description" state="translated">
         <source>retrieve_oxygen.description</source>
@@ -1439,6 +1439,16 @@ Or you simply need some fresh air.... or not.</target>
         <source>upgrade_drone_to_pilot.description</source>
         <target>Allows you to add this drone://
 **Try to borrow a Patrol Ship and destroy all the Hunters before you leave. 20% targeting bonus compared to humans.**</target>
+      </segment>
+    </unit>
+    <unit id="upgrade_drone_to_sensor">
+      <segment id="name" state="translated">
+        <source>upgrade_drone_to_sensor.name</source>
+        <target>Upgrade : Sensor</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>upgrade_drone_to_sensor.description</source>
+        <target>Allows you to add to this drone://**Steers intelligently towards fire, broken equipment or the nearest patroller instead of moving randomly.**</target>
       </segment>
     </unit>
     <unit id="take_cat">

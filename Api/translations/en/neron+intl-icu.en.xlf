@@ -620,5 +620,11 @@ EVERYWHERE ACTIVATE DRY CLEANING}
                 }</target>
       </segment>
     </unit>
+    <unit id="command_refused">
+      <segment id="command_refused" state="translated">
+        <source>command_refused</source>
+        <target>Nothing happens, the order has been refused by NERON.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

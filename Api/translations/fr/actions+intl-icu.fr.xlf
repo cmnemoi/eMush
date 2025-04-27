@@ -1471,7 +1471,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>upgrade_drone_to_sensor.description</source>
-        <target>Permet d'ajouter à ce drone ://**Se dirige intelligemment vers l'équipement cassé ou le feu le plus proche au lieu de se déplacer aléatoirement.**//Le Drone est capable d'évoluer, profitez-en !</target>
+        <target>Permet d'ajouter à ce drone ://**Se dirige intelligemment vers le feu, l'équipement cassé ou le patrouilleur le plus proche au lieu de se déplacer aléatoirement.**//Le Drone est capable d'évoluer, profitez-en !</target>
       </segment>
     </unit>
     <unit id="take_cat">

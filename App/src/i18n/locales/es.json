@@ -625,6 +625,8 @@
 			"report": "Plainte",
 			"loadMoreMessages": "Charger plus de messages",
 			"markChannelAsRead": "Marquer le canal comme lu",
+			"exportChannelAsPDF": "Exporter le canal au format PDF",
+			"exportChannelAsPDFDescription": "Copiera également la discussion dans le presse-papiers.",
 			"unbookmark": "Plus favori",
 			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
 		},
@@ -773,7 +775,9 @@
 			"report": "Plainte",
 			"report_abusive": "Plainte abusive",
 			"report_processed": "Plainte traitée",
-			"alive": "EN VIE"
+			"alive": "EN VIE",
+			"name": "Sanction",
+			"showMore": "Afficher"
 		},
 		"reason": {
 			"multi_account": "Multicompte",
@@ -845,6 +849,7 @@
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",
 		"sanctionsFor": "Liste des sanctions de {username}",
+		"reportsFor": "Liste des plaintes envoyées contre {username}",
 		"isSanctionActive": "Sanctions en cours",
 		"sanctionType": "Type de sanction",
 		"sanctionReason": "Raison",

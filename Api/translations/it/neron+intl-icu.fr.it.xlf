@@ -277,5 +277,11 @@
         <target>april_fools_begin</target>
       </segment>
     </unit>
+    <unit id="command_refused">
+      <segment id="command_refused" state="initial">
+        <source>command_refused</source>
+        <target>command_refused</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

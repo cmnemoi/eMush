@@ -276,6 +276,22 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>No</target>
       </segment>
+      <segment id="vocoded_announcements_name" state="initial">
+        <source>bios_terminal.vocoded_announcements_name</source>
+        <target>bios_terminal.vocoded_announcements_name</target>
+      </segment>
+      <segment id="vocoded_announcements_description" state="initial">
+        <source>bios_terminal.vocoded_announcements_description</source>
+        <target>bios_terminal.vocoded_announcements_description</target>
+      </segment>
+      <segment id="vocoded_announcements_toggle_active" state="initial">
+        <source>bios_terminal.vocoded_announcements_toggle_active</source>
+        <target>bios_terminal.vocoded_announcements_toggle_active</target>
+      </segment>
+      <segment id="vocoded_announcements_toggle_inactive" state="initial">
+        <source>bios_terminal.vocoded_announcements_toggle_inactive</source>
+        <target>bios_terminal.vocoded_announcements_toggle_inactive</target>
+      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="translated">

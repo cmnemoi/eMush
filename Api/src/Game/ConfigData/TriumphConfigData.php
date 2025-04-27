@@ -51,4 +51,9 @@ class TriumphConfigData
         ['name' => 'pregnancy', 'triumph' => 8, 'is_all_crew' => false, 'team' => VisibilityEnum::PUBLIC],
         ['name' => 'all_pregnant', 'triumph' => 2, 'is_all_crew' => true, 'team' => VisibilityEnum::PUBLIC],
     ];
+
+    public static function getByName(string $name): array
+    {
+        return array_filter(self::$dataArray, static fn (array $config) => $config['name'] === $name)[0];
+    }
 }

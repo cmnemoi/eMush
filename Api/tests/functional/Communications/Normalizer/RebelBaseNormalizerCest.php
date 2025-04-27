@@ -107,7 +107,7 @@ final class RebelBaseNormalizerCest extends AbstractFunctionalTest
             'key' => 'wolf',
             'name' => 'Wolf',
             'hoverName' => 'Message des Enfants Perdus de Wolf',
-            'description' => 'Les enfants perdus de Wolf ont installé plusieurs antennes sur Terre ainsi qu\'un centre d’émission à Mumbaï. Nous allons pouvoir émettre sur les ondes radios terriennes les nouvelles de votre odyssée. Vous êtes des héros.',
+            'description' => 'Les enfants perdus de Wolf ont installé plusieurs antennes sur Terre ainsi qu\'un centre d’émission à Mumbaï. Nous allons pouvoir émettre sur les ondes radios terriennes les nouvelles de votre odyssée. Vous êtes des héros.//**Tout l\'équipage gagne 8:triumph:.**',
             'signal' => '100%',
             'isContacting' => false,
             'isLost' => false,

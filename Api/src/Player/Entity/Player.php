@@ -123,9 +123,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private PlayerVariables $playerVariables;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $triumph = 0;
-
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: Planet::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $planets;
 
@@ -762,19 +759,19 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function getTriumph(): int
     {
-        return $this->triumph;
+        return $this->playerVariables->getValueByName(PlayerVariableEnum::TRIUMPH);
     }
 
     public function setTriumph(int $triumph): static
     {
-        $this->triumph = $triumph;
+        $this->playerVariables->setValueByName($triumph, PlayerVariableEnum::TRIUMPH);
 
         return $this;
     }
 
     public function addTriumph(int $triumph): static
     {
-        $this->triumph += $triumph;
+        $this->playerVariables->changeValueByName($triumph, PlayerVariableEnum::TRIUMPH);
 
         return $this;
     }

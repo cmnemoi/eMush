@@ -23,9 +23,7 @@ class PlayerFactory extends Module
             'username' => 'username',
         ]);
 
-        $factory->_define(Player::class, [
-            'triumph' => 0,
-        ]);
+        $factory->_define(Player::class, []);
         $factory->_define(CharacterConfig::class, [
             'name' => CharacterEnum::GIOELE . '_' . GameConfigEnum::TEST,
             'characterName' => CharacterEnum::GIOELE,

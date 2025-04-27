@@ -21,9 +21,11 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\ConfigData\DifficultyConfigData;
+use Mush\Game\ConfigData\TriumphConfigData;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Entity\TriumphConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Hunter\ConfigData\HunterConfigData;
 use Mush\Hunter\Entity\HunterConfig;
@@ -64,6 +66,7 @@ final class DaedalusFactory
         $gameConfig->setDiseaseCauseConfig(self::getDiseaseCauseConfigs());
         $gameConfig->setDiseaseConfig(self::getDiseaseConfigs());
         $gameConfig->setCharactersConfig(self::getCharacterConfigs());
+        $gameConfig->setTriumphConfig(self::getTriumphConfigs());
 
         return $daedalus;
     }
@@ -198,5 +201,16 @@ final class DaedalusFactory
         }
 
         return $characterConfigs;
+    }
+
+    private static function getTriumphConfigs(): ArrayCollection
+    {
+        /** @var ArrayCollection<array-key, TriumphConfig> $triumpthConfigs */
+        $triumpthConfigs = new ArrayCollection();
+        foreach (TriumphConfigData::$dataArray as $triumpthConfigData) {
+            $triumpthConfigs->add(TriumphConfig::fromConfigData($triumpthConfigData));
+        }
+
+        return $triumpthConfigs;
     }
 }

@@ -18,4 +18,15 @@ class TriumphConfigCollection extends ArrayCollection
 
         return $triumph === false ? null : $triumph;
     }
+
+    public function getByNameOrThrow(string $name): TriumphConfig
+    {
+        $triumph = $this->getTriumph($name);
+
+        if ($triumph === null) {
+            throw new \RuntimeException("Triumph config {$name} not found");
+        }
+
+        return $triumph;
+    }
 }

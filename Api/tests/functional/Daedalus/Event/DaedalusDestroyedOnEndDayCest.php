@@ -2,14 +2,12 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
@@ -18,7 +16,6 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -46,24 +43,8 @@ class DaedalusDestroyedOnEndDayCest
 
     public function testDestroyDaedalus(FunctionalTester $I)
     {
-        $statusConfig = new StatusConfig();
-        $statusConfig->setStatusName(PlayerStatusEnum::MUSH)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($statusConfig);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-
-        /** @var DaedalusConfig $gameConfig */
-        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => 'default']);
-        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
-
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'daedalusConfig' => $daedalusConfig,
-            'localizationConfig' => $localizationConfig,
-            'statusConfigs' => new ArrayCollection([$statusConfig]),
-            'hunterConfigs' => new ArrayCollection($hunterConfigs),
-        ]);
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -79,9 +60,9 @@ class DaedalusDestroyedOnEndDayCest
             'filledAt' => new \DateTime(),
             'cycleStartedAt' => new \DateTime(),
         ]);
-        $daedalus->setDaedalusVariables($daedalusConfig);
+        $daedalus->setDaedalusVariables($gameConfig->getDaedalusConfig());
 
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => 'fr']));
         $daedalusInfo
             ->setNeron($neron)
             ->setGameStatus(GameStatusEnum::CURRENT);
@@ -128,7 +109,7 @@ class DaedalusDestroyedOnEndDayCest
 
         $I->haveInRepository($player);
 
-        $status = new Status($player, $statusConfig);
+        $status = new Status($player, $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]));
         $I->haveInRepository($status);
 
         $event = new DaedalusCycleEvent($daedalus, [], new \DateTime());

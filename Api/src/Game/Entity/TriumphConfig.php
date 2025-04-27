@@ -25,6 +25,18 @@ class TriumphConfig
     #[ORM\Column(type: 'string', nullable: false)]
     private string $team;
 
+    public static function fromConfigData(array $configData): self
+    {
+        $triumphConfig = new self();
+        $triumphConfig
+            ->setName($configData['name'])
+            ->setTriumph($configData['triumph'])
+            ->setIsAllCrew($configData['is_all_crew'])
+            ->setTeam($configData['team']);
+
+        return $triumphConfig;
+    }
+
     public function getId(): int
     {
         return $this->id;

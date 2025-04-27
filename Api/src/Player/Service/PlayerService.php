@@ -318,21 +318,13 @@ final class PlayerService implements PlayerServiceInterface
 
     private function handleTriumphChange(Player $player, \DateTime $date): void
     {
-        $triumphChange = 0;
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
-        if ($player->isMush() && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))) {
-            $triumphChange = $mushTriumph->getTriumph();
-        }
-        if (!$player->isMush() && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))) {
-            $triumphChange = $humanTriumph->getTriumph();
-        }
+        $humanTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_HUMAN);
+        $mushTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_MUSH);
+        $triumphChange = $player->isMush() ? $mushTriumph->getTriumph() : $humanTriumph->getTriumph();
 
         $player->addTriumph($triumphChange);
-
-        if ($player->getTriumph() < 0) {
-            $player->setTriumph(0);
-        }
 
         $this->roomLogService->createLog(
             PlayerModifierLogEnum::GAIN_TRIUMPH,

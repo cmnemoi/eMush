@@ -91,7 +91,7 @@
     <unit id="gain_triumph">
       <segment state="translated">
         <source>gain_triumph</source>
-        <target>:triumph: Cette action remplit les objectifs personnels de votre personnage. Vous gagnez *{quantity} Triomphe*.</target>
+        <target>:triumph: Vous gagnez *{quantity} Triomphe*.</target>
       </segment>
     </unit>
     <unit id="death">

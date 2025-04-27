@@ -71,6 +71,22 @@ class PlayerVariables extends GameVariableCollection
             minValue: 0
         );
 
-        parent::__construct([$actionVariable, $movementVariable, $moralVariable, $healthVariable, $satietyVariable, $sporeVariable, $privateChannelsVariable]);
+        $triumphVariable = new GameVariable(
+            variableCollection: $this,
+            name: PlayerVariableEnum::TRIUMPH,
+            initValue: 0,
+            minValue: null,
+        );
+
+        parent::__construct([
+            $actionVariable,
+            $movementVariable,
+            $moralVariable,
+            $healthVariable,
+            $satietyVariable,
+            $sporeVariable,
+            $privateChannelsVariable,
+            $triumphVariable,
+        ]);
     }
 }

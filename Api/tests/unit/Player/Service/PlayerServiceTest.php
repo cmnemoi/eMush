@@ -28,6 +28,8 @@ use Mush\Player\Repository\InMemoryPlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -215,6 +217,39 @@ final class PlayerServiceTest extends TestCase
         $savedPlayer = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
 
         $this->thenPlayerShouldBeDead($savedPlayer);
+    }
+
+    public function testTriumphGainForHuman(): void
+    {
+        $this->roomLogService->shouldIgnoreMissing();
+
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, DaedalusFactory::createDaedalus());
+        $player->setTriumph(0);
+        $this->playerRepository->save($player);
+
+        $this->whenIHandleNewCycleForPlayer($player);
+
+        $savedPlayer = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
+
+        self::assertSame(1, $savedPlayer->getTriumph());
+    }
+
+    public function testTriumphGainForMush(): void
+    {
+        $this->roomLogService->shouldIgnoreMissing();
+
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, DaedalusFactory::createDaedalus());
+        $player->setTriumph(120);
+        $this->playerRepository->save($player);
+
+        // given player is mush
+        StatusFactory::createChargeStatusFromStatusName(PlayerStatusEnum::MUSH, $player);
+
+        $this->whenIHandleNewCycleForPlayer($player);
+
+        $savedPlayer = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
+
+        self::assertSame(118, $savedPlayer->getTriumph());
     }
 
     private function givenAndieWithMorale(int $morale): Player

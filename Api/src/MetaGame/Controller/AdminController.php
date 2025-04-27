@@ -233,7 +233,12 @@ class AdminController extends AbstractFOSRestController
             if ($player->isAlive()) {
                 return $this->view('Some players are still alive', Response::HTTP_BAD_REQUEST);
             }
-            $this->playerService->endPlayer($player, '', []);
+
+            try {
+                $this->playerService->endPlayer($player, '', []);
+            } catch (\Exception $e) {
+                continue;
+            }
         }
 
         return $this->view('All players closed successfully', Response::HTTP_OK);

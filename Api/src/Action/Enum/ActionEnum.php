@@ -37,6 +37,7 @@ enum ActionEnum: string
     case SABOTAGE = 'sabotage';
     case GO_BERSERK = 'go_berserk';
     case CONVERT_CAT = 'convert_cat';
+    case SEARCH_FOR_MUSH_GENOME = 'search_for_mush_genome';
 
     // Item-enabled actions
     case READ_DOCUMENT = 'read_document';

@@ -55,6 +55,7 @@ final class ProjectConfigFixtures extends Fixture implements DependentFixtureInt
         $newProjectConfigData['spawnEquipmentConfigs'] = [];
         $newProjectConfigData['replaceEquipmentConfigs'] = [];
         $newProjectConfigData['requirements'] = [];
+        $newProjectConfigData['skins'] = [];
 
         foreach ($projectConfigData['modifierConfigs'] as $modifierConfigName) {
             $modifierConfig = $this->getReference($modifierConfigName);

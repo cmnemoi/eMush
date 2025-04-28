@@ -136,10 +136,12 @@ class OtherPlayerNormalizer implements NormalizerInterface, NormalizerAwareInter
 
         /** @var SkinSlot $slot */
         foreach ($player->getSkinSlots() as $slot) {
-            $skins[] = [
-                'emplacement' => $slot->getName(),
-                'skinName' => $slot->getSkin()->getName(),
-            ];
+            if (($skin = $slot->getSkin()) !== null) {
+                $skins[] = [
+                    'skinSlotName' => $slot->getName(),
+                    'skinName' => $skin->getName(),
+                ];
+            }
         }
 
         return $skins;

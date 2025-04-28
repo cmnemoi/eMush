@@ -53,7 +53,7 @@ export default class DecorationObject extends Phaser.GameObjects.Sprite {
     {
         if (textureProperties.isAnimated) {
             const textureName = textureProperties.textureName;
-            const prefix = this.name;
+            const prefix = textureProperties.frameKey;
 
             const frames = this.anims.generateFrameNames(textureName, { prefix: prefix+'-', frames: textureProperties.frames  });
 

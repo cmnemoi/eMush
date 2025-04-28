@@ -118,6 +118,10 @@ export default class MushTiledObject {
             );
         case 'equipment':
             if (equipmentEntity instanceof Equipment) {
+                const skins = equipmentEntity.skins;
+                for (let i = 0; i < skins.length; i++) {
+                    textureProperties.addSkin(skins[i]);
+                }
                 return new EquipmentObject(
                     scene,
                     name,

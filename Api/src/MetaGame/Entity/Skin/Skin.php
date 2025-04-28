@@ -3,8 +3,10 @@
 namespace Mush\MetaGame\Entity\Skin;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\MetaGame\Entity\UnlockCondition;
 
+/**
+ * An entity that stores a visual appearance for a SkinableEntityInterface (Player, Equipment, Place).
+ */
 #[ORM\Entity]
 #[ORM\Table(name: 'skin')]
 class Skin
@@ -17,8 +19,8 @@ class Skin
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name = 'default';
 
-    #[ORM\ManyToOne(targetEntity: UnlockCondition::class)]
-    private UnlockCondition $unlockCondition;
+    #[ORM\ManyToOne(targetEntity: SkinSlotConfig::class)]
+    private SkinSlotConfig $skinSlotConfig;
 
     public function getId(): int
     {
@@ -37,15 +39,20 @@ class Skin
         return $this;
     }
 
-    public function getUnlockCondition(): UnlockCondition
+    public function getSkinSlotName(): string
     {
-        return $this->unlockCondition;
+        return $this->skinSlotConfig->getName();
     }
 
-    public function setUnlockCondition(UnlockCondition $unlockCondition): self
+    public function setSkinSlotConfig(SkinSlotConfig $skinSlotConfig): self
     {
-        $this->unlockCondition = $unlockCondition;
+        $this->skinSlotConfig = $skinSlotConfig;
 
         return $this;
+    }
+
+    public function getSkinSlotConfig(): SkinSlotConfig
+    {
+        return $this->skinSlotConfig;
     }
 }

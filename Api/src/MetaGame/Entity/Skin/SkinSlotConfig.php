@@ -2,10 +2,11 @@
 
 namespace Mush\MetaGame\Entity\Skin;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Config that stores all the possible skins for a given skinnable entity.
+ */
 #[ORM\Entity]
 #[ORM\Table(name: 'skin_slot_config')]
 class SkinSlotConfig
@@ -18,13 +19,11 @@ class SkinSlotConfig
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
-    #[ORM\ManyToMany(targetEntity: Skin::class)]
-    private Collection $skins;
+    #[ORM\Column(type: 'string', length: 255, unique: false, nullable: false)]
+    private string $skinableClass;
 
-    public function __construct()
-    {
-        $this->skins = new ArrayCollection();
-    }
+    #[ORM\Column(type: 'string', length: 255, unique: false, nullable: false)]
+    private string $skinableName;
 
     public function getId(): int
     {
@@ -43,22 +42,27 @@ class SkinSlotConfig
         return $this;
     }
 
-    public function getSkins(): ArrayCollection
+    public function setSkinableClass(string $skinableClass): self
     {
-        return new ArrayCollection($this->skins->toArray());
-    }
-
-    public function setSkins(ArrayCollection $skins): self
-    {
-        $this->skins = $skins;
+        $this->skinableClass = $skinableClass;
 
         return $this;
     }
 
-    public function addSkin(Skin $skin): self
+    public function getSkinableClass(): string
     {
-        $this->skins->add($skin);
+        return $this->skinableClass;
+    }
+
+    public function setSkinableName(string $skinableName): self
+    {
+        $this->skinableName = $skinableName;
 
         return $this;
+    }
+
+    public function getSkinableName(): string
+    {
+        return $this->skinableName;
     }
 }

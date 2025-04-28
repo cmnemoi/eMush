@@ -40,6 +40,8 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
+use Mush\MetaGame\Entity\Skin\SkinableEntityInterface;
+use Mush\MetaGame\Entity\Skin\SkinableEntityTrait;
 use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -83,9 +85,10 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
+class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface, SkinableEntityInterface
 {
     use ModifierHolderTrait;
+    use SkinableEntityTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -156,7 +159,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[OrderBy(['createdAt' => Order::Descending->value])]
     private Collection $receivedMissions;
 
-    #[ORM\ManyToMany(targetEntity: SkinSlot::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: SkinSlot::class, cascade: ['ALL'])]
     private Collection $skinSlots;
 
     public function __construct()
@@ -1243,23 +1246,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function isInactive(): bool
     {
         return $this->hasAnyStatuses([PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE]);
-    }
-
-    public function getSkinSlots(): ArrayCollection
-    {
-        return new ArrayCollection($this->skinSlots->toArray());
-    }
-
-    public function initializeSkinSlots(CharacterConfig $characterConfig): static
-    {
-        foreach ($characterConfig->getSkinSlotsConfig() as $skinSlotConfig) {
-            $skinSlot = new SkinSlot();
-            $skinSlot->setNameFromConfig($skinSlotConfig);
-
-            $this->skinSlots->add($skinSlot);
-        }
-
-        return $this;
     }
 
     public function getHumanLevel(): int

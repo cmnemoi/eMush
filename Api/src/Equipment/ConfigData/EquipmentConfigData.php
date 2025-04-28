@@ -6,6 +6,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\MetaGame\Enum\SkinEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 
 /** @codeCoverageIgnore */
@@ -2326,6 +2327,7 @@ class EquipmentConfigData
             'failedManoeuvrePatrolShipDamage' => [],
             'failedManoeuvrePlayerDamage' => [],
             'numberOfExplorationSteps' => 9,
+            'skinSlotsConfig' => [SkinEnum::ICARUS_PLAYER_SKIN_SLOT, SkinEnum::ICARUS_LARGE, SkinEnum::ICARUS_THRUSTER],
         ],
         [
             'name' => 'door_default',
@@ -2386,6 +2388,7 @@ class EquipmentConfigData
                 'tool_neron_core_default',
             ],
             'initStatuses' => [],
+            'skinSlotsConfig' => [SkinEnum::NERON_CORE_PARTICIPATION],
         ],
         [
             'name' => 'auxiliary_core_default',
@@ -2407,6 +2410,7 @@ class EquipmentConfigData
                 'tool_auxiliary_terminal_default',
             ],
             'initStatuses' => [],
+            'skinSlotsConfig' => [SkinEnum::NERON_PARTICIPATION_AUXILIARY_TERMINAL],
         ],
         [
             'name' => 'astro_terminal_default',
@@ -2542,6 +2546,7 @@ class EquipmentConfigData
                 'gear_planet_scanner_default',
             ],
             'initStatuses' => [],
+            'skinSlotsConfig' => [SkinEnum::SCANNER_OVERCLOCKING],
         ],
         [
             'name' => 'quantum_sensors_planet_scanner_default',
@@ -2675,6 +2680,7 @@ class EquipmentConfigData
                 'gear_antenna_default',
             ],
             'initStatuses' => [],
+            'skinSlotsConfig' => [SkinEnum::ANTENNA_SPATIAL_WAVE],
         ],
         [
             'name' => 'radar_trans_void_antenna_default',
@@ -2893,6 +2899,7 @@ class EquipmentConfigData
             'initStatuses' => [
                 'sink_charge_default',
             ],
+            'skinSlotsConfig' => [SkinEnum::KITCHEN_APERO],
         ],
         [
             'name' => 'snc_kitchen_default',
@@ -3006,6 +3013,7 @@ class EquipmentConfigData
             ],
             'mechanics' => ['tool_bed_default'],
             'initStatuses' => [],
+            'skinSlotsConfig' => [SkinEnum::SOFA_PLAYER_SKIN_SLOT],
         ],
         [
             'name' => 'coffee_machine_default',
@@ -3085,6 +3093,7 @@ class EquipmentConfigData
             'initStatuses' => [
                 'electric_charges_turret_command_default',
             ],
+            'skinSlotsConfig' => [SkinEnum::TURRET_CHARGES, SkinEnum::TURRET_TESLA],
         ],
         [
             'name' => 'surgery_plot_default',
@@ -3791,6 +3800,7 @@ class EquipmentConfigData
             ],
             'mechanics' => ['container_coffee_thermos_default'],
             'initStatuses' => ['electric_charges_coffee_thermos_default'],
+            'skinSlotsConfig' => [SkinEnum::COFFEE_MACHINE_GUARANA, SkinEnum::COFFEE_MACHINE_FISSION],
         ],
         [
             'name' => 'apprentron_optimist_default',

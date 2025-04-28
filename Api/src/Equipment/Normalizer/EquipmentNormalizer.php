@@ -327,10 +327,12 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         /** @var SkinSlot $slot */
         foreach ($equipment->getSkinSlots() as $slot) {
-            $skins[] = [
-                'emplacement' => $slot->getName(),
-                'skinName' => $slot->getSkin()->getName(),
-            ];
+            if (($skin = $slot->getSkin()) !== null) {
+                $skins[] = [
+                    'skinSlotName' => $slot->getName(),
+                    'skinName' => $skin->getName(),
+                ];
+            }
         }
 
         return $skins;

@@ -44,6 +44,8 @@ use Mush\Game\ConfigData\LocalizationConfigDataLoader;
 use Mush\Game\ConfigData\TitleConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Hunter\ConfigData\HunterConfigDataLoader;
+use Mush\MetaGame\ConfigData\SkinDataLoader;
+use Mush\MetaGame\ConfigData\SkinSlotConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\EventModifierConfigDataLoader;
 use Mush\Modifier\ConfigData\ModifierActivationRequirementDataLoader;
@@ -67,6 +69,8 @@ class ConfigDataLoaderService
     private ArrayCollection $dataLoaders;
 
     public function __construct(
+        SkinSlotConfigDataLoader $skinSlotConfigDataLoader,
+        SkinDataLoader $skinDataLoader,
         ModifierActivationRequirementDataLoader $modifierActivationRequirementDataLoader,
         EventModifierConfigDataLoader $eventModifierConfigDataLoader,
         VariableEventModifierConfigDataLoader $variableEventModifierConfigDataLoader,
@@ -124,6 +128,8 @@ class ConfigDataLoaderService
         /** @var ArrayCollection<int, ConfigDataLoader> $dataLoaders */
         $dataLoaders = new ArrayCollection(
             [
+                $skinSlotConfigDataLoader,
+                $skinDataLoader,
                 $variableEventConfigDataLoader,
                 $modifierActivationRequirementDataLoader,
                 $eventModifierConfigDataLoader,

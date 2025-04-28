@@ -98,7 +98,7 @@ class EquipmentConfig implements SkinableConfigInterface
         $gameEquipment
             ->setName($this->getEquipmentShortName())
             ->setEquipment($this)
-            ->initializeSkinSlots();
+            ->initializeSkinSlots($this);
 
         return $gameEquipment;
     }

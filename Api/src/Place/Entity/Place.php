@@ -20,6 +20,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\MetaGame\Entity\Skin\SkinableEntityInterface;
+use Mush\MetaGame\Entity\Skin\SkinableEntityTrait;
 use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -49,6 +50,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface, SkinableEntityInterface
 {
     use ModifierHolderTrait;
+    use SkinableEntityTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -84,7 +86,7 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     #[ORM\OneToMany(mappedBy: 'space', targetEntity: Hunter::class, cascade: ['REMOVE'], orphanRemoval: true)]
     private Collection $hunters;
 
-    #[ORM\ManyToMany(targetEntity: SkinSlot::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'place', targetEntity: SkinSlot::class, cascade: ['ALL'])]
     private Collection $skinSlots;
 
     public function __construct()
@@ -671,22 +673,5 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     public function hasAlivePlayerWithSkill(SkillEnum $skill): bool
     {
         return $this->getPlayers()->getPlayersWithSkill($skill)->getPlayerAlive()->count() > 0;
-    }
-
-    public function getSkinSlots(): ArrayCollection
-    {
-        return new ArrayCollection($this->skinSlots->toArray());
-    }
-
-    public function initializeSkinSlots(PlaceConfig $placeConfig): static
-    {
-        foreach ($placeConfig->getSkinSlotsConfig() as $skinSlotConfig) {
-            $skinSlot = new SkinSlot();
-            $skinSlot->setNameFromConfig($skinSlotConfig);
-
-            $this->skinSlots->add($skinSlot);
-        }
-
-        return $this;
     }
 }

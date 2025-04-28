@@ -54,17 +54,22 @@ export enum SkinEnum {
 export interface SkinInfo {
     name: string,
     key: string,
-    frameChanges: { initialFrame: string, newFrame: string },
-    startFrame?: number,
-    endFrame?: number,
+    frameChanges: Array<{ initialFrame: string, newFrame: string }>,
+    animationChange?: [{ duration: number, tileid: number }]
 }
 
+// Skins are applied in alphabetical order of the skin slots
 export const skinEnum : {[index: string]: SkinInfo}  = {
     [SkinEnum.JANICE_SEXY]: {
         name: 'Janice Sexy',
         key: 'janiceSexy',
-        frameChanges: { initialFrame: 'janice', newFrame: 'janice_sexy' },
-        startFrame: null,
-        endFrame: null,
+        frameChanges: [{ initialFrame: 'janice', newFrame: 'janice_sexy' }],
+        animationChange: undefined,
+    },
+    [SkinEnum.NERON_CORE_PARTICIPATION]: {
+        name: 'Neron Core Participation',
+        key: 'neron_core_participation',
+        frameChanges: [{ initialFrame: 'neron_core', newFrame: 'neron_core-participation' }],
+        animationChange: undefined
     },
 };

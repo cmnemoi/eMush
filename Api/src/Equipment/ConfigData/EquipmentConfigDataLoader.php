@@ -3,6 +3,7 @@
 namespace Mush\Equipment\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -10,6 +11,7 @@ use Mush\Equipment\Entity\EquipmentMechanic as Mechanics;
 use Mush\Equipment\Repository\EquipmentConfigRepository;
 use Mush\Equipment\Repository\MechanicsRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
+use Mush\MetaGame\Entity\Skin\SkinSlotConfig;
 use Mush\Status\Repository\StatusConfigRepository;
 
 class EquipmentConfigDataLoader extends ConfigDataLoader
@@ -18,6 +20,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
     protected ActionConfigRepository $actionConfigRepository;
     protected MechanicsRepository $mechanicsRepository;
     protected StatusConfigRepository $statusConfigRepository;
+    protected EntityRepository $skinSlotConfigRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -31,6 +34,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
         $this->actionConfigRepository = $actionConfigRepository;
         $this->mechanicsRepository = $mechanicsRepository;
         $this->statusConfigRepository = $statusConfigRepository;
+        $this->skinSlotConfigRepository = $entityManager->getRepository(SkinSlotConfig::class);
     }
 
     public function loadConfigsData(): void
@@ -50,6 +54,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
             $this->setEquipmentConfigActions($equipmentConfig, $equipmentConfigData);
             $this->setEquipmentConfigMechanics($equipmentConfig, $equipmentConfigData);
             $this->setEquipmentConfigStatusConfigs($equipmentConfig, $equipmentConfigData);
+            $this->setSkinSlotConfig($equipmentConfig, $equipmentConfigData);
 
             $this->entityManager->persist($equipmentConfig);
         }
@@ -105,5 +110,18 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
             $statusConfigs[] = $statusConfig;
         }
         $equipmentConfig->setInitStatuses($statusConfigs);
+    }
+
+    protected function setSkinSlotConfig(EquipmentConfig $equipmentConfig, array $equipmentConfigData): void
+    {
+        if (\array_key_exists('skinSlotsConfig', $equipmentConfigData)) {
+            foreach ($equipmentConfigData['skinSlotsConfig'] as $skinSlotName) {
+                $skinSlotConfig = $this->skinSlotConfigRepository->findOneBy(['name' => $skinSlotName]);
+                if ($skinSlotConfig === null) {
+                    throw new \Exception('Skin slot configs not found: ' . $skinSlotName);
+                }
+                $equipmentConfig->addSkinSlot($skinSlotConfig);
+            }
+        }
     }
 }

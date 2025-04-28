@@ -29,6 +29,8 @@ use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
+use Mush\MetaGame\Entity\Skin\SkinableEntityInterface;
+use Mush\MetaGame\Entity\Skin\SkinableEntityTrait;
 use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -60,9 +62,10 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'drone' => Drone::class,
     'space_ship' => SpaceShip::class,
 ])]
-class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
+class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface, SkinableEntityInterface
 {
     use ModifierHolderTrait;
+    use SkinableEntityTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -89,7 +92,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private ?Player $owner = null;
 
-    #[ORM\ManyToMany(targetEntity: SkinSlot::class, cascade: ['REMOVE'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: SkinSlot::class, cascade: ['ALL'])]
     private Collection $skinSlots;
 
     public function __construct(
@@ -198,6 +201,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     public function setEquipment(EquipmentConfig $equipment): static
     {
         $this->equipment = $equipment;
+        $this->initializeSkinSlots($equipment);
 
         return $this;
     }
@@ -666,23 +670,6 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     public function shouldBeNormalizedAsItem(): bool
     {
         return $this instanceof GameItem || \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
-    }
-
-    public function getSkinSlots(): ArrayCollection
-    {
-        return new ArrayCollection($this->skinSlots->toArray());
-    }
-
-    public function initializeSkinSlots(): static
-    {
-        foreach ($this->equipment->getSkinSlotsConfig() as $skinSlotConfig) {
-            $skinSlot = new SkinSlot();
-            $skinSlot->setNameFromConfig($skinSlotConfig);
-
-            $this->skinSlots->add($skinSlot);
-        }
-
-        return $this;
     }
 
     public function isSchrodinger(): bool

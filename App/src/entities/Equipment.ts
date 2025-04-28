@@ -1,5 +1,6 @@
 import { Action } from "@/entities/Action";
 import { Status } from "@/entities/Status";
+import { Skin } from "@/entities/Skin";
 
 export class Equipment {
     public id: number;
@@ -9,6 +10,7 @@ export class Equipment {
     public actions: Array<Action>;
     public statuses: Array<Status>;
     public isBroken: boolean;
+    public skins: Array<Skin>;
 
     constructor() {
         this.id = 0;
@@ -17,6 +19,7 @@ export class Equipment {
         this.statuses = [];
         this.description = null;
         this.isBroken = false;
+        this.skins = [];
     }
     load(object :any): Equipment {
         if (typeof object !== "undefined") {
@@ -35,6 +38,10 @@ export class Equipment {
                 if (status.key === 'broken') {
                     this.isBroken = true;
                 }
+            });
+            object.skins.forEach((skinObject : any) => {
+                const skin = (new Skin()).load(skinObject);
+                this.skins.push(skin);
             });
         }
         return this;

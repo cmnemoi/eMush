@@ -3,8 +3,13 @@
 namespace Mush\Status\Listener;
 
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -15,13 +20,16 @@ class PlayerSubscriber implements EventSubscriberInterface
 {
     private StatusServiceInterface $statusService;
     private UserServiceInterface $userService;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         StatusServiceInterface $statusService,
         UserServiceInterface $userService,
+        EventServiceInterface $eventService,
     ) {
         $this->statusService = $statusService;
         $this->userService = $userService;
+        $this->eventService = $eventService;
     }
 
     public static function getSubscribedEvents()
@@ -46,26 +54,11 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onNewPlayer(PlayerEvent $playerEvent): void
     {
-        $player = $playerEvent->getPlayer();
-        $characterConfig = $playerEvent->getCharacterConfig();
-        $reasons = $playerEvent->getTags();
-        $time = $playerEvent->getTime();
-
-        if ($characterConfig === null) {
-            throw new \LogicException('playerConfig should be provided');
-        }
-        $initStatuses = $characterConfig->getInitStatuses();
-
-        foreach ($initStatuses as $statusConfig) {
-            $this->statusService->createStatusFromConfig(
-                $statusConfig,
-                $player,
-                $reasons,
-                $time
-            );
-        }
+        $this->createInitStatusesForPlayer($playerEvent);
 
         $this->createBeginnerStatusForPlayer($playerEvent);
+
+        $this->addMoraleIfLinkWithSolEstablished($playerEvent);
     }
 
     public function onPlayerDeath(PlayerEvent $playerEvent): void
@@ -193,6 +186,47 @@ class PlayerSubscriber implements EventSubscriberInterface
                 tags: $event->getTags(),
                 time: $event->getTime(),
             );
+        }
+    }
+
+    private function createInitStatusesForPlayer(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+        $characterConfig = $event->getCharacterConfig();
+        $reasons = $event->getTags();
+        $time = $event->getTime();
+
+        if ($characterConfig === null) {
+            throw new \LogicException('playerConfig should be provided');
+        }
+        $initStatuses = $characterConfig->getInitStatuses();
+
+        foreach ($initStatuses as $statusConfig) {
+            $this->statusService->createStatusFromConfig(
+                $statusConfig,
+                $player,
+                $reasons,
+                $time
+            );
+        }
+    }
+
+    private function addMoraleIfLinkWithSolEstablished(PlayerEvent $event): void
+    {
+        $player = $event->getPlayer();
+        $reasons = $event->getTags();
+        $time = $event->getTime();
+
+        if ($event->getDaedalus()->hasStatus(DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE)) {
+            $playerModifierEvent = new PlayerVariableEvent(
+                $player,
+                PlayerVariableEnum::MORAL_POINT,
+                3,
+                $reasons,
+                $time,
+            );
+            $playerModifierEvent->setVisibility(VisibilityEnum::PRIVATE);
+            $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
     }
 }

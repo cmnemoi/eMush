@@ -7,7 +7,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -28,6 +27,7 @@ use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Triumph\Enum\TriumphEnum;
 use Mush\User\Entity\User;
 
 final class PlayerService implements PlayerServiceInterface
@@ -322,7 +322,7 @@ final class PlayerService implements PlayerServiceInterface
 
         $humanTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_HUMAN);
         $mushTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_MUSH);
-        $triumphChange = $player->isMush() ? $mushTriumph->getTriumph() : $humanTriumph->getTriumph();
+        $triumphChange = $player->isMush() ? $mushTriumph->getQuantity() : $humanTriumph->getQuantity();
 
         $player->addTriumph($triumphChange);
 

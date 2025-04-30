@@ -1,14 +1,26 @@
-Mush\Game\Entity\TriumphConfig:
+Mush\Triumph\Entity\TriumphConfig:
   properties:
     name:
       - NotBlank: ~
       - Type: string
-    triumph:
-      - NotBlank: ~
-      - Type: integer
-    isAllCrew:
-      - NotBlank: ~
-      - Type: boolean
-    team:
+    scope:
       - NotBlank: ~
       - Type: string
+    target:
+      - NotBlank: ~
+      - Type: string
+    quantity:
+      - NotBlank: ~
+      - Type: integer
+    visibility:
+      - NotBlank: ~
+      - Type: string
+    regressiveFactor:
+      - NotBlank: ~
+      - Type: integer
+    hasComputeStrategy:
+      - NotBlank: ~
+      - Type: boolean
+    applicationStrategies:
+      - NotBlank: ~
+      - Type: array

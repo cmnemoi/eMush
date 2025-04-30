@@ -1,15 +1,17 @@
 <?php
 
-namespace Mush\Game\Repository;
+declare(strict_types=1);
+
+namespace Mush\Triumph\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Mush\Game\Entity\TriumphConfig;
+use Mush\Triumph\Entity\TriumphConfig;
 
 /**
  * @template-extends ServiceEntityRepository<TriumphConfig>
  */
-class TriumphConfigRepository extends ServiceEntityRepository
+final class TriumphConfigRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

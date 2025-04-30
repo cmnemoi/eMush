@@ -21,11 +21,9 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\ConfigData\DifficultyConfigData;
-use Mush\Game\ConfigData\TriumphConfigData;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Entity\TriumphConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Hunter\ConfigData\HunterConfigData;
 use Mush\Hunter\Entity\HunterConfig;
@@ -36,6 +34,8 @@ use Mush\Player\ConfigData\CharacterConfigData;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Triumph\ConfigData\TriumphConfigData;
+use Mush\Triumph\Entity\TriumphConfig;
 use Symfony\Component\Uid\Uuid;
 
 final class DaedalusFactory
@@ -207,8 +207,8 @@ final class DaedalusFactory
     {
         /** @var ArrayCollection<array-key, TriumphConfig> $triumpthConfigs */
         $triumpthConfigs = new ArrayCollection();
-        foreach (TriumphConfigData::$dataArray as $triumpthConfigData) {
-            $triumpthConfigs->add(TriumphConfig::fromConfigData($triumpthConfigData));
+        foreach (TriumphConfigData::getAll() as $triumpthConfigData) {
+            $triumpthConfigs->add(TriumphConfig::fromDto($triumpthConfigData));
         }
 
         return $triumpthConfigs;

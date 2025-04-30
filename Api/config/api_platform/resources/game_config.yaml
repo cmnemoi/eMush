@@ -37,7 +37,7 @@ Mush\Game\Entity\GameConfig:
         collection: true
     triumphConfig:
       subresource:
-        resourceClass: 'Mush\Game\Entity\TriumphConfig'
+        resourceClass: 'Mush\Triumph\Entity\TriumphConfig'
         collection: true
     diseaseCauseConfig:
       subresource:

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Triumph\ConfigData;
 
+use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -43,6 +45,16 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL,
                 target: CharacterEnum::CHUN,
                 quantity: 1,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::RETURN_TO_SOL->toConfigKey('default'),
+                name: TriumphEnum::RETURN_TO_SOL,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                targetedEventExpectedTags: [
+                    ActionEnum::RETURN_TO_SOL->toString(),
+                ],
+                scope: TriumphScope::ALL_HUMAN,
+                quantity: 20,
             ),
         ];
     }

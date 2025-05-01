@@ -8,6 +8,7 @@ enum TriumphScope: string
 {
     case HUMAN_TARGET = 'human_target';
     case MUSH_TARGET = 'mush_target';
+    case PERSONAL = 'personal';
 
     case NULL = '';
 }

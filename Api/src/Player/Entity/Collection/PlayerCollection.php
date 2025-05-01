@@ -53,6 +53,11 @@ class PlayerCollection extends ArrayCollection
         return $this->getPlayerByName($name) ?? throw new \RuntimeException("Player with name {$name} not found");
     }
 
+    public function getAllByName(string $name): self
+    {
+        return $this->filter(static fn (Player $player) => $player->getName() === $name);
+    }
+
     public function getPlayersWithSkill(SkillEnum $skill): self
     {
         return $this->filter(static fn (Player $player) => $player->hasSkill($skill));

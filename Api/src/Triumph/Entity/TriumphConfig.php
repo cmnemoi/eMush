@@ -31,6 +31,9 @@ class TriumphConfig
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $targetedEvent;
 
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $targetedEventExpectedTags;
+
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $target;
 
@@ -54,6 +57,7 @@ class TriumphConfig
         TriumphEnum $name,
         TriumphScope $scope,
         string $targetedEvent,
+        array $targetedEventExpectedTags,
         string $target,
         int $quantity,
         TriumphVisibility $visibility,
@@ -65,6 +69,7 @@ class TriumphConfig
         $this->name = $name;
         $this->scope = $scope;
         $this->targetedEvent = $targetedEvent;
+        $this->targetedEventExpectedTags = $targetedEventExpectedTags;
         $this->target = $target;
         $this->quantity = $quantity;
         $this->visibility = $visibility;
@@ -83,6 +88,26 @@ class TriumphConfig
         return $this->quantity;
     }
 
+    public function getScope(): TriumphScope
+    {
+        return $this->scope;
+    }
+
+    public function getTarget(): string
+    {
+        return $this->target;
+    }
+
+    public function getTargetedEvent(): string
+    {
+        return $this->targetedEvent;
+    }
+
+    public function getTargetedEventExpectedTags(): array
+    {
+        return $this->targetedEventExpectedTags;
+    }
+
     public static function fromDto(TriumphConfigDto $triumphConfigDto): self
     {
         return new self(
@@ -90,6 +115,7 @@ class TriumphConfig
             $triumphConfigDto->name,
             $triumphConfigDto->scope,
             $triumphConfigDto->targetedEvent,
+            $triumphConfigDto->targetedEventExpectedTags,
             $triumphConfigDto->target,
             $triumphConfigDto->quantity,
             $triumphConfigDto->visibility,
@@ -105,6 +131,7 @@ class TriumphConfig
         $this->name = $triumphConfigDto->name;
         $this->scope = $triumphConfigDto->scope;
         $this->targetedEvent = $triumphConfigDto->targetedEvent;
+        $this->targetedEventExpectedTags = $triumphConfigDto->targetedEventExpectedTags;
         $this->target = $triumphConfigDto->target;
         $this->quantity = $triumphConfigDto->quantity;
         $this->visibility = $triumphConfigDto->visibility;

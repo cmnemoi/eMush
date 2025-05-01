@@ -23,7 +23,7 @@ final class ChangeTriumphFromEventService
         $triumphConfigs = $this->triumphConfigRepository->findAllByTargetedEvent($event);
 
         foreach ($triumphConfigs as $triumphConfig) {
-            if (!$event->hasExpectedTags($triumphConfig)) {
+            if (!$event->hasExpectedTagsFor($triumphConfig)) {
                 continue;
             }
 

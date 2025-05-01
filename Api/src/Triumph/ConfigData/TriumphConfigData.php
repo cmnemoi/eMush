@@ -25,7 +25,7 @@ abstract class TriumphConfigData
                 key: TriumphEnum::CYCLE_HUMAN->toConfigKey('default'),
                 name: TriumphEnum::CYCLE_HUMAN,
                 targetedEvent: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
-                scope: TriumphScope::ALL_HUMAN,
+                scope: TriumphScope::ALL_ACTIVE_HUMAN,
                 quantity: 1,
             ),
             new TriumphConfigDto(

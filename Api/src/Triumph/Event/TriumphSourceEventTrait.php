@@ -8,7 +8,7 @@ use Mush\Triumph\Entity\TriumphConfig;
 
 trait TriumphSourceEventTrait
 {
-    public function hasExpectedTags(TriumphConfig $triumphConfig): bool
+    public function hasExpectedTagsFor(TriumphConfig $triumphConfig): bool
     {
         return $this->hasAllTags($triumphConfig->getTargetedEventExpectedTags());
     }

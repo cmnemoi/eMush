@@ -47,7 +47,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         $this->daedalus = DaedalusFactory::createDaedalus();
     }
 
-    public function testShouldGiveAllHumanTriumphToAllHumanPlayers(): void
+    public function testShouldGiveAllActiveHumanTriumphToAllHumanPlayers(): void
     {
         // Given
         $player = $this->givenAHumanPlayer();
@@ -61,6 +61,21 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         // Then
         $this->thenPlayerShouldHaveTriumph($player, 1);
         $this->thenPlayerShouldHaveTriumph($player2, 1);
+    }
+
+    public function testShouldNotGiveAllActiveHumanTriumphToInactivePlayers(): void
+    {
+        // Given
+        $player = $this->givenAHumanPlayer();
+        $this->givenPlayerIsInactive($player);
+        $this->givenTriumphConfigExists(TriumphEnum::CYCLE_HUMAN);
+        $event = $this->givenANewDaedalusCycleEvent($this->daedalus);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenPlayerShouldHaveTriumph($player, 0);
     }
 
     public function testShouldGiveMushTargetTriumphToMushPlayer(): void
@@ -137,6 +152,21 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         $this->thenTriumphChangedEventShouldBeDispatched();
     }
 
+    public function testShouldNotGiveTriumphToDeadPlayer(): void
+    {
+        // Given
+        $player = $this->givenAHumanPlayer();
+        $this->givenPlayerIsDead($player);
+        $this->givenTriumphConfigExists(TriumphEnum::CYCLE_HUMAN);
+        $event = $this->givenANewDaedalusCycleEvent($this->daedalus);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenPlayerShouldHaveTriumph($player, 0);
+    }
+
     private function givenAHumanPlayer(): Player
     {
         return PlayerFactory::createPlayerWithDaedalus($this->daedalus);
@@ -186,6 +216,19 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         $event->setEventName(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         return $event;
+    }
+
+    private function givenPlayerIsInactive(Player $player): void
+    {
+        StatusFactory::createStatusByNameForHolder(
+            name: PlayerStatusEnum::INACTIVE,
+            holder: $player,
+        );
+    }
+
+    private function givenPlayerIsDead(Player $player): void
+    {
+        $player->kill();
     }
 
     private function whenChangingTriumphForEvent(TriumphSourceEventInterface $event): void

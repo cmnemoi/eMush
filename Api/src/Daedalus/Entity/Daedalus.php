@@ -206,6 +206,16 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $player;
     }
 
+    public function getHumanPlayers(): PlayerCollection
+    {
+        return $this->getPlayers()->getHumanPlayer();
+    }
+
+    public function getMushPlayers(): PlayerCollection
+    {
+        return $this->getPlayers()->getMushPlayer();
+    }
+
     public function getVisibleResearchProjectsForPlayer(Player $player): ProjectCollection
     {
         return $this

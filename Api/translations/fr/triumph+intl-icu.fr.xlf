@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="triumph.ext">
+    <unit id="cycle_human">
+      <segment id="cycle_human" state="translated">
+        <source>cycle_human</source>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez survécu un cycle de plus.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

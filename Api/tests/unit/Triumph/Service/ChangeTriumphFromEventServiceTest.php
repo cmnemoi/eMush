@@ -8,6 +8,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -25,8 +27,9 @@ use PHPUnit\Framework\TestCase;
 final class ChangeTriumphFromEventServiceTest extends TestCase
 {
     private ChangeTriumphFromEventService $service;
-    private InMemoryTriumphConfigRepository $triumphConfigRepository;
 
+    private EventServiceInterface $eventService;
+    private InMemoryTriumphConfigRepository $triumphConfigRepository;
     private Daedalus $daedalus;
 
     /**
@@ -34,100 +37,167 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
      */
     protected function setUp(): void
     {
+        $this->eventService = \Mockery::spy(EventServiceInterface::class);
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
-        $this->service = new ChangeTriumphFromEventService($this->triumphConfigRepository);
+        $this->service = new ChangeTriumphFromEventService(
+            eventService: $this->eventService,
+            triumphConfigRepository: $this->triumphConfigRepository,
+        );
         $this->daedalus = DaedalusFactory::createDaedalus();
     }
 
     public function testShouldGiveHumanTargetTriumphToHumanPlayer(): void
     {
-        $this->triumphConfigRepository->save(
-            TriumphConfig::fromDto(
-                TriumphConfigData::getByName(TriumphEnum::CYCLE_HUMAN)
-            )
-        );
+        // Given
+        $player = $this->givenAHumanPlayer();
+        $this->givenTriumphConfigExists(TriumphEnum::CYCLE_HUMAN);
+        $event = $this->givenANewCycleEvent($player);
 
-        $player = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
-        $event = new PlayerCycleEvent($player, [], new \DateTime());
-        $event->setEventName(PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        // When
+        $this->whenChangingTriumphForEvent($event);
 
-        $this->service->execute($event);
-
-        self::assertEquals(1, $player->getTriumph(), 'Player should have 1 triumph');
+        // Then
+        $this->thenPlayerShouldHaveTriumph($player, 1);
     }
 
     public function testShouldGiveMushTargetTriumphToMushPlayer(): void
     {
-        $this->triumphConfigRepository->save(
-            TriumphConfig::fromDto(
-                TriumphConfigData::getByName(TriumphEnum::CYCLE_MUSH)
-            )
-        );
+        // Given
+        $player = $this->givenAMushPlayer();
+        $this->givenTriumphConfigExists(TriumphEnum::CYCLE_MUSH);
+        $this->givenPlayerHasTriumph($player, 120);
+        $event = $this->givenANewCycleEvent($player);
 
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenPlayerShouldHaveTriumph($player, 118);
+    }
+
+    public function testShouldGivePersonalTriumphToTargetedCharacter(): void
+    {
+        // Given
+        $player = $this->givenAPlayerWithCharacter(CharacterEnum::CHUN);
+        $this->givenTriumphConfigExists(TriumphEnum::CHUN_LIVES);
+        $event = $this->givenANewCycleEventWithTags($player, [EventEnum::NEW_DAY]);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenPlayerShouldHaveTriumph($player, 1);
+    }
+
+    public function testShouldNotGivePersonalTriumphToOtherPlayer(): void
+    {
+        // Given
+        $player = $this->givenAHumanPlayer();
+        $this->givenTriumphConfigExists(TriumphEnum::CHUN_LIVES);
+        $event = $this->givenANewCycleEventWithTags($player, [EventEnum::NEW_DAY]);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenPlayerShouldHaveTriumph($player, 0);
+    }
+
+    public function testShouldNotGiveTriumphIfEventDoesNotHaveExpectedTags(): void
+    {
+        // Given
+        $player = $this->givenAPlayerWithCharacter(CharacterEnum::CHUN);
+        $this->givenTriumphConfigExists(TriumphEnum::CHUN_LIVES);
+        $event = $this->givenANewCycleEvent($player);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenPlayerShouldHaveTriumph($player, 0);
+    }
+
+    public function testShouldDispatchTriumphChangedEvent(): void
+    {
+        // Given
+        $player = $this->givenAHumanPlayer();
+        $this->givenTriumphConfigExists(TriumphEnum::CYCLE_HUMAN);
+        $event = $this->givenANewCycleEvent($player);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenTriumphChangedEventShouldBeDispatched();
+    }
+
+    private function givenAHumanPlayer(): Player
+    {
+        return PlayerFactory::createPlayerWithDaedalus($this->daedalus);
+    }
+
+    private function givenAMushPlayer(): Player
+    {
         $player = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
         StatusFactory::createChargeStatusFromStatusName(
             name: PlayerStatusEnum::MUSH,
             holder: $player,
         );
-        $player->setTriumph(120);
 
+        return $player;
+    }
+
+    private function givenAPlayerWithCharacter(string $character): Player
+    {
+        return PlayerFactory::createPlayerByNameAndDaedalus($character, $this->daedalus);
+    }
+
+    private function givenTriumphConfigExists(TriumphEnum $triumphName): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(
+                TriumphConfigData::getByName($triumphName)
+            )
+        );
+    }
+
+    private function givenPlayerHasTriumph(Player $player, int $triumph): void
+    {
+        $player->setTriumph($triumph);
+    }
+
+    private function givenANewCycleEvent(Player $player): PlayerCycleEvent
+    {
         $event = new PlayerCycleEvent($player, [], new \DateTime());
         $event->setEventName(PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
-        $this->service->execute($event);
-
-        self::assertEquals(118, $player->getTriumph(), 'Player should have 118 triumphs');
+        return $event;
     }
 
-    public function testShouldGivePersonalTriumphToTargetedCharacter(): void
+    private function givenANewCycleEventWithTags(Player $player, array $tags): PlayerCycleEvent
     {
-        $this->triumphConfigRepository->save(
-            TriumphConfig::fromDto(
-                TriumphConfigData::getByName(TriumphEnum::CHUN_LIVES)
-            )
-        );
-
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $this->daedalus);
-        $event = new PlayerCycleEvent($player, [EventEnum::NEW_DAY], new \DateTime());
+        $event = new PlayerCycleEvent($player, $tags, new \DateTime());
         $event->setEventName(PlayerCycleEvent::PLAYER_NEW_CYCLE);
 
-        $this->service->execute($event);
-
-        self::assertEquals(1, $player->getTriumph(), 'Player should have 1 triumph');
+        return $event;
     }
 
-    public function testShouldNotGivePersonalTriumphToOtherPlayer(): void
+    private function whenChangingTriumphForEvent(PlayerCycleEvent $event): void
     {
-        $this->triumphConfigRepository->save(
-            TriumphConfig::fromDto(
-                TriumphConfigData::getByName(TriumphEnum::CHUN_LIVES)
-            )
-        );
-
-        $player = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
-        $event = new PlayerCycleEvent($player, [EventEnum::NEW_DAY], new \DateTime());
-        $event->setEventName(PlayerCycleEvent::PLAYER_NEW_CYCLE);
-
         $this->service->execute($event);
-
-        self::assertEquals(0, $player->getTriumph(), 'Player should have 0 triumph');
     }
 
-    public function testShouldNotGiveTriumphIfEventDoesNotHaveExpectedTags(): void
+    private function thenPlayerShouldHaveTriumph(Player $player, int $expectedTriumph): void
     {
-        // Chun lives expected "NEW_DAY" tag
-        $this->triumphConfigRepository->save(
-            TriumphConfig::fromDto(
-                TriumphConfigData::getByName(TriumphEnum::CHUN_LIVES)
-            )
+        self::assertEquals(
+            expected: $expectedTriumph,
+            actual: $player->getTriumph(),
+            message: \sprintf('Player should have %d triumph', $expectedTriumph)
         );
+    }
 
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $this->daedalus);
-        $event = new PlayerCycleEvent($player, [], new \DateTime());
-        $event->setEventName(PlayerCycleEvent::PLAYER_NEW_CYCLE);
-
-        $this->service->execute($event);
-
-        self::assertEquals(0, $player->getTriumph(), 'Player should have 0 triumph');
+    private function thenTriumphChangedEventShouldBeDispatched(): void
+    {
+        $this->eventService->shouldHaveReceived('callEvent')->once();
     }
 }

@@ -19,7 +19,7 @@ final class TriumphConfigFixtures extends Fixture implements DependentFixtureInt
         foreach (TriumphConfigData::getAll() as $triumphConfigDto) {
             $triumphConfig = TriumphConfig::fromDto($triumphConfigDto);
             $manager->persist($triumphConfig);
-            $this->addReference($triumphConfigDto->name->value, $triumphConfig);
+            $this->addReference('triumph_config_' . $triumphConfigDto->name->toString(), $triumphConfig);
 
             $gameConfig->addTriumphConfig($triumphConfig);
         }

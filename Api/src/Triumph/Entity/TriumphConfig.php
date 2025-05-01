@@ -108,6 +108,11 @@ class TriumphConfig
         return $this->targetedEventExpectedTags;
     }
 
+    public function getVisibility(): TriumphVisibility
+    {
+        return $this->visibility;
+    }
+
     public static function fromDto(TriumphConfigDto $triumphConfigDto): self
     {
         return new self(

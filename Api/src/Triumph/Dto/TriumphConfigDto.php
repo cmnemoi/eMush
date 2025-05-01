@@ -17,6 +17,7 @@ final readonly class TriumphConfigDto
         public string $targetedEvent,
         public int $quantity,
         public bool $hasComputeStrategy = false,
+        public array $targetedEventExpectedTags = [],
         public TriumphVisibility $visibility = TriumphVisibility::PRIVATE,
         public string $target = '',
         public int $regressiveFactor = 0,

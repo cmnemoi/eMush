@@ -13,5 +13,5 @@ interface TriumphSourceEventInterface
 
     public function getTargetsForTriumph(TriumphConfig $triumphConfig): PlayerCollection;
 
-    public function hasExpectedTags(TriumphConfig $triumphConfig): bool;
+    public function hasExpectedTagsFor(TriumphConfig $triumphConfig): bool;
 }

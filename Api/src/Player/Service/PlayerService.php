@@ -206,10 +206,6 @@ final class PlayerService implements PlayerServiceInterface
 
         $this->applyCycleChangesPointsGain($player, $date);
 
-        if ($player->isActive()) {
-            $this->handleTriumphChange($player, $date);
-        }
-
         return $this->persist($player);
     }
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Triumph\Service;
 
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -28,12 +28,12 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
 
     public function shouldPrintLogWhenTriumphIsChanged(FunctionalTester $I): void
     {
-        $event = new PlayerCycleEvent(
-            player: $this->player,
+        $event = new DaedalusCycleEvent(
+            daedalus: $this->daedalus,
             tags: [],
             time: new \DateTime(),
         );
-        $event->setEventName(PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $event->setEventName(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         $this->changeTriumphFromEventService->execute($event);
 

@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
@@ -24,6 +25,7 @@ final class FinishDaedalusEventTest extends TestCase
 {
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
+    private EventServiceInterface $eventService;
 
     private Daedalus $daedalus;
     private Player $player;
@@ -31,20 +33,66 @@ final class FinishDaedalusEventTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
-        $this->changeTriumphFromEventService = new ChangeTriumphFromEventService($this->triumphConfigRepository);
+        $this->givenATriumphConfigRepository();
+        $this->givenAnEventService();
+        $this->givenAChangeTriumphFromEventService();
+        $this->givenADaedalusWithTwoPlayers();
+    }
 
+    public function testShouldGiveReturnToSolTriumphToAllHumanWhenReturningToSol(): void
+    {
+        $this->givenAReturnToSolTriumphConfig();
+
+        $this->whenDaedalusFinishesWithReturnToSol();
+
+        $this->thenAllPlayersHaveTriumphPoints(20);
+    }
+
+    public function testShouldNotGiveReturnToSolTriumphToAllHumanWhenNotReturningToSol(): void
+    {
+        $this->givenAReturnToSolTriumphConfig();
+
+        $this->whenDaedalusFinishesWithoutReturnToSol();
+
+        $this->thenAllPlayersHaveTriumphPoints(0);
+    }
+
+    private function givenATriumphConfigRepository(): void
+    {
+        $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
+    }
+
+    private function givenAnEventService(): void
+    {
+        /** @var EventServiceInterface $eventService */
+        $eventService = $this->createStub(EventServiceInterface::class);
+        $this->eventService = $eventService;
+    }
+
+    private function givenAChangeTriumphFromEventService(): void
+    {
+        $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
+            eventService: $this->eventService,
+            triumphConfigRepository: $this->triumphConfigRepository,
+        );
+    }
+
+    private function givenADaedalusWithTwoPlayers(): void
+    {
         $this->daedalus = DaedalusFactory::createDaedalus();
         $this->player = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
         $this->player2 = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
     }
 
-    public function testShouldGiveReturnToSolTriumphToAllHumanWhenReturningToSol(): void
+    private function givenAReturnToSolTriumphConfig(): void
     {
         $this->triumphConfigRepository->save(
             TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::RETURN_TO_SOL))
         );
+    }
 
+    private function whenDaedalusFinishesWithReturnToSol(): void
+    {
         $event = new DaedalusEvent(
             daedalus: $this->daedalus,
             tags: [ActionEnum::RETURN_TO_SOL->toString()],
@@ -53,18 +101,10 @@ final class FinishDaedalusEventTest extends TestCase
         $event->setEventName(DaedalusEvent::FINISH_DAEDALUS);
 
         $this->changeTriumphFromEventService->execute($event);
-
-        foreach ($this->daedalus->getAlivePlayers() as $player) {
-            self::assertEquals(20, $player->getTriumph());
-        }
     }
 
-    public function testShouldNotGiveReturnToSolTriumphToAllHumanWhenNotReturningToSol(): void
+    private function whenDaedalusFinishesWithoutReturnToSol(): void
     {
-        $this->triumphConfigRepository->save(
-            TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::RETURN_TO_SOL))
-        );
-
         $event = new DaedalusEvent(
             daedalus: $this->daedalus,
             tags: [],
@@ -73,9 +113,12 @@ final class FinishDaedalusEventTest extends TestCase
         $event->setEventName(DaedalusEvent::FINISH_DAEDALUS);
 
         $this->changeTriumphFromEventService->execute($event);
+    }
 
+    private function thenAllPlayersHaveTriumphPoints(int $expectedPoints): void
+    {
         foreach ($this->daedalus->getAlivePlayers() as $player) {
-            self::assertEquals(0, $player->getTriumph());
+            self::assertEquals($expectedPoints, $player->getTriumph());
         }
     }
 }

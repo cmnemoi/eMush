@@ -16,4 +16,9 @@ enum TriumphEnum: string
     {
         return $this->value . '_' . $configKey;
     }
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
 }

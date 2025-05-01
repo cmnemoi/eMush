@@ -671,7 +671,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
 
     public function shouldBeNormalizedAsItem(): bool
     {
-        return $this->getClassName() === GameItem::class || \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
+        return $this instanceof GameItem || \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
     }
 
     public function isSchrodinger(): bool

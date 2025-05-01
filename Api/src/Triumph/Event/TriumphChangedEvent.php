@@ -42,6 +42,6 @@ final class TriumphChangedEvent extends AbstractGameEvent
 
     public function getQuantity(): int
     {
-        return $this->triumphConfig->getQuantity();
+        return abs($this->triumphConfig->getQuantity());
     }
 }

@@ -4,7 +4,25 @@
     <unit id="cycle_human">
       <segment id="cycle_human" state="translated">
         <source>cycle_human</source>
-        <target>Vous avez gagné {quantity} :triumph: car vous avez survécu un cycle de plus.</target>
+        <target>Vous gagnez {quantity} :triumph: car vous avez survécu un cycle de plus.</target>
+      </segment>
+    </unit>
+    <unit id="cycle_mush">
+      <segment id="cycle_mush" state="translated">
+        <source>cycle_mush</source>
+        <target>Vous perdez {quantity} :triumph_mush: car vous avez laissé ces humains survivre un cycle de plus.</target>
+      </segment>
+    </unit>
+    <unit id="chun_lives">
+      <segment id="chun_lives" state="translated">
+        <source>chun_lives</source>
+        <target>Vous gagnez {quantity} :triumph: car vous avez survécu un jour de plus en tant que Chun !</target>
+      </segment>
+    </unit>
+    <unit id="return_to_sol">
+      <segment id="return_to_sol" state="translated">
+        <source>return_to_sol</source>
+        <target>Vous gagnez {quantity} :triumph: car vous êtes rentré sur Sol.</target>
       </segment>
     </unit>
   </file>

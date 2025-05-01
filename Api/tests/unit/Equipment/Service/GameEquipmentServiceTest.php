@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Repository\GameEquipmentRepository;
+use Mush\Equipment\Service\DamageEquipmentServiceInterface;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentService;
@@ -33,6 +34,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class GameEquipmentServiceTest extends TestCase
 {
+    private DamageEquipmentServiceInterface|Mockery\Mock $damageEquipmentService;
     private EventServiceInterface|Mockery\Mock $eventService;
     private EntityManagerInterface|Mockery\Mock $entityManager;
     private GameEquipmentRepository|Mockery\Mock $repository;
@@ -49,6 +51,7 @@ final class GameEquipmentServiceTest extends TestCase
     public function before()
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->damageEquipmentService = \Mockery::mock(DamageEquipmentServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->repository = \Mockery::mock(GameEquipmentRepository::class);
         $this->equipmentService = \Mockery::mock(EquipmentServiceInterface::class);
@@ -59,6 +62,7 @@ final class GameEquipmentServiceTest extends TestCase
         $this->service = new GameEquipmentService(
             $this->entityManager,
             $this->repository,
+            $this->damageEquipmentService,
             $this->equipmentService,
             $this->randomService,
             $this->eventService,

@@ -11,6 +11,7 @@ use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
@@ -42,14 +43,8 @@ class EquipmentConfig
     #[ORM\ManyToMany(targetEntity: EquipmentMechanic::class)]
     private Collection $mechanics;
 
-    #[ORM\Column(type: 'boolean', nullable: false)]
-    private bool $isBreakable = false;
-
-    #[ORM\Column(type: 'boolean', nullable: false)]
-    private bool $isFireDestroyable = false;
-
-    #[ORM\Column(type: 'boolean', nullable: false)]
-    private bool $isFireBreakable = false;
+    #[ORM\Column(type: 'string', length: 255, nullable: false, enumType: BreakableTypeEnum::class, options: ['default' => BreakableTypeEnum::NONE])]
+    private BreakableTypeEnum $breakableType = BreakableTypeEnum::NONE;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $dismountedProducts = [];
@@ -77,9 +72,7 @@ class EquipmentConfig
         $config
             ->setName($configData['name'])
             ->setEquipmentName($configData['equipmentName'])
-            ->setIsBreakable($configData['isBreakable'])
-            ->setIsFireDestroyable($configData['isFireDestroyable'])
-            ->setIsFireBreakable($configData['isFireBreakable'])
+            ->setBreakableType($configData['breakableType'])
             ->setDismountedProducts($configData['dismountedProducts'])
             ->setIsPersonal($configData['isPersonal']);
 
@@ -194,57 +187,21 @@ class EquipmentConfig
     }
 
     // this is needed for api_platform to work
-    public function getIsFireDestroyable(): bool
+    public function getBreakableType(): BreakableTypeEnum
     {
-        return $this->isFireDestroyable;
+        return $this->breakableType;
     }
 
-    public function isFireDestroyable(): bool
+    public function setBreakableType(BreakableTypeEnum $breakableType): static
     {
-        return $this->getIsFireDestroyable();
-    }
-
-    public function setIsFireDestroyable(bool $isFireDestroyable): static
-    {
-        $this->isFireDestroyable = $isFireDestroyable;
+        $this->breakableType = $breakableType;
 
         return $this;
     }
 
-    // this is needed for api_platform to work
-    public function getIsFireBreakable(): bool
+    public function canBeDamaged(): bool
     {
-        return $this->isFireBreakable;
-    }
-
-    public function isFireBreakable(): bool
-    {
-        return $this->getIsFireBreakable();
-    }
-
-    public function setIsFireBreakable(bool $isFireBreakable): static
-    {
-        $this->isFireBreakable = $isFireBreakable;
-
-        return $this;
-    }
-
-    // this is needed for api_platform to work
-    public function getIsBreakable(): bool
-    {
-        return $this->isBreakable;
-    }
-
-    public function isBreakable(): bool
-    {
-        return $this->getIsBreakable();
-    }
-
-    public function setIsBreakable(bool $isBreakable): static
-    {
-        $this->isBreakable = $isBreakable;
-
-        return $this;
+        return $this->breakableType !== BreakableTypeEnum::NONE;
     }
 
     /**

@@ -7,6 +7,7 @@ use Mush\Action\Validator\Breakable;
 use Mush\Action\Validator\BreakableValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Place\Entity\Place;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -40,7 +41,7 @@ final class BreakableValidatorTest extends TestCase
     public function testValid()
     {
         $itemConfig = new ItemConfig();
-        $itemConfig->setIsBreakable(true);
+        $itemConfig->setBreakableType(BreakableTypeEnum::BREAKABLE);
 
         $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
@@ -58,7 +59,7 @@ final class BreakableValidatorTest extends TestCase
     public function testNotValid()
     {
         $itemConfig = new ItemConfig();
-        $itemConfig->setIsBreakable(false);
+        $itemConfig->setBreakableType(BreakableTypeEnum::NONE);
 
         $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);

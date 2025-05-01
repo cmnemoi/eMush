@@ -9,6 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -64,23 +65,15 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         /** @var ActionConfig $dismantle50 */
         $dismantle50 = $this->getReference(TechnicianFixtures::DISMANTLE_3_50);
 
-        $compass = new ItemConfig();
+        $compass = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::QUADRIMETRIC_COMPASS));
         $compass
-            ->setEquipmentName(ItemEnum::QUADRIMETRIC_COMPASS)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($compass);
 
         $ropeGear = $this->createGear([GearModifierConfigFixtures::ROPE_MODIFIER], GearItemEnum::ROPE);
-        $rope = new ItemConfig();
+        $rope = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::ROPE));
         $rope
-            ->setEquipmentName(ItemEnum::ROPE)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($actions)
             ->setMechanics([$ropeGear])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -92,35 +85,22 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $drillActions->add($sabotage50);
         $drillActions->add($reportAction);
 
-        $drill = new ItemConfig();
+        $drill = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::DRILL));
         $drill
-            ->setEquipmentName(ItemEnum::DRILL)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs($drillActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($drill);
 
-        $babelModule = new ItemConfig();
+        $babelModule = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::BABEL_MODULE));
         $babelModule
-            ->setEquipmentName(ItemEnum::BABEL_MODULE)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($babelModule);
 
-        $echolocator = new ItemConfig();
+        $echolocator = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::ECHOLOCATOR));
         $echolocator
-            ->setEquipmentName(ItemEnum::ECHOLOCATOR)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($echolocator);
@@ -131,24 +111,15 @@ class ExplorationConfigFixtures extends Fixture implements DependentFixtureInter
         $thermosensorActions->add($sabotage25);
         $thermosensorActions->add($reportAction);
 
-        $thermosensor = new ItemConfig();
+        $thermosensor = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::THERMOSENSOR));
         $thermosensor
-            ->setEquipmentName(ItemEnum::THERMOSENSOR)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
-            ->setIsBreakable(true)
             ->setActionConfigs($thermosensorActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($thermosensor);
 
-        $whiteFlag = new ItemConfig();
+        $whiteFlag = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::WHITE_FLAG));
         $whiteFlag
-            ->setEquipmentName(ItemEnum::WHITE_FLAG)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($whiteFlag);

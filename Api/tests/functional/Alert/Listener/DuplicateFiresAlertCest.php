@@ -18,6 +18,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -130,7 +131,8 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
             EquipmentConfig::class,
             [
                 'name' => EquipmentEnum::GRAVITY_SIMULATOR,
-                'actionConfigs' => new ArrayCollection([$reportAction])]
+                'actionConfigs' => new ArrayCollection([$reportAction]),
+                'breakableType' => BreakableTypeEnum::BREAKABLE],
         );
 
         $room = $this->player->getPlace();

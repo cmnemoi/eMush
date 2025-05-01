@@ -317,6 +317,7 @@ final class ShootActionCest extends AbstractFunctionalTest
 
     public function lizaroJungleShouldHaveNinetyNinePercentHitRate(FunctionalTester $I): void
     {
+        $this->givenChunHasALizaroJungle();
         $this->whenChunWantToShootsAtKuanTiWithLizaroJungle($I);
     }
 

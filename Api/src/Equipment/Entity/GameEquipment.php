@@ -257,14 +257,9 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return !$this->isOperational();
     }
 
-    public function isBreakable(): bool
+    public function canBeDamaged(): bool
     {
-        return $this->getEquipment()->isBreakable();
-    }
-
-    public function isDestroyable(): bool
-    {
-        return $this->getEquipment()->isFireDestroyable();
+        return $this->getEquipment()->canBeDamaged();
     }
 
     public function shouldTriggerRoomTrap(): bool

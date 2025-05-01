@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -131,6 +132,8 @@ class StatusService implements StatusServiceInterface
         if ($status !== null) {
             return $status;
         }
+
+        $this->throwIfWrongBreakableType($statusConfig, $holder);
 
         // Create the entity
         if ($statusConfig->isNull()) {
@@ -383,6 +386,17 @@ class StatusService implements StatusServiceInterface
         $attempt->setAction($action);
 
         return $attempt;
+    }
+
+    private function throwIfWrongBreakableType(StatusConfig $statusConfig, StatusHolderInterface $holder)
+    {
+        if ($statusConfig->getStatusName() !== EquipmentStatusEnum::BROKEN) {
+            return;
+        }
+
+        if (!$holder instanceof GameEquipment || $holder->getEquipment()->getBreakableType() !== BreakableTypeEnum::BREAKABLE) {
+            throw new \LogicException('trying to apply broken status to an entity that is not a breakable equipment');
+        }
     }
 
     private function delete(Status $status): void

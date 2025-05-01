@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -49,12 +50,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintEcholocator = new ItemConfig();
+        $blueprintEcholocator = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT));
         $blueprintEcholocator
-            ->setEquipmentName(ItemEnum::ECHOLOCATOR . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintEcholocatorMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -68,12 +65,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::WHITE_FLAG . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintWhiteFlag = new ItemConfig();
+        $blueprintWhiteFlag = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::WHITE_FLAG . '_' . ItemEnum::BLUEPRINT));
         $blueprintWhiteFlag
-            ->setEquipmentName(ItemEnum::WHITE_FLAG . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintWhiteFlagMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -87,12 +80,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::THERMOSENSOR . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintThermosensor = new ItemConfig();
+        $blueprintThermosensor = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::THERMOSENSOR . '_' . ItemEnum::BLUEPRINT));
         $blueprintThermosensor
-            ->setEquipmentName(ItemEnum::THERMOSENSOR . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintThermosensorMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -106,12 +95,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::BABEL_MODULE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintBabelModule = new ItemConfig();
+        $blueprintBabelModule = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::BABEL_MODULE . '_' . ItemEnum::BLUEPRINT));
         $blueprintBabelModule
-            ->setEquipmentName(ItemEnum::BABEL_MODULE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintBabelModuleMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -125,12 +110,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::GRENADE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintGrenade = new ItemConfig();
+        $blueprintGrenade = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::GRENADE . '_' . ItemEnum::BLUEPRINT));
         $blueprintGrenade
-            ->setEquipmentName(ItemEnum::GRENADE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintGrenadeMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -144,12 +125,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::OLD_FAITHFUL . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintOldFaithful = new ItemConfig();
+        $blueprintOldFaithful = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::OLD_FAITHFUL . '_' . ItemEnum::BLUEPRINT));
         $blueprintOldFaithful
-            ->setEquipmentName(ItemEnum::OLD_FAITHFUL . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintOldFaithfulMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -163,12 +140,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::LIZARO_JUNGLE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintLizaroJungle = new ItemConfig();
+        $blueprintLizaroJungle = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::LIZARO_JUNGLE . '_' . ItemEnum::BLUEPRINT));
         $blueprintLizaroJungle
-            ->setEquipmentName(ItemEnum::LIZARO_JUNGLE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintLizaroJungleMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -182,12 +155,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::ROCKET_LAUNCHER . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintRocketLauncher = new ItemConfig();
+        $blueprintRocketLauncher = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::ROCKET_LAUNCHER . '_' . ItemEnum::BLUEPRINT));
         $blueprintRocketLauncher
-            ->setEquipmentName(ItemEnum::ROCKET_LAUNCHER . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintRocketLauncherMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -201,12 +170,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ToolItemEnum::EXTINGUISHER . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintExtinguisher = new ItemConfig();
+        $blueprintExtinguisher = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ToolItemEnum::EXTINGUISHER . '_' . ItemEnum::BLUEPRINT));
         $blueprintExtinguisher
-            ->setEquipmentName(ToolItemEnum::EXTINGUISHER . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintExtinguisherMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -220,12 +185,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintOscilloscope = new ItemConfig();
+        $blueprintOscilloscope = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT));
         $blueprintOscilloscope
-            ->setEquipmentName(GearItemEnum::OSCILLOSCOPE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintOscilloscopeMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -239,12 +200,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintSniperHelmet = new ItemConfig();
+        $blueprintSniperHelmet = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT));
         $blueprintSniperHelmet
-            ->setEquipmentName(GearItemEnum::SNIPER_HELMET . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintSniperHelmetMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -258,12 +215,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(EquipmentEnum::SWEDISH_SOFA . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintSwedishSofa = new ItemConfig();
+        $blueprintSwedishSofa = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::SWEDISH_SOFA . '_' . ItemEnum::BLUEPRINT));
         $blueprintSwedishSofa
-            ->setEquipmentName(EquipmentEnum::SWEDISH_SOFA . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintSwedishSofaMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -277,12 +230,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName('jukebox_blueprint', GameConfigEnum::DEFAULT);
 
-        $blueprintJukebox = new ItemConfig();
+        $blueprintJukebox = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName('jukebox_blueprint'));
         $blueprintJukebox
-            ->setEquipmentName('jukebox_blueprint')
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintJukeboxMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -296,12 +245,8 @@ class BlueprintConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($buildAction)
             ->buildName(ItemEnum::SUPPORT_DRONE . '_' . ItemEnum::BLUEPRINT, GameConfigEnum::DEFAULT);
 
-        $blueprintSupportDrone = new ItemConfig();
+        $blueprintSupportDrone = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::SUPPORT_DRONE . '_' . ItemEnum::BLUEPRINT));
         $blueprintSupportDrone
-            ->setEquipmentName(ItemEnum::SUPPORT_DRONE . '_' . ItemEnum::BLUEPRINT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$blueprintSupportDroneMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);

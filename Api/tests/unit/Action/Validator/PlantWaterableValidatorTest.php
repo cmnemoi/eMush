@@ -7,6 +7,7 @@ use Mush\Action\Validator\PlantWaterable;
 use Mush\Action\Validator\PlantWaterableValidator;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
@@ -44,7 +45,7 @@ final class PlantWaterableValidatorTest extends TestCase
     public function testValid()
     {
         $itemConfig = new ItemConfig();
-        $itemConfig->setIsBreakable(true);
+        $itemConfig->setBreakableType(BreakableTypeEnum::BREAKABLE);
 
         $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);

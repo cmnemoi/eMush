@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -93,9 +94,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $door = new EquipmentConfig();
         $door
             ->setEquipmentName(EquipmentEnum::DOOR)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
+            ->setBreakableType(BreakableTypeEnum::BREAKABLE)
             ->setActionConfigs([$repair25, $sabotage25, $reportAction, $examineAction])
             ->setMechanics([$toolDoor])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -134,12 +133,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         );
         $manager->persist($commsCenterTool);
 
-        $comsCenter = new EquipmentConfig();
+        $comsCenter = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::COMMUNICATION_CENTER));
         $comsCenter
-            ->setEquipmentName(EquipmentEnum::COMMUNICATION_CENTER)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
             ->setMechanics([$commsCenterTool])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -154,12 +149,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $neronCoreTool = $this->createTool([$participateAction, $putschAction, $accessTerminalAction, $exitTerminalAction], EquipmentEnum::NERON_CORE);
         $manager->persist($neronCoreTool);
 
-        $neronCore = new EquipmentConfig();
+        $neronCore = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::NERON_CORE));
         $neronCore
-            ->setEquipmentName(EquipmentEnum::NERON_CORE)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
             ->setMechanics([$neronCoreTool])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -168,12 +159,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $auxiliaryTerminalTool = $this->createTool([$participateAction, $accessTerminalAction, $exitTerminalAction], EquipmentEnum::AUXILIARY_TERMINAL);
         $manager->persist($auxiliaryTerminalTool);
 
-        $auxiliaryTerminal = new EquipmentConfig();
+        $auxiliaryTerminal = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::AUXILIARY_TERMINAL));
         $auxiliaryTerminal
-            ->setEquipmentName(EquipmentEnum::AUXILIARY_TERMINAL)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
             ->setMechanics([$auxiliaryTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -197,12 +184,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ], EquipmentEnum::ASTRO_TERMINAL);
         $manager->persist($astroTerminalTool);
 
-        $astroTerminal = new EquipmentConfig();
+        $astroTerminal = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::ASTRO_TERMINAL));
         $astroTerminal
-            ->setEquipmentName(EquipmentEnum::ASTRO_TERMINAL)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->setMechanics([$astroTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -218,12 +201,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         ], EquipmentEnum::RESEARCH_LABORATORY);
         $manager->persist($researchLabTool);
 
-        $researchLab = new EquipmentConfig();
+        $researchLab = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::RESEARCH_LABORATORY));
         $researchLab
-            ->setEquipmentName(EquipmentEnum::RESEARCH_LABORATORY)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction, $participateAction])
             ->setMechanics(mechanics: [$researchLabTool])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -235,11 +214,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $pilgredTerminalTool = $this->createTool([$repairPilgredAction], EquipmentEnum::PILGRED);
         $manager->persist($pilgredTerminalTool);
 
-        $pilgred = new EquipmentConfig();
+        $pilgred = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::PILGRED));
         $pilgred
-            ->setEquipmentName(EquipmentEnum::PILGRED)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs([$examineAction, $accessTerminalAction, $exitTerminalAction])
             ->setMechanics([$pilgredTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -251,12 +227,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $calculatorTool = $this->createTool([$accessTerminalAction, $exitTerminalAction, $computeEdenAction], EquipmentEnum::CALCULATOR);
         $manager->persist($calculatorTool);
 
-        $calculator = new EquipmentConfig();
+        $calculator = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::CALCULATOR));
         $calculator
-            ->setEquipmentName(EquipmentEnum::CALCULATOR)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
             ->setMechanics([$calculatorTool])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -295,12 +267,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         );
         $manager->persist($biosTerminalTool);
 
-        $biosTerminal = new EquipmentConfig();
+        $biosTerminal = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::BIOS_TERMINAL));
         $biosTerminal
-            ->setEquipmentName(EquipmentEnum::BIOS_TERMINAL)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair3, $sabotage3, $reportAction, $examineAction])
             ->setMechanics([$biosTerminalTool])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -339,12 +307,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             $travelToEdenAction,
         ], EquipmentEnum::COMMAND_TERMINAL);
         $manager->persist($toolCommandTerminal);
-        $commandTerminal = new EquipmentConfig();
+        $commandTerminal = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::COMMAND_TERMINAL));
         $commandTerminal
-            ->setEquipmentName(EquipmentEnum::COMMAND_TERMINAL)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([
                 $repair12,
                 $sabotage12,
@@ -359,12 +323,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($planetScannerGear);
 
         /** @TODO gears */
-        $planetScanner = new EquipmentConfig();
+        $planetScanner = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::PLANET_SCANNER));
         $planetScanner
-            ->setEquipmentName(EquipmentEnum::PLANET_SCANNER)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->setMechanics([$planetScannerGear])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -379,12 +339,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         );
         $manager->persist($quantumSensorsPlanetScannerGear);
 
-        $quantumSensorsPlanetScanner = new EquipmentConfig();
+        $quantumSensorsPlanetScanner = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER));
         $quantumSensorsPlanetScanner
-            ->setEquipmentName(EquipmentEnum::QUANTUM_SENSORS_PLANET_SCANNER)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->setMechanics([$quantumSensorsPlanetScannerGear])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -393,55 +349,35 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var StatusConfig $jukeboxSongStatus */
         $jukeboxSongStatus = $this->getReference(EquipmentStatusEnum::JUKEBOX_SONG);
 
-        $jukebox = new EquipmentConfig();
+        $jukebox = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::JUKEBOX));
         $jukebox
-            ->setEquipmentName(EquipmentEnum::JUKEBOX)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->setInitStatuses([$jukeboxSongStatus])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($jukebox);
 
-        $emergencyReactor = new EquipmentConfig();
+        $emergencyReactor = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::EMERGENCY_REACTOR));
         $emergencyReactor
-            ->setEquipmentName(EquipmentEnum::EMERGENCY_REACTOR)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($emergencyReactor);
 
-        $reactorLateralAlpha = new EquipmentConfig();
+        $reactorLateralAlpha = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::REACTOR_LATERAL_ALPHA));
         $reactorLateralAlpha
-            ->setEquipmentName(EquipmentEnum::REACTOR_LATERAL_ALPHA)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($reactorLateralAlpha);
 
-        $reactorLateralBravo = new EquipmentConfig();
+        $reactorLateralBravo = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::REACTOR_LATERAL_BRAVO));
         $reactorLateralBravo
-            ->setEquipmentName(EquipmentEnum::REACTOR_LATERAL_BRAVO)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($reactorLateralBravo);
 
         $antennaGear = $this->createGear([GearModifierConfigFixtures::ANTENNA_MODIFIER], EquipmentEnum::ANTENNA);
 
-        $antenna = new EquipmentConfig();
+        $antenna = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::ANTENNA));
         $antenna
-            ->setEquipmentName(EquipmentEnum::ANTENNA)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->setMechanics([$antennaGear])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -457,24 +393,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         );
         $manager->persist($radarTransVoidAntennaGear);
 
-        $radarTransVoidAntenna = new EquipmentConfig();
+        $radarTransVoidAntenna = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::RADAR_TRANS_VOID_ANTENNA));
         $radarTransVoidAntenna
-            ->setEquipmentName(EquipmentEnum::RADAR_TRANS_VOID_ANTENNA)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->setMechanics([$radarTransVoidAntennaGear])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($radarTransVoidAntenna);
         $manager->persist($radarTransVoidAntennaGear);
 
-        $gravitySimulator = new EquipmentConfig();
+        $gravitySimulator = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::GRAVITY_SIMULATOR));
         $gravitySimulator
-            ->setEquipmentName(EquipmentEnum::GRAVITY_SIMULATOR)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair6, $sabotage6, $reportAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($gravitySimulator);
@@ -495,12 +423,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         );
         $manager->persist($thalassoGear);
 
-        $thalasso = new EquipmentConfig();
+        $thalasso = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::THALASSO));
         $thalasso
-            ->setEquipmentName(EquipmentEnum::THALASSO)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair25, $dismantle25, $examineAction, $reportAction])
             ->setMechanics([$plumbingShower, $thalassoGear])
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
@@ -544,11 +468,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setDockingPlace(RoomEnum::ICARUS_BAY);
         $manager->persist($icarusPatrolShip);
 
-        $icarus = new EquipmentConfig();
+        $icarus = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::ICARUS));
         $icarus
-            ->setEquipmentName(EquipmentEnum::ICARUS)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs([$examineAction, $renovateAction])
             ->setMechanics([$icarusPatrolShip])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -604,12 +525,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($shootHunterPatrolShipAction)
             ->addAction($shootHunterRandomPatrolShipAction);
 
-        $patrolShip = new EquipmentConfig();
+        $patrolShip = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN));
         $patrolShip
-            ->setEquipmentName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$sabotage12, $examineAction, $renovateAction])
             ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
             ->setInitStatuses([$patrolShipChargeStatus, $patrolShipArmorStatus])
@@ -653,12 +570,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var ChargeStatusConfig $pasiphaeArmor */
         $pasiphaeArmor = $this->getReference(ChargeStatusFixtures::PASIPHAE_ARMOR);
-        $pasiphae = new EquipmentConfig();
+        $pasiphae = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::PASIPHAE));
         $pasiphae
-            ->setEquipmentName(EquipmentEnum::PASIPHAE)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$sabotage12, $examineAction, $renovateAction])
             ->setMechanics([$pasiphaeMechanic])
             ->setInitStatuses([$pasiphaeArmor])
@@ -669,12 +582,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $removeCamera */
         $removeCamera = $this->getReference(ActionsFixtures::REMOVE_CAMERA);
 
-        $camera = new EquipmentConfig();
+        $camera = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::CAMERA_EQUIPMENT));
         $camera
-            ->setEquipmentName(EquipmentEnum::CAMERA_EQUIPMENT)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
-            ->setIsBreakable(true)
             ->setActionConfigs([$dismantle25, $repair25, $sabotage25, $reportAction, $examineAction, $removeCamera])
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -696,12 +605,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $toolCombustionChamber = $this->createTool([$retrieveFuelChamberAction, $checkFuelChamberLevelAction], EquipmentEnum::COMBUSTION_CHAMBER);
         $manager->persist($toolCombustionChamber);
         // Tools
-        $combustionChamber = new EquipmentConfig();
+        $combustionChamber = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::COMBUSTION_CHAMBER));
         $combustionChamber
-            ->setEquipmentName(EquipmentEnum::COMBUSTION_CHAMBER)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->setMechanics([$toolCombustionChamber])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -719,12 +624,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ChargeStatusConfig $sinkCharge */
         $sinkCharge = $this->getReference(ChargeStatusFixtures::SINK_CHARGE);
 
-        $kitchen = new EquipmentConfig();
+        $kitchen = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::KITCHEN));
         $kitchen
-            ->setEquipmentName(EquipmentEnum::KITCHEN)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setInitStatuses([$sinkCharge])
             ->setMechanics([$kitchenMechanic])
             ->setActionConfigs([
@@ -739,12 +640,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $sncKitchenMechanic = $this->createTool([$cookAction, $washAction], EquipmentEnum::SNC_KITCHEN);
 
-        $sncKitchen = new EquipmentConfig();
+        $sncKitchen = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::SNC_KITCHEN));
         $sncKitchen
-            ->setEquipmentName(EquipmentEnum::SNC_KITCHEN)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setInitStatuses([$sinkCharge])
             ->setMechanics([$sncKitchenMechanic])
             ->setActionConfigs([
@@ -765,11 +662,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $distillerMechanic = $this->createTool([$dispenseAction], EquipmentEnum::NARCOTIC_DISTILLER);
 
-        $narcoticDistiller = new EquipmentConfig();
+        $narcoticDistiller = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::NARCOTIC_DISTILLER));
         $narcoticDistiller
-            ->setEquipmentName(EquipmentEnum::NARCOTIC_DISTILLER)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setInitStatuses([$dispenserCharge])
             ->setMechanics([$distillerMechanic])
             ->setActionConfigs([$dismantle25, $examineAction])
@@ -779,12 +673,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($narcoticDistiller);
         $manager->persist($distillerMechanic);
 
-        $shower = new EquipmentConfig();
+        $shower = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::SHOWER));
         $shower
-            ->setEquipmentName(EquipmentEnum::SHOWER)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair25, $dismantle25, $examineAction])
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1, ItemEnum::THICK_TUBE => 1])
             ->setMechanics([$plumbingShower])
@@ -797,12 +687,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($toolArcade);
 
         $dynarcadeActions = [$repair12, $sabotage12, $reportAction, $examineAction];
-        $dynarcade = new EquipmentConfig();
+        $dynarcade = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::DYNARCADE));
         $dynarcade
-            ->setEquipmentName(EquipmentEnum::DYNARCADE)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs($dynarcadeActions)
             ->setMechanics([$toolArcade])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -813,11 +699,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $toolBed = $this->createTool([$lieDownAction], EquipmentEnum::BED);
         $manager->persist($toolBed);
 
-        $bed = new EquipmentConfig();
+        $bed = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::BED));
         $bed
-            ->setEquipmentName(EquipmentEnum::BED)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs([$examineAction])
             ->setMechanics([$toolBed])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -826,8 +709,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $medlabBed = new EquipmentConfig();
         $medlabBed
             ->setEquipmentName(EquipmentEnum::MEDLAB_BED)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
+            ->setBreakableType(BreakableTypeEnum::NONE)
             ->setActionConfigs([$examineAction])
             ->setMechanics([$toolBed])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -841,12 +723,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $coffeeMachineMechanic = $this->createTool([$coffeeAction], EquipmentEnum::COFFEE_MACHINE);
 
-        $coffeeMachine = new EquipmentConfig();
+        $coffeeMachine = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::COFFEE_MACHINE));
         $coffeeMachine
-            ->setEquipmentName(EquipmentEnum::COFFEE_MACHINE)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setMechanics([$coffeeMachineMechanic])
             ->setInitStatuses([$coffeeCharge])
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
@@ -854,11 +732,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($coffeeMachine);
         $manager->persist($coffeeMachineMechanic);
 
-        $cryoModule = new EquipmentConfig();
+        $cryoModule = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::CRYO_MODULE));
         $cryoModule
-            ->setEquipmentName(EquipmentEnum::CRYO_MODULE)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs([$examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($cryoModule);
@@ -868,12 +743,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $toolMycoscan = $this->createTool([$checkSporeLevelAction], EquipmentEnum::MYCOSCAN);
         $manager->persist($toolMycoscan);
 
-        $mycoscan = new EquipmentConfig();
+        $mycoscan = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::MYCOSCAN));
         $mycoscan
-            ->setEquipmentName(EquipmentEnum::MYCOSCAN)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->setMechanics([$toolMycoscan])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -900,12 +771,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($shootHunterTurret)
             ->addAction($shootRandomHunterTurret);
 
-        $turretCommand = new EquipmentConfig();
+        $turretCommand = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::TURRET_COMMAND));
         $turretCommand
-            ->setEquipmentName(EquipmentEnum::TURRET_COMMAND)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setMechanics([$turretWeapon])
             ->setInitStatuses([$turretCharge])
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
@@ -916,12 +783,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $selfSurgeryAction */
         $selfSurgeryAction = $this->getReference(ActionsFixtures::SELF_SURGERY);
         $surgicalPlotMechanic = $this->createTool([$selfSurgeryAction], EquipmentEnum::SURGERY_PLOT);
-        $surgicalPlot = new EquipmentConfig();
+        $surgicalPlot = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::SURGERY_PLOT));
         $surgicalPlot
-            ->setEquipmentName(EquipmentEnum::SURGERY_PLOT)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setMechanics([$surgicalPlotMechanic])
             ->setActionConfigs([$repair12, $sabotage12, $reportAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -929,12 +792,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         $manager->persist($surgicalPlotMechanic);
 
         $fuelTankMechanic = $this->createTool([$fuelInjectAction, $fuelRetrieveAction], EquipmentEnum::FUEL_TANK);
-        $fuelTank = new EquipmentConfig();
+        $fuelTank = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::FUEL_TANK));
         $fuelTank
-            ->setEquipmentName(EquipmentEnum::FUEL_TANK)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setMechanics([$fuelTankMechanic])
             ->setActionConfigs([$repair25, $sabotage25, $reportAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -951,12 +810,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         $oxygenTankGear = $this->createGear([GearModifierConfigFixtures::OXYGEN_TANK_MODIFIER], EquipmentEnum::OXYGEN_TANK);
 
-        $oxygenTank = new EquipmentConfig();
+        $oxygenTank = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::OXYGEN_TANK));
         $oxygenTank
-            ->setEquipmentName(EquipmentEnum::OXYGEN_TANK)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setMechanics([$oxygenTankMechanic, $oxygenTankGear])
             ->setActionConfigs([$repair25, $sabotage25, $reportAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -981,12 +836,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             $reportAction,
             $examineAction,
         ];
-        $tabulatrix = new EquipmentConfig();
+        $tabulatrix = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::TABULATRIX));
         $tabulatrix
-            ->setEquipmentName(EquipmentEnum::TABULATRIX)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
-            ->setIsBreakable(true)
             ->setActionConfigs($tabulatrixActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->setMechanics([$tabulatrixTool])
@@ -1000,12 +851,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             $dismantle25,
             $reportAction,
         ];
-        $swedishSofa = new EquipmentConfig();
+        $swedishSofa = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::SWEDISH_SOFA));
         $swedishSofa
-            ->setEquipmentName(EquipmentEnum::SWEDISH_SOFA)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs($sofaActions)
             ->setMechanics([$toolBed])
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])

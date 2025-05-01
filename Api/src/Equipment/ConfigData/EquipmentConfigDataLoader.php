@@ -61,9 +61,7 @@ class EquipmentConfigDataLoader extends ConfigDataLoader
         $equipmentConfig
             ->setName($equipmentConfigData['name'])
             ->setEquipmentName($equipmentConfigData['equipmentName'])
-            ->setIsBreakable($equipmentConfigData['isBreakable'])
-            ->setIsFireBreakable($equipmentConfigData['isFireBreakable'])
-            ->setIsFireDestroyable($equipmentConfigData['isFireDestroyable'])
+            ->setBreakableType($equipmentConfigData['breakableType'])
             ->setDismountedProducts($equipmentConfigData['dismountedProducts'])
             ->setIsPersonal($equipmentConfigData['isPersonal']);
     }

@@ -6,7 +6,7 @@
 Is the occurence of an equipment in a Daedalus,  this entity will hold the actual equipment informations (statuses, room, etc...)
 
 ## EquipmentConfig
-Is an abstract class holding all the default information of an Equipment (breakableRate, isAlienArtifact, isFirebreakable etc...)  
+Is an abstract class holding all the default information of an Equipment (breakableRate, isAlienArtifact, breakableType etc...)  
 The Equipment is unique accross a GameConfig
 
 ## ItemConfig and GameItem

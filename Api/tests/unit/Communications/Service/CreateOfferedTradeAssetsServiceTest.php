@@ -16,6 +16,7 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Daedalus\Repository\InMemoryDaedalusRepository;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
+use Mush\Equipment\Service\DamageEquipmentServiceInterface;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\EquipmentService;
 use Mush\Equipment\Service\GameEquipmentService;
@@ -51,6 +52,7 @@ final class CreateOfferedTradeAssetsServiceTest extends TestCase
 
     private FinishProjectService $finishProject;
     private FinishRandomDaedalusProjectsService $finishRandomDaedalusProjects;
+    private DamageEquipmentServiceInterface $damageEquipmentService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private InMemoryDaedalusRepository $daedalusRepository;
     private InMemoryTradeOptionRepository $tradeOptionRepository;
@@ -89,6 +91,7 @@ final class CreateOfferedTradeAssetsServiceTest extends TestCase
         $this->gameEquipmentService = new GameEquipmentService(
             entityManager: $this->createStub(EntityManagerInterface::class),
             repository: $this->createStub(GameEquipmentRepositoryInterface::class),
+            damageEquipmentService: $this->createStub(DamageEquipmentServiceInterface::class),
             equipmentService: new EquipmentService(),
             randomService: $this->createStub(RandomServiceInterface::class),
             eventService: $this->createStub(EventServiceInterface::class),

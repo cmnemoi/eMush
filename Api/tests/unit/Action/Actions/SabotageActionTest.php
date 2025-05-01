@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -63,7 +64,7 @@ final class SabotageActionTest extends AbstractActionTest
         $room = new Place();
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
-        $item->setIsBreakable(true);
+        $item->setBreakableType(BreakableTypeEnum::BREAKABLE);
         $gameItem
             ->setEquipment($item)
             ->setName('item');

@@ -57,11 +57,11 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
             )
             ->setParameter('daedalus', $criteria->getDaedalus());
 
-        if ($criteria->isBreakable() !== null) {
+        if ($criteria->getBreakableType() !== null) {
             $queryBuilder
                 ->leftJoin(EquipmentConfig::class, 'equipment_config', Join::WITH, 'equipment.equipment = equipment_config')
-                ->andWhere($queryBuilder->expr()->eq('equipment_config.isBreakable', ':isBreakable'))
-                ->setParameter('isBreakable', $criteria->isBreakable());
+                ->andWhere($queryBuilder->expr()->eq('equipment_config.breakableType', ':breakableType'))
+                ->setParameter('breakableType', $criteria->getBreakableType());
         }
 
         if ($criteria->isPersonal() !== null) {

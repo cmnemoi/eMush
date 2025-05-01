@@ -22,7 +22,7 @@ final class EquipmentConfigDataCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function testKnifeIsNotBreakable(FunctionalTester $I): void
+    public function testKnifeCanBeDamaged(FunctionalTester $I): void
     {
         // given I have a knife
         $knife = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -32,10 +32,10 @@ final class EquipmentConfigDataCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        // when I check if it is breakable
-        $isNotBreakable = !$knife->isBreakable() && !$knife->getEquipment()->isFireBreakable();
+        // when I check if it can be damaged
+        $canBeDamaged = $knife->canBeDamaged();
 
-        // then it is not breakable
-        $I->assertTrue($isNotBreakable);
+        // then it can be damaged
+        $I->assertTrue($canBeDamaged);
     }
 }

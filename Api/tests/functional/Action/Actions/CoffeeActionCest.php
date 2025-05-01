@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
@@ -52,7 +53,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->coffeeMachine = $this->givenACoffeeMachineInRefectory($I);
         // no random breakage
         $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentBreakRateDistribution([]);
-        $this->coffeeMachine->getEquipment()->setIsFireBreakable(false)->setIsBreakable(false);
+        $this->coffeeMachine->getEquipment()->setBreakableType(BreakableTypeEnum::BREAKABLE);
     }
 
     public function testCanReach(FunctionalTester $I): void

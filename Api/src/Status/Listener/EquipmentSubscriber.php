@@ -7,6 +7,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
+use Mush\Equipment\Service\DamageEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
@@ -18,11 +19,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EquipmentSubscriber implements EventSubscriberInterface
 {
+    private DamageEquipmentServiceInterface $damageEquipmentService;
     private StatusServiceInterface $statusService;
 
     public function __construct(
+        DamageEquipmentServiceInterface $damageEquipmentService,
         StatusServiceInterface $statusService,
     ) {
+        $this->damageEquipmentService = $damageEquipmentService;
         $this->statusService = $statusService;
     }
 
@@ -77,7 +81,9 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         $this->makeLaidDownPlayersGetUp($equipment, $event->getTags(), $event->getTime());
         $this->statusService->removeAllStatuses($equipment, $event->getTags(), $event->getTime());
 
-        if ($event->hasAllTags([GearItemEnum::INVERTEBRATE_SHELL, EventEnum::FIRE])) {
+        if ($event->hasAllTags([GearItemEnum::INVERTEBRATE_SHELL, EventEnum::FIRE])
+        && $event->doesNotHaveTag('shell_explosion')) {
+            $event->addTag('shell_explosion');
             $this->breakPlaceEquipment($event);
         }
     }
@@ -124,15 +130,14 @@ final class EquipmentSubscriber implements EventSubscriberInterface
     {
         $place = $event->getGameEquipment()->getPlace();
 
-        $breakablePlaceEquipment = $place->getEquipments()->filter(static function (GameEquipment $equipment) {
-            return $equipment->getEquipment()->isBreakable();
+        $breakablePlaceEquipment = $place->getEquipments()->filter(static function (GameEquipment $equipment) use ($event) {
+            return $equipment->getEquipment()->canBeDamaged() && $event->getGameEquipment() !== $equipment;
         });
 
         /** @var GameEquipment $equipment */
         foreach ($breakablePlaceEquipment as $equipment) {
-            $this->statusService->createStatusFromName(
-                statusName: EquipmentStatusEnum::BROKEN,
-                holder: $equipment,
+            $this->damageEquipmentService->execute(
+                gameEquipment: $equipment,
                 tags: $event->getTags(),
                 time: $event->getTime(),
                 visibility: VisibilityEnum::PUBLIC,

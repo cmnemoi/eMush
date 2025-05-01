@@ -10,8 +10,10 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\DroneConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -68,13 +70,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $mycoAlarmeActions->add($repair25);
         $mycoAlarmeActions->add($sabotage25);
 
-        $mycoAlarm = new ItemConfig();
+        $mycoAlarm = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::MYCO_ALARM));
         $mycoAlarm
-            ->setEquipmentName(ItemEnum::MYCO_ALARM)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs($mycoAlarmeActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -85,33 +82,21 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $metalScrapsAction = clone $hideableActions;
         $metalScrapsAction->add($strengthenAction);
 
-        $metalScraps = new ItemConfig();
+        $metalScraps = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::METAL_SCRAPS));
         $metalScraps
-            ->setEquipmentName(ItemEnum::METAL_SCRAPS)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($metalScrapsAction)
             ->buildName(GameConfigEnum::DEFAULT);
 
         $manager->persist($metalScraps);
 
-        $plasticScraps = new ItemConfig();
+        $plasticScraps = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::PLASTIC_SCRAPS));
         $plasticScraps
-            ->setEquipmentName(ItemEnum::PLASTIC_SCRAPS)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($hideableActions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($plasticScraps);
 
-        $oldTShirt = new ItemConfig();
+        $oldTShirt = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::OLD_T_SHIRT));
         $oldTShirt
-            ->setEquipmentName(ItemEnum::OLD_T_SHIRT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($hideableActions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($oldTShirt);
@@ -119,12 +104,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $thickTubeActions = clone $hideableActions;
         $thickTubeActions->add($dismantle50);
 
-        $thickTube = new ItemConfig();
+        $thickTube = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::THICK_TUBE));
         $thickTube
-            ->setEquipmentName(ItemEnum::THICK_TUBE)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($thickTubeActions)
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -135,33 +116,21 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $mushDiskActions->add($repair25);
         $mushDiskActions->add($sabotage25);
 
-        $mushDisk = new ItemConfig();
+        $mushDisk = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::MUSH_GENOME_DISK));
         $mushDisk
-            ->setEquipmentName(ItemEnum::MUSH_GENOME_DISK)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
-            ->setIsBreakable(true)
             ->setActionConfigs($mushDiskActions)
             ->setDismountedProducts([ItemEnum::PLASTIC_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushDisk);
 
-        $mushSample = new ItemConfig();
+        $mushSample = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::MUSH_SAMPLE));
         $mushSample
-            ->setEquipmentName(ItemEnum::MUSH_SAMPLE)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($hideableActions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($mushSample);
 
-        $starmapFragment = new ItemConfig();
+        $starmapFragment = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::STARMAP_FRAGMENT));
         $starmapFragment
-            ->setEquipmentName(ItemEnum::STARMAP_FRAGMENT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($hideableActions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($starmapFragment);
@@ -169,45 +138,29 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var StatusConfig $alienArtifactStatus */
         $alienArtifactStatus = $this->getReference(StatusFixtures::ALIEN_ARTEFACT_STATUS);
 
-        $waterStick = new ItemConfig();
+        $waterStick = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::WATER_STICK));
         $waterStick
-            ->setEquipmentName(ItemEnum::WATER_STICK)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($hideableActions)
             ->setInitStatuses([$alienArtifactStatus])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($waterStick);
 
-        $hydropot = new ItemConfig();
+        $hydropot = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::HYDROPOT));
         $hydropot
-            ->setEquipmentName(ItemEnum::HYDROPOT)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setActionConfigs($hideableActions)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($hydropot);
 
-        $oxygenCapsule = new ItemConfig();
+        $oxygenCapsule = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::OXYGEN_CAPSULE));
         $oxygenCapsule
-            ->setEquipmentName(ItemEnum::OXYGEN_CAPSULE)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs([$takeAction, $examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($oxygenCapsule);
 
         /** @var ActionConfig $insertFuelChamber */
         $insertFuelChamber = $this->getReference(ActionsFixtures::INSERT_FUEL_CHAMBER);
-        $fuelCapsule = new ItemConfig();
+        $fuelCapsule = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::FUEL_CAPSULE));
         $fuelCapsule
-            ->setEquipmentName(ItemEnum::FUEL_CAPSULE)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs([$takeAction, $examineAction, $insertFuelChamber])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($fuelCapsule);
@@ -231,8 +184,7 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         $drone
             ->setEquipmentName(ItemEnum::SUPPORT_DRONE)
             ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(true)
+            ->setBreakableType(BreakableTypeEnum::BREAKABLE)
             ->setActionConfigs([$takeAction, $examineAction, $dropAction, $repair12, $upgradeDroneToTurbo, $upgradeDroneToFirefighter, $upgradeDroneToPilot, $upgradeDroneToSensor])
             ->setInitStatuses([$droneCharges])
             ->buildName(GameConfigEnum::DEFAULT);
@@ -247,12 +199,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $convertCatAction */
         $convertCatAction = $this->getReference(ActionEnum::CONVERT_CAT->value);
 
-        $schrodinger = new ItemConfig();
+        $schrodinger = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::SCHRODINGER));
         $schrodinger
-            ->setEquipmentName(ItemEnum::SCHRODINGER)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs([$takeCatAction, $petCatAction, $examineAction, $convertCatAction, $dropAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($schrodinger);
@@ -260,12 +208,8 @@ class ItemConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $playWithDogAction */
         $playWithDogAction = $this->getReference(ActionEnum::PLAY_WITH_DOG->value);
 
-        $pavlov = new ItemConfig();
+        $pavlov = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::PAVLOV));
         $pavlov
-            ->setEquipmentName(ItemEnum::PAVLOV)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setActionConfigs([$examineAction, $playWithDogAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($pavlov);

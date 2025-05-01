@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\DifficultyConfig;
@@ -291,13 +292,13 @@ class RoomEventCest
         $I->refreshEntities($player);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['breakable_type' => BreakableTypeEnum::BREAKABLE, 'gameConfig' => $gameConfig]);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
         /** @var EquipmentConfig $tabulatrix */
-        $tabulatrixConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig, 'name' => EquipmentEnum::TABULATRIX]);
+        $tabulatrixConfig = $I->have(EquipmentConfig::class, ['breakable_type' => BreakableTypeEnum::BREAKABLE, 'gameConfig' => $gameConfig, 'name' => EquipmentEnum::TABULATRIX]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
@@ -405,13 +406,13 @@ class RoomEventCest
         $I->refreshEntities($player);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['breakable_type' => BreakableTypeEnum::BREAKABLE, 'gameConfig' => $gameConfig]);
 
         /** @var ItemConfig $itemConfig */
         $itemConfig = $I->have(ItemConfig::class, ['gameConfig' => $gameConfig]);
 
         /** @var EquipmentConfig $tabulatrix */
-        $tabulatrixConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig, 'name' => EquipmentEnum::TABULATRIX]);
+        $tabulatrixConfig = $I->have(EquipmentConfig::class, ['breakable_type' => BreakableTypeEnum::BREAKABLE, 'gameConfig' => $gameConfig, 'name' => EquipmentEnum::TABULATRIX]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment
@@ -525,7 +526,7 @@ class RoomEventCest
         $I->refreshEntities($player);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true, 'gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['breakable_type' => BreakableTypeEnum::BREAKABLE, 'gameConfig' => $gameConfig]);
 
         $gameEquipment = new Door($room);
         $gameEquipment

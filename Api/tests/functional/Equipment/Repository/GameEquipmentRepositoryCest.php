@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
@@ -123,10 +124,10 @@ final class GameEquipmentRepositoryCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $breakableConfig */
-        $breakableConfig = $I->have(EquipmentConfig::class, ['name' => 'breakable_test', 'isBreakable' => true]);
+        $breakableConfig = $I->have(EquipmentConfig::class, ['name' => 'breakable_test', 'breakableType' => BreakableTypeEnum::BREAKABLE]);
 
         /** @var EquipmentConfig $unbreakableConfig */
-        $unbreakableConfig = $I->have(ItemConfig::class, ['name' => 'unbreakable_test', 'isBreakable' => false]);
+        $unbreakableConfig = $I->have(ItemConfig::class, ['name' => 'unbreakable_test', 'breakableType' => BreakableTypeEnum::NONE]);
 
         $breakableEquipment = new GameEquipment($room);
         $breakableEquipment
@@ -141,14 +142,14 @@ final class GameEquipmentRepositoryCest
         $I->haveInRepository($unbreakableItem);
 
         $criteria = new GameEquipmentCriteria($daedalus);
-        $criteria->setBreakable(true);
+        $criteria->setBreakableType(BreakableTypeEnum::BREAKABLE->value);
 
         $result = $this->repository->findByCriteria($criteria);
 
         $I->assertCount(1, $result);
         $I->assertContains($breakableEquipment, $result);
 
-        $criteria->setBreakable(false);
+        $criteria->setBreakableType(BreakableTypeEnum::NONE->value);
 
         $result = $this->repository->findByCriteria($criteria);
 

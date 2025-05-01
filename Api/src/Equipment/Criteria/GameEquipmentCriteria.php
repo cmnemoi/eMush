@@ -8,7 +8,7 @@ class GameEquipmentCriteria
 {
     private Daedalus $daedalus;
 
-    private ?bool $breakable = null;
+    private ?string $breakableType = null;
 
     private ?bool $personal = null;
 
@@ -33,14 +33,14 @@ class GameEquipmentCriteria
         return $this;
     }
 
-    public function isBreakable(): ?bool
+    public function getBreakableType(): ?string
     {
-        return $this->breakable;
+        return $this->breakableType;
     }
 
-    public function setBreakable(?bool $breakable): self
+    public function setBreakableType(?string $breakableType): self
     {
-        $this->breakable = $breakable;
+        $this->breakableType = $breakableType;
 
         return $this;
     }

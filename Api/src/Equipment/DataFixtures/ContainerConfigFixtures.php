@@ -51,12 +51,8 @@ class ContainerConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var StatusConfig $coffeeThermosCharges */
         $coffeeThermosCharges = $this->getReference(ChargeStatusFixtures::COFFEE_THERMOS_CHARGE);
 
-        $coffeeThermos = new ItemConfig();
+        $coffeeThermos = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::COFFEE_THERMOS));
         $coffeeThermos
-            ->setEquipmentName(ItemEnum::COFFEE_THERMOS)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setMechanics([$coffeeThermosMechanic])
             ->setActionConfigs($actions)
             ->setInitStatuses([$coffeeThermosCharges])
@@ -73,12 +69,8 @@ class ContainerConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName('container_' . ItemEnum::ANNIVERSARY_GIFT, GameConfigEnum::DEFAULT)
             ->setContents(ContainerContentEnum::ANNIVERSARY_GIFT_CONTENT);
 
-        $anniversaryGift = new ItemConfig();
+        $anniversaryGift = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::ANNIVERSARY_GIFT));
         $anniversaryGift
-            ->setEquipmentName(ItemEnum::ANNIVERSARY_GIFT)
-            ->setIsStackable(false)
-            ->setIsFireDestroyable(false)
-            ->setIsFireBreakable(false)
             ->setMechanics([$anniversaryGiftMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);

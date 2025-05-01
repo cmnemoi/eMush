@@ -9,6 +9,7 @@ use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ExtraEffectEnum;
+use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -55,12 +56,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::STANDARD_RATION, GameConfigEnum::DEFAULT);
 
-        $standardRation = new ItemConfig();
+        $standardRation = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::STANDARD_RATION));
         $standardRation
-            ->setEquipmentName(GameRationEnum::STANDARD_RATION)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$standardRationMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -77,12 +74,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::COOKED_RATION, GameConfigEnum::DEFAULT);
 
-        $cookedRation = new ItemConfig();
+        $cookedRation = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::COOKED_RATION));
         $cookedRation
-            ->setEquipmentName(GameRationEnum::COOKED_RATION)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$cookedRationMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -99,12 +92,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::ALIEN_STEAK, GameConfigEnum::DEFAULT);
 
-        $alienSteak = new ItemConfig();
+        $alienSteak = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::ALIEN_STEAK));
         $alienSteak
-            ->setEquipmentName(GameRationEnum::ALIEN_STEAK)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$alienSteackMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -121,12 +110,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::COFFEE, GameConfigEnum::DEFAULT);
 
-        $coffee = new ItemConfig();
+        $coffee = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::COFFEE));
         $coffee
-            ->setEquipmentName(GameRationEnum::COFFEE)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$coffeeMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -143,12 +128,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::ANABOLIC, GameConfigEnum::DEFAULT);
 
-        $anabolic = new ItemConfig();
+        $anabolic = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::ANABOLIC));
         $anabolic
-            ->setEquipmentName(GameRationEnum::ANABOLIC)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$anabolicMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -166,12 +147,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::LOMBRICK_BAR, GameConfigEnum::DEFAULT);
 
-        $lombrickBar = new ItemConfig();
+        $lombrickBar = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::LOMBRICK_BAR));
         $lombrickBar
-            ->setEquipmentName(GameRationEnum::LOMBRICK_BAR)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$lombrickBarMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -189,12 +166,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::ORGANIC_WASTE, GameConfigEnum::DEFAULT);
 
-        $organicWaste = new ItemConfig();
+        $organicWaste = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::ORGANIC_WASTE));
         $organicWaste
-            ->setEquipmentName(GameRationEnum::ORGANIC_WASTE)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$organicWasteMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -213,12 +186,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::PROACTIVE_PUFFED_RICE, GameConfigEnum::DEFAULT);
 
-        $proactivePuffedRice = new ItemConfig();
+        $proactivePuffedRice = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::PROACTIVE_PUFFED_RICE));
         $proactivePuffedRice
-            ->setEquipmentName(GameRationEnum::PROACTIVE_PUFFED_RICE)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$proactivePuffedRiceMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -236,12 +205,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::SPACE_POTATO, GameConfigEnum::DEFAULT);
 
-        $spacePotato = new ItemConfig();
+        $spacePotato = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::SPACE_POTATO));
         $spacePotato
-            ->setEquipmentName(GameRationEnum::SPACE_POTATO)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$spacePotatoMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -259,12 +224,8 @@ class RationConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($consumeRationAction)
             ->buildName(EquipmentMechanicEnum::RATION . '_' . GameRationEnum::SUPERVITAMIN_BAR, GameConfigEnum::DEFAULT);
 
-        $supervitaminBar = new ItemConfig();
+        $supervitaminBar = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(GameRationEnum::SUPERVITAMIN_BAR));
         $supervitaminBar
-            ->setEquipmentName(GameRationEnum::SUPERVITAMIN_BAR)
-            ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
             ->setMechanics([$supervitaminBarMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);

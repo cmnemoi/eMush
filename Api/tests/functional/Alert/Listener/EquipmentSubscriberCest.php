@@ -13,6 +13,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Entity\GameConfig;
@@ -83,6 +84,7 @@ class EquipmentSubscriberCest
             'equipmentName' => EquipmentEnum::GRAVITY_SIMULATOR,
             'name' => EquipmentEnum::GRAVITY_SIMULATOR,
             'gameConfig' => $gameConfig,
+            'breakableType' => BreakableTypeEnum::BREAKABLE,
         ]);
 
         $gravitySimulator = new GameEquipment($room);

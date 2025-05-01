@@ -31,9 +31,7 @@ class ItemConfig extends EquipmentConfig
             ->setIsStackable($configData['isStackable'])
             ->setName($configData['name'])
             ->setEquipmentName($configData['equipmentName'])
-            ->setIsBreakable($configData['isBreakable'])
-            ->setIsFireDestroyable($configData['isFireDestroyable'])
-            ->setIsFireBreakable($configData['isFireBreakable'])
+            ->setBreakableType($configData['breakableType'])
             ->setDismountedProducts($configData['dismountedProducts'])
             ->setIsPersonal($configData['isPersonal']);
 

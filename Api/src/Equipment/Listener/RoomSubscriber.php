@@ -48,7 +48,7 @@ class RoomSubscriber implements EventSubscriberInterface
             if (!$equipment->isBroken()
                 && !($equipment instanceof Door)
                 && !($equipment instanceof GameItem)
-                && $equipment->isBreakable()
+                && $equipment->canBeDamaged()
             ) {
                 $this->statusService->createStatusFromName(
                     EquipmentStatusEnum::BROKEN,

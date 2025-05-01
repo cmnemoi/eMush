@@ -8,11 +8,7 @@ Mush\Equipment\Entity\Config\ItemConfig:
       groups: [ 'item_config_read', 'item_config_write' ]
     mechanics:
       groups: [ 'item_config_read', 'item_config_write' ]
-    isFireDestroyable:
-      groups: [ 'item_config_read', 'item_config_write' ]
-    isFireBreakable:
-      groups: [ 'item_config_read', 'item_config_write' ]
-    isBreakable:
+    breakableType:
       groups: [ 'item_config_read', 'item_config_write' ]
     actionConfigs:
       groups: [ 'item_config_read', 'item_config_write' ]

@@ -36,6 +36,7 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 {
     private EntityManagerInterface $entityManager;
     private GameEquipmentRepositoryInterface $repository;
+    private DamageEquipmentServiceInterface $damageEquipmentService;
     private EquipmentServiceInterface $equipmentService;
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
@@ -45,6 +46,7 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         GameEquipmentRepositoryInterface $repository,
+        DamageEquipmentServiceInterface $damageEquipmentService,
         EquipmentServiceInterface $equipmentService,
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
@@ -53,6 +55,7 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
+        $this->damageEquipmentService = $damageEquipmentService;
         $this->equipmentService = $equipmentService;
         $this->randomService = $randomService;
         $this->eventService = $eventService;
@@ -212,34 +215,24 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
             return;
         }
 
-        if ($gameEquipment->getEquipment()->isFireDestroyable()
-            && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
-        ) {
-            $equipmentEvent = new EquipmentEvent(
-                $gameEquipment,
-                false,
-                VisibilityEnum::PUBLIC,
-                [EventEnum::FIRE, $gameEquipment->getName()],
-                $date
-            );
-            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
+        if (!$gameEquipment->canBeDamaged()) {
+            return;
         }
 
-        if (!$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
-            && $gameEquipment->getEquipment()->isFireBreakable()
-            && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
-        ) {
-            $this->statusService->createStatusFromName(
-                EquipmentStatusEnum::BROKEN,
-                $gameEquipment,
-                [EventEnum::FIRE],
-                $date,
-                null,
-                VisibilityEnum::PUBLIC
-            );
-
-            $this->persist($gameEquipment);
+        if ($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)) {
+            return;
         }
+
+        if (!$this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())) {
+            return;
+        }
+
+        $this->damageEquipmentService->execute(
+            gameEquipment: $gameEquipment,
+            tags: [EventEnum::FIRE, $gameEquipment->getName()],
+            time: $date,
+            visibility: VisibilityEnum::PUBLIC
+        );
     }
 
     public function handlePatrolShipDestruction(GameEquipment $patrolShip, ?Player $player, array $tags): void

@@ -4,6 +4,7 @@ namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -25,7 +26,7 @@ class BreakableValidator extends ConstraintValidator
             throw new UnexpectedTypeException($actionTarget, GameEquipment::class);
         }
 
-        if (!$actionTarget->isBreakable()) {
+        if ($actionTarget->getEquipment()->getBreakableType() !== BreakableTypeEnum::BREAKABLE) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

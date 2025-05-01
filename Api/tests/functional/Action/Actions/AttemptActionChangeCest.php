@@ -16,6 +16,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -117,7 +118,7 @@ class AttemptActionChangeCest
         $I->haveInRepository($this->actionDisassemble);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['isBreakable' => true]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['breakable_type' => BreakableTypeEnum::BREAKABLE]);
 
         $equipmentConfig->setActionConfigs(new ArrayCollection([$this->actionDisassemble, $this->actionRepair]));
 

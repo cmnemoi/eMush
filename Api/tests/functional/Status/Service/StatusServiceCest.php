@@ -18,6 +18,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -398,7 +399,7 @@ final class StatusServiceCest extends AbstractFunctionalTest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig]);
+        $equipmentConfig = $I->have(EquipmentConfig::class, ['gameConfig' => $gameConfig, 'breakableType' => BreakableTypeEnum::BREAKABLE]);
 
         // Case of a game Equipment
         $gameEquipment = new GameEquipment($room);

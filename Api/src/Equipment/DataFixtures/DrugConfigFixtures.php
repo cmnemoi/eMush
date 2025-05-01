@@ -7,8 +7,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Drug;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -48,12 +50,8 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName('drug', GameConfigEnum::DEFAULT);
 
         foreach (GameDrugEnum::getAll() as $drugName) {
-            $drug = new ItemConfig();
+            $drug = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName($drugName));
             $drug
-                ->setEquipmentName($drugName)
-                ->setIsStackable(true)
-                ->setIsFireDestroyable(true)
-                ->setIsFireBreakable(false)
                 ->setMechanics([$drugMechanic])
                 ->setActionConfigs($actions)
                 ->buildName(GameConfigEnum::DEFAULT);
@@ -68,8 +66,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $prozacTest
             ->setEquipmentName('prozac_test')
             ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
+            ->setBreakableType(BreakableTypeEnum::DESTROY_ON_BREAK)
             ->setMechanics([$drugMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::TEST);
@@ -87,8 +84,7 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $oneApDrug
             ->setEquipmentName('plus_one_ap_drug')
             ->setIsStackable(true)
-            ->setIsFireDestroyable(true)
-            ->setIsFireBreakable(false)
+            ->setBreakableType(BreakableTypeEnum::DESTROY_ON_BREAK)
             ->setMechanics([$oneApDrugMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);

@@ -11,6 +11,7 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Skill\Enum\SkillEnum;
@@ -62,7 +63,7 @@ final class RepairActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item
-            ->setIsBreakable(true);
+            ->setBreakableType(BreakableTypeEnum::BREAKABLE);
 
         $gameItem
             ->setEquipment($item)
@@ -94,7 +95,7 @@ final class RepairActionTest extends AbstractActionTest
         $gameItem = new GameItem($room);
         $item = new ItemConfig();
         $item
-            ->setIsBreakable(true);
+            ->setBreakableType(BreakableTypeEnum::BREAKABLE);
 
         $gameItem
             ->setEquipment($item)

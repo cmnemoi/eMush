@@ -75,7 +75,7 @@ final class InMemoryGameEquipmentRepository implements GameEquipmentRepositoryIn
         return array_filter(
             $this->gameEquipments,
             static fn (GameEquipment $gameEquipment) => $gameEquipment->getDaedalus()->equals($criteria->getDaedalus())
-            && ($gameEquipment->isBreakable() === $criteria->isBreakable() || $criteria->isBreakable() === null)
+            && ($gameEquipment->getEquipment()->getBreakableType()->value === $criteria->getBreakableType() || $criteria->getBreakableType() === null)
             && ($criteria->getInstanceOf() === null || \in_array($gameEquipment->getClassName(), $criteria->getInstanceOf(), true))
             && ($criteria->getNotInstanceOf() === null || !\in_array($gameEquipment->getClassName(), $criteria->getNotInstanceOf(), true))
         );

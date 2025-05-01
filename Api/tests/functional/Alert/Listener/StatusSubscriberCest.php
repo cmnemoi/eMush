@@ -18,6 +18,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
@@ -86,7 +87,10 @@ class StatusSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
-        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
+        $gravitySimulatorConfig = $I->have(
+            EquipmentConfig::class,
+            ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig, 'breakableType' => BreakableTypeEnum::BREAKABLE]
+        );
 
         $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
@@ -149,7 +153,10 @@ class StatusSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
-        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
+        $gravitySimulatorConfig = $I->have(
+            EquipmentConfig::class,
+            ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig, 'breakableType' => BreakableTypeEnum::BREAKABLE]
+        );
 
         $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
@@ -234,7 +241,10 @@ class StatusSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
-        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
+        $gravitySimulatorConfig = $I->have(
+            EquipmentConfig::class,
+            ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig, 'breakableType' => BreakableTypeEnum::BREAKABLE]
+        );
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment

@@ -7,8 +7,7 @@ namespace Mush\Triumph\Enum;
 enum TriumphScope: string
 {
     case ALL_HUMAN = 'all_human';
-    case HUMAN_TARGET = 'human_target';
-    case MUSH_TARGET = 'mush_target';
+    case ALL_MUSH = 'all_mush';
     case PERSONAL = 'personal';
 
     case NULL = '';

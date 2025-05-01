@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Mush\tests\unit\Triumph\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Factory\StatusFactory;
@@ -18,6 +18,7 @@ use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigReposito
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphEnum;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use PHPUnit\Framework\TestCase;
 
@@ -46,33 +47,38 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         $this->daedalus = DaedalusFactory::createDaedalus();
     }
 
-    public function testShouldGiveHumanTargetTriumphToHumanPlayer(): void
+    public function testShouldGiveAllHumanTriumphToAllHumanPlayers(): void
     {
         // Given
         $player = $this->givenAHumanPlayer();
+        $player2 = $this->givenAHumanPlayer();
         $this->givenTriumphConfigExists(TriumphEnum::CYCLE_HUMAN);
-        $event = $this->givenANewCycleEvent($player);
+        $event = $this->givenANewDaedalusCycleEvent($this->daedalus);
 
         // When
         $this->whenChangingTriumphForEvent($event);
 
         // Then
         $this->thenPlayerShouldHaveTriumph($player, 1);
+        $this->thenPlayerShouldHaveTriumph($player2, 1);
     }
 
     public function testShouldGiveMushTargetTriumphToMushPlayer(): void
     {
         // Given
         $player = $this->givenAMushPlayer();
+        $player2 = $this->givenAMushPlayer();
         $this->givenTriumphConfigExists(TriumphEnum::CYCLE_MUSH);
         $this->givenPlayerHasTriumph($player, 120);
-        $event = $this->givenANewCycleEvent($player);
+        $this->givenPlayerHasTriumph($player2, 120);
+        $event = $this->givenANewDaedalusCycleEvent($this->daedalus);
 
         // When
         $this->whenChangingTriumphForEvent($event);
 
         // Then
         $this->thenPlayerShouldHaveTriumph($player, 118);
+        $this->thenPlayerShouldHaveTriumph($player2, 118);
     }
 
     public function testShouldGivePersonalTriumphToTargetedCharacter(): void
@@ -80,7 +86,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         // Given
         $player = $this->givenAPlayerWithCharacter(CharacterEnum::CHUN);
         $this->givenTriumphConfigExists(TriumphEnum::CHUN_LIVES);
-        $event = $this->givenANewCycleEventWithTags($player, [EventEnum::NEW_DAY]);
+        $event = $this->givenANewCycleEventWithTags($this->daedalus, [EventEnum::NEW_DAY]);
 
         // When
         $this->whenChangingTriumphForEvent($event);
@@ -94,7 +100,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         // Given
         $player = $this->givenAHumanPlayer();
         $this->givenTriumphConfigExists(TriumphEnum::CHUN_LIVES);
-        $event = $this->givenANewCycleEventWithTags($player, [EventEnum::NEW_DAY]);
+        $event = $this->givenANewCycleEventWithTags($this->daedalus, [EventEnum::NEW_DAY]);
 
         // When
         $this->whenChangingTriumphForEvent($event);
@@ -108,7 +114,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         // Given
         $player = $this->givenAPlayerWithCharacter(CharacterEnum::CHUN);
         $this->givenTriumphConfigExists(TriumphEnum::CHUN_LIVES);
-        $event = $this->givenANewCycleEvent($player);
+        $event = $this->givenANewDaedalusCycleEvent($this->daedalus);
 
         // When
         $this->whenChangingTriumphForEvent($event);
@@ -122,7 +128,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         // Given
         $player = $this->givenAHumanPlayer();
         $this->givenTriumphConfigExists(TriumphEnum::CYCLE_HUMAN);
-        $event = $this->givenANewCycleEvent($player);
+        $event = $this->givenANewDaedalusCycleEvent($this->daedalus);
 
         // When
         $this->whenChangingTriumphForEvent($event);
@@ -166,23 +172,23 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         $player->setTriumph($triumph);
     }
 
-    private function givenANewCycleEvent(Player $player): PlayerCycleEvent
+    private function givenANewDaedalusCycleEvent(Daedalus $daedalus): DaedalusCycleEvent
     {
-        $event = new PlayerCycleEvent($player, [], new \DateTime());
-        $event->setEventName(PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $event = new DaedalusCycleEvent($daedalus, [], new \DateTime());
+        $event->setEventName(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         return $event;
     }
 
-    private function givenANewCycleEventWithTags(Player $player, array $tags): PlayerCycleEvent
+    private function givenANewCycleEventWithTags(Daedalus $daedalus, array $tags): DaedalusCycleEvent
     {
-        $event = new PlayerCycleEvent($player, $tags, new \DateTime());
-        $event->setEventName(PlayerCycleEvent::PLAYER_NEW_CYCLE);
+        $event = new DaedalusCycleEvent($daedalus, $tags, new \DateTime());
+        $event->setEventName(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         return $event;
     }
 
-    private function whenChangingTriumphForEvent(PlayerCycleEvent $event): void
+    private function whenChangingTriumphForEvent(TriumphSourceEventInterface $event): void
     {
         $this->service->execute($event);
     }

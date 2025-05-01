@@ -9,9 +9,12 @@ use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphScope;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
 class DaedalusCycleEvent extends AbstractGameEvent implements TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string DAEDALUS_NEW_CYCLE = 'daedalus.new.cycle';
 
     protected Daedalus $daedalus;
@@ -52,13 +55,10 @@ class DaedalusCycleEvent extends AbstractGameEvent implements TriumphSourceEvent
     public function getTargetsForTriumph(TriumphConfig $triumphConfig): PlayerCollection
     {
         return match ($triumphConfig->getScope()) {
-            TriumphScope::ALL_HUMAN => $this->daedalus->getAlivePlayers(),
-            default => throw new \LogicException('Unsupported triumph scope: ' . $triumphConfig->getScope()),
+            TriumphScope::ALL_HUMAN => $this->daedalus->getAlivePlayers()->getHumanPlayer(),
+            TriumphScope::ALL_MUSH => $this->daedalus->getAlivePlayers()->getMushPlayer(),
+            TriumphScope::PERSONAL => $this->daedalus->getAlivePlayers()->getAllByName($triumphConfig->getTarget()),
+            default => throw new \LogicException('Unsupported triumph scope: ' . $triumphConfig->getScope()->value),
         };
-    }
-
-    public function hasExpectedTags(TriumphConfig $triumphConfig): bool
-    {
-        return $this->hasAllTags($triumphConfig->getTargetedEventExpectedTags());
     }
 }

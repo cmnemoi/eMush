@@ -187,6 +187,11 @@ class PlayerCollection extends ArrayCollection
         )->count() > 0;
     }
 
+    public function getAllActive(): self
+    {
+        return $this->filter(static fn (Player $player) => $player->isActive());
+    }
+
     private function getPlayerWithStatus(string $status): ?Player
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;

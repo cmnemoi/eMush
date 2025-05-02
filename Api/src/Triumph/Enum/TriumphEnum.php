@@ -10,6 +10,7 @@ enum TriumphEnum: string
     case CYCLE_MUSH = 'cycle_mush';
     case CHUN_LIVES = 'chun_lives';
     case RETURN_TO_SOL = 'return_to_sol';
+    case SOL_MUSH_INTRUDER = 'sol_mush_intruder';
     case NULL = '';
 
     public function toConfigKey(string $configKey): string

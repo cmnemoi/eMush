@@ -11,6 +11,8 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Entity\TriumphConfig;
@@ -57,6 +59,19 @@ final class FinishDaedalusEventTest extends TestCase
         $this->thenAllPlayersHaveTriumphPoints(0);
     }
 
+    public function testShouldGiveSolMushIntruderTriumphToAllHumansGivenNumberOfMushPlayers(): void
+    {
+        $this->givenASolMushIntruderTriumphConfig();
+
+        $this->givenPlayerIsMush($this->player2);
+        $player3 = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
+        $this->givenPlayerIsMush($player3);
+
+        $this->whenDaedalusFinishesWithReturnToSol();
+
+        $this->thenPlayerShouldHaveTriumphPoints($this->player, -20);
+    }
+
     private function givenATriumphConfigRepository(): void
     {
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
@@ -91,6 +106,21 @@ final class FinishDaedalusEventTest extends TestCase
         );
     }
 
+    private function givenASolMushIntruderTriumphConfig(): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::SOL_MUSH_INTRUDER))
+        );
+    }
+
+    private function givenPlayerIsMush(Player $player): void
+    {
+        StatusFactory::createStatusByNameForHolder(
+            name: PlayerStatusEnum::MUSH,
+            holder: $player,
+        );
+    }
+
     private function whenDaedalusFinishesWithReturnToSol(): void
     {
         $event = new DaedalusEvent(
@@ -120,5 +150,10 @@ final class FinishDaedalusEventTest extends TestCase
         foreach ($this->daedalus->getAlivePlayers() as $player) {
             self::assertEquals($expectedPoints, $player->getTriumph());
         }
+    }
+
+    private function thenPlayerShouldHaveTriumphPoints(Player $player, int $expectedPoints): void
+    {
+        self::assertEquals($expectedPoints, $player->getTriumph());
     }
 }

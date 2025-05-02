@@ -56,6 +56,16 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_HUMAN,
                 quantity: 20,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::SOL_MUSH_INTRUDER->toConfigKey('default'),
+                name: TriumphEnum::SOL_MUSH_INTRUDER,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                targetedEventExpectedTags: [
+                    ActionEnum::RETURN_TO_SOL->toString(),
+                ],
+                scope: TriumphScope::ALL_HUMAN,
+                quantity: -10,
+            ),
         ];
     }
 

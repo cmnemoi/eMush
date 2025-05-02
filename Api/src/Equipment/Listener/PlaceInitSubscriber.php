@@ -69,6 +69,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                     }
                 )->first()
             ) {
+                /** @var Door $door */
                 $door = $roomDoor->getDoors()->filter(static function (Door $door) use ($doorName) {
                     return $door->getName() === $doorName;
                 })->first();

@@ -367,13 +367,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->givenDaedalusHasIncidentPoints($daedalus, 4);
         $this->givenRandomFloatIsZero();
         $this->givenSelectedIncidentIs(CycleIncidentEnum::JOLT);
-        $player1 = $this->givenPlayerInDaedalus($daedalus);
-        $this->statusService->createStatusFromName(
-            PlayerStatusEnum::JOLT_COOLDOWN,
-            $player1,
-            [],
-            new \DateTime()
-        );
+        $this->givenPlayerInDaedalus($daedalus);
 
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
@@ -391,13 +385,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->givenDaedalusHasIncidentPoints($daedalus, 6);
         $this->givenRandomFloatIsZero();
         $this->givenSelectedIncidentIs(CycleIncidentEnum::BOARD_DISEASE);
-        $player1 = $this->givenPlayerInDaedalus($daedalus);
-        $this->statusService->createStatusFromName(
-            PlayerStatusEnum::BOARD_DISEASE_COOLDOWN,
-            $player1,
-            [],
-            new \DateTime()
-        );
+        $this->givenPlayerInDaedalus($daedalus);
 
         // When
         $this->whenDispatchingCycleIncidents($daedalus);

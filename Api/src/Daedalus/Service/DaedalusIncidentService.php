@@ -198,14 +198,25 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): void
     {
+        // Only select players without BOARD_DISEASE_COOLDOWN
+        $eligiblePlayers = $daedalus->getAlivePlayers()->getAllExceptWithStatus(PlayerStatusEnum::BOARD_DISEASE_COOLDOWN);
+
         /** @var Player $playerToMakeSick */
         $playerToMakeSick = $this->getRandomElementsFromArray->execute(
-            elements: $daedalus->getAlivePlayers()->toArray(),
+            elements: $eligiblePlayers->toArray(),
             number: 1
         )->first();
         if (!$playerToMakeSick) {
             return;
         }
+
+        // Add BOARD_DISEASE_COOLDOWN status to the player
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::BOARD_DISEASE_COOLDOWN,
+            $playerToMakeSick,
+            [EventEnum::NEW_CYCLE, PlayerEvent::CYCLE_DISEASE],
+            $date
+        );
 
         $playerEvent = new PlayerEvent(
             $playerToMakeSick,

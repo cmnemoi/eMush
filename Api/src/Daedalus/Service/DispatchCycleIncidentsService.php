@@ -113,6 +113,7 @@ final class DispatchCycleIncidentsService
             CycleIncident::ACCIDENT => $daedalus->getAlivePlayers()->getAllInRoom()->getAllExceptWithStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->count() > 0,
             CycleIncident::JOLT => $daedalus->getRooms()->getAllWithAlivePlayers()->getAllWithoutStatus(PlayerStatusEnum::JOLT_COOLDOWN)->count() > 0,
             CycleIncident::ELECTROCUTION => true,
+            CycleIncident::BOARD_DISEASE => $daedalus->getAlivePlayers()->getAllExceptWithStatus(PlayerStatusEnum::BOARD_DISEASE_COOLDOWN)->count() > 0,
             default => throw new \LogicException("Incident type {$incident->value} not found"),
         };
     }

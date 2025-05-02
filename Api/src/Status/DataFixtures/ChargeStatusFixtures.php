@@ -623,6 +623,21 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($accidentCooldown);
 
+        $boardDiseaseCooldown = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE . '_default')
+        );
+        $manager->persist($boardDiseaseCooldown);
+
+        $electrocutionCooldown = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString() . '_default')
+        );
+        $manager->persist($electrocutionCooldown);
+
+        $joltCooldown = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlaceStatusEnum::SELECTED_FOR_JOLT->toString() . '_default')
+        );
+        $manager->persist($joltCooldown);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -681,7 +696,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($contactedSolToday)
             ->addStatusConfig($baseRebelContactDuration)
             ->addStatusConfig($lunchboxCharge)
-            ->addStatusConfig($accidentCooldown);
+            ->addStatusConfig($accidentCooldown)
+            ->addStatusConfig($boardDiseaseCooldown)
+            ->addStatusConfig($electrocutionCooldown)
+            ->addStatusConfig($joltCooldown);
 
         $manager->persist($gameConfig);
 
@@ -744,6 +762,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION, $baseRebelContactDuration);
         $this->addReference(self::LUNCHBOX_CHARGE, $lunchboxCharge);
         $this->addReference(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE, $accidentCooldown);
+        $this->addReference(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE, $boardDiseaseCooldown);
+        $this->addReference(PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString(), $electrocutionCooldown);
+        $this->addReference(PlaceStatusEnum::SELECTED_FOR_JOLT->toString(), $joltCooldown);
     }
 
     public function getDependencies(): array

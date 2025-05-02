@@ -26,6 +26,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierHolderTrait;
+use Mush\Place\Collection\PlaceCollection;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -44,7 +45,6 @@ use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
@@ -219,9 +219,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->places;
     }
 
-    public function getRooms(): Collection
+    public function getRooms(): PlaceCollection
     {
-        return $this->getPlaces()->filter(static fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM);
+        return new PlaceCollection($this->getPlaces()->filter(static fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM)->toArray());
     }
 
     public function getSpace(): Place
@@ -273,16 +273,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $place;
-    }
-
-    public function getRoomsWithoutFire(): Collection
-    {
-        return $this->getRooms()->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE));
-    }
-
-    public function getRoomsWithAlivePlayers(): Collection
-    {
-        return $this->getRooms()->filter(static fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0);
     }
 
     /** @return Collection<array-key, Place> */

@@ -40,7 +40,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         /** @var Place $roomToFire */
         $roomToFire = $this->getRandomElementsFromArray->execute(
-            elements: $daedalus->getRoomsWithoutFire()->toArray(),
+            elements: $daedalus->getRooms()->getAllWithoutStatus(StatusEnum::FIRE)->toArray(),
             number: 1
         )->first();
         if (!$roomToFire) {
@@ -57,14 +57,24 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleTremorEvents(Daedalus $daedalus, \DateTime $date): void
     {
+        $rooms = $daedalus->getRooms()->getAllWithAlivePlayers()->getAllWithoutStatus(PlayerStatusEnum::JOLT_COOLDOWN);
+
         /** @var Place $roomToShake */
         $roomToShake = $this->getRandomElementsFromArray->execute(
-            elements: $daedalus->getRoomsWithAlivePlayers()->toArray(),
+            elements: $rooms->toArray(),
             number: 1
         )->first();
         if (!$roomToShake) {
             return;
         }
+
+        // Add JOLT_COOLDOWN status to the room
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::JOLT_COOLDOWN,
+            $roomToShake,
+            [EventEnum::NEW_CYCLE, RoomEvent::TREMOR],
+            $date
+        );
 
         $roomEvent = new RoomEvent(
             $roomToShake,

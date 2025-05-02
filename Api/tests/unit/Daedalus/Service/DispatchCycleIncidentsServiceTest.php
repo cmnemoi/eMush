@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
+use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -33,6 +34,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\FakeStatusService;
 use PHPUnit\Framework\TestCase;
@@ -354,6 +356,78 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
             ->shouldHaveReceived('callEvent')
             ->withArgs(static fn (AbstractGameEvent $event) => $event->hasTag(PlayerEvent::METAL_PLATE))
             ->once();
+    }
+
+    public function testShouldNotSelectPlayerForJoltIfTheyHaveJoltCooldown(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 4);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::JOLT);
+        $player1 = $this->givenPlayerInDaedalus($daedalus);
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::JOLT_COOLDOWN,
+            $player1,
+            [],
+            new \DateTime()
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->thenEventShouldBeCalledWithTag(RoomEvent::TREMOR);
+    }
+
+    public function testShouldNotSelectPlayerForBoardDiseaseIfTheyHaveBoardDiseaseCooldown(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 6);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::BOARD_DISEASE);
+        $player1 = $this->givenPlayerInDaedalus($daedalus);
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::BOARD_DISEASE_COOLDOWN,
+            $player1,
+            [],
+            new \DateTime()
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->thenEventShouldBeCalledWithTag(PlayerEvent::CYCLE_DISEASE);
+    }
+
+    public function testShouldNotSelectPlayerForElectrocutionIfTheyHaveElectrocutionCooldown(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 16);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::ELECTROCUTION);
+        $player1 = $this->givenPlayerInDaedalus($daedalus);
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::ELECTROCUTION_COOLDOWN,
+            $player1,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->thenEventShouldBeCalledWithTag(RoomEvent::ELECTRIC_ARC);
     }
 
     private function givenADaedalus(): Daedalus

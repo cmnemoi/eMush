@@ -75,4 +75,5 @@ abstract class PlayerStatusEnum
     public const string FITFUL_SLEEP = 'fitful_sleep';
     public const string CONTACTED_SOL_TODAY = 'contacted_sol_today';
     public const string BEGINNER = 'beginner';
+    public const string SELECTED_FOR_STEEL_PLATE = 'selected_for_steel_plate';
 }

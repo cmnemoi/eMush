@@ -1870,6 +1870,20 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE . '_default',
+            'statusName' => PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::CYCLE_DECREMENT,
+            'maxCharge' => 0,
+            'startCharge' => 0,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => true,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

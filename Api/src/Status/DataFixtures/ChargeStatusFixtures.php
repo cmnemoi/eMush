@@ -618,6 +618,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $baseRebelContactDuration->setStartCharge(8);
         $manager->persist($baseRebelContactDuration);
 
+        $accidentCooldown = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE . '_default')
+        );
+        $manager->persist($accidentCooldown);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -675,7 +680,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($coffeeThermosCharge)
             ->addStatusConfig($contactedSolToday)
             ->addStatusConfig($baseRebelContactDuration)
-            ->addStatusConfig($lunchboxCharge);
+            ->addStatusConfig($lunchboxCharge)
+            ->addStatusConfig($accidentCooldown);
 
         $manager->persist($gameConfig);
 
@@ -737,6 +743,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::COFFEE_THERMOS_CHARGE, $coffeeThermosCharge);
         $this->addReference(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION, $baseRebelContactDuration);
         $this->addReference(self::LUNCHBOX_CHARGE, $lunchboxCharge);
+        $this->addReference(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE, $accidentCooldown);
     }
 
     public function getDependencies(): array

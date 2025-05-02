@@ -17,9 +17,9 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->isAlive());
     }
 
-    public function getPlayerAliveAndInRoom(): self
+    public function getAllInRoom(): self
     {
-        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInARoom());
+        return $this->filter(static fn (Player $player) => $player->isInARoom());
     }
 
     public function getPlayerDead(): self
@@ -151,6 +151,11 @@ class PlayerCollection extends ArrayCollection
     public function getAllWithStatus(string $status): self
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status));
+    }
+
+    public function getAllExceptWithStatus(string $status): self
+    {
+        return $this->filter(static fn (Player $player) => $player->doesNotHaveStatus($status));
     }
 
     public function getTradablePlayersFor(Player $trader): self

@@ -335,6 +335,27 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenEventShouldBeCalledWithTag(RoomEvent::ELECTRIC_ARC);
     }
 
+    public function testShouldNotSelectSamePlayerTwiceForAccident(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 4);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::ACCIDENT);
+        $this->givenPlayerInDaedalus($daedalus);
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService
+            ->shouldHaveReceived('callEvent')
+            ->withArgs(static fn (AbstractGameEvent $event) => $event->hasTag(PlayerEvent::METAL_PLATE))
+            ->once();
+    }
+
     private function givenADaedalus(): Daedalus
     {
         return DaedalusFactory::createDaedalus();

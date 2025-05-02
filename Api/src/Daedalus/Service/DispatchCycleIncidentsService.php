@@ -14,6 +14,7 @@ use Mush\Game\Service\Random\ProbaCollectionRandomElementServiceInterface;
 use Mush\Game\Service\Random\RandomFloatServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\BricBrocProjectWorkedEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 final class DispatchCycleIncidentsService
 {
@@ -44,7 +45,8 @@ final class DispatchCycleIncidentsService
             return true;
         }
 
-        return $this->randomFloat->generateBetween(0, 1) > $daedalus->getIncidentPoints() / self::INCIDENT_POINTS_THRESHOLD;
+        return false;
+        // return $this->randomFloat->generateBetween(0, 1) > $daedalus->getIncidentPoints() / self::INCIDENT_POINTS_THRESHOLD;
     }
 
     private function dispatchIncidents(Daedalus $daedalus, \DateTime $time): void
@@ -56,6 +58,7 @@ final class DispatchCycleIncidentsService
             }
 
             $incident = $this->getRandomIncidentToDispatch($availableIncidents);
+            dump($incident);
             $this->triggerIncidentForDaedalus($incident, $daedalus, $time);
             $daedalus->removeIncidentPoints($incident->getCost());
         }
@@ -108,7 +111,7 @@ final class DispatchCycleIncidentsService
             CycleIncident::DOOR_BLOCKED => \count($this->daedalusIncidentService->getBreakableDoors($daedalus)) > 0,
             CycleIncident::EQUIPMENT_FAILURE => $this->daedalusIncidentService->getWorkingEquipmentDistribution($daedalus)->count() > 0,
             CycleIncident::ANXIETY_ATTACK, CycleIncident::BOARD_DISEASE => $daedalus->getAlivePlayers()->getHumanPlayer()->count() > 0,
-            CycleIncident::ACCIDENT, CycleIncident::JOLT => $daedalus->getAlivePlayers()->getPlayerAliveAndInRoom()->count() > 0,
+            CycleIncident::ACCIDENT, CycleIncident::JOLT => $daedalus->getAlivePlayers()->getAllInRoom()->getAllExceptWithStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->count() > 0,
             CycleIncident::ELECTROCUTION => true,
             default => throw new \LogicException("Incident type {$incident->value} not found"),
         };

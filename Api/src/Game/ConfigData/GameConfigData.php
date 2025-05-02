@@ -519,6 +519,7 @@ class GameConfigData
                 HunterStatusEnum::AGGROED . '_default',
                 PlayerStatusEnum::BEGINNER . '_default',
                 'electric_charges_lunchbox_default',
+                PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE . '_default',
             ],
             'triumphConfigs' => [
                 'alien_science',

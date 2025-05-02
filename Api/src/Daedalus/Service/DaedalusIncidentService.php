@@ -22,6 +22,7 @@ use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -162,16 +163,24 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
     {
         /** @var Player $playerToSteelPlate */
         $playerToSteelPlate = $this->getRandomElementsFromArray->execute(
-            elements: $daedalus->getPlayers()->getPlayerAliveAndInRoom()->toArray(),
+            elements: $daedalus->getAlivePlayers()->getAllInRoom()->getAllExceptWithStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->toArray(),
             number: 1
         )->first();
         if (!$playerToSteelPlate) {
             return;
         }
 
+        $tags = [EventEnum::NEW_CYCLE, PlayerEvent::METAL_PLATE];
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE,
+            $playerToSteelPlate,
+            $tags,
+            $date
+        );
+
         $playerEvent = new PlayerEvent(
             $playerToSteelPlate,
-            [EventEnum::NEW_CYCLE, PlayerEvent::METAL_PLATE],
+            $tags,
             $date
         );
         $this->eventService->callEvent($playerEvent, PlayerEvent::METAL_PLATE);

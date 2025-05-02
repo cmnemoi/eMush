@@ -23,3 +23,25 @@ Adminstrators can toggle the maintenance mode from the admin panel :
 
 Internally, this works by the `AdminService` creating and deleting a file named `maintenance` in the `var` directory. If this file exists, the game is in maintenance mode. The front end then displays the maintenance page if the API returns a 503 error.
 
+# How to add new config on admin pages?
+
+1. Expose the new config you want in admin panel with **API Platform**.
+  
+    a. Create an endpoint from which will recover your config data by creating a YAML file in `Api/config/api_platform/resources`. You may also define endpoint to access sub-resources. 
+    Example : you can recover all equipment configs by calling the `/api/v1/equipment_configs/` URL / endpoint. 
+    You can recover the actions provided by a piece of equipment by calling the `/api/v1/equipment_configs/{id}/action_configs` URL / endpoint, as a sub-resource.
+    
+    b. Choose the attributes you want to see exposed by creating a YAML file in `Api/config/api_platform/serialization`. Usually, it's all of them.
+    
+    c. Add some validation rules for your config by creating a YAML file in `Api/config/api_platform/validation`. Example : a `ProjectConfig` `efficiency` should be between 1 and 99.
+
+2. Create a  `<your_config>.service.ts` in `App/src/services` which contains functions to create, update and load your config data. Please take inspiration from `App/src/services/hunter.config.service.ts`
+
+3. Create new Vue components with the user interfaces to list, edit and create your config data in `App/src/components/Admin/Config/<your_config>`. You probably want to update the banner in `App/src/components/Admin/AdminConfigBanner.vue` and configure the routing in `App/src/router/adminConfigPages.ts` so your pages are accessible.
+
+4. Use your `<your_config>.service.ts` to actually fetch your config data in your newly created interface. Please take inspiration from already existing Vue components in `App/src/components/Admin/Config`
+
+See this MR for API Platform endpoint creation for HunterConfig : https://gitlab.com/eternaltwin/mush/mush/-/merge_requests/1186
+
+And this MR for its exposure in admin panel : https://gitlab.com/eternaltwin/mush/mush/-/merge_requests/1188
+

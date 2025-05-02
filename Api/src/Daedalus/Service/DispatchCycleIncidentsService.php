@@ -112,7 +112,7 @@ final class DispatchCycleIncidentsService
             CycleIncident::ANXIETY_ATTACK, CycleIncident::BOARD_DISEASE => $daedalus->getAlivePlayers()->getHumanPlayer()->count() > 0,
             CycleIncident::ACCIDENT => $daedalus->getAlivePlayers()->getAllInRoom()->getAllExceptWithStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->count() > 0,
             CycleIncident::JOLT => $daedalus->getRooms()->getAllWithAlivePlayers()->getAllWithoutStatus(PlayerStatusEnum::JOLT_COOLDOWN)->count() > 0,
-            CycleIncident::ELECTROCUTION => true,
+            CycleIncident::ELECTROCUTION => $daedalus->getRooms()->getAllWithoutStatus(PlayerStatusEnum::ELECTROCUTION_COOLDOWN)->count() > 0,
             CycleIncident::BOARD_DISEASE => $daedalus->getAlivePlayers()->getAllExceptWithStatus(PlayerStatusEnum::BOARD_DISEASE_COOLDOWN)->count() > 0,
             default => throw new \LogicException("Incident type {$incident->value} not found"),
         };

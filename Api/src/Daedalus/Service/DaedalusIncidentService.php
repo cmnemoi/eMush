@@ -68,7 +68,6 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             return;
         }
 
-        // Add JOLT_COOLDOWN status to the room
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::JOLT_COOLDOWN,
             $roomToShake,
@@ -86,11 +85,23 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleElectricArcEvents(Daedalus $daedalus, \DateTime $date): void
     {
+        $rooms = $daedalus->getRooms()->getAllWithoutStatus(PlayerStatusEnum::ELECTROCUTION_COOLDOWN);
+
         /** @var Place $roomToElectrize */
-        $roomToElectrize = $this->getRandomElementsFromArray->execute(elements: $daedalus->getRooms()->toArray(), number: 1)->first();
+        $roomToElectrize = $this->getRandomElementsFromArray->execute(
+            elements: $rooms->toArray(),
+            number: 1
+        )->first();
         if (!$roomToElectrize) {
             return;
         }
+
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::ELECTROCUTION_COOLDOWN,
+            $roomToElectrize,
+            [EventEnum::NEW_CYCLE, RoomEvent::ELECTRIC_ARC],
+            $date
+        );
 
         $roomEvent = new RoomEvent(
             $roomToElectrize,
@@ -198,7 +209,6 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
 
     public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): void
     {
-        // Only select players without BOARD_DISEASE_COOLDOWN
         $eligiblePlayers = $daedalus->getAlivePlayers()->getAllExceptWithStatus(PlayerStatusEnum::BOARD_DISEASE_COOLDOWN);
 
         /** @var Player $playerToMakeSick */
@@ -210,7 +220,6 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             return;
         }
 
-        // Add BOARD_DISEASE_COOLDOWN status to the player
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::BOARD_DISEASE_COOLDOWN,
             $playerToMakeSick,

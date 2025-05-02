@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -34,8 +33,10 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Factory\ProjectFactory;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Status\Service\FakeStatusService;
 use PHPUnit\Framework\TestCase;
 
@@ -83,6 +84,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
             daedalusIncidentService: $this->daedalusIncidentService,
             d100Roll: $this->d100Roll,
             eventService: $this->eventService,
+            gameEquipmentRepository: $this->gameEquipmentRepository,
             probaCollectionRandomElement: $this->probaCollectionRandomElement,
             randomFloat: $this->randomFloat,
         );
@@ -157,6 +159,28 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenRoomShouldBeBurning($room);
     }
 
+    public function testShouldNotDispatchFireIncidentIfAllRoomsAreBurning(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 4);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::FIRE);
+        $room = $this->givenLaboratoryExists($daedalus);
+        StatusFactory::createStatusByNameForHolder(
+            name: StatusEnum::FIRE,
+            holder: $room,
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
     public function testShouldBreakOxygenTankIfSelected(): void
     {
         // Given
@@ -175,6 +199,28 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenEquipmentShouldBeBroken($oxygenTank, 'Oxygen tank should be broken');
     }
 
+    public function testShouldNotBreakOxygenTankIfAllOxygenTanksAreBroken(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::OXYGEN_LEAK);
+        $oxygenTank = $this->givenEquipmentInLaboratory($daedalus, EquipmentEnum::OXYGEN_TANK);
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::BROKEN,
+            holder: $oxygenTank,
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
     public function testShouldBreakFuelTankIfSelected(): void
     {
         // Given
@@ -191,6 +237,28 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
 
         // Then
         $this->thenEquipmentShouldBeBroken($fuelTank, 'Fuel tank should be broken');
+    }
+
+    public function testShouldNotBreakFuelTankIfAllFuelTanksAreBroken(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::FUEL_LEAK);
+        $fuelTank = $this->givenEquipmentInLaboratory($daedalus, EquipmentEnum::FUEL_TANK);
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::BROKEN,
+            holder: $fuelTank,
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldBreakDoorIfSelected(): void
@@ -229,6 +297,28 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenEquipmentShouldNotBeBroken($door, 'Door should not be broken');
     }
 
+    public function testShouldNotBreakDoorIfAllDoorsAreBroken(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::DOOR_BLOCKED);
+        $door = $this->givenDoorBetweenLaboratoryAndFrontCorridor($daedalus);
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::BROKEN,
+            holder: $door,
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
     public function testShouldBreakEquipmentIfSelected(): void
     {
         // Given
@@ -246,6 +336,28 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
 
         // Then
         $this->thenEquipmentShouldBeBroken($equipment, 'Equipment should be broken');
+    }
+
+    public function testShouldNotBreakEquipmentIfAllEquipmentAreBroken(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::EQUIPMENT_FAILURE);
+        $equipment = $this->givenEquipmentInLaboratory($daedalus, EquipmentEnum::GRAVITY_SIMULATOR);
+        StatusFactory::createStatusByNameForHolder(
+            name: EquipmentStatusEnum::BROKEN,
+            holder: $equipment,
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldSteelPlatePlayerIfSelected(): void
@@ -337,7 +449,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenEventShouldBeCalledWithTag(RoomEvent::ELECTRIC_ARC);
     }
 
-    public function testShouldNotSelectSamePlayerTwiceForAccident(): void
+    public function testShouldNotSelectPlayerForAccidentTwice(): void
     {
         // Given
         $daedalus = $this->givenADaedalus();
@@ -358,7 +470,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
             ->once();
     }
 
-    public function testShouldNotSelectPlayerForJoltIfTheyHaveJoltCooldown(): void
+    public function testShouldNotSelectPlayerForJoltTwice(): void
     {
         // Given
         $daedalus = $this->givenADaedalus();
@@ -376,7 +488,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenEventShouldBeCalledWithTag(RoomEvent::TREMOR);
     }
 
-    public function testShouldNotSelectPlayerForBoardDiseaseIfTheyHaveBoardDiseaseCooldown(): void
+    public function testShouldNotSelectPlayerForBoardDiseaseTwice(): void
     {
         // Given
         $daedalus = $this->givenADaedalus();
@@ -394,7 +506,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->thenEventShouldBeCalledWithTag(PlayerEvent::CYCLE_DISEASE);
     }
 
-    public function testShouldNotSelectPlayerForElectrocutionIfTheyHaveElectrocutionCooldown(): void
+    public function testShouldNotSelectPlayerForElectrocutionTwice(): void
     {
         // Given
         $daedalus = $this->givenADaedalus();
@@ -404,18 +516,151 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->givenRandomFloatIsZero();
         $this->givenSelectedIncidentIs(CycleIncidentEnum::ELECTROCUTION);
         $player1 = $this->givenPlayerInDaedalus($daedalus);
-        $this->statusService->createStatusFromName(
-            PlayerStatusEnum::ELECTROCUTION_COOLDOWN,
-            $player1,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
 
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
 
         // Then
         $this->thenEventShouldBeCalledWithTag(RoomEvent::ELECTRIC_ARC);
+    }
+
+    public function testShouldNotSelectDeadPlayerForAccident(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 4);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::ACCIDENT);
+        $player = $this->givenPlayerInDaedalus($daedalus);
+        $player->kill();
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
+    public function testShouldNotSelectDeadPlayerForJolt(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 4);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::JOLT);
+        $player = $this->givenPlayerInDaedalus($daedalus);
+        $player->kill();
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
+    public function testShouldNotSelectDeadPlayerForBoardDisease(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 6);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::BOARD_DISEASE);
+        $player = $this->givenPlayerInDaedalus($daedalus);
+        $player->kill();
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
+    public function testShouldNotSelectDeadPlayerForAnxietyAttack(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 2);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::ANXIETY_ATTACK);
+        $player = $this->givenPlayerInDaedalus($daedalus);
+        $player->kill();
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
+    public function testShouldNotSelectMushPlayerForBoardDisease(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 6);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::BOARD_DISEASE);
+        $player = $this->givenPlayerInDaedalus($daedalus);
+        StatusFactory::createChargeStatusWithName(
+            PlayerStatusEnum::MUSH,
+            $player,
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
+    public function shouldNotSelectPlayerInSpaceForAccident(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 4);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::ACCIDENT);
+        $player = $this->givenPlayerInDaedalus($daedalus);
+        $player->changePlace($daedalus->getPlaceByName(RoomEnum::SPACE));
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
+    }
+
+    public function testShouldNotSelectMushPlayerForAnxietyAttack(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 2);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::ANXIETY_ATTACK);
+        $player = $this->givenPlayerInDaedalus($daedalus);
+        StatusFactory::createChargeStatusWithName(
+            PlayerStatusEnum::MUSH,
+            $player,
+        );
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     private function givenADaedalus(): Daedalus

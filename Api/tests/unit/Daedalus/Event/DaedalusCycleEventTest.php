@@ -12,6 +12,7 @@ use Mush\Daedalus\Listener\DaedalusCycleSubscriber;
 use Mush\Daedalus\Service\DaedalusIncidentServiceInterface;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DispatchCycleIncidentsService;
+use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Service\DifficultyServiceInterface;
@@ -66,6 +67,7 @@ final class DaedalusCycleEventTest extends TestCase
             daedalusIncidentService: $this->createStub(DaedalusIncidentServiceInterface::class),
             d100Roll: new FakeD100RollService(),
             eventService: $this->createStub(EventServiceInterface::class),
+            gameEquipmentRepository: $this->createStub(GameEquipmentRepositoryInterface::class),
             probaCollectionRandomElement: new ProbaCollectionRandomElementService(new FakeGetRandomIntegerService(0)),
             randomFloat: new FakeRandomFloatService(),
         );

@@ -76,7 +76,5 @@ abstract class PlayerStatusEnum
     public const string CONTACTED_SOL_TODAY = 'contacted_sol_today';
     public const string BEGINNER = 'beginner';
     public const string SELECTED_FOR_STEEL_PLATE = 'selected_for_steel_plate';
-    public const string JOLT_COOLDOWN = 'jolt_cooldown';
-    public const string BOARD_DISEASE_COOLDOWN = 'board_disease_cooldown';
-    public const string ELECTROCUTION_COOLDOWN = 'electrocution_cooldown';
+    public const string SELECTED_FOR_BOARD_DISEASE = 'selected_for_board_disease';
 }

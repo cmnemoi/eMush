@@ -9,6 +9,8 @@ enum PlaceStatusEnum: string
     case CEASEFIRE = 'ceasefire';
     case DELOGGED = 'delogged';
     case MUSH_TRAPPED = 'mush_trapped';
+    case SELECTED_FOR_ELECTROCUTION = 'selected_for_electrocution';
+    case SELECTED_FOR_JOLT = 'selected_for_jolt';
 
     public function toString(): string
     {

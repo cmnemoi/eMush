@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Mush\Daedalus\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Entity\Collection\ProbaCollection;
@@ -17,11 +15,11 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\DoorEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -36,11 +34,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         private StatusServiceInterface $statusService,
     ) {}
 
-    public function handleFireEvents(Daedalus $daedalus, \DateTime $date): void
+    public function handleFireEvents(array $rooms, \DateTime $date): void
     {
         /** @var Place $roomToFire */
         $roomToFire = $this->getRandomElementsFromArray->execute(
-            elements: $daedalus->getRooms()->getAllWithoutStatus(StatusEnum::FIRE)->toArray(),
+            elements: $rooms,
             number: 1
         )->first();
         if (!$roomToFire) {
@@ -55,13 +53,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         );
     }
 
-    public function handleTremorEvents(Daedalus $daedalus, \DateTime $date): void
+    public function handleTremorEvents(array $rooms, \DateTime $date): void
     {
-        $rooms = $daedalus->getRooms()->getAllWithAlivePlayers()->getAllWithoutStatus(PlayerStatusEnum::JOLT_COOLDOWN);
-
         /** @var Place $roomToShake */
         $roomToShake = $this->getRandomElementsFromArray->execute(
-            elements: $rooms->toArray(),
+            elements: $rooms,
             number: 1
         )->first();
         if (!$roomToShake) {
@@ -69,7 +65,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
 
         $this->statusService->createStatusFromName(
-            PlayerStatusEnum::JOLT_COOLDOWN,
+            PlaceStatusEnum::SELECTED_FOR_JOLT->toString(),
             $roomToShake,
             [EventEnum::NEW_CYCLE, RoomEvent::TREMOR],
             $date
@@ -83,13 +79,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $this->eventService->callEvent($roomEvent, RoomEvent::TREMOR);
     }
 
-    public function handleElectricArcEvents(Daedalus $daedalus, \DateTime $date): void
+    public function handleElectricArcEvents(array $rooms, \DateTime $date): void
     {
-        $rooms = $daedalus->getRooms()->getAllWithoutStatus(PlayerStatusEnum::ELECTROCUTION_COOLDOWN);
-
         /** @var Place $roomToElectrize */
         $roomToElectrize = $this->getRandomElementsFromArray->execute(
-            elements: $rooms->toArray(),
+            elements: $rooms,
             number: 1
         )->first();
         if (!$roomToElectrize) {
@@ -97,7 +91,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
 
         $this->statusService->createStatusFromName(
-            PlayerStatusEnum::ELECTROCUTION_COOLDOWN,
+            PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString(),
             $roomToElectrize,
             [EventEnum::NEW_CYCLE, RoomEvent::ELECTRIC_ARC],
             $date
@@ -111,24 +105,14 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $this->eventService->callEvent($roomEvent, RoomEvent::ELECTRIC_ARC);
     }
 
-    public function handleEquipmentBreak(Daedalus $daedalus, \DateTime $date): void
+    public function handleEquipmentBreak(ProbaCollection $equipments, Daedalus $daedalus, \DateTime $date): void
     {
-        $workingEquipmentBreakRateDistribution = $this->getWorkingEquipmentBreakRateDistribution($daedalus);
-
-        // If there is no working equipment, we don't have to break anything
-        if ($workingEquipmentBreakRateDistribution->isEmpty()) {
-            return;
-        }
-
-        // If there is less working equipment than the number of equipment we want to break
-        // we break the number of working equipment instead to avoid an error
-        $numberOfEquipmentBroken = min(1, $workingEquipmentBreakRateDistribution->count());
         $equipmentToBreak = $this
             ->randomService
             ->getRandomDaedalusEquipmentFromProbaCollection(
-                $workingEquipmentBreakRateDistribution,
-                $numberOfEquipmentBroken,
-                $daedalus
+                array: $equipments,
+                number: 1,
+                daedalus: $daedalus
             );
         if (empty($equipmentToBreak)) {
             return;
@@ -142,11 +126,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         );
     }
 
-    public function handleDoorBreak(Daedalus $daedalus, \DateTime $date): void
+    public function handleDoorBreak(array $doors, \DateTime $date): void
     {
         /** @var Door $doorToBreak */
         $doorToBreak = $this->getRandomElementsFromArray->execute(
-            elements: $this->getBreakableDoors($daedalus),
+            elements: $doors,
             number: 1
         )->first();
         if (!$doorToBreak) {
@@ -161,11 +145,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         );
     }
 
-    public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): void
+    public function handlePanicCrisis(array $players, \DateTime $date): void
     {
         /** @var Player $playerToPanic */
         $playerToPanic = $this->getRandomElementsFromArray->execute(
-            elements: $daedalus->getAlivePlayers()->getHumanPlayer()->toArray(),
+            elements: $players,
             number: 1
         )->first();
         if (!$playerToPanic) {
@@ -180,11 +164,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $this->eventService->callEvent($playerEvent, PlayerEvent::PANIC_CRISIS);
     }
 
-    public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): void
+    public function handleMetalPlates(array $players, \DateTime $date): void
     {
         /** @var Player $playerToSteelPlate */
         $playerToSteelPlate = $this->getRandomElementsFromArray->execute(
-            elements: $daedalus->getAlivePlayers()->getAllInRoom()->getAllExceptWithStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->toArray(),
+            elements: $players,
             number: 1
         )->first();
         if (!$playerToSteelPlate) {
@@ -207,13 +191,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $this->eventService->callEvent($playerEvent, PlayerEvent::METAL_PLATE);
     }
 
-    public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): void
+    public function handleCrewDisease(array $players, \DateTime $date): void
     {
-        $eligiblePlayers = $daedalus->getAlivePlayers()->getAllExceptWithStatus(PlayerStatusEnum::BOARD_DISEASE_COOLDOWN);
-
         /** @var Player $playerToMakeSick */
         $playerToMakeSick = $this->getRandomElementsFromArray->execute(
-            elements: $eligiblePlayers->toArray(),
+            elements: $players,
             number: 1
         )->first();
         if (!$playerToMakeSick) {
@@ -221,7 +203,7 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         }
 
         $this->statusService->createStatusFromName(
-            PlayerStatusEnum::BOARD_DISEASE_COOLDOWN,
+            PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE,
             $playerToMakeSick,
             [EventEnum::NEW_CYCLE, PlayerEvent::CYCLE_DISEASE],
             $date
@@ -235,11 +217,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         $this->eventService->callEvent($playerEvent, PlayerEvent::CYCLE_DISEASE);
     }
 
-    public function handleOxygenTankBreak(Daedalus $daedalus, \DateTime $date): void
+    public function handleOxygenTankBreak(array $tanks, \DateTime $date): void
     {
         /** @var GameEquipment $oxygenTankToBreak */
         $oxygenTankToBreak = $this->getRandomElementsFromArray->execute(
-            elements: $this->getWorkingOxygenTanks($daedalus),
+            elements: $tanks,
             number: 1
         )->first();
         if (!$oxygenTankToBreak) {
@@ -254,11 +236,11 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
         );
     }
 
-    public function handleFuelTankBreak(Daedalus $daedalus, \DateTime $date): void
+    public function handleFuelTankBreak(array $tanks, \DateTime $date): void
     {
         /** @var GameEquipment $fuelTankToBreak */
         $fuelTankToBreak = $this->getRandomElementsFromArray->execute(
-            elements: $this->getWorkingFuelTanks($daedalus),
+            elements: $tanks,
             number: 1
         )->first();
         if (!$fuelTankToBreak) {
@@ -271,78 +253,5 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             [EventEnum::NEW_CYCLE, EquipmentEvent::EQUIPMENT_BROKEN],
             $date
         );
-    }
-
-    public function getBreakableDoors(Daedalus $daedalus): array
-    {
-        $criteria = new GameEquipmentCriteria($daedalus);
-        $criteria->setInstanceOf([Door::class]);
-
-        $daedalusDoors = $this->gameEquipmentRepository->findByCriteria($criteria);
-
-        $daedalusDoorsNames = array_map(static fn (Door $door) => $door->getName(), $daedalusDoors);
-
-        $breakableDoorsNames = array_filter($daedalusDoorsNames, static fn (string $doorName) => DoorEnum::isBreakable($doorName));
-
-        $breakableDoors = array_filter($daedalusDoors, static fn (Door $door) => \in_array($door->getName(), $breakableDoorsNames, true));
-
-        $breakableDoors = array_filter($breakableDoors, static fn (Door $door) => !$door->isBroken());
-
-        return $breakableDoors;
-    }
-
-    public function getWorkingOxygenTanks(Daedalus $daedalus): array
-    {
-        $tanks = $this->gameEquipmentRepository->findByNameAndDaedalus(EquipmentEnum::OXYGEN_TANK, $daedalus);
-
-        return array_filter($tanks, static fn (GameEquipment $tank) => !$tank->isBroken());
-    }
-
-    public function getWorkingFuelTanks(Daedalus $daedalus): array
-    {
-        $tanks = $this->gameEquipmentRepository->findByNameAndDaedalus(EquipmentEnum::FUEL_TANK, $daedalus);
-
-        return array_filter($tanks, static fn (GameEquipment $tank) => !$tank->isBroken());
-    }
-
-    public function getWorkingEquipmentDistribution(Daedalus $daedalus): ProbaCollection
-    {
-        return $this->getWorkingEquipmentBreakRateDistribution($daedalus);
-    }
-
-    /**
-     * This function returns the distribution of the working equipment break rate
-     * to avoid trying to break a piece of equipment that is already broken
-     * (and get less broken equipment than expected).
-     */
-    private function getWorkingEquipmentBreakRateDistribution(Daedalus $daedalus): ProbaCollection
-    {
-        $equipmentBreakRateDistribution = $daedalus
-            ->getGameConfig()
-            ->getDifficultyConfig()
-            ->getEquipmentBreakRateDistribution();
-
-        $absentEquipments = [];
-
-        /** @var string $equipmentName */
-        foreach ($equipmentBreakRateDistribution as $equipmentName => $probability) {
-            /** @var array<int, GameEquipment> $equipments */
-            $equipments = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus);
-            // first, remove equipment which not present on the daedalus
-            if (empty($equipments)) {
-                $absentEquipments[] = $equipmentName;
-
-                continue;
-            }
-
-            // then, remove equipment which is already broken or patrol ships in space battle
-            foreach ($equipments as $equipment) {
-                if ($equipment->isBroken() || $equipment->isInSpaceBattle()) {
-                    $absentEquipments[] = $equipmentName;
-                }
-            }
-        }
-
-        return $equipmentBreakRateDistribution->withdrawElements($absentEquipments);
     }
 }

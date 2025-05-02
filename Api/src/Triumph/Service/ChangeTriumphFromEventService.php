@@ -7,6 +7,7 @@ namespace Mush\Triumph\Service;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Triumph\Entity\TriumphConfig;
+use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Event\TriumphChangedEvent;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Repository\TriumphConfigRepositoryInterface;
@@ -35,11 +36,21 @@ final class ChangeTriumphFromEventService
 
     private function addTriumphToPlayer(TriumphConfig $triumphConfig, Player $player): void
     {
-        $player->addTriumph($triumphConfig->getQuantity());
+        $quantity = $this->computeTriumphForPlayer($triumphConfig, $player);
+
+        $player->addTriumph($quantity);
 
         $this->eventService->callEvent(
             new TriumphChangedEvent($player, $triumphConfig),
             TriumphChangedEvent::class,
         );
+    }
+
+    private function computeTriumphForPlayer(TriumphConfig $triumphConfig, Player $player): int
+    {
+        return match ($triumphConfig->getName()) {
+            TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
+            default => $triumphConfig->getQuantity(),
+        };
     }
 }

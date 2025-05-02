@@ -16,12 +16,9 @@ final readonly class TriumphConfigDto
         public TriumphScope $scope,
         public string $targetedEvent,
         public int $quantity,
-        public bool $hasComputeStrategy = false,
         public array $targetedEventExpectedTags = [],
         public TriumphVisibility $visibility = TriumphVisibility::PRIVATE,
         public string $target = '',
         public int $regressiveFactor = 0,
-        public string $computeStrategy = '',
-        public array $applicationStrategies = [],
     ) {}
 }

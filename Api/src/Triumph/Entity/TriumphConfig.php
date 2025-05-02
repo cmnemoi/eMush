@@ -46,12 +46,6 @@ class TriumphConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $regressiveFactor;
 
-    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
-    private bool $hasComputeStrategy;
-
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
-    private array $applicationStrategies;
-
     private function __construct(
         string $key,
         TriumphEnum $name,
@@ -62,8 +56,6 @@ class TriumphConfig
         int $quantity,
         TriumphVisibility $visibility,
         int $regressiveFactor,
-        bool $hasComputeStrategy,
-        array $applicationStrategies,
     ) {
         $this->key = $key;
         $this->name = $name;
@@ -74,8 +66,6 @@ class TriumphConfig
         $this->quantity = $quantity;
         $this->visibility = $visibility;
         $this->regressiveFactor = $regressiveFactor;
-        $this->hasComputeStrategy = $hasComputeStrategy;
-        $this->applicationStrategies = $applicationStrategies;
     }
 
     public function getName(): TriumphEnum
@@ -125,8 +115,6 @@ class TriumphConfig
             $triumphConfigDto->quantity,
             $triumphConfigDto->visibility,
             $triumphConfigDto->regressiveFactor,
-            $triumphConfigDto->hasComputeStrategy,
-            $triumphConfigDto->applicationStrategies,
         );
     }
 
@@ -141,7 +129,5 @@ class TriumphConfig
         $this->quantity = $triumphConfigDto->quantity;
         $this->visibility = $triumphConfigDto->visibility;
         $this->regressiveFactor = $triumphConfigDto->regressiveFactor;
-        $this->hasComputeStrategy = $triumphConfigDto->hasComputeStrategy;
-        $this->applicationStrategies = $triumphConfigDto->applicationStrategies;
     }
 }

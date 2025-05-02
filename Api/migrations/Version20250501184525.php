@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250501102308 extends AbstractMigration
+final class Version20250501184525 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -27,18 +27,18 @@ final class Version20250501102308 extends AbstractMigration
         $this->addSql('ALTER TABLE triumph_config ADD target VARCHAR(255) DEFAULT \'\' NOT NULL');
         $this->addSql('ALTER TABLE triumph_config ADD visibility VARCHAR(255) DEFAULT \'\' NOT NULL');
         $this->addSql('ALTER TABLE triumph_config ADD regressive_factor INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE triumph_config ADD application_strategies TEXT DEFAULT \'a:0:{}\' NOT NULL');
+        $this->addSql('ALTER TABLE triumph_config DROP is_all_crew');
         $this->addSql('ALTER TABLE triumph_config ALTER name SET DEFAULT \'\'');
         $this->addSql('ALTER TABLE triumph_config RENAME COLUMN team TO key');
         $this->addSql('ALTER TABLE triumph_config RENAME COLUMN triumph TO quantity');
-        $this->addSql('ALTER TABLE triumph_config RENAME COLUMN is_all_crew TO has_compute_strategy');
         $this->addSql('COMMENT ON COLUMN triumph_config.targeted_event_expected_tags IS \'(DC2Type:array)\'');
-        $this->addSql('COMMENT ON COLUMN triumph_config.application_strategies IS \'(DC2Type:array)\'');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('ALTER TABLE triumph_config ADD is_all_crew BOOLEAN NOT NULL DEFAULT FALSE');
         $this->addSql('ALTER TABLE triumph_config ADD triumph INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE triumph_config ADD team VARCHAR(255) DEFAULT \'\' NOT NULL');
         $this->addSql('ALTER TABLE triumph_config DROP key');
@@ -49,9 +49,7 @@ final class Version20250501102308 extends AbstractMigration
         $this->addSql('ALTER TABLE triumph_config DROP quantity');
         $this->addSql('ALTER TABLE triumph_config DROP visibility');
         $this->addSql('ALTER TABLE triumph_config DROP regressive_factor');
-        $this->addSql('ALTER TABLE triumph_config DROP application_strategies');
         $this->addSql('ALTER TABLE triumph_config ALTER name DROP DEFAULT');
-        $this->addSql('ALTER TABLE triumph_config RENAME COLUMN has_compute_strategy TO is_all_crew');
         $this->addSql('CREATE UNIQUE INDEX uniq_a53fc4e45e237e06 ON triumph_config (name)');
     }
 }

@@ -123,5 +123,27 @@
         <target>the expedition archive</target>
       </segment>
     </unit>
+    <unit id="drone_upgrades">
+      <segment id="turbo_drone_description" state="translated">
+        <source>turbo_drone_description</source>
+        <target>Turbo: This drone has 80% chance of carrying out a second action in every cycle.</target>
+      </segment>
+      <segment id="pilot_drone_description" state="translated">
+        <source>pilot_drone_description</source>
+        <target>Pilot: This drone tries to borrow a Patrol Ship and destroy all the Hunters before moving. Has a 20% target bonus compared to humans.</target>
+      </segment>
+      <segment id="sensor_drone_description" state="initial">
+        <source>sensor_drone_description</source>
+        <target>sensor_drone_description</target>
+      </segment>
+      <segment id="firefighter_drone_description" state="translated">
+        <source>firefighter_drone_description</source>
+        <target>Firefighter: This drone tries to extinguish the fire in the room before moving. Is also immune to fire damage.</target>
+      </segment>
+      <segment id="current_upgrades" state="translated">
+        <source>current_upgrades</source>
+        <target>Current upgrades:</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

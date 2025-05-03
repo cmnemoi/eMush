@@ -158,6 +158,8 @@ class StatusTarget
 
     public function removeStatusLinksTarget(): void
     {
+        $this->owner = null;
+        $this->target = null;
         $this->player = null;
         $this->gameEquipment = null;
         $this->place = null;

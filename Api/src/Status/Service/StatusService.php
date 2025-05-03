@@ -401,6 +401,8 @@ class StatusService implements StatusServiceInterface
 
     private function delete(Status $status): void
     {
+        $status->getOwner()->removeStatus($status);
+
         $this->entityManager->remove($status);
         $this->entityManager->flush();
     }

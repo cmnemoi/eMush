@@ -4,10 +4,10 @@ namespace Mush\Alert\Listener;
 
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -74,7 +74,7 @@ class StatusSubscriber implements EventSubscriberInterface
                 return;
 
             case PlayerStatusEnum::PARIAH:
-                $this->alertService->handlePariahApplied($event->getPlayerStatusHolder());
+                $this->alertService->handlePariahApplied($this->getHolderAsPlayer($event));
 
                 return;
         }
@@ -94,17 +94,44 @@ class StatusSubscriber implements EventSubscriberInterface
 
     public function onStatusRemoved(StatusEvent $event): void
     {
-        // When Daedalus is deleted, alerts are already deleted
-        if ($event->hasTag(DaedalusEvent::DELETE_DAEDALUS)) {
-            return;
+        $holder = $event->getStatusHolder();
+
+        switch ($event->getStatusName()) {
+            case EquipmentStatusEnum::BROKEN:
+                if (!$holder instanceof GameEquipment) {
+                    throw new UnexpectedTypeException($holder, GameEquipment::class);
+                }
+                $this->alertService->handleEquipmentRepair($holder);
+
+                return;
+
+            case StatusEnum::FIRE:
+                /** @var Place $place */
+                $place = $event->getPlace();
+                $this->alertService->handleFireStop($place);
+
+                return;
+
+            case DaedalusStatusEnum::NO_GRAVITY_REPAIRED:
+                $this->alertService->gravityAlert($holder->getDaedalus(), AlertEnum::GRAVITY_REBOOT);
+
+                return;
+
+            case PlayerStatusEnum::PARIAH:
+                $this->alertService->handlePariahRemoved($this->getHolderAsPlayer($event));
+
+                return;
+        }
+    }
+
+    private function getHolderAsPlayer(StatusEvent $event): Player
+    {
+        $holder = $event->getStatusHolder();
+
+        if (!$holder instanceof Player) {
+            throw new UnexpectedTypeException($holder, Player::class);
         }
 
-        match ($event->getStatusName()) {
-            EquipmentStatusEnum::BROKEN => $this->alertService->handleEquipmentRepair($event->getGameEquipmentStatusHolder()),
-            StatusEnum::FIRE => $this->alertService->handleFireStop($event->getPlaceOrThrow()),
-            DaedalusStatusEnum::NO_GRAVITY_REPAIRED => $this->alertService->gravityAlert($event->getDaedalus(), AlertEnum::GRAVITY_REBOOT),
-            PlayerStatusEnum::PARIAH => $this->alertService->handlePariahRemoved($event->getPlayerStatusHolder()),
-            default => null,
-        };
+        return $holder;
     }
 }

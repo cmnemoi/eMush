@@ -38,10 +38,10 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     protected ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'owner', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OneToOne(inversedBy: 'owner', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     protected ?StatusTarget $owner;
 
-    #[ORM\OneToOne(inversedBy: 'target', targetEntity: StatusTarget::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OneToOne(inversedBy: 'target', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     protected ?StatusTarget $target = null;
 
     #[ORM\ManyToOne(targetEntity: StatusConfig::class)]
@@ -199,7 +199,7 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         return $target instanceof Place ? $target : throw new \RuntimeException("Status {$this->getName()} target is not a Place, but {$target->getClassName()}");
     }
 
-    public function setStatusTargetOwner(?StatusTarget $statusTarget): self
+    public function setStatusTargetOwner(StatusTarget $statusTarget): self
     {
         $this->owner = $statusTarget;
 
@@ -215,7 +215,7 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         return $this->owner;
     }
 
-    public function setStatusTargetTarget(?StatusTarget $statusTarget): self
+    public function setStatusTargetTarget(StatusTarget $statusTarget): self
     {
         $this->target = $statusTarget;
 
@@ -231,12 +231,11 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
     {
         if ($this->owner !== null) {
             $this->owner->removeStatusLinksTarget();
-            $this->setStatusTargetOwner(null);
+            $this->owner = null;
         }
-
         if ($this->target !== null) {
             $this->target->removeStatusLinksTarget();
-            $this->setStatusTargetTarget(null);
+            $this->target = null;
         }
 
         return $this;

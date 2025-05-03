@@ -22,7 +22,13 @@
     <unit id="return_to_sol">
       <segment id="return_to_sol" state="translated">
         <source>return_to_sol</source>
-        <target>Vous gagnez {quantity} :triumph: car vous êtes rentré sur Sol.</target>
+        <target>Vous gagnez {quantity} :triumph: car vous êtes rentré sur Sol !</target>
+      </segment>
+    </unit>
+    <unit id="sol_mush_intruder">
+      <segment id="sol_mush_intruder" state="translated">
+        <source>sol_mush_intruder</source>
+        <target>Vous perdez {quantity} :triumph: car des Mushs vous ont suivis sur Sol...</target>
       </segment>
     </unit>
   </file>

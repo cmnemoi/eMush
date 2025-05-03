@@ -41,7 +41,7 @@ final class ChangeTriumphFromEventService
         $player->addTriumph($quantity);
 
         $this->eventService->callEvent(
-            new TriumphChangedEvent($player, $triumphConfig),
+            new TriumphChangedEvent($player, $triumphConfig, $quantity),
             TriumphChangedEvent::class,
         );
     }

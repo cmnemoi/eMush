@@ -36,11 +36,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         $player = $event->getAuthor();
         $privateChannelsCountBefore = $this->getPrivateChannelCountOf($player);
         $this->channelService->updatePlayerPrivateChannels($event->getAuthor(), $event->getActionNameAsString(), $event->getTime());
-
-        if ($this->shouldReloadPlayerChannels($event, $privateChannelsCountBefore)) {
-            $result = $event->getActionResultOrThrow()->addDetail('reloadChannels', true);
-            $event->setActionResult($result);
-        }
     }
 
     private function shouldReloadPlayerChannels(ActionEvent $event, int $privateChannelsCountBefore): bool

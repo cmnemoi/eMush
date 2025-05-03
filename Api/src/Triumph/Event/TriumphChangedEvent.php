@@ -14,6 +14,7 @@ final class TriumphChangedEvent extends AbstractGameEvent
     public function __construct(
         private Player $player,
         private TriumphConfig $triumphConfig,
+        private int $quantity,
         protected array $tags = [],
         protected \DateTime $time = new \DateTime(),
     ) {
@@ -42,6 +43,6 @@ final class TriumphChangedEvent extends AbstractGameEvent
 
     public function getQuantity(): int
     {
-        return abs($this->triumphConfig->getQuantity());
+        return abs($this->quantity);
     }
 }

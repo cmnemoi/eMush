@@ -59,8 +59,13 @@ enum CycleIncidentEnum: string
             self::FIRE, self::ELECTROCUTION, self::JOLT => Place::class,
             self::DOOR_BLOCKED, self::OXYGEN_LEAK, self::FUEL_LEAK => GameEquipment::class,
             self::ACCIDENT, self::ANXIETY_ATTACK, self::BOARD_DISEASE => Player::class,
-            self::EQUIPMENT_FAILURE => 'equipment_failure',
+            self::EQUIPMENT_FAILURE => 'random_equipment',
             default => throw new \LogicException("Incident {$this->value} not supported"),
         };
+    }
+
+    public function toString(): string
+    {
+        return $this->value;
     }
 }

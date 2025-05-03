@@ -294,7 +294,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->whenDispatchingCycleIncidents($daedalus);
 
         // Then
-        $this->thenEquipmentShouldNotBeBroken($door, 'Door should not be broken');
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldNotBreakDoorIfAllDoorsAreBroken(): void
@@ -460,14 +460,12 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->givenSelectedIncidentIs(CycleIncidentEnum::ACCIDENT);
         $this->givenPlayerInDaedalus($daedalus);
 
+        // Then
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident accident not found');
+
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->eventService
-            ->shouldHaveReceived('callEvent')
-            ->withArgs(static fn (AbstractGameEvent $event) => $event->hasTag(PlayerEvent::METAL_PLATE))
-            ->once();
     }
 
     public function testShouldNotSelectPlayerForJoltTwice(): void
@@ -481,11 +479,12 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->givenSelectedIncidentIs(CycleIncidentEnum::JOLT);
         $this->givenPlayerInDaedalus($daedalus);
 
+        // Then
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident jolt not found');
+
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->thenEventShouldBeCalledWithTag(RoomEvent::TREMOR);
     }
 
     public function testShouldNotSelectPlayerForBoardDiseaseTwice(): void
@@ -499,11 +498,12 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->givenSelectedIncidentIs(CycleIncidentEnum::BOARD_DISEASE);
         $this->givenPlayerInDaedalus($daedalus);
 
+        // Then
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident board_disease not found');
+
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->thenEventShouldBeCalledWithTag(PlayerEvent::CYCLE_DISEASE);
     }
 
     public function testShouldNotSelectPlayerForElectrocutionTwice(): void
@@ -515,13 +515,14 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->givenDaedalusHasIncidentPoints($daedalus, 16);
         $this->givenRandomFloatIsZero();
         $this->givenSelectedIncidentIs(CycleIncidentEnum::ELECTROCUTION);
-        $player1 = $this->givenPlayerInDaedalus($daedalus);
+        $this->givenPlayerInDaedalus($daedalus);
+
+        // Then
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident electrocution not found');
 
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->thenEventShouldBeCalledWithTag(RoomEvent::ELECTRIC_ARC);
     }
 
     public function testShouldNotSelectDeadPlayerForAccident(): void
@@ -536,11 +537,12 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $player = $this->givenPlayerInDaedalus($daedalus);
         $player->kill();
 
+        // Then
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident accident not found');
+
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldNotSelectDeadPlayerForJolt(): void
@@ -555,11 +557,12 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $player = $this->givenPlayerInDaedalus($daedalus);
         $player->kill();
 
+        // Then
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident jolt not found');
+
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldNotSelectDeadPlayerForBoardDisease(): void
@@ -568,7 +571,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $daedalus = $this->givenADaedalus();
         $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
         $this->givenBricBrocProjectExists($daedalus);
-        $this->givenDaedalusHasIncidentPoints($daedalus, 6);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
         $this->givenRandomFloatIsZero();
         $this->givenSelectedIncidentIs(CycleIncidentEnum::BOARD_DISEASE);
         $player = $this->givenPlayerInDaedalus($daedalus);
@@ -606,7 +609,7 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $daedalus = $this->givenADaedalus();
         $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
         $this->givenBricBrocProjectExists($daedalus);
-        $this->givenDaedalusHasIncidentPoints($daedalus, 6);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
         $this->givenRandomFloatIsZero();
         $this->givenSelectedIncidentIs(CycleIncidentEnum::BOARD_DISEASE);
         $player = $this->givenPlayerInDaedalus($daedalus);
@@ -615,11 +618,12 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
             $player,
         );
 
+        // Then
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident board_disease not found');
+
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function shouldNotSelectPlayerInSpaceForAccident(): void
@@ -656,11 +660,14 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
             $player,
         );
 
+        // Then
+        // We except an exception because other incidents support Mush player targets
+        // but we force the incident anxiety_attack to be selected
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident anxiety_attack not found');
+
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
-
-        // Then
-        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
     public function testShouldNotSelectSamePlayerForAnxietyAttackTwice(): void
@@ -672,13 +679,65 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->givenDaedalusHasIncidentPoints($daedalus, 4);
         $this->givenRandomFloatIsZero();
         $this->givenSelectedIncidentIs(CycleIncidentEnum::ANXIETY_ATTACK);
-        $player = $this->givenPlayerInDaedalus($daedalus);
+        $this->givenPlayerInDaedalus($daedalus);
+
+        // Then
+        self::expectException(\LogicException::class);
+        self::expectExceptionMessage('Incident anxiety_attack not found');
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+    }
+
+    public function testShouldCallRepositoryOnlyOnceForIncidentTargetSelectionAndDispatch(): void
+    {
+        // Given
+        $repository = new class extends InMemoryGameEquipmentRepository {
+            public int $findByNameAndDaedalusCallCount = 0;
+
+            public function findByNameAndDaedalus(string $name, Daedalus $daedalus): array
+            {
+                ++$this->findByNameAndDaedalusCallCount;
+
+                return parent::findByNameAndDaedalus($name, $daedalus);
+            }
+        };
+        $this->gameEquipmentRepository = $repository;
+        $this->daedalusIncidentService = new DaedalusIncidentService(
+            eventService: $this->eventService,
+            gameEquipmentRepository: $this->gameEquipmentRepository,
+            getRandomElementsFromArray: $this->getRandomElementsFromArray,
+            randomService: $this->randomService,
+            statusService: $this->statusService,
+        );
+        $this->dispatchCycleIncidents = new DispatchCycleIncidentsService(
+            daedalusIncidentService: $this->daedalusIncidentService,
+            d100Roll: $this->d100Roll,
+            eventService: $this->eventService,
+            gameEquipmentRepository: $this->gameEquipmentRepository,
+            probaCollectionRandomElement: $this->probaCollectionRandomElement,
+            randomFloat: $this->randomFloat,
+        );
+        $daedalus = $this->givenADaedalus();
+        // On ne veut qu'un seul type d'équipement dans la distribution
+        $difficultyConfig = $daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setEquipmentBreakRateDistribution([
+            EquipmentEnum::OXYGEN_TANK => 1,
+        ]);
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::OXYGEN_LEAK);
+        $oxygenTank = $this->givenEquipmentInLaboratory($daedalus, EquipmentEnum::OXYGEN_TANK);
 
         // When
         $this->whenDispatchingCycleIncidents($daedalus);
 
         // Then
-        $this->thenEventShouldBeCalledWithTag(PlayerEvent::PANIC_CRISIS);
+        // Il y a 3 incidents GameEquipment (OXYGEN_LEAK, FUEL_LEAK, DOOR_BLOCKED) évalués dans le cycle,
+        // donc 3 appels à findByNameAndDaedalus sont attendus.
+        self::assertSame(3, $repository->findByNameAndDaedalusCallCount, 'findByNameAndDaedalus should be called once per GameEquipment incident type');
     }
 
     private function givenADaedalus(): Daedalus

@@ -692,6 +692,24 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
     public function testShouldCallRepositoryOnlyOnceForIncidentTargetSelectionAndDispatch(): void
     {
         // Given
+        $repository = $this->givenRepositoryThatCountsFindByNameAndDaedalusCalls();
+        $daedalus = $this->givenADaedalusWithSingleEquipmentTypeInDistribution();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::OXYGEN_LEAK);
+        $this->givenEquipmentInLaboratory($daedalus, EquipmentEnum::OXYGEN_TANK);
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->thenRepositoryShouldBeCalledOncePerGameEquipmentIncidentType($repository);
+    }
+
+    private function givenRepositoryThatCountsFindByNameAndDaedalusCalls(): InMemoryGameEquipmentRepository
+    {
         $repository = new class extends InMemoryGameEquipmentRepository {
             public int $findByNameAndDaedalusCallCount = 0;
 
@@ -718,23 +736,23 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
             probaCollectionRandomElement: $this->probaCollectionRandomElement,
             randomFloat: $this->randomFloat,
         );
+
+        return $repository;
+    }
+
+    private function givenADaedalusWithSingleEquipmentTypeInDistribution(): Daedalus
+    {
         $daedalus = $this->givenADaedalus();
-        // On ne veut qu'un seul type d'équipement dans la distribution
         $difficultyConfig = $daedalus->getGameConfig()->getDifficultyConfig();
         $difficultyConfig->setEquipmentBreakRateDistribution([
             EquipmentEnum::OXYGEN_TANK => 1,
         ]);
-        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
-        $this->givenBricBrocProjectExists($daedalus);
-        $this->givenDaedalusHasIncidentPoints($daedalus, 3);
-        $this->givenRandomFloatIsZero();
-        $this->givenSelectedIncidentIs(CycleIncidentEnum::OXYGEN_LEAK);
-        $oxygenTank = $this->givenEquipmentInLaboratory($daedalus, EquipmentEnum::OXYGEN_TANK);
 
-        // When
-        $this->whenDispatchingCycleIncidents($daedalus);
+        return $daedalus;
+    }
 
-        // Then
+    private function thenRepositoryShouldBeCalledOncePerGameEquipmentIncidentType($repository): void
+    {
         // Il y a 3 incidents GameEquipment (OXYGEN_LEAK, FUEL_LEAK, DOOR_BLOCKED) évalués dans le cycle,
         // donc 3 appels à findByNameAndDaedalus sont attendus.
         self::assertSame(3, $repository->findByNameAndDaedalusCallCount, 'findByNameAndDaedalus should be called once per GameEquipment incident type');

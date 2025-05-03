@@ -153,7 +153,7 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->hasStatus($status));
     }
 
-    public function getAllExceptWithStatus(string $status): self
+    public function getAllWithoutStatus(string $status): self
     {
         return $this->filter(static fn (Player $player) => $player->doesNotHaveStatus($status));
     }

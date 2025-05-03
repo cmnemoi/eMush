@@ -190,9 +190,9 @@ final class DispatchCycleIncidentsService
     private function getValidPlayersForIncident(Daedalus $daedalus, CycleIncident $incident): array
     {
         return match ($incident) {
-            CycleIncident::ACCIDENT => $daedalus->getAlivePlayers()->getAllInRoom()->getAllExceptWithStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->toArray(),
+            CycleIncident::ACCIDENT => $daedalus->getAlivePlayers()->getAllInRoom()->getAllWithoutStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->toArray(),
             CycleIncident::ANXIETY_ATTACK => $daedalus->getAlivePlayers()->getHumanPlayer()->toArray(),
-            CycleIncident::BOARD_DISEASE => $daedalus->getAlivePlayers()->getHumanPlayer()->getAllExceptWithStatus(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE)->toArray(),
+            CycleIncident::BOARD_DISEASE => $daedalus->getAlivePlayers()->getHumanPlayer()->getAllWithoutStatus(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE)->toArray(),
             default => throw new \LogicException("Incident type {$incident->value} not supported"),
         };
     }

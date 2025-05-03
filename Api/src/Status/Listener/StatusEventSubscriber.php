@@ -199,6 +199,10 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
     private function handleEquipmentRepaired(StatusEvent $event): void
     {
+        if ($event->hasTag(DaedalusEvent::DELETE_DAEDALUS)) {
+            return;
+        }
+
         $this->repairScrewedTalkie($event->getStatus(), $event->getTags(), $event->getTime());
         $this->handleRepairGravity($event->getStatusHolder(), $event->getTags(), $event->getTime());
     }

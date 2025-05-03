@@ -281,7 +281,7 @@ const actions: ActionTree<any, any> = {
     },
 
     async markCurrentChannelAsRead({ getters, commit }) {
-        await getters.messages.forEach((message: Message) => { message.read(); });
+        await getters.messages.forEach((message: Message) => { message.readWithChildren(); });
 
         await CommunicationService.markChannelAsRead(state.currentChannel);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });

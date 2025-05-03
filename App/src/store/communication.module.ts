@@ -108,6 +108,7 @@ const actions: ActionTree<any, any> = {
             }
 
             await dispatch('loadMessages', { channel: getters.currentChannel });
+            commit('setCurrentChannelNumberOfNewMessages', { channel: getters.currentChannel, numberOfNewMessages: getters.currentChannel.numberOfNewMessages });
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
@@ -125,6 +126,7 @@ const actions: ActionTree<any, any> = {
             commit('setChannels', sortedChannels);
             commit('setCurrentChannel', sortedChannels.find((channel: Channel) => channel.scope === ChannelType.PUBLIC));
             await dispatch('loadMessages', { channel: state.currentChannel });
+            commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages });
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {

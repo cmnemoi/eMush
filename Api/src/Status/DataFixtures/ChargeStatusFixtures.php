@@ -638,6 +638,11 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($joltCooldown);
 
+        $anxietyAttackCooldown = ChargeStatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK . '_default')
+        );
+        $manager->persist($anxietyAttackCooldown);
+
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -699,7 +704,8 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($accidentCooldown)
             ->addStatusConfig($boardDiseaseCooldown)
             ->addStatusConfig($electrocutionCooldown)
-            ->addStatusConfig($joltCooldown);
+            ->addStatusConfig($joltCooldown)
+            ->addStatusConfig($anxietyAttackCooldown);
 
         $manager->persist($gameConfig);
 
@@ -765,6 +771,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE, $boardDiseaseCooldown);
         $this->addReference(PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString(), $electrocutionCooldown);
         $this->addReference(PlaceStatusEnum::SELECTED_FOR_JOLT->toString(), $joltCooldown);
+        $this->addReference(PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK, $anxietyAttackCooldown);
     }
 
     public function getDependencies(): array

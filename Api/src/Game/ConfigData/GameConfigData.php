@@ -520,6 +520,7 @@ class GameConfigData
                 PlayerStatusEnum::BEGINNER . '_default',
                 'electric_charges_lunchbox_default',
                 PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE . '_default',
+                PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK . '_default',
                 PlaceStatusEnum::SELECTED_FOR_JOLT->value . '_default',
                 PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->value . '_default',
                 PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE . '_default',

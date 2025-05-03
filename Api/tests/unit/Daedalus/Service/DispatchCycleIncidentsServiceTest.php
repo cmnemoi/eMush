@@ -663,6 +663,24 @@ final class DispatchCycleIncidentsServiceTest extends TestCase
         $this->eventService->shouldNotHaveReceived('callEvent');
     }
 
+    public function testShouldNotSelectSamePlayerForAnxietyAttackTwice(): void
+    {
+        // Given
+        $daedalus = $this->givenADaedalus();
+        $this->givenDaedalusIsInState($daedalus, GameStatusEnum::CURRENT);
+        $this->givenBricBrocProjectExists($daedalus);
+        $this->givenDaedalusHasIncidentPoints($daedalus, 4);
+        $this->givenRandomFloatIsZero();
+        $this->givenSelectedIncidentIs(CycleIncidentEnum::ANXIETY_ATTACK);
+        $player = $this->givenPlayerInDaedalus($daedalus);
+
+        // When
+        $this->whenDispatchingCycleIncidents($daedalus);
+
+        // Then
+        $this->thenEventShouldBeCalledWithTag(PlayerEvent::PANIC_CRISIS);
+    }
+
     private function givenADaedalus(): Daedalus
     {
         return DaedalusFactory::createDaedalus();

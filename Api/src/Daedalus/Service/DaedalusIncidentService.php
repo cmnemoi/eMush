@@ -156,6 +156,13 @@ final class DaedalusIncidentService implements DaedalusIncidentServiceInterface
             return;
         }
 
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK,
+            $playerToPanic,
+            [EventEnum::NEW_CYCLE, PlayerEvent::PANIC_CRISIS],
+            $date
+        );
+
         $playerEvent = new PlayerEvent(
             $playerToPanic,
             [EventEnum::NEW_CYCLE, PlayerEvent::PANIC_CRISIS],

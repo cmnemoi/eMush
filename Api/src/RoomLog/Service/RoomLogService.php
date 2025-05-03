@@ -173,6 +173,8 @@ final class RoomLogService implements RoomLogServiceInterface
             $this->roomLogRepository->startTransaction();
             $unreadLogs->map(fn (RoomLog $roomLog) => $this->markRoomLogAsReadForPlayer($roomLog, $player));
             $this->roomLogRepository->commitTransaction();
+        } catch (UniqueConstraintViolationException $e) {
+            // ignore as this is probably due to a race condition
         } catch (\Throwable $e) {
             $this->roomLogRepository->rollbackTransaction();
 

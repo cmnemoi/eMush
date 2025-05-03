@@ -17,7 +17,7 @@ final class TriumphConfigCollection extends ArrayCollection
         $triumph = $this->getByName($name);
 
         if ($triumph === null) {
-            throw new \RuntimeException("Triumph config {$name} not found");
+            throw new \RuntimeException("Triumph config {$name->value} not found");
         }
 
         return $triumph;

@@ -60,7 +60,7 @@ final class RoomSubscriber implements EventSubscriberInterface
     public function onDeletePlace(RoomEvent $event): void
     {
         foreach ($event->getPlace()->getEquipments() as $equipment) {
-            $this->deleteEquipment->execute($equipment);
+            $this->deleteEquipment->execute($equipment, tags: $event->getTags(), time: $event->getTime());
         }
     }
 }

@@ -22,6 +22,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
@@ -401,9 +402,32 @@ class StatusService implements StatusServiceInterface
 
     private function delete(Status $status): void
     {
-        $status->getOwner()->removeStatus($status);
+        $ownerTarget = $status->getStatusTargetOwner();
+        $targetTarget = $status->getStatusTargetTarget();
 
-        $this->entityManager->remove($status);
+        $this->detachStatusFromOwner($status);
+        $this->removeStatusEntity($status);
+        $this->removeStatusTargetEntity($ownerTarget);
+        $this->removeStatusTargetEntity($targetTarget, $ownerTarget);
+
         $this->entityManager->flush();
+    }
+
+    private function detachStatusFromOwner(Status $status): void
+    {
+        $status->getOwner()->removeStatus($status);
+    }
+
+    private function removeStatusEntity(Status $status): void
+    {
+        $this->entityManager->remove($status);
+    }
+
+    private function removeStatusTargetEntity(?StatusTarget $statusTarget, ?StatusTarget $alreadyRemoved = null): void
+    {
+        if ($statusTarget !== null && $statusTarget !== $alreadyRemoved) {
+            $statusTarget->removeStatusLinksTarget();
+            $this->entityManager->remove($statusTarget);
+        }
     }
 }

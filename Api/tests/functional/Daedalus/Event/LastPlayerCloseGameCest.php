@@ -385,16 +385,7 @@ class LastPlayerCloseGameCest
         $I->seeInRepository(ClosedPlayer::class);
 
         $I->dontSeeInRepository(Place::class);
-        $statuses = $I->grabEntitiesFromRepository(Status::class);
-        foreach ($statuses as $status) {
-            dump($status->getName());
-        }
         $I->dontSeeInRepository(Status::class);
-        $statusTargets = $I->grabEntitiesFromRepository(StatusTarget::class);
-        dump($statusTargets);
-        foreach ($statusTargets as $statusTarget) {
-            dump($statusTarget->getOwner()?->getName());
-        }
         $I->dontSeeInRepository(StatusTarget::class);
         $I->dontSeeInRepository(GameEquipment::class);
     }

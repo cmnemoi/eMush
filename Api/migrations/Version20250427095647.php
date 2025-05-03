@@ -26,6 +26,6 @@ final class Version20250427095647 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE player ADD triumph INT NOT NULL');
+        $this->addSql('ALTER TABLE player ADD triumph INT NOT NULL DEFAULT 0');
     }
 }

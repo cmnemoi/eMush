@@ -28,8 +28,8 @@ final class Version20250427140211 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE equipment_config ADD is_breakable BOOLEAN NOT NULL');
-        $this->addSql('ALTER TABLE equipment_config ADD destroy_on_break BOOLEAN NOT NULL');
+        $this->addSql('ALTER TABLE equipment_config ADD is_breakable BOOLEAN NOT NULL DEFAULT FALSE');
+        $this->addSql('ALTER TABLE equipment_config ADD destroy_on_break BOOLEAN NOT NULL DEFAULT FALSE');
         $this->addSql('ALTER TABLE equipment_config DROP breakable_type');
     }
 }

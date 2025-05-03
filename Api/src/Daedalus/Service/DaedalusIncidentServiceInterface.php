@@ -7,31 +7,23 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 
 interface DaedalusIncidentServiceInterface
 {
-    public function handleFireEvents(Daedalus $daedalus, \DateTime $date): void;
+    public function handleFireEvents(array $rooms, \DateTime $date): void;
 
-    public function handleTremorEvents(Daedalus $daedalus, \DateTime $date): void;
+    public function handleTremorEvents(array $rooms, \DateTime $date): void;
 
-    public function handleElectricArcEvents(Daedalus $daedalus, \DateTime $date): void;
+    public function handleElectricArcEvents(array $rooms, \DateTime $date): void;
 
-    public function handleEquipmentBreak(Daedalus $daedalus, \DateTime $date): void;
+    public function handleEquipmentBreak(ProbaCollection $equipments, Daedalus $daedalus, \DateTime $date): void;
 
-    public function handleDoorBreak(Daedalus $daedalus, \DateTime $date): void;
+    public function handleDoorBreak(array $doors, \DateTime $date): void;
 
-    public function handlePanicCrisis(Daedalus $daedalus, \DateTime $date): void;
+    public function handlePanicCrisis(array $players, \DateTime $date): void;
 
-    public function handleMetalPlates(Daedalus $daedalus, \DateTime $date): void;
+    public function handleMetalPlates(array $players, \DateTime $date): void;
 
-    public function handleCrewDisease(Daedalus $daedalus, \DateTime $date): void;
+    public function handleCrewDisease(array $players, \DateTime $date): void;
 
-    public function handleOxygenTankBreak(Daedalus $daedalus, \DateTime $date): void;
+    public function handleOxygenTankBreak(array $tanks, \DateTime $date): void;
 
-    public function handleFuelTankBreak(Daedalus $daedalus, \DateTime $date): void;
-
-    public function getWorkingOxygenTanks(Daedalus $daedalus): array;
-
-    public function getWorkingFuelTanks(Daedalus $daedalus): array;
-
-    public function getWorkingEquipmentDistribution(Daedalus $daedalus): ProbaCollection;
-
-    public function getBreakableDoors(Daedalus $daedalus): array;
+    public function handleFuelTankBreak(array $tanks, \DateTime $date): void;
 }

@@ -215,10 +215,9 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
         if ($cycleElapsed > 0) {
-            $this->activateCycleChange($daedalus);
-
             try {
                 $this->entityManager->beginTransaction();
+                $this->activateCycleChange($daedalus);
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateDaedalusLastCycle->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
                     $cycleEvent = new DaedalusCycleEvent(
@@ -244,7 +243,6 @@ class CycleService implements CycleServiceInterface
                     'trace' => $error->getTraceAsString(),
                 ]);
                 $this->entityManager->rollback();
-                $this->deactivateCycleChange($daedalus);
                 $this->entityManager->close();
 
                 throw $error;

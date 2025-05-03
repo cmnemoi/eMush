@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Daedalus\Enum;
 
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
+
 enum CycleIncidentEnum: string
 {
     case FIRE = 'fire';
@@ -46,6 +50,17 @@ enum CycleIncidentEnum: string
             self::DOOR_BLOCKED => 3,
             self::ANXIETY_ATTACK => 2,
             self::BOARD_DISEASE => 3,
+        };
+    }
+
+    public function getTarget(): string
+    {
+        return match ($this) {
+            self::FIRE, self::ELECTROCUTION, self::JOLT => Place::class,
+            self::DOOR_BLOCKED, self::OXYGEN_LEAK, self::FUEL_LEAK => GameEquipment::class,
+            self::ACCIDENT, self::ANXIETY_ATTACK, self::BOARD_DISEASE => Player::class,
+            self::EQUIPMENT_FAILURE => 'equipment_failure',
+            default => throw new \LogicException("Incident {$this->value} not supported"),
         };
     }
 }

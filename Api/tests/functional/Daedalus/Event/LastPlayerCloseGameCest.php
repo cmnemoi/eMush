@@ -19,6 +19,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\ConsumableEffect;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\PlantEffect;
+use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -44,16 +45,19 @@ use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
 class LastPlayerCloseGameCest
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testLastPlayerCloseGameSimpleCase(FunctionalTester $I)
@@ -254,6 +258,7 @@ class LastPlayerCloseGameCest
     {
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->have(EquipmentConfig::class);
+        $equipmentConfig->setBreakableType(BreakableTypeEnum::BREAKABLE);
 
         $mushConfig = new StatusConfig();
         $mushConfig
@@ -261,6 +266,9 @@ class LastPlayerCloseGameCest
             ->setVisibility(VisibilityEnum::MUSH)
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushConfig);
+
+        $brokenConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]);
+        $placeTrapConfig = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlaceStatusEnum::MUSH_TRAPPED->toString()]);
 
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
@@ -272,7 +280,7 @@ class LastPlayerCloseGameCest
         $gameConfig = $I->have(GameConfig::class, [
             'daedalusConfig' => $daedalusConfig,
             'localizationConfig' => $localizationConfig,
-            'statusConfigs' => new ArrayCollection([$mushConfig]),
+            'statusConfigs' => new ArrayCollection([$mushConfig, $brokenConfig, $placeTrapConfig]),
         ]);
 
         /** @var User $user */
@@ -344,12 +352,24 @@ class LastPlayerCloseGameCest
         $player->setPlayerInfo($playerInfo);
         $I->haveInRepository($player);
 
-        $status = new Status($player, $mushConfig);
-        $I->haveInRepository($status);
-        $placeStatus = new Status($room, $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlaceStatusEnum::MUSH_TRAPPED->value]));
-        $I->haveInRepository($placeStatus);
-        $equipmentStatus = new Status($gameEquipment, $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => EquipmentStatusEnum::BROKEN]));
-        $I->haveInRepository($equipmentStatus);
+        $status = $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $player,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $placeStatus = $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->toString(),
+            holder: $room,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $gameEquipment,
+            tags: [],
+            time: new \DateTime(),
+        );
 
         $event = new PlayerEvent($player, [ActionEnum::HIT->value], new \DateTime());
         $this->eventService->callEvent($event, PlayerEvent::END_PLAYER);
@@ -365,7 +385,16 @@ class LastPlayerCloseGameCest
         $I->seeInRepository(ClosedPlayer::class);
 
         $I->dontSeeInRepository(Place::class);
+        $statuses = $I->grabEntitiesFromRepository(Status::class);
+        foreach ($statuses as $status) {
+            dump($status->getName());
+        }
         $I->dontSeeInRepository(Status::class);
+        $statusTargets = $I->grabEntitiesFromRepository(StatusTarget::class);
+        dump($statusTargets);
+        foreach ($statusTargets as $statusTarget) {
+            dump($statusTarget->getOwner()?->getName());
+        }
         $I->dontSeeInRepository(StatusTarget::class);
         $I->dontSeeInRepository(GameEquipment::class);
     }

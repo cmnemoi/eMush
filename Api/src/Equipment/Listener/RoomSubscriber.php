@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class RoomSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private DeleteEquipmentServiceInterface $deleteEquipmentService,
+        private DeleteEquipmentServiceInterface $deleteEquipment,
         private StatusServiceInterface $statusService,
     ) {}
 
@@ -60,7 +60,7 @@ final class RoomSubscriber implements EventSubscriberInterface
     public function onDeletePlace(RoomEvent $event): void
     {
         foreach ($event->getPlace()->getEquipments() as $equipment) {
-            $this->deleteEquipmentService->execute($equipment);
+            $this->deleteEquipment->execute($equipment);
         }
     }
 }

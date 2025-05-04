@@ -329,23 +329,25 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         return (int) $siriusModifierConfig->getDelta();
     }
-    
+
     private function getDroneUpgrades(Drone $drone, Player $player): array
     {
         $language = $player->getLanguage();
 
-        if ( $drone->isTurbo() || $drone->isPilot() || $drone->isSensor() || $drone->isFirefighter() ) {
+        if ($drone->isTurbo() || $drone->isPilot() || $drone->isSensor() || $drone->isFirefighter()) {
             $upgrades = [
                 $drone->isTurbo() ? $this->translationService->translate('turbo_drone_description', [], 'misc', $language) : '',
                 $drone->isPilot() ? $this->translationService->translate('pilot_drone_description', [], 'misc', $language) : '',
                 $drone->isSensor() ? $this->translationService->translate('sensor_drone_description', [], 'misc', $language) : '',
                 $drone->isFirefighter() ? $this->translationService->translate('firefighter_drone_description', [], 'misc', $language) : '',
             ];
+
             return [
                 'title' => $this->translationService->translate('current_upgrades', [], 'misc', $language),
                 'effects' => $upgrades,
             ];
         }
+
         return [];
     }
 }

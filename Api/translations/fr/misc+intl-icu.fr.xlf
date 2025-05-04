@@ -126,25 +126,9 @@
       </segment>
     </unit>
     <unit id="drone_upgrades">
-      <segment id="turbo_drone_description" state="initial">
-        <source>turbo_drone_description</source>
-        <target>turbo_drone_description</target>
-      </segment>
-      <segment id="pilot_drone_description" state="initial">
-        <source>pilot_drone_description</source>
-        <target>pilot_drone_description</target>
-      </segment>
-      <segment id="sensor_drone_description" state="initial">
-        <source>sensor_drone_description</source>
-        <target>sensor_drone_description</target>
-      </segment>
-      <segment id="firefighter_drone_description" state="initial">
-        <source>firefighter_drone_description</source>
-        <target>firefighter_drone_description</target>
-      </segment>
       <segment id="current_upgrades" state="initial">
         <source>current_upgrades</source>
-        <target>current_upgrades</target>
+        <target>Améliorations actuelles :</target>
       </segment>
     </unit>
   </file>

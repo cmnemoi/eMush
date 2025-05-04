@@ -37,6 +37,11 @@ trait TargetStatusTrait
         return $status;
     }
 
+    public function getStatusesByName(array $names): Collection
+    {
+        return $this->getStatuses()->filter(static fn (Status $status) => \in_array($status->getName(), $names, true));
+    }
+
     public function getChargeStatusByName(string $name): ?ChargeStatus
     {
         $status = $this->getStatusByName($name);

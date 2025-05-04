@@ -123,5 +123,11 @@
         <target>the expedition archive</target>
       </segment>
     </unit>
+    <unit id="drone_upgrades">
+      <segment id="current_upgrades" state="translated">
+        <source>current_upgrades</source>
+        <target>Current upgrades:</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

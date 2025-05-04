@@ -21,6 +21,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
@@ -28,6 +29,12 @@ use Mush\Status\Enum\StatusEnum;
 class Drone extends GameItem
 {
     private const float ATTEMPT_INCREASE = 1.25;
+    private const array UPGRADES = [
+        EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
+        EquipmentStatusEnum::PILOT_DRONE_UPGRADE,
+        EquipmentStatusEnum::SENSOR_DRONE_UPGRADE,
+        EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
+    ];
 
     #[ORM\OneToOne(mappedBy: 'drone', targetEntity: DroneInfo::class, cascade: ['remove'])]
     private DroneInfo $droneInfo;
@@ -176,6 +183,19 @@ class Drone extends GameItem
     public function isFirefighter(): bool
     {
         return $this->hasStatus(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE);
+    }
+
+    /**
+     * @return Collection<int, Status>
+     */
+    public function getUpgrades(): Collection
+    {
+        return $this->getStatusesByName(self::UPGRADES);
+    }
+
+    public function isNotUpgraded(): bool
+    {
+        return $this->getUpgrades()->isEmpty();
     }
 
     public function huntersAreAttacking(): bool

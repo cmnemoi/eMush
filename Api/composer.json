@@ -235,6 +235,10 @@
             "php vendor/bin/codecept run tests/unit/Status",
             "php vendor/bin/codecept run tests/functional/Status"
         ],
+        "test:triumph": [
+            "php vendor/bin/codecept run tests/unit/Triumph",
+            "php vendor/bin/codecept run tests/functional/Triumph"
+        ],
         "test:unit": [
             "php vendor/bin/codecept run tests/unit"
         ],

@@ -26,10 +26,6 @@ communication:
     resource: ../../src/Chat/Controller/
     type: annotation
     prefix: /api/v1
-#game:
-#    resource: ../../src/Game/Controller/
-#    type: annotation
-#    prefix: /api/v1
 alert:
     resource: ../../src/Alert/Controller/
     type: annotation

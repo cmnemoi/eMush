@@ -17,7 +17,6 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Exploration\Entity\Collection\PlanetSectorConfigCollection;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Game\Entity\Collection\TitleConfigCollection;
-use Mush\Game\Entity\Collection\TriumphConfigCollection;
 use Mush\Game\Repository\GameConfigRepository;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Entity\HunterConfigCollection;
@@ -27,6 +26,8 @@ use Mush\Project\Entity\ProjectConfig;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Triumph\Entity\TriumphConfig;
+use Mush\Triumph\Entity\TriumphConfigCollection;
 
 #[ORM\Entity(repositoryClass: GameConfigRepository::class)]
 #[ORM\Table(name: 'config_game')]

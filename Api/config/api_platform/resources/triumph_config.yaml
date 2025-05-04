@@ -1,4 +1,4 @@
-Mush\Game\Entity\TriumphConfig:
+Mush\Triumph\Entity\TriumphConfig:
   shortName: 'TriumphConfig'
   description: 'eMush Triumph Config'
   attributes:

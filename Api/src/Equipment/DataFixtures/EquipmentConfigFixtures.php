@@ -12,8 +12,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\SpaceShipConfig;
 use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -27,7 +27,6 @@ use Mush\Game\Enum\GameConfigEnum;
 use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
 use Mush\Status\DataFixtures\StatusFixtures;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -456,11 +455,8 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ChargeStatusConfig $patrolShipArmorStatus */
         $patrolShipArmorStatus = $this->getReference(ChargeStatusFixtures::PATROL_SHIP_ARMOR);
 
-        $icarusPatrolShip = $this->createPatrolShip(
-            [$takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction],
-            EquipmentEnum::ICARUS,
-        );
-        $icarusPatrolShip
+        $icarus = new SpaceShipConfig();
+        $icarus
             ->setCollectScrapNumber([])
             ->setCollectScrapPatrolShipDamage([])
             ->setCollectScrapPlayerDamage([])
@@ -468,49 +464,16 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setFailedManoeuvrePatrolShipDamage([])
             ->setFailedManoeuvrePlayerDamage([])
             ->setNumberOfExplorationSteps(9)
-            ->setDockingPlace(RoomEnum::ICARUS_BAY);
-        $manager->persist($icarusPatrolShip);
-
-        $icarus = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::ICARUS));
-        $icarus
-            ->setActionConfigs([$examineAction, $renovateAction])
-            ->setMechanics([$icarusPatrolShip])
+            ->setEquipmentName(EquipmentEnum::ICARUS)
+            ->setBreakableType(BreakableTypeEnum::NONE)
+            ->setActionConfigs([$examineAction, $renovateAction, $takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction])
+            ->setMechanics([])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($icarus);
 
         /** @var ActionConfig $shootHunterRandomPatrolShipAction */
         $shootHunterRandomPatrolShipAction = $this->getReference(ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value);
 
-        $patrolShipMechanic = $this->createPatrolShip(
-            [$takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction],
-            EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN
-        );
-        $patrolShipMechanic
-            ->setCollectScrapNumber([
-                1 => 1,
-            ])
-            ->setCollectScrapPatrolShipDamage([
-                2 => 1,
-                3 => 1,
-                4 => 1,
-            ])
-            ->setCollectScrapPlayerDamage([
-                2 => 1,
-                3 => 1,
-                4 => 1,
-            ])
-            ->setFailedManoeuvreDaedalusDamage([
-                2 => 1,
-                3 => 1,
-                4 => 1,
-            ])
-            ->setFailedManoeuvrePatrolShipDamage([1 => 1])
-            ->setFailedManoeuvrePlayerDamage([
-                1 => 1,
-                2 => 1,
-            ])
-            ->setNumberOfExplorationSteps(3)
-            ->setDockingPlace(RoomEnum::ALPHA_BAY);
         $patrolShipWeapon = $this->createWeapon(
             [],
             EquipmentEnum::PATROL_SHIP
@@ -528,21 +491,45 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->addAction($shootHunterPatrolShipAction)
             ->addAction($shootHunterRandomPatrolShipAction);
 
-        $patrolShip = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN));
+        $patrolShip = new SpaceShipConfig();
         $patrolShip
-            ->setActionConfigs([$sabotage12, $examineAction, $renovateAction])
-            ->setMechanics([$patrolShipMechanic, $patrolShipWeapon])
+            ->setCollectScrapNumber([
+                1 => 1,
+            ])
+            ->setCollectScrapPatrolShipDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setCollectScrapPlayerDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvreDaedalusDamage([
+                2 => 1,
+                3 => 1,
+                4 => 1,
+            ])
+            ->setFailedManoeuvrePatrolShipDamage([1 => 1])
+            ->setFailedManoeuvrePlayerDamage([
+                1 => 1,
+                2 => 1,
+            ])
+            ->setNumberOfExplorationSteps(3)
+            ->setEquipmentName(EquipmentEnum::PATROL_SHIP)
+            ->setBreakableType(BreakableTypeEnum::BREAKABLE)
+            ->setActionConfigs([$sabotage12, $examineAction, $renovateAction, $takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction])
+            ->setMechanics([$patrolShipWeapon])
             ->setInitStatuses([$patrolShipChargeStatus, $patrolShipArmorStatus])
             ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($patrolShipMechanic);
         $manager->persist($patrolShipWeapon);
         $manager->persist($patrolShip);
 
-        $pasiphaeMechanic = $this->createPatrolShip(
-            [$takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction],
-            EquipmentEnum::PASIPHAE
-        );
-        $pasiphaeMechanic
+        /** @var ChargeStatusConfig $pasiphaeArmor */
+        $pasiphaeArmor = $this->getReference(ChargeStatusFixtures::PASIPHAE_ARMOR);
+        $pasiphae = new SpaceShipConfig();
+        $pasiphae
             ->setCollectScrapNumber([
                 1 => 1,
                 2 => 1,
@@ -569,17 +556,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
                 2 => 1,
             ])
             ->setNumberOfExplorationSteps(3)
-            ->setDockingPlace(RoomEnum::ALPHA_BAY_2);
-
-        /** @var ChargeStatusConfig $pasiphaeArmor */
-        $pasiphaeArmor = $this->getReference(ChargeStatusFixtures::PASIPHAE_ARMOR);
-        $pasiphae = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::PASIPHAE));
-        $pasiphae
-            ->setActionConfigs([$sabotage12, $examineAction, $renovateAction])
-            ->setMechanics([$pasiphaeMechanic])
+            ->setEquipmentName(EquipmentEnum::PASIPHAE)
+            ->setBreakableType(BreakableTypeEnum::BREAKABLE)
+            ->setActionConfigs([$sabotage12, $examineAction, $renovateAction, $takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction])
+            ->setMechanics([])
             ->setInitStatuses([$pasiphaeArmor])
             ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($pasiphaeMechanic);
         $manager->persist($pasiphae);
 
         /** @var ActionConfig $removeCamera */
@@ -954,17 +936,6 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->buildName(EquipmentMechanicEnum::GEAR . '_' . $name, GameConfigEnum::DEFAULT);
 
         return $gear;
-    }
-
-    private function createPatrolShip(array $actions, string $name): PatrolShip
-    {
-        $patrolShip = new PatrolShip();
-
-        $patrolShip
-            ->setActions(new ArrayCollection($actions))
-            ->buildName(EquipmentMechanicEnum::PATROL_SHIP . '_' . $name, GameConfigEnum::DEFAULT);
-
-        return $patrolShip;
     }
 
     private function createPlumbing(array $actions, string $name): Plumbing

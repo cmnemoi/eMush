@@ -316,7 +316,7 @@ final class DroneCest extends AbstractFunctionalTest
     {
         // given a broken Patrol Ship in the room
         $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentName: EquipmentEnum::PATROL_SHIP,
             equipmentHolder: $this->chun->getPlace(),
             reasons: [],
             time: new \DateTime(),
@@ -459,8 +459,6 @@ final class DroneCest extends AbstractFunctionalTest
 
         $this->givenDroneIsInAPatrolShip($I);
 
-        $this->createExtraPlace(placeName: RoomEnum::ALPHA_BAY, I: $I, daedalus: $this->daedalus);
-
         $this->whenDroneActs();
 
         $this->thenDroneShouldBeInPatrolShipDockingPlace($I);
@@ -586,23 +584,35 @@ final class DroneCest extends AbstractFunctionalTest
 
     private function givenPatrolShipInRoom(FunctionalTester $I): void
     {
-        $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
-            equipmentHolder: $this->drone->getPlace(),
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
+        $this->patrolShip = $this->gameEquipmentService->createGameEquipment(
+            equipmentConfig: $patrolShipConfig,
+            holder: $this->drone->getPlace(),
             reasons: [],
-            time: new \DateTime()
+            time: new \DateTime(),
+            patrolShipName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
         );
+
         $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
     }
 
     private function givenDroneIsInAPatrolShip(FunctionalTester $I): void
     {
-        $place = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
-        $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
-            equipmentHolder: $place,
+        $place = $this->createExtraPlace(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
+
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
+        $this->patrolShip = $this->gameEquipmentService->createGameEquipment(
+            equipmentConfig: $patrolShipConfig,
+            holder: $this->drone->getPlace(),
             reasons: [],
-            time: new \DateTime()
+            time: new \DateTime(),
+            patrolShipName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+        );
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->patrolShip,
+            newHolder: $place,
+            time: new \DateTime(),
         );
 
         $this->gameEquipmentService->moveEquipmentTo(
@@ -666,7 +676,7 @@ final class DroneCest extends AbstractFunctionalTest
     private function thenDroneShouldBeInPatrolShipDockingPlace(FunctionalTester $I): void
     {
         $I->assertEquals(
-            expected: RoomEnum::ALPHA_BAY,
+            expected: RoomEnum::LABORATORY,
             actual: $this->drone->getPlace()->getName(),
         );
     }

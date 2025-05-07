@@ -186,10 +186,10 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
         // given a new player is in a patrol ship
         $patrolShipAlphaTamarinPlace = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
-        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]);
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
         $patrolShip = new GameEquipment($patrolShipAlphaTamarinPlace);
         $patrolShip
-            ->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setName(EquipmentEnum::PATROL_SHIP)
             ->setEquipment($patrolShipConfig);
         $I->haveInRepository($patrolShip);
 

@@ -319,9 +319,9 @@ final class CycleEventCest extends AbstractFunctionalTest
     {
         // given a patrol ship
         /** @var EquipmentConfig $patrolShipConfig */
-        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN . '_default']);
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => EquipmentEnum::PATROL_SHIP . '_default']);
         $patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $patrolShip->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN);
+        $patrolShip->setName(EquipmentEnum::PATROL_SHIP);
         $patrolShip->setEquipment($patrolShipConfig);
         $I->haveInRepository($patrolShip);
 

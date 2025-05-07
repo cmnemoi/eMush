@@ -17,3 +17,15 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       - Type: array
     isPersonal:
       - Type: boolean
+    collectScrapNumber:
+      - Type: array
+    collectScrapPatrolShipDamage:
+      - Type: array
+    collectScrapPlayerDamage:
+      - Type: array
+    failedManoeuvreDaedalusDamage:
+      - Type: array
+    failedManoeuvrePatrolShipDamage:
+      - Type: array
+    failedManoeuvrePlayerDamage:
+      - Type: array

@@ -10,8 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -72,15 +71,12 @@ final class LandActionTest extends AbstractActionTest
         $roomEnd->setDaedalus($daedalus);
         $roomEnd->setName(RoomEnum::ALPHA_BAY_2);
 
-        $patrolShipMechanic = new PatrolShip();
-        $patrolShipMechanic->setDockingPlace(RoomEnum::ALPHA_BAY_2);
-
         $patrollerConfig = new EquipmentConfig();
         $patrollerConfig->setName(EquipmentEnum::PASIPHAE);
         $patrollerConfig->setEquipmentName(EquipmentEnum::PASIPHAE);
-        $patrollerConfig->setMechanics([$patrolShipMechanic]);
 
-        $patroller = new GameEquipment($roomStart);
+        $patroller = new SpaceShip($roomStart);
+        $patroller->setDockingPlace(RoomEnum::ALPHA_BAY_2);
         $patroller->setName(EquipmentEnum::PASIPHAE);
         $patroller->setEquipment($patrollerConfig);
 
@@ -116,18 +112,10 @@ final class LandActionTest extends AbstractActionTest
         $patrollerConfig = new EquipmentConfig();
         $patrollerConfig->setName(EquipmentEnum::PASIPHAE);
         $patrollerConfig->setEquipmentName(EquipmentEnum::PASIPHAE);
-        $patrollerConfig->setMechanics([new PatrolShip()]);
 
-        $patrolShipMechanic = new PatrolShip();
-        $patrolShipMechanic->setDockingPlace(RoomEnum::ALPHA_BAY_2);
-
-        $patrollerConfig = new EquipmentConfig();
-        $patrollerConfig->setName(EquipmentEnum::PASIPHAE);
-        $patrollerConfig->setEquipmentName(EquipmentEnum::PASIPHAE);
-        $patrollerConfig->setMechanics([$patrolShipMechanic]);
-
-        $patroller = new GameEquipment($roomStart);
+        $patroller = new SpaceShip($roomStart);
         $patroller->setName(EquipmentEnum::PASIPHAE);
+        $patroller->setDockingPlace(RoomEnum::ALPHA_BAY_2);
         $patroller->setEquipment($patrollerConfig);
 
         $this->playerService->shouldReceive('persist');

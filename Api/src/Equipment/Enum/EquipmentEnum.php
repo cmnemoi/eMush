@@ -103,6 +103,14 @@ class EquipmentEnum
     public static function getPatrolShips(): ArrayCollection
     {
         return new ArrayCollection([
+            self::PATROL_SHIP,
+            self::PASIPHAE,
+        ]);
+    }
+
+    public static function getPatrolShipsNames(): ArrayCollection
+    {
+        return new ArrayCollection([
             self::PATROL_SHIP_ALPHA_LONGANE,
             self::PATROL_SHIP_ALPHA_JUJUBE,
             self::PATROL_SHIP_ALPHA_TAMARIN,
@@ -110,7 +118,6 @@ class EquipmentEnum
             self::PATROL_SHIP_BRAVO_EPICURE,
             self::PATROL_SHIP_BRAVO_PLANTON,
             self::PATROL_SHIP_ALPHA_2_WALLIS,
-            self::PASIPHAE,
         ]);
     }
 

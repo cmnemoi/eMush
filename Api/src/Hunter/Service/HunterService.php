@@ -9,7 +9,6 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
@@ -562,9 +561,7 @@ final class HunterService implements HunterServiceInterface
 
     private function patrolShipsInBattle(Daedalus $daedalus): ArrayCollection
     {
-        return EquipmentEnum::getPatrolShips()
-            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $daedalus)->first())
-            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment && $patrolShip->isInSpaceBattle());
+        return $this->gameEquipmentService->findPatrolShipsByDaedalus($daedalus);
     }
 
     private function removeTargetsInvolvingHunter(Hunter $hunter): void

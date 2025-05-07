@@ -14,6 +14,7 @@ use Mush\Equipment\DroneTasks\LandTask;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Modifier\Enum\ModifierNameEnum;
@@ -146,7 +147,13 @@ class Drone extends GameItem
     public function operationalPatrolShipsInRoom(): array
     {
         return $this->getPlace()->getEquipments()
-            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isAPatrolShip() && $gameEquipment->isOperational())
+            ->filter(
+                static fn (GameEquipment $gameEquipment) => (
+                    $gameEquipment instanceof SpaceShip
+                    && $gameEquipment->getName() === EquipmentEnum::PATROL_SHIP
+                    && $gameEquipment->isOperational()
+                )
+            )
             ->toArray();
     }
 
@@ -162,21 +169,23 @@ class Drone extends GameItem
 
     public function shootHunterDamageRange(): ProbaCollection
     {
-        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShip = $this->getPlace()->getFirstPatrolShipOrThrow();
 
         return $patrolShip->getWeaponMechanicOrThrow()->getBaseDamageRange();
     }
 
-    public function getPilotedPatrolShip(): GameEquipment
+    public function getPilotedPatrolShip(): SpaceShip
     {
-        return $this->getPlace()->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        // @var SpaceShip $patrolShip
+        return $this->getPlace()->getFirstPatrolShipOrThrow();
     }
 
     public function getPatrolShipDockingPlace(): Place
     {
+        /** @var SpaceShip $patrolShip */
         $patrolShip = $this->getPilotedPatrolShip();
 
-        return $this->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getPatrolShipMechanicOrThrow()->getDockingPlace());
+        return $this->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getDockingPlace());
     }
 
     public function isTurbo(): bool
@@ -269,12 +278,16 @@ class Drone extends GameItem
 
     private function noPatrolShipTakeoffActionAvailable(): bool
     {
-        $equipment = $this->getPlace()->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::PATROL_SHIP);
-        if (!$equipment || $equipment->isAMonoplaceShip() === false || $equipment->isNotOperational()) {
-            return true;
-        }
+        $patrolShips = $this->getPlace()->getEquipments()->filter(
+            static fn (GameEquipment $gameEquipment) => (
+                $gameEquipment instanceof SpaceShip
+                && $gameEquipment->getName() === EquipmentEnum::PATROL_SHIP
+                && $gameEquipment->isOperational()
+                && $gameEquipment->hasActionByName(ActionEnum::TAKEOFF)
+            )
+        );
 
-        return $equipment->hasActionByName(ActionEnum::TAKEOFF) === false;
+        return $patrolShips->isEmpty();
     }
 
     private function noAttackingHunters(): bool
@@ -284,8 +297,13 @@ class Drone extends GameItem
 
     private function noShootHunterActionAvailable(): bool
     {
-        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::PATROL_SHIP);
-        if (!$patrolShip || $patrolShip->isNotOperational()) {
+        try {
+            $patrolShip = $this->getPlace()->getFirstPatrolShipOrThrow();
+        } catch (\Throwable $e) {
+            return true;
+        }
+
+        if ($patrolShip->isNotOperational()) {
             return true;
         }
 
@@ -294,8 +312,12 @@ class Drone extends GameItem
 
     private function noLandActionAvailable(): bool
     {
-        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::PATROL_SHIP);
-        if (!$patrolShip || $patrolShip->isNotOperational()) {
+        try {
+            $patrolShip = $this->getPlace()->getFirstPatrolShipOrThrow();
+        } catch (\Throwable $e) {
+            return true;
+        }
+        if ($patrolShip->isNotOperational()) {
             return true;
         }
 
@@ -324,7 +346,7 @@ class Drone extends GameItem
 
     private function shootHunterBaseSuccessRate(): int
     {
-        $patrolShip = $this->getPlace()->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+        $patrolShip = $this->getPlace()->getFirstPatrolShipOrThrow();
 
         return $patrolShip->getWeaponMechanicOrThrow()->getBaseAccuracy();
     }

@@ -2,40 +2,42 @@
 
 namespace Mush\Equipment\ConfigData;
 
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Entity\Config\SpaceShipConfig;
 
-class PatrolShipDataLoader extends MechanicsDataLoader
+class PatrolShipDataLoader extends EquipmentConfigDataLoader
 {
     public function loadConfigsData(): void
     {
-        foreach (MechanicsData::$dataArray as $patrolShipData) {
+        foreach (EquipmentConfigData::$dataArray as $patrolShipData) {
             if ($patrolShipData['type'] !== 'patrol_ship') {
                 continue;
             }
 
-            $patrolShip = $this->mechanicsRepository->findOneBy(['name' => $patrolShipData['name']]);
+            $patrolShipConfig = $this->equipmentConfigRepository->findOneBy(['name' => $patrolShipData['name']]);
 
-            if ($patrolShip === null) {
-                $patrolShip = new PatrolShip();
-            } elseif (!$patrolShip instanceof PatrolShip) {
-                $this->entityManager->remove($patrolShip);
+            if ($patrolShipConfig === null) {
+                $patrolShipConfig = new SpaceShipConfig();
+            } elseif (!$patrolShipConfig instanceof SpaceShipConfig) {
+                $this->entityManager->remove($patrolShipConfig);
                 $this->entityManager->flush();
-                $patrolShip = new PatrolShip();
+                $patrolShipConfig = new SpaceShipConfig();
             }
 
-            $patrolShip
-                ->setName($patrolShipData['name'])
+            $this->setEquipmentConfigAttributes($patrolShipConfig, $patrolShipData);
+            $this->setEquipmentConfigActions($patrolShipConfig, $patrolShipData);
+            $this->setEquipmentConfigMechanics($patrolShipConfig, $patrolShipData);
+            $this->setEquipmentConfigStatusConfigs($patrolShipConfig, $patrolShipData);
+
+            $patrolShipConfig
                 ->setCollectScrapNumber($patrolShipData['collectScrapNumber'])
                 ->setCollectScrapPatrolShipDamage($patrolShipData['collectScrapPatrolShipDamage'])
                 ->setCollectScrapPlayerDamage($patrolShipData['collectScrapPlayerDamage'])
-                ->setDockingPlace($patrolShipData['dockingPlace'])
                 ->setFailedManoeuvreDaedalusDamage($patrolShipData['failedManoeuvreDaedalusDamage'])
                 ->setFailedManoeuvrePatrolShipDamage($patrolShipData['failedManoeuvrePatrolShipDamage'])
                 ->setFailedManoeuvrePlayerDamage($patrolShipData['failedManoeuvrePlayerDamage'])
                 ->setNumberOfExplorationSteps($patrolShipData['numberOfExplorationSteps']);
-            $this->setMechanicsActions($patrolShip, $patrolShipData);
 
-            $this->entityManager->persist($patrolShip);
+            $this->entityManager->persist($patrolShipConfig);
         }
         $this->entityManager->flush();
     }

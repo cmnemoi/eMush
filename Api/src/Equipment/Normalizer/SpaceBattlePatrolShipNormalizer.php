@@ -6,6 +6,7 @@ namespace Mush\Equipment\Normalizer;
 
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -23,22 +24,23 @@ class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof GameEquipment && EquipmentEnum::getPatrolShips()->contains($data->getName());
+        return $data instanceof SpaceShip && EquipmentEnum::getPatrolShips()->contains($data->getName());
     }
 
     public function getSupportedTypes(?string $format): array
     {
         return [
-            GameEquipment::class => false,
+            SpaceShip::class => false,
         ];
     }
 
     public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
+        /** @var SpaceShip $patrolShip */
         $patrolShip = $this->patrolShip($object);
 
         $patrolShipPlace = $patrolShip->getPlace();
-        $patrolShipName = $patrolShip->getName();
+        $patrolShipName = $patrolShip->getPatrolShipName();
         $patrolShipArmor = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
         $patrolShipCharges = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $patrolShipPilot = $patrolShipPlace->getAlivePlayers()->first() ?: null;

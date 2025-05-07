@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Mush\Player\Listener;
 
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -92,13 +91,12 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
 
         /** @var Player $player */
         foreach ($playersToMove as $player) {
-            /** @var PatrolShip $patrolShipMechanic */
-            $patrolShipMechanic = $player
+            /** @var SpaceShip $patrolShip */
+            $patrolShip = $player
                 ->getPlace()
-                ->getFirstEquipmentByMechanicNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP)
-                ->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
+                ->getFirstPatrolShipOrThrow();
 
-            $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShipMechanic->getDockingPlace());
+            $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getDockingPlace());
 
             $this->playerService->changePlace($player, $patrolShipDockingPlace);
         }

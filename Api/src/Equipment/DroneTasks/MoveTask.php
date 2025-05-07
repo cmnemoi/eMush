@@ -6,6 +6,7 @@ namespace Mush\Equipment\DroneTasks;
 
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Event\DroneMovedEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -121,7 +122,7 @@ class MoveTask extends AbstractDroneTask
     private function findNextRoomToOperationalPatrolShip(Drone $drone): ?Place
     {
         return $this->findNextRoomTowardsCondition->execute($drone->getPlace(), static fn (Place $room) => $room->getEquipments()->filter(
-            static fn (GameEquipment $gameEquipment) => $gameEquipment->isAPatrolShip() && $gameEquipment->isOperational()
+            static fn (GameEquipment $gameEquipment) => $gameEquipment instanceof SpaceShip && $gameEquipment->isOperational()
         )->count() > 0);
     }
 

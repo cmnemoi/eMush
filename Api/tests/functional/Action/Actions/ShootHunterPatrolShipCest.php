@@ -60,7 +60,7 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
         // given I have in Patrol Ship in space battle
         $patrolShipPlace = $this->createExtraPlace(placeName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN, I: $I, daedalus: $this->daedalus);
         $this->patrolShip = $gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentName: EquipmentEnum::PATROL_SHIP,
             equipmentHolder: $patrolShipPlace,
             reasons: [],
             time: new \DateTime(),

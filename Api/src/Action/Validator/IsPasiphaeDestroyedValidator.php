@@ -31,7 +31,7 @@ final class IsPasiphaeDestroyedValidator extends ConstraintValidator
         }
 
         $player = $value->getPlayer();
-        $pasiphae = $this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::PASIPHAE, $player->getDaedalus())->first();
+        $pasiphae = $this->gameEquipmentService->findEquipmentsByNameAndDaedalus(EquipmentEnum::PASIPHAE, $player->getDaedalus())->first();
 
         if ($pasiphae instanceof GameEquipment && $player->getPlace()->getName() !== RoomEnum::PASIPHAE) {
             $this->context->buildViolation($constraint->message)->addViolation();

@@ -8,7 +8,7 @@ use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -120,7 +120,7 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             $this->patrolShipManoeuvreService->handleLand(
                 patrolShip: $patrolShip,
                 pilot: $patrolShipPilot,
-                actionResult: new CriticalSuccess(), // Magentic net landing never hurt the patrol ship (?)
+                actionResult: new CriticalSuccess(), // Magnetic net landing never hurt the patrol ship (?)
                 tags: $event->getTags(),
                 time: $event->getTime()
             );
@@ -158,20 +158,12 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @return ArrayCollection<int, GameEquipment>
+     * @return ArrayCollection<int, SpaceShip>
      */
     private function getPatrolShipsInBattleFromDaedalus(Daedalus $daedalus): ArrayCollection
     {
-        /** @var ArrayCollection<int, GameEquipment> $patrolShips */
-        $patrolShips = new ArrayCollection();
+        $patrolShips = $this->gameEquipmentService->findPatrolShipsByDaedalus($daedalus);
 
-        foreach (EquipmentEnum::getPatrolShips() as $patrolShipName) {
-            $patrolShip = $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShipName, $daedalus)->first();
-            if ($patrolShip instanceof GameEquipment) {
-                $patrolShips->add($patrolShip);
-            }
-        }
-
-        return $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
+        return $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip instanceof SpaceShip && $patrolShip->isInSpaceBattle());
     }
 }

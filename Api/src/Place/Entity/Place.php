@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
@@ -276,6 +277,19 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $this
             ->getDoorsAndEquipments()
             ->filter(static fn (GameEquipment $equipment) => ($equipment->canBeDamaged() && !$equipment->isBroken()));
+    }
+
+    public function getFirstPatrolShipOrThrow(): SpaceShip
+    {
+        $patrolShip = $this->getEquipments()
+            ->filter(static fn (GameEquipment $equipment) => ($equipment instanceof SpaceShip))
+            ->first();
+
+        if (!$patrolShip instanceof SpaceShip) {
+            throw new \RuntimeException('There should be a patrol ship equipment in the place');
+        }
+
+        return $patrolShip;
     }
 
     public function setEquipments(ArrayCollection $equipments): static

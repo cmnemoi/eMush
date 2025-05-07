@@ -28,7 +28,7 @@ class InMemoryGameEquipmentRepository implements GameEquipmentRepositoryInterfac
         return array_filter($this->gameEquipments, static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name && $gameEquipment->getDaedalus()->equals($daedalus));
     }
 
-    public function findEquipmentByNameAndDaedalus(string $name, Daedalus $daedalus): array
+    public function findEquipmentsByNameAndDaedalus(string $name, Daedalus $daedalus): array
     {
         return array_filter($this->gameEquipments, static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name && $gameEquipment->getDaedalus()->equals($daedalus));
     }

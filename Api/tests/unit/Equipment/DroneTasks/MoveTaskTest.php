@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\tests\unit\Equipment\DroneTasks;
 
 use Codeception\PHPUnit\TestCase;
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\ConfigData\EquipmentConfigData;
@@ -14,7 +13,6 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -342,16 +340,10 @@ final class MoveTaskTest extends TestCase
 
     private function givenOperationalPatrolShipIn(Place $room): GameEquipment
     {
-        $patrolShip = GameEquipmentFactory::createEquipmentByNameForHolder(
-            EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+        return GameEquipmentFactory::createPatrolShipByNameForHolder(
+            EquipmentEnum::PATROL_SHIP,
             $room
         );
-
-        $patrolShip->getEquipment()->setMechanics(
-            new ArrayCollection([new PatrolShip()])
-        );
-
-        return $patrolShip;
     }
 
     private function givenBrokenEquipmentIn(Place $room): void

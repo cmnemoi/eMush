@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Ration;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -102,6 +103,9 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
         if ($equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK) instanceof Book) {
             return ItemEnum::APPRENTRON;
+        }
+        if ($equipment instanceof SpaceShip) {
+            return $equipment->getPatrolShipName();
         }
 
         return $equipment->getName();

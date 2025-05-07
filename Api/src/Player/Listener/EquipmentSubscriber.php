@@ -2,7 +2,7 @@
 
 namespace Mush\Player\Listener;
 
-use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -50,7 +50,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getGameEquipment();
         $equipmentPlace = $event->getPlace();
 
-        if ($equipment->hasMechanicByName(EquipmentEnum::PATROL_SHIP)) {
+        if ($equipment instanceof SpaceShip) {
             foreach ($equipmentPlace->getPlayers() as $player) {
                 $this->ejectPlayer($player, $event->getTags(), $event->getTime());
             }

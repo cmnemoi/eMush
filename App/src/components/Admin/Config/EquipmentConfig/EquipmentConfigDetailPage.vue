@@ -50,6 +50,62 @@
                 />
                 <label for="equipmentConfig_isStackable">{{ equipmentConfig.isStackable ? $t('admin.equipmentConfig.isStackable') : $t('admin.equipmentConfig.isNotStackable') }}</label>
             </div>
+            <template v-if="equipmentConfig.equipmentType == 'SpaceShip'">
+                <h3>{{ $t('admin.equipmentConfig.collectScrapNumber') }}</h3>
+                <MapManager
+                    :map="equipmentConfig.collectScrapNumber"
+                    id="mechanics_collectScrapNumber"
+                    map-indexes-type="number"
+                    map-values-type="number"
+                    @add-tuple="addCollectScrapNumber"
+                    @remove-index="removeCollectScrapNumber"
+                />
+                <h3>{{ $t('admin.equipmentConfig.collectScrapPatrolShipDamage') }}</h3>
+                <MapManager
+                    :map="equipmentConfig.collectScrapPatrolShipDamage"
+                    id="mechanics_collectScrapPatrolShipDamage"
+                    map-indexes-type="number"
+                    map-values-type="number"
+                    @add-tuple="addCollectScrapPatrolShipDamage"
+                    @remove-index="removeCollectScrapPatrolShipDamage"
+                />
+                <h3>{{ $t('admin.equipmentConfig.collectScrapPlayerDamage') }}</h3>
+                <MapManager
+                    :map="equipmentConfig.collectScrapPlayerDamage"
+                    id="mechanics_collectScrapPlayerDamage"
+                    map-indexes-type="number"
+                    map-values-type="number"
+                    @add-tuple="addCollectScrapPlayerDamage"
+                    @remove-index="removeCollectScrapPlayerDamage"
+                />
+                <h3>{{ $t('admin.equipmentConfig.failedManoeuvreDaedalusDamage') }}</h3>
+                <MapManager
+                    :map="equipmentConfig.failedManoeuvreDaedalusDamage"
+                    id="mechanics_failedManoeuvreDaedalusDamage"
+                    map-indexes-type="number"
+                    map-values-type="number"
+                    @add-tuple="addFailedManoeuvreDaedalusDamage"
+                    @remove-index="removeFailedManoeuvreDaedalusDamage"
+                />
+                <h3>{{ $t('admin.equipmentConfig.failedManoeuvrePatrolShipDamage') }}</h3>
+                <MapManager
+                    :map="equipmentConfig.failedManoeuvrePatrolShipDamage"
+                    id="mechanics_failedManoeuvrePatrolShipDamage"
+                    map-indexes-type="number"
+                    map-values-type="number"
+                    @add-tuple="addFailedManoeuvrePatrolShipDamage"
+                    @remove-index="removeFailedManoeuvrePatrolShipDamage"
+                />
+                <h3>{{ $t('admin.equipmentConfig.failedManoeuvrePlayerDamage') }}</h3>
+                <MapManager
+                    :map="equipmentConfig.failedManoeuvrePlayerDamage"
+                    id="mechanics_failedManoeuvrePlayerDamage"
+                    map-indexes-type="number"
+                    map-values-type="number"
+                    @add-tuple="addFailedManoeuvrePlayerDamage"
+                    @remove-index="removeFailedManoeuvrePlayerDamage"
+                />
+            </template>
         </div>
 
         <h3>{{ $t('admin.equipmentConfig.dismountedProducts') }}</h3>
@@ -118,6 +174,7 @@ import { StatusConfig } from "@/entities/Config/StatusConfig";
 import { Mechanics } from "@/entities/Config/Mechanics";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
 import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
+import MapManager from "@/components/Utils/MapManager.vue";
 
 interface EquipmentConfigState {
     equipmentConfig: null|EquipmentConfig
@@ -130,6 +187,7 @@ interface EquipmentConfigState {
 export default defineComponent({
     name: "EquipmentConfigDetailPage",
     components: {
+        MapManager,
         ChildCollectionManager,
         Input,
         StringArrayManager,
@@ -194,7 +252,7 @@ export default defineComponent({
                                 const mechanics: Mechanics[] = [];
                                 result.data['hydra:member'].forEach((datum: any) => {
                                     const currentMechanics = (new Mechanics()).load(datum);
-                                    mechanics.push(currentMechanics);
+                                    equipmentConfig.push(currentMechanics);
                                 });
                                 if (this.equipmentConfig instanceof EquipmentConfig) {
                                     this.equipmentConfig.mechanics = mechanics;
@@ -280,6 +338,78 @@ export default defineComponent({
             }
             return this.equipmentConfig.dismountedProducts.size > 0;
 
+        },
+        addCollectScrapNumber(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.equipmentConfig && this.equipmentConfig.collectScrapNumber) {
+                this.equipmentConfig.collectScrapNumber.set(index, value);
+            }
+        },
+        removeCollectScrapNumber(index: number): void {
+            if (this.equipmentConfig && this.equipmentConfig.collectScrapNumber) {
+                this.equipmentConfig.collectScrapNumber.delete(index);
+            }
+        },
+        addCollectScrapPatrolShipDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.equipmentConfig && this.equipmentConfig.collectScrapPatrolShipDamage) {
+                this.equipmentConfig.collectScrapPatrolShipDamage.set(index, value);
+            }
+        },
+        removeCollectScrapPatrolShipDamage(index: number): void {
+            if (this.equipmentConfig && this.equipmentConfig.collectScrapPatrolShipDamage) {
+                this.equipmentConfig.collectScrapPatrolShipDamage.delete(index);
+            }
+        },
+        addCollectScrapPlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.equipmentConfig && this.equipmentConfig.collectScrapPlayerDamage) {
+                this.equipmentConfig.collectScrapPlayerDamage.set(index, value);
+            }
+        },
+        removeCollectScrapPlayerDamage(index: number): void {
+            if (this.equipmentConfig && this.equipmentConfig.collectScrapPlayerDamage) {
+                this.equipmentConfig.collectScrapPlayerDamage.delete(index);
+            }
+        },
+        addFailedManoeuvreDaedalusDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.equipmentConfig && this.equipmentConfig.failedManoeuvreDaedalusDamage) {
+                this.equipmentConfig.failedManoeuvreDaedalusDamage.set(index, value);
+            }
+        },
+        removeFailedManoeuvreDaedalusDamage(index: number): void {
+            if (this.equipmentConfig && this.equipmentConfig.failedManoeuvreDaedalusDamage) {
+                this.equipmentConfig.failedManoeuvreDaedalusDamage.delete(index);
+            }
+        },
+        addFailedManoeuvrePatrolShipDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.equipmentConfig && this.equipmentConfig.failedManoeuvrePatrolShipDamage) {
+                this.equipmentConfig.failedManoeuvrePatrolShipDamage.set(index, value);
+            }
+        },
+        removeFailedManoeuvrePatrolShipDamage(index: number): void {
+            if (this.equipmentConfig && this.equipmentConfig.failedManoeuvrePatrolShipDamage) {
+                this.equipmentConfig.failedManoeuvrePatrolShipDamage.delete(index);
+            }
+        },
+        addFailedManoeuvrePlayerDamage(tuple: number[]): void {
+            const index = tuple[0];
+            const value = tuple[1];
+            if (this.equipmentConfig && this.equipmentConfig.failedManoeuvrePlayerDamage) {
+                this.equipmentConfig.failedManoeuvrePlayerDamage.set(index, value);
+            }
+        },
+        removeFailedManoeuvrePlayerDamage(index: number): void {
+            if (this.equipmentConfig && this.equipmentConfig.failedManoeuvrePlayerDamage) {
+                this.equipmentConfig.failedManoeuvrePlayerDamage.delete(index);
+            }
         }
     },
     beforeMount() {

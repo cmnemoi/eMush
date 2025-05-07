@@ -336,7 +336,7 @@ final class FireTest extends TestCase
     {
         yield 'Space' => [PlaceTypeEnum::SPACE];
 
-        yield 'PatrolShip' => [PlaceTypeEnum::PATROL_SHIP];
+        yield 'SpaceShip' => [PlaceTypeEnum::PATROL_SHIP];
 
         yield 'Planet' => [PlaceTypeEnum::PLANET];
     }

@@ -47,7 +47,7 @@ final class ProjectFinishedEventCest extends AbstractFunctionalTest
     private function givenAPatrolShipWithTenMaxCharges(): GameEquipment
     {
         return $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentName: EquipmentEnum::PATROL_SHIP,
             equipmentHolder: $this->player->getPlace(),
             reasons: [],
             time: new \DateTime(),

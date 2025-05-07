@@ -39,7 +39,7 @@ class LandTask extends AbstractDroneTask
     private function handleLanding(Drone $drone, \DateTime $time): void
     {
         $patrolShip = $drone->getPilotedPatrolShip();
-        $dockingPlace = $patrolShip->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getPatrolShipMechanicOrThrow()->getDockingPlace());
+        $dockingPlace = $patrolShip->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getDockingPlace());
 
         foreach ($drone->getPlace()->getAlivePlayers() as $player) {
             $this->playerService->changePlace($player, $dockingPlace);

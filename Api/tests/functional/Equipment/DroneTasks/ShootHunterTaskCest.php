@@ -47,7 +47,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->givenAPatrolShipInBattle($I);
-        $this->givenADroneInPatrolShip();
+        $this->givenADroneInPatrolShip($I);
     }
 
     public function shouldNotBeApplicableIfDroneIsNotAPilot(FunctionalTester $I): void
@@ -217,7 +217,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
     {
         $place = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
         $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentName: EquipmentEnum::PATROL_SHIP,
             equipmentHolder: $place,
             reasons: [],
             time: new \DateTime()
@@ -225,14 +225,17 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(100);
     }
 
-    private function givenADroneInPatrolShip(): void
+    private function givenADroneInPatrolShip(FunctionalTester $I): void
     {
-        $this->drone = $this->gameEquipmentService->createGameEquipmentFromName(
+        $drone = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::SUPPORT_DRONE,
             equipmentHolder: $this->patrolShip->getPlace(),
             reasons: [],
             time: new \DateTime()
         );
+        $I->assertInstanceOf(Drone::class, $drone);
+        $this->drone = $drone;
+
         $this->statusService->createOrIncrementChargeStatus(
             name: EquipmentStatusEnum::ELECTRIC_CHARGES,
             holder: $this->drone,

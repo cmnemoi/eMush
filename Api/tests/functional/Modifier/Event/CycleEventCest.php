@@ -4,7 +4,7 @@ namespace Mush\Tests\functional\Modifier\Event;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -125,11 +125,12 @@ final class CycleEventCest extends AbstractFunctionalTest
         // given a patrol ship with 9 electric charges in its room (in battle)
         $patrolShipConfig = $I->grabEntityFromRepository(
             EquipmentConfig::class,
-            ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]
+            ['equipmentName' => EquipmentEnum::PATROL_SHIP]
         );
-        $patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
+        $patrolShip = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
         $patrolShip
-            ->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setPatrolShipName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setName(EquipmentEnum::PATROL_SHIP)
             ->setEquipment($patrolShipConfig);
         $I->haveInRepository($patrolShip);
 
@@ -160,11 +161,12 @@ final class CycleEventCest extends AbstractFunctionalTest
         // given a patrol ship with 9 electric charges in alpha bay
         $patrolShipConfig = $I->grabEntityFromRepository(
             EquipmentConfig::class,
-            ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]
+            ['equipmentName' => EquipmentEnum::PATROL_SHIP]
         );
-        $patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY));
+        $patrolShip = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::ALPHA_BAY));
         $patrolShip
-            ->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setPatrolShipName(EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE)
+            ->setName(EquipmentEnum::PATROL_SHIP)
             ->setEquipment($patrolShipConfig);
         $I->haveInRepository($patrolShip);
 

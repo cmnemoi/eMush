@@ -36,6 +36,10 @@ class PlaceConfigDataLoader extends ConfigDataLoader
                 ->setItems($placeConfigData['items'])
                 ->setEquipments($placeConfigData['equipments']);
 
+            if (\array_key_exists('patrolShipNames', $placeConfigData)) {
+                $placeConfig->setPatrolShipNames($placeConfigData['patrolShipNames']);
+            }
+
             $this->entityManager->persist($placeConfig);
         }
         $this->entityManager->flush();

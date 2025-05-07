@@ -117,7 +117,7 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function findEquipmentByNameAndDaedalus(string $name, Daedalus $daedalus): array
+    public function findEquipmentsByNameAndDaedalus(string $name, Daedalus $daedalus): array
     {
         $queryBuilder = $this->createQueryBuilder('equipment');
 

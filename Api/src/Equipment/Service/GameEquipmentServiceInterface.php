@@ -24,9 +24,11 @@ interface GameEquipmentServiceInterface
 
     public function findByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection;
 
-    public function findEquipmentByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection;
+    public function findEquipmentsByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection;
 
     public function findByDaedalus(Daedalus $daedalus): ArrayCollection;
+
+    public function findPatrolShipsByDaedalus(Daedalus $daedalus): ArrayCollection;
 
     public function findById(int $id): ?GameEquipment;
 
@@ -41,7 +43,7 @@ interface GameEquipmentServiceInterface
         array $reasons,
         \DateTime $time,
         string $visibility = VisibilityEnum::PRIVATE,
-        ?Player $author = null
+        ?Player $author = null,
     ): GameEquipment;
 
     /**
@@ -63,7 +65,8 @@ interface GameEquipmentServiceInterface
         array $reasons,
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN,
-        ?Player $author = null
+        ?Player $author = null,
+        ?string $patrolShipName = null
     ): GameEquipment;
 
     public function transformGameEquipmentToEquipmentWithName(

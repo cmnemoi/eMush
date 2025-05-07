@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Equipment\DroneTasks;
 
 use Mush\Equipment\DroneTasks\TakeoffTask;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -44,7 +45,7 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->givenADroneInRoom();
+        $this->givenADroneInRoom($I);
         $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
     }
 
@@ -52,7 +53,7 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
     {
         $this->givenThereIsAttackingHunters();
 
-        $this->givenPatrolShipInRoom();
+        $this->givenPatrolShipInRoom($I);
 
         $this->whenIExecuteTakeoffTask();
 
@@ -72,7 +73,7 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
 
     public function shouldNotBeApplicableIfThereIsNoAttackingHunters(FunctionalTester $I): void
     {
-        $this->givenPatrolShipInRoom();
+        $this->givenPatrolShipInRoom($I);
 
         $this->givenDroneIsPilot();
 
@@ -100,7 +101,7 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
 
         $this->givenDroneIsPilot();
 
-        $this->givenPatrolShipInRoom();
+        $this->givenPatrolShipInRoom($I);
 
         $this->whenIExecuteTakeoffTask();
 
@@ -113,7 +114,7 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
 
         $this->givenDroneIsPilot();
 
-        $this->givenPatrolShipInRoom();
+        $this->givenPatrolShipInRoom($I);
 
         $this->whenIExecuteTakeoffTask();
 
@@ -126,7 +127,7 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
 
         $this->givenDroneIsPilot();
 
-        $this->givenPatrolShipInRoom();
+        $this->givenPatrolShipInRoom($I);
 
         $this->whenIExecuteTakeoffTask();
 
@@ -151,14 +152,17 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenADroneInRoom(): void
+    private function givenADroneInRoom(FunctionalTester $I): void
     {
-        $this->drone = $this->gameEquipmentService->createGameEquipmentFromName(
+        $drone = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::SUPPORT_DRONE,
             equipmentHolder: $this->chun->getPlace(),
             reasons: [],
             time: new \DateTime()
         );
+        $I->assertInstanceOf(Drone::class, $drone);
+        $this->drone = $drone;
+
         $this->statusService->createOrIncrementChargeStatus(
             name: EquipmentStatusEnum::ELECTRIC_CHARGES,
             holder: $this->drone,
@@ -176,14 +180,18 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenPatrolShipInRoom(): void
+    private function givenPatrolShipInRoom(FunctionalTester $I): void
     {
-        $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
-            equipmentHolder: $this->drone->getPlace(),
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
+        $this->patrolShip = $this->gameEquipmentService->createGameEquipment(
+            equipmentConfig: $patrolShipConfig,
+            holder: $this->drone->getPlace(),
             reasons: [],
-            time: new \DateTime()
+            time: new \DateTime(),
+            patrolShipName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
         );
+
+        $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
     }
 
     private function givenThereIsAttackingHunters(): void
@@ -200,7 +208,7 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
     {
         $place = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
         $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentName: EquipmentEnum::PATROL_SHIP,
             equipmentHolder: $place,
             reasons: [],
             time: new \DateTime()

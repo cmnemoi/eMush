@@ -26,6 +26,7 @@ use Mush\Status\Entity\Config\StatusConfig;
     'equipment_config' => EquipmentConfig::class,
     'item_config' => ItemConfig::class,
     'drone_config' => DroneConfig::class,
+    'space_ship_config' => SpaceShipConfig::class,
 ])]
 class EquipmentConfig
 {

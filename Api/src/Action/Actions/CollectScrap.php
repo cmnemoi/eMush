@@ -14,7 +14,7 @@ use Mush\Action\Validator\IsPasiphaeDestroyed;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -73,7 +73,9 @@ final class CollectScrap extends AbstractAction
 
     protected function checkResult(): ActionResult
     {
-        $numberOfScrapToCollect = (int) $this->randomService->getSingleRandomElementFromProbaCollection($this->gameEquipmentTarget()->getPatrolShipMechanicOrThrow()->getCollectScrapNumber());
+        /** @var SpaceShip $patrolShip */
+        $patrolShip = $this->gameEquipmentTarget();
+        $numberOfScrapToCollect = (int) $this->randomService->getSingleRandomElementFromProbaCollection($patrolShip->getEquipment()->getCollectScrapNumber());
 
         if ($numberOfScrapToCollect <= 0) {
             return new Fail();
@@ -89,7 +91,9 @@ final class CollectScrap extends AbstractAction
     {
         $daedalus = $this->player->getDaedalus();
         $patrolShipPlace = $this->gameEquipmentTarget()->getPlace();
-        $patrolShipMechanic = $this->gameEquipmentTarget()->getPatrolShipMechanicOrThrow();
+
+        /** @var SpaceShip $patrolShip */
+        $patrolShip = $this->gameEquipmentTarget();
         $spaceContent = $daedalus->getSpace()->getEquipments();
 
         $scrapToCollect = $this->randomService->getRandomElements($spaceContent->toArray(), $result->getQuantityOr(0));
@@ -100,14 +104,14 @@ final class CollectScrap extends AbstractAction
         }
 
         if ($daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::ASTEROID)->count() > 0) {
-            $this->damagePatrolShip($patrolShipMechanic, $patrolShipPlace);
-            $this->damagePlayer($patrolShipMechanic, $patrolShipPlace);
+            $this->damagePatrolShip($patrolShip, $patrolShipPlace);
+            $this->damagePlayer($patrolShip, $patrolShipPlace);
         }
     }
 
-    private function damagePlayer(PatrolShip $patrolShipMechanic, Place $patrolShipPlace): void
+    private function damagePlayer(SpaceShip $patrolShip, Place $patrolShipPlace): void
     {
-        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($patrolShipMechanic->getCollectScrapPlayerDamage());
+        $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection($patrolShip->getEquipment()->getCollectScrapPlayerDamage());
 
         if ($damage !== 0) {
             $this->roomLogService->createLog(
@@ -130,14 +134,13 @@ final class CollectScrap extends AbstractAction
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function damagePatrolShip(PatrolShip $patrolShipMechanic, Place $patrolShipPlace): void
+    private function damagePatrolShip(SpaceShip $patrolShip, Place $patrolShipPlace): void
     {
-        $patrolShip = $this->gameEquipmentTarget();
         $patrolShipArmor = $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         $damage = (int)
             $this->randomService->getSingleRandomElementFromProbaCollection(
-                $patrolShipMechanic->getCollectScrapPatrolShipDamage()
+                $patrolShip->getEquipment()->getCollectScrapPatrolShipDamage()
             );
 
         $this->statusService->updateCharge(

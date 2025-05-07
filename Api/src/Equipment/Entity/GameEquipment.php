@@ -20,7 +20,6 @@ use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Container;
 use Mush\Equipment\Entity\Mechanics\Gear;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
 use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
@@ -57,6 +56,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'door' => Door::class,
     'game_item' => GameItem::class,
     'drone' => Drone::class,
+    'space_ship' => SpaceShip::class,
 ])]
 class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
 {
@@ -469,13 +469,6 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $book instanceof Book ? $book : throw new \RuntimeException("Equipment {$this->name} does not have a book mechanic.");
     }
 
-    public function getPatrolShipMechanicOrThrow(): PatrolShip
-    {
-        $patrolShip = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
-
-        return $patrolShip instanceof PatrolShip ? $patrolShip : throw new \RuntimeException("Equipment {$this->name} does not have a patrol ship mechanic.");
-    }
-
     public function getBlueprintMechanicOrThrow(): Blueprint
     {
         $blueprint = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::BLUEPRINT);
@@ -577,11 +570,6 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     public function isADrug(): bool
     {
         return $this->hasMechanicByName(EquipmentMechanicEnum::DRUG);
-    }
-
-    public function isAPatrolShip(): bool
-    {
-        return $this->hasMechanicByName(EquipmentMechanicEnum::PATROL_SHIP) && $this->getName() !== EquipmentEnum::PASIPHAE;
     }
 
     public function getFruitProduction(): int

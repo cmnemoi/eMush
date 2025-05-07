@@ -18,4 +18,16 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
     isPersonal:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
+    collectScrapNumber:
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
+    collectScrapPatrolShipDamage:
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
+    collectScrapPlayerDamage:
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
+    failedManoeuvreDaedalusDamage:
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
+    failedManoeuvrePatrolShipDamage:
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
+    failedManoeuvrePlayerDamage:
+      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     

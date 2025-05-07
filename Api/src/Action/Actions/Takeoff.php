@@ -18,6 +18,7 @@ use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -108,10 +109,10 @@ final class Takeoff extends AbstractAction
     {
         $daedalus = $this->player->getDaedalus();
 
-        /** @var GameEquipment $patrolShip */
+        /** @var SpaceShip $patrolShip */
         $patrolShip = $this->target;
 
-        $this->playerService->changePlace($this->player, $daedalus->getPlaceByNameOrThrow($patrolShip->getName()));
+        $this->playerService->changePlace($this->player, $daedalus->getPlaceByNameOrThrow($patrolShip->getPatrolShipName()));
         $this->patrolShipManoeuvreService->handleTakeoff(
             patrolShip: $patrolShip,
             pilot: $this->player,

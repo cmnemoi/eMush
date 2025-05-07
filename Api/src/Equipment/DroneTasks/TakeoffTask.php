@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Equipment\DroneTasks;
 
 use Mush\Equipment\Entity\Drone;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Event\DroneTakeoffEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -35,16 +35,16 @@ class TakeoffTask extends AbstractDroneTask
         $this->handleTakeoff($drone, $this->selectedPatrolShip($drone), $time);
     }
 
-    private function handleTakeoff(Drone $drone, GameEquipment $patrolShip, \DateTime $time): void
+    private function handleTakeoff(Drone $drone, SpaceShip $patrolShip, \DateTime $time): void
     {
         $this->dispatchDroneTakeoffEvent($drone, $time);
         $this->movePatrolShipToItsPlace($patrolShip, $time);
         $this->moveDroneToPatrolShipPlace($drone, $patrolShip, $time);
     }
 
-    private function movePatrolShipToItsPlace(GameEquipment $patrolShip, \DateTime $time): void
+    private function movePatrolShipToItsPlace(SpaceShip $patrolShip, \DateTime $time): void
     {
-        $patrolShipPlace = $patrolShip->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getName());
+        $patrolShipPlace = $patrolShip->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getPatrolShipName());
 
         $this->gameEquipmentService->moveEquipmentTo(
             equipment: $patrolShip,
@@ -53,11 +53,11 @@ class TakeoffTask extends AbstractDroneTask
         );
     }
 
-    private function moveDroneToPatrolShipPlace(Drone $drone, GameEquipment $patrolShip, \DateTime $time): void
+    private function moveDroneToPatrolShipPlace(Drone $drone, SpaceShip $patrolShip, \DateTime $time): void
     {
         $this->gameEquipmentService->moveEquipmentTo(
             equipment: $drone,
-            newHolder: $this->patrolshipPlace($patrolShip),
+            newHolder: $this->patrolShipPlace($patrolShip),
             time: $time,
         );
     }
@@ -70,15 +70,15 @@ class TakeoffTask extends AbstractDroneTask
         );
     }
 
-    private function selectedPatrolShip(Drone $drone): GameEquipment
+    private function selectedPatrolShip(Drone $drone): SpaceShip
     {
         $patrolShip = $this->getRandomArrayElementsFrom->execute($drone->operationalPatrolShipsInRoom(), number: 1)->first();
 
-        return $patrolShip instanceof GameEquipment ? $patrolShip : throw new \RuntimeException('Patrol ship should be a GameEquipment');
+        return $patrolShip instanceof SpaceShip ? $patrolShip : throw new \RuntimeException('Patrol ship should be a SpaceShip');
     }
 
-    private function patrolshipPlace(GameEquipment $patrolShip): Place
+    private function patrolShipPlace(SpaceShip $patrolShip): Place
     {
-        return $patrolShip->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getName());
+        return $patrolShip->getDaedalus()->getPlaceByNameOrThrow($patrolShip->getPatrolShipName());
     }
 }

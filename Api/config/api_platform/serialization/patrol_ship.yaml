@@ -1,4 +1,4 @@
-Mush\Equipment\Entity\Mechanics\PatrolShip:
+Mush\Equipment\Entity\Config\PatrolShipConfig:
   attributes:
     id:
       groups: [ 'patrol_ship_read' ]
@@ -11,8 +11,6 @@ Mush\Equipment\Entity\Mechanics\PatrolShip:
     collectScrapPatrolShipDamage:
       groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     collectScrapPlayerDamage:
-      groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
-    dockingPlace:
       groups: [ 'patrol_ship_read', 'patrol_ship_write' ]
     failedManoeuvreDaedalusDamage:
       groups: [ 'patrol_ship_read', 'patrol_ship_write' ]

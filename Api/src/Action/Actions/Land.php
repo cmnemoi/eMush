@@ -14,8 +14,7 @@ use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -81,14 +80,12 @@ final class Land extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $patrolShip */
+        /** @var SpaceShip $patrolShip */
         $patrolShip = $this->target;
 
         $daedalus = $patrolShip->getDaedalus();
 
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
-        $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShipMechanic->getDockingPlace());
+        $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getDockingPlace());
 
         foreach ($this->player->getPlace()->getPlayers()->getPlayerAlive() as $player) {
             $this->playerService->changePlace($player, $patrolShipDockingPlace);

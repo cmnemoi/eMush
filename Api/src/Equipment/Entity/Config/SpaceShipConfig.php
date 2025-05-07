@@ -1,13 +1,17 @@
 <?php
 
-namespace Mush\Equipment\Entity\Mechanics;
+namespace Mush\Equipment\Entity\Config;
 
 use Doctrine\ORM\Mapping as ORM;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Entity\EquipmentHolderInterface;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 
 #[ORM\Entity]
-class PatrolShip extends Tool
+class SpaceShipConfig extends EquipmentConfig
 {
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
     private array $collectScrapNumber = [];
@@ -17,9 +21,6 @@ class PatrolShip extends Tool
 
     #[ORM\Column(type: 'array', nullable: true, options: ['default' => '[]'])]
     private array $collectScrapPlayerDamage = [];
-
-    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
-    private string $dockingPlace = '';
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $failedManoeuvreDaedalusDamage = [];
@@ -33,12 +34,22 @@ class PatrolShip extends Tool
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $numberOfExplorationSteps = 0;
 
-    public function getMechanics(): array
+    public function createGameEquipment(EquipmentHolderInterface $holder): SpaceShip
     {
-        $mechanics = parent::getMechanics();
-        $mechanics[] = EquipmentMechanicEnum::PATROL_SHIP;
+        // Do not allow GameEquipment holders to be players
+        $holder = $holder instanceof Player ? $holder->getPlace() : $holder;
+        if (($holder instanceof Place) === false) {
+            throw new \InvalidArgumentException('The holder of a GameEquipment must be a Place');
+        }
 
-        return $mechanics;
+        $gameEquipment = new SpaceShip($holder);
+        $gameEquipment
+            ->setPatrolShipName($this->getEquipmentName())
+            ->setDockingPlace($holder->getName())
+            ->setName($this->getEquipmentShortName())
+            ->setEquipment($this);
+
+        return $gameEquipment;
     }
 
     public function getCollectScrapNumber(): ProbaCollection
@@ -85,18 +96,6 @@ class PatrolShip extends Tool
         }
 
         $this->collectScrapPlayerDamage = $collectScrapPlayerDamage;
-
-        return $this;
-    }
-
-    public function getDockingPlace(): string
-    {
-        return $this->dockingPlace;
-    }
-
-    public function setDockingPlace(string $dockingPlace): self
-    {
-        $this->dockingPlace = $dockingPlace;
 
         return $this;
     }

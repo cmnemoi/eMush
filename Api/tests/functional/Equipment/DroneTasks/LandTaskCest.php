@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Equipment\DroneTasks;
 
 use Mush\Equipment\DroneTasks\LandTask;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -46,8 +47,8 @@ final class LandTaskCest extends AbstractFunctionalTest
 
         $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
         $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
-        $this->givenAPatrolShipInItsPlace();
-        $this->givenADroneInPatrolShipPlace();
+        $this->givenAPatrolShipInItsPlace($I);
+        $this->givenADroneInPatrolShipPlace($I);
     }
 
     public function shouldNotBeAvailableIfDroneIsNotAPilot(FunctionalTester $I): void
@@ -146,14 +147,17 @@ final class LandTaskCest extends AbstractFunctionalTest
         $this->thenChunShouldBeInTheDockingPlace($I);
     }
 
-    private function givenADroneInPatrolShipPlace(): void
+    private function givenADroneInPatrolShipPlace(FunctionalTester $I): void
     {
-        $this->drone = $this->gameEquipmentService->createGameEquipmentFromName(
+        $drone = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::SUPPORT_DRONE,
             equipmentHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN),
             reasons: [],
             time: new \DateTime()
         );
+
+        $I->assertInstanceOf(Drone::class, $drone);
+        $this->drone = $drone;
         $this->statusService->createOrIncrementChargeStatus(
             name: EquipmentStatusEnum::ELECTRIC_CHARGES,
             holder: $this->drone,
@@ -161,12 +165,20 @@ final class LandTaskCest extends AbstractFunctionalTest
         $this->setupDroneNicknameAndSerialNumber($this->drone, 0, 0);
     }
 
-    private function givenAPatrolShipInItsPlace(): void
+    private function givenAPatrolShipInItsPlace(FunctionalTester $I): void
     {
-        $this->patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
-            equipmentHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN),
+        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
+        $this->patrolShip = $this->gameEquipmentService->createGameEquipment(
+            equipmentConfig: $patrolShipConfig,
+            holder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::ALPHA_BAY),
             reasons: [],
+            time: new \DateTime(),
+            patrolShipName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+        );
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->patrolShip,
+            newHolder: $this->daedalus->getPlaceByNameOrThrow(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN),
             time: new \DateTime(),
         );
     }

@@ -10,8 +10,9 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\SpaceShipConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -66,24 +67,28 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->collectScrapAction = $I->grabService(CollectScrap::class);
         $this->landAction = $I->grabService(Land::class);
 
-        /** @var EquipmentConfig $pasiphaeConfig */
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
+        /** @var SpaceShipConfig $pasiphaeConfig */
+        $pasiphaeConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $this->pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::PASIPHAE));
         $this->pasiphae
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
+            ->setEquipment($pasiphaeConfig)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2);
         $I->haveInRepository($this->pasiphae);
 
         /** @var ChargeStatusConfig $pasiphaeArmorConfig */
         $pasiphaeArmorConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
         $this->pasiphaeArmor = new ChargeStatus($this->pasiphae, $pasiphaeArmorConfig);
 
-        /** @var EquipmentConfig $patrolShipConfig */
-        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN]);
-        $this->patrolShip = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
+        /** @var SpaceShipConfig $patrolShipConfig */
+        $patrolShipConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
+        $this->patrolShip = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
         $this->patrolShip
             ->setName(EquipmentEnum::PATROL_SHIP)
-            ->setEquipment($patrolShipConfig);
+            ->setEquipment($patrolShipConfig)
+            ->setPatrolShipName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2);
         $I->haveInRepository($this->patrolShip);
 
         /** @var ChargeStatusConfig $patrolShipArmorConfig */
@@ -483,7 +488,7 @@ final class CollectScrapCest extends AbstractFunctionalTest
         $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // patrol ship cannot collect scrap
-        $this->patrolShip->getPatrolShipMechanicOrThrow()->setCollectScrapNumber([0 => 1]);
+        $this->patrolShip->getEquipment()->setCollectScrapNumber([0 => 1]);
 
         $this->collectScrapAction->loadParameters(
             actionConfig: $this->collectScrapActionConfig,

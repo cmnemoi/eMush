@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -64,8 +65,10 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $pasiphaeRoom = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $this->pasiphae = new GameEquipment($pasiphaeRoom);
+        $this->pasiphae = new SpaceShip($pasiphaeRoom);
         $this->pasiphae
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($this->pasiphae);

@@ -76,7 +76,7 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
             return $this->findEquipmentForSpecificPlace($replaceEquipmentConfig, $projectEvent, $equipmentName, $quantity);
         }
 
-        return $this->gameEquipmentService->findEquipmentByNameAndDaedalus($equipmentName, $daedalus);
+        return $this->gameEquipmentService->findEquipmentsByNameAndDaedalus($equipmentName, $daedalus);
     }
 
     private function findEquipmentForSpecificPlace(

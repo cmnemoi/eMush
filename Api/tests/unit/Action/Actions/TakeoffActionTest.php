@@ -9,7 +9,7 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\PatrolShipManoeuvreServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
@@ -73,8 +73,10 @@ final class TakeoffActionTest extends AbstractActionTest
         $roomEnd = new Place();
         $roomEnd->setName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN);
         $roomEnd->setDaedalus($daedalus);
-        $patroller = new GameEquipment($roomStart);
-        $patroller->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN);
+        $patroller = new SpaceShip($roomStart);
+        $patroller
+            ->setPatrolShipName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setName(EquipmentEnum::PATROL_SHIP);
 
         $this->playerService->shouldReceive('persist');
 
@@ -103,8 +105,10 @@ final class TakeoffActionTest extends AbstractActionTest
         $roomEnd = new Place();
         $roomEnd->setName(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN);
         $roomEnd->setDaedalus($daedalus);
-        $patroller = new GameEquipment($roomStart);
-        $patroller->setName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN);
+        $patroller = new SpaceShip($roomStart);
+        $patroller
+            ->setPatrolShipName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN)
+            ->setName(EquipmentEnum::PATROL_SHIP);
 
         $this->playerService->shouldReceive('persist');
 

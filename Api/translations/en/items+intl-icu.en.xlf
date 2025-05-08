@@ -1774,7 +1774,8 @@ The Drone carries out actions similar to those of the crew.
 //
 Tries to repair defective equipment in its room before moving.
 //
-The support drone fulfills the automatic maintenance objective planned for the Magellan project. By employing its Beta-Slave protocol, it can almost replace a human being. Aside from the minor issue of building the thing...</target>
+The support drone fulfills the automatic maintenance objective planned for the Magellan project. By employing its Beta-Slave protocol, it can almost replace a human being. Aside from the minor issue of building the thing...
+{turbo_drone_upgrade} {pilot_drone_upgrade} {sensor_drone_upgrade} {firefighter_drone_upgrade}</target>
       </segment>
     </unit>
     <unit id="jar_of_alien_oil">

@@ -293,7 +293,7 @@ final class RoomLogService implements RoomLogServiceInterface
 
     private function createExamineLog(Player $player, ?LogParameterInterface $actionParameter): RoomLog
     {
-        /*if ($actionParameter instanceof Drone) {
+        if ($actionParameter instanceof Drone) {
             $logParameters = $this->getDroneLogParameters($actionParameter);
 
             return $this->createLog(
@@ -302,8 +302,9 @@ final class RoomLogService implements RoomLogServiceInterface
                 VisibilityEnum::PRIVATE,
                 'items',
                 $player,
+                $logParameters,
             );
-        }*/
+        }
 
         if ($actionParameter instanceof GameItem) {
             return $this->createLog(
@@ -331,15 +332,29 @@ final class RoomLogService implements RoomLogServiceInterface
         throw new \LogicException('examine action is not implemented for this type of entity');
     }
 
-    /*private function getDroneLogParameters(Drone $drone): array 
+    private function getDroneLogParameters(Drone $drone): array
     {
-        return [
-            'turbo' => 
-            'pilot' =>
-            'sensor' =>
-            'firefighter' =>
+        $logParameters = [
+            'turbo_drone_upgrade' => '',
+            'pilot_drone_upgrade' => '',
+            'sensor_drone_upgrade' => '',
+            'firefighter_drone_upgrade' => '',
         ];
-    }*/
+
+        if ($drone->isUpgraded()) {
+            $language = $drone->getPlace()->getDaedalus()->getLanguage();
+            foreach ($drone->getUpgrades() as $upgrade) {
+                $logParameters[$upgrade->getName()] = '//' . $this->translationService->translate(
+                    $upgrade->getName() . '.examine',
+                    [],
+                    'status',
+                    $language
+                );
+            }
+        }
+
+        return $logParameters;
+    }
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
     {

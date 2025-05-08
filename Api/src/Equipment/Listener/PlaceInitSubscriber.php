@@ -55,7 +55,7 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         foreach ($placeConfig->getEquipments() as $equipmentName) {
             $equipment = $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
 
-            if ($equipment instanceof SpaceShipConfig && $equipment->getName() === EquipmentEnum::PATROL_SHIP) {
+            if ($equipment instanceof SpaceShipConfig && $equipment->getEquipmentName() === EquipmentEnum::PATROL_SHIP) {
                 $patrolShipName = current($patrolShipNames);
                 next($patrolShipNames);
             } else {

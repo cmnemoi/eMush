@@ -9,9 +9,11 @@ use Mush\Daedalus\Entity\RandomItemPlaces;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Entity\Config\SpaceShipConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Gear;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\DifficultyConfig;
@@ -70,6 +72,17 @@ class CreateDaedalusCest
         $I->haveInRepository($spaceConfig);
 
         $daedalusConfig = $this->createDaedalusConfig(new ArrayCollection([$placeConfig1, $placeConfig2, $placeConfig3, $spaceConfig]));
+        $randomItemPlaces = new RandomItemPlaces();
+        $randomItemPlaces
+            ->setName('test')
+            ->setItems([
+                ItemEnum::WATER_STICK,
+            ])
+            ->setPlaces([
+                RoomEnum::CENTRAL_CORRIDOR,
+                RoomEnum::FRONT_CORRIDOR,
+            ]);
+        $daedalusConfig->setRandomItemPlaces($randomItemPlaces);
         $I->haveInRepository($daedalusConfig);
 
         // status config
@@ -171,6 +184,74 @@ class CreateDaedalusCest
         $I->assertCount(0, $daedalus->getHunterPool());
     }
 
+    public function patrolShipNamesTest(FunctionalTester $I)
+    {
+        // Given a daedalus with 1 room with 2 patrol ships and 1 pasiphae inside
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+
+        // roomConfigs
+        $placeConfig1 = new PlaceConfig();
+        $placeConfig1
+            ->setPlaceName(RoomEnum::FRONT_CORRIDOR)
+            ->setEquipments([EquipmentEnum::PATROL_SHIP, EquipmentEnum::PASIPHAE, EquipmentEnum::PATROL_SHIP])
+            ->setPatrolShipNames([EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN, EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE])
+            ->buildName(GameConfigEnum::TEST);
+        $spaceConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::SPACE]);
+        $I->haveInRepository($placeConfig1);
+        $I->haveInRepository($spaceConfig);
+
+        $daedalusConfig = $this->createDaedalusConfig(new ArrayCollection([$placeConfig1, $spaceConfig]));
+        $I->haveInRepository($daedalusConfig);
+
+        // Equipment Configs
+        $patrolShipConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
+        $pasiphaeConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+
+        $door = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::DOOR]);
+        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
+        /** @var DifficultyConfig $difficultyConfig */
+        $difficultyConfig = $I->grabEntityFromRepository(DifficultyConfig::class, ['name' => 'default']);
+
+        $gameConfig = new GameConfig();
+        $gameConfig
+            ->setName(GameConfigEnum::TEST)
+            ->setDaedalusConfig($daedalusConfig)
+            ->setDifficultyConfig($difficultyConfig)
+            ->setEquipmentsConfig(new ArrayCollection([$door, $patrolShipConfig, $pasiphaeConfig]))
+            ->setHunterConfigs(new ArrayCollection($hunterConfigs));
+        $I->haveInRepository($gameConfig);
+
+        $daedalus = $this->daedalusService->createDaedalus($gameConfig, 'name', LanguageEnum::FRENCH);
+
+        $I->assertEquals('name', $daedalus->getDaedalusInfo()->getName());
+        $I->assertCount(2, $daedalus->getPlaces());
+        $I->assertNotNull($room1 = $daedalus->getPlaceByName(RoomEnum::FRONT_CORRIDOR));
+        $I->assertCount(3, $room1->getEquipments());
+
+        $I->seeinRepository(
+            SpaceShip::class,
+            [
+                'name' => EquipmentEnum::PATROL_SHIP,
+                'patrolShipName' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+                'dockingPlace' => RoomEnum::FRONT_CORRIDOR]
+        );
+        $I->seeinRepository(
+            SpaceShip::class,
+            [
+                'name' => EquipmentEnum::PATROL_SHIP,
+                'patrolShipName' => EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+                'dockingPlace' => RoomEnum::FRONT_CORRIDOR]
+        );
+        $I->seeinRepository(
+            SpaceShip::class,
+            [
+                'name' => EquipmentEnum::PASIPHAE,
+                'patrolShipName' => EquipmentEnum::PASIPHAE,
+                'dockingPlace' => RoomEnum::FRONT_CORRIDOR]
+        );
+    }
+
     private function createDaedalusConfig(ArrayCollection $placesConfig): DaedalusConfig
     {
         $daedalusConfig = new DaedalusConfig();
@@ -189,18 +270,6 @@ class CreateDaedalusCest
             ->setNbMush(3)
             ->setCyclePerGameDay(8)
             ->setCycleLength(60 * 3);
-
-        $randomItemPlaces = new RandomItemPlaces();
-        $randomItemPlaces
-            ->setName('test')
-            ->setItems([
-                ItemEnum::WATER_STICK,
-            ])
-            ->setPlaces([
-                RoomEnum::CENTRAL_CORRIDOR,
-                RoomEnum::FRONT_CORRIDOR,
-            ]);
-        $daedalusConfig->setRandomItemPlaces($randomItemPlaces);
 
         return $daedalusConfig;
     }

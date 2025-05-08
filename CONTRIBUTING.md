@@ -1,4 +1,4 @@
-bi  # Contributing
+# Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via an [issue](https://gitlab.com/eternaltwin/mush/mush/-/issues/?sort=updated_desc&state=opened&first_page_size=100)
 or on [Discord](https://discord.com/channels/693082011484684348/746873392463872071) before making a change. 

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Daedalus\Service;
 
+use Mush\Daedalus\Entity\Collection\CycleIncidentCollection;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Enum\CycleIncidentEnum as CycleIncident;
+use Mush\Daedalus\Enum\CycleIncidentEnum;
+use Mush\Daedalus\ValueObject\CycleIncident;
 use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -61,111 +63,96 @@ final class DispatchCycleIncidentsService
     private function dispatchIncidents(Daedalus $daedalus, \DateTime $time): void
     {
         while ($daedalus->getIncidentPoints() > 0) {
-            $availableIncidents = $this->getAvailableIncidents($daedalus);
-            if (empty($availableIncidents)) {
+            $incidents = $this->getAvailableIncidentsForDaedalus($daedalus);
+            if ($incidents->isEmpty()) {
                 break;
             }
 
-            $incident = $this->getRandomIncidentToDispatch($availableIncidents);
+            $incident = $this->getRandomIncidentToDispatch($incidents);
             $this->triggerIncidentForDaedalus($incident, $daedalus, $time);
-            $daedalus->removeIncidentPoints($incident->getCost());
+            $daedalus->removeIncidentPoints($incident->cost);
         }
     }
 
-    /**
-     * @return CycleIncident[]
-     */
-    private function getAvailableIncidents(Daedalus $daedalus): array
+    private function getAvailableIncidentsForDaedalus(Daedalus $daedalus): CycleIncidentCollection
     {
-        $availableIncidents = [];
+        $incidents = new CycleIncidentCollection();
+        foreach (CycleIncidentEnum::cases() as $incidentName) {
+            if ($this->daedalusCannotAffordIncident($daedalus, $incidentName)) {
+                continue;
+            }
 
-        foreach (CycleIncident::cases() as $incident) {
-            if ($this->incidentAvailableForDaedalus($incident, $daedalus)) {
-                $availableIncidents[] = $incident;
+            $targets = match ($incidentName->getTarget()) {
+                Place::class => $this->getValidDaedalusRoomsForIncident($daedalus, $incidentName),
+                GameEquipment::class => $this->getValidDaedalusEquipmentForIncident($daedalus, $incidentName),
+                Player::class => $this->getValidDaedalusPlayersForIncident($daedalus, $incidentName),
+                'random_equipment' => $this->getWorkingEquipmentDistributionFromDaedalus($daedalus)->toArray(),
+                default => throw new \LogicException("Incident type {$incidentName->value} not supported"),
+            };
+
+            if (\count($targets) > 0) {
+                $incidents[] = new CycleIncident($incidentName, $targets);
             }
         }
 
-        return $availableIncidents;
+        return $incidents;
     }
 
-    private function getRandomIncidentToDispatch(array $availableIncidents): CycleIncident
+    private function getRandomIncidentToDispatch(CycleIncidentCollection $incidents): CycleIncident
     {
-        $weights = $this->buildIncidentWeights($availableIncidents);
+        $weights = $incidents->getWeights();
+        $selectedIncident = CycleIncidentEnum::from($this->probaCollectionRandomElement->generateFrom($weights));
 
-        return CycleIncident::from($this->probaCollectionRandomElement->generateFrom($weights));
-    }
-
-    private function incidentAvailableForDaedalus(CycleIncident $incident, Daedalus $daedalus): bool
-    {
-        return $this->daedalusCanAffordIncident($daedalus, $incident) && $this->thereAreValidTargetsForIncidentInDaedalus($incident, $daedalus);
-    }
-
-    private function buildIncidentWeights(array $availableIncidents): ProbaCollection
-    {
-        $weights = new ProbaCollection();
-        foreach ($availableIncidents as $incident) {
-            $weights->setElementProbability($incident->value, $incident->getWeight());
-        }
-
-        return $weights;
-    }
-
-    private function thereAreValidTargetsForIncidentInDaedalus(CycleIncident $incident, Daedalus $daedalus): bool
-    {
-        return match ($incident->getTarget()) {
-            Place::class => \count($this->getValidRoomsForIncident($daedalus, $incident)) > 0,
-            GameEquipment::class => \count($this->getValidEquipmentForIncident($daedalus, $incident)) > 0,
-            Player::class => \count($this->getValidPlayersForIncident($daedalus, $incident)) > 0,
-            'equipment_failure' => $this->getWorkingEquipmentDistribution($daedalus)->count() > 0,
-            default => throw new \LogicException("Incident type {$incident->value} not supported"),
-        };
+        return $incidents->getByNameOrThrow($selectedIncident);
     }
 
     private function triggerIncidentForDaedalus(CycleIncident $incident, Daedalus $daedalus, \DateTime $time): void
     {
-        match ($incident) {
-            CycleIncident::FIRE => $this->daedalusIncidentService->handleFireEvents(
-                rooms: $this->getValidRoomsForIncident($daedalus, $incident),
+        $targets = $incident->targets;
+
+        match ($incident->name) {
+            CycleIncidentEnum::FIRE => $this->daedalusIncidentService->handleFireEvents(
+                rooms: $targets,
                 date: $time,
             ),
-            CycleIncident::OXYGEN_LEAK => $this->daedalusIncidentService->handleOxygenTankBreak(
-                tanks: $this->getValidEquipmentForIncident($daedalus, $incident),
+            CycleIncidentEnum::OXYGEN_LEAK => $this->daedalusIncidentService->handleOxygenTankBreak(
+                tanks: $targets,
                 date: $time,
             ),
-            CycleIncident::FUEL_LEAK => $this->daedalusIncidentService->handleFuelTankBreak(
-                tanks: $this->getValidEquipmentForIncident($daedalus, $incident),
+            CycleIncidentEnum::FUEL_LEAK => $this->daedalusIncidentService->handleFuelTankBreak(
+                tanks: $targets,
                 date: $time,
             ),
-            CycleIncident::JOLT => $this->daedalusIncidentService->handleTremorEvents(
-                rooms: $this->getValidRoomsForIncident($daedalus, $incident),
+            CycleIncidentEnum::JOLT => $this->daedalusIncidentService->handleTremorEvents(
+                rooms: $targets,
                 date: $time,
             ),
-            CycleIncident::EQUIPMENT_FAILURE => $this->daedalusIncidentService->handleEquipmentBreak(
-                equipments: $this->getWorkingEquipmentDistribution($daedalus),
+            CycleIncidentEnum::EQUIPMENT_FAILURE => $this->daedalusIncidentService->handleEquipmentBreak(
+                equipments: new ProbaCollection($targets),
                 daedalus: $daedalus,
                 date: $time,
             ),
-            CycleIncident::DOOR_BLOCKED => $this->daedalusIncidentService->handleDoorBreak(
-                doors: $this->getBreakableDoorsFromDaedalus($daedalus),
+            CycleIncidentEnum::DOOR_BLOCKED => $this->daedalusIncidentService->handleDoorBreak(
+                doors: $targets,
                 date: $time,
             ),
-            CycleIncident::ANXIETY_ATTACK => $this->daedalusIncidentService->handlePanicCrisis(
-                players: $this->getValidPlayersForIncident($daedalus, $incident),
+            CycleIncidentEnum::ANXIETY_ATTACK => $this->daedalusIncidentService->handlePanicCrisis(
+                players: $targets,
                 date: $time,
             ),
-            CycleIncident::BOARD_DISEASE => $this->daedalusIncidentService->handleCrewDisease(
-                players: $this->getValidPlayersForIncident($daedalus, $incident),
+            CycleIncidentEnum::BOARD_DISEASE => $this->daedalusIncidentService->handleCrewDisease(
+                players: $targets,
                 date: $time,
             ),
-            CycleIncident::ACCIDENT => $this->daedalusIncidentService->handleMetalPlates(
-                players: $this->getValidPlayersForIncident($daedalus, $incident),
+            CycleIncidentEnum::ACCIDENT => $this->daedalusIncidentService->handleMetalPlates(
+                players: $targets,
                 date: $time,
             ),
-            CycleIncident::ELECTROCUTION => $this->daedalusIncidentService->handleElectricArcEvents(
-                rooms: $this->getValidRoomsForIncident($daedalus, $incident),
+            CycleIncidentEnum::ELECTROCUTION => $this->daedalusIncidentService->handleElectricArcEvents(
+                rooms: $targets,
                 date: $time,
             ),
-            default => throw new \LogicException("Incident type {$incident->value} not supported"),
+            default => throw new \LogicException("Incident type {$incident->name->value} not supported"),
         };
     }
 
@@ -182,41 +169,53 @@ final class DispatchCycleIncidentsService
         return true;
     }
 
-    private function daedalusCanAffordIncident(Daedalus $daedalus, CycleIncident $incident): bool
+    private function daedalusCannotAffordIncident(Daedalus $daedalus, CycleIncidentEnum $incident): bool
     {
-        return $daedalus->getIncidentPoints() >= $incident->getCost();
+        return $daedalus->getIncidentPoints() < $incident->getCost();
     }
 
-    private function getValidPlayersForIncident(Daedalus $daedalus, CycleIncident $incident): array
+    /**
+     * @return Player[]
+     */
+    private function getValidDaedalusPlayersForIncident(Daedalus $daedalus, CycleIncidentEnum $incidentName): array
     {
-        return match ($incident) {
-            CycleIncident::ACCIDENT => $daedalus->getAlivePlayers()->getAllInRoom()->getAllWithoutStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->toArray(),
-            CycleIncident::ANXIETY_ATTACK => $daedalus->getAlivePlayers()->getHumanPlayer()->getAllWithoutStatus(PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK)->toArray(),
-            CycleIncident::BOARD_DISEASE => $daedalus->getAlivePlayers()->getHumanPlayer()->getAllWithoutStatus(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE)->toArray(),
-            default => throw new \LogicException("Incident type {$incident->value} not supported"),
+        return match ($incidentName) {
+            CycleIncidentEnum::ACCIDENT => $daedalus->getAlivePlayers()->getAllInRoom()->getAllWithoutStatus(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE)->toArray(),
+            CycleIncidentEnum::ANXIETY_ATTACK => $daedalus->getAlivePlayers()->getHumanPlayer()->getAllWithoutStatus(PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK)->toArray(),
+            CycleIncidentEnum::BOARD_DISEASE => $daedalus->getAlivePlayers()->getHumanPlayer()->getAllWithoutStatus(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE)->toArray(),
+            default => throw new \LogicException("Incident type {$incidentName->toString()} not supported"),
         };
     }
 
-    private function getValidRoomsForIncident(Daedalus $daedalus, CycleIncident $incident): array
+    /**
+     * @return Place[]
+     */
+    private function getValidDaedalusRoomsForIncident(Daedalus $daedalus, CycleIncidentEnum $incidentName): array
     {
-        return match ($incident) {
-            CycleIncident::ELECTROCUTION => $daedalus->getRooms()->getAllWithoutStatus(PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString())->toArray(),
-            CycleIncident::FIRE => $daedalus->getRooms()->getAllWithoutStatus(StatusEnum::FIRE)->toArray(),
-            CycleIncident::JOLT => $daedalus->getRooms()->getAllWithAlivePlayers()->getAllWithoutStatus(PlaceStatusEnum::SELECTED_FOR_JOLT->toString())->toArray(),
-            default => throw new \LogicException("Incident type {$incident->value} not supported"),
+        return match ($incidentName) {
+            CycleIncidentEnum::ELECTROCUTION => $daedalus->getRooms()->getAllWithoutStatus(PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString())->toArray(),
+            CycleIncidentEnum::FIRE => $daedalus->getRooms()->getAllWithoutStatus(StatusEnum::FIRE)->toArray(),
+            CycleIncidentEnum::JOLT => $daedalus->getRooms()->getAllWithAlivePlayers()->getAllWithoutStatus(PlaceStatusEnum::SELECTED_FOR_JOLT->toString())->toArray(),
+            default => throw new \LogicException("Incident type {$incidentName->toString()} not supported"),
         };
     }
 
-    private function getValidEquipmentForIncident(Daedalus $daedalus, CycleIncident $incident): array
+    /**
+     * @return GameEquipment[]
+     */
+    private function getValidDaedalusEquipmentForIncident(Daedalus $daedalus, CycleIncidentEnum $incidentName): array
     {
-        return match ($incident) {
-            CycleIncident::DOOR_BLOCKED => $this->getBreakableDoorsFromDaedalus($daedalus),
-            CycleIncident::FUEL_LEAK => $this->getAllWorkingDaedalusEquipmentByName($daedalus, EquipmentEnum::FUEL_TANK),
-            CycleIncident::OXYGEN_LEAK => $this->getAllWorkingDaedalusEquipmentByName($daedalus, EquipmentEnum::OXYGEN_TANK),
-            default => throw new \LogicException("Incident type {$incident->value} not supported"),
+        return match ($incidentName) {
+            CycleIncidentEnum::DOOR_BLOCKED => $this->getBreakableDoorsFromDaedalus($daedalus),
+            CycleIncidentEnum::FUEL_LEAK => $this->getAllWorkingDaedalusEquipmentByName($daedalus, EquipmentEnum::FUEL_TANK),
+            CycleIncidentEnum::OXYGEN_LEAK => $this->getAllWorkingDaedalusEquipmentByName($daedalus, EquipmentEnum::OXYGEN_TANK),
+            default => throw new \LogicException("Incident type {$incidentName->toString()} not supported"),
         };
     }
 
+    /**
+     * @return GameEquipment[]
+     */
     private function getAllWorkingDaedalusEquipmentByName(Daedalus $daedalus, string $equipmentName): array
     {
         $tanks = $this->gameEquipmentRepository->findByNameAndDaedalus($equipmentName, $daedalus);
@@ -224,7 +223,7 @@ final class DispatchCycleIncidentsService
         return array_filter($tanks, static fn (GameEquipment $tank) => !$tank->isBroken());
     }
 
-    private function getWorkingEquipmentDistribution(Daedalus $daedalus): ProbaCollection
+    private function getWorkingEquipmentDistributionFromDaedalus(Daedalus $daedalus): ProbaCollection
     {
         $equipmentBreakRateDistribution = $daedalus
             ->getGameConfig()
@@ -255,6 +254,9 @@ final class DispatchCycleIncidentsService
         return $equipmentBreakRateDistribution->withdrawElements($absentEquipments);
     }
 
+    /**
+     * @return Door[]
+     */
     private function getBreakableDoorsFromDaedalus(Daedalus $daedalus): array
     {
         $criteria = new GameEquipmentCriteria($daedalus);

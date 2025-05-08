@@ -11,7 +11,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 
-final class InMemoryGameEquipmentRepository implements GameEquipmentRepositoryInterface
+class InMemoryGameEquipmentRepository implements GameEquipmentRepositoryInterface
 {
     /**
      * @var array<int, GameEquipment>

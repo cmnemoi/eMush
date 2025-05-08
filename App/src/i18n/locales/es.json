@@ -168,7 +168,7 @@
 		"notyet": "Vous serez notifié quand le classement de fin de partie sera publié.",
 		"endgame": "Valider et continuer"
 	},
-	"alerts": "Alertes :",
+	"alerts": "Alertas:",
 	"downloading": "Téléchargement ...",
 	"loading": "Chargement ...",
 	"room": {
@@ -182,66 +182,66 @@
 		"refectory": "Comedor",
 		"hydroponicGarden": "Jardín Hidropónico",
 		"engineRoom": "Sala de Motores",
-		"frontAlphaTurret": "Tourelle Alpha Avant",
-		"centreAlphaTurret": "Tourelle Alpha Centre",
-		"rearAlphaTurret": "Tourelle Alpha Arrière",
-		"frontBravoTurret": "Tourelle Beta Avant",
-		"centreBravoTurret": "Tourelle Beta Centre",
-		"rearBravoTurret": "Tourelle Beta Arrière",
-		"frontCorridor": "Couloir Avant",
-		"centralCorridor": "Couloir Central",
-		"rearCorridor": "Couloir Arrière",
-		"icarusBay": "Baie Icarus",
-		"alphaDorm": "Dortoir Alpha",
-		"bravoDorm": "Dortoir Beta",
+		"frontAlphaTurret": "Torreta Frontal Alfa",
+		"centreAlphaTurret": "Torreta Central Alfa",
+		"rearAlphaTurret": "Torreta Trasera Alfa",
+		"frontBravoTurret": "Torreta Frontal Beta",
+		"centreBravoTurret": "Torreta Central Beta",
+		"rearBravoTurret": "Torreta Trasera Beta",
+		"frontCorridor": "Pasillo Frontal",
+		"centralCorridor": "Pasillo Central",
+		"rearCorridor": "Pasillo Trasero",
+		"icarusBay": "Bahía Ícaro",
+		"alphaDorm": "Dormitorio Alfa",
+		"bravoDorm": "Dormitorio Beta",
 		"frontStorage": "Almacén Delantero",
-		"centerAlphaStorage": "Stockage Alpha Centre",
-		"centerBravoStorage": "Stockage Beta Centre",
-		"rearAlphaStorage": "Stockage Alpha Arrière",
-		"rearBravoStorage": "Stockage Beta Arrière"
+		"centerAlphaStorage": "Almacén Central Alfa",
+		"centerBravoStorage": "Almacén Central Beta",
+		"rearAlphaStorage": "Almacén Trasero Alfa",
+		"rearBravoStorage": "Almacén Trasero Beta"
 	},
 	"admin": {
 		"actions": {
 			"equipment": {
-				"title": "Équipement",
+				"title": "Equipamiento",
 				"create": "Créer de l'équipement pour les vaisseaux en cours",
-				"name": "Nom de l'équipement",
-				"quantity": "Quantité",
-				"place": "Salle où créer l'équipement",
-				"daedalus": "Identifiant du Daedalus",
-				"createForDaedalus": "Créer de l'équipement pour le Daedalus"
+				"name": "Nombre del equipamiento",
+				"quantity": "Cantidad",
+				"place": "Sala donde se crea el equipamiento",
+				"daedalus": "Identificación de la Dédalo",
+				"createForDaedalus": "Crea equipamiento para la Dédalo"
 			},
 			"projects": {
-				"title": "Projets",
+				"title": "Proyectos",
 				"create": "Créer les projets pour les Daedalus en cours",
 				"propose": "Proposer des projets pour les Daedalus en cours"
 			},
 			"statuses": {
-				"title": "Status",
+				"title": "Estado",
 				"createAllPlayersInitStatuses": "Créer les status de départ pour tous les joueurs",
 				"deleteAllByName": "Supprimer tous les status portant ce nom",
-				"name": "Nom"
+				"name": "Nombre"
 			},
 			"rules": {
-				"title": "Règles",
+				"title": "Reglas",
 				"resetAcceptance": "Réinitialiser l'acceptation des règles pour tous les utilisateurs"
 			},
 			"title": "Actions administratives"
 		},
 		"banner": {
-			"actions": "Actions"
+			"actions": "Acciones"
 		},
 		"user": {
 			"username": "Username",
-			"roles": "Rôles"
+			"roles": "Roles"
 		},
 		"gameConfig": {
 			"name": "Nombre",
-			"daedalusConfig": "Configuration du Daedalus",
-			"difficultyConfig": "Configuration de la difficulté",
+			"daedalusConfig": "Configuración de la Dédalo",
+			"difficultyConfig": "Configuración de la dificultad",
 			"characterConfigs": "Personajes",
-			"statusConfigs": "Statuts",
-			"equipmentConfigs": "Équipement",
+			"statusConfigs": "Estado",
+			"equipmentConfigs": "Equipamiento",
 			"triumphConfigs": "Sources de triomphe",
 			"diseaseCauseConfigs": "Configuration des causes de maladie",
 			"diseaseConfigs": "Configurations de maladie",
@@ -250,7 +250,7 @@
 		"modifierConfig": {
 			"name": "Nombre",
 			"delta": "Delta",
-			"targetVariable": "Variable cible",
+			"targetVariable": "Variable objetivo",
 			"targetEvent": "Déclencheur",
 			"modifierHolderClass": "Entité porteuse du modificateur",
 			"mode": "Mode",
@@ -304,7 +304,7 @@
 			"actionPoint": "Coût en points d'action",
 			"movementPoint": "Coût en points de mouvement",
 			"moralPoint": "Coût en points de moral",
-			"percentageSuccess": "Pourcentage de succès",
+			"percentageSuccess": "Porcentaje de éxito",
 			"percentageCritical": "Pourcentage de succès critique",
 			"percentageInjury": "Pourcentage de maladresse",
 			"percentageDirtiness": "Pourcentage de salissure",
@@ -314,19 +314,19 @@
 		"daedalus": {
 			"addNewRooms": "Ajouter des pièces",
 			"deleteDuplicatedAlertElements": "Supprimer les reports d'alertes",
-			"destroy": "Détruire",
-			"destroyAllDaedaluses": "Détruire tous les Daedalus",
+			"destroy": "Destruir",
+			"destroyAllDaedaluses": "Destruir todas las Dédalo",
 			"unlock": "Débloquer le changement de cycle",
 			"createDaedalus": "Créer un Daedalus :",
-			"name": "Nom du Daedalus :",
-			"create": "Créer un Daedalus",
+			"name": "Nombre de la Dédalo",
+			"create": "Crear una Dédalo",
 			"config": "Configuration du Daedalus",
 			"language": "Langue du Daedalus",
 			"maintenanceOn": "Mettre le jeu en maintenance",
 			"maintenanceOff": "Retirer le jeu de la maintenance"
 		},
-		"save": "Sauvegarder",
-		"show": "Montrer",
+		"save": "Guardar",
+		"show": "Mostrar",
 		"search": "Chercher",
 		"edit": "Éditer",
 		"updatedAt": "Mis à jour le",
@@ -338,17 +338,17 @@
 			"initHull": "Armure de départ",
 			"initShield": "Bouclier de départ",
 			"dailySporeNb": "Nombre de spores quotidiens",
-			"maxOxygen": "Oxygène maximal",
-			"maxFuel": "Fuel maximal",
-			"maxHull": "Armure maximale",
-			"maxShield": "Bouclier maximal",
+			"maxOxygen": "Oxígeno máximo",
+			"maxFuel": "Combustible máximo",
+			"maxHull": "Casco máximo",
+			"maxShield": "Escudo máximo",
 			"nbMush": "Nombre de Mushs de départ",
 			"cyclePerGameDay": "Nombre de cycles par jour",
 			"cycleLength": "Durée du cycle (en minutes)",
 			"placeConfigs": "Salles"
 		},
 		"difficultyConfig": {
-			"name": "Nom",
+			"name": "Nombre",
 			"equipmentBreakRate": "Probabilité de casse spontanée des équipements",
 			"doorBreakRate": "Probabilité de casse spontanée des portes",
 			"equipmentFireBreakRate": "Probabilité de casse des équipements par les incendies",

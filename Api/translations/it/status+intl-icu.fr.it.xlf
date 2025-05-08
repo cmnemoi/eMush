@@ -1659,5 +1659,45 @@
         <target>beginner.description</target>
       </segment>
     </unit>
+    <unit id="turbo_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>turbo_drone_upgrade.description</source>
+        <target>turbo_drone_upgrade.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>turbo_drone_upgrade.examine</source>
+        <target>turbo_drone_upgrade.examine</target>
+      </segment>
+    </unit>
+    <unit id="pilot_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>pilot_drone_upgrade.description</source>
+        <target>pilot_drone_upgrade.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>pilot_drone_upgrade.examine</source>
+        <target>pilot_drone_upgrade.examine</target>
+      </segment>
+    </unit>
+    <unit id="sensor_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>sensor_drone_upgrade.description</source>
+        <target>sensor_drone_upgrade.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>sensor_drone_upgrade.examine</source>
+        <target>sensor_drone_upgrade.examine</target>
+      </segment>
+    </unit>
+    <unit id="firefighter_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>firefighter_drone_upgrade.description</source>
+        <target>firefighter_drone_upgrade.description</target>
+      </segment>
+      <segment id="examine" state="initial">
+        <source>firefighter_drone_upgrade.examine</source>
+        <target>firefighter_drone_upgrade.examine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

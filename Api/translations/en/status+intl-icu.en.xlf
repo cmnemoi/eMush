@@ -1680,10 +1680,18 @@
         <source>turbo_drone_upgrade.description</source>
         <target>Turbo: This drone has 80% chance of carrying out a second action in every cycle.</target>
       </segment>
+      <segment id="examine" state="translated">
+        <source>turbo_drone_upgrade.examine</source>
+        <target>Turbo: This drone has 80% chance of carrying out a second action in every cycle.</target>
+      </segment>
     </unit>
     <unit id="pilot_drone_upgrade">
       <segment id="description" state="translated">
         <source>pilot_drone_upgrade.description</source>
+        <target>Pilot: This drone tries to borrow a Patrol Ship and destroy all the Hunters before moving. Has a 20% target bonus compared to humans.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>pilot_drone_upgrade.examine</source>
         <target>Pilot: This drone tries to borrow a Patrol Ship and destroy all the Hunters before moving. Has a 20% target bonus compared to humans.</target>
       </segment>
     </unit>
@@ -1692,10 +1700,18 @@
         <source>sensor_drone_upgrade.description</source>
         <target>Sensor: This drone intelligently moves towards the nearest fire, broken equipment or Patrol Ship instead of moving randomly.</target>
       </segment>
+      <segment id="examine" state="translated">
+        <source>sensor_drone_upgrade.examine</source>
+        <target>Sensor: This drone intelligently moves towards the nearest fire, broken equipment or Patrol Ship instead of moving randomly.</target>
+      </segment>
     </unit>
     <unit id="firefighter_drone_upgrade">
       <segment id="description" state="translated">
         <source>firefighter_drone_upgrade.description</source>
+        <target>Firefighter: This drone tries to extinguish the fire in the room before moving. Is also immune to fire damage.</target>
+      </segment>
+      <segment id="examine" state="translated">
+        <source>firefighter_drone_upgrade.examine</source>
         <target>Firefighter: This drone tries to extinguish the fire in the room before moving. Is also immune to fire damage.</target>
       </segment>
     </unit>

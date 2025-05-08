@@ -198,6 +198,11 @@ class Drone extends GameItem
         return $this->getUpgrades()->isEmpty();
     }
 
+    public function isUpgraded(): bool
+    {
+        return $this->isNotUpgraded() === false;
+    }
+
     public function huntersAreAttacking(): bool
     {
         return $this->getDaedalus()->getAttackingHunters()->count() > 0;

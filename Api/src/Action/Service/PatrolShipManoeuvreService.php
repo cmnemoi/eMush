@@ -88,7 +88,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
 
         $this->gameEquipmentService->moveEquipmentTo(
             equipment: $patrolShip,
-            newHolder: $daedalus->getPlaceByNameOrThrow($patrolShip->getName()),
+            newHolder: $daedalus->getPlaceByNameOrThrow($patrolShip->getPatrolShipName()),
             tags: $tags,
             time: $time
         );

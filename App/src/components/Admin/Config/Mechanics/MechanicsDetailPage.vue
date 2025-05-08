@@ -516,7 +516,7 @@ export default defineComponent({
             if (this.mechanics && this.mechanics.baseDamageRange) {
                 this.mechanics.baseDamageRange.delete(index);
             }
-        },
+        }
     },
     beforeMount() {
         const mechanicsId = Number(this.$route.params.mechanicsId);

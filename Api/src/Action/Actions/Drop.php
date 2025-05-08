@@ -39,10 +39,6 @@ class Drop extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->putItemInPlayerRoom();
-
-        if ($this->gameItemTarget()->isATalkie()) {
-            $result->addDetail('reloadChannels', true);
-        }
     }
 
     private function putItemInPlayerRoom(): void

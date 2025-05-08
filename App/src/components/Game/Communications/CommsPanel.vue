@@ -19,7 +19,7 @@
                 :name="channel.name"
                 :description="channel.description"
                 :selected="isChannelSelected(channel)"
-                :number-of-new-messages="channel.numberOfNewMessages"
+                :number-of-new-messages="numberOfNewMessages(channel)"
                 @select="changeChannel({ channel })"
             />
         </ul>
@@ -148,6 +148,9 @@ export default defineComponent ({
             }
 
             await exportChannelToPDF(chatbox);
+        },
+        numberOfNewMessages(channel: Channel): number {
+            return channel.id === this.currentChannel.id ? this.currentChannelNumberOfNewMessages : channel.numberOfNewMessages;
         }
     }
 });

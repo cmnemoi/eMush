@@ -108,7 +108,7 @@ class Drone extends GameItem
 
         $baseSuccessRate = $repairActionConfig->getSuccessRate();
 
-        return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getFailedRepairAttempts());
+        return (int) min($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getFailedRepairAttempts(), 99);
     }
 
     public function getExtinguishFireSuccessRate(ActionConfigRepositoryInterface $actionConfigRepository): int
@@ -119,14 +119,14 @@ class Drone extends GameItem
             EquipmentMechanicEnum::TOOL,
         );
 
-        return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getExtinguishFailedAttempts());
+        return (int) min($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getExtinguishFailedAttempts(), 99);
     }
 
     public function getShootHunterSuccessRate(): int
     {
         $successRate = $this->shootHunterBaseSuccessRate() * $this->pilotBonus();
 
-        return (int) ($successRate * self::ATTEMPT_INCREASE ** $this->getShootHunterFailedAttempts());
+        return (int) min($successRate * self::ATTEMPT_INCREASE ** $this->getShootHunterFailedAttempts(), 99);
     }
 
     public function operationalPatrolShipsInRoom(): array

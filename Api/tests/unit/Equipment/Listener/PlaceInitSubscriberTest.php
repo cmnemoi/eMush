@@ -55,7 +55,7 @@ final class PlaceInitSubscriberTest extends TestCase
 
         $patrolShipConfig = new SpaceShipConfig();
         $patrolShipConfig
-            ->setName(EquipmentEnum::PATROL_SHIP);
+            ->setEquipmentName(EquipmentEnum::PATROL_SHIP);
         $roomConfig = new PlaceConfig();
         $roomConfig
             ->setPatrolShipNames([EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE, EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN])

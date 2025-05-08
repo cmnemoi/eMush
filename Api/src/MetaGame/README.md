@@ -35,11 +35,13 @@ Internally, this works by the `AdminService` creating and deleting a file named 
     
     c. Add some validation rules for your config by creating a YAML file in `Api/config/api_platform/validation`. Example : a `ProjectConfig` `efficiency` should be between 1 and 99.
 
-2. Create a  `<your_config>.service.ts` in `App/src/services` which contains functions to create, update and load your config data. Please take inspiration from `App/src/services/hunter.config.service.ts`
+2. Create a new front-end entity in `App/src/entities/<your_config>.ts` for your config.
 
-3. Create new Vue components with the user interfaces to list, edit and create your config data in `App/src/components/Admin/Config/<your_config>`. You probably want to update the banner in `App/src/components/Admin/AdminConfigBanner.vue` and configure the routing in `App/src/router/adminConfigPages.ts` so your pages are accessible.
+3. Create a  `<your_config>.service.ts` in `App/src/services` which contains functions to create, update and load your config data. Please take inspiration from `App/src/services/hunter.config.service.ts`
 
-4. Use your `<your_config>.service.ts` to actually fetch your config data in your newly created interface. Please take inspiration from already existing Vue components in `App/src/components/Admin/Config`
+4. Create new Vue components with the user interfaces to list, edit and create your config data in `App/src/components/Admin/Config/<your_config>List.vue` and `App/src/components/Admin/Config/<your_config>Detail.vue`. You probably want to update the banner in `App/src/components/Admin/AdminConfigBanner.vue` and configure the routing in `App/src/router/adminConfigPages.ts` so your pages are accessible.
+
+5. Use your `<your_config>.service.ts` to actually fetch your config data in your newly created interface. Please take inspiration from already existing Vue components in `App/src/components/Admin/Config`
 
 See this MR for API Platform endpoint creation for HunterConfig : https://gitlab.com/eternaltwin/mush/mush/-/merge_requests/1186
 

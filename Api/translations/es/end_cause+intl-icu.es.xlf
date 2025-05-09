@@ -98,7 +98,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>alien_abducted.short_name</source>
-        <target>Has sido secuestrado.</target>
+        <target>Fuiste secuestrado por extraterrestres.</target>
       </segment>
       <segment id="category" state="translated">
         <source>alien_abducted.category</source>

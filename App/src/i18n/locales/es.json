@@ -92,7 +92,7 @@
 			"exploration_combat": "¡Desintegrado por un alien malhumorado!",
 			"exploration_lost": "¡Algo te encontró antes que tus compañeros de equipo!",
 			"electrocuted": "¡Electrocutado por esa vieja tostadora espacial!",
-			"injury": "Blessé à mort !",
+			"injury": "¡ Mortalmente herido !",
 			"burnt": "Calciné par un incendie inopportun !",
 			"clumsiness": "Tellement mal en point qu'un rien vous a achevé...",
 			"space_battle": "Mort dans l'explosion de votre vaisseau suite à des tirs ennemis!",
@@ -320,7 +320,7 @@
 			"createDaedalus": "Créer un Daedalus :",
 			"name": "Nombre de la Dédalo",
 			"create": "Crear una Dédalo",
-			"config": "Configuration du Daedalus",
+			"config": "Configuración de la Dédalo",
 			"language": "Lenguaje de la Dédalo",
 			"maintenanceOn": "Mettre le jeu en maintenance",
 			"maintenanceOff": "Retirer le jeu de la maintenance"
@@ -329,8 +329,8 @@
 		"show": "Mostrar",
 		"search": "Chercher",
 		"edit": "Éditer",
-		"updatedAt": "Mis à jour le",
-		"class": "Type d'entité",
+		"updatedAt": "Actualizado el",
+		"class": "Tipo de entidad",
 		"daedalusConfig": {
 			"name": "Nombre",
 			"initOxygen": "Oxígeno inicial",
@@ -357,8 +357,8 @@
 			"hullFireDamageRate": "Probabilidad de daños por incendios en el casco",
 			"tremorRate": "Probabilidad de temblor",
 			"electricArcRate": "Probabilidad de descargas eléctricas",
-			"metalPlateRate": "Probabilité de plaques de métal",
-			"panicCrisisRate": "Probabilité de crises de panique",
+			"metalPlateRate": "Probabilidad de placas de metal",
+			"panicCrisisRate": "Probabilidad de ataques de pánico",
 			"plantDiseaseRate": "Probabilidad de enfermedades espontáneas (plantas)",
 			"cycleDiseaseRate": "Probabilidad de enfermedades espontáneas (personajes)",
 			"firePlayerDamage": "Dégâts des incendies sur les joueurs (dégâts => probabilité)",
@@ -376,7 +376,7 @@
 			"name": "Nombre",
 			"characterName": "Nombre del personaje",
 			"maxNumberPrivateChannel": "Número máximo de canales privados",
-			"initHealthPoint": "Points de Vie de départ",
+			"initHealthPoint": "Puntos de vida iniciales",
 			"initMovementPoint": "Puntos de movimiento iniciales",
 			"initMoralPoint": "Puntos de moral iniciales",
 			"initActionPoint": "Puntos de acción iniciales",
@@ -400,9 +400,9 @@
 			"resistance": "Resistencia",
 			"delayMin": "Número de ciclos previos a la activación",
 			"delayLength": "Número de ciclos de incubación",
-			"diseasePointMin": "Points de maladie minimum",
-			"diseasePointLength": "Points de maladie maximum",
-			"override": "Maladies remplacées",
+			"diseasePointMin": "Puntos de enfermedad mínimos",
+			"diseasePointLength": "Puntos de enfermedad máximos",
+			"override": "Reemplazar enfermedad",
 			"overrideDiseaseToAdd": "Nombre de la enfermedad a añadir : ",
 			"modifierConfigs": "Modificadores",
 			"symptomConfigs": "Síntomas"
@@ -413,14 +413,14 @@
 			"symptomName": "Nombre del síntoma",
 			"trigger": "Desencadenante",
 			"visibility": "Visibilidad",
-			"symptomActivationRequirements": "Conditions de déclenchement"
+			"symptomActivationRequirements": "Condiciones de activación"
 		},
 		"symptomActivationRequirement": {
 			"pageTitle": "Configuración de las condiciones de activación ",
-			"activationRequirementName": "Type de condition de déclenchement",
+			"activationRequirementName": "Tipo de condición de activación",
 			"name": "Nombre completo",
 			"activationRequirement": "Condición",
-			"value": "Probabilité de déclenchement"
+			"value": "Probabilidad de activación"
 		},
 		"equipmentConfig": {
 			"pageTitle": "Configuración de equipamiento ",
@@ -436,31 +436,31 @@
 			"addDismountedProducts": "Añadir un producto :",
 			"isStackable": "Apilable",
 			"isNotStackable": "No apilable",
-			"actions": "Actions",
-			"initStatuses": "Statuts",
+			"actions": "Acciones",
+			"initStatuses": "Estado",
 			"mechanics": "Mécaniques"
 		},
 		"placeConfig": {
 			"pageTitle": "Configuración de la sala ",
 			"name": "Nombre completo",
 			"placeName": "Nombre de la sala",
-			"type": "Type de salle",
-			"doors": "Portes",
-			"equipments": "Équipements",
-			"items": "Objets"
+			"type": "Tipo de sala",
+			"doors": "Puertas",
+			"equipments": "Equipamiento",
+			"items": "Objetos"
 		},
 		"randomItemPlaces": {
 			"pageTitle": "Configuración de la distribución aleatoria de objetos en las salas ",
 			"name": "Nombre",
-			"items": "Objets",
-			"places": "Salles"
+			"items": "Objetos",
+			"places": "Salas"
 		},
 		"mechanics": {
 			"pageTitle": "Configuración de las mecánicas ",
 			"name": "Nombre",
 			"mechanics": "Mécaniques",
 			"mechanicsType": "Type de mécanique",
-			"actions": "Actions",
+			"actions": "Acciones",
 			"maturationTime": "Temps de maturation (nombre de cycles => probabilité qu'il soit choisi)",
 			"addMaturationTime": "Supprimer un temps de maturation :",
 			"maturationTimeIndexToAdd": "Temps de maturation (en cycles) à ajouter :",
@@ -472,23 +472,23 @@
 			"criticalSuccessRate": "Probabilidad de acierto crítico",
 			"criticalFailRate": "Probabilidad de fallo crítico ",
 			"oneShotRate": "Probabilidad de matar en un golpe",
-			"ingredients": "Ingrédients",
-			"addIngredients": "Ajouter un ingrédient :",
-			"isPerishable": "Périssable",
-			"isNotPerishable": "Non périssable",
-			"satiety": "Satiété",
+			"ingredients": "Ingredientes",
+			"addIngredients": "Añadir un ingrediente :",
+			"isPerishable": "Perecedero",
+			"isNotPerishable": "Imperecedero",
+			"satiety": "Saciedad",
 			"actionPoints": "Points d'action gagnés (points => probabilité)",
 			"moralPoints": "Points de moral gagnés (points => probabilité)",
 			"healthPoints": "Points de vie gagnés (points => probabilité)",
 			"movementPoints": "Points de mouvement gagnés (points => probabilité)",
 			"extraEffects": "Effets supplémentaires",
 			"skill": "Compétence apprise",
-			"content": "Contenu",
-			"isTranslated": "Est traduit",
-			"isNotTranslated": "N'est pas traduit",
+			"content": "Contenido",
+			"isTranslated": "Está traducido",
+			"isNotTranslated": "No está traducido",
 			"canShred": "Peut être déchiré",
 			"cannotShred": "Ne peut pas être déchiré",
-			"modifierConfigs": "Modificateurs",
+			"modifierConfigs": "Modificadores",
 			"equipment": "Équipement assemblé",
 			"blueprint": "Planos de construcción",
 			"dockingPlace": "Pièce d'amarrage",
@@ -498,7 +498,7 @@
 			"failedManoeuvreDaedalusDamage": "Dégâts infligés au Daedalus en cas d'échec de la manoeuvre (nombre => probabilité)",
 			"failedManoeuvrePatrolShipDamage": "Dégâts infligés au patrouilleur en cas d'échec de la manoeuvre (nombre => probabilité)",
 			"failedManoeuvrePlayerDamage": "Dégâts infligés au joueur en cas d'échec de la manoeuvre (nombre => probabilité)",
-			"book": "Apprentrons",
+			"book": "Guías",
 			"document": "Documentos",
 			"drug": "Medicamentos",
 			"fruit": "Frutas",
@@ -587,10 +587,10 @@
 		"neronAnnouncement": {
 			"destroyAndUpdate": "Destruction et mise à jour",
 			"destroyAndUpdateContent": "**Alerte** : Le Daedalus est condamné à une destruction imminente. En effet, les développeurs tout-puissants ont prévu une **mise à jour** majeure du jeu. *Préparez-vous pour de nouvelles façons créatives de rencontrer votre fin !*",
-			"maintenance": "Maintenance",
+			"maintenance": "Mantenimiento",
 			"maintenanceContent": "Cher équipage, préparez-vous pour une **maintenance du jeu** dans *1 cycle*. Profitez de ce temps pour contempler le vide existentiel ou réfléchir à vos choix de vie : *le plaisir continuera après la pause technique... Ou pas*.",
-			"frenchAnnouncement": "Annonce française",
-			"englishAnnouncement": "Annonce anglaise",
+			"frenchAnnouncement": "Anuncio francés",
+			"englishAnnouncement": "Anuncio inglés",
 			"sendNeronAnnouncement": "Envoyer une annonce NERON",
 			"sendNeronAnnouncementToAllDaedaluses": "Envoyer une annonce NERON à tous les Daedalus"
 		}
@@ -608,8 +608,8 @@
 			"cycle": "Ciclo",
 			"showMessageChildren": "Afficher {count} réponse | Afficher {count} réponses",
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
-			"newCycle": "Nouveau cycle",
-			"myMessageHere": "Mon message ici !",
+			"newCycle": "Nuevo ciclo",
+			"myMessageHere": "¡ Mi mensaje aquí !",
 			"bookmark": "Favorito",
 			"bookmarkDescription": "Mettre ce fil de discussion en favori.",
 			"invite": "Invitar",
@@ -632,7 +632,7 @@
 			"newStep": "Nouvelle étape"
 		},
 		"commanderOrderPanel": {
-			"title": "Mission",
+			"title": "Misión",
 			"tips": "Vous êtes le *Commandant* du vaisseau et vous avez le pouvoir de *commander des missions* à vos camarades. Vous pourrez choisir à qui envoyer la mission que vous aurez librement décidée et il recevra des :pa: s'il l'accepte. Mais, personne ne vous garantit que votre camarade respectera vos ordres..."
 		},
 		"ComManagerAnnouncementPanel": {
@@ -640,41 +640,41 @@
 			"tips": "En tant que *Resp. Communications* vous pouvez réaliser une annonce générale. //// Tous vos camarades seront **notifiés** et l'annonce restera dans l'onglet :tip: **Conseils**. Chaque nouvelle annonce remplace la précédente."
 		},
 		"popUp": {
-			"close": "Fermer",
-			"ok": "D'accord",
-			"goThere": "Y aller",
+			"close": "Cerrar",
+			"ok": "De acuerdo",
+			"goThere": "Ir allí",
 			"newNews": "Une nouvelle news a été publiée !"
 		}
 	},
 	"newsPage": {
-		"publishedAt": "Publié le ",
+		"publishedAt": "Publicado el ",
 		"updatedAt": "Actualizado el "
 	},
 	"homePage": {
 		"joinUs": "¡ Únete !",
 		"play": "¡ Jugar !",
 		"synopsis": "Estás a punto de despertar a bordo de la Dédalo con otros 15 rebeldes. Como tú, huyen del <em>Mush</em>, un hongo parásito que está asolando la Tierra y amenaza a la Humanidad.",
-		"followUs": "Suivez nous :",
-		"latestNews": "Dernière news :",
-		"seeAllNews": "Voir toutes les news"
+		"followUs": "Síguenos :",
+		"latestNews": "Últimas noticias :",
+		"seeAllNews": "Ver todas las noticias"
 	},
 	"errors": {
 		"details": {
-			"class": "Classe :",
-			"details": "Détails :",
-			"method": "Méthode :",
-			"params": "Paramètres :",
+			"class": "Clase :",
+			"details": "Detalles :",
+			"method": "Método :",
+			"params": "Parámetros :",
 			"url": "URL :"
 		},
 		"status": {
-			"401": "401 Non autorisé",
-			"403": "403 Interdit",
-			"404": "404 Ressource non trouvée",
-			"409": "409 Conflit",
-			"422": "422 Entité non traitable",
-			"500": "500 Erreur interne du serveur",
-			"502": "502 Bad Gateway",
-			"503": "503 Service indisponible"
+			"401": "401 No autorizado",
+			"403": "403 Prohibido",
+			"404": "404 Recurso no encontrado",
+			"409": "409 Conflicto",
+			"422": "422 Entidad no procesable",
+			"500": "500 Error interno del servidor",
+			"502": "502 Puerta de enlace no válida",
+			"503": "503 Servicio no disponible"
 		},
 		"badGateway": "Le proxy a reçu une réponse invalide. Cette erreur est très probablement due à la synchronisation du serveur : réessayez plus tard !",
 		"cannotAccessExploration": "Vous ne pouvez pas accéder à cette expédition. C'est privé un vaisseau, vous n'avez pas honte ?",
@@ -700,41 +700,41 @@
 			"users": "Utilisateurs"
 		},
 		"filters": {
-			"cycle": "Cycle",
-			"day": "Jour",
-			"endDate": "Date de fin",
-			"date": "Date",
-			"logContent": "Log",
+			"cycle": "Ciclo",
+			"day": "Día",
+			"endDate": "Fecha de finalización",
+			"date": "Fecha",
+			"logContent": "Registro",
 			"logContentDescription": "Nom du log à chercher. Pour le moment, vous devez rentrer le code du log (donné entre parenthèses). Dans le futur, des filtres pré-sélectionnés (actions agressives, actions mush...) seront disponibles.",
-			"messageAuthor": "Auteur du message",
-			"messageContent": "Contenu du message",
+			"messageAuthor": "Autor del mensaje",
+			"messageContent": "Contenido del mensaje",
 			"room": "Pièce",
 			"roomDescription": "Pièce du log à chercher. Pour le moment, vous devez rentrer le code de la pièce (indiqué entre parenthèses).",
 			"startDate": "Date de début"
 		},
 		"player": {
-			"playedBy": "Joué par",
+			"playedBy": "Jugado por",
 			"mush": "Mush",
-			"human": "Humain",
-			"banned": "Banni",
-			"notBanned": "Non banni",
-			"alive": "Vivant",
-			"dead": "Mort"
+			"human": "Humano",
+			"banned": "Baneado",
+			"notBanned": "No baneado",
+			"alive": "Vivo",
+			"dead": "Muerto"
 		},
 		"theEndPage": {
-			"editMessage": "Éditer",
-			"editMessageDescription": "Remplacer ce message par un avertissement de NERON.",
-			"hideMessage": "Masquer",
-			"hideMessageDescription": "Masquer ce message : il ne sera visible que pour son auteur et les modérateurs.",
-			"messageIsHidden": "Masqué",
-			"messageIsHiddenDescription": "Ce message est masqué. Il n'est visible que par son auteur et les modérateurs."
+			"editMessage": "Editar",
+			"editMessageDescription": "Reemplace este mensaje con una advertencia de NERON.",
+			"hideMessage": "Ocultar",
+			"hideMessageDescription": "Ocultar este mensaje: sólo será visible para su autor y moderadores.",
+			"messageIsHidden": "Oculto",
+			"messageIsHiddenDescription": "Este mensaje está oculto. Sólo es visible para su autor y moderadores."
 		},
 		"playerList": {
 			"gameStatuses": {
-				"all": "Sans distinction",
-				"in_game": "En jeu",
-				"finished": "Mort non validée",
-				"closed": "Mort validée"
+				"all": "Sin distinción",
+				"in_game": "Jugando",
+				"finished": "Muerte no validada",
+				"closed": "Muerte validada"
 			},
 			"id": "Identifiant du joueur",
 			"gameStatus": "Status du joueur",
@@ -769,57 +769,57 @@
 			"hide_end_message": "Cacher le message de fin",
 			"allTypes": "Toutes les sanctions",
 			"until": "jusqu'au",
-			"banned": "Banni",
-			"report": "Plainte",
-			"report_abusive": "Plainte abusive",
-			"report_processed": "Plainte traitée",
+			"banned": "Baneado",
+			"report": "Reportar",
+			"report_abusive": "Reportar abuso",
+			"report_processed": "Reporte procesado",
 			"alive": "EN VIE",
-			"name": "Sanction",
-			"showMore": "Afficher"
+			"name": "Sanción",
+			"showMore": "Mostrar"
 		},
 		"reason": {
-			"multi_account": "Multicompte",
-			"mush_play_against_team": "Anti-jeu Mush",
-			"killing_spree": "Massacre",
-			"foul_play": "Anti-jeu Humain",
-			"suicide": "Suicides",
-			"hate_speech": "Insultes",
-			"flood": "Flood",
-			"wrong_language": "Langue étrangère",
-			"exploit": "Exploitation de bugs",
-			"exploit_incentive": "Incitation à exploiter des bugs",
-			"leaking_private_information": "Diffusion d'info personnelles",
-			"allReasons": "Toutes les raisons"
+			"multi_account": "Multicuenta",
+			"mush_play_against_team": "Autosabotaje Mush",
+			"killing_spree": "Masacre",
+			"foul_play": "Autosabotaje Humano",
+			"suicide": "Suicidios",
+			"hate_speech": "Insultos",
+			"flood": "Inundar el chat (flooding)",
+			"wrong_language": "Lengua extranjera",
+			"exploit": "Aprovechamiento de bugs (exploits)",
+			"exploit_incentive": "Incentivar el aprovechamiento de bugs (exploits)",
+			"leaking_private_information": "Difusión de información personal",
+			"allReasons": "Todas las razones"
 		},
 		"durations": {
-			"permanent": "Permanent",
-			"1_day": "1 jour",
-			"2_day": "2 jours",
-			"3_day": "3 jours",
-			"1_week": "1 semaine",
-			"2_week": "2 semaines",
-			"3_week": "3 semaines",
-			"1_month": "1 mois",
-			"2_month": "2 mois",
-			"3_month": "3 mois"
+			"permanent": "Permanente",
+			"1_day": "1 día",
+			"2_day": "2 días",
+			"3_day": "3 días",
+			"1_week": "1 semana",
+			"2_week": "2 semanas",
+			"3_week": "3 semanas",
+			"1_month": "1 mes",
+			"2_month": "2 meses",
+			"3_month": "3 meses"
 		},
 		"sanctionDetail": {
-			"sanction": "Détails de la sanction",
-			"report": "Détails",
-			"user": "Nom d'utilisateur : ",
-			"player": "Personage joué : ",
-			"endDate": "Fin de la sanction : ",
-			"startDate": "Début de la sanction : ",
-			"reportDate": "Date de la plainte : ",
-			"date": "Date : ",
-			"author": "Auteur",
-			"message": "Message",
-			"sanctionType": "Type de sanction : ",
-			"reason": "Raison : ",
-			"evidence": "Message plainté",
-			"today": "Aujourd'hui",
-			"yesterday": "Hier",
-			"to": "à"
+			"sanction": "Detalles de la sanción",
+			"report": "Detalles",
+			"user": "Nombre del usuario : ",
+			"player": "Personaje jugado : ",
+			"endDate": "Fin de la sanción : ",
+			"startDate": "Comienzo de la sanción : ",
+			"reportDate": "Fecha del reporte : ",
+			"date": "Fecha : ",
+			"author": "Autor",
+			"message": "Mensaje",
+			"sanctionType": "Tipo de sanción : ",
+			"reason": "Razón : ",
+			"evidence": "Evidencias",
+			"today": "Hoy",
+			"yesterday": "Ayer",
+			"to": "hasta"
 		},
 		"report": {
 			"name": "Plainte",
@@ -870,7 +870,7 @@
 		"mushChannel": "Canal Mush",
 		"nothingToDisplay": "Rien à afficher.",
 		"privateChannel": "Canal privé",
-		"unban": "Débannir",
+		"unban": "Desbanear",
 		"unbanDescription": "Débannir cet utilisateur afin qu'il puisse rejoindre de nouveau un vaisseau.",
 		"reloadData": "Recharger les données",
 		"reloadDataDescription": "Recharger les données de la page. Note : il est inutile d'utiliser ce bouton dans la plupart des cas. En effet les données sont automatiquement rechargées à chaque fois qu'un filtre change.",
@@ -890,13 +890,13 @@
 			"lastUpdated": "<em>Dernière mise à jour : 9 juin 2024</em>"
 		},
 		"communication": {
-			"title": "Communication",
+			"title": "Comunicado",
 			"introText": "Les règles concernant la communication s’appliquent à tous les espaces permettant au joueur de s’exprimer par messages : canal général, canaux privés, canal Mush, missions, annonces générales, messages de fin de jeu. Ces messages peuvent tous faire l’objet d’une modération a posteriori à la discrétion des administrateurs et modérateurs du jeu selon les lignes directrices qui suivent.",
 			"courtesy": "<strong>Courtoisie</strong> : La communication étant le pilier majeur du jeu, les joueurs bénéficient d’une grande tolérance quant aux propos tenus et il n’est pas l’objectif de faire ici une liste exhaustive des propos interdits. Cependant, afin de garantir une atmosphère de jeu saine et inclusive pour tous les joueurs, toute forme de propos vulgaires, d’intolérance, de haine, de discrimination, d’harcèlement, ou de violence, est strictement interdite.",
 			"spokenLanguage": "<strong>Langue parlée</strong> : Le joueur doit pouvoir communiquer facilement dans la langue du serveur."
 		},
 		"behaviour": {
-			"title": "Comportement",
+			"title": "Comportamiento",
 			"introText": "Cette section n’a pas vocation à constituer une liste exhaustive des comportements tolérés ou interdits, mais donne une idée des comportements contraires à l’esprit du jeu.",
 			"multiAccounts": "<strong>Multicompte</strong> : Il est interdit de posséder plus d’un compte par personne sur le jeu eMush. Le prêt, don ou partage de compte est également interdit.",
 			"spoilingHuman": "<strong>Anti-jeu Humain</strong> : En tant qu’humain, il est interdit de nuire gravement à l’expérience de jeu des autres joueurs en effectuant volontairement et en pleine conscience des actions menaçant l’atteinte de l’objectif du camp humain.",
@@ -905,7 +905,7 @@
 			"suicide": "<strong>Suicide</strong> : Il est interdit de quitter volontairement une partie, que ce soit activement ou passivement, en exploitant les mécanismes du jeu."
 		},
 		"sanctionsAppeal": {
-			"title": "Sanctions et appel",
+			"title": "Sanciones y apelaciones",
 			"sanctionText": "Tous les manquements au présent règlement concernant la communication ou le comportement peuvent faire l’objet d’une sanction allant d’un avertissement à un bannissement du jeu avec effet immédiat, pendant une durée temporaire ou non.",
 			"appealText": "Les joueurs sont notifiés de leur sanction via un message sur la page principale du jeu. Dès lors, ils ont la possibilité de faire appel de leur sanction en ouvrant un billet sur le <a href='https://discord.gg/ERc3svy'>serveur Discord Eternaltwin</a> et en expliquant leur cas. Les modérateurs disposent d’outils particuliers et d’un accès à tous les messages et détails des parties.",
 			"allPlatformText": "En cas de récidive ou de comportement jugé suffisamment grave, les sanctions peuvent s’appliquer à l’ensemble des jeux et fonctionnalités du réseau Eternaltwin."
@@ -919,12 +919,12 @@
 			"endText": "Notez que toutes les règles non marquées par une icône restent pleinement applicables durant la période de l’alpha."
 		},
 		"newRulesPopUp": {
-			"title": "Information",
+			"title": "Información",
 			"message": "Le règlement du jeu a été mis à jour : veuillez l'accepter pour continuer à jouer.",
-			"ok": "J'ai compris !"
+			"ok": "¡ Entiendo !"
 		},
 		"iHaveReadRules": "Je confirme avoir pris connaissance du règlement",
-		"accept": "Accepter le règlement",
+		"accept": "Aceptar el reglamento",
 		"thanks": "Merci d'avoir accepté le règlement de eMush !"
 	},
 	"apiResponse": {

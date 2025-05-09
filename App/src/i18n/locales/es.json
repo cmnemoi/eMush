@@ -51,13 +51,13 @@
 		"shipRankingSubMenu": "Dédalo",
 		"linkToTheEnd": "Dédalo",
 		"goToTheEnd": "Clasificación",
-		"languages": "Lenguaje de la Dédalo",
+		"languages": "Lenguaje del Daedalus",
 		"all": "Todas las naves",
 		"french": "Naves francesas",
 		"english": "Naves inglesas",
 		"endCause": {
 			"sol_return": "Dédalo regresada a Sol",
-			"eden": "Dédalo establecida en Edén",
+			"eden": "Daedalus se ha establecido en el Edén",
 			"daedalus_destroyed": "Dédalo destruido",
 			"killed_by_neron": "Tripulación contaminada y «suspendida indefinidamente» por NERON",
 			"super_nova": "Supernova"
@@ -76,15 +76,15 @@
 		"numberOfHuntersKilled": "Cazadores abatidos",
 		"amountOfMushPlayers": "Nombres de los Mush",
 		"endCause": {
-			"sol_return": "¡La Dédalo ha regresado a Sol!",
-			"eden": "¡La Dédalo se ha instalado en Edén!",
-			"daedalus_destroyed": "¡Tu cadáver está flotando junto a los restos pulverizados de la Dédalo!",
+			"sol_return": "¡El Daedalus volvió al Sistema Solar!",
+			"eden": "¡El Daedalus se ha instalado en el Edén!",
+			"daedalus_destroyed": "¡Tu cadáver flota junto a los restos del Daedalus!",
 			"killed_by_neron": "¡De camino hacia el vacío infinito!",
 			"super_nova": "¡Muerte por culpa de un administrador travieso!",
 			"alien_abducted": "Has sido abducido.",
 			"assassinated": "¡Asesinado por un tripulante!",
 			"depression": "Has puesto fin a tus días...",
-			"asphyxia": "¡Muerte por falta de oxígeno en la Dédalo!",
+			"asphyxia": "¡Muerto en el Daedaulus por falta de oxígeno!",
 			"abandoned": "¡Abandonado a merced del destino por la Dédalo!",
 			"allergy": "¡Tonteaste con el alérgeno equivocado!",
 			"self_extracted": "¡Tus tripas querían ver que había ahí fuera!",
@@ -124,7 +124,7 @@
 		"endCauses": "Causa de la muerte",
 		"endCause": {
 			"sol_return": "Dédalo regresada a Sol",
-			"eden": "Dédalo establecida en Edén",
+			"eden": "Daedalus se ha establecido en el Edén",
 			"daedalus_destroyed": "Dédalo destruido",
 			"killed_by_neron": "Asesinado por NERON",
 			"super_nova": "Supernova",
@@ -209,7 +209,7 @@
 				"quantity": "Cantidad",
 				"place": "Sala donde se crea el equipamiento",
 				"daedalus": "Identificación de la Dédalo",
-				"createForDaedalus": "Crea equipamiento para la Dédalo"
+				"createForDaedalus": "Crea equipamiento para el Daedalus"
 			},
 			"projects": {
 				"title": "Proyectos",
@@ -237,7 +237,7 @@
 		},
 		"gameConfig": {
 			"name": "Nombre",
-			"daedalusConfig": "Configuración de la Dédalo",
+			"daedalusConfig": "Configuración del Daedalus",
 			"difficultyConfig": "Configuración de la dificultad",
 			"characterConfigs": "Personajes",
 			"statusConfigs": "Estado",
@@ -315,13 +315,13 @@
 			"addNewRooms": "Agregar nuevas salas",
 			"deleteDuplicatedAlertElements": "Eliminar alertas duplicadas",
 			"destroy": "Destruir",
-			"destroyAllDaedaluses": "Destruir todas las Dédalo",
+			"destroyAllDaedaluses": "Destruir todos los Daedalus",
 			"unlock": "Desbloquear el cambio de ciclo",
 			"createDaedalus": "Créer un Daedalus :",
-			"name": "Nombre de la Dédalo",
+			"name": "Nombre del Daedalus",
 			"create": "Crear una Dédalo",
-			"config": "Configuración de la Dédalo",
-			"language": "Lenguaje de la Dédalo",
+			"config": "Configuración del Daedalus",
+			"language": "Lenguaje del Daedalus",
 			"maintenanceOn": "Mettre le jeu en maintenance",
 			"maintenanceOff": "Retirer le jeu de la maintenance"
 		},
@@ -653,7 +653,7 @@
 	"homePage": {
 		"joinUs": "¡ Únete !",
 		"play": "¡ Jugar !",
-		"synopsis": "Estás a punto de despertar a bordo de la Dédalo con otros 15 rebeldes. Como tú, huyen del <em>Mush</em>, un hongo parásito que está asolando la Tierra y amenaza a la Humanidad.",
+		"synopsis": "Estás a punto de despertar a bordo del Daedalus con otros 15 rebeldes. Como tú, huyen del <em>Mush</em>, un hongo parásito que está asolando la Tierra y amenaza a la Humanidad.",
 		"followUs": "Síguenos :",
 		"latestNews": "Últimas noticias :",
 		"seeAllNews": "Ver todas las noticias"

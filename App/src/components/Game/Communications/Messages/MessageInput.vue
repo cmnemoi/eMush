@@ -24,10 +24,10 @@
             @click.stop="clearTypedMessage">
             <img :src="getImgUrl('comms/submit.gif')" alt="submit">
         </button>
-        
+
         <TextFormatDialog
             :visible="showFormatDialog"
-            :initialText="text"
+            :initial-text="text"
             @cancel="closeFormatDialog"
             @confirm="updateFormattedText"
         />
@@ -61,7 +61,7 @@ export default defineComponent ({
         return {
             text: this.typedMessage,
             showTextFormatDialog: false,
-            showFormatDialog: false 
+            showFormatDialog: false
         };
     },
     computed: {

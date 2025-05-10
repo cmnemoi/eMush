@@ -24,10 +24,10 @@
             @click.stop="clearTypedMessage">
             <img :src="getImgUrl('comms/submit.gif')" alt="submit">
         </button>
-
+        
         <TextFormatDialog
             :visible="showFormatDialog"
-            :initial-text="text"
+            :initialText="text"
             @cancel="closeFormatDialog"
             @confirm="updateFormattedText"
         />
@@ -40,7 +40,6 @@ import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
-//import TextFormatDialog from "@/components/TextFormatDialog.vue";
 import TextFormatDialog from "./TextFormatDialog.vue";
 
 export default defineComponent ({
@@ -61,7 +60,8 @@ export default defineComponent ({
     data(): any {
         return {
             text: this.typedMessage,
-            showFormatDialog: false
+            showTextFormatDialog: false,
+            showFormatDialog: false 
         };
     },
     computed: {

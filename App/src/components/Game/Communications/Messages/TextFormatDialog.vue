@@ -13,15 +13,15 @@
                     type="button"
                     class="format-button"
                     @click="applyFormatting('bold')"
-                    title="I">
-                    <span><b>I</b></span>
+                    title="B">
+                    <span><b>B</b></span>
                 </button>
                 <button
                     type="button"
                     class="format-button"
                     @click="applyFormatting('italic')"
-                    title="B">
-                    <span><i>B</i></span>
+                    title="I">
+                    <span><i>I</i></span>
                 </button>
                 <button
                     type="button"
@@ -182,10 +182,10 @@ export default defineComponent({
             let formattedText = selectedText;
             switch (type) {
             case 'bold':
-                formattedText = `*${selectedText}*`;  // Gras
+                formattedText = `**${selectedText}**`;  // Gras
                 break;
             case 'italic':
-                formattedText = `**${selectedText}**`;  // Italique
+                formattedText = `*${selectedText}*`;  // Italique
                 break;
             case 'bolditalic':
                 formattedText = `***${selectedText}***`;  // Gras et italique

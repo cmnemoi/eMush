@@ -13,15 +13,15 @@
                     type="button"
                     class="format-button"
                     @click="applyFormatting('bold')"
-                    title="B">
-                    <span><b>B</b></span>
+                    title="I">
+                    <span><b>I</b></span>
                 </button>
                 <button
                     type="button"
                     class="format-button"
                     @click="applyFormatting('italic')"
-                    title="I">
-                    <span><i>I</i></span>
+                    title="B">
+                    <span><i>B</i></span>
                 </button>
                 <button
                     type="button"

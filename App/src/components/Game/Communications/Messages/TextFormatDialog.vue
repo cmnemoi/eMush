@@ -125,11 +125,11 @@ export default defineComponent({
             // Remplacer les codes de personnages par leurs icônes
             formatted = formatted.replace(/:([a-z_\ ]+):/g, (match, name) => {
                 // Parcourir tous les personnages pour trouver la correspondance
-                console.log("nom",name, "match", match)
+                console.log("nom",name, "match", match);
                 for (const key in this.characters) {
                     const character = this.characters[key];
                     // Vérifier si le nom correspond (ignorer la casse)
-                    console.log(character)
+                    console.log(character);
                     if (character.name.toLowerCase() === name ||
                         character.name.toLowerCase().replace(/\s+/g, '_') === name) {
                         console.log("image: ",character.head);

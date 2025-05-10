@@ -36,6 +36,7 @@ export interface CharacterInfos {
 export const characterEnum : {[index: string]: CharacterInfos}  = {
     [CharacterEnum.ANDIE]: {
         'name': 'Andie',
+        'keyName': 'andie',
         'completeName': 'Andie Graham',
         'head': getImgUrl('char/head/andie.png'),
         'body': getImgUrl('char/body/andie.png'),
@@ -43,6 +44,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.CHAO]: {
         'name': 'Chao',
+        'keyName': 'chao',
         'completeName': 'Wang Chao',
         'head': getImgUrl('char/head/chao.png'),
         'body': getImgUrl('char/body/chao.png'),
@@ -50,6 +52,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.CHUN]: {
         'name': 'Chun',
+        'keyName': 'chun',
         'completeName': 'Zhong Chun',
         'head': getImgUrl('char/head/chun.png'),
         'body': getImgUrl('char/body/chun.png'),
@@ -57,6 +60,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.DEREK]: {
         'name': 'Derek',
+        'keyName': 'derek',
         'completeName': 'Derek Hogan',
         'head': getImgUrl('char/head/derek.png'),
         'body': getImgUrl('char/body/derek.png'),
@@ -64,6 +68,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.ELEESHA]: {
         'name': 'Eleesha',
+        'keyName': 'eleesha',
         'completeName': 'Eleesha Williams',
         'head': getImgUrl('char/head/eleesha.png'),
         'body': getImgUrl('char/body/eleesha.png'),
@@ -71,6 +76,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.FINOLA]: {
         'name': 'Finola',
+        'keyName': 'finola',
         'completeName': 'Finola Keegan',
         'head': getImgUrl('char/head/finola.png'),
         'body': getImgUrl('char/body/finola.png'),
@@ -78,6 +84,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.FRIEDA]: {
         'name': 'Frieda',
+        'keyName': 'frieda',
         'completeName': 'Frieda Bergmann',
         'head': getImgUrl('char/head/frieda.png'),
         'body': getImgUrl('char/body/frieda.png'),
@@ -85,6 +92,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.GIOELE]: {
         'name': 'Gioele',
+        'keyName': 'gioele',
         'completeName': 'Gioele Rinaldo',
         'head': getImgUrl('char/head/gioele.png'),
         'body': getImgUrl('char/body/gioele.png'),
@@ -92,6 +100,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.HUA]: {
         'name': 'Hua',
+        'keyName': 'hua',
         'completeName': 'Jiang Hua',
         'head': getImgUrl('char/head/hua.png'),
         'body': getImgUrl('char/body/hua.png'),
@@ -99,6 +108,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.IAN]: {
         'name': 'Ian',
+        'keyName': 'ian',
         'completeName': 'Ian Soulton',
         'head': getImgUrl('char/head/ian.png'),
         'body': getImgUrl('char/body/ian.png'),
@@ -106,6 +116,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.JANICE]: {
         'name': 'Janice',
+        'keyName': 'janice',
         'completeName': 'Janice Kent',
         'head': getImgUrl('char/head/janice.png'),
         'body': getImgUrl('char/body/janice.png'),
@@ -113,6 +124,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.JIN_SU]: {
         'name': 'Jin Su',
+        'keyName': 'jin_su',
         'completeName': 'Kim Jin Su',
         'head': getImgUrl('char/head/jin_su.png'),
         'body': getImgUrl('char/body/jin_su.png'),
@@ -120,6 +132,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.KUAN_TI]: {
         'name': 'Kuan Ti',
+        'keyName': 'kuan_ti',
         'completeName': 'Lai Kuan Ti',
         'head': getImgUrl('char/head/kuan_ti.png'),
         'body': getImgUrl('char/body/kuan_ti.png'),
@@ -127,6 +140,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.PAOLA]: {
         'name': 'Paola',
+        'keyName': 'paola',
         'completeName': 'Paola Rinaldo',
         'head': getImgUrl('char/head/paola.png'),
         'body': getImgUrl('char/body/paola.png'),
@@ -134,6 +148,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.RALUCA]: {
         'name': 'Raluca',
+        'keyName': 'raluca',
         'completeName': 'Raluca Tomescu',
         'head': getImgUrl('char/head/raluca.png'),
         'body': getImgUrl('char/body/raluca.png'),
@@ -141,6 +156,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.ROLAND]: {
         'name': 'Roland',
+        'keyName': 'roland',
         'completeName': 'Roland Zuccali',
         'head': getImgUrl('char/head/roland.png'),
         'body': getImgUrl('char/body/roland.png'),
@@ -148,6 +164,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.STEPHEN]: {
         'name': 'Stephen',
+        'keyName': 'stephen',
         'completeName': 'Stephen Seagull',
         'head': getImgUrl('char/head/stephen.png'),
         'body': getImgUrl('char/body/stephen.png'),
@@ -155,6 +172,7 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.TERRENCE]: {
         'name': 'Terrence',
+        'keyName': 'terrence',
         'completeName': 'Terrence Archer',
         'head': getImgUrl('char/head/terrence.png'),
         'body': getImgUrl('char/body/terrence.png'),
@@ -162,22 +180,26 @@ export const characterEnum : {[index: string]: CharacterInfos}  = {
     },
     [CharacterEnum.NERON]: {
         'name': 'Neron',
+        'keyName': 'neron',
         'completeName': 'Neron',
         'head': getImgUrl('comms/neron-mini.png'),
         'body': getImgUrl('comms/neron_chat.png')
     },
     [CharacterEnum.FEMALE_ADMIN]: {
         'name': 'Admin',
+        'keyName': 'admin',
         'head': getImgUrl('char/head/lambda_f.png'),
         'body': getImgUrl('char/body/lambda_f.png')
     },
     [CharacterEnum.MALE_ADMIN]: {
         'name': 'Admin',
+        'keyName': 'admin',
         'head': getImgUrl('char/head/lambda_m.png'),
         'body': getImgUrl('char/body/lambda_m.png')
     },
     [CharacterEnum.MUSH]: {
         'name': 'Mush',
+        'keyName': 'mush',
         'completeName': 'Mush',
         'head': getImgUrl('status/mush.png'),
         'body': getImgUrl('char/body/mush.png')

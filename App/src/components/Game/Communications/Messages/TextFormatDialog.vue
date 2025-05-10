@@ -40,9 +40,9 @@
             </div>
             <!-- Grille de sélection des personnages -->
             <div v-if="showCharacterGrid" class="character-grid">
-                <div 
-                    v-for="character in characters" 
-                    :key="character.key" 
+                <div
+                    v-for="character in characters"
+                    :key="character.key"
                     class="character-item"
                     @click="insertCharacter(character.name.toLowerCase())">
                     <img :src="character.head" :alt="character.name">
@@ -123,18 +123,18 @@ export default defineComponent({
             // Convertir les sauts de ligne (⚠️ avant l'insertion des URL des images)
             formatted = formatted.replace(/\/\//g, '<br>');
 
-           // Remplacer les codes de personnages par leurs icônes
-           formatted = formatted.replace(/:([a-z_]+):/g, (match, name) => {
-            // Parcourir tous les personnages pour trouver la correspondance
-            for (const key in this.characters) {
-                const character = this.characters[key];
-                // Vérifier si le nom correspond (ignorer la casse)
-                if (character.name.toLowerCase() === name || 
-                    character.name.toLowerCase().replace(/\s+/g, '_') === name) {
-                        console.log("image: ",character.head)
-                    return `<img src="${character.head}" alt="${character.name}" style="width:20px; height:20px; vertical-align:middle;">`;
+            // Remplacer les codes de personnages par leurs icônes
+            formatted = formatted.replace(/:([a-z_]+):/g, (match, name) => {
+                // Parcourir tous les personnages pour trouver la correspondance
+                for (const key in this.characters) {
+                    const character = this.characters[key];
+                    // Vérifier si le nom correspond (ignorer la casse)
+                    if (character.name.toLowerCase() === name ||
+                        character.name.toLowerCase().replace(/\s+/g, '_') === name) {
+                        console.log("image: ",character.head);
+                        return `<img src="${character.head}" alt="${character.name}" style="width:20px; height:20px; vertical-align:middle;">`;
+                    }
                 }
-        }                
                 // Si le personnage n'est pas trouvé, garder le texte original
                 return match;
             });
@@ -259,26 +259,26 @@ export default defineComponent({
         insertCharacter(characterName: string): void {
             const element = this.$refs.textEditor;
             const cursorPosition = element.selectionStart;
-            
+
             // Formatage du nom pour l'insertion
             const formattedCharacter = `:${characterName}:`;
-            
+
             // Insérer à la position du curseur
-            this.editedText = 
-                this.editedText.substring(0, cursorPosition) + 
-                formattedCharacter + 
+            this.editedText =
+                this.editedText.substring(0, cursorPosition) +
+                formattedCharacter +
                 this.editedText.substring(cursorPosition);
-            
+
             // Mettre à jour la position du curseur
             this.$nextTick(() => {
                 element.focus();
                 const newPosition = cursorPosition + formattedCharacter.length;
                 element.selectionStart = element.selectionEnd = newPosition;
             });
-            
+
             // Fermer la grille après sélection
             this.showCharacterGrid = false;
-        },
+        }
 
     }
 });
@@ -400,18 +400,18 @@ export default defineComponent({
         padding: 5px;
         border-radius: 3px;
         transition: background-color 0.2s;
-        
+
         &:hover {
             background-color: #e9f5fb;
         }
-        
+
         img {
             width: 32px;
             height: 32px;
             object-fit: cover;
             border-radius: 50%;
         }
-        
+
         .character-name {
             margin-top: 4px;
             font-size: 11px;

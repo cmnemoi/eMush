@@ -12,12 +12,25 @@
             @keyup.enter.exact.prevent="clearTypedMessage"
         />
         <button
+            type="button"
+            class="format-button"
+            @click.prevent="editAdvancedMessage">
+            <img :src="getImgUrl('comms/format.png')" alt="format">
+        </button>
+        <button
             class="submit-button"
             :disabled="text <= 0"
             @click="sendNewMessage"
             @click.stop="clearTypedMessage">
             <img :src="getImgUrl('comms/submit.gif')" alt="submit">
         </button>
+
+        <TextFormatDialog
+            :visible="showFormatDialog"
+            :initial-text="text"
+            @cancel="closeFormatDialog"
+            @confirm="updateFormattedText"
+        />
     </form>
 </template>
 
@@ -27,9 +40,14 @@ import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+//import TextFormatDialog from "@/components/TextFormatDialog.vue";
+import TextFormatDialog from "./TextFormatDialog.vue";
 
 export default defineComponent ({
     name: "MessageInput",
+    components: {
+        TextFormatDialog  // Enregistrez le composant ici
+    },
     props: {
         channel: {
             type: Channel,
@@ -42,7 +60,8 @@ export default defineComponent ({
     },
     data(): any {
         return {
-            text: this.typedMessage
+            text: this.typedMessage,
+            showFormatDialog: false
         };
     },
     computed: {
@@ -82,6 +101,23 @@ export default defineComponent ({
             const element = this.$refs.input;
             element.style.height = "auto";
             element.style.height = element.scrollHeight + 2 + "px";
+        },
+        // Nouvelle méthode pour ouvrir le dialogue de formatage
+        editAdvancedMessage(): void {
+            this.showFormatDialog = true;
+        },
+        // Ferme le dialogue sans appliquer les changements
+        closeFormatDialog(): void {
+            this.showFormatDialog = false;
+        },
+        // Met à jour le texte avec la version formatée
+        updateFormattedText(formattedText: string): void {
+            this.text = formattedText;
+            this.updateTypedMessage(formattedText);
+            this.showFormatDialog = false;
+            this.$nextTick(() => {
+                this.resize();
+            });
         }
     },
     mounted() {
@@ -105,11 +141,15 @@ export default defineComponent ({
     flex-direction: row;
     padding: 7px 7px 4px 7px;
 
+    .format-button {
+        cursor: pointer;
+        @include button-style();
+        width: 24px;
+        margin-left: 4px;
+    }
     .submit-button {
         cursor: pointer;
-
         @include button-style();
-
         width: 24px;
         margin-left: 4px;
     }

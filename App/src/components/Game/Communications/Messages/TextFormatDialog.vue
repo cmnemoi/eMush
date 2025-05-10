@@ -30,6 +30,24 @@
                     title="B+I">
                     <span><b><i>B+I</i></b></span>
                 </button>
+                <button
+                    type="button"
+                    class="format-button character-btn"
+                    @click="toggleCharacterGrid"
+                    title="Personnages">
+                    <span>👤</span>
+                </button>
+            </div>
+            <!-- Grille de sélection des personnages -->
+            <div v-if="showCharacterGrid" class="character-grid">
+                <div 
+                    v-for="character in characters" 
+                    :key="character.key" 
+                    class="character-item"
+                    @click="insertCharacter(character.name.toLowerCase())">
+                    <img :src="character.head" :alt="character.name">
+                    <div class="character-name">{{ character.name }}</div>
+                </div>
             </div>
 
             <textarea
@@ -55,6 +73,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { characterEnum } from "@/enums/character";
 
 export default defineComponent({
     name: "TextFormatDialog",
@@ -75,8 +94,14 @@ export default defineComponent({
                 start: 0,
                 end: 0,
                 text: ""
-            }
+            },
+            showCharacterGrid: false,
+            characters: []
         };
+    },
+    mounted() {
+        // Charger les personnages au démarrage
+        this.loadCharacters();
     },
     computed: {
         formattedPreview(): string {
@@ -86,14 +111,33 @@ export default defineComponent({
             // Gras + Italique (***texte***)
             formatted = formatted.replace(/\*\*\*(.*?)\*\*\*/g, '<span style="font-weight:bold;font-style:italic;color:red;">$1</span>');
 
-            // Italique (**texte**)
-            formatted = formatted.replace(/\*\*((?!\*\*).+?)\*\*/g, '<span style="font-style:italic;color:red;">$1</span>');
+            // Gras (**texte**)
+            formatted = formatted.replace(/\*\*((?!\*\*).+?)\*\*/g, '<span style="font-weight:bold;">$1</span>');
 
-            // Gras (*texte*)
-            formatted = formatted.replace(/\*((?!\*).+?)\*/g, '<span style="font-weight:bold;">$1</span>');
+            // Italique (*texte*)
+            formatted = formatted.replace(/\*((?!\*).+?)\*/g, '<span style="font-style:italic;color:red;">$1</span>');
 
-            // Convertir les sauts de ligne
+            // manage line feed
+            formatted = formatted.replace(/\n/g, '<br>');
+
+            // Convertir les sauts de ligne (⚠️ avant l'insertion des URL des images)
             formatted = formatted.replace(/\/\//g, '<br>');
+
+           // Remplacer les codes de personnages par leurs icônes
+           formatted = formatted.replace(/:([a-z_]+):/g, (match, name) => {
+            // Parcourir tous les personnages pour trouver la correspondance
+            for (const key in this.characters) {
+                const character = this.characters[key];
+                // Vérifier si le nom correspond (ignorer la casse)
+                if (character.name.toLowerCase() === name || 
+                    character.name.toLowerCase().replace(/\s+/g, '_') === name) {
+                        console.log("image: ",character.head)
+                    return `<img src="${character.head}" alt="${character.name}" style="width:20px; height:20px; vertical-align:middle;">`;
+                }
+        }                
+                // Si le personnage n'est pas trouvé, garder le texte original
+                return match;
+            });
 
             return formatted;
         }
@@ -197,23 +241,61 @@ export default defineComponent({
 
         confirm(): void {
             this.$emit('confirm', this.editedText);
-        }
+        },
+        loadCharacters(): void {
+            // Importer et charger les personnages depuis character.ts
+            import("@/enums/character").then(module => {
+                const characterEnum = module.characterEnum;
+                this.characters = Object.values(characterEnum);
+            }).catch(error => {
+                console.error("Erreur lors du chargement des personnages:", error);
+            });
+        },
+
+        toggleCharacterGrid(): void {
+            this.showCharacterGrid = !this.showCharacterGrid;
+        },
+
+        insertCharacter(characterName: string): void {
+            const element = this.$refs.textEditor;
+            const cursorPosition = element.selectionStart;
+            
+            // Formatage du nom pour l'insertion
+            const formattedCharacter = `:${characterName}:`;
+            
+            // Insérer à la position du curseur
+            this.editedText = 
+                this.editedText.substring(0, cursorPosition) + 
+                formattedCharacter + 
+                this.editedText.substring(cursorPosition);
+            
+            // Mettre à jour la position du curseur
+            this.$nextTick(() => {
+                element.focus();
+                const newPosition = cursorPosition + formattedCharacter.length;
+                element.selectionStart = element.selectionEnd = newPosition;
+            });
+            
+            // Fermer la grille après sélection
+            this.showCharacterGrid = false;
+        },
+
     }
 });
 </script>
 
-  <!-- Formattage CSS  =================================================================================  -->
-  <style lang="scss" scoped>
+<!-- Formattage CSS  =================================================================================  -->
+<style lang="scss" scoped>
 
   .text-format-dialog-overlay {
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0);
     display: flex;
     flex-direction: row;
-    position: relative;
+    position: sticky;
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -221,11 +303,11 @@ export default defineComponent({
 
   .text-format-dialog {
     background-color: #fff;
-    border-radius: 5px;
-    padding: 15px;
+    border-radius: 3px;
+    padding: 10px;
     position: relative;
     width: 300px;
-    max-width: 400px;
+    max-width: 95%;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -296,4 +378,52 @@ export default defineComponent({
       background-color: #00B0EC;
     }
   }
+  .character-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes pour 16 personnages */
+    gap: 8px;
+    margin-bottom: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #aad4e5;
+    border-radius: 3px;
+    padding: 8px;
+    background-color: white;
+    }
+
+    .character-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 3px;
+        transition: background-color 0.2s;
+        
+        &:hover {
+            background-color: #e9f5fb;
+        }
+        
+        img {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .character-name {
+            margin-top: 4px;
+            font-size: 11px;
+            text-align: center;
+        }
+    }
+
+    .character-btn {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
 </style>

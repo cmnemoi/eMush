@@ -44,7 +44,7 @@
                     v-for="character in characters"
                     :key="character.key"
                     class="character-item"
-                    @click="insertCharacter(character.name.toLowerCase())">
+                    @click="insertCharacter(character.keyName.toLowerCase())">
                     <img :src="character.head" :alt="character.name">
                     <div class="character-name">{{ character.name }}</div>
                 </div>
@@ -96,12 +96,11 @@ export default defineComponent({
                 text: ""
             },
             showCharacterGrid: false,
-            characters: []
+            characters: characterEnum
         };
     },
     mounted() {
-        // Charger les personnages au démarrage
-        this.loadCharacters();
+
     },
     computed: {
         formattedPreview(): string {
@@ -124,11 +123,13 @@ export default defineComponent({
             formatted = formatted.replace(/\/\//g, '<br>');
 
             // Remplacer les codes de personnages par leurs icônes
-            formatted = formatted.replace(/:([a-z_]+):/g, (match, name) => {
+            formatted = formatted.replace(/:([a-z_\ ]+):/g, (match, name) => {
                 // Parcourir tous les personnages pour trouver la correspondance
+                console.log("nom",name, "match", match)
                 for (const key in this.characters) {
                     const character = this.characters[key];
                     // Vérifier si le nom correspond (ignorer la casse)
+                    console.log(character)
                     if (character.name.toLowerCase() === name ||
                         character.name.toLowerCase().replace(/\s+/g, '_') === name) {
                         console.log("image: ",character.head);
@@ -241,15 +242,6 @@ export default defineComponent({
 
         confirm(): void {
             this.$emit('confirm', this.editedText);
-        },
-        loadCharacters(): void {
-            // Importer et charger les personnages depuis character.ts
-            import("@/enums/character").then(module => {
-                const characterEnum = module.characterEnum;
-                this.characters = Object.values(characterEnum);
-            }).catch(error => {
-                console.error("Erreur lors du chargement des personnages:", error);
-            });
         },
 
         toggleCharacterGrid(): void {
@@ -380,14 +372,14 @@ export default defineComponent({
   }
   .character-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 colonnes pour 16 personnages */
-    gap: 8px;
+    grid-template-columns: repeat(5, 1fr); /* 4 colonnes pour 16 personnages */
+    gap: 3px;
     margin-bottom: 10px;
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #aad4e5;
     border-radius: 3px;
-    padding: 8px;
+    padding: 3px;
     background-color: white;
     }
 
@@ -397,7 +389,7 @@ export default defineComponent({
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        padding: 5px;
+        padding: 2px;
         border-radius: 3px;
         transition: background-color 0.2s;
 
@@ -406,10 +398,10 @@ export default defineComponent({
         }
 
         img {
-            width: 32px;
-            height: 32px;
+            width: 16px;
+            height: 16px;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 5%;
         }
 
         .character-name {

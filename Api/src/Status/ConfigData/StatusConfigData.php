@@ -873,6 +873,7 @@ abstract class StatusConfigData
             'actionConfigs' => [
                 'infect',
                 'extract_spore',
+                'go_berserk',
             ],
         ],
         [

@@ -30,7 +30,7 @@ class PlayerMutatedValidator extends ConstraintValidator
         }
 
         $actionName = $value->getActionName();
-        $allowedActions = [ActionEnum::MOVE->value, ActionEnum::ATTACK->value, ActionEnum::SABOTAGE->value];
+        $allowedActions = [ActionEnum::MOVE->value, ActionEnum::HIT->value, ActionEnum::SABOTAGE->value];
 
         if (!\in_array($actionName, $allowedActions, true)) {
             $this->context->buildViolation($constraint->message)->addViolation();

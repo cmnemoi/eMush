@@ -61,6 +61,14 @@ final class GoBerserk extends AbstractAction
                 'groups' => ['visibility'],
             ])
         );
+        $metadata->addConstraint(
+            new HasStatus([
+                'status' => PlayerStatusEnum::BERZERK,
+                'target' => HasStatus::PLAYER,
+                'contain' => false,
+                'groups' => ['visibility'],
+            ])
+        );
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

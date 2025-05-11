@@ -243,7 +243,9 @@ abstract class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
+            ],
             'actionConfigs' => [],
         ],
         [

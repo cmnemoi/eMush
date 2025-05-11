@@ -23,7 +23,7 @@ final class AdminActionValidator extends ConstraintValidator
 
         $action = $value;
 
-        if ($action->isNotAdminAction()) {
+        if (!$action->isAdminAction()) {
             return;
         }
 

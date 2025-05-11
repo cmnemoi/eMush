@@ -1321,5 +1321,11 @@
         <target>Après avoir versé du sang, de la sueur et des larmes, **{character}** a enfin réuni les conditions parfaites. Le lieu, le moment, une baballe, les vibes... {character_gender, select, male {Il} female {Elle} other {Iel}} partage un moment transcendant avec **Pavlov**, le monde est parfait. Quelques minutes plus tard, alors que **{character}** est encore sous un choc jubilant, **Pavlov** l'approche avec un regard qui semble dire "Il faut que je vous quitte. Ma planète a besoin de moi." **Pavlov** disparaît sans laisser de trace. **{character}** pleure.</target>
       </segment>
     </unit>
+    <unit id="mutate_success">
+      <segment id="mutate_success" state="initial">
+        <source>mutate_success</source>
+        <target>mutate_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

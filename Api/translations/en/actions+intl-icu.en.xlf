@@ -1706,5 +1706,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>Invokes a merchant (only for users with level 4 accreditation).</target>
       </segment>
     </unit>
+    <unit id="go_berserk">
+      <segment id="name" state="initial">
+        <source>go_berserk.name</source>
+        <target>go_berserk.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>go_berserk.description</source>
+        <target>go_berserk.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

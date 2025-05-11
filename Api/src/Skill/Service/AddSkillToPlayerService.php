@@ -15,6 +15,7 @@ use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Event\SkillCreatedEvent;
 use Mush\Skill\Repository\SkillConfigRepositoryInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
 /**
@@ -62,6 +63,10 @@ class AddSkillToPlayerService
 
     private function createSkillModifiers(Skill $skill): void
     {
+        if ($skill->getPlayer()->hasStatus(PlayerStatusEnum::BERZERK)) {
+            return;
+        }
+
         foreach ($skill->getModifierConfigs() as $modifierConfig) {
             $modifierHolder = match ($modifierConfig->getModifierRange()) {
                 ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $skill->getPlayer(),

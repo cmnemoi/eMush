@@ -626,7 +626,8 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
 
     public function hasAGuardian(): bool
     {
-        return $this->getPlayers()->getPlayerAlive()->hasOneWithStatus(PlayerStatusEnum::GUARDIAN);
+        return $this->getPlayers()->getPlayerAlive()->hasOneWithStatus(PlayerStatusEnum::GUARDIAN)
+        || $this->getPlayers()->getPlayerAlive()->hasOneWithStatus(PlayerStatusEnum::BERZERK);
     }
 
     public function hasAlivePlayerWithSkill(SkillEnum $skill): bool

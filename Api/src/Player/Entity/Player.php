@@ -1303,7 +1303,8 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function isTheOnlyGuardianInTheRoom(): bool
     {
-        return $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN) === false;
+        return $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN) === false
+        && $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::BERZERK) === false;
     }
 
     public function canAccessMushChannel(): bool

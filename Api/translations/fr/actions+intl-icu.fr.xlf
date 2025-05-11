@@ -1728,5 +1728,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet d'invoquer un marchand (uniquement pour les utilisateurs munis d'une accréditation de niveau 4).</target>
       </segment>
     </unit>
+    <unit id="go_berserk">
+      <segment id="name" state="initial">
+        <source>go_berserk.name</source>
+        <target>go_berserk.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>go_berserk.description</source>
+        <target>go_berserk.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

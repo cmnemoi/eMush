@@ -6,13 +6,16 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ExplorationEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private GameEquipmentServiceInterface $gameEquipmentService) {}
+    public function __construct(
+        private GameEquipmentServiceInterface $gameEquipmentService,
+        private DeleteEquipmentServiceInterface $deleteEquipmentService) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -41,8 +44,24 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
         $daedalus = $event->getDaedalus();
         $exploration = $event->getExploration();
 
-        // No one can pilot the Icarus back, all equipment stay on the planet! Unless Daedalus has the Auto Return Icarus project.
-        if ($exploration->allExploratorsAreDeadOrLost() && $daedalus->doesNotHaveAutoReturnIcarusProject()) {
+        // No one can pilot the ship back. Everything on the planet is destroyed except the icarus if the project Magnetic Return is done.
+        if ($exploration->allExploratorsAreDeadOrLost()) {
+
+            // If the ship is not the icarus and the Magnetic Return is not done then it is deleted.
+            if ($exploration->getShipUsedName() !== 'icarus' or $daedalus->doesNotHaveAutoReturnIcarusProject()) {
+                $ship = $daedalus->getPlanetPlace()->getEquipmentByName($exploration->getShipUsedName());
+                $this->deleteEquipmentService->execute($ship, tags: $event->getTags(), time: $event->getTime());
+
+            }
+
+            // Destroy everything else on the planet.
+            foreach ($daedalus->getPlanetPlace()->getEquipments() as $equipment) {
+                if ($equipment !== $exploration->getShipUsedName()) {
+                    $this->deleteEquipmentService->execute($equipment, tags: $event->getTags(), time: $event->getTime());
+                }
+                
+            }
+
             return;
         }
 

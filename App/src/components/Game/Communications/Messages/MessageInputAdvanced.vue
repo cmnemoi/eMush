@@ -60,14 +60,15 @@
             <div class="preview-area" v-html="formattedPreview"></div>
 
             <div class="dialog-buttons">
-                <button 
-                    class="format-button" @click="cancel">
+                <button
+                    class="format-button"
+                    @click="cancel">
                     <img :src="getImgUrl('comms/close.png')" alt="cancel">
                 </button>
                 <button
-                    type="button" 
-                    class="format-button confirm-btn" 
-                    @click="confirm" 
+                    type="button"
+                    class="format-button confirm-btn"
+                    @click="confirm"
                     title="Valider et envoyer le message">
                     <img :src="getImgUrl('comms/submit.gif')" alt="submit">
                 </button>

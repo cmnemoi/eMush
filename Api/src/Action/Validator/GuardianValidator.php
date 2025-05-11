@@ -24,7 +24,7 @@ final class GuardianValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Guardian::class);
         }
 
-        if ($this->playerRoomHasAGuardianExceptThemselves($value)
+        if ($this->isBlockedByAGuardian($value)
             && $this->playerDoesNotWantToGoToPreviousRoom($value)
             && $this->playerIsNotSneak($value)
         ) {
@@ -32,12 +32,20 @@ final class GuardianValidator extends ConstraintValidator
         }
     }
 
-    private function playerRoomHasAGuardianExceptThemselves(AbstractAction $value): bool
+    private function isBlockedByAGuardian(AbstractAction $value): bool
     {
         $player = $value->getPlayer();
-        $playerRoom = $player->getPlace();
+        $place = $player->getPlace();
 
-        return $playerRoom->hasAGuardian() && $player->isTheOnlyGuardianInTheRoom() === false;
+        if ($place->getAlivePlayersExcept($player)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN)) {
+            return true;
+        }
+
+        if ($player->hasStatus(PlayerStatusEnum::BERZERK)) {
+            return false;
+        }
+
+        return $place->getAlivePlayersExcept($player)->hasPlayerWithStatus(PlayerStatusEnum::BERZERK);
     }
 
     private function playerDoesNotWantToGoToPreviousRoom(AbstractAction $value): bool

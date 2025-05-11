@@ -94,17 +94,9 @@ export default defineComponent ({
                     channel: this.channel
                 });
                 this.text = "";
+                this.showFormatDialog = false;
             }
-        },/*
-        sendFormattedMessage(formattedText: string): void {
-            // TODO doit être supprimé
-            this.text = formattedText;
-            this.updateTypedMessage(formattedText);
-            this.showFormatDialog = false;
-
-            // Envoyer le message directement
-            this.sendNewMessage();
-        },*/
+        },
         breakLine (): void {
             // find current caret position
             const element = this.$refs.input;

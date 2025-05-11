@@ -35,7 +35,7 @@
                     class="format-button character-btn"
                     @click="toggleCharacterGrid"
                     title="Personnages">
-                    <span>👤</span>
+                    <img :src="getImgUrl('comms/characters.png')" alt="characters">
                 </button>
             </div>
             <!-- Grille de sélection des personnages -->
@@ -70,7 +70,7 @@
                     class="format-button confirm-btn"
                     @click="confirm"
                     title="Valider et envoyer le message">
-                    <img :src="getImgUrl('comms/submit.gif')" alt="submit">
+                    <img :src="getImgUrl('comms/submit.gif')" alt="send">
                 </button>
             </div>
         </div>
@@ -236,11 +236,15 @@ export default defineComponent({
 
         cancel(): void {
             this.$emit('cancel');
+            this.showCharacterGrid = false;
+            this.editedText = "";
         },
 
         confirm(): void {
             this.$emit('send', this.editedText);
             // this.$emit('confirm', this.editedText, true); // no more needed
+            this.showCharacterGrid = false;
+            this.editedText = "";
         },
 
         toggleCharacterGrid(): void {
@@ -287,6 +291,7 @@ export default defineComponent({
     display: flex;
     flex-direction: row;
     position: sticky;
+    max-width: 97%;
     justify-content: left;
     align-items: left;
     z-index: 1000;
@@ -298,7 +303,7 @@ export default defineComponent({
     padding: 10px;
     position: relative;
     width: 400px;
-    max-width: 95%;
+    max-width: 100%;
     min-width: 290px;
     max-height: 90vh;
     display: flex;
@@ -321,7 +326,7 @@ export default defineComponent({
 
   .edit-area {
     width: 100%;
-    min-height: 100px;
+    min-height: 90px;
     padding: 8px;
     border: 1px solid #aad4e5;
     border-radius: 3px;
@@ -331,13 +336,14 @@ export default defineComponent({
 
   .preview-area {
     width: 100%;
-    min-height: 150px;
+    min-height: 120px;
     max-height: 150px;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 3px;
     background-color: #f9f9f9;
     overflow-y: auto;
+    scroll-behavior: smooth;
     display: inline;
   }
 

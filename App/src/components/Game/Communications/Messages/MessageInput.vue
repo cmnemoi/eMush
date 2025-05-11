@@ -1,36 +1,44 @@
 <template>
     <form class="chat-input">
-        <textarea
-            v-model="text"
-            ref="input"
-            :placeholder="$t('game.communications.myMessageHere')"
-            @keydown.enter.exact.prevent="sendNewMessage"
-            @keydown.enter.ctrl.exact.prevent="breakLine"
-            @keydown.enter.shift.exact.prevent="breakLine"
-            @keyup="resize()"
-            @focusout ="updateTypedMessage(text)"
-            @keyup.enter.exact.prevent="clearTypedMessage"
-        />
-        <button
-            type="button"
-            class="format-button"
-            @click.prevent="editAdvancedMessage">
-            <img :src="getImgUrl('comms/format.png')" alt="format">
-        </button>
-        <button
-            class="submit-button"
-            :disabled="text <= 0"
-            @click="sendNewMessage"
-            @click.stop="clearTypedMessage">
-            <img :src="getImgUrl('comms/submit.gif')" alt="submit">
-        </button>
+        <div v-if="!showFormatDialog" class="form-container">
+            <textarea
+                v-model="text"
+                ref="input"
+                class="messageInput-area"
+                :placeholder="$t('game.communications.myMessageHere')"
+                @keydown.enter.exact.prevent="sendNewMessage"
+                @keydown.enter.ctrl.exact.prevent="breakLine"
+                @keydown.enter.shift.exact.prevent="breakLine"
+                @keyup="resize()"
+                @focusout ="updateTypedMessage(text)"
+                @keyup.enter.exact.prevent="clearTypedMessage"
+            />
+            <div class="buttons-container">
+                <button
+                    type="button"
+                    class="format-button"
+                    title="Format message"
+                    @click.prevent="editAdvancedMessage">
+                    <img :src="getImgUrl('comms/format.png')" alt="format">
+                </button>
+                <button
+                    class="submit-button"
+                    :disabled="text <= 0"
+                    @click="sendNewMessage()"
+                    @click.stop="clearTypedMessage">
+                    <img :src="getImgUrl('comms/submit.gif')" alt="submit">
+                </button>
+            </div>
+        </div>
 
-        <TextFormatDialog
+        <MessageInputAdvanced
+
             :visible="showFormatDialog"
             :initial-text="text"
             @cancel="closeFormatDialog"
-            @confirm="updateFormattedText"
+            @send="sendNewMessage"
         />
+
     </form>
 </template>
 
@@ -40,12 +48,12 @@ import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
-import TextFormatDialog from "./TextFormatDialog.vue";
+import MessageInputAdvanced from "./MessageInputAdvanced.vue";
 
 export default defineComponent ({
     name: "MessageInput",
     components: {
-        TextFormatDialog  // Enregistrez le composant ici
+        MessageInputAdvanced  // Enregistrez le composant ici
     },
     props: {
         channel: {
@@ -60,7 +68,6 @@ export default defineComponent ({
     data(): any {
         return {
             text: this.typedMessage,
-            showTextFormatDialog: false,
             showFormatDialog: false
         };
     },
@@ -71,13 +78,33 @@ export default defineComponent ({
     },
     methods: {
         getImgUrl,
-        sendNewMessage(): void {
-            if (this.text.length > 0) {
-                this.text = this.text.replace(/\n/g, "//"); // Replace line breaks with "//" so they are actually interpreted as line breaks
-                this.sendMessage({ text: this.text, parent: this.parent, channel: this.channel });
+        sendNewMessage(messageToSend?: string): void {
+            // Utiliser le paramètre s'il est fourni, sinon utiliser this.text
+            const textToSend = messageToSend !== undefined ? messageToSend : this.text;
+            this.showFormatDialog = false;
+
+            if (textToSend.length > 0) {
+                // Remplacer les sauts de ligne
+                const formattedText = textToSend.replace(/\n/g, "//");
+
+                // Envoyer le message
+                this.sendMessage({
+                    text: formattedText,
+                    parent: this.parent,
+                    channel: this.channel
+                });
                 this.text = "";
             }
-        },
+        },/*
+        sendFormattedMessage(formattedText: string): void {
+            // TODO doit être supprimé
+            this.text = formattedText;
+            this.updateTypedMessage(formattedText);
+            this.showFormatDialog = false;
+
+            // Envoyer le message directement
+            this.sendNewMessage();
+        },*/
         breakLine (): void {
             // find current caret position
             const element = this.$refs.input;
@@ -99,26 +126,31 @@ export default defineComponent ({
         },
         resize() {
             const element = this.$refs.input;
+            if (!element) return;
             element.style.height = "auto";
             element.style.height = element.scrollHeight + 2 + "px";
         },
-        // Nouvelle méthode pour ouvrir le dialogue de formatage
+        // Afficher laboite de dialogue de formatage avancé
         editAdvancedMessage(): void {
             this.showFormatDialog = true;
+            console.log("⚠️ MessageInputAdvanced component should appears");
         },
         // Ferme le dialogue sans appliquer les changements
         closeFormatDialog(): void {
             this.showFormatDialog = false;
-        },
-        // Met à jour le texte avec la version formatée
+        }
+        // TODO a supprimer : Met à jour le texte avec la version formatée
+        /*
         updateFormattedText(formattedText: string): void {
             this.text = formattedText;
             this.updateTypedMessage(formattedText);
             this.showFormatDialog = false;
-            this.$nextTick(() => {
-                this.resize();
-            });
-        }
+            setTimeout(() => {
+                if (this.$refs.input) { // Attendre que this.$Refs soit accessible dans le DOM
+                    this.resize();
+                }
+            }, 0);
+        }*/
     },
     mounted() {
         this.text = this.$refs.input.value = this.typedMessage;
@@ -134,32 +166,26 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
-
-.chat-input {
-    display: flex;
-    position: relative;
-    flex-direction: row;
-    padding: 7px 7px 4px 7px;
-
-    .format-button {
-        cursor: pointer;
-        @include button-style();
-        width: 24px;
-        margin-left: 4px;
-    }
-    .submit-button {
-        cursor: pointer;
-        @include button-style();
-        width: 24px;
-        margin-left: 4px;
-    }
-
-    textarea {
+    .chat-input {
+        display: flex;
         position: relative;
-        flex: 1;
+        flex-direction: row;
+        padding: 7px 7px 4px 7px;
+        overflow: hidden;
+    }
+    .form-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 5px;
+        margin-top:2px;
+        width: 100%;
+    }
+    .messageInput-area {
+        flex: 1; /* Le textarea prend tout l'espace disponible */
         resize: vertical;
         overflow-y: scroll;
-        min-height: 48px;
+        min-height: 58px;
         max-height: 348px;
         padding: 3px 5px;
         font-style: italic;
@@ -175,6 +201,24 @@ export default defineComponent ({
             opacity: 1;
         }
     }
-}
+    .format-button, .submit-button {
+        cursor: pointer;
+        @include button-style();
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:first-child {
+            margin-bottom: 4px; /* Espace entre les deux boutons */
+        }
+
+        img {
+            width: 24px;
+            max-height: 24px;
+        }
+        /*margin-left: 4px;*/
+    }
 
 </style>

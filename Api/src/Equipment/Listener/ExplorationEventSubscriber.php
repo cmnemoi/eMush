@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -15,7 +15,8 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
 {
     public function __construct(
         private GameEquipmentServiceInterface $gameEquipmentService,
-        private DeleteEquipmentServiceInterface $deleteEquipmentService) {}
+        private DeleteEquipmentServiceInterface $deleteEquipmentService
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -46,12 +47,12 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
 
         // No one can pilot the ship back. Everything on the planet is destroyed except the icarus if the project Magnetic Return is done.
         if ($exploration->allExploratorsAreDeadOrLost()) {
-
             // If the ship is not the icarus and the Magnetic Return is not done then it is deleted.
-            if ($exploration->getShipUsedName() !== 'icarus' or $daedalus->doesNotHaveAutoReturnIcarusProject()) {
+            if ($exploration->getShipUsedName() !== 'icarus' || $daedalus->doesNotHaveAutoReturnIcarusProject()) {
                 $ship = $daedalus->getPlanetPlace()->getEquipmentByName($exploration->getShipUsedName());
-                $this->deleteEquipmentService->execute($ship, tags: $event->getTags(), time: $event->getTime());
-
+                if ($ship !== null) {
+                    $this->deleteEquipmentService->execute($ship, tags: $event->getTags(), time: $event->getTime());
+                }
             }
 
             // Destroy everything else on the planet.
@@ -59,7 +60,6 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
                 if ($equipment !== $exploration->getShipUsedName()) {
                     $this->deleteEquipmentService->execute($equipment, tags: $event->getTags(), time: $event->getTime());
                 }
-                
             }
 
             return;

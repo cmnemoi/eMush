@@ -239,6 +239,15 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->thenActionShouldBeExecutable($quarantine, $I);
     }
 
+    public function shouldHealByFourHealthPoints(FunctionalTester $I): void
+    {
+        $this->kuanTi->setHealthPoint(3);
+
+        $this->whenKuanTiMutates();
+
+        $this->thenKuanTiShouldHaveHealthPointsOfAmount(7, $I);
+    }
+
     private function givenKuanTiIsMush(): void
     {
         $this->statusService->createStatusFromName(
@@ -511,6 +520,11 @@ final class GoBerserkCest extends AbstractFunctionalTest
     private function thenChunShouldHaveHealthPointsOfAmount(int $expectedHealthPoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedHealthPoints, $this->chun->getVariableValueByName(PlayerVariableEnum::HEALTH_POINT));
+    }
+
+    private function thenKuanTiShouldHaveHealthPointsOfAmount(int $expectedHealthPoints, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedHealthPoints, $this->kuanTi->getVariableValueByName(PlayerVariableEnum::HEALTH_POINT));
     }
 
     private function createDoorFromTo(Place $from, Place $to, FunctionalTester $I): void

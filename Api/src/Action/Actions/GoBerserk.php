@@ -87,7 +87,7 @@ final class GoBerserk extends AbstractAction
         $this->removePersonalTraits();
         $this->removeAllMedicalConditions();
         $this->deletePlayerRelatedModifiers();
-        $this->healToFull();
+        $this->healBy($this->getOutputQuantity());
         $this->applyBerzerkStatus();
     }
 
@@ -145,22 +145,17 @@ final class GoBerserk extends AbstractAction
         );
     }
 
-    private function healToFull(): void
+    private function healBy(int $quantity): void
     {
-        $maxHealth = $this->player->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->getMaxValue();
-        if ($maxHealth === null) {
-            throw new \LogicException('health Variable should have a maximum value');
-        }
-
         $playerModifierEvent = new PlayerVariableEvent(
             $this->player,
             PlayerVariableEnum::HEALTH_POINT,
-            $maxHealth,
+            $quantity,
             $this->getActionConfig()->getActionTags(),
             new \DateTime(),
         );
         $playerModifierEvent->setVisibility(VisibilityEnum::HIDDEN);
-        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::SET_VALUE);
+        $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
     private function applyBerzerkStatus(): void

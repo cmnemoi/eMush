@@ -461,7 +461,7 @@ class DaedalusService implements DaedalusServiceInterface
     public function attributeTitles(Daedalus $daedalus, \DateTime $date): void
     {
         // Get the names of all alive players
-        $players = $daedalus->getPlayers()->getActivePlayers();
+        $players = $daedalus->getPlayers()->getPlayersEligibleForTitle();
 
         foreach ($daedalus->getTitlePriorities() as $titlePriority) {
             $titleAssigned = false;
@@ -502,8 +502,8 @@ class DaedalusService implements DaedalusServiceInterface
             }
         }
 
-        // remove titles from inactive players
-        $inactivePlayers = $daedalus->getAlivePlayers()->getInactivePlayers();
+        // remove titles from inactive and mutated players
+        $inactivePlayers = $daedalus->getAlivePlayers()->getPlayersIneligibleForTitle();
         foreach ($daedalus->getTitlePriorities() as $titlePriority) {
             foreach ($titlePriority->getPriority() as $playerName) {
                 $player = $inactivePlayers->getPlayerByName($playerName);

@@ -289,7 +289,7 @@ abstract class AbstractAction
 
     public function isAdminAction(): bool
     {
-        return \in_array(ActionTypeEnum::ACTION_ADMIN, $this->getActionConfig()->getTypes(), true);
+        return \in_array(ActionTypeEnum::ACTION_ADMIN->toString(), $this->getActionConfig()->getTypes(), true);
     }
 
     abstract public function support(?LogParameterInterface $target, array $parameters): bool;

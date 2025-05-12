@@ -29,7 +29,7 @@ final class AdminActionValidator extends ConstraintValidator
 
         $user = $action->getPlayer()->getUser();
 
-        if ($user->isNotAdmin() || $this->isNotDevelopmentEnvironment()) {
+        if ($user->isNotAdmin() && $this->isNotDevelopmentEnvironment()) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

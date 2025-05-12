@@ -228,7 +228,6 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - 2, $I);
     }
 
-    /* @TODO: Fix this fail.
     public function shouldNotPreventThemselvesFromDoingAdminAction(FunctionalTester $I): void
     {
         $this->kuanTi->getUser()->setRoles([RoleEnum::SUPER_ADMIN]);
@@ -238,7 +237,7 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $quarantine = $this->whenKuanTiTriesToQuarantineChun($I);
 
         $this->thenActionShouldBeExecutable($quarantine, $I);
-    }*/
+    }
 
     private function givenKuanTiIsMush(): void
     {

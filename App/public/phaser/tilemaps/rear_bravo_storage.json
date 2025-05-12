@@ -4,9 +4,9 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 278, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 265, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 265, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -127,12 +127,12 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 276, 276, 276, 276, 276, 276, 276, 276, 276, 276, 276, 0, 0,
+            0, 0, 264, 264, 264, 264, 264, 264, 264, 264, 264, 264, 264, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 277, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 265, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -154,11 +154,11 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 289, 289, 289, 289, 289, 289, 289, 289, 289, 289, 289, 0, 0,
-            0, 0, 289, 289, 289, 289, 289, 289, 289, 289, 289, 289, 289, 0, 0,
-            0, 0, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 0, 0,
-            0, 0, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 0, 0,
-            0, 0, 289, 289, 289, 289, 289, 289, 289, 289, 289, 289, 289, 0, 0,
+            0, 0, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 0, 0,
+            0, 0, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 0, 0,
+            0, 0, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 0, 0,
+            0, 0, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 0, 0,
+            0, 0, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -188,7 +188,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":225,
+                 "gid":213,
                  "height":134,
                  "id":4,
                  "name":"shelf_big",
@@ -259,8 +259,8 @@
                  "y":77
                 }, 
                 {
-                 "gid":213,
-                 "height":45,
+                 "gid":308,
+                 "height":44,
                  "id":3,
                  "name":"fuel_tank-back",
                  "properties":[
@@ -287,12 +287,12 @@
                  "rotation":0,
                  "type":"equipment",
                  "visible":true,
-                 "width":46,
-                 "x":151,
+                 "width":44,
+                 "x":150,
                  "y":84
                 }, 
                 {
-                 "gid":233,
+                 "gid":221,
                  "height":15,
                  "id":7,
                  "name":"wall_box",
@@ -325,7 +325,7 @@
                  "y":65
                 }, 
                 {
-                 "gid":252,
+                 "gid":240,
                  "height":12,
                  "id":10,
                  "name":"papers-3",
@@ -358,7 +358,7 @@
                  "y":78
                 }, 
                 {
-                 "gid":253,
+                 "gid":241,
                  "height":12,
                  "id":11,
                  "name":"papers-4",
@@ -391,7 +391,7 @@
                  "y":69
                 }, 
                 {
-                 "gid":235,
+                 "gid":223,
                  "height":17,
                  "id":8,
                  "name":"camera",
@@ -434,7 +434,7 @@
                  "y":16.75
                 }, 
                 {
-                 "gid":2147483912,
+                 "gid":2147483900,
                  "height":47,
                  "id":14,
                  "name":"sofa-north-part_2",
@@ -517,7 +517,7 @@
                  "y":90
                 }, 
                 {
-                 "gid":2147483917,
+                 "gid":2147483905,
                  "height":47,
                  "id":15,
                  "name":"sofa-north-part_2",
@@ -570,7 +570,7 @@
                  "y":90
                 }, 
                 {
-                 "gid":274,
+                 "gid":262,
                  "height":31,
                  "id":16,
                  "name":"jukebox-east",
@@ -618,7 +618,7 @@
  "nextobjectid":17,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -1568,63 +1568,8 @@
          "tilewidth":48
         }, 
         {
-         "columns":6,
-         "firstgid":213,
-         "image":"tilesets\/fuel_tank.png",
-         "imageheight":90,
-         "imagewidth":276,
-         "margin":0,
-         "name":"fuel_tank",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":12,
-         "tileheight":45,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":250,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":5
-                        }],
-                 "id":0
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":250,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":7
-                        }],
-                 "id":6
-                }],
-         "tilewidth":46
-        }, 
-        {
          "columns":1,
-         "firstgid":225,
+         "firstgid":213,
          "image":"tilesets\/shelf_rear_bravo_storage.png",
          "imageheight":134,
          "imagewidth":192,
@@ -1638,7 +1583,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":226,
+         "firstgid":214,
          "image":"tilesets\/papers.png",
          "imageheight":12,
          "imagewidth":80,
@@ -1652,7 +1597,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":231,
+         "firstgid":219,
          "image":"tilesets\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1691,7 +1636,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":235,
+         "firstgid":223,
          "image":"tilesets\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1819,7 +1764,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":249,
+         "firstgid":237,
          "image":"tilesets\/papers.png",
          "imageheight":12,
          "imagewidth":80,
@@ -1832,7 +1777,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":254,
+         "firstgid":242,
          "image":"tilesets\/sofa_asset.png",
          "imageheight":188,
          "imagewidth":310,
@@ -1846,7 +1791,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":274,
+         "firstgid":262,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
          "imagewidth":20,
@@ -1860,7 +1805,7 @@
         }, 
         {
          "columns":15,
-         "firstgid":275,
+         "firstgid":263,
          "grid":
             {
              "height":72,
@@ -1877,6 +1822,49 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":6,
+         "firstgid":308,
+         "image":"tilesets\/fuel_tank-back.png",
+         "imageheight":44,
+         "imagewidth":264,
+         "margin":0,
+         "name":"fuel_tank-back",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":6,
+         "tileheight":44,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":250,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":5
+                        }],
+                 "id":0
+                }],
+         "tilewidth":44
         }],
  "tilewidth":32,
  "type":"map",

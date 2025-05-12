@@ -331,9 +331,14 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
                 $skins[] = [
                     'skinSlotName' => $slot->getName(),
                     'skinName' => $skin->getName(),
+                    'skinPriority' => $skin->getSkinSlotConfig()->getPriority(),
                 ];
             }
         }
+
+        usort($skins, static function ($a, $b) {
+            return $a['skinPriority'] <=> $b['skinPriority'];
+        });
 
         return $skins;
     }

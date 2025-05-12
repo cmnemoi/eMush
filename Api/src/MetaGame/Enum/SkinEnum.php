@@ -28,7 +28,7 @@ class SkinEnum
     // Equipment skins from projects and research
     public const string KITCHEN_APERO = 'kitchen_apero';
     public const string SCANNER_OVERCLOCKING = 'scanner_overclocking';
-    public const string ANTENNA_SPATIAL_WAVE = 'antenna_spatial_wave';
+    public const string ANTENNA_SPATIAL_WAVE = 'antenna_spatial_waves';
     public const string TURRET_TESLA = 'turret_tesla';
     public const string TURRET_CHARGES = 'turret_charges';
     public const string COFFEE_MACHINE_FISSION = 'coffee_machine_fission';

@@ -1435,7 +1435,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
         $efficiency = $this->getScalableEfficiencyForProject($project);
 
-        return $this->getEfficiencyWithExternalItems($efficiency, $project);
+        return min(100, max(0, $this->getEfficiencyWithExternalItems($efficiency, $project)));
     }
 
     private function getMaxEfficiencyForProject(Project $project): int
@@ -1448,7 +1448,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $efficiency = (int) ($efficiency + $efficiency / 2);
         $efficiency = $this->getEfficiencyWithExternalItems($efficiency, $project);
 
-        return min($efficiency, 100);
+        return max(0, min($efficiency, 100));
     }
 
     private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int

@@ -4,8 +4,8 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 258, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 256, 0, 0,
-            0, 257, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 246, 244, 244, 244, 244, 244, 244, 244, 244, 244, 244, 244, 0, 0,
+            0, 245, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -34,7 +34,7 @@
          "name":"doors",
          "objects":[
                 {
-                 "gid":61,
+                 "gid":49,
                  "height":73,
                  "id":1,
                  "name":"door",
@@ -77,7 +77,7 @@
                  "y":27.5
                 }, 
                 {
-                 "gid":220,
+                 "gid":208,
                  "height":36,
                  "id":2,
                  "name":"door_ground",
@@ -131,8 +131,8 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 257, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 257, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 245, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 245, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -154,11 +154,11 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 269, 269, 269, 269, 269, 269, 269, 269, 269, 269, 269, 0, 0,
-            0, 0, 270, 270, 270, 270, 270, 270, 270, 270, 270, 270, 270, 0, 0,
-            0, 0, 270, 270, 270, 270, 270, 270, 270, 270, 270, 270, 270, 0, 0,
-            0, 0, 269, 269, 269, 269, 269, 269, 269, 269, 269, 269, 269, 0, 0,
-            0, 0, 269, 269, 269, 269, 269, 269, 269, 269, 269, 269, 269, 0, 0,
+            0, 0, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 0, 0,
+            0, 0, 258, 258, 258, 258, 258, 258, 258, 258, 258, 258, 258, 0, 0,
+            0, 0, 258, 258, 258, 258, 258, 258, 258, 258, 258, 258, 258, 0, 0,
+            0, 0, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 0, 0,
+            0, 0, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 257, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -188,7 +188,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":215,
+                 "gid":203,
                  "height":36,
                  "id":3,
                  "name":"door_ground",
@@ -226,8 +226,8 @@
                  "y":61
                 }, 
                 {
-                 "gid":7,
-                 "height":45,
+                 "gid":288,
+                 "height":43,
                  "id":6,
                  "name":"fuel_tank-front",
                  "properties":[
@@ -259,12 +259,12 @@
                  "rotation":0,
                  "type":"equipment",
                  "visible":true,
-                 "width":46,
-                 "x":49,
-                 "y":22
+                 "width":43,
+                 "x":48.75,
+                 "y":22.25
                 }, 
                 {
-                 "gid":242,
+                 "gid":230,
                  "height":48,
                  "id":11,
                  "name":"shelf_medium-model_1",
@@ -297,7 +297,7 @@
                  "y":78
                 }, 
                 {
-                 "gid":243,
+                 "gid":231,
                  "height":48,
                  "id":12,
                  "name":"shelf_medium-model_2",
@@ -330,7 +330,7 @@
                  "y":78
                 }, 
                 {
-                 "gid":244,
+                 "gid":232,
                  "height":48,
                  "id":13,
                  "name":"shelf_medium-model_3",
@@ -363,7 +363,7 @@
                  "y":78
                 }, 
                 {
-                 "gid":226,
+                 "gid":214,
                  "height":81,
                  "id":15,
                  "name":"workshop",
@@ -391,7 +391,7 @@
                  "y":17.25
                 }, 
                 {
-                 "gid":225,
+                 "gid":213,
                  "height":54,
                  "id":16,
                  "name":"worktable",
@@ -419,7 +419,7 @@
                  "y":20.75
                 }, 
                 {
-                 "gid":227,
+                 "gid":215,
                  "height":56,
                  "id":5,
                  "name":"board",
@@ -452,7 +452,7 @@
                  "y":13.5
                 }, 
                 {
-                 "gid":228,
+                 "gid":216,
                  "height":17,
                  "id":4,
                  "name":"camera",
@@ -495,7 +495,7 @@
                  "y":64.75
                 }, 
                 {
-                 "gid":247,
+                 "gid":235,
                  "height":15,
                  "id":17,
                  "name":"wall_box",
@@ -528,7 +528,7 @@
                  "y":49
                 }, 
                 {
-                 "gid":2147483900,
+                 "gid":2147483888,
                  "height":37,
                  "id":18,
                  "name":"sofa-small-east",
@@ -601,7 +601,7 @@
                  "y":85
                 }, 
                 {
-                 "gid":254,
+                 "gid":242,
                  "height":31,
                  "id":19,
                  "name":"jukebox-east",
@@ -643,67 +643,12 @@
  "nextobjectid":20,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
-         "columns":6,
-         "firstgid":1,
-         "image":"tilesets\/fuel_tank.png",
-         "imageheight":90,
-         "imagewidth":276,
-         "margin":0,
-         "name":"fuel_tank",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":12,
-         "tileheight":45,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":250,
-                         "tileid":0
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":1
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":2
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":3
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":4
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":5
-                        }],
-                 "id":0
-                }, 
-                {
-                 "animation":[
-                        {
-                         "duration":250,
-                         "tileid":6
-                        }, 
-                        {
-                         "duration":250,
-                         "tileid":7
-                        }],
-                 "id":6
-                }],
-         "tilewidth":46
-        }, 
-        {
          "columns":24,
-         "firstgid":13,
+         "firstgid":1,
          "grid":
             {
              "height":73,
@@ -1532,7 +1477,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":205,
+         "firstgid":193,
          "grid":
             {
              "height":36,
@@ -1649,7 +1594,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":225,
+         "firstgid":213,
          "image":"tilesets\/worktable.png",
          "imageheight":54,
          "imagewidth":45,
@@ -1663,7 +1608,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":226,
+         "firstgid":214,
          "image":"tilesets\/workshop.png",
          "imageheight":81,
          "imagewidth":87,
@@ -1677,7 +1622,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":227,
+         "firstgid":215,
          "image":"tilesets\/board.png",
          "imageheight":56,
          "imagewidth":34,
@@ -1691,7 +1636,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":228,
+         "firstgid":216,
          "image":"tilesets\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1819,7 +1764,7 @@
         }, 
         {
          "columns":3,
-         "firstgid":242,
+         "firstgid":230,
          "image":"tilesets\/shelf_rear_alpha_storage.png",
          "imageheight":48,
          "imagewidth":150,
@@ -1833,7 +1778,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":245,
+         "firstgid":233,
          "image":"tilesets\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1872,7 +1817,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":249,
+         "firstgid":237,
          "image":"tilesets\/small_sofa.png",
          "imageheight":37,
          "imagewidth":210,
@@ -1886,7 +1831,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":254,
+         "firstgid":242,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
          "imagewidth":20,
@@ -1900,7 +1845,7 @@
         }, 
         {
          "columns":15,
-         "firstgid":255,
+         "firstgid":243,
          "grid":
             {
              "height":72,
@@ -1917,6 +1862,33 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":2,
+         "firstgid":288,
+         "image":"tilesets\/fuel_tank-front.png",
+         "imageheight":43,
+         "imagewidth":86,
+         "margin":0,
+         "name":"fuel_tank-front",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":43,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":250,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":250,
+                         "tileid":1
+                        }],
+                 "id":0
+                }],
+         "tilewidth":43
         }],
  "tilewidth":32,
  "type":"map",

@@ -25,6 +25,9 @@ class SkinSlotConfig
     #[ORM\Column(type: 'string', length: 255, unique: false, nullable: false)]
     private string $skinableName;
 
+    #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    private int $priority = 0;
+
     public function getId(): int
     {
         return $this->id;
@@ -64,5 +67,17 @@ class SkinSlotConfig
     public function getSkinableName(): string
     {
         return $this->skinableName;
+    }
+
+    public function setPriority(int $priority): self
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    public function getPriority(): int
+    {
+        return $this->priority;
     }
 }

@@ -36,7 +36,8 @@ final class SkinSlotConfigDataLoader extends ConfigDataLoader
             $skinSlotConfig
                 ->setName($skinSlotData['name'])
                 ->setSkinableName($skinSlotData['skinableName'])
-                ->setSkinableClass($skinSlotData['skinableClass']);
+                ->setSkinableClass($skinSlotData['skinableClass'])
+                ->setPriority($skinSlotData['priority']);
 
             $this->entityManager->persist($skinSlotConfig);
         }

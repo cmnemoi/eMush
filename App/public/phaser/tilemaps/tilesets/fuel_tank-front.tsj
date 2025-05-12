@@ -1,0 +1,14 @@
+{ "columns":2,
+ "image":"fuel_tank-front.png",
+ "imageheight":43,
+ "imagewidth":86,
+ "margin":0,
+ "name":"fuel_tank-front",
+ "spacing":0,
+ "tilecount":2,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":43,
+ "tilewidth":43,
+ "type":"tileset",
+ "version":"1.10"
+}

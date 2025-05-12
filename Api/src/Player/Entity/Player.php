@@ -1228,6 +1228,10 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     {
         $skillSlots = $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
 
+        if ($this->hasStatus(PlayerStatusEnum::BERZERK)) {
+            return $this->getHumanSkills()->count();
+        }
+
         return $this->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK) ? $skillSlots + 1 : $skillSlots;
     }
 

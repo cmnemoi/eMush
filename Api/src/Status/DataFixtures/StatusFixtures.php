@@ -197,11 +197,14 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         /** @var VariableEventModifierConfig $playerPlusOneDamageOnHit */
         $playerPlusOneDamageOnHit = $this->getReference(ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT);
 
+        /** @var EventModifierConfig $mutePreventSpokenAction */
+        $mutePreventSpokenAction = $this->getReference(InjuryModifierConfigFixtures::PREVENT_SPOKEN);
+
         $berzerk = new StatusConfig();
         $berzerk
             ->setStatusName(PlayerStatusEnum::BERZERK)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$playerPlusOneDamageOnHit])
+            ->setModifierConfigs([$playerPlusOneDamageOnHit, $mutePreventSpokenAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($berzerk);
 

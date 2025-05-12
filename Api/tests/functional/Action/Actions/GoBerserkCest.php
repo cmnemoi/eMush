@@ -228,6 +228,23 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - 2, $I);
     }
 
+    public function shouldIncreaseDamageByOnePointRegardlessOfHumanSkills(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::SOLID, $I, $this->kuanTi);
+
+        $this->addSkillToPlayer(SkillEnum::WRESTLER, $I, $this->kuanTi);
+
+        $this->whenKuanTiMutates();
+
+        $initialHealthPoint = $this->chun->getVariableValueByName(PlayerVariableEnum::HEALTH_POINT);
+
+        $this->givenHitDamagesFor(1);
+
+        $this->whenKuanTiHitsChun();
+
+        $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - 2, $I);
+    }
+
     public function shouldNotPreventThemselvesFromDoingAdminAction(FunctionalTester $I): void
     {
         $this->kuanTi->getUser()->setRoles([RoleEnum::SUPER_ADMIN]);

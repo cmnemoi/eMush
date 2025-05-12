@@ -30,6 +30,10 @@ class ModifierPreventActionValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ModifierPreventAction::class);
         }
 
+        if ($value->isAdminAction()) {
+            return;
+        }
+
         $actionTarget = $value->getTarget();
 
         $preActionEvent = new ActionEvent(

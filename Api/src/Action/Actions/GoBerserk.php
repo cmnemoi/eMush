@@ -16,12 +16,13 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
-use Mush\Modifier\Service\ModifierListenerService\DeletePlayerRelatedModifiersService;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Skill\Entity\Skill;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -36,7 +37,6 @@ final class GoBerserk extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private DeletePlayerRelatedModifiersService $deletePlayerRelatedModifiersService,
         private GameEquipmentServiceInterface $gameEquipmentService,
         private ModifierCreationServiceInterface $modifierCreationService,
         private PlayerDiseaseServiceInterface $playerDiseaseService,
@@ -86,7 +86,7 @@ final class GoBerserk extends AbstractAction
         $this->dropAllItems();
         $this->removePersonalTraits();
         $this->removeAllMedicalConditions();
-        $this->deletePlayerRelatedModifiers();
+        $this->deleteHumanSkillModifiers();
         $this->healBy($this->getOutputQuantity());
         $this->applyBerzerkStatus();
     }
@@ -136,13 +136,26 @@ final class GoBerserk extends AbstractAction
         }
     }
 
-    private function deletePlayerRelatedModifiers(): void
+    // Note: Unsafe function that may delete modifiers from other sources that share same attributes
+    private function deleteHumanSkillModifiers(): void
     {
-        $this->deletePlayerRelatedModifiersService->execute(
-            player: $this->player,
-            tags: $this->getTags(),
-            time: new \DateTime(),
-        );
+        $humanSkillModifierConfigs = $this->player->getHumanSkills()
+            ->map(static fn (Skill $skill) => $skill->getModifierConfigs())
+            ->reduce(static fn (array $carriedConfigs, $newConfigItems) => array_merge($carriedConfigs, $newConfigItems->toArray()), []);
+
+        foreach ($humanSkillModifierConfigs as $modifierConfig) {
+            if (!$modifierConfig instanceof AbstractModifierConfig) {
+                continue;
+            }
+
+            $this->modifierCreationService->deleteModifier(
+                modifierConfig: $modifierConfig,
+                holder: $this->player,
+                modifierProvider: $this->player,
+                tags: $this->getTags(),
+                time: new \DateTime(),
+            );
+        }
     }
 
     private function healBy(int $quantity): void

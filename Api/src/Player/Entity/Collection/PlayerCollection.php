@@ -182,6 +182,13 @@ class PlayerCollection extends ArrayCollection
         )->count() > 0;
     }
 
+    public function hasNonMutatedNeronOnlyFriend(): bool
+    {
+        return $this->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::NERON_ONLY_FRIEND)
+        && $player->doesNotHaveStatus(PlayerStatusEnum::BERZERK))
+            ->count() > 0;
+    }
+
     private function getPlayerWithStatus(string $status): ?Player
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;

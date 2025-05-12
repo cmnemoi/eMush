@@ -1074,9 +1074,9 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       </segment>
     </unit>
     <unit id="mutate_success">
-      <segment id="mutate_success" state="initial">
+      <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
-        <target>mutate_success</target>
+        <target>:mush: **{character}** curls up, clearly suffering. The crewmember's cries resonate throughout the room before ungodly bile spews from their mouth and melts their clothing... How horrific! **{character}** has completely mutated!</target>
       </segment>
     </unit>
   </file>

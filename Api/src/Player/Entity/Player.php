@@ -971,7 +971,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function getEfficiencyForProject(Project $project): PlayerEfficiency
     {
         $max = $this->getMaxEfficiencyForProject($project);
-        $min = $this->daedalus->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND) && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
+        $min = $this->daedalus->getAlivePlayers()->hasNonMutatedNeronOnlyFriend() && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
 
         return new PlayerEfficiency($min, $max);
     }

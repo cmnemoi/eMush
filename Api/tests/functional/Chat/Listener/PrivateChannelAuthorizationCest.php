@@ -3,6 +3,7 @@
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Mush\Action\Actions\Drop;
+use Mush\Action\Actions\GoBerserk;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -19,6 +20,8 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -29,8 +32,11 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
 {
     private ActionConfig $dropActionConfig;
     private ActionConfig $moveActionConfig;
+    private ActionConfig $mutateActionConfig;
     private Drop $dropAction;
     private Move $moveAction;
+    private GoBerserk $mutateAction;
+    private StatusServiceInterface $statusService;
     private PlayerServiceInterface $playerService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private ChannelServiceInterface $channelService;
@@ -43,8 +49,11 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
 
         $this->dropActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::DROP]);
         $this->moveActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MOVE]);
+        $this->mutateActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::GO_BERSERK]);
         $this->dropAction = $I->grabService(Drop::class);
         $this->moveAction = $I->grabService(Move::class);
+        $this->mutateAction = $I->grabService(GoBerserk::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->channelService = $I->grabService(ChannelServiceInterface::class);
@@ -76,6 +85,22 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
 
         $this->thenPublicChannelShouldBeEmpty($I);
         $this->thenBothChunAndKuanTiShouldBeInPrivateChannel($I);
+        $this->thenPrivateChannelShouldNotHaveLeaveMessage($I);
+    }
+
+    public function shouldRemovePlayerFromPrivateChannelWhenMutating(FunctionalTester $I): void
+    {
+        $this->givenChunHasWalkieTalkie();
+        $this->givenKuanTiHasWalkieTalkie();
+        $this->givenChunIsInLaboratory($I);
+        $this->givenKuanTiIsInFrontCorridor($I);
+        $this->givenPrivateChannelBetweenChunAndKuanTi();
+
+        $this->whenKuanTiMutates();
+
+        $this->thenPublicChannelShouldBeEmpty($I);
+        $this->thenOnlyChunShouldBeInPrivateChannel($I);
+        $this->thenPrivateChannelShouldHaveMutateMessage($I);
         $this->thenPrivateChannelShouldNotHaveLeaveMessage($I);
     }
 
@@ -177,6 +202,23 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
             endReason: EndCauseEnum::BLED,
             time: new \DateTime(),
         );
+    }
+
+    private function whenKuanTiMutates(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        $this->mutateAction->loadParameters(
+            actionConfig: $this->mutateActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+        );
+        $this->mutateAction->execute();
     }
 
     private function thenPrivateChannelShouldHaveDeathMessage(FunctionalTester $I): void
@@ -299,6 +341,14 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(Message::class, [
             'channel' => $this->privateChannel->getId(),
             'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH,
+        ]);
+    }
+
+    private function thenPrivateChannelShouldHaveMutateMessage(FunctionalTester $I): void
+    {
+        $I->seeInRepository(Message::class, [
+            'channel' => $this->privateChannel->getId(),
+            'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_MUTATED,
         ]);
     }
 

@@ -29,7 +29,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPostAction(ActionEvent $event): void
     {
-        if ($event->isNotAboutAnyAction([ActionEnum::DROP, ActionEnum::MOVE])) {
+        if ($event->isNotAboutAnyAction([ActionEnum::DROP, ActionEnum::MOVE, ActionEnum::GO_BERSERK])) {
             return;
         }
 

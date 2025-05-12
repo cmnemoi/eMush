@@ -463,6 +463,12 @@
         <target>player_leave_chat_death</target>
       </segment>
     </unit>
+    <unit id="player_leave_chat_mutated">
+      <segment id="player_leave_chat_mutated" state="initial">
+        <source>player_leave_chat_mutated</source>
+        <target>player_leave_chat_mutated</target>
+      </segment>
+    </unit>
     <unit id="player_leave_chat_talky">
       <segment id="player_leave_chat_talky" state="initial">
         <source>player_leave_chat_talky</source>

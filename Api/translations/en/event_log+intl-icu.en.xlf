@@ -539,6 +539,16 @@
                   }</target>
       </segment>
     </unit>
+    <unit id="player_leave_chat_mutated">
+      <segment id="player_leave_chat_mutated" state="translated">
+        <source>player_leave_chat_mutated</source>
+        <target>{character_gender, select,
+                  male {**{character}** cannot be reached here, he mutated.}
+                  female {**{character}** cannot be reached here, she mutated.}
+                  other {**{character}** cannot be reached here, they mutated.}
+                  }</target>
+      </segment>
+    </unit>
     <unit id="player_leave_chat_talky">
       <segment id="player_leave_chat_talky" state="translated">
         <source>player_leave_chat_talky</source>

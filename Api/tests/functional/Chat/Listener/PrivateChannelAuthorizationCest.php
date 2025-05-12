@@ -102,6 +102,7 @@ final class PrivateChannelAuthorizationCest extends AbstractFunctionalTest
         $this->thenOnlyChunShouldBeInPrivateChannel($I);
         $this->thenPrivateChannelShouldHaveMutateMessage($I);
         $this->thenPrivateChannelShouldNotHaveLeaveMessage($I);
+        $this->thenPrivateChannelShouldNotHaveDeathMessage($I);
     }
 
     public function shouldKeepPlayersInPrivateChannelWhenMovingWithTalkie(FunctionalTester $I): void

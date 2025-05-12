@@ -1715,6 +1715,10 @@ Or you simply need some fresh air.... or not.</target>
         <source>go_berserk.description</source>
         <target>go_berserk.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>go_berserk.confirmation</source>
+        <target>go_berserk.confirmation</target>
+      </segment>
     </unit>
   </file>
 </xliff>

@@ -1737,6 +1737,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>go_berserk.description</source>
         <target>go_berserk.description</target>
       </segment>
+      <segment id="confirmation" state="initial">
+        <source>go_berserk.confirmation</source>
+        <target>go_berserk.confirmation</target>
+      </segment>
     </unit>
   </file>
 </xliff>

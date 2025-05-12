@@ -2882,7 +2882,7 @@ class ActionData
         [
             'name' => ActionEnum::GO_BERSERK->value,
             'action_name' => ActionEnum::GO_BERSERK,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::HIDDEN],

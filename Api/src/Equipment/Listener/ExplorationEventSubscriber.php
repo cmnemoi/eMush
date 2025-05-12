@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Event\ExplorationEvent;
@@ -47,19 +48,18 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
 
         // No one can pilot the ship back. Everything on the planet is destroyed except the icarus if the project Magnetic Return is done.
         if ($exploration->allExploratorsAreDeadOrLost()) {
+            $ship = $daedalus->getPlanetPlace()->getEquipmentByNameOrThrow($exploration->getShipUsedName());
+
             // If the ship is not the icarus and the Magnetic Return is not done then it is deleted.
-            if ($exploration->getShipUsedName() !== 'icarus' || $daedalus->doesNotHaveAutoReturnIcarusProject()) {
-                $ship = $daedalus->getPlanetPlace()->getEquipmentByName($exploration->getShipUsedName());
-                if ($ship !== null) {
-                    $this->deleteEquipmentService->execute($ship, tags: $event->getTags(), time: $event->getTime());
-                }
+            if ($ship->getName() !== EquipmentEnum::ICARUS || $daedalus->doesNotHaveAutoReturnIcarusProject()) {
+                $this->deleteEquipmentService->execute($ship, tags: $event->getTags(), time: $event->getTime());
+            } else {
+                $this->gameEquipmentService->moveEquipmentTo(equipment: $ship, newHolder: $event->getStartPlace(), tags: $event->getTags(), time: $event->getTime());
             }
 
             // Destroy everything else on the planet.
             foreach ($daedalus->getPlanetPlace()->getEquipments() as $equipment) {
-                if ($equipment !== $exploration->getShipUsedName()) {
-                    $this->deleteEquipmentService->execute($equipment, tags: $event->getTags(), time: $event->getTime());
-                }
+                $this->deleteEquipmentService->execute(gameEquipment: $equipment, tags: $event->getTags(), time: $event->getTime());
             }
 
             return;

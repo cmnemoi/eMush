@@ -1226,11 +1226,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function getHumanSkillSlots(): int
     {
-        $skillSlots = $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
-
         if ($this->hasStatus(PlayerStatusEnum::BERZERK)) {
             return $this->getHumanSkills()->count();
         }
+
+        $skillSlots = $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
 
         return $this->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK) ? $skillSlots + 1 : $skillSlots;
     }

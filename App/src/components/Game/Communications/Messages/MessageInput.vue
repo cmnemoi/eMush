@@ -132,18 +132,6 @@ export default defineComponent ({
         closeFormatDialog(): void {
             this.showFormatDialog = false;
         }
-        // TODO a supprimer : Met à jour le texte avec la version formatée
-        /*
-        updateFormattedText(formattedText: string): void {
-            this.text = formattedText;
-            this.updateTypedMessage(formattedText);
-            this.showFormatDialog = false;
-            setTimeout(() => {
-                if (this.$refs.input) { // Attendre que this.$Refs soit accessible dans le DOM
-                    this.resize();
-                }
-            }, 0);
-        }*/
     },
     mounted() {
         this.text = this.$refs.input.value = this.typedMessage;
@@ -211,7 +199,6 @@ export default defineComponent ({
             width: 24px;
             max-height: 24px;
         }
-        /*margin-left: 4px;*/
     }
 
 </style>

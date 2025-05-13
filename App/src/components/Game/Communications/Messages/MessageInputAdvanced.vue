@@ -125,7 +125,7 @@ export default defineComponent({
             formatted = formatted.replace(/\/\//g, '<br>');     // manage new line with '//' before inserting URL
 
             // Remplacer les codes de personnages par leurs icônes
-            formatted = formatted.replace(/:([a-z_\ ]+):/g, (match, name) => {
+            formatted = formatted.replace(/:([a-z_ ]+):/g, (match, name) => {
                 // Parcourir tous les personnages pour trouver la correspondance
                 console.log("nom",name, "match", match);
                 for (const key in this.characters) {
@@ -267,7 +267,6 @@ export default defineComponent({
 
         confirm(): void {
             this.$emit('send', this.editedText);
-            // this.$emit('confirm', this.editedText, true); // no more needed
             this.showCharacterGrid = false;
             this.editedText = "";
         },

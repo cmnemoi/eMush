@@ -82,12 +82,23 @@ final class GoBerserk extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $this->exitTerminal();
         $this->dropAllItems();
         $this->removePersonalTraits();
         $this->removeAllMedicalConditions();
         $this->removeHumanSkills();
         $this->healBy($this->getOutputQuantity());
         $this->applyBerzerkStatus();
+    }
+
+    private function exitTerminal(): void
+    {
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::FOCUSED,
+            holder: $this->player,
+            tags: $this->getTags(),
+            time: new \DateTime(),
+        );
     }
 
     private function dropAllItems(): void

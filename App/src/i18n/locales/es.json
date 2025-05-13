@@ -610,6 +610,8 @@
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
 			"newCycle": "Nouveau cycle",
 			"myMessageHere": "Mon message ici !",
+			"messageInputAdvanced":"Editor avanzado",
+			"messageInputAdvancedDescription": "Utilice un editor avanzado para dar formato a sus mensajes",
 			"bookmark": "Favori",
 			"bookmarkDescription": "Mettre ce fil de discussion en favori.",
 			"invite": "Inviter",

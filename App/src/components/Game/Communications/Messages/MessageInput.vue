@@ -14,13 +14,13 @@
                 @keyup.enter.exact.prevent="clearTypedMessage"
             />
             <div class="buttons-container">
-                <button
-                    type="button"
-                    class="format-button"
-                    title="Format message"
-                    @click.prevent="editAdvancedMessage">
+                <Tippy tag="button" class="format-button" @click.prevent="editAdvancedMessage">
                     <img :src="getImgUrl('comms/format.png')" alt="format">
-                </button>
+                    <template #content>
+                        <h1 v-html="$t('game.communications.messageInputAdvanced')"/>
+                        <p v-html="$t('game.communications.messageInputAdvancedDescription')"/>
+                    </template>
+                </Tippy>
                 <button
                     class="submit-button"
                     :disabled="text <= 0"
@@ -49,6 +49,7 @@ import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import MessageInputAdvanced from "./MessageInputAdvanced.vue";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "MessageInput",

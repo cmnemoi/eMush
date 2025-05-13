@@ -72,13 +72,6 @@ class Cure extends AbstractAction
         $target = $this->playerTarget();
 
         $this->statusService->removeStatus(
-            PlayerStatusEnum::BERZERK,
-            $target,
-            $this->getTags(),
-            new \DateTime(),
-        );
-
-        $this->statusService->removeStatus(
             PlayerStatusEnum::MUSH,
             $target,
             $this->getTags(),

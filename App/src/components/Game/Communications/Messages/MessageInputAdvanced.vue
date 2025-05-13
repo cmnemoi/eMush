@@ -179,29 +179,39 @@ export default defineComponent({
                 return;
             }
 
+            // Supprimer tous les marqueurs de formatage
+            const beforeIndex = this.beforeSelected(start);
+            const afterIndex = this.afterSelected(end);
+            const afterText = this.editedText.substring(afterIndex);
+
+            // Supprimer les marqueurs existants
+            const cleanText = this.editedText.substring(beforeIndex, afterIndex).replace(/(^\*+|\*+$)/g, '');
+            // Remplacer le texte sélectionné par le texte nettoyé
+            this.editedText = this.editedText.substring(0, beforeIndex) + cleanText + afterText;
+
             // Appliquer le formatage approprié
-            let formattedText = selectedText;
+            let formattedText = cleanText;
             switch (type) {
             case 'bold':
-                formattedText = `**${selectedText}**`;  // Gras
+                formattedText = `**${cleanText}**`;  // Gras
                 break;
             case 'italic':
-                formattedText = `*${selectedText}*`;  // Italique
+                formattedText = `*${cleanText}*`;  // Italique
                 break;
             case 'bolditalic':
-                formattedText = `***${selectedText}***`;  // Gras et italique
+                formattedText = `***${cleanText}***`;  // Gras et italique
                 break;
             }
 
             // Remplacer le texte sélectionné par le texte formaté
-            this.editedText = this.editedText.substring(0, start) + formattedText + this.editedText.substring(end);
+            this.editedText = this.editedText.substring(0, beforeIndex) + formattedText + afterText;
             console.log(this.editedText);
 
             // Focus et sélection
             this.$nextTick(() => {
                 element.focus();
-                element.selectionStart = start;
-                element.selectionEnd = start + formattedText.length;
+                const newCursorPosition = start + formattedText.length;
+                element.selectionStart = element.selectionEnd = newCursorPosition;
             });
         },
 
@@ -218,20 +228,35 @@ export default defineComponent({
             }
 
             // Supprimer tous les marqueurs de formatage
-            const cleanText = selectedText
-                .replace(/\*\*\*(.*?)\*\*\*/g, '$1')  // Supprimer gras+italique
-                .replace(/\*\*(.*?)\*\*/g, '$1')      // Supprimer italique
-                .replace(/\*(.*?)\*/g, '$1');         // Supprimer gras
+            const beforeIndex = this.beforeSelected(start);
+            const afterIndex = this.afterSelected(end);
+            const afterText = this.editedText.substring(afterIndex);
 
+            // Supprimer les marqueurs existants
+            const cleanText = this.editedText.substring(beforeIndex, afterIndex).replace(/(^\*+|\*+$)/g, '');
             // Remplacer le texte sélectionné par le texte nettoyé
-            this.editedText = this.editedText.substring(0, start) + cleanText + this.editedText.substring(end);
+            this.editedText = this.editedText.substring(0, beforeIndex) + cleanText + afterText;
 
             // Focus et sélection
             this.$nextTick(() => {
                 element.focus();
-                element.selectionStart = start;
-                element.selectionEnd = start + cleanText.length;
+                const newCursorPosition = start + formattedText.length;
+                element.selectionStart = element.selectionEnd = newCursorPosition;
             });
+        },
+        beforeSelected(start: number): number {
+            let index = start - 1; // Commence juste avant la sélection
+            while (index >= 0 && this.editedText[index] === '*') {
+                index--; // Continue à reculer tant que le caractère est '*'
+            }
+            return index + 1; // Retourne la position du premier '*'
+        },
+        afterSelected(end: number): number {
+            let index = end; // Commence juste après la sélection
+            while (index < this.editedText.length && this.editedText[index] === '*') {
+                index++; // Continue à avancer tant que le caractère est '*'
+            }
+            return index; // Retourne la position après le dernier '*'
         },
 
         cancel(): void {

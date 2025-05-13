@@ -240,7 +240,7 @@ export default defineComponent({
             // Focus et sélection
             this.$nextTick(() => {
                 element.focus();
-                const newCursorPosition = start + formattedText.length;
+                const newCursorPosition = start + cleanText.length;
                 element.selectionStart = element.selectionEnd = newCursorPosition;
             });
         },

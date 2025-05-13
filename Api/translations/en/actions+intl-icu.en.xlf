@@ -1707,17 +1707,17 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
     </unit>
     <unit id="go_berserk">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>go_berserk.name</source>
-        <target>go_berserk.name</target>
+        <target>Mutate</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>go_berserk.description</source>
-        <target>go_berserk.description</target>
+        <target>Allows you to mutate into the final form of Mush. The mutation will heal you slightly and will give you a damage bonus. Human characters entering the room will only be able to choose between going back to where they came from or fighting. You won't be able to do much except move and strike. What more could you ask for...</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>go_berserk.confirmation</source>
-        <target>go_berserk.confirmation</target>
+        <target>This action cannot be undone and will reveal you to everyone. Are you sure you want to continue?</target>
       </segment>
     </unit>
   </file>

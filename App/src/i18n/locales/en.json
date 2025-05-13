@@ -610,6 +610,8 @@
 			"hideMessageChildren": "Hide {count} answer | Hide {count} answers",
 			"newCycle": "New cycle",
 			"myMessageHere": "My message here!",
+			"messageInputAdvanced":"Advanced editor",
+			"messageInputAdvancedDescription": "Use an advanced editor to format your messages",
 			"bookmark": "Favorite",
 			"bookmarkDescription": "Bookmark this thread.",
 			"invite": "Invite",

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Project\Enum\ProjectName;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class ExplorationEventSubscriber implements EventSubscriberInterface
@@ -46,40 +45,33 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
         $exploration = $event->getExploration();
 
         if ($exploration->allExploratorsAreDeadOrLost()) {
-            $this->destroyEquipmentWhenExploratorsAreDead($event);
-
-            return;
+            $this->destroyExplorationShipOrReturnIt($event);
+            $this->destroyRemainingPlanetEquipment($event);
+        } else {
+            $this->returnPlanetEquipmentToDaedalus($event);
         }
-
-        $this->returnEquipmentToStartPlace($event);
     }
 
-    private function destroyEquipmentWhenExploratorsAreDead(ExplorationEvent $event): void
+    private function destroyExplorationShipOrReturnIt(ExplorationEvent $event): void
     {
         $daedalus = $event->getDaedalus();
         $exploration = $event->getExploration();
-        $ship = $daedalus->getPlanetPlace()->getEquipmentByNameOrThrow($exploration->getShipUsedName());
+        $explorationShip = $daedalus->getPlanetPlace()->getEquipmentByNameOrThrow($exploration->getShipUsedName());
 
-        $this->destroyShipOrReturnIt($ship, $event);
-        $this->destroyRemainingPlanetEquipment($event);
-    }
-
-    private function destroyShipOrReturnIt(GameEquipment $ship, ExplorationEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-
-        if ($ship->getName() !== EquipmentEnum::ICARUS || $daedalus->doesNotHaveAutoReturnIcarusProject()) {
-            $this->deleteEquipmentService->execute($ship, tags: $event->getTags(), time: $event->getTime());
-
-            return;
+        if (ProjectName::AUTO_RETURN_ICARUS->shouldReturnShipToDaedalus($explorationShip, $daedalus)) {
+            $this->gameEquipmentService->moveEquipmentTo(
+                equipment: $explorationShip,
+                newHolder: $event->getStartPlace(),
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
+        } else {
+            $this->deleteEquipmentService->execute(
+                gameEquipment: $explorationShip,
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
         }
-
-        $this->gameEquipmentService->moveEquipmentTo(
-            equipment: $ship,
-            newHolder: $event->getStartPlace(),
-            tags: $event->getTags(),
-            time: $event->getTime()
-        );
     }
 
     private function destroyRemainingPlanetEquipment(ExplorationEvent $event): void
@@ -95,7 +87,7 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
         }
     }
 
-    private function returnEquipmentToStartPlace(ExplorationEvent $event): void
+    private function returnPlanetEquipmentToDaedalus(ExplorationEvent $event): void
     {
         $daedalus = $event->getDaedalus();
 

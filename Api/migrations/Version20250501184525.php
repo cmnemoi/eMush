@@ -37,7 +37,6 @@ final class Version20250501184525 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE triumph_config ADD is_all_crew BOOLEAN NOT NULL DEFAULT FALSE');
         $this->addSql('ALTER TABLE triumph_config ADD triumph INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE triumph_config ADD team VARCHAR(255) DEFAULT \'\' NOT NULL');

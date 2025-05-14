@@ -43,35 +43,68 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
 
     public function onExplorationFinished(ExplorationEvent $event): void
     {
-        $daedalus = $event->getDaedalus();
         $exploration = $event->getExploration();
 
-        // No one can pilot the ship back. Everything on the planet is destroyed except the icarus if the project Magnetic Return is done.
         if ($exploration->allExploratorsAreDeadOrLost()) {
-            $ship = $daedalus->getPlanetPlace()->getEquipmentByNameOrThrow($exploration->getShipUsedName());
-
-            // If the ship is not the icarus and the Magnetic Return is not done then it is deleted.
-            if ($ship->getName() !== EquipmentEnum::ICARUS || $daedalus->doesNotHaveAutoReturnIcarusProject()) {
-                $this->deleteEquipmentService->execute($ship, tags: $event->getTags(), time: $event->getTime());
-            } else {
-                $this->gameEquipmentService->moveEquipmentTo(equipment: $ship, newHolder: $event->getStartPlace(), tags: $event->getTags(), time: $event->getTime());
-            }
-
-            // Destroy everything else on the planet.
-            foreach ($daedalus->getPlanetPlace()->getEquipments() as $equipment) {
-                $this->deleteEquipmentService->execute(gameEquipment: $equipment, tags: $event->getTags(), time: $event->getTime());
-            }
+            $this->destroyEquipmentWhenExploratorsAreDead($event);
 
             return;
         }
 
-        /** @var GameEquipment $equipment */
+        $this->returnEquipmentToStartPlace($event);
+    }
+
+    private function destroyEquipmentWhenExploratorsAreDead(ExplorationEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $exploration = $event->getExploration();
+        $ship = $daedalus->getPlanetPlace()->getEquipmentByNameOrThrow($exploration->getShipUsedName());
+
+        $this->destroyShipOrReturnIt($ship, $event);
+        $this->destroyRemainingPlanetEquipment($event);
+    }
+
+    private function destroyShipOrReturnIt(GameEquipment $ship, ExplorationEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        if ($ship->getName() !== EquipmentEnum::ICARUS || $daedalus->doesNotHaveAutoReturnIcarusProject()) {
+            $this->deleteEquipmentService->execute($ship, tags: $event->getTags(), time: $event->getTime());
+
+            return;
+        }
+
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $ship,
+            newHolder: $event->getStartPlace(),
+            tags: $event->getTags(),
+            time: $event->getTime()
+        );
+    }
+
+    private function destroyRemainingPlanetEquipment(ExplorationEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
+        foreach ($daedalus->getPlanetPlace()->getEquipments() as $equipment) {
+            $this->deleteEquipmentService->execute(
+                gameEquipment: $equipment,
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
+        }
+    }
+
+    private function returnEquipmentToStartPlace(ExplorationEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+
         foreach ($daedalus->getPlanetPlace()->getEquipments() as $equipment) {
             $this->gameEquipmentService->moveEquipmentTo(
                 equipment: $equipment,
                 newHolder: $event->getStartPlace(),
                 tags: $event->getTags(),
-                time: $event->getTime(),
+                time: $event->getTime()
             );
         }
     }

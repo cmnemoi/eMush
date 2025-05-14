@@ -695,6 +695,55 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $I->assertSame($exploration->getNumberOfSectionsToVisit(), $scenario[1]);
     }
 
+    public function closeExplorationShouldDeleteNonIcarusShipEvenWithAutoReturnProject(FunctionalTester $I): void
+    {
+        // given Auto Return Icarus project is finished
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::AUTO_RETURN_ICARUS),
+            author: $this->player,
+            I: $I,
+        );
+
+        // given a planet with 1 desert sector
+        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
+
+        // given there is a non-Icarus ship on the planet
+        $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentHolder: $this->daedalus->getPlanetPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given Chun is in Icarus Bay
+        $this->chun->changePlace($this->icarus->getPlace());
+
+        // given an exploration is created with the non-Icarus ship
+        $exploration = $this->explorationService->createExploration(
+            players: new PlayerCollection([$this->chun]),
+            explorationShip: $patrolShip,
+            numberOfSectorsToVisit: $planet->getSize(),
+            reasons: ['test'],
+        );
+
+        // given Chun dies
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::INJURY,
+            time: new \DateTime(),
+        );
+
+        // when exploration is closed
+        $this->explorationService->closeExploration($exploration, ['test']);
+
+        // then the non-Icarus ship should be deleted
+        $I->assertFalse(
+            $this->daedalus
+                ->getPlaceByNameOrThrow($this->daedalus->getPlanetPlace()->getName())
+                ->hasEquipmentByName(EquipmentEnum::PATROL_SHIP)
+        );
+    }
+
     private function skillExplorationCycleIncrementDataProvider(): iterable
     {
         yield 'Skill: Sprinter' => [SkillEnum::SPRINTER, 10];

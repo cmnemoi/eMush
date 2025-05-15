@@ -21,7 +21,7 @@
                     class="format-button"
                     @click="applyFormatting('italic')"
                     :title="$t('game.communications.buttonItalic')"
-                    >
+                >
                     <span><i><div v-html="$t('game.communications.buttonItalic')"></div></i></span>
                 </button>
                 <button
@@ -235,7 +235,7 @@ export default defineComponent({
         },
         beforeSelected(start: number): number {
             // used to search formatting tag before selection, return position
-            let index = start - 1; 
+            let index = start - 1;
             while (index >= 0 && this.editedText[index] === '*') {
                 index--;
             }

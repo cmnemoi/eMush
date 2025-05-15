@@ -63,7 +63,7 @@ class AddSkillToPlayerService
 
     private function createSkillModifiers(Skill $skill): void
     {
-        if ($skill->getPlayer()->hasStatus(PlayerStatusEnum::BERZERK)) {
+        if ($skill->getPlayer()->hasStatus(PlayerStatusEnum::BERZERK) && $skill->getName() === SkillEnum::WRESTLER) {
             return;
         }
 

@@ -140,12 +140,12 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveBerzerkStatus($I);
     }
 
-    /*public function shouldPrintAPublicLog(FunctionalTester $I): void
+    public function shouldPrintAPublicLog(FunctionalTester $I): void
     {
         $this->whenKuanTiMutates();
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: '', // TODO: Message?
+            expectedRoomLog: "**Kuan Ti** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements...Quelle horreur\u{a0}! Il a complètement changé de forme\u{a0}!",
             actualRoomLogDto: new RoomLogDto(
                 player: $this->kuanTi,
                 log: ActionLogEnum::MUTATE_SUCCESS,
@@ -153,7 +153,7 @@ final class GoBerserkCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
-    }*/
+    }
 
     public function shouldNotPreventThemselvesFromGoingToOtherRooms(FunctionalTester $I): void
     {

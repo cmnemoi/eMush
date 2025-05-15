@@ -1322,9 +1322,9 @@
       </segment>
     </unit>
     <unit id="mutate_success">
-      <segment id="mutate_success" state="initial">
+      <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
-        <target>mutate_success</target>
+        <target>**{character}** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements...Quelle horreur ! Il a complètement changé de forme !</target>
       </segment>
     </unit>
   </file>

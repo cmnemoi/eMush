@@ -16,12 +16,12 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Modifier\Service\ModifierCreationServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Skill\Entity\Skill;
-use Mush\Skill\Service\DeletePlayerSkillService;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -36,8 +36,8 @@ final class GoBerserk extends AbstractAction
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        private DeletePlayerSkillService $deletePlayerSkill,
         private GameEquipmentServiceInterface $gameEquipmentService,
+        private ModifierCreationServiceInterface $modifierCreationService,
         private PlayerDiseaseServiceInterface $playerDiseaseService,
         private StatusServiceInterface $statusService,
     ) {
@@ -86,7 +86,7 @@ final class GoBerserk extends AbstractAction
         $this->dropAllItems();
         $this->removePersonalTraits();
         $this->removeAllMedicalConditions();
-        $this->removeHumanSkills();
+        $this->removeWrestlerModifier();
         $this->healBy($this->getOutputQuantity());
         $this->applyBerzerkStatus();
     }
@@ -146,9 +146,22 @@ final class GoBerserk extends AbstractAction
         }
     }
 
-    private function removeHumanSkills(): void
+    private function removeWrestlerModifier(): void
     {
-        $this->player->getHumanSkills()->map(fn (Skill $skill) => $this->deletePlayerSkill->execute($skill->getName(), $this->player));
+        if (!$this->player->hasSkill(SkillEnum::WRESTLER)) {
+            return;
+        }
+
+        if (!$wrestlerModifierConfig = $this->player->getSkillByNameOrThrow(SkillEnum::WRESTLER)->getModifierConfigs()->first()) {
+            throw new \LogicException('Empty wrestler modifier config');
+        }
+
+        $this->modifierCreationService->deleteModifier(
+            modifierConfig: $wrestlerModifierConfig,
+            holder: $this->player,
+            modifierProvider: $this->player,
+            tags: $this->getTags()
+        );
     }
 
     private function healBy(int $quantity): void

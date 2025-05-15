@@ -971,7 +971,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function getEfficiencyForProject(Project $project): PlayerEfficiency
     {
         $max = $this->getMaxEfficiencyForProject($project);
-        $min = $this->daedalus->getAlivePlayers()->hasNonMutatedNeronOnlyFriend() && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
+        $min = $this->daedalus->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND) && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
 
         return new PlayerEfficiency($min, $max);
     }
@@ -1226,10 +1226,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function getHumanSkillSlots(): int
     {
-        if ($this->hasStatus(PlayerStatusEnum::BERZERK)) {
-            return $this->getHumanSkills()->count();
-        }
-
         $skillSlots = $this->daedalus->getDaedalusConfig()->getHumanSkillSlots();
 
         return $this->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK) ? $skillSlots + 1 : $skillSlots;
@@ -1303,6 +1299,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function getGender(): string
     {
         return $this->isMale() ? 'male' : 'female';
+    }
+
+    public function isTheOnlyGuardianInTheRoom(): bool
+    {
+        return $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN) === false;
     }
 
     public function canAccessMushChannel(): bool

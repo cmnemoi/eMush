@@ -256,7 +256,7 @@ class Drone extends GameItem
     private function noPatrolShipTakeoffActionAvailable(): bool
     {
         $equipment = $this->getPlace()->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::PATROL_SHIP);
-        if (!$equipment || $equipment->isAPatrolShip() === false || $equipment->isNotOperational()) {
+        if (!$equipment || $equipment->isAMonoplaceShip() === false || $equipment->isNotOperational()) {
             return true;
         }
 

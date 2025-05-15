@@ -579,9 +579,31 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $this->hasMechanicByName(EquipmentMechanicEnum::DRUG);
     }
 
+    public function isAMonoplaceShip(): bool
+    {
+        return \in_array($this->getName(), [
+            EquipmentEnum::PATROL_SHIP_ALPHA_LONGANE,
+            EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+            EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            EquipmentEnum::PATROL_SHIP_BRAVO_SOCRATE,
+            EquipmentEnum::PATROL_SHIP_BRAVO_EPICURE,
+            EquipmentEnum::PATROL_SHIP_BRAVO_PLANTON,
+            EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
+            EquipmentEnum::PASIPHAE,
+        ], true);
+    }
+
     public function isAPatrolShip(): bool
     {
-        return $this->hasMechanicByName(EquipmentMechanicEnum::PATROL_SHIP) && $this->getName() !== EquipmentEnum::PASIPHAE;
+        return \in_array($this->getName(), [
+            EquipmentEnum::PATROL_SHIP_ALPHA_LONGANE,
+            EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+            EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            EquipmentEnum::PATROL_SHIP_BRAVO_SOCRATE,
+            EquipmentEnum::PATROL_SHIP_BRAVO_EPICURE,
+            EquipmentEnum::PATROL_SHIP_BRAVO_PLANTON,
+            EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
+        ], true);
     }
 
     public function getFruitProduction(): int

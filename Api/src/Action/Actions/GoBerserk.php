@@ -21,7 +21,6 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -86,7 +85,6 @@ final class GoBerserk extends AbstractAction
         $this->dropAllItems();
         $this->removePersonalTraits();
         $this->removeAllMedicalConditions();
-        $this->removeWrestlerModifier();
         $this->healBy($this->getOutputQuantity());
         $this->applyBerzerkStatus();
     }
@@ -144,24 +142,6 @@ final class GoBerserk extends AbstractAction
                 $this->player,
             );
         }
-    }
-
-    private function removeWrestlerModifier(): void
-    {
-        if (!$this->player->hasSkill(SkillEnum::WRESTLER)) {
-            return;
-        }
-
-        if (!$wrestlerModifierConfig = $this->player->getSkillByNameOrThrow(SkillEnum::WRESTLER)->getModifierConfigs()->first()) {
-            throw new \LogicException('Empty wrestler modifier config');
-        }
-
-        $this->modifierCreationService->deleteModifier(
-            modifierConfig: $wrestlerModifierConfig,
-            holder: $this->player,
-            modifierProvider: $this->player,
-            tags: $this->getTags()
-        );
     }
 
     private function healBy(int $quantity): void

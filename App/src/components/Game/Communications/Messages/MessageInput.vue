@@ -15,7 +15,7 @@
             />
             <div class="buttons-container">
                 <Tippy tag="button" class="format-button" @click.prevent="editAdvancedMessage">
-                    <img :src="getImgUrl('comms/format.png')" alt="format">
+                    <img :src="getImgUrl('comms/buttonFormat.png')" alt="format">
                     <template #content>
                         <h1 v-html="$t('game.communications.messageInputAdvanced')"/>
                         <p v-html="$t('game.communications.messageInputAdvancedDescription')"/>
@@ -80,15 +80,12 @@ export default defineComponent ({
     methods: {
         getImgUrl,
         sendNewMessage(messageToSend?: string): void {
-            // Utiliser le paramètre s'il est fourni, sinon utiliser this.text
             const textToSend = messageToSend !== undefined ? messageToSend : this.text;
             this.showFormatDialog = false;
 
             if (textToSend.length > 0) {
-                // Remplacer les sauts de ligne
                 const formattedText = textToSend.replace(/\n/g, "//");
 
-                // Envoyer le message
                 this.sendMessage({
                     text: formattedText,
                     parent: this.parent,
@@ -123,12 +120,9 @@ export default defineComponent ({
             element.style.height = "auto";
             element.style.height = element.scrollHeight + 2 + "px";
         },
-        // Afficher laboite de dialogue de formatage avancé
         editAdvancedMessage(): void {
             this.showFormatDialog = true;
-            console.log("⚠️ MessageInputAdvanced component should appears");
         },
-        // Ferme le dialogue sans appliquer les changements
         closeFormatDialog(): void {
             this.showFormatDialog = false;
         }

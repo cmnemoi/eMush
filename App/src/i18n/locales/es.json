@@ -612,6 +612,8 @@
 			"myMessageHere": "Mon message ici !",
 			"messageInputAdvanced":"Editor avanzado",
 			"messageInputAdvancedDescription": "Utilice un editor avanzado para dar formato a sus mensajes",
+			"buttonBold":"N",
+			"buttonItalic":"C",
 			"bookmark": "Favori",
 			"bookmarkDescription": "Mettre ce fil de discussion en favori.",
 			"invite": "Inviter",

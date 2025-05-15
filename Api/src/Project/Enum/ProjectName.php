@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Project\Enum;
 
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+
 enum ProjectName: string
 {
     case APERO_KITCHEN = 'apero_kitchen';
@@ -77,5 +81,13 @@ enum ProjectName: string
     public function toString(): string
     {
         return $this->value;
+    }
+
+    public function shouldReturnShipToDaedalus(GameEquipment $equipment, Daedalus $daedalus): bool
+    {
+        $projectIsFinished = $daedalus->hasFinishedProject($this);
+        $equipmentIsIcarus = $equipment->getName() === EquipmentEnum::ICARUS;
+
+        return $projectIsFinished && $equipmentIsIcarus;
     }
 }

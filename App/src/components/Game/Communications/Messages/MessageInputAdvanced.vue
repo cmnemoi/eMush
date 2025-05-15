@@ -6,36 +6,37 @@
                     type="button"
                     class="format-button"
                     @click="clearFormatting"
-                    title="aucun">
-                    <span>n</span>
+                    :title="$t('game.communications.buttonErase')">
+                    <img :src="getImgUrl('comms/buttonErase.png')" alt="format">
                 </button>
                 <button
                     type="button"
                     class="format-button"
                     @click="applyFormatting('bold')"
-                    title="B">
-                    <span><b>B</b></span>
+                    :title="$t('game.communications.buttonBold')">
+                    <span><b><div v-html="$t('game.communications.buttonBold')"></div></b></span>
                 </button>
                 <button
                     type="button"
                     class="format-button"
                     @click="applyFormatting('italic')"
-                    title="I">
-                    <span><i>I</i></span>
+                    :title="$t('game.communications.buttonItalic')"
+                    >
+                    <span><i><div v-html="$t('game.communications.buttonItalic')"></div></i></span>
                 </button>
                 <button
                     type="button"
                     class="format-button"
                     @click="applyFormatting('bolditalic')"
-                    title="B+I">
-                    <span><b><i>B+I</i></b></span>
+                    :title="$t('game.communications.buttonBold')+'+'+$t('game.communications.buttonItalic')">
+                    <span><b><i><div v-html="$t('game.communications.buttonBold')+'+'+$t('game.communications.buttonItalic')"></div></i></b></span>
                 </button>
                 <button
                     type="button"
                     class="format-button character-btn"
                     @click="toggleCharacterGrid"
-                    title="Personnages">
-                    <img :src="getImgUrl('comms/characters.png')" alt="characters">
+                    :title="$t('game.communications.buttonCharacters')">
+                    <img :src="getImgUrl('comms/buttonCharacters.png')" alt="characters">
                 </button>
             </div>
             <!-- Grille de sélection des personnages -->
@@ -54,6 +55,7 @@
                 v-model="editedText"
                 class="edit-area"
                 @select="handleTextSelection"
+                @keydown.enter.exact.prevent="confirm"
                 ref="textEditor"
             ></textarea>
 
@@ -69,7 +71,7 @@
                     type="button"
                     class="format-button confirm-btn"
                     @click="confirm"
-                    title="Valider et envoyer le message">
+                    :title="$t('game.communications.buttonValidateAdvEditor')">
                     <img :src="getImgUrl('comms/submit.gif')" alt="send">
                 </button>
             </div>
@@ -127,14 +129,10 @@ export default defineComponent({
             // Remplacer les codes de personnages par leurs icônes
             formatted = formatted.replace(/:([a-z_ ]+):/g, (match, name) => {
                 // Parcourir tous les personnages pour trouver la correspondance
-                console.log("nom",name, "match", match);
                 for (const key in this.characters) {
                     const character = this.characters[key];
-                    // Vérifier si le nom correspond (ignorer la casse)
-                    console.log(character);
                     if (character.name.toLowerCase() === name ||
                         character.name.toLowerCase().replace(/\s+/g, '_') === name) {
-                        console.log("image: ",character.head);
                         return `<img src="${character.head}" alt="${character.name}" style="width:20px; height:20px; vertical-align:middle;">`;
                     }
                 }
@@ -170,7 +168,7 @@ export default defineComponent({
         applyFormatting(type: string): void {
             const element = this.$refs.textEditor;
 
-            // Utiliser la sélection active
+            // Use active selection then remove formatting then apply new one
             const start = element.selectionStart;
             const end = element.selectionEnd;
             const selectedText = this.editedText.substring(start, end);
@@ -179,17 +177,13 @@ export default defineComponent({
                 return;
             }
 
-            // Supprimer tous les marqueurs de formatage
             const beforeIndex = this.beforeSelected(start);
             const afterIndex = this.afterSelected(end);
             const afterText = this.editedText.substring(afterIndex);
 
-            // Supprimer les marqueurs existants
             const cleanText = this.editedText.substring(beforeIndex, afterIndex).replace(/(^\*+|\*+$)/g, '');
-            // Remplacer le texte sélectionné par le texte nettoyé
             this.editedText = this.editedText.substring(0, beforeIndex) + cleanText + afterText;
 
-            // Appliquer le formatage approprié
             let formattedText = cleanText;
             switch (type) {
             case 'bold':
@@ -203,11 +197,9 @@ export default defineComponent({
                 break;
             }
 
-            // Remplacer le texte sélectionné par le texte formaté
             this.editedText = this.editedText.substring(0, beforeIndex) + formattedText + afterText;
-            console.log(this.editedText);
 
-            // Focus et sélection
+            // Focus and unselect text
             this.$nextTick(() => {
                 element.focus();
                 const newCursorPosition = start + formattedText.length;
@@ -218,7 +210,7 @@ export default defineComponent({
         clearFormatting(): void {
             const element = this.$refs.textEditor;
 
-            // Utiliser la sélection active
+            // Remove selection (check if selected text is inside a direct formatting text)
             const start = element.selectionStart;
             const end = element.selectionEnd;
             const selectedText = this.editedText.substring(start, end);
@@ -227,17 +219,14 @@ export default defineComponent({
                 return;
             }
 
-            // Supprimer tous les marqueurs de formatage
             const beforeIndex = this.beforeSelected(start);
             const afterIndex = this.afterSelected(end);
             const afterText = this.editedText.substring(afterIndex);
 
-            // Supprimer les marqueurs existants
             const cleanText = this.editedText.substring(beforeIndex, afterIndex).replace(/(^\*+|\*+$)/g, '');
-            // Remplacer le texte sélectionné par le texte nettoyé
             this.editedText = this.editedText.substring(0, beforeIndex) + cleanText + afterText;
 
-            // Focus et sélection
+            // Focus and unselect text
             this.$nextTick(() => {
                 element.focus();
                 const newCursorPosition = start + cleanText.length;
@@ -245,18 +234,20 @@ export default defineComponent({
             });
         },
         beforeSelected(start: number): number {
-            let index = start - 1; // Commence juste avant la sélection
+            // used to search formatting tag before selection, return position
+            let index = start - 1; 
             while (index >= 0 && this.editedText[index] === '*') {
-                index--; // Continue à reculer tant que le caractère est '*'
+                index--;
             }
-            return index + 1; // Retourne la position du premier '*'
+            return index + 1;
         },
         afterSelected(end: number): number {
-            let index = end; // Commence juste après la sélection
+            // used to search formatting tag after selection, return position
+            let index = end;
             while (index < this.editedText.length && this.editedText[index] === '*') {
-                index++; // Continue à avancer tant que le caractère est '*'
+                index++;
             }
-            return index; // Retourne la position après le dernier '*'
+            return index;
         },
 
         cancel(): void {

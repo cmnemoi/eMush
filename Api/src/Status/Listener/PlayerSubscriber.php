@@ -3,6 +3,7 @@
 namespace Mush\Status\Listener;
 
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlaceStatusEnum;
@@ -77,9 +78,21 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onPlayerChangedPlace(PlayerChangedPlaceEvent $event): void
     {
-        $oldPlace = $event->getOldPlace();
-        if ($oldPlace->hasStatus(PlaceStatusEnum::CEASEFIRE->toString())) {
+        $oldRoom = $event->getOldPlace();
+        if ($oldRoom->getType() !== PlaceTypeEnum::ROOM) {
+            return;
+        }
+
+        if ($oldRoom->hasStatus(PlaceStatusEnum::CEASEFIRE->toString())) {
             $this->deleteCeasefireStatus($event);
+        }
+
+        $this->removeGuardianStatus($event);
+        $this->removeLyingDownStatus($event);
+        $this->removeFocusedStatus($event);
+
+        if ($event->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
+            return;
         }
 
         $player = $event->getPlayer();
@@ -88,10 +101,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         } else {
             $this->createPreviousRoomStatus($event);
         }
-
-        $this->removeGuardianStatus($event);
-        $this->removeLyingDownStatus($event);
-        $this->removeFocusedStatus($event);
     }
 
     private function deleteCeasefireStatus(PlayerChangedPlaceEvent $event): void

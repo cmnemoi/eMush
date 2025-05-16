@@ -77,9 +77,21 @@ class PlayerSubscriber implements EventSubscriberInterface
 
     public function onPlayerChangedPlace(PlayerChangedPlaceEvent $event): void
     {
-        $oldPlace = $event->getOldPlace();
-        if ($oldPlace->hasStatus(PlaceStatusEnum::CEASEFIRE->toString())) {
+        $oldRoom = $event->getOldPlace();
+        if ($oldRoom->isNotARoom()) {
+            return;
+        }
+
+        if ($oldRoom->hasStatus(PlaceStatusEnum::CEASEFIRE->toString())) {
             $this->deleteCeasefireStatus($event);
+        }
+
+        $this->removeGuardianStatus($event);
+        $this->removeLyingDownStatus($event);
+        $this->removeFocusedStatus($event);
+
+        if ($event->getPlace()->isNotARoom()) {
+            return;
         }
 
         $player = $event->getPlayer();
@@ -88,10 +100,6 @@ class PlayerSubscriber implements EventSubscriberInterface
         } else {
             $this->createPreviousRoomStatus($event);
         }
-
-        $this->removeGuardianStatus($event);
-        $this->removeLyingDownStatus($event);
-        $this->removeFocusedStatus($event);
     }
 
     private function deleteCeasefireStatus(PlayerChangedPlaceEvent $event): void

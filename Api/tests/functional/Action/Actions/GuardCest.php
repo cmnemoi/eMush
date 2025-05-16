@@ -5,21 +5,28 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Guard;
+use Mush\Action\Actions\Land;
 use Mush\Action\Actions\Move;
+use Mush\Action\Actions\Takeoff;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -36,6 +43,8 @@ final class GuardCest extends AbstractFunctionalTest
     private Move $move;
 
     private ChooseSkillUseCase $chooseSkillUseCase;
+
+    private GameEquipment $pasiphae;
 
     public function _before(FunctionalTester $I): void
     {
@@ -143,6 +152,27 @@ final class GuardCest extends AbstractFunctionalTest
         $this->thenChunShouldBeAbleToMoveTo(RoomEnum::FRONT_CORRIDOR, $I);
     }
 
+    public function shouldNotUpdatePreviousRoomWhenEnteringPlaceNotInDaedalus(FunctionalTester $I): void
+    {
+        $this->givenPatrolShipIn(RoomEnum::LABORATORY, $I);
+
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->kuanTi);
+
+        $this->givenKuanTiMovesTo(RoomEnum::MEDLAB);
+
+        $this->givenKuanTiMovesTo(RoomEnum::LABORATORY);
+
+        $this->whenKuanTiTakesOff($I);
+
+        $this->whenChunGuardsTheRoom();
+
+        $this->whenKuanTiLands($I);
+
+        $this->thenKuanTiShouldNotBeAbleToMoveTo(RoomEnum::FRONT_CORRIDOR, $I);
+
+        $this->thenKuanTiShouldBeAbleToMoveTo(RoomEnum::MEDLAB, $I);
+    }
+
     private function givenLaboratoryIsLinkedToFrontCorridor(FunctionalTester $I): void
     {
         $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
@@ -214,6 +244,35 @@ final class GuardCest extends AbstractFunctionalTest
         $this->move->execute();
     }
 
+    private function givenPatrolShipIn(string $room, FunctionalTester $I): void
+    {
+        $statusService = $I->grabService(StatusServiceInterface::class);
+        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphaeRoomConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PASIPHAE]);
+
+        $pasiphaeRoom = new Place();
+        $pasiphaeRoom
+            ->setName(RoomEnum::PASIPHAE)
+            ->setType($pasiphaeRoomConfig->getType())
+            ->setDaedalus($this->daedalus);
+        $I->haveInRepository($pasiphaeRoom);
+
+        $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName($room));
+        $this->pasiphae
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig);
+        $this->pasiphae->getPatrolShipMechanicOrThrow()->setDockingPlace($room);
+        $I->haveInRepository($this->pasiphae);
+
+        $pasiphaeArmor = $statusService->createStatusFromName(
+            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
+            $this->pasiphae,
+            [],
+            new \DateTime()
+        );
+        $I->haveInRepository($pasiphaeArmor);
+    }
+
     private function whenChunTriesToGuardTheRoom(): void
     {
         $this->guard->loadParameters(
@@ -243,6 +302,34 @@ final class GuardCest extends AbstractFunctionalTest
             target: $door,
         );
         $this->move->execute();
+    }
+
+    private function whenKuanTiTakesOff(FunctionalTester $I): void
+    {
+        $takeoffAction = $I->grabService(Takeoff::class);
+        $takeoffActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKEOFF]);
+
+        $takeoffAction->loadParameters(
+            actionConfig: $takeoffActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->kuanTi,
+            target: $this->pasiphae
+        );
+        $takeoffAction->execute();
+    }
+
+    private function whenKuanTiLands(FunctionalTester $I): void
+    {
+        $landAction = $I->grabService(Land::class);
+        $landActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::LAND]);
+
+        $landAction->loadParameters(
+            actionConfig: $landActionConfig,
+            actionProvider: $this->pasiphae,
+            player: $this->kuanTi,
+            target: $this->pasiphae
+        );
+        $landAction->execute();
     }
 
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void

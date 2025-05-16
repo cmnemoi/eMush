@@ -595,6 +595,11 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $charge;
     }
 
+    public function isNotARoom(): bool
+    {
+        return $this->getType() !== PlaceTypeEnum::ROOM;
+    }
+
     public function getAliveShrinksExceptPlayer(Player $player): PlayerCollection
     {
         return $this

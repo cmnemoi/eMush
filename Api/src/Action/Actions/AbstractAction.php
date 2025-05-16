@@ -20,6 +20,7 @@ use Mush\Action\Validator\IsActionProviderOperational;
 use Mush\Action\Validator\ModifierPreventAction;
 use Mush\Action\Validator\PlayerAlive;
 use Mush\Action\Validator\PlayerCanAffordPoints;
+use Mush\Action\Validator\PlayerMutated;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\EventServiceInterface;
@@ -81,6 +82,7 @@ abstract class AbstractAction
     {
         $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
+        $metadata->addConstraint(new PlayerMutated(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::MUTATED]));
         $metadata->addConstraint(new PlayerCanAffordPoints(['groups' => ['execute']]));
         $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION]));
         $metadata->addConstraint(new IsActionProviderOperational(['groups' => ['execute']]));
@@ -285,9 +287,9 @@ abstract class AbstractAction
         return \in_array($tag, $this->getTags(), true);
     }
 
-    public function isNotAdminAction(): bool
+    public function isAdminAction(): bool
     {
-        return \in_array(ActionTypeEnum::ACTION_ADMIN, $this->getActionConfig()->getTypes(), true) === false;
+        return \in_array(ActionTypeEnum::ACTION_ADMIN->toString(), $this->getActionConfig()->getTypes(), true);
     }
 
     abstract public function support(?LogParameterInterface $target, array $parameters): bool;

@@ -243,7 +243,10 @@ abstract class StatusConfigData
             'startCharge' => null,
             'dischargeStrategies' => ['none'],
             'autoRemove' => null,
-            'modifierConfigs' => [],
+            'modifierConfigs' => [
+                ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
+                'prevent_spoken_actions',
+            ],
             'actionConfigs' => [],
         ],
         [
@@ -871,6 +874,7 @@ abstract class StatusConfigData
             'actionConfigs' => [
                 'infect',
                 'extract_spore',
+                'go_berserk',
             ],
         ],
         [

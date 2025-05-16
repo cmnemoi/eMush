@@ -38,7 +38,6 @@ use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Entity\VisibleStatusHolderInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
@@ -622,11 +621,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     public function isChunForResearch(): bool
     {
         return $this->isChunIn() || $this->getDaedalus()->hasStatus(DaedalusStatusEnum::GHOST_CHUN);
-    }
-
-    public function hasAGuardian(): bool
-    {
-        return $this->getPlayers()->getPlayerAlive()->hasOneWithStatus(PlayerStatusEnum::GUARDIAN);
     }
 
     public function hasAlivePlayerWithSkill(SkillEnum $skill): bool

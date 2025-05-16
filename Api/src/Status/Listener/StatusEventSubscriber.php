@@ -49,12 +49,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         match ($statusName) {
             EquipmentStatusEnum::BROKEN => $this->handleBrokenEquipment($statusHolder, $event->getTags(), $event->getTime()),
             PlayerStatusEnum::MUSH => $this->handleMushStatusApplied($event),
-            PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE => $this->statusService->removeStatus(
-                PlayerStatusEnum::PARIAH,
-                $statusHolder,
-                $event->getTags(),
-                $event->getTime()
-            ),
+            PlayerStatusEnum::INACTIVE, PlayerStatusEnum::HIGHLY_INACTIVE => $this->removeStatusFromPlayer(PlayerStatusEnum::PARIAH, $event),
             default => null,
         };
     }
@@ -78,19 +73,8 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                 tags: $event->getTags(),
                 time: $event->getTime()
             ),
-            PlayerStatusEnum::MUSH => $this->statusService->removeStatus(
-                PlayerStatusEnum::HAS_READ_MAGE_BOOK,
-                $statusHolder,
-                $event->getTags(),
-                $event->getTime(),
-            ),
-            PlayerStatusEnum::LYING_DOWN => $this->statusService->removeStatus(
-                PlayerStatusEnum::FITFUL_SLEEP,
-                $statusHolder,
-                $event->getTags(),
-                $event->getTime(),
-                VisibilityEnum::PUBLIC,
-            ),
+            PlayerStatusEnum::MUSH => $this->handleMushStatusRemoved($event),
+            PlayerStatusEnum::LYING_DOWN => $this->removeStatusFromPlayer(PlayerStatusEnum::FITFUL_SLEEP, $event),
             default => null,
         };
     }
@@ -170,21 +154,17 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
     private function handleMushStatusApplied(StatusEvent $event): void
     {
-        $this->statusService->removeStatus(
-            PlayerStatusEnum::STARVING,
-            $event->getPlayerStatusHolder(),
-            $event->getTags(),
-            $event->getTime()
-        );
+        $this->removeStatusFromPlayer(PlayerStatusEnum::STARVING, $event);
 
         if ($event->hasTag(ActionEnum::EXCHANGE_BODY->value)) {
-            $this->statusService->removeStatus(
-                statusName: PlayerStatusEnum::HAS_READ_MAGE_BOOK,
-                holder: $event->getPlayerStatusHolder(),
-                tags: $event->getTags(),
-                time: $event->getTime(),
-            );
+            $this->removeStatusFromPlayer(PlayerStatusEnum::HAS_READ_MAGE_BOOK, $event);
         }
+    }
+
+    private function handleMushStatusRemoved(StatusEvent $event): void
+    {
+        $this->removeStatusFromPlayer(PlayerStatusEnum::HAS_READ_MAGE_BOOK, $event);
+        $this->removeStatusFromPlayer(PlayerStatusEnum::BERZERK, $event);
     }
 
     private function dispatchTravelFinishedEvent(StatusEvent $event): void
@@ -254,5 +234,15 @@ final class StatusEventSubscriber implements EventSubscriberInterface
                 $time
             );
         }
+    }
+
+    private function removeStatusFromPlayer(string $statusName, StatusEvent $event): void
+    {
+        $this->statusService->removeStatus(
+            $statusName,
+            $event->getPlayerStatusHolder(),
+            $event->getTags(),
+            $event->getTime()
+        );
     }
 }

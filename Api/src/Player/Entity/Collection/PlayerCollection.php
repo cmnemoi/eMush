@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 /**
  * @template-extends ArrayCollection<int, Player>
@@ -85,6 +86,16 @@ class PlayerCollection extends ArrayCollection
     public function getInactivePlayers(): self
     {
         return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInactive());
+    }
+
+    public function getPlayersEligibleForTitle(): self
+    {
+        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isActive() && $player->doesNotHaveStatus(PlayerStatusEnum::BERZERK));
+    }
+
+    public function getPlayersIneligibleForTitle(): self
+    {
+        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInactive() || $player->hasStatus(PlayerStatusEnum::BERZERK));
     }
 
     public function hasPlayerByName(string $name)

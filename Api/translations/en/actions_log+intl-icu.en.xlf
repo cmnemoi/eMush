@@ -1073,5 +1073,11 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>After much blood, sweat and tears, **{character}** has finally gotten the stars to align. Everything is just right, the location, the time, a ball, the vibes... {character_gender, select, male {He shares} female {She shares} other {They share}} a transcendental moment, playing catch with **Pavlov**, all is good with the world. A few minutes later, while still recovering from the excitement, **Pavlov** approaches **{character}** with a look on its face that conveys "I have to go now. My planet needs me." **Pavlov** fades away into inexistence. **{character}** weeps.</target>
       </segment>
     </unit>
+    <unit id="mutate_success">
+      <segment id="mutate_success" state="translated">
+        <source>mutate_success</source>
+        <target>:mush: **{character}** curls up, clearly suffering. The crewmember's cries resonate throughout the room before ungodly bile spews from their mouth and melts their clothing... How horrific! **{character}** has completely mutated!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

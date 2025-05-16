@@ -340,7 +340,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         $upgrades = [];
         foreach ($drone->getUpgrades() as $upgrade) {
-            $upgrades[] = $this->translationService->translate($upgrade->getName() . '.description', [], 'status', $language);
+            $upgrades[] = ':point: ' . $this->translationService->translate($upgrade->getName() . '.description', [], 'status', $language);
         }
 
         return [

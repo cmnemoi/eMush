@@ -25,14 +25,14 @@ abstract class TriumphConfigData
                 key: TriumphEnum::CYCLE_HUMAN->toConfigKey('default'),
                 name: TriumphEnum::CYCLE_HUMAN,
                 targetedEvent: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
-                scope: TriumphScope::ALL_ACTIVE_HUMAN,
+                scope: TriumphScope::ALL_ACTIVE_HUMANS,
                 quantity: 1,
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::CYCLE_MUSH->toConfigKey('default'),
                 name: TriumphEnum::CYCLE_MUSH,
                 targetedEvent: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
-                scope: TriumphScope::ALL_MUSH,
+                scope: TriumphScope::ALL_MUSHS,
                 quantity: -2,
             ),
             new TriumphConfigDto(
@@ -53,7 +53,7 @@ abstract class TriumphConfigData
                 targetedEventExpectedTags: [
                     ActionEnum::RETURN_TO_SOL->toString(),
                 ],
-                scope: TriumphScope::ALL_HUMAN,
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 20,
             ),
             new TriumphConfigDto(
@@ -63,7 +63,7 @@ abstract class TriumphConfigData
                 targetedEventExpectedTags: [
                     ActionEnum::RETURN_TO_SOL->toString(),
                 ],
-                scope: TriumphScope::ALL_HUMAN,
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: -10,
             ),
         ];

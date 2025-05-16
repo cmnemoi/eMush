@@ -3,7 +3,6 @@
 namespace Mush\Status\Listener;
 
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Status\Enum\PlaceStatusEnum;
@@ -79,7 +78,7 @@ class PlayerSubscriber implements EventSubscriberInterface
     public function onPlayerChangedPlace(PlayerChangedPlaceEvent $event): void
     {
         $oldRoom = $event->getOldPlace();
-        if ($oldRoom->getType() !== PlaceTypeEnum::ROOM) {
+        if ($oldRoom->isNotARoom()) {
             return;
         }
 
@@ -91,7 +90,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $this->removeLyingDownStatus($event);
         $this->removeFocusedStatus($event);
 
-        if ($event->getPlace()->getType() !== PlaceTypeEnum::ROOM) {
+        if ($event->getPlace()->isNotARoom()) {
             return;
         }
 

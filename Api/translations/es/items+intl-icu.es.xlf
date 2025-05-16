@@ -1853,7 +1853,7 @@ El dron realiza acciones similares a las del equipo.
 Intenta reparar los equipos averiados de la sala antes de desplazarse.
 //
 Usado para operaciones de mantenimiento, casi pueden reemplazar a un ser humano, casi.
-{turbo_drone_upgrade} {pilot_drone_upgrade} {sensor_drone_upgrade} {firefighter_drone_upgrade}</target>
+{drone_upgrades}</target>
       </segment>
     </unit>
     <unit id="jar_of_alien_oil">

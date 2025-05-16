@@ -1770,7 +1770,7 @@ Tente de réparer les équipements défectueux de la pièce avant de se déplace
 Le Drone effectue des actions similaires à celles des équipiers.
 Tente de réparer les équipements défectueux de la pièce avant de se déplacer.
 Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Magellan, grâce à son protocole Beta|-Slave ils peuvent quasiment remplacer un vrai être humain. Sauf pour le faire.
-{turbo_drone_upgrade} {pilot_drone_upgrade} {sensor_drone_upgrade} {firefighter_drone_upgrade}</target>
+{drone_upgrades}</target>
       </segment>
     </unit>
     <unit id="jar_of_alien_oil">

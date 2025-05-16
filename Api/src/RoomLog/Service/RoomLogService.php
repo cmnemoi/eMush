@@ -334,16 +334,16 @@ final class RoomLogService implements RoomLogServiceInterface
 
     private function getDroneLogParameters(Drone $drone): array
     {
-        $upgrades = [];
+        $upgrades = "";
 
         if ($drone->isUpgraded()) {
             $language = $drone->getPlace()->getDaedalus()->getLanguage();
             foreach ($drone->getUpgrades() as $upgrade) {
-                $upgrades[] = $this->translationService->translate($upgrade->getName() . '.description', [], 'status', $language);
+                $upgrades = $upgrades . '//' . $this->translationService->translate($upgrade->getName() . '.description', [], 'status', $language);
             }
         }
 
-        return ['drone_upgrades' => $this->$upgrades];
+        return ['drone_upgrades' => $upgrades];
     }
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array

@@ -620,6 +620,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $guardAction */
         $guardAction = $this->getReference(ActionEnum::GUARD->value);
 
+        /** @var ActionConfig $goBerserkAction */
+        $goBerserkAction = $this->getReference(MushActionFixtures::GO_BERSERK);
+
         /** @var ActionConfig $commanderOrderAction */
         $commanderOrderAction = $this->getReference(ActionEnum::COMMANDER_ORDER->value);
 
@@ -652,6 +655,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $surgeryAction,
             $killPlayerAction,
             $guardAction,
+            $goBerserkAction,
             $commanderOrderAction,
             $acceptMissionAction,
             $rejectMissionAction,

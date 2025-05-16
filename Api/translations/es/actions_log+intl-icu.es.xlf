@@ -919,5 +919,11 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
         <target>play_with_dog</target>
       </segment>
     </unit>
+    <unit id="mutate_success">
+      <segment id="mutate_success" state="initial">
+        <source>mutate_success</source>
+        <target>mutate_success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

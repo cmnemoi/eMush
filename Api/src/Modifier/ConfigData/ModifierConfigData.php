@@ -3134,6 +3134,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
+                PlayerStatusEnum::BERZERK => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [

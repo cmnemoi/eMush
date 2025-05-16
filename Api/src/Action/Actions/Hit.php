@@ -17,6 +17,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -61,9 +62,13 @@ final class Hit extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
+        $tags = $this->player->hasStatus(PlayerStatusEnum::BERZERK)
+        ? array_merge($this->getTags(), [PlayerStatusEnum::BERZERK])
+        : $this->getTags();
+
         $this->useWeaponService->execute(
             result: $result,
-            tags: $this->getTags(),
+            tags: $tags,
         );
     }
 }

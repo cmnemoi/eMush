@@ -1706,5 +1706,19 @@ Or you simply need some fresh air.... or not.</target>
         <target>Invokes a merchant (only for users with level 4 accreditation).</target>
       </segment>
     </unit>
+    <unit id="go_berserk">
+      <segment id="name" state="translated">
+        <source>go_berserk.name</source>
+        <target>Mutate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>go_berserk.description</source>
+        <target>Allows you to mutate into the final form of Mush. The mutation will heal you slightly and will give you a damage bonus. Human characters entering the room will only be able to choose between going back to where they came from or fighting. You won't be able to do much except move and strike. What more could you ask for...</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>go_berserk.confirmation</source>
+        <target>This action cannot be undone and will reveal you to everyone. Are you sure you want to continue?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

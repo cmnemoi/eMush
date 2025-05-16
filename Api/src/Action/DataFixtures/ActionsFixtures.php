@@ -117,29 +117,13 @@ class ActionsFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         /** @TODO remove this after alpha */
-        $suicide = new ActionConfig();
-        $suicide
-            ->setName(ActionEnum::SUICIDE->value)
-            ->setActionName(ActionEnum::SUICIDE)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER);
+        $suicide = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SUICIDE));
         $manager->persist($suicide);
 
-        $autoDestroy = new ActionConfig();
-        $autoDestroy
-            ->setName(ActionEnum::AUTO_DESTROY->value)
-            ->setActionName(ActionEnum::AUTO_DESTROY)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
+        $autoDestroy = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::AUTO_DESTROY));
         $manager->persist($autoDestroy);
 
-        $killPlayer = new ActionConfig();
-        $killPlayer
-            ->setName(ActionEnum::KILL_PLAYER->value)
-            ->setActionName(ActionEnum::KILL_PLAYER)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER);
+        $killPlayer = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::KILL_PLAYER));
         $manager->persist($killPlayer);
 
         $rejuvenateAlpha = new ActionConfig();
@@ -147,6 +131,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::REJUVENATE)
             ->setRange(ActionRangeEnum::PLAYER)
             ->setDisplayHolder(ActionHolderEnum::PLAYER)
+            ->setTypes([ActionTypeEnum::ACTION_ADMIN])
             ->buildName(GameConfigEnum::ALPHA);
         $manager->persist($rejuvenateAlpha);
 

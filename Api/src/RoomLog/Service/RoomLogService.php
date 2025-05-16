@@ -334,7 +334,7 @@ final class RoomLogService implements RoomLogServiceInterface
 
     private function getDroneLogParameters(Drone $drone): array
     {
-        $upgrades = "";
+        $upgrades = '';
 
         if ($drone->isUpgraded()) {
             $language = $drone->getPlace()->getDaedalus()->getLanguage();

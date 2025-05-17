@@ -1616,7 +1616,7 @@
     <unit id="pilot_drone_upgrade">
       <segment id="description" state="translated">
         <source>pilot_drone_upgrade.description</source>
-        <target>:point: Pilote : Tente d'emprunter un patrouilleur et de détruire tous les hunters avant de se déplacer. A un bonus de 20% en visée par rapport aux humains.</target>
+        <target>:point: Pilote : Peut emprunter un patrouilleur et tenter de détruire tous les hunters avant de se déplacer. A un bonus de 20% en visée par rapport aux humains.</target>
       </segment>
     </unit>
     <unit id="sensor_drone_upgrade">

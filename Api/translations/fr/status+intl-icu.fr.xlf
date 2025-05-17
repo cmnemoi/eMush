@@ -1610,25 +1610,25 @@
     <unit id="turbo_drone_upgrade">
       <segment id="description" state="translated">
         <source>turbo_drone_upgrade.description</source>
-        <target>Turbo : 80% de chance d'agir une seconde fois à chaque cycle.</target>
+        <target>:point: Turbo : 80% de chance d'agir une seconde fois à chaque cycle.</target>
       </segment>
     </unit>
     <unit id="pilot_drone_upgrade">
       <segment id="description" state="translated">
         <source>pilot_drone_upgrade.description</source>
-        <target>Pilote : Tente d'emprunter un patrouilleur et de détruire tous les hunters avant de se déplacer. A un bonus de 20% en visée par rapport aux humains.</target>
+        <target>:point: Pilote : Tente d'emprunter un patrouilleur et de détruire tous les hunters avant de se déplacer. A un bonus de 20% en visée par rapport aux humains.</target>
       </segment>
     </unit>
     <unit id="sensor_drone_upgrade">
       <segment id="description" state="translated">
         <source>sensor_drone_upgrade.description</source>
-        <target>Senseur : Se dirige intelligemment vers le feu, l'équipement cassé ou le patrouilleur le plus proche au lieu de se déplacer aléatoirement.</target>
+        <target>:point: Senseur : Se dirige intelligemment vers le feu, l'équipement cassé ou le patrouilleur le plus proche au lieu de se déplacer aléatoirement.</target>
       </segment>
     </unit>
     <unit id="firefighter_drone_upgrade">
       <segment id="description" state="translated">
         <source>firefighter_drone_upgrade.description</source>
-        <target>Pompier : Tente d'éteindre les incendies dans la pièce avant de se déplacer. Deviens également ignifuge.</target>
+        <target>:point: Pompier : Tente d'éteindre les incendies dans la pièce avant de se déplacer. Deviens également ignifuge.</target>
       </segment>
     </unit>
   </file>

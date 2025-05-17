@@ -94,13 +94,13 @@ export default class mushTextureProperties {
 
         const type = skinInfo.type;
         switch (type) {
-          case SkinEnum.TYPE_REPLACE:
+        case SkinEnum.TYPE_REPLACE:
             this.replaceTexture(skinInfo);
             break;
-          case SkinEnum.TYPE_HIDE:
+        case SkinEnum.TYPE_HIDE:
             this.isDisplayed = false;
             break;
-          case SkinEnum.TYPE_SHOW:
+        case SkinEnum.TYPE_SHOW:
             this.isDisplayed = true;
         }
     }

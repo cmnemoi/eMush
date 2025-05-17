@@ -119,7 +119,7 @@ export default class MushTiledMap {
                     if (fixedDepth !== 0) {
                         newObject.setDepth(this.computeFixedDepth(fixedDepth));
                     }
-                    
+
                     const isCollision = obj.isCustomPropertyByName('collides');
                     if (isCollision || fixedDepth === 0) {
                         sceneGrid.addObject(newObject);

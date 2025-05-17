@@ -7,7 +7,6 @@ namespace Mush\Project\ConfigData;
 use Mush\Chat\Enum\MessageModificationEnum;
 use Mush\Equipment\ConfigData\ReplaceEquipmentConfigData;
 use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
-use Mush\MetaGame\Enum\SkinEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
@@ -25,14 +24,13 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::PILGRED,
                 'type' => ProjectType::PILGRED,
-                'efficiency' => 100,
+                'efficiency' => 1,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::PILGRED_ACTIVE],
             ],
             [
                 'name' => ProjectName::FIRE_SENSOR,
@@ -70,7 +68,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::PLASMA_SHIELD,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 1,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::PHYSICIST],
                 'activationRate' => 100,
                 'modifierConfigs' => [
@@ -79,19 +77,17 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::PLASMA_SHIELD_ACTIVE],
             ],
             [
                 'name' => ProjectName::HEAT_LAMP,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
                 'activationRate' => 50,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::GARDEN_LAMP],
             ],
             [
                 'name' => ProjectName::TRAIL_REDUCER,
@@ -208,26 +204,24 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::ICARUS_ANTIGRAV_PROPELLER,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::PHYSICIST],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::ICARUS_THRUSTER],
             ],
             [
                 'name' => ProjectName::FISSION_COFFEE_ROASTER,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::CAFFEINE_JUNKIE, SkillEnum::PHYSICIST],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::COFFEE_MACHINE_FISSION],
             ],
             [
                 'name' => ProjectName::ARMOUR_CORRIDOR,
@@ -271,7 +265,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::PATROLSHIP_BLASTER_GUN,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::SHOOTER],
                 'activationRate' => 100,
                 'modifierConfigs' => [
@@ -280,7 +274,6 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::PATROL_SHIP_BLASTER],
             ],
             [
                 'name' => ProjectName::BAY_DOOR_XXL,
@@ -334,7 +327,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::RADAR_TRANS_VOID,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::RADIO_EXPERT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
@@ -343,7 +336,6 @@ abstract class ProjectConfigData
                     'replace_antenna_by_radar_trans_void_antenna',
                 ],
                 'requirements' => [],
-                'skins' => [SkinEnum::ANTENNA_SPATIAL_WAVE],
             ],
             [
                 'name' => ProjectName::NERON_TARGETING_ASSIST,
@@ -372,7 +364,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::HYDROPONIC_INCUBATOR,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BOTANIST],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
@@ -381,7 +373,6 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::GARDEN_INCUBATOR],
             ],
             [
                 'name' => ProjectName::ICARUS_LAVATORY,
@@ -399,7 +390,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::ICARUS_LARGER_BAY,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::PILOT, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
                 'modifierConfigs' => [
@@ -408,7 +399,6 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::ICARUS_LARGE],
             ],
             [
                 'name' => ProjectName::PATROL_SHIP_LAUNCHER,
@@ -426,19 +416,18 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::NERON_PROJECT_THREAD,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::IT_EXPERT, SkillEnum::SHRINK],
                 'activationRate' => 5,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::NERON_PARTICIPATION_AUXILIARY_TERMINAL, SkinEnum::NERON_CORE_PARTICIPATION],
             ],
             [
                 'name' => ProjectName::TURRET_EXTRA_FIRE_RATE,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 12,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
                 'modifierConfigs' => [
@@ -447,7 +436,6 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::TURRET_CHARGES],
             ],
             [
                 'name' => ProjectName::QUANTUM_SENSORS,
@@ -465,7 +453,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::PATROLSHIP_EXTRA_AMMO,
                 'type' => ProjectType::NERON_PROJECT,
-                'efficiency' => 100,
+                'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
                 'modifierConfigs' => [
@@ -475,7 +463,6 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
-                'skins' => [SkinEnum::PATROL_SHIP_TELSATRON],
             ],
             [
                 'name' => ProjectName::NOISE_REDUCER,
@@ -502,7 +489,6 @@ abstract class ProjectConfigData
                     'replace_kitchen_by_snc_kitchen',
                 ],
                 'requirements' => [],
-                'skins' => [SkinEnum::KITCHEN_APERO, SkinEnum::KITCHEN_APERO_TABLE],
             ],
             [
                 'name' => ProjectName::FLOOR_HEATING,
@@ -907,7 +893,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::GUARANA_CAPPUCCINO,
                 'type' => ProjectType::RESEARCH,
-                'efficiency' => 100,
+                'efficiency' => 6,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
                 'activationRate' => 100,
                 'modifierConfigs' => [
@@ -918,7 +904,6 @@ abstract class ProjectConfigData
                 'requirements' => [
                     ProjectRequirementName::COFFEE_IN_LABORATORY,
                 ],
-                'skins' => [SkinEnum::COFFEE_MACHINE_GUARANA],
             ],
         ];
     }

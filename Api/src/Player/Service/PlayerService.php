@@ -360,9 +360,7 @@ final class PlayerService implements PlayerServiceInterface
             ->setDaedalus($daedalus)
             ->setPlace($laboratory)
             ->setPlayerVariables($characterConfig)
-            ->setAvailableHumanSkills($characterConfig->getSkillConfigs())
-            ->initializeSkinSlots($characterConfig);
-
+            ->setAvailableHumanSkills($characterConfig->getSkillConfigs());
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $this->persistPlayerInfo($playerInfo);

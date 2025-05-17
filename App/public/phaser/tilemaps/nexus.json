@@ -28,7 +28,7 @@
          "width":10,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 75, 73, 73, 73, 73, 73, 73, 0, 0,
@@ -55,7 +55,7 @@
          "width":10,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -76,7 +76,7 @@
                  "name":"depth",
                  "type":"int",
                  "value":2
-                },
+                }, 
                 {
                  "name":"walkingDepth",
                  "type":"int",
@@ -87,7 +87,7 @@
          "width":10,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "draworder":"topdown",
          "id":5,
@@ -103,22 +103,22 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
-                        },
+                        }, 
                         {
                          "name":"depth",
                          "type":"int",
                          "value":30
-                        },
+                        }, 
                         {
                          "name":"gameEquipment",
                          "type":"string",
                          "value":"rear_corridor_nexus"
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":32
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -130,7 +130,7 @@
                  "width":64,
                  "x":139.5,
                  "y":74.5
-                },
+                }, 
                 {
                  "gid":26,
                  "height":59,
@@ -141,17 +141,17 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
-                        },
+                        }, 
                         {
                          "name":"depth",
                          "type":"int",
                          "value":4
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -163,7 +163,7 @@
                  "width":107,
                  "x":90.75,
                  "y":74.25
-                },
+                }, 
                 {
                  "gid":44,
                  "height":40,
@@ -174,17 +174,17 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"depth",
                          "type":"int",
                          "value":3
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -196,7 +196,7 @@
                  "width":33,
                  "x":24.25,
                  "y":23.75
-                },
+                }, 
                 {
                  "gid":5,
                  "height":87,
@@ -207,22 +207,22 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"depth",
                          "type":"int",
                          "value":4
-                        },
+                        }, 
                         {
                          "name":"gameEquipment",
                          "type":"string",
                          "value":"neron_core"
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -232,9 +232,9 @@
                  "type":"equipment",
                  "visible":true,
                  "width":86,
-                  "x":12,
-                  "y":55
-                },
+                 "x":12,
+                 "y":55
+                }, 
                 {
                  "gid":21,
                  "height":60,
@@ -245,17 +245,17 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"gameEquipment",
                          "type":"string",
                          "value":"bios_terminal"
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -267,7 +267,7 @@
                  "width":32,
                  "x":54,
                  "y":22
-                },
+                }, 
                 {
                  "gid":22,
                  "height":60,
@@ -278,12 +278,12 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -295,7 +295,7 @@
                  "width":32,
                  "x":87.5,
                  "y":22.5
-                },
+                }, 
                 {
                  "gid":23,
                  "height":60,
@@ -306,17 +306,17 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"gameEquipment",
                          "type":"string",
                          "value":"calculator"
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -328,7 +328,7 @@
                  "width":32,
                  "x":88,
                  "y":24
-                },
+                }, 
                 {
                  "gid":1,
                  "height":15,
@@ -339,21 +339,26 @@
                          "name":"collides",
                          "type":"bool",
                          "value":false
-                        },
+                        }, 
                         {
                          "name":"depth",
                          "type":"int",
                          "value":3
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":10
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -361,7 +366,7 @@
                  "width":14,
                  "x":80.5,
                  "y":-7.5
-                },
+                }, 
                 {
                  "gid":28,
                  "height":17,
@@ -372,27 +377,27 @@
                          "name":"animationYoyo",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"collides",
                          "type":"bool",
                          "value":false
-                        },
+                        }, 
                         {
                          "name":"depth",
                          "type":"int",
                          "value":5
-                        },
+                        }, 
                         {
                          "name":"gameEquipment",
                          "type":"string",
                          "value":"camera_equipment"
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -404,7 +409,7 @@
                  "width":25,
                  "x":-1.75,
                  "y":82.75
-                },
+                }, 
                 {
                  "gid":25,
                  "height":60,
@@ -415,12 +420,12 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -433,7 +438,7 @@
                  "x":87,
                  "y":87
                 },
-
+            
                 {
                  "gid":25,
                  "height":60,
@@ -444,12 +449,12 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -461,7 +466,7 @@
                  "width":32,
                  "x":55,
                  "y":87
-                },
+                }, 
                 {
                  "gid":2147483716,
                  "height":37,
@@ -472,58 +477,58 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"flipX",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"gameEquipment",
                          "type":"string",
                          "value":"swedish_sofa"
-                        },
+                        }, 
                         {
                          "name":"isoShiftHitboxY",
                          "type":"int",
                          "value":0
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
                          "value":24
-                        },
+                        }, 
                         {
                          "name":"sitAnimation",
                          "type":"string",
                          "value":"sit_front"
-                        },
+                        }, 
                         {
                          "name":"sitAutoTrigger",
                          "type":"bool",
                          "value":false
-                        },
+                        }, 
                         {
                          "name":"sitDepth",
                          "type":"int",
                          "value":1
-                        },
+                        }, 
                         {
                          "name":"sitFlip",
                          "type":"bool",
                          "value":false
                         },
-
+                    
                         {
                          "name":"sitX",
                          "type":"float",
                          "value":-8
-                        },
+                        }, 
                         {
                          "name":"sitY",
                          "type":"float",
@@ -535,7 +540,7 @@
                  "width":42,
                  "x":37.5,
                  "y":101.5
-                },
+                }, 
                 {
                  "gid":2147483719,
                  "height":31,
@@ -546,22 +551,22 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
-                        },
+                        }, 
                         {
                          "name":"flipX",
                          "type":"int",
                          "value":5
-                        },
+                        }, 
                         {
                          "name":"gameEquipment",
                          "type":"string",
                          "value":"jukebox"
-                        },
+                        }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
-                        },
+                        }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
@@ -585,7 +590,7 @@
          "visible":true,
          "x":0,
          "y":0
-        },
+        }, 
         {
          "draworder":"topdown",
          "id":6,
@@ -601,7 +606,7 @@
  "nextobjectid":37,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -622,19 +627,19 @@
                         {
                          "duration":1500,
                          "tileid":0
-                        },
+                        }, 
                         {
                          "duration":1500,
                          "tileid":1
                         }],
                  "id":0
-                },
+                }, 
                 {
                  "animation":[
                         {
                          "duration":1500,
                          "tileid":2
-                        },
+                        }, 
                         {
                          "duration":1500,
                          "tileid":3
@@ -642,7 +647,7 @@
                  "id":2
                 }],
          "tilewidth":14
-        },
+        }, 
         {
          "columns":8,
          "firstgid":5,
@@ -661,67 +666,67 @@
                         {
                          "duration":100,
                          "tileid":0
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":1
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":2
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":3
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":4
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":5
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":6
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":7
                         }],
                  "id":0
-                },
+                }, 
                 {
                  "animation":[
                         {
                          "duration":100,
                          "tileid":8
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":9
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":10
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":11
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":12
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":13
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":14
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":15
@@ -729,7 +734,7 @@
                  "id":8
                 }],
          "tilewidth":86
-        },
+        }, 
         {
          "columns":5,
          "firstgid":21,
@@ -748,19 +753,19 @@
                         {
                          "duration":1000,
                          "tileid":0
-                        },
+                        }, 
                         {
                          "duration":1000,
                          "tileid":1
                         }],
                  "id":0
-                },
+                }, 
                 {
                  "animation":[
                         {
                          "duration":1000,
                          "tileid":2
-                        },
+                        }, 
                         {
                          "duration":1000,
                          "tileid":3
@@ -768,7 +773,7 @@
                  "id":2
                 }],
          "tilewidth":32
-        },
+        }, 
         {
          "columns":1,
          "firstgid":26,
@@ -787,7 +792,7 @@
                         {
                          "duration":50,
                          "tileid":0
-                        },
+                        }, 
                         {
                          "duration":50,
                          "tileid":1
@@ -795,7 +800,7 @@
                  "id":0
                 }],
          "tilewidth":107
-        },
+        }, 
         {
          "columns":14,
          "firstgid":28,
@@ -814,109 +819,109 @@
                         {
                          "duration":300,
                          "tileid":0
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":1
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":2
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":3
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":4
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":5
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":6
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":7
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":8
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":9
                         },
-
+                    
                         {
                          "duration":300,
                          "tileid":10
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":11
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":12
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":13
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":12
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":11
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":10
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":9
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":8
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":7
                         },
-
+                    
                         {
                          "duration":300,
                          "tileid":6
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":5
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":4
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":3
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":2
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":1
-                        },
+                        }, 
                         {
                          "duration":300,
                          "tileid":0
@@ -924,7 +929,7 @@
                  "id":0
                 }],
          "tilewidth":25
-        },
+        }, 
         {
          "columns":4,
          "firstgid":42,
@@ -938,7 +943,7 @@
          "tilecount":4,
          "tileheight":40,
          "tilewidth":33
-        },
+        }, 
         {
          "columns":5,
          "firstgid":46,
@@ -963,91 +968,91 @@
                         {
                          "duration":100,
                          "tileid":0
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":1
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":2
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":3
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":4
                         }],
                  "id":0
-                },
+                }, 
                 {
                  "animation":[
                         {
                          "duration":100,
                          "tileid":5
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":6
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":7
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":8
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":9
                         }],
                  "id":5
-                },
+                }, 
                 {
                  "animation":[
                         {
                          "duration":100,
                          "tileid":10
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":11
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":12
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":13
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":14
                         }],
                  "id":10
-                },
+                }, 
                 {
                  "animation":[
                         {
                          "duration":100,
                          "tileid":15
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":16
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":17
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":18
-                        },
+                        }, 
                         {
                          "duration":100,
                          "tileid":19
@@ -1055,7 +1060,7 @@
                  "id":15
                 }],
          "tilewidth":64
-        },
+        }, 
         {
          "columns":5,
          "firstgid":66,
@@ -1069,7 +1074,7 @@
          "tilecount":5,
          "tileheight":37,
          "tilewidth":42
-        },
+        }, 
         {
          "columns":1,
          "firstgid":71,
@@ -1083,7 +1088,7 @@
          "tilecount":1,
          "tileheight":31,
          "tilewidth":20
-        },
+        }, 
         {
          "columns":15,
          "firstgid":72,

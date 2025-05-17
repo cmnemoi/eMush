@@ -8,7 +8,7 @@ import { Equipment } from "@/entities/Equipment";
 import EquipmentObject from "@/game/objects/equipmentObject";
 import ShelfObject from "@/game/objects/shelfObject";
 import { Skin } from "@/entities/Skin";
-import { skinEnum } from "../../../public/phaser/skin.enum";
+import { skinEnum, FrameTransformation, SkinInfo, SkinEnum } from "../../../public/phaser/skin.enum";
 import { characterEnum } from "@/enums/character";
 
 export default class mushTextureProperties {
@@ -19,6 +19,7 @@ export default class mushTextureProperties {
     public frames: number[];
     public frameRate: number;
     public replayDelay: number;
+    public isDisplayed: boolean;
 
     constructor() {
         this.textureName = '';
@@ -29,11 +30,13 @@ export default class mushTextureProperties {
         this.frameRate = 0;
         this.replayDelay = 0;
         this.frames = [];
+        this.isDisplayed = true;
     }
 
     setTexturesProperties(
         tiledObj: Phaser.Types.Tilemaps.TiledObject,
-        tileset: Phaser.Tilemaps.Tileset
+        tileset: Phaser.Tilemaps.Tileset,
+        isSkin: boolean
     )
     {
         if (tiledObj.gid === undefined){
@@ -56,6 +59,9 @@ export default class mushTextureProperties {
             const animation = tiledData.animation;
             this.generateFramesFromAnimation(animation);
         }
+        if (isSkin) {
+            this.isDisplayed = false;
+        }
     }
 
 
@@ -77,28 +83,48 @@ export default class mushTextureProperties {
             return;
         }
         const skinInfo = skinEnum[skinName];
-
-        const frameChanges = skinInfo.frameChanges;
-        this.replaceTexture(frameChanges);
-
-        const newAnimation = skinInfo.animationChange;
-        if (!newAnimation) {
+        if (skinInfo === undefined) {
             return;
-        } else {
-            this.generateFramesFromAnimation(newAnimation);
+        }
+
+        const newFrame = this.getSkinTransformation(skinInfo);
+        if (newFrame === undefined) {
+            return;
+        }
+
+        const type = skinInfo.type;
+        switch (type) {
+          case SkinEnum.TYPE_REPLACE:
+            this.replaceTexture(skinInfo);
+            break;
+          case SkinEnum.TYPE_HIDE:
+            this.isDisplayed = false;
+            break;
+          case SkinEnum.TYPE_SHOW:
+            this.isDisplayed = true;
         }
     }
 
-    replaceTexture(frameChanges: Array<{ initialFrame: string, newFrame: string }>): string
+    getSkinTransformation(skinInfo: SkinInfo): FrameTransformation
     {
-        for (let i = 0; i < frameChanges.length; i++) {
-            if (frameChanges[i].initialFrame === this.frameKey) {
-                this.frameKey = frameChanges[i].newFrame;
-                this.firstFrameKey = frameChanges[i].newFrame;
+        return skinInfo.frameChanges[this.frameKey];
+    }
 
-                return this.frameKey;
-            }
+    replaceTexture(skinInfo: SkinInfo): string
+    {
+        const newFrame = this.getSkinTransformation(skinInfo);
+        if (newFrame !== undefined) {
+            this.frameKey = newFrame.newFrame;
+            this.firstFrameKey = newFrame.newFrame;
         }
+
+        const newAnimation = skinInfo.animationChange;
+        if (!newAnimation) {
+            return this.frameKey;
+        } else {
+            this.generateFramesFromAnimation(newAnimation);
+        }
+
         return this.frameKey;
     }
 

@@ -21,9 +21,10 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\MetaGame\Entity\Skin\SkinSlot;
+use Mush\MetaGame\Enum\SkinEnum;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -80,6 +81,8 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         $definition = $this->getDefinition($equipment, $key, $type, $language);
 
+        $skins = $this->getProjectSkins($equipment);
+
         $normalizedEquipment = [
             'id' => $equipment->getId(),
             'key' => $key,
@@ -87,7 +90,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'description' => $definition,
             'statuses' => $statuses,
             'actions' => $this->getNormalizedActions($equipment, ActionHolderEnum::EQUIPMENT, $currentPlayer, $format, $context),
-            'skins' => $this->normalizeSkins($equipment),
+            'skins' => $skins,
             'effects' => $this->getEquipmentEffects($equipment, $currentPlayer),
         ];
 
@@ -321,24 +324,23 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         return $description;
     }
 
-    private function normalizeSkins(GameEquipment $equipment): array
+    private function getProjectSkins(GameEquipment $equipment): array
     {
-        $skins = [];
+        $daedalus = $equipment->getDaedalus();
 
-        /** @var SkinSlot $slot */
-        foreach ($equipment->getSkinSlots() as $slot) {
-            if (($skin = $slot->getSkin()) !== null) {
-                $skins[] = [
-                    'skinSlotName' => $slot->getName(),
-                    'skinName' => $skin->getName(),
-                    'skinPriority' => $skin->getSkinSlotConfig()->getPriority(),
-                ];
-            }
+        $skinMap = SkinEnum::getProjectEquipmentsSkins();
+        $equipmentKey = $equipment->getName();
+        if (!\array_key_exists($equipmentKey, $skinMap)) {
+            return [];
         }
 
-        usort($skins, static function ($a, $b) {
-            return $a['skinPriority'] <=> $b['skinPriority'];
-        });
+        $skins = [];
+        $placeSkins = $skinMap[$equipmentKey];
+        foreach ($placeSkins as $project => $skin) {
+            if ($daedalus->hasFinishedProject(ProjectName::from($project))) {
+                $skins[] = ['skinName' => $skin];
+            }
+        }
 
         return $skins;
     }

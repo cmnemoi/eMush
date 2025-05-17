@@ -13,6 +13,7 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import InteractObject, { InteractionInformation } from "@/game/objects/interactObject";
 import PatrolShipObject from "@/game/objects/patrolShipObject";
 import mushTextureProperties from "@/game/tiled/mushTextureProperties";
+import { Skin } from "@/entities/Skin";
 
 export default class MushTiledObject {
     public tiledObj: Phaser.Types.Tilemaps.TiledObject;
@@ -54,17 +55,26 @@ export default class MushTiledObject {
     createPhaserObject(
         scene: DaedalusScene,
         equipmentEntity: Door | Equipment | undefined,
+        skins: Skin[],
         group: Phaser.GameObjects.Group | null = null
-    ): DecorationObject
+    ): DecorationObject | undefined
     {
         //object coordinates are stored in tiled in iso coords
         //to correctly place them in phaser we need the cartesian coordinates
         const cart_coords = this.getObjectCartesianCoordinates();
 
-        const textureProperties = new mushTextureProperties();
-        textureProperties.setTexturesProperties(this.tiledObj, this.tileset);
+        const isSkin = this.isCustomPropertyByName('skin');
 
-        const frame = this.tiledObj.name;
+        const textureProperties = new mushTextureProperties();
+        textureProperties.setTexturesProperties(this.tiledObj, this.tileset, isSkin);
+
+        for (let i = 0; i < skins.length; i++) {
+            textureProperties.addSkin(skins[i]);
+        }
+        if (!textureProperties.isDisplayed) {
+            return;
+        }
+
         const name = this.tiledObj.name;
 
         const collides = this.isCustomPropertyByName('collides');
@@ -118,10 +128,6 @@ export default class MushTiledObject {
             );
         case 'equipment':
             if (equipmentEntity instanceof Equipment) {
-                const skins = equipmentEntity.skins;
-                for (let i = 0; i < skins.length; i++) {
-                    textureProperties.addSkin(skins[i]);
-                }
                 return new EquipmentObject(
                     scene,
                     name,
@@ -174,7 +180,7 @@ export default class MushTiledObject {
 
     isCustomPropertyByName(property: string): boolean
     {
-        const existingKeys = ['grouped', 'collides', 'isOnFront'];
+        const existingKeys = ['grouped', 'collides', 'isOnFront', 'skin'];
         if (existingKeys.includes(property)) {
             for (let i = 0; i < this.tiledObj.properties.length; i++) {
                 if (this.tiledObj.properties[i].name === property) {

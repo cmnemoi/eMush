@@ -50,140 +50,184 @@ export enum SkinEnum {
     MAGNETIC_RETURN = "magnetic_return",
     QUANTUM_SENSOR = "quantum_sensor",
     TAKEOFF_PLATFORM_PROPULSION = "takeoff_platform_propulsion",
-    WALL_BOX = "wall_box",
+    AUTO_WATERING = "auto_watering",
     PNEUMATIC_DISTRIBUTOR = "pneumatic_distributor",
     TYPE_REPLACE = "type_replace",
     TYPE_HIDE = "type_hide",
     TYPE_SHOW = "type_show",
 }
 
+
+export interface FrameTransformation {
+    initialFrame: string,
+    newFrame: string
+}
 export interface SkinInfo {
     key: string,
-    frameChanges: Array<{ type: string, initialFrame: string, newFrame: string }>,
+    type: string,
+    frameChanges: { [index: string]: FrameTransformation },
     animationChange?: [{ duration: number, tileid: number }]
 }
 
 // Skins are applied in alphabetical order of the skin slots
-export const skinEnum : {[index: string]: SkinInfo}  = {
+export const skinEnum: { [index: string]: SkinInfo } = {
     [SkinEnum.JANICE_SEXY]: {
         key: 'janiceSexy',
-        frameChanges: [{ type: SkinEnum.TYPE_REPLACE, initialFrame: 'janice', newFrame: 'janice_sexy' }],
-        animationChange: undefined,
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['janice']: { initialFrame: 'janice', newFrame: 'janice_sexy' }
+        },
+        animationChange: undefined
     },
     [SkinEnum.NERON_CORE_PARTICIPATION]: {
         key: 'neron_core_participation',
-        frameChanges: [{ type: SkinEnum.TYPE_REPLACE, initialFrame: 'neron_core', newFrame: 'neron_core-participation' }],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['neron_core']: { initialFrame: 'neron_core', newFrame: 'neron_core-participation' }
+        },
         animationChange: undefined
     },
     [SkinEnum.NERON_PARTICIPATION_AUXILIARY_TERMINAL]: {
         key: 'neron_participation_auxiliary_terminal',
-        frameChanges: [{ type: SkinEnum.TYPE_REPLACE, initialFrame: 'neron_terminal', newFrame: 'neron_terminal-participation' }],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['neron_terminal']: { initialFrame: 'neron_terminal', newFrame: 'neron_terminal-participation' }
+        },
         animationChange: undefined
     },
     [SkinEnum.ICARUS_THRUSTER]: {
         key: 'icarus_thruster',
-        frameChanges: [{ type: SkinEnum.TYPE_REPLACE, initialFrame: 'icarus', newFrame: 'icarus-thrusters' }],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['icarus']: { initialFrame: 'icarus', newFrame: 'icarus-thrusters' }
+        },
         animationChange: undefined
     },
     [SkinEnum.ICARUS_LARGE]: {
         key: 'icarus_large',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'icarus', newFrame: 'icarus-large' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'icarus-thrusters', newFrame: 'icarus-thrusters-large' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['icarus']: { initialFrame: 'icarus', newFrame: 'icarus-large' },
+            ['icarus-thrusters']: { initialFrame: 'icarus-thrusters', newFrame: 'icarus-thrusters-large' }
+        },
         animationChange: undefined
     },
     [SkinEnum.ICARUS_RED_BLACK]: {
         key: 'icarus_red_black',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'icarus', newFrame: 'icarus-red_black' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'icarus-thrusters', newFrame: 'icarus-thrusters-red_black' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'icarus-large', newFrame: 'icarus-large-red_black' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'icarus-thrusters-large', newFrame: 'icarus-thrusters-large-red_black' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['icarus']: { initialFrame: 'icarus', newFrame: 'icarus-red_black' },
+            ['icarus-thrusters']: { initialFrame: 'icarus-thrusters', newFrame: 'icarus-thrusters-red_black' },
+            ['icarus-large']: { initialFrame: 'icarus-large', newFrame: 'icarus-large-red_black' },
+            ['icarus-thrusters-large']: { initialFrame: 'icarus-thrusters-large', newFrame: 'icarus-thrusters-large-red_black' }
+        },
         animationChange: undefined
     },
     [SkinEnum.KITCHEN_APERO]: {
         key: 'kitchen_apero',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'kitchen_part_1', newFrame: 'kitchen_part_1-apero' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'kitchen_part_2', newFrame: 'kitchen_part_2-apero' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['kitchen_part_1']: { initialFrame: 'kitchen_part_1', newFrame: 'kitchen_part_1-apero' },
+            ['kitchen_part_2']: { initialFrame: 'kitchen_part_2', newFrame: 'kitchen_part_2-apero' }
+        },
         animationChange: undefined
     },
     [SkinEnum.ANTENNA_SPATIAL_WAVE]: {
         key: 'antenna_spatial_waves',
-        frameChanges: [{ type: SkinEnum.TYPE_REPLACE, initialFrame: 'antenna', newFrame: 'antenna_spatial_waves' }],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['antenna']: { initialFrame: 'antenna', newFrame: 'antenna_spatial_waves' }
+        },
         animationChange: undefined
     },
     [SkinEnum.TURRET_TESLA]: {
         key: 'turret_tesla',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'alpha_turret-north', newFrame: 'alpha_turret-north-tesla' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'alpha_turret-west', newFrame: 'alpha_turret-west-tesla' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'bravo_turret-south', newFrame: 'bravo_turret-south-tesla' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'bravo_turret-east', newFrame: 'bravo_turret-east-tesla' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['alpha_turret-north']: { initialFrame: 'alpha_turret-north', newFrame: 'alpha_turret-north-tesla' },
+            ['alpha_turret-west']: { initialFrame: 'alpha_turret-west', newFrame: 'alpha_turret-west-tesla' },
+            ['bravo_turret-south']: { initialFrame: 'bravo_turret-south', newFrame: 'bravo_turret-south-tesla' },
+            ['bravo_turret-east']: { initialFrame: 'bravo_turret-east', newFrame: 'bravo_turret-east-tesla' }
+        },
         animationChange: undefined
     },
     [SkinEnum.TURRET_CHARGES]: {
         key: 'turret_charges',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'alpha_turret-north', newFrame: 'alpha_turret-north-charges' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'alpha_turret-west', newFrame: 'alpha_turret-west-charges' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'bravo_turret-south', newFrame: 'bravo_turret-south-charges' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'bravo_turret-east', newFrame: 'bravo_turret-east-charges' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'alpha_turret-north-tesla', newFrame: 'alpha_turret-north-tesla-charges' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'alpha_turret-west-tesla', newFrame: 'alpha_turret-west-tesla-charges' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'bravo_turret-south-tesla', newFrame: 'bravo_turret-south-tesla-charges' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'bravo_turret-east-tesla', newFrame: 'bravo_turret-east-tesla-charges' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['alpha_turret-north']: { initialFrame: 'alpha_turret-north', newFrame: 'alpha_turret-north-charges' },
+            ['alpha_turret-west']: { initialFrame: 'alpha_turret-west', newFrame: 'alpha_turret-west-charges' },
+            ['bravo_turret-south']: { initialFrame: 'bravo_turret-south', newFrame: 'bravo_turret-south-charges' },
+            ['bravo_turret-east']: { initialFrame: 'bravo_turret-east', newFrame: 'bravo_turret-east-charges' },
+            ['alpha_turret-north-tesla']: { initialFrame: 'alpha_turret-north-tesla', newFrame: 'alpha_turret-north-tesla-charges' },
+            ['alpha_turret-west-tesla']: { initialFrame: 'alpha_turret-west-tesla', newFrame: 'alpha_turret-west-tesla-charges' },
+            ['bravo_turret-south-tesla']: { initialFrame: 'bravo_turret-south-tesla', newFrame: 'bravo_turret-south-tesla-charges' },
+            ['bravo_turret-east-tesla']: { initialFrame: 'bravo_turret-east-tesla', newFrame: 'bravo_turret-east-tesla-charges' }
+        },
         animationChange: undefined
     },
     [SkinEnum.COFFEE_MACHINE_FISSION]: {
         key: 'coffee_machine_fission',
-        frameChanges: [{ type: SkinEnum.TYPE_REPLACE, initialFrame: 'coffee_machine', newFrame: 'coffee_machine-fission' }],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['coffee_machine']: { initialFrame: 'coffee_machine', newFrame: 'coffee_machine-fission' }
+        },
         animationChange: undefined
     },
     [SkinEnum.COFFEE_MACHINE_GUARANA]: {
         key: 'coffee_machine_guarana',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'coffee_machine', newFrame: 'coffee_machine-guarana' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'coffee_machine-fission', newFrame: 'coffee_machine-fission-guarana' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['coffee_machine']: { initialFrame: 'coffee_machine', newFrame: 'coffee_machine-guarana' },
+            ['coffee_machine-fission']: { initialFrame: 'coffee_machine-fission', newFrame: 'coffee_machine-fission-guarana' }
+        },
         animationChange: undefined
     },
     [SkinEnum.PATROL_SHIP_TELSATRON]: {
         key: 'patrol_ship_telsatron',
-        frameChanges: [{ type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship', newFrame: 'patrol_ship-telsatron' }],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['patrol_ship']: { initialFrame: 'patrol_ship', newFrame: 'patrol_ship-telsatron' }
+        },
         animationChange: undefined
     },
     [SkinEnum.PATROL_SHIP_BLASTER]: {
         key: 'patrol_ship_blaster',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship', newFrame: 'patrol_ship-blaster' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship-blaster', newFrame: 'patrol_ship-blaster-telsatron' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['patrol_ship']: { initialFrame: 'patrol_ship', newFrame: 'patrol_ship-blaster' },
+            ['patrol_ship-blaster']: { initialFrame: 'patrol_ship-blaster', newFrame: 'patrol_ship-blaster-telsatron' }
+        },
         animationChange: undefined
     },
     [SkinEnum.PATROL_SHIP_GOLD]: {
         key: 'patrol_ship_gold',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship', newFrame: 'patrol_ship-gold' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship-blaster', newFrame: 'patrol_ship-gold-blaster' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship-telsatron', newFrame: 'patrol_ship-gold-telsatron' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship-blaster-telsatron', newFrame: 'patrol_ship-gold-blaster-telsatron' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['patrol_ship']: { initialFrame: 'patrol_ship', newFrame: 'patrol_ship-gold' },
+            ['patrol_ship-blaster']: { initialFrame: 'patrol_ship-blaster', newFrame: 'patrol_ship-gold-blaster' },
+            ['patrol_ship-telsatron']: { initialFrame: 'patrol_ship-telsatron', newFrame: 'patrol_ship-gold-telsatron' },
+            ['patrol_ship-blaster-telsatron']: { initialFrame: 'patrol_ship-blaster-telsatron', newFrame: 'patrol_ship-gold-blaster-telsatron' }
+        },
         animationChange: undefined
     },
     [SkinEnum.PATROL_SHIP_RED_BLACK]: {
         key: 'patrol_ship_red_black',
-        frameChanges: [
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship', newFrame: 'patrol_ship-red_black' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship-blaster', newFrame: 'patrol_ship-red_black-blaster' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship-telsatron', newFrame: 'patrol_ship-red_black-telsatron' },
-            { type: SkinEnum.TYPE_REPLACE, initialFrame: 'patrol_ship-blaster-telsatron', newFrame: 'patrol_ship-red_black-blaster-telsatron' }
-        ],
+        type: SkinEnum.TYPE_REPLACE,
+        frameChanges: {
+            ['patrol_ship']: { initialFrame: 'patrol_ship', newFrame: 'patrol_ship-red_black' },
+            ['patrol_ship-blaster']: { initialFrame: 'patrol_ship-blaster', newFrame: 'patrol_ship-red_black-blaster' },
+            ['patrol_ship-telsatron']: { initialFrame: 'patrol_ship-telsatron', newFrame: 'patrol_ship-red_black-telsatron' },
+            ['patrol_ship-blaster-telsatron']: { initialFrame: 'patrol_ship-blaster-telsatron', newFrame: 'patrol_ship-red_black-blaster-telsatron' }
+        },
         animationChange: undefined
     },
+    [SkinEnum.AUTO_WATERING]: {
+        key: 'auto_watering',
+        type: SkinEnum.TYPE_SHOW,
+        frameChanges: {
+            ['wall_box']: { initialFrame: 'wall_box', newFrame: 'wall_box' }
+        },
+        animationChange: undefined
+    }
 };

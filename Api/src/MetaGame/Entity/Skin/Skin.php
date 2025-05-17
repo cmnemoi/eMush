@@ -3,6 +3,9 @@
 namespace Mush\MetaGame\Entity\Skin;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Place\Entity\PlaceConfig;
+use Mush\Player\Entity\Config\CharacterConfig;
 
 /**
  * An entity that stores a visual appearance for a SkinableEntityInterface (Player, Equipment, Place).
@@ -19,8 +22,14 @@ class Skin
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name = 'default';
 
-    #[ORM\ManyToOne(targetEntity: SkinSlotConfig::class)]
-    private SkinSlotConfig $skinSlotConfig;
+    #[ORM\ManyToOne(targetEntity: CharacterConfig::class, inversedBy: 'skins')]
+    private ?CharacterConfig $characterConfig;
+
+    #[ORM\ManyToOne(targetEntity: EquipmentConfig::class, inversedBy: 'skins')]
+    private ?EquipmentConfig $equipmentConfig;
+
+    #[ORM\ManyToOne(targetEntity: PlaceConfig::class, inversedBy: 'skins')]
+    private ?PlaceConfig $placeConfig;
 
     public function getId(): int
     {
@@ -39,20 +48,29 @@ class Skin
         return $this;
     }
 
-    public function getSkinSlotName(): string
+    public function getSkinableEntity(): CharacterConfig|EquipmentConfig|PlaceConfig
     {
-        return $this->skinSlotConfig->getName();
+        $skinableEntity = $this->characterConfig ?? $this->equipmentConfig ?? $this->placeConfig;
+        if ($skinableEntity === null) {
+            throw new \RuntimeException('cannot find the skinable entity');
+        }
+
+        return $skinableEntity;
     }
 
-    public function setSkinSlotConfig(SkinSlotConfig $skinSlotConfig): self
+    public function setSkinableEntity(CharacterConfig|EquipmentConfig|PlaceConfig $skinableEntity): self
     {
-        $this->skinSlotConfig = $skinSlotConfig;
+        $this->characterConfig = null;
+        $this->equipmentConfig = null;
+
+        if ($skinableEntity instanceof CharacterConfig) {
+            $this->characterConfig = $skinableEntity;
+        } elseif ($skinableEntity instanceof EquipmentConfig) {
+            $this->equipmentConfig = $skinableEntity;
+        } else {
+            $this->placeConfig = $skinableEntity;
+        }
 
         return $this;
-    }
-
-    public function getSkinSlotConfig(): SkinSlotConfig
-    {
-        return $this->skinSlotConfig;
     }
 }

@@ -98,6 +98,12 @@ export default class MushTiledMap {
 
             const objEntity = obj.getEquipmentFromTiledObject(room, addedObjectId);
 
+            let skins = [];
+            if (objEntity !== undefined) {
+                skins = objEntity.skins;
+            } else {
+                skins = room.skins;
+            }
             //if the equipment is present according to the API
             if (!(
                 (obj.tiledObj.type === 'equipment' || obj.tiledObj.type === 'drone')
@@ -105,23 +111,24 @@ export default class MushTiledMap {
             )) {
                 const group = this.getGroupOfObject(obj);
 
-                const newObject = obj.createPhaserObject(this.scene, objEntity, group);
+                const newObject = obj.createPhaserObject(this.scene, objEntity, skins, group);
 
-                // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
-                const fixedDepth = obj.getCustomPropertyNumberByName('depth');
-                const isCollision = obj.isCustomPropertyByName('collides');
+                if (newObject !== undefined) {
+                    // some equipment have depth already fixed (stuff on the wall, doors, flat things on the ground)
+                    const fixedDepth = obj.getCustomPropertyNumberByName('depth');
+                    if (fixedDepth !== 0) {
+                        newObject.setDepth(this.computeFixedDepth(fixedDepth));
+                    }
+                    
+                    const isCollision = obj.isCustomPropertyByName('collides');
+                    if (isCollision || fixedDepth === 0) {
+                        sceneGrid.addObject(newObject);
+                    }
 
-                if (fixedDepth !== 0) {
-                    newObject.setDepth(this.computeFixedDepth(fixedDepth));
-                }
-
-                if (isCollision || fixedDepth === 0) {
-                    sceneGrid.addObject(newObject);
-                }
-
-                if (newObject instanceof EquipmentObject) {
-                    addedObjectId.push(newObject.equipment.id);
-                    this.equipments.push(newObject);
+                    if (newObject instanceof EquipmentObject) {
+                        addedObjectId.push(newObject.equipment.id);
+                        this.equipments.push(newObject);
+                    }
                 }
             }
         }

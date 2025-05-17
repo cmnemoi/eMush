@@ -13,9 +13,10 @@ use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\MetaGame\Entity\Skin\SkinSlot;
+use Mush\MetaGame\Enum\SkinEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -113,7 +114,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             'items' => !$currentPlayerIsFocused ? $normalizedItems : [],
             'equipments' => !$currentPlayerIsFocused ? $normalizedEquipments : [],
             'type' => $room->getType(),
-            'skins' => $this->normalizeSkins($room),
+            'skins' => $this->getProjectSkins($room),
         ];
     }
 
@@ -379,17 +380,28 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         return new ArrayCollection($items);
     }
 
-    private function normalizeSkins(Place $place): array
+    private function getProjectSkins(Place $place): array
     {
         $skins = [];
+        $daedalus = $place->getDaedalus();
 
-        /** @var SkinSlot $slot */
-        foreach ($place->getSkinSlots() as $slot) {
-            if (($skin = $slot->getSkin()) !== null) {
-                $skins[] = [
-                    'skinSlotName' => $slot->getName(),
-                    'skinName' => $skin->getName(),
-                ];
+        $skinMap = SkinEnum::getProjectPlacesSkins();
+
+        $placeSkins = $skinMap[SkinEnum::ALL_ROOM];
+        foreach ($placeSkins as $project => $skin) {
+            if ($daedalus->hasFinishedProject(ProjectName::from($project))) {
+                $skins[] = ['skinName' => $skin];
+            }
+        }
+
+        $placeKey = $place->getName();
+        if (!\array_key_exists($placeKey, $skinMap)) {
+            return $skins;
+        }
+        $placeSkins = $skinMap[$placeKey];
+        foreach ($placeSkins as $project => $skin) {
+            if ($daedalus->hasFinishedProject(ProjectName::from($project))) {
+                $skins[] = ['skinName' => $skin];
             }
         }
 

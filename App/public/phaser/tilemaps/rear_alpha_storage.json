@@ -519,6 +519,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",

@@ -9,8 +9,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\MetaGame\Entity\Skin\SkinableConfigInterface;
-use Mush\MetaGame\Entity\Skin\SkinSlotConfig;
+use Mush\MetaGame\Entity\Skin\Skin;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Entity\SkillConfigCollection;
@@ -18,7 +17,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'character_config')]
-class CharacterConfig implements SkinableConfigInterface
+class CharacterConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -82,8 +81,8 @@ class CharacterConfig implements SkinableConfigInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $initMovementPoint = 0;
 
-    #[ORM\ManyToMany(targetEntity: SkinSlotConfig::class, cascade: ['REMOVE'], orphanRemoval: true)]
-    private Collection $skinSlotsConfig;
+    #[ORM\ManyToMany(targetEntity: Skin::class, mappedBy: 'characterConfig', cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $skins;
 
     public function __construct()
     {
@@ -92,7 +91,7 @@ class CharacterConfig implements SkinableConfigInterface
         $this->startingItems = new ArrayCollection();
         $this->initDiseases = new ArrayCollection();
         $this->skillConfigs = new ArrayCollection();
-        $this->skinSlotsConfig = new ArrayCollection();
+        $this->skins = new ArrayCollection();
     }
 
     public static function fromConfigData(array $data): self
@@ -399,21 +398,21 @@ class CharacterConfig implements SkinableConfigInterface
         return $this;
     }
 
-    public function getSkinSlotsConfig(): ArrayCollection
+    public function getSkins(): ArrayCollection
     {
-        return new ArrayCollection($this->skinSlotsConfig->toArray());
+        return new ArrayCollection($this->skins->toArray());
     }
 
-    public function addSkinSlot(SkinSlotConfig $skinSlotConfig): static
+    public function addSlot(Skin $skin): static
     {
-        $this->skinSlotsConfig->add($skinSlotConfig);
+        $this->skins->add($skin);
 
         return $this;
     }
 
-    public function setSkinSlotsConfig(ArrayCollection $skinSlotsConfig): static
+    public function setSkins(ArrayCollection $skins): static
     {
-        $this->skinSlotsConfig = $skinSlotsConfig;
+        $this->skins = $skins;
 
         return $this;
     }

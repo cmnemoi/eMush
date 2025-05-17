@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
-use Mush\MetaGame\Entity\Skin\Skin;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
@@ -49,9 +48,6 @@ class ProjectConfig
     #[ORM\ManyToMany(targetEntity: ProjectRequirement::class, fetch: 'EAGER')]
     private Collection $requirements;
 
-    #[ORM\ManyToMany(targetEntity: Skin::class)]
-    private Collection $skins;
-
     public function __construct(
         ProjectName $name = ProjectName::NULL,
         ProjectType $type = ProjectType::NULL,
@@ -73,7 +69,6 @@ class ProjectConfig
         $this->spawnEquipmentConfigs = new ArrayCollection($spawnEquipmentConfigs);
         $this->replaceEquipmentConfigs = new ArrayCollection($replaceEquipmentConfigs);
         $this->requirements = new ArrayCollection($requirements);
-        $this->skins = new ArrayCollection($skins);
     }
 
     /** @return Collection<int, ProjectRequirement> */
@@ -127,11 +122,6 @@ class ProjectConfig
         return $this->replaceEquipmentConfigs;
     }
 
-    public function getSkins(): Collection
-    {
-        return $this->skins;
-    }
-
     public function updateFromConfigData(array $configData): void
     {
         $this->name = $configData['name'];
@@ -143,6 +133,5 @@ class ProjectConfig
         $this->spawnEquipmentConfigs = new ArrayCollection($configData['spawnEquipmentConfigs']);
         $this->replaceEquipmentConfigs = new ArrayCollection($configData['replaceEquipmentConfigs']);
         $this->requirements = new ArrayCollection($configData['requirements']);
-        $this->skins = new ArrayCollection($configData['skins']);
     }
 }

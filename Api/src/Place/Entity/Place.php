@@ -19,9 +19,6 @@ use Mush\Equipment\Entity\SpaceShip;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
-use Mush\MetaGame\Entity\Skin\SkinableEntityInterface;
-use Mush\MetaGame\Entity\Skin\SkinableEntityTrait;
-use Mush\MetaGame\Entity\Skin\SkinSlot;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -50,7 +47,6 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface, SkinableEntityInterface
 {
     use ModifierHolderTrait;
-    use SkinableEntityTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -86,9 +82,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     #[ORM\OneToMany(mappedBy: 'space', targetEntity: Hunter::class, cascade: ['REMOVE'], orphanRemoval: true)]
     private Collection $hunters;
 
-    #[ORM\OneToMany(mappedBy: 'place', targetEntity: SkinSlot::class, cascade: ['ALL'])]
-    private Collection $skinSlots;
-
     public function __construct()
     {
         $this->players = new PlayerCollection();
@@ -97,7 +90,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         $this->statuses = new ArrayCollection();
         $this->modifiers = new ModifierCollection();
         $this->hunters = new ArrayCollection();
-        $this->skinSlots = new ArrayCollection();
     }
 
     public static function createRoomByName(string $name): self
@@ -122,8 +114,7 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     {
         $place = self::createRoomByName($placeConfig->getPlaceName());
         $place
-            ->setType($placeConfig->getType())
-            ->initializeSkinSlots($placeConfig);
+            ->setType($placeConfig->getType());
 
         return $place;
     }

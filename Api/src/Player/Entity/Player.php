@@ -40,9 +40,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
-use Mush\MetaGame\Entity\Skin\SkinableEntityInterface;
-use Mush\MetaGame\Entity\Skin\SkinableEntityTrait;
-use Mush\MetaGame\Entity\Skin\SkinSlot;
+use Mush\MetaGame\Entity\Skin\Skin;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
@@ -88,7 +86,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface, SkinableEntityInterface
 {
     use ModifierHolderTrait;
-    use SkinableEntityTrait;
     use TargetStatusTrait;
     use TimestampableEntity;
 
@@ -159,8 +156,8 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[OrderBy(['createdAt' => Order::Descending->value])]
     private Collection $receivedMissions;
 
-    #[ORM\OneToMany(mappedBy: 'player', targetEntity: SkinSlot::class, cascade: ['ALL'])]
-    private Collection $skinSlots;
+    #[ORM\ManyToOne(targetEntity: Skin::class, cascade: ['ALL'])]
+    private ?Skin $skin;
 
     public function __construct()
     {
@@ -175,7 +172,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $this->lastActionDate = new \DateTime();
         $this->notifications = new ArrayCollection();
         $this->receivedMissions = new ArrayCollection();
-        $this->skinSlots = new ArrayCollection();
+        $this->skin = null;
     }
 
     public static function createNull(): self
@@ -1407,6 +1404,18 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function addPlayerHighlight(PlayerHighlight $playerHighlight): static
     {
         $this->playerInfo->addPlayerHighlight($playerHighlight);
+
+        return $this;
+    }
+
+    public function getSkin(): ?Skin
+    {
+        return $this->skin;
+    }
+
+    public function setSkin(Skin $skin): static
+    {
+        $this->skin = $skin;
 
         return $this;
     }

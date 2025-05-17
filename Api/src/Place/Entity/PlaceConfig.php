@@ -5,15 +5,14 @@ namespace Mush\Place\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Mush\MetaGame\Entity\Skin\SkinableConfigInterface;
-use Mush\MetaGame\Entity\Skin\SkinSlotConfig;
+use Mush\MetaGame\Entity\Skin\Skin;
 use Mush\Place\Enum\PlaceTypeEnum;
 
 /**
  * @ORM\Entity()
  */
 #[ORM\Entity]
-class PlaceConfig implements SkinableConfigInterface
+class PlaceConfig
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,15 +37,15 @@ class PlaceConfig implements SkinableConfigInterface
     #[ORM\Column(type: 'array', nullable: false)]
     private array $equipments = [];
 
+    #[ORM\ManyToMany(targetEntity: Skin::class, mappedBy: 'placeConfig', cascade: ['REMOVE'], orphanRemoval: true)]
+    private Collection $skins;
+
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $patrolShipNames = [];
 
-    #[ORM\ManyToMany(targetEntity: SkinSlotConfig::class, cascade: ['REMOVE'], orphanRemoval: true)]
-    private Collection $skinSlotsConfig;
-
     public function __construct()
     {
-        $this->skinSlotsConfig = new ArrayCollection();
+        $this->skins = new ArrayCollection();
     }
 
     public function getId(): int
@@ -145,21 +144,21 @@ class PlaceConfig implements SkinableConfigInterface
         return $this;
     }
 
-    public function getSkinSlotsConfig(): ArrayCollection
+    public function getSkins(): ArrayCollection
     {
-        return new ArrayCollection($this->skinSlotsConfig->toArray());
+        return new ArrayCollection($this->skins->toArray());
     }
 
-    public function addSkinSlot(SkinSlotConfig $skinSlotConfig): static
+    public function addSkin(Skin $skin): static
     {
-        $this->skinSlotsConfig->add($skinSlotConfig);
+        $this->skins->add($skin);
 
         return $this;
     }
 
-    public function setSkinSlotsConfig(ArrayCollection $skinSlotsConfig): static
+    public function setSkins(ArrayCollection $skins): static
     {
-        $this->skinSlotsConfig = $skinSlotsConfig;
+        $this->skins = $skins;
 
         return $this;
     }

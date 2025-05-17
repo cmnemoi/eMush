@@ -22,6 +22,7 @@ final class AdvanceProjectUseCase
 
         $efficiency = $player->getEfficiencyForProject($project);
         $progress = $this->getRandomIntegerService->execute($efficiency->min, $efficiency->max);
+        $progress = 100;
 
         $project->makeProgressAndUpdateParticipationDate($progress);
         $project->addPlayerParticipation($player);

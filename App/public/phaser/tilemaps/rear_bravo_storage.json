@@ -305,7 +305,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":3
+                         "value":5
                         }, 
                         {
                          "name":"isoSizeX",
@@ -316,6 +316,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -607,7 +612,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":1
+                 "value":5
                 }],
          "type":"objectgroup",
          "visible":true,

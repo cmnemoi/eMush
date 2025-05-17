@@ -3452,7 +3452,7 @@ abstract class ModifierConfigData
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'tagConstraints' => [
                 ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS,
-                'action_self' => ModifierRequirementEnum::NONE_TAGS,
+                'action_on_equipment' => ModifierRequirementEnum::NONE_TAGS,
             ],
             'applyOnTarget' => true,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,

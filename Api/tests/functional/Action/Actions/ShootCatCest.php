@@ -9,12 +9,16 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -144,6 +148,19 @@ final class ShootCatCest extends AbstractFunctionalTest
         $I->assertEquals(10, $this->player->getMoralPoint());
     }
 
+    public function shouldSpendOneActionPointForPlayerWithCrazyEyesHoldingCat(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasCrazyEyes($I);
+
+        $this->givenCatIsInPlayerInventory($I);
+
+        $initialActionPoints = $this->player->getActionPoint();
+
+        $this->whenPlayerShoots();
+
+        $I->assertEquals($initialActionPoints - 1, $this->player->getActionPoint());
+    }
+
     private function givenCatIsInShelf(FunctionalTester $I): void
     {
         $this->schrodinger = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -152,6 +169,20 @@ final class ShootCatCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenCatIsInPlayerInventory(FunctionalTester $I): void
+    {
+        $eventService = $I->grabService(EventServiceInterface::class);
+        $itemEvent = new MoveEquipmentEvent(
+            equipment: $this->schrodinger,
+            newHolder: $this->player,
+            author: $this->player,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $eventService->callEvent($itemEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 
     private function givenPlayerHasBlaster(FunctionalTester $I): void
@@ -194,6 +225,11 @@ final class ShootCatCest extends AbstractFunctionalTest
     private function givenPlayerHasMoralPoint(int $moralPoint, FunctionalTester $I): void
     {
         $this->player->setMoralPoint($moralPoint);
+    }
+
+    private function givenPlayerHasCrazyEyes(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::CRAZY_EYE, $I, $this->player);
     }
 
     private function whenPlayerTriesToShootCat(): void

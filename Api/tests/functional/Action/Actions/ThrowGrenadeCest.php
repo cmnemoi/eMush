@@ -52,7 +52,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->givenNeronIsNotInhibited();
     }
 
-    /*public function shouldDestroyGrenade(FunctionalTester $I): void
+    public function shouldDestroyGrenade(FunctionalTester $I): void
     {
         $this->whenChunThrowsGrenade();
 
@@ -137,7 +137,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->whenChunThrowsGrenade();
 
         $this->thenMycoAlarmIsBroken($I);
-    }*/
+    }
 
     public function shouldSpendOneActionPointForPlayerWithCrazyEyesWhenInShelvingUnit(FunctionalTester $I): void
     {

@@ -91,6 +91,7 @@ export function formatText(text: string|null): string {
 
     formattedText = formattedText.replaceAll(/\*\*(.[^*]*)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replaceAll(/\*(.[^*]*)\*/g, '<em>$1</em>');
+    formattedText = formattedText.replaceAll(/~~(.[^*]*)~~/g, '<strike>$1</strike>');
     formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
     Object.values(CharacterEnum).forEach((character: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${character}:`, 'g'), helpers.computeCharacterImageHtmlByKey(character));

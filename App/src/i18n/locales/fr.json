@@ -614,6 +614,7 @@
 			"messageInputAdvancedDescription": "Utilise un éditeur avancé pour la mise en forme de vos messages",
 			"buttonBold":"G",
 			"buttonItalic":"I",
+			"buttonStrike":"S",
 			"buttonErase":"Supprimer mise en forme",
 			"buttonCharacters":"Personnages",
 			"buttonValidateAdvEditor":"Valider et envoyer le message",

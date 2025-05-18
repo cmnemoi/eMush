@@ -20,15 +20,22 @@
                     type="button"
                     class="format-button"
                     @click="applyFormatting('italic')"
-                    title="I">
-                    <span><i>I</i></span>
+                    :title="$t('game.communications.buttonItalic')">
+                    <span><i><div v-html="$t('game.communications.buttonItalic')"></div></i></span>
                 </button>
                 <button
                     type="button"
                     class="format-button"
                     @click="applyFormatting('bolditalic')"
-                    title="B+I">
-                    <span><b><i>B+I</i></b></span>
+                    :title="$t('game.communications.buttonBold')+'+'+$t('game.communications.buttonItalic')">
+                    <span><b><i><div v-html="$t('game.communications.buttonBold')+'+'+$t('game.communications.buttonItalic')"></div></i></b></span>
+                </button>
+                <button
+                    type="button"
+                    class="format-button"
+                    @click="applyFormatting('strike')"
+                    :title="$t('game.communications.buttonStrike')">
+                    <span><s><span v-html="$t('game.communications.buttonStrike')"></span></s></span>
                 </button>
                 <button
                     type="button"
@@ -200,6 +207,9 @@ export default defineComponent({
                 break;
             case 'bolditalic':
                 formattedText = `***${cleanText}***`;  // Gras et italique
+                break;
+            case 'strike':
+                formattedText = `~~${cleanText}~~`;  // barré
                 break;
             }
 

@@ -86,6 +86,7 @@
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { characterEnum } from "@/enums/character";
+import { formatText } from "@/utils/formatText";
 
 export default defineComponent({
     name: "MessageInputAdvanced",
@@ -118,29 +119,7 @@ export default defineComponent({
         formattedPreview(): string {
             // Conversion des marqueurs markdown en HTML pour la prévisualisation
             let formatted = this.editedText;
-
-            // 1) Gras + Italique ***, 2) Gras **, 3) Italique *
-            formatted = formatted.replace(/\*\*\*(.*?)\*\*\*/g, '<span style="font-weight:bold;font-style:italic;color:red;">$1</span>');
-            formatted = formatted.replace(/\*\*((?!\*\*).+?)\*\*/g, '<span style="font-weight:bold;">$1</span>');
-            formatted = formatted.replace(/\*((?!\*).+?)\*/g, '<span style="font-style:italic;color:red;">$1</span>');
-            formatted = formatted.replace(/\n/g, '<br>');       // manage line feed
-            formatted = formatted.replace(/\/\//g, '<br>');     // manage new line with '//' before inserting URL
-
-            // Remplacer les codes de personnages par leurs icônes
-            formatted = formatted.replace(/:([a-z_ ]+):/g, (match, name) => {
-                // Parcourir tous les personnages pour trouver la correspondance
-                for (const key in this.characters) {
-                    const character = this.characters[key];
-                    if (character.name.toLowerCase() === name ||
-                        character.name.toLowerCase().replace(/\s+/g, '_') === name) {
-                        return `<img src="${character.head}" alt="${character.name}" style="width:20px; height:20px; vertical-align:middle;">`;
-                    }
-                }
-                // Si le personnage n'est pas trouvé, garder le texte original
-                return match;
-            });
-
-            return formatted;
+            return formatText(formatted);
         }
     },
     watch: {
@@ -297,116 +276,122 @@ export default defineComponent({
 <!-- Formattage CSS  =================================================================================  -->
 <style lang="scss" scoped>
 
-  .message-input-advanced-overlay {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0);
-    display: flex;
-    flex-direction: row;
-    position: sticky;
-    max-width: 97%;
-    justify-content: left;
-    align-items: left;
-    z-index: 1000;
-  }
-
-  .text-format-dialog {
-    background-color: #fff;
-    border-radius: 3px;
-    padding: 10px;
-    position: relative;
-    width: 400px;
-    max-width: 100%;
-    min-width: 290px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    span {
-      display: inline; /* Forcer les <span> à être inline */
+    em {
+        color: #cf1830;
     }
-  }
 
-  .format-controls {
-    display: flex;
-    flex-flow: row wrap;
-    gap: 5px;
-    justify-content: flex-start;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-  }
-
-  .edit-area {
-    width: 100%;
-    min-height: 90px;
-    padding: 8px;
-    border: 1px solid #aad4e5;
-    border-radius: 3px;
-    font-family: inherit;
-    resize: vertical;
-  }
-
-  .preview-area {
-    width: 100%;
-    min-height: 120px;
-    max-height: 150px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    background-color: #f9f9f9;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    display: inline;
-  }
-
-
-  .dialog-buttons {
-    display: flex;
-    justify-content: flex-end;
-    flex-flow: row wrap;
-    gap: 10px;
-    margin-top: 10px;
-  }
-
-  .confirm-btn {
-    background-color: #008EE5;
-    border: 1px solid #008EE5;
-    color: white;
-
-    &:hover {
-      background-color: #015e97;
+    .message-input-advanced-overlay {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0);
+        display: flex;
+        flex-direction: row;
+        position: sticky;
+        max-width: 97%;
+        justify-content: left;
+        align-items: left;
+        z-index: 1000;
     }
-  }
 
-  .format-button {
-    display: inline-block;
-    cursor: pointer;
-    @include button-style();
-    width: 24px;
-    margin-left: 4px;
-    &:hover {
-      background-color: #00B0EC;
+    .text-format-dialog {
+        background-color: #fff;
+        border-radius: 3px;
+        padding: 10px;
+        position: relative;
+        width: 400px;
+        max-width: 100%;
+        min-width: 290px;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        span {
+            display: inline; /* Forcer les <span> à être inline */
+        }
     }
-  }
-  .character-grid {
-    display: grid;
-    position: absolute; /* Positionnement absolu pour superposer */
-    top: 40px;
-    left: 0px;
-    z-index: auto; /* S'assure que la grille est au-dessus des autres éléments */
-    grid-template-columns: repeat(5, 1fr); /* 4 colonnes pour 16 personnages */
-    gap: 3px;
-    margin-bottom: 10px;
-    max-height: 220px;
-    overflow-y: auto;
-    border: 1px solid #aad4e5;
-    border-radius: 3px;
-    padding: 3px;
-    background-color: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour l'effet popup */
+
+    .format-controls {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 5px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+
+    .edit-area {
+        width: 100%;
+        min-height: 90px;
+        padding: 8px;
+        border: 1px solid #aad4e5;
+        border-radius: 3px;
+        font-family: inherit;
+        resize: vertical;
+    }
+
+    .preview-area {
+        width: 100%;
+        min-height: 120px;
+        max-height: 150px;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background-color: #f9f9f9;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        display: inline;
+        >>> em {
+            color: lighten(#cf1830, 15);
+        }
+    }
+
+    .dialog-buttons {
+        display: flex;
+        justify-content: flex-end;
+        flex-flow: row wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .confirm-btn {
+        background-color: #008EE5;
+        border: 1px solid #008EE5;
+        color: white;
+
+        &:hover {
+            background-color: #015e97;
+        }
+    }
+
+    .format-button {
+        display: inline-block;
+        cursor: pointer;
+        @include button-style();
+        width: 24px;
+        margin-left: 4px;
+        &:hover {
+            background-color: #00B0EC;
+        }
+    }
+    .character-grid {
+        display: grid;
+        position: absolute; /* Positionnement absolu pour superposer */
+        top: 40px;
+        left: 0px;
+        z-index: auto; /* S'assure que la grille est au-dessus des autres éléments */
+        grid-template-columns: repeat(5, 1fr); /* 4 colonnes pour 16 personnages */
+        gap: 3px;
+        margin-bottom: 10px;
+        max-height: 220px;
+        overflow-y: auto;
+        border: 1px solid #aad4e5;
+        border-radius: 3px;
+        padding: 3px;
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Ajoute une ombre pour l'effet popup */
     }
 
     .character-item {
@@ -438,10 +423,10 @@ export default defineComponent({
     }
 
     .character-btn {
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
 </style>

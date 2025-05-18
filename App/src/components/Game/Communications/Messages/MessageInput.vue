@@ -6,7 +6,7 @@
                 ref="input"
                 class="messageInput-area"
                 :placeholder="$t('game.communications.myMessageHere')"
-                @keydown.enter.exact.prevent="sendNewMessage"
+                @keydown.enter.exact.prevent="sendNewMessage()"
                 @keydown.enter.ctrl.exact.prevent="breakLine"
                 @keydown.enter.shift.exact.prevent="breakLine"
                 @keyup="resize()"

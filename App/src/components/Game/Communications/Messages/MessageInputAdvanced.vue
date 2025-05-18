@@ -118,7 +118,7 @@ export default defineComponent({
     computed: {
         formattedPreview(): string {
             // Conversion des marqueurs markdown en HTML pour la prévisualisation
-            let formatted = this.editedText;
+            const formatted = this.editedText;
             return formatText(formatted);
         }
     },

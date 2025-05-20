@@ -285,11 +285,7 @@ export default defineComponent({
 <!-- Formattage CSS  =================================================================================  -->
 <style lang="scss" scoped>
 
-    em {
-        color: #cf1830;
-    }
-
-    .message-input-advanced-overlay {
+     .message-input-advanced-overlay {
         top: 0;
         left: 0;
         right: 0;
@@ -352,7 +348,7 @@ export default defineComponent({
         overflow-y: auto;
         scroll-behavior: smooth;
         display: inline;
-        >>> em {
+        :deep(em) {
             color: lighten(#cf1830, 15);
         }
     }

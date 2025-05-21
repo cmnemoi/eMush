@@ -89,6 +89,9 @@ class DaedalusConfig
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => 'none'])]
     private string $holiday = 'none';
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $freeLove = false;
+
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $numberOfCyclesBeforeNextRebelBaseContact = 0;
 
@@ -549,6 +552,18 @@ class DaedalusConfig
     public function setChaolaToggle(string $chaolaToggle): static
     {
         $this->chaolaToggle = $chaolaToggle;
+
+        return $this;
+    }
+
+    public function getFreeLove(): bool
+    {
+        return $this->freeLove;
+    }
+
+    public function setFreeLove(bool $freeLove): static
+    {
+        $this->freeLove = $freeLove;
 
         return $this;
     }

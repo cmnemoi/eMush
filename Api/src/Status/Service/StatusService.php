@@ -429,8 +429,6 @@ class StatusService implements StatusServiceInterface
         return $attempt;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     private function throwIfWrongBreakableType(StatusConfig $statusConfig, StatusHolderInterface $holder)
     {
         if ($statusConfig->getStatusName() !== EquipmentStatusEnum::BROKEN) {
@@ -440,11 +438,9 @@ class StatusService implements StatusServiceInterface
         if (!$holder instanceof GameEquipment || $holder->getEquipment()->getBreakableType() !== BreakableTypeEnum::BREAKABLE) {
             throw new \LogicException('trying to apply broken status to an entity that is not a breakable equipment');
         }
-=======
-    private function getChargeStatusWithSameModifierConfigs(StatusHolderInterface $holder, ChargeStatusConfig $statusConfig): ?ChargeStatus
-=======
+    }
+
     private function getChargeStatusWithSameDischargeStrategies(StatusHolderInterface $holder, ChargeStatusConfig $statusConfig): ?ChargeStatus
->>>>>>> 95d49f89c (refactor: Charge status will be updated with same discharge strategies instead of modifier configs)
     {
         $dischargeStrategies = $statusConfig->getDischargeStrategies();
 
@@ -459,7 +455,6 @@ class StatusService implements StatusServiceInterface
         }
 
         return null;
->>>>>>> 26af7f380 (fix: IT points stack when picking a skill.)
     }
 
     private function delete(Status $status): void

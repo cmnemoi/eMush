@@ -61,7 +61,7 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveITPointsOfAmount(5, $I);
     }
 
-    public function shouldITPolymathApplyITPointsOverPolymathPoints(FunctionalTester $I): void
+    public function shouldITPolymathApplyITPoints(FunctionalTester $I): void
     {
         $this->givenPlayerIsITExpert($I);
         $this->givenPlayerIsPolymath($I);

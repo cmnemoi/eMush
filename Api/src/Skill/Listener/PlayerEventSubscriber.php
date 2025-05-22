@@ -17,7 +17,7 @@ use Mush\Skill\Handler\ColdBloodedHandler;
 use Mush\Skill\Handler\OpportunistHandler;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusService;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlayerEventSubscriber implements EventSubscriberInterface
@@ -27,7 +27,7 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         private ColdBloodedHandler $coldBloodedHandler,
         private DeletePlayerSkillService $deletePlayerSkill,
         private OpportunistHandler $opportunistHandler,
-        private StatusService $statusService
+        private StatusServiceInterface $statusService
     ) {}
 
     public static function getSubscribedEvents(): array

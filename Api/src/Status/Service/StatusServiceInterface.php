@@ -34,6 +34,14 @@ interface StatusServiceInterface
         ?Player $author = null,
     ): void;
 
+    public function removeOrCutChargeStatus(
+        string $statusName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): void;
+
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,

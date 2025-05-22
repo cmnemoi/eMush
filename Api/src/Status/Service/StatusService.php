@@ -112,6 +112,47 @@ class StatusService implements StatusServiceInterface
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_DELETED);
     }
 
+    public function removeOrCutChargeStatus(
+        string $statusName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): void {
+        $chargeStatusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $holder->getDaedalus());
+        if (!$chargeStatusConfig instanceof ChargeStatusConfig) {
+            return;
+        }
+
+        $chargeStatus = $this->getChargeStatusWithSameDischargeStrategies($holder, $chargeStatusConfig);
+        if (!$chargeStatus instanceof ChargeStatus) {
+            return;
+        }
+
+        $maxChargeToCut = $chargeStatusConfig->getMaxChargeOrThrow();
+        $holderMaxCharge = $chargeStatus->getMaxChargeOrThrow();
+
+        if ($maxChargeToCut === $holderMaxCharge) {
+            $this->removeStatus(
+                $chargeStatus->getName(),
+                $holder,
+                $tags,
+                $time,
+                $visibility
+            );
+        } elseif ($maxChargeToCut < $holderMaxCharge) {
+            $this->updateCharge(
+                $chargeStatus,
+                -$maxChargeToCut,
+                $tags,
+                $time,
+                VariableEventInterface::CHANGE_VALUE_MAX
+            );
+        } else {
+            throw new \LogicException('Cannot remove more than max charges.');
+        }
+    }
+
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
     {
         $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $name);
@@ -449,7 +490,6 @@ class StatusService implements StatusServiceInterface
     private function getChargeStatusWithSameDischargeStrategies(StatusHolderInterface $holder, ChargeStatusConfig $statusConfig): ?ChargeStatus
     {
         $dischargeStrategies = $statusConfig->getDischargeStrategies();
-
         if (!\count($dischargeStrategies)) {
             return null;
         }

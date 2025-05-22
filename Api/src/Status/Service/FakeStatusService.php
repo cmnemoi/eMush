@@ -72,6 +72,30 @@ final class FakeStatusService implements StatusServiceInterface
         $this->statuses->remove($statusName);
     }
 
+    public function removeOrCutChargeStatus(
+        string $statusName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): void {
+        $chargeStatus = $holder->getChargeStatusByName($statusName);
+        if (!$chargeStatus instanceof ChargeStatus) {
+            return;
+        }
+
+        $chargeStatus = $this->updateCharge($chargeStatus, -1, $tags, $time, VariableEventInterface::CHANGE_VALUE_MAX);
+        if (!$chargeStatus instanceof ChargeStatus) {
+            return;
+        }
+
+        if ($chargeStatus->getMaxChargeOrThrow() <= 0) {
+            $this->removeStatus($statusName, $holder, $tags, $time, $visibility);
+        } else {
+            $this->persist($chargeStatus);
+        }
+    }
+
     public function createStatusFromConfig(
         StatusConfig $statusConfig,
         StatusHolderInterface $holder,

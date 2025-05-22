@@ -39,7 +39,7 @@ use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusService;
+use Mush\Status\Service\StatusServiceInterface;
 
 final class HunterService implements HunterServiceInterface
 {
@@ -52,7 +52,7 @@ final class HunterService implements HunterServiceInterface
         private HunterRepositoryInterface $hunterRepository,
         private HunterTargetRepositoryInterface $hunterTargetRepository,
         private RandomServiceInterface $randomService,
-        private StatusService $statusService
+        private StatusServiceInterface $statusService
     ) {}
 
     public function delete(array $entities): void

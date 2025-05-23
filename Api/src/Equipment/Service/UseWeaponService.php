@@ -145,7 +145,6 @@ final readonly class UseWeaponService
         foreach ($successfulEventKeys as $eventKey => $eventProbability) {
             /** @var string $eventKey */
             if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType() === 'critic') {
-
                 $eventProbability *= 2;
 
                 $successfulEventKeys[$eventKey] = $eventProbability;

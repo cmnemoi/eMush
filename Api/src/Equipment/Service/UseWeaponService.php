@@ -132,7 +132,7 @@ final readonly class UseWeaponService
         $sucessfulEventKeys = $weapon->getSuccessfulEventKeys();
 
         if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER)) {
-            $sucessfulEventKeys = $this->reduceNonCritEventWeight($sucessfulEventKeys);
+            $sucessfulEventKeys = $this->increaseCritEventWeight($sucessfulEventKeys);
         }
 
         $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($sucessfulEventKeys);
@@ -140,16 +140,13 @@ final readonly class UseWeaponService
         return $this->weaponEventConfigRepository->findOneByKey($randomEventKey);
     }
 
-    private function reduceNonCritEventWeight(ProbaCollection $successfulEventKeys): ProbaCollection
+    private function increaseCritEventWeight(ProbaCollection $successfulEventKeys): ProbaCollection
     {
         foreach ($successfulEventKeys as $eventKey => $eventProbability) {
             /** @var string $eventKey */
-            if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType() === 'normal') {
-                if ($eventProbability % 2 === 1) {
-                    ++$eventProbability;
-                }
+            if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType() === 'critic') {
 
-                $eventProbability = intdiv($eventProbability, 2);
+                $eventProbability *= 2;
 
                 $successfulEventKeys[$eventKey] = $eventProbability;
             }

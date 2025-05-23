@@ -369,8 +369,8 @@ class StatusService implements StatusServiceInterface
                 $tags,
                 $time,
                 VariableEventInterface::CHANGE_VALUE_MAX
-            ) ?
-            $chargeStatus = $this->updateCharge(
+            )
+            ? $chargeStatus = $this->updateCharge(
                 $chargeStatus,
                 $statusConfig->getStartCharge(),
                 $tags,

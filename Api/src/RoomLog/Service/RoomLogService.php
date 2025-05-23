@@ -337,9 +337,16 @@ final class RoomLogService implements RoomLogServiceInterface
         $upgrades = '';
 
         if ($drone->isUpgraded()) {
-            $language = $drone->getPlace()->getDaedalus()->getLanguage();
+            $language = $drone->getDaedalus()->getLanguage();
             foreach ($drone->getUpgrades() as $upgrade) {
-                $upgrades = $upgrades . '//' . $this->translationService->translate($upgrade->getName() . '.description', [], 'status', $language);
+                $upgrades = $upgrades .
+                '//' .
+                $this->translationService->translate(
+                    $upgrade->getName() . '.description',
+                    [],
+                    'status',
+                    $language
+                );
             }
         }
 

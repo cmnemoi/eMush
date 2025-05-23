@@ -119,7 +119,10 @@ class StatusService implements StatusServiceInterface
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): void {
-        $chargeStatusConfig = $this->getStatusConfigByNameAndDaedalus($statusName, $holder->getDaedalus());
+        $chargeStatusConfig = $holder->getDaedalus()->getGameConfig()->getStatusConfigs()
+            ->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $statusName
+            && $statusConfig instanceof ChargeStatusConfig)->first();
+
         if (!$chargeStatusConfig instanceof ChargeStatusConfig) {
             return;
         }

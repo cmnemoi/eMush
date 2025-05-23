@@ -19,15 +19,6 @@ class Weapon extends Tool
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $expeditionBonus = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $criticalSuccessRate = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $criticalFailRate = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $oneShotRate = 0;
-
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $successfulEventKeys = [];
 
@@ -50,9 +41,6 @@ class Weapon extends Tool
             ->setName($configData['name'])
             ->setBaseAccuracy($configData['baseAccuracy'])
             ->setBaseDamageRange($configData['baseDamageRange'])
-            ->setCriticalSuccessRate($configData['criticalSuccessRate'])
-            ->setCriticalFailRate($configData['criticalFailRate'])
-            ->setOneShotRate($configData['oneShotRate'])
             ->setSuccessfulEventKeys($configData['successfulEventKeys'])
             ->setFailedEventKeys($configData['failedEventKeys'])
             ->setDamageSpread($configData['damageSpread']);
@@ -66,9 +54,6 @@ class Weapon extends Tool
         $this->baseAccuracy = $configData['baseAccuracy'];
         $this->baseDamageRange = $configData['baseDamageRange'];
         $this->expeditionBonus = $configData['expeditionBonus'];
-        $this->criticalSuccessRate = $configData['criticalSuccessRate'];
-        $this->criticalFailRate = $configData['criticalFailRate'];
-        $this->oneShotRate = $configData['oneShotRate'];
         $this->successfulEventKeys = $configData['successfulEventKeys'];
         $this->failedEventKeys = $configData['failedEventKeys'];
         $this->damageSpread = $configData['damageSpread'];
@@ -114,42 +99,6 @@ class Weapon extends Tool
     public function setExpeditionBonus(int $expeditionBonus): self
     {
         $this->expeditionBonus = $expeditionBonus;
-
-        return $this;
-    }
-
-    public function getCriticalSuccessRate(): int
-    {
-        return $this->criticalSuccessRate;
-    }
-
-    public function setCriticalSuccessRate(int $criticalSuccessRate): self
-    {
-        $this->criticalSuccessRate = $criticalSuccessRate;
-
-        return $this;
-    }
-
-    public function getCriticalFailRate(): int
-    {
-        return $this->criticalFailRate;
-    }
-
-    public function setCriticalFailRate(int $criticalFailRate): self
-    {
-        $this->criticalFailRate = $criticalFailRate;
-
-        return $this;
-    }
-
-    public function getOneShotRate(): int
-    {
-        return $this->oneShotRate;
-    }
-
-    public function setOneShotRate(int $oneShotRate): self
-    {
-        $this->oneShotRate = $oneShotRate;
 
         return $this;
     }

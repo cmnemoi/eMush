@@ -79,20 +79,23 @@ final class FakeStatusService implements StatusServiceInterface
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN
     ): void {
-        $chargeStatus = $holder->getChargeStatusByName($statusName);
+        /** @var ?ChargeStatus $chargeStatus */
+        $chargeStatus = $this->statuses
+            ->filter(static fn (Status $chargeStatus) => $chargeStatus instanceof ChargeStatus)
+            ->filter(static fn (Status $chargeStatus) => $chargeStatus->getName() === $statusName && $chargeStatus->getOwner()->equals($holder))
+            ->first() ?: null;
+
         if (!$chargeStatus instanceof ChargeStatus) {
             return;
         }
 
-        $chargeStatus = $this->updateCharge($chargeStatus, -1, $tags, $time, VariableEventInterface::CHANGE_VALUE_MAX);
-        if (!$chargeStatus instanceof ChargeStatus) {
-            return;
-        }
-
-        if ($chargeStatus->getMaxChargeOrThrow() <= 0) {
-            $this->removeStatus($statusName, $holder, $tags, $time, $visibility);
+        if ($chargeStatus->getStatusConfig()->getMaxChargeOrThrow() < $chargeStatus->getMaxChargeOrThrow()) {
+            $chargeStatus = $this->updateCharge($chargeStatus, $chargeStatus->getStatusConfig()->getMaxChargeOrThrow(), $tags, $time, VariableEventInterface::CHANGE_VALUE_MAX);
+            if ($chargeStatus !== null) {
+                $this->persist($chargeStatus);
+            }
         } else {
-            $this->persist($chargeStatus);
+            $this->removeStatus($statusName, $holder, $tags, $time, $visibility);
         }
     }
 

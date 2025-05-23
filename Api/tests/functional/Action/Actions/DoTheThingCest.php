@@ -6,7 +6,8 @@ use Mush\Action\Actions\DoTheThing;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Chat\Entity\Channel;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\MushMessageEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
@@ -14,6 +15,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Service\PlaceServiceInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -225,38 +227,108 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
     public function shouldInfectPlayerIfTargetIsMushWithSpore(FunctionalTester $I)
     {
-        // Why doesn't this test work? It's giving me an error about duplicate flirts. Something about doThethingAction->execute() seems to confuse the test into thinking a second flirt happens. Test doesn't error (but obviously returns false) if either givenTargetHasFlirted...() or execute() is commentated out, but having both causes the error.
-        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->andie);
-
         $this->givenPlayerIsMushWithSpores($this->kuanTi, 1);
 
         $this->givenPlayerIsIn($this->andie, RoomEnum::MEDLAB, $I);
         $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
-
         $this->givenBedInRoom($this->andie->getPlace());
+
+        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->andie);
 
         $this->whenATriesToDTTWithB($this->andie, $this->kuanTi);
         $this->doTheThingAction->execute();
 
         $this->thenPlayerHasSpore($this->andie, 1, $I);
         $this->thenPlayerHasSpore($this->kuanTi, 0, $I);
+
+        $I->seeInRepository(
+            Message::class,
+            ['message' => MushMessageEnum::INFECT_STD]
+        );
     }
 
-    // test: should not infect if player is Immune.
+    public function mushPlayerShouldWasteSporeIfHumanPlayerImmune(FunctionalTester $I)
+    {
+        $this->givenPlayerIsMushWithSpores($this->kuanTi, 1);
+        $this->givenChunIsImmune();
 
-    // test: should not infect if mush player has no Spores.
+        $this->givenPlayerIsIn($this->chun, RoomEnum::MEDLAB, $I);
+        $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
+        $this->givenBedInRoom($this->chun->getPlace());
 
-    // test: should not infect if both players are Mush.
+        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
 
-    // test: infection creates a log in mush channel.
+        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->doTheThingAction->execute();
 
-    // test: dead teammates shouldn't count as witnesses (from prev version of file)
+        $this->thenPlayerHasSpore($this->chun, 0, $I);
+        $this->thenPlayerHasSpore($this->kuanTi, 0, $I);
 
-    // test: can break sofa
+        $I->dontSeeInRepository(
+            Message::class,
+            ['message' => MushMessageEnum::INFECT_STD]
+        );
+    }
 
-    // test: can make pregnant
+    public function shouldNotInfectPlayerIfMushTargetHasNoSpore(FunctionalTester $I)
+    {
+        $this->givenPlayerIsMushWithSpores($this->kuanTi, 0);
 
-    // test: can transmit diseases
+        $this->givenPlayerIsIn($this->andie, RoomEnum::MEDLAB, $I);
+        $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
+        $this->givenBedInRoom($this->andie->getPlace());
+
+        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->andie);
+
+        $this->whenATriesToDTTWithB($this->andie, $this->kuanTi);
+        $this->doTheThingAction->execute();
+
+        $this->thenPlayerHasSpore($this->andie, 0, $I);
+        $this->thenPlayerHasSpore($this->kuanTi, 0, $I);
+
+        $I->dontSeeInRepository(
+            Message::class,
+            ['message' => MushMessageEnum::INFECT_STD]
+        );
+    }
+
+    public function noSporeChangeIfBothPlayersMush(FunctionalTester $I)
+    {
+        $this->givenPlayerIsMushWithSpores($this->andie, 1);
+        $this->givenPlayerIsMushWithSpores($this->kuanTi, 0);
+
+        $this->givenPlayerIsIn($this->andie, RoomEnum::MEDLAB, $I);
+        $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
+        $this->givenBedInRoom($this->andie->getPlace());
+
+        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->andie);
+
+        $this->whenATriesToDTTWithB($this->andie, $this->kuanTi);
+        $this->doTheThingAction->execute();
+
+        $this->thenPlayerHasSpore($this->andie, 1, $I);
+        $this->thenPlayerHasSpore($this->kuanTi, 0, $I);
+
+        $I->dontSeeInRepository(
+            Message::class,
+            ['message' => MushMessageEnum::INFECT_STD]
+        );
+    }
+
+    public function theDeadDoNotCountAsWitness(FunctionalTester $I)
+    {
+        $this->givenTargetHasFlirtedWithPlayer($this->kuanTi, $this->chun);
+
+        $this->givenPlayerIsIn($this->chun, RoomEnum::MEDLAB, $I);
+        $this->givenPlayerIsIn($this->kuanTi, RoomEnum::MEDLAB, $I);
+        $this->givenPlayerIsIn($this->derek, RoomEnum::MEDLAB, $I);
+        $this->givenBedInRoom($this->kuanTi->getPlace());
+
+        $this->derek->kill();
+
+        $this->whenATriesToDTTWithB($this->chun, $this->kuanTi);
+        $this->thenActionShouldBeExecutable($I);
+    }
 
     private function givenFreeLoveIs(bool $bool)
     {
@@ -265,9 +337,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
 
     private function givenTargetHasFlirtedWithPlayer(Player $target, Player $player)
     {
-        if (!$target->hasFlirtedWith($player)) {
-            $target->addFlirt($player);
-        }
+        $target->setFlirts(new PlayerCollection([$player]));
     }
 
     private function givenPlayerIsLyingDown(Player $player)
@@ -275,6 +345,16 @@ final class DoTheThingCest extends AbstractFunctionalTest
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::LYING_DOWN,
             holder: $player,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenChunIsImmune()
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::IMMUNIZED,
+            holder: $this->chun,
             tags: [],
             time: new \DateTime(),
         );
@@ -359,7 +439,7 @@ final class DoTheThingCest extends AbstractFunctionalTest
                 new \DateTime(),
             );
         }
-        $player->setPlace($this->daedalus->getPlaceByName($place));
+        $player->changePlace($this->daedalus->getPlaceByName($place));
     }
 
     private function whenATriesToDTTWithB(Player $player, Player $target)

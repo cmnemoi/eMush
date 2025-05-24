@@ -15,6 +15,8 @@ final class InMemoryTriumphConfigRepository implements TriumphConfigRepositoryIn
 
     public function findAllByTargetedEvent(TriumphSourceEventInterface $targetedEvent): array
     {
+        $triumphConfigs = [];
+
         foreach ($this->triumphConfigs as $triumphConfig) {
             if ($triumphConfig->getTargetedEvent() === $targetedEvent->getEventName()) {
                 $triumphConfigs[] = $triumphConfig;

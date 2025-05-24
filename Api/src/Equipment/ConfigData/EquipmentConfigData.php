@@ -3076,7 +3076,9 @@ class EquipmentConfigData
             'actions' => [
                 'examine',
             ],
-            'mechanics' => [],
+            'mechanics' => [
+                'tool_cryo_module_default',
+            ],
             'initStatuses' => [],
         ],
         [

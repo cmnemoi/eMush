@@ -1689,5 +1689,15 @@
         <target>go_berserk.confirmation</target>
       </segment>
     </unit>
+    <unit id="check_roster">
+      <segment id="name" state="initial">
+        <source>check_roster.name</source>
+        <target>check_roster.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>check_roster.description</source>
+        <target>check_roster.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

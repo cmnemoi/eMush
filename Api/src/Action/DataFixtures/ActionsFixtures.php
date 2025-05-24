@@ -113,6 +113,7 @@ class ActionsFixtures extends Fixture
     public const string PET_CAT = 'pet_cat';
     public const string SHOOT_CAT = 'shoot_cat';
     public const string OPEN_CONTAINER_COST_0 = 'open_container_cost_0';
+    public const string CHECK_ROSTER = 'check_roster';
 
     public function load(ObjectManager $manager): void
     {
@@ -1156,6 +1157,20 @@ class ActionsFixtures extends Fixture
         $toggleVocodedAnnouncements = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS));
         $manager->persist($toggleVocodedAnnouncements);
 
+        $checkRoster = new ActionConfig();
+        $checkRoster
+            ->setName('check_roster')
+            ->setActionName(ActionEnum::CHECK_ROSTER)
+            ->setRange(ActionRangeEnum::SELF)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::HIDDEN)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
+            ->setActionCost(0)
+            ->setDirtyRate(0)
+            ->setInjuryRate(0)
+            ->setSuccessRate(100);
+        $manager->persist($checkRoster);
+
         $manager->flush();
 
         $this->addReference(self::SUICIDE, $suicide);
@@ -1308,5 +1323,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::ACCEPT_TRADE->value, $acceptTrade);
         $this->addReference(ActionEnum::REFUSE_TRADE->value, $refuseTrade);
         $this->addReference(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value, $toggleVocodedAnnouncements);
+        $this->addReference(ActionEnum::CHECK_ROSTER->value, $checkRoster);
     }
 }

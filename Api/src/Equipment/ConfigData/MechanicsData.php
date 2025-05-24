@@ -2129,6 +2129,13 @@ class MechanicsData
             ],
         ],
         [
+            'name' => 'tool_cryo_module_default',
+            'type' => 'tool',
+            'actions' => [
+                ActionEnum::CHECK_ROSTER->value,
+            ],
+        ],
+        [
             'name' => 'gear_thalasso_default',
             'type' => 'gear',
             'actions' => [],

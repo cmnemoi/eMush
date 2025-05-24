@@ -1743,5 +1743,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action ne peut être annulée et vous révélera à tout le monde. Êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
+    <unit id="check_roster">
+      <segment id="name" state="initial">
+        <source>check_roster.name</source>
+        <target>check_roster.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>check_roster.description</source>
+        <target>check_roster.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

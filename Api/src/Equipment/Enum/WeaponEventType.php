@@ -16,4 +16,9 @@ enum WeaponEventType: string
     {
         return $this->value;
     }
+
+    public function equals(WeaponEventType $other): bool
+    {
+        return $this->value === $other->value;
+    }
 }

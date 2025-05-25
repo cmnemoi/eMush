@@ -185,7 +185,8 @@
         <target>Le Tireur manipule les armes de tout type avec beaucoup d'aisance.//
 :point: +2 **Tirs gratuits** :pa_shoot: par jour.//
 :point: Expédition : +1 à la force de votre équipe en cas de combat, si vous avez une arme à feu.//
-:point: Bonus pour développer certains **Projets NERON**.</target>
+:point: Bonus pour développer certains **Projets NERON**.//
+:point: Augmente les chances de coups critiques et réduit les chances d'échec critique avec les armes à feu.</target>
       </segment>
     </unit>
     <unit id="chef">

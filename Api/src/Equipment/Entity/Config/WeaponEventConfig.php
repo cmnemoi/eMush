@@ -47,9 +47,9 @@ class WeaponEventConfig extends AbstractEventConfig
         $this->effectKeys = $dto->effectKeys;
     }
 
-    public function getType(): string
+    public function getType(): WeaponEventType
     {
-        return $this->weaponEventType->toString();
+        return $this->weaponEventType;
     }
 
     public function getEffectKeys(): array

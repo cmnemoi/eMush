@@ -1134,9 +1134,6 @@ class MechanicsData
             'baseAccuracy' => 50,
             'baseDamageRange' => [],
             'expeditionBonus' => 1,
-            'criticalSuccessRate' => 0,
-            'criticalFailRate' => 0,
-            'oneShotRate' => 0,
             'actions' => [
                 ActionEnum::SHOOT->value,
                 ActionEnum::SHOOT_CAT->value,
@@ -1167,9 +1164,6 @@ class MechanicsData
             'baseAccuracy' => 60.0,
             'baseDamageRange' => [],
             'expeditionBonus' => 1.0,
-            'criticalSuccessRate' => 0,
-            'criticalFailRate' => 0,
-            'oneShotRate' => 0,
             'actions' => [
                 ActionEnum::ATTACK->value,
             ],
@@ -1189,9 +1183,6 @@ class MechanicsData
             'baseAccuracy' => 100.0,
             'baseDamageRange' => [],
             'expeditionBonus' => 3.0,
-            'criticalSuccessRate' => 0.0,
-            'criticalFailRate' => 0.0,
-            'oneShotRate' => 0.0,
             'actions' => [
                 ActionEnum::THROW_GRENADE->value,
             ],
@@ -1219,9 +1210,6 @@ class MechanicsData
             'baseAccuracy' => 50,
             'baseDamageRange' => [],
             'expeditionBonus' => 1,
-            'criticalSuccessRate' => 0,
-            'criticalFailRate' => 0,
-            'oneShotRate' => 0,
             'actions' => [
                 ActionEnum::SHOOT,
                 ActionEnum::SHOOT_CAT,
@@ -1250,9 +1238,6 @@ class MechanicsData
             'baseAccuracy' => 50,
             'baseDamageRange' => [],
             'expeditionBonus' => 2,
-            'criticalSuccessRate' => 0,
-            'criticalFailRate' => 0,
-            'oneShotRate' => 0,
             'actions' => [
                 ActionEnum::SHOOT,
                 ActionEnum::SHOOT_CAT,
@@ -1281,9 +1266,6 @@ class MechanicsData
             'baseAccuracy' => 99,
             'baseDamageRange' => [],
             'expeditionBonus' => 1,
-            'criticalSuccessRate' => 0,
-            'criticalFailRate' => 0,
-            'oneShotRate' => 0,
             'actions' => [
                 'shoot_99_percent',
                 ActionEnum::SHOOT_CAT,
@@ -1309,9 +1291,6 @@ class MechanicsData
             'baseAccuracy' => 50.0,
             'baseDamageRange' => [],
             'expeditionBonus' => 3,
-            'criticalSuccessRate' => 0,
-            'criticalFailRate' => 0,
-            'oneShotRate' => 0,
             'actions' => [
                 ActionEnum::SHOOT,
             ],
@@ -1333,9 +1312,6 @@ class MechanicsData
             'baseAccuracy' => 60,
             'baseDamageRange' => [],
             'expeditionBonus' => 0,
-            'criticalSuccessRate' => 0,
-            'criticalFailRate' => 0,
-            'oneShotRate' => 0,
             'actions' => [
                 ActionEnum::HIT,
             ],

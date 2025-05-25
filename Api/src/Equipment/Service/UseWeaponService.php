@@ -9,10 +9,12 @@ use Mush\Equipment\Entity\Config\WeaponEventConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventType;
 use Mush\Equipment\Event\WeaponEffect;
 use Mush\Equipment\Repository\WeaponEffectConfigRepositoryInterface;
 use Mush\Equipment\Repository\WeaponEventConfigRepositoryInterface;
 use Mush\Equipment\ValueObject\DamageSpread;
+use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
@@ -20,6 +22,7 @@ use Mush\Game\Service\Random\ProbaCollectionRandomElementServiceInterface as Pro
 use Mush\Player\Entity\Player;
 use Mush\Player\Service\RemoveHealthFromPlayerServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Skill\Enum\SkillEnum;
 
 final readonly class UseWeaponService
 {
@@ -54,12 +57,12 @@ final readonly class UseWeaponService
         $weaponEvent = $this->getRandomWeaponEventConfig($result, $weaponMechanic);
 
         $this->createEventLog($result, $weaponEvent, $tags);
-        $damageSpread = $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
+        $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
     }
 
     private function getRandomWeaponEventConfig(ActionResult $result, Weapon $weaponMechanic): WeaponEventConfig
     {
-        return $result->isASuccess() ? $this->getRandomSuccessfulWeaponEventConfig($weaponMechanic) : $this->getRandomFailedWeaponEventConfig($weaponMechanic);
+        return $result->isASuccess() ? $this->getRandomSuccessfulWeaponEventConfig($result, $weaponMechanic) : $this->getRandomFailedWeaponEventConfig($result, $weaponMechanic);
     }
 
     private function removeHealthToTarget(ActionResult $result, WeaponEventConfig $weaponEventConfig, DamageSpread $damageSpread, Player $target, array $tags): void
@@ -67,7 +70,7 @@ final readonly class UseWeaponService
         $damage = $this->getRandomInteger->execute($damageSpread->min, $damageSpread->max);
 
         // Add weapon event type to tags to handle critical events effects
-        $tags[] = $weaponEventConfig->getType();
+        $tags[] = $weaponEventConfig->getType()->toString();
 
         $this->removeHealthFromPlayer->execute(
             author: $result->getPlayer(),
@@ -81,9 +84,6 @@ final readonly class UseWeaponService
     private function createEventLog(ActionResult $result, WeaponEventConfig $weaponEventConfig, array $tags): void
     {
         $attacker = $result->getPlayer();
-        $target = $result->getTargetAsPlayer();
-
-        $parameters = $this->getLogParameters($result, $tags);
 
         $this->roomLogService->createLog(
             logKey: $weaponEventConfig->getName(),
@@ -91,26 +91,22 @@ final readonly class UseWeaponService
             visibility: VisibilityEnum::PUBLIC,
             type: 'weapon_event',
             player: $attacker,
-            parameters: $parameters,
+            parameters: $this->getLogParameters($result, $tags),
         );
     }
 
     private function dispatchWeaponEventEffects(WeaponEventConfig $weaponEventConfig, ActionResult $result, Weapon $weaponMechanic, array $tags): DamageSpread
     {
-        $weapon = $result->getActionProvider();
-        $attacker = $result->getPlayer();
-        $target = $result->getTargetAsPlayer();
         $weaponEffectConfigs = $this->weaponEffectConfigRepository->findAllByWeaponEvent($weaponEventConfig);
-
         $damageSpread = $weaponMechanic->getDamageSpread();
 
         foreach ($weaponEffectConfigs as $weaponEffectConfig) {
             $damageSpread = $this->weaponEffectHandlerService->handle(
                 new WeaponEffect(
                     weaponEffectConfig: $weaponEffectConfig,
-                    attacker: $attacker,
-                    target: $target,
-                    weapon: $weapon instanceof GameItem ? $weapon : GameItem::createNull(),
+                    attacker: $result->getPlayer(),
+                    target: $result->getTargetAsPlayer(),
+                    weapon: $result->getGameItemActionProviderOrDefault(),
                     damageSpread: $damageSpread,
                     tags: $tags,
                 )
@@ -125,18 +121,54 @@ final readonly class UseWeaponService
         return $result->isASuccess() && $target->isAlive();
     }
 
-    private function getRandomSuccessfulWeaponEventConfig(Weapon $weapon): WeaponEventConfig
+    private function getRandomSuccessfulWeaponEventConfig(ActionResult $result, Weapon $weapon): WeaponEventConfig
     {
-        $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($weapon->getSuccessfulEventKeys());
+        $sucessfulEventKeys = $weapon->getSuccessfulEventKeys();
+
+        if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER)) {
+            $sucessfulEventKeys = $this->doubleCriticalEventWeights($sucessfulEventKeys);
+        }
+
+        $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($sucessfulEventKeys);
 
         return $this->weaponEventConfigRepository->findOneByKey($randomEventKey);
     }
 
-    private function getRandomFailedWeaponEventConfig(Weapon $weapon): WeaponEventConfig
+    private function doubleCriticalEventWeights(ProbaCollection $successfulEventKeys): ProbaCollection
     {
-        $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($weapon->getFailedEventKeys());
+        /** @var string $eventKey */
+        foreach ($successfulEventKeys as $eventKey => $eventProbability) {
+            if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType()->equals(WeaponEventType::CRITIC)) {
+                $successfulEventKeys->setElementProbability($eventKey, $eventProbability * 2);
+            }
+        }
+
+        return $successfulEventKeys;
+    }
+
+    private function getRandomFailedWeaponEventConfig(ActionResult $result, Weapon $weapon): WeaponEventConfig
+    {
+        $failedEventKeys = $weapon->getFailedEventKeys();
+
+        if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER)) {
+            $failedEventKeys = $this->doubleNonFumbleEventWeights($failedEventKeys);
+        }
+
+        $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($failedEventKeys);
 
         return $this->weaponEventConfigRepository->findOneByKey($randomEventKey);
+    }
+
+    private function doubleNonFumbleEventWeights(ProbaCollection $failedEventKeys): ProbaCollection
+    {
+        /** @var string $eventKey */
+        foreach ($failedEventKeys as $eventKey => $eventProbability) {
+            if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType()->equals(WeaponEventType::MISS)) {
+                $failedEventKeys->setElementProbability($eventKey, $eventProbability * 2);
+            }
+        }
+
+        return $failedEventKeys;
     }
 
     private function getWeaponMechanic(ActionResult $result): Weapon

@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\Config\WeaponEventConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Enum\WeaponEventType;
 use Mush\Equipment\Event\WeaponEffect;
 use Mush\Equipment\Repository\WeaponEffectConfigRepositoryInterface;
 use Mush\Equipment\Repository\WeaponEventConfigRepositoryInterface;
@@ -56,7 +57,7 @@ final readonly class UseWeaponService
         $weaponEvent = $this->getRandomWeaponEventConfig($result, $weaponMechanic);
 
         $this->createEventLog($result, $weaponEvent, $tags);
-        $damageSpread = $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
+        $this->dispatchWeaponEventEffects($weaponEvent, $result, $weaponMechanic, $tags);
     }
 
     private function getRandomWeaponEventConfig(ActionResult $result, Weapon $weaponMechanic): WeaponEventConfig
@@ -69,7 +70,7 @@ final readonly class UseWeaponService
         $damage = $this->getRandomInteger->execute($damageSpread->min, $damageSpread->max);
 
         // Add weapon event type to tags to handle critical events effects
-        $tags[] = $weaponEventConfig->getType();
+        $tags[] = $weaponEventConfig->getType()->toString();
 
         $this->removeHealthFromPlayer->execute(
             author: $result->getPlayer(),
@@ -83,9 +84,6 @@ final readonly class UseWeaponService
     private function createEventLog(ActionResult $result, WeaponEventConfig $weaponEventConfig, array $tags): void
     {
         $attacker = $result->getPlayer();
-        $target = $result->getTargetAsPlayer();
-
-        $parameters = $this->getLogParameters($result, $tags);
 
         $this->roomLogService->createLog(
             logKey: $weaponEventConfig->getName(),
@@ -93,26 +91,22 @@ final readonly class UseWeaponService
             visibility: VisibilityEnum::PUBLIC,
             type: 'weapon_event',
             player: $attacker,
-            parameters: $parameters,
+            parameters: $this->getLogParameters($result, $tags),
         );
     }
 
     private function dispatchWeaponEventEffects(WeaponEventConfig $weaponEventConfig, ActionResult $result, Weapon $weaponMechanic, array $tags): DamageSpread
     {
-        $weapon = $result->getActionProvider();
-        $attacker = $result->getPlayer();
-        $target = $result->getTargetAsPlayer();
         $weaponEffectConfigs = $this->weaponEffectConfigRepository->findAllByWeaponEvent($weaponEventConfig);
-
         $damageSpread = $weaponMechanic->getDamageSpread();
 
         foreach ($weaponEffectConfigs as $weaponEffectConfig) {
             $damageSpread = $this->weaponEffectHandlerService->handle(
                 new WeaponEffect(
                     weaponEffectConfig: $weaponEffectConfig,
-                    attacker: $attacker,
-                    target: $target,
-                    weapon: $weapon instanceof GameItem ? $weapon : GameItem::createNull(),
+                    attacker: $result->getPlayer(),
+                    target: $result->getTargetAsPlayer(),
+                    weapon: $result->getGameItemActionProviderOrDefault(),
                     damageSpread: $damageSpread,
                     tags: $tags,
                 )
@@ -132,7 +126,7 @@ final readonly class UseWeaponService
         $sucessfulEventKeys = $weapon->getSuccessfulEventKeys();
 
         if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER)) {
-            $sucessfulEventKeys = $this->increaseCritEventWeight($sucessfulEventKeys);
+            $sucessfulEventKeys = $this->doubleCriticalEventWeights($sucessfulEventKeys);
         }
 
         $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($sucessfulEventKeys);
@@ -140,14 +134,12 @@ final readonly class UseWeaponService
         return $this->weaponEventConfigRepository->findOneByKey($randomEventKey);
     }
 
-    private function increaseCritEventWeight(ProbaCollection $successfulEventKeys): ProbaCollection
+    private function doubleCriticalEventWeights(ProbaCollection $successfulEventKeys): ProbaCollection
     {
+        /** @var string $eventKey */
         foreach ($successfulEventKeys as $eventKey => $eventProbability) {
-            /** @var string $eventKey */
-            if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType() === 'critic') {
-                $eventProbability *= 2;
-
-                $successfulEventKeys[$eventKey] = $eventProbability;
+            if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType()->equals(WeaponEventType::CRITIC)) {
+                $successfulEventKeys->setElementProbability($eventKey, $eventProbability * 2);
             }
         }
 
@@ -159,7 +151,7 @@ final readonly class UseWeaponService
         $failedEventKeys = $weapon->getFailedEventKeys();
 
         if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER)) {
-            $failedEventKeys = $this->increaseNonFumbleEventWeight($failedEventKeys);
+            $failedEventKeys = $this->doubleNonFumbleEventWeights($failedEventKeys);
         }
 
         $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($failedEventKeys);
@@ -167,13 +159,12 @@ final readonly class UseWeaponService
         return $this->weaponEventConfigRepository->findOneByKey($randomEventKey);
     }
 
-    private function increaseNonFumbleEventWeight(ProbaCollection $failedEventKeys): ProbaCollection
+    private function doubleNonFumbleEventWeights(ProbaCollection $failedEventKeys): ProbaCollection
     {
+        /** @var string $eventKey */
         foreach ($failedEventKeys as $eventKey => $eventProbability) {
-            /** @var string $eventKey */
-            if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType() === 'miss') {
-                $eventProbability *= 2;
-                $failedEventKeys[$eventKey] = $eventProbability;
+            if ($this->weaponEventConfigRepository->findOneByKey($eventKey)->getType()->equals(WeaponEventType::MISS)) {
+                $failedEventKeys->setElementProbability($eventKey, $eventProbability * 2);
             }
         }
 

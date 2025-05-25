@@ -87,6 +87,15 @@ abstract class ActionResult
         throw new \RuntimeException('Action provider is not a GameItem');
     }
 
+    public function getGameItemActionProviderOrDefault(): GameItem
+    {
+        if ($this->actionProvider instanceof GameItem) {
+            return $this->actionProvider;
+        }
+
+        return GameItem::createNull();
+    }
+
     public function setEquipment(GameEquipment $equipment): self
     {
         $this->equipment = $equipment;

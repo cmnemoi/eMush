@@ -66,6 +66,13 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: -10,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSH_INITIAL_BONUS->toConfigKey('default'),
+                name: TriumphEnum::MUSH_INITIAL_BONUS,
+                targetedEvent: DaedalusEvent::FULL_DAEDALUS,
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 120,
+            ),
         ];
     }
 

@@ -31,5 +31,11 @@
         <target>Vous perdez {quantity} :triumph: car des Mushs vous ont suivis sur Sol...</target>
       </segment>
     </unit>
+    <unit id="mush_initial_bonus">
+      <segment id="mush_initial_bonus" state="translated">
+        <source>mush_initial_bonus</source>
+        <target>Vous gagnez {quantity} :triumph_mush: car vous faites désormais partie du Mush !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

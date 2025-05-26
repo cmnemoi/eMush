@@ -57,6 +57,7 @@ class DaedalusCycleEvent extends AbstractGameEvent implements TriumphSourceEvent
         return match ($triumphConfig->getScope()) {
             TriumphScope::ALL_ACTIVE_HUMANS => $this->daedalus->getAlivePlayers()->getHumanPlayer()->getActivePlayers(),
             TriumphScope::ALL_ALIVE_HUMANS => $this->daedalus->getAlivePlayers()->getHumanPlayer(),
+            TriumphScope::ALL_ALIVE_MUSHS => $this->daedalus->getAlivePlayers()->getMushPlayer(),
             TriumphScope::ALL_MUSHS => $this->daedalus->getMushPlayers(),
             TriumphScope::PERSONAL => $this->daedalus->getAlivePlayers()->getAllByName($triumphConfig->getTarget()),
             default => throw new \LogicException('Unsupported triumph scope: ' . $triumphConfig->getScope()->value),

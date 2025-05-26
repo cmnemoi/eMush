@@ -21,6 +21,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
         return [
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => ['onDaedalusNewCycle', EventPriorityEnum::PLAYER_TRIUMPH],
             DaedalusEvent::FINISH_DAEDALUS => ['onDaedalusFinish', EventPriorityEnum::HIGH],
+            DaedalusEvent::FULL_DAEDALUS => ['onDaedalusFull', EventPriorityEnum::LOW],
         ];
     }
 
@@ -30,6 +31,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onDaedalusFinish(DaedalusEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onDaedalusFull(DaedalusEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

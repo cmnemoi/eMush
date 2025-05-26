@@ -8,6 +8,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,7 +27,7 @@ final class TriumphSourceEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function shouldGiveTriumphOnDaedalusNewCycleEvent(FunctionalTester $I): void
+    public function shouldGiveTriumphOnDaedalusNewCycle(FunctionalTester $I): void
     {
         $this->player->setTriumph(0);
 
@@ -40,7 +42,7 @@ final class TriumphSourceEventCest extends AbstractFunctionalTest
         $I->assertEquals(1, $this->player->getTriumph());
     }
 
-    public function shouldGiveTriumphOnDaedalusEvent(FunctionalTester $I): void
+    public function shouldGiveTriumphOnDaedalusFinished(FunctionalTester $I): void
     {
         $this->player->setTriumph(0);
 
@@ -53,5 +55,26 @@ final class TriumphSourceEventCest extends AbstractFunctionalTest
 
         // return to sol human triumph
         $I->assertEquals(20, $this->player->getTriumph());
+    }
+
+    public function shouldGiveTriumphOnDaedalusFull(FunctionalTester $I): void
+    {
+        $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
+
+        $this->player->setTriumph(0);
+        $this->eventService->callEvent(
+            event: new PlayerEvent($this->player, [], new \DateTime()),
+            name: PlayerEvent::CONVERSION_PLAYER
+        );
+
+        $event = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($event, DaedalusEvent::FULL_DAEDALUS);
+
+        // Mush initial bonus triumph
+        $I->assertEquals(120, $this->player->getTriumph());
     }
 }

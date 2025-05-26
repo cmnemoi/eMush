@@ -1,8 +1,8 @@
 <?php
 
-namespace Mush\Tests\unit\Triumph\Event;
-
 declare(strict_types=1);
+
+namespace Mush\Tests\unit\Triumph\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;

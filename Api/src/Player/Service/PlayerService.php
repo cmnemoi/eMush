@@ -24,10 +24,8 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\ClosedPlayerRepositoryInterface;
 use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepositoryInterface;
-use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Triumph\Enum\TriumphEnum;
 use Mush\User\Entity\User;
 
 final class PlayerService implements PlayerServiceInterface
@@ -310,27 +308,6 @@ final class PlayerService implements PlayerServiceInterface
             );
             $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
-    }
-
-    private function handleTriumphChange(Player $player, \DateTime $date): void
-    {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
-        $humanTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_HUMAN);
-        $mushTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_MUSH);
-        $triumphChange = $player->isMush() ? $mushTriumph->getQuantity() : $humanTriumph->getQuantity();
-
-        $player->addTriumph($triumphChange);
-
-        $this->roomLogService->createLog(
-            PlayerModifierLogEnum::GAIN_TRIUMPH,
-            $player->getPlace(),
-            VisibilityEnum::PRIVATE,
-            'event_log',
-            $player,
-            ['quantity' => $triumphChange],
-            $date
-        );
     }
 
     private function markPlayerAsDead(Player $player, string $endCause, \DateTime $date): void

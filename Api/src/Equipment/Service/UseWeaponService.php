@@ -6,6 +6,7 @@ namespace Mush\Equipment\Service;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Equipment\Entity\Config\WeaponEventConfig;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
@@ -124,9 +125,12 @@ final readonly class UseWeaponService
     private function getRandomSuccessfulWeaponEventConfig(ActionResult $result, Weapon $weapon): WeaponEventConfig
     {
         $sucessfulEventKeys = $weapon->getSuccessfulEventKeys();
+        $actionProvider = $result->getActionProvider();
 
-        if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER)) {
-            $sucessfulEventKeys = $this->doubleCriticalEventWeights($sucessfulEventKeys);
+        if ($actionProvider instanceof GameEquipment) {
+            if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER) && $actionProvider->isAGun()) {
+                $sucessfulEventKeys = $this->doubleCriticalEventWeights($sucessfulEventKeys);
+            }
         }
 
         $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($sucessfulEventKeys);
@@ -149,11 +153,13 @@ final readonly class UseWeaponService
     private function getRandomFailedWeaponEventConfig(ActionResult $result, Weapon $weapon): WeaponEventConfig
     {
         $failedEventKeys = $weapon->getFailedEventKeys();
+        $actionProvider = $result->getActionProvider();
 
-        if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER)) {
-            $failedEventKeys = $this->doubleNonFumbleEventWeights($failedEventKeys);
+        if ($actionProvider instanceof GameEquipment) {
+            if ($result->getPlayer()->hasSkill(SkillEnum::SHOOTER) && $actionProvider->isAGun()) {
+                $failedEventKeys = $this->doubleNonFumbleEventWeights($failedEventKeys);
+            }
         }
-
         $randomEventKey = (string) $this->probaCollectionRandomElement->generateFrom($failedEventKeys);
 
         return $this->weaponEventConfigRepository->findOneByKey($randomEventKey);

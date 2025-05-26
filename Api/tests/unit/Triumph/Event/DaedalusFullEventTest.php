@@ -1,5 +1,7 @@
 <?php
 
+namespace Mush\Tests\unit\Triumph\Event;
+
 declare(strict_types=1);
 
 use Mush\Daedalus\Entity\Daedalus;
@@ -105,7 +107,7 @@ final class DaedalusFullEventTest extends TestCase
         $event = new DaedalusEvent(
             daedalus: $daedalus,
             tags: [],
-            time: new DateTime(),
+            time: new \DateTime(),
         );
         $event->setEventName(DaedalusEvent::FULL_DAEDALUS);
 

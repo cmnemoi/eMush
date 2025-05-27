@@ -15,7 +15,12 @@ final class PlanetSectorNormalizer implements NormalizerInterface, NormalizerAwa
 {
     use NormalizerAwareTrait;
 
-    public function __construct(private TranslationServiceInterface $translationService) {}
+    private TranslationServiceInterface $translationService;
+
+    public function __construct(TranslationServiceInterface $translationService)
+    {
+        $this->translationService = $translationService;
+    }
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -24,7 +29,9 @@ final class PlanetSectorNormalizer implements NormalizerInterface, NormalizerAwa
 
     public function getSupportedTypes(?string $format): array
     {
-        return [PlanetSector::class => true];
+        return [
+            PlanetSector::class => false,
+        ];
     }
 
     public function normalize(mixed $object, ?string $format = null, array $context = []): array

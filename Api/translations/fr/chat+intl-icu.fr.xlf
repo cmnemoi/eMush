@@ -2,15 +2,15 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="chat.ext">
     <unit id="tips">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>tips.name</source>
         <target>Conseils</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>tips.description</source>
         <target>Trouvez ici des **conseils pratiques** pour la vie quotidienne (sponsorisé par mangerbouger.fr).</target>
       </segment>
-      <segment id="teamObjectives.title" state="translated">
+      <segment id="teamObjectives.title" state="final">
         <source>tips.teamObjectives.title</source>
         <target>{team, select,
         mush {Vos objectifs en tant que :berzerk: Mush}
@@ -19,120 +19,116 @@
         other {Vos objectifs en tant qu':male_admin: humain}
         }}}</target>
       </segment>
-      <segment id="teamObjectives.elements" state="translated">
+      <segment id="teamObjectives.elements" state="final">
         <source>tips.teamObjectives.elements</source>
         <target>{team, select,
-        mush {**Éliminer tous les humains** en coopérant avec les autres Mushs.//**Contaminer des humains** pour les transformer en Mushs.//**Manipuler les humains** pour les pousser à faire des actions qui les désavantagent.//**Saboter les actions humaines** aux bons moments, pour les empêcher de réparer le PILGRED.}
-        other {**Éliminer les Mushs à bord**.//**Réaliser le sérum anti-Mush**.//**Réparer le PILGRED** pour rentrer sur Sol, ou trouver un nouvel Eden.}}</target>
+        mush {**Éliminer tous les humains** en coopérant avec les autres Mushs.//**Contaminer des humains** pour les transformer en Mushs.//**Manipuler les humains** pour les pousser à faire des actions qui les désavantagent.//**Saboter les actions humaines** aux bons moments, pour les empêcher de réparer le PILGRED et rentrer sur Sol.}
+        other {**Éliminer les Mushs à bord**.//**Réparer le PILGRED** pour rentrer sur Sol.//**Coopérer avec les autres humains** pour survivre à l'aide de vos compétences. 👇}}</target>
       </segment>
-      <segment id="teamObjectives.mushTutorialTitle" state="translated">
+      <segment id="teamObjectives.mushTutorialTitle" state="final">
         <source>tips.teamObjectives.mushTutorialTitle</source>
         <target>**Plus d'informations dans le tutoriel communautaire**</target>
       </segment>
-      <segment id="teamObjectives.mushTutorialLink" state="translated">
+      <segment id="teamObjectives.mushTutorialLink" state="final">
         <source>tips.teamObjectives.mushTutorialLink</source>
         <target>https://cmnemoi.github.io/archive_aide_aux_bolets/etre-mush-premiers-pas.html</target>
       </segment>
-      <segment id="characterObjectives.title" state="translated">
+      <segment id="characterObjectives.title" state="final">
         <source>tips.characterObjectives.title</source>
         <target>Vos objectifs en tant que :{characterKey}: {character}</target>
       </segment>
-      <segment id="characterObjectives.tutorial" state="translated">
+      <segment id="characterObjectives.tutorial" state="final">
         <source>tips.characterObjectives.tutorial</source>
         <target>**Plus d'informations dans le tutoriel communautaire**</target>
       </segment>
-      <segment id="externalResources.title" state="translated">
+      <segment id="externalResources.title" state="final">
         <source>tips.externalResources.title</source>
         <target>Besoin d'aide ? N'hésitez pas à consulter</target>
       </segment>
-      <segment id="externalResources.crewmates" state="translated">
+      <segment id="externalResources.crewmates" state="final">
         <source>tips.externalResources.crewmates</source>
         <target>{team, select,
         mush {Vos coéquipiers à l'aide du :mush: **canal Mush**}
         other {Vos coéquipiers à l'aide du :wall: **canal général**}}</target>
       </segment>
-      <segment id="externalResources.discord" state="translated">
+      <segment id="externalResources.discord" state="final">
         <source>tips.externalResources.discord</source>
         <target>**Le serveur Discord** d'Eternaltwin</target>
       </segment>
-      <segment id="externalResources.tutorials" state="translated">
+      <segment id="externalResources.tutorials" state="final">
         <source>tips.externalResources.tutorials</source>
         <target>**Les tutoriels communautaires** de l'Aide aux bolets</target>
       </segment>
-      <segment id="externalResources.wiki" state="translated">
+      <segment id="externalResources.wiki" state="final">
         <source>tips.externalResources.wiki</source>
         <target>**Le wiki** Twinpédia</target>
       </segment>
-      <segment id="externalResources.tutorialsLink" state="translated">
+      <segment id="externalResources.tutorialsLink" state="final">
         <source>tips.externalResources.tutorialsLink</source>
         <target>https://cmnemoi.github.io/archive_aide_aux_bolets/</target>
       </segment>
-      <segment id="externalResources.wikiLink" state="translated">
+      <segment id="externalResources.wikiLink" state="final">
         <source>tips.externalResources.wikiLink</source>
         <target>https://twin.tithom.fr/mush</target>
       </segment>
-      <segment id="missions.title" state="translated">
+      <segment id="missions.title" state="final">
         <source>tips.missions.title</source>
         <target>Missions</target>
       </segment>
-      <segment id="missions.accept" state="translated">
+      <segment id="missions.accept" state="final">
         <source>tips.missions.accept</source>
         <target>Accepter ?</target>
       </segment>
-      <segment id="announcements.title" state="translated">
-        <source>tips.announcements.title</source>
-        <target>Annonces</target>
-      </segment>
     </unit>
     <unit id="room_log">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>room_log.name</source>
         <target>Événements salle</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>room_log.description</source>
         <target>Ici vous avez l'historique des **événements de la salle où vous vous trouvez actuellement**.
 S'il y a une caméra, les actions discrètes et furtives seront révélées.</target>
       </segment>
     </unit>
     <unit id="public">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>public.name</source>
         <target>Discussion</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>public.description</source>
         <target>Le canal de discussion est indispensable pour s'organiser avec l'équipage.
 Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
     </unit>
     <unit id="private">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>private.name</source>
         <target>Canal privé</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>private.description</source>
         <target>Les canaux de discussion privés permettent de manigancer à l'abri des oreilles indiscrètes.
                     **Attention les canaux privés sont des éléments de jeu et sont donc soumis à la même politique de confidentialité que eMush.**</target>
       </segment>
     </unit>
     <unit id="mush">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mush.name</source>
         <target>Canal Mush</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mush.description</source>
         <target>Ssshh, personne nous entend ici... Le Canal Mush est le *canal privé* pour les adhérents au **Mush** :mush:.</target>
       </segment>
     </unit>
     <unit id="new">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>new.name</source>
         <target>Canal privé</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>new.description</source>
         <target>Votre talkie dispose d'un canal privé libre. Cliquez ici pour ouvrir une conversation privée avec un ou plusieurs camarades qui possèdent un :talkie: **talkie-walkie**.
 **Attention les canaux privés sont des éléments de jeu et sont donc soumis à la même politique de confidentialité que eMush.**</target>
@@ -149,19 +145,19 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
     </unit>
     <unit id="message_date">
-      <segment id="message_date.less_minute" state="translated">
+      <segment id="message_date.less_minute" state="final">
         <source>message_date.less_minute</source>
         <target>à l'instant</target>
       </segment>
-      <segment id="message_date.more_minute" state="translated">
+      <segment id="message_date.more_minute" state="final">
         <source>message_date.more_minute</source>
         <target>{quantity}min</target>
       </segment>
-      <segment id="message_date.more_hour" state="translated">
+      <segment id="message_date.more_hour" state="final">
         <source>message_date.more_hour</source>
         <target>~{quantity}h</target>
       </segment>
-      <segment id="message_date.more_day" state="translated">
+      <segment id="message_date.more_day" state="final">
         <source>message_date.more_day</source>
         <target>~{quantity}j</target>
       </segment>

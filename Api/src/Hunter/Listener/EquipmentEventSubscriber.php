@@ -6,16 +6,12 @@ namespace Mush\Hunter\Listener;
 
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Hunter\Repository\HunterRepositoryInterface;
-use Mush\Hunter\Repository\HunterTargetRepositoryInterface;
+use Mush\Hunter\Repository\HunterTargetRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EquipmentEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(
-        private HunterRepositoryInterface $hunterRepository,
-        private HunterTargetRepositoryInterface $hunterTargetRepository,
-    ) {}
+    public function __construct(private HunterTargetRepository $hunterTargetRepository) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -34,12 +30,10 @@ final class EquipmentEventSubscriber implements EventSubscriberInterface
     private function deleteHunterTarget(InteractWithEquipmentEvent $event): void
     {
         $patrolShip = $event->getGameEquipment();
-        $hunterTargets = $this->hunterTargetRepository->findAllBy(['patrolShip' => $patrolShip]);
+        $hunterTargets = $this->hunterTargetRepository->findAllByPatrolShip($patrolShip);
 
         foreach ($hunterTargets as $hunterTarget) {
-            $owner = $this->hunterRepository->findOneByTargetOrThrow($hunterTarget);
-            $owner->resetTarget();
-            $this->hunterRepository->save($owner);
+            $hunterTarget->reset();
         }
     }
 }

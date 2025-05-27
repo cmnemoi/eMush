@@ -81,7 +81,7 @@ class DiseaseNormalizer implements NormalizerInterface
 
             if (!\in_array($effect, $effects, true)) {
                 $effects[] = $effect;
-                $description = $description . '// :point: ' . $effect;
+                $description = $description . '//' . $effect;
             }
         }
 

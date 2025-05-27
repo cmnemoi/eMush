@@ -59,7 +59,7 @@
 			"sol_return": "Daedalus rentré sur Sol",
 			"eden": "Daedalus s'est installé sur Eden",
 			"daedalus_destroyed": "Daedalus détruit",
-			"killed_by_neron": "Équipage contaminé assassiné par NERON",
+			"killed_by_neron": "Equipage assassiné par NERON",
 			"super_nova": "Super Nova"
 		}
 	},
@@ -90,12 +90,12 @@
 			"self_extracted": "Vos tripes avaient besoin de prendre l'air !",
 			"exploration": "Tué par un accident dans un monde alien !",
 			"exploration_combat": "Pulvérisé par un alien mal réveillé !",
-			"exploration_lost": "Quelque chose vous a trouvé avant vos coéquipiers !",
+			"exploration_lost": "Vos co-équipiers avaient la flemme de venir vous chercher !",
 			"electrocuted": "Électrocuté par ce vieux tas de ferraille !",
 			"injury": "Blessé à mort !",
 			"burnt": "Calciné par un incendie inopportun !",
 			"clumsiness": "Tellement mal en point qu'un rien vous a achevé...",
-			"space_battle": "Mort dans l'explosion de votre vaisseau suite à des tirs ennemis!",
+			"space_battle": "Mort présent dans un appareil annihilé !",
 			"space_asphyxiated": "Mort abandonné dans l'espace intersidéral !",
 			"beheaded": "Décapité par un fâcheux !",
 			"starvation": "Mort de faim !",
@@ -207,9 +207,7 @@
 				"create": "Créer de l'équipement pour les vaisseaux en cours",
 				"name": "Nom de l'équipement",
 				"quantity": "Quantité",
-				"place": "Salle où créer l'équipement",
-				"daedalus": "Identifiant du Daedalus",
-				"createForDaedalus": "Créer de l'équipement pour le Daedalus"
+				"place": "Salle où créer l'équipement"
 			},
 			"projects": {
 				"title": "Projets",
@@ -426,10 +424,12 @@
 			"pageTitle": "Modification de l'équipement ",
 			"name": "Nom",
 			"equipmentName": "Nom de l'équipement",
-			"breakableType": "Type de cassable",
-			"none": "Non cassable",
-			"breakable": "Cassable",
-			"destroyOnBreak": "Détruire en cas de casse",
+			"isBreakable": "Cassable",
+			"isNotBreakable": "Non cassable",
+			"isFireBreakable": "Cassable par les incendies",
+			"isNotFireBreakable": "Non cassable par les incendies",
+			"isFireDestroyable": "Peut être détruit par les incendies",
+			"isNotFireDestroyable": "Ne peut pas être détruit par les incendies",
 			"isPersonal": "Personnel",
 			"isNotPersonal": "Non personnel",
 			"dismountedProducts": "Produits du démontage",
@@ -596,7 +596,7 @@
 		}
 	},
 	"charSelection": {
-		"selectLanguage": "Sélectionnez une langue pour rejoindre une partie 👉",
+		"selectLanguage": "Sélectionnez une langue pour rejoindre un vaisseau 👉",
 		"shipNotFound": "Aucun vaisseau n'a été trouvé. Un nouveau devrait être créé dans l'heure !",
 		"startGame": "Démarrer la partie",
 		"youChoose": "Vous avez choisi ",
@@ -623,8 +623,6 @@
 			"report": "Plainte",
 			"loadMoreMessages": "Charger plus de messages",
 			"markChannelAsRead": "Marquer le canal comme lu",
-			"exportChannelAsPDF": "Exporter le canal au format PDF",
-			"exportChannelAsPDFDescription": "Copiera également la discussion dans le presse-papiers.",
 			"unbookmark": "Plus favori",
 			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
 		},
@@ -634,10 +632,6 @@
 		"commanderOrderPanel": {
 			"title": "Mission",
 			"tips": "Vous êtes le *Commandant* du vaisseau et vous avez le pouvoir de *commander des missions* à vos camarades. Vous pourrez choisir à qui envoyer la mission que vous aurez librement décidée et il recevra des :pa: s'il l'accepte. Mais, personne ne vous garantit que votre camarade respectera vos ordres..."
-		},
-		"ComManagerAnnouncementPanel": {
-			"title": "Annonce Générale",
-			"tips": "En tant que *Resp. Communications* vous pouvez réaliser une annonce générale. //// Tous vos camarades seront **notifiés** et l'annonce restera dans l'onglet :tip: **Conseils**. Chaque nouvelle annonce remplace la précédente."
 		},
 		"popUp": {
 			"close": "Fermer",
@@ -747,13 +741,6 @@
 			"roles": "Rôles"
 		},
 		"sanction": {
-			"id": "Numéro",
-			"author": "Auteur",
-			"target": "Cible",
-			"reason": "Motif",
-			"evidence": "Message plainté",
-			"date": "Date",
-			"actions": "Actions",
 			"delete": "Supprimer",
 			"ban_user": "Bannir",
 			"banDescription": "Bannir cet utilisateur afin qu'il ne puisse plus rejoindre de vaisseaux. (vous pourrez le débannir à tout moment).",
@@ -772,10 +759,7 @@
 			"banned": "Banni",
 			"report": "Plainte",
 			"report_abusive": "Plainte abusive",
-			"report_processed": "Plainte traitée",
-			"alive": "EN VIE",
-			"name": "Sanction",
-			"showMore": "Afficher"
+			"report_processed": "Plainte traitée"
 		},
 		"reason": {
 			"multi_account": "Multicompte",
@@ -805,21 +789,18 @@
 		},
 		"sanctionDetail": {
 			"sanction": "Détails de la sanction",
-			"report": "Détails",
+			"report": "Détails de la plainte",
 			"user": "Nom d'utilisateur : ",
 			"player": "Personage joué : ",
 			"endDate": "Fin de la sanction : ",
 			"startDate": "Début de la sanction : ",
 			"reportDate": "Date de la plainte : ",
 			"date": "Date : ",
-			"author": "Auteur",
-			"message": "Message",
+			"author": "Modérateur : ",
+			"message": "Message :",
 			"sanctionType": "Type de sanction : ",
 			"reason": "Raison : ",
-			"evidence": "Message plainté",
-			"today": "Aujourd'hui",
-			"yesterday": "Hier",
-			"to": "à"
+			"evidence": "Message plainté"
 		},
 		"report": {
 			"name": "Plainte",
@@ -829,10 +810,9 @@
 			"choosePlayer": "Sélectionner le coéquipier",
 			"playerMessage": "Description de la situation :",
 			"player": "Joueur visé par la plainte",
-			"seeContext": "Voir contexte",
+			"seeContext": "Voir dans son contexte",
 			"message": "Si vous pensez qu'un coéquipier enfreint le règlement de eMush, merci de vous assurer d'avoir sélectionné un message illustrant le problème et d'expliquer en détail le motif de votre plainte.",
-			"commanderMission": "Mission du commandant",
-			"comManagerAnnouncement": "Annonce générale"
+			"commanderMission": "Mission du commandant"
 		},
 		"actions": {
 			"name": "Actions",
@@ -847,7 +827,6 @@
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",
 		"sanctionsFor": "Liste des sanctions de {username}",
-		"reportsFor": "Liste des plaintes envoyées contre {username}",
 		"isSanctionActive": "Sanctions en cours",
 		"sanctionType": "Type de sanction",
 		"sanctionReason": "Raison",

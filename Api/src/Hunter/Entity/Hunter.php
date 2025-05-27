@@ -13,24 +13,21 @@ use Mush\Game\Entity\Collection\GameVariableCollection;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
-use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
-use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
-use Mush\Status\Entity\VisibleStatusHolderInterface;
 use Mush\Status\Enum\HunterStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'hunter')]
-class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface, ActionHolderInterface, HunterTargetEntityInterface, VisibleStatusHolderInterface
+class Hunter implements GameVariableHolderInterface, LogParameterInterface, StatusHolderInterface, ActionHolderInterface
 {
     use TargetStatusTrait;
 
@@ -63,9 +60,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
         $this->hunterConfig = $hunterConfig;
         $this->statuses = new ArrayCollection();
         $this->target = null;
-
-        $this->setHunterVariables($hunterConfig);
-        $this->space->addHunter($this);
     }
 
     public function getId(): int
@@ -102,15 +96,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
         return $this->target;
     }
 
-    public function getTargetOrThrow(): HunterTarget
-    {
-        if ($this->target === null) {
-            throw new \RuntimeException('Hunter has no target');
-        }
-
-        return $this->target;
-    }
-
     public function getTargetEntityOrThrow(): HunterTargetEntityInterface
     {
         if ($this->target === null) {
@@ -125,11 +110,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
         $this->target = $target;
 
         return $this;
-    }
-
-    public function isTargetInBattle(): bool
-    {
-        return $this->getTargetEntityOrThrow()->isInSpaceBattle();
     }
 
     public function isInPool(): bool
@@ -164,13 +144,6 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function setVariableValueByName(int $value, string $variableName): static
     {
         $this->hunterVariables->setValueByName($value, $variableName);
-
-        return $this;
-    }
-
-    public function changeVariableValueByName(int $delta, string $variableName): static
-    {
-        $this->hunterVariables->changeValueByName($delta, $variableName);
 
         return $this;
     }
@@ -316,47 +289,5 @@ class Hunter implements GameVariableHolderInterface, LogParameterInterface, Stat
     public function getDamageRange(): ProbaCollection
     {
         return $this->getHunterConfig()->getDamageRange();
-    }
-
-    public function aimAtDaedalus(): void
-    {
-        $this->setTarget(new HunterTarget($this));
-    }
-
-    public function isScrambled(D100RollServiceInterface $d100Roll): bool
-    {
-        $meridonScrambler = $this->getDaedalus()->getProjectByName(ProjectName::MERIDON_SCRAMBLER);
-
-        return $this->isSimpleHunter() && $meridonScrambler->isFinished() && $d100Roll->isSuccessful($meridonScrambler->getActivationRate());
-    }
-
-    public function isInAPatrolShip(): false
-    {
-        return false;
-    }
-
-    public function isInSpace(): false
-    {
-        return false;
-    }
-
-    public function isInSpaceBattle(): bool
-    {
-        return $this->isInPool() === false;
-    }
-
-    public function hasNoHealth(): bool
-    {
-        return $this->getHealth() <= 0;
-    }
-
-    public function isTransport(): bool
-    {
-        return $this->getHunterConfig()->getHunterName() === HunterEnum::TRANSPORT;
-    }
-
-    private function isSimpleHunter(): bool
-    {
-        return $this->getHunterConfig()->getHunterName() === HunterEnum::HUNTER;
     }
 }

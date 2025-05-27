@@ -72,7 +72,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                 'id' => $project->getId(),
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
-                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre. De plus, la machine à café se régénèrera quatre fois plus vite.',
+                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
                 'lore' => '',
                 'progress' => '0%',
                 'efficiency' => 'Efficacité : 1-1%',
@@ -82,7 +82,10 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                     [
                         'key' => 'physicist',
                         'name' => 'Physicien',
-                        'description' => "Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques quantiques et de l'essence même des cordes qui composent notre Univers est son atout. Il possède des avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d'action de **réparation de PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.",
+                        'description' => 'Le physicien est un chercheur en physique de haut vol, sa compréhension des mécaniques
+                    quantiques et de l\'essence même des cordes qui composent notre Univers est son atout. Il possède des
+                    avantages pour réparer PILGRED.//:point: Accorde 1 :pa_pilgred: (point d\'action de **réparation de
+                    PILGRED**) par jour.//:point: Bonus pour développer certains **Projets NERON**.',
                     ],
                     [
                         'key' => 'technician',
@@ -93,7 +96,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
         :point: Peut **Renforcer** des objets.//
         :point: Chances de réussites doublées pour les **Réparations**.//
         :point: Chances de réussites doublées pour les **Rénovations**.//
-        :point: Bonus pour développer certains **Projets NERON** et **réparer PILGRED**.',
+        :point: Bonus pour développer certains **Projets NERON**.',
                     ],
                 ],
                 'isLastAdvancedProject' => false,
@@ -107,7 +110,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                         'moralPointCost' => 0,
                         'skillPointCosts' => [],
                         'successRate' => 100,
-                        'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
+                        'description' => 'Réparer PILGRED vous permettra de revenir sur Sol.',
                         'canExecute' => true,
                         'confirmation' => null,
                         'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
@@ -132,11 +135,10 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
         // then I should get the normalized project
         $I->assertEquals(
             expected: [
-                'type' => 'pilgred',
-                'translatedType' => 'PILGRED',
+                'type' => 'PILGRED',
                 'key' => 'pilgred',
                 'name' => 'PILGRED',
-                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre. De plus, la machine à café se régénèrera quatre fois plus vite.',
+                'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
                 'lore' => '',
             ],
             actual: $normalizedProject

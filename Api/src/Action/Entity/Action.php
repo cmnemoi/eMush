@@ -35,9 +35,4 @@ class Action
     {
         return $this->actionProvider;
     }
-
-    public function equals(self $action): bool
-    {
-        return $this->getId() === $action->getId();
-    }
 }

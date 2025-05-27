@@ -12,16 +12,14 @@ use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\Random\FakeD100RollService as FakeD100Roll;
-use Mush\Game\Service\Random\FakeGetRandomIntegerService as FakeGetRandomInteger;
+use Mush\Game\Service\Random\FakeD100RollService;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Listener\ActionSubscriber;
-use Mush\RoomLog\Repository\InMemoryRoomLogRepository;
-use Mush\RoomLog\Service\RoomLogService;
+use Mush\RoomLog\Service\FakeRoomLogService;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use PHPUnit\Framework\TestCase;
@@ -32,34 +30,22 @@ use PHPUnit\Framework\TestCase;
 final class ActionSubscriberTest extends TestCase
 {
     private ActionSubscriber $actionSubscriber;
-    private FakeGetRandomInteger $getRandomInteger;
-    private InMemoryRoomLogRepository $roomLogRepository;
-    private RoomLogService $roomLogService;
-    private FakeD100Roll $roomLogServiceD100Roll;
-    private FakeD100Roll $d100Roll;
+
+    private FakeRoomLogService $roomLogService;
 
     /**
      * @before
      */
     protected function setUp(): void
     {
-        $this->d100Roll = new FakeD100Roll();
-        $this->getRandomInteger = new FakeGetRandomInteger(result: 0);
-        $this->roomLogRepository = new InMemoryRoomLogRepository();
-        $this->roomLogServiceD100Roll = new FakeD100Roll();
-        $translationService = $this->createStub(TranslationServiceInterface::class);
-
-        $this->roomLogService = new RoomLogService(
-            $this->roomLogServiceD100Roll,
-            $this->getRandomInteger,
-            $this->roomLogRepository,
-            $translationService,
+        $this->roomLogService = new FakeRoomLogService(
+            new FakeD100RollService(isSuccessful: true),
         );
 
         $this->actionSubscriber = new ActionSubscriber(
-            $this->d100Roll,
+            new FakeD100RollService(isSuccessful: true),
             $this->roomLogService,
-            $translationService,
+            $this->createStub(TranslationServiceInterface::class),
         );
     }
 
@@ -68,7 +54,7 @@ final class ActionSubscriberTest extends TestCase
      */
     protected function tearDown(): void
     {
-        $this->roomLogRepository->clear();
+        $this->roomLogService->clear();
     }
 
     public function testObservantShouldPrintNoticedSomethingLogAfterAnAction(): void
@@ -94,7 +80,7 @@ final class ActionSubscriberTest extends TestCase
         $this->whenPlayerPerformsAction($player);
 
         // then noticed something log should be created
-        $roomLog = $this->roomLogRepository->findByPlayerAndLogKey($player, LogEnum::OBSERVANT_NOTICED_SOMETHING);
+        $roomLog = $this->roomLogService->findByPlayerAndLogKey($player, LogEnum::OBSERVANT_NOTICED_SOMETHING);
         self::assertNotNull($roomLog);
     }
 
@@ -124,7 +110,7 @@ final class ActionSubscriberTest extends TestCase
         $this->whenPlayerPerformsAction($player);
 
         // then I should see only one noticed something log
-        $noticedLogs = $this->roomLogRepository->findAllByPlayerAndLogKey($player, LogEnum::OBSERVANT_NOTICED_SOMETHING);
+        $noticedLogs = $this->roomLogService->findAllByPlayerAndLogKey($player, LogEnum::OBSERVANT_NOTICED_SOMETHING);
         self::assertCount(1, $noticedLogs);
     }
 

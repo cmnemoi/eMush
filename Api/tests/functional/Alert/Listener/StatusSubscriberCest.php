@@ -8,8 +8,8 @@ use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
 use Mush\Alert\Listener\StatusSubscriber;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
@@ -18,7 +18,6 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Entity\GameConfig;
@@ -87,10 +86,7 @@ class StatusSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
-        $gravitySimulatorConfig = $I->have(
-            EquipmentConfig::class,
-            ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig, 'breakableType' => BreakableTypeEnum::BREAKABLE]
-        );
+        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
 
         $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
@@ -153,10 +149,7 @@ class StatusSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
-        $gravitySimulatorConfig = $I->have(
-            EquipmentConfig::class,
-            ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig, 'breakableType' => BreakableTypeEnum::BREAKABLE]
-        );
+        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
 
         $gravitySimulator = new GameEquipment($room);
         $gravitySimulator
@@ -241,10 +234,7 @@ class StatusSubscriberCest
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $gravitySimulatorConfig */
-        $gravitySimulatorConfig = $I->have(
-            EquipmentConfig::class,
-            ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig, 'breakableType' => BreakableTypeEnum::BREAKABLE]
-        );
+        $gravitySimulatorConfig = $I->have(EquipmentConfig::class, ['name' => EquipmentEnum::GRAVITY_SIMULATOR, 'gameConfig' => $gameConfig]);
 
         $gameEquipment = new GameEquipment($room);
         $gameEquipment

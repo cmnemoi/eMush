@@ -10,11 +10,12 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Normalizer\ModerationPlayerInfoNormalizer;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerInfoRepository;
-use Mush\Tests\unit\MetaGame\TestDoubles\InMemoryTokenStorage;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Factory\UserFactory;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -69,7 +70,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
             $this->getTokenStorageForUser($moderator),
             $this->translationService
         );
-        $normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $normalizer->setNormalizer(new DummyNormalizer());
         $result = $normalizer->normalize($anotherPlayer->getPlayerInfo());
 
         // then the moderator should not be able to see the other player
@@ -98,7 +99,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
             $this->getTokenStorageForUser($moderator),
             $this->translationService
         );
-        $normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $normalizer->setNormalizer(new DummyNormalizer());
 
         $result = $normalizer->normalize($anotherPlayer->getPlayerInfo());
 
@@ -122,7 +123,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
             $this->getTokenStorageForUser($moderator),
             $this->translationService
         );
-        $normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $normalizer->setNormalizer(new DummyNormalizer());
         $result = $normalizer->normalize($player->getPlayerInfo());
 
         // then the moderator should be able to see the player
@@ -135,5 +136,33 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
         $tokenStorage->setToken(new UsernamePasswordToken($user, 'password', $user->getRoles()));
 
         return $tokenStorage;
+    }
+}
+
+final class DummyNormalizer implements NormalizerInterface
+{
+    public function normalize($object, $format = null, array $context = [])
+    {
+        return [];
+    }
+
+    public function supportsNormalization($data, $format = null)
+    {
+        return true;
+    }
+}
+
+final class InMemoryTokenStorage implements TokenStorageInterface
+{
+    private UsernamePasswordToken $token;
+
+    public function getToken(): ?TokenInterface
+    {
+        return $this->token;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 }

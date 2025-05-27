@@ -38,7 +38,7 @@
         <source>broken_equipments.description</source>
         <target>Contact a technician or get to work!</target>
       </segment>
-      <segment id="report" state="translated">
+      <segment id="report" state="final">
         <source>broken_equipments.report</source>
         <target>**{character}** has reported {quantity, plural, one {**#** broken piece} other {**#** broken pieces}} of equipment {loc_prep} **{place}**.</target>
       </segment>
@@ -147,16 +147,6 @@
       <segment id="alerts" state="translated">
         <source>alerts</source>
         <target>Alerts:</target>
-      </segment>
-    </unit>
-    <unit id="communications_down">
-      <segment id="name" state="translated">
-        <source>communications_down.name</source>
-        <target>No Link</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>communications_down.description</source>
-        <target>The Daedalus has no **communication link** with Sol! Maintening a link with Sol is important for the morale of the group and essential for survival.</target>
       </segment>
     </unit>
   </file>

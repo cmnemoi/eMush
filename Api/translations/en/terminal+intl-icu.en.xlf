@@ -64,7 +64,7 @@ If the job has been done properly, the Daedalus will put itself into a planet's 
                   east {North :left::left::left: **East** :right::right::right: South}
                   west {South :left::left::left: **West** :right::right::right: North}
                   other {The Daedalus is currently heading towards : **{orientation}**.}
-}</target>
+        }</target>
       </segment>
     </unit>
     <unit id="astro_terminal">
@@ -110,11 +110,11 @@ To leave orbit, the Commander in charge must give this order from the Command Te
       </segment>
       <segment id="tips" state="translated">
         <source>research_laboratory.tips</source>
-        <target>Here you can carry out research to benefit the entire crew. There are two ways to collaborate: bring items to the laboratory to unlock new research, or advance research that is already underway.
+        <target>Here you can carry out research to benefit the entire crew. There are two ways to collaborate: use objects in the laboratory to unblock new research, or advance research that is already underway.
 //
-Some items will unlock the appropriate research while in the room's shelf, while others must be held in hand to render their research visible.
+To use an object, the object must either be in the room you are in, or in your inventory.
 //
-A lone crewmember, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. Alternating work with your crewmates is the key!</target>
+A solitary person, even if they have the appropriate skills, will have difficulty successfully completing research. If you advance research more than once in a row, your efficiency will decrease. Working alternately with a crewmate is the key!</target>
       </segment>
       <segment id="chun_present" state="translated">
         <source>research_laboratory.chun_present</source>
@@ -130,7 +130,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>block_of_post_it.name</source>
         <target>Block of post-it notes</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>
@@ -143,7 +143,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         other {Exploration takes place automatically. Every # minutes, a new step takes place. Once you've left, there is no turning back.}
         }</target>
       </segment>
-      <segment id="recolted_infos" state="translated">
+      <segment id="recolted_infos" state="final">
         <source>exploration.recolted_infos</source>
         <target>Obtained info...</target>
       </segment>
@@ -171,7 +171,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.name</source>
         <target>BIOS Terminal</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>bios_terminal.tips</source>
         <target>You are accessing NERON's BIOS. Only the administrator can modify its settings.</target>
       </segment>
@@ -179,7 +179,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.cpu_priority_name</source>
         <target>CPU Priority</target>
       </segment>
-      <segment id="cpu_priority.description" state="translated">
+      <segment id="cpu_priority.description" state="final">
         <source>bios_terminal.cpu_priority_description</source>
         <target>Controls the allocation of CPU timeslots. This either makes research or NERON projects easier to progress, increases the amount of GeoData provided by planetary analysis, or puts the CPU in 'CBA' Mode (lazy) where it doesn't do much at all. This attribute can only be changed **once per day per person** to ensure no cognitive overload is sustained by NERON.</target>
       </segment>
@@ -195,10 +195,6 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.cpu_priority_pilgred</source>
         <target>PILGRED</target>
       </segment>
-      <segment id="cpu_priority.research" state="translated">
-        <source>bios_terminal.cpu_priority_research</source>
-        <target>Research</target>
-      </segment>
       <segment id="cpu_priority.projects" state="translated">
         <source>bios_terminal.cpu_priority_projects</source>
         <target>Projects</target>
@@ -211,9 +207,9 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.crew_lock_name</source>
         <target>Crew lock</target>
       </segment>
-      <segment id="crew_lock.description" state="translated">
+      <segment id="crew_lock.description" state="final">
         <source>bios_terminal.crew_lock_description</source>
-        <target>:point: Piloting lock: Non-pilots are not authorized to pilot a Patrol Craft/Icarus.//:point: Projects lock: Non-designers are not authorized to participate in project development.//:point: Research lock: non-biologists and non-medics are not allowed to take part in scientific research.</target>
+        <target>:point: Piloting lock: Non-pilots are not authorized to pilot a Patrol Craft/Icarus.//:point: Projects lock: Non-designers are not authorized to participate in project development.</target>
       </segment>
       <segment id="crew_lock.projects" state="translated">
         <source>bios_terminal.crew_lock_projects</source>
@@ -223,10 +219,6 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.crew_lock_piloting</source>
         <target>Piloting</target>
       </segment>
-      <segment id="crew_lock.research" state="translated">
-        <source>bios_terminal.crew_lock_research</source>
-        <target>Research</target>
-      </segment>
       <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>
         <target>Plasma Shield</target>
@@ -235,11 +227,11 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.plasma_shield_description</source>
         <target>Activates the plasma shield.</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="translated">
+      <segment id="plasma_shield.toggle_activate" state="final">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
         <target>Active</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="translated">
+      <segment id="plasma_shield.toggle_deactivate" state="final">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
         <target>Inactive</target>
       </segment>
@@ -247,15 +239,15 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.magnetic_net_name</source>
         <target>Magnetic Net</target>
       </segment>
-      <segment id="magnetic_net.description" state="translated">
+      <segment id="magnetic_net.description" state="final">
         <source>bios_terminal.magnetic_net_description</source>
         <target>Activates the magnetic net which allows the crew to leave the Patrol Craft to their doom. Or otherwise...</target>
       </segment>
-      <segment id="magnetic_net.toggle_active" state="translated">
+      <segment id="magnetic_net.toggle_active" state="final">
         <source>bios_terminal.magnetic_net_toggle_active</source>
         <target>Yes</target>
       </segment>
-      <segment id="magnetic_net.toggle_inactive" state="translated">
+      <segment id="magnetic_net.toggle_inactive" state="final">
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
         <target>No</target>
       </segment>
@@ -275,22 +267,6 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>No</target>
       </segment>
-      <segment id="vocoded_announcements_name" state="translated">
-        <source>bios_terminal.vocoded_announcements_name</source>
-        <target>Vocoder Announcements</target>
-      </segment>
-      <segment id="vocoded_announcements_description" state="translated">
-        <source>bios_terminal.vocoded_announcements_description</source>
-        <target>Enables NERON to carry NERON Administrator messages.</target>
-      </segment>
-      <segment id="vocoded_announcements_toggle_active" state="translated">
-        <source>bios_terminal.vocoded_announcements_toggle_active</source>
-        <target>Authorized</target>
-      </segment>
-      <segment id="vocoded_announcements_toggle_inactive" state="translated">
-        <source>bios_terminal.vocoded_announcements_toggle_inactive</source>
-        <target>Unauthorized</target>
-      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="translated">
@@ -304,14 +280,6 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
       <segment id="pilgred_finished_description" state="translated">
         <source>pilgred.pilgred_finished_description</source>
         <target>PILGRED is fully operational.</target>
-      </segment>
-      <segment id="share_projects_button_name" state="translated">
-        <source>pilgred.share_projects_button_name</source>
-        <target>Share</target>
-      </segment>
-      <segment id="share_projects_button_description" state="translated">
-        <source>pilgred.share_projects_button_description</source>
-        <target>Share the advancement of the PILGRED repairs with the crew.</target>
       </segment>
     </unit>
     <unit id="neron_core">
@@ -333,14 +301,6 @@ That's not all: only one project per set can be brought to fruition. **When a pr
         <source>neron_core.no_proposed_neron_projects_description</source>
         <target>There are no more projects to be completed.</target>
       </segment>
-      <segment id="share_projects_button_name" state="translated">
-        <source>neron_core.share_projects_button_name</source>
-        <target>Share</target>
-      </segment>
-      <segment id="share_projects_button_description" state="translated">
-        <source>neron_core.share_projects_button_description</source>
-        <target>Share these projects with the crew.</target>
-      </segment>
     </unit>
     <unit id="auxiliary_terminal">
       <segment id="name" state="translated">
@@ -360,102 +320,6 @@ That's not all: only one project per set can be brought to fruition. **When a pr
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>There are no more projects to be completed.</target>
-      </segment>
-      <segment id="share_projects_button_name" state="translated">
-        <source>auxiliary_terminal.share_projects_button_name</source>
-        <target>Share</target>
-      </segment>
-      <segment id="share_projects_button_description" state="translated">
-        <source>auxiliary_terminal.share_projects_button_description</source>
-        <target>Share these projects with the crew.</target>
-      </segment>
-    </unit>
-    <unit id="calculator">
-      <segment id="name" state="translated">
-        <source>calculator.name</source>
-        <target>Calculator</target>
-      </segment>
-      <segment id="tips" state="translated">
-        <source>calculator.tips</source>
-        <target>This module lets you carry out scientific calculations of greater/lesser value. However, science sometimes holds glorious surprises...</target>
-      </segment>
-      <segment id="to_a_new_eden_title" state="translated">
-        <source>calculator.to_a_new_eden_title</source>
-        <target>To a new Eden</target>
-      </segment>
-      <segment id="to_a_new_eden_description" state="translated">
-        <source>calculator.to_a_new_eden_description</source>
-        <target>The cristalite contains polar coordinates corresponding to the centre on the Magellan nebula... However, to get us out of here, we'll need a hell of a propulsion system...</target>
-      </segment>
-      <segment id="nothing_to_compute" state="translated">
-        <source>calculator.nothing_to_compute</source>
-        <target>Nothing to compute at the moment. // Please deposit material in the shelf.</target>
-      </segment>
-      <segment id="eden_computed" state="translated">
-        <source>calculator.eden_computed</source>
-        <target>The calculation of the coordinates of Eden has been successfully completed. The coordinates have been forwarded to NERON. Consult your ***Commander*** for more information.</target>
-      </segment>
-    </unit>
-    <unit id="communication_center">
-      <segment id="name" state="translated">
-        <source>communication_center.name</source>
-        <target>Comms center</target>
-      </segment>
-      <segment id="tips" state="translated">
-        <source>communication_center.tips</source>
-        <target>**Establishing a connection** is always the first step in any communication. 
-//
-This action can be performed by any crewmember. Establishing contact earns morale points for the whole crew and unlocks new actions for the Comms Officer
-//
-If contact is not established, at least **signal quality will be improved** and the chances of establishing future contact are improved.</target>
-      </segment>
-      <segment id="contact" state="translated">
-        <source>communication_center.contact</source>
-        <target>Contact</target>
-      </segment>
-      <segment id="contact" state="translated">
-        <source>communication_center.neron_version</source>
-        <target>NERON v{neronVersion}</target>
-      </segment>
-      <segment id="contact" state="translated">
-        <source>communication_center.neron_update_status</source>
-        <target>Update status: {quantity}%</target>
-      </segment>
-      <segment id="link_strength" state="translated">
-        <source>communication_center.link_strength</source>
-        <target>Signal : {quantity}%</target>
-      </segment>
-      <segment id="link_established" state="translated">
-        <source>communication_center.link_established</source>
-        <target>Connection established!</target>
-      </segment>
-      <segment id="rebel_bases_network" state="translated">
-        <source>communication_center.rebel_bases_network</source>
-        <target>Rebel Bases Network</target>
-      </segment>
-      <segment id="select_rebel_base_to_decode" state="translated">
-        <source>communication_center.select_rebel_base_to_decode</source>
-        <target>Select Rebel Base to decode</target>
-      </segment>
-      <segment id="xyloph_db" state="translated">
-        <source>communication_center.xyloph_db</source>
-        <target>Xyloph DB</target>
-      </segment>
-      <segment id="cannot_trade_under_attack" state="translated">
-        <source>communication_center.cannot_trade_under_attack</source>
-        <target>Another ship is threatening us, it's impossible to trade!</target>
-      </segment>
-      <segment id="never" state="translated">
-        <source>communication_center.never</source>
-        <target>Never!</target>
-      </segment>
-      <segment id="see_communications" state="translated">
-        <source>communication_center.see_communications</source>
-        <target>See communications</target>
-      </segment>
-      <segment id="see_trades" state="translated">
-        <source>communication_center.see_trades</source>
-        <target>See trades</target>
       </segment>
     </unit>
   </file>

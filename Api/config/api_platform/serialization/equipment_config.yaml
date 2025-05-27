@@ -8,7 +8,11 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
     mechanics:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
-    breakableType:
+    isFireDestroyable:
+      groups: [ 'equipment_config_read', 'equipment_config_write' ]
+    isFireBreakable:
+      groups: [ 'equipment_config_read', 'equipment_config_write' ]
+    isBreakable:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]
     actionConfigs:
       groups: [ 'equipment_config_read', 'equipment_config_write' ]

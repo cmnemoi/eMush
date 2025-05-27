@@ -11,8 +11,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -33,7 +33,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -232,7 +231,7 @@ class ActionSubscriberCest
 
         $takeActionEntity = new ActionConfig();
         $takeActionEntity
-            ->setActionName(ActionEnum::TAKE_CAT)
+            ->setActionName(ActionEnum::TAKE)
             ->setRange(ActionRangeEnum::SELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
             ->buildName(GameConfigEnum::TEST);
@@ -272,7 +271,7 @@ class ActionSubscriberCest
             ->setApplyWhenTargeted(false)
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setTagConstraints([
-                ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER)
@@ -1135,14 +1134,8 @@ class ActionSubscriberCest
 
         $knifeMechanic = new Weapon();
         $knifeMechanic
-            ->setDamageSpread([1, 1])
+            ->setBaseDamageRange([1 => 100])
             ->setActions(new ArrayCollection([$attackAction]))
-            ->setSuccessfulEventKeys([
-                WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->toString() => 1,
-            ])
-            ->setFailedEventKeys([
-                WeaponEventEnum::KNIFE_FAILED_HIT->toString() => 1,
-            ])
             ->setName('weapon_knife_test');
         $I->haveInRepository($knifeMechanic);
 

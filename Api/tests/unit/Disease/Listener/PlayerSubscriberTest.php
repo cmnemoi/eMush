@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Player\Listener;
 
-use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
 use Mush\Disease\Listener\PlayerSubscriber;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
@@ -101,13 +100,12 @@ final class PlayerSubscriberTest extends TestCase
         $deadPlayer->shouldReceive('getPlace')->andReturn($place);
         $mushPlayer->shouldReceive('getPlace')->andReturn($place);
 
-        // given universe state should make that the mush player have a trauma
+        // given univese state should make that the mush player have a trauma
         $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)->andReturn(true);
         $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_WITNESS_PROBABILTY)->andReturn(true);
 
         // when the dead player dies
         $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());
-        $playerEvent->setAuthor($mushPlayer);
         $this->playerSubscriber->onDeathPlayer($playerEvent);
 
         // then no trauma is created
@@ -138,7 +136,6 @@ final class PlayerSubscriberTest extends TestCase
 
         // when the dead player "dies" from Sol Return
         $playerEvent = new PlayerEvent($deadPlayer, [EndCauseEnum::SOL_RETURN], new \DateTime());
-        $playerEvent->setAuthor($player);
         $this->playerSubscriber->onDeathPlayer($playerEvent);
 
         // then no trauma is created
@@ -149,33 +146,9 @@ final class PlayerSubscriberTest extends TestCase
 
     public function testShouldNotCreateTraumaIfPlayerIsDetachedCrewmember(): void
     {
-        $daedalus = DaedalusFactory::createDaedalus();
-
         // given a detached crewmember player
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        Skill::createByNameForPlayer(SkillEnum::DETACHED_CREWMEMBER, $player);
-
-        // given some player who will die
-        $deadPlayer = PlayerFactory::createPlayerWithDaedalus($daedalus);
-
-        // given universe state should make that detached crewmember player should have a trauma
-        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)->andReturn(true);
-        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_WITNESS_PROBABILTY)->andReturn(true);
-
-        // when the dead player dies
-        $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());
-        $playerEvent->setAuthor($player);
-        $this->playerSubscriber->onDeathPlayer($playerEvent);
-
-        // then no trauma is created
-        $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
-        $this->roomLogService->shouldNotHaveReceived('createLog');
-    }
-
-    public function testShouldNotCreateTraumaForAlienAbductedDeath(): void
-    {
-        // given a player
         $player = PlayerFactory::createPlayer();
+        Skill::createByNameForPlayer(SkillEnum::DETACHED_CREWMEMBER, $player);
 
         // given some player who will die
         $deadPlayer = \Mockery::mock(Player::class);
@@ -193,37 +166,12 @@ final class PlayerSubscriberTest extends TestCase
 
         $deadPlayer->shouldReceive('getPlace')->andReturn($place);
 
-        // when the dead player dies from alien abduction
-        $playerEvent = new PlayerEvent($deadPlayer, [EndCauseEnum::ALIEN_ABDUCTED], new \DateTime());
-        $playerEvent->setAuthor($player);
-        $this->playerSubscriber->onDeathPlayer($playerEvent);
+        // given universe state should make that detached crewmember player should have a trauma
+        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)->andReturn(true);
+        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_WITNESS_PROBABILTY)->andReturn(true);
 
-        // then no trauma is created
-        $this->randomService->shouldReceive('isSuccessful')->never();
-        $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
-        $this->roomLogService->shouldNotHaveReceived('createLog');
-    }
-
-    public function testShouldNotCreateTraumaToAuthorIfNotInRoom(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-
-        // given a player
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-
-        // given some player who will die in different place
-        $deadPlayer = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $deadPlayer->changePlace($daedalus->getSpace());
-
-        // setup universe state to make that the dead player should have a trauma
-        $this->randomService->shouldReceive('isSuccessful')
-            ->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)
-            ->andReturn(true)
-            ->once();
-
-        // when the dead player dies from abandonment
-        $playerEvent = new PlayerEvent($deadPlayer, [EndCauseEnum::ABANDONED], new \DateTime());
-        $playerEvent->setAuthor($player);
+        // when the dead player dies
+        $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());
         $this->playerSubscriber->onDeathPlayer($playerEvent);
 
         // then no trauma is created

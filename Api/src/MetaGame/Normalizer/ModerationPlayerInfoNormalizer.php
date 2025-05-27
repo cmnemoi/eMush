@@ -64,7 +64,7 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
 
         // If the player is still alive return normalized player
         $player = $playerInfo->getPlayer();
-        if ($player?->isAlive()) {
+        if ($player !== null && $player->isAlive()) {
             $daedalus = $player->getDaedalus();
             $language = $daedalus->getLanguage();
 

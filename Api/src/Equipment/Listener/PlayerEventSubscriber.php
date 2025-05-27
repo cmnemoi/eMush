@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Equipment\Listener;
 
-use Mush\Equipment\Criteria\GameEquipmentCriteria;
 use Mush\Equipment\Enum\GameRationEnum;
-use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomIntegerServiceInterface;
 use Mush\Place\Enum\RoomEnum;
@@ -21,20 +19,21 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
 {
     public const int NB_ORGANIC_WASTE_MIN = 3;
     public const int NB_ORGANIC_WASTE_MAX = 4;
+    private EventServiceInterface $eventService;
 
     public function __construct(
         private DeleteEquipmentServiceInterface $deleteEquipment,
-        private EventServiceInterface $eventService,
-        private GameEquipmentRepository $gameEquipmentRepository,
         private GameEquipmentServiceInterface $gameEquipmentService,
         private GetRandomIntegerServiceInterface $getRandomInteger,
-    ) {}
+        EventServiceInterface $eventService,
+    ) {
+        $this->eventService = $eventService;
+    }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
-            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
+            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', EventPriorityEnum::NORMAL],
         ];
     }
 
@@ -47,15 +46,8 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onNewPlayer(PlayerEvent $event): void
-    {
-        $this->createPlayerStartingItems($event);
-    }
-
     private function handlePlayerEquipment(PlayerEvent $event): void
     {
-        $this->destroyPlayerPersonalItemsInDaedalus($event);
-
         $player = $event->getPlayer();
         $playerEquipment = $player->getEquipments();
 
@@ -83,21 +75,6 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function destroyPlayerPersonalItemsInDaedalus(PlayerEvent $event): void
-    {
-        $player = $event->getPlayer();
-        $criteria = new GameEquipmentCriteria($event->getDaedalus());
-        $criteria->setPersonal(true);
-
-        $personalItems = $this->gameEquipmentRepository->findByCriteria($criteria);
-
-        foreach ($personalItems as $item) {
-            if ($item->getOwner()?->equals($player)) {
-                $this->deleteEquipment->execute($item, tags: $event->getTags(), time: $event->getTime());
-            }
-        }
-    }
-
     private function handleQuarantineCompensation(PlayerEvent $event): void
     {
         $player = $event->getPlayer();
@@ -113,21 +90,5 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
             time: $event->getTime(),
             quantity: $this->getRandomInteger->execute(self::NB_ORGANIC_WASTE_MIN, self::NB_ORGANIC_WASTE_MAX),
         );
-    }
-
-    private function createPlayerStartingItems(PlayerEvent $event): void
-    {
-        $player = $event->getPlayer();
-        $characterConfig = $player->getPlayerInfo()->getCharacterConfig();
-
-        foreach ($characterConfig->getStartingItems() as $itemConfig) {
-            $this->gameEquipmentService->createGameEquipment(
-                equipmentConfig: $itemConfig,
-                holder: $player,
-                reasons: [PlayerEvent::NEW_PLAYER],
-                time: $event->getTime(),
-                visibility: VisibilityEnum::PRIVATE
-            );
-        }
     }
 }

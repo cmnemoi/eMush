@@ -12,7 +12,7 @@
                 <div class="cell">
                     <div class="action-button router-button">
                         <router-link
-                            :to="{ name: 'SanctionListPage', params: { username: moderationSanction.username, userId: moderationSanction.userId } }">
+                            :to="{ name: 'SanctionListPage', params: { username: moderationSanction.userId, userId: moderationSanction.userId } }">
                             {{ $t('moderation.sanctionList') }}
                         </router-link>
                     </div>

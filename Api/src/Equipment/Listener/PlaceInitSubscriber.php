@@ -4,15 +4,9 @@ namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\EquipmentEventReason;
-use Mush\Equipment\Enum\GameFruitEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\HolidayEnum;
-use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Event\PlaceInitEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -69,7 +63,6 @@ class PlaceInitSubscriber implements EventSubscriberInterface
                     }
                 )->first()
             ) {
-                /** @var Door $door */
                 $door = $roomDoor->getDoors()->filter(static function (Door $door) use ($doorName) {
                     return $door->getName() === $doorName;
                 })->first();
@@ -83,50 +76,5 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             $door->addRoom($place);
             $this->gameEquipmentService->persist($door);
         }
-
-        if ($this->shouldCreateHalloweenJumpkin($event)) {
-            $this->createHalloweenJumpkin($event);
-        }
-        if ($this->shouldCreateAprilFoolsPavlov($event)) {
-            $this->createAprilFoolsPavlov($event);
-        }
-    }
-
-    private function shouldCreateHalloweenJumpkin(PlaceInitEvent $event): bool
-    {
-        $place = $event->getPlace();
-        $daedalus = $place->getDaedalus();
-
-        return $daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN && $place->getName() === RoomEnum::HYDROPONIC_GARDEN;
-    }
-
-    private function createHalloweenJumpkin(PlaceInitEvent $event): void
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GameFruitEnum::JUMPKIN,
-            equipmentHolder: $event->getPlace(),
-            reasons: $event->getTags(),
-            time: $event->getTime(),
-            visibility: VisibilityEnum::HIDDEN,
-        );
-    }
-
-    private function shouldCreateAprilFoolsPavlov(PlaceInitEvent $event): bool
-    {
-        $place = $event->getPlace();
-        $daedalus = $place->getDaedalus();
-
-        return $daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::APRIL_FOOLS && $place->getName() === RoomEnum::LABORATORY;
-    }
-
-    private function createAprilFoolsPavlov(PlaceInitEvent $event): void
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::PAVLOV,
-            equipmentHolder: $event->getPlace(),
-            reasons: [EquipmentEventReason::AWAKEN_PAVLOV],
-            time: $event->getTime(),
-            visibility: VisibilityEnum::PUBLIC,
-        );
     }
 }

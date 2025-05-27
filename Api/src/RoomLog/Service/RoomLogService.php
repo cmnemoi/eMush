@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Mush\RoomLog\Service;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Chat\Enum\NeronPersonalitiesEnum;
+use Mush\Communication\Enum\NeronPersonalitiesEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Daedalus\ValueObject\GameDate;
+use Mush\Daedalus\ValueObject\DaedalusDate;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Exploration\Entity\Planet;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\Random\D100RollServiceInterface as D100RollInterface;
-use Mush\Game\Service\Random\GetRandomIntegerServiceInterface as GetRandomIntegerInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
@@ -27,7 +28,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Repository\RoomLogRepositoryInterface;
+use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
@@ -36,18 +37,36 @@ final class RoomLogService implements RoomLogServiceInterface
 {
     public const int OBSERVANT_REVEAL_CHANCE = 25;
 
+    private EntityManagerInterface $entityManager;
+    private RandomServiceInterface $randomService;
+    private RoomLogRepository $repository;
+    private TranslationServiceInterface $translationService;
+
     public function __construct(
-        private D100RollInterface $d100Roll,
-        private GetRandomIntegerInterface $getRandomInteger,
-        private RoomLogRepositoryInterface $roomLogRepository,
-        private TranslationServiceInterface $translationService,
-    ) {}
+        EntityManagerInterface $entityManager,
+        RandomServiceInterface $randomService,
+        RoomLogRepository $repository,
+        TranslationServiceInterface $translationService
+    ) {
+        $this->entityManager = $entityManager;
+        $this->randomService = $randomService;
+        $this->repository = $repository;
+        $this->translationService = $translationService;
+    }
 
     public function persist(RoomLog $roomLog): RoomLog
     {
-        $this->roomLogRepository->save($roomLog);
+        $this->entityManager->persist($roomLog);
+        $this->entityManager->flush();
 
         return $roomLog;
+    }
+
+    public function findById(int $id): ?RoomLog
+    {
+        $roomLog = $this->repository->find($id);
+
+        return $roomLog instanceof RoomLog ? $roomLog : null;
     }
 
     public function createLogFromActionEvent(ActionEvent $event): ?RoomLog
@@ -110,7 +129,7 @@ final class RoomLogService implements RoomLogServiceInterface
         // if there is several version of the log
         if (\array_key_exists($logKey, $declinations = LogDeclinationEnum::getVersionNumber())) {
             foreach ($declinations[$logKey] as $keyVersion => $versionNb) {
-                $parameters[$keyVersion] = $this->getRandomInteger->execute(1, $versionNb);
+                $parameters[$keyVersion] = $this->randomService->random(1, $versionNb);
             }
         }
 
@@ -135,17 +154,19 @@ final class RoomLogService implements RoomLogServiceInterface
 
     public function getRoomLog(Player $player): RoomLogCollection
     {
-        return new RoomLogCollection($this->roomLogRepository->getPlayerRoomLog($player));
+        $dateLimit = $player->hasSkill(SkillEnum::TRACKER) ? new \DateTime('-2 days') : new \DateTime('-1 day');
+
+        return new RoomLogCollection($this->repository->getPlayerRoomLog($player->getPlayerInfo(), $dateLimit));
     }
 
     public function getDaedalusRoomLogs(Daedalus $daedalus): RoomLogCollection
     {
-        return new RoomLogCollection($this->roomLogRepository->getAllRoomLogsByDaedalus($daedalus));
+        return new RoomLogCollection($this->repository->getAllRoomLogsByDaedalus($daedalus));
     }
 
     public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection
     {
-        return new RoomLogCollection($this->roomLogRepository->findAllByDaedalusAndPlace($daedalus, $place));
+        return new RoomLogCollection($this->repository->findAllByDaedalusAndPlace($daedalus, $place));
     }
 
     public function getNumberOfUnreadRoomLogsForPlayer(Player $player): int
@@ -159,7 +180,7 @@ final class RoomLogService implements RoomLogServiceInterface
     {
         try {
             $roomLog->addReader($player)->cancelTimestampable(); // We don't want to update the updatedAt field when player reads the log because this would change the order of the messages
-            $this->roomLogRepository->save($roomLog);
+            $this->entityManager->persist($roomLog);
         } catch (UniqueConstraintViolationException $e) {
             // ignore as this is probably due to a race condition
         }
@@ -170,29 +191,29 @@ final class RoomLogService implements RoomLogServiceInterface
         $unreadLogs = $this->getRoomLog($player)->getUnreadForPlayer($player);
 
         try {
-            $this->roomLogRepository->startTransaction();
+            $this->entityManager->beginTransaction();
             $unreadLogs->map(fn (RoomLog $roomLog) => $this->markRoomLogAsReadForPlayer($roomLog, $player));
-            $this->roomLogRepository->commitTransaction();
-        } catch (UniqueConstraintViolationException $e) {
-            // ignore as this is probably due to a race condition
+            $this->entityManager->flush();
+            $this->entityManager->commit();
         } catch (\Throwable $e) {
-            $this->roomLogRepository->rollbackTransaction();
+            $this->entityManager->rollback();
+            $this->entityManager->close();
 
             throw $e;
         }
     }
 
-    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, GameDate $date): RoomLog
+    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, DaedalusDate $date): RoomLog
     {
         $parameters = [
             'log' => $logKey,
             'daedalusInfo' => $place->getDaedalus()->getDaedalusInfo()->getId(),
             'place' => $place->getName(),
-            'day' => $date->day(),
-            'cycle' => $date->cycle(),
+            'day' => $date->day,
+            'cycle' => $date->cycle,
         ];
 
-        $roomLog = $this->roomLogRepository->getOneBy($parameters);
+        $roomLog = $this->repository->findOneBy($parameters);
         if (!$roomLog) {
             throw new \RuntimeException("Log was not found for given parameters: {$this->parametersToString($parameters)}");
         }
@@ -200,13 +221,13 @@ final class RoomLogService implements RoomLogServiceInterface
         return $roomLog;
     }
 
-    public function findAllByPlaceAndDaedalusDate(Place $place, GameDate $date): RoomLogCollection
+    public function findAllByPlaceAndDaedalusDate(Place $place, DaedalusDate $date): RoomLogCollection
     {
-        $logs = $this->roomLogRepository->getBy([
+        $logs = $this->repository->findBy([
             'daedalusInfo' => $place->getDaedalus()->getDaedalusInfo(),
             'place' => $place->getName(),
-            'day' => $date->day(),
-            'cycle' => $date->cycle(),
+            'day' => $date->day,
+            'cycle' => $date->cycle,
         ]);
 
         return new RoomLogCollection($logs);
@@ -254,7 +275,7 @@ final class RoomLogService implements RoomLogServiceInterface
         $player = $event->getAuthor();
 
         $parameters = [];
-        $parameters[$player->getLogKey()] = $player->getLogName();
+        $parameters[$player->getLogKey()] = $event->shouldBeAnonymous() ? CharacterEnum::SOMEONE : $player->getLogName();
 
         if (($quantity = $actionResult?->getQuantity()) !== null) {
             $parameters['quantity'] = $quantity;
@@ -335,7 +356,7 @@ final class RoomLogService implements RoomLogServiceInterface
 
         return match (true) {
             $neron->isInhibited() === false => NeronPersonalitiesEnum::UNINHIBITED,
-            $this->d100Roll->isSuccessful(Neron::CRAZY_NERON_CHANCE) => NeronPersonalitiesEnum::CRAZY,
+            $this->randomService->randomPercent() <= Neron::CRAZY_NERON_CHANCE => NeronPersonalitiesEnum::CRAZY,
             default => NeronPersonalitiesEnum::NEUTRAL,
         };
     }
@@ -375,7 +396,7 @@ final class RoomLogService implements RoomLogServiceInterface
     private function observantRevealsLog(Player $player, string $visibility): bool
     {
         $observantInRoom = $player->getAlivePlayersInRoomExceptSelf()->hasPlayerWithSkill(SkillEnum::OBSERVANT);
-        $observantDetectedCovertAction = $visibility === VisibilityEnum::COVERT && $this->d100Roll->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
+        $observantDetectedCovertAction = $visibility === VisibilityEnum::COVERT && $this->randomService->isSuccessful(self::OBSERVANT_REVEAL_CHANCE);
 
         return $observantInRoom && $observantDetectedCovertAction;
     }

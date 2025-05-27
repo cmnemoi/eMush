@@ -75,7 +75,7 @@ final class DaedalusNormalizerTest extends TestCase
         $daedalus->shouldReceive('hasStatus')->andReturn(false)->once();
         $daedalus->shouldReceive('getAttackingHunters')->andReturn(new HunterCollection());
         $daedalus->shouldReceive('getLanguage')->andReturn(LanguageEnum::FRENCH);
-        $daedalus->shouldReceive('getPilgred')->andReturn(ProjectFactory::createPilgredProject());
+        $daedalus->shouldReceive('isPilgredFinished')->andReturn(false);
         $daedalus->shouldReceive('hasFinishedProject')->with(ProjectName::PLASMA_SHIELD)->andReturn(false);
         $daedalus->shouldReceive('getFinishedNeronProjects')->andReturn(new ArrayCollection());
         $daedalus->shouldReceive('getFinishedResearchProjects')->andReturn(new ArrayCollection());
@@ -98,8 +98,7 @@ final class DaedalusNormalizerTest extends TestCase
             ->setInitFuel(24)
             ->setInitHull(100)
             ->setInitOxygen(24)
-            ->setInitShield(100)
-            ->setPlayerCount(0);
+            ->setInitShield(100);
 
         new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
 

@@ -2,16 +2,16 @@
 
 namespace Mush\Player\Service;
 
-use Doctrine\DBAL\LockMode;
+use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\ClosedPlayer;
@@ -22,9 +22,8 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
-use Mush\Player\Repository\ClosedPlayerRepositoryInterface;
 use Mush\Player\Repository\PlayerInfoRepositoryInterface;
-use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\Player\Repository\PlayerRepository;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
@@ -41,32 +40,52 @@ final class PlayerService implements PlayerServiceInterface
     public const int DAY_MORAL_CHANGE = -2;
     public const int SELF_SACRIFICE_HEALTH_LOSS = -1;
 
+    private EntityManagerInterface $entityManager;
+    private EventServiceInterface $eventService;
+    private PlayerRepository $repository;
+    private RoomLogServiceInterface $roomLogService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private RandomServiceInterface $randomService;
+    private PlayerInfoRepositoryInterface $playerInfoRepository;
+
     public function __construct(
-        private ClosedPlayerRepositoryInterface $closedPlayerRepository,
-        private DaedalusRepositoryInterface $daedalusRepository,
-        private EventServiceInterface $eventService,
-        private PlayerRepositoryInterface $playerRepository,
-        private RoomLogServiceInterface $roomLogService,
-        private PlayerInfoRepositoryInterface $playerInfoRepository,
-    ) {}
+        EntityManagerInterface $entityManager,
+        EventServiceInterface $eventService,
+        PlayerRepository $repository,
+        RoomLogServiceInterface $roomLogService,
+        GameEquipmentServiceInterface $gameEquipmentService,
+        RandomServiceInterface $randomService,
+        PlayerInfoRepositoryInterface $playerInfoRepository,
+    ) {
+        $this->entityManager = $entityManager;
+        $this->eventService = $eventService;
+        $this->repository = $repository;
+        $this->roomLogService = $roomLogService;
+        $this->gameEquipmentService = $gameEquipmentService;
+        $this->randomService = $randomService;
+        $this->playerInfoRepository = $playerInfoRepository;
+    }
 
     public function persist(Player $player): Player
     {
-        $this->playerRepository->save($player);
+        $this->entityManager->persist($player);
+        $this->entityManager->flush();
 
         return $player;
     }
 
     public function persistPlayerInfo(PlayerInfo $player): PlayerInfo
     {
-        $this->playerInfoRepository->save($player);
+        $this->entityManager->persist($player);
+        $this->entityManager->flush();
 
         return $player;
     }
 
     public function persistClosedPlayer(ClosedPlayer $player): ClosedPlayer
     {
-        $this->closedPlayerRepository->save($player);
+        $this->entityManager->persist($player);
+        $this->entityManager->flush();
 
         return $player;
     }
@@ -79,31 +98,29 @@ final class PlayerService implements PlayerServiceInterface
 
         $daedalus = $player->getDaedalus();
         $daedalus->removePlayer($player);
-        $this->daedalusRepository->save($daedalus);
+        $this->entityManager->persist($daedalus);
 
-        $this->eventService->callEvent(
-            event: new PlayerEvent(player: $player, tags: [], time: new \DateTime()),
-            name: PlayerEvent::DELETE_PLAYER
-        );
-
-        $this->playerRepository->delete($player);
+        $this->entityManager->remove($player);
+        $this->entityManager->flush();
 
         return true;
     }
 
     public function findAll(): array
     {
-        return $this->playerRepository->getAll();
+        return $this->repository->findAll();
     }
 
     public function findById(int $id): ?Player
     {
-        return $this->playerRepository->findById($id);
+        $player = $this->repository->find($id);
+
+        return $player instanceof Player ? $player : null;
     }
 
     public function findOneByCharacter(string $character, Daedalus $daedalus): ?Player
     {
-        return $this->playerRepository->findOneByNameAndDaedalus($character, $daedalus);
+        return $this->repository->findOneByName($character, $daedalus);
     }
 
     public function findUserCurrentGame(User $user): ?Player
@@ -128,20 +145,56 @@ final class PlayerService implements PlayerServiceInterface
 
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
-        $this->playerRepository->startTransaction();
+        $player = new Player();
+        $time = new \DateTime();
 
-        try {
-            $time = new \DateTime();
+        $gameConfig = $daedalus->getGameConfig();
 
-            $player = $this->buildPlayer($daedalus, $user, $character);
-            $this->dispatchNewPlayerEvent($player, $time);
+        $characterConfig = $gameConfig->getCharactersConfig()->getCharacter($character);
+        if (!$characterConfig) {
+            throw new \LogicException('Character not available');
+        }
 
-            $this->playerRepository->save($player);
-            $this->playerRepository->commitTransaction();
-        } catch (\Throwable $e) {
-            $this->playerRepository->rollbackTransaction();
+        $player
+            ->setDaedalus($daedalus)
+            ->setPlace(
+                $daedalus->getRooms()
+                    ->filter(static fn (Place $room) => RoomEnum::LABORATORY === $room->getName())
+                    ->first()
+            )
+            ->setPlayerVariables($characterConfig);
 
-            throw $e;
+        $playerInfo = new PlayerInfo(
+            $player,
+            $user,
+            $characterConfig
+        );
+
+        $this->persistPlayerInfo($playerInfo);
+
+        $user->startGame();
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        $playerEvent = new PlayerEvent(
+            $player,
+            [EventEnum::CREATE_DAEDALUS],
+            $time
+        );
+        $playerEvent
+            ->setCharacterConfig($characterConfig)
+            ->setVisibility(VisibilityEnum::PUBLIC);
+        $this->eventService->callEvent($playerEvent, PlayerEvent::NEW_PLAYER);
+
+        foreach ($characterConfig->getStartingItems() as $itemConfig) {
+            // Create the equipment
+            $item = $this->gameEquipmentService->createGameEquipment(
+                $itemConfig,
+                $player,
+                [PlayerEvent::NEW_PLAYER],
+                $time,
+                VisibilityEnum::PRIVATE
+            );
         }
 
         return $player;
@@ -165,8 +218,8 @@ final class PlayerService implements PlayerServiceInterface
 
             // Only keep players that are not source player and that are in same daedalus
             if ($likedPlayer
-                && $likedPlayer->notEquals($player)
-                && $likedPlayer->getDaedalus()->equals($player->getDaedalus())
+                && $likedPlayer->getId() !== $player->getId()
+                && $likedPlayer->getDaedalus()->getId() === $player->getDaedalus()->getId()
             ) {
                 $likedClosedPlayer = $likedPlayer->getPlayerInfo()->getClosedPlayer();
                 $likedClosedPlayer->addLike();
@@ -197,11 +250,7 @@ final class PlayerService implements PlayerServiceInterface
         }
 
         if ($player->hasZeroMoralPoint()) {
-            $this->handleZeroMoralPointEffects($player, $date);
-            // misleadingly "duplicate" verification necessary to handle self-sacrifice
-            if ($player->isDead()) {
-                return $player;
-            }
+            return $this->handleZeroMoralPointEffects($player, $date);
         }
 
         $this->applyCycleChangesPointsGain($player, $date);
@@ -242,26 +291,21 @@ final class PlayerService implements PlayerServiceInterface
 
     public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), ?Player $author = null): Player
     {
-        $this->playerRepository->startTransaction();
+        if ($player->isDead()) {
+            throw new \LogicException('Player is already dead');
+        }
+
+        $this->entityManager->beginTransaction();
 
         try {
-            $this->playerRepository->lockAndRefresh($player, LockMode::PESSIMISTIC_WRITE);
-
-            if ($player->isDead()) {
-                $this->playerRepository->save($player);
-                $this->playerRepository->commitTransaction();
-
-                return $player;
-            }
-
             $this->markPlayerAsDead($player, $endReason, $time);
             $this->removePlayerTitles($player);
             $this->createClosedPlayer($player, $endReason, $time);
             $this->dispatchPlayerDeathEvent($player, $endReason, $time, $author);
-            $this->playerRepository->save($player);
-            $this->playerRepository->commitTransaction();
+            $this->entityManager->commit();
         } catch (\Throwable $e) {
-            $this->playerRepository->rollbackTransaction();
+            $this->entityManager->rollback();
+            $this->entityManager->close();
 
             throw $e;
         }
@@ -290,7 +334,7 @@ final class PlayerService implements PlayerServiceInterface
             player: $player,
             variableName: PlayerVariableEnum::HEALTH_POINT,
             quantity: self::SELF_SACRIFICE_HEALTH_LOSS,
-            tags: [EventEnum::NEW_CYCLE, ModifierNameEnum::SELF_SACRIFICE_MODIFIER],
+            tags: [EventEnum::NEW_CYCLE, SkillEnum::SELF_SACRIFICE->toString()],
             time: $date
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
@@ -318,13 +362,21 @@ final class PlayerService implements PlayerServiceInterface
 
     private function handleTriumphChange(Player $player, \DateTime $date): void
     {
+        $triumphChange = 0;
         $gameConfig = $player->getDaedalus()->getGameConfig();
 
-        $humanTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_HUMAN);
-        $mushTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_MUSH);
-        $triumphChange = $player->isMush() ? $mushTriumph->getTriumph() : $humanTriumph->getTriumph();
+        if ($player->isMush() && ($mushTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_MUSH))) {
+            $triumphChange = $mushTriumph->getTriumph();
+        }
+        if (!$player->isMush() && ($humanTriumph = $gameConfig->getTriumphConfig()->getTriumph(TriumphEnum::CYCLE_HUMAN))) {
+            $triumphChange = $humanTriumph->getTriumph();
+        }
 
         $player->addTriumph($triumphChange);
+
+        if ($player->getTriumph() < 0) {
+            $player->setTriumph(0);
+        }
 
         $this->roomLogService->createLog(
             PlayerModifierLogEnum::GAIN_TRIUMPH,
@@ -367,38 +419,5 @@ final class PlayerService implements PlayerServiceInterface
         $playerDeathEvent = new PlayerEvent($player, [$endCause], $date);
         $playerDeathEvent->setAuthor($author);
         $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
-    }
-
-    private function buildPlayer(Daedalus $daedalus, User $user, string $character): Player
-    {
-        $characterConfig = $daedalus->getGameConfig()->getCharactersConfig()->getByNameOrThrow($character);
-
-        $laboratory = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
-        $player = new Player();
-        $player
-            ->setDaedalus($daedalus)
-            ->setPlace($laboratory)
-            ->setPlayerVariables($characterConfig);
-
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $this->persistPlayerInfo($playerInfo);
-        $this->persist($player);
-
-        return $player;
-    }
-
-    private function dispatchNewPlayerEvent(Player $player, \DateTime $time): void
-    {
-        $playerEvent = new PlayerEvent(
-            player: $player,
-            tags: [EventEnum::CREATE_DAEDALUS],
-            time: $time
-        );
-        $playerEvent
-            ->setCharacterConfig($player->getCharacterConfig())
-            ->setVisibility(VisibilityEnum::PUBLIC);
-
-        $this->eventService->callEvent($playerEvent, PlayerEvent::NEW_PLAYER);
     }
 }

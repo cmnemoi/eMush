@@ -3,8 +3,8 @@
 namespace Mush\Tests\functional\Player\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
@@ -83,7 +83,7 @@ class PlayerModifierEventCest
             'place' => $room,
         ]);
         $player->setPlayerVariables($characterConfig);
-        $player->setMoralPoint(7);
+        $player->setMoralPoint(5);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
         $I->haveInRepository($playerInfo);
@@ -100,11 +100,11 @@ class PlayerModifierEventCest
         );
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
-        $I->assertEquals(6, $player->getMoralPoint());
+        $I->assertEquals(4, $player->getMoralPoint());
         $I->assertCount(0, $player->getStatuses());
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
-        $I->assertEquals(5, $player->getMoralPoint());
+        $I->assertEquals(3, $player->getMoralPoint());
         $I->assertCount(1, $player->getStatuses());
         $I->seeInRepository(
             Status::class,
@@ -117,7 +117,7 @@ class PlayerModifierEventCest
         $playerEvent = new PlayerVariableEvent(
             $player,
             PlayerVariableEnum::MORAL_POINT,
-            -4,
+            -2,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );

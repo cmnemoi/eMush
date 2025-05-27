@@ -13,10 +13,8 @@ use Mush\Action\Validator\AllMushsAreDead;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentService;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -49,10 +47,6 @@ final class PrintZeList extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
-            new Reach([
-                'reach' => ReachEnum::ROOM,
-                'groups' => [ClassConstraint::VISIBILITY],
-            ]),
             new HasSkill([
                 'skill' => SkillEnum::TRACKER,
                 'groups' => [ClassConstraint::VISIBILITY],

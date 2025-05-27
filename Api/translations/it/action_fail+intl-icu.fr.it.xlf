@@ -631,18 +631,6 @@
         <target>cycle_limit.description</target>
       </segment>
     </unit>
-    <unit id="cycle_limit_every_2">
-      <segment id="description" state="initial">
-        <source>cycle_limit_every_2.description</source>
-        <target>cycle_limit_every_2.description</target>
-      </segment>
-    </unit>
-    <unit id="cycle_limit_every_4">
-      <segment id="description" state="initial">
-        <source>cycle_limit_every_4.description</source>
-        <target>cycle_limit_every_4.description</target>
-      </segment>
-    </unit>
     <unit id="no_working_door">
       <segment id="description" state="initial">
         <source>no_working_door.description</source>
@@ -683,108 +671,6 @@
       <segment id="description" state="initial">
         <source>player_is_germaphobic.description</source>
         <target>player_is_germaphobic.description</target>
-      </segment>
-    </unit>
-    <unit id="eden_not_computed">
-      <segment id="description" state="initial">
-        <source>eden_not_computed.description</source>
-        <target>eden_not_computed.description</target>
-      </segment>
-    </unit>
-    <unit id="link_with_sol_not_established">
-      <segment id="description" state="initial">
-        <source>link_with_sol_not_established.description</source>
-        <target>link_with_sol_not_established.description</target>
-      </segment>
-    </unit>
-    <unit id="max_neron_version_reached">
-      <segment id="description" state="initial">
-        <source>max_neron_version_reached.description</source>
-        <target>max_neron_version_reached.description</target>
-      </segment>
-    </unit>
-    <unit id="dog_is_seasick">
-      <segment id="description" state="initial">
-        <source>dog_is_seasick.description</source>
-        <target>dog_is_seasick.description</target>
-      </segment>
-    </unit>
-    <unit id="dog_is_worried">
-      <segment id="description" state="initial">
-        <source>dog_is_worried.description</source>
-        <target>dog_is_worried.description</target>
-      </segment>
-    </unit>
-    <unit id="bothering_cat">
-      <segment id="description" state="initial">
-        <source>bothering_cat.description</source>
-        <target>bothering_cat.description</target>
-      </segment>
-    </unit>
-    <unit id="distracted_by_food">
-      <segment id="description" state="initial">
-        <source>distracted_by_food.description</source>
-        <target>distracted_by_food.description</target>
-      </segment>
-    </unit>
-    <unit id="distracted_by_plant">
-      <segment id="description" state="initial">
-        <source>distracted_by_plant.description</source>
-        <target>distracted_by_plant.description</target>
-      </segment>
-    </unit>
-    <unit id="distracted_by_broken_fuel_tank">
-      <segment id="description" state="initial">
-        <source>distracted_by_broken_fuel_tank.description</source>
-        <target>distracted_by_broken_fuel_tank.description</target>
-      </segment>
-    </unit>
-    <unit id="need_a_ball">
-      <segment id="description" state="initial">
-        <source>need_a_ball.description</source>
-        <target>need_a_ball.description</target>
-      </segment>
-    </unit>
-    <unit id="hands_full">
-      <segment id="description" state="initial">
-        <source>hands_full.description</source>
-        <target>hands_full.description</target>
-      </segment>
-    </unit>
-    <unit id="room_too_messy">
-      <segment id="description" state="initial">
-        <source>room_too_messy.description</source>
-        <target>room_too_messy.description</target>
-      </segment>
-    </unit>
-    <unit id="room_too_small">
-      <segment id="description" state="initial">
-        <source>room_too_small.description</source>
-        <target>room_too_small.description</target>
-      </segment>
-    </unit>
-    <unit id="room_too_tight">
-      <segment id="description" state="initial">
-        <source>room_too_tight.description</source>
-        <target>room_too_tight.description</target>
-      </segment>
-    </unit>
-    <unit id="room_too_sad">
-      <segment id="description" state="initial">
-        <source>room_too_sad.description</source>
-        <target>room_too_sad.description</target>
-      </segment>
-    </unit>
-    <unit id="wants_walkies">
-      <segment id="description" state="initial">
-        <source>wants_walkies.description</source>
-        <target>wants_walkies.description</target>
-      </segment>
-    </unit>
-    <unit id="playtime_solo">
-      <segment id="description" state="initial">
-        <source>playtime_solo.description</source>
-        <target>playtime_solo.description</target>
       </segment>
     </unit>
   </file>

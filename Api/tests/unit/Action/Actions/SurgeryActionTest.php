@@ -11,27 +11,15 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Disease\ConfigData\DiseaseConfigData;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
-use Mush\Disease\Enum\DiseaseEnum;
-use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
-use Mush\Disease\Repository\InMemoryPlayerDiseaseRepository;
-use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
-use Mush\Disease\Service\DiseaseCauseService;
-use Mush\Disease\Service\PlayerDiseaseService;
 use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\Random\D100RollServiceInterface;
-use Mush\Game\Service\Random\GetRandomIntegerService;
-use Mush\Game\Service\Random\ProbaCollectionRandomElementService;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Modifier\Service\EventModifierServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Factory\PlayerFactory;
 use Mush\User\Entity\User;
 
 /**
@@ -42,7 +30,8 @@ final class SurgeryActionTest extends AbstractActionTest
     /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
 
-    private DiseaseCauseService $diseaseCauseService;
+    /** @var EventModifierServiceInterface|Mockery\Mock */
+    private EventModifierServiceInterface $modifierService;
 
     /**
      * @before
@@ -54,29 +43,11 @@ final class SurgeryActionTest extends AbstractActionTest
         $this->createActionEntity(ActionEnum::SURGERY);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
-        $playerDiseaseService = new PlayerDiseaseService(
-            d100Roll: $this->createStub(D100RollServiceInterface::class),
-            eventService: $this->createStub(EventServiceInterface::class),
-            randomService: $this->createStub(RandomServiceInterface::class),
-            playerDiseaseRepository: new InMemoryPlayerDiseaseRepository()
-        );
-        $probaCollectionRandomElementService = new ProbaCollectionRandomElementService(
-            getRandomInteger: new GetRandomIntegerService()
-        );
-
-        $this->diseaseCauseService = new DiseaseCauseService(
-            consumableDiseaseService: $this->createStub(ConsumableDiseaseServiceInterface::class),
-            d100Roll: $this->createStub(D100RollServiceInterface::class),
-            probaCollectionRandomElement: $probaCollectionRandomElementService,
-            playerDiseaseService: $playerDiseaseService,
-        );
-
         $this->actionHandler = new Surgery(
             $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
-            $this->diseaseCauseService
         );
     }
 
@@ -90,14 +61,25 @@ final class SurgeryActionTest extends AbstractActionTest
 
     public function testExecuteFail()
     {
-        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
-        $targetPlayer = PlayerFactory::createPlayerWithDaedalus($player->getDaedalus());
+        $room = new Place();
+        $player = $this->createPlayer(new Daedalus(), $room);
+        $targetPlayer = $this->createPlayer(new Daedalus(), $room);
 
-        $diseaseConfig1 = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_FOOT));
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setCharacterName('playerOne');
+        new PlayerInfo($targetPlayer, new User(), $characterConfig);
+
+        $diseaseConfig1 = new DiseaseConfig();
+        $diseaseConfig1->setType(MedicalConditionTypeEnum::DISEASE);
         $playerDisease1 = new PlayerDisease();
         $playerDisease1->setDiseaseConfig($diseaseConfig1)->setPlayer($targetPlayer);
 
-        $targetPlayer->addMedicalCondition($playerDisease1);
+        $diseaseConfig2 = new DiseaseConfig();
+        $diseaseConfig2->setType(MedicalConditionTypeEnum::INJURY);
+        $playerDisease2 = new PlayerDisease();
+        $playerDisease2->setDiseaseConfig($diseaseConfig2)->setPlayer($targetPlayer);
+
+        $targetPlayer->addMedicalCondition($playerDisease1)->addMedicalCondition($playerDisease2);
 
         $this->actionHandler->loadParameters($this->actionConfig, $this->actionProvider, $player, $targetPlayer);
 
@@ -134,13 +116,13 @@ final class SurgeryActionTest extends AbstractActionTest
             ->andReturn(ActionOutputEnum::FAIL)
             ->once();
 
+        $this->eventService->shouldReceive('callEvent')->once();
+
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
+        $this->eventService->shouldReceive('callEvent');
         $result = $this->actionHandler->execute();
 
         self::assertInstanceOf(Fail::class, $result);
-
-        self::assertNotNull($targetPlayer->getMedicalConditionByName(InjuryEnum::BROKEN_FOOT), 'Broken foot should not be removed');
-        self::assertNotNull($targetPlayer->getMedicalConditionByName(DiseaseEnum::SEPSIS), 'Player should get sepsis');
     }
 
     public function testExecuteSuccess()

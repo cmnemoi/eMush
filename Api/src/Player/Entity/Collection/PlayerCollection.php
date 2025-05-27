@@ -4,9 +4,7 @@ namespace Mush\Player\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Player\Entity\Player;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 
 /**
  * @template-extends ArrayCollection<int, Player>
@@ -18,9 +16,9 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->isAlive());
     }
 
-    public function getAllInRoom(): self
+    public function getPlayerAliveAndInRoom(): self
     {
-        return $this->filter(static fn (Player $player) => $player->isInARoom());
+        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInARoom());
     }
 
     public function getPlayerDead(): self
@@ -43,24 +41,9 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->getName() === $name)->first() ?: null;
     }
 
-    public function getByNameOrDefault(string $name): Player
-    {
-        return $this->filter(static fn (Player $player) => $player->getName() === $name)->first() ?: Player::createNull();
-    }
-
-    public function getByNameOrThrow(string $name): Player
-    {
-        return $this->getPlayerByName($name) ?? throw new \RuntimeException("Player with name {$name} not found");
-    }
-
     public function getPlayersWithSkill(SkillEnum $skill): self
     {
         return $this->filter(static fn (Player $player) => $player->hasSkill($skill));
-    }
-
-    public function getPlayersWithoutSkill(SkillEnum $skill): self
-    {
-        return $this->filter(static fn (Player $player) => $player->doesNotHaveSkill($skill));
     }
 
     public function getOnePlayerWithSkillOrNull(SkillEnum $skill): ?Player
@@ -86,16 +69,6 @@ class PlayerCollection extends ArrayCollection
     public function getInactivePlayers(): self
     {
         return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInactive());
-    }
-
-    public function getPlayersEligibleForTitle(): self
-    {
-        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isActive() && $player->doesNotHaveStatus(PlayerStatusEnum::BERZERK));
-    }
-
-    public function getPlayersIneligibleForTitle(): self
-    {
-        return $this->getPlayerAlive()->filter(static fn (Player $player) => $player->isInactive() || $player->hasStatus(PlayerStatusEnum::BERZERK));
     }
 
     public function hasPlayerByName(string $name)
@@ -152,34 +125,6 @@ class PlayerCollection extends ArrayCollection
         return $this
             ->filter(static fn (Player $player) => $player->isDead())
             ->map(static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer());
-    }
-
-    public function getAlivePlayerByName(string $name): ?Player
-    {
-        return $this->filter(static fn (Player $player) => $player->isAlive() && $player->getName() === $name)->first() ?: null;
-    }
-
-    public function getAllWithStatus(string $status): self
-    {
-        return $this->filter(static fn (Player $player) => $player->hasStatus($status));
-    }
-
-    public function getAllWithoutStatus(string $status): self
-    {
-        return $this->filter(static fn (Player $player) => $player->doesNotHaveStatus($status));
-    }
-
-    public function getTradablePlayersFor(Player $trader): self
-    {
-        return $this->filter(static fn (Player $player) => $trader->canTradePlayer($player));
-    }
-
-    public function isThereAMushUnlockingProjects(): bool
-    {
-        return $this->filter(
-            static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer()->isMush() && $player->isDead()
-            && EndCauseEnum::unlocksNewProjects($player->getPlayerInfo()->getClosedPlayer()->getEndCause())
-        )->count() > 0;
     }
 
     private function getPlayerWithStatus(string $status): ?Player

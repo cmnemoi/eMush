@@ -23,18 +23,6 @@ export class TerminalInfos {
     public isMagneticNetActive: boolean|null = null;
     public neronInhibitionToggles: {key: string, name: string}[]|null = null;
     public isNeronInhibited: boolean|null = null;
-    public nothingToCompute: string|null = null;
-    public edenComputed: string|null = null;
-    public linkStrength: string|null = null;
-    public linkEstablished: string|null = null;
-    public neronUpdateStatus: string|null = null;
-    public selectRebelBaseToDecode: string|null = null;
-    public cannotTradeUnderAttack: boolean|null = null;
-    public never: string|null = null;
-    public seeCommunications: string|null = null;
-    public seeTrades: string|null = null;
-    public areVocodedAnnouncementsActive: boolean|null = null;
-    public vocodedAnnouncementsToggles: {key: string, name: string}[]|null = null;
 
     constructor() {
         this.requirements = [];
@@ -71,18 +59,6 @@ export class TerminalInfos {
             this.isMagneticNetActive = object.isMagneticNetActive;
             this.neronInhibitionToggles = object.neronInhibitionToggles;
             this.isNeronInhibited = object.isNeronInhibited;
-            this.nothingToCompute = object.nothingToCompute;
-            this.edenComputed = object.edenComputed;
-            this.linkStrength = object.linkStrength;
-            this.linkEstablished = object.linkEstablished;
-            this.neronUpdateStatus = object.neronUpdateStatus;
-            this.selectRebelBaseToDecode = object.selectRebelBaseToDecode;
-            this.cannotTradeUnderAttack = object.cannotTradeUnderAttack;
-            this.never = object.never;
-            this.seeCommunications = object.seeCommunications;
-            this.seeTrades = object.seeTrades;
-            this.areVocodedAnnouncementsActive = object.areVocodedAnnouncementsActive;
-            this.vocodedAnnouncementsToggles = object.vocodedAnnouncementsToggles;
         }
         return this;
     }

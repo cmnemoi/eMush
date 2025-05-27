@@ -2,7 +2,7 @@
 
 namespace Mush\Modifier\Service\ModifierListenerService;
 
-use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
@@ -19,42 +19,56 @@ class DiseaseModifierService implements DiseaseModifierServiceInterface
         $this->modifierCreationService = $modifierCreationService;
     }
 
-    public function newDisease(Player $player, PlayerDisease $playerDisease, array $tags, \DateTime $time): void
+    public function newDisease(Player $player, DiseaseConfig $diseaseConfig, array $tags, \DateTime $time): void
     {
-        $diseaseConfig = $playerDisease->getDiseaseConfig();
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
+            $holder = $this->getModifierHolderFromConfig($player, $modifierConfig);
+            if ($holder === null) {
+                return;
+            }
+
             $this->modifierCreationService->createModifier(
                 modifierConfig: $modifierConfig,
-                holder: $this->getModifierHolderFromConfig($player, $modifierConfig),
-                modifierProvider: $playerDisease,
+                holder: $holder,
+                modifierProvider: $player,
                 tags: $tags,
                 time: $time,
             );
         }
     }
 
-    public function cureDisease(Player $player, PlayerDisease $playerDisease, array $tags, \DateTime $time): void
+    public function cureDisease(Player $player, DiseaseConfig $diseaseConfig, array $tags, \DateTime $time): void
     {
-        $diseaseConfig = $playerDisease->getDiseaseConfig();
         foreach ($diseaseConfig->getModifierConfigs() as $modifierConfig) {
+            $holder = $this->getModifierHolderFromConfig($player, $modifierConfig);
+            if ($holder === null) {
+                return;
+            }
+
             $this->modifierCreationService->deleteModifier(
                 modifierConfig: $modifierConfig,
-                holder: $this->getModifierHolderFromConfig($player, $modifierConfig),
-                modifierProvider: $playerDisease->getCreatedAt() < new \DateTime('2025-04-13 20:30:00') ? $player : $playerDisease, // TODO: Remove feature flag after all Daedalus created before this date are finished
+                holder: $holder,
+                modifierProvider: $player,
                 tags: $tags,
-                time: $time,
-                revertOnRemove: $playerDisease->isActive()
+                time: $time
             );
         }
     }
 
-    private function getModifierHolderFromConfig(Player $player, AbstractModifierConfig $modifierConfig): ModifierHolderInterface
+    private function getModifierHolderFromConfig(Player $player, AbstractModifierConfig $modifierConfig): ?ModifierHolderInterface
     {
-        return match ($modifierConfig->getModifierRange()) {
-            ModifierHolderClassEnum::DAEDALUS => $player->getDaedalus(),
-            ModifierHolderClassEnum::PLACE => $player->getPlace(),
-            ModifierHolderClassEnum::PLAYER, ModifierHolderClassEnum::TARGET_PLAYER => $player,
-            default => throw new \RuntimeException('Invalid modifier range: ' . $modifierConfig->getModifierRange()),
-        };
+        switch ($modifierConfig->getModifierRange()) {
+            case ModifierHolderClassEnum::DAEDALUS:
+                return $player->getDaedalus();
+
+            case ModifierHolderClassEnum::PLACE:
+                return $player->getPlace();
+
+            case ModifierHolderClassEnum::PLAYER:
+            case ModifierHolderClassEnum::TARGET_PLAYER:
+                return $player;
+        }
+
+        return null;
     }
 }

@@ -15,16 +15,6 @@ final class InMemoryUserRepository implements UserRepositoryInterface
         return $this->users;
     }
 
-    public function findUserPastCyclesCount(User $user): int
-    {
-        throw new \LogicException('Not implemented');
-    }
-
-    public function findUserNumberOfPastGames(User $user): int
-    {
-        throw new \LogicException('Not implemented');
-    }
-
     public function save(User $user): void
     {
         $this->users[] = $user;

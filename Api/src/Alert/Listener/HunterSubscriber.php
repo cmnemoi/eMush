@@ -27,12 +27,7 @@ class HunterSubscriber implements EventSubscriberInterface
 
     public function onHunterDeath(HunterEvent $event): void
     {
-        if ($event->getHunter()->isTransport()) {
-            return;
-        }
-
         $daedalus = $event->getHunter()->getDaedalus();
-
         $this->alertService->handleHunterDeath($daedalus);
     }
 

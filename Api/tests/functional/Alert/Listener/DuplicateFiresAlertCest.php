@@ -11,14 +11,13 @@ use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Entity\AlertElement;
 use Mush\Alert\Enum\AlertEnum;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
@@ -131,8 +130,7 @@ final class DuplicateFiresAlertCest extends AbstractFunctionalTest
             EquipmentConfig::class,
             [
                 'name' => EquipmentEnum::GRAVITY_SIMULATOR,
-                'actionConfigs' => new ArrayCollection([$reportAction]),
-                'breakableType' => BreakableTypeEnum::BREAKABLE],
+                'actionConfigs' => new ArrayCollection([$reportAction])]
         );
 
         $room = $this->player->getPlace();

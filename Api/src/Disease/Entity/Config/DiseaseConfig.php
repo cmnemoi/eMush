@@ -54,20 +54,6 @@ class DiseaseConfig implements LogParameterInterface
         $this->modifierConfigs = new ArrayCollection();
     }
 
-    public static function fromConfigData(array $configData): self
-    {
-        return (new self())
-            ->setDiseaseName($configData['diseaseName'])
-            ->setName($configData['name'])
-            ->setType($configData['type'])
-            ->setResistance($configData['resistance'])
-            ->setDelayMin($configData['delayMin'])
-            ->setDelayLength($configData['delayLength'])
-            ->setDiseasePointMin($configData['diseasePointMin'])
-            ->setDiseasePointLength($configData['diseasePointLength'])
-            ->setOverride($configData['override']);
-    }
-
     public function getId(): ?int
     {
         return $this->id;

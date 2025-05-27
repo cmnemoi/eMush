@@ -10,74 +10,23 @@
             @pagination-click="paginationClick"
             @sort-table="sortTable"
         >
-            <template #header-id>
-                #
-            </template>
-            <template #row-id="report">
-                {{ report.id }}
-            </template>
-
-            <template #header-daedalusId>
-                Daedalus
-            </template>
-            <template #row-daedalusId="report">
-                {{ getDaedalusId(report.playerId) }}
-            </template>
-
-            <template #header-authorName>
-                {{ $t('moderation.sanction.author') }}
-            </template>
-            <template #row-authorName="report">
-                {{ report.authorName }}
-            </template>
-
-            <template #header-username>
-                {{ $t('moderation.sanction.target') }}
-            </template>
-            <template #row-username="report">
-                <img :src="getCharacterBodyFromKey(report?.playerName)" alt="Character Image" style="max-width: 16px;" />
-                {{ report.username }}
-                <div v-if="getPlayerStatus(report.playerId)" class="alive">
-                    {{ $t('moderation.sanction.alive') }}
-                </div>
-                <div v-if="getPlayerMush(report.playerId)" class="isMush">
-                    MUSH
-                </div>
-            </template>
-
-            <template #header-reason>
-                {{ $t('moderation.sanction.reason') }}
-            </template>
-            <template #row-reason="report">
-                {{  getReasonTranslation(report.reason) }}
-            </template>
-
             <template #header-evidence>
-                {{ $t('moderation.sanctionDetail.message') }}
+                {{ $t('moderation.sanctionDetail.evidence') }}
             </template>
             <template #row-evidence="report">
-                {{ report.message }}
-            </template>
-
-            <template #header-startDate>
-                {{ $t('moderation.sanction.date') }}
-            </template>
-            <template #row-startDate="report">
-                {{ formatDate(report.startDate) }}
-            </template>
-
-            <template #header-actions>
-                {{ $t('moderation.sanction.actions') }}
-            </template>
-            <template #row-actions="report">
-                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
+                {{ report.sanctionEvidence.message }}
                 <button
                     class="action-button"
                     @click="goToSanctionEvidence(report)">
                     {{ $t('moderation.report.seeContext') }}
                 </button>
             </template>
-
+            <template #header-actions>
+                Actions
+            </template>
+            <template #row-actions="report">
+                <button class="action-button" @click="showSanctionDetails(report)">{{ $t('moderation.sanctionDetail.report') }}</button>
+            </template>
         </Datatable>
         <SanctionDetailPage
             :is-open="showDetailPopup"
@@ -101,8 +50,6 @@ import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_r
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import router from "@/router";
-import { characterEnum } from "@/enums/character";
-import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 
 interface SanctionListData {
     userId: string,
@@ -111,7 +58,6 @@ interface SanctionListData {
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number },
     rowData: ModerationSanction[],
     filter: string,
-    playerInfo: ModerationViewPlayer[],
     sortField: string,
     sortDirection: string,
     loading: boolean,
@@ -134,10 +80,7 @@ export default defineComponent({
         ...mapGetters({
             isAdmin: 'auth/isAdmin',
             isModerator: 'auth/isModerator'
-        }),
-        currentLocale() {
-            return this.$i18n.locale;
-        }
+        })
     },
     data(): SanctionListData {
         return {
@@ -145,29 +88,12 @@ export default defineComponent({
             username: '',
             fields: [
                 {
-                    key: 'id',
-                    name: 'moderation.sanction.id',
-                    slot:true
-                },
-                {
-                    key: 'daedalusId',
-                    name: 'Daedalus',
-                    slot:true
-                },
-                {
-                    key: 'authorName',
-                    name: 'moderation.sanctionDetail.author',
-                    slot:true
-                },
-                {
                     key: 'username',
-                    name: 'admin.user.username',
-                    slot:true
+                    name: 'admin.user.username'
                 },
                 {
                     key: 'reason',
-                    name: 'moderation.sanctionReason',
-                    slot: true
+                    name: 'moderation.sanctionReason'
                 },
                 {
                     key: 'evidence',
@@ -176,8 +102,7 @@ export default defineComponent({
                 },
                 {
                     key: 'startDate',
-                    name: 'moderation.sanctionDetail.date',
-                    slot: true
+                    name: 'moderation.sanctionDetail.date'
                 },
                 {
                     key: 'actions',
@@ -193,7 +118,6 @@ export default defineComponent({
                 totalPage: 1
             },
             rowData: [],
-            playerInfo: [],
             filter: '',
             sortField: '',
             sortDirection: 'DESC',
@@ -212,62 +136,6 @@ export default defineComponent({
         };
     },
     methods: {
-        getDaedalusId(playerId: number) {
-            const player = this.playerInfo.find(player => player.id === playerId);
-            if(player) {
-                return player.daedalusId;
-            } else {
-                return null;
-            }
-        },
-        getPlayerStatus(playerId: number) {
-            const player = this.playerInfo.find(player => player.id === playerId);
-            if(player) {
-                return player.isAlive;
-            } else {
-                return null;
-            }
-        },
-        getPlayerMush(playerId: number) {
-            const player = this.playerInfo.find(player => player.id === playerId);
-            if(player) {
-                return player.isMush;
-            } else {
-                return null;
-            }
-        },
-        async loadPlayerInfo(playerId: number) {
-            if (!this.playerInfo.find(player => player.id === playerId)) {
-                try {
-                    const response = await ModerationService.getModerationViewPlayer(playerId);
-                    this.playerInfo.push(new ModerationViewPlayer().load(response.data));
-                } catch (error) {
-                    console.error(error);
-                }
-            }
-        },
-        getCharacterBodyFromKey(characterKey: string) {
-            return characterEnum[characterKey].body;
-        },
-        getReasonTranslation(reason) {
-            const reasonObj = moderationReasons.find(item => item.value === reason);
-            return reasonObj ? this.$t(reasonObj.key) : reason;
-        },
-        formatDate(date: string): string {
-            const currentDate = new Date();
-            const reportDate = new Date(date);
-
-            // if today or yesterday, special format
-            if(currentDate.toDateString() === reportDate.toDateString()) {
-                return `${this.$t('moderation.sanctionDetail.today')} ${this.$t('moderation.sanctionDetail.to')} ${reportDate.toLocaleTimeString(this.currentLocale, { hour: "numeric", minute: "numeric" })}`;
-            }
-
-            if(new Date(currentDate.setDate(currentDate.getDate() - 1)).toDateString() === reportDate.toDateString()) {
-                return `${this.$t('moderation.sanctionDetail.yesterday')} ${this.$t('moderation.sanctionDetail.to')} ${reportDate.toLocaleTimeString(this.currentLocale, { hour: "numeric", minute: "numeric" })}`;
-            }
-
-            return reportDate.toLocaleDateString(this.currentLocale, { month: "long", day: "numeric", hour: "numeric", minute: "numeric" });
-        },
         closeDetailAndUpdate() {
             this.showDetailPopup = false;
             this.loadData();
@@ -300,10 +168,8 @@ export default defineComponent({
             this.showDetailPopup = false;
             this.loadData();
         },
-        async loadData() {
+        loadData() {
             this.loading = true;
-            this.rowData = [];
-
             const params: any = {
                 header: {
                     'accept': 'application/ld+json'
@@ -323,24 +189,20 @@ export default defineComponent({
 
             params.params['moderationAction'] = 'report';
 
-            try {
-                const result = await ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params);
-                const remoteRowData = result.data;
-
-                for (const reportData of remoteRowData['hydra:member']) {
-                    if (reportData) {
-                        const moderationSanction = new ModerationSanction().load(reportData);
-                        await this.loadPlayerInfo(reportData.playerId);
-                        this.rowData.push(moderationSanction);
+            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
+                .then((result) => {
+                    return result.data;
+                })
+                .then((remoteRowData: any) => {
+                    for (const reportData of remoteRowData['hydra:member']) {
+                        if (reportData) {
+                            this.rowData.push((new ModerationSanction()).load(reportData));
+                        }
                     }
-                }
-                this.pagination.totalItem = remoteRowData['hydra:totalItems'];
-                this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
-            } catch (error) {
-                console.error(error);
-            } finally {
-                this.loading = false;
-            }
+                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
+                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
+                    this.loading = false;
+                });
         },
         sortTable(selectedField: any): void {
             if (!selectedField.sortable) {
@@ -387,8 +249,7 @@ export default defineComponent({
             if (
                 evidenceClass === 'message' ||
                 evidenceClass === 'roomLog' ||
-                evidenceClass === 'commanderMission' ||
-                evidenceClass === 'comManagerAnnouncement'
+                evidenceClass === 'commanderMission'
             ) {
                 router.push({ name: 'ModerationViewPlayerDetail', params: { playerId: sanction.playerId } });
             } else if (evidenceClass === 'closedPlayer') {
@@ -410,13 +271,5 @@ export default defineComponent({
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
-  }
-
-  .alive {
-    color:red;
-  }
-
-  .isMush {
-    color: pink;
   }
 </style>

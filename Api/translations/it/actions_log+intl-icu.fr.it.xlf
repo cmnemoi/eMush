@@ -109,6 +109,24 @@
         <target>hide_success</target>
       </segment>
     </unit>
+    <unit id="hit_success">
+      <segment id="hit_success" state="initial">
+        <source>hit_success</source>
+        <target>hit_success</target>
+      </segment>
+    </unit>
+    <unit id="hit_critical_success">
+      <segment id="hit_critical_success" state="initial">
+        <source>hit_critical_success</source>
+        <target>hit_critical_success</target>
+      </segment>
+    </unit>
+    <unit id="hit_fail">
+      <segment id="hit_fail" state="initial">
+        <source>hit_fail</source>
+        <target>hit_fail</target>
+      </segment>
+    </unit>
     <unit id="hyperfreeze_success">
       <segment id="hyperfreeze_success" state="initial">
         <source>hyperfreeze_success</source>
@@ -427,10 +445,64 @@
         <target>update_talkie_success</target>
       </segment>
     </unit>
+    <unit id="attack_success">
+      <segment id="attack_success" state="initial">
+        <source>attack_success</source>
+        <target>attack_success</target>
+      </segment>
+    </unit>
+    <unit id="attack_fail">
+      <segment id="attack_fail" state="initial">
+        <source>attack_fail</source>
+        <target>attack_fail</target>
+      </segment>
+    </unit>
+    <unit id="attack_critical_success">
+      <segment id="attack_critical_success" state="initial">
+        <source>attack_critical_success</source>
+        <target>attack_critical_success</target>
+      </segment>
+    </unit>
+    <unit id="attack_critical_fail">
+      <segment id="attack_critical_fail" state="initial">
+        <source>attack_critical_fail</source>
+        <target>attack_critical_fail</target>
+      </segment>
+    </unit>
+    <unit id="shoot_success">
+      <segment id="shoot_success" state="initial">
+        <source>shoot_success</source>
+        <target>shoot_success</target>
+      </segment>
+    </unit>
+    <unit id="shoot_fail">
+      <segment id="shoot_fail" state="initial">
+        <source>shoot_fail</source>
+        <target>shoot_fail</target>
+      </segment>
+    </unit>
+    <unit id="shoot_critical_success">
+      <segment id="shoot_critical_success" state="initial">
+        <source>shoot_critical_success</source>
+        <target>shoot_critical_success</target>
+      </segment>
+    </unit>
+    <unit id="shoot_critical_fail">
+      <segment id="shoot_critical_fail" state="initial">
+        <source>shoot_critical_fail</source>
+        <target>shoot_critical_fail</target>
+      </segment>
+    </unit>
     <unit id="suicide_success">
       <segment id="suicide_success" state="initial">
         <source>suicide_success</source>
         <target>suicide_success</target>
+      </segment>
+    </unit>
+    <unit id="attack_one_shot">
+      <segment state="initial">
+        <source>attack_one_shot</source>
+        <target>attack_one_shot</target>
       </segment>
     </unit>
     <unit id="shoot_one_shot">
@@ -482,13 +554,13 @@
       </segment>
     </unit>
     <unit id="takeoff_success">
-      <segment id="takeoff_success" state="initial">
+      <segment state="initial">
         <source>takeoff_success</source>
         <target>takeoff_success</target>
       </segment>
     </unit>
     <unit id="land_success">
-      <segment id="land_success" state="initial">
+      <segment state="initial">
         <source>land_success</source>
         <target>land_success</target>
       </segment>
@@ -745,12 +817,6 @@
         <target>upgrade_drone_to_pilot_success</target>
       </segment>
     </unit>
-    <unit id="upgrade_drone_to_sensor_success">
-      <segment id="upgrade_drone_to_sensor_success" state="initial">
-        <source>upgrade_drone_to_sensor_success</source>
-        <target>upgrade_drone_to_sensor_success</target>
-      </segment>
-    </unit>
     <unit id="take_cat">
       <segment id="take_cat" state="initial">
         <source>take_cat</source>
@@ -793,6 +859,12 @@
         <target>daunt_success</target>
       </segment>
     </unit>
+    <unit id="gen_metal_success">
+      <segment id="gen_metal_success" state="initial">
+        <source>gen_metal_success</source>
+        <target>gen_metal_success</target>
+      </segment>
+    </unit>
     <unit id="gen_metal_fail">
       <segment id="gen_metal_fail" state="initial">
         <source>gen_metal_fail</source>
@@ -817,58 +889,16 @@
         <target>neron_depress_success</target>
       </segment>
     </unit>
-    <unit id="compute_eden_success">
-      <segment id="compute_eden_success" state="initial">
-        <source>compute_eden_success</source>
-        <target>compute_eden_success</target>
+    <unit id="search_for_mush_genome_fail">
+      <segment id="search_for_mush_genome_fail" state="initial">
+        <source>search_for_mush_genome_fail</source>
+        <target>search_for_mush_genome_fail</target>
       </segment>
     </unit>
-    <unit id="compute_eden_fail">
-      <segment id="compute_eden_fail" state="initial">
-        <source>compute_eden_fail</source>
-        <target>compute_eden_fail</target>
-      </segment>
-    </unit>
-    <unit id="open_coffee_thermos">
-      <segment id="open_coffee_thermos" state="initial">
-        <source>open_coffee_thermos</source>
-        <target>open_coffee_thermos</target>
-      </segment>
-    </unit>
-    <unit id="open_anniversary_gift">
-      <segment id="open_anniversary_gift" state="initial">
-        <source>open_anniversary_gift</source>
-        <target>open_anniversary_gift</target>
-      </segment>
-    </unit>
-    <unit id="establish_link_with_sol_fail">
-      <segment id="establish_link_with_sol_fail" state="initial">
-        <source>establish_link_with_sol_fail</source>
-        <target>establish_link_with_sol_fail</target>
-      </segment>
-    </unit>
-    <unit id="establish_link_with_sol_success">
-      <segment id="establish_link_with_sol_success" state="initial">
-        <source>establish_link_with_sol_success</source>
-        <target>establish_link_with_sol_success</target>
-      </segment>
-    </unit>
-    <unit id="upgrade_neron_success">
-      <segment id="upgrade_neron_success" state="initial">
-        <source>upgrade_neron_success</source>
-        <target>upgrade_neron_success</target>
-      </segment>
-    </unit>
-    <unit id="play_with_dog">
-      <segment id="play_with_dog" state="initial">
-        <source>play_with_dog</source>
-        <target>play_with_dog</target>
-      </segment>
-    </unit>
-    <unit id="mutate_success">
-      <segment id="mutate_success" state="initial">
-        <source>mutate_success</source>
-        <target>mutate_success</target>
+    <unit id="search_for_mush_genome_success">
+      <segment id="search_for_mush_genome_success" state="initial">
+        <source>search_for_mush_genome_success</source>
+        <target>search_for_mush_genome_success</target>
       </segment>
     </unit>
   </file>

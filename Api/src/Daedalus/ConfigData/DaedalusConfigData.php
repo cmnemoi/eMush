@@ -2,8 +2,6 @@
 
 namespace Mush\Daedalus\ConfigData;
 
-use Mush\Daedalus\Enum\CharacterSetEnum;
-use Mush\Game\Enum\HolidayEnum;
 use Mush\Place\Enum\RoomEnum;
 
 /** @codeCoverageIgnore */
@@ -84,44 +82,10 @@ class DaedalusConfigData
                 RoomEnum::PASIPHAE . '_default',
                 RoomEnum::PLANET . '_default',
                 RoomEnum::PLANET_DEPTHS . '_default',
-                RoomEnum::TABULATRIX_QUEUE . '_default',
             ],
             'numberOfProjectsByBatch' => 3,
             'humanSkillSlots' => 3,
             'mushSkillSlots' => 4,
-            'applyHoliday' => HolidayEnum::CURRENT,
-            'freeLove' => true,
-            'numberOfCyclesBeforeNextRebelBaseContact' => 8,
-            'rebelBaseContactDurationMin' => 8,
-            'rebelBaseContactDurationMax' => 16,
-            'startingRandomBlueprintCount' => 4,
-            'randomBlueprints' => [
-                'oscilloscope_blueprint' => 4,
-                'sniper_helmet_blueprint' => 2,
-                'rocket_launcher_blueprint' => 2,
-                'lizaro_jungle_blueprint' => 4,
-                'old_faithful_blueprint' => 2,
-                'white_flag_blueprint' => 4,
-                'babel_module_blueprint' => 4,
-                'echolocator_blueprint' => 8,
-                'thermosensor_blueprint' => 2,
-                'extinguisher_blueprint' => 4,
-                'swedish_sofa_blueprint' => 4,
-                'grenade_blueprint' => 2,
-                'support_drone_blueprint' => 1,
-            ],
-            'playerCount' => 16,
-            'chaolaToggle' => CharacterSetEnum::FINOLA_CHAO,
         ],
     ];
-
-    public static function getByName(string $name): array
-    {
-        return current(
-            array_filter(
-                self::$dataArray,
-                static fn (array $data) => $data['name'] === $name
-            )
-        );
-    }
 }

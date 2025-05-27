@@ -2,9 +2,9 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="moderation.ext">
     <unit id="edited_by_neron">
-      <segment id="edited_by_neron" state="translated">
+      <segment id="edited_by_neron" state="initial">
         <source>edited_by_neron</source>
-        <target>:pa_core: Editado por NERON.</target>
+        <target>edited_by_neron</target>
       </segment>
     </unit>
   </file>

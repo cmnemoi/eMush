@@ -30,11 +30,6 @@ interface GameEquipmentServiceInterface
 
     public function findById(int $id): ?GameEquipment;
 
-    public function findGameEquipmentConfigFromNameAndDaedalus(
-        string $equipmentName,
-        Daedalus $daedalus
-    ): EquipmentConfig;
-
     public function createGameEquipmentFromName(
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
@@ -50,9 +45,9 @@ interface GameEquipmentServiceInterface
     public function createGameEquipmentsFromName(
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
+        array $reasons,
+        \DateTime $time,
         int $quantity,
-        array $reasons = [],
-        \DateTime $time = new \DateTime(),
         string $visibility = VisibilityEnum::PRIVATE,
         ?Player $author = null
     ): array;

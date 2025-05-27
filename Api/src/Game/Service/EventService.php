@@ -35,6 +35,7 @@ class EventService implements EventServiceInterface
 
         // first dispatch events created by modifiers with before_event priority
         $preEvents = $this->applyModifiers($event, ModifierPriorityEnum::PRE_MODIFICATION);
+
         $initialEvent = $this->dispatchEventChain($preEvents, false);
         if ($initialEvent === null) {
             return $preEvents;

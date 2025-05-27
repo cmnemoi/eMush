@@ -90,6 +90,9 @@ abstract class ActionLogEnum
     public const string ATTACK_ONE_SHOT = 'attack_one_shot';
     public const string SHOOT_SUCCESS = 'shoot_success';
     public const string SHOOT_FAIL = 'shoot_fail';
+    public const string SHOOT_CRITICAL_SUCCESS = 'shoot_critical_success';
+    public const string SHOOT_CRITICAL_FAIL = 'shoot_critical_fail';
+    public const string SHOOT_ONE_SHOT = 'shoot_one_shot';
     public const string SHOOT_HUNTER_SUCCESS = 'shoot_hunter_success';
     public const string SHOOT_HUNTER_FAIL = 'shoot_hunter_fail';
     public const string TAKEOFF_SUCCESS = 'takeoff_success';
@@ -148,7 +151,6 @@ abstract class ActionLogEnum
     public const string UPGRADE_DRONE_TO_TURBO_SUCCESS = 'upgrade_drone_to_turbo_success';
     public const string UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS = 'upgrade_drone_to_firefighter_success';
     public const string UPGRADE_DRONE_TO_PILOT_SUCCESS = 'upgrade_drone_to_pilot_success';
-    public const string UPGRADE_DRONE_TO_SENSOR_SUCCESS = 'upgrade_drone_to_sensor_success';
     public const string TAKE_CAT = 'take_cat';
     public const string PET_CAT = 'pet_cat';
     public const string SHOOT_CAT_SUCCESS = 'shoot_cat_success';
@@ -162,19 +164,9 @@ abstract class ActionLogEnum
     public const string DOOR_SABOTAGE_SUCCESS = 'door_sabotage_success';
     public const string GIVE_NIGHTMARE_SUCCESS = 'give_nightmare_success';
     public const string NERON_DEPRESS_SUCCESS = 'neron_depress_success';
+    public const string SEARCH_FOR_MUSH_GENOME_SUCCESS = 'search_for_mush_genome_success';
+    public const string SEARCH_FOR_MUSH_GENOME_FAIL = 'search_for_mush_genome_fail';
     public const string PARTICIPATE_RESEARCH_SUCCESS = 'participate_research_success';
-    public const string COMPUTE_EDEN_SUCCESS = 'compute_eden_success';
-    public const string COMPUTE_EDEN_FAIL = 'compute_eden_fail';
-    public const string OPEN_ANNIVERSARY_GIFT = 'open_anniversary_gift';
-    public const string OPEN_COFFEE_THERMOS = 'open_coffee_thermos';
-    public const string OPEN_LUNCHBOX = 'open_lunchbox';
-    public const string ESTBALISH_LINK_WITH_SOL_SUCCESS = 'establish_link_with_sol_success';
-    public const string ESTBALISH_LINK_WITH_SOL_FAIL = 'establish_link_with_sol_fail';
-    public const string UPGRADE_NERON_SUCCESS = 'upgrade_neron_success';
-    public const string UPGRADE_NERON_FAIL = 'upgrade_neron_fail';
-    public const string DECODE_REBEL_SIGNAL_SUCCESS = 'decode_rebel_signal_success';
-    public const string PLAY_WITH_DOG = 'play_with_dog';
-    public const string MUTATE_SUCCESS = 'mutate_success';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -287,6 +279,7 @@ abstract class ActionLogEnum
         ActionEnum::HIT->value => [
             ActionOutputEnum::SUCCESS => self::HIT_SUCCESS,
             ActionOutputEnum::FAIL => self::HIT_FAIL,
+            ActionOutputEnum::CRITICAL_SUCCESS => self::HIT_CRITICAL_SUCCESS,
         ],
         ActionEnum::COMFORT->value => [
             ActionOutputEnum::SUCCESS => self::COMFORT_SUCCESS,
@@ -376,6 +369,9 @@ abstract class ActionLogEnum
         ActionEnum::SHOOT->value => [
             ActionOutputEnum::SUCCESS => self::SHOOT_SUCCESS,
             ActionOutputEnum::FAIL => self::SHOOT_FAIL,
+            ActionOutputEnum::CRITICAL_FAIL => self::SHOOT_CRITICAL_FAIL,
+            ActionOutputEnum::CRITICAL_SUCCESS => self::SHOOT_CRITICAL_SUCCESS,
+            ActionOutputEnum::ONE_SHOT => self::SHOOT_ONE_SHOT,
         ],
         ActionEnum::SUICIDE->value => [
             ActionOutputEnum::SUCCESS => self::SUICIDE_SUCCESS,
@@ -574,35 +570,12 @@ abstract class ActionLogEnum
         ActionEnum::NERON_DEPRESS->value => [
             ActionOutputEnum::SUCCESS => self::NERON_DEPRESS_SUCCESS,
         ],
+        ActionEnum::SEARCH_FOR_MUSH_GENOME->value => [
+            ActionOutputEnum::SUCCESS => self::SEARCH_FOR_MUSH_GENOME_SUCCESS,
+            ActionOutputEnum::FAIL => self::SEARCH_FOR_MUSH_GENOME_FAIL,
+        ],
         ActionEnum::PARTICIPATE_RESEARCH->value => [
             ActionOutputEnum::SUCCESS => self::PARTICIPATE_RESEARCH_SUCCESS,
-        ],
-        ActionEnum::COMPUTE_EDEN->value => [
-            ActionOutputEnum::SUCCESS => self::COMPUTE_EDEN_SUCCESS,
-            ActionOutputEnum::FAIL => self::COMPUTE_EDEN_FAIL,
-        ],
-        ActionEnum::ESTABLISH_LINK_WITH_SOL->value => [
-            ActionOutputEnum::SUCCESS => self::ESTBALISH_LINK_WITH_SOL_SUCCESS,
-            ActionOutputEnum::FAIL => self::ESTBALISH_LINK_WITH_SOL_FAIL,
-        ],
-        ActionEnum::UPGRADE_NERON->value => [
-            ActionOutputEnum::SUCCESS => self::UPGRADE_NERON_SUCCESS,
-            ActionOutputEnum::FAIL => self::UPGRADE_NERON_FAIL,
-        ],
-        ActionEnum::DECODE_REBEL_SIGNAL->value => [
-            ActionOutputEnum::SUCCESS => self::DECODE_REBEL_SIGNAL_SUCCESS,
-        ],
-        ActionEnum::PLAY_WITH_DOG->value => [
-            ActionOutputEnum::SUCCESS => self::PLAY_WITH_DOG,
-        ],
-        ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value => [
-            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
-        ],
-        ActionEnum::UPGRADE_DRONE_TO_SENSOR->value => [
-            ActionOutputEnum::SUCCESS => self::UPGRADE_DRONE_TO_SENSOR_SUCCESS,
-        ],
-        ActionEnum::GO_BERSERK->value => [
-            ActionOutputEnum::SUCCESS => self::MUTATE_SUCCESS,
         ],
     ];
 

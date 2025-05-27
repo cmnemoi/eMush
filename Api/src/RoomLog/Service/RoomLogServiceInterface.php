@@ -4,7 +4,7 @@ namespace Mush\RoomLog\Service;
 
 use Mush\Action\Event\ActionEvent;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\ValueObject\GameDate;
+use Mush\Daedalus\ValueObject\DaedalusDate;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
@@ -26,6 +26,8 @@ interface RoomLogServiceInterface
 
     public function persist(RoomLog $roomLog): RoomLog;
 
+    public function findById(int $id): ?RoomLog;
+
     public function getRoomLog(Player $player): RoomLogCollection;
 
     public function findAllByDaedalusAndPlace(Daedalus $daedalus, Place $place): RoomLogCollection;
@@ -38,7 +40,7 @@ interface RoomLogServiceInterface
 
     public function markAllRoomLogsAsReadForPlayer(Player $player): void;
 
-    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, GameDate $date): RoomLog;
+    public function findOneByPlaceAndDaedalusDateOrThrow(string $logKey, Place $place, DaedalusDate $date): RoomLog;
 
-    public function findAllByPlaceAndDaedalusDate(Place $place, GameDate $date): RoomLogCollection;
+    public function findAllByPlaceAndDaedalusDate(Place $place, DaedalusDate $date): RoomLogCollection;
 }

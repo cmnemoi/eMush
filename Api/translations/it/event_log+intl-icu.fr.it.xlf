@@ -463,12 +463,6 @@
         <target>player_leave_chat_death</target>
       </segment>
     </unit>
-    <unit id="player_leave_chat_mutated">
-      <segment id="player_leave_chat_mutated" state="initial">
-        <source>player_leave_chat_mutated</source>
-        <target>player_leave_chat_mutated</target>
-      </segment>
-    </unit>
     <unit id="player_leave_chat_talky">
       <segment id="player_leave_chat_talky" state="initial">
         <source>player_leave_chat_talky</source>
@@ -745,16 +739,6 @@
         <target>ze_list</target>
       </segment>
     </unit>
-    <unit id="lost_research">
-      <segment id="lost_research_headline" state="initial">
-        <source>lost_research_headline</source>
-        <target>lost_research_headline</target>
-      </segment>
-      <segment id="lost_research_sample" state="initial">
-        <source>lost_research_sample</source>
-        <target>lost_research_sample</target>
-      </segment>
-    </unit>
     <unit id="observant_noticed_something">
       <segment id="observant_noticed_something" state="initial">
         <source>observant_noticed_something</source>
@@ -903,66 +887,6 @@
       <segment id="research_completed" state="initial">
         <source>research_completed</source>
         <target>research_completed</target>
-      </segment>
-    </unit>
-    <unit id="myco_alarm_ring">
-      <segment id="myco_alarm_ring" state="initial">
-        <source>myco_alarm_ring</source>
-        <target>myco_alarm_ring</target>
-      </segment>
-    </unit>
-    <unit id="gen_metal_success">
-      <segment id="gen_metal_success" state="initial">
-        <source>gen_metal_success</source>
-        <target>gen_metal_success</target>
-      </segment>
-    </unit>
-    <unit id="gain_chef_point">
-      <segment state="initial">
-        <source>gain_chef_point</source>
-        <target>gain_chef_point</target>
-      </segment>
-    </unit>
-    <unit id="germaphobe_morale_loss">
-      <segment state="initial">
-        <source>germaphobe_morale_loss</source>
-        <target>germaphobe_morale_loss</target>
-      </segment>
-    </unit>
-    <unit id="awaken_pavlov">
-      <segment id="awaken_pavlov" state="initial">
-        <source>awaken_pavlov</source>
-        <target>awaken_pavlov</target>
-      </segment>
-    </unit>
-    <unit id="dog_bark">
-      <segment id="dog_bark" state="initial">
-        <source>dog_bark</source>
-        <target>dog_bark</target>
-      </segment>
-    </unit>
-    <unit id="npc_entered_room">
-      <segment state="initial">
-        <source>npc_entered_room</source>
-        <target>npc_entered_room</target>
-      </segment>
-    </unit>
-    <unit id="npc_exited_room">
-      <segment state="initial">
-        <source>npc_exited_room</source>
-        <target>npc_exited_room</target>
-      </segment>
-    </unit>
-    <unit id="dog_bother_cat">
-      <segment state="initial">
-        <source>dog_bother_cat</source>
-        <target>dog_bother_cat</target>
-      </segment>
-    </unit>
-    <unit id="trade_assets_created">
-      <segment state="initial">
-        <source>trade_assets_created</source>
-        <target>trade_assets_created</target>
       </segment>
     </unit>
   </file>

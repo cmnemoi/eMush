@@ -32,13 +32,6 @@ export enum StatusPlayerNameEnum {
     GENIUS_IDEA = "genius_idea",
     PARIAH = "pariah",
     ANTIQUE_PERFUME_IMMUNIZED = "antique_perfume_immunized",
-    ILL = 'ill',
-    INJURY = 'injury',
-    DISORDER = 'disorder',
-    GERMAPHOBE = 'germaphobe',
-    HYPERACTIVE = 'hyperactive',
-    BRAINSYNC = 'brainsync',
-    BEGINNER = 'beginner',
 };
 
 export const statusPlayerEnum: {[index: string]: any} = {
@@ -130,30 +123,9 @@ export const statusPlayerEnum: {[index: string]: any} = {
         'icon': getImgUrl('status/genius_idea.png')
     },
     [StatusPlayerNameEnum.PARIAH]: {
-        'icon': getImgUrl('status/hammer.png')
+        'icon': getImgUrl('status/unsociable.png')
     },
     [StatusPlayerNameEnum.ANTIQUE_PERFUME_IMMUNIZED]: {
         'icon': getImgUrl('status/immune.png')
-    },
-    [StatusPlayerNameEnum.ILL]: {
-        'icon': getImgUrl('status/disease.png')
-    },
-    [StatusPlayerNameEnum.INJURY]: {
-        'icon': getImgUrl('status/injury.png')
-    },
-    [StatusPlayerNameEnum.DISORDER]: {
-        'icon': getImgUrl('status/disorder.png')
-    },
-    [StatusPlayerNameEnum.GERMAPHOBE]: {
-        'icon': getImgUrl('status/germaphobic.png')
-    },
-    [StatusPlayerNameEnum.HYPERACTIVE]: {
-        'icon': getImgUrl('status/hyperactive.png')
-    },
-    [StatusPlayerNameEnum.BRAINSYNC]: {
-        'icon': getImgUrl('status/thinklinked.png')
-    },
-    [StatusPlayerNameEnum.BEGINNER]: {
-        'icon': getImgUrl('status/beginner.png')
     }
 };

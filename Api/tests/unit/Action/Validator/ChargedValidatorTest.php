@@ -10,7 +10,6 @@ use Mush\Action\Validator\IsActionProviderOperationalValidator;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Place\Entity\Place;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -47,7 +46,7 @@ final class ChargedValidatorTest extends TestCase
     public function testValid()
     {
         $itemConfig = new ItemConfig();
-        $itemConfig->setBreakableType(BreakableTypeEnum::BREAKABLE);
+        $itemConfig->setIsBreakable(true);
 
         $target = new GameItem(new Place());
         $target->setEquipment($itemConfig);
@@ -78,7 +77,7 @@ final class ChargedValidatorTest extends TestCase
     public function testNotValid()
     {
         $itemConfig = new ItemConfig();
-        $itemConfig->setBreakableType(BreakableTypeEnum::NONE);
+        $itemConfig->setIsBreakable(false);
 
         $daedalus = new Daedalus();
         $place = new Place();

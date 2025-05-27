@@ -125,6 +125,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($modifierDaedalusPlus1MaxSpores->getName(), $modifierDaedalusPlus1MaxSpores);
         $manager->persist($modifierDaedalusPlus1MaxSpores);
 
+        $modifierPreventMushShowerMalus = EventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS)
+        );
+        $this->addReference($modifierPreventMushShowerMalus->getName(), $modifierPreventMushShowerMalus);
+        $manager->persist($modifierPreventMushShowerMalus);
+
         /** @var VariableEventConfig $eventConfig */
         $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_PLUS_1_CHARGE_MUSH_STATUS);
 
@@ -147,9 +153,14 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         /** @var ModifierActivationRequirement $lyingDownActivationRequirement */
         $lyingDownActivationRequirement = $this->getReference(ModifierRequirementEnum::HOLDER_HAS_STATUS . '_' . PlayerStatusEnum::LYING_DOWN);
 
-        $shrinkModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM)
+        $shrinkModifier = TriggerEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_player_+1morale_point_on_new_cycle_if_lying_down')
         );
+        $shrinkModifier->setTriggeredEvent($eventConfig);
+        $shrinkModifier->setEventTargetRequirements([
+            $lyingDownActivationRequirement,
+        ]);
+
         $this->addReference($shrinkModifier->getName(), $shrinkModifier);
         $manager->persist($shrinkModifier);
 
@@ -302,16 +313,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         );
         $manager->persist($modifierRequirement);
 
-        /** @var ModifierActivationRequirement $playerIsNotMushRequirement */
-        $playerIsNotMushRequirement = $this->getReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH);
-
         $lethargyModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_SLEEPING_FOR_4_CYCLES_AND_MORE)
         );
         $lethargyModifier
             ->setTriggeredEvent($eventConfig)
-            ->addModifierRequirement($modifierRequirement)
-            ->addModifierRequirement($playerIsNotMushRequirement);
+            ->addModifierRequirement($modifierRequirement);
         $this->addReference($lethargyModifier->getName(), $lethargyModifier);
         $manager->persist($lethargyModifier);
 
@@ -322,6 +329,9 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
             ModifierActivationRequirementData::getByName(ModifierRequirementEnum::MUSH_CREW_PROPORTION_50_PERCENTS)
         );
         $manager->persist($mushCrewProportionRequirement);
+
+        /** @var ModifierActivationRequirement $playerIsNotMushRequirement */
+        $playerIsNotMushRequirement = $this->getReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH);
 
         $panicActionPointModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLUS_1_ACTION_POINT_IF_MUSH_CONTROLS_MORE_THAN_50_PERCENTS_OF_CREW)

@@ -80,7 +80,7 @@
     <unit id="gain_triumph">
       <segment state="translated">
         <source>gain_triumph</source>
-        <target>:triumph: You have earned *{quantity} Glory*.</target>
+        <target>This action completes the personal objectives for your character. You have earned *{quantity} Glory*.</target>
       </segment>
     </unit>
     <unit id="death">
@@ -274,7 +274,7 @@
       </segment>
     </unit>
     <unit id="disease_cured_drug">
-      <segment state="translated">
+      <segment state="final">
         <source>disease_cured_drug</source>
         <target>{character_gender, select,
                     male {**{target_character}** is relieved. He has managed to cure himself of his disease ({disease}).}
@@ -539,16 +539,6 @@
                   }</target>
       </segment>
     </unit>
-    <unit id="player_leave_chat_mutated">
-      <segment id="player_leave_chat_mutated" state="translated">
-        <source>player_leave_chat_mutated</source>
-        <target>{character_gender, select,
-                  male {**{character}** cannot be reached here, he mutated.}
-                  female {**{character}** cannot be reached here, she mutated.}
-                  other {**{character}** cannot be reached here, they mutated.}
-                  }</target>
-      </segment>
-    </unit>
     <unit id="player_leave_chat_talky">
       <segment id="player_leave_chat_talky" state="translated">
         <source>player_leave_chat_talky</source>
@@ -626,19 +616,19 @@
       </segment>
     </unit>
     <unit id="liquid_map_helped">
-      <segment id="liquid_map_helped" state="translated">
+      <segment id="liquid_map_helped" state="final">
         <source>liquid_map_helped</source>
         <target>The liquid map was a great help to **{character}**.</target>
       </segment>
     </unit>
     <unit id="get_up_bed_broken">
-      <segment id="get_up_bed_broken" state="translated">
+      <segment id="get_up_bed_broken" state="final">
         <source>get_up_bed_broken</source>
         <target>This **{target_equipment}** seems even more uncomfortable than usual; how is this possible ?! **{character}** does a few spins before finally getting up.</target>
       </segment>
     </unit>
     <unit id="help_disabled">
-      <segment id="help_disabled" state="translated">
+      <segment id="help_disabled" state="final">
         <source>help_disabled</source>
         <target>**{character}** helped **{target_character}** to get out of the room, brotherly help is a beautiful thing.</target>
       </segment>
@@ -650,7 +640,7 @@
       </segment>
     </unit>
     <unit id="daily_morale_loss">
-      <segment id="daily_morale_loss" state="translated">
+      <segment id="daily_morale_loss" state="final">
         <source>daily_morale_loss</source>
         <target>You made it through another day... Your morale is slowly diminishing.</target>
       </segment>
@@ -753,9 +743,9 @@
       </segment>
     </unit>
     <unit id="lost_on_planet">
-      <segment state="translated">
+      <segment state="final">
         <source>lost_on_planet</source>
-        <target>You feel lonely and abandoned... Is no one thinking of you up there?</target>
+        <target>You feel lonely and abandoned... Does no one think of you up there?</target>
       </segment>
     </unit>
     <unit id="logistic_log">
@@ -765,7 +755,7 @@
       </segment>
     </unit>
     <unit id="drone">
-      <segment state="translated">
+      <segment state="final">
         <source>drone</source>
         <target>**Robo {drone_nickname, select,
         1 {Betty}
@@ -828,42 +818,42 @@
       <segment id="jukebox_played" state="translated">
         <source>jukebox_played</source>
         <target>During this cycle, you can listen to the famous {player, select,
-                    andie {**Audacity**}
-                    chao {**A Weekend In Blood**}
-                    chun {**Dutch Dawn**}
-                    derek {**Die Die My Lightning**}
-                    eleesha {**Take The Truth**}
-                    finola {**Return Of The Haze**}
-                    gioele {**Unleash The Party**}
-                    hua {**The Next Adventure**}
-                    ian {**Night Flowers**}
-                    janice {**Take The Time For Blossoms**}
-                    jin_su {**4th Symphony in Ut Major**}
-                    kuan_ti {**Star Walker : Infinite And Beyond OST**}
-                    paola {**Bad Requiem**}
-                    raluca {**Touching And Fading**}
-                    roland {**Victory Tab**}
-                    stephen {**To Whom The Rockets Tolls**}
-                    terrence {**Stoner And Sweeter**}
+                    andie {**That's the way it is**}
+                    chao {**Unleash The Party**}
+                    chun {**Star Walker : Infinite And Beyond OST**}
+                    derek {**She has the sniper eyes**}
+                    eleesha {**To Whom The Rockets Tolls**}
+                    finola {**Night Flowers**}
+                    gioele {**Die Die My Lightning**}
+                    hua {**Mon Clavier Pleure**}
+                    ian {**Take The Truth**}
+                    janice {**Dutch Dawn**}
+                    jin_su {**Bad Requiem**}
+                    kuan_ti {**Touching And Fading**}
+                    paola {**Audacity**}
+                    raluca {**Stoner And Sweeter**}
+                    roland {**A Weekend In Blood**}
+                    stephen {**Return Of The Haze**}
+                    terrence {**4ème symphonie en Ut majeur**}
                     other {**Al's Ballad**}
-                } played by {player, select,
-                    andie {**ShipSalt**}
-                    chao {**Steel Panzer Society**}
-                    chun {**Faded Happiness**}
-                    derek {**MetalliCorn**}
-                    eleesha {**Neil Washed**}
-                    finola {**Sweet Symphonies**}
-                    gioele {**Tree Pot**}
-                    hua {**Rustic Vines**}
-                    ian {**Rob Vivan**}
-                    janice {**Janice Popet**}
-                    jin_su {**Mozoven**}
-                    kuan_ti {**Jon Roger**}
-                    paola {**The Stoojazz**}
-                    raluca {**VOSTeX**}
-                    roland {**Hugh Schafting**}
-                    stephen {**Mario Leone**}
-                    terrence {**Old Crooks**}
+                } interprété par {player, select,
+                    andie {**Rita Risotto**}
+                    chao {**Tree Pot**}
+                    chun {**Jon Roger**}
+                    derek {**Patrick Lavande**}
+                    eleesha {**Mario Leone**}
+                    finola {**Rob Vivan**}
+                    gioele {**MetalliCorn**}
+                    hua {**Claude Chevalier**}
+                    ian {**Neil Washed**}
+                    janice {**Faded Happiness**}
+                    jin_su {**The Stoojazz**}
+                    kuan_ti {**VOSTeX**}
+                    paola {**ShipSalt**}
+                    raluca {**Old Crooks**}
+                    roland {**Steel Panzer Society**}
+                    stephen {**Sweet Symphonies**}
+                    terrence {**Mozoven**}
                     other {**Massive Expenditure**}
                 } !!!</target>
       </segment>
@@ -937,18 +927,6 @@
         <target>{quantity, select,
         1 {{lastPlayer} is infected by the Mush. It's a certainty.}
         other {At the very least one of them were an agent of Mush when we fled Xyloph. I'd bet my life on it... {firstPlayers} and {lastPlayer}. But which one...}}</target>
-      </segment>
-    </unit>
-    <unit id="lost_research">
-      <segment id="lost_research_headline" state="translated">
-        <source>lost_research_headline</source>
-        <target>Xyloph, 4th January 3154, Crew fungal analysis results:</target>
-      </segment>
-      <segment id="lost_research_sample" state="translated">
-        <source>lost_research_sample</source>
-        <target>Subject : {character} Result : {is_negative, select,
-        true {Negative}
-        other {Inconclusive. Sample insufficient!!!}}</target>
       </segment>
     </unit>
     <unit id="observant_noticed_something">
@@ -1048,7 +1026,7 @@
       </segment>
     </unit>
     <unit id="cat_meow">
-      <segment id="cat_meow" state="translated">
+      <segment id="cat_meow" state="final">
         <source>cat_meow</source>
         <target>:cat: **{equipment} :** {version, select,
                     1{beep beep}
@@ -1073,13 +1051,13 @@
       </segment>
     </unit>
     <unit id="cat_shot_dead">
-      <segment id="cat_shot_dead" state="translated">
+      <segment id="cat_shot_dead" state="final">
         <source>cat_shot_dead</source>
         <target>**{target_equipment}** has been killed by **{character}**.</target>
       </segment>
     </unit>
     <unit id="cat_hiss">
-      <segment id="cat_hiss" state="translated">
+      <segment id="cat_hiss" state="final">
         <source>cat_hiss</source>
         <target>:cat: **{equipment} :** {version, select,
                     1{hsss...}
@@ -1133,108 +1111,16 @@
     <unit id="self_sacrifice_worked">
       <segment id="self_sacrifice_worked" state="translated">
         <source>self_sacrifice_worked</source>
-        <target>Your **Self-Sacrifice** skill has borne fruit, you're not dead...</target>
+        <target>{target_character_gender, select,
+        female {Your **Abnegation** skill has borne fruit, you're not dead...}
+        other {Your **Abnegation** skill has borne fruit, you're not dead...}
+        }</target>
       </segment>
     </unit>
     <unit id="research_completed">
       <segment id="research_completed" state="translated">
         <source>research_completed</source>
-        <target>Research has advanced. The **{project}** article has been published and immediate applications are ready.</target>
-      </segment>
-    </unit>
-    <unit id="myco_alarm_ring">
-      <segment id="myco_alarm_ring" state="translated">
-        <source>myco_alarm_ring</source>
-        <target>:mycoalarm: BBBRRRRIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!</target>
-      </segment>
-    </unit>
-    <unit id="gen_metal_success">
-      <segment id="gen_metal_success" state="translated">
-        <source>gen_metal_success</source>
-        <target>**{character}** emerges from {character_gender, select, female {her} other {his}} pile of debris looking delighted, {character_gender, select, female {she} other {he}} has made a find! And {target_equipment_first_letter, select, vowel {an **{target_equipment}**} other {a **{target_equipment}**}}!</target>
-      </segment>
-    </unit>
-    <unit id="gain_chef_point">
-      <segment state="translated">
-        <source>gain_chef_point</source>
-        <target>You have earned {quantity} :pa_cook:.</target>
-      </segment>
-    </unit>
-    <unit id="germaphobe_morale_loss">
-      <segment state="translated">
-        <source>germaphobe_morale_loss</source>
-        <target>You feel dirty... This saddens you.</target>
-      </segment>
-    </unit>
-    <unit id="awaken_pavlov">
-      <segment id="awaken_pavlov" state="translated">
-        <source>awaken_pavlov</source>
-        <target>**{target_equipment}** is here.</target>
-      </segment>
-    </unit>
-    <unit id="dog_bark">
-      <segment id="dog_bark" state="translated">
-        <source>dog_bark</source>
-        <target>:dog: **{equipment} :** {version, select,
-                    1{bark}
-                    2{bark bark!}
-	                  3{bark bark bark!!}
-	                  4{arf arf arf arf}
-	                  5{yip yap yip!}
-	                  6{awooooooo!}
-	                  7{awoowoooooooo}
-	                  8{*tail wags wildly*}
-	                  9{bork!}
-	                  10{*pants happily*}
-	                  11{aaaaarrrwf!}
-	                  12{woof}
-	                  13{woof woof!!}
-	                  14{bwof!}
-	                  15{awOOOOOOOOOO}
-	                  16{MEOW!}
-	                  17{*tilts head*}
-                    other {invalid version input}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="npc_entered_room">
-      <segment state="translated">
-        <source>npc_entered_room</source>
-        <target>{equipment, select,
-        pavlov{:dog: }
-        other{}
-        }**{equipment}** entered the room.</target>
-      </segment>
-    </unit>
-    <unit id="npc_exited_room">
-      <segment state="translated">
-        <source>npc_exited_room</source>
-        <target>{equipment, select,
-        pavlov{:dog: }
-        other{}
-        }**{equipment}** left the room.</target>
-      </segment>
-    </unit>
-    <unit id="dog_bother_cat">
-      <segment state="translated">
-        <source>dog_bother_cat</source>
-        <target>{version, select,
-                1{:dog: **Pavlov** approaches :cat: **Schrödinger** in a predatory manner... and play-pounces! The cat hisses and trashes, having an awful time.}
-                2{:cat: **Schrödinger** keeps its gaze fixed on :dog: **Pavlov** as the dog circles around him... the cat preemptively hisses, before the nuisance gets any funny ideas.}
-                3{:dog: **Pavlov** suddenly barks the loudest bark! It startles the poor, sleeping :cat: **Schrödinger** so hard that he springs into the air and clatters up to the highest hiding spot he can find.}
-                4{:dog: **Palvov** tries its best to get :cat: **Schrödinger**'s attention. The puss's tail thumps repeatedly, his patience wearing thin.}
-                other{invalid version input}}</target>
-      </segment>
-    </unit>
-    <unit id="trade_assets_created">
-      <segment state="translated">
-        <source>trade_assets_created</source>
-        <target>{quantity, plural,
-        one {{equipment_first_letter, select, 
-             consonant {A **{equipment}** has been teleported to the bridge!}
-             other {An **{equipment}** has been teleported to the bridge!}} Let everyone know...}
-        other {A delivery of # **{equipment_plural_name}** has been teleported to the bridge! Alien technology is cool!}
-        }</target>
+        <target>Research has advanced. The **{project}** article has been published and immediate applications are ready. </target>
       </segment>
     </unit>
   </file>

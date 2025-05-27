@@ -25,7 +25,6 @@ services:
     tags:
       - { name: 'request.param_converter', converter: PlayerCreateRequestConverter }
 
-  Mush\Player\Repository\ClosedPlayerRepositoryInterface: '@Mush\Player\Repository\ClosedPlayerRepository'
   Mush\Player\Repository\CommanderMissionRepositoryInterface: '@Mush\Player\Repository\CommanderMissionRepository'
   Mush\Player\Repository\PlayerInfoRepositoryInterface: '@Mush\Player\Repository\PlayerInfoRepository'
   Mush\Player\Repository\PlayerRepositoryInterface: '@Mush\Player\Repository\PlayerRepository'

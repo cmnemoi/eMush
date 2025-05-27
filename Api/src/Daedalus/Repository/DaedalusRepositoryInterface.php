@@ -10,7 +10,5 @@ interface DaedalusRepositoryInterface
 {
     public function clear(): void;
 
-    public function findByIdOrThrow(int $id): Daedalus;
-
     public function save(Daedalus $daedalus): void;
 }

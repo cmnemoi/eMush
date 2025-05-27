@@ -2,31 +2,31 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="actions_log.ext">
     <unit id="check_spore_level">
-      <segment id="check_spore_level" state="translated">
+      <segment id="check_spore_level" state="final">
         <source>check_spore_level</source>
         <target>Vous entamez une détection des traces Mush... Niveau pré-fongique {quantity, select, 0 {nul} other {{quantity}}}.</target>
       </segment>
     </unit>
     <unit id="coffee_success">
-      <segment id="coffee_success" state="translated">
+      <segment id="coffee_success" state="final">
         <source>coffee_success</source>
         <target>**{character}** amorce la machine. Et dans un grand fracas, la mécanique se lance, les rouages crissent et les arômes embaument la pièce. Ça sent les matins chaleureux sur une terrasse de Vénus. Café !</target>
       </segment>
     </unit>
     <unit id="dispense_success">
-      <segment id="dispense_success" state="translated">
+      <segment id="dispense_success" state="final">
         <source>dispense_success</source>
         <target>**{character}** enclenche le dispensaire avec une étrange lueur dans les yeux.</target>
       </segment>
     </unit>
     <unit id="phagocyte_success">
-      <segment id="phagocyte_success" state="translated">
+      <segment id="phagocyte_success" state="final">
         <source>phagocyte_success</source>
         <target>:mush: Vous avez absorbé un spore pour vous revigorer.</target>
       </segment>
     </unit>
     <unit id="consume_success">
-      <segment id="consume_success" state="translated">
+      <segment id="consume_success" state="final">
         <source>consume_success</source>
         <target>{version, select,
                         1 {**{character}** a dévoré sa ration.}
@@ -80,31 +80,31 @@
       </segment>
     </unit>
     <unit id="consume_drug">
-      <segment id="consume_drug" state="translated">
+      <segment id="consume_drug" state="final">
         <source>consume_drug</source>
         <target>**{character}**  s'envoie un cachet.</target>
       </segment>
     </unit>
     <unit id="consume_mush">
-      <segment id="consume_mush" state="translated">
+      <segment id="consume_mush" state="final">
         <source>consume_mush</source>
         <target>Vous mangez cette pitoyable nourriture pour donner le change mais elle ne vous fait rien...</target>
       </segment>
     </unit>
     <unit id="cook_success">
-      <segment id="cook_success" state="translated">
+      <segment id="cook_success" state="final">
         <source>cook_success</source>
         <target>**{character}** s'est cuisiné un petit quelque chose pour plus tard.</target>
       </segment>
     </unit>
     <unit id="disassemble_fail">
-      <segment id="disassemble_fail" state="translated">
+      <segment id="disassemble_fail" state="final">
         <source>disassemble_fail</source>
         <target>Ce machin n'est pas si mal foutu que ça... vous n'arrivez pas à le démonter...</target>
       </segment>
     </unit>
     <unit id="disassemble_success">
-      <segment id="disassemble_success" state="translated">
+      <segment id="disassemble_success" state="final">
         <source>disassemble_success</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a désassemblé un **{target_equipment}**.}
@@ -114,15 +114,9 @@
       </segment>
     </unit>
     <unit id="do_the_thing_success">
-      <segment id="do_the_thing_success" state="translated">
+      <segment id="do_the_thing_success" state="final">
         <source>do_the_thing_success</source>
-        <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... {target_character_gender, select, 
-          female {{character_gender, select,
-            female {Quelques minutes plus tard, elles rallument. Elles ont un air satisfait.}
-            other {Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.}
-          }}
-          other {Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.}
-        }</target>
+        <target>**{character}** et **{target_character}** éteignent la lumière et des bruits étranges se produisent... Quelques minutes plus tard, ils rallument. Ils ont un air satisfait.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_breaks_sofa">
@@ -132,7 +126,7 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="translated">
+      <segment id="drop" state="final">
         <source>drop</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a lâché un **{target_equipment}**.}
@@ -143,19 +137,19 @@
       </segment>
     </unit>
     <unit id="express_cook_success">
-      <segment id="express_cook_success" state="translated">
+      <segment id="express_cook_success" state="final">
         <source>express_cook_success</source>
         <target>**{character}** s'est passé quelque chose au micro-onde.</target>
       </segment>
     </unit>
     <unit id="extract_spore_success">
-      <segment id="extract_spore_success" state="translated">
+      <segment id="extract_spore_success" state="final">
         <source>extract_spore_success</source>
         <target>:mush: **{character}** s'extirpe un spore. C'est vraiment répugnant. Et l'odeur...</target>
       </segment>
     </unit>
     <unit id="flirt_success">
-      <segment id="flirt_success" state="translated">
+      <segment id="flirt_success" state="final">
         <source>flirt_success</source>
         <target>{character_gender, select,
                     male {**{character}** semble intéressé par **{target_character}**. Ce regard qu'il lui lance ne trompera personne sur ses intentions.}
@@ -165,13 +159,13 @@
       </segment>
     </unit>
     <unit id="get_up">
-      <segment id="get_up" state="translated">
+      <segment id="get_up" state="final">
         <source>get_up</source>
         <target>**{character}**  se lève doucement...</target>
       </segment>
     </unit>
     <unit id="hide_success">
-      <segment id="hide_success" state="translated">
+      <segment id="hide_success" state="final">
         <source>hide_success</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a dissimulé un **{target_equipment}**.}
@@ -180,14 +174,42 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="hit_success">
+      <segment id="hit_success" state="final">
+        <source>hit_success</source>
+        <target>{version, select,
+                        1 {**{character}** met un magistral uppercut du droit à **{target_character}**...}
+                        2 {**{character}** met un magistral uppercut à **{target_character}**...}
+                        3 {**{character}** met une droite à **{target_character}**...}
+                        4 {**{character}** met une terrible baigne à **{target_character}**...}
+                        other {**{character}** met une terrible baigne à **{target_character}**...}
+                    }</target>
+      </segment>
+    </unit>
+    <unit id="hit_critical_success">
+      <segment id="hit_critical_success" state="final">
+        <source>hit_critical_success</source>
+        <target>**{character}** met un formidable crochet du droit à **{target_character}**... Qui repeint le mur avec son nez...</target>
+      </segment>
+    </unit>
+    <unit id="hit_fail">
+      <segment id="hit_fail" state="final">
+        <source>hit_fail</source>
+        <target>{version, select,
+                        1 {**{character}** tente de frapper **{target_character}**, hélas son coup faible trouve seulement le mur... Aïe...}
+                        2 {**{character}** rate son coup sur **{target_character}**.}
+                        other {"invalid version number"}
+                    }</target>
+      </segment>
+    </unit>
     <unit id="hyperfreeze_success">
-      <segment id="hyperfreeze_success" state="translated">
+      <segment id="hyperfreeze_success" state="final">
         <source>hyperfreeze_success</source>
         <target>Vous avez hypercongelé et reconditionné de la nourriture.</target>
       </segment>
     </unit>
     <unit id="infect_success">
-      <segment id="infect_success" state="translated">
+      <segment id="infect_success" state="final">
         <source>infect_success</source>
         <target>:mush: {character_gender, select,
                     male {{target_character_gender, select,
@@ -205,13 +227,13 @@
       </segment>
     </unit>
     <unit id="lie_down">
-      <segment id="lie_down" state="translated">
+      <segment id="lie_down" state="final">
         <source>lie_down</source>
         <target>**{character}** s'allonge... Ça fait du bien de s'arrêter. Allez direction le pays des rêves !</target>
       </segment>
     </unit>
     <unit id="enter_room">
-      <segment id="enter_room" state="translated">
+      <segment id="enter_room" state="final">
         <source>enter_room</source>
         <target>{character_gender, select,
                     male {**{character}** est entré{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.}
@@ -221,7 +243,7 @@
       </segment>
     </unit>
     <unit id="exit_room">
-      <segment id="exit_room" state="translated">
+      <segment id="exit_room" state="final">
         <source>exit_room</source>
         <target>{character_gender, select,
                     male {**{character}** est sorti{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.}
@@ -231,19 +253,19 @@
       </segment>
     </unit>
     <unit id="read_book">
-      <segment id="read_book" state="translated">
+      <segment id="read_book" state="final">
         <source>read_book</source>
         <target>**{character}** se plonge dans un document avec un air intrigué...</target>
       </segment>
     </unit>
     <unit id="read_document">
-      <segment id="read_document" state="translated">
+      <segment id="read_document" state="final">
         <source>read_document</source>
         <target>**{character}** se plonge dans un document avec un air intrigué...</target>
       </segment>
     </unit>
     <unit id="read_content">
-      <segment id="read_content" state="translated">
+      <segment id="read_content" state="final">
         <source>read_content</source>
         <target>{content, select,
         empty {Ce carré jaune ne cesse d'attirer votre regard, comme s'il manquait quelque chose...}
@@ -251,7 +273,7 @@
       </segment>
     </unit>
     <unit id="repair_fail">
-      <segment id="repair_fail" state="translated">
+      <segment id="repair_fail" state="final">
         <source>repair_fail</source>
         <target>{versionPart1, select,
                     1 {**{target_equipment}** ou pas **{target_equipment}**… Telle est la question...}
@@ -386,7 +408,7 @@
       </segment>
     </unit>
     <unit id="repair_success">
-      <segment id="repair_success" state="translated">
+      <segment id="repair_success" state="final">
         <source>repair_success</source>
         <target>{version, select,
                     1 {{target_equipment_first_letter, select,
@@ -455,7 +477,7 @@
       </segment>
     </unit>
     <unit id="search_success">
-      <segment id="search_success" state="translated">
+      <segment id="search_success" state="final">
         <source>search_success</source>
         <target>{equipment_gender, select,
                         male {**{character}** a découvert un **{equipment}** caché.}
@@ -465,19 +487,19 @@
       </segment>
     </unit>
     <unit id="search_fail">
-      <segment id="search_fail" state="translated">
+      <segment id="search_fail" state="final">
         <source>search_fail</source>
         <target>Vous n'avez rien découvert.</target>
       </segment>
     </unit>
     <unit id="shower_human">
-      <segment id="shower_human" state="translated">
+      <segment id="shower_human" state="final">
         <source>shower_human</source>
         <target>Vous vous lavez longuement sous la douche, savourant ce moment rare et paisible...</target>
       </segment>
     </unit>
     <unit id="shower_mush">
-      <segment id="shower_mush" state="translated">
+      <segment id="shower_mush" state="final">
         <source>shower_mush</source>
         <target>{character_gender, select,
                     male {Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
@@ -487,13 +509,13 @@
       </segment>
     </unit>
     <unit id="wash_in_sink_human">
-      <segment id="wash_in_sink_human" state="translated">
+      <segment id="wash_in_sink_human" state="final">
         <source>wash_in_sink_human</source>
         <target>Vous vous lavez péniblement, vous demandant si démonter les douches était une bonne idée...</target>
       </segment>
     </unit>
     <unit id="wash_in_sink_mush">
-      <segment id="wash_in_sink_mush" state="translated">
+      <segment id="wash_in_sink_mush" state="final">
         <source>wash_in_sink_mush</source>
         <target>{character_gender, select,
                         male {Vous vous lavez et vous vous sentez brûlé, meurtri par toute cette eau... Que ne feriez vous pas pour passer pour l'un des leurs...}
@@ -503,7 +525,7 @@
       </segment>
     </unit>
     <unit id="shred_success">
-      <segment id="shred_success" state="translated">
+      <segment id="shred_success" state="final">
         <source>shred_success</source>
         <target>{version, select,
                         1 {**{character}** déchire un petit bout de papier avec un air résolu.}
@@ -515,7 +537,7 @@
       </segment>
     </unit>
     <unit id="take">
-      <segment id="take" state="translated">
+      <segment id="take" state="final">
         <source>take</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a pris un **{target_equipment}**.}
@@ -525,16 +547,16 @@
       </segment>
     </unit>
     <unit id="hybridize_success">
-      <segment id="hybridize_success" state="translated">
+      <segment id="hybridize_success" state="final">
         <source>hybridize_success</source>
         <target>{target_equipment_first_letter, select,
-                    vowel {Quel soulagement, **{character}** a réussi sa greffe d'**{target_equipment}**. La petite plante se porte bien !}
-                    other {Quel soulagement, **{character}** a réussi sa greffe de **{target_equipment}**. La petite plante se porte bien !}
+                    vowel {Quel soulagement, **{character}** a réussi sa grèffe d'**{target_equipment}**. Le petite plante se porte bien !}
+                    other {Quel soulagement, **{character}** a réussi sa grèffe de **{target_equipment}**. Le petite plante se porte bien !}
                 }</target>
       </segment>
     </unit>
     <unit id="hybridize_fail">
-      <segment id="hybridize_fail" state="translated">
+      <segment id="hybridize_fail" state="final">
         <source>hybridize_fail</source>
         <target>{target_equipment_first_letter, select,
                     vowel {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe d'**{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
@@ -543,25 +565,25 @@
       </segment>
     </unit>
     <unit id="treat_plant_success">
-      <segment id="treat_plant_success" state="translated">
+      <segment id="treat_plant_success" state="final">
         <source>treat_plant_success</source>
         <target>Vous répandez la bouillie rose sur vos chères plantes. Cet insecticide est tout à fait atroce mais bon, la survie de l'Humanité est en jeu.</target>
       </segment>
     </unit>
     <unit id="water_plant_success">
-      <segment id="water_plant_success" state="translated">
+      <segment id="water_plant_success" state="final">
         <source>water_plant_success</source>
         <target>Vous arrosez les plantes avec amour.</target>
       </segment>
     </unit>
     <unit id="insert_oxygen">
-      <segment id="insert_oxygen" state="translated">
+      <segment id="insert_oxygen" state="final">
         <source>insert_oxygen</source>
         <target>Pscchhhh... Et hop, un peu d'oxygène en plus !</target>
       </segment>
     </unit>
     <unit id="retrieve_oxygen">
-      <segment id="retrieve_oxygen" state="translated">
+      <segment id="retrieve_oxygen" state="final">
         <source>retrieve_oxygen</source>
         <target>{version, select,
                     1 {{character_gender, select,
@@ -591,13 +613,13 @@
       </segment>
     </unit>
     <unit id="retrieve_fuel">
-      <segment id="retrieve_fuel" state="translated">
+      <segment id="retrieve_fuel" state="final">
         <source>retrieve_fuel</source>
         <target>**{character}** a extrait une Capsule du Fuel du réservoir.</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
-      <segment id="insert_fuel" state="translated">
+      <segment id="insert_fuel" state="final">
         <source>insert_fuel</source>
         <target>{target_equipment_gender, select,
         male {**{character}** a inséré un *{target_equipment}* dans le *Réservoir*.}
@@ -606,7 +628,7 @@
       </segment>
     </unit>
     <unit id="sabotage_success">
-      <segment id="sabotage_success" state="translated">
+      <segment id="sabotage_success" state="final">
         <source>sabotage_success</source>
         <target>:mush: {target_equipment_gender, select,
                         male {Étrange, **{character}** s'affaire sur un **{target_equipment}** qui émet une petite fumée...}
@@ -616,7 +638,7 @@
       </segment>
     </unit>
     <unit id="sabotage_fail">
-      <segment id="sabotage_fail" state="translated">
+      <segment id="sabotage_fail" state="final">
         <source>sabotage_fail</source>
         <target>Votre sabotage échoue... c'est plus dur qu'il n'y parait.</target>
       </segment>
@@ -628,35 +650,31 @@
       </segment>
     </unit>
     <unit id="extinguish_fail">
-      <segment id="extinguish_fail" state="translated">
+      <segment id="extinguish_fail" state="final">
         <source>extinguish_fail</source>
         <target>Vous n'avez pas réussi à éteindre l'incendie...</target>
       </segment>
     </unit>
     <unit id="comfort_success">
-      <segment id="comfort_success" state="translated">
+      <segment id="comfort_success" state="final">
         <source>comfort_success</source>
         <target>**{character}** réconforte **{target_character}**, ça ira mieux demain tu verras...</target>
       </segment>
     </unit>
     <unit id="heal_success">
-      <segment id="heal_success" state="translated">
+      <segment id="heal_success" state="final">
         <source>heal_success</source>
         <target>**{character}** a soigné {quantity} :hp: à **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="self_heal">
-      <segment id="self_heal" state="translated">
+      <segment id="self_heal" state="final">
         <source>self_heal</source>
-        <target>{character_gender, select,
-                male {Vous vous êtes soigné. Vous avez récupéré {quantity} :hp:.}
-                female {Vous vous êtes soignée. Vous avez récupéré {quantity} :hp:.}
-                other {Vous vous êtes soigné. Vous avez récupéré {quantity} :hp:.}
-                }</target>
+        <target>Vous vous êtes soigné. Vous avez récupéré {quantity} :hp:.</target>
       </segment>
     </unit>
     <unit id="ultraheal_success">
-      <segment id="ultraheal_success" state="translated">
+      <segment id="ultraheal_success" state="final">
         <source>ultraheal_success</source>
         <target>{character_gender, select,
                     male {**{character}** est entouré d'un halo lumineux. D'horribles tentacules bleus iridescents parcourent son corps. La lumière qu'il émet est aveuglante. Ses blessures sont parfaitement guéries !}
@@ -666,37 +684,37 @@
       </segment>
     </unit>
     <unit id="strengthen_success">
-      <segment id="strengthen_success" state="translated">
+      <segment id="strengthen_success" state="final">
         <source>strengthen_success</source>
         <target>La tentative de **{character}** de réparation de la coque a réussi. Il était temps que quelqu'un s'occupe de ça...</target>
       </segment>
     </unit>
     <unit id="default_fail">
-      <segment id="default_fail" state="translated">
+      <segment id="default_fail" state="final">
         <source>default_fail</source>
         <target>Votre tentative a échoué.</target>
       </segment>
     </unit>
     <unit id="spread_fire_success">
-      <segment id="spread_fire_success" state="translated">
+      <segment id="spread_fire_success" state="final">
         <source>spread_fire_success</source>
         <target>:mush: Tiens... ça se réchauffe par ici... **{character}** a mis le feu...</target>
       </segment>
     </unit>
     <unit id="install_camera">
-      <segment id="install_camera" state="translated">
+      <segment id="install_camera" state="final">
         <source>install_camera</source>
         <target>**{character}** installe sa petite **Caméra** avec application.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
-      <segment id="remove_camera" state="translated">
+      <segment id="remove_camera" state="final">
         <source>remove_camera</source>
         <target>**{character}** enlève la **Caméra**. Elle était sans doute devenue inutile...</target>
       </segment>
     </unit>
     <unit id="try_kube">
-      <segment id="try_kube" state="translated">
+      <segment id="try_kube" state="final">
         <source>try_kube</source>
         <target>{character_gender, select,
                     male {**{character}** essaie de résoudre cet affreux kube.}
@@ -706,19 +724,19 @@
       </segment>
     </unit>
     <unit id="remove_spore_success">
-      <segment id="remove_spore_fail" state="translated">
+      <segment id="remove_spore_fail" state="final">
         <source>remove_spore_success</source>
         <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Tiens qu'est ce que c'est que ça ?</target>
       </segment>
     </unit>
     <unit id="remove_spore_fail">
-      <segment id="remove_spore_fail" state="translated">
+      <segment id="remove_spore_fail" state="final">
         <source>remove_spore_fail</source>
         <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucun spore à récupérer</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
-      <segment id="public_broadcast" state="translated">
+      <segment id="public_broadcast" state="final">
         <source>public_broadcast</source>
         <target>Tout le monde a l'air concentré sur le petit écran.
                 Blouzorg apparaît sur l'écran, il est beau fier et vous ne comprenez rien de ce qu'il dit.
@@ -728,10 +746,10 @@
       </segment>
     </unit>
     <unit id="motivational_speech">
-      <segment id="motivational_speech" state="translated">
+      <segment id="motivational_speech" state="final">
         <source>motivational_speech</source>
-        <target>{character_icon} **{character} :** {version, select,
-                    1 {Bon les cocos, ça ne va pas du tout là. Vous assurez tellement bien que le Mush va se suicider de désespoir. Je vous rappelle qu'on doit l'étudier avant, alors simulez un peu de pessimisme, ok ?}
+        <target>{version, select,
+                    1 {Bon les cocos ça va pas du tout là. Vous assurez tellement bien que le Mush va se suicider de désespoir. Je vous rappelle qu'on doit l'étudier avant, alors simulez un peu de pessimisme, ok ?}
                     2 {Bonjour - Excusez ma tenue, je sors de la douche. Je suis convaincu que la solution à nos problèmes se trouve dans la bonne utilisation du Sofa Suédois qui se trouve à bord. Il nous faut pénétrer les défenses du Mush et le bâillonner !}
                     3 {Chers équipiers, nous sommes chargés d'une mission comme il n'en existe pas de plus grande, et nous avons les moyens de l'accomplir ! La FDS ne le sait que trop bien, pour quelle autre raison est-ce qu'elle nous attaquerait ?}
                     4 {Compagnons, ayez confiance. Le Mush essaie de nous diviser et de nous démoraliser mais ses tentatives seront vaines si nous restons unis. Je le sens tout au fond de moi, nous sortirons vainqueurs de ce conflit. Un brillant avenir nous attend.}
@@ -739,15 +757,15 @@
                     6 {Compagnons ! Redressez la tête, gardez espoir ! La victoire est proche. Nous allons triompher. En effet, nous sommes sur le point de… euh… de… Ah zut, quelqu'un peut m'aider à déchiffrer la suite de cette copie de discours ?}
                     7 {Grandiose est notre destinée, je vous lis ! Reprenons en main ce formidable vaisseau. A son bord, son équipage est des plus valeureux. Nous réussirons à nous débarrasser de tous ces Hunters. Festoyons à la future victoire de l'humanité sur le Mush !}
                     8 {J'ai fait un rêve. Dans ce rêve, une nouvelle humanité saluait l'épave du Daedalus avant de lancer une énorme flotte à la reconquête de Sol, forte de son immunité au Mush. J'ai vu l'avenir, j'en suis sûr. Nous réussirons. NOUS RÉUSSIRONS !}
-                    9 {Je lis dans vos yeux la même peur qui pourrait saisir mon cœur. Un jour peut venir où le courage des Hommes faillira, où nous serons tous infectés. Ce jour n'est pas arrivé. Aujourd'hui nous combattrons ! Je vous ordonne de tenir, Hommes de Sol !}
-                    10 {Même si les attaques ne cessent pas et que tout le monde ne survivra pas à cette épopée, nous pouvons être fiers d'être l'équipage qui mènera le dernier espoir aux confins de l'espace, en terre promise. Ne l'oubliez jamais : Nous sommes l'AVENIR !}
+                    9 {Je lis dans vos yeux, la même peur qui pourrait saisir mon cœur. Un jour peut venir, où le courage des Hommes faillira, où nous serons tous infectés. Ce jour n'est pas arrivé. Aujourd'hui nous combattrons ! Je vous ordonne de tenir, Hommes de Sol !}
+                    10 {Même si les attaques ne cessent pas et que tout le monde ne survivra pas à cette épopée, nous pouvons être fières d'être l'équipage qui mènera le dernier espoir aux confins de l'espace, en terre promise. Ne l'oubliez jamais: Nous sommes l'AVENIR !}
                     11 {Mes amis, l'heure est grave je ne vous le cache pas. Mais là où d'autres baisseraient les bras, NOUS saurons faire la différence car NOUS sommes la fine fleur de l'élite et que tel est notre devoir !}
-                    12 {N'oubliez pas que nous avons été choisis d'entre tous pour sauver l'humanité. Personne d'autre que nous ne saurait mieux y arriver. Pensez à tous ceux qui sont restés à la merci du Mush pour rendre ce voyage possible, ne les décevez pas !}
+                    12 {N'oubliez pas que nous avons été choisis d'entre tous pour sauver l'humanité. Personne d'autre que nous ne saurait mieux y arriver. Pensez à tous ceux qui sont restés à la merci du mush pour rendre ce voyage possible, ne les décevez pas !}
                     13 {Nous avons été et sommes submergés par la force des champignons ! Mais le dernier mot est-il dit ? L'espérance doit-elle disparaitre ? La défaite est-elle définitive ? Non ! La flamme de la résistance ne doit pas s'éteindre et ne s'éteindra pas.}
-                    14 {Nous sommes peut-être dans une situation qui semble désespérée. Peut-être que certains d'entre-vous ont perdu leurs familles et leurs amis mais sachez que vous êtes les plus chanceux ! Pourquoi me direz-vous ? Car vous m'avez pour supérieur !}
+                    14 {Nous sommes peut-être dans une situation qui semble désespérée. Peut-être que certains d'entre-vous ont perdus leurs familles et leurs amis mais sachez que vous êtes les plus chanceux ! Pourquoi me direz-vous ? Car vous m'avez pour supérieur !}
                     15 {Secouez-vous un peu, bande de moules ! L'ennemi est à nos portes mais nous allons l'atomiser ! Le Mush ne nous aura pas. Nous l’écraserons comme un vulgaire champignon. Nous sommes les meilleurs, nous vaincrons !}
-                    16 {tap tap 1, 2, 1, 2, y m'entendent, c'est bon ? Je vais vous la faire simple et brève mes pépères ! Avec Stephen on vous a préparé un maxi gâteau au chocolat, et je compte sur vous tous pour bien le dégommer ! Garanti sans laxatif ce coup-ci ! A TABLE !!!}
-                    17 {TOUS AVEC MOI ! Hunter, si j't'attrape, TU MEURS ! BoUYAAA Mush, si j'te trouve, j'TE COUCHE ! BoUYAAA Spores tremblez sous le cris de notre Stentor ! BoUYAAA Car avec le Deadalus, bientôt nous retrouverons cirrus crocus et autres prunus ! BoUYAAA}
+                    16 {tap tap 1, 2, 1, 2, y m'entendent c'est bon? Je vais vous la faire simple et brève mes pépères! Avec Stephen on vous a préparé un maxi gâteau au chocolat, et je compte sur vous tous pour bien le dégommer! Garanti sans laxatif ce coup-ci! A TABLE!!!}
+                    17 {TOUS AVEC MOI! Hunter, si j't'attrape, TU MEURS! BoUYAAA Mush, si j'te trouve, j'TE COUCHE! BoUYAAA Spores tremblez sous le cris de notre Stentor! BoUYAAA Car avec le Deadalus, bientôt nous retrouverons cirrus crocus et autres prunus! BoUYAAA}
                     18 {Vous pourrez commencer à vous inquiéter quand le Mush m'aura infecté, mais pour l'instant vous n'avez pas à vous en faire car avec moi RIEN ne peut vous arriver ! Mais si un jour ils m'ont, et seulement à ce moment là, vous n'aurez plus aucun espoir.}
                     19 {Vous qui êtes ici bien plus que des subordonnés, je vous le dis : malgré le poids écrasant de notre responsabilité, je suis fier comme jamais de mener un équipage à nul autre pareil dans une si noble destinée !}
                     other {invalid version input}
@@ -755,24 +773,24 @@
       </segment>
     </unit>
     <unit id="boring_speech">
-      <segment id="boring_speech" state="translated">
+      <segment id="boring_speech" state="final">
         <source>boring_speech</source>
-        <target>{character_icon} **{character} :** {version, select,
+        <target>{version, select,
                     1 {Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. PITIÉ FAITES LE TAIRE.}
                     2 {Moi Commandant du Daedalus, je promets la fin de la crise Mush. Moi Commandant du Daedalus, je prônerais l'égalité homme/femme. Moi Commandant du Daedalus, il faudra Le Faire une fois par jour. Moi Commandant du Daedalus, les femmes enceintes seront exemptées de travail. Moi Commandant du Daedalus, je ne vendrais aucun d'entre vous à des esclavagistes. Moi Commandant du Daedalus, nous mangerons 5 fruits et légumes par jour. Moi Commandant du Daedalus, NERON sera de bonne humeur. Moi Commandant du Daedalus, les douches seront publiques. Moi Commandant du Daedalus, nous irons sur Eden. Moi Commandant du Daedalus, …}
-                    3 {Comme le dit le grand Président Maubrick, il faut toujours croire en la FDS, ne pas frapper ses voisins, et traiter les femmes avec respect. Comme le dit le grand Président Maubrick, le Mush ne peut rien face à nous. Moi d'mon temps, le Président Maubrick il...}
+                    3 {Comme le dit le grand Président Maubrick, il faut toujours croire en la FDS, ne pas frapper ses voisins, et traiter les femmes avec respect.Comme le dit le grand Président Maubrick, le Mush ne peut rien face à nous.Moi d'mon temps, le Président Maubrick il...}
                     other {invalid version input}
                 }</target>
       </segment>
     </unit>
     <unit id="make_sick">
-      <segment id="make_sick" state="translated">
+      <segment id="make_sick" state="final">
         <source>make_sick</source>
         <target>:mush: **{character}** souffle sur **{target_character}** un nuage étrange...</target>
       </segment>
     </unit>
     <unit id="fake_disease">
-      <segment id="fake_disease" state="translated">
+      <segment id="fake_disease" state="final">
         <source>fake_disease</source>
         <target>{character_gender, select,
                     male {C'est étrange **{character}** sort un poudrier et se badigeonne de blanc et de noir. Il n'a vraiment pas l'air dans son assiette.}
@@ -782,25 +800,25 @@
       </segment>
     </unit>
     <unit id="fail_surgery">
-      <segment id="fail_surgery" state="translated">
+      <segment id="fail_surgery" state="final">
         <source>fail_surgery</source>
         <target>L'opération semble durer une éternité, **{character}** rend enfin son verdict la mine défaite... **{target_character}** fait un choc septique...</target>
       </segment>
     </unit>
     <unit id="fail_self_surgery">
-      <segment id="fail_self_surgery" state="translated">
+      <segment id="fail_self_surgery" state="final">
         <source>fail_self_surgery</source>
         <target>L'opération semble durer une éternité... **{character}** fait un choc septique...</target>
       </segment>
     </unit>
     <unit id="gag_success">
-      <segment id="gag_success" state="translated">
+      <segment id="gag_success" state="final">
         <source>gag_success</source>
         <target>**{character}** a bâillonné **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="ungag_success">
-      <segment id="ungag_success" state="translated">
+      <segment id="ungag_success" state="final">
         <source>ungag_success</source>
         <target>{character_gender, select,
                     male {**{character}** s'est débâillonné.}
@@ -810,19 +828,146 @@
       </segment>
     </unit>
     <unit id="screw_talkie_success">
-      <segment id="screw_talkie_success" state="translated">
+      <segment id="screw_talkie_success" state="final">
         <source>screw_talkie_success</source>
         <target>:mush: **{character}** s'approche de **{target_character}** et semble glisser un truc visqueux dans son **Talkie**...</target>
       </segment>
     </unit>
     <unit id="update_talkie_success">
-      <segment id="update_talkie_success" state="translated">
+      <segment id="update_talkie_success" state="final">
         <source>update_talkie_success</source>
         <target>Un bout de scotch par ici, une soudure par là... et dire qu'il suffit de ça pour avoir un iTrackie®© dernier cri. Il ne reste plus qu'à installer les mises à jour.</target>
       </segment>
     </unit>
+    <unit id="attack_success">
+      <segment id="attack_success" state="final">
+        <source>attack_success</source>
+        <target>{version, select,
+                    1 {**{character}** enfonce sa lame dans une des articulations de **{target_character}** qui pendouille maintenant tristement...}
+                    2 {**{character}** estoque **{target_character}** avec maestria.}
+                    3 {**{character}** taillade un gros morceau de **{target_character}**, c'est dégoûtant...}
+                    4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
+                    5 {{character_gender, select,
+                        male {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'il vient de lui enfoncer.}
+                        female {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'elle vient de lui enfoncer.}
+                        other {invalid gender input}
+                      }}
+                    6 {Les duels à la lame finissent rarement bien, **{character}** opère une coupe drastique dans le capital santé de **{target_character}**.}
+                    7 {Malgré une jolie esquive, **{target_character}** verse un peu de son sang.}
+                    8 {Peut-être l'esquive malencontreuse, peut-être le mauvais mouvement, peut-être une mauvaise imitation de combat vue dans un holodisque... **{target_character}** s'empale sur la lame de **{character}** avec lourdeur.}
+                    9 {Une réminiscence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="attack_fail">
+      <segment id="attack_fail" state="final">
+        <source>attack_fail</source>
+        <target>{version, select,
+                    1 {**{character}** dégaine sa lame et tente de frapper **{target_character}** mais rate sa cible.}
+                    2 {Zip, l'arme de **{character}** esquive fort élégamment **{target_character}** pour se heurter à un mur insolent.}
+                    3 {**{target_character}** se retourne vers **{character}** qui le menace de sa lame. Trop vif, trop rapide, trop précis, bref, trop...**{character}** fait un effort surhumain mais se trouve pris d'un malaise...}
+                    4 {Au moment d’agresser **{target_character}**, **{character}** se prend les pieds dans un tapis imaginaire et rate sa cible.}
+                    5 {Qui eut crû que **{target_character}** aie de si bons réflexes...**{character}** rate lamentablement son coup.}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="attack_critical_success">
+      <segment id="attack_critical_success" state="final">
+        <source>attack_critical_success</source>
+        <target>{version, select,
+                    1 {**{character}** enfonce sa lame dans une des articulations de **{target_character}** qui pendouille maintenant tristement...}
+                    2 {**{character}** estoque **{target_character}** avec maestria.}
+                    3 {**{character}** taillade un gros morceau de **{target_character}**, c'est dégoûtant...}
+                    4 {La lame de **{character}**, habilement maniée, fait une énorme estafilade à **{target_character}**.}
+                    5 {{character_gender, select,
+                        male {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'il vient de lui enfoncer.}
+                        female {Le visage de **{target_character}** se tord quand **{character}** retire la lame qu'elle vient de lui enfoncer.}
+                        other {invalid gender input}
+                      }}
+                    6 {Les duels à la lame finissent rarement bien, **{character}** opère une coupe drastique dans le capital santé de **{target_character}**.}
+                    7 {Malgré une jolie esquive, **{target_character}** verse un peu de son sang.}
+                    8 {Peut-être l'esquive malencontreuse, peut-être le mauvais mouvement, peut-être une mauvaise imitation de combat vue dans un holodisque... **{target_character}** s'empale sur la lame de **{character}** avec lourdeur.}
+                    9 {Une reminescence de cours d'escrime ou un coup de chance, **{character}** perfore la défense de **{target_character}** sans problème.}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="attack_critical_fail">
+      <segment id="attack_critical_fail" state="final">
+        <source>attack_critical_fail</source>
+        <target>{version, select,
+                    1 {**{character}** rate sa cible assez largement et le choc contre le mur qui se trouve à proximité lui fait se mordre la langue...}
+                    2 {Dans son grand mouvement impressionnant, **{character}** se claque un muscle dorsal. Dommage.}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="shoot_success">
+      <segment id="shoot_success" state="final">
+        <source>shoot_success</source>
+        <target>{version, select,
+                    1 {**{target_character}** se prend un tir bien ajusté de **{character}**}
+                    2 {Il n'y a qu'un battement de cil entre le coup de feu de **{character}** et l'impact sur **{target_character}**.}
+                    3 {Prémédité ou pas, **{character}** sort son arme et tire abondamment sur **{target_character}**.}
+                    4 {{target_character_gender, select,
+                        male {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
+                        female {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonnée pour quelques minutes.}
+                        other {invalid gender input}
+                    }}
+                    5 {**{character}** dégaine sans hésitation et fait feu sur **{target_character}**.}
+                    6 {**{character}** se retourne subitement et tire sur **{target_character}**.}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="shoot_fail">
+      <segment id="shoot_fail" state="final">
+        <source>shoot_fail</source>
+        <target>{version, select,
+                    1 {Clic...clic...**{character}** a raté une occasion...}
+                    2 {**{character}** bute sur un poney imaginaire et tombe en arrière !}
+                    3 {Clic...clic... l'arme de **{character}** est enrayée.}
+                    4 {**{character}** a fait feu sur **{target_character}** mais n'est hélas juste pas capable de viser correctement...}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="shoot_critical_success">
+      <segment id="shoot_critical_success" state="final">
+        <source>shoot_critical_success</source>
+        <target>{version, select,
+                    1 {**{target_character}** se prend un tir bien ajusté de **{character}**}
+                    2 {Il n'y a qu'un battement de cil entre le coup de feu de **{character}** et l'impact sur **{target_character}**.}
+                    3 {Prémédité ou pas, **{character}** sort son arme et tire abondamment sur **{target_character}**.}
+                    4 {{target_character_gender, select,
+                        male {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonné pour quelques minutes.}
+                        female {**{character}** enchaîne rapidement quelques passes de poignet et fait feu sur **{target_character}**... qui est désarçonnée pour quelques minutes.}
+                        other {invalid gender input}
+                    }}
+                    5 {**{character}** dégaine sans hésitation et fait feu sur **{target_character}**.}
+                    6 {**{character}** se retourne subitement et tire sur **{target_character}**.}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
+    <unit id="shoot_critical_fail">
+      <segment id="shoot_critical_fail" state="final">
+        <source>shoot_critical_fail</source>
+        <target>{version, select,
+                    1 {{character_gender, select,
+                        male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde.}
+                        female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde.}
+                        other {invalid gender input}
+                    }}
+                    2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target_character}** l'en sait gré.}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
     <unit id="suicide_success">
-      <segment id="suicide_success" state="translated">
+      <segment id="suicide_success" state="final">
         <source>suicide_success</source>
         <target>{character_gender, select,
                 male {**{character}** était visiblement très pressé, il ouvre un portail spatio-temporel et saute dedans à pieds joints. On ne devrait pas le revoir de sitôt.}
@@ -831,98 +976,114 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="attack_one_shot">
+      <segment state="final">
+        <source>attack_one_shot</source>
+        <target>{version, select,
+                    1 {L'oeil mauvais, **{character}** se glisse subrepticement derrière **{target_character}** et lui tranche la carotide.}
+                    2 {{target_character_gender, select,
+                        male {Les derniers mots de **{target_character}** auraient pu être "Toi aussi **{character}**..." qui meurt poignardé en plein coeur.}
+                        female {Les derniers mots de **{target_character}** auraient pu être "Toi aussi **{character}**..." qui meurt poignardée en plein coeur.}
+                        other {invalid gender input}
+                    }}
+                    other {invalid version input}
+                }</target>
+      </segment>
+    </unit>
     <unit id="shoot_one_shot">
-      <segment state="translated">
+      <segment state="final">
         <source>shoot_one_shot</source>
         <target>Quelques fois tout devient ralenti, certains vous diront que le temps était juste différent, que la durée ne comptait plus, que chaque acte devenait unité et que chaque perception devenait éternelle. Dans un tel état de grâce, **{character}** tire avec une aisance surréaliste dans la tête de **{target_character}** qui s'effondre.</target>
       </segment>
     </unit>
     <unit id="play_arcade_fail">
-      <segment id="play_arcade_fail" state="translated">
+      <segment id="play_arcade_fail" state="final">
         <source>play_arcade_fail</source>
         <target>Oh purée encore perdu, spa vrai qu'cette machine diabolique a failli vous tuer en plus !</target>
       </segment>
     </unit>
     <unit id="play_arcade_success">
-      <segment id="play_arcade_success" state="translated">
+      <segment id="play_arcade_success" state="final">
         <source>play_arcade_success</source>
         <target>OH OUIIIII. **{character}** a vaincu Xatator le boss du NIVEAUUUUU 10 !</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_success">
-      <segment id="shoot_hunter_success" state="translated">
+      <segment id="shoot_hunter_success" state="final">
         <source>shoot_hunter_success</source>
         <target>:hunter: Pool ! **{character}** a touché un **{hunter}**.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_fail">
-      <segment id="shoot_hunter_fail" state="translated">
+      <segment id="shoot_hunter_fail" state="final">
         <source>shoot_hunter_fail</source>
         <target>Vous avez raté votre cible.</target>
       </segment>
     </unit>
     <unit id="takeoff_no_pilot">
-      <segment id="takeoff_no_pilot" state="translated">
+      <segment id="takeoff_no_pilot" state="final">
         <source>takeoff_no_pilot</source>
-        <target>Le décollage de **{character}** est si mauvais {character_gender, select,
-    male {qu'il a}
-    female {qu'elle a}
-    other {qu'il a}} endommagé {is_tracker, select, true {{patrol_ship}} other {son appareil}}.</target>
+        <target>{character_gender, select,
+    male {Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.}
+    female {Le décollage de **{character}** est si mauvais qu'elle a endommagé son appareil.}
+    other {Le décollage de **{character}** est si mauvais qu'il a endommagé son appareil.}
+}</target>
       </segment>
     </unit>
     <unit id="land_no_pilot">
-      <segment id="land_no_pilot" state="translated">
+      <segment id="land_no_pilot" state="final">
         <source>land_no_pilot</source>
-        <target>L'atterrissage de **{character}** est si mauvais {character_gender, select,
-    male {qu'il a}
-    female {qu'elle a}
-    other {qu'il a}} endommagé {is_tracker, select, true {{patrol_ship}} other {son appareil}}.</target>
+        <target>{character_gender, select,
+    male {L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.}
+    female {L'atterrissage de **{character}** est si mauvais qu'elle a endommagé son appareil.}
+    other {L'atterrissage de **{character}** est si mauvais qu'il a endommagé son appareil.}
+}</target>
       </segment>
     </unit>
     <unit id="access_terminal_success">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>access_terminal_success</source>
         <target>**{character}** a accédé au **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="takeoff_success">
-      <segment id="takeoff_success" state="translated">
+      <segment state="final">
         <source>takeoff_success</source>
-        <target>**{character}** vient de décoller avec {is_tracker, select, true {{patrol_ship}} other {son patrouilleur}}.</target>
+        <target>**{character}** vient de décoller.</target>
       </segment>
     </unit>
     <unit id="land_success">
-      <segment id="land_success" state="translated">
+      <segment state="final">
         <source>land_success</source>
-        <target>**{character}** vient d'atterrir avec {is_tracker, select, true {{patrol_ship}} other {son patrouilleur}}.</target>
+        <target>Le patrouilleur de **{character}** vient d'atterrir.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship_success">
-      <segment id="shoot_hunter_patrol_ship_success" state="translated">
+      <segment id="shoot_hunter_patrol_ship_success" state="final">
         <source>shoot_hunter_patrol_ship_success</source>
         <target>:hunter: C'était presque ça ! **{character}** a touché un **{hunter}**.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship_fail">
-      <segment id="shoot_hunter_patrol_ship_fail" state="translated">
+      <segment id="shoot_hunter_patrol_ship_fail" state="final">
         <source>shoot_hunter_patrol_ship_fail</source>
         <target>Vous avez raté votre cible.</target>
       </segment>
     </unit>
     <unit id="renovate_success">
-      <segment id="renovate_success" state="translated">
+      <segment id="renovate_success" state="final">
         <source>renovate_success</source>
         <target>La tentative de **{character}** de réparation du *{target_equipment}* a réussi. Youhou ! Il est comme neuf !</target>
       </segment>
     </unit>
     <unit id="renovate_fail">
-      <segment id="renovate_fail" state="translated">
+      <segment id="renovate_fail" state="final">
         <source>renovate_fail</source>
         <target>Votre tentative a échoué.</target>
       </segment>
     </unit>
     <unit id="auto_eject_success">
-      <segment id="auto_eject_success" state="translated">
+      <segment id="auto_eject_success" state="final">
         <source>auto_eject_success</source>
         <target>{character_gender, select,
         male {**{character}** s'est éjecté du monoplace.}
@@ -932,91 +1093,91 @@
       </segment>
     </unit>
     <unit id="insert_fuel_chamber_success">
-      <segment id="insert_fuel_chamber_success" state="translated">
+      <segment id="insert_fuel_chamber_success" state="final">
         <source>insert_fuel_chamber_success</source>
         <target>Le niveau de la chambre de combustion est maintenant de : {quantity}.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel_chamber_success">
-      <segment id="retrieve_fuel_chamber_success" state="translated">
+      <segment id="retrieve_fuel_chamber_success" state="final">
         <source>retrieve_fuel_chamber_success</source>
         <target>Le niveau de la chambre de combustion est maintenant de : {quantity}.</target>
       </segment>
     </unit>
     <unit id="check_fuel_chamber_level_success">
-      <segment id="check_fuel_chamber_level_success" state="translated">
+      <segment id="check_fuel_chamber_level_success" state="final">
         <source>check_fuel_chamber_level_success</source>
         <target>Vous essuyez la crasse du compteur et lisez le niveau de la chambre : {quantity}.</target>
       </segment>
     </unit>
     <unit id="hack_success">
-      <segment id="hack_success" state="translated">
+      <segment id="hack_success" state="final">
         <source>hack_success</source>
         <target>Vous rentrez dans le système !</target>
       </segment>
     </unit>
     <unit id="hack_fail">
-      <segment id="hack_fail" state="translated">
+      <segment id="hack_fail" state="final">
         <source>hack_fail</source>
         <target>Impossible de craquer ce système...</target>
       </segment>
     </unit>
     <unit id="advance_daedalus_success">
-      <segment id="advance_daedalus_success" state="translated">
+      <segment id="advance_daedalus_success" state="final">
         <source>advance_daedalus_success</source>
         <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. C'est parti !</target>
       </segment>
     </unit>
     <unit id="advance_daedalus_fail">
-      <segment id="advance_daedalus_fail" state="translated">
+      <segment id="advance_daedalus_fail" state="final">
         <source>advance_daedalus_fail</source>
         <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. Mais... Mais... Aucun ronflement, aucun fracas, pas de bruit... Les moteurs sont en panne !</target>
       </segment>
     </unit>
     <unit id="advance_daedalus_no_fuel">
-      <segment id="advance_daedalus_no_fuel" state="translated">
+      <segment id="advance_daedalus_no_fuel" state="final">
         <source>advance_daedalus_no_fuel</source>
         <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. Mais les moteurs s'éteignent immédiatement. Le vaisseau n'a pas bougé. Il n'y avait pas de fuel.</target>
       </segment>
     </unit>
     <unit id="advance_daedalus_arack_prevents_travel">
-      <segment id="advance_daedalus_arack_prevents_travel" state="translated">
+      <segment id="advance_daedalus_arack_prevents_travel" state="final">
         <source>advance_daedalus_arack_prevents_travel</source>
         <target>**{character}** lance la manœuvre de voyage. Son air exalté irradie et sa rage fait frémir jusqu'à l'air ambiant. Mais... Mais... Les moteurs poussent mais rien ne se passe... Un Arack empêche le départ avec son champ gravitationnel !</target>
       </segment>
     </unit>
     <unit id="scan_success">
-      <segment id="scan_success" state="translated">
+      <segment id="scan_success" state="final">
         <source>scan_success</source>
         <target>Vous avez exécuté le scan thermique et déniché une planète.</target>
       </segment>
     </unit>
     <unit id="scan_fail">
-      <segment id="scan_fail" state="translated">
+      <segment id="scan_fail" state="final">
         <source>scan_fail</source>
         <target>Votre tentative de scan a échoué.</target>
       </segment>
     </unit>
     <unit id="analyze_planet_success">
-      <segment id="analyze_planet_success" state="translated">
+      <segment id="analyze_planet_success" state="final">
         <source>analyze_planet_success</source>
         <target>**{character}** a effectué une analyse de {target_planet}.</target>
       </segment>
     </unit>
     <unit id="delete_planet_success">
-      <segment id="delete_planet_success" state="translated">
+      <segment id="delete_planet_success" state="final">
         <source>delete_planet_success</source>
         <target>Vous avez effacé une planète de votre espace de travail.</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet_success">
-      <segment id="takeoff_to_planet_success" state="translated">
+      <segment id="takeoff_to_planet_success" state="final">
         <source>takeoff_to_planet_success</source>
         <target>**{character}** a fait décoller {target_equipment} vers la planète.</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship_success">
-      <segment id="takeoff_to_planet_patrol_ship_success" state="translated">
+      <segment id="takeoff_to_planet_patrol_ship_success" state="final">
         <source>takeoff_to_planet_patrol_ship_success</source>
         <target>**{character}** a fait atterrir {target_equipment} sur la planète.</target>
       </segment>
@@ -1065,49 +1226,49 @@
       </segment>
     </unit>
     <unit id="trap_closet_success">
-      <segment id="trap_closet_success" state="translated">
+      <segment id="trap_closet_success" state="final">
         <source>trap_closet_success</source>
         <target>:mush: L'air de rien et avec un air nullement coupable, **{character}** semble avoir glissé quelque chose dans l'étagère.</target>
       </segment>
     </unit>
     <unit id="chitchat_success">
-      <segment id="chitchat_success" state="translated">
+      <segment id="chitchat_success" state="final">
         <source>chitchat_success</source>
         <target>**{character}** et **{target_character}** papotent innocemment...</target>
       </segment>
     </unit>
     <unit id="graft_success">
-      <segment id="graft_success" state="translated">
+      <segment id="graft_success" state="final">
         <source>graft_success</source>
         <target>Quel soulagement, **{character}** a réussi sa greffe {equipment_first_letter, select, vowel {d'**{equipment}**} other {de **{equipment}**}}. La petite plante se porte bien !</target>
       </segment>
     </unit>
     <unit id="graft_fail">
-      <segment id="graft_fail" state="translated">
+      <segment id="graft_fail" state="final">
         <source>graft_fail</source>
         <target>Quel soulagement... Oh mais... **{character}** n'a pas réussi sa greffe {equipment_first_letter, select, vowel {d'**{equipment}**} other {de **{equipment}**}}. La petite plante reste chétive et meurt... Quelque chose a dû contaminer l'opération.</target>
       </segment>
     </unit>
     <unit id="ceasefire_success">
-      <segment id="ceasefire_success" state="translated">
+      <segment id="ceasefire_success" state="final">
         <source>ceasefire_success</source>
         <target>**{character}** impose un cessez-le-feu dans la pièce. Quelle autorité !</target>
       </segment>
     </unit>
     <unit id="put_through_door_success">
-      <segment id="put_through_door_success" state="translated">
+      <segment id="put_through_door_success" state="final">
         <source>put_through_door_success</source>
         <target>:guardian: **{character}** a fichu **{target_character}** à la porte. Du balai !</target>
       </segment>
     </unit>
     <unit id="guard_success">
-      <segment id="guard_success" state="translated">
+      <segment id="guard_success" state="final">
         <source>guard_success</source>
         <target>**{character}** prend un air ennuyeux et se met à garder la pièce...</target>
       </segment>
     </unit>
     <unit id="throw_grenade_success">
-      <segment id="throw_grenade_success" state="translated">
+      <segment id="throw_grenade_success" state="final">
         <source>throw_grenade_success</source>
         <target>{version, select,
         1 {Ploc...poc...poc...pschhhhh... **{character}** se jette à couvert pendant que les autres regardent à leurs pieds. Tiens, une gre...}
@@ -1115,13 +1276,13 @@
       </segment>
     </unit>
     <unit id="putsch_success">
-      <segment id="putsch_success" state="translated">
+      <segment id="putsch_success" state="final">
         <source>putsch_success</source>
         <target>**{character}** entre en grande discussion avec NERON. Qui sait ce qu'ils peuvent bien se dire…</target>
       </segment>
     </unit>
     <unit id="depress_success">
-      <segment id="depress_success" state="translated">
+      <segment id="depress_success" state="final">
         <source>depress_success</source>
         <target>:mush: **{character}** se rapproche subrepticement de **{target_character}**. {character_gender, select,
         female {Après qu'elle s'en est éloignée, les traits de **{target_character}** s'affaissent...}
@@ -1129,31 +1290,31 @@
       </segment>
     </unit>
     <unit id="slime_trap_success">
-      <segment id="slime_trap_success" state="translated">
+      <segment id="slime_trap_success" state="final">
         <source>slime_trap_success</source>
         <target>:mush: L'espace d'un instant, **{character}** met une tape affectueuse à **{target_character}**... Mais on dirait qu'une fumée putride est sortie de ses doigts !</target>
       </segment>
     </unit>
     <unit id="slime_object_success">
-      <segment id="slime_object_success" state="translated">
+      <segment id="slime_object_success" state="final">
         <source>slime_object_success</source>
         <target>:mush: **{character}** projette rapidement une infâme gelée sur {target_equipment_gender, select, female {une} other {un}} **{target_equipment}**. {target_equipment_gender, select, female {Elle sera cassée} other {Il sera cassé}} d'ici {quantity, select, 1 {1 cycle} other {{quantity} cycles}}...</target>
       </segment>
     </unit>
     <unit id="mass_ggedon_success">
-      <segment id="mass_ggedon_success" state="translated">
+      <segment id="mass_ggedon_success" state="final">
         <source>mass_ggedon_success</source>
         <target>:mush: **{character}** se raidit soudain... On dirait que des filaments jaunes pourris tortillonnants s'échappe de sa combinaison pour pénétrer la coque...</target>
       </segment>
     </unit>
     <unit id="reinforce_success">
-      <segment id="reinforce_success" state="translated">
+      <segment id="reinforce_success" state="final">
         <source>reinforce_success</source>
         <target>{character_gender, select, female {**{character}** s'est lancée} other {**{character}** s'est lancé}} dans une mini cathédrale autour {target_equipment_gender, select, female {d'une **{target_equipment}**} other {d'un **{target_equipment}**}}... On dirait plus un tatou crevé maintenant mais ça devrait tenir.</target>
       </segment>
     </unit>
     <unit id="reinforce_fail">
-      <segment id="reinforce_fail" state="translated">
+      <segment id="reinforce_fail" state="final">
         <source>reinforce_fail</source>
         <target>Vous vous reculez fièrement et... patatra... bon... tant pis... Votre tentative de blindage a échoué.</target>
       </segment>
@@ -1165,55 +1326,49 @@
       </segment>
     </unit>
     <unit id="upgrade_drone_to_turbo_success">
-      <segment id="upgrade_drone_to_turbo_success" state="translated">
+      <segment id="upgrade_drone_to_turbo_success" state="final">
         <source>upgrade_drone_to_turbo_success</source>
         <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Turbo**.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_firefighter_success">
-      <segment id="upgrade_drone_to_firefighter_success" state="translated">
+      <segment id="upgrade_drone_to_firefighter_success" state="final">
         <source>upgrade_drone_to_firefighter_success</source>
         <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Pompier**.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_pilot_success">
-      <segment id="upgrade_drone_to_pilot_success" state="translated">
+      <segment id="upgrade_drone_to_pilot_success" state="final">
         <source>upgrade_drone_to_pilot_success</source>
         <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Pilote**.</target>
       </segment>
     </unit>
-    <unit id="upgrade_drone_to_sensor_success">
-      <segment id="upgrade_drone_to_sensor_success" state="translated">
-        <source>upgrade_drone_to_sensor_success</source>
-        <target>**{character}** s'acharne un peu sur ce pauvre {target_drone}. Mais c'est pour son bien. {target_drone} reçoit l'amélioration **Senseur**.</target>
-      </segment>
-    </unit>
     <unit id="take_cat">
-      <segment id="take_cat" state="translated">
+      <segment id="take_cat" state="final">
         <source>take_cat</source>
         <target>**{character}** a pris **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="pet_cat">
-      <segment id="pet_cat" state="translated">
+      <segment id="pet_cat" state="final">
         <source>pet_cat</source>
         <target>**{character}** fait un gros câlin à **{target_equipment}**. Celui-ci n'en veut manifestement pas mais ce n'est pas grave, ça fait toujours du bien...</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">
-      <segment id="shoot_cat_success" state="translated">
+      <segment id="shoot_cat_success" state="final">
         <source>shoot_cat_success</source>
         <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
       </segment>
     </unit>
     <unit id="shoot_cat_critical_success">
-      <segment id="shoot_cat_critical_success" state="translated">
+      <segment id="shoot_cat_critical_success" state="final">
         <source>shoot_cat_critical_success</source>
         <target>L'oeil vif, la rage au corps, **{character}** réussit magnifiquement son tir en plein dans la poitrine de **{target_equipment}**...</target>
       </segment>
     </unit>
     <unit id="shoot_cat_fail">
-      <segment id="shoot_cat_fail" state="translated">
+      <segment id="shoot_cat_fail" state="final">
         <source>shoot_cat_fail</source>
         <target>{version, select,
                     1 {Clic...clic...**{character}** a raté une occasion...}
@@ -1225,7 +1380,7 @@
       </segment>
     </unit>
     <unit id="shoot_cat_critical_fail">
-      <segment id="shoot_cat_critical_fail" state="translated">
+      <segment id="shoot_cat_critical_fail" state="final">
         <source>shoot_cat_critical_fail</source>
         <target>{version, select,
                     1 {{character_gender, select,
@@ -1239,98 +1394,51 @@
       </segment>
     </unit>
     <unit id="daunt_success">
-      <segment id="daunt_success" state="translated">
+      <segment id="daunt_success" state="final">
         <source>daunt_success</source>
         <target>**{character}** attrape **{target_character}** dans un coin et se met à lui hurler dessus...</target>
       </segment>
     </unit>
+    <unit id="gen_metal_success">
+      <segment id="gen_metal_success" state="final">
+        <source>gen_metal_success</source>
+        <target>**{character}** ressort de son tas de débris l'air ravi, {character_gender, select, female {elle} other {il}} a fait une trouvaille ! Et hop, {equipment_gender, select, female {une **{equipment}**} other {un **{equipment}**}} !</target>
+      </segment>
+    </unit>
     <unit id="gen_metal_fail">
-      <segment id="gen_metal_fail" state="translated">
+      <segment id="gen_metal_fail" state="final">
         <source>gen_metal_fail</source>
         <target>Vous retournez toutes ces piles de machins inutiles mais rien à faire, rien de vraiment intéressant...</target>
       </segment>
     </unit>
     <unit id="door_sabotage_success">
-      <segment id="door_sabotage_success" state="translated">
+      <segment id="door_sabotage_success" state="final">
         <source>door_sabotage_success</source>
         <target>:mush: Étrange, **{character}** s'affaire sur une **Porte** qui émet une petite fumée...</target>
       </segment>
     </unit>
     <unit id="give_nightmare_success">
-      <segment id="give_nightmare_success" state="translated">
+      <segment id="give_nightmare_success" state="final">
         <source>give_nightmare_success</source>
         <target>:mush: **{character}** se rapproche de **{target_character}**... Après {character_gender, select, female {qu'elle s'en est éloignée} other {qu'il s'en est éloigné}}, celui-ci semble avoir un sommeil tourmenté...</target>
       </segment>
     </unit>
     <unit id="neron_depress_success">
-      <segment id="neron_depress_success" state="translated">
+      <segment id="neron_depress_success" state="final">
         <source>neron_depress_success</source>
         <target>:mush: **{character}** a l'air en grande discussion avec... NERON. Mais que peuvent-ils bien se dire ces deux-là ?</target>
       </segment>
     </unit>
-    <unit id="compute_eden_success">
-      <segment id="compute_eden_success" state="translated">
-        <source>compute_eden_success</source>
-        <target>**{character}** se prend la tête mais rien n'y fait, aucun moyen de trianguler les données... Soudain une secousse fait tomber une carte mère sur le sommet de son crâne et son regard s'illumine ! Il fallait penser autrement ! **{character}** découvre les coordonnées du système des Edénistes.</target>
+    <unit id="search_for_mush_genome_fail">
+      <segment id="search_for_mush_genome_fail" state="translated">
+        <source>search_for_mush_genome_fail</source>
+        <target>Accès à la base de données de Xyloph refusée. Rien à en tirer... Saleté d'admin de daube.</target>
       </segment>
     </unit>
-    <unit id="compute_eden_fail">
-      <segment id="compute_eden_fail" state="translated">
-        <source>compute_eden_fail</source>
-        <target>Vous vous prenez la tête mais rien n'y fait, aucun moyen de trianguler les données...</target>
-      </segment>
-    </unit>
-    <unit id="open_coffee_thermos">
-      <segment id="open_coffee_thermos" state="translated">
-        <source>open_coffee_thermos</source>
-        <target>**{character}** se verse une tasse de **Café** depuis son Thermos... Hmm... Ça rappelle les longues nuits blanches sur un balcon de Saturne.</target>
-      </segment>
-    </unit>
-    <unit id="open_anniversary_gift">
-      <segment id="open_anniversary_gift" state="translated">
-        <source>open_anniversary_gift</source>
-        <target>**{character}** se jette avec impatience sur son cadeau et commence à le déballer... Oh, {quantity, select, 
-        1 {{equipment_gender, select, 
-            female {une} 
-            male {un} 
-            other {}
-          }} 
-        other {{quantity}}
-        } **{equipment}** ! On espère que c'est ce qu{character_gender, select, 
-        female {'elle} 
-        male {'il} 
-        other {'il}
-        } voulait...</target>
-      </segment>
-    </unit>
-    <unit id="establish_link_with_sol_fail">
-      <segment id="establish_link_with_sol_fail" state="translated">
-        <source>establish_link_with_sol_fail</source>
-        <target>Vous n'avez pas réussi à établir une communication avec le système solaire Sol, mais vous avez **amélioré la qualité du signal**. Vous aurez le droit à un nouvel essai demain.</target>
-      </segment>
-    </unit>
-    <unit id="establish_link_with_sol_success">
-      <segment id="establish_link_with_sol_success" state="translated">
-        <source>establish_link_with_sol_success</source>
-        <target>Vous avez réussi à établir une communication entre le Daedalus et le système solaire Sol !</target>
-      </segment>
-    </unit>
-    <unit id="upgrade_neron_success">
-      <segment id="upgrade_neron_success" state="translated">
-        <source>upgrade_neron_success</source>
-        <target>**{character}** achève la mise à jour. La version majeure de NERON a augmenté. Le surplus de CPU généré par la joie de NERON a été injecté dans un projet.</target>
-      </segment>
-    </unit>
-    <unit id="play_with_dog">
-      <segment id="play_with_dog" state="translated">
-        <source>play_with_dog</source>
-        <target>Après avoir versé du sang, de la sueur et des larmes, **{character}** a enfin réuni les conditions parfaites. Le lieu, le moment, une baballe, les vibes... {character_gender, select, male {Il} female {Elle} other {Iel}} partage un moment transcendant avec **Pavlov**, le monde est parfait. Quelques minutes plus tard, alors que **{character}** est encore sous un choc jubilant, **Pavlov** l'approche avec un regard qui semble dire "Il faut que je vous quitte. Ma planète a besoin de moi." **Pavlov** disparaît sans laisser de trace. **{character}** pleure.</target>
-      </segment>
-    </unit>
-    <unit id="mutate_success">
-      <segment id="mutate_success" state="translated">
-        <source>mutate_success</source>
-        <target>**{character}** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements...Quelle horreur ! Il a complètement changé de forme !</target>
+    <unit id="search_for_mush_genome_success">
+      <segment id="search_for_mush_genome_success" state="translated">
+        <source>search_for_mush_genome_success</source>
+        <target>Accès à la base de données de Xyloph acceptée. Ce disque regroupe des informations cruciales sur le génome Mush rassemblée par Ian Soulton juste avant le départ du Daedalus.</target>
       </segment>
     </unit>
   </file>

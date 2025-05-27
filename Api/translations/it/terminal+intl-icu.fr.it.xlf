@@ -170,10 +170,6 @@
         <source>bios_terminal.cpu_priority_pilgred</source>
         <target>bios_terminal.cpu_priority_none</target>
       </segment>
-      <segment id="cpu_priority.research" state="initial">
-        <source>bios_terminal.cpu_priority_research</source>
-        <target>bios_terminal.cpu_priority_research</target>
-      </segment>
       <segment id="cpu_priority.projects" state="initial">
         <source>bios_terminal.cpu_priority_projects</source>
         <target>bios_terminal.cpu_priority_projects</target>
@@ -197,10 +193,6 @@
       <segment id="crew_lock.piloting" state="initial">
         <source>bios_terminal.crew_lock_piloting</source>
         <target>bios_terminal.crew_lock_piloting</target>
-      </segment>
-      <segment id="crew_lock.research" state="initial">
-        <source>bios_terminal.crew_lock_research</source>
-        <target>bios_terminal.crew_lock_research</target>
       </segment>
       <segment id="plasma_shield.name" state="initial">
         <source>bios_terminal.plasma_shield_name</source>
@@ -250,22 +242,6 @@
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>bios_terminal.neron_inhibition_toggle_inactive</target>
       </segment>
-      <segment id="vocoded_announcements_name" state="initial">
-        <source>bios_terminal.vocoded_announcements_name</source>
-        <target>bios_terminal.vocoded_announcements_name</target>
-      </segment>
-      <segment id="vocoded_announcements_description" state="initial">
-        <source>bios_terminal.vocoded_announcements_description</source>
-        <target>bios_terminal.vocoded_announcements_description</target>
-      </segment>
-      <segment id="vocoded_announcements_toggle_active" state="initial">
-        <source>bios_terminal.vocoded_announcements_toggle_active</source>
-        <target>bios_terminal.vocoded_announcements_toggle_active</target>
-      </segment>
-      <segment id="vocoded_announcements_toggle_inactive" state="initial">
-        <source>bios_terminal.vocoded_announcements_toggle_inactive</source>
-        <target>bios_terminal.vocoded_announcements_toggle_inactive</target>
-      </segment>
     </unit>
     <unit id="pilgred">
       <segment id="name" state="initial">
@@ -279,14 +255,6 @@
       <segment id="pilgred_finished_description" state="initial">
         <source>pilgred.pilgred_finished_description</source>
         <target>pilgred.pilgred_finished_description</target>
-      </segment>
-      <segment id="share_projects_button_name" state="initial">
-        <source>pilgred.share_projects_button_name</source>
-        <target>pilgred.share_projects_button_name</target>
-      </segment>
-      <segment id="share_projects_button_description" state="initial">
-        <source>pilgred.share_projects_button_description</source>
-        <target>pilgred.share_projects_button_description</target>
       </segment>
     </unit>
     <unit id="neron_core">
@@ -302,14 +270,6 @@
         <source>neron_core.no_proposed_neron_projects_description</source>
         <target>neron_core.no_proposed_neron_projects_description</target>
       </segment>
-      <segment id="share_projects_button_name" state="initial">
-        <source>neron_core.share_projects_button_name</source>
-        <target>neron_core.share_projects_button_name</target>
-      </segment>
-      <segment id="share_projects_button_description" state="initial">
-        <source>neron_core.share_projects_button_description</source>
-        <target>neron_core.share_projects_button_description</target>
-      </segment>
     </unit>
     <unit id="auxiliary_terminal">
       <segment id="name" state="initial">
@@ -323,98 +283,6 @@
       <segment id="no_proposed_neron_projects_description" state="initial">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>auxiliary_terminal.no_proposed_neron_projects_description</target>
-      </segment>
-      <segment id="share_projects_button_name" state="initial">
-        <source>auxiliary_terminal.share_projects_button_name</source>
-        <target>auxiliary_terminal.share_projects_button_name</target>
-      </segment>
-      <segment id="share_projects_button_description" state="initial">
-        <source>auxiliary_terminal.share_projects_button_description</source>
-        <target>auxiliary_terminal.share_projects_button_description</target>
-      </segment>
-    </unit>
-    <unit id="calculator">
-      <segment id="name" state="initial">
-        <source>calculator.name</source>
-        <target>calculator.name</target>
-      </segment>
-      <segment id="tips" state="initial">
-        <source>calculator.tips</source>
-        <target>calculator.tips</target>
-      </segment>
-      <segment id="to_a_new_eden_title" state="initial">
-        <source>calculator.to_a_new_eden_title</source>
-        <target>calculator.to_a_new_eden_title</target>
-      </segment>
-      <segment id="to_a_new_eden_description" state="initial">
-        <source>calculator.to_a_new_eden_description</source>
-        <target>calculator.to_a_new_eden_description</target>
-      </segment>
-      <segment id="nothing_to_compute" state="initial">
-        <source>calculator.nothing_to_compute</source>
-        <target>calculator.nothing_to_compute</target>
-      </segment>
-      <segment id="eden_computed" state="initial">
-        <source>calculator.eden_computed</source>
-        <target>calculator.eden_computed</target>
-      </segment>
-    </unit>
-    <unit id="communication_center">
-      <segment id="name" state="initial">
-        <source>communication_center.name</source>
-        <target>communication_center.name</target>
-      </segment>
-      <segment id="tips" state="initial">
-        <source>communication_center.tips</source>
-        <target>communication_center.tips</target>
-      </segment>
-      <segment id="contact" state="initial">
-        <source>communication_center.contact</source>
-        <target>communication_center.contact</target>
-      </segment>
-      <segment id="contact" state="initial">
-        <source>communication_center.neron_version</source>
-        <target>communication_center.neron_version</target>
-      </segment>
-      <segment id="contact" state="initial">
-        <source>communication_center.neron_update_status</source>
-        <target>communication_center.neron_update_status</target>
-      </segment>
-      <segment id="link_strength" state="initial">
-        <source>communication_center.link_strength</source>
-        <target>communication_center.link_strength</target>
-      </segment>
-      <segment id="link_established" state="initial">
-        <source>communication_center.link_established</source>
-        <target>communication_center.link_established</target>
-      </segment>
-      <segment id="rebel_bases_network" state="initial">
-        <source>communication_center.rebel_bases_network</source>
-        <target>communication_center.rebel_bases_network</target>
-      </segment>
-      <segment id="select_rebel_base_to_decode" state="initial">
-        <source>communication_center.select_rebel_base_to_decode</source>
-        <target>communication_center.select_rebel_base_to_decode</target>
-      </segment>
-      <segment id="xyloph_db" state="initial">
-        <source>communication_center.xyloph_db</source>
-        <target>communication_center.xyloph_db</target>
-      </segment>
-      <segment id="cannot_trade_under_attack" state="initial">
-        <source>communication_center.cannot_trade_under_attack</source>
-        <target>communication_center.cannot_trade_under_attack</target>
-      </segment>
-      <segment id="never" state="initial">
-        <source>communication_center.never</source>
-        <target>communication_center.never</target>
-      </segment>
-      <segment id="see_communications" state="initial">
-        <source>communication_center.see_communications</source>
-        <target>communication_center.see_communications</target>
-      </segment>
-      <segment id="see_trades" state="initial">
-        <source>communication_center.see_trades</source>
-        <target>communication_center.see_trades</target>
       </segment>
     </unit>
   </file>

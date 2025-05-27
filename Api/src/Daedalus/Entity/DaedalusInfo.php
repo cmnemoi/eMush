@@ -143,11 +143,6 @@ class DaedalusInfo
         return $this->gameStatus === GameStatusEnum::FINISHED || $this->gameStatus === GameStatusEnum::CLOSED;
     }
 
-    public function isDaedalusStarted(): bool
-    {
-        return $this->gameStatus === GameStatusEnum::CURRENT;
-    }
-
     public function setLocalizationConfig(LocalizationConfig $localizationConfig): self
     {
         $this->localizationConfig = $localizationConfig;
@@ -177,10 +172,5 @@ class DaedalusInfo
     public function getLanguage(): string
     {
         return $this->localizationConfig->getLanguage();
-    }
-
-    public function startDaedalus(): void
-    {
-        $this->gameStatus = GameStatusEnum::CURRENT;
     }
 }

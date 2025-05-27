@@ -67,17 +67,6 @@ final class SelfSacrificeCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotSkipActionPointsRegen(FunctionalTester $I): void
-    {
-        $this->givenPlayerHasMorale(0);
-
-        $this->givenPlayerHasAP(0);
-
-        $this->whenCyclePassesForPlayer();
-
-        $this->thenPlayerShouldHaveAP($I, 1);
-    }
-
     private function givenPlayerHasMorale(int $morale): void
     {
         $this->player->setMoralPoint($morale);
@@ -86,11 +75,6 @@ final class SelfSacrificeCest extends AbstractFunctionalTest
     private function givenPlayerHasHealthPoints(int $healthPoints): void
     {
         $this->player->setHealthPoint($healthPoints);
-    }
-
-    private function givenPlayerHasAP(int $AP): void
-    {
-        $this->player->setActionPoint($AP);
     }
 
     private function whenCyclePassesForPlayer(): void
@@ -108,11 +92,6 @@ final class SelfSacrificeCest extends AbstractFunctionalTest
     private function thenPlayerShouldBeAlive(FunctionalTester $I): void
     {
         $I->assertTrue($this->player->isAlive());
-    }
-
-    private function thenPlayerShouldHaveAP(FunctionalTester $I, int $AP): void
-    {
-        $I->assertEquals($AP, $this->player->getActionPoint());
     }
 
     private function setupNoIncidents(): void

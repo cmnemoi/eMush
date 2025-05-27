@@ -98,7 +98,7 @@
             </Tippy>
         </div>
 
-        <span>{{ player.character.characterValue }} - {{ $t('moderation.player.playedBy') }} {{ player.user.username }}  - {{ player.isMush ? $t('moderation.player.mush') : $t('moderation.player.human') }} - {{ player.isAlive ? $t('moderation.player.alive') : $t('moderation.player.dead') }} - {{ player.user.isBanned ? $t('moderation.player.banned') : $t('moderation.player.notBanned') }}</span>
+        <span>{{ player.character.name }} - {{ $t('moderation.player.playedBy') }} {{ player.user.username }}  - {{ player.isMush ? $t('moderation.player.mush') : $t('moderation.player.human') }} - {{ player.isAlive ? $t('moderation.player.alive') : $t('moderation.player.dead') }} - {{ player.user.isBanned ? $t('moderation.player.banned') : $t('moderation.player.notBanned') }}</span>
         <div class="flex-row">
             <label>{{ $t('moderation.filters.day') }} :
                 <input
@@ -655,7 +655,6 @@ export default defineComponent({
                 evidenceClass === 'message'
                 || evidenceClass === 'roomLog'
                 || evidenceClass === 'commanderMission'
-                || evidenceClass === 'comManagerAnnouncement'
             ) {
                 const startDate = new Date(sanctionEvidence.date.getTime() - 30*60000).toISOString();
                 const endDate = new Date(sanctionEvidence.date.getTime() + 30*60000).toISOString();

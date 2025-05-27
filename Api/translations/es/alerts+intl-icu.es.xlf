@@ -4,43 +4,43 @@
     <unit id="broken_doors">
       <segment id="name" state="translated">
         <source>broken_doors.name</source>
-        <target>{quantity, plural, one {# Puerta averiada} other {# Puertas averiadas}}</target>
+        <target>$qty puerta(s) averiada(s)</target>
       </segment>
       <segment id="description" state="translated">
         <source>broken_doors.description</source>
         <target>¡Avisa un técnico o ponte a repararla!</target>
       </segment>
-      <segment id="report" state="translated">
+      <segment id="report" state="initial">
         <source>broken_doors.report</source>
-        <target>**{character}** ha señalado una puerta averiada {loc_prep} **{place}**.</target>
+        <target>broken_doors.report</target>
       </segment>
     </unit>
     <unit id="fires">
       <segment id="name" state="translated">
         <source>fires.name</source>
-        <target>{quantity, plural, one {# Incendio en curso} other {# Incendios en curso}}</target>
+        <target>$qty incendio(s) en curso</target>
       </segment>
       <segment id="description" state="translated">
         <source>fires.description</source>
-        <target>¡Avisa a la persona encargada o toma un extintor!</target>
+        <target>¡Avisa a la persona encargada o coge un extintor!</target>
       </segment>
-      <segment id="report" state="translated">
+      <segment id="report" state="initial">
         <source>fires.report</source>
-        <target>**{character}** ha señalado un incendio {loc_prep} **{place}**.</target>
+        <target>fires.report</target>
       </segment>
     </unit>
     <unit id="broken_equipments">
       <segment id="name" state="translated">
         <source>broken_equipments.name</source>
-        <target>{quantity, plural, one {# equipo fuera de servicio} other {# equipos fuera de servicio}}</target>
+        <target>$qty equipo(s) fuera de servicio</target>
       </segment>
       <segment id="description" state="translated">
         <source>broken_equipments.description</source>
         <target>¡Avisa un técnico o hazlo tú mismo!</target>
       </segment>
-      <segment id="report" state="translated">
+      <segment id="report" state="initial">
         <source>broken_equipments.report</source>
-        <target>**{character}** ha señalado {quantity, plural, one {**#** equipo averiado} other {**#** equipos averiados}} de equipo {loc_prep} **{place}**</target>
+        <target>broken_equipments.report</target>
       </segment>
     </unit>
     <unit id="no_gravity">
@@ -55,13 +55,13 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
     </unit>
     <unit id="gravity_reboot">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>gravity_reboot.name</source>
-        <target>Sin simulador de gravedad</target>
+        <target>gravity_reboot.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>gravity_reboot.description</source>
-        <target>El simulador se está reiniciando. Cada ganancia de puntos de movimiento es reducida en 1 :pm:</target>
+        <target>gravity_reboot.description</target>
       </segment>
     </unit>
     <unit id="low_oxygen">
@@ -71,7 +71,7 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
       <segment id="description" state="translated">
         <source>low_oxygen.description</source>
-        <target>**Menos de 1 día** de oxígeno en la reserva ¡Encontremos rápido una solución o moriremos todos!</target>
+        <target>**Menos de 1 día** de oxígeno en la reserva &lt;p&gt;¡Encontremos rápido una solución o moriremos todos!</target>
       </segment>
     </unit>
     <unit id="outcast">
@@ -81,7 +81,7 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
       <segment id="description" state="translated">
         <source>outcast.description</source>
-        <target>{character} es un paria, consulta con la tripulación para saber que se debería hacer.</target>
+        <target>Alguien te ha lanzado un conjuro. Llevas un peso sobre los hombros. Te señalan el dedo, te espían, no dejan de mirarte. Eres un chivo expiatorio. la víctima.//Tus acciones **Furtivas** se hacen **Discretas** y más difficiles.</target>
       </segment>
     </unit>
     <unit id="lost_crewmate">
@@ -95,69 +95,59 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
     </unit>
     <unit id="low_hull">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>low_hull.name</source>
-        <target>{quantity}% de blindaje</target>
+        <target>low_hull.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>low_hull.description</source>
-        <target>La estructura de la nave está en mal estado. ¡Avisa a un técnico o hazlo tú mismo!</target>
+        <target>low_hull.description</target>
       </segment>
     </unit>
     <unit id="hunger">
       <segment id="name" state="translated">
         <source>hunger.name</source>
-        <target>Hambruna</target>
+        <target>hunger</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>hunger.description</source>
-        <target>La tripulación está severamente **hambrienta**. Deben de buscar algo que comer.</target>
+        <target>hunger.description</target>
       </segment>
     </unit>
     <unit id="communication_down">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>communication_down.name</source>
-        <target>Sin contacto</target>
+        <target>communication_down.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>communication_down.description</source>
-        <target>¡El Daedalus no tiene contacto con Sol! Mantener el contacto con Sol es importante para el estado de ánimo del grupo.</target>
+        <target>communication_down.description</target>
       </segment>
     </unit>
     <unit id="hunter">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>hunter.name</source>
-        <target>{quantity, plural, one {¡# nave enemiga nos ataca!} other {¡# naves enemigas nos atacan!}}</target>
+        <target>hunter.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>hunter.description</source>
-        <target>¡Avisa a los demás o defiende la nave por tu cuenta!</target>
+        <target>hunter.description</target>
       </segment>
     </unit>
     <unit id="no_alert">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>no_alert.name</source>
-        <target>Tranquilo</target>
+        <target>no_alert.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>no_alert.description</source>
-        <target>Sin alertas en curso: la tripulación puede estar tranquila.</target>
+        <target>no_alert.description</target>
       </segment>
     </unit>
     <unit id="alerts">
-      <segment id="alerts" state="translated">
+      <segment id="alerts" state="initial">
         <source>alerts</source>
-        <target>Alertas:</target>
-      </segment>
-    </unit>
-    <unit id="communications_down">
-      <segment id="name" state="initial">
-        <source>communications_down.name</source>
-        <target>communications_down.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>communications_down.description</source>
-        <target>communications_down.description</target>
+        <target>alerts</target>
       </segment>
     </unit>
   </file>

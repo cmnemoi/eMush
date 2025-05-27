@@ -6,10 +6,10 @@ namespace Mush\Tests\unit\Player\Normalizer;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\CommanderMission;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Normalizer\CommanderMissionNormalizer;
-use Mush\Tests\unit\Player\TestDoubles\FakeTranslationService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +21,7 @@ final class CommanderMissionNormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->normalizer = new CommanderMissionNormalizer(new FakeTranslationService());
+        $this->normalizer = new CommanderMissionNormalizer(new FakeCommanderMissionNormalizerTranslationService());
     }
 
     public function testShouldNormalizeCommanderMission(): void
@@ -57,5 +57,19 @@ final class CommanderMissionNormalizerTest extends TestCase
     private function setId(CommanderMission $commanderMission, int $id): void
     {
         (new \ReflectionProperty(CommanderMission::class, 'id'))->setValue($commanderMission, $id);
+    }
+}
+
+final class FakeCommanderMissionNormalizerTranslationService implements TranslationServiceInterface
+{
+    public function translate(string $key, array $parameters, string $domain, ?string $language = null): string
+    {
+        return match ($key) {
+            'jin_su.name' => 'Jin Su',
+            'commander_mission.buttons.label' => 'Accepter ?',
+            'commander_mission.buttons.accept' => ':online: Oui + 3 :pa:',
+            'commander_mission.buttons.reject' => ':offline: Non',
+            default => "à l'instant",
+        };
     }
 }

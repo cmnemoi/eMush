@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\DoorEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 
@@ -87,11 +86,6 @@ class Door extends GameEquipment
     public function shouldTriggerRoomTrap(): bool
     {
         return false;
-    }
-
-    public function isBreakable(): bool
-    {
-        return DoorEnum::isBreakable($this->getName());
     }
 
     private function buildName(): string

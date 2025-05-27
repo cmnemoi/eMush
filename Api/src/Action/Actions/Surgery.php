@@ -13,14 +13,10 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Action\Event\ApplyEffectEvent;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasDiseases;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\MedicalSuppliesOnReach;
-use Mush\Action\Validator\Reach;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
-use Mush\Disease\Service\DiseaseCauseServiceInterface;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -40,10 +36,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  *
  * More info : http://mushpedia.com/wiki/Medic
  */
-final class Surgery extends AbstractAction
+class Surgery extends AbstractAction
 {
+    private const int FAIL_CHANCES = 10;
+    private const int CRITICAL_SUCCESS_CHANCES = 15;
     protected ActionEnum $name = ActionEnum::SURGERY;
-    protected DiseaseCauseServiceInterface $diseaseCauseService;
 
     private RandomServiceInterface $randomService;
 
@@ -52,7 +49,6 @@ final class Surgery extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        DiseaseCauseServiceInterface $diseaseCauseService,
     ) {
         parent::__construct(
             $eventService,
@@ -61,32 +57,25 @@ final class Surgery extends AbstractAction
         );
 
         $this->randomService = $randomService;
-        $this->diseaseCauseService = $diseaseCauseService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraints([
-            new Reach([
-                'reach' => ReachEnum::ROOM,
-                'groups' => [ClassConstraint::VISIBILITY],
-            ]),
-            new MedicalSuppliesOnReach([
-                'groups' => [ClassConstraint::VISIBILITY],
-            ]),
-            new HasDiseases([
-                'groups' => [ClassConstraint::VISIBILITY],
-                'target' => HasDiseases::PARAMETER,
-                'isEmpty' => false,
-                'type' => MedicalConditionTypeEnum::INJURY,
-            ]),
-            new HasStatus([
-                'status' => PlayerStatusEnum::LYING_DOWN,
-                'target' => HasStatus::PARAMETER,
-                'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::SURGERY_NOT_LYING_DOWN,
-            ]),
-        ]);
+        $metadata->addConstraint(new HasStatus([
+            'status' => PlayerStatusEnum::LYING_DOWN,
+            'target' => HasStatus::PARAMETER,
+            'groups' => ['execute'],
+            'message' => ActionImpossibleCauseEnum::SURGERY_NOT_LYING_DOWN,
+        ]));
+        $metadata->addConstraint(new MedicalSuppliesOnReach([
+            'groups' => ['visibility'],
+        ]));
+        $metadata->addConstraint(new HasDiseases([
+            'groups' => ['visibility'],
+            'target' => HasDiseases::PARAMETER,
+            'isEmpty' => false,
+            'type' => MedicalConditionTypeEnum::INJURY,
+        ]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool
@@ -154,7 +143,14 @@ final class Surgery extends AbstractAction
 
     private function failedSurgery(): void
     {
-        $this->diseaseCauseService->handleDiseaseForCause(ActionEnum::SURGERY->toString(), $this->playerTarget());
+        $diseaseEvent = new ApplyEffectEvent(
+            $this->player,
+            $this->playerTarget(),
+            VisibilityEnum::PUBLIC,
+            $this->getActionConfig()->getActionTags(),
+            new \DateTime()
+        );
+        $this->eventService->callEvent($diseaseEvent, ApplyEffectEvent::PLAYER_GET_SICK);
     }
 
     private function getModifiedPercentage(int $percentage, string $mode = ActionVariableEnum::PERCENTAGE_SUCCESS): int

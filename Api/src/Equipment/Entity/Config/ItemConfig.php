@@ -24,20 +24,6 @@ class ItemConfig extends EquipmentConfig
         return $gameItem;
     }
 
-    public static function fromConfigData(array $configData): self
-    {
-        $config = new self();
-        $config
-            ->setIsStackable($configData['isStackable'])
-            ->setName($configData['name'])
-            ->setEquipmentName($configData['equipmentName'])
-            ->setBreakableType($configData['breakableType'])
-            ->setDismountedProducts($configData['dismountedProducts'])
-            ->setIsPersonal($configData['isPersonal']);
-
-        return $config;
-    }
-
     public function isStackable(): bool
     {
         return $this->isStackable;

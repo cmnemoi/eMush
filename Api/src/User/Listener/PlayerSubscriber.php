@@ -19,7 +19,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         return [
             PlayerEvent::END_PLAYER => 'onEndPlayer',
-            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
         ];
     }
 
@@ -27,14 +26,6 @@ class PlayerSubscriber implements EventSubscriberInterface
     {
         $user = $event->getPlayer()->getPlayerInfo()->getUser();
         $user->stopGame();
-
-        $this->userService->persist($user);
-    }
-
-    public function onNewPlayer(PlayerEvent $event): void
-    {
-        $user = $event->getPlayer()->getPlayerInfo()->getUser();
-        $user->startGame();
 
         $this->userService->persist($user);
     }

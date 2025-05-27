@@ -35,13 +35,11 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
-use Mush\Status\Entity\VisibleStatusHolderInterface;
-use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
-class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface
+class Place implements StatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;
@@ -111,7 +109,7 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     {
         $place = new self();
         $place
-            ->setName(RoomEnum::NULL)
+            ->setName(RoomEnum::null)
             ->setType('');
         (new \ReflectionProperty($place, 'id'))->setValue($place, 0);
 
@@ -269,13 +267,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $this->equipments;
     }
 
-    public function getBreakableWorkingEquipments(): Collection
-    {
-        return $this
-            ->getEquipments()
-            ->filter(static fn (GameEquipment $equipment) => ($equipment->canBeDamaged() && !$equipment->isBroken()));
-    }
-
     public function setEquipments(ArrayCollection $equipments): static
     {
         $this->equipments = $equipments;
@@ -313,19 +304,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
             static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name
             && $gameEquipment->isOperational()
         )->isEmpty();
-    }
-
-    public function doesNotHaveEquipmentByName(string $name): bool
-    {
-        return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name)->isEmpty();
-    }
-
-    public function doesNotHaveVisibleEquipmentByName(string $name): bool
-    {
-        return $this
-            ->getAllEquipmentsByName($name)
-            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->doesNotHaveStatus(EquipmentStatusEnum::HIDDEN))
-            ->isEmpty();
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment
@@ -371,11 +349,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     public function getAllEquipmentsByName(string $name): Collection
     {
         return $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === $name);
-    }
-
-    public function getNonPersonalItems(): Collection
-    {
-        return $this->getItems()->filter(static fn (GameItem $gameItem) => $gameItem->isPersonal() === false);
     }
 
     /**
@@ -474,9 +447,9 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $allModifiers->addModifiers($this->daedalus->getModifiers());
     }
 
-    public function getHuntersAroundDaedalus(): HunterCollection
+    public function getAttackingHunters(): HunterCollection
     {
-        return (new HunterCollection($this->hunters->toArray()))->getHuntersAroundDaedalus();
+        return (new HunterCollection($this->hunters->toArray()))->getAttackingHunters();
     }
 
     public function getHunterPool(): HunterCollection
@@ -594,11 +567,6 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $charge;
     }
 
-    public function isNotARoom(): bool
-    {
-        return $this->getType() !== PlaceTypeEnum::ROOM;
-    }
-
     public function getAliveShrinksExceptPlayer(Player $player): PlayerCollection
     {
         return $this
@@ -618,9 +586,9 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         return $this->getAlivePlayers()->hasPlayerByName(CharacterEnum::CHUN);
     }
 
-    public function isChunForResearch(): bool
+    public function hasAGuardian(): bool
     {
-        return $this->isChunIn() || $this->getDaedalus()->hasStatus(DaedalusStatusEnum::GHOST_CHUN);
+        return $this->getPlayers()->getPlayerAlive()->hasOneWithStatus(PlayerStatusEnum::GUARDIAN);
     }
 
     public function hasAlivePlayerWithSkill(SkillEnum $skill): bool

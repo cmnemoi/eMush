@@ -88,13 +88,13 @@
     <unit id="heal_no_injury">
       <segment id="description" state="translated">
         <source>heal_no_injury.description</source>
-        <target>No tienes heridas, pero eso se puede arreglar...</target>
+        <target>Esta acción requiere que estés recostado.</target>
       </segment>
     </unit>
     <unit id="dmz_core_peace">
       <segment id="description" state="translated">
         <source>dmz_core_peace.description</source>
-        <target>:neron: [ Traba DMZ-CorePeace ]...Ok.  ¿Qué te lleva a hacer algo tan terrible? Malo, malo, malo. ¡Detonador desactivado!</target>
+        <target>:neron: [ Trabs DMZ-CorePeace ]...Ok.  ¿Qué te lleva a hacer algo tan terrible? Malo, malo, malo. ¡Detonador desactivado!</target>
       </segment>
     </unit>
     <unit id="daedalus_traveling">
@@ -106,7 +106,7 @@
     <unit id="broken_equipment">
       <segment id="description" state="translated">
         <source>broken_equipment.description</source>
-        <target>No puedes realizar esta acción aquí, ya que el equipo requerido está roto.</target>
+        <target>No puede realizar esta acción aquí ya que el equipo requerido está roto.</target>
       </segment>
     </unit>
     <unit id="dirty_restriction">
@@ -184,25 +184,25 @@
     <unit id="flirt_already_flirted">
       <segment id="description" state="translated">
         <source>flirt_already_flirted.description</source>
-        <target>Tu relación con esta persona ya es lo suficientemente alta.</target>
+        <target>Ya estás bastante relacionada con esta persona.</target>
       </segment>
     </unit>
     <unit id="flirt_antisocial">
       <segment id="description" state="translated">
         <source>flirt_antisocial.description</source>
-        <target>No tienes interés por este tipo de interacción social...</target>
+        <target>No estás interesada en este tipo de interacción social...</target>
       </segment>
     </unit>
     <unit id="flirt_same_family">
       <segment id="description" state="translated">
         <source>flirt_same_family.description</source>
-        <target>Este flirteo es imposible.</target>
+        <target>Este flirt es imposible.</target>
       </segment>
     </unit>
     <unit id="daily_spore_limit">
       <segment id="description" state="translated">
         <source>daily_spore_limit.description</source>
-        <target>Los *Mush* en su conjunto no pueden producir más de **{quantity} esporas** por día.</target>
+        <target>Los *Mush* en su conjuto no pueden producir más de *$amount esporas* por día.</target>
       </segment>
     </unit>
     <unit id="personal_spore_limit">
@@ -232,7 +232,7 @@
     <unit id="infect_no_spore">
       <segment id="description" state="translated">
         <source>infect_no_spore.description</source>
-        <target>Debes extirpar esporas antes de poder picar a alguien.</target>
+        <target>Debes extirpas exporas antes de poder picar a alguien.</target>
       </segment>
     </unit>
     <unit id="infect_mush">
@@ -250,7 +250,7 @@
     <unit id="transfer_no_spore">
       <segment id="description" state="translated">
         <source>transfer_no_spore.description</source>
-        <target>Para usar esta competencia, la víctima debe haber sido infectada al menos una vez.</target>
+        <target>Para usar este competencia, la víctimadebe haber sido infectada al menos una vez.</target>
       </segment>
     </unit>
     <unit id="phagocyte_no_spore">
@@ -292,13 +292,13 @@
     <unit id="lonely_apprenticeship">
       <segment id="description" state="translated">
         <source>lonely_apprenticeship.description</source>
-        <target>Para realizar esta acción, necesitas otros miembros del equipo.</target>
+        <target>Para realizar esta acción, necesita otros miembros del equipo.</target>
       </segment>
     </unit>
     <unit id="list_already_printed">
       <segment id="description" state="translated">
         <source>list_already_printed.description</source>
-        <target>Ya has impreso estas informaciones.</target>
+        <target>Ya has perforado estas informaciones.</target>
       </segment>
     </unit>
     <unit id="list_no_mush">
@@ -346,7 +346,7 @@
     <unit id="consume_full_belly">
       <segment id="description" state="translated">
         <source>consume_full_belly.description</source>
-        <target>Tu estómago está lleno.</target>
+        <target>Estas saciado.</target>
       </segment>
     </unit>
     <unit id="reinforce_full_hull">
@@ -454,19 +454,19 @@
     <unit id="deal_not_coms_officer">
       <segment id="description" state="translated">
         <source>deal_not_coms_officer.description</source>
-        <target>¡Solo el **Oficial de Comunicaciones** puede realizar esta acción!</target>
+        <target>¡Solo el **Responsable de Comunicaciones** puede realizar esta acción!</target>
       </segment>
     </unit>
     <unit id="dismantle_reinforced">
       <segment id="description" state="translated">
         <source>dismantle_reinforced.description</source>
-        <target>Este equipo está **blindado**, es imposible desmontarlo...</target>
+        <target>Este equipo está **blindado**, imposible desmontarlo...</target>
       </segment>
     </unit>
     <unit id="sabotage_reinforced">
       <segment id="description" state="translated">
         <source>sabotage_reinforced.description</source>
-        <target>Este equipo ha sido **reforzado**, es imposible de sabotear...</target>
+        <target>Este equipo ha sido **reforzado**...</target>
       </segment>
     </unit>
     <unit id="bed_occupied">
@@ -484,7 +484,7 @@
     <unit id="already_in_bed">
       <segment id="description" state="translated">
         <source>already_in_bed.description</source>
-        <target>Ya estás usando una cama.</target>
+        <target>Ya estás recostado.</target>
       </segment>
     </unit>
     <unit id="reinforce_lack_ressources">
@@ -508,7 +508,7 @@
     <unit id="mush_remove_spore">
       <segment id="description" state="translated">
         <source>mush_remove_spore.description</source>
-        <target>Pax Fungi: El Mush no tolera acciones violentas directas contra sí mismo.</target>
+        <target>Pax Fungi: The Mush no tolera acciones violentas directas contra sí mismo.</target>
       </segment>
     </unit>
     <unit id="already_did_boring_speech">
@@ -526,19 +526,23 @@
     <unit id="symptoms_are_preventing_action">
       <segment id="description" state="translated">
         <source>symptoms_are_preventing_action.description</source>
-        <target>El estado de tu salud te impide realizar esta acción. Que terrible.</target>
+        <target>El estado de tu salud te impide realizar esta acción. Demasiado.</target>
       </segment>
     </unit>
     <unit id="gagged_prevent_spoken_action">
       <segment id="description" state="translated">
         <source>gagged_prevent_spoken_action.description</source>
-        <target>Es imposible pronunciar una sola palabra hasta que te deshagas de este maldito pedazo de cinta adhesiva.</target>
+        <target>{character_gender, select,
+            male {Es imposible decir nada hasta que no te libres de este maldito trozo de cinta americana.}
+            female {Es imposible decir nada hasta que no te libres de este maldito trozo de cinta americana.}
+            other {invalid gender input}
+            }</target>
       </segment>
     </unit>
     <unit id="screwed_talkie_already_pirated">
       <segment id="description" state="translated">
         <source>screwed_talkie_already_pirated.description</source>
-        <target>No se puede hackear más de un walkie-talkie a la vez.</target>
+        <target>No se puede hackear más de un talkie a la vez.</target>
       </segment>
     </unit>
     <unit id="screwed_talkie_no_talkie">
@@ -556,7 +560,7 @@
     <unit id="update_talkie_require_neron">
       <segment id="description" state="translated">
         <source>update_talkie_require_neron.description</source>
-        <target>Debes conectarte al núcleo de NERON para realizar esta actualización.</target>
+        <target>Debe conectarse al núcleo de NERON para realizar esta actualización.</target>
       </segment>
     </unit>
     <unit id="update_talkie_require_tracker">
@@ -568,11 +572,15 @@
     <unit id="immunized_remove_spore">
       <segment id="description" state="translated">
         <source>immunized_remove_spore.description</source>
-        <target>Eres inmune contra el Mush, ¿por qué querrías hacerte daño?</target>
+        <target>{character_gender, select,
+            male {Eres inmune contra Mush, ¿Por qué querrías hacerte daño?}
+            female {Eres inmune contra Mush, ¿Por qué querrías hacerte daño?}
+            other {invalid gender input}
+            }</target>
       </segment>
     </unit>
     <unit id="daedalus_already_full_hull.description">
-      <segment state="translated">
+      <segment state="final">
         <source>daedalus_already_full_hull.description</source>
         <target>El casco de la nave no necesita reparación.</target>
       </segment>
@@ -586,7 +594,7 @@
     <unit id="alpha_reactor_broken">
       <segment state="translated">
         <source>alpha_reactor_broken.description</source>
-        <target>El *Reactor Lateral Alpha* está averiado. Hay que repararlo si queremos orientar este intento de nave hacia esa dirección.</target>
+        <target>El *Reactor Lateral Alfa* está averiado. Hay que repararlo si queremos orientar este intento de nave hacia esa dirección.</target>
       </segment>
     </unit>
     <unit id="bravo_reactor_broken">
@@ -610,19 +618,19 @@
     <unit id="cannot_go_to_this_room">
       <segment state="translated">
         <source>cannot_go_to_this_room.description</source>
-        <target>No puedes entrar en esta sala.</target>
+        <target>No puedes entrar en esta habitación.</target>
       </segment>
     </unit>
     <unit id="exploration_already_ongoing">
-      <segment state="translated">
+      <segment state="initial">
         <source>exploration_already_ongoing.description</source>
-        <target>Ya hay una expedición sobre el terreno.</target>
+        <target>exploration_already_ongoing.description</target>
       </segment>
     </unit>
     <unit id="no_efficiency">
-      <segment state="translated">
+      <segment state="initial">
         <source>no_efficiency.description</source>
-        <target>Eres completamente ineficaz en este proyecto, participar de nuevo no significaría nada...</target>
+        <target>no_efficiency.description</target>
       </segment>
     </unit>
     <unit id="cycle_limit">
@@ -631,160 +639,46 @@
         <target>Esta acción solo se puede realizar una vez por ciclo. Estará disponible de nuevo el ciclo siguiente.</target>
       </segment>
     </unit>
-    <unit id="cycle_limit_every_2">
-      <segment id="description" state="initial">
-        <source>cycle_limit_every_2.description</source>
-        <target>cycle_limit_every_2.description</target>
-      </segment>
-    </unit>
-    <unit id="cycle_limit_every_4">
-      <segment id="description" state="initial">
-        <source>cycle_limit_every_4.description</source>
-        <target>cycle_limit_every_4.description</target>
-      </segment>
-    </unit>
     <unit id="no_working_door">
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>no_working_door.description</source>
-        <target>No hay puertas funcionales en esta sala.</target>
+        <target>no_working_door.description</target>
       </segment>
     </unit>
     <unit id="premonition_insufficient_morale">
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>premonition_insufficient_morale.description</source>
-        <target>Tu moral ya está lo suficientemente arruinada, no necesitas esto ahora...</target>
+        <target>premonition_insufficient_morale.description</target>
       </segment>
     </unit>
     <unit id="already_a_ceasefire_in_room">
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>already_a_ceasefire_in_room.description</source>
-        <target>En esta sala ya se ha puesto en marcha un cese al fuego.</target>
+        <target>already_a_ceasefire_in_room.description</target>
       </segment>
     </unit>
     <unit id="cannot_go_to_this_room_because_guardian">
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>cannot_go_to_this_room_because_guardian.description</source>
-        <target>No puedes entrar a esta habitación porque hay un guardia en la habitación.</target>
+        <target>cannot_go_to_this_room_because_guardian.description</target>
       </segment>
     </unit>
     <unit id="cat_already_converted">
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>cat_already_converted.description</source>
-        <target>Este animal ya se ha unido a tu causa... a pesar de que no haya mejorado su temperamento.</target>
+        <target>cat_already_converted.description</target>
       </segment>
     </unit>
     <unit id="infect_cat_no_spore">
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>infect_cat_no_spore.description</source>
-        <target>Es una buena idea... Pero tendrás que extirparte una espora antes de poder infectarlo.</target>
+        <target>infect_cat_no_spore.description</target>
       </segment>
     </unit>
     <unit id="player_is_germaphobic">
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>player_is_germaphobic.description</source>
-        <target>La idea de acercarte aún más a este nido de gérmenes te enferma... ¿Quién sabe dónde pudo haber estado?</target>
-      </segment>
-    </unit>
-    <unit id="eden_not_computed">
-      <segment id="description" state="translated">
-        <source>eden_not_computed.description</source>
-        <target>Las coordenadas del Edén aún no han sido calculadas.</target>
-      </segment>
-    </unit>
-    <unit id="link_with_sol_not_established">
-      <segment id="description" state="initial">
-        <source>link_with_sol_not_established.description</source>
-        <target>link_with_sol_not_established.description</target>
-      </segment>
-    </unit>
-    <unit id="max_neron_version_reached">
-      <segment id="description" state="initial">
-        <source>max_neron_version_reached.description</source>
-        <target>max_neron_version_reached.description</target>
-      </segment>
-    </unit>
-    <unit id="dog_is_seasick">
-      <segment id="description" state="initial">
-        <source>dog_is_seasick.description</source>
-        <target>dog_is_seasick.description</target>
-      </segment>
-    </unit>
-    <unit id="dog_is_worried">
-      <segment id="description" state="initial">
-        <source>dog_is_worried.description</source>
-        <target>dog_is_worried.description</target>
-      </segment>
-    </unit>
-    <unit id="bothering_cat">
-      <segment id="description" state="initial">
-        <source>bothering_cat.description</source>
-        <target>bothering_cat.description</target>
-      </segment>
-    </unit>
-    <unit id="distracted_by_food">
-      <segment id="description" state="initial">
-        <source>distracted_by_food.description</source>
-        <target>distracted_by_food.description</target>
-      </segment>
-    </unit>
-    <unit id="distracted_by_plant">
-      <segment id="description" state="initial">
-        <source>distracted_by_plant.description</source>
-        <target>distracted_by_plant.description</target>
-      </segment>
-    </unit>
-    <unit id="distracted_by_broken_fuel_tank">
-      <segment id="description" state="initial">
-        <source>distracted_by_broken_fuel_tank.description</source>
-        <target>distracted_by_broken_fuel_tank.description</target>
-      </segment>
-    </unit>
-    <unit id="need_a_ball">
-      <segment id="description" state="initial">
-        <source>need_a_ball.description</source>
-        <target>need_a_ball.description</target>
-      </segment>
-    </unit>
-    <unit id="hands_full">
-      <segment id="description" state="initial">
-        <source>hands_full.description</source>
-        <target>hands_full.description</target>
-      </segment>
-    </unit>
-    <unit id="room_too_messy">
-      <segment id="description" state="initial">
-        <source>room_too_messy.description</source>
-        <target>room_too_messy.description</target>
-      </segment>
-    </unit>
-    <unit id="room_too_small">
-      <segment id="description" state="initial">
-        <source>room_too_small.description</source>
-        <target>room_too_small.description</target>
-      </segment>
-    </unit>
-    <unit id="room_too_tight">
-      <segment id="description" state="initial">
-        <source>room_too_tight.description</source>
-        <target>room_too_tight.description</target>
-      </segment>
-    </unit>
-    <unit id="room_too_sad">
-      <segment id="description" state="initial">
-        <source>room_too_sad.description</source>
-        <target>room_too_sad.description</target>
-      </segment>
-    </unit>
-    <unit id="wants_walkies">
-      <segment id="description" state="initial">
-        <source>wants_walkies.description</source>
-        <target>wants_walkies.description</target>
-      </segment>
-    </unit>
-    <unit id="playtime_solo">
-      <segment id="description" state="initial">
-        <source>playtime_solo.description</source>
-        <target>playtime_solo.description</target>
+        <target>player_is_germaphobic.description</target>
       </segment>
     </unit>
   </file>

@@ -44,7 +44,7 @@ final class InstallCameraCest extends AbstractFunctionalTest
         $this->thenActionShouldCostZeroActionPoints($I);
     }
 
-    public function shouldCostOneTechnicianPointsForATechnician(FunctionalTester $I): void
+    public function shouldCostOneChefPointsForATechnician(FunctionalTester $I): void
     {
         $this->givenPlayerIsATechnician($I);
 

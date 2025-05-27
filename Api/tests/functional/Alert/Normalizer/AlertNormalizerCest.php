@@ -12,9 +12,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Hunter\Enum\HunterEnum;
-use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Hunter\Service\CreateHunterService;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
@@ -33,7 +30,6 @@ final class AlertNormalizerCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private CreateHunterService $createHunter;
 
     private Place $laboratory;
 
@@ -45,7 +41,6 @@ final class AlertNormalizerCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->createHunter = $I->grabService(CreateHunterService::class);
 
         $this->laboratory = $this->daedalus->getPlaceByName(RoomEnum::LABORATORY);
     }
@@ -103,22 +98,6 @@ final class AlertNormalizerCest extends AbstractFunctionalTest
             ],
             actual: $normalizedAlert,
         );
-    }
-
-    public function shouldNotCountTransportInHunterAlert(FunctionalTester $I): void
-    {
-        // given there is a transport and a hunter
-        $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
-        $this->createHunter->execute(HunterEnum::HUNTER, $this->daedalus->getId());
-        $this->daedalus->setHunterPoints(0);
-        $this->eventService->callEvent(new HunterPoolEvent($this->daedalus, [], new \DateTime()), HunterPoolEvent::UNPOOL_HUNTERS);
-
-        // when I normalize the hunter alert
-        $alert = $I->grabEntityFromRepository(Alert::class, ['name' => AlertEnum::HUNTER]);
-        $normalizedAlert = $this->alertNormalizer->normalize($alert);
-
-        // then the alert should not count the transport
-        $I->assertEquals('1 Hunter nous attaque !', $normalizedAlert['name']);
     }
 
     private function givenThereAre2PieceOfEquipmentInPlace(Place $place): array

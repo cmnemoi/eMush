@@ -7,23 +7,15 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Validator\Reach;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 final class Depress extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::DEPRESS;
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata): void
-    {
-        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
-    }
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {

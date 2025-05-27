@@ -7,10 +7,8 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Drug;
-use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
@@ -50,8 +48,12 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName('drug', GameConfigEnum::DEFAULT);
 
         foreach (GameDrugEnum::getAll() as $drugName) {
-            $drug = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName($drugName));
+            $drug = new ItemConfig();
             $drug
+                ->setEquipmentName($drugName)
+                ->setIsStackable(true)
+                ->setIsFireDestroyable(true)
+                ->setIsFireBreakable(false)
                 ->setMechanics([$drugMechanic])
                 ->setActionConfigs($actions)
                 ->buildName(GameConfigEnum::DEFAULT);
@@ -66,30 +68,13 @@ class DrugConfigFixtures extends Fixture implements DependentFixtureInterface
         $prozacTest
             ->setEquipmentName('prozac_test')
             ->setIsStackable(true)
-            ->setBreakableType(BreakableTypeEnum::DESTROY_ON_BREAK)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
             ->setMechanics([$drugMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::TEST);
         $manager->persist($prozacTest);
         $gameConfig->addEquipmentConfig($prozacTest);
-
-        $oneApDrugMechanic = new Drug();
-        $oneApDrugMechanic
-            ->setActionPoints([1 => 1])
-            ->addAction($consumeDrugAction)
-            ->buildName('plus_one_ap_drug', GameConfigEnum::DEFAULT);
-        $manager->persist($oneApDrugMechanic);
-
-        $oneApDrug = new ItemConfig();
-        $oneApDrug
-            ->setEquipmentName('plus_one_ap_drug')
-            ->setIsStackable(true)
-            ->setBreakableType(BreakableTypeEnum::DESTROY_ON_BREAK)
-            ->setMechanics([$oneApDrugMechanic])
-            ->setActionConfigs($actions)
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($oneApDrug);
-        $gameConfig->addEquipmentConfig($oneApDrug);
 
         $manager->flush();
     }

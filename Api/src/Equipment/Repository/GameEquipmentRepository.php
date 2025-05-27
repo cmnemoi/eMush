@@ -23,22 +23,6 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
         parent::__construct($registry, GameEquipment::class);
     }
 
-    public function delete(GameEquipment $gameEquipment): void
-    {
-        $this->getEntityManager()->remove($gameEquipment);
-        $this->getEntityManager()->flush();
-    }
-
-    public function findById(int $id): ?GameEquipment
-    {
-        return $this->find($id);
-    }
-
-    public function findByOwner(Player $player): array
-    {
-        return $this->findBy(['owner' => $player]);
-    }
-
     public function findByCriteria(GameEquipmentCriteria $criteria): array
     {
         $queryBuilder = $this->createQueryBuilder('equipment');
@@ -57,18 +41,11 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
             )
             ->setParameter('daedalus', $criteria->getDaedalus());
 
-        if ($criteria->getBreakableType() !== null) {
+        if ($criteria->isBreakable() !== null) {
             $queryBuilder
                 ->leftJoin(EquipmentConfig::class, 'equipment_config', Join::WITH, 'equipment.equipment = equipment_config')
-                ->andWhere($queryBuilder->expr()->eq('equipment_config.breakableType', ':breakableType'))
-                ->setParameter('breakableType', $criteria->getBreakableType());
-        }
-
-        if ($criteria->isPersonal() !== null) {
-            $queryBuilder
-                ->leftJoin(EquipmentConfig::class, 'equipment_config', Join::WITH, 'equipment.equipment = equipment_config')
-                ->andWhere($queryBuilder->expr()->eq('equipment_config.isPersonal', ':isPersonal'))
-                ->setParameter('isPersonal', $criteria->isPersonal());
+                ->andWhere($queryBuilder->expr()->eq('equipment_config.isBreakable', ':isBreakable'))
+                ->setParameter('isBreakable', $criteria->isBreakable());
         }
 
         if (($instanceOfs = $criteria->getInstanceOf()) !== null) {
@@ -152,40 +129,9 @@ class GameEquipmentRepository extends ServiceEntityRepository implements GameEqu
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function findEquipmentByNameAndPlace(string $name, Place $place, int $limit): array
-    {
-        $queryBuilder = $this->createQueryBuilder('equipment');
-
-        $queryBuilder
-            ->leftJoin(Place::class, 'equipment_place', Join::WITH, 'equipment.place = equipment_place')
-            ->where('equipment_place = :place')
-            ->andWhere('equipment.name = :name')
-            ->setParameter('place', $place)
-            ->setParameter('name', $name)
-            ->setMaxResults($limit);
-
-        return $queryBuilder->getQuery()->getResult();
-    }
-
-    public function findEquipmentByNameAndPlayer(string $name, Player $player, int $limit): array
-    {
-        $queryBuilder = $this->createQueryBuilder('equipment');
-
-        $queryBuilder
-            ->innerJoin(GameItem::class, 'item', Join::WITH, 'item = equipment')
-            ->innerJoin(Player::class, 'item_player', Join::WITH, 'item.player = item_player')
-            ->where('item_player = :player')
-            ->andWhere('item.name = :name')
-            ->setParameter('player', $player)
-            ->setParameter('name', $name)
-            ->setMaxResults($limit);
-
-        return $queryBuilder->getQuery()->getResult();
-    }
-
     public function save(GameEquipment $gameEquipment): void
     {
-        $this->getEntityManager()->persist($gameEquipment);
-        $this->getEntityManager()->flush();
+        $this->_em->persist($gameEquipment);
+        $this->_em->flush();
     }
 }

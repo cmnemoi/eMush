@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -17,7 +18,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
 {
     // A player variable event cannot change sign through modifiers, so we need to use a tiny negative value to make
     // cat owner lose morale
-    public const float GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH = -PHP_FLOAT_EPSILON;
+    public const float GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH = -0.1;
 
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
@@ -49,7 +50,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         $equipment = $event->getGameEquipment();
         $equipmentPlace = $event->getPlace();
 
-        if ($equipment->isAMonoplaceShip()) {
+        if ($equipment->hasMechanicByName(EquipmentEnum::PATROL_SHIP)) {
             foreach ($equipmentPlace->getPlayers() as $player) {
                 $this->ejectPlayer($player, $event->getTags(), $event->getTime());
             }

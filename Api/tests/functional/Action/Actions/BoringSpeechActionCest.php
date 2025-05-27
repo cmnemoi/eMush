@@ -6,8 +6,8 @@ use Mush\Action\Actions\BoringSpeech;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
@@ -20,8 +20,6 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
@@ -29,28 +27,18 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-/**
- * @internal
- */
-final class BoringSpeechActionCest extends AbstractFunctionalTest
+class BoringSpeechActionCest
 {
-    private ActionConfig $boringSpeechActionConfig;
     private BoringSpeech $boringSpeechAction;
     private ChooseSkillUseCase $chooseSkillUseCase;
-    private PlayerServiceInterface $playerService;
 
     public function _before(FunctionalTester $I)
     {
-        parent::_before($I);
-
-        $this->boringSpeechActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::BORING_SPEECH]);
         $this->boringSpeechAction = $I->grabService(BoringSpeech::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
-        $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
     public function testBoringSpeech(FunctionalTester $I)
@@ -135,44 +123,5 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
         ]);
 
         $I->assertEquals($this->boringSpeechAction->cannotExecuteReason(), ActionImpossibleCauseEnum::ALREADY_DID_BORING_SPEECH);
-    }
-
-    public function shouldNotGiveMovementPointToDeadPlayer(FunctionalTester $I): void
-    {
-        $this->givenChunIsMotivator($I);
-
-        $this->givenKuanTiHasMovementPoints(10);
-
-        $this->givenKuanTiIsDead();
-
-        $this->whenChunGivesBoringSpeech();
-
-        $this->thenKuanTiShouldHaveMovementPoints(10, $I);
-    }
-
-    private function givenChunIsMotivator(FunctionalTester $I): void
-    {
-        $this->addSkillToPlayer(SkillEnum::MOTIVATOR, $I);
-    }
-
-    private function givenKuanTiHasMovementPoints(int $points): void
-    {
-        $this->kuanTi->setMovementPoint($points);
-    }
-
-    private function givenKuanTiIsDead(): void
-    {
-        $this->playerService->killPlayer(player: $this->kuanTi, endReason: EndCauseEnum::ABANDONED);
-    }
-
-    private function whenChunGivesBoringSpeech(): void
-    {
-        $this->boringSpeechAction->loadParameters($this->boringSpeechActionConfig, $this->chun, $this->chun);
-        $this->boringSpeechAction->execute();
-    }
-
-    private function thenKuanTiShouldHaveMovementPoints(int $expectedPoints, FunctionalTester $I): void
-    {
-        $I->assertEquals($expectedPoints, $this->kuanTi->getMovementPoint());
     }
 }

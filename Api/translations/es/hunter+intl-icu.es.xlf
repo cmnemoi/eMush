@@ -2,9 +2,9 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="misc.ext">
     <unit id="asteroid">
-      <segment id="asteroid_name" state="translated">
+      <segment id="asteroid_name" state="initial">
         <source>asteroid.name</source>
-        <target>Asteroide</target>
+        <target>asteroid.name</target>
       </segment>
       <segment id="asteroid_description" state="initial">
         <source>asteroid.description</source>
@@ -12,9 +12,9 @@
       </segment>
     </unit>
     <unit id="dice">
-      <segment id="dice_name" state="translated">
+      <segment id="dice_name" state="initial">
         <source>dice.name</source>
-        <target>D1000</target>
+        <target>dice.name</target>
       </segment>
       <segment id="dice_description" state="initial">
         <source>dice.description</source>
@@ -22,9 +22,9 @@
       </segment>
     </unit>
     <unit id="hunter">
-      <segment id="hunter_name" state="translated">
+      <segment id="hunter_name" state="initial">
         <source>hunter.name</source>
-        <target>Hunter</target>
+        <target>hunter.name</target>
       </segment>
       <segment id="hunter_description" state="initial">
         <source>hunter.description</source>
@@ -32,9 +32,9 @@
       </segment>
     </unit>
     <unit id="spider">
-      <segment id="spider_name" state="translated">
+      <segment id="spider_name" state="initial">
         <source>spider.name</source>
-        <target>Arack</target>
+        <target>spider.name</target>
       </segment>
       <segment id="spider_description" state="initial">
         <source>spider.description</source>
@@ -42,23 +42,13 @@
       </segment>
     </unit>
     <unit id="trax">
-      <segment id="trax_name" state="translated">
+      <segment id="trax_name" state="initial">
         <source>trax.name</source>
-        <target>Trax</target>
+        <target>trax.name</target>
       </segment>
       <segment id="trax_description" state="initial">
         <source>trax.description</source>
         <target>trax.description</target>
-      </segment>
-    </unit>
-    <unit id="transport">
-      <segment id="transport_name" state="initial">
-        <source>transport.name</source>
-        <target>transport.name</target>
-      </segment>
-      <segment id="transport_description" state="initial">
-        <source>transport.description</source>
-        <target>transport.description</target>
       </segment>
     </unit>
   </file>

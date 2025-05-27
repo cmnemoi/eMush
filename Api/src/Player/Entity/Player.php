@@ -16,7 +16,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Chat\Entity\Message;
+use Mush\Communication\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
@@ -28,7 +28,7 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
@@ -55,7 +55,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Project\Entity\Project;
-use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -68,8 +67,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
-use Mush\Status\Entity\VisibleStatusHolderInterface;
-use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
@@ -79,7 +76,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
+class Player implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;
@@ -122,6 +119,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private PlayerVariables $playerVariables;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $triumph = 0;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: Planet::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $planets;
@@ -249,16 +249,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this;
     }
 
-    public function isIn(string $placeName): bool
-    {
-        return $this->getPlace()->getName() === $placeName;
-    }
-
-    public function isInAny(array $placeNames): bool
-    {
-        return \in_array($this->getPlace()->getName(), $placeNames, true);
-    }
-
     public function isNotIn(string $placeName): bool
     {
         return $this->getPlace()->getName() !== $placeName;
@@ -267,11 +257,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function isNotInAny(array $placeNames): bool
     {
         return \in_array($this->getPlace()->getName(), $placeNames, true) === false;
-    }
-
-    public function getPreviousRoom(): ?Place
-    {
-        return $this->getStatusByName(PlayerStatusEnum::PREVIOUS_ROOM)?->getPlaceTargetOrThrow();
     }
 
     /**
@@ -312,20 +297,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function canReachEquipmentByName(string $gameEquipmentName): bool
     {
         return $this->hasEquipmentByName($gameEquipmentName) || $this->getPlace()->hasEquipmentByName($gameEquipmentName);
-    }
-
-    public function canReachFood(): bool
-    {
-        $playerFood = $this->items->filter(static fn (GameItem $item) => $item->isARation());
-        $placeFood = $this->getPlace()->getEquipments()->filter(static fn (GameEquipment $equipment) => $equipment->isARation());
-
-        return $playerFood->count() > 0 || $placeFood->count() > 0;
-    }
-
-    public function hasSampleAvailable(): bool
-    {
-        return $this->getDaedalus()->getStatusByName(DaedalusStatusEnum::GHOST_SAMPLE)
-        || $this->canReachEquipmentByName(ItemEnum::MUSH_SAMPLE);
     }
 
     public function getEquipments(): Collection
@@ -377,23 +348,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function doesNotHaveEquipment(string $name): bool
     {
         return $this->getEquipments()->filter(static fn (GameItem $gameItem) => $gameItem->getName() === $name)->isEmpty();
-    }
-
-    public function hasAnyOperationalEquipment(array $names): bool
-    {
-        $operationalEquipments = $this->getEquipments()
-            ->filter(static fn (GameItem $gameItem) => $gameItem->isOperational())
-            ->map(static fn (GameItem $gameItem) => $gameItem->getName())
-            ->toArray();
-
-        $matchingEquipments = array_intersect($names, $operationalEquipments);
-
-        return empty($matchingEquipments) === false;
-    }
-
-    public function doesNotHaveAnyOperationalEquipment(array $names): bool
-    {
-        return $this->hasAnyOperationalEquipment($names) === false;
     }
 
     public function getEquipmentByName(string $name): ?GameEquipment
@@ -454,13 +408,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $disease->isEmpty() ? null : $disease->first();
     }
 
-    public function getMedicalConditionByNameOrThrow(string $diseaseName): PlayerDisease
-    {
-        $disease = $this->getMedicalConditionByName($diseaseName);
-
-        return $disease ?? throw new \RuntimeException('The player does not have the disease ' . $diseaseName);
-    }
-
     public function getActiveDisorders(): PlayerDiseaseCollection
     {
         return $this->getMedicalConditions()->getActiveDiseases()->getByDiseaseType(MedicalConditionTypeEnum::DISORDER);
@@ -491,13 +438,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function addMedicalCondition(PlayerDisease $playerDisease): static
     {
         $this->medicalConditions->add($playerDisease);
-
-        return $this;
-    }
-
-    public function removeMedicalCondition(PlayerDisease $playerDisease): static
-    {
-        $this->medicalConditions->removeElement($playerDisease);
 
         return $this;
     }
@@ -555,7 +495,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this;
     }
 
-    public function hasFlirtedWith(self $playerTarget): bool
+    public function HasFlirtedWith(self $playerTarget): bool
     {
         return $this->getFlirts()->exists(static fn (int $id, Player $player) => $player === $playerTarget);
     }
@@ -591,10 +531,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function getMushAndHumanSkills(): SkillCollection
     {
-        $mushSkills = $this->getMushSkills()->getSortedBy('createdAt');
-        $humanSkills = $this->getHumanSkills()->getSortedBy('createdAt');
-
-        return $mushSkills->addSkills($humanSkills);
+        return $this->getMushSkills()->addSkills($this->getHumanSkills());
     }
 
     public function getSkillsWithPoints(): SkillCollection
@@ -611,19 +548,16 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function hasSkill(SkillEnum $skillName): bool
     {
-        return $this->hasStandaloneSkill($skillName) || $this->hasSkillThroughPolyvalent($skillName);
+        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
     /** @param array<SkillEnum> $expectedSkills */
     public function hasAnySkill(array $expectedSkills): bool
     {
-        foreach ($expectedSkills as $skill) {
-            if ($this->hasSkill($skill)) {
-                return true;
-            }
-        }
+        $expectedSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $expectedSkills);
+        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getNameAsString())->toArray();
 
-        return false;
+        return \count(array_intersect($playerSkills, $expectedSkills)) > 0;
     }
 
     public function doesNotHaveSkill(SkillEnum $skillName): bool
@@ -759,19 +693,19 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function getTriumph(): int
     {
-        return $this->playerVariables->getValueByName(PlayerVariableEnum::TRIUMPH);
+        return $this->triumph;
     }
 
     public function setTriumph(int $triumph): static
     {
-        $this->playerVariables->setValueByName($triumph, PlayerVariableEnum::TRIUMPH);
+        $this->triumph = $triumph;
 
         return $this;
     }
 
     public function addTriumph(int $triumph): static
     {
-        $this->playerVariables->changeValueByName($triumph, PlayerVariableEnum::TRIUMPH);
+        $this->triumph += $triumph;
 
         return $this;
     }
@@ -919,16 +853,16 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return \in_array($title, $this->getTitles(), true);
     }
 
-    public function doesNotHaveTitle(string $title): bool
-    {
-        return $this->hasTitle($title) === false;
-    }
-
     public function removeAllTitles(): static
     {
         $this->titles = [];
 
         return $this;
+    }
+
+    public function doesNotHaveTitle(string $title): bool
+    {
+        return $this->hasTitle($title) === false;
     }
 
     public function getExplorationOrThrow(): Exploration
@@ -957,7 +891,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->exploration !== null || $this->hasStatus(PlayerStatusEnum::LOST);
     }
 
-    /** @return Collection<int, Message> */
     public function getFavoriteMessages(): Collection
     {
         return $this->favoriteMessages;
@@ -971,7 +904,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function getEfficiencyForProject(Project $project): PlayerEfficiency
     {
         $max = $this->getMaxEfficiencyForProject($project);
-        $min = $this->daedalus->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND) && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
+        $min = $this->daedalus->hasAliveNeronOnlyFriend() && $project->isNeronProject() ? $max : $this->getMinEfficiencyForProject($project);
 
         return new PlayerEfficiency($min, $max);
     }
@@ -1052,15 +985,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         }
 
         // then actions provided by skills
-        $providedSkillActions = [];
-
         /** @var Skill $skill */
         foreach ($this->getSkills() as $skill) {
-            $providedSkillActions = array_merge($providedSkillActions, $skill->getProvidedActions($actionTarget, $actionRanges)->toArray());
+            $actions = array_merge($actions, $skill->getProvidedActions($actionTarget, $actionRanges)->toArray());
+            $actions = $this->removeDuplicateActions($actions);
         }
-        $providedSkillActions = $this->removeDuplicateActions($providedSkillActions);
-
-        $actions = array_merge($actions, $providedSkillActions);
 
         return new ArrayCollection($actions);
     }
@@ -1079,7 +1008,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function isNull(): bool
     {
-        return $this->getName() === CharacterEnum::NULL;
+        return $this->getName() === CharacterEnum::null;
     }
 
     public function isDead(): bool
@@ -1216,7 +1145,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function canReadPlantProperties(GameEquipment $plant): bool
     {
-        return $plant->isAPlant() && $this->hasSkill(SkillEnum::BOTANIST);
+        return $plant->isAPlant() && $this->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]);
     }
 
     public function shouldBeHurtByShower(): bool
@@ -1241,6 +1170,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->getMushSkills()->count() === $this->daedalus->getDaedalusConfig()->getMushSkillSlots();
     }
 
+    public function cannotLearnSkill(SkillEnum $skill): bool
+    {
+        return $this->hasSkill($skill) || ($this->hasSkill(SkillEnum::POLYVALENT) && $skill->isPolyvalentSkill());
+    }
+
     public function addReceivedMission(CommanderMission $mission): static
     {
         $this->receivedMissions->add($mission);
@@ -1263,13 +1197,8 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE)
             || $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE)
             || $this->hasStatus(PlayerStatusEnum::BRAINSYNC)
-            || $this->getPlace()->getName() === RoomEnum::BRIDGE
+            || $this->getPlace()->hasOperationalEquipmentByName(EquipmentEnum::COMMUNICATION_CENTER)
             || $this->hasTitle(TitleEnum::COM_MANAGER);
-    }
-
-    public function hasATalkie(): bool
-    {
-        return $this->hasAnyOperationalEquipment([ItemEnum::WALKIE_TALKIE, ItemEnum::ITRACKIE]);
     }
 
     public function getOldPlaceOrThrow(): Place
@@ -1306,11 +1235,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->getPlace()->getAlivePlayersExcept($this)->hasPlayerWithStatus(PlayerStatusEnum::GUARDIAN) === false;
     }
 
-    public function canAccessMushChannel(): bool
-    {
-        return $this->isMush() || $this->hasPheromodemConnectedTracker();
-    }
-
     public function shouldNotCatchDisease(DiseaseConfig $diseaseConfig, D100RollServiceInterface $d100Roll): bool
     {
         $hygienistResistsDisease = $diseaseConfig->isPhysicalDisease() && $this->hasSkill(SkillEnum::HYGIENIST) && $d100Roll->isSuccessful($this->hygienistBonus());
@@ -1319,80 +1243,30 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $hygienistResistsDisease || $mushResistsDisease;
     }
 
-    public function isMute(): bool
-    {
-        return $this->hasModifierByModifierName(ModifierNameEnum::MUTE_PREVENT_MESSAGES_MODIFIER);
-    }
-
-    public function shouldBeAnonymous($tags): bool
-    {
-        return \in_array(ActionEnum::HIT->value, $tags, true) && $this->hasSkill(SkillEnum::NINJA);
-    }
-
-    public function canTradePlayer(self $player): bool
-    {
-        // If player is dead, they cannot be traded
-        if ($player->isDead()) {
-            return false;
-        }
-
-        // Player is always tradable if highly inactive
-        if ($player->hasStatus(PlayerStatusEnum::HIGHLY_INACTIVE)) {
-            return true;
-        }
-
-        // Player must be in a storage to be tradable
-        if ($player->isNotInAny(RoomEnum::getStorages())) {
-            return false;
-        }
-
-        // Player in storage is tradable if trader is Mush or player is inactive
-        return $this->isMush() || $player->isInactive();
-    }
-
-    private function hasPheromodemConnectedTracker(): bool
-    {
-        $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);
-        $pheromodemIsFinished = $this->daedalus->getProjectByName(ProjectName::PHEROMODEM)->isFinished();
-
-        return $hasTracker && $pheromodemIsFinished;
-    }
-
-    private function getScalableEfficiencyForProject(Project $project): int
-    {
-        $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
-        $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
-
-        return $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
-    }
-
     private function getMinEfficiencyForProject(Project $project): int
     {
         if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
             return 100;
         }
 
-        $efficiency = $this->getScalableEfficiencyForProject($project);
+        $efficiency = $this->getEfficiencyWithBonusSkills($project->getEfficiency(), $project);
+        $efficiency = $this->getEfficiencyWithParticipationMalus($efficiency, $project);
 
-        return $this->getEfficiencyWithExternalItems($efficiency, $project);
+        return $this->getEfficiencyWithCpuPriorityBonus($efficiency, $project);
     }
 
     private function getMaxEfficiencyForProject(Project $project): int
     {
-        if ($this->hasStatus(PlayerStatusEnum::GENIUS_IDEA) && $project->isNotPilgred()) {
-            return 100;
-        }
-
-        $efficiency = $this->getScalableEfficiencyForProject($project);
-        $efficiency = (int) ($efficiency + $efficiency / 2);
-        $efficiency = $this->getEfficiencyWithExternalItems($efficiency, $project);
+        $efficiency = (int) ($this->getMinEfficiencyForProject($project) + $this->getMinEfficiencyForProject($project) / 2);
 
         return min($efficiency, 100);
     }
 
     private function getEfficiencyWithBonusSkills(int $efficiency, Project $project): int
     {
-        $numberOfSkillsMatching = $this->getNumberOfMatchingSkills($project->getBonusSkills());
+        $playerSkills = $this->getSkills()->map(static fn (Skill $skill) => $skill->getName()->toString())->toArray();
+        $bonusSkills = array_map(static fn (SkillEnum $skill) => $skill->toString(), $project->getBonusSkills());
+        $numberOfSkillsMatching = \count(array_intersect($playerSkills, $bonusSkills));
 
         return $efficiency + $numberOfSkillsMatching * Project::SKILL_BONUS;
     }
@@ -1408,18 +1282,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     {
         if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::PROJECTS) && $project->isNeronProject()) {
             return $efficiency + Project::CPU_PRIORITY_BONUS;
-        }
-        if ($this->daedalus->isCpuPriorityOn(NeronCpuPriorityEnum::RESEARCH) && $project->isResearchProject()) {
-            return $efficiency + Project::CPU_PRIORITY_BONUS;
-        }
-
-        return $efficiency;
-    }
-
-    private function getEfficiencyWithExternalItems(int $efficiency, Project $project): int
-    {
-        if ($project->isResearchProject() && $this->daedalus->getPlaceByNameOrThrow(RoomEnum::NEXUS)->hasEquipmentByName(GearItemEnum::PRINTED_CIRCUIT_JELLY)) {
-            return $efficiency + Project::PRINTED_CIRCUIT_JELLY;
         }
 
         return $efficiency;
@@ -1439,27 +1301,24 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     private function canReadRationProperties(GameEquipment $food): bool
     {
-        $isChefReadingNonDrug = $this->hasSkill(SkillEnum::CHEF) && !$food->isADrug();
-
-        return $food->isARation() && ($this->isMush() || $isChefReadingNonDrug);
+        return $food->isARation() && ($this->isMush() || $this->hasSkill(SkillEnum::CHEF));
     }
 
     private function canReadFruitProperties(GameEquipment $food): bool
     {
-        return $food->isAFruit() && $this->hasSkill(SkillEnum::BOTANIST);
+        return $food->isAFruit() && $this->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]);
     }
 
     private function canReadDrugProperties(GameEquipment $food): bool
     {
-        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::BIOLOGIST, SkillEnum::MEDIC]);
+        return $food->isADrug() && $this->hasAnySkill([SkillEnum::NURSE, SkillEnum::POLYVALENT, SkillEnum::BIOLOGIST, SkillEnum::MEDIC]);
     }
 
     private function removeDuplicateActions(array $actions): array
     {
         for ($key = 1; $key < \count($actions); ++$key) {
             $action = $actions[$key];
-            $previousAction = $actions[$key - 1];
-            if ($action->equals($previousAction)) {
+            if ($action->getId() === $actions[$key - 1]->getId()) {
                 unset($actions[$key]);
             }
         }
@@ -1474,28 +1333,5 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
             ->getModifierByModifierNameOrThrow(ModifierNameEnum::HYGIENIST_DISEASE_MODIFIER)
             ->getVariableModifierConfigOrThrow()
             ->getDelta();
-    }
-
-    /** @param array<SkillEnum> $expectedSkills */
-    private function getNumberOfMatchingSkills(array $expectedSkills): int
-    {
-        $result = 0;
-        foreach ($expectedSkills as $skill) {
-            if ($this->hasSkill($skill)) {
-                ++$result;
-            }
-        }
-
-        return $result;
-    }
-
-    private function hasStandaloneSkill(SkillEnum $skillName): bool
-    {
-        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
-    }
-
-    private function hasSkillThroughPolyvalent(SkillEnum $skillName): bool
-    {
-        return $skillName->isPolyvalentSkill() && $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === SkillEnum::POLYVALENT);
     }
 }

@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Equipment\Normalizer;
 
-use Mush\Communications\Entity\RebelBase;
-use Mush\Communications\Entity\RebelBaseConfig;
-use Mush\Communications\Enum\RebelBaseEnum;
-use Mush\Communications\Repository\RebelBaseRepositoryInterface;
-use Mush\Communications\Service\DecodeRebelSignalService;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
@@ -27,8 +22,6 @@ final class FruitCest extends AbstractFunctionalTest
     private GameItem $banana;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private DecodeRebelSignalService $decodeRebelBase;
-    private RebelBaseRepositoryInterface $rebelBaseRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -37,8 +30,6 @@ final class FruitCest extends AbstractFunctionalTest
         $this->equipmentNormalizer = $I->grabService(EquipmentNormalizer::class);
         $this->equipmentNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
-        $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
 
         $this->banana = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GameFruitEnum::BANANA,
@@ -132,31 +123,6 @@ final class FruitCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotDisplaySiriusRebelBaseModifierOnBanana(FunctionalTester $I): void
-    {
-        $this->givenPlayerIsABotanist($I);
-        $this->givenSiriusRebelBaseIsDecoded($I);
-
-        $normalizedBanana = $this->equipmentNormalizer->normalize(
-            $this->banana,
-            format: null,
-            context: ['currentPlayer' => $this->player]
-        );
-
-        $I->assertEquals(
-            expected: [
-                'title' => 'Données sur les effets :',
-                'effects' => [
-                    '+ 1 :pa_cook:',
-                    '+ 1 :pa:',
-                    '+ 1 :hp:',
-                    '+ 1 :pmo:',
-                ],
-            ],
-            actual: $normalizedBanana['effects']
-        );
-    }
-
     private function givenPlayerIsAPolyvalent(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I);
@@ -170,17 +136,5 @@ final class FruitCest extends AbstractFunctionalTest
     private function givenPlayerIsFrugivore(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::FRUGIVORE, $I);
-    }
-
-    private function givenSiriusRebelBaseIsDecoded(FunctionalTester $I): void
-    {
-        $siriusConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => RebelBaseEnum::SIRIUS]);
-        $siriusRebelBase = new RebelBase(config: $siriusConfig, daedalusId: $this->daedalus->getId());
-        $this->rebelBaseRepository->save($siriusRebelBase);
-
-        $this->decodeRebelBase->execute(
-            rebelBase: $siriusRebelBase,
-            progress: 100,
-        );
     }
 }

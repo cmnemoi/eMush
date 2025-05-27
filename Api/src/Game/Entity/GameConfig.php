@@ -6,9 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Communications\Entity\RebelBaseConfig;
-use Mush\Communications\Entity\TradeConfig;
-use Mush\Communications\Entity\XylophConfig;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
@@ -81,15 +78,6 @@ class GameConfig
     #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
     private Collection $skillConfigs;
 
-    #[ORM\ManyToMany(targetEntity: RebelBaseConfig::class)]
-    private Collection $rebelBaseConfigs;
-
-    #[ORM\ManyToMany(targetEntity: XylophConfig::class)]
-    private Collection $xylophConfigs;
-
-    #[ORM\ManyToMany(targetEntity: TradeConfig::class)]
-    private Collection $tradeConfigs;
-
     #[ORM\Column(type: 'string', length: 255, unique: true, nullable: false)]
     private string $name;
 
@@ -107,9 +95,6 @@ class GameConfig
         $this->titleConfigs = new ArrayCollection();
         $this->projectConfigs = new ArrayCollection();
         $this->skillConfigs = new ArrayCollection();
-        $this->rebelBaseConfigs = new ArrayCollection();
-        $this->xylophConfigs = new ArrayCollection();
-        $this->tradeConfigs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -492,64 +477,5 @@ class GameConfig
     public function getMaxPlayer(): int
     {
         return $this->charactersConfig->count();
-    }
-
-    public function getRebelBaseConfigs(): Collection
-    {
-        return $this->rebelBaseConfigs;
-    }
-
-    public function addRebelBaseConfig(RebelBaseConfig $rebelBaseConfig): static
-    {
-        if ($this->rebelBaseConfigs->contains($rebelBaseConfig)) {
-            return $this;
-        }
-
-        $this->rebelBaseConfigs->add($rebelBaseConfig);
-
-        return $this;
-    }
-
-    public function getXylophConfigs(): Collection
-    {
-        return $this->xylophConfigs;
-    }
-
-    public function addXylophConfig(XylophConfig $xylophConfig): static
-    {
-        if ($this->xylophConfigs->contains($xylophConfig)) {
-            return $this;
-        }
-
-        $this->xylophConfigs->add($xylophConfig);
-
-        return $this;
-    }
-
-    public function getTradeConfigs(): Collection
-    {
-        return $this->tradeConfigs;
-    }
-
-    public function setTradeConfigs(array|ArrayCollection $tradeConfigs): static
-    {
-        if (\is_array($tradeConfigs)) {
-            $tradeConfigs = new ArrayCollection($tradeConfigs);
-        }
-
-        $this->tradeConfigs = $tradeConfigs;
-
-        return $this;
-    }
-
-    public function addTradeConfig(TradeConfig $tradeConfig): static
-    {
-        if ($this->tradeConfigs->contains($tradeConfig)) {
-            return $this;
-        }
-
-        $this->tradeConfigs->add($tradeConfig);
-
-        return $this;
     }
 }

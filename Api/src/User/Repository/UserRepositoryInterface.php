@@ -13,9 +13,5 @@ interface UserRepositoryInterface
      */
     public function findAll(): array;
 
-    public function findUserPastCyclesCount(User $user): int;
-
-    public function findUserNumberOfPastGames(User $user): int;
-
     public function save(User $user): void;
 }

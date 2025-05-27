@@ -27,7 +27,7 @@ final class HunterDeathEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
 
         // given no hunters or scrap at the beginning of the test
-        $I->assertEmpty($this->daedalus->getHuntersAroundDaedalus());
+        $I->assertEmpty($this->daedalus->getAttackingHunters());
         $I->assertEmpty($this->daedalus->getSpace()->getEquipments());
 
         // given 1 hunter is spawn
@@ -35,13 +35,13 @@ final class HunterDeathEventCest extends AbstractFunctionalTest
         $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
-        $this->hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $this->hunter = $this->daedalus->getAttackingHunters()->first();
     }
 
     public function testHunterDeathEventPrintsHunterDeathLog(FunctionalTester $I): void
     {
         // given 1 hunter is attacking
-        $I->assertCount(1, $this->daedalus->getHuntersAroundDaedalus());
+        $I->assertCount(1, $this->daedalus->getAttackingHunters());
 
         // when an event said this hunter is dead
         $hunterDeathEvent = new HunterEvent(
@@ -69,7 +69,7 @@ final class HunterDeathEventCest extends AbstractFunctionalTest
     public function testHunterDeathEventDropsScrapInSpace(FunctionalTester $I): void
     {
         // given 1 hunter is attacking
-        $I->assertCount(1, $this->daedalus->getHuntersAroundDaedalus());
+        $I->assertCount(1, $this->daedalus->getAttackingHunters());
 
         // when an event said this hunter is dead
         $hunterDeathEvent = new HunterEvent(

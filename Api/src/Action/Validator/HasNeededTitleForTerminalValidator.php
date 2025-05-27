@@ -14,6 +14,7 @@ class HasNeededTitleForTerminalValidator extends ConstraintValidator
 {
     private static array $terminalTitleMap = [
         EquipmentEnum::COMMAND_TERMINAL => TitleEnum::COMMANDER,
+        EquipmentEnum::COMMUNICATION_CENTER => TitleEnum::COM_MANAGER,
         EquipmentEnum::BIOS_TERMINAL => TitleEnum::NERON_MANAGER,
     ];
 

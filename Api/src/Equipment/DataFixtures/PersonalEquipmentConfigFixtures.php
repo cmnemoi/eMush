@@ -3,18 +3,19 @@
 namespace Mush\Equipment\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\DataFixtures\TechnicianFixtures;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Status\DataFixtures\ChargeStatusFixtures;
+use Mush\Status\Entity\Config\StatusConfig;
 
 class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -33,27 +34,50 @@ class PersonalEquipmentConfigFixtures extends Fixture implements DependentFixtur
         /** @var ActionConfig $dropAction */
         $dropAction = $this->getReference(ActionsFixtures::DEFAULT_DROP);
 
+        /** @var ActionConfig $updateTalkieAction */
+        $updateTalkieAction = $this->getReference(ActionsFixtures::UPDATING_TALKIE);
+
         /** @var ActionConfig $examineAction */
         $examineAction = $this->getReference(ActionsFixtures::EXAMINE_EQUIPMENT);
 
         /** @var ActionConfig $repair25 */
         $repair25 = $this->getReference(TechnicianFixtures::REPAIR_25);
 
-        $walkieTalkie = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::WALKIE_TALKIE));
+        /** @var StatusConfig $updatingStatus */
+        $updatingStatus = $this->getReference(ChargeStatusFixtures::UPDATING_TRACKIE_STATUS);
+
+        $walkieTalkie = new ItemConfig();
         $walkieTalkie
+            ->setEquipmentName(ItemEnum::WALKIE_TALKIE)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
+            // ->setActions(new ArrayCollection([$takeAction, $examineAction, $repair25, $dropAction, $updateTalkieAction]))
             ->setActionConfigs([$takeAction, $examineAction, $repair25, $dropAction])
+            ->setIsPersonal(true)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($walkieTalkie);
 
-        $iTrackie = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::ITRACKIE));
+        $iTrackie = new ItemConfig();
         $iTrackie
+            ->setEquipmentName(ItemEnum::ITRACKIE)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
             ->setActionConfigs([$takeAction, $examineAction, $repair25, $dropAction])
+            // ->setInitStatuses(new ArrayCollection([$updatingStatus]))
+            ->setIsPersonal(true)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($iTrackie);
 
-        $tracker = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::TRACKER));
+        $tracker = new ItemConfig();
         $tracker
+            ->setEquipmentName(ItemEnum::TRACKER)
+            ->setIsStackable(false)
+            ->setIsFireDestroyable(false)
+            ->setIsFireBreakable(true)
             ->setActionConfigs([$takeAction, $examineAction, $repair25, $dropAction])
+            ->setIsPersonal(true)
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($tracker);
 

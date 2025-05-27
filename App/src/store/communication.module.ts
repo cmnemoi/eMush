@@ -3,6 +3,7 @@ import { Channel } from "@/entities/Channel";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { ChannelType } from "@/enums/communication.enum";
 import { Message } from "@/entities/Message";
+import { RoomLog } from "@/entities/RoomLog";
 import { ContactablePlayer } from "@/entities/ContactablePlayer";
 
 const state =  {
@@ -107,7 +108,6 @@ const actions: ActionTree<any, any> = {
             }
 
             await dispatch('loadMessages', { channel: getters.currentChannel });
-            commit('setCurrentChannelNumberOfNewMessages', { channel: getters.currentChannel, numberOfNewMessages: getters.currentChannel.numberOfNewMessages });
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
@@ -125,7 +125,6 @@ const actions: ActionTree<any, any> = {
             commit('setChannels', sortedChannels);
             commit('setCurrentChannel', sortedChannels.find((channel: Channel) => channel.scope === ChannelType.PUBLIC));
             await dispatch('loadMessages', { channel: state.currentChannel });
-            commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages });
             commit('setLoadingOfChannels', false);
             return true;
         } catch (e) {
@@ -256,12 +255,14 @@ const actions: ActionTree<any, any> = {
     },
 
     async readMessage({ commit }, message) {
+        // @FIXME: if you reload the page by clicking on eMush logo, the number of new messages is not updated...
         await message.read();
         await CommunicationService.readMessage(message);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 });
     },
 
     async readRoomLog({ commit }, roomLog) {
+        // @FIXME: if you do an action, the number of new messages is not updated...
         await roomLog.read();
         await CommunicationService.readRoomLog(roomLog);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: state.currentChannel.numberOfNewMessages - 1 });
@@ -272,17 +273,13 @@ const actions: ActionTree<any, any> = {
             throw new Error('Current channel is not a room log');
         }
 
-        for (const roomLogObject of getters.messages) {
-            for (const roomLog of roomLogObject.roomLogs) {
-                roomLog.isUnread = false;
-            }
-        }
+        await getters.messages.forEach((roomLog: RoomLog) => { roomLog.isUnread = false; });
         await CommunicationService.markAllRoomLogsAsRead();
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });
     },
 
     async markCurrentChannelAsRead({ getters, commit }) {
-        await getters.messages.forEach((message: Message) => { message.readWithChildren(); });
+        await getters.messages.forEach((message: Message) => { message.read(); });
 
         await CommunicationService.markChannelAsRead(state.currentChannel);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });

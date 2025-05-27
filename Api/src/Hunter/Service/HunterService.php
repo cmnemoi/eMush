@@ -15,20 +15,15 @@ use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
-use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterEvent;
 use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Hunter\Event\HunterVariableEvent;
 use Mush\Hunter\Event\StrateguruWorkedEvent;
-use Mush\Hunter\Repository\HunterRepositoryInterface;
-use Mush\Hunter\Repository\HunterTargetRepositoryInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Player\Entity\Player;
@@ -44,28 +39,24 @@ use Mush\Status\Service\StatusService;
 final class HunterService implements HunterServiceInterface
 {
     public function __construct(
-        private D100RollServiceInterface $d100Roll,
-        private DeleteTransportService $deleteTransport,
         private EntityManagerInterface $entityManager,
         private EventServiceInterface $eventService,
         private GameEquipmentServiceInterface $gameEquipmentService,
-        private HunterRepositoryInterface $hunterRepository,
-        private HunterTargetRepositoryInterface $hunterTargetRepository,
         private RandomServiceInterface $randomService,
-        private StatusService $statusService
+        private StatusService $statusService,
     ) {}
 
     public function delete(array $entities): void
     {
         foreach ($entities as $entity) {
-            if ($entity instanceof Hunter) {
-                $this->removeTargetsInvolvingHunter($entity);
-            }
-
             $this->entityManager->remove($entity);
         }
-
         $this->entityManager->flush();
+    }
+
+    public function findById(int $id): ?Hunter
+    {
+        return $this->entityManager->getRepository(Hunter::class)->find($id);
     }
 
     public function killHunter(Hunter $hunter, array $reasons, ?Player $author = null): void
@@ -74,13 +65,9 @@ final class HunterService implements HunterServiceInterface
 
         $daedalus->getDaedalusInfo()->getClosedDaedalus()->incrementNumberOfHuntersKilled();
 
-        $daedalus->getHuntersAroundDaedalus()->removeElement($hunter);
+        $daedalus->getAttackingHunters()->removeElement($hunter);
 
-        if ($hunter->isTransport()) {
-            $this->deleteTransport->byId($hunter->getId());
-        } else {
-            $this->delete([$hunter]);
-        }
+        $this->delete([$hunter]);
 
         $hunterDeathEvent = new HunterEvent(
             $hunter,
@@ -96,11 +83,6 @@ final class HunterService implements HunterServiceInterface
     {
         /** @var Hunter $hunter */
         foreach ($attackingHunters as $hunter) {
-            // if hunter has no health, this means it's being deleted so it should not be shooting
-            if ($hunter->hasNoHealth()) {
-                continue;
-            }
-
             $numberOfActions = $hunter->getHunterConfig()->getNumberOfActionsPerCycle();
             for ($i = 0; $i < $numberOfActions; ++$i) {
                 if (!$hunter->hasSelectedATarget()) {
@@ -109,12 +91,10 @@ final class HunterService implements HunterServiceInterface
                     continue;
                 }
 
-                // Hunter may be in a truce cycle
                 if (!$hunter->canShoot()) {
                     continue;
                 }
 
-                // Raise the hit chance if the hunter is not successful
                 $successRate = $hunter->getHitChance();
                 if (!$this->randomService->isSuccessful($successRate)) {
                     $this->addBonusToHunterHitChance($hunter);
@@ -122,19 +102,16 @@ final class HunterService implements HunterServiceInterface
                     continue;
                 }
 
-                // If target is not in battle, hunter should not shoot
-                if (!$hunter->isTargetInBattle()) {
+                if (!$hunter->getTarget()?->isInBattle()) {
                     continue;
                 }
 
-                // Hunter finally shoots
                 $this->makeHunterShoot($hunter);
 
                 // hunter must select a new target after a successful shot
                 $hunter->resetTarget();
-                $this->hunterRepository->save($hunter);
 
-                // After a successful shot, reset hit chance to its default value
+                // after a successful shot, reset hit chance to its default value
                 $this->resetHunterHitChance($hunter);
 
                 // destroy asteroid if it has shot
@@ -166,7 +143,7 @@ final class HunterService implements HunterServiceInterface
 
     private function unpoolHuntersForRandomWave(Daedalus $daedalus, int $hunterPoints, \DateTime $time): void
     {
-        $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getHostiles());
+        $hunterProbaCollection = $this->getHunterProbaCollection($daedalus, HunterEnum::getAll());
 
         /** @var ArrayCollection<array-key, string> $hunterTypes */
         $hunterTypes = new ArrayCollection($hunterProbaCollection->getKeys());
@@ -284,7 +261,10 @@ final class HunterService implements HunterServiceInterface
     private function createHunterFromName(Daedalus $daedalus, string $hunterName): Hunter
     {
         $hunterConfig = $daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow($hunterName);
+
         $hunter = new Hunter($hunterConfig, $daedalus);
+        $hunter->setHunterVariables($hunterConfig);
+        $daedalus->addHunter($hunter);
 
         $this->persist([$hunter, $daedalus]);
 
@@ -315,7 +295,9 @@ final class HunterService implements HunterServiceInterface
             return null;
         }
 
-        $hunter = $this->randomService->getRandomElement($hunterPool->toArray());
+        $draw = $this->randomService->getRandomElements($hunterPool->toArray(), number: 1);
+        $hunter = reset($draw);
+
         $hunter->unpool();
 
         return $hunter;
@@ -390,11 +372,6 @@ final class HunterService implements HunterServiceInterface
 
                 break;
 
-            case $hunterTarget instanceof Hunter:
-                $this->shootAtHunter($hunter);
-
-                break;
-
             default:
                 throw new \Exception("Unknown hunter target {$hunter->getTarget()?->getType()}");
         }
@@ -408,46 +385,36 @@ final class HunterService implements HunterServiceInterface
 
     private function selectHunterTarget(Hunter $hunter): void
     {
-        // Aim at Daedalus by default
-        $hunter->aimAtDaedalus();
+        // by default, aim at Daedalus
+        $selectedTarget = new HunterTarget($hunter);
+        $hunter->setTarget($selectedTarget);
 
-        // Apply meridon scrambler
-        if ($hunter->isScrambled($this->d100Roll)) {
-            $this->selectRandomHunterAsTarget($hunter);
-
-            return;
-        }
-
-        $daedalus = $hunter->getDaedalus();
         $targetProbabilities = $hunter->getHunterConfig()->getTargetProbabilities();
-        $hunterTarget = $hunter->getTargetOrThrow();
 
-        // Try to aim at a transport
-        $transportsInBattle = $daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRANSPORT);
-        $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::TRANSPORT);
-        if (!$transportsInBattle->isEmpty() && $this->randomService->isSuccessful($successRate)) {
-            $transport = $this->randomService->getRandomElement($transportsInBattle->toArray());
-            $hunterTarget->setTargetEntity($transport);
+        // First, try to aim at one patrol ship in battle
+        $patrolShips = EquipmentEnum::getPatrolShips()
+            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $hunter->getDaedalus())->first())
+            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
+        $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
-            return;
+        if (!$patrolShipsInBattle->isEmpty()) {
+            $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PATROL_SHIP);
+            if ($this->randomService->isSuccessful($successRate)) {
+                $patrolShip = $this->randomService->getRandomElement($patrolShipsInBattle->toArray());
+                $selectedTarget->setTargetEntity($patrolShip);
+
+                return;
+            }
         }
 
-        // Try to aim at one patrol ship in battle
-        $patrolShipsInBattle = $this->patrolShipsInBattle($daedalus);
-        $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PATROL_SHIP);
-        if (!$patrolShipsInBattle->isEmpty() && $this->randomService->isSuccessful($successRate)) {
-            $patrolShip = $this->randomService->getRandomElement($patrolShipsInBattle->toArray());
-            $hunterTarget->setTargetEntity($patrolShip);
-
-            return;
-        }
-
-        // Try to aim at a player in battle
+        // If we fail to aim at a patrol ship, try to aim at a player in battle
         $playersInBattle = $hunter->getDaedalus()->getAlivePlayersInSpaceBattle();
-        $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PLAYER);
-        if (!$playersInBattle->isEmpty() && $this->randomService->isSuccessful($successRate)) {
-            $player = $this->randomService->getRandomElement($playersInBattle->toArray());
-            $hunterTarget->setTargetEntity($player);
+        if (!$playersInBattle->isEmpty()) {
+            $successRate = $targetProbabilities->getElementProbability(HunterTargetEnum::PLAYER);
+            if ($this->randomService->isSuccessful($successRate)) {
+                $player = $this->randomService->getRandomElement($playersInBattle->toArray());
+                $selectedTarget->setTargetEntity($player);
+            }
         }
     }
 
@@ -529,52 +496,5 @@ final class HunterService implements HunterServiceInterface
         );
 
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
-
-    private function shootAtHunter(Hunter $hunter): void
-    {
-        /** @var Hunter $targetHunter */
-        $targetHunter = $hunter->getTargetEntityOrThrow();
-
-        $hunterVariableEvent = new HunterVariableEvent(
-            hunter: $targetHunter,
-            variableName: HunterVariableEnum::HEALTH,
-            quantity: -$this->getHunterDamage($hunter),
-            tags: [HunterEvent::HUNTER_SHOT],
-            time: new \DateTime()
-        );
-        $this->eventService->callEvent($hunterVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
-    }
-
-    private function selectRandomHunterAsTarget(Hunter $hunter): void
-    {
-        $hunterTarget = $hunter->getTargetOrThrow();
-        $daedalus = $hunter->getDaedalus();
-
-        $attackingHunters = $daedalus->getHuntersAroundDaedalus()->getAllExcept($hunter);
-        if ($attackingHunters->isEmpty()) {
-            return;
-        }
-
-        $randomHunter = $this->randomService->getRandomElement($attackingHunters->toArray());
-        $hunterTarget->setTargetEntity($randomHunter);
-    }
-
-    private function patrolShipsInBattle(Daedalus $daedalus): ArrayCollection
-    {
-        return EquipmentEnum::getPatrolShips()
-            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $daedalus)->first())
-            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment && $patrolShip->isInSpaceBattle());
-    }
-
-    private function removeTargetsInvolvingHunter(Hunter $hunter): void
-    {
-        $hunterTargets = $this->hunterTargetRepository->findAllBy(['hunter' => $hunter]);
-
-        foreach ($hunterTargets as $hunterTarget) {
-            $owner = $this->hunterRepository->findOneByTargetOrThrow($hunterTarget);
-            $owner->resetTarget();
-            $this->hunterRepository->save($owner);
-        }
     }
 }

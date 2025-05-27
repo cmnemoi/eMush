@@ -777,11 +777,5 @@
         <target>someone.fullname</target>
       </segment>
     </unit>
-    <unit id="mush">
-      <segment id="name" state="initial">
-        <source>mush.name</source>
-        <target>mush.name</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

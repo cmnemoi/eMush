@@ -31,4 +31,3 @@ services:
   
   Mush\Daedalus\Repository\DaedalusRepositoryInterface: '@Mush\Daedalus\Repository\DaedalusRepository'
   Mush\Daedalus\Repository\NeronRepositoryInterface: '@Mush\Daedalus\Repository\NeronRepository'
-  Mush\Daedalus\Repository\ComManagerAnnouncementRepositoryInterface: '@Mush\Daedalus\Repository\ComManagerAnnouncementRepository'

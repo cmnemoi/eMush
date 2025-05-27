@@ -1128,7 +1128,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>antisocial.description</source>
-        <target>At the start of each cycle, if an antisocial person is in a room containing another crewmember, they'll lose a morale point.</target>
+        <target>At the start of each cycle, is the antisocial player is in a room containing another crewmember, they'll lose a morale point.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>antisocial.examine</source>
@@ -1212,7 +1212,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>disabled.description</source>
-        <target>The disabled crewmate gets 2 :pm: less during conversions of :pa:-:pm:. However, they consume one less :pm: when leaving a room in which a crew member is present.</target>
+        <target>The disabled crewmate gets 2 :pm: less during conversions of :pa:-:pm:. However, they can freely leave a room when a crew member is present.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>disabled.examine</source>
@@ -1422,7 +1422,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mush.description</source>
-        <target>You have joined the Mush. // :point: You do **not gain energy from eating**, but are **never hungry**. // :point: Your :pmo: morale is always **maxed out**. // :point: You can read **consumable properties**. // :point: You **cannot fall ill**.</target>
+        <target>You have joined the Mush.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>mush.examine</source>
@@ -1438,7 +1438,7 @@
         <source>pariah.description</source>
         <target>You have been judged by the others. A heavy burden weighs on your shoulders. They point at you, they spy on you, and they watch you closely. You are the whipping-boy. The victim.//Your **secret** actions become **covert**.//It is harder for you to do everything.</target>
       </segment>
-      <segment id="effect" state="translated">
+      <segment id="effect" state="final">
         <source>pariah.examine</source>
         <target>&lt;target/&gt;</target>
       </segment>
@@ -1504,7 +1504,7 @@
         <source>starving_warning.name</source>
         <target>Starving</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>starving_warning.description</source>
         <target>You are seriously **hungry**. You must find something to eat. Each cycle spent without eating will cost you 1 :hp:.</target>
       </segment>
@@ -1564,13 +1564,13 @@
         <source>pilot.name</source>
         <target>Pilot</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>pilot.description</source>
-        <target>An expert in maneuvering the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
+        <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
 //
-:point: **Doubled** hit chance of Patroller shots.
+:point: **Doubled** chance of Patroller hit.
 //
-:point: **Never fails** landings and take-offs.
+:point: **Never misses** landings and take-offs.
 //
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -1593,13 +1593,13 @@
         <source>technician.name</source>
         <target>Technician</target>
       </segment>
-      <segment id="technician.description" state="translated">
+      <segment id="technician.description" state="final">
         <source>technician.description</source>
         <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
 :point: +1 :pa_eng: per day (**Repair** Action Point).//
 :point: Can **Dismantle** objects.//
-:point: Odds of performing successful **Repairs** doubled.//
-:point: Odds of performing successful **Renovations** doubled.//
+:point: Chances to perform successful **Repairs** doubled.//
+:point: Chances to perform successful **Renovations** doubled.//
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
@@ -1663,40 +1663,6 @@
       <segment id="description" state="translated">
         <source>antique_perfume_immunized.description</source>
         <target>The immunized cannot be infected by mush. Practical when you're not sure who to trust...</target>
-      </segment>
-    </unit>
-    <unit id="beginner">
-      <segment id="name" state="translated">
-        <source>beginner.name</source>
-        <target>New Recruit</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>beginner.description</source>
-        <target>Freshly graduated from the Academy, this new recruit will need a guiding hand in learning the quirks and specifics of life aboard the Daedalus. In addition, thanks to strict hygiene standards at the Academy, it is less likely they would've had a chance to be contaminated by the Mush prior to boarding.</target>
-      </segment>
-    </unit>
-    <unit id="turbo_drone_upgrade">
-      <segment id="description" state="translated">
-        <source>turbo_drone_upgrade.description</source>
-        <target>Turbo: This drone has 80% chance of carrying out a second action in every cycle.</target>
-      </segment>
-    </unit>
-    <unit id="pilot_drone_upgrade">
-      <segment id="description" state="translated">
-        <source>pilot_drone_upgrade.description</source>
-        <target>Pilot: This drone tries to borrow a Patrol Ship and destroy all the Hunters before moving. Has a 20% target bonus compared to humans.</target>
-      </segment>
-    </unit>
-    <unit id="sensor_drone_upgrade">
-      <segment id="description" state="translated">
-        <source>sensor_drone_upgrade.description</source>
-        <target>Sensor: This drone intelligently moves towards the nearest fire, broken equipment or Patrol Ship instead of moving randomly.</target>
-      </segment>
-    </unit>
-    <unit id="firefighter_drone_upgrade">
-      <segment id="description" state="translated">
-        <source>firefighter_drone_upgrade.description</source>
-        <target>Firefighter: This drone tries to extinguish the fire in the room before moving. Is also immune to fire damage.</target>
       </segment>
     </unit>
   </file>

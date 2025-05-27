@@ -11,7 +11,6 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
@@ -47,56 +46,20 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
         $this->givenPlayerHasACoffee();
     }
 
-    public function caffeineJunkieShouldGainTwoMoreActionPoints(FunctionalTester $I): void
+    public function caffeineJunkieShouldGainMoreActionPoints(FunctionalTester $I): void
     {
-        $this->givenPlayerHasActionPoints(0);
+        $this->givenPlayerHasActionPoints(8);
 
         $this->givenPlayerIsACaffeineJunkie();
 
         $this->whenPlayerConsumesCoffee();
 
-        $this->thenPlayerShouldHaveActionPoints(4, $I);
-    }
-
-    public function guaranaCappuccinoShouldGainOneMoreActionPoint(FunctionalTester $I): void
-    {
-        $this->givenPlayerHasActionPoints(0);
-
-        $this->givenGuaranaCappuccinoIsCompleted($I);
-
-        $this->whenPlayerConsumesCoffee();
-
-        $this->thenPlayerShouldHaveActionPoints(3, $I);
-    }
-
-    public function junkieCappuccinoShouldGainThreeMoreActionPoint(FunctionalTester $I): void
-    {
-        $this->givenPlayerHasActionPoints(0);
-
-        $this->givenPlayerIsACaffeineJunkie();
-        $this->givenGuaranaCappuccinoIsCompleted($I);
-
-        $this->whenPlayerConsumesCoffee();
-
-        $this->thenPlayerShouldHaveActionPoints(5, $I);
+        $this->thenPlayerShouldHaveActionPoints(12, $I);
     }
 
     public function mushCaffeineJunkieShouldNotGainAnyActionPoints(FunctionalTester $I): void
     {
         $this->givenPlayerIsACaffeineJunkie();
-
-        $this->givenPlayerIsMush();
-
-        $this->givenPlayerHasActionPoints(8);
-
-        $this->whenPlayerConsumesCoffee();
-
-        $this->thenPlayerShouldHaveActionPoints(8, $I);
-    }
-
-    public function mushGuaranaCappuccinoShouldNotGainAnyActionPoints(FunctionalTester $I): void
-    {
-        $this->givenGuaranaCappuccinoIsCompleted($I);
 
         $this->givenPlayerIsMush();
 
@@ -139,15 +102,6 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
     private function givenPlayerIsACaffeineJunkie(): void
     {
         $this->addSkillToPlayer->execute(SkillEnum::CAFFEINE_JUNKIE, $this->player);
-    }
-
-    private function givenGuaranaCappuccinoIsCompleted(FunctionalTester $I): void
-    {
-        $this->finishProject(
-            $this->daedalus->getProjectByName(ProjectName::GUARANA_CAPPUCCINO),
-            $this->player,
-            $I
-        );
     }
 
     private function givenPlayerHasActionPoints(int $actionPoints): void

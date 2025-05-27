@@ -4,7 +4,6 @@ namespace Mush\Tests\functional\Player\Service;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Service\DaedalusService;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameRationEnum;
@@ -14,7 +13,6 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventService;
 use Mush\Player\Entity\ClosedPlayer;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerService;
@@ -25,7 +23,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Factory\UserFactory;
 
 /**
  * @internal
@@ -255,99 +252,6 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $I->assertEquals($otherClosedPlayer->getLikes(), 0);
     }
 
-    public function shouldCreateBeginnerStatusForFirstTimePlayer(FunctionalTester $I): void
-    {
-        $user = UserFactory::createUser();
-        $I->haveInRepository($user);
-
-        // given user plays for the first time
-        $player = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-
-        // then player should have beginner status
-        $I->assertTrue($player->hasStatus(PlayerStatusEnum::BEGINNER));
-    }
-
-    public function shouldCreateBeginnerStatusForPlayerIfUserIsOneCycleBelowThreshold(FunctionalTester $I): void
-    {
-        $user = UserFactory::createUser();
-        $I->haveInRepository($user);
-
-        // given user has 4 closed players already (survived 0 cycles)
-        for ($i = 0; $i < 4; ++$i) {
-            $player = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-            $player->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
-            $I->haveInRepository($player->getPlayerInfo()->getClosedPlayer());
-        }
-
-        // given user has a player one cycle below threshold
-        $firstUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-        $threshold = (192 - 1) * $this->daedalus->getDaedalusConfig()->getCycleLength();
-        $closedPlayer = $firstUserPlayer->getPlayerInfo()->getClosedPlayer();
-        $closedPlayer->setFinishedAt($firstUserPlayer->getCreatedAt()->add(new \DateInterval('PT' . $threshold . 'M')));
-        $closedPlayer->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
-        $I->haveInRepository($closedPlayer);
-
-        // when user creates a new player
-        $testedUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::CHUN);
-        $testedUserPlayer->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
-        $I->haveInRepository($testedUserPlayer->getPlayerInfo()->getClosedPlayer());
-
-        // then this new player should have beginner status
-        $I->assertTrue($testedUserPlayer->hasStatus(PlayerStatusEnum::BEGINNER), 'Player should have beginner status');
-    }
-
-    public function shouldCreateBeginnerStatusForPlayerIfPlayedLessThanFourGames(FunctionalTester $I): void
-    {
-        $user = UserFactory::createUser();
-        $I->haveInRepository($user);
-
-        // given user already has a player reaching cycle threshold
-        $firstUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-        $threshold = 192 * $this->daedalus->getDaedalusConfig()->getCycleLength();
-        $closedPlayer = $firstUserPlayer->getPlayerInfo()->getClosedPlayer();
-        $closedPlayer->setFinishedAt($firstUserPlayer->getCreatedAt()->add(new \DateInterval('PT' . $threshold . 'M')));
-        $closedPlayer->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
-        $I->haveInRepository($closedPlayer);
-
-        // when user creates a new player
-        $testedUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::CHUN);
-        $testedUserPlayer->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
-        $I->haveInRepository($testedUserPlayer->getPlayerInfo()->getClosedPlayer());
-
-        // then this new player should have beginner status
-        $I->assertTrue($testedUserPlayer->hasStatus(PlayerStatusEnum::BEGINNER), 'Player should have beginner status');
-    }
-
-    public function shouldNotCreateBeginnerStatusForPlayerIfUserHasSurvivedEnoughCyclesAndPlayedEnoughGames(FunctionalTester $I): void
-    {
-        $user = UserFactory::createUser();
-        $I->haveInRepository($user);
-
-        // given user has 4 closed players already (survived 0 cycles)
-        for ($i = 0; $i < 4; ++$i) {
-            $player = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-            $player->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
-            $I->haveInRepository($player->getPlayerInfo()->getClosedPlayer());
-        }
-
-        // given user already has a player reaching cycle threshold
-        $firstUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-        $threshold = 192 * $this->daedalus->getDaedalusConfig()->getCycleLength();
-
-        $closedPlayer = $firstUserPlayer->getPlayerInfo()->getClosedPlayer();
-        $closedPlayer->setFinishedAt($firstUserPlayer->getCreatedAt()->add(new \DateInterval('PT' . $threshold . 'M')));
-        $closedPlayer->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
-        $I->haveInRepository($closedPlayer);
-
-        // when user creates a new player
-        $testedUserPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::CHUN);
-        $testedUserPlayer->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
-        $I->haveInRepository($testedUserPlayer->getPlayerInfo()->getClosedPlayer());
-
-        // then this new player should not have beginner status
-        $I->assertFalse($testedUserPlayer->hasStatus(PlayerStatusEnum::BEGINNER), 'Player should not have beginner status');
-    }
-
     public function quarantineShouldSpawnOrganicWaste(FunctionalTester $I): void
     {
         // when player is quarantined
@@ -355,30 +259,5 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         // then place should have organic waste
         $I->assertTrue($this->player->getPlace()->hasEquipmentByName(GameRationEnum::ORGANIC_WASTE));
-    }
-
-    public function createPlayerShouldCreateStartingItems(FunctionalTester $I): void
-    {
-        $user = UserFactory::createUser();
-        $I->haveInRepository($user);
-
-        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
-
-        $andie = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-
-        /** @var EquipmentConfig $itemConfig */
-        foreach ($characterConfig->getStartingItems() as $itemConfig) {
-            $I->assertTrue($andie->hasEquipmentByName($itemConfig->getEquipmentName()));
-        }
-    }
-
-    public function createPlayerShouldStartGameForUser(FunctionalTester $I): void
-    {
-        $user = UserFactory::createUser();
-        $I->haveInRepository($user);
-
-        $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
-
-        $I->assertTrue($user->isInGame());
     }
 }

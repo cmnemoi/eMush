@@ -5,16 +5,14 @@ import { Planet } from "@/entities/Planet";
 import { DaedalusExploration } from "./DaedalusExploration";
 import { toArray } from "@/utils/toArray";
 
-export type DaedalusProject = {
+type DaedalusProject = {
     type: string;
-    translatedType: string;
     key: string;
     name: string;
     description: string;
-    lore: string;
 }
 
-export type DaedalusProjects = {
+type DaedalusProjects = {
     pilgred: DaedalusProject|undefined;
     neronProjects: DaedalusProject[];
     researchProjects: DaedalusProject[];

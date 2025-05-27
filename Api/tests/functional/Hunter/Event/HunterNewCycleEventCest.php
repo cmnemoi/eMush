@@ -12,11 +12,7 @@ use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Hunter\Repository\HunterRepositoryInterface;
-use Mush\Hunter\Service\CreateHunterService;
 use Mush\Hunter\Service\HunterServiceInterface;
-use Mush\Status\Enum\HunterStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -25,24 +21,14 @@ use Mush\Tests\FunctionalTester;
  */
 final class HunterNewCycleEventCest extends AbstractFunctionalTest
 {
-    private CreateHunterService $createHunter;
     private EventServiceInterface $eventService;
-    private HunterRepositoryInterface $hunterRepository;
     private HunterServiceInterface $hunterService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-
-        $this->createHunter = $I->grabService(CreateHunterService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->hunterService = $I->grabService(HunterServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->hunterRepository = $I->grabService(HunterRepositoryInterface::class);
-
-        // avoid false positive when fire tries to reduce hull at cycle change
-        $this->daedalus->getGameConfig()->getDifficultyConfig()->setHullFireDamageRate(0);
     }
 
     public function testHuntersDoNotShootTheCycleAfterTheyAreSpawn(FunctionalTester $I): void
@@ -53,20 +39,20 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         // given those hunters are aiming at the daedalus
-        $this->daedalus->getHuntersAroundDaedalus()->map(static fn (Hunter $hunter) => $hunter->setTarget(new HunterTarget($hunter)));
+        $this->daedalus->getAttackingHunters()->map(static fn (Hunter $hunter) => $hunter->setTarget(new HunterTarget($hunter)));
 
         // given they have a 100% chance to hit
-        $this->daedalus->getHuntersAroundDaedalus()
+        $this->daedalus->getAttackingHunters()
             ->map(static fn (Hunter $hunter) => $hunter->setHitChance(100))
             ->map(static fn (Hunter $hunter) => $I->haveInRepository($hunter));
 
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
 
         // given I launch and finish a travel
         $this->launchAndFinishTravel();
 
         // delete attacking hunters from travel so we only study the ones from the pool next
-        $this->hunterService->delete($this->daedalus->getHuntersAroundDaedalus()->toArray());
+        $this->hunterService->delete($this->daedalus->getAttackingHunters()->toArray());
 
         // given multiple cycles pass
         for ($i = 0; $i < 3; ++$i) {
@@ -126,49 +112,6 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals($daedalusHullBeforeCycleChange, $this->daedalus->getHull());
     }
 
-    public function shouldSpawnTransport(FunctionalTester $I): void
-    {
-        // given I have 100% chance to spawn a transport
-        $this->daedalus->getGameConfig()->getDifficultyConfig()->setMinTransportSpawnRate(100);
-
-        // when a new cycle passes
-        $daedalusEvent = new DaedalusEvent($this->daedalus, [], new \DateTime());
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::DAEDALUS_NEW_CYCLE);
-
-        // then one transport should be spawned
-        $I->assertCount(
-            1,
-            $this->daedalus->getSpace()->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRANSPORT),
-            'One transport should be spawned'
-        );
-    }
-
-    public function shouldDeleteAggroedTransport(FunctionalTester $I): void
-    {
-        // given a transport is aggroed
-        $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
-        $transport = $this->daedalus->getHuntersAroundDaedalus()->getOneHunterByType(HunterEnum::TRANSPORT);
-        $this->statusService->createStatusFromName(
-            statusName: HunterStatusEnum::AGGROED,
-            holder: $transport,
-            tags: [],
-            time: new \DateTime(),
-        );
-        $transportId = $transport->getId();
-
-        // when a new cycle passes
-        $daedalusEvent = new DaedalusEvent($this->daedalus, [], new \DateTime());
-        $this->eventService->callEvent($daedalusEvent, DaedalusEvent::DAEDALUS_NEW_CYCLE);
-
-        // then the transport should be deleted
-        $I->expectThrowable(
-            new \RuntimeException("Hunter not found for id {$transportId}"),
-            function () use ($transportId) {
-                $this->hunterRepository->findByIdOrThrow($transportId);
-            }
-        );
-    }
-
     private function launchAndFinishTravel(): void
     {
         // given a travel starts
@@ -199,7 +142,7 @@ final class HunterNewCycleEventCest extends AbstractFunctionalTest
         // create hunter
         $hunter = new Hunter($hunterConfig, $daedalus);
         $hunter->setHunterVariables($hunterConfig);
-        $daedalus->getSpace()->addHunter($hunter);
+        $daedalus->addHunter($hunter);
 
         // given this hunter aims at the daedalus
         $hunter->setTarget(new HunterTarget($hunter));

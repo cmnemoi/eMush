@@ -81,7 +81,6 @@ class ActionsFixtures extends Fixture
     public const string SURGERY = 'surgery';
     public const string SELF_SURGERY = 'self_surgery';
     public const string SHOOT = 'shoot';
-    public const string SHOOT_99 = 'shoot_99_percent';
     public const string PLAY_ARCADE = 'play_arcade';
     public const string SHOOT_HUNTER_TURRET = 'shoot_hunter_turret';
     public const string SHOOT_RANDOM_HUNTER_TURRET = 'shoot_random_hunter_turret';
@@ -112,18 +111,33 @@ class ActionsFixtures extends Fixture
     public const string TAKE_CAT = 'take_cat';
     public const string PET_CAT = 'pet_cat';
     public const string SHOOT_CAT = 'shoot_cat';
-    public const string OPEN_CONTAINER_COST_0 = 'open_container_cost_0';
 
     public function load(ObjectManager $manager): void
     {
         /** @TODO remove this after alpha */
-        $suicide = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SUICIDE));
+        $suicide = new ActionConfig();
+        $suicide
+            ->setName(ActionEnum::SUICIDE->value)
+            ->setActionName(ActionEnum::SUICIDE)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER);
         $manager->persist($suicide);
 
-        $autoDestroy = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::AUTO_DESTROY));
+        $autoDestroy = new ActionConfig();
+        $autoDestroy
+            ->setName(ActionEnum::AUTO_DESTROY->value)
+            ->setActionName(ActionEnum::AUTO_DESTROY)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::PLAYER)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE);
         $manager->persist($autoDestroy);
 
-        $killPlayer = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::KILL_PLAYER));
+        $killPlayer = new ActionConfig();
+        $killPlayer
+            ->setName(ActionEnum::KILL_PLAYER->value)
+            ->setActionName(ActionEnum::KILL_PLAYER)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER);
         $manager->persist($killPlayer);
 
         $rejuvenateAlpha = new ActionConfig();
@@ -131,7 +145,6 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::REJUVENATE)
             ->setRange(ActionRangeEnum::PLAYER)
             ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setTypes([ActionTypeEnum::ACTION_ADMIN])
             ->buildName(GameConfigEnum::ALPHA);
         $manager->persist($rejuvenateAlpha);
 
@@ -329,8 +342,7 @@ class ActionsFixtures extends Fixture
             ->setActionName(ActionEnum::EXPRESS_COOK)
             ->setRange(ActionRangeEnum::SHELF)
             ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setDirtyRate(20)
-            ->setOutputQuantity(30);
+            ->setDirtyRate(20);
 
         $manager->persist($expressCookAction);
 
@@ -659,11 +671,20 @@ class ActionsFixtures extends Fixture
         $selfSurgeryAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SELF_SURGERY));
         $manager->persist($selfSurgeryAction);
 
-        $shootAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT));
+        $shootAction = new ActionConfig();
+        $shootAction
+            ->setName(ActionEnum::SHOOT->value)
+            ->setActionName(ActionEnum::SHOOT)
+            ->setRange(ActionRangeEnum::PLAYER)
+            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
+            ->setTypes([ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_SHOOT])
+            ->setActionCost(1)
+            ->setSuccessRate(50)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::CRITICAL_SUCCESS, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::CRITICAL_FAIL, VisibilityEnum::PUBLIC)
+            ->setVisibility(ActionOutputEnum::ONE_SHOT, VisibilityEnum::PUBLIC);
         $manager->persist($shootAction);
-
-        $shoot99Action = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_99));
-        $manager->persist($shoot99Action);
 
         $playArcade = new ActionConfig();
         $playArcade
@@ -1076,9 +1097,6 @@ class ActionsFixtures extends Fixture
         $upgradeDroneToPilot = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_PILOT));
         $manager->persist($upgradeDroneToPilot);
 
-        $upgradeDroneToSensor = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_DRONE_TO_SENSOR));
-        $manager->persist($upgradeDroneToSensor);
-
         $takeCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TAKE_CAT));
         $manager->persist($takeCat);
 
@@ -1106,55 +1124,11 @@ class ActionsFixtures extends Fixture
         $neronDepress = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::NERON_DEPRESS));
         $manager->persist($neronDepress);
 
+        $searchForMushGenome = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SEARCH_FOR_MUSH_GENOME));
+        $manager->persist($searchForMushGenome);
+
         $participateResearch = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PARTICIPATE_RESEARCH));
         $manager->persist($participateResearch);
-
-        $computeEden = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COMPUTE_EDEN));
-        $manager->persist($computeEden);
-
-        $travelToEden = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TRAVEL_TO_EDEN));
-        $manager->persist($travelToEden);
-
-        $comManagerAnnouncement = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::COM_MANAGER_ANNOUNCEMENT));
-        $manager->persist($comManagerAnnouncement);
-
-        $establishLinkWithSol = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ESTABLISH_LINK_WITH_SOL));
-        $manager->persist($establishLinkWithSol);
-
-        $upgradeNeron = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::UPGRADE_NERON));
-        $manager->persist($upgradeNeron);
-
-        $decodeRebelSignal = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::DECODE_REBEL_SIGNAL));
-        $manager->persist($decodeRebelSignal);
-
-        $contactXyloph = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CONTACT_XYLOPH));
-        $manager->persist($contactXyloph);
-
-        $openContainerCost0 = new ActionConfig();
-        $openContainerCost0
-            ->setName('open_container_cost_0')
-            ->setActionName(ActionEnum::OPEN_CONTAINER)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN)
-            ->setActionCost(0)
-            ->setDirtyRate(0)
-            ->setInjuryRate(0)
-            ->setSuccessRate(100);
-        $manager->persist($openContainerCost0);
-
-        $playWithDog = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PLAY_WITH_DOG));
-        $manager->persist($playWithDog);
-
-        $acceptTrade = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::ACCEPT_TRADE));
-        $manager->persist($acceptTrade);
-
-        $refuseTrade = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REFUSE_TRADE));
-        $manager->persist($refuseTrade);
-
-        $toggleVocodedAnnouncements = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS));
-        $manager->persist($toggleVocodedAnnouncements);
 
         $manager->flush();
 
@@ -1224,7 +1198,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(self::SURGERY, $surgeryAction);
         $this->addReference(self::SELF_SURGERY, $selfSurgeryAction);
         $this->addReference(self::SHOOT, $shootAction);
-        $this->addReference(self::SHOOT_99, $shoot99Action);
         $this->addReference(self::PLAY_ARCADE, $playArcade);
         $this->addReference(self::SHOOT_HUNTER_TURRET, $shootHunterTurret);
         $this->addReference(self::SHOOT_RANDOM_HUNTER_TURRET, $shootRandomHunterTurret);
@@ -1285,7 +1258,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_TURBO->value, $upgradeDroneToTurbo);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->value, $upgradeDroneToFirefighter);
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_PILOT->value, $upgradeDroneToPilot);
-        $this->addReference(ActionEnum::UPGRADE_DRONE_TO_SENSOR->value, $upgradeDroneToSensor);
         $this->addReference(ActionEnum::TAKE_CAT->value, $takeCat);
         $this->addReference(ActionEnum::PET_CAT->value, $petCat);
         $this->addReference(ActionEnum::SHOOT_CAT->value, $shootCat);
@@ -1295,18 +1267,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::DOOR_SABOTAGE->value, $doorSabotage);
         $this->addReference(ActionEnum::GIVE_NIGHTMARE->value, $giveNightmare);
         $this->addReference(ActionEnum::NERON_DEPRESS->value, $neronDepress);
+        $this->addReference(ActionEnum::SEARCH_FOR_MUSH_GENOME->value, $searchForMushGenome);
         $this->addReference(ActionEnum::PARTICIPATE_RESEARCH->value, $participateResearch);
-        $this->addReference(ActionEnum::COMPUTE_EDEN->value, $computeEden);
-        $this->addReference(ActionEnum::TRAVEL_TO_EDEN->value, $travelToEden);
-        $this->addReference(self::OPEN_CONTAINER_COST_0, $openContainerCost0);
-        $this->addReference(ActionEnum::COM_MANAGER_ANNOUNCEMENT->value, $comManagerAnnouncement);
-        $this->addReference(ActionEnum::ESTABLISH_LINK_WITH_SOL->value, $establishLinkWithSol);
-        $this->addReference(ActionEnum::UPGRADE_NERON->value, $upgradeNeron);
-        $this->addReference(ActionEnum::DECODE_REBEL_SIGNAL->value, $decodeRebelSignal);
-        $this->addReference(ActionEnum::CONTACT_XYLOPH->value, $contactXyloph);
-        $this->addReference(ActionEnum::PLAY_WITH_DOG->value, $playWithDog);
-        $this->addReference(ActionEnum::ACCEPT_TRADE->value, $acceptTrade);
-        $this->addReference(ActionEnum::REFUSE_TRADE->value, $refuseTrade);
-        $this->addReference(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value, $toggleVocodedAnnouncements);
     }
 }

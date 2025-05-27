@@ -31,7 +31,7 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
         $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
         $this->daedalus->setHunterPoints(40); // should be enough to unpool 4 hunters
-        $I->assertCount(4, $this->daedalus->getHuntersAroundDaedalus());
+        $I->assertCount(4, $this->daedalus->getAttackingHunters());
         $I->assertCount(0, $this->daedalus->getHunterPool());
     }
 
@@ -43,7 +43,7 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
         $this->daedalus->setHunterPoints(40); // should be enough to unpool 4 hunters
         $unpoolEvent2 = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent2, HunterPoolEvent::UNPOOL_HUNTERS);
-        $I->assertCount(8, $this->daedalus->getHuntersAroundDaedalus());
+        $I->assertCount(8, $this->daedalus->getAttackingHunters());
         $I->assertCount(0, $this->daedalus->getHunterPool());
     }
 
@@ -75,7 +75,7 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         // then we should not have any attacking D1000s
-        $I->assertEmpty($this->daedalus->getHuntersAroundDaedalus());
+        $I->assertEmpty($this->daedalus->getAttackingHunters());
     }
 
     public function testUnpoolHuntersD1000AppearAfterDayTen(FunctionalTester $I): void
@@ -96,7 +96,7 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         // then we should have attacking D1000s
-        $I->assertNotEmpty($this->daedalus->getHuntersAroundDaedalus());
+        $I->assertNotEmpty($this->daedalus->getAttackingHunters());
     }
 
     public function strateguruShouldReduceHuntersByThirtyThreePercent(FunctionalTester $I): void
@@ -108,7 +108,7 @@ final class HunterPoolEventCest extends AbstractFunctionalTest
         $unpoolEvent = new HunterPoolEvent($this->daedalus, ['test'], new \DateTime());
         $this->eventService->callEvent($unpoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
-        $I->assertCount(6, $this->daedalus->getHuntersAroundDaedalus());
+        $I->assertCount(6, $this->daedalus->getAttackingHunters());
     }
 
     public function strateguruShouldPrintASingleLogWhenWorking(FunctionalTester $I): void

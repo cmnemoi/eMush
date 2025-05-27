@@ -24,12 +24,13 @@
     <unit id="shield">
       <segment id="name" state="translated">
         <source>shield.name</source>
-        <target>Escudo plasma: {quantity}</target>
+        <target>Blindaje: {quantity}</target>
       </segment>
       <segment id="description" state="translated">
         <source>shield.description</source>
-        <target>{isPlasmaShieldDeactivated, select, true {El escudo de plasma ha sido desactivado por el administrador de NERON.}
-other {El escudo plasma esta absorbiendo el fuego enemigo en lugar del blindaje del Daedalus. Cuando llegue a 0, el blindaje tomará daño.}}</target>
+        <target>El escudo de plasma ha sido desactivado por el administrador NERON.
+//
+Indica el estado global del casco de la nave. Cuando es **0, la nave se destruirá** al no poder mantenerse ensamblada.</target>
       </segment>
     </unit>
     <unit id="hull">
@@ -39,7 +40,7 @@ other {El escudo plasma esta absorbiendo el fuego enemigo en lugar del blindaje 
       </segment>
       <segment id="description" state="translated">
         <source>hull.description</source>
-        <target>Indica el estado global del casco de la nave. Cuando llegue a **0, la nave se destruirá** al no poder mantenerse ensamblada.</target>
+        <target>Indica el estado global del casco de la nave. Cuando es **0, la nave se destruirá** al no poder mantenerse ensamblada.</target>
       </segment>
     </unit>
     <unit id="crewPlayer">
@@ -49,7 +50,7 @@ other {El escudo plasma esta absorbiendo el fuego enemigo en lugar del blindaje 
       </segment>
       <segment id="description" state="translated">
         <source>crewPlayer.description</source>
-        <target>{playerAlive, plural, one {# compañero activo} other {# compañeros activos}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {playerDead, plural, one {# compañeros muertos}}. dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# criogenizado} other {# criogenizados}}.</target>
+        <target>{playerAlive, plural, one {# Compañero activo} other {# Compañeros activos}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {playerDead, plural, one {# compañeros muerto} other {# compañeros muertos}}, dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# criogénico} other {# criogénicos}}.</target>
       </segment>
     </unit>
     <unit id="currentCycle">
@@ -74,29 +75,27 @@ Un **ciclo dura 3 horas**. ¡En cada Ciclo acumulas más :pm::pa:, indispensable
       </segment>
     </unit>
     <unit id="calendar.name">
-      <segment state="translated">
+      <segment state="initial">
         <source>calendar.name</source>
-        <target>Tiempo del juego</target>
+        <target>calendar.name</target>
       </segment>
     </unit>
     <unit id="calendar.description">
-      <segment state="translated">
+      <segment state="initial">
         <source>calendar.description</source>
-        <target>Los días en el juego corresponden a los días en la vida real.
-//
-Un **Ciclo dura 3 horas**. Cada nuevo ciclo, recibes :pa: y :pm:, ¡los cuales son útiles para realizar distintas acciones!</target>
+        <target>calendar.description</target>
       </segment>
     </unit>
     <unit id="cycle.name">
-      <segment state="translated">
+      <segment state="initial">
         <source>cycle.name</source>
-        <target>Ciclo</target>
+        <target>cycle.name</target>
       </segment>
     </unit>
     <unit id="day.name">
-      <segment state="translated">
+      <segment state="initial">
         <source>day.name</source>
-        <target>Día</target>
+        <target>day.name</target>
       </segment>
     </unit>
   </file>

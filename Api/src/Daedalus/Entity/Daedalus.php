@@ -8,8 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
-use Mush\Daedalus\ValueObject\GameDate;
-use Mush\Equipment\Entity\UniqueItems;
+use Mush\Daedalus\ValueObject\DaedalusDate;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
@@ -18,33 +17,32 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Entity\GameVariableHolderInterface;
 use Mush\Game\Enum\DifficultyEnum;
-use Mush\Game\Enum\GameStatusEnum;
+use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterCollection;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
-use Mush\Hunter\Enum\HunterEnum;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierHolderTrait;
-use Mush\Place\Collection\PlaceCollection;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Collection\ProjectCollection;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Exception\DaedalusShouldHaveProjectException;
 use Mush\Skill\Entity\SkillConfigCollection;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\StatusEnum;
 
 #[ORM\Entity(repositoryClass: DaedalusRepository::class)]
 #[ORM\Table(name: 'daedalus')]
@@ -111,16 +109,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: TitlePriority::class, cascade: ['remove'], orphanRemoval: true)]
     private Collection $titlePriorities;
 
-    #[ORM\OneToMany(mappedBy: 'daedalus', targetEntity: ComManagerAnnouncement::class, orphanRemoval: true)]
-    #[ORM\OrderBy(['createdAt' => 'ASC'])]
-    private Collection $generalAnnouncements;
-
-    #[ORM\OneToOne(targetEntity: UniqueItems::class, cascade: ['persist'])]
-    private UniqueItems $uniqueItems;
-
-    #[ORM\ManyToMany(targetEntity: CharacterConfig::class)]
-    private Collection $availableCharacters;
-
     public function __construct()
     {
         $this->players = new ArrayCollection();
@@ -129,9 +117,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         $this->statuses = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->titlePriorities = new ArrayCollection();
-        $this->generalAnnouncements = new ArrayCollection();
-        $this->uniqueItems = new UniqueItems();
-        $this->availableCharacters = new ArrayCollection();
     }
 
     public function getId(): int
@@ -174,6 +159,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function getActivePlayers(): PlayerCollection
+    {
+        return $this->getPlayers()->getActivePlayers();
+    }
+
     public function removePlayer(Player $player): static
     {
         $this->players->removeElement($player);
@@ -186,14 +176,28 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPlayers()->getPlayerAlive();
     }
 
-    public function getPlayerByNameOrThrow(string $name): Player
+    public function getAlivePlayersInRoom(): PlayerCollection
     {
-        $player = $this->getPlayers()->getPlayerByName($name);
-        if (!$player) {
-            throw new \RuntimeException("Daedalus should have a player named {$name}");
-        }
+        return $this->getPlayers()->getPlayerAliveAndInRoom();
+    }
 
-        return $player;
+    public function getPlayerByName(string $name): ?Player
+    {
+        return $this->getPlayers()->getPlayerByName($name);
+    }
+
+    public function deadMushCount(): int
+    {
+        return $this
+            ->getPlayers()
+            ->getDeadClosedPlayers()
+            ->filter(static fn (ClosedPlayer $closedPlayer) => $closedPlayer->isMush())
+            ->count();
+    }
+
+    public function hasAnyMushDied(): bool
+    {
+        return $this->deadMushCount() > 0;
     }
 
     public function getAlivePlayerByNameOrThrow(string $name): Player
@@ -219,9 +223,9 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->places;
     }
 
-    public function getRooms(): PlaceCollection
+    public function getRooms(): Collection
     {
-        return new PlaceCollection($this->getPlaces()->filter(static fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM)->toArray());
+        return $this->getPlaces()->filter(static fn (Place $place) => $place->getType() === PlaceTypeEnum::ROOM);
     }
 
     public function getSpace(): Place
@@ -232,17 +236,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $space;
-    }
-
-    public function getTabulatrixQueue(): Place
-    {
-        $queue = $this->getPlaces()
-            ->filter(static fn (Place $place) => $place->getName() === RoomEnum::TABULATRIX_QUEUE)->first();
-        if (!$queue) {
-            throw new \RuntimeException('Daedalus should have a place named TabulatrixQueue');
-        }
-
-        return $queue;
     }
 
     /**
@@ -273,6 +266,21 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $place;
+    }
+
+    public function getRoomsOnFire(): Collection
+    {
+        return $this->getRooms()->filter(static fn (Place $place) => $place->hasStatus(StatusEnum::FIRE));
+    }
+
+    public function getRoomsWithoutFire(): Collection
+    {
+        return $this->getRooms()->filter(static fn (Place $place) => !$place->hasStatus(StatusEnum::FIRE));
+    }
+
+    public function getRoomsWithAlivePlayers(): Collection
+    {
+        return $this->getRooms()->filter(static fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0);
     }
 
     /** @return Collection<array-key, Place> */
@@ -311,19 +319,35 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getModifiers();
     }
 
-    public function getHuntersAroundDaedalus(): HunterCollection
-    {
-        return $this->getSpace()->getHuntersAroundDaedalus();
-    }
-
     public function getAttackingHunters(): HunterCollection
     {
-        return $this->getHuntersAroundDaedalus()->getAllExceptType(HunterEnum::TRANSPORT);
+        return $this->getSpace()->getAttackingHunters();
     }
 
     public function getHunterPool(): HunterCollection
     {
         return $this->getSpace()->getHunterPool();
+    }
+
+    public function setHunters(ArrayCollection $hunters): static
+    {
+        $this->getSpace()->setHunters($hunters);
+
+        return $this;
+    }
+
+    public function addHunter(Hunter $hunter): static
+    {
+        $this->getSpace()->addHunter($hunter);
+
+        return $this;
+    }
+
+    public function removeHunter(Hunter $hunter): static
+    {
+        $this->getSpace()->removeHunter($hunter);
+
+        return $this;
     }
 
     public function getVariableByName(string $variableName): GameVariable
@@ -458,6 +482,13 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
+    public function addCombustionChamberFuel(int $combustionChamberFuel): static
+    {
+        $this->setCombustionChamberFuel($this->getCombustionChamberFuel() + $combustionChamberFuel);
+
+        return $this;
+    }
+
     public function addStatus(Status $status): static
     {
         if (!$this->getStatuses()->contains($status)) {
@@ -496,32 +527,25 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
-    public function getGameDate(): GameDate
+    public function getGameDate(): DaedalusDate
     {
-        return new GameDate($this, $this->day, $this->cycle);
+        return new DaedalusDate($this->day, $this->cycle);
     }
 
-    public function setGameDate(GameDate $gameDate): static
+    public function setGameDate(DaedalusDate $gameDate): static
     {
-        $this->day = $gameDate->day();
-        $this->cycle = $gameDate->cycle();
+        $this->day = $gameDate->day;
+        $this->cycle = $gameDate->cycle;
 
         return $this;
     }
 
-    public function incrementDay(): static
+    public function getPreviousGameDate(): DaedalusDate
     {
-        $this->setCycle(1);
-        $this->setDay($this->getDay() + 1);
+        $day = $this->cycle === 1 ? $this->day - 1 : $this->day;
+        $cycle = $this->cycle === 1 ? 8 : $this->cycle - 1;
 
-        return $this;
-    }
-
-    public function incrementCycle(): static
-    {
-        $this->setCycle($this->getCycle() + 1);
-
-        return $this;
+        return new DaedalusDate($day, $cycle);
     }
 
     public function getFilledAt(): ?\DateTime
@@ -561,11 +585,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this;
     }
 
-    public function getCycleStartedAtOrThrow(): \DateTime
-    {
-        return $this->cycleStartedAt ?? throw new \RuntimeException("Daedalus {$this->getId()} should have a cycle started at date");
-    }
-
     public function isCycleChange(): bool
     {
         return $this->isCycleChange;
@@ -598,25 +617,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function addDailyActionPointsSpent(int $dailyActionPointsSpent): static
     {
         $this->dailyActionPointsSpent += $dailyActionPointsSpent;
-
-        return $this;
-    }
-
-    public function getIncidentPoints(): int
-    {
-        return $this->getVariableValueByName(DaedalusVariableEnum::INCIDENT_POINTS);
-    }
-
-    public function addIncidentPoints(int $incidentPoints): static
-    {
-        $this->daedalusVariables->changeValueByName($incidentPoints, DaedalusVariableEnum::INCIDENT_POINTS);
-
-        return $this;
-    }
-
-    public function removeIncidentPoints(int $incidentPoints): static
-    {
-        $this->daedalusVariables->changeValueByName(-$incidentPoints, DaedalusVariableEnum::INCIDENT_POINTS);
 
         return $this;
     }
@@ -676,11 +676,6 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getGameStatus(): string
     {
         return $this->daedalusInfo->getGameStatus();
-    }
-
-    public function isFilling(): bool
-    {
-        return \in_array($this->getGameStatus(), [GameStatusEnum::STANDBY, GameStatusEnum::STARTING], true);
     }
 
     public function getName(): string
@@ -843,9 +838,24 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->hasFinishedProject(ProjectName::MAGNETIC_NET) && $this->getNeron()->isMagneticNetActive();
     }
 
+    public function hasNoProposedNeronProjects(): bool
+    {
+        return $this->getProposedNeronProjects()->isEmpty();
+    }
+
     public function getPilgred(): Project
     {
         return $this->getProjectByName(ProjectName::PILGRED);
+    }
+
+    public function isPilgredFinished(): bool
+    {
+        return $this->getPilgred()->isFinished();
+    }
+
+    public function pilgredIsNotFinished(): bool
+    {
+        return $this->isPilgredFinished() === false;
     }
 
     /** @return ArrayCollection<array-key, TitlePriority> */
@@ -865,7 +875,7 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
 
     public function getTitlePriorityByNameOrThrow(string $name): TitlePriority
     {
-        $titlePriority = $this->titlePriorities->filter(static fn (TitlePriority $titlePriority) => $titlePriority->getName() === $name)->first() ?: null;
+        $titlePriority = $this->getTitlePriorityByName($name);
         if (!$titlePriority) {
             throw new \RuntimeException("Daedalus should have a title priority named {$name}");
         }
@@ -903,6 +913,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getChargeStatusByName(DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES)?->getCharge() ?? 0;
     }
 
+    public function fissionCoffeeRoasterNotReady(): bool
+    {
+        return $this->hasFinishedProject(ProjectName::FISSION_COFFEE_ROASTER) === false || $this->cycle !== 4;
+    }
+
     public function doesNotHaveAutoReturnIcarusProject(): bool
     {
         return $this->hasFinishedProject(ProjectName::AUTO_RETURN_ICARUS) === false;
@@ -921,6 +936,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getMushSkillConfigs(): SkillConfigCollection
     {
         return new SkillConfigCollection($this->getGameConfig()->getMushSkillConfigs()->toArray());
+    }
+
+    public function hasAliveNeronOnlyFriend(): bool
+    {
+        return $this->getAlivePlayers()->hasPlayerWithSkill(SkillEnum::NERON_ONLY_FRIEND);
     }
 
     public function getAlivePlayersWithMeansOfCommunication(): PlayerCollection
@@ -948,52 +968,14 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getAlivePlayers()->hasPlayerWithStatus(PlayerStatusEnum::PARIAH);
     }
 
+    public function isChunInLaboratory(): bool
+    {
+        return $this->getPlaceByNameOrThrow(RoomEnum::LABORATORY)->isChunIn();
+    }
+
     public function isExplorationChangingCycle(): bool
     {
         return $this->getExploration()?->isChangingCycle() ?? false;
-    }
-
-    public function addGeneralAnnouncement(ComManagerAnnouncement $announcement): static
-    {
-        $this->generalAnnouncements->add($announcement);
-
-        return $this;
-    }
-
-    public function getGeneralAnnouncements(): ArrayCollection
-    {
-        return new ArrayCollection($this->generalAnnouncements->toArray());
-    }
-
-    public function getLatestAnnouncement(): ?ComManagerAnnouncement
-    {
-        return $this->getGeneralAnnouncements()->last() ?: null;
-    }
-
-    public function getUniqueItems(): UniqueItems
-    {
-        return $this->uniqueItems;
-    }
-
-    public function getAvailableCharacters(): CharacterConfigCollection
-    {
-        return new CharacterConfigCollection($this->availableCharacters->toArray());
-    }
-
-    public function setAvailableCharacters(CharacterConfigCollection $characters): static
-    {
-        $this->availableCharacters = $characters;
-
-        return $this;
-    }
-
-    public function addAvailableCharacter(CharacterConfig $character): static
-    {
-        if (!$this->getAvailableCharacters()->contains($character)) {
-            $this->availableCharacters->add($character);
-        }
-
-        return $this;
     }
 
     private function getCreatedAtOrThrow(): \DateTime
@@ -1004,5 +986,10 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         }
 
         return $createdAt;
+    }
+
+    private function getTitlePriorityByName(string $name): ?TitlePriority
+    {
+        return $this->titlePriorities->filter(static fn (TitlePriority $titlePriority) => $titlePriority->getName() === $name)->first() ?: null;
     }
 }

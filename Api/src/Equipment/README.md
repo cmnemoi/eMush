@@ -23,8 +23,6 @@ Consequently, it is present in 2 different places at once.
     |-- Normalizer
     |-- Repository
     |-- Service
-    |-- ValueObject
-    |-- WeaponEffect
 
 
 # Entities
@@ -32,7 +30,7 @@ Consequently, it is present in 2 different places at once.
 Is the occurrence of equipment in a Daedalus,  this entity will hold the actual equipment information (statuses, room, etc...)
 
 ## EquipmentConfig
-Is an abstract class holding all the default information of an Equipment (breakableRate, isAlienArtifact, breakableType etc...)  
+Is an abstract class holding all the default information of an Equipment (breakableRate, isAlienArtifact, isFirebreakable etc...)  
 The Equipment is unique across a GameConfig
 
 ## ItemConfig and GameItem
@@ -60,8 +58,6 @@ Tools provide additional actions to the equipment, however those actions are onl
 ### Weapon
 
 Is a tool with the action Attack and some damage, accuracy, etc...
-
-To add new weapon events and effects, see [WEAPON_EVENT_README.md](./WEAPON_EVENT_README.md) and [WEAPON_EFFECT_README.md](./WEAPON_EFFECT_README.md).
 
 ### Book
 

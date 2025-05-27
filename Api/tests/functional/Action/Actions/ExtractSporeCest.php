@@ -95,32 +95,6 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DAILY_SPORE_LIMIT);
     }
 
-    public function constipasporeSerumShouldIncreaseActionCost(FunctionalTester $I): void
-    {
-        $this->givenActionCostActionPoints(2, $I);
-
-        $this->givenConstipasporeSerumIsCompleted($I);
-
-        $this->whenKuanTiTriesToExtractSpore();
-
-        $this->thenActionShouldCostActionPoints(4, $I);
-    }
-
-    public function fertileShouldMakeTheActionFreeEvenWithConstipasporeSerum(FunctionalTester $I): void
-    {
-        $this->givenActionCostActionPoints(2, $I);
-
-        $this->givenConstipasporeSerumIsCompleted($I);
-
-        // given Kuan Ti has Fertile skill
-        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->kuanTi);
-
-        $this->whenKuanTiTriesToExtractSpore();
-
-        // then action should cost 0 action points
-        $I->assertEquals(0, $this->extractSporeAction->getActionPointCost());
-    }
-
     private function givenAntisporeGasIsCompleted(FunctionalTester $I): void
     {
         $this->finishProject(
@@ -153,24 +127,5 @@ final class ExtractSporeCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
     {
         $I->assertEquals($message, $this->extractSporeAction->cannotExecuteReason());
-    }
-
-    private function givenActionCostActionPoints(int $actionPoints, FunctionalTester $I): void
-    {
-        $this->extractSporeActionConfig->setActionCost($actionPoints);
-    }
-
-    private function givenConstipasporeSerumIsCompleted(FunctionalTester $I): void
-    {
-        $this->finishProject(
-            project: $this->daedalus->getProjectByName(ProjectName::CONSTIPASPORE_SERUM),
-            author: $this->chun,
-            I: $I
-        );
-    }
-
-    private function thenActionShouldCostActionPoints(int $actionPoints, FunctionalTester $I): void
-    {
-        $I->assertEquals($actionPoints, $this->extractSporeAction->getActionPointCost());
     }
 }

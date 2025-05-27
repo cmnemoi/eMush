@@ -3,17 +3,18 @@
 namespace Mush\Tests\unit\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Daedalus\Repository\InMemoryDaedalusRepository;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
@@ -22,14 +23,12 @@ use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Factory\PlayerFactory;
-use Mush\Player\Repository\InMemoryClosedPlayerRepository;
-use Mush\Player\Repository\InMemoryPlayerInfoRepository;
-use Mush\Player\Repository\InMemoryPlayerRepository;
+use Mush\Player\Repository\DeadPlayerInfoRepository;
+use Mush\Player\Repository\PlayerInfoRepositoryInterface;
+use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\Service\PlayerService;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Factory\StatusFactory;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -38,46 +37,54 @@ use PHPUnit\Framework\TestCase;
  */
 final class PlayerServiceTest extends TestCase
 {
-    private InMemoryClosedPlayerRepository $closedPlayerRepository;
-
-    private InMemoryDaedalusRepository $daedalusRepository;
-
     /** @var EventServiceInterface|Mockery\Mock */
     private EventServiceInterface $eventService;
 
-    private InMemoryPlayerRepository $playerRepository;
+    /** @var EntityManagerInterface|Mockery\Mock */
+    private EntityManagerInterface $entityManager;
+
+    /** @var Mockery\Mock|PlayerRepository */
+    private PlayerRepository $repository;
 
     /** @var Mockery\Mock|RoomLogServiceInterface */
     private RoomLogServiceInterface $roomLogService;
 
-    private InMemoryPlayerInfoRepository $playerInfoRepository;
+    /** @var Mockery\Mock|RandomServiceInterface */
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
+    /** @var Mockery\Mock|RandomServiceInterface */
+    private RandomServiceInterface $randomService;
+
+    /** @var Mockery\Mock|PlayerInfoRepositoryInterface */
+    private PlayerInfoRepositoryInterface $playerInfoRepository;
     private CharacterConfigCollection $charactersConfigs;
-
     private PlayerService $service;
+    private DeadPlayerInfoRepository $deadPlayerInfoRepository;
 
     /**
      * @before
      */
     public function before()
     {
-        $this->closedPlayerRepository = new InMemoryClosedPlayerRepository();
-        $this->daedalusRepository = new InMemoryDaedalusRepository();
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
-        $this->daedalusRepository = new InMemoryDaedalusRepository();
-        $this->playerRepository = new InMemoryPlayerRepository();
+        $this->repository = \Mockery::mock(PlayerRepository::class);
+        $this->deadPlayerInfoRepository = \Mockery::mock(DeadPlayerInfoRepository::class);
         $this->roomLogService = \Mockery::mock(RoomLogServiceInterface::class);
-        $this->playerInfoRepository = new InMemoryPlayerInfoRepository();
+        $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepositoryInterface::class);
 
         $this->charactersConfigs = new CharacterConfigCollection();
 
         $this->service = new PlayerService(
-            closedPlayerRepository: $this->closedPlayerRepository,
-            daedalusRepository: $this->daedalusRepository,
-            eventService: $this->eventService,
-            playerRepository: $this->playerRepository,
-            roomLogService: $this->roomLogService,
-            playerInfoRepository: $this->playerInfoRepository,
+            $this->entityManager,
+            $this->eventService,
+            $this->repository,
+            $this->roomLogService,
+            $this->gameEquipmentService,
+            $this->randomService,
+            $this->playerInfoRepository,
         );
     }
 
@@ -86,10 +93,6 @@ final class PlayerServiceTest extends TestCase
      */
     public function after()
     {
-        $this->closedPlayerRepository->clear();
-        $this->daedalusRepository->clear();
-        $this->playerRepository->clear();
-        $this->playerInfoRepository->clear();
         \Mockery::close();
     }
 
@@ -100,7 +103,6 @@ final class PlayerServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-        $this->daedalusRepository->save($daedalus);
 
         $laboratory = new Place();
         $laboratory->setName(RoomEnum::LABORATORY); // @FIXME: should we move the starting room in the config
@@ -120,23 +122,30 @@ final class PlayerServiceTest extends TestCase
             ->setInitHealthPoint(4);
         $this->charactersConfigs->add($characterConfig);
 
-        $gameConfig->setCharactersConfig($this->charactersConfigs);
+        $gameConfig
+            ->setCharactersConfig($this->charactersConfigs);
 
-        $this->eventService->shouldReceive('callEvent')->once();
+        $this->entityManager
+            ->shouldReceive('persist')
+            ->times(2);
+        $this->entityManager
+            ->shouldReceive('flush')
+            ->times(2);
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->once();
 
-        $this->service->createPlayer($daedalus, $user, 'character');
+        $player = $this->service->createPlayer($daedalus, $user, 'character');
 
-        $savedPlayer = $this->playerRepository->findOneByName('character');
-
-        self::assertInstanceOf(Player::class, $savedPlayer);
-        self::assertSame('character', $savedPlayer->getPlayerInfo()->getCharacterConfig()->getCharacterName());
-        self::assertSame($characterConfig->getInitActionPoint(), $savedPlayer->getActionPoint());
-        self::assertSame($characterConfig->getInitMovementPoint(), $savedPlayer->getMovementPoint());
-        self::assertSame($characterConfig->getInitHealthPoint(), $savedPlayer->getHealthPoint());
-        self::assertSame($characterConfig->getInitMoralPoint(), $savedPlayer->getMoralPoint());
-        self::assertSame($characterConfig->getInitSatiety(), $savedPlayer->getSatiety());
-        self::assertCount(0, $savedPlayer->getEquipments());
-        self::assertCount(0, $savedPlayer->getSkills());
+        self::assertInstanceOf(Player::class, $player);
+        self::assertSame('character', $player->getPlayerInfo()->getCharacterConfig()->getCharacterName());
+        self::assertSame($characterConfig->getInitActionPoint(), $player->getActionPoint());
+        self::assertSame($characterConfig->getInitMovementPoint(), $player->getMovementPoint());
+        self::assertSame($characterConfig->getInitHealthPoint(), $player->getHealthPoint());
+        self::assertSame($characterConfig->getInitMoralPoint(), $player->getMoralPoint());
+        self::assertSame($characterConfig->getInitSatiety(), $player->getSatiety());
+        self::assertCount(0, $player->getEquipments());
+        self::assertCount(0, $player->getSkills());
     }
 
     public function testkillPlayer()
@@ -151,7 +160,6 @@ final class PlayerServiceTest extends TestCase
             ->setDay(5)
             ->addPlace($room);
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-        $this->daedalusRepository->save($daedalus);
 
         $characterConfig = new CharacterConfig();
         $characterConfig->setCharacterName('name');
@@ -160,27 +168,26 @@ final class PlayerServiceTest extends TestCase
         $player
             ->setDaedalus($daedalus)
             ->setPlace($room);
-        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
-        $player->setPlayerInfo($playerInfo);
-        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
-        (new \ReflectionClass($closedPlayer))->getProperty('id')->setValue($closedPlayer, random_int(1, PHP_INT_MAX));
-
-        $this->playerRepository->save($player);
 
         $gameItem = new GameItem($player);
 
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
+
         $closedPlayer = $playerInfo->getClosedPlayer();
-        $this->closedPlayerRepository->save($closedPlayer);
+
+        $this->entityManager->shouldReceive('beginTransaction')->once();
+        $this->entityManager->shouldReceive('persist')->times(3);
+        $this->entityManager->shouldReceive('flush')->times(3);
+        $this->entityManager->shouldReceive('commit')->once();
 
         $this->eventService->shouldReceive('callEvent')->once();
 
         $reason = 'bled';
 
-        $this->service->killPlayer($player, $reason, new \DateTime());
+        $player = $this->service->killPlayer($player, $reason, new \DateTime());
 
-        $savedPlayer = $this->playerRepository->findOneByName('name');
-
-        self::assertTrue($savedPlayer->isDead());
+        self::assertSame(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
     }
 
     public function testEndPlayer()
@@ -193,68 +200,36 @@ final class PlayerServiceTest extends TestCase
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $player->setPlayerInfo($playerInfo);
-        $this->playerRepository->save($player);
+
+        $closedPlayer = $playerInfo->getClosedPlayer();
 
         $message = 'message';
+
+        $this->entityManager->shouldReceive([
+            'persist' => null,
+            'flush' => null,
+        ]);
 
         $this->eventService->shouldReceive('callEvent');
 
         $this->service->endPlayer($player, $message, []);
 
-        $savedPlayer = $this->playerRepository->findOneByName('name');
-
-        self::assertSame(GameStatusEnum::CLOSED, $savedPlayer->getPlayerInfo()->getGameStatus());
-        self::assertSame($savedPlayer->getPlayerInfo()->getClosedPlayer()->getMessage(), $message);
+        self::assertSame(GameStatusEnum::CLOSED, $playerInfo->getGameStatus());
+        self::assertSame($closedPlayer->getMessage(), $message);
     }
 
     public function testShouldKillPlayerAtZeroMoraleAtCycleChange(): void
     {
-        $player = $this->givenAndieWithMorale(0);
-        $this->playerRepository->save($player);
+        $player = $this->givenPlayerWithMorale(0);
 
         $this->whenIHandleNewCycleForPlayer($player);
 
-        $savedPlayer = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
-
-        $this->thenPlayerShouldBeDead($savedPlayer);
+        $this->thenPlayerShouldBeDead($player);
     }
 
-    public function testTriumphGainForHuman(): void
+    private function givenPlayerWithMorale(int $morale): Player
     {
-        $this->roomLogService->shouldIgnoreMissing();
-
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, DaedalusFactory::createDaedalus());
-        $player->setTriumph(0);
-        $this->playerRepository->save($player);
-
-        $this->whenIHandleNewCycleForPlayer($player);
-
-        $savedPlayer = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
-
-        self::assertSame(1, $savedPlayer->getTriumph());
-    }
-
-    public function testTriumphGainForMush(): void
-    {
-        $this->roomLogService->shouldIgnoreMissing();
-
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, DaedalusFactory::createDaedalus());
-        $player->setTriumph(120);
-        $this->playerRepository->save($player);
-
-        // given player is mush
-        StatusFactory::createChargeStatusFromStatusName(PlayerStatusEnum::MUSH, $player);
-
-        $this->whenIHandleNewCycleForPlayer($player);
-
-        $savedPlayer = $this->playerRepository->findOneByName(CharacterEnum::ANDIE);
-
-        self::assertSame(118, $savedPlayer->getTriumph());
-    }
-
-    private function givenAndieWithMorale(int $morale): Player
-    {
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, DaedalusFactory::createDaedalus());
+        $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
         $player->setMoralPoint($morale);
 
         return $player;
@@ -262,6 +237,7 @@ final class PlayerServiceTest extends TestCase
 
     private function whenIHandleNewCycleForPlayer(Player $player): void
     {
+        $this->entityManager->shouldIgnoreMissing();
         $this->eventService->shouldIgnoreMissing();
 
         $this->service->handleNewCycle($player, new \DateTime());

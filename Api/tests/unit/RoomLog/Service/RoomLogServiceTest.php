@@ -1,9 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Mush\Tests\unit\RoomLog\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Mockery;
 use Mush\Action\ConfigData\ActionData;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
@@ -11,20 +11,23 @@ use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameStatusEnum;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\Random\FakeD100RollService as FakeD100Roll;
-use Mush\Game\Service\Random\FakeGetRandomIntegerService as FakeGetRandomInteger;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -32,7 +35,7 @@ use Mush\Player\Factory\PlayerFactory;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\RoomLog\Repository\InMemoryRoomLogRepository;
+use Mush\RoomLog\Repository\RoomLogRepository;
 use Mush\RoomLog\Service\RoomLogService;
 use Mush\Skill\ConfigData\SkillConfigData;
 use Mush\Skill\Entity\Skill;
@@ -46,11 +49,10 @@ use PHPUnit\Framework\TestCase;
  */
 final class RoomLogServiceTest extends TestCase
 {
-    private FakeD100Roll $d100Roll;
-    private FakeGetRandomInteger $getRandomInteger;
-    private InMemoryRoomLogRepository $repository;
-    private TranslationServiceInterface $translationService;
-
+    private EntityManagerInterface|Mockery\Mock $entityManager;
+    private Mockery\Mock|RandomServiceInterface $randomService;
+    private Mockery\Mock|RoomLogRepository $repository;
+    private Mockery\Mock|TranslationServiceInterface $translationService;
     private RoomLogService $service;
 
     /**
@@ -58,14 +60,14 @@ final class RoomLogServiceTest extends TestCase
      */
     public function before()
     {
-        $this->d100Roll = new FakeD100Roll();
-        $this->getRandomInteger = new FakeGetRandomInteger(result: 0);
-        $this->repository = new InMemoryRoomLogRepository();
-        $this->translationService = $this->createStub(TranslationServiceInterface::class);
+        $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->repository = \Mockery::mock(RoomLogRepository::class);
+        $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->service = new RoomLogService(
-            $this->d100Roll,
-            $this->getRandomInteger,
+            $this->entityManager,
+            $this->randomService,
             $this->repository,
             $this->translationService,
         );
@@ -76,37 +78,47 @@ final class RoomLogServiceTest extends TestCase
      */
     public function after()
     {
-        $this->repository->clear();
+        \Mockery::close();
+    }
+
+    public function testFindById()
+    {
+        $log = new RoomLog();
+        $this->repository->shouldReceive('find')->with(5)->andReturn($log)->once();
+
+        self::assertSame($log, $this->service->findById(5));
     }
 
     public function testPersist()
     {
-        // given a room log
         $log = new RoomLog();
+        $this->entityManager->shouldReceive('persist')->with($log)->once();
+        $this->entityManager->shouldReceive('flush')->once();
 
-        // when I persist it
-        $persistedLog = $this->service->persist($log);
-
-        // then I should find it in repository
-        self::assertSame($log, $this->repository->findById($persistedLog->getId()));
+        $this->service->persist($log);
     }
 
     public function testCreateSimpleLog()
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalusInfo = new DaedalusInfo(new Daedalus(), new GameConfig(), new LocalizationConfig());
+        $daedalus = $daedalusInfo->getDaedalus();
 
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
-        $place = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $place = new Place();
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::PUBLIC;
         $type = 'log';
         $player = null;
         $parameters = [];
         $dateTime = new \DateTime();
 
-        $this->service->createLog(
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('persist')->once();
+
+        $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
             $place,
             $visibility,
@@ -116,21 +128,20 @@ final class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $log = $this->repository->getOneBy(['log' => $logKey, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $place->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame($logKey, $log->getLog());
-        self::assertSame([], $log->getParameters());
-        self::assertSame('log', $log->getType());
-        self::assertSame($place->getName(), $log->getPlace());
-        self::assertSame($player, $log->getPlayerInfo());
-        self::assertSame($visibility, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame([], $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($player, $test->getPlayerInfo());
+        self::assertSame($visibility, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateLogWithParameters()
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -140,7 +151,8 @@ final class RoomLogServiceTest extends TestCase
         $characterConfig2->setCharacterName('gioele');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
-        $place = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $place = new Place();
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::PUBLIC;
         $type = 'log';
         $player = new Player();
@@ -153,7 +165,10 @@ final class RoomLogServiceTest extends TestCase
         $parameters = ['character' => 'andie', 'quantity' => 5, 'target_character' => 'gioele'];
         $dateTime = new \DateTime();
 
-        $this->service->createLog(
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('persist')->once();
+
+        $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
             $place,
             $visibility,
@@ -163,21 +178,20 @@ final class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $log = $this->repository->getOneBy(['log' => $logKey, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $place->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame($logKey, $log->getLog());
-        self::assertSame($parameters, $log->getParameters());
-        self::assertSame('log', $log->getType());
-        self::assertSame($place->getName(), $log->getPlace());
-        self::assertSame($playerInfo, $log->getPlayerInfo());
-        self::assertSame($visibility, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame($visibility, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateSecretLog()
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -185,7 +199,8 @@ final class RoomLogServiceTest extends TestCase
         $characterConfig1->setCharacterName('andie');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
-        $place = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $place = new Place();
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
@@ -198,7 +213,10 @@ final class RoomLogServiceTest extends TestCase
         $parameters = ['character' => 'andie'];
         $dateTime = new \DateTime();
 
-        $this->service->createLog(
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('persist')->once();
+
+        $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
             $place,
             $visibility,
@@ -208,21 +226,20 @@ final class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $log = $this->repository->getOneBy(['log' => $logKey, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $place->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame($logKey, $log->getLog());
-        self::assertSame($parameters, $log->getParameters());
-        self::assertSame('log', $log->getType());
-        self::assertSame($place->getName(), $log->getPlace());
-        self::assertSame($playerInfo, $log->getPlayerInfo());
-        self::assertSame($visibility, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame($visibility, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateSecretRevealedLog()
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -233,7 +250,8 @@ final class RoomLogServiceTest extends TestCase
         $characterConfig2->setCharacterName('chao');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
-        $place = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $place = new Place();
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
@@ -253,7 +271,11 @@ final class RoomLogServiceTest extends TestCase
             ->setPlace($place);
         (new \ReflectionProperty($player2, 'id'))->setValue($player2, 2);
 
-        $this->service->createLog(
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->entityManager->shouldReceive('persist')->once();
+
+        $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
             $place,
             $visibility,
@@ -263,21 +285,20 @@ final class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $log = $this->repository->getOneBy(['log' => $logKey, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $place->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame($logKey, $log->getLog());
-        self::assertSame($parameters, $log->getParameters());
-        self::assertSame('log', $log->getType());
-        self::assertSame($place->getName(), $log->getPlace());
-        self::assertSame($playerInfo, $log->getPlayerInfo());
-        self::assertSame(VisibilityEnum::REVEALED, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::REVEALED, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateCovertRevealedLog()
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -285,7 +306,8 @@ final class RoomLogServiceTest extends TestCase
         $characterConfig1->setCharacterName('andie');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
-        $place = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $place = new Place();
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
@@ -301,7 +323,11 @@ final class RoomLogServiceTest extends TestCase
         $cameraEquipment = new GameEquipment($place);
         $cameraEquipment->setName(EquipmentEnum::CAMERA_EQUIPMENT);
 
-        $this->service->createLog(
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->randomService->shouldIgnoreMissing();
+
+        $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
             $place,
             $visibility,
@@ -311,21 +337,20 @@ final class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $log = $this->repository->getOneBy(['log' => $logKey, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $place->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame($logKey, $log->getLog());
-        self::assertSame($parameters, $log->getParameters());
-        self::assertSame('log', $log->getType());
-        self::assertSame($place->getName(), $log->getPlace());
-        self::assertSame($playerInfo, $log->getPlayerInfo());
-        self::assertSame(VisibilityEnum::REVEALED, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::REVEALED, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateCovertItemCameraLog()
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -333,7 +358,8 @@ final class RoomLogServiceTest extends TestCase
         $characterConfig1->setCharacterName('andie');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
-        $place = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $place = new Place();
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::COVERT;
         $type = 'log';
         $player = new Player();
@@ -348,7 +374,11 @@ final class RoomLogServiceTest extends TestCase
         $cameraEquipment = new GameItem($place);
         $cameraEquipment->setName(ItemEnum::CAMERA_ITEM);
 
-        $this->service->createLog(
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->randomService->shouldIgnoreMissing();
+
+        $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
             $place,
             $visibility,
@@ -358,16 +388,14 @@ final class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $log = $this->repository->getOneBy(['log' => $logKey, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $place->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame($logKey, $log->getLog());
-        self::assertSame($parameters, $log->getParameters());
-        self::assertSame('log', $log->getType());
-        self::assertSame($place->getName(), $log->getPlace());
-        self::assertSame($playerInfo, $log->getPlayerInfo());
-        self::assertSame($visibility, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame($visibility, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateActionSuccessLog()
@@ -380,6 +408,9 @@ final class RoomLogServiceTest extends TestCase
         $actionResult = new Success();
         $actionResult->setVisibility(VisibilityEnum::PUBLIC);
 
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
         $actionEvent = new ActionEvent(
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
             actionProvider: $this->createStub(ActionProviderInterface::class),
@@ -388,18 +419,16 @@ final class RoomLogServiceTest extends TestCase
         );
         $actionEvent->setActionResult($actionResult);
 
-        $this->service->createLogFromActionEvent($actionEvent);
+        $test = $this->service->createLogFromActionEvent($actionEvent);
 
-        $log = $this->repository->getOneBy(['log' => ActionLogEnum::STRENGTHEN_SUCCESS, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $player->getPlace()->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame(ActionLogEnum::STRENGTHEN_SUCCESS, $log->getLog());
-        self::assertSame(['character' => 'andie'], $log->getParameters());
-        self::assertSame('actions_log', $log->getType());
-        self::assertSame($player->getPlace()->getName(), $log->getPlace());
-        self::assertSame($player->getPlayerInfo(), $log->getPlayerInfo());
-        self::assertSame(VisibilityEnum::PUBLIC, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame(ActionLogEnum::STRENGTHEN_SUCCESS, $test->getLog());
+        self::assertSame(['character' => 'andie'], $test->getParameters());
+        self::assertSame('actions_log', $test->getType());
+        self::assertSame($player->getPlace()->getName(), $test->getPlace());
+        self::assertSame($player->getPlayerInfo(), $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::PUBLIC, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateActionFailLog()
@@ -413,6 +442,9 @@ final class RoomLogServiceTest extends TestCase
         $actionResult = new Fail();
         $actionResult->setVisibility(VisibilityEnum::PRIVATE);
 
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
         $actionEvent = new ActionEvent(
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
             actionProvider: $this->createStub(ActionProviderInterface::class),
@@ -421,18 +453,16 @@ final class RoomLogServiceTest extends TestCase
         );
         $actionEvent->setActionResult($actionResult);
 
-        $this->service->createLogFromActionEvent($actionEvent);
+        $test = $this->service->createLogFromActionEvent($actionEvent);
 
-        $log = $this->repository->getOneBy(['log' => ActionLogEnum::DEFAULT_FAIL, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $player->getPlace()->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame(ActionLogEnum::DEFAULT_FAIL, $log->getLog());
-        self::assertSame(['character' => 'andie'], $log->getParameters());
-        self::assertSame('actions_log', $log->getType());
-        self::assertSame($player->getPlace()->getName(), $log->getPlace());
-        self::assertSame($player->getPlayerInfo(), $log->getPlayerInfo());
-        self::assertSame(VisibilityEnum::PRIVATE, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
+        self::assertSame(['character' => 'andie'], $test->getParameters());
+        self::assertSame('actions_log', $test->getType());
+        self::assertSame($player->getPlace()->getName(), $test->getPlace());
+        self::assertSame($player->getPlayerInfo(), $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::PRIVATE, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testCreateActionWithParameterLog()
@@ -450,6 +480,9 @@ final class RoomLogServiceTest extends TestCase
         $actionResult = new Fail($gameEquipment);
         $actionResult->setVisibility(VisibilityEnum::PRIVATE);
 
+        $this->entityManager->shouldReceive('persist')->once();
+        $this->entityManager->shouldReceive('flush')->once();
+
         $actionEvent = new ActionEvent(
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
             actionProvider: $this->createStub(ActionProviderInterface::class),
@@ -459,26 +492,33 @@ final class RoomLogServiceTest extends TestCase
         );
         $actionEvent->setActionResult($actionResult);
 
-        $this->service->createLogFromActionEvent($actionEvent);
+        $test = $this->service->createLogFromActionEvent($actionEvent);
 
-        $log = $this->repository->getOneBy(['log' => ActionLogEnum::DEFAULT_FAIL, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $player->getPlace()->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame(ActionLogEnum::DEFAULT_FAIL, $log->getLog());
-        self::assertSame(['character' => 'andie', 'target_equipment' => 'equipment'], $log->getParameters());
-        self::assertSame('actions_log', $log->getType());
-        self::assertSame($player->getPlace()->getName(), $log->getPlace());
-        self::assertSame($player->getPlayerInfo(), $log->getPlayerInfo());
-        self::assertSame(VisibilityEnum::PRIVATE, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame(ActionLogEnum::DEFAULT_FAIL, $test->getLog());
+        self::assertSame(['character' => 'andie', 'target_equipment' => 'equipment'], $test->getParameters());
+        self::assertSame('actions_log', $test->getType());
+        self::assertSame($player->getPlace()->getName(), $test->getPlace());
+        self::assertSame($player->getPlayerInfo(), $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::PRIVATE, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testGetLogs()
     {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->setDay(1);
-        $daedalus->setCycle(4);
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $localizationConfig = new LocalizationConfig();
+        $localizationConfig->setLanguage(LanguageEnum::FRENCH);
+        $gameConfig = new GameConfig();
+
+        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+
+        $place = new Place();
+        $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
+        $player->setPlace($place)->setDaedalus($daedalus);
+
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         $date = new \DateTime();
 
@@ -487,8 +527,6 @@ final class RoomLogServiceTest extends TestCase
             ->setLog('logKey1')
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCreatedAt($date)
-            ->setPlace($player->getPlace()->getName())
-            ->setDaedalusInfo($daedalus->getDaedalusInfo())
             ->setParameters([])
             ->setDay(1)
             ->setCycle(3)
@@ -499,25 +537,26 @@ final class RoomLogServiceTest extends TestCase
             ->setLog('logKey2')
             ->setVisibility(VisibilityEnum::PUBLIC)
             ->setCreatedAt($date)
-            ->setPlace($player->getPlace()->getName())
-            ->setDaedalusInfo($daedalus->getDaedalusInfo())
             ->setParameters(['player' => 'andie'])
             ->setDay(1)
             ->setCycle(4)
             ->setType('log');
 
-        $this->repository->save($roomLog1);
-        $this->repository->save($roomLog2);
+        $this->repository
+            ->shouldReceive('getPlayerRoomLog')
+            ->once()
+            ->andReturn([$roomLog1, $roomLog2]);
 
         $logs = $this->service->getRoomLog($player);
+        $expectedLogs = new RoomLogCollection([$roomLog1, $roomLog2]);
 
-        self::assertContains('logKey1', $logs->map(static fn (RoomLog $roomLog) => $roomLog->getLog())->toArray());
-        self::assertContains('logKey2', $logs->map(static fn (RoomLog $roomLog) => $roomLog->getLog())->toArray());
+        self::assertEquals($expectedLogs, $logs);
     }
 
     public function testCreateSecretLogDeadPlayerInRoom()
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus = new Daedalus();
+        $daedalusInfo = new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
         $daedalus->setCycle(4);
         $daedalus->setDay(2);
 
@@ -528,7 +567,8 @@ final class RoomLogServiceTest extends TestCase
         $characterConfig2->setCharacterName('chao');
 
         $logKey = ActionLogEnum::OPEN_SUCCESS;
-        $place = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $place = new Place();
+        $place->setDaedalus($daedalus)->setName('test');
         $visibility = VisibilityEnum::SECRET;
         $type = 'log';
         $player = new Player();
@@ -548,7 +588,11 @@ final class RoomLogServiceTest extends TestCase
             ->setPlayerInfo($playerInfo2)
             ->setPlace($place);
 
-        $this->service->createLog(
+        $this->entityManager->shouldReceive('flush')->once();
+
+        $this->entityManager->shouldReceive('persist')->once();
+
+        $test = $this->service->createLog(
             ActionLogEnum::OPEN_SUCCESS,
             $place,
             $visibility,
@@ -558,47 +602,42 @@ final class RoomLogServiceTest extends TestCase
             $dateTime
         );
 
-        $log = $this->repository->getOneBy(['log' => $logKey, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $place->getName(), 'day' => 2, 'cycle' => 4]);
-
-        self::assertSame($logKey, $log->getLog());
-        self::assertSame($parameters, $log->getParameters());
-        self::assertSame('log', $log->getType());
-        self::assertSame($place->getName(), $log->getPlace());
-        self::assertSame($playerInfo, $log->getPlayerInfo());
-        self::assertSame(VisibilityEnum::SECRET, $log->getVisibility());
-        self::assertSame(4, $log->getCycle());
-        self::assertSame(2, $log->getDay());
+        self::assertSame($logKey, $test->getLog());
+        self::assertSame($parameters, $test->getParameters());
+        self::assertSame('log', $test->getType());
+        self::assertSame($place->getName(), $test->getPlace());
+        self::assertSame($playerInfo, $test->getPlayerInfo());
+        self::assertSame(VisibilityEnum::SECRET, $test->getVisibility());
+        self::assertSame(4, $test->getCycle());
+        self::assertSame(2, $test->getDay());
     }
 
     public function testMarkAllRoomLogsAsReadForPlayer()
     {
         // given a player
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
+        $player = new Player();
+        (new \ReflectionProperty($player, 'id'))->setValue($player, 1);
+        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
 
         // given some unread room logs
-        $roomLogs = $this->roomLogFactory($player->getPlayerInfo(), number: 5);
+        $roomLogs = $this->roomLogFactory($playerInfo, number: 5);
+
+        // given two of them are already read
+        $roomLogs->get(0)->addReader($player);
+        $roomLogs->get(1)->addReader($player);
+
+        // given universe is setup so that everything works
+        $this->repository
+            ->shouldReceive('getPlayerRoomLog')
+            ->once()
+            ->andReturn($roomLogs->toArray());
+        $this->entityManager->shouldReceive('beginTransaction')->once();
+        $this->entityManager->shouldReceive('persist')->times(3);
+        $this->entityManager->shouldReceive('flush')->once();
+        $this->entityManager->shouldReceive('commit')->once();
 
         // when I call markAllRoomLogsAsReadForPlayer
         $this->service->markAllRoomLogsAsReadForPlayer($player);
-
-        // then all player room logs should be marked as read
-        $roomLogs->map(function (RoomLog $roomLog) use ($player) {
-            $this->assertTrue($roomLog->isReadBy($player));
-        });
-    }
-
-    public function testMarkRoomLogAsReadForPlayer(): void
-    {
-        // given a player
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
-
-        // given 1 unread room log
-        $roomLogs = $this->roomLogFactory($player->getPlayerInfo(), number: 1);
-
-        // when I call markRoomLogAsReadForPlayer
-        $this->service->markRoomLogAsReadForPlayer($roomLogs->get(0), $player);
 
         // then all player room logs should be marked as read
         $roomLogs->map(function (RoomLog $roomLog) use ($player) {
@@ -613,9 +652,11 @@ final class RoomLogServiceTest extends TestCase
         $observant = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ELEESHA, $daedalus);
         new Skill(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::OBSERVANT)), $observant);
 
-        $this->d100Roll->makeSuccessful();
+        $this->randomService->shouldReceive('isSuccessful')->with(RoomLogService::OBSERVANT_REVEAL_CHANCE)->andReturn(true)->once();
+        $this->entityManager->shouldReceive('persist')->twice(); // once for the original log, once for the "[Observant] noticed something" log
+        $this->entityManager->shouldReceive('flush')->twice(); // once for the original log, once for the "[Observant] noticed something" log
 
-        $this->service->createLog(
+        $roomLog = $this->service->createLog(
             ActionLogEnum::MAKE_SICK,
             $player->getPlace(),
             VisibilityEnum::COVERT,
@@ -625,106 +666,10 @@ final class RoomLogServiceTest extends TestCase
             new \DateTime()
         );
 
-        $roomLog = $this->repository->getOneBy(['log' => ActionLogEnum::MAKE_SICK, 'daedalusInfo' => $daedalus->getDaedalusInfo(), 'place' => $player->getPlace()->getName(), 'day' => 1, 'cycle' => 1]);
-
         self::assertSame(VisibilityEnum::REVEALED, $roomLog->getVisibility());
     }
 
-    public function testCanSeeLogsFromEightCyclesAgo(): void
-    {
-        // given daedalus is D2C8
-        $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus
-            ->setDay(2)
-            ->setCycle(8);
-
-        // given a log created D1C8
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
-        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 8)->first();
-
-        // when player ask for logs
-        $roomLogs = $this->service->getRoomLog($player);
-
-        // then they should see the log
-        self::assertEquals([$roomLog->getId()], $roomLogs->map(static fn (RoomLog $roomLog) => $roomLog->getId())->toArray());
-    }
-
-    public function testCanSeeLogsFromCurrentCycle(): void
-    {
-        // given daedalus is D1C1
-        $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->setDay(1);
-        $daedalus->setCycle(1);
-
-        // given a log created D1C1
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
-        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 1)->first();
-
-        // when player ask for logs
-        $roomLogs = $this->service->getRoomLog($player);
-
-        // then they should see the log
-        self::assertEquals([$roomLog->getId()], $roomLogs->map(static fn (RoomLog $roomLog) => $roomLog->getId())->toArray());
-    }
-
-    public function testCanSeeLogsFromPreviousCycle(): void
-    {
-        // given daedalus is D2C1
-        $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->setDay(2);
-        $daedalus->setCycle(1);
-
-        // given a log created D1C8
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
-        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 8)->first();
-
-        // when player ask for logs
-        $roomLogs = $this->service->getRoomLog($player);
-
-        // then they should see the log
-        self::assertEquals([$roomLog->getId()], $roomLogs->map(static fn (RoomLog $roomLog) => $roomLog->getId())->toArray());
-    }
-
-    public function testCannotSeeLogsFromNineCyclesAgo(): void
-    {
-        // given daedalus is D2C2
-        $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->setDay(2);
-        $daedalus->setCycle(2);
-
-        // given a log created D1C1
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
-        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 1)->first();
-
-        // when player ask for logs
-        $roomLogs = $this->service->getRoomLog($player);
-
-        // then they should not see the log
-        self::assertSame(0, $roomLogs->count());
-    }
-
-    public function testTrackerCanSeeLogsFromSixteenCyclesAgo(): void
-    {
-        // given daedalus is D2C8
-        $daedalus = DaedalusFactory::createDaedalus();
-        $daedalus->setDay(2);
-        $daedalus->setCycle(8);
-
-        // given player is a tracker
-        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, $daedalus);
-        Skill::createByNameForPlayer(SkillEnum::TRACKER, $player);
-
-        // given a log created D1C1
-        $roomLog = $this->roomLogFactory($player->getPlayerInfo(), day: 1, cycle: 1)->first();
-
-        // when player ask for logs
-        $roomLogs = $this->service->getRoomLog($player);
-
-        // then they should see the log
-        self::assertEquals([$roomLog->getId()], $roomLogs->map(static fn (RoomLog $roomLog) => $roomLog->getId())->toArray());
-    }
-
-    private function roomLogFactory(PlayerInfo $playerInfo, int $day = 1, int $cycle = 1, int $number = 1): RoomLogCollection
+    private function roomLogFactory(PlayerInfo $playerInfo, int $number = 1): RoomLogCollection
     {
         $roomLogs = new RoomLogCollection();
 
@@ -735,15 +680,12 @@ final class RoomLogServiceTest extends TestCase
                 ->setLog('logKey')
                 ->setVisibility(VisibilityEnum::PUBLIC)
                 ->setCreatedAt(new \DateTime())
-                ->setDaedalusInfo($playerInfo->getPlayer()->getDaedalusInfo())
-                ->setPlace($playerInfo->getPlayer()->getPlace()->getName())
                 ->setParameters([])
-                ->setDay($day)
-                ->setCycle($cycle)
+                ->setDay(1)
+                ->setCycle(1)
                 ->setType('log');
 
             $roomLogs->add($roomLog);
-            $this->repository->save($roomLog);
         }
 
         return $roomLogs;

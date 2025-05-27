@@ -36,6 +36,6 @@ TODO.md
 # .log files
 *.log
 
-.aider*
+server_pids
 
-.windsurfrules
+.aider*

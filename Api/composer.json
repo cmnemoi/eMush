@@ -6,8 +6,8 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-intl": "*",
+        "ext-mbstring": "*",
         "ext-openssl": "*",
-        "ext-protobuf": "*",
         "api-platform/core": "^2.7.18",
         "composer/package-versions-deprecated": "^1.11.99.5",
         "doctrine/annotations": "^2.0.1",
@@ -21,11 +21,6 @@
         "lexik/jwt-authentication-bundle": "^2.20.3",
         "nelmio/api-doc-bundle": "^4.25.2",
         "nelmio/cors-bundle": "^2.4",
-        "open-telemetry/api": "^1.0",
-        "open-telemetry/context": "^1.0",
-        "open-telemetry/exporter-otlp": "^1.0",
-        "open-telemetry/sdk": "^1.0",
-        "open-telemetry/sem-conv": "^1.27",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.28",
         "sensio/framework-extra-bundle": "^6.2.10",
@@ -74,9 +69,8 @@
         },
         "sort-packages": true,
         "allow-plugins": {
-            "php-http/discovery": false,
             "symfony/flex": true,
-            "tbachert/spi": true
+            "php-http/discovery": false
         }
     },
     "autoload": {
@@ -128,8 +122,7 @@
         "lint": [
             "@cs-fixer",
             "@psalm",
-            "@phpmd",
-            "@phpcs"
+            "@phpmd"
         ],
         "load-data": [
             "php bin/console mush:load-configs-data"
@@ -141,7 +134,6 @@
             "php bin/console doctrine:fixtures:load --env=test -n --verbose"
         ],
         "phpmd": "vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit",
-        "phpcs": "vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/*",
         "psalm": "vendor/bin/psalm",
         "psalm:clear-cache": "vendor/bin/psalm --clear-cache",
         "reset": [
@@ -166,13 +158,9 @@
             "php vendor/bin/codecept run tests/unit/Alert",
             "php vendor/bin/codecept run tests/functional/Alert"
         ],
-        "test:chat": [
-            "php vendor/bin/codecept run tests/unit/Chat",
-            "php vendor/bin/codecept run tests/functional/Chat"
-        ],
-        "test:communications": [
-            "php vendor/bin/codecept run tests/unit/Communications",
-            "php vendor/bin/codecept run tests/functional/Communications"
+        "test:communication": [
+            "php vendor/bin/codecept run tests/unit/Communication",
+            "php vendor/bin/codecept run tests/functional/Communication"
         ],
         "test:daedalus": [
             "php vendor/bin/codecept run tests/unit/Daedalus",
@@ -258,8 +246,6 @@
         "symfony": {
             "allow-contrib": false,
             "require": "6.4.*"
-        },
-        "minimum-stability": "dev",
-        "prefer-stable": true
+        }
     }
 }

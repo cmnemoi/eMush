@@ -2,519 +2,425 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="characters.ext">
     <unit id="Neron">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>neron.name</source>
-        <target>Neron</target>
+        <target>neron.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>neron.fullname</source>
-        <target>Neron</target>
+        <target>neron.fullname</target>
       </segment>
     </unit>
     <unit id="Andie">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>andie.name</source>
-        <target>Andie</target>
+        <target>andie.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>andie.fullname</source>
-        <target>Andie Graham</target>
+        <target>andie.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>andie.initials</source>
-        <target>AG</target>
+        <target>andie.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>andie.age</source>
-        <target>24 años</target>
+        <target>andie.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>andie.description</source>
-        <target>Lamesuelas de la Federación</target>
+        <target>andie.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>andie.employment</source>
-        <target>Sub-teniente de la FDS</target>
+        <target>andie.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>andie.abstract</source>
-        <target>Andie Graham, sub-teniente de la FDS, sigue sin saber que el Daedalus ha cortado sus lazos con la FDS. Aún cree que está en una misión por el bien de la Federación y participa activamente en el éxito de la misma. Al enterarse de que su ídolo, el sargento Derek Hogan, es parte de la tripulación del Daedelus, Andie solicita un lugar a bordo. El conjunto de habilidades variadas que posee le vuelven esencial para el éxito de la misión.</target>
+        <target>andie.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>andie.biography</source>
-        <target>- 3136: Nace en algún lugar de la Tierra.
-- 3136: Sus padres le abandonan en los primeros meses de su existencia, una unidad de la FDS salvaguarda a Andie. Le enlistan inmediatamente ***como estudiante de la FDS*** donde no tardarán en notar sus facultades innatas. Andie rápidamente ingresa en una escuela para superdotados dirigida por la FDS y entra en ***el programa federal para jóvenes***.
-- 3145: Andie triunfa brillantemente en sus estudios e ingresa en la prestigiosa universidad de la federación. Andie se adoctrina completamente durante sus estudios, ***ahora sólo sigue el camino de la federación.*** A pesar de su ingenuidad, Andie es muy popular y no tiene problemas para hacer amigos. Su rostro angelical le permite atraer simpatía sin saberlo. ***Su compañero de cuarto, Viktor Carlsson***, infiltrado en secreto por su hermano Nils en la universidad, pagará el precio de su amistad. Al confiarle su verdadera misión durante una conversación, Viktor es arrestado por conspiración. Andie pensará inocentemente que este simplemente cambió de rumbo...
-- 3151: Andie conoce al sargento instructor Derek Hogan***. Presentado como un héroe de la nación, pasa todas sus clases contando su vida de fantasía. Andie encuentra una figura paterna perdida en su maestro y comienza a idolatrarlo. Andie toma todas estas historias al pie de la letra y comienza a soñar con viajar también por el espacio.
-- 3153: Andie continúa sus estudios para atender mejor las necesidades de la federación. Aprueba brillantemente tres tesis, ***una en botánica*** por su estudio sobre las propiedades curativas del bulbo branquial de Tau-Ceti, ***otra en biología*** con su estudio sobre el comportamiento social de las amebas polarizadas del Mar Egeo del tercer planeta del sistema Sol, y finalmente ***en diplomacia*** con su informe de mediación, que según el jurado, podría haber inspirado a los negociadores que no lograron impedir la gran batalla del Sol. ***Se convierte en la primer persona en ser triple ganador de la federación.***
-- 3154: Después de completar sus estudios, Andie decide convertirse en piloto, por lo que se une a la división aérea de la federación y aprueba su certificado con gran éxito. **Andie pide que se le asigne a Xyloph-17*** y pronto Kim Jin Su nota su talento. Derek no le reconoce.
-- 3154: Lejos de sospechar los problemas que acechan en las sombras y todavía pensando en servir ardientemente a la federación, Andie aborda el Daedalus.</target>
+        <target>andie.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>andie.tips</source>
-        <target>**Participa en investigaciones** en el Laboratorio para ralentizar a los Mushs gracias a tu habilidad Polivalente.//**Elimina hunters** con los Patrulleros ubicados en las plataformas para proteger la nave.//**Participa en expediciones** a planetas con el Icarus ubicado en la Plataforma Icarus, despegando con tu habilidad Piloto y haciendolas más seguras con Polivalente.</target>
+        <target>andie.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>andie.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Andie_Graham</target>
+        <target>andie.tutorial</target>
       </segment>
     </unit>
     <unit id="Chao">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>chao.name</source>
-        <target>Chao</target>
+        <target>chao.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>chao.fullname</source>
-        <target>Wang Chao</target>
+        <target>chao.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>chao.initials</source>
-        <target>CW</target>
+        <target>chao.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>chao.age</source>
-        <target>34 años</target>
+        <target>chao.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>chao.description</source>
-        <target>Jefe de seguridad del Daedalus</target>
+        <target>chao.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>chao.employment</source>
-        <target>Jefe de seguridad</target>
+        <target>chao.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>chao.abstract</source>
-        <target>A Wang Chao se le asigna el puesto de jefe de seguridad de la tripulación. Su personalidad caótica lo convierte en una amenaza tanto para sus aliados como para sus enemigos. A pesar de los errores que cometió en su juventud, Chao logró ganarse la confianza de su equipo organizando el convoy de evacuación de emergencia del Daedalus y protegiéndolos con éxito contra los exmiembros de la FDS.</target>
+        <target>chao.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>chao.biography</source>
-        <target>- 3120: Nace en la Tierra.
-- 3139: Ingresa a la FDS (Federación para la Defensa del sistema Sol)
-- 3146: Hecho prisionero durante la ***Batalla de Sol***, el oficial Wang logró secuestrar el transporte rebelde que lo albergaba después de haber exterminado a casi toda su tripulación. Recibe el ***Rayo Dorado*** pero por miedo a su comportamiento, sus superiores prefieren asignarlo a ***Xyloph-17***, a la ***Expedición de Magallanes*** bajo el mando del ***Sargento Derek Hogan* ** .
-- 3150: El oficial Wang es transferido a ***Encélado*** para preparar la invasión de los sistemas ***Ross248 y Tau-Ceti***. Es entrenado para manipular el ***Blast-IOM***,  diseñado para curar a un soldado infectado con una solo disparo.
-- 3151: Los Blast-IOM resultan ineficaces. Chao ***vió a todo su comando masacrado*** por un ataque sorpresa en Tau-Ceti. Chao debe hacerse el muerto para escapar de los rebeldes y esperar la tardía llegada del sargento Hogan a la escena. Los rebeldes supervivientes fueron ejecutados, pero Chao esta convencido de que esta masacre y muchas otras que marcaron esta guerra fueron orquestadas por la Federación o los Mush.
-- 3152: De vuelta en el Equipo Magellanes, Chao y Derek se enteran del cambio en el objetivo del proyecto. El Arca Mundial ahora tiene la misión de preservar la especie humana de la invasión de los Mush. Según ellos, ya se ha apoderado de la guerrilla rebelde y de la Federación. ***La nueva arca se llama Daedalus***.
-- 3153: El jefe del proyecto Daedalus, Kim Jin Su, encarga extraoficialmente a ***Chao y Derek de secuestrar a Finola Keegan***, una eminencia de la investigación anti-mush que se negó a unirse a su alianza. Derek Hogan desaparece durante la operación en circunstancias misteriosas, pero la misión es un éxito. Finola es abordada y congelada criogénicamente en Xyloph-17.
-- 3154: Cuando se entera de que el nuevo directivo enviado por la Federación ha sido infectado por el Mush, Chao ***lo elimina sin el consentimiento de sus compañeros***. Este hecho provocó un retroceso en sus relaciones con la Federación, quienes habían ordenado a los operarios de la FDS de ese sitio a suspender el proyecto. Chao se niega a cumplir la orden y ayuda a los miembros restantes de su equipo a organizar una salida sorpresa del Daedalus.</target>
+        <target>chao.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>chao.tips</source>
-        <target>**Investiga para identificar a los Mushs** con tus compañeros humanos mediante canales privados.//**Tortura a compañeros sospechosos** para identificar acciones Mush con tu habilidad Torturador.//**Participa en expediciones** para recolectar más recursos con tu habilidad Superviviente.</target>
+        <target>chao.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>chao.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Wang_Chao</target>
+        <target>chao.tutorial</target>
       </segment>
     </unit>
     <unit id="Chun">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>chun.name</source>
-        <target>Chun</target>
+        <target>chun.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>chun.fullname</source>
-        <target>Zhong Chun</target>
+        <target>chun.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>chun.initials</source>
-        <target>CZ</target>
+        <target>chun.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>chun.age</source>
-        <target>33 años</target>
+        <target>chun.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>chun.description</source>
-        <target>Última esperanza de la humanidad</target>
+        <target>chun.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>chun.employment</source>
-        <target>Agente de mantenimiento</target>
+        <target>chun.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>chun.abstract</source>
-        <target>Siendo la única superviviente del equipo médico de Tamina, Chun fue llevada a bordo del Daedalus para someterse a varios análisis. Criogenizada por la Federación durante más de nueve años para garantizar su silencio y luego acosada por los periodistas, Chun nunca ha conocido una vida normal. Sin embargo, es la clave para la supervivencia de la especie humana; Zhong Chun debe sobrevivir a toda costa.</target>
+        <target>chun.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>chun.biography</source>
-        <target>- 3110: Nace en Vladivostok, China.
-- 3129:  Zhong Chun se une al cuerpo misionero auxiliar de enfermeros y viaja en un convoy intergaláctico para ***participar en la gran colonización de Tau Ceti***. 6 meses antes de irse, completó un curso intensivo de enfermería.
-- 3131: Chun es asignada al equipo de apoyo de la expedición de Tamina. Este lujoso planeta tiene una abundancia de vida animal y vegetal, pero debido a la importancia de los depósitos de Boxylium, esto no despierta mucho interés inicial por parte de ***Kim Jin-Su***.
-- 3132: La súbita enfermedad de dos exploradores después de unas expediciones de superficie de rutina obliga a la nave a redirigirse a ***Atemis en Tau Ceti III***. Durante el viaje, el ***joven explorador Daryn Williams*** muere ante los ojos de Chun. El segundo estaba aún vivo cuando ingresó a la sala de operaciones. Lo que pasa acontinuación es una pesadilla. En plena operación, dos de los asistentes empiezan a vomitar violentamente. La alarma de cuarentena es lanzada y todo el sector médico es sellado. Chun va de un paciente a otro, pero ***en menos de 36 horas todos los médicos, asistentes y expedicionarios fallecen por lo que parece ser una apraxia fúngica altamente contagiosa***. Chun es ***la única superviviente del equipo***.
-- 3132: En estado de shock, Chun es enviada a la Tierra. A su llegada, es sometida a una criogenización forzada por tiempo indeterminado por el gobierno. Oficialmente, no hubo sobrevivientes en el desastre de Tamina.
-- 3141: Chun se despierta en América Central en presencia de un equipo científico dirigido por ***Nils Carlsson***. Ella ***ha sido su objeto de estudio por los últimos 9 años***. Fue reubicada a los suburbios no tan lejos del laboratorio con un nombre falso. Al preguntarle al profesor Carlsson, se entera de que la infección descubierta en Tamina se ha extendido a Tau-Ceti y que el departamento de sanidad está ***trabajando en una vacuna para detener su propagación***. Los colonos aún no han sido informados.
-- 3142: Una periodista de la cadena SNC entrevista a Chun  y le pregunta qué fue lo que pasó exactamente en Tamina. Chun responde sus preguntas, pero evita mencionar la pandemia en Tau-Ceti para no causar el pánico general en el sistema.
-- 3143: Los análisis de Nils sobre el sistema inmunitario de Chun llegan a su fin. El logra aislar una muestra inofensiva de micelio la cual promueve a los anticuerpos humanos a rechazar el mush. La vacuna Anti Fúngica es enviada a Tau-Ceti.
-- 3145: Mientras se organiza una campaña masiva de vacunación preventiva en Antemis bajo ningún pretexto creativo, estalla una rebelión espontánea entre los mineros. Se corre la voz de que la nueva vacuna te transforma en un zombi para ser esclavizado en las minas de Sol. Solo un puñado de mineros pudieron ser vacunados antes de que la FDS se viera obligada a abandonar el sistema.
-- 3149: El anuncio oficial de la Federación sobre la existencia del Mush desencadena una tormenta mediática sin precedentes. La noticia de la existencia de Zhong Chun se difunde rápidamente y ella se ve constantemente acosada por distintos grupos de periodistas. Para escapar de los disturbios, el profesor Nils envía a Chun a Xyloph-17, la base desde donde su colega Kim Jin-Su está organizando un viaje a la nebulosa de Magallanes.
-- 3151: Chun trabaja durante dos años en la plataforma orbital como agente de mantenimiento. Sólo Kim Jin-Su, el comandante de operaciones, conocía su verdadera identidad. A pesar de la satisfacción de poder llevar finalmente una vida normal, Chun se preocupa por la seguridad de Carlsson, ya que se suponía que se reuniría con ella unos meses más tarde.
-- 3152: La periodista Eleesha Williams, quien había entrevistado a Chun 10 años antes, se contacta de pronto con el equipo del Magallanes para revelar una terrible noticia. Según una nota del profesor Carlsson que data del año 3150, los dirigentes de la FDS están infectados con el Mush.
-- 3153: El profesor Carlsson finalmente llega a la plataforma orbital y la verdadera identidad de Chun es revelada al resto del equipo. Comienzan a trabajar juntos nuevamente para aislar otra muestra de micelio y reiniciar la producción de vacunas. Sin embargo, el deterioro de la salud de Nils dificulta considerablemente el progreso.
-- 3154: La invasión por parte de la FDS en la base orbital provoca el despegue anticipado del Daedalus. El profesor Carlsson no está en condición para acompañar al equipo, por lo que se ve obligado a despedirse de Chun y hacer frente a su abrumante destino.</target>
+        <target>chun.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>chun.tips</source>
-        <target>**Tu presencia es requerida en el laboratorio** para múltiples investigaciones que pueden ralentizar a los Mush, cortesía de tu estado inmunizado.//**Investiga para identificar a los Mushs** con tus compañeros de equipo humanos mediante canales privados.//**Cura a tus compañeros de equipo heridos** con el botiquín o en la enfermería.</target>
+        <target>chun.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>chun.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Zhong_Chun</target>
+        <target>chun.tutorial</target>
       </segment>
     </unit>
     <unit id="Derek">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>derek.name</source>
-        <target>Derek</target>
+        <target>derek.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>derek.fullname</source>
-        <target>Derek Hogan</target>
+        <target>derek.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>derek.initials</source>
-        <target>DH</target>
+        <target>derek.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>derek.age</source>
-        <target>39 años recién cumplidos</target>
+        <target>derek.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>derek.description</source>
-        <target>Un verdadero héroe a pesar de todo.</target>
+        <target>derek.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>derek.employment</source>
-        <target>Ex sargento de la FDS</target>
+        <target>derek.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>derek.abstract</source>
-        <target>Derek Hogan está asignado a la seguridad del Daedalus. Robusto y seguro de sí mismo, será un miembro importante para el éxito de esta misión extrema. Su pasado es una sucesión de acontecimientos, cada uno más increíble que el anterior. Derek lo ha experimentado todo, los campos de batalla de Sol, las misiones suicidas de Tau-Ceti... Sin embargo, siempre está buscando un alma gemela. Desde su apresurada salida de su hogar, Derek ha dedicado su existencia a las mujeres, pero sin éxito alguno.</target>
+        <target>derek.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>derek.biography</source>
-        <target>- 3109: Nace en la Tierra.
-- 3127: Derek se corta al intentar afeitarse por primera vez su vello juvenil. El conserva la cicatriz y jura ante cualquiera que le escuche que se hizo esa herida en un combate en Tau-Ceti.
-- 3139: Derek ***se enlista en la FDS*** después de recibir un folleto de propaganda de la misma. Su madre le prohíbe abandonar su hogar, por lo que Derek decide cortar lazos con ella, desde ahora volará solo.
-- 3145: Derek poco a poco va ascendiendo de rango, ya que desde su infancia fue entrenado para ser el sirviente de turno, no pasa mucho tiempo antes de que lo noten sus superiores. Es enviado a Sol y participa en la gran batalla. Como un explorador del campo de batalla, sorprende a sus superiores tomando él solo una base enemiga avanzada. Según dicho por él mismo, no vio la torre de comunicaciones antes de estrellarse contra ella... Recompensado por su valentía en el campo de batalla, ***Derek fue ascendido a sargento***.
-- 3146: Después de algunas misiones de alcance limitado, Derek es transferido a Xyloph-17 para ***supervisar el proyecto Magallanes***, debe informar las más pequeñas acciones de los científicos que trabajan en la órbita de Júpiter. Conoce a ***Chao Wang***, pero no entabla una relación con él, prefiriendo la compañía de los pasajeros de Xyloph-17. Pobre Derek, sus deficientes informes y su contacto cada vez más problemático con el personal femenino de la estación le hacen volver al campo.
-- 3151: Derek realiza misiones pequeñas y siempre logra completarlas. Sus colegas a menudo se quejan de su mala toma de decisiones, pero reconocen que el tipo tiene suerte. Se las arregla con un pequeño escuadrón para rescatar a Chao Wang, previamente enviado a ***Encélado***. En las altas esferas de la FDS, algunos lo ven como una estrella en ascenso, otros temen sus métodos demasiado arriesgados. Desgraciadamente, estos últimos son más numerosos y están mejor clasificados, por lo que termina siendo sargento instructor en una de las muchas escuelas afiliadas a la FDS.
-- 3151: Ante los catastróficos resultados de los estudiantes puestos bajo la responsabilidad del sargento instructor Hogan, éste debe regresar al campo.
-- 3153: El comandante Jin-Su toma a Derek bajo su cuidado y rápidamente le asigna una misión de extracción no oficial. Desafortunadamente, no puede desactivar el sistema de seguridad en la casa de la ***científica Finola Keagan***. Esta última, al haber dejado en su baúl un objeto demasiado extremo, provocó que el sargento perdiera el conocimiento. Su compañero en esta misión, Chao Wang, muere perseguido por una jauría de vigilantes cuadrúpedos. Este último habría sufrido de dolores en las nalgas antes de sucumbir a sus heridas.
-- 3154: Derek logra abordar el Daedalus con otros 15 miembros de la tripulación. ¡Nunca más volverá a ser manipulado por la FDS!</target>
+        <target>derek.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>derek.tips</source>
-        <target>//**Investiga para identificar a los Mushs** con tus compañeros humanos mediante canales privados.//**Elimina Mushs confirmados** con tus habilidades Tirador y Luchador.//**Extingue incendios** con tu habilidad Bombero.</target>
+        <target>derek.tips</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>derek.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Derek_Hogan</target>
+        <target>derek.tutorial</target>
       </segment>
     </unit>
     <unit id="Eleesha">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>eleesha.name</source>
-        <target>Eleesha</target>
+        <target>eleesha.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>eleesha.fullname</source>
-        <target>Eleesha Williams</target>
+        <target>eleesha.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>eleesha.initials</source>
-        <target>EW</target>
+        <target>eleesha.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>eleesha.age</source>
-        <target>30 años</target>
+        <target>eleesha.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>eleesha.description</source>
-        <target>Periodista de SNC, reportera de lo extremo e investigadora de la amenaza Mush.</target>
+        <target>eleesha.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>eleesha.employment</source>
-        <target>Reportera de renombre</target>
+        <target>eleesha.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>eleesha.abstract</source>
-        <target>Eleesha es periodista de investigación en SNC (Sol News Channel). Obtuvo registros médicos de varios líderes políticos y financieros de la Federación, demostrando su infección Mush. Después de que su informe fuera quitado del aire, Eleesha huye a Júpiter por temor a ser eliminada. Ella revela todo esto al equipo del Daedalus y obtiene un empleo como mecánica.</target>
+        <target>eleesha.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>eleesha.biography</source>
-        <target>- 2037: Nace en la Tierra.
-- 3132: ***Daryn Williams, padre de Eleesha, muere en misteriosas circunstancias*** en una exploración en Tamina. La familia recibe muy poca información sobre su muerte. Eleesha crece creyendo que su padre está aún con vida.
-- 3140: Eleesha ingresa a la facultad de Ciencias de la Computación en México. Obtiene buenas calificaciones, pero dedica la mayor parte de su carrera investigando ***los sucesos ocurridos en Tamina*** en su escuela. Poco tiempo después, comprueba que todos los participantes en la expedición murieron, lo que respalda su teoría.
-- 3141: Eleesha presenta los resultados de su investigación a un amigo que le sugirie que haga un documental para el SNC. Eleesha acepta y difunde sus hallazgos por todo el mundo de la exploración espacial.
-- 3142: Mediante un intercambio de información, Eleesha logra localizar a ***Zhong Chun, la única miembro sobreviviente*** del cuerpo médico de la exploración de Tamina. Ella le menciona que había estado presente y había presenciado de primera mano la lenta agonía que sufrió su equipo. Eleesha se entera con certeza de que su padre murió en Tau Ceti y ahora quiere saber por qué.
-- 3143: Eleesha tiene una entrevista con Kim Jin-Su a su regreso de la expedición de Tau-Ceti. Eleesha interrogó exhaustivamente al famoso explorador, pero él negó tener información alguna sobre los hechos. Esta secuencia marcó el final de su documental, que fue emitido al año siguiente por el SNC.
-- 3144: El documental concientizó a los ciudadanos de la Tierra sobre la opacidad del sistema de expediciones de la Federación. Ante esta crisis, el ministro de exploración espacial dimitió de su cargo y fue sustituido por el explorador GL Maubrick. Para continuar con su investigación sobre el incidente de Tamina, Eleesha comienza a elaborar un informe sobre las condiciones de trabajo en las minas.
-- 3145: Las manifestaciones en Tau-Ceti obligan a Eleesha a anular su viaje. A lo largo de los años, informará sobre los acontecimientos de la ***guerra en Sol*** en situaciones a veces peligrosas.
-- 3146: Un salto en paracaídas imprevisto mientras seguía a un equipo de paracaidistas de la FDS hizo que Eleesha desarrollara ***un miedo terrible a las alturas***. Cada vuelo que realiza se ha convertido en una auténtica pesadilla que no hace más fácil su trabajo como periodista.
-- 3147: Eleesha afortunadamente se topa con ***el trabajo de la bióloga Finola Keegan***. Las descripciones de ***los micelios observados, llamados Mush****, eran idénticas a las de Chun. Se puso en contacto con Finola de inmediato y se dispuso a publicar sus hallazgos en SNC. Su informe fue transmitido en su mayor parte, pero el nuevo régimen de Maubrick, quien consideró a Eleesha como una disidente, neutralizó el efecto de su trabajo produciendo una serie de transmisiones que ridiculizaban el trabajo de estas mujeres.
-- 3149: Tras el ***levantamiento de Ross154***, la federación finalmente aceptó la teoría del Mush, pero se volvió más estricta en su trato con los disidentes. Finola y Eleesha están bajo vigilancia constante, pero nadie interfiere en sus investigaciones.
-- 3150: Eleesha escapa de la vigilancia de la FDS y consigue infiltrarse en una oficina oficial en Valparaíso. Allí descubre documentos incriminatorios que prueban que el ***4 de enero de 3150*** se declaró una alerta Mush en el seno de la federación. Según estas cifras, el número de infectados y la propagación de la enfermedad es vertiginosa, y ***el presidente Maubrick está claramente implicado***. El hecho de que no se haya tomado ninguna medida posterior a esta alerta es especialmente preocupante para Eleesha, que intenta de nuevo emitir un informe sobre el tema. Cuando este es retirado de la emisión en el último minuto, se da cuenta de que es demasiado tarde, y la única opción que le queda es huir.
-- 3152: Eleesha sale de la clandestinidad y se dirige a ***Xyloph-17*** para reunirse con el equipo del Daedalus para confiarles sus hallazgos. Kim Jin-Su, líder del proyecto, le ofrece un lugar a bordo de la nave. Eleesha acepta, pero aún no confía en el hombre al que todavía considera responsable de la catástrofe de Tamina.
-- 3152: Eleesha quiere que Finola se una al equipo. Ha logrado construir un detector de Mush que permitiría resolver rápidamente cualquier desconfianza en el equipo. Desafortunadamente, Finola se niega.
-- 3153: Finola finalmente aterriza en Xyloph-17, con sus manos esposadas. Eleesha está indignada por estos métodos, pero secretamente espera ser capaz de construir un detector ella misma.
-- 3154: Tras un lamentable error diplomático, la Federación toma el control de Xyloph-17. Eleesha participa en la expedición para recuperar el Daedalus y poder huir. Una vez en órbita, el equipo decide volar la nave hacia la nebulosa de Magallanes. Eleesha es criogenizada por primera vez en su vida.</target>
+        <target>eleesha.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>eleesha.tips</source>
-        <target>//**Investiga para identificar a los Mushs** con tus compañeros humanos mediante canales privados, así como con tus habilidades de Detective y Observador.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Repara los equipos rotos** usando tu habilidad de Técnico.</target>
+        <target>eleesha.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>eleesha.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Eleesha_Williams</target>
+        <target>eleesha.tutorial</target>
       </segment>
     </unit>
     <unit id="Finola">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>finola.name</source>
-        <target>Finola</target>
+        <target>finola.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>finola.fullname</source>
-        <target>Finola Keegan</target>
+        <target>finola.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>finola.initials</source>
-        <target>FK</target>
+        <target>finola.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>finola.age</source>
-        <target>30 años</target>
+        <target>finola.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>finola.description</source>
-        <target>Bióloga de renombre internacional y pionera del estudio Mush</target>
+        <target>finola.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>finola.employment</source>
-        <target>Bióloga</target>
+        <target>finola.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>finola.abstract</source>
-        <target>Finola estuvo allí cuando se hicieron la mayoría de los descubrimientos clave sobre Mush. Cuando Lai Kuan-Ti se pone en contacto con ella y le cuenta sobre el proyecto del Daedalus, se niega a abandonar Antemis, donde estaba trabajando en su propio proyecto de fungicidas. Con la ayuda de sus secuaces, Kuan-Ti secuestra a Finola, la congela criogénicamente contra su voluntad y la lleva consigo a la misión.</target>
+        <target>finola.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>finola.biography</source>
-        <target>- 3106: Nace en la Tierra.
-- 3132: Finola ocupa un puesto en la corporación carcelaria Rinaldo para asegurar el segumiento médico de los presos en Tau-Ceti. Ella se instaló en uno de los ***crio-vagones en el último convoy interestelar que se dirigía a Antemis***.
-- 3140: Las condiciones extremas en las que trabajaban los mineros, combinadas con las herramientas anticuadas con las que trabajaban, hicieron que los accidentes fueran mucho más comunes. La sala de urgencias de Finola siempre está llena. Ni la corporación ni la federación están dispuestas a destinar más fondos. Finola está furiosa.
-- 3145: Una gran campaña de vacunación contra la gripe espacial inicia en Tau-Ceti. Finola analiza una de las vacunas y nota que no contiene ningún componente antigripal. Ella pide más información a los laboratorios terrestres, pero sus peticiones cayeron en oídos sordos. Al mismo tiempo que salía a la luz el rumor de ***la vacuna del esclavo***, estalla la rebelión y toma el control de las colonias principales de Tau Ceti. Finola, que apoyaba a los mineros, intenta calmar su ira. Quería disuadir a los dirigentes de la rebelión de declarar una invasión a Sol.
-- 3146: ***Las fuerzas armadas de Baranov*** son neutralizadas en Sol. Cuando intentaba operar a los rebeldes heridos, Finola detecta anomalías significativas en su sistema nervioso. Ella utiliza una de las celdas para analizar estos casos, pero sus superiores la obligan a detener la investigación. Después de escapar por poco de ser asesinada dos veces en accidentes de laboratorio sospechosos, decide huir de ***la base rebelde en Antemis*** y volver a unirse a la Federación. Antes de irse, entrega una muestra de médula ósea infectada a su colega botánico ***Ian Soulton*** para que pudiera continuar su investigación secreta en Antemis.
-- 3147: Una vez de vuelta en la federación, Finola continua con sus investigaciones y rápidamente establece un vínculo entre ***el incidente de Tamina*** y las cepas de micelio encontradas en la médula ósea recuperada durante las autopsias de los soldados muertos. Los hallazgos de Ian Soulton confirman la teoría de que se trata ***de una invasión de vida inteligente***. Seguido de su investigación, comienzan a aparecer referencias del Mush en la literatura científica, pero el gobierno no les presta atención.
-- 3150: De vuelta en Antemis, Finola encuentra a su colega Ian Soulton. Convencida de que los líderes de la rebelión están infectados y actuando de forma clandestina, decide construir un mycoscanner. Si el proyecto se completa, el escáner podrá detectar la presencia de Mush en cualquier individuo en tiempo real, formando así otra rebelión.
-- 3152: Eleesha Williams, una periodista clandestina que ya había publicado algunas de las investigaciones de Finola, la contacta para advertirle de la degradación de la situación en la Federación. Varios miembros del parlamento, incluido ***GL Maubrick***, fueron infectados por el Mush. Ella propone a Finola a que se una al equipo a bordo del Daedalus, una nave que se dirige a otra galaxia, pero Finola encuentra escandalosa la idea de abandonar la mayoría de las vidas humanas en favor de unos pocos individuos bien acomodados. Su colega, Ian Soulton, no comparte ese sentimiento y se dirige a Júpiter.
-- 3153: Finola es secuestrada fuera de su casa por un par de hombres que formaban parte del proyecto Magallanes. Es congelada criogénicamente en Júpiter sin darle la oportunidad de hablar.
-- 3170: Cuando despierta a bordo del Daedalus, Finola se encuentra a más de 170.000 años luz de la Tierra. Mientras dormía, el Mush sin duda ha tomado el control de todos los funcionarios de Sol. Esto podría explicar la presencia de combatientes de la Federación rodeando la nave.</target>
+        <target>finola.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>finola.tips</source>
-        <target>**Participa en las investigaciones** usando el Laboratorio de investigación para debilitar a los Mush.//**Cura a tus compañeros heridos** usando el botiquín o en la Enfermería.//**Participa en expediciones** haciéndolas más seguras con tu habilidad Diplomático.</target>
+        <target>finola.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>finola.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Finola_Keegan</target>
+        <target>finola.tutorial</target>
       </segment>
     </unit>
     <unit id="Frieda">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>frieda.name</source>
-        <target>Frieda</target>
+        <target>frieda.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>frieda.fullname</source>
-        <target>Frieda Bergmann</target>
+        <target>frieda.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>frieda.initials</source>
-        <target>FB</target>
+        <target>frieda.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>frieda.age</source>
-        <target>66 años</target>
+        <target>frieda.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>frieda.description</source>
-        <target>Astrofísica milenaria</target>
+        <target>frieda.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>frieda.employment</source>
-        <target>&lt;target/&gt;</target>
+        <target>frieda.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>frieda.abstract</source>
-        <target>Nacida en el siglo XXI, cuenta con más de 45 años de experiencia en navegación entre sistemas. Durante sus estudios, demostró el efecto de onda de Shapiro. Descriogenizada en el siglo XXXI, su labor de localización de cuerpos celestes ya ha servido a grandes exploradores como GL Maubrick o Kim Jin-Su. Ahora retirada en Baviera, es llamada a Xyloph-17 para convertirse en la navegante del Daedalus.</target>
+        <target>frieda.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>frieda.biography</source>
-        <target>- 2037: Nace en la Tierra.
-- 2059: En menos de 2 años, Frieda Bergmann identifica más de 100 nuevas estrellas en el observatorio de Düsseldorf.
-- 2060: Al estudiar el ***efecto Shapiro***, Frieda demuestra que la masa de un agujero negro sintético puede utilizarse para impulsar sondas espaciales a velocidades cercanas a la luz. El mismo año recibió el Premio Nobel de Astrofísica por su publicación.
-- 2070: A los 33 años, Frieda decide dedicar el resto de su vida a la exploración espacial. Lamentablemente, las tecnologías de su época apenas permitían llegar a los satélites de Júpiter. Por eso, Frieda llama a ***Cryo-Hertz***, una empresa de congelación criogénica para multimillonarios que promete a sus clientes un eventual despertar en una sociedad futura en la que ya no estarán condenados a morir por falta de tecnología médica.
-- 3094: Frieda es despertada ***de un sueño de 1024 años*** por especialistas para organizar la primera misión extrasolar a la estrella de Barnard. Sus conocimientos serán valiosos para el primer análisis de la superficie de la estrella. Durante esta expedición, conoce al joven piloto Kim Jin-Su, con quien deberá colaborar para tomar muestras.
-- 3110: De regreso a la Tierra, Frieda es convocada por el explorador ***GL Maubrick*** para unirse al ***Gonzak***, una gigantesca nave espacial que debe explorar el sistema Epsilon-Indi. En esta ocasión, Frieda pisa por primera vez un terreno extrasolar. Durante estas expediciones, encontró al piloto Kim Jin-Su, quien le describió su proyecto de expedición a Tau-Ceti. Es un sistema que Frieda conoce bien, ya que lo estudió durante sus estudios en el siglo XXI.
-- 3123: Durante un reabastecimiento, Kim Jin-Su y Frieda obtienen autorización para abandonar Gonzak para montar su propia expedición a Tau-Ceti. Frieda trabaja extensamente para identificar los diferentes cuerpos del sistema.
-- 3123: La expedición es un éxito, el descubrimiento de importantes depósitos de Boxylium reactiva la exploración espacial. A pesar del importante papel de Frieda en la geolocalización de los sitios, la cobertura mediática del evento beneficia principalmente a Jin-Su. Frieda, que tiene poco interés en las publicaciones del acontecimiento y del tumulto, decide vivir a la sombra del explorador.
-- 3140: ***GL Maubrick***, que ahora es ***ministro de expansión espacial***, encarga a Frieda la organización de tres misiones interestelares sucesivas. Lamentablemente, este colosal trabajo hace impensable para ella embarcarse en una de ellas. Además, su edad de 53 años, así como estos 1.060 años de criosueño, aumentan el riesgo de sufrir accidentes criogénicos.
-- 3150: A los 63 años, las esperanzas de exploración de Frieda Bergmann quedan definitivamente enterradas. Deja su observatorio en Düsseldorf para disfrutar de una merecida jubilación en Baviera.
-- 3151: Jin-Su convoca a Frieda para localizar cuerpos en los sistemas de la Gran Nube de Magallanes. Se trata de un verdadero desafío técnico debido a la increíble distancia que separa esta galaxia de la Vía Láctea. Frieda acepta, con la condición de poder participar en la exploración de la nube. Kim Jin-Su la nombra navegante de la nave, pero sabe perfectamente que ***sus posibilidades de sobrevivir a un criosueño de 16 años son mínimas***.</target>
+        <target>frieda.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>frieda.tips</source>
-        <target>**Escanea y analiza planetas** usando la terminal Astro en el Puente para buscar destinos de expedición, usando tu habilidad de Astrofísico.//**Elimina hunters** conlos patrulleros ubicados en las plataformas para proteger la nave.//**Despega expediciones** a planetas con el Icaus, en la Plataforma Icarus, para recolectar recursos.</target>
+        <target>frieda.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>frieda.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Frieda_Bergmann</target>
+        <target>frieda.tutorial</target>
       </segment>
     </unit>
     <unit id="Gioele">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>gioele.name</source>
-        <target>Gioele</target>
+        <target>gioele.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>gioele.fullname</source>
-        <target>Gioele Rinaldo</target>
+        <target>gioele.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>gioele.initials</source>
-        <target>GR</target>
+        <target>gioele.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>gioele.age</source>
-        <target>55 años</target>
+        <target>gioele.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>gioele.description</source>
-        <target>Navegante filántropo.</target>
+        <target>gioele.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>gioele.employment</source>
-        <target>Magnate constructor de naves de gran escala</target>
+        <target>gioele.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>gioele.abstract</source>
-        <target>Gioele es el propietario de la nave. Es un multimillonario de la Tierra obsesionado por los viajes espaciales, que financió el proyecto inicial del Daedalus. Ante la amenaza de los Mush, Gioele entró en pánico e in extremis, con la ayuda de los diseñadores, consiguió un puesto a bordo de la nave como navegante. También consiguió expulsar a un biólogo de la tripulación original para hacer sitio a su hija Paola.</target>
+        <target>gioele.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>gioele.biography</source>
-        <target>- 3099: Nace en la Tierra.
-- 3118: Gracias a los contactos de su padre, Gioele consiguió un espacio como ***pasajero a bordo del Gonzak*** con la misión de explorar ***Epsilon Indi***. Fue allí donde conoció a su ídolo ***GL Maubrick***. A su regreso, comenzó a ***estudiar astrofísica*** para poder convertirse en explorador algún día.
-- 3120: La ***muerte de su padre*** hizo que Gioele se diera cuenta de la situación económica de su familia. Se ***hizo cargo de la empresa de gestión de prisiones de su padre***, pero cambió su funcionamiento para adaptarlo a sus propios fines: Enviaba a los prisioneros a nuevos sistemas para llevar a cabo operaciones de minería de asteroides.
-- 3136: Gioele estaba haciendo una fortuna, pero aún no había cumplido sus sueños. En un anuncio publicitario en SNC ***ofreció un presupuesto de 4.000 millones de créditos*** a quien pudiera proponer un proyecto viable de arca estelar, que le permitiera unir la Vía Láctea y la ***Nube de Magallanes***.
-- 3137: Se reune con ***Kuan-Ti*** quien, al año siguiente, entregó un gigantesco proyecto de Arca Mundial que implicaba a 7000 personas. Gioele le ***asigna el presupuesto prometido***.
-- 3146: La Federación quiso participar en la financiación del proyecto y aportó 9.000 millones de créditos adicionales que pondrían sobre ruedas el avance del ***Reactor PILGRED***. El explorador, y ahora representante oficial del gobierno, ***Kim Jin-Su***, fue asignado como líder del proyecto.
-- 3152: Gioele se entera por casualidad de que Jin-Su y Kuan-Ti han manipulado el proyecto original para permitir la construcción de una nave de exploración más pequeña, llamada ***Daedalus***. Continuando con su investigación, registra el despacho de Kuan-Ti y encuentra documentos que prueban que el Mush ha infectado a los líderes de la Federación. Su posterior temor es la razón por la que se desespera por acceder al Daedalus y unirse a la evacuación.
-- 3153: A medida que la Federación reduce gradualmente la frecuencia de los pagos, Gioele ***ofrece apoyo financiero adicional para el proyecto*** a Raluca, Jin-Su y Kuan-Ti. Su única condición es que ***Nils Carlsson*** sea removido del equipo y sustituido por su hija ***Paola Rinaldo***. El equipo se niega.
-- 3154: Nils cae enfermo durante una grave crisis entre ***Xyloph-17*** y la Federación. La ***FDS toma el control del proyecto***, pero Kim Jin-Su organiza la salida clandestina del Daedalus. Gioele y Paola son finalmente embarcados.</target>
+        <target>gioele.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>gioele.tips</source>
-        <target>**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Escanea planetas** usando la Terminal Astro en el Puente para organizar expediciones.//**Elimina Mush confirmados** usando tu habilidad Robusto.</target>
+        <target>gioele.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>gioele.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Gioele_Rinaldo</target>
+        <target>gioele.tutorial</target>
       </segment>
     </unit>
     <unit id="Hua">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>hua.name</source>
-        <target>Hua</target>
+        <target>hua.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>hua.fullname</source>
-        <target>Jiang Hua</target>
+        <target>hua.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>hua.initials</source>
-        <target>HJ</target>
+        <target>hua.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>hua.age</source>
-        <target>32 años</target>
+        <target>hua.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>hua.description</source>
-        <target>Exploradora de lo extremo.</target>
+        <target>hua.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>hua.employment</source>
-        <target>Exploradora de superficies planetarias</target>
+        <target>hua.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>hua.abstract</source>
-        <target>Especialista en misiones de aproximación a planetas desconocidos, Hua puede aterrizar en casi cualquier superficie en cualquier condición. Ella fue tripulante del Epygron, la primera nave de exploración en encontrar vida extraterrestre.</target>
+        <target>hua.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>hua.biography</source>
-        <target>- 3096: Nace en la Tierra.
-- 3115: Hua es aceptada en ***el Instituto de Exploración Copernik***, donde estudia con profesores talentosos como ***GL Maubrick y Nils Carlsson***. A pesar de un interés real por el estudio de las biosferas extraterrestres, Jiang Hua muestra mayores talentos en el campo de la exploración de superficies. Realizó varias misiones en Caronte y Neptuno, donde aprendió a operar naves de exploración de clase B.
-- 3116: Jiang Hua se pierde el concurso de ingreso para unirse al equipo de Gonzak rumbo a ***Epsilon-Indi***. Continua sus estudios de botánica extraterrestre y luego se embarca en el Epygron hacia Lalande 21185 para explorar los dos planetas aún desconocidos del sistema.
-- 3121: Mientras realizaba análisis rutinarios en ***Naumachia***, Hua es atacada por una forma de vida local. Su compañero muere, pero Hua logra ahuyentar al atacante. A pesar de una lesión en la pierna, logra llegar al Epygron. Posteriormente, no se detectaron más signos de vida en el planeta.
-- 3127: Bajo las órdenes de Kim Jin-Su, Hua participa en la exploración de Tau-Ceti. Es la única piloto capaz de garantizar aterrizajes sin riesgos en los terrenos irregulares de zonas ricas en boxylium. Durante esta expedición, Hua también descubrió tres nuevas formas de plantas extrasolares, incluida una capaz de sobrevivir en un entorno privado de agua.
-- 3143: A su regreso a la Tierra, Hua recibe financiación de ***ChangMei-Tech*** para diseñar y probar una nueva nave de superficies. Se instala con su equipo en Xyloph-17, que ya albergaba el proyecto de exploración espacial Magallanes.
-- 3146: Cuando es designado para liderar el Proyecto Magallanes, Kim Jin-Su contrata a ChangMei-Tech para equipar el arca con una nave de exploración. Jiang Hua es enviada al equipo de Jin-Su para integrar la nave en el arca.
-- 3152: Hua ayuda a Ian Soulton en el desarrollo de un pequeño jardín hidropónico capaz de sustentar a un equipo de 16 personas.
-- 3153: El prototipo Icarus se entrega al equipo, los pilotos lo prueban exhaustivamente en las condiciones más extremas. Un accidente durante una de las pruebas cerca del Sol obliga a Hua y al joven piloto Rolland Zucalli a sobrevivir 36 horas en la superficie de Mercurio.</target>
+        <target>hua.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>hua.tips</source>
-        <target>**Elimina naves enemigas** con los patrulleros ubicados en las plataformas para proteger la nave.//**Recupera chatarra** de las naves eliminadas con el Pasiphae ubicado en la plataforma Alpha 2 para reparar el blindaje de la nave.//**Despega expediciones** a planetas con el Icarus en la plataforma Icarus para recolectar recursos.//**Repara equipo vital** de la nave.</target>
+        <target>hua.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>hua.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Jiang_Hua</target>
+        <target>hua.tutorial</target>
       </segment>
     </unit>
     <unit id="Ian">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>ian.name</source>
-        <target>Ian</target>
+        <target>ian.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>ian.fullname</source>
-        <target>Ian Soulton</target>
+        <target>ian.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>ian.initials</source>
-        <target>IS</target>
+        <target>ian.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>ian.age</source>
-        <target>42 años</target>
+        <target>ian.age</target>
       </segment>
       <segment id="description" state="initial">
         <source>ian.description</source>
         <target>ian.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>ian.employment</source>
-        <target>Botánico</target>
+        <target>ian.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>ian.abstract</source>
-        <target>Ian Soulton participó activamente en la investigación del Mush. Autoridad en la materia, pero también en botánica, participó en los censos de numerosas especies de plantas extraterrestres y desarrolló varios centenares de híbridos de plantas terrestres. Su curiosidad por las especies frutales es particularmente evidente.</target>
+        <target>ian.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>ian.biography</source>
-        <target>- 3106: Nace en la Tierra.
-- 3130: Ian es enviado a la colonia de Antemis en Tau-Ceti para realizar investigaciones sobre nuevas especies en el sistema. Lo envían en uno de los cinco trenes de colonos interestelares que transportan a miles de mineros a la tierra prometida para la explotación de Boxylium.
-- 3145: La revuelta estalla en Antemis, Ian, sensible a la causa de los mineros, teme sin embargo a expresarse públicamente por temor a que la federación recorte los presupuestos de su laboratorio. Tras la victoria de la rebelión, se suspendió la financiación de la federación y la milicia rechazó su petición de repatriación al territorio.
-- 3146: Tras el baño de sangre de la Batalla de Sol, el laboratorio es requisado para el tratamiento de los heridos. Mientras intenta echar una mano al equipo médico, Ian conoce a una encantadora ***enfermera llamada Finola Keegan***. Está impresionado por su compromiso con los pacientes. Ella le dice que hizo un descubrimiento sorprendente sobre algunos de ellos. Unos días después de esta declaración, Finola abandona rápidamente el sistema para unirse a la federación. Antes de partir, ella le dio una extraña muestra de médula espinal.
-- 3147: Al realizar pruebas con la muestra, Ian identifica una cepa de micelio complejo que logra implantar en una rata. El micelio avanza a lo largo de la médula espinal del animal sin que parezca impactado. Una vez colocada entre otras ratas, la infectada reproduce un extraño comportamiento durante el cual traga una espora de 1 mm de diámetro y luego la transporta a un grupo de ratas sanas. Al entrar en contacto con sus esporas, los sujetos sanos desarrollan tres etapas de infecciones al final de las cuales son a su vez afectados por el micelio. Ian envía los resultados de su investigación a Finola, quien recopila un informe de su trabajo para la prensa científica.
-- 3149: Tras la declaración del gobierno de la invasión Mush de Tau-Ceti y Ross154, Ian es preso de un pánico incontrolado. Somete a parte de su equipo a una muestra de médula ósea, pero no está seguro de la fiabilidad de su prueba. Termina cerrando su laboratorio y continuando solo con su investigación.
-- 3150: De vuelta en Antemis, Finola se une a él para trabajar en el proyecto de un escáner que detecta la presencia de micelio dentro de las células nerviosas de un cuerpo.
-- 3151: Los primeros prototipos de mycoscan detectan la presencia de esporas en una rata, pero son ineficaces en el caso de una rata completamente infectada.
-- 3152: El 13 de diciembre, Finola e Ian reciben una señal de Júpiter. Les advirtió del avanzado estado de la invasión Mush en los campos rebeldes, pero también dentro de la federación. El equipo de Júpiter afirma haber construido un arca capaz de rescatar a un pequeño grupo de humanos para continuar la investigación contra los Mush en una galaxia lejana. Ian está aterrorizado ante la idea de que una pandemia diezme a la raza humana. Se une al equipo de Daedalus, pero Finola quiere quedarse para salvar a los mineros.
-- 3153: Ian moderniza el proyecto del jardín hidropónico del Daedalus. Gracias a la agrupación de 12 especies de plantas, consigue asegurar la renovación constante del oxígeno y el alimento de la embarcación.
-- 3170: Cuando Ian se despierta, la alarma de incendio indica daños en la sala del jardín. Cuando llega ya es demasiado tarde: sólo han sobrevivido tres plantas, lo que condena a la tripulación a una muerte segura.</target>
+        <target>ian.biography</target>
       </segment>
       <segment id="tips" state="initial">
         <source>ian.tips</source>
@@ -526,29 +432,29 @@
       </segment>
     </unit>
     <unit id="jin_su">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>jin_su.name</source>
-        <target>Jin Su</target>
+        <target>jin_su.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>jin_su.fullname</source>
-        <target>Kim Jin-Su</target>
+        <target>jin_su.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>jin_su.initials</source>
-        <target>JSK</target>
+        <target>jin_su.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>jin_su.age</source>
-        <target>40 años</target>
+        <target>jin_su.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>jin_su.description</source>
-        <target>Comandante supremo del Daedalus</target>
+        <target>jin_su.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>jin_su.employment</source>
-        <target>Explorador de lo desconocido</target>
+        <target>jin_su.employment</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>jin_su.abstract</source>
@@ -568,29 +474,29 @@
       </segment>
     </unit>
     <unit id="kuan_ti">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>kuan_ti.name</source>
-        <target>Kuan Ti</target>
+        <target>kuan_ti.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>kuan_ti.fullname</source>
-        <target>Lai Kuan-Ti</target>
+        <target>kuan_ti.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>kuan_ti.initials</source>
-        <target>KTL</target>
+        <target>kuan_ti.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>kuan_ti.age</source>
-        <target>37 años</target>
+        <target>kuan_ti.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>kuan_ti.description</source>
-        <target>Gran arquitecto del Daedalus.</target>
+        <target>kuan_ti.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>kuan_ti.employment</source>
-        <target>Artífice del Daedalus</target>
+        <target>kuan_ti.employment</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>kuan_ti.abstract</source>
@@ -610,29 +516,29 @@
       </segment>
     </unit>
     <unit id="Paola">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>paola.name</source>
-        <target>Paola</target>
+        <target>paola.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>paola.fullname</source>
-        <target>Paola Rinaldo</target>
+        <target>paola.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>paola.initials</source>
-        <target>PR</target>
+        <target>paola.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>paola.age</source>
-        <target>23 años</target>
+        <target>paola.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>paola.description</source>
-        <target>Oficial primero de Comunicaciones del Daedalus y activista política.</target>
+        <target>paola.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>paola.employment</source>
-        <target>Oficial primero de Comunicaciones</target>
+        <target>paola.employment</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>paola.abstract</source>
@@ -652,29 +558,29 @@
       </segment>
     </unit>
     <unit id="Raluca">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>raluca.name</source>
-        <target>Raluca</target>
+        <target>raluca.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>raluca.fullname</source>
-        <target>Raluca Tomescu</target>
+        <target>raluca.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>raluca.initials</source>
-        <target>RT</target>
+        <target>raluca.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>raluca.age</source>
-        <target>25 años</target>
+        <target>raluca.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>raluca.description</source>
-        <target>Genio de la física cuántica y amante de los gatos.</target>
+        <target>raluca.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>raluca.employment</source>
-        <target>Física</target>
+        <target>raluca.employment</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>raluca.abstract</source>
@@ -694,29 +600,29 @@
       </segment>
     </unit>
     <unit id="Roland">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>roland.name</source>
-        <target>Roland</target>
+        <target>roland.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>roland.fullname</source>
-        <target>Roland Zuccali</target>
+        <target>roland.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>roland.initials</source>
-        <target>RZ</target>
+        <target>roland.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>roland.age</source>
-        <target>27 años</target>
+        <target>roland.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>roland.description</source>
-        <target>Comediante y piloto en sus ratos libres.</target>
+        <target>roland.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>roland.employment</source>
-        <target>Piloto de élite</target>
+        <target>roland.employment</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>roland.abstract</source>
@@ -736,29 +642,29 @@
       </segment>
     </unit>
     <unit id="Stephen">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>stephen.name</source>
-        <target>Stephen</target>
+        <target>stephen.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>stephen.fullname</source>
-        <target>Stephen Seagull</target>
+        <target>stephen.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>stephen.initials</source>
-        <target>SS</target>
+        <target>stephen.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>stephen.age</source>
-        <target>47 años</target>
+        <target>stephen.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>stephen.description</source>
-        <target>El cocinero más peligroso de la galaxia.</target>
+        <target>stephen.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>stephen.employment</source>
-        <target>Chef</target>
+        <target>stephen.employment</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>stephen.abstract</source>
@@ -778,29 +684,29 @@
       </segment>
     </unit>
     <unit id="Terrence">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>terrence.name</source>
-        <target>Terrence</target>
+        <target>terrence.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>terrence.fullname</source>
-        <target>Terrence Archer</target>
+        <target>terrence.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>terrence.initials</source>
-        <target>TA</target>
+        <target>terrence.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>terrence.age</source>
-        <target>44 años</target>
+        <target>terrence.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>terrence.description</source>
-        <target>Tecnófilo desahuciado motorizado.</target>
+        <target>terrence.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>terrence.employment</source>
-        <target>Ingeniero mecánico especializado en robótica</target>
+        <target>terrence.employment</target>
       </segment>
       <segment id="abstract" state="initial">
         <source>terrence.abstract</source>
@@ -820,70 +726,55 @@
       </segment>
     </unit>
     <unit id="janice">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>janice.name</source>
-        <target>Janice</target>
+        <target>janice.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>janice.fullname</source>
-        <target>Janice Kent</target>
+        <target>janice.fullname</target>
       </segment>
-      <segment id="initials" state="translated">
+      <segment id="initials" state="initial">
         <source>janice.initials</source>
-        <target>JK</target>
+        <target>janice.initials</target>
       </segment>
-      <segment id="age" state="translated">
+      <segment id="age" state="initial">
         <source>janice.age</source>
-        <target>26 años</target>
+        <target>janice.age</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>janice.description</source>
-        <target>Psicóloga digital y pionera en relaciones con IA.</target>
+        <target>janice.description</target>
       </segment>
-      <segment id="employment" state="translated">
+      <segment id="employment" state="initial">
         <source>janice.employment</source>
-        <target>Psicóloga digital</target>
+        <target>janice.employment</target>
       </segment>
-      <segment id="abstract" state="translated">
+      <segment id="abstract" state="initial">
         <source>janice.abstract</source>
-        <target>Janice se encarga de toda la parte informática de la nave. Gestiona desfragmentaciones psicoanalíticas periódicas de NERON y ha implementado el protocolo de seguridad A-TRUE, que autoriza al ordenador central a nombrar su propio administrador. Janice también gestiona el seguimiento psicológico de los miembros del Daedalus.</target>
+        <target>janice.abstract</target>
       </segment>
-      <segment id="biography" state="translated">
+      <segment id="biography" state="initial">
         <source>janice.biography</source>
-        <target>- 3128: Nace en Calisto
-- 3132: Janice es inscrita en una ciber-guardería en Calisto. Desde muy joven, aprendió a manejar las interfaces FGUI y, a los 6 años, creó una base de datos rudimentaria de recetas de cocina para el Día de la Madre.
-- 3143: Bajo la influencia de un grupo de hackers alteruniversalistas, Janice desarrolla el programa Radish que se utilizará para piratear las cuentas de grandes empresas como ***Lisegan-Cash y NoHumanFinancial***. Cuando se da cuenta de que ha sido manipulada, Janice decide reforzar la seguridad de sus aplicaciones desarrollando una protección única basada entre la confianza del programa y de su usuario.
-- 3145: Para obtener su título de ciberpsicología en Ganímedes, Janice completa 2 años de estudios en psicología humana y robótica en la Facultad de Ciencias Cognitivas de Baco IV.
-- 3147: Al ir a la universidad conoce a ***Terrence Archer***, un estudiante de robótica.  Él le propone configurar un script de aprendizaje y aplicar su protocolo de seguridad (A-TRUE) para sus robots.
-- 3148: Janice Kent y Terrence Archer reciben ***el Premio Redmoon*** por la invención de un dron inteligente capaz de interpretar y almacenar nuevas instrucciones durante su existencia. Deciden continuar su proyecto en Callisto, donde habita la familia de Janice.
-- 3150: Durante una misión a Júpiter, el análisis de la ***gigantesca calculadora NERON*** ofrece a Janice un área de exploración fascinante. Su increíble poder de computación lo ha convertido en una entidad consciente que opera sus propios pensamientos independientemente de cualquier intervención humana. NERON, que hasta entonces había desarrollado una profunda aversión hacia sus creadores, acepta reanudar su trabajo de cálculo con la condición de que se implemente el ***protocolo A-TRUE*** en todo el proyecto.
-- 3151: Janice intenta optimizar los procesos de pensamiento de NERON, pero la regularidad infernal de las pruebas del ***reactor PILGRED*** realizadas por la investigadora ***Raluca Tomescu*** monopolizan la capacidad de procesamiento de la unidad.
-- 3152: Tras reducir su carga de trabajo, NERON ve reducida su necesidad de procesamiento al 75%. Por tanto, sus capacidades de evolución mejoran considerablemente. Janice contacta a Terrence para pedirle que construya drones capaces de completar la construcción del Daedalus en el plazo previsto.
-- 3154: Mientras las fuerzas de la FDS intentan recuperar el control de la base, se activa el protocolo A-TRUE de NERON. El niega el acceso de las tropas a los edificios, lo que ralentiza el avance del ejército hacia el interior de Xyloph-17. Janice, que era entonces la única persona capaz de controlar la computadora central, libera a sus colegas e intenta transferir datos esenciales al Daedalus. Varias horas después, la nave despega ***hacia la galaxia Magallanes***.</target>
+        <target>janice.biography</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="initial">
         <source>janice.tips</source>
-        <target>**Participa en proyectos NERON** usando el núcleo NERON en el Nexus para mejorar la nave.//**Reconforta a tus compañeros ánimo bajo y permanece cerca de tus compañeros recostados** para mejorar su moral usando tu habilidad Psicólogo.//**Cambia los parámetros BIOS de NERON** usando la terminal BIOS en el Nexus gracias a tu título de administrador de NERON.</target>
+        <target>janice.tips</target>
       </segment>
-      <segment id="tutorial" state="translated">
+      <segment id="tutorial" state="initial">
         <source>janice.tutorial</source>
-        <target>https://www.mushpedia.com/wiki/Janice_Kent</target>
+        <target>janice.tutorial</target>
       </segment>
     </unit>
     <unit id="Someone">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>someone.name</source>
-        <target>Alguien</target>
+        <target>someone.name</target>
       </segment>
-      <segment id="fullname" state="translated">
+      <segment id="fullname" state="initial">
         <source>someone.fullname</source>
-        <target>Alguien</target>
-      </segment>
-    </unit>
-    <unit id="mush">
-      <segment id="name" state="translated">
-        <source>mush.name</source>
-        <target>Mush</target>
+        <target>someone.fullname</target>
       </segment>
     </unit>
   </file>

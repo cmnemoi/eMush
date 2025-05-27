@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Equipment\Normalizer;
 
-use Mush\Communications\Entity\RebelBase;
-use Mush\Communications\Entity\RebelBaseConfig;
-use Mush\Communications\Enum\RebelBaseEnum;
-use Mush\Communications\Repository\RebelBaseRepositoryInterface;
-use Mush\Communications\Service\DecodeRebelSignalService;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GameFruitEnum;
-use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
@@ -34,8 +28,6 @@ final class RationCest extends AbstractFunctionalTest
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
-    private RebelBaseRepositoryInterface $rebelBaseRepository;
-    private DecodeRebelSignalService $decodeRebelBase;
 
     public function _before(FunctionalTester $I)
     {
@@ -47,8 +39,6 @@ final class RationCest extends AbstractFunctionalTest
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
-        $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
 
         $this->banana = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GameFruitEnum::BANANA,
@@ -166,43 +156,6 @@ final class RationCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldDisplaySiriusRebelBaseModifierOnStandardRation(FunctionalTester $I): void
-    {
-        $this->givenPlayerIsAChef();
-        $food = $this->givenPlayerHasFood(GameRationEnum::STANDARD_RATION);
-        $this->givenSiriusRebelBaseIsDecoded($I);
-
-        $normalizedFood = $this->equipmentNormalizer->normalize(
-            $food,
-            format: null,
-            context: ['currentPlayer' => $this->player]
-        );
-
-        $I->assertEquals(
-            expected: [
-                'title' => 'Données sur les effets :',
-                'effects' => [
-                    '+ 4 :pa_cook:',
-                    '+ 5 :pa:',
-                    '- 1 :pmo:',
-                ],
-            ],
-            actual: $normalizedFood['effects']
-        );
-    }
-
-    private function givenSiriusRebelBaseIsDecoded(FunctionalTester $I): void
-    {
-        $siriusConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => RebelBaseEnum::SIRIUS]);
-        $siriusRebelBase = new RebelBase(config: $siriusConfig, daedalusId: $this->daedalus->getId());
-        $this->rebelBaseRepository->save($siriusRebelBase);
-
-        $this->decodeRebelBase->execute(
-            rebelBase: $siriusRebelBase,
-            progress: 100,
-        );
-    }
-
     private function givenBananaIsDecomposed(): void
     {
         $this->statusService->createStatusFromName(
@@ -226,15 +179,5 @@ final class RationCest extends AbstractFunctionalTest
     private function givenPlayerIsAChef(): void
     {
         $this->addSkillToPlayer->execute(SkillEnum::CHEF, $this->player);
-    }
-
-    private function givenPlayerHasFood(string $ration): GameItem
-    {
-        return $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: $ration,
-            equipmentHolder: $this->player,
-            reasons: [],
-            time: new \DateTime(),
-        );
     }
 }

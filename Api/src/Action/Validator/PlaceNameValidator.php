@@ -25,7 +25,7 @@ final class PlaceNameValidator extends ConstraintValidator
 
         $player = $action->getPlayer();
 
-        if ($player->isNotInAny($constraint->places) === $constraint->isAt) {
+        if ($player->isNotInAny($constraint->places)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

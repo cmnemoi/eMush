@@ -343,7 +343,6 @@ abstract class SkillConfigData
                 name: SkillEnum::POLYMATH,
                 modifierConfigs: [
                     ModifierNameEnum::PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS,
-                    ModifierNameEnum::PLUS_2_MAX_PRIVATE_CHANNELS,
                 ],
                 skillPointsConfig: SkillPointsEnum::POLYMATH_IT_POINTS,
             ),
@@ -410,7 +409,7 @@ abstract class SkillConfigData
             new SkillConfigDto(
                 name: SkillEnum::SHRINK,
                 modifierConfigs: [
-                    ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM,
+                    'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',
                 ],
                 actionConfigs: [
                     ActionEnum::COMFORT,
@@ -433,6 +432,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::SPLASHPROOF,
+                modifierConfigs: [
+                    ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::SURVIVALIST,

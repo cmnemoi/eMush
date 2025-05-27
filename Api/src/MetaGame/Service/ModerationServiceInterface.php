@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Service;
 
-use Mush\Chat\Entity\Message;
+use Mush\Communication\Entity\Message;
 use Mush\MetaGame\Entity\ModerationSanction;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Entity\ClosedPlayer;

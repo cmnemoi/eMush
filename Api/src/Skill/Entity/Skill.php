@@ -37,14 +37,10 @@ class Skill implements ActionProviderInterface, ModifierProviderInterface
     #[ORM\ManyToOne(targetEntity: Player::class)]
     private Player $player;
 
-    #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private \DateTime $createdAt;
-
     public function __construct(SkillConfig $skillConfig, Player $player)
     {
         $this->skillConfig = $skillConfig;
         $this->player = $player;
-        $this->createdAt = new \DateTime();
 
         $player->addSkill($this);
     }
@@ -206,10 +202,5 @@ class Skill implements ActionProviderInterface, ModifierProviderInterface
     public function getAllModifierConfigs(): ArrayCollection
     {
         return $this->skillConfig->getModifierConfigs();
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
     }
 }

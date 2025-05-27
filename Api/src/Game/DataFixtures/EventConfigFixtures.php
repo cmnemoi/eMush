@@ -42,33 +42,41 @@ class EventConfigFixtures extends Fixture
     {
         // TODO Replace constructor to be able to merge all those for loops!
         foreach (EventConfigData::$variableEventConfigData as $rawEventConfig) {
-            $eventConfig = new VariableEventConfig($rawEventConfig['name'], $rawEventConfig['eventName']);
+            $eventConfig = new VariableEventConfig();
             $eventConfig
                 ->setQuantity($rawEventConfig['quantity'])
                 ->setTargetVariable($rawEventConfig['targetVariable'])
-                ->setVariableHolderClass($rawEventConfig['variableHolderClass']);
+                ->setVariableHolderClass($rawEventConfig['variableHolderClass'])
+                ->setEventName($rawEventConfig['eventName'])
+                ->setName($rawEventConfig['name']);
 
             $this->addReference($eventConfig->getName(), $eventConfig);
             $manager->persist($eventConfig);
         }
 
         foreach (EventConfigData::$planetSectorEventConfigData as $rawEventConfig) {
-            $eventConfig = new PlanetSectorEventConfig($rawEventConfig['name'], $rawEventConfig['eventName']);
+            $eventConfig = new PlanetSectorEventConfig();
             $eventConfig
                 ->setOutputTable($rawEventConfig['outputTable'])
-                ->setOutputQuantity($rawEventConfig['outputQuantity']);
+                ->setOutputQuantity($rawEventConfig['outputQuantity'])
+                ->setEventName($rawEventConfig['eventName'])
+                ->setName($rawEventConfig['name']);
 
             $this->addReference($eventConfig->getName(), $eventConfig);
             $manager->persist($eventConfig);
         }
 
-        $eventConfig = new PlanetSectorEventConfig(name: 'fight_1', eventName: 'fight');
+        $eventConfig = new PlanetSectorEventConfig();
+        $eventConfig->setEventName('fight');
+        $eventConfig->setName('fight_1');
         $eventConfig->setOutputQuantity([]);
         $eventConfig->setOutputTable([1 => 1]);
         $this->addReference($eventConfig->getName(), $eventConfig);
         $manager->persist($eventConfig);
 
-        $eventConfig = new PlanetSectorEventConfig(name: 'fight_2', eventName: 'fight');
+        $eventConfig = new PlanetSectorEventConfig();
+        $eventConfig->setEventName('fight');
+        $eventConfig->setName('fight_2');
         $eventConfig->setOutputQuantity([]);
         $eventConfig->setOutputTable([2 => 1]);
         $this->addReference($eventConfig->getName(), $eventConfig);

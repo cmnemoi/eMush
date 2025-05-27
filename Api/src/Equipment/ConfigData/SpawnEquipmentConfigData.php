@@ -21,7 +21,7 @@ abstract class SpawnEquipmentConfigData
     public const string ONE_RETRO_FUNGAL_SERUM_IN_LABORATORY = 'one_retrofungal_serum_in_laboratory';
     public const string ONE_CALCULATOR_IN_NEXUS = 'one_calculator_in_nexus';
     public const string ONE_MYCOSCAN_IN_LABORATORY = 'one_mycoscan_in_laboratory';
-    public const string ONE_NARCOTICS_DISTILLER_IN_MEDLAB = 'one_narcotics_distiller_in_medlab';
+    public const string ONE_NARCOTICS_DISTILLER_IN_LABORATORY = 'one_narcotics_distiller_in_laboratory';
     public const string TWO_NCC_LENSES_IN_LABORATORY = 'two_ncc_lenses_in_laboratory';
     public const string ONE_SPORE_SUCKER_IN_LABORATORY = 'one_spore_sucker_in_laboratory';
     public const string FIVE_MYCOALARMS_IN_LABORATORY = 'five_mycoalarms_in_laboratory';
@@ -138,9 +138,9 @@ abstract class SpawnEquipmentConfigData
                 quantity: 1,
             ),
             new SpawnEquipmentConfigDto(
-                name: self::ONE_NARCOTICS_DISTILLER_IN_MEDLAB,
+                name: self::ONE_NARCOTICS_DISTILLER_IN_LABORATORY,
                 equipmentName: EquipmentEnum::NARCOTIC_DISTILLER,
-                placeName: RoomEnum::MEDLAB,
+                placeName: RoomEnum::LABORATORY,
                 quantity: 1,
             ),
             new SpawnEquipmentConfigDto(

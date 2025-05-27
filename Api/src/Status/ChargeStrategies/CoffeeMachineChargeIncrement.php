@@ -3,7 +3,6 @@
 namespace Mush\Status\ChargeStrategies;
 
 use Mush\Game\Enum\EventEnum;
-use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 
@@ -15,25 +14,19 @@ final class CoffeeMachineChargeIncrement extends AbstractChargeStrategy
     {
         $daedalus = $status->getOwner()->getDaedalus();
 
-        $chargeCycle = $daedalus->getNumberOfCyclesPerDay();
-
-        if ($daedalus->getPilgred()->isFinished()) {
-            $chargeCycle = ceil($chargeCycle / 4);
+        if (
+            $daedalus->pilgredIsNotFinished()
+            && $this->isNotANewDay($reasons)
+            && $daedalus->fissionCoffeeRoasterNotReady()
+        ) {
+            return $status;
         }
 
-        if ($daedalus->hasActiveProject(ProjectName::FISSION_COFFEE_ROASTER)) {
-            $chargeCycle = ceil($chargeCycle / 2);
-        }
-
-        if (($daedalus->getGameDate()->previousCycle() % $chargeCycle) === 0) {
-            return $this->statusService->updateCharge($status, 1, $reasons, $time);
-        }
-
-        return $status;
+        return $this->statusService->updateCharge($status, 1, $reasons, $time);
     }
 
-    private function isANewDay(array $reasons): bool
+    private function isNotANewDay(array $reasons): bool
     {
-        return \in_array(EventEnum::NEW_DAY, $reasons, true);
+        return !\in_array(EventEnum::NEW_DAY, $reasons, true);
     }
 }

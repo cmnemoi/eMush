@@ -3,7 +3,7 @@
 namespace Mush\Action\Validator;
 
 /**
- * Raises a violation if the number of players alive in the room matches the expected one.
+ * Raises a violation if the number of players alive in the room does not match the expected one.
  *
  * @param string  $mode      The mode to use to compare the number of players alive in the room (less_than, greater_than, equal). Default: equal
  * @param int     $number    the number of players alive in the room to compare to

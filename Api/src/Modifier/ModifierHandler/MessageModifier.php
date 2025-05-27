@@ -2,8 +2,8 @@
 
 namespace Mush\Modifier\ModifierHandler;
 
-use Mush\Chat\Event\MessageEvent;
-use Mush\Chat\Services\MessageModifierServiceInterface;
+use Mush\Communication\Event\MessageEvent;
+use Mush\Communication\Services\MessageModifierServiceInterface;
 use Mush\Game\Entity\Collection\EventChain;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Enum\ModifierStrategyEnum;

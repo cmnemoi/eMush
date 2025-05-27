@@ -3,16 +3,13 @@
 namespace Mush\Tests;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\NoResultException;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
-use Mush\Communications\Service\CreateLinkWithSolForDaedalusService;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Entity\TitlePriority;
-use Mush\Daedalus\ValueObject\GameDate;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -23,7 +20,6 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -41,7 +37,7 @@ use Symfony\Component\Uid\Uuid;
 class AbstractFunctionalTest
 {
     protected Daedalus $daedalus;
-    protected PlayerCollection $players;
+    protected ArrayCollection $players;
     protected Player $player;
     protected Player $player1;
     protected Player $player2;
@@ -50,12 +46,8 @@ class AbstractFunctionalTest
     protected Channel $publicChannel;
     protected Channel $mushChannel;
 
-    protected CreateLinkWithSolForDaedalusService $createLinkWithSolForDaedalus;
-
     public function _before(FunctionalTester $I)
     {
-        $this->createLinkWithSolForDaedalus = $I->grabService(CreateLinkWithSolForDaedalusService::class);
-
         $this->daedalus = $this->createDaedalus($I);
         $this->players = $this->createPlayers($I, $this->daedalus);
         $this->daedalus->setPlayers($this->players);
@@ -68,7 +60,6 @@ class AbstractFunctionalTest
         $this->kuanTi = $this->player2;
 
         $this->createAllProjects($I);
-        $this->createLinkWithSolForDaedalus->execute($this->daedalus->getId());
     }
 
     protected function createDaedalus(FunctionalTester $I): Daedalus
@@ -118,16 +109,14 @@ class AbstractFunctionalTest
 
         $this->createTitlePriorities($daedalus, $I);
 
-        $daedalus->setGameDate(new GameDate($daedalus, 1, 1));
-
         $I->haveInRepository($daedalus);
 
         return $daedalus;
     }
 
-    protected function createPlayers(FunctionalTester $I, Daedalus $daedalus): PlayerCollection
+    protected function createPlayers(FunctionalTester $I, Daedalus $daedalus): ArrayCollection
     {
-        $players = new PlayerCollection([]);
+        $players = new ArrayCollection([]);
         $characterNames = [CharacterEnum::CHUN, CharacterEnum::KUAN_TI];
 
         foreach ($characterNames as $characterName) {
@@ -196,8 +185,6 @@ class AbstractFunctionalTest
     {
         $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => $characterName]);
 
-        $daedalus->addAvailableCharacter($characterConfig);
-
         $player = new Player();
 
         $user = new User();
@@ -247,29 +234,22 @@ class AbstractFunctionalTest
 
     protected function ISeeTranslatedRoomLogInRepository(string $expectedRoomLog, RoomLogDto $actualRoomLogDto, FunctionalTester $I): void
     {
-        try {
-            $roomLog = $I->grabEntityFromRepository(
-                entity: RoomLog::class,
-                params: $actualRoomLogDto->toArray(),
-            );
-        } catch (NoResultException $e) {
-            $I->fail("Room log {$actualRoomLogDto->log} not found!");
-        }
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: $actualRoomLogDto->toArray(),
+        );
 
         /** @var TranslationServiceInterface $translationService */
         $translationService = $I->grabService(TranslationServiceInterface::class);
 
-        $actualRoomLog = $translationService->translate(
-            key: $roomLog->getLog(),
-            parameters: $roomLog->getParameters(),
-            domain: $roomLog->getType(),
-            language: $actualRoomLogDto->player->getLanguage(),
-        );
-
         $I->assertEquals(
             expected: $expectedRoomLog,
-            actual: $actualRoomLog,
-            message: "{$actualRoomLogDto->log} should be translated to {$expectedRoomLog}, found {$roomLog->getLog()} instead."
+            actual: $translationService->translate(
+                key: $roomLog->getLog(),
+                parameters: $roomLog->getParameters(),
+                domain: $roomLog->getType(),
+                language: $actualRoomLogDto->player->getLanguage(),
+            )
         );
     }
 
@@ -298,7 +278,7 @@ class AbstractFunctionalTest
                     parameters: $roomLog->getParameters(),
                     domain: $roomLog->getType(),
                     language: $actualRoomLogDto->player->getLanguage(),
-                ),
+                )
             );
         }
     }
@@ -311,7 +291,7 @@ class AbstractFunctionalTest
         $addSkillToPlayer->execute($skill, $player);
     }
 
-    protected function createAllProjects(FunctionalTester $I): void
+    private function createAllProjects(FunctionalTester $I): void
     {
         foreach (ProjectConfigData::getAll() as $projectConfigData) {
             $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $projectConfigData['name']]);
@@ -329,5 +309,31 @@ class AbstractFunctionalTest
             $I->haveInRepository($titlePriority);
             $daedalus->addTitlePriority($titlePriority);
         }
+    }
+}
+
+final readonly class RoomLogDto
+{
+    public function __construct(
+        public Player $player,
+        public string $log,
+        public string $visibility,
+        public bool $inPlayerRoom = true,
+    ) {}
+
+    public function toArray(): array
+    {
+        $params = [
+            'daedalusInfo' => $this->player->getDaedalusInfo(),
+            'log' => $this->log,
+            'visibility' => $this->visibility,
+        ];
+
+        if ($this->inPlayerRoom) {
+            $params['place'] = $this->player->getPlace()->getName();
+            $params['playerInfo'] = $this->player->getPlayerInfo();
+        }
+
+        return $params;
     }
 }

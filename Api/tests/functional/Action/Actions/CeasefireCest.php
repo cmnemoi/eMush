@@ -245,6 +245,8 @@ final class CeasefireCest extends AbstractFunctionalTest
 
     private function whenThreeCyclesPass(): void
     {
+        $this->daedalus->setDay(0); // prevent incidents
+
         $daedalusCycleEvent = new DaedalusCycleEvent(
             daedalus: $this->daedalus,
             tags: [EventEnum::NEW_CYCLE],

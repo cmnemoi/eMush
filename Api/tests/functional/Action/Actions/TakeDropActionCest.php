@@ -10,8 +10,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -179,7 +179,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function testTakeDropHeavyItem(FunctionalTester $I)
+    public function TakeDropHeavyItem(FunctionalTester $I)
     {
         $burdenedStatusConfig = new StatusConfig();
         $burdenedStatusConfig
@@ -328,7 +328,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function testTakeHiddenItem(FunctionalTester $I)
+    public function TakeHiddenItem(FunctionalTester $I)
     {
         $hiddenConfig = new StatusConfig();
         $hiddenConfig
@@ -426,7 +426,7 @@ class TakeDropActionCest
         ]);
     }
 
-    public function testHideHeavyItemInInventory(FunctionalTester $I)
+    public function HideHeavyItemInInventory(FunctionalTester $I)
     {
         $hiddenStatusConfig = new StatusConfig();
         $hiddenStatusConfig

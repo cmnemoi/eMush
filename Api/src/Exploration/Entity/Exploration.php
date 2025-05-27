@@ -221,12 +221,9 @@ class Exploration
         return $this->getExplorators()->getPlayerAlive()->count() > 0;
     }
 
-    public function allExploratorsAreDeadOrLost(): bool
+    public function allExploratorsAreDead(): bool
     {
-        return $this
-            ->getAliveExplorators()
-            ->filter(static fn (Player $player) => $player->doesNotHaveStatus(PlayerStatusEnum::LOST))
-            ->isEmpty();
+        return $this->getExplorators()->getPlayerAlive()->count() === 0;
     }
 
     public function hasAPilotAlive(): bool
@@ -281,12 +278,12 @@ class Exploration
 
     public function getNumberOfActiveBotanists(): int
     {
-        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::BOTANIST))->count();
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasAnySkill([SkillEnum::BOTANIST, SkillEnum::POLYVALENT]))->count();
     }
 
     public function hasAnActiveDiplomat(): bool
     {
-        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::DIPLOMAT))->count() > 0;
+        return $this->getNotLostActiveExplorators()->filter(static fn (Player $player) => $player->hasAnySkill([SkillEnum::DIPLOMAT, SkillEnum::POLYVALENT]))->count() > 0;
     }
 
     public function hasATraitor(): bool

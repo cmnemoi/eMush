@@ -1,4 +1,4 @@
-Mush\Chat\Entity\Message:
+Mush\Communication\Entity\Message:
   shortName: 'Message'
   description: 'eMush Messages'
   attributes:

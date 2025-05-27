@@ -118,7 +118,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mankarog.description</source>
-        <target>Warning: An enormous beast (known for devouring explorers one by one) has been detected.</target>
+        <target>Warning: An enormous beast (known for devouring players one by one) has been detected.</target>
       </segment>
     </unit>
     <unit id="hydrocarbon">

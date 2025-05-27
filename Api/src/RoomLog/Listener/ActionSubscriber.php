@@ -5,7 +5,6 @@ namespace Mush\RoomLog\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\Door;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
@@ -40,8 +39,9 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPreAction(ActionEvent $event): void
     {
+        $this->handleExitActionLog($event);
+
         match ($event->getActionName()) {
-            ActionEnum::MOVE => $this->handleExitActionLog($event),
             ActionEnum::TAKEOFF => $this->createTakeoffActionLog($event),
             default => null,
         };
@@ -149,7 +149,6 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $actionResult = $event->getActionResultOrThrow();
         $player = $event->getAuthor();
-        $patrolShip = $event->getEquipmentActionTargetOrThrow();
 
         $this->roomLogService->createLog(
             $actionResult->isACriticalSuccess() ? ActionLogEnum::LAND_SUCCESS : ActionLogEnum::LAND_NO_PILOT,
@@ -157,16 +156,18 @@ final class ActionSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC,
             'actions_log',
             $player,
-            [
-                $player->getLogKey() => $player->getLogName(),
-                ...$this->getPatrolShipLogParameters($player, $patrolShip),
-            ],
+            [$player->getLogKey() => $player->getLogName()],
             $event->getTime()
         );
     }
 
     private function createEnterRoomLog(ActionEvent $event): void
     {
+        $actionName = $event->getActionName();
+        if ($actionName !== ActionEnum::MOVE) {
+            return;
+        }
+
         $door = $event->getDoorActionTargetOrThrow();
         $player = $event->getAuthor();
 
@@ -186,6 +187,11 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function createExitRoomLog(ActionEvent $event): void
     {
+        $actionName = $event->getActionName();
+        if ($actionName !== ActionEnum::MOVE) {
+            return;
+        }
+
         $door = $event->getDoorActionTargetOrThrow();
         $player = $event->getAuthor();
 
@@ -207,7 +213,6 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         $actionResult = $event->getActionResultOrThrow();
         $player = $event->getAuthor();
-        $patrolShip = $event->getEquipmentActionTargetOrThrow();
 
         $this->roomLogService->createLog(
             $actionResult->isACriticalSuccess() ? ActionLogEnum::TAKEOFF_SUCCESS : ActionLogEnum::TAKEOFF_NO_PILOT,
@@ -215,10 +220,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             VisibilityEnum::PUBLIC,
             'actions_log',
             $player,
-            [
-                $player->getLogKey() => $player->getLogName(),
-                ...$this->getPatrolShipLogParameters($player, $patrolShip),
-            ],
+            [$player->getLogKey() => $player->getLogName()],
             $event->getTime()
         );
     }
@@ -255,21 +257,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    private function getPatrolShipLogParameters(Player $player, GameEquipment $patrolShip): array
-    {
-        $patrolShipLog = $patrolShip->getLogName();
-        $patrolShipName = $this->translationService->translate(
-            "{$patrolShipLog}.name",
-            [],
-            'equipments',
-            $player->getLanguage()
-        );
-
-        return [
-            'patrol_ship' => $patrolShipName,
-        ];
-    }
-
     private function handleCatNoises(ActionEvent $event): void
     {
         if ($this->shotAtCatAndFailed($event)) {
@@ -283,9 +270,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
         if ($this->schrodingerInRoomOrPlayerInventory($event) && $this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE)) {
             $this->createCatMeowLog($event);
-        }
-        if ($this->pavlovInRoom($event) && $this->d100Roll->isSuccessful(self::CAT_MEOW_CHANCE * 2)) {
-            $this->createDogBarkLog($event);
         }
     }
 
@@ -313,24 +297,6 @@ final class ActionSubscriber implements EventSubscriberInterface
         return false;
     }
 
-    private function pavlovInRoom(ActionEvent $event): bool
-    {
-        return $event->getPlace()->hasEquipmentByName(ItemEnum::PAVLOV);
-    }
-
-    private function createDogBarkLog(ActionEvent $event): void
-    {
-        $this->roomLogService->createLog(
-            LogEnum::DOG_BARK,
-            $event->getPlace(),
-            VisibilityEnum::PUBLIC,
-            'event_log',
-            $event->getAuthor(),
-            [LogParameterKeyEnum::ITEM => ItemEnum::PAVLOV],
-            $event->getTime()
-        );
-    }
-
     private function createCatMeowLog(ActionEvent $event): void
     {
         $this->roomLogService->createLog(
@@ -338,7 +304,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             $event->getPlace(),
             VisibilityEnum::PUBLIC,
             'event_log',
-            $event->getAuthor(),
+            null,
             [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
             $event->getTime()
         );
@@ -351,7 +317,7 @@ final class ActionSubscriber implements EventSubscriberInterface
             $event->getPlace(),
             VisibilityEnum::PUBLIC,
             'event_log',
-            $event->getAuthor(),
+            null,
             [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
             $event->getTime()
         );

@@ -7,7 +7,6 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Entity\HunterTarget;
@@ -30,9 +29,6 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
     {
         parent::_before($I);
         $this->eventService = $I->grabService(EventServiceInterface::class);
-
-        // avoid false positive when fire tries to reduce hull at cycle change
-        $this->daedalus->getGameConfig()->getDifficultyConfig()->setHullFireDamageRate(0);
     }
 
     public function testMakeHunterShoot(FunctionalTester $I)
@@ -42,7 +38,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
         $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
 
         // make hunter targeting Daedalus
@@ -71,7 +67,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $this->eventService->callEvent($poolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
         $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
         $I->haveInRepository($hunter);
 
@@ -90,7 +86,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $hullBeforeCycleChange = $this->daedalus->getHull();
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
         $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
         $I->haveInRepository($hunter);
 
@@ -108,7 +104,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $hullBeforeCycleChange = $this->daedalus->getHull();
 
         /** @var Hunter $hunter */
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
         $hunter->setHitChance(100); // make sure it hits to avoid false negative tests
         $I->haveInRepository($hunter);
 
@@ -148,7 +144,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
-            ->getHuntersAroundDaedalus()
+            ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
             ->first();
         $I->assertNotFalse($asteroid);
@@ -182,7 +178,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
-            ->getHuntersAroundDaedalus()
+            ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
             ->first();
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
@@ -217,7 +213,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         // given D1000 has no truce status, 100% hit chance and 6 damage
         /** @var Hunter $d1000 */
         $d1000 = $daedalus
-            ->getHuntersAroundDaedalus()
+            ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
             ->first();
         $d1000->getHunterConfig()->setHitChance(100)->setDamageRange([6 => 1]);
@@ -272,22 +268,14 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $daedalus = $this->daedalus;
         $daedalus
             ->setDay(5) // so asteroid can spawn
-            ->setCycle(1);
-        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+            ->setCycle(0);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-
         // only asteroids can spawn
         $gameConfig->setHunterConfigs(
-            $gameConfig->getHunterConfigs()->filter(
-                static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID
-            )
+            $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)
         );
-
-        // do not try to spawn transports
-        $gameConfig->getDifficultyConfig()->setMinTransportSpawnRate(0);
-        $gameConfig->getDifficultyConfig()->setMaxTransportSpawnRate(0);
 
         return $daedalus;
     }
@@ -298,8 +286,7 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $daedalus = $this->daedalus;
         $daedalus
             ->setDay(10) // so D1000 can spawn
-            ->setCycle(1);
-        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+            ->setCycle(0);
 
         $I->haveInRepository($daedalus);
 
@@ -307,14 +294,8 @@ final class DaedalusCycleSubscriberCest extends AbstractFunctionalTest
         $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
         // only D1000 can spawn
         $gameConfig->setHunterConfigs(
-            $gameConfig->getHunterConfigs()->filter(
-                static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE
-            )
+            $gameConfig->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::DICE)
         );
-
-        // do not try to spawn transports
-        $gameConfig->getDifficultyConfig()->setMinTransportSpawnRate(0);
-        $gameConfig->getDifficultyConfig()->setMaxTransportSpawnRate(0);
 
         return $daedalus;
     }

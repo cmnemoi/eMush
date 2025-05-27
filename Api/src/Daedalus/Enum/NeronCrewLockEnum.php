@@ -9,14 +9,12 @@ enum NeronCrewLockEnum: string
     case NULL = '';
     case PILOTING = 'piloting';
     case PROJECTS = 'projects';
-    case RESEARCH = 'research';
 
     public static function fromValue(string $value): NeronCrewLockEnum
     {
         return match ($value) {
             'piloting' => self::PILOTING,
             'projects' => self::PROJECTS,
-            'research' => self::RESEARCH,
             default => self::NULL,
         };
     }
@@ -26,7 +24,6 @@ enum NeronCrewLockEnum: string
         return [
             self::PROJECTS,
             self::PILOTING,
-            self::RESEARCH,
         ];
     }
 

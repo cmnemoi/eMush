@@ -11,9 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasSkill;
-use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -41,10 +39,6 @@ final class MixRationSpore extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
-            new Reach([
-                'reach' => ReachEnum::ROOM,
-                'groups' => [ClassConstraint::VISIBILITY],
-            ]),
             new HasSkill([
                 'skill' => SkillEnum::FUNGAL_KITCHEN,
                 'groups' => [ClassConstraint::VISIBILITY],

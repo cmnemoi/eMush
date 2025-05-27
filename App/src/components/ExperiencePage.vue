@@ -16,7 +16,7 @@
                             </p>
                         </div>
                         <p class="score">
-                            {{ player.triumph }}<img :src="getImgUrl('ui_icons/player_variables/triumph.png')" alt="triumph">
+                            {{ player.triumph }}<img :src="getImgUrl('triumph.png')" alt="triumph">
                         </p>
                     </div>
                     <div class="epitaph-form">
@@ -32,7 +32,7 @@
                     </div>
                     <div>
                         <p class="death-cause">
-                            <img :src="getImgUrl('ui_icons/dead.png')" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
+                            <img :src="getImgUrl('dead.png')" alt="dead"> {{ deadPlayerInfo.endCauseValue }}
                         </p>
                     </div>
                     <HistoryLogs />

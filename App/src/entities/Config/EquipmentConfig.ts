@@ -10,7 +10,9 @@ export class EquipmentConfig {
     public equipmentName: string|null;
     public initStatuses: StatusConfig[]|null;
     public mechanics: Mechanics[]|null;
-    public breakableType: string|null;
+    public isFireDestroyable: boolean|null;
+    public isFireBreakable: boolean|null;
+    public isBreakable: boolean|null;
     public actions: Action[]|null;
     public dismountedProducts: Map<string, number>|null;
     public isPersonal: boolean|null;
@@ -24,7 +26,9 @@ export class EquipmentConfig {
         this.equipmentName = null;
         this.initStatuses = null;
         this.mechanics = null;
-        this.breakableType = null;
+        this.isFireDestroyable = null;
+        this.isFireBreakable = null;
+        this.isBreakable = null;
         this.actions = null;
         this.dismountedProducts = new Map();
         this.isPersonal = null;
@@ -36,7 +40,9 @@ export class EquipmentConfig {
             this.id = object.id;
             this.name = object.name;
             this.equipmentName = object.equipmentName;
-            this.breakableType = object.breakableType;
+            this.isFireDestroyable = object.isFireDestroyable;
+            this.isFireBreakable = object.isFireBreakable;
+            this.isBreakable = object.isBreakable;
             this.isPersonal = object.isPersonal;
             if (typeof object.actions !== 'undefined') {
                 const actions : Action[] = [];
@@ -96,7 +102,9 @@ export class EquipmentConfig {
             'equipmentName': this.equipmentName,
             'initStatuses': initStatuses,
             'mechanics': mechanics,
-            'breakableType': this.breakableType,
+            'isFireDestroyable': this.isFireDestroyable,
+            'isFireBreakable': this.isFireBreakable,
+            'isBreakable': this.isBreakable,
             'actions': actions,
             'dismountedProducts': dismountedProducts,
             'isPersonal': this.isPersonal

@@ -12,8 +12,6 @@ enum PlayerNotificationEnum: string
     case MISSION_RECEIVED = 'mission_received';
     case MISSION_REJECTED = 'mission_rejected';
     case MISSION_SENT = 'mission_sent';
-    case ANNOUNCEMENT_RECEIVED = 'announcement_received';
-    case ANNOUNCEMENT_CREATED = 'announcement_created';
 
     public function toString(): string
     {

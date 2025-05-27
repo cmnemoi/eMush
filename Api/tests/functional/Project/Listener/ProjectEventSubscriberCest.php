@@ -43,7 +43,6 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
         $projectEvent = new ProjectEvent(
             project: $this->projectToFinish,
             author: $this->chun,
-            tags: [ProjectEvent::PROJECT_ADVANCED],
         );
 
         // when I call onProjectFinished method
@@ -61,7 +60,6 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
         $projectEvent = new ProjectEvent(
             project: $this->projectToFinish,
             author: $this->chun,
-            tags: [ProjectEvent::PROJECT_ADVANCED],
         );
 
         // when I call onProjectFinished method
@@ -69,19 +67,17 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
 
         $newProjects = $this->daedalus->getProposedNeronProjects();
 
-        // then old projects should not be proposed
-        foreach ($this->currentlyProposedProjects as $project) {
-            $I->assertFalse($project->isProposed(), 'Project ' . $project->getName() . ' should not be proposed');
-        }
+        // then new projects should be proposed
+        $I->assertCount(
+            expectedCount: $this->daedalus->getNumberOfProjectsByBatch(),
+            haystack: $newProjects,
+        );
 
-        // then new projects should be proposed and different from old ones
-        $oldProjectsSet = $this->createProjectNamesSet($this->currentlyProposedProjects);
-        foreach ($newProjects as $project) {
-            $I->assertFalse(
-                isset($oldProjectsSet[$project->getName()]),
-                'Project ' . $project->getName() . ' should not be among previously proposed projects'
-            );
-        }
+        // then new proposed projects are different from the previous ones
+        $I->assertNotEquals(
+            $this->daedalus->getProjectByName(ProjectName::HEAT_LAMP),
+            $newProjects[0],
+        );
     }
 
     public function shouldNotUnproposedProjectsIfFinishedProjectIsNotANeronOne(FunctionalTester $I): void
@@ -93,41 +89,15 @@ final class ProjectEventSubscriberCest extends AbstractFunctionalTest
         $projectEvent = new ProjectEvent(
             project: $pilgred,
             author: $this->chun,
-            tags: [ProjectEvent::PROJECT_ADVANCED],
         );
 
         // when I call onProjectFinished method
         $this->projectEventSubscriber->onProjectFinished($projectEvent);
 
         // then all NERON projects should still be proposed
-        foreach ($this->currentlyProposedProjects as $project) {
-            $I->assertTrue($project->isProposed(), 'Project ' . $project->getName() . ' should still be proposed');
-        }
-    }
-
-    public function shouldNotUnproposeProjectsIfFinishedProjectWasNotAdvanced(FunctionalTester $I): void
-    {
-        // given I have a project event
-        $projectEvent = new ProjectEvent(
-            project: $this->projectToFinish,
-            author: $this->chun,
-            tags: [],
+        $I->assertCount(
+            expectedCount: 3,
+            haystack: $this->daedalus->getProposedNeronProjects(),
         );
-
-        // when I call onProjectFinished method
-        $this->projectEventSubscriber->onProjectFinished($projectEvent);
-
-        // then all NERON projects should still be proposed
-        foreach ($this->currentlyProposedProjects as $project) {
-            $I->assertTrue($project->isProposed(), 'Project ' . $project->getName() . ' should still be proposed');
-        }
-    }
-
-    private function createProjectNamesSet(array $projects): array
-    {
-        return array_flip(array_map(
-            static fn (Project $project) => $project->getName(),
-            $projects
-        ));
     }
 }

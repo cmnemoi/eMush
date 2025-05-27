@@ -1,15 +1,82 @@
 import sanitizeHtml from 'sanitize-html';
 
+import { getImgUrl } from './getImgUrl';
+
 import { AlertEnum, AlertsIcons } from '@/enums/alerts.enum';
 import { CharacterEnum, characterEnum } from '@/enums/character';
 import { statusPlayerEnum, StatusPlayerNameEnum } from '@/enums/status.player.enum';
 import { statusItemEnum, StatusItemNameEnum } from '@/enums/status.item.enum';
 import { titleEnum, TitleEnum } from '@/enums/title.enum';
-import { EmoteEnum, EmoteIcons } from '@/enums/emotes.enum';
-import { UiIconEnum, UiIconIcons } from '@/enums/ui_icon.enum';
-import { SkillPointEnum, skillPointEnum } from '@/enums/skill.point.enum';
 
 export const helpers = {
+    computeImageHtml(key: string): string {
+        switch(key) {
+        case "hp":
+            return `<img src="${getImgUrl('lp.png')}" alt="hp">`;
+        case "pa":
+            return `<img src="${getImgUrl('pa.png')}" alt="pa">`;
+        case "pm":
+            return `<img src="${getImgUrl('pm.png')}" alt="pm">`;
+        case "pmo":
+            return `<img src="${getImgUrl('moral.png')}" alt="pmo">`;
+        case "triumph":
+            return `<img src="${getImgUrl('triumph.png')}" alt="triumph">`;
+        case "ill":
+            return `<img src="${getImgUrl('status/disease.png')}" alt="ill">`;
+        case "pill":
+            return `<img src="${getImgUrl('status/demoralized2.png')}" alt="pill">`;
+        case "dead":
+            return `<img src="${getImgUrl('dead.png')}" alt="dead">`;
+        case "cat":
+            return `<img src="${getImgUrl('char/body/cat.png')}" alt="cat">`;
+        case "hurt":
+            return `<img src="${getImgUrl('status/injury.png')}" alt="hurt">`;
+        case "psy_disease":
+            return `<img src="${getImgUrl('status/disorder.png')}" alt="psy_disease">`;
+        case "hungry":
+            return `<img src="${getImgUrl('status/hungry.png')}" alt="hungry">`;
+        case "talkie":
+            return `<img src="${getImgUrl('comms/talkie.png')}" alt="talkie">`;
+        case "mush":
+            return `<img src="${getImgUrl('status/mush.png')}" alt="mush">`;
+        case "pa_cook":
+            return `<img src="${getImgUrl('action_points/pa_cook.png')}" alt="pa_cook">`;
+        case "hunter":
+            return `<img src="${getImgUrl('alerts/hunter.png')}" alt="hunter">`;
+        case "pa_shoot":
+            return `<img src="${getImgUrl('action_points/pa_shoot.png')}" alt="pa_shoot">`;
+        case "pa_core":
+            return `<img src="${getImgUrl('action_points/pa_core.png')}" alt="pa_core">`;
+        case "planet":
+            return `<img src="${getImgUrl('planet.png')}" alt="planet">`;
+        case "fuel":
+            return `<img src="${getImgUrl('fuel.png')}" alt="fuel">`;
+        case "point":
+            return `<img src="${getImgUrl('point.png')}" alt="point">`;
+        case "pa_pilgred":
+            return `<img src="${getImgUrl('action_points/pa_pilgred.png')}" alt="pa_pilgred">`;
+        case "pa_eng":
+            return `<img src="${getImgUrl('action_points/pa_eng.png')}" alt="pa_eng">`;
+        case "pa_garden":
+            return `<img src="${getImgUrl('action_points/pa_garden.png')}" alt="pa_garden">`;
+        case "pa_comp":
+            return `<img src="${getImgUrl('action_points/pa_comp.png')}" alt="pa_computer">`;
+        case "pa_heal":
+            return `<img src="${getImgUrl('action_points/pa_heal.png')}" alt="pa_heal">`;
+        case "wall":
+            return `<img src="${getImgUrl('comms/wall.png')}" alt="wall">`;
+        case "online":
+            return `<img src="${getImgUrl('comms/online.gif')}" alt="online">`;
+        case "offline":
+            return `<img src="${getImgUrl('comms/offline.gif')}" alt="offline">`;
+        case "left":
+            return `<img src="${getImgUrl('left.png')}" alt="left">`;
+        case "right":
+            return `<img src="${getImgUrl('right.png')}" alt="right">`;
+        default:
+            throw Error(`Unexpected key for replaced image: ${key}`);
+        }
+    },
     computeCharacterImageHtmlByKey(key: string): string {
         if (!characterEnum[key]) {
             throw Error(`Unexpected key for replaced image: ${key}`);
@@ -44,27 +111,6 @@ export const helpers = {
         }
 
         return `<img src="${titleEnum[key].image}" alt="${key}">`;
-    },
-    computeEmoteHtmlByKey(key: string): string {
-        if (!EmoteIcons[key]) {
-            throw Error(`Unexpected key for replaced image: ${key}`);
-        }
-
-        return `<img src="${EmoteIcons[key]}" alt="${key}">`;
-    },
-    computeUiIconHtmlByKey(key: string): string {
-        if (!UiIconIcons[key]) {
-            throw Error(`Unexpected key for replaced image: ${key}`);
-        }
-
-        return `<img src="${UiIconIcons[key]}" alt="${key}">`;
-    },
-    computeSkillPointIconHtmlByKey(key: string): string {
-        if (!skillPointEnum[key]) {
-            throw Error(`Unexpected key for replaced image: ${key}`);
-        }
-
-        return `<img src="${skillPointEnum[key].icon}" alt="${key}">`;
     }
 };
 
@@ -79,19 +125,40 @@ export function formatText(text: string|null): string {
             'a': [ 'href' ]
         }
     });
-
-    // Handle both markdown-style links (e.g [Mushpedia](https://mushpedia.com))
-    // and direct links from the game (e.g https://emush.eternaltwin.org/news)
-    const markdownLinkRegex = /\[([^\]]+)\]\(([^\)]+)\)|((https:\/\/)?(staging\.)?emush\.eternaltwin\.org\/[^\s\)\"\'\< ]*)/g;
-    function markdownSubstitution(substring: string, p1: string, p2: string, p3: string): string {
-        return !p1 ? `<a href=\'${p3}\' title=\'${p3}\'>${p3}</a>` : `<a href=\'${p2}\' title=\'${p2}\'>${p1}</a>`;
-    }
-
-    formattedText = formattedText.replaceAll(markdownLinkRegex, markdownSubstitution);
-
     formattedText = formattedText.replaceAll(/\*\*(.[^*]*)\*\*/g, '<strong>$1</strong>');
     formattedText = formattedText.replaceAll(/\*(.[^*]*)\*/g, '<em>$1</em>');
     formattedText = formattedText.replace(/(?<!http:|https:)\/\//g, '<br>');
+    formattedText = formattedText.replaceAll(/:pa:/g, helpers.computeImageHtml("pa"));
+    formattedText = formattedText.replaceAll(/:pm:/g, helpers.computeImageHtml("pm"));
+    formattedText = formattedText.replaceAll(/:pmo:/g, helpers.computeImageHtml("pmo"));
+    formattedText = formattedText.replaceAll(/:hp:/g, helpers.computeImageHtml("hp"));
+    formattedText = formattedText.replaceAll(/:triumph:/g, helpers.computeImageHtml("triumph"));
+    formattedText = formattedText.replaceAll(/:ill:/g, helpers.computeImageHtml("ill"));
+    formattedText = formattedText.replaceAll(/:pill:/g, helpers.computeImageHtml("pill"));
+    formattedText = formattedText.replaceAll(/:dead:/g, helpers.computeImageHtml("dead"));
+    formattedText = formattedText.replaceAll(/:cat:/g, helpers.computeImageHtml("cat"));
+    formattedText = formattedText.replaceAll(/:hurt:/g, helpers.computeImageHtml("hurt"));
+    formattedText = formattedText.replaceAll(/:psy_disease:/g, helpers.computeImageHtml("psy_disease"));
+    formattedText = formattedText.replaceAll(/:hungry:/g, helpers.computeImageHtml("hungry"));
+    formattedText = formattedText.replaceAll(/:talkie:/g, helpers.computeImageHtml("talkie"));
+    formattedText = formattedText.replaceAll(/:mush:/g, helpers.computeImageHtml("mush"));
+    formattedText = formattedText.replaceAll(/:pa_cook:/g, helpers.computeImageHtml("pa_cook"));
+    formattedText = formattedText.replaceAll(/:hunter:/g, helpers.computeImageHtml("hunter"));
+    formattedText = formattedText.replaceAll(/:pa_shoot:/g, helpers.computeImageHtml("pa_shoot"));
+    formattedText = formattedText.replaceAll(/:pa_core:/g, helpers.computeImageHtml("pa_core"));
+    formattedText = formattedText.replaceAll(/:planet:/g, helpers.computeImageHtml("planet"));
+    formattedText = formattedText.replaceAll(/:fuel:/g, helpers.computeImageHtml("fuel"));
+    formattedText = formattedText.replaceAll(/:point:/g, helpers.computeImageHtml("point"));
+    formattedText = formattedText.replaceAll(/:pa_pilgred:/g, helpers.computeImageHtml("pa_pilgred"));
+    formattedText = formattedText.replaceAll(/:pa_eng:/g, helpers.computeImageHtml("pa_eng"));
+    formattedText = formattedText.replaceAll(/:pa_comp:/g, helpers.computeImageHtml("pa_comp"));
+    formattedText = formattedText.replaceAll(/:pa_garden:/g, helpers.computeImageHtml("pa_garden"));
+    formattedText = formattedText.replaceAll(/:pa_heal:/g, helpers.computeImageHtml("pa_heal"));
+    formattedText = formattedText.replaceAll(/:wall:/g, helpers.computeImageHtml("wall"));
+    formattedText = formattedText.replaceAll(/:online:/g, helpers.computeImageHtml("online"));
+    formattedText = formattedText.replaceAll(/:offline:/g, helpers.computeImageHtml("offline"));
+    formattedText = formattedText.replaceAll(/:left:/g, helpers.computeImageHtml("left"));
+    formattedText = formattedText.replaceAll(/:right:/g, helpers.computeImageHtml("right"));
     Object.values(CharacterEnum).forEach((character: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${character}:`, 'g'), helpers.computeCharacterImageHtmlByKey(character));
     });
@@ -106,15 +173,6 @@ export function formatText(text: string|null): string {
     });
     Object.values(TitleEnum).forEach((title: string) => {
         formattedText = formattedText.replaceAll(new RegExp(`:${title}:`, 'g'), helpers.computeTitleImageHtmlByKey(title));
-    });
-    Object.values(EmoteEnum).forEach((emote: string) => {
-        formattedText = formattedText.replaceAll(new RegExp(`:${emote}:`, 'g'), helpers.computeEmoteHtmlByKey(emote));
-    });
-    Object.values(UiIconEnum).forEach((uiIcon: string) => {
-        formattedText = formattedText.replaceAll(new RegExp(`:${uiIcon}:`, 'g'), helpers.computeUiIconHtmlByKey(uiIcon));
-    });
-    Object.values(SkillPointEnum).forEach((skillPoint: string) => {
-        formattedText = formattedText.replaceAll(new RegExp(`:${skillPoint}:`, 'g'), helpers.computeSkillPointIconHtmlByKey(skillPoint));
     });
 
     return formattedText;

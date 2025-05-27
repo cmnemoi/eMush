@@ -52,14 +52,6 @@
                     @click="executeTargetAction(target, returnToSolAction)"
                 />
             </div>
-            <div class="action">
-                <ActionButton
-                    :css-class="'wide'"
-                    :key="travelToEdenAction.key"
-                    :action="travelToEdenAction"
-                    @click="executeTargetAction(target, travelToEdenAction)"
-                />
-            </div>
         </section>
 
         <section>
@@ -92,11 +84,6 @@ export default defineComponent ({
         returnToSolAction(): Action {
             const action = this.terminal.getActionByKey(ActionEnum.RETURN_TO_SOL);
             if (!action) throw new Error(`No return_to_sol action found for terminal ${this.terminal?.key}`);
-            return action;
-        },
-        travelToEdenAction(): Action {
-            const action = this.terminal.getActionByKey(ActionEnum.TRAVEL_TO_EDEN);
-            if (!action) throw new Error(`No travel_to_eden action found for terminal ${this.terminal?.key}`);
             return action;
         },
         turnDaedalusLeftAction(): Action {

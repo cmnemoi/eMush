@@ -4,6 +4,7 @@ namespace Mush\Modifier\Enum;
 
 abstract class ModifierNameEnum
 {
+    public const string MUSH_SHOWER_MALUS = 'mush_shower_malus';
     public const string MUSH_CONSUME = 'mush_consume';
     public const string ANTISOCIAL_MODIFIER = 'antisocial_modifier';
     public const string DISABLED_MOVE_MODIFIER = 'disabled_move_modifier';
@@ -35,6 +36,7 @@ abstract class ModifierNameEnum
     public const string PLAYER_MINUS_1_ACTION_POINT_ON_PUT_THROUGH_DOOR = 'player_-1_action_point_on_put_through_door';
     public const string PLAYER_ALWAYS_SUCCEEDS_REPAIR_ACTION = 'player_always_succeeds_repair_action';
     public const string DAEDALUS_PLUS_1_MAX_SPORES = 'daedalus_+1_max_spores';
+    public const string PREVENT_MUSH_SHOWER_MALUS = 'prevent_mush_shower_malus';
     public const string PLAYER_PLUS_1_INFECTION = 'player_+1_infection';
     public const string PLAYER_MINUS_25_PERCENTAGE_ON_ACTION_HIT_AND_ATTACK = 'player_-25_percentage_on_action_hit_and_attack';
     public const string SHOOTER_SKILL_POINT = 'shooter_skill_point';
@@ -42,7 +44,7 @@ abstract class ModifierNameEnum
     public const string ROPE_MODIFIER = 'rope_modifier';
     public const string SKILL_POINT_ENGINEER = 'skill_point_engineer';
     public const string SKILL_POINT_CORE = 'skill_point_core';
-    public const string SKILL_POINT_IT_EXPERT = 'modifier_skill_point_it_expert';
+    public const string SKILL_POINT_IT_EXPERT = 'skill_point_it_expert';
     public const string SKILL_POINT_BOTANIST = 'skill_point_botanist';
     public const string SKILL_POINT_PILGRED = 'skill_point_pilgred';
     public const string SKILL_POINT_SPORE = 'skill_point_spore';
@@ -123,7 +125,7 @@ abstract class ModifierNameEnum
     public const string HYGIENIST_MUSH_INFECTIONS_MODIFIER = 'hygienist_mush_infections_modifier';
     public const string PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS = 'player_minus_10_percentage_on_actions';
     public const string POLYMATH_MODIFIER_ON_ACTIONS = 'polymath_modifier_on_actions';
-    public const string SKILL_POINT_POLYMATH_IT_POINTS = 'modifier_skill_point_polymath_it_points';
+    public const string SKILL_POINT_POLYMATH_IT_POINTS = 'skill_point_polymath_it_points';
     public const string PLUS_2_MAX_PRIVATE_CHANNELS = 'plus_2_max_private_channels';
     public const string POLYMATH_MODIFIER_ON_MAX_PRIVATE_CHANNELS = 'polymath_modifier_on_max_private_channels';
     public const string FITFUL_SLEEP_MINUS_ONE_ACTION_POINT = 'fitful_sleep_for_player_-1actionPoint_on_new_cycle';
@@ -134,35 +136,4 @@ abstract class ModifierNameEnum
     public const string PLUS_1_HEALTH_POINTS_ON_HEAL = 'plus_1_health_points_on_heal';
     public const string ULTRA_HEALING_POMADE_MODIFIER = 'ultra_healing_pomade_modifier';
     public const string PLASTENITE_ARMOR_MODIFIER = 'plastenite_armor_modifier';
-    public const string TURRET_MAX_CHARGES_PLUS_4 = 'turret_max_charge_+4';
-    public const string TESLA_SUP2X_TURRET_MAX_CHARGES_MODIFIER = 'tesla_sup2x_turret_max_charges_modifier';
-    public const string TURRET_CHARGES_PLUS_8 = 'turret_charges_+8';
-    public const string TESLA_SUP2X_TURRET_CHARGES_MODIFIER = 'tesla_sup2x_turret_charges_modifier';
-    public const string PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE = 'plus_2_action_points_on_extract_spore';
-    public const string CONSTIPASPORE_SERUM_MODIFIER = 'constipaspore_serum_modifier';
-    public const string MINUS_1_SPORE_ON_TAKE_SHOWER = 'minus_1_spore_on_take_shower';
-    public const string SUPER_SOAPER_MODIFIER = 'super_soaper_modifier';
-    public const string SELF_SACRIFICE_MODIFIER = 'self_sacrifice_modifier';
-    public const string IMMUNIZED_MODIFIER = 'immunized_modifier';
-    public const string MUTE_PREVENT_MESSAGES_MODIFIER = 'mute_prevent_messages';
-    public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
-    public const string PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS = 'plus_3_morale_points_for_all_players';
-    public const string FIRST_SOL_CONTACT_MODIFIER = 'first_sol_contact_modifier';
-    public const string PLUS_8_TRIUMPH_POINTS_FOR_ALL_PLAYERS = 'plus_8_triumph_points_for_all_players';
-    public const string WOLF_REBEL_BASE_MODIFIER = 'wolf_rebel_base_modifier';
-    public const string PLUS_6_MORALE_POINTS_FOR_ALL_PLAYERS = 'plus_6_morale_points_for_all_players';
-    public const string KALADAAN_REBEL_BASE_MODIFIER = 'kaladaan_rebel_base_modifier';
-    public const string PLAYER_PLUS_1_ACTION_POINT_ON_CONSUME_ACTION_IF_STANDARD_RATION = 'player_plus_1_action_point_on_consume_action_if_standard_ration';
-    public const string SIRIUS_REBEL_BASE_MODIFIER = 'sirius_rebel_base_modifier';
-    public const string BLASTER_PLUS_1_STRENGTH_IN_EXPEDITION = 'blaster_plus_1_strength_in_expedition';
-    public const string CENTAURI_REBEL_BASE_MODIFIER = 'centauri_rebel_base_modifier';
-    public const string CYGNI_PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS = 'cygni_plus_3_morale_points_for_all_players';
-    public const string CYGNI_PLUS_1_DAMAGE_PATROL_SHIPS = 'cygni_plus_1_damage_patrol_ships';
-    public const string DOUBLE_DECODE_BASE_SIGNAL = 'double_decode_base_signal';
-    public const string KIVANC_MODIFIER = 'kivanc_modifier';
-    public const string PLUS_8_TRIUMPH_POINTS_FOR_PAOLA = 'plus_8_triumph_points_for_paola';
-    public const string PAOLA_PERSONAL_TRIUMPH_MODIFIER = 'paola_personal_triumph_modifier';
-    public const string PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE = 'player_+1_action_points_on_consume_action_if_coffee';
-    public const string GUARANA_CAPPUCCINO_MODIFIER = 'guarana_cappuccino_modifier';
-    public const string PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM = 'player_+1_morale_point_to_other_laid_down_players';
 }

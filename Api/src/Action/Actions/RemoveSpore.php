@@ -7,12 +7,10 @@ use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\PlaceType;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
@@ -25,29 +23,9 @@ class RemoveSpore extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraints([
-            new HasStatus(
-                [
-                    'status' => PlayerStatusEnum::MUSH,
-                    'target' => HasStatus::PLAYER,
-                    'contain' => false,
-                    'groups' => [ClassConstraint::EXECUTE],
-                    'message' => ActionImpossibleCauseEnum::MUSH_REMOVE_SPORE]
-            ),
-            new HasStatus([
-                'status' => PlayerStatusEnum::IMMUNIZED,
-                'target' => HasStatus::PLAYER,
-                'contain' => false,
-                'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::IMMUNIZED_REMOVE_SPORE,
-            ]),
-            new PlaceType([
-                'groups' => [ClassConstraint::EXECUTE],
-                'type' => PlaceTypeEnum::PLANET,
-                'allowIfTypeMatches' => false,
-                'message' => ActionImpossibleCauseEnum::ON_PLANET,
-            ]),
-        ]);
+        $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::MUSH, 'target' => HasStatus::PLAYER, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::MUSH_REMOVE_SPORE]));
+        $metadata->addConstraint(new HasStatus(['status' => PlayerStatusEnum::IMMUNIZED, 'target' => HasStatus::PLAYER, 'contain' => false, 'groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::IMMUNIZED_REMOVE_SPORE]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

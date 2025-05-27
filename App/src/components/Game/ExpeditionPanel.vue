@@ -10,7 +10,7 @@
                     <li v-for="(explorator,) in exploration.explorators" :key="explorator.key">
                         <img :src="explorator.getExploratorBody()" :alt="explorator.name">
                         <p v-if="explorator.isDead">
-                            <img :src="getImgUrl('ui_icons/dead.png')">
+                            <img :src="getImgUrl('dead.png')">
                         </p>
                         <p v-else-if="explorator.isLost">
                             <img :src="getImgUrl('status/lost_on_planet.png')">
@@ -19,7 +19,7 @@
                             <img :src="getImgUrl('status/stuck_in_ship.png')">
                         </p>
                         <p v-else>
-                            <img :src="getImgUrl('ui_icons/player_variables/hp.png')"> {{ explorator.healthPoints }}
+                            <img :src="getImgUrl('lp.png')"> {{ explorator.healthPoints }}
                         </p>
                     </li>
                 </ul>

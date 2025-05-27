@@ -3,15 +3,12 @@
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class ModifierActivationRequirementData
 {
-    public const string PLAYER_STATUS_DIRTY = 'player_status_dirty';
-
     public static array $dataArray = [
         [
             'name' => 'random_10',
@@ -68,7 +65,7 @@ class ModifierActivationRequirementData
             'value' => 100,
         ],
         [
-            'name' => self::PLAYER_STATUS_DIRTY,
+            'name' => 'player_status_dirty',
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => PlayerStatusEnum::DIRTY,
             'value' => 100,
@@ -180,18 +177,6 @@ class ModifierActivationRequirementData
             'activationRequirementName' => ModifierRequirementEnum::MUSH_CREW_PROPORTION,
             'activationRequirement' => '',
             'value' => 50,
-        ],
-        [
-            'name' => ModifierRequirementEnum::PLAYER_IS_NOT_HYPERACTIVE,
-            'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
-            'activationRequirement' => PlayerStatusEnum::HYPERACTIVE,
-            'value' => ModifierRequirementEnum::ABSENT_STATUS,
-        ],
-        [
-            'name' => ModifierRequirementEnum::PLAYER_IS_PAOLA,
-            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
-            'activationRequirement' => CharacterEnum::PAOLA,
-            'value' => 100,
         ],
     ];
 

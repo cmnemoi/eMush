@@ -26,7 +26,7 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
         $this->_em->flush();
     }
 
-    public function findOneByNameAndDaedalus(string $name, Daedalus $daedalus): ?Player
+    public function findOneByName(string $name, Daedalus $daedalus): ?Player
     {
         $qb = $this->createQueryBuilder('player');
 
@@ -41,43 +41,5 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
         $player = $qb->getQuery()->getOneOrNullResult();
 
         return $player instanceof Player ? $player : null;
-    }
-
-    public function startTransaction(): void
-    {
-        $this->getEntityManager()->beginTransaction();
-    }
-
-    public function commitTransaction(): void
-    {
-        $this->getEntityManager()->commit();
-    }
-
-    public function rollbackTransaction(): void
-    {
-        $this->getEntityManager()->rollback();
-        $this->getEntityManager()->close();
-    }
-
-    public function delete(Player $player): void
-    {
-        $this->getEntityManager()->remove($player);
-        $this->getEntityManager()->flush();
-    }
-
-    public function lockAndRefresh(Player $player, int $mode): void
-    {
-        $this->getEntityManager()->lock($player, $mode);
-        $this->getEntityManager()->refresh($player);
-    }
-
-    public function getAll(): array
-    {
-        return $this->findAll();
-    }
-
-    public function findById(int $id): ?Player
-    {
-        return $this->find($id);
     }
 }

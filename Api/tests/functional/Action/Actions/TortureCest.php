@@ -10,7 +10,6 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -41,15 +40,6 @@ final class TortureCest extends AbstractFunctionalTest
         $this->whenChunTorturesKuanTi();
 
         $this->thenKuanTiShouldHaveHealthPoints(9, $I);
-        $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: 'Vous perdez 1 :hp:.',
-            actualRoomLogDto: new RoomLogDto(
-                player: $this->kuanTi,
-                log: PlayerModifierLogEnum::LOSS_HEALTH_POINT,
-                visibility: VisibilityEnum::PRIVATE,
-            ),
-            I: $I
-        );
     }
 
     public function shouldRevealAsMuchActionsAsMissingTargetHealthPoints(FunctionalTester $I): void

@@ -25,7 +25,7 @@ final class DoesNotHaveMageBookSkillValidator extends ConstraintValidator
         $mageBookSkill = $action->gameEquipmentTarget()->getBookMechanicOrThrow()->getSkill();
         $player = $action->getPlayer();
 
-        if ($player->hasSkill($mageBookSkill)) {
+        if ($player->cannotLearnSkill($mageBookSkill)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

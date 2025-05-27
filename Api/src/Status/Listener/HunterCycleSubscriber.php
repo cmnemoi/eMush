@@ -25,7 +25,7 @@ class HunterCycleSubscriber implements EventSubscriberInterface
 
     public function onNewCycle(HunterCycleEvent $event): void
     {
-        $attackingHunters = $event->getDaedalus()->getHuntersAroundDaedalus();
+        $attackingHunters = $event->getDaedalus()->getAttackingHunters();
 
         foreach ($attackingHunters as $hunter) {
             foreach ($hunter->getStatuses() as $status) {

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Mush\Equipment\CycleHandler;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,8 +7,8 @@ use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Entity\PlantEffect;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -18,7 +16,6 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\CycleHandler\AbstractCycleHandler;
 use Mush\Game\Enum\EventEnum;
-use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -26,33 +23,45 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\PlantLogEnum;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
-final class PlantCycleHandler extends AbstractCycleHandler
+class PlantCycleHandler extends AbstractCycleHandler
 {
-    private const HALLOWEEN_JUMPKIN_SPAWN_RATE = 20;
-
     protected string $name = EquipmentMechanicEnum::PLANT;
 
+    private EventServiceInterface $eventService;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private RandomServiceInterface $randomService;
+    private EquipmentEffectServiceInterface $equipmentEffectService;
+    private StatusServiceInterface $statusService;
+
     public function __construct(
-        private EventServiceInterface $eventService,
-        private GameEquipmentServiceInterface $gameEquipmentService,
-        private RandomServiceInterface $randomService,
-        private EquipmentEffectServiceInterface $equipmentEffectService,
-        private StatusServiceInterface $statusService
-    ) {}
+        EventServiceInterface $eventService,
+        GameEquipmentServiceInterface $gameEquipmentService,
+        RandomServiceInterface $randomService,
+        EquipmentEffectServiceInterface $equipmentEffectService,
+        StatusServiceInterface $statusService
+    ) {
+        $this->eventService = $eventService;
+        $this->gameEquipmentService = $gameEquipmentService;
+        $this->randomService = $randomService;
+        $this->equipmentEffectService = $equipmentEffectService;
+        $this->statusService = $statusService;
+    }
 
     public function handleNewCycle(GameEquipment $gameEquipment, \DateTime $dateTime): void
     {
         $daedalus = $gameEquipment->getDaedalus();
-        if (!$gameEquipment->hasMechanicByName(EquipmentMechanicEnum::PLANT)) {
+        $plantType = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
+        if (!$plantType instanceof Plant) {
             return;
         }
 
         $diseaseRate = $daedalus->getGameConfig()->getDifficultyConfig()->getPlantDiseaseRate();
 
-        if ($this->randomService->isSuccessful($diseaseRate)) {
+        if ($this->randomService->isSuccessful($diseaseRate) && !$gameEquipment->hasStatus(EquipmentStatusEnum::PLANT_DISEASED)) {
             $this->statusService->createStatusFromName(
                 EquipmentStatusEnum::PLANT_DISEASED,
                 $gameEquipment,
@@ -64,58 +73,53 @@ final class PlantCycleHandler extends AbstractCycleHandler
 
     public function handleNewDay(GameEquipment $gameEquipment, \DateTime $dateTime): void
     {
-        if (!$gameEquipment->hasMechanicByName(EquipmentMechanicEnum::PLANT)) {
+        $daedalus = $gameEquipment->getDaedalus();
+        $plantType = $gameEquipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PLANT);
+        if (!$plantType instanceof Plant) {
             return;
         }
 
-        if ($gameEquipment->canProduceOxygen()) {
-            $this->producePlantOxygen($gameEquipment, $dateTime);
-        }
+        $plantEffect = $this->equipmentEffectService->getPlantEffect($plantType, $daedalus);
 
-        if ($gameEquipment->canProduceFruit()) {
-            $producedFruits = $this->producePlantFruits($gameEquipment, $dateTime);
-            if ($this->shouldBeTransportedByFoodRetailer($gameEquipment)) {
-                $this->moveFruitsToRefectory($producedFruits, $dateTime);
+        $plantStatus = $gameEquipment->getStatuses();
+
+        // If plant is young, dried or diseased, do not produce oxygen
+        if ($plantStatus->filter(static fn (Status $status) => \in_array($status->getName(), [
+            EquipmentStatusEnum::PLANT_DRY,
+            EquipmentStatusEnum::PLANT_DISEASED,
+            EquipmentStatusEnum::PLANT_YOUNG,
+        ], true))->isEmpty()) {
+            $this->addOxygen($gameEquipment, $plantEffect, $dateTime);
+            if ($plantStatus->filter(static fn (Status $status) => $status->getName() === EquipmentStatusEnum::PLANT_THIRSTY)->isEmpty()) {
+                $this->addFruit($gameEquipment, $plantType, $dateTime);
             }
         }
 
-        $this->updatePlantHydrationStatus($gameEquipment, $dateTime);
+        $this->handleStatus($gameEquipment, $dateTime);
     }
 
-    private function shouldBeTransportedByFoodRetailer(GameEquipment $gamePlant): bool
+    private function handleStatus(GameEquipment $gamePlant, \DateTime $dateTime): void
     {
-        return $gamePlant->getDaedalus()->hasFinishedProject(ProjectName::FOOD_RETAILER)
-            && $gamePlant->isIn(RoomEnum::HYDROPONIC_GARDEN);
-    }
+        // If plant was thirsty, become dried
+        if ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_THIRSTY) !== null) {
+            $this->statusService->removeStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
+            $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_DRY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
 
-    private function updatePlantHydrationStatus(GameEquipment $gamePlant, \DateTime $dateTime): void
-    {
-        if ($gamePlant->hasStatus(EquipmentStatusEnum::PLANT_DRY)) {
-            $this->killDriedOutPlant($gamePlant, $dateTime);
+        // If plant was dried, become hydropot
+        } elseif ($gamePlant->getStatusByName(EquipmentStatusEnum::PLANT_DRY) !== null) {
+            $this->handleDriedPlant($gamePlant, $dateTime);
 
-            return;
+        // If plant was not thirsty or dried become thirsty
+        } else {
+            $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], new \DateTime());
         }
-
-        if ($gamePlant->hasStatus(EquipmentStatusEnum::PLANT_THIRSTY)) {
-            $this->makePlantDriedOut($gamePlant, $dateTime);
-
-            return;
-        }
-
-        $this->makePlantThirsty($gamePlant, $dateTime);
     }
 
-    private function makePlantDriedOut(GameEquipment $gamePlant, \DateTime $dateTime): void
-    {
-        $this->statusService->removeStatus(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], $dateTime);
-        $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_DRY, $gamePlant, [EventEnum::NEW_CYCLE], $dateTime);
-    }
-
-    private function killDriedOutPlant(GameEquipment $gamePlant, \DateTime $dateTime): void
+    private function handleDriedPlant(GameEquipment $gamePlant, \DateTime $dateTime): void
     {
         $holder = $gamePlant->getHolder();
 
-        // Destroy the plant
+        // Create a new hydropot
         $equipmentEvent = new InteractWithEquipmentEvent(
             $gamePlant,
             null,
@@ -125,7 +129,6 @@ final class PlantCycleHandler extends AbstractCycleHandler
         );
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
-        // Create a hydropot
         $this->gameEquipmentService->createGameEquipmentFromName(
             ItemEnum::HYDROPOT,
             $holder,
@@ -135,85 +138,53 @@ final class PlantCycleHandler extends AbstractCycleHandler
         );
     }
 
-    private function makePlantThirsty(GameEquipment $gamePlant, \DateTime $dateTime): void
-    {
-        $this->statusService->createStatusFromName(EquipmentStatusEnum::PLANT_THIRSTY, $gamePlant, [EventEnum::NEW_CYCLE], $dateTime);
-    }
-
-    private function producePlantFruits(GameEquipment $gamePlant, \DateTime $dateTime): ArrayCollection
-    {
-        $producedFruits = $this->createFruitsFromPlant($gamePlant, $dateTime);
-        $halloweenJumpkins = $this->tryToCreateHalloweenJumpkin($gamePlant, $dateTime);
-
-        return new ArrayCollection(array_merge($producedFruits->toArray(), $halloweenJumpkins->toArray()));
-    }
-
-    /**
-     * @return ArrayCollection<int, GameEquipment>
-     */
-    private function createFruitsFromPlant(GameEquipment $gamePlant, \DateTime $dateTime): ArrayCollection
+    private function addFruit(GameEquipment $gamePlant, Plant $plantType, \DateTime $dateTime): void
     {
         /** @var ArrayCollection<int, GameEquipment> $producedFruits */
         $producedFruits = new ArrayCollection();
 
-        $this->createFruit($gamePlant, $dateTime, $producedFruits);
-        if ($this->shouldProduceExtraFruit($gamePlant)) {
-            $this->createFruit($gamePlant, $dateTime, $producedFruits);
-        }
-
-        return $producedFruits;
-    }
-
-    /**
-     * @param ArrayCollection<int, GameEquipment> $producedFruits
-     */
-    private function createFruit(GameEquipment $gamePlant, \DateTime $dateTime, ArrayCollection $producedFruits): void
-    {
-        /** @var Plant $plantMechanic */
-        $plantMechanic = $gamePlant->getEquipment()->getMechanicByNameOrThrow(EquipmentMechanicEnum::PLANT);
-
         $fruit = $this->gameEquipmentService->createGameEquipmentFromName(
-            $plantMechanic->getFruitName(),
-            $gamePlant->getPlace(),
+            $plantType->getFruitName(),
+            $gamePlant->getPlace(), // If plant is not in a room, it is in player inventory
             [EventEnum::PLANT_PRODUCTION],
             $dateTime,
             VisibilityEnum::PUBLIC
         );
         $producedFruits->add($fruit);
-    }
 
-    private function shouldProduceExtraFruit(GameEquipment $gamePlant): bool
-    {
         $daedalus = $gamePlant->getDaedalus();
         $heatLamps = $daedalus->getProjectByName(ProjectName::HEAT_LAMP);
-        $isPlantInGarden = $gamePlant->getPlace()->getName() === RoomEnum::HYDROPONIC_GARDEN;
 
-        return $isPlantInGarden && $heatLamps->isFinished() && $this->randomService->isSuccessful($heatLamps->getActivationRate());
-    }
+        $plantIsInGarden = $gamePlant->getPlace()->getName() === RoomEnum::HYDROPONIC_GARDEN;
+        $heatLampsAreFinished = $heatLamps->isFinished();
+        $heatLampsAreActivated = $this->randomService->isSuccessful($heatLamps->getActivationRate());
 
-    /**
-     * @param ArrayCollection<int, GameEquipment> $producedFruits
-     */
-    private function moveFruitsToRefectory(ArrayCollection $producedFruits, \DateTime $dateTime): void
-    {
-        /** @var GameEquipment $fruit */
-        foreach ($producedFruits as $fruit) {
-            $this->gameEquipmentService->moveEquipmentTo(
-                equipment: $fruit,
-                newHolder: $fruit->getDaedalus()->getPlaceByNameOrThrow(RoomEnum::REFECTORY),
-                visibility: VisibilityEnum::PUBLIC,
-                tags: [ProjectName::FOOD_RETAILER->value],
-                time: $dateTime,
+        if ($plantIsInGarden && $heatLampsAreFinished && $heatLampsAreActivated) {
+            $fruit = $this->gameEquipmentService->createGameEquipmentFromName(
+                $plantType->getFruitName(),
+                $gamePlant->getPlace(),
+                [EventEnum::PLANT_PRODUCTION],
+                $dateTime,
+                VisibilityEnum::PUBLIC
             );
+            $producedFruits->add($fruit);
+        }
+
+        if ($daedalus->hasFinishedProject(ProjectName::FOOD_RETAILER) && $plantIsInGarden) {
+            foreach ($producedFruits as $producedFruit) {
+                $this->gameEquipmentService->moveEquipmentTo(
+                    equipment: $producedFruit,
+                    newHolder: $daedalus->getPlaceByNameOrThrow(RoomEnum::REFECTORY),
+                    visibility: VisibilityEnum::PUBLIC,
+                    tags: [ProjectName::FOOD_RETAILER->value],
+                    time: $dateTime,
+                );
+            }
         }
     }
 
-    private function producePlantOxygen(GameEquipment $gamePlant, \DateTime $date): void
+    private function addOxygen(GameEquipment $gamePlant, PlantEffect $plantEffect, \DateTime $date): void
     {
-        /** @var Plant $plantMechanic */
-        $plantMechanic = $gamePlant->getEquipment()->getMechanicByNameOrThrow(EquipmentMechanicEnum::PLANT);
-        $plantEffect = $this->equipmentEffectService->getPlantEffect($plantMechanic, $gamePlant->getDaedalus());
-
         // Add Oxygen
         if ($oxygen = $plantEffect->getOxygen()) {
             $daedalusEvent = new DaedalusVariableEvent(
@@ -225,45 +196,5 @@ final class PlantCycleHandler extends AbstractCycleHandler
             );
             $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
-    }
-
-    private function createJumpkinFruit(GameEquipment $gamePlant, \DateTime $dateTime): ArrayCollection
-    {
-        /** @var ArrayCollection<int, GameEquipment> $producedFruits */
-        $producedFruits = new ArrayCollection();
-
-        $fruit = $this->gameEquipmentService->createGameEquipmentFromName(
-            GameFruitEnum::JUMPKIN,
-            $gamePlant->getPlace(),
-            [EventEnum::PLANT_PRODUCTION],
-            $dateTime,
-            VisibilityEnum::PUBLIC
-        );
-        $producedFruits->add($fruit);
-
-        return $producedFruits;
-    }
-
-    private function tryToCreateHalloweenJumpkin(GameEquipment $gamePlant, \DateTime $dateTime): ArrayCollection
-    {
-        if (!$this->isHalloweenEvent($gamePlant)) {
-            return new ArrayCollection();
-        }
-
-        if (!$this->isBiasedRollSuccessful(successRate: self::HALLOWEEN_JUMPKIN_SPAWN_RATE)) {
-            return new ArrayCollection();
-        }
-
-        return $this->createJumpkinFruit($gamePlant, $dateTime);
-    }
-
-    private function isHalloweenEvent(GameEquipment $gamePlant): bool
-    {
-        return $gamePlant->getDaedalus()->getDaedalusConfig()->getHoliday() === HolidayEnum::HALLOWEEN;
-    }
-
-    private function isBiasedRollSuccessful(int $successRate): bool
-    {
-        return $this->randomService->rollTwiceAndAverage(1, 100) >= $successRate;
     }
 }

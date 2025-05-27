@@ -5,7 +5,6 @@ namespace Mush\Game\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Game\ConfigData\DifficultyConfigDto;
 use Mush\Game\Entity\Collection\ProbaCollection;
 
 #[ORM\Entity]
@@ -56,22 +55,22 @@ class DifficultyConfig
     private int $panicCrisisRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $firePlayerDamage = [];
+    private array $firePlayerDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $fireHullDamage = [];
+    private array $fireHullDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $electricArcPlayerDamage = [];
+    private array $electricArcPlayerDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $tremorPlayerDamage = [];
+    private array $tremorPlayerDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $metalPlatePlayerDamage = [];
+    private array $metalPlatePlayerDamage;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $panicCrisisPlayerDamage = [];
+    private array $panicCrisisPlayerDamage;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $plantDiseaseRate = 0;
@@ -80,37 +79,29 @@ class DifficultyConfig
     private int $cycleDiseaseRate = 0;
 
     #[ORM\Column(type: 'array', nullable: false)]
-    private array $equipmentBreakRateDistribution = [];
+    private array $equipmentBreakRateDistribution;
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $difficultyModes = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $hunterSpawnRate = 0;
 
-    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => '[]'])]
     private array $hunterSafeCycles = [];
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $startingHuntersNumberOfTruceCycles = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
-    private int $linkWithSolCycleFailureRate = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
-    private int $minTransportSpawnRate = 0;
-
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
-    private int $maxTransportSpawnRate = 0;
-
-    public function __construct() {}
-
-    public static function fromDto(DifficultyConfigDto $dto): self
+    public function __construct()
     {
-        $config = new self();
-        $config->updateFromDto($dto);
-
-        return $config;
+        $this->firePlayerDamage = [];
+        $this->fireHullDamage = [];
+        $this->electricArcPlayerDamage = [];
+        $this->tremorPlayerDamage = [];
+        $this->metalPlatePlayerDamage = [];
+        $this->panicCrisisPlayerDamage = [];
+        $this->equipmentBreakRateDistribution = [];
     }
 
     public function getId(): int
@@ -414,62 +405,6 @@ class DifficultyConfig
     public function setStartingHuntersNumberOfTruceCycles(int $startingHuntersNumberOfTruceCycles): static
     {
         $this->startingHuntersNumberOfTruceCycles = $startingHuntersNumberOfTruceCycles;
-
-        return $this;
-    }
-
-    public function getLinkWithSolCycleFailureRate(): int
-    {
-        return $this->linkWithSolCycleFailureRate;
-    }
-
-    public function setLinkWithSolCycleFailureRate(int $linkWithSolCycleFailureRate): static
-    {
-        $this->linkWithSolCycleFailureRate = $linkWithSolCycleFailureRate;
-
-        return $this;
-    }
-
-    public function getMinTransportSpawnRate(): int
-    {
-        return $this->minTransportSpawnRate;
-    }
-
-    public function setMinTransportSpawnRate(int $minTransportSpawnRate): static
-    {
-        $this->minTransportSpawnRate = $minTransportSpawnRate;
-
-        return $this;
-    }
-
-    public function getMaxTransportSpawnRate(): int
-    {
-        return $this->maxTransportSpawnRate;
-    }
-
-    public function setMaxTransportSpawnRate(int $maxTransportSpawnRate): static
-    {
-        $this->maxTransportSpawnRate = $maxTransportSpawnRate;
-
-        return $this;
-    }
-
-    public function updateFromDto(DifficultyConfigDto $dto): static
-    {
-        // automatically setting values through reflection to avoid forgetting some
-        // when adding new fields
-        $dtoProperties = (new \ReflectionClass($dto))->getProperties();
-
-        foreach ($dtoProperties as $property) {
-            $propertyName = $property->getName();
-            $setterMethod = 'set' . ucfirst($propertyName);
-
-            if (!method_exists($this, $setterMethod)) {
-                throw new \Exception("Setter method {$setterMethod} not found for property {$propertyName}");
-            }
-
-            $this->{$setterMethod}($property->getValue($dto));
-        }
 
         return $this;
     }

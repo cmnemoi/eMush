@@ -1,8 +1,8 @@
 <template>
     <ul class="inventory" @wheel="ScrollIcons($event)">
         <li
-            v-for="item in items"
-            :key="`${item.id}-${item.description}`"
+            v-for="(item) in items"
+            :key="item.id"
             tabindex="0"
             class="slot"
             :class="isItemSelected(item) ? 'highlight' : ''"
@@ -38,16 +38,12 @@ import { Item } from "@/entities/Item";
 import { formatText } from "@/utils/formatText";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "Inventory",
-    components: {
-        Tippy
-    },
     props: {
         items: {
-            type: Array<Item>,
+            type: Array,
             required: true
         },
         minSlot: {

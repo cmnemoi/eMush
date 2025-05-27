@@ -28,7 +28,7 @@ final class PlayerFactory
             ->setUsername(Uuid::v4()->toRfc4122());
 
         $characterConfig = new CharacterConfig();
-        $characterConfig->setCharacterName(CharacterEnum::NULL);
+        $characterConfig->setCharacterName(CharacterEnum::null);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
@@ -85,15 +85,7 @@ final class PlayerFactory
 
     public static function createPlayerInPlace(Place $place): Player
     {
-        $player = self::createPlayerWithDaedalus($place->getDaedalus());
-        $player->setPlace($place);
-
-        return $player;
-    }
-
-    public static function createPlayerByNameAndPlace(string $characterName, Place $place): Player
-    {
-        $player = self::createPlayerByNameAndDaedalus($characterName, $place->getDaedalus());
+        $player = self::createPlayer();
         $player->setPlace($place);
 
         return $player;
@@ -102,13 +94,13 @@ final class PlayerFactory
     public static function createPlayerForUser(User $user): Player
     {
         $characterConfig = new CharacterConfig();
-        $characterConfig->setCharacterName(CharacterEnum::NULL);
+        $characterConfig->setCharacterName(CharacterEnum::null);
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
         $player->setPlayerVariables($characterConfig);
-        $player->setPlace(Place::createRoomByName(RoomEnum::NULL));
+        $player->setPlace(Place::createRoomByName(RoomEnum::null));
 
         return $player;
     }
@@ -124,8 +116,6 @@ final class PlayerFactory
     private static function setPlayerId(Player $player, int $id): void
     {
         (new \ReflectionClass($player))->getProperty('id')->setValue($player, $id);
-        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
-        (new \ReflectionClass($closedPlayer))->getProperty('id')->setValue($closedPlayer, $id);
     }
 
     private static function addCharacterConfigSkillConfigs(CharacterConfig $characterConfig): void

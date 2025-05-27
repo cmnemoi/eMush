@@ -18,21 +18,29 @@
             ></Input>
         </div>
         <div class="flex-row wrap">
-            <div class="select-container">
-                <label for="equipmentConfig_breakableType">{{ $t('admin.equipmentConfig.breakableType') }}</label>
-                <select
-                    :label="$t('admin.equipmentConfig.breakableType')"
-                    id="equipmentConfig_breakableType"
-                    v-model="equipmentConfig.breakableType"
-                >
-                    <option
-                        v-for="option in breakableType"
-                        :key="option"
-                        :value="option"
-                    >
-                        {{ $t('admin.equipmentConfig.' + option) }}
-                    </option>
-                </select>
+            <div class="checkbox-container">
+                <input
+                    type="checkbox"
+                    id="equipmentConfig_isBreakable"
+                    v-model="equipmentConfig.isBreakable"
+                />
+                <label for="equipmentConfig_isBreakable">{{ equipmentConfig.isBreakable ? $t('admin.equipmentConfig.isBreakable') : $t('admin.equipmentConfig.isNotBreakable') }}</label>
+            </div>
+            <div class="checkbox-container">
+                <input
+                    type="checkbox"
+                    id="equipmentConfig_isFireBreakable"
+                    v-model="equipmentConfig.isFireBreakable"
+                />
+                <label for="equipmentConfig_isFireBreakable">{{ equipmentConfig.isFireBreakable ? $t('admin.equipmentConfig.isFireBreakable') : $t('admin.equipmentConfig.isNotFireBreakable') }}</label>
+            </div>
+            <div class="checkbox-container">
+                <input
+                    type="checkbox"
+                    id="equipmentConfig_isFireDestroyable"
+                    v-model="equipmentConfig.isFireDestroyable"
+                />
+                <label for="equipmentConfig_isFireDestroyable">{{ equipmentConfig.isFireDestroyable ? $t('admin.equipmentConfig.isFireDestroyable') : $t('admin.equipmentConfig.isNotFireDestroyable') }}</label>
             </div>
             <div class="checkbox-container" v-if="equipmentConfig.equipmentType === 'ItemConfig'">
                 <input
@@ -122,7 +130,6 @@ import StringArrayManager from "@/components/Utils/StringArrayManager.vue";
 interface EquipmentConfigState {
     equipmentConfig: null|EquipmentConfig
     errors: any,
-    breakableType: Array<string>
     products: Array<string>,
     productToAdd: string
 }
@@ -139,7 +146,6 @@ export default defineComponent({
         return {
             equipmentConfig: null,
             errors: {},
-            breakableType: ["none", "breakable", "destroyOnBreak"],
             products: ["metal_scraps", "plastic_scraps", "thick_tube"],
             productToAdd: ""
         };
@@ -329,33 +335,6 @@ export default defineComponent({
 .equipmentConfigCheckbox {
     margin-left: 10px;
     margin-right: 10px;
-}
-
-.select-container {
-    width: 31%;
-    min-width: 200px;
-    align-self: flex-end;
-
-    label {
-        padding: 0 0.8em;
-        transform: translateY(0.45em);
-        word-break: break-word;
-    }
-
-    select {
-        min-width: 5em;
-        padding: 0.3em 0.6em;
-        font-size: 1.3em;
-        color: white;
-        background: #222b6b;
-        border: 1px solid transparentize(white, 0.8);
-        border-radius: 1px;
-
-        &:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px transparentize(white, 0.85);
-        }
-    }
 }
 
 </style>

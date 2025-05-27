@@ -73,9 +73,4 @@ abstract class PlayerStatusEnum
     public const string HAS_GEN_METAL = 'has_gen_metal';
     public const string HAS_SABOTAGED_DOOR = 'has_sabotaged_door';
     public const string FITFUL_SLEEP = 'fitful_sleep';
-    public const string CONTACTED_SOL_TODAY = 'contacted_sol_today';
-    public const string BEGINNER = 'beginner';
-    public const string SELECTED_FOR_STEEL_PLATE = 'selected_for_steel_plate';
-    public const string SELECTED_FOR_BOARD_DISEASE = 'selected_for_board_disease';
-    public const string SELECTED_FOR_ANXIETY_ATTACK = 'selected_for_anxiety_attack';
 }

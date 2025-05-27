@@ -45,136 +45,15 @@
             :filter="filter"
             @pagination-click="paginationClick"
             @sort-table="sortTable"
+            @row-click="showSanctionDetails"
         >
-            <template #header-id>
-                #
-            </template>
-            <template #row-id="sanction">
-                {{ sanction.id }}
-            </template>
-
-            <template #header-moderationAction>
-                {{ $t("moderation.sanction.name") }}
-            </template>
-            <template #row-moderationAction="sanction">
-                {{ $t("moderation.sanction."+sanction.moderationAction) }}
-            </template>
-
-            <template #header-reason>
-                {{ $t("moderation.sanction.reason") }}
-            </template>
-            <template #row-reason="sanction">
-                {{ $t("moderation.reason." + sanction.reason) }}
-            </template>
-
-            <template #header-message>
-                {{ $t("moderation.sanctionDetail.message") }}
-            </template>
-            <template #row-message="sanction">
-                <div>
-                    <details>
-                        <summary>
-                            {{ $t('moderation.sanction.showMore') }}
-                        </summary>
-                        <span>
-                            {{ sanction.message }}
-                        </span>
-                    </details>
-                </div>
-            </template>
-
-            <template #header-startDate>
-                {{ $t("moderation.sanctionDetail.startDate") }}
-            </template>
-            <template #row-startDate="sanction">
-                {{ formatDate(sanction.startDate )}}
-            </template>
-
-            <template #header-endDate>
-                {{ $t("moderation.sanctionDetail.endDate") }}
-            </template>
-
-            <template #row-endDate="sanction">
-                <template v-if="sanction.moderationAction === 'quarantine_player'">
-                    N/A
-                </template>
-                <template v-else>
-                    {{ formatDate(sanction.endDate) }}
-                </template>
-            </template>
-
             <template #header-actions>
-                {{ $t("moderation.actions.name") }}
+                Actions
             </template>
             <template #row-actions="sanction">
                 <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
             </template>
         </Datatable>
-
-        <h2 class="sanction_heading">{{ $t('moderation.reportsFor', { username: username }) }}</h2>
-
-        <Datatable
-            :headers='fields'
-            :uri="uri"
-            :loading="loading"
-            :row-data="reportRowData"
-            :pagination="pagination"
-            :filter="filter"
-            @pagination-click="paginationClick"
-            @sort-table="sortTable"
-        >
-            <template #header-id>
-                #
-            </template>
-            <template #row-id="sanction">
-                {{ sanction.id }}
-            </template>
-
-            <template #header-authorName>
-                {{ $t("moderation.sanction.author") }}
-            </template>
-            <template #row-authorName="sanction">
-                {{ sanction.authorName }}
-            </template>
-
-            <template #header-reason>
-                {{ $t("moderation.sanction.reason") }}
-            </template>
-            <template #row-reason="sanction">
-                {{ $t("moderation.reason." + sanction.reason) }}
-            </template>
-
-            <template #header-message>
-                {{ $t("moderation.sanctionDetail.message") }}
-            </template>
-            <template #row-message="sanction">
-                <div>
-                    <details>
-                        <summary>
-                            {{ $t('moderation.sanction.showMore') }}
-                        </summary>
-                        <span>
-                            {{ sanction.message }}
-                        </span>
-                    </details>
-                </div>
-            </template>
-
-            <template #header-startDate>
-                {{ $t("moderation.sanctionDetail.reportDate") }}
-            </template>
-            <template #row-startDate="sanction">
-                {{ formatDate(sanction.startDate )}}
-            </template>
-
-            <template #header-actions>
-                {{ $t("moderation.actions.name") }}
-            </template>
-            <template #row-actions="sanction">
-                <button class="action-button" @click="showSanctionDetails(sanction)">Voir Détails</button>
-            </template>
-        </Datatable>
-
         <SanctionDetailPage
             :is-open="showDetailPopup"
             :moderation-sanction="selectedSanction"
@@ -194,7 +73,6 @@ import { mapGetters } from "vuex";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import { moderationReasons, moderationSanctionTypes } from "@/enums/moderation_reason.enum";
 import { ModerationSanction } from "@/entities/ModerationSanction";
-import { moderation } from "@/store/moderation.module";
 
 interface SanctionListData {
     userId: string,
@@ -202,7 +80,6 @@ interface SanctionListData {
     fields: Array<{ key: string; name: string; sortable?: boolean; slot?: boolean }>,
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number },
     rowData: never[],
-    reportRowData: never[],
     filter: string,
     sortField: string,
     sortDirection: string,
@@ -225,10 +102,7 @@ export default defineComponent({
         ...mapGetters({
             isAdmin: 'auth/isAdmin',
             isModerator: 'auth/isModerator'
-        }),
-        currentLocale() {
-            return this.$i18n.locale;
-        }
+        })
     },
     data(): SanctionListData {
         return {
@@ -236,44 +110,16 @@ export default defineComponent({
             username: '',
             fields: [
                 {
-                    key: 'id',
-                    name: 'moderation.sanctionId',
-                    slot: true
-                },
-                {
                     key: 'moderationAction',
-                    name: 'moderation.sanctionType',
-                    slot: true
-                },
-                {
-                    key: 'authorName',
-                    name: 'moderation.author',
-                    slot:true
+                    name: 'moderation.sanctionType'
                 },
                 {
                     key: 'reason',
-                    name: 'moderation.sanctionReason',
-                    slot: true
-                },
-                {
-                    key: 'message',
-                    name: 'moderation.sanctionMessage',
-                    slot: true
-                },
-                {
-                    key: 'startDate',
-                    name: 'moderation.startDate',
-                    slot: true
+                    name: 'moderation.sanctionReason'
                 },
                 {
                     key: 'endDate',
-                    name: 'moderation.endDate',
-                    slot: true
-                },
-                {
-                    key: 'actions',
-                    name: 'moderation.actions',
-                    slot: true
+                    name: 'moderation.endDate'
                 }
             ],
             pagination: {
@@ -283,7 +129,6 @@ export default defineComponent({
                 totalPage: 1
             },
             rowData: [],
-            reportRowData: [],
             filter: '',
             sortField: '',
             sortDirection: 'DESC',
@@ -301,21 +146,6 @@ export default defineComponent({
         };
     },
     methods: {
-        formatDate(date: string): string {
-            const currentDate = new Date();
-            const reportDate = new Date(date);
-
-            // if today or yesterday, special format
-            if(currentDate.toDateString() === reportDate.toDateString()) {
-                return `${this.$t('moderation.sanctionDetail.today')}`;
-            }
-
-            if(new Date(currentDate.setDate(currentDate.getDate() - 1)).toDateString() === reportDate.toDateString()) {
-                return `${this.$t('moderation.sanctionDetail.yesterday')}`;
-            }
-
-            return reportDate.toLocaleDateString(this.currentLocale, { year: "numeric", month: "long", day: "numeric" });
-        },
         moderationReasons() {
             return moderationReasons;
         },
@@ -359,8 +189,6 @@ export default defineComponent({
             }
 
             params.params['user.userId'] = this.userId;
-
-            // sanctions
             params.params['isReport'] = false;
 
             ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
@@ -375,24 +203,6 @@ export default defineComponent({
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
                     this.loading = false;
                 });
-
-            // reports
-            params.params['isReport'] = true;
-
-            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL, 'moderation_sanctions'), params)
-                .then((result) => {
-                    return result.data;
-                })
-                .then((remoteRowData: any) => {
-                    this.reportRowData = remoteRowData['hydra:member'].map((reportData: object) => {
-                        console.log(reportData);
-                        return (new ModerationSanction()).load(reportData);
-                    });
-                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
-                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
-                    this.loading = false;
-                });
-
         },
         sortTable(selectedField: any): void {
             if (!selectedField.sortable) {

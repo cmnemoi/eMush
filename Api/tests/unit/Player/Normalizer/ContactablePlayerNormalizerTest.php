@@ -6,9 +6,9 @@ namespace Mush\Tests\unit\Player\Normalizer;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Normalizer\ContactablePlayerNormalizer;
-use Mush\Tests\unit\Player\TestDoubles\FakeTranslationService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,5 +37,13 @@ final class ContactablePlayerNormalizerTest extends TestCase
             'key' => 'paola',
             'name' => 'Paola',
         ], $normalizedPlayer);
+    }
+}
+
+final class FakeTranslationService implements TranslationServiceInterface
+{
+    public function translate(string $key, array $parameters, string $domain, ?string $language = null): string
+    {
+        return 'Paola';
     }
 }

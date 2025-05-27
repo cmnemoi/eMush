@@ -9,7 +9,7 @@ use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Skill\Handler\LogisticsExpertHandler;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final readonly class PlayerCycleEventSubscriber implements EventSubscriberInterface
+final class PlayerCycleEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(private LogisticsExpertHandler $logisticsExpertHandler) {}
 
@@ -22,6 +22,6 @@ final readonly class PlayerCycleEventSubscriber implements EventSubscriberInterf
 
     public function onNewCycle(PlayerCycleEvent $event): void
     {
-        $this->logisticsExpertHandler->execute($event->getPlayer(), $event->getTags(), $event->getTime());
+        $this->logisticsExpertHandler->execute($event);
     }
 }

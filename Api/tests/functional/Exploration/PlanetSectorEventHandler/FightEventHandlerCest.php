@@ -4,16 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Exploration\PlanetSectorEventHandler;
 
-use Mush\Communications\Entity\RebelBase;
-use Mush\Communications\Entity\RebelBaseConfig;
-use Mush\Communications\Enum\RebelBaseEnum;
-use Mush\Communications\Repository\RebelBaseRepositoryInterface;
-use Mush\Communications\Service\DecodeRebelSignalService;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Exploration\Entity\Exploration;
-use Mush\Exploration\Entity\ExplorationLog;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
@@ -44,8 +37,6 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     private StatusServiceInterface $statusService;
     private Player $derek;
     private Player $janice;
-    private RebelBaseRepositoryInterface $rebelBaseRepository;
-    private DecodeRebelSignalService $decodeRebelBase;
 
     public function _before(FunctionalTester $I): void
     {
@@ -56,8 +47,6 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
-        $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
 
         // given our explorators are Chun, Kuan-Ti, Derek, and Janice
         $this->chun = $this->player;
@@ -100,223 +89,120 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
     public function testFightEventExpeditionStrengthIsImprovedByWeapons(FunctionalTester $I): void
     {
-        $this->givenPlayerHasABlaster($this->chun);
-        $this->givenPlayerHasABlaster($this->kuanTi);
+        // given Chun and Kuan-Ti have a blaster
+        foreach ([$this->chun, $this->kuanTi] as $player) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::BLASTER,
+                equipmentHolder: $player,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
 
-        $this->givenBlasterOfPlayerIsEmpty($this->kuanTi);
+        // given Kuan-Ti's blaster is unloaded
+        $this->kuanTi->getEquipmentByName(ItemEnum::BLASTER)->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(0);
 
-        $exploration = $this->givenAnExpeditionToAnIntelligentLifeSector($I);
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
 
-        $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
 
-        $explorationLog = $this->whenIHandleTheEvent($event);
+        // when the event is handled by the fight event handler
+        $explorationLog = $this->fightEventHandler->handle($event);
 
+        // then the expedition strength should be 3 :
         // 2 points from Chun : 1 (base) + 1 (loaded blaster)
         // 1 points from Kuan-Ti : 1 (base) + 0 (unloaded blaster)
         // 0 points from Derek and Janice as they are lost or stuck in the ship
-        $this->thenExpeditionStrengthShouldBe(3, $explorationLog, $I);
+        $I->assertEquals(3, $explorationLog->getParameters()['expedition_strength']);
     }
 
     public function testFightEventExpeditionStrengthIsImprovedByShooterSkill(FunctionalTester $I): void
     {
-        $this->givenPlayerHasABlaster($this->chun);
-        $this->givenPlayerHasABlaster($this->chun);
-        $this->givenPlayerHasABlaster($this->kuanTi);
+        // given Chun and Kuan-Ti have a blaster
+        foreach ([$this->chun, $this->kuanTi] as $player) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::BLASTER,
+                equipmentHolder: $player,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
 
-        $this->givenBlasterOfPlayerIsEmpty($this->kuanTi);
+        // given Chun has an extra blaster
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::BLASTER,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
 
-        $this->givenPlayerIsShooter($this->chun);
-        $this->givenPlayerIsShooter($this->kuanTi);
+        // given Kuan-Ti's blaster is unloaded
+        $this->kuanTi->getEquipmentByName(ItemEnum::BLASTER)->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(0);
 
-        $exploration = $this->givenAnExpeditionToAnIntelligentLifeSector($I);
+        // given Chun and kuan-ti have the shooter skill
+        foreach ([$this->chun, $this->kuanTi] as $player) {
+            $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHOOTER, $player));
+        }
 
-        $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
 
-        $explorationLog = $this->whenIHandleTheEvent($event);
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
 
+        // when the event is handled by the fight event handler
+        $explorationLog = $this->fightEventHandler->handle($event);
+
+        // then the expedition strength should be 4 :
         // 4 points from Chun : 1 (base) + 2 (2 blasters) + 1 (shooter skill with a loaded gun)
         // 1 points from Kuan-Ti : 1 (base) + 0 (unloaded blaster) + 0 (shooter skill but unloaded gun)
         // 0 points from Derek and Janice as they are lost or stuck in the ship
-        $this->thenExpeditionStrengthShouldBe(5, $explorationLog, $I);
+        $I->assertEquals(5, $explorationLog->getParameters()['expedition_strength']);
     }
 
     public function testFightEventUsesGrenades(FunctionalTester $I): void
     {
-        $this->givenPlayerHasAGrenade($this->chun);
-        $this->givenPlayerHasAGrenade($this->chun);
-
-        $this->givenPlayerHasAGrenade($this->kuanTi);
-        $this->givenPlayerHasAGrenade($this->kuanTi);
-
-        $raluca = $this->givenRalucaIsInTheExpedition($I);
-        $this->givenPlayerHasAGrenade($raluca);
-
-        $exploration = $this->givenAnExpeditionToAnIntelligentLifeSector($I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
-
-        $explorationLog = $this->whenIHandleTheEvent($event);
-
-        // 3 base points from Chun, Kuan-Ti, and Raluca (0 from Derek and Janice as they are lost or stuck in the ship)
-        // + 3 points from Chun's first grenade (6)
-        // + 3 points from Chun's second grenade (9)
-        // + 3 points from Kuan-Ti's first grenade (12) - here we have enough points to kill the creature
-        // + 3 points from Kuan-Ti's second grenade (15)
-        // + 3 points from Raluca's grenade (18)
-        $this->thenExpeditionStrengthShouldBe(18, $explorationLog, $I);
-
-        $this->thenPlayerShouldHaveGrenades(0, $this->chun, $I);
-
-        $this->thenPlayerShouldHaveGrenades(1, $this->kuanTi, $I);
-
-        $this->thenPlayerShouldHaveGrenades(1, $raluca, $I);
-    }
-
-    public function testFightEventNotUsingGrenadesIfWeHaveEnoughPointsToKillWithoutThem(FunctionalTester $I): void
-    {
-        $this->givenNoAccidentWhenLanding();
-
-        $this->givenPlayerHasHealth(14, $this->chun);
-
-        $this->givenPlayerHasAKnife($this->chun);
-        $this->givenPlayerHasAGrenade($this->chun);
-
-        $exploration = $this->givenASoloExpeditionToAnIntelligentLifeSector($this->chun, $I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength2($exploration, $I);
-
-        $this->whenIHandleTheEvent($event);
-
-        $this->thenPlayerShouldHaveGrenades(1, $this->chun, $I);
-    }
-
-    public function testFightEventInflictsTheRightAmountOfDamage(FunctionalTester $I): void
-    {
-        $this->givenNoAccidentWhenLanding();
-
-        $this->givenPlayerHasHealth(14, $this->chun);
-
-        $exploration = $this->givenASoloExpeditionToAnIntelligentLifeSector($this->chun, $I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
-
-        $this->whenIHandleTheEvent($event);
-
-        $this->thenPlayerShouldHaveHealthPoints(3, $this->chun, $I);
-
-        $this->thenThereShouldBeRoomLogForPlayerWithHealthLoss(11, $this->chun, $I);
-    }
-
-    public function testFightEventInflictsTheRightAmountOfDamageWithPlasteniteArmor(FunctionalTester $I): void
-    {
-        $this->givenNoAccidentWhenLanding();
-
-        $this->givenPlayerHasHealth(14, $this->chun);
-
-        $this->givenPlayerHasArmor($this->chun);
-
-        $exploration = $this->givenASoloExpeditionToAnIntelligentLifeSector($this->chun, $I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
-
-        $this->whenIHandleTheEvent($event);
-
-        $this->thenPlayerShouldHaveHealthPoints(4, $this->chun, $I);
-
-        $this->thenThereShouldBeRoomLogForPlayerWithHealthLoss(10, $this->chun, $I);
-    }
-
-    public function testFightEventPlayerDeathCauseIsExplorationCombat(FunctionalTester $I): void
-    {
-        $this->givenNoAccidentWhenLanding();
-
-        $this->givenPlayerHasHealth(1, $this->chun);
-
-        $exploration = $this->givenASoloExpeditionToAnIntelligentLifeSector($this->chun, $I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
-
-        $this->whenIHandleTheEvent($event);
-
-        $this->thenPlayerIsDead($this->chun, $I);
-
-        $this->thenThereShouldBeRoomLogForPlayerWithDeathCauseCombat($this->chun, $I);
-    }
-
-    public function testFightEventPlayerDeathCauseIsMankarogInMankarogSector(FunctionalTester $I): void
-    {
-        $this->givenNoAccidentWhenLanding();
-
-        $this->givenPlayerHasHealth(1, $this->chun);
-
-        $exploration = $this->givenASoloExpeditionToMankarogSector($this->chun, $I);
-
-        $event = $this->givenExpeditionFightsMankarog($exploration, $I);
-
-        $this->whenIHandleTheEvent($event);
-
-        $this->thenPlayerIsDead($this->chun, $I);
-
-        $this->thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog($this->chun, $I);
-    }
-
-    public function testFightEventPlayerDeathCauseIsMankarogIfFightingACreatureWithMankarogStrength(FunctionalTester $I): void
-    {
-        $this->givenNoAccidentWhenLanding();
-
-        $this->givenPlayerHasHealth(1, $this->chun);
-
-        $exploration = $this->givenASoloExpeditionToWreckSector($this->chun, $I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength32($exploration, $I);
-
-        $this->whenIHandleTheEvent($event);
-
-        $this->thenPlayerIsDead($this->chun, $I);
-
-        $this->thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog($this->chun, $I);
-    }
-
-    public function testFightEventGivesDisease(FunctionalTester $I): void
-    {
-        $this->givenNoAccidentWhenLanding();
-
-        $exploration = $this->givenASoloExpeditionToAnIntelligentLifeSector($this->chun, $I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength2($exploration, $I);
-
-        $this->givenEventGuaranteesADisease($event);
-
-        $this->whenIHandleTheEvent($event);
-
-        $this->thenPlayerHasDisease($this->chun, $I);
-
-        $this->thenThereShouldBeRoomLogForPlayerDiseaseCauseFight($this->chun, $I);
-    }
-
-    public function testFightEventExpeditionStrengthIsImprovedByCentauriBase(FunctionalTester $I): void
-    {
-        $this->givenCentauriIsDecoded($I);
-
-        $this->givenPlayerHasABlaster($this->chun);
-
-        $exploration = $this->givenAnExpeditionToAnIntelligentLifeSector($I);
-
-        $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
-
-        $explorationLog = $this->whenIHandleTheEvent($event);
-
-        // 3 points from Chun : 1 (base) + 2 (1 blaster)
-        $this->thenExpeditionStrengthShouldBe(3, $explorationLog, $I);
-    }
-
-    private function givenNoAccidentWhenLanding()
-    {
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
-    }
-
-    private function givenRalucaIsInTheExpedition(FunctionalTester $I)
-    {
+        // given Chun has two grenades
+        for ($i = 0; $i < 2; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::GRENADE,
+                equipmentHolder: $this->chun,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // given Kuan-Ti has two grenades
+        for ($i = 0; $i < 2; ++$i) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: ItemEnum::GRENADE,
+                equipmentHolder: $this->kuanTi,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // given an extra explorator : Raluca
         $raluca = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::RALUCA);
         $this->players->add($raluca);
 
@@ -328,98 +214,21 @@ final class FightEventHandlerCest extends AbstractExplorationTester
             time: new \DateTime(),
         );
 
-        return $raluca;
-    }
-
-    private function givenPlayerHasABlaster(Player $player): void
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::BLASTER,
-            equipmentHolder: $player,
-            reasons: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function givenPlayerHasAGrenade(Player $player)
-    {
+        // given Raluca has a grenade
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::GRENADE,
-            equipmentHolder: $player,
+            equipmentHolder: $raluca,
             reasons: [],
             time: new \DateTime(),
         );
-    }
 
-    private function givenPlayerHasAKnife(Player $player)
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::KNIFE,
-            equipmentHolder: $player,
-            reasons: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function givenPlayerHasArmor(Player $player)
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::PLASTENITE_ARMOR,
-            equipmentHolder: $player,
-            reasons: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function givenPlayerHasHealth(int $health, Player $player)
-    {
-        $player->setHealthPoint($health);
-    }
-
-    private function givenBlasterOfPlayerIsEmpty(Player $player): void
-    {
-        $player->getEquipmentByNameOrThrow(ItemEnum::BLASTER)->getChargeStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(0);
-    }
-
-    private function givenPlayerIsShooter(Player $player)
-    {
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHOOTER, $player));
-    }
-
-    private function givenAnExpeditionToAnIntelligentLifeSector(FunctionalTester $I): Exploration
-    {
-        return $this->createExploration(
+        // given an exploration is created
+        $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
             explorators: $this->players
         );
-    }
 
-    private function givenASoloExpeditionToAnIntelligentLifeSector(Player $player, FunctionalTester $I): Exploration
-    {
-        return $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
-            explorators: new PlayerCollection([$player])
-        );
-    }
-
-    private function givenASoloExpeditionToMankarogSector(Player $player, FunctionalTester $I): Exploration
-    {
-        return $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::MANKAROG], $I),
-            explorators: new PlayerCollection([$player])
-        );
-    }
-
-    private function givenASoloExpeditionToWreckSector(Player $player, FunctionalTester $I): Exploration
-    {
-        return $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::WRECK], $I),
-            explorators: new PlayerCollection([$player])
-        );
-    }
-
-    private function givenExpeditionFightsCreatureOfStrength12(Exploration $exploration, FunctionalTester $I): PlanetSectorEvent
-    {
+        // given the team fights again a creature of strength 12
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
         $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
@@ -428,37 +237,59 @@ final class FightEventHandlerCest extends AbstractExplorationTester
             config: $fightEventConfig,
         );
 
-        return $event;
+        // when the event is handled by the fight event handler
+        $explorationLog = $this->fightEventHandler->handle($event);
+
+        // then the expedition strength should be 18 :
+        // 3 base points from Chun, Kuan-Ti, and Raluca (0 from Derek and Janice as they are lost or stuck in the ship)
+        // + 3 points from Chun's first grenade (6)
+        // + 3 points from Chun's second grenade (9)
+        // + 3 points from Kuan-Ti's first grenade (12) - here we have enough points to kill the creature
+        // + 3 points from Kuan-Ti's second grenade (15)
+        // + 3 points from Raluca's grenade (18)
+        $I->assertEquals(18, $explorationLog->getParameters()['expedition_strength']);
+
+        // then Chun does not have grenades anymore
+        $I->assertFalse($this->chun->hasEquipmentByName(ItemEnum::GRENADE));
+
+        // then Kuan-Ti should have one grenade left
+        $I->assertCount(1, $this->kuanTi->getEquipments()->filter(static fn ($equipment) => $equipment->getName() === ItemEnum::GRENADE));
+
+        // then Raluca should still have her grenade
+        $I->assertTrue($raluca->hasEquipmentByName(ItemEnum::GRENADE));
     }
 
-    private function givenExpeditionFightsCreatureOfStrength32(Exploration $exploration, FunctionalTester $I): PlanetSectorEvent
+    public function testFightEventNotUsingGrenadesIfWeHaveEnoughPointsToKillWithoutThem(FunctionalTester $I): void
     {
-        /** @var PlanetSectorEventConfig $fightEventConfig */
-        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_' . Fight::MANKAROG_STRENGTH]);
-        $wreckPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::WRECK)->first();
-        $event = new PlanetSectorEvent(
-            planetSector: $wreckPlanetSector,
-            config: $fightEventConfig,
+        // given Chun is a pilot to avoid damage at landing
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
+
+        // given Chun has 14 health points
+        $this->chun->setHealthPoint(14);
+
+        // given Chun has a knife
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::KNIFE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
         );
 
-        return $event;
-    }
-
-    private function givenExpeditionFightsMankarog(Exploration $exploration, FunctionalTester $I): PlanetSectorEvent
-    {
-        /** @var PlanetSectorEventConfig $fightEventConfig */
-        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
-        $wreckPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::MANKAROG)->first();
-        $event = new PlanetSectorEvent(
-            planetSector: $wreckPlanetSector,
-            config: $fightEventConfig,
+        // given Chun has a grenade
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::GRENADE,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
         );
 
-        return $event;
-    }
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
 
-    private function givenExpeditionFightsCreatureOfStrength2(Exploration $exploration, FunctionalTester $I): PlanetSectorEvent
-    {
+        // given the team fights again a creature of strength 1
         /** @var PlanetSectorEventConfig $fightEventConfig */
         $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_2']);
         $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
@@ -467,72 +298,137 @@ final class FightEventHandlerCest extends AbstractExplorationTester
             config: $fightEventConfig,
         );
 
-        return $event;
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun has her grenade because it was not needed
+        $I->assertTrue($this->chun->hasEquipmentByName(ItemEnum::GRENADE));
     }
 
-    private function givenEventGuaranteesADisease(PlanetSectorEvent $event)
+    public function testFightEventInflictsTheRightAmountOfDamage(FunctionalTester $I): void
     {
-        $event->getConfig()->setOutputQuantity([100 => 1]);
-    }
+        // given Chun is a pilot to avoid damage at landing
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
 
-    private function givenCentauriIsDecoded(FunctionalTester $I)
-    {
-        $centauriConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => RebelBaseEnum::SIRIUS]);
-        $centauriRebelBase = new RebelBase(config: $centauriConfig, daedalusId: $this->daedalus->getId());
-        $this->rebelBaseRepository->save($centauriRebelBase);
+        // given Chun has 14 health points
+        $this->chun->setHealthPoint(14);
 
-        $this->decodeRebelBase->execute(
-            rebelBase: $centauriRebelBase,
-            progress: 100,
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
         );
-    }
 
-    private function whenIHandleTheEvent(PlanetSectorEvent $event): ExplorationLog
-    {
-        return $this->fightEventHandler->handle($event);
-    }
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
 
-    private function thenExpeditionStrengthShouldBe(int $expectedStrength, ExplorationLog $explorationLog, FunctionalTester $I)
-    {
-        $I->assertEquals($expectedStrength, $explorationLog->getParameters()['expedition_strength']);
-    }
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
 
-    private function thenPlayerShouldHaveGrenades(int $expectedCount, Player $player, FunctionalTester $I)
-    {
-        $I->assertCount($expectedCount, $player->getEquipments()->filter(static fn ($equipment) => $equipment->getName() === ItemEnum::GRENADE));
-    }
+        // then Chun should lose 12 - 1 = 11 health points
+        $I->assertEquals(14 - 11, $this->chun->getHealthPoint());
 
-    private function thenPlayerShouldHaveHealthPoints(int $expectedCount, Player $player, FunctionalTester $I)
-    {
-        $I->assertEquals($expectedCount, $player->getHealthPoint());
-    }
-
-    private function thenThereShouldBeRoomLogForPlayerWithHealthLoss(int $expectedCount, Player $player, FunctionalTester $I)
-    {
+        // then I should have a private room log with the right amount of damage
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
             params: [
-                'place' => $player->getPlace()->getLogName(),
-                'playerInfo' => $player->getPlayerInfo(),
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
                 'log' => PlayerModifierLogEnum::LOSS_HEALTH_POINT,
             ]
         );
-        $I->assertEquals($expectedCount, $log->getParameters()['quantity']);
+        $I->assertEquals(11, $log->getParameters()['quantity']);
     }
 
-    private function thenPlayerIsDead(Player $player, FunctionalTester $I)
+    public function testFightEventInflictsTheRightAmountOfDamageWithPlasteniteArmor(FunctionalTester $I): void
     {
-        $I->assertFalse($player->isAlive());
-    }
+        // given Chun is a pilot to avoid damage at landing
+        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
 
-    private function thenThereShouldBeRoomLogForPlayerWithDeathCauseCombat(Player $player, FunctionalTester $I)
-    {
+        // given Chun has 14 health points
+        $this->chun->setHealthPoint(14);
+
+        // given Chun has a plastenite armor
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::PLASTENITE_ARMOR,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should lose 12 - 1 (expedition strength) - 1 (plastenite armor) = 10 health points
+        $I->assertEquals(14 - 10, $this->chun->getHealthPoint());
+
+        // then I should have a private room log with the right amount of damage
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
             params: [
-                'place' => $player->getPlace()->getLogName(),
-                'playerInfo' => $player->getPlayerInfo(),
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => PlayerModifierLogEnum::LOSS_HEALTH_POINT,
+            ]
+        );
+        $I->assertEquals(10, $log->getParameters()['quantity']);
+    }
+
+    public function testFightEventPlayerDeathCauseIsExplorationCombat(FunctionalTester $I): void
+    {
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given Chun has 1 health point so she will die from the fight
+        $this->chun->setHealthPoint(1);
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should be dead
+        $I->assertFalse($this->chun->isAlive());
+
+        // then I should have a public room log with the right death cause
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PUBLIC,
                 'log' => LogEnum::DEATH,
             ]
@@ -540,13 +436,38 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals(EndCauseEnum::EXPLORATION_COMBAT, $log->getParameters()['end_cause']);
     }
 
-    private function thenThereShouldBeRoomLogForPlayerWithDeathCauseMankarog(Player $player, FunctionalTester $I)
+    public function testFightEventPlayerDeathCauseIsMankarogInMankarogSector(FunctionalTester $I): void
     {
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::MANKAROG], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given Chun has 1 health point so she will die from the fight
+        $this->chun->setHealthPoint(1);
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_12']);
+        $mankarogPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::MANKAROG)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $mankarogPlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should be dead
+        $I->assertFalse($this->chun->isAlive());
+
+        // then I should have a public room log with the right death cause
         $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
             params: [
-                'place' => $player->getPlace()->getLogName(),
-                'playerInfo' => $player->getPlayerInfo(),
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PUBLIC,
                 'log' => LogEnum::DEATH,
             ]
@@ -554,18 +475,77 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $I->assertEquals(EndCauseEnum::MANKAROG, $log->getParameters()['end_cause']);
     }
 
-    private function thenPlayerHasDisease(Player $player, FunctionalTester $I)
+    public function testFightEventPlayerDeathCauseIsMankarogIfFightingACreatureWithMankarogStrength(FunctionalTester $I): void
     {
-        $I->assertCount(1, $player->getMedicalConditions());
-    }
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::WRECK], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
 
-    private function thenThereShouldBeRoomLogForPlayerDiseaseCauseFight(Player $player, FunctionalTester $I)
-    {
-        $I->seeInRepository(
+        // given Chun has 1 health point so she will die from the fight
+        $this->chun->setHealthPoint(1);
+
+        // given the team fights again a creature of strength 12
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_' . Fight::MANKAROG_STRENGTH]);
+        $wreckPlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::WRECK)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $wreckPlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should be dead
+        $I->assertFalse($this->chun->isAlive());
+
+        // then I should have a public room log with the right death cause
+        $log = $I->grabEntityFromRepository(
             entity: RoomLog::class,
             params: [
-                'place' => $player->getPlace()->getLogName(),
-                'playerInfo' => $player->getPlayerInfo(),
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::DEATH,
+            ]
+        );
+        $I->assertEquals(EndCauseEnum::MANKAROG, $log->getParameters()['end_cause']);
+    }
+
+    public function testFightEventGivesDisease(FunctionalTester $I): void
+    {
+        // given an exploration is created with Chun only
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun])
+        );
+
+        // given the team fights again a creature of strength 2
+        /** @var PlanetSectorEventConfig $fightEventConfig */
+        $fightEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => 'fight_2']);
+        $intelligentLifePlanetSector = $exploration->getPlanet()->getSectors()->filter(static fn ($sector) => $sector->getName() === PlanetSectorEnum::INTELLIGENT)->first();
+        $event = new PlanetSectorEvent(
+            planetSector: $intelligentLifePlanetSector,
+            config: $fightEventConfig,
+        );
+
+        // given the event has a 100% chance to give a disease
+        $fightEventConfig->setOutputQuantity([100 => 1]);
+
+        // when the event is handled by the fight event handler
+        $this->fightEventHandler->handle($event);
+
+        // then Chun should have a disease
+        $I->assertCount(1, $this->chun->getMedicalConditions());
+
+        // then I should have a private room log explaining that Chun has catched a disease because of the fight
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->chun->getPlace()->getLogName(),
+                'playerInfo' => $this->chun->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
                 'log' => LogEnum::DISEASE_BY_ALIEN_FIGHT,
             ]

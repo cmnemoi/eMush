@@ -4,6 +4,7 @@ namespace Mush\Status\Listener;
 
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\MakePlayerActiveService;
@@ -21,7 +22,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::PRE_ACTION => ['onPreAction', EventPriorityEnum::LOW],
-            ActionEvent::RESULT_ACTION => ['onResultAction', EventPriorityEnum::LOW],
+            ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
     }
@@ -29,10 +30,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function onPreAction(ActionEvent $event): void
     {
         $this->makePlayerActiveService->execute($event->getAuthor());
-    }
 
-    public function onResultAction(ActionEvent $event): void
-    {
         if ($event->shouldTriggerRoomTrap()) {
             $this->statusService->removeStatus(
                 statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
@@ -41,14 +39,25 @@ final class ActionSubscriber implements EventSubscriberInterface
                 time: $event->getTime()
             );
         }
+    }
 
-        if ($event->shouldTriggerAttemptHandling()) {
+    public function onResultAction(ActionEvent $event): void
+    {
+        $player = $event->getAuthor();
+
+        if (($actionResult = $event->getActionResult()) === null) {
+            throw new \LogicException('actionResult should be provided');
+        }
+
+        $actionPaCost = $event->getActionConfig()->getGameVariables()->getValueByName(PlayerVariableEnum::ACTION_POINT);
+
+        if ($actionPaCost > 0) {
             $this->statusService->handleAttempt(
-                holder: $event->getAuthor(),
-                actionName: $event->getActionName()->toString(),
-                result: $event->getActionResultOrThrow(),
-                tags: $event->getTags(),
-                time: $event->getTime()
+                $player,
+                $event->getActionConfig()->getActionName()->value,
+                $actionResult,
+                $event->getTags(),
+                $event->getTime()
             );
         }
     }

@@ -10,7 +10,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\ContainerContentEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -29,6 +29,12 @@ class OpenCapsule extends AbstractAction
 
     protected RandomServiceInterface $randomService;
     protected GameEquipmentServiceInterface $gameEquipmentService;
+    private static array $capsuleContent = [
+        ItemEnum::FUEL_CAPSULE => 1,
+        ItemEnum::OXYGEN_CAPSULE => 1,
+        ItemEnum::METAL_SCRAPS => 1,
+        ItemEnum::PLASTIC_SCRAPS => 1,
+    ];
 
     public function __construct(
         EventServiceInterface $eventService,
@@ -80,7 +86,7 @@ class OpenCapsule extends AbstractAction
         $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
 
         // Get the content
-        $contentName = $this->randomService->getSingleRandomElementFromProbaCollection(new ProbaCollection(ContainerContentEnum::SPACE_CAPSULE_CONTENT));
+        $contentName = $this->randomService->getSingleRandomElementFromProbaCollection(new ProbaCollection(self::$capsuleContent));
 
         if (!\is_string($contentName)) {
             throw new \Exception('capsule content should not be empty');

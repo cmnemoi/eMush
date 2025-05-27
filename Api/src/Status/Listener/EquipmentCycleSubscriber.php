@@ -3,7 +3,6 @@
 namespace Mush\Status\Listener;
 
 use Mush\Equipment\Event\EquipmentCycleEvent;
-use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Event\StatusCycleEvent;
@@ -22,7 +21,7 @@ class EquipmentCycleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => ['onNewCycle', EventPriorityEnum::NORMAL],
+            EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => ['onNewCycle', 10],
         ];
     }
 

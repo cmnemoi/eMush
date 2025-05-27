@@ -6,10 +6,9 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Chat\Entity\ChannelPlayer;
-use Mush\Chat\Services\ChannelServiceInterface;
+use Mush\Communication\Entity\ChannelPlayer;
+use Mush\Communication\Services\ChannelServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\Mechanics\Tool;
@@ -361,13 +360,7 @@ final class MoveCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenChunIsInPrivateChannelWithKuanTi(): void
-    {
-        $channel = $this->channelService->createPrivateChannel($this->chun);
-        $this->channelService->invitePlayer($this->kuanTi, $channel);
-    }
-
-    private function whenChunMovesToIcarusBay(Door $door): ActionResult
+    private function whenChunMovesToIcarusBay(Door $door): void
     {
         $this->moveAction->loadParameters(
             actionConfig: $this->moveConfig,
@@ -375,33 +368,7 @@ final class MoveCest extends AbstractFunctionalTest
             player: $this->chun,
             target: $door
         );
-
-        return $this->moveAction->execute();
-    }
-
-    private function whenChunMovesToBridge(Door $door): ActionResult
-    {
-        $this->moveAction->loadParameters(
-            actionConfig: $this->moveConfig,
-            actionProvider: $door,
-            player: $this->chun,
-            target: $door
-        );
-
-        return $this->moveAction->execute();
-    }
-
-    private function whenChunLeavesBridge(Door $door): ActionResult
-    {
-        $this->chun->changePlace($this->daedalus->getPlaceByName(RoomEnum::BRIDGE));
-        $this->moveAction->loadParameters(
-            actionConfig: $this->moveConfig,
-            actionProvider: $door,
-            player: $this->chun,
-            target: $door
-        );
-
-        return $this->moveAction->execute();
+        $this->moveAction->execute();
     }
 
     private function thenChunShouldHaveMovementPoint(int $expected, FunctionalTester $I): void

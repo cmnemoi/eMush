@@ -10,7 +10,6 @@ use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\MetaGame\Dto\CreateEquipmentForDaedalusDto;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusesDto;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\ProjectConfig;
@@ -95,35 +94,6 @@ final class AdminActionsController extends AbstractFOSRestController
 
         return $this->view(
             ['detail' => "{$dto->quantity} {$dto->equipmentName} created successfully in {$dto->place} for {$count} Daedaluses."],
-            Response::HTTP_CREATED
-        );
-    }
-
-    /**
-     * Create pieces of equipment for a given Daedalus.
-     *
-     * @OA\Tag(name="Admin")
-     *
-     * @Security(name="Bearer")
-     *
-     * @Rest\Post(path="/create-equipment-for-daedalus")
-     */
-    #[IsGranted('ROLE_ADMIN')]
-    public function createEquipmentForDaedalusEndpoint(Request $request): View
-    {
-        $dto = new CreateEquipmentForDaedalusDto(...$request->toArray());
-        $daedalus = $this->daedalusRepository->find($dto->daedalus);
-
-        $this->gameEquipmentService->createGameEquipmentsFromName(
-            equipmentName: $dto->equipmentName,
-            equipmentHolder: $daedalus->getPlaceByNameOrThrow($dto->place),
-            reasons: [],
-            time: new \DateTime(),
-            quantity: $dto->quantity,
-        );
-
-        return $this->view(
-            ['detail' => "{$dto->quantity} {$dto->equipmentName} created successfully in {$dto->place} for Daedalus {$daedalus->getId()}."],
             Response::HTTP_CREATED
         );
     }

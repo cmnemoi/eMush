@@ -61,7 +61,7 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
         <source>neron_manager.desc</source>
         <target>The NERON Administrator can access NERON's BIOS. They also have privileged access to the daily operations systems.</target>
       </segment>
-      <segment id="com_manager.name" state="translated">
+      <segment id="com_manager.name" state="final">
         <source>com_manager.name</source>
         <target>Comms Officer</target>
       </segment>

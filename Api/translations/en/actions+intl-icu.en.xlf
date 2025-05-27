@@ -46,11 +46,11 @@
       </segment>
     </unit>
     <unit id="check_spore_level">
-      <segment id="check_spore_level" state="translated">
+      <segment id="check_spore_level" state="final">
         <source>check_spore_level.name</source>
         <target>Check infection</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>check_spore_level.description</source>
         <target>Allows you to check your own level of infection, ie. number of Mush Spores</target>
       </segment>
@@ -140,17 +140,17 @@
         <source>extract_spore.name</source>
         <target>Extract a spore</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>extract_spore.description</source>
         <target>Extract a spore with which to infect a crewmate (but before that, watch out for cameras).</target>
       </segment>
     </unit>
     <unit id="flirt">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>flirt.name</source>
         <target>Flirt</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>flirt.description</source>
         <target>Allows you to flirt with someone, this will let them do the thing with you. This action is **irreversible**.</target>
       </segment>
@@ -164,43 +164,43 @@
         <source>get_up.name</source>
         <target>Get up</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>get_up.description</source>
         <target>Leave this cosy little nest and face the cruel world!</target>
       </segment>
     </unit>
     <unit id="hide">
-      <segment id="hide" state="translated">
+      <segment id="hide" state="final">
         <source>hide.name</source>
         <target>Hide</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>hide.description</source>
         <target>Hide an object from crewmates in this room.</target>
       </segment>
     </unit>
     <unit id="hit">
-      <segment id="hit" state="translated">
+      <segment id="hit" state="final">
         <source>hit.name</source>
         <target>Kick off</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>hit.description</source>
         <target>Start a conversation in a violent fashion.</target>
       </segment>
     </unit>
     <unit id="hyperfreeze">
-      <segment id="hyperfreeze" state="translated">
+      <segment id="hyperfreeze" state="final">
         <source>hyperfreeze.name</source>
         <target>Hyperfreeze</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>hyperfreeze.description</source>
         <target>Transforms a perishable foodstuff into a non-perishable.</target>
       </segment>
     </unit>
     <unit id="infect">
-      <segment id="infect" state="translated">
+      <segment id="infect" state="final">
         <source>infect.name</source>
         <target>Spike</target>
       </segment>
@@ -210,61 +210,61 @@
       </segment>
     </unit>
     <unit id="lie_down">
-      <segment id="lie_down" state="translated">
+      <segment id="lie_down" state="final">
         <source>lie_down.name</source>
         <target>Lie down</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>lie_down.description</source>
         <target>To relax, or just have a chat, nothing beats a little lie down… Lying down allows you to restore 1 :pa: every cycle and 1 :pmo: if a shrink is present.</target>
       </segment>
     </unit>
     <unit id="move">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>move.name</source>
         <target>Move</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>move.description</source>
         <target>Change room.</target>
       </segment>
     </unit>
     <unit id="read_book">
-      <segment id="read_book" state="translated">
+      <segment id="read_book" state="final">
         <source>read_book.name</source>
         <target>Read</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>read_book.description</source>
         <target>Curiosity did kill the cat, but...a secret document? It could be worthless or priceless, who knows what could be in it...</target>
       </segment>
     </unit>
     <unit id="read_document">
-      <segment id="read_document" state="translated">
+      <segment id="read_document" state="final">
         <source>read_document.name</source>
         <target>Read</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>read_document.description</source>
         <target>Curiosity did kill the cat, but...a secret document? It could be worthless or priceless, who knows what could be in it...</target>
       </segment>
     </unit>
     <unit id="repair">
-      <segment id="repair" state="translated">
+      <segment id="repair" state="final">
         <source>repair.name</source>
         <target>Repair</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>repair.description</source>
         <target>A damaged piece of uninstalled equipment is repaired to an operational state.</target>
       </segment>
     </unit>
     <unit id="search">
-      <segment id="search" state="translated">
+      <segment id="search" state="final">
         <source>search.name</source>
         <target>Search</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>search.description</source>
         <target>Allows you to search for hidden objects.</target>
       </segment>
@@ -294,111 +294,111 @@ Thanks for your help!</target>
       </segment>
     </unit>
     <unit id="shred">
-      <segment id="shred" state="translated">
+      <segment id="shred" state="final">
         <source>shred.name</source>
         <target>Shred</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>shred.description</source>
         <target>These bloody papers are taking over the place. Attack and destroy!</target>
       </segment>
     </unit>
     <unit id="take">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>take.name</source>
         <target>Pick up</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>take.description</source>
         <target>Pick up an object in the current room and place it in your inventory.</target>
       </segment>
     </unit>
     <unit id="transplant">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>transplant.name</source>
         <target>Plant it</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>transplant.description</source>
         <target>Sacrifice a fruit to create a new plant.</target>
       </segment>
     </unit>
     <unit id="treat_plant">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>treat_plant.name</source>
         <target>Treat plant</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>treat_plant.description</source>
         <target>Heal plant diseases.</target>
       </segment>
     </unit>
     <unit id="water_plant">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>water_plant.name</source>
         <target>Water plant</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>water_plant.description</source>
         <target>This quenches your plantation's thirst.</target>
       </segment>
     </unit>
     <unit id="write">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>write.name</source>
         <target>Write</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>write.description</source>
         <target>You can write a message, someone might read it...</target>
       </segment>
     </unit>
     <unit id="insert_oxygen">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>insert_oxygen.name</source>
         <target>Inject</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>insert_oxygen.description</source>
         <target>Inject oxygen into a reservoir.</target>
       </segment>
     </unit>
     <unit id="retrieve_oxygen">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>retrieve_oxygen.name</source>
-        <target>Retrieve an oxygen capsule</target>
+        <target>Retrieve an oxygen tank</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>retrieve_oxygen.description</source>
         <target>Fantastic, the Oxy Rev system allows you to collect oxygen from the reservoirs. Make sure to close the valve and wash your hands.</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>insert_fuel.name</source>
         <target>Inject fuel</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>insert_fuel.description</source>
         <target>Inject fuel in the combustion chamber of the engine.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>retrieve_fuel.name</source>
         <target>Retrieve a fuel capsule</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>retrieve_fuel.description</source>
         <target>Allows you to recover a fuel capsule from the engine.</target>
       </segment>
     </unit>
     <unit id="sabotage">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>sabotage.name</source>
         <target>Sabotage</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>sabotage.description</source>
         <target>Breaks the targeted equipment.</target>
       </segment>
@@ -414,11 +414,11 @@ Thanks for your help!</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>wash_in_sink.name</source>
         <target>Wash</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>wash_in_sink.description</source>
         <target>When the grime thickens, when general cleanliness fails, when the shame of your odour overwhelms you. There is one solution. A sho... Well, this is going to be the sink, actually.
 //
@@ -427,271 +427,271 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
     </unit>
     <unit id="extinguish">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>extinguish.name</source>
         <target>Extinguish</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>extinguish.description</source>
         <target>With a little skill, you could succeed in getting rid of the fire. Make sure you don't get burned.</target>
       </segment>
     </unit>
     <unit id="heal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>heal.name</source>
         <target>Heal</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>heal.description</source>
         <target>Returns Health Points (:hp:) to the target. If the target is ill, this action removes an illness point from one of their illnesses.</target>
       </segment>
     </unit>
     <unit id="self_heal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>self_heal.name</source>
         <target>Self heal</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>self_heal.description</source>
         <target>Restore your Health Points (:hp:). If you are ill, this action removes an illness point from one of your illnesses.</target>
       </segment>
     </unit>
     <unit id="ultraheal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>ultraheal.name</source>
         <target>Ultraheal</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>ultraheal.description</source>
         <target>Heals all wounds.</target>
       </segment>
     </unit>
     <unit id="use_bandage">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>use_bandage.name</source>
         <target>Use bandage</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>use_bandage.description</source>
         <target>Allows you to heal minor ailments.</target>
       </segment>
     </unit>
     <unit id="comfort">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>comfort.name</source>
         <target>Comfort</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>comfort.description</source>
         <target>You know how to listen, it will boost the morale of the next person you speak with.</target>
       </segment>
     </unit>
     <unit id="open">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>open.name</source>
         <target>Open</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>open.description</source>
         <target>Opening capsule is a delicate and sometimes risky task. Worse still is that in certain systems these eggs are considered a hard drug and opening these capsules can result in you being shunned from society.</target>
       </segment>
     </unit>
     <unit id="strengthen_hull">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>strengthen_hull.name</source>
         <target>Strengthen</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>strengthen_hull.description</source>
         <target>Reinforce the hull of the Daedalus.</target>
       </segment>
     </unit>
     <unit id="spread_fire">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>spread_fire.name</source>
         <target>Spread fire</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>spread_fire.description</source>
         <target>Allows to satisfy one of NERON's needs... and your interests.</target>
       </segment>
     </unit>
     <unit id="install_camera">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>install_camera.name</source>
         <target>Install</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>install_camera.description</source>
         <target>This action allows you to install a piece of equipment to make it useful.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>remove_camera.name</source>
         <target>Remove</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>remove_camera.description</source>
         <target>This action allows you to remove a piece of equipment to make it inoperative or to allow it to be moved.</target>
       </segment>
     </unit>
     <unit id="examine">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>examine.name</source>
         <target>Examine</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>examine.description</source>
         <target>What is this thing?</target>
       </segment>
     </unit>
     <unit id="remove_spore">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>remove_spore.name</source>
         <target>Extract spore</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>remove_spore.description</source>
         <target>Allows you to remove a wretched spore that's contaminating you.</target>
       </segment>
     </unit>
     <unit id="report_equipment">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>report_equipment.name</source>
         <target>Report</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>report_equipment.description</source>
         <target>Allow you to circulate information and to get yourself noticed.</target>
       </segment>
     </unit>
     <unit id="report_fire">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>report_fire.name</source>
         <target>Report : Fire</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>report_fire.description</source>
         <target>Yes, letting your colleagues know that there is a fire is probably a good idea.</target>
       </segment>
     </unit>
     <unit id="try_kube">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>try_kube.name</source>
         <target>Try the kube</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>try_kube.description</source>
         <target>Try the twisted Kube. Very few manage to solve it in under 26 moves.</target>
       </segment>
     </unit>
     <unit id="public_broadcast">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>public_broadcast.name</source>
         <target>Cinema Club</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>public_broadcast.description</source>
         <target>There's nothing quite like a good Alien flick to raise morale. However, nobody speaks Twingon and we don't have subtitles.</target>
       </segment>
     </unit>
     <unit id="extinguish_manually">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>extinguish_manually.name</source>
         <target>Extinguish manually</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>extinguish_manually.description</source>
         <target>It's amazing what you can do with dust, sheets or a dead cat... Be careful not to burn yourself.</target>
       </segment>
     </unit>
     <unit id="motivational_speech">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>motivational_speech.name</source>
         <target>Motivational speech</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>motivational_speech.description</source>
         <target>Every teammate in the room gains 2 :pmo:.</target>
       </segment>
     </unit>
     <unit id="boring_speech">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>boring_speech.name</source>
         <target>Boring speech</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>boring_speech.description</source>
         <target>Every teammate in the room gains 3 :pm:.</target>
       </segment>
     </unit>
     <unit id="make_sick">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>make_sick.name</source>
         <target>Make ill</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>make_sick.description</source>
         <target>Allows you to make one of your teammates sick.</target>
       </segment>
     </unit>
     <unit id="fake_disease">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>fake_disease.name</source>
         <target>Hypocondria</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fake_disease.description</source>
         <target>Allows you to simulate a benign disease. Your teammates won't see through that... but your body may also fall for it.</target>
       </segment>
     </unit>
     <unit id="surgery">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>surgery.name</source>
         <target>Surgery</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>surgery.description</source>
         <target>Performing a surgical procedure is never trivial, but sometimes necessary.</target>
       </segment>
     </unit>
     <unit id="self_surgery">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>self_surgery.name</source>
         <target>DIY surgery</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>self_surgery.description</source>
         <target>Allows you to operate on yourself.</target>
       </segment>
     </unit>
     <unit id="gag">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>gag.name</source>
         <target>Gag</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>gag.description</source>
         <target>Gag a crewmember for the good of the team.</target>
       </segment>
     </unit>
     <unit id="ungag">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>ungag.name</source>
         <target>Ungag</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>ungag.description</source>
         <target>You'll ungag yourself if you get the chance! Revenge!</target>
       </segment>
     </unit>
     <unit id="screw_talkie">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>screw_talkie.name</source>
         <target>Hijack</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>screw_talkie.description</source>
         <target>Allows you to break a crewmember's walkie-talkie and to pass yourself off as them until they repair it.</target>
       </segment>
@@ -701,43 +701,43 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <source>update_talkie.name</source>
         <target>Update</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>update_talkie.description</source>
         <target>Great, a new version of the software is available. Beware, the installation may take a few cycles and prevent you from communicating with the rest of the crew.</target>
       </segment>
     </unit>
     <unit id="attack">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>attack.name</source>
         <target>Attack : Knife</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>attack.description</source>
         <target>Do you have a melee weapon and are willing to use it ?</target>
       </segment>
     </unit>
     <unit id="shoot">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>shoot.name</source>
-        <target>Shoot : {equipment}</target>
+        <target>Shoot : Blaster</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>shoot.description</source>
         <target>Fire at someone to wound them, kill them or worse if you're so inclined. It might all end in tears!</target>
       </segment>
     </unit>
     <unit id="suicide">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>suicide.name</source>
         <target>Suicide yourself</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>suicide.description</source>
         <target>You have accomplished your mission here, it is time to go and code elsewhere.</target>
       </segment>
     </unit>
     <unit id="auto_destroy">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>auto_destroy.name</source>
         <target>Destroy the ship</target>
       </segment>
@@ -749,11 +749,11 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
     </unit>
     <unit id="kill_player">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>kill_player.name</source>
         <target>Quarantine</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>kill_player.description</source>
         <target>Order NERON to quarantine this player.
         //
@@ -767,41 +767,41 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
     </unit>
     <unit id="action_aggressive">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>action_aggressive.name</source>
         <target>Aggressive action</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>action_aggressive.description</source>
         <target>This action is **Aggressive**. It could be subject to certain restrictions.</target>
       </segment>
     </unit>
     <unit id="covert">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>covert.name</source>
         <target>Covert action</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>covert.description</source>
         <target>This action is **Covert**. It will be revealed by Cameras.</target>
       </segment>
     </unit>
     <unit id="secret">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>secret.name</source>
         <target>Secret action</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>secret.description</source>
         <target>This action is **Secret**. It will be revealed by **Cameras** and **Crewmates**, including those on **your side**.</target>
       </segment>
     </unit>
     <unit id="play_arcade">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>play_arcade.name</source>
         <target>Play Arcade !</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>play_arcade.description</source>
         <target>Lets you relax a little by smashing some Space PewPewz. It's so good... however, the game's difficulty level is... monstrous!</target>
       </segment>
@@ -811,11 +811,11 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>shoot_hunter.name</source>
         <target>Fire</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>shoot_hunter.description</source>
         <target>Fire a Teslatron charge at an enemy ship.</target>
       </segment>
@@ -1095,7 +1095,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="description" state="translated">
         <source>repair_pilgred.description</source>
-        <target>Repairing PILGRED gives you access to new space routes, including the route to Earth.</target>
+        <target>Repairing PILGRED allows you to return to Sol.</target>
       </segment>
     </unit>
     <unit id="return_to_sol">
@@ -1226,10 +1226,6 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="translated">
         <source>guard.description</source>
         <target>Allows you to send any entering crew members back from whence they came. The action is over as soon as you move.</target>
-      </segment>
-      <segment id="confirmation" state="translated">
-        <source>guard.confirmation</source>
-        <target>This action may be very poorly received, are you sure you want to continue?</target>
       </segment>
     </unit>
     <unit id="exchange_body">
@@ -1441,44 +1437,34 @@ Or you simply need some fresh air.... or not.</target>
 **Try to borrow a Patrol Ship and destroy all the Hunters before you leave. 20% targeting bonus compared to humans.**</target>
       </segment>
     </unit>
-    <unit id="upgrade_drone_to_sensor">
-      <segment id="name" state="translated">
-        <source>upgrade_drone_to_sensor.name</source>
-        <target>Upgrade : Sensor</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>upgrade_drone_to_sensor.description</source>
-        <target>Allows you to add to this drone://**Steers intelligently towards fire, broken equipment or the nearest patroller instead of moving randomly.**</target>
-      </segment>
-    </unit>
     <unit id="take_cat">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>take_cat.name</source>
         <target>Pick up</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>take_cat.description</source>
         <target>Lift that beast up and place it in your inventory. Careful, kitty's got claws!</target>
       </segment>
     </unit>
     <unit id="pet_cat">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>pet_cat.name</source>
         <target>Caress</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>pet_cat.description</source>
         <target>Allows you to cuddle with Schrödinger lovingly. Brings a bit of joy the first time...</target>
       </segment>
     </unit>
     <unit id="convert_cat">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>convert_cat.name</source>
         <target>Caresse Infectieuse</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>convert_cat.description</source>
-        <target>Allows you to cuddle with Schrödinger "lovingly" and make it an agent of Mush.</target>
+        <target>PAllows you to cuddle with Schrödinger "lovingly" and make it an agent of Mush.</target>
       </segment>
     </unit>
     <unit id="torture">
@@ -1552,6 +1538,16 @@ Or you simply need some fresh air.... or not.</target>
         <target>Depresses NERON, which will completely derail it in the next cycle.</target>
       </segment>
     </unit>
+    <unit id="search_for_mush_genome">
+      <segment id="search_for_mush_genome" state="translated">
+        <source>search_for_mush_genome.name</source>
+        <target>Download the Mush genome</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>search_for_mush_genome.description</source>
+        <target>The Daedalus had to leave much earlier than expected.//Use the weak link you have left with Xyloph to create a **disquette of the Mush genome**, which may enable you to create a cure.</target>
+      </segment>
+    </unit>
     <unit id="participate_research">
       <segment id="name" state="translated">
         <source>participate_research.name</source>
@@ -1560,164 +1556,6 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="translated">
         <source>participate_research.description</source>
         <target>Advance Research.</target>
-      </segment>
-    </unit>
-    <unit id="compute_eden">
-      <segment id="name" state="translated">
-        <source>compute_eden.name</source>
-        <target>Calculate</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>compute_eden.description</source>
-        <target>Extracting data from Cristalite can tell you a lot about Edenists.</target>
-      </segment>
-    </unit>
-    <unit id="travel_to_eden">
-      <segment id="name" state="translated">
-        <source>travel_to_eden.name</source>
-        <target>Go to Eden</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>travel_to_eden.description</source>
-        <target>A new hope, a new Eden. And the promise of a new beginning.</target>
-      </segment>
-      <segment id="confirmation" state="translated">
-        <source>travel_to_eden.confirmation</source>
-        <target>This action cannot be undone. Are you sure you want to continue?</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat">
-      <segment id="name" state="translated">
-        <source>shoot_cat.name</source>
-        <target>Shoot: {equipment}</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>shoot_cat.description</source>
-        <target>Fire at someone to wound them, kill them or worse if you're so inclined. It might all end in tears!</target>
-      </segment>
-    </unit>
-    <unit id="open_container">
-      <segment id="name" state="translated">
-        <source>open_container.name</source>
-        <target>Use</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>open_container.description</source>
-        <target>Use this object.</target>
-      </segment>
-    </unit>
-    <unit id="com_manager_announcement">
-      <segment id="name" state="translated">
-        <source>com_manager_announcement.name</source>
-        <target>General Announcement</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>com_manager_announcement.description</source>
-        <target>As the *Comms Officer* you may broadcast a general announcement. //// All crewmates will be **notified** and the announcement will be added to the :tip: **Tips** channel. Any new announcement will override the previous one.</target>
-      </segment>
-    </unit>
-    <unit id="establish_link_with_sol">
-      <segment id="name" state="translated">
-        <source>establish_link_with_sol.name</source>
-        <target>Establish Comms</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>establish_link_with_sol.description</source>
-        <target>This action allows you to attempt to **establish contact** with the solar system Sol.</target>
-      </segment>
-    </unit>
-    <unit id="upgrade_neron">
-      <segment id="name" state="translated">
-        <source>upgrade_neron.name</source>
-        <target>Update NERON</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>upgrade_neron.description</source>
-        <target>Updating NERON allows you to take advantage of the miracle that NERON could have been in the Magellan project.//**Once the update is complete, a project is completed.**</target>
-      </segment>
-    </unit>
-    <unit id="decode_rebel_signal">
-      <segment id="name" state="translated">
-        <source>decode_rebel_signal.name</source>
-        <target>Decode rebel signal</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>decode_rebel_signal.description</source>
-        <target>**Every signal decoded gives you an advantage.**</target>
-      </segment>
-    </unit>
-    <unit id="contact_xyloph">
-      <segment id="name" state="translated">
-        <source>contact_xyloph.name</source>
-        <target>Contact Xyloph</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>contact_xyloph.description</source>
-        <target>Allows you to contact the home port of the Daedalus, whatever is left of it…//**Every time contact is made, a new advantage is unlocked (workshop plans, information on the Mush, etc…).**</target>
-      </segment>
-    </unit>
-    <unit id="trigger_all_rebel_contacts">
-      <segment id="name" state="translated">
-        <source>trigger_all_rebel_contacts.name</source>
-        <target>Trigger all rebel contacts</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>trigger_all_rebel_contacts.description</source>
-        <target>Trigger all rebel contacts.</target>
-      </segment>
-    </unit>
-    <unit id="play_with_dog">
-      <segment id="name" state="translated">
-        <source>play_with_dog.name</source>
-        <target>Play with</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>play_with_dog.description</source>
-        <target>Finally! It's playtime!</target>
-      </segment>
-    </unit>
-    <unit id="accept_trade">
-      <segment id="name" state="translated">
-        <source>accept_trade.name</source>
-        <target>Close deal</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>accept_trade.description</source>
-        <target>You conclude the dead... Consequences could be serious.</target>
-      </segment>
-    </unit>
-    <unit id="refuse_trade">
-      <segment id="name" state="translated">
-        <source>refuse_trade.name</source>
-        <target>Refuse deal</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>refuse_trade.description</source>
-        <target>You refuse the dead... Consequences could be serious.</target>
-      </segment>
-    </unit>
-    <unit id="create_trade">
-      <segment id="name" state="translated">
-        <source>create_trade.name</source>
-        <target>Invoke : Merchant</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>create_trade.description</source>
-        <target>Invokes a merchant (only for users with level 4 accreditation).</target>
-      </segment>
-    </unit>
-    <unit id="go_berserk">
-      <segment id="name" state="translated">
-        <source>go_berserk.name</source>
-        <target>Mutate</target>
-      </segment>
-      <segment id="description" state="translated">
-        <source>go_berserk.description</source>
-        <target>Allows you to mutate into the final form of Mush. The mutation will heal you slightly and will give you a damage bonus. Human characters entering the room will only be able to choose between going back to where they came from or fighting. You won't be able to do much except move and strike. What more could you ask for...</target>
-      </segment>
-      <segment id="confirmation" state="translated">
-        <source>go_berserk.confirmation</source>
-        <target>This action cannot be undone and will reveal you to everyone. Are you sure you want to continue?</target>
       </segment>
     </unit>
   </file>

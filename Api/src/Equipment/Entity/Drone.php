@@ -11,7 +11,6 @@ use Mush\Action\Repository\ActionConfigRepositoryInterface;
 use Mush\Equipment\DroneTasks\AbstractDroneTask;
 use Mush\Equipment\DroneTasks\ExtinguishFireTask;
 use Mush\Equipment\DroneTasks\LandTask;
-use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
@@ -21,7 +20,6 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 
@@ -29,12 +27,6 @@ use Mush\Status\Enum\StatusEnum;
 class Drone extends GameItem
 {
     private const float ATTEMPT_INCREASE = 1.25;
-    private const array UPGRADES = [
-        EquipmentStatusEnum::TURBO_DRONE_UPGRADE,
-        EquipmentStatusEnum::PILOT_DRONE_UPGRADE,
-        EquipmentStatusEnum::SENSOR_DRONE_UPGRADE,
-        EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE,
-    ];
 
     #[ORM\OneToOne(mappedBy: 'drone', targetEntity: DroneInfo::class, cascade: ['remove'])]
     private DroneInfo $droneInfo;
@@ -62,7 +54,6 @@ class Drone extends GameItem
     public function cannotApplyTask(AbstractDroneTask $task): bool
     {
         return match ($task->name()) {
-            RepairBrokenEquipmentTask::class => $this->cannotRepair(),
             ExtinguishFireTask::class => $this->cannotExtinguish(),
             LandTask::class => $this->cannotLand(),
             ShootHunterTask::class => $this->cannotShootHunter(),
@@ -108,11 +99,7 @@ class Drone extends GameItem
 
         $baseSuccessRate = $repairActionConfig->getSuccessRate();
 
-        if ($baseSuccessRate >= 100) {
-            return 100;
-        }
-
-        return (int) min($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getFailedRepairAttempts(), 99);
+        return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getFailedRepairAttempts());
     }
 
     public function getExtinguishFireSuccessRate(ActionConfigRepositoryInterface $actionConfigRepository): int
@@ -123,30 +110,20 @@ class Drone extends GameItem
             EquipmentMechanicEnum::TOOL,
         );
 
-        if ($baseSuccessRate >= 100) {
-            return 100;
-        }
-
-        return (int) min($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getExtinguishFailedAttempts(), 99);
+        return (int) ($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getExtinguishFailedAttempts());
     }
 
     public function getShootHunterSuccessRate(): int
     {
-        $baseSuccessRate = $this->shootHunterBaseSuccessRate();
+        $successRate = $this->shootHunterBaseSuccessRate() * $this->pilotBonus();
 
-        if ($baseSuccessRate >= 100) {
-            return 100;
-        }
-
-        $successRate = $baseSuccessRate * $this->pilotBonus();
-
-        return (int) min($successRate * self::ATTEMPT_INCREASE ** $this->getShootHunterFailedAttempts(), 99);
+        return (int) ($successRate * self::ATTEMPT_INCREASE ** $this->getShootHunterFailedAttempts());
     }
 
     public function operationalPatrolShipsInRoom(): array
     {
         return $this->getPlace()->getEquipments()
-            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isAPatrolShip() && $gameEquipment->isOperational())
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isOperational() && $gameEquipment->isAPatrolShip())
             ->toArray();
     }
 
@@ -189,39 +166,6 @@ class Drone extends GameItem
         return $this->hasStatus(EquipmentStatusEnum::PILOT_DRONE_UPGRADE);
     }
 
-    public function isSensor(): bool
-    {
-        return $this->hasStatus(EquipmentStatusEnum::SENSOR_DRONE_UPGRADE);
-    }
-
-    public function isFirefighter(): bool
-    {
-        return $this->hasStatus(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE);
-    }
-
-    /**
-     * @return Collection<int, Status>
-     */
-    public function getUpgrades(): Collection
-    {
-        return $this->getStatusesByName(self::UPGRADES);
-    }
-
-    public function isNotUpgraded(): bool
-    {
-        return $this->getUpgrades()->isEmpty();
-    }
-
-    public function huntersAreAttacking(): bool
-    {
-        return $this->getDaedalus()->getAttackingHunters()->count() > 0;
-    }
-
-    private function cannotRepair(): bool
-    {
-        return $this->nothingBrokenInRoom();
-    }
-
     private function cannotExtinguish(): bool
     {
         return $this->isNotFirefighter() || $this->noFireInRoom();
@@ -240,11 +184,6 @@ class Drone extends GameItem
     private function cannotTakeoff(): bool
     {
         return $this->isNotPilot() || $this->isInAPatrolShip() || $this->noAttackingHunters() || $this->noPatrolShipTakeoffActionAvailable();
-    }
-
-    private function nothingBrokenInRoom(): bool
-    {
-        return $this->getBrokenDoorsAndEquipmentsInRoom()->isEmpty();
     }
 
     private function noFireInRoom(): bool
@@ -270,7 +209,7 @@ class Drone extends GameItem
     private function noPatrolShipTakeoffActionAvailable(): bool
     {
         $equipment = $this->getPlace()->getFirstEquipmentByMechanicNameOrNull(EquipmentMechanicEnum::PATROL_SHIP);
-        if (!$equipment || $equipment->isAMonoplaceShip() === false || $equipment->isNotOperational()) {
+        if (!$equipment || $equipment->isAPatrolShip() === false || $equipment->isNotOperational()) {
             return true;
         }
 
@@ -279,7 +218,7 @@ class Drone extends GameItem
 
     private function noAttackingHunters(): bool
     {
-        return $this->getDaedalus()->getHuntersAroundDaedalus()->isEmpty();
+        return $this->getDaedalus()->getAttackingHunters()->isEmpty();
     }
 
     private function noShootHunterActionAvailable(): bool
@@ -300,6 +239,11 @@ class Drone extends GameItem
         }
 
         return $patrolShip->hasActionByName(ActionEnum::LAND) === false;
+    }
+
+    private function huntersAreAttacking(): bool
+    {
+        return $this->getDaedalus()->getAttackingHunters()->count() > 0;
     }
 
     private function numberOfActions(): int

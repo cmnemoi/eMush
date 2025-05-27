@@ -8,17 +8,17 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\DataFixtures\EventConfigFixtures;
 use Mush\Game\DataFixtures\GameConfigFixtures;
 use Mush\Game\Entity\AbstractEventConfig;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Event\VariableEventInterface;
-use Mush\Modifier\ConfigData\ModifierActivationRequirementData;
 use Mush\Modifier\ConfigData\ModifierConfigData;
+use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
@@ -46,9 +46,9 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string LOST_MODIFIER = 'lost_modifier';
     public const string LYING_DOWN_MODIFIER = 'lying_down_modifier';
     public const string STARVING_MODIFIER = 'starving_modifier';
-    public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
 
     public const string INCREASE_CYCLE_DISEASE_CHANCES_30 = 'increase_cycle_disease_chances_30';
+    public const string MUSH_SHOWER_MODIFIER = 'mush_shower_modifier';
     public const string MUSH_CONSUME_SATIETY_MODIFIER = 'mush_consume_satiety_modifier';
     public const string MUSH_CONSUME_MODIFIER = 'mush_consume_modifier';
     public const string MUSH_MORALE_MODIFIER = 'mush_morale_modifier';
@@ -56,6 +56,8 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
     public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION = 'astronavigation_neron_cpu_priority_modifier_plus_1_section';
     public const string ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT = 'astronavigation_neron_cpu_priority_modifier_minus_1_action_point';
 
+    public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE = 'defence_neron_cpu_priority_modifier_increased_turret_max_charge';
+    public const string DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE = 'defence_neron_cpu_priority_modifier_increased_recharge_rate';
     public const string IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE = 'immunized_modifier_set_0_spores_on_change_variable';
 
     public function load(ObjectManager $manager): void
@@ -118,18 +120,18 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         $manager->persist($burdenedModifier);
 
-        /** @var AbstractEventConfig $eventConfigLoseOneMorale */
-        $eventConfigLoseOneMorale = $this->getReference(EventConfigFixtures::MORAL_REDUCE_1);
+        /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
+        $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::MORAL_REDUCE_1);
         $modifierRequirementNotMush = new ModifierActivationRequirement(ModifierRequirementEnum::HOLDER_HAS_STATUS);
         $modifierRequirementNotMush
             ->setActivationRequirement(PlayerStatusEnum::MUSH)
             ->setValue(ModifierRequirementEnum::ABSENT_STATUS)
             ->setName('player_not_mush_requirement_test');
-        $manager->persist($modifierRequirementNotMush);
 
+        $manager->persist($modifierRequirementNotMush);
         $antisocialModifier = new TriggerEventModifierConfig(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $antisocialModifier
-            ->setTriggeredEvent($eventConfigLoseOneMorale)
+            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setApplyWhenTargeted(true)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
@@ -139,22 +141,17 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setModifierName(ModifierNameEnum::ANTISOCIAL_MODIFIER);
         $manager->persist($antisocialModifier);
 
-        /** @var AbstractEventConfig $eventConfigLoseTwoMorale */
-        $eventConfigLoseTwoMorale = $this->getReference(EventConfigFixtures::MORAL_REDUCE_2);
+        /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
+        $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::MORAL_REDUCE_2);
         $lostModifier = new TriggerEventModifierConfig('lostModifier');
         $lostModifier
-            ->setTriggeredEvent($eventConfigLoseTwoMorale)
+            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyWhenTargeted(true)
             ->setModifierName(ModifierNameEnum::LOST_MODIFIER)
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($lostModifier);
-
-        $playerIsNotHyperactiveRequirement = ModifierActivationRequirement::fromConfigData(
-            ModifierActivationRequirementData::getByName(ModifierRequirementEnum::PLAYER_IS_NOT_HYPERACTIVE)
-        );
-        $manager->persist($playerIsNotHyperactiveRequirement);
 
         $lyingDownModifier = new VariableEventModifierConfig(ModifierNameEnum::LYING_DOWN_MODIFIER);
         $lyingDownModifier
@@ -165,16 +162,15 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setApplyWhenTargeted(true)
             ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
             ->setTagConstraints(['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->addModifierRequirement($playerIsNotHyperactiveRequirement);
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $lyingDownModifier->buildName();
         $manager->persist($lyingDownModifier);
 
-        /** @var AbstractEventConfig $eventConfigLoseOneHealth */
-        $eventConfigLoseOneHealth = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
+        /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
+        $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_1);
         $starvingModifier = new TriggerEventModifierConfig('starvingModifier');
         $starvingModifier
-            ->setTriggeredEvent($eventConfigLoseOneHealth)
+            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
             ->setTargetEvent(PlayerCycleEvent::PLAYER_NEW_CYCLE)
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setApplyWhenTargeted(true)
@@ -193,6 +189,21 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setTagConstraints([PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS])
             ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($increaseCycleDiseaseChances30);
+
+        /** @var AbstractEventConfig $eventConfigIncreaseMaxCharge */
+        $eventConfigIncreaseMaxCharge = $this->getReference(EventConfigFixtures::HEALTH_REDUCE_3);
+        $mushShowerModifier = new TriggerEventModifierConfig(ModifierNameEnum::MUSH_SHOWER_MALUS);
+        $mushShowerModifier
+            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
+            ->setTargetEvent(ActionEvent::POST_ACTION)
+            ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
+            ->setTagConstraints([
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
+            ])
+            ->setModifierName(ModifierNameEnum::MUSH_SHOWER_MALUS)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
+        $manager->persist($mushShowerModifier);
 
         $mushConsumeSatietyModifier = new VariableEventModifierConfig('mushConsumeSatietyModifier');
         $mushConsumeSatietyModifier
@@ -278,13 +289,37 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setName('modifier_requirement_name_turret_test');
         $manager->persist($modifierRequirementNameTurret);
 
-        /** @var ModifierActivationRequirement $playerIsNotMushRequirement */
-        $playerIsNotMushRequirement = $this->getReference(ModifierRequirementEnum::PLAYER_IS_NOT_MUSH);
+        $defenceCpuPriorityIncreaseTurretMaxCharge = new DirectModifierConfig('defenceCpuPriorityIncreaseTurretMaxCharge');
+        $defenceCpuPriorityIncreaseTurretMaxCharge
+            ->setTriggeredEvent($eventConfigIncreaseMaxCharge)
+            ->setEventActivationRequirements([$modifierRequirementNameTurret])
+            ->setRevertOnRemove(true)
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($defenceCpuPriorityIncreaseTurretMaxCharge);
 
-        $immunizedModifierSet0SporesOnChangeVariable = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_for_player_set_0spore_on_change.variable')
-        );
-        $immunizedModifierSet0SporesOnChangeVariable->addModifierRequirement($playerIsNotMushRequirement);
+        $defenceCpuPriorityIncreaseTurretRecharge = new VariableEventModifierConfig('defenceCpuPriorityIncreaseTurretRecharge');
+        $defenceCpuPriorityIncreaseTurretRecharge
+            ->setTargetVariable(EquipmentStatusEnum::ELECTRIC_CHARGES)
+            ->setDelta(1)
+            ->setMode(VariableModifierModeEnum::ADDITIVE)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
+            ->setTagConstraints([
+                EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,
+                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
+            ])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
+        $manager->persist($defenceCpuPriorityIncreaseTurretRecharge);
+
+        $immunizedModifierSet0SporesOnChangeVariable = new VariableEventModifierConfig('immunizedModifierSet0SporesOnChangeVariable');
+        $immunizedModifierSet0SporesOnChangeVariable
+            ->setTargetVariable(PlayerVariableEnum::SPORE)
+            ->setDelta(0)
+            ->setMode(VariableModifierModeEnum::SET_VALUE)
+            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
+            ->setTargetEvent(VariableEventInterface::CHANGE_VARIABLE)
+            ->setApplyWhenTargeted(true)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($immunizedModifierSet0SporesOnChangeVariable);
 
         $inactiveModifier = VariableEventModifierConfig::fromConfigData(
@@ -308,33 +343,13 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $catOwnerModifierMoraleLossOnSchrodingerDeath = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('cat_owner_modifier_-4morale_on_cat_death'));
         $manager->persist($catOwnerModifierMoraleLossOnSchrodingerDeath);
 
-        /** @var VariableEventConfig $eventConfigGainOneLessAP */
-        $eventConfigGainOneLessAP = $this->getReference(EventConfigFixtures::ACTION_REDUCE_1);
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigFixtures::ACTION_REDUCE_1);
         $fitfulSleepModifier = TriggerEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::FITFUL_SLEEP_MINUS_ONE_ACTION_POINT)
         );
-        $fitfulSleepModifier->setTriggeredEvent($eventConfigGainOneLessAP);
+        $fitfulSleepModifier->setTriggeredEvent($eventConfig);
         $manager->persist($fitfulSleepModifier);
-
-        $dirtyActivationRequirement = ModifierActivationRequirement::fromConfigData(
-            ModifierActivationRequirementData::getByName(ModifierActivationRequirementData::PLAYER_STATUS_DIRTY)
-        );
-        $manager->persist($dirtyActivationRequirement);
-
-        $germaphobeModifier = TriggerEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('germaphobe_modifier_for_player_-1moralPoint_on_new_cycle_if_player_dirty')
-        );
-        $germaphobeModifier->addModifierRequirement($dirtyActivationRequirement);
-        $germaphobeModifier->setTriggeredEvent($eventConfigLoseOneMorale);
-        $manager->persist($germaphobeModifier);
-
-        /** @var VariableEventConfig $firstSolContactModifierEventConfig */
-        $firstSolContactModifierEventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT);
-        $firstSolContactModifier = TriggerEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS)
-        );
-        $firstSolContactModifier->setTriggeredEvent($firstSolContactModifierEventConfig);
-        $manager->persist($firstSolContactModifier);
 
         $manager->flush();
 
@@ -349,12 +364,15 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference(self::STARVING_MODIFIER, $starvingModifier);
         $this->addReference(self::INCREASE_CYCLE_DISEASE_CHANCES_30, $increaseCycleDiseaseChances30);
 
+        $this->addReference(self::MUSH_SHOWER_MODIFIER, $mushShowerModifier);
         $this->addReference(self::MUSH_CONSUME_MODIFIER, $mushConsumeModifier);
         $this->addReference(self::MUSH_CONSUME_SATIETY_MODIFIER, $mushConsumeSatietyModifier);
         $this->addReference(self::MUSH_MORALE_MODIFIER, $mushMoraleModifier);
 
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_PLUS_1_SECTION, $astronavigationNeronCpuPriorityModifierPlus1Section);
         $this->addReference(self::ASTRONAVIGATION_NERON_CPU_PRIORITY_MODIFIER_MINUS_1_ACTION_POINT, $astronavigationNeronCpuPriorityModifierMinus1ActionPoint);
+        $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE, $defenceCpuPriorityIncreaseTurretMaxCharge);
+        $this->addReference(self::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE, $defenceCpuPriorityIncreaseTurretRecharge);
 
         $this->addReference(self::IMMUNIZED_MODIFIER_SET_0_SPORES_ON_CHANGE_VARIABLE, $immunizedModifierSet0SporesOnChangeVariable);
         $this->addReference($inactiveModifier->getName(), $inactiveModifier);
@@ -363,8 +381,6 @@ class StatusModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $this->addReference($catOwnerModifierSchrodingerCantHurt->getName(), $catOwnerModifierSchrodingerCantHurt);
         $this->addReference($catOwnerModifierMoraleLossOnSchrodingerDeath->getName(), $catOwnerModifierMoraleLossOnSchrodingerDeath);
         $this->addReference($fitfulSleepModifier->getName(), $fitfulSleepModifier);
-        $this->addReference(self::GERMAPHOBE_MODIFIER, $germaphobeModifier);
-        $this->addReference($firstSolContactModifier->getName(), $firstSolContactModifier);
     }
 
     public function getDependencies(): array

@@ -59,15 +59,5 @@
         Impossible to outrun.</target>
       </segment>
     </unit>
-    <unit id="transport">
-      <segment id="transport_name" state="translated">
-        <source>transport.name</source>
-        <target>Transporter</target>
-      </segment>
-      <segment id="transport_description" state="translated">
-        <source>transport.description</source>
-        <target>Lost transporter. Could be interesting.</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

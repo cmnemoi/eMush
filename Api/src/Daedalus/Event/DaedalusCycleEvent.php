@@ -34,14 +34,4 @@ class DaedalusCycleEvent extends AbstractGameEvent
 
         return $player->getAllModifiers()->getEventModifiers($this, $priorities);
     }
-
-    public function getDaedalusId(): int
-    {
-        return $this->daedalus->getId();
-    }
-
-    public function getLinkWithSolCycleKillChance(): int
-    {
-        return $this->daedalus->getGameConfig()->getDifficultyConfig()->getLinkWithSolCycleFailureRate();
-    }
 }

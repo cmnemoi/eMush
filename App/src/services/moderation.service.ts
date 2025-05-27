@@ -71,13 +71,9 @@ const ModerationService = {
             ) + '&order[updatedAt]=desc';
 
         const messages = await ApiService.get(`${MESSAGES_ENDPOINT}?${queryParameters}`).then((response) => {
-            return response.data['hydra:member']
-                .filter((messageData: object) => {
-                    return messageData.hasOwnProperty('message');
-                })
-                .map((messageData: object) => {
-                    return (new Message()).load(messageData);
-                });
+            return response.data['hydra:member'].map((messageData: object) => {
+                return (new Message()).load(messageData);
+            });
         });
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
@@ -237,13 +233,6 @@ const ModerationService = {
     reportCommanderMission: async(missionId: number, params: URLSearchParams): Promise<any> => {
         store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(urlJoin(MODERATION_ENDPOINT, 'report-commander-mission', String(missionId)) + '?' + params.toString());
-        store.dispatch('gameConfig/setLoading', { loading: false });
-
-        return response;
-    },
-    reportComManagerAnnouncement: async(announcementId: number, params: URLSearchParams): Promise<any> => {
-        store.dispatch('gameConfig/setLoading', { loading: true });
-        const response = await ApiService.post(urlJoin(MODERATION_ENDPOINT, 'report-com-manager-announcement', String(announcementId)) + '?' + params.toString());
         store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

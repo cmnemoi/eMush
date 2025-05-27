@@ -4,9 +4,6 @@ namespace Mush\Game\ConfigData;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Mush\Communications\Entity\RebelBaseConfig;
-use Mush\Communications\Entity\TradeConfig;
-use Mush\Communications\Entity\XylophConfig;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Disease\Entity\Config\ConsumableDiseaseConfig;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
@@ -55,9 +52,6 @@ class GameConfigDataLoader extends ConfigDataLoader
             $this->setGameConfigTitleConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigProjectConfigs($gameConfig, $gameConfigData);
             $this->setGameConfigSkillConfigs($gameConfig, $gameConfigData);
-            $this->setGameConfigRebelBaseConfigs($gameConfig, $gameConfigData);
-            $this->setGameConfigXylophConfigs($gameConfig, $gameConfigData);
-            $this->setGameConfigTradeConfigs($gameConfig, $gameConfigData);
 
             $this->entityManager->persist($gameConfig);
         }
@@ -278,47 +272,5 @@ class GameConfigDataLoader extends ConfigDataLoader
         }
 
         $gameConfig->setSkillConfigs(new ArrayCollection($mushSkillConfigs));
-    }
-
-    private function setGameConfigRebelBaseConfigs(GameConfig $gameConfig, array $gameConfigData): void
-    {
-        foreach ($gameConfigData['rebelBaseConfigs'] as $rebelBaseConfigName) {
-            $rebelBaseConfigKey = "{$rebelBaseConfigName->toString()}_" . $gameConfig->getName();
-            $rebelBaseConfig = $this->entityManager->getRepository(RebelBaseConfig::class)->findOneBy(['key' => $rebelBaseConfigKey]);
-
-            if ($rebelBaseConfig === null) {
-                throw new \Exception("Rebel base config {$rebelBaseConfigKey} not found");
-            }
-
-            $gameConfig->addRebelBaseConfig($rebelBaseConfig);
-        }
-    }
-
-    private function setGameConfigXylophConfigs(GameConfig $gameConfig, array $gameConfigData): void
-    {
-        foreach ($gameConfigData['xylophConfigs'] as $xylophConfigName) {
-            $xylophConfigKey = "{$xylophConfigName->toString()}_" . $gameConfig->getName();
-            $xylophConfig = $this->entityManager->getRepository(XylophConfig::class)->findOneBy(['key' => $xylophConfigKey]);
-
-            if ($xylophConfig === null) {
-                throw new \Exception("Xyloph config {$xylophConfigKey} not found");
-            }
-
-            $gameConfig->addXylophConfig($xylophConfig);
-        }
-    }
-
-    private function setGameConfigTradeConfigs(GameConfig $gameConfig, array $gameConfigData): void
-    {
-        foreach ($gameConfigData['tradeConfigs'] as $tradeConfigName) {
-            $tradeConfigKey = "{$tradeConfigName->toString()}_" . $gameConfig->getName();
-            $tradeConfig = $this->entityManager->getRepository(TradeConfig::class)->findOneBy(['key' => $tradeConfigKey]);
-
-            if ($tradeConfig === null) {
-                throw new \Exception("Trade config {$tradeConfigKey} not found");
-            }
-
-            $gameConfig->addTradeConfig($tradeConfig);
-        }
     }
 }

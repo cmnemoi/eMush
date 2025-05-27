@@ -16,7 +16,4 @@ enum ProjectRequirementName: string
     case STARMAP_FRAGMENT_IN_LABORATORY = 'starmap_fragment_in_laboratory';
     case MEDIKIT_IN_LABORATORY = 'medikit_in_laboratory';
     case SCHRODINGER_IN_PLAYER_INVENTORY = 'schrodinger_in_player_inventory';
-    case FOOD_IN_LABORATORY = 'food_in_laboratory';
-    case COFFEE_IN_LABORATORY = 'coffee_in_laboratory';
-    case GAME_STARTED = 'game_started';
 }

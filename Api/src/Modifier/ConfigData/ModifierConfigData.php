@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
@@ -9,15 +7,14 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Chat\Enum\MessageModificationEnum;
-use Mush\Chat\Event\MessageEvent;
+use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Communication\Event\MessageEvent;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\WeaponEventType;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
@@ -37,6 +34,7 @@ use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
 use Mush\Modifier\Enum\VariableModifierModeEnum;
+use Mush\Place\Event\PlaceCycleEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -549,7 +547,6 @@ abstract class ModifierConfigData
                 ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
                 PlanetSectorEvent::FIGHT => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
-                WeaponEventType::CRITIC->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -711,7 +708,7 @@ abstract class ModifierConfigData
             'tagConstraints' => [ActionEnum::STRENGTHEN_HULL->value => ModifierRequirementEnum::ANY_TAGS],
         ],
         [
-            'name' => 'modifier_for_daedalus_-1actionPoint_on_comms_action',
+            'name' => 'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
             'modifierName' => null,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -725,9 +722,7 @@ abstract class ModifierConfigData
             'targetVariable' => 'actionPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionTypeEnum::ACTION_COMMS_CENTER->value => ModifierRequirementEnum::ANY_TAGS,
-            ],
+            'tagConstraints' => [ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ALL_TAGS],
         ],
         [
             'name' => 'modifier_for_daedalus_-1movementPoint_on_event_action_movement_conversion',
@@ -1256,7 +1251,6 @@ abstract class ModifierConfigData
             'tagConstraints' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
-            'visibility' => VisibilityEnum::PRIVATE,
         ],
         [
             'name' => 'lost_modifier_for_player_-2moralPoint_on_new_cycle',
@@ -1287,25 +1281,6 @@ abstract class ModifierConfigData
             'visibility' => null,
             'delta' => 1.0,
             'targetVariable' => 'actionPoint',
-            'mode' => 'additive',
-            'modifierActivationRequirements' => [
-                ModifierRequirementEnum::PLAYER_IS_NOT_HYPERACTIVE,
-            ],
-            'tagConstraints' => ['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS],
-        ],
-        [
-            'name' => 'hyperactive_modifier_for_player_+1movementPoint_on_new_cycle',
-            'modifierName' => 'hyperactive_modifier',
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => true,
-            'modifierRange' => 'player',
-            'type' => 'variable_event_modifier',
-            'triggeredEvent' => null,
-            'visibility' => null,
-            'delta' => 1.0,
-            'targetVariable' => 'movementPoint',
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => ['base_player_cycle_change' => ModifierRequirementEnum::ALL_TAGS],
@@ -1342,6 +1317,25 @@ abstract class ModifierConfigData
             'mode' => 'additive',
             'modifierActivationRequirements' => [],
             'tagConstraints' => [PlayerEvent::CYCLE_DISEASE => ModifierRequirementEnum::ALL_TAGS],
+        ],
+        [
+            'name' => 'mush_shower_malus_for_player_set_-3healthPoint_on_post.action_if_reason_shower',
+            'modifierName' => 'mush_shower_malus',
+            'targetEvent' => 'post.action',
+            'strategy' => ModifierStrategyEnum::ADD_EVENT,
+            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'trigger_event_modifier',
+            'replaceEvent' => false,
+            'triggeredEvent' => 'change.variable_player_-3_healthPoint',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
         ],
         [
             'name' => 'modifier_for_player_set_4satiety_on_change.variable_if_reason_consume',
@@ -1637,7 +1631,7 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => 'cat_allergy_on_take_schrodinger',
+            'name' => 'cat_allergy_on_take_schrodinger_random16',
             'modifierName' => SymptomEnum::CAT_ALLERGY,
             'targetEvent' => ActionEvent::POST_ACTION,
             'strategy' => ModifierStrategyEnum::SYMPTOM_MODIFIER,
@@ -1645,9 +1639,11 @@ abstract class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'event_modifier',
-            'modifierActivationRequirements' => [],
+            'modifierActivationRequirements' => [
+                'random_16',
+            ],
             'tagConstraints' => [
-                ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
                 ItemEnum::SCHRODINGER => ModifierRequirementEnum::ALL_TAGS,
                 SymptomEnum::CAT_ALLERGY => ModifierRequirementEnum::NONE_TAGS,
             ],
@@ -2003,19 +1999,19 @@ abstract class ModifierConfigData
         ],
         [
             'name' => 'modifier_for_player_set_0spore_on_change.variable',
-            'modifierName' => ModifierNameEnum::IMMUNIZED_MODIFIER,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'modifierName' => null,
+            'targetEvent' => 'change.variable',
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
             'applyOnTarget' => true,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
-            'delta' => 0,
-            'targetVariable' => PlayerVariableEnum::SPORE,
-            'mode' => VariableModifierModeEnum::SET_VALUE,
-            'modifierActivationRequirements' => [
-                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
-            ],
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 0.0,
+            'targetVariable' => 'spore',
+            'mode' => 'set_value',
+            'modifierActivationRequirements' => [],
             'tagConstraints' => [],
         ],
         [
@@ -2059,16 +2055,36 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4,
-            'modifierName' => ModifierNameEnum::TESLA_SUP2X_TURRET_MAX_CHARGES_MODIFIER,
+            'name' => 'modifier_for_daedalus_increase_turret_max_charges',
+            'modifierName' => null,
             'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
+            'modifierRange' => 'daedalus',
             'type' => 'direct_modifier',
             'targetFilters' => [],
             'eventActivationRequirements' => ['holder_name_turret'],
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_TURRET_MAX_CHARGE_4,
+            'triggeredEvent' => 'change.variable_turret_max_charge_+2',
+            'visibility' => null,
             'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
+        ],
+        [
+            'name' => 'modifier_for_daedalus_random50_+1_charge_turret_on_recharge',
+            'modifierName' => null,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => false,
+            'modifierRange' => 'daedalus',
+            'type' => 'variable_event_modifier',
+            'visibility' => null,
+            'delta' => 1.0,
+            'targetVariable' => EquipmentStatusEnum::ELECTRIC_CHARGES,
+            'mode' => 'additive',
+            'modifierActivationRequirements' => ['random_50'],
+            'tagConstraints' => [
+                EquipmentEnum::TURRET_COMMAND => ModifierRequirementEnum::ALL_TAGS,
+                VariableEventInterface::GAIN => ModifierRequirementEnum::ALL_TAGS,
+            ],
         ],
         [
             'name' => 'rope_modifier_for_player_prevent_change.variable_if_reason_accident_and_variable_healthPoint',
@@ -2164,7 +2180,7 @@ abstract class ModifierConfigData
             'modifierName' => ModifierNameEnum::SKILL_POINT_CORE,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::BEFORE_OVERRIDE_VALUE_PRIORITY,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
             'applyOnTarget' => false,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',
@@ -2250,27 +2266,9 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => [],
         ],
         [
-            'name' => ModifierNameEnum::PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM,
-            'modifierName' => ModifierNameEnum::SHRINK_MODIFIER,
-            'targetEvent' => self::DUMMY_EVENT,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => false,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
-            'type' => 'variable_event_modifier',
-            'delta' => 1,
-            'targetVariable' => PlayerVariableEnum::MORAL_POINT,
-            'mode' => VariableModifierModeEnum::ADDITIVE,
-            'modifierActivationRequirements' => [
-                'player_status_lying_down',
-            ],
-            'tagConstraints' => [],
-        ],
-        // @TODO: Old shrink modifier below, to be removed after all Daedaluses created before 2025-04-13 6PM UTC+1 are finished
-        [
             'name' => 'modifier_for_player_+1morale_point_on_new_cycle_if_lying_down',
             'modifierName' => ModifierNameEnum::SHRINK_MODIFIER,
-            'targetEvent' => self::DUMMY_EVENT,
+            'targetEvent' => PlaceCycleEvent::PLACE_NEW_CYCLE,
             'strategy' => ModifierStrategyEnum::ADD_EVENT,
             'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
             'applyOnTarget' => true,
@@ -2284,7 +2282,6 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => ['player_status_lying_down'],
             'visibility' => VisibilityEnum::PRIVATE,
         ],
-        // @TODO: Old shrink modifier above, to be removed after all Daedaluses created before 2025-04-13 6PM UTC+1 are finished
         [
             'name' => 'modifier_for_daedalus_+1hull_on_change.variable_if_reason_hunter_shot',
             'modifierName' => null,
@@ -2558,7 +2555,7 @@ abstract class ModifierConfigData
             'modifierActivationRequirements' => [],
             'revertOnRemove' => true,
             'targetFilters' => [],
-            'eventActivationRequirements' => ['holder_name_patrol_ship_alpha_2_wallis'],
+            'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_epicure'],
         ],
         [
             'name' => 'modifier_for_daedalus_x2_turret_charges_on_new_cycle',
@@ -2632,7 +2629,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -2745,7 +2742,7 @@ abstract class ModifierConfigData
             ],
         ],
         [
-            'name' => 'modifier_skill_point_it_expert',
+            'name' => ModifierNameEnum::SKILL_POINT_IT_EXPERT,
             'modifierName' => ModifierNameEnum::SKILL_POINT_IT_EXPERT,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
@@ -2995,14 +2992,14 @@ abstract class ModifierConfigData
         [
             'name' => ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
             'modifierName' => ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
-            'delta' => -1,
-            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'delta' => 1,
+            'targetVariable' => ActionVariableEnum::OUTPUT_QUANTITY,
             'mode' => VariableModifierModeEnum::ADDITIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
@@ -3074,6 +3071,21 @@ abstract class ModifierConfigData
             ],
         ],
         [
+            'name' => ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
+            'modifierName' => ModifierNameEnum::PREVENT_MUSH_SHOWER_MALUS,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::PREVENT_EVENT,
+            'priority' => ModifierPriorityEnum::PREVENT_EVENT,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'event_modifier',
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ModifierNameEnum::MUSH_SHOWER_MALUS => ModifierRequirementEnum::ALL_TAGS,
+                PlayerVariableEnum::HEALTH_POINT => ModifierRequirementEnum::ALL_TAGS,
+            ],
+        ],
+        [
             'name' => ModifierNameEnum::CEASEFIRE,
             'modifierName' => ModifierNameEnum::CEASEFIRE,
             'targetEvent' => ActionEvent::PRE_ACTION,
@@ -3121,20 +3133,19 @@ abstract class ModifierConfigData
         [
             'name' => ModifierNameEnum::PLAYER_PLUS_2_DAMAGE_ON_HIT,
             'modifierName' => ModifierNameEnum::PLAYER_PLUS_2_DAMAGE_ON_HIT,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
             'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
-            'delta' => -2,
-            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'delta' => 2,
+            'targetVariable' => ActionVariableEnum::OUTPUT_QUANTITY,
             'mode' => VariableModifierModeEnum::ADDITIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
                 ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionOutputEnum::FAIL => ModifierRequirementEnum::NONE_TAGS,
-                PlayerStatusEnum::BERZERK => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
         [
@@ -3452,7 +3463,6 @@ abstract class ModifierConfigData
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'tagConstraints' => [
                 ActionTypeEnum::ACTION_AGGRESSIVE->value => ModifierRequirementEnum::ALL_TAGS,
-                'action_on_equipment' => ModifierRequirementEnum::NONE_TAGS,
             ],
             'applyOnTarget' => true,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
@@ -3480,7 +3490,7 @@ abstract class ModifierConfigData
             'modifierName' => ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_SELF,
             'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::BEFORE_MULTIPLICATIVE_MODIFIER_VALUE,
+            'priority' => ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE,
             'applyOnTarget' => false,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
@@ -3489,7 +3499,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
                 ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
@@ -3507,9 +3517,7 @@ abstract class ModifierConfigData
             'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
             'modifierActivationRequirements' => [],
             'tagConstraints' => [
-                ActionEnum::ESTABLISH_LINK_WITH_SOL->value => ModifierRequirementEnum::ANY_TAGS,
-                ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_SELF => ModifierRequirementEnum::NONE_TAGS,
-                ModifierNameEnum::RADIO_EXPERT_MODIFIER_ON_OTHER_PLAYER => ModifierRequirementEnum::NONE_TAGS,
+                ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [
@@ -3612,10 +3620,7 @@ abstract class ModifierConfigData
             'replaceEvent' => false,
             'visibility' => VisibilityEnum::PRIVATE,
             'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_1_ACTION_POINT,
-            'modifierActivationRequirements' => [
-                ModifierRequirementEnum::LYING_DOWN_STATUS_CHARGE_REACHES_4,
-                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
-            ],
+            'modifierActivationRequirements' => [ModifierRequirementEnum::LYING_DOWN_STATUS_CHARGE_REACHES_4],
             'tagConstraints' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => [],
@@ -3709,11 +3714,11 @@ abstract class ModifierConfigData
             'tagConstraints' => [],
         ],
         [
-            'name' => 'modifier_skill_point_polymath_it_points',
+            'name' => ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS,
             'modifierName' => ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS,
             'targetEvent' => ActionVariableEvent::APPLY_COST,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::AFTER_OVERRIDE_VALUE_PRIORITY,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
             'applyOnTarget' => false,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
@@ -3811,234 +3816,6 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::HEAL->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::SELF_HEAL->value => ModifierRequirementEnum::ANY_TAGS,
-            ],
-        ],
-        [
-            'name' => ModifierNameEnum::TURRET_CHARGES_PLUS_8,
-            'modifierName' => ModifierNameEnum::TESLA_SUP2X_TURRET_CHARGES_MODIFIER,
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
-            'type' => 'direct_modifier',
-            'targetFilters' => [],
-            'eventActivationRequirements' => ['holder_name_turret'],
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_TURRET_CHARGE_8,
-            'modifierActivationRequirements' => [],
-            'revertOnRemove' => true,
-        ],
-        [
-            'name' => ModifierNameEnum::PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE,
-            'modifierName' => ModifierNameEnum::CONSTIPASPORE_SERUM_MODIFIER,
-            'targetEvent' => ActionVariableEvent::APPLY_COST,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => false,
-            'modifierRange' => 'player',
-            'type' => 'variable_event_modifier',
-            'delta' => 2,
-            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
-            'mode' => VariableModifierModeEnum::ADDITIVE,
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionEnum::EXTRACT_SPORE->value => ModifierRequirementEnum::ANY_TAGS,
-            ],
-        ],
-        [
-            'name' => ModifierNameEnum::MINUS_1_SPORE_ON_TAKE_SHOWER,
-            'modifierName' => ModifierNameEnum::SUPER_SOAPER_MODIFIER,
-            'targetEvent' => ActionEvent::POST_ACTION,
-            'strategy' => ModifierStrategyEnum::ADD_EVENT,
-            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
-            'applyOnTarget' => false,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
-            'type' => 'trigger_event_modifier',
-            'replaceEvent' => false,
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_MINUS_1_SPORE,
-            'visibility' => VisibilityEnum::HIDDEN,
-            'modifierActivationRequirements' => [
-                ModifierRequirementEnum::PLAYER_IS_NOT_MUSH,
-            ],
-            'tagConstraints' => [
-                ActionEnum::TAKE_SHOWER->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::WASH_IN_SINK->value => ModifierRequirementEnum::ANY_TAGS,
-            ],
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-        ],
-        [
-            'name' => 'germaphobe_modifier_for_player_-1moralPoint_on_new_cycle_if_player_dirty',
-            'modifierName' => 'germaphobe_modifier',
-            'targetEvent' => 'player.new.cycle',
-            'strategy' => ModifierStrategyEnum::ADD_EVENT,
-            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
-            'applyOnTarget' => true,
-            'modifierRange' => 'player',
-            'type' => 'trigger_event_modifier',
-            'replaceEvent' => false,
-            'triggeredEvent' => 'change.variable_player_-1_moralPoint',
-            'modifierActivationRequirements' => [
-                'player_status_dirty',
-            ],
-            'tagConstraints' => [],
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-            'visibility' => VisibilityEnum::PRIVATE,
-        ],
-        [
-            'name' => ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS,
-            'modifierName' => ModifierNameEnum::FIRST_SOL_CONTACT_MODIFIER,
-            'targetEvent' => StatusEvent::STATUS_APPLIED,
-            'strategy' => ModifierStrategyEnum::ADD_EVENT,
-            'priority' => ModifierPriorityEnum::AFTER_INITIAL_EVENT,
-            'applyOnTarget' => false,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
-            'type' => 'trigger_event_modifier',
-            'replaceEvent' => false,
-            'visibility' => VisibilityEnum::HIDDEN,
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT,
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE => ModifierRequirementEnum::ALL_TAGS,
-            ],
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-        ],
-        [
-            'name' => ModifierNameEnum::PLUS_8_TRIUMPH_POINTS_FOR_ALL_PLAYERS,
-            'modifierName' => ModifierNameEnum::WOLF_REBEL_BASE_MODIFIER,
-            'revertOnRemove' => false,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
-            'type' => 'direct_modifier',
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS,
-            'modifierActivationRequirements' => [],
-        ],
-        [
-            'name' => ModifierNameEnum::PLUS_6_MORALE_POINTS_FOR_ALL_PLAYERS,
-            'modifierName' => ModifierNameEnum::KALADAAN_REBEL_BASE_MODIFIER,
-            'revertOnRemove' => false,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
-            'type' => 'direct_modifier',
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_6_MORALE_POINTS,
-            'modifierActivationRequirements' => [],
-        ],
-        [
-            'name' => ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINT_ON_CONSUME_ACTION_IF_STANDARD_RATION,
-            'modifierName' => ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => true,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
-            'type' => 'variable_event_modifier',
-            'delta' => 1,
-            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
-            'mode' => VariableModifierModeEnum::ADDITIVE,
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
-                GameRationEnum::STANDARD_RATION => ModifierRequirementEnum::ANY_TAGS,
-                GameRationEnum::COOKED_RATION => ModifierRequirementEnum::ANY_TAGS,
-            ],
-        ],
-        [
-            'name' => ModifierNameEnum::BLASTER_PLUS_1_STRENGTH_IN_EXPEDITION,
-            'modifierName' => ModifierNameEnum::CENTAURI_REBEL_BASE_MODIFIER,
-            'targetEvent' => self::DUMMY_EVENT,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => true,
-            'modifierRange' => ModifierHolderClassEnum::EQUIPMENT,
-            'type' => 'variable_event_modifier',
-            'delta' => 1,
-            'targetVariable' => 'expeditionBonus',
-            'mode' => VariableModifierModeEnum::ADDITIVE,
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [],
-        ],
-        [
-            'name' => ModifierNameEnum::CYGNI_PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS,
-            'modifierName' => ModifierNameEnum::CYGNI_PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS,
-            'revertOnRemove' => false,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
-            'type' => 'direct_modifier',
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_3_MORALE_POINT,
-            'modifierActivationRequirements' => [],
-        ],
-        [
-            'name' => ModifierNameEnum::CYGNI_PLUS_1_DAMAGE_PATROL_SHIPS,
-            'modifierName' => ModifierNameEnum::CYGNI_PLUS_1_DAMAGE_PATROL_SHIPS,
-            'targetEvent' => 'change.variable',
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => false,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
-            'type' => 'variable_event_modifier',
-            'triggeredEvent' => null,
-            'visibility' => null,
-            'delta' => -1,
-            'targetVariable' => HunterVariableEnum::HEALTH,
-            'mode' => VariableModifierModeEnum::ADDITIVE,
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionEnum::SHOOT_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
-                ActionEnum::SHOOT_RANDOM_HUNTER_PATROL_SHIP->value => ModifierRequirementEnum::ANY_TAGS,
-            ],
-        ],
-        [
-            'name' => ModifierNameEnum::DOUBLE_DECODE_BASE_SIGNAL,
-            'modifierName' => ModifierNameEnum::KIVANC_MODIFIER,
-            'targetEvent' => ActionVariableEvent::GET_OUTPUT_QUANTITY,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => false,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
-            'type' => 'variable_event_modifier',
-            'delta' => 2,
-            'targetVariable' => 'outputQuantity',
-            'mode' => VariableModifierModeEnum::MULTIPLICATIVE,
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionEnum::DECODE_REBEL_SIGNAL->value => ModifierRequirementEnum::ANY_TAGS,
-            ],
-        ],
-        [
-            'name' => ModifierNameEnum::PLUS_8_TRIUMPH_POINTS_FOR_PAOLA,
-            'modifierName' => ModifierNameEnum::PAOLA_PERSONAL_TRIUMPH_MODIFIER,
-            'revertOnRemove' => false,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
-            'type' => 'direct_modifier',
-            'targetFilters' => [],
-            'eventActivationRequirements' => [
-                ModifierRequirementEnum::PLAYER_IS_PAOLA,
-            ],
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS,
-            'modifierActivationRequirements' => [],
-        ],
-        [
-            'name' => ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE,
-            'modifierName' => ModifierNameEnum::GUARANA_CAPPUCCINO_MODIFIER,
-            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
-            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
-            'applyOnTarget' => true,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
-            'type' => 'variable_event_modifier',
-            'delta' => 1,
-            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
-            'mode' => VariableModifierModeEnum::ADDITIVE,
-            'modifierActivationRequirements' => [],
-            'tagConstraints' => [
-                ActionEnum::CONSUME->value => ModifierRequirementEnum::ALL_TAGS,
-                GameRationEnum::COFFEE => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
     ];

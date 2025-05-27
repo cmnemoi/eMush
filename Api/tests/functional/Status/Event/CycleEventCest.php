@@ -3,14 +3,10 @@
 namespace Mush\Tests\functional\Status\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Action\Actions\Disassemble;
-use Mush\Action\Actions\Sabotage;
-use Mush\Action\Entity\ActionConfig;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
@@ -29,7 +25,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Project\Enum\ProjectName;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Status;
@@ -49,12 +44,6 @@ use Mush\User\Entity\User;
  */
 final class CycleEventCest extends AbstractFunctionalTest
 {
-    private Disassemble $dismantleAction;
-    private Sabotage $sabotageAction;
-
-    private ActionConfig $dismantleActionConfig;
-    private ActionConfig $sabotageActionConfig;
-
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $equipmentService;
     private StatusCycleSubscriber $cycleSubscriber;
@@ -67,14 +56,6 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-
-        $this->dismantleActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'disassemble_percent_25_cost_3']);
-        $this->dismantleActionConfig->setSuccessRate(100);
-        $this->dismantleAction = $I->grabService(Disassemble::class);
-
-        $this->sabotageActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'sabotage_percent_12']);
-        $this->sabotageActionConfig->setSuccessRate(100);
-        $this->sabotageAction = $I->grabService(Sabotage::class);
     }
 
     // tests
@@ -299,21 +280,6 @@ final class CycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(1, $electricCharges->getCharge());
     }
 
-    public function testBrokenCoffeeMachineDoesGetElectricChargeUpdateAtCycleChange(FunctionalTester $I): void
-    {
-        $this->givenConditionsForCoffeeMachineToAlwaysCharge($I);
-
-        $coffeeMachine = $this->givenCoffeeMachineIsInTheRoom();
-
-        $this->givenCoffeeMachineHasCharges(0, $coffeeMachine);
-
-        $this->givenCoffeeMachineisBroken($coffeeMachine);
-
-        $this->whenNewCycleEventIsTriggered();
-
-        $this->thenCoffeeMachineShouldHaveOneCharge($coffeeMachine, $I);
-    }
-
     public function shouldMakeStarvingStatusAppearAfterThreeDays(FunctionalTester $I): void
     {
         $this->daedalus->setDay(1)->setCycle(1);
@@ -390,30 +356,6 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->thenTurretShouldHaveThreeCharges($turret, $I);
     }
 
-    public function playerGetsOneActionPointNextCycleAfterHavingSleptOnSofaThatGetsBroken(FunctionalTester $I): void
-    {
-        $sofa = $this->givenSofaIsInTheRoom();
-        $this->givenChunSleepsOn($sofa);
-        $this->givenChunHasAPMP(0, 0);
-        $this->givenKuanTiIsMush($I);
-        $this->whenKuanTiBreaks($sofa);
-        $this->thenChunShouldNotBeLyingDown($I);
-        $this->whenNewCycleEventIsTriggered();
-        $this->thenChunShouldHaveAPMP($I, 1, 1);
-    }
-
-    public function playerGetsOneActionPointNextCycleAfterHavingSleptOnSofaThatGetsDismantled(FunctionalTester $I): void
-    {
-        $sofa = $this->givenSofaIsInTheRoom();
-        $this->givenChunSleepsOn($sofa);
-        $this->givenChunHasAPMP(0, 0);
-        $this->givenKuanTiIsTechnician($I);
-        $this->whenKuanTiDismantles($sofa);
-        $this->thenChunShouldNotBeLyingDown($I);
-        $this->whenNewCycleEventIsTriggered();
-        $this->thenChunShouldHaveAPMP($I, 1, 1);
-    }
-
     private function givenATurretWithOneCharge(): array
     {
         $turret = $this->equipmentService->createGameEquipmentFromName(
@@ -437,106 +379,6 @@ final class CycleEventCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenSofaIsInTheRoom(): GameEquipment
-    {
-        return $this->equipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::SWEDISH_SOFA,
-            equipmentHolder: $this->chun->getPlace(),
-            reasons: ['test'],
-            time: new \DateTime(),
-            visibility: VisibilityEnum::HIDDEN
-        );
-    }
-
-    private function givenCoffeeMachineIsInTheRoom(): GameEquipment
-    {
-        return $this->equipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::COFFEE_MACHINE,
-            equipmentHolder: $this->chun->getPlace(),
-            reasons: ['test'],
-            time: new \DateTime(),
-            visibility: VisibilityEnum::HIDDEN
-        );
-    }
-
-    private function givenCoffeeMachineHasCharges(int $charge, GameEquipment $coffeeMachine): void
-    {
-        $status = $coffeeMachine->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
-
-        $status->setCharge($charge);
-    }
-
-    private function givenCoffeeMachineisBroken(GameEquipment $coffeeMachine): void
-    {
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $coffeeMachine,
-            tags: [],
-            time: new \DateTime()
-        );
-    }
-
-    private function givenChunSleepsOn(GameEquipment $bed): void
-    {
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LYING_DOWN,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-            target: $bed
-        );
-    }
-
-    private function givenChunHasAPMP(int $AP, int $MP): void
-    {
-        $this->chun->setActionPoint($AP);
-        $this->chun->setMovementPoint($MP);
-    }
-
-    private function givenKuanTiIsMush(FunctionalTester $I): void
-    {
-        $this->convertPlayerToMush($I, $this->kuanTi);
-    }
-
-    private function givenKuanTiIsTechnician(FunctionalTester $I): void
-    {
-        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
-    }
-
-    private function givenConditionsForCoffeeMachineToAlwaysCharge(FunctionalTester $I)
-    {
-        $this->daedalus->setDay(2);
-        $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentBreakRateDistribution([]);
-        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(100);
-        $this->finishProject(
-            project: $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER),
-            author: $this->chun,
-            I: $I
-        );
-    }
-
-    private function whenKuanTiBreaks(GameEquipment $gameEquipment): void
-    {
-        $this->sabotageAction->loadParameters(
-            actionConfig: $this->sabotageActionConfig,
-            actionProvider: $gameEquipment,
-            player: $this->kuanTi,
-            target: $gameEquipment
-        );
-        $this->sabotageAction->execute();
-    }
-
-    private function whenKuanTiDismantles(GameEquipment $gameEquipment): void
-    {
-        $this->dismantleAction->loadParameters(
-            actionConfig: $this->dismantleActionConfig,
-            actionProvider: $gameEquipment,
-            player: $this->kuanTi,
-            target: $gameEquipment
-        );
-        $this->dismantleAction->execute();
-    }
-
     private function whenACyclePassesForTurretCharges(ChargeStatus $turretCharges): void
     {
         $cycleEvent = new StatusCycleEvent(
@@ -548,36 +390,9 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($cycleEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
     }
 
-    private function whenNewCycleEventIsTriggered(): void
-    {
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-    }
-
     private function thenTurretShouldHaveThreeCharges(GameEquipment $turret, FunctionalTester $I): void
     {
         $turretCharges = $turret->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
         $I->assertEquals(3, $turretCharges->getCharge());
-    }
-
-    private function thenCoffeeMachineShouldHaveOneCharge(GameEquipment $coffeeMachine, FunctionalTester $I): void
-    {
-        $coffeeMachineCharges = $coffeeMachine->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $I->assertEquals(1, $coffeeMachineCharges->getCharge());
-    }
-
-    private function thenChunShouldNotBeLyingDown(FunctionalTester $I): void
-    {
-        $I->assertFalse($this->chun->hasStatus(PlayerStatusEnum::LYING_DOWN));
-    }
-
-    private function thenChunShouldHaveAPMP(FunctionalTester $I, int $AP, int $MP): void
-    {
-        $I->assertEquals($AP, $this->chun->getActionPoint());
-        $I->assertEquals($MP, $this->chun->getMovementPoint());
     }
 }

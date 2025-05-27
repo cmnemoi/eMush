@@ -103,7 +103,6 @@ abstract class EndCauseEnum
         PlanetSectorEvent::PLANET_SECTOR_EVENT => self::EXPLORATION,
         ActionEnum::RETURN_TO_SOL->value => self::SOL_RETURN,
         PlayerStatusEnum::STARVING => self::STARVATION,
-        ActionEnum::TRAVEL_TO_EDEN->value => self::EDEN,
     ];
 
     public static function getAll(): array
@@ -116,13 +115,17 @@ abstract class EndCauseEnum
         return new ArrayCollection([
             self::SOL_RETURN,
             self::EDEN,
-            self::ALIEN_ABDUCTED,
         ]);
     }
 
     public static function isDeathEndCause(string $endCause): bool
     {
         return self::getDeathEndCauses()->contains($endCause);
+    }
+
+    public static function isEndCauseWhichRemovesMorale(string $endCause): bool
+    {
+        return self::getEndCausesWhichRemovesMorale()->contains($endCause);
     }
 
     public static function isNotDeathEndCause(string $endCause): bool
@@ -132,7 +135,7 @@ abstract class EndCauseEnum
 
     public static function doesNotRemoveMorale(string $endCause): bool
     {
-        return self::getNotDeathEndCauses()->contains($endCause) || self::getEndCausesWhichDoNotRemoveMorale()->contains($endCause);
+        return self::getEndCausesWhichRemovesMorale()->contains($endCause) === false;
     }
 
     public static function mapEndCause(array $tags): string
@@ -146,20 +149,37 @@ abstract class EndCauseEnum
         throw new \LogicException('Cannot find a matching end cause');
     }
 
-    public static function unlocksNewProjects(string $endCause): bool
-    {
-        return !\in_array($endCause, [self::ALIEN_ABDUCTED, self::QUARANTINE], true);
-    }
-
-    private static function getEndCausesWhichDoNotRemoveMorale(): ArrayCollection
+    private static function getEndCausesWhichRemovesMorale(): ArrayCollection
     {
         return new ArrayCollection([
-            self::SUICIDE,
+            self::ABANDONED,
+            self::ALIEN_ABDUCTED,
+            self::ALLERGY,
+            self::ASPHYXIA,
+            self::ASSASSINATED,
+            self::BEHEADED,
+            self::BLACK_BITE,
+            self::BLED,
+            self::BURNT,
+            self::CLUMSINESS,
             self::DAEDALUS_DESTROYED,
+            self::ELECTROCUTED,
+            self::EXPLORATION_COMBAT,
+            self::EXPLORATION_LOST,
+            self::EXPLORATION,
+            self::INFECTION,
+            self::INJURY,
             self::KILLED_BY_NERON,
+            self::MANKAROG,
+            self::METAL_PLATE,
+            self::NO_INFIRMERIE,
+            self::PATROL_SHIP_EXPLOSION,
+            self::ROCKETED,
+            self::SELF_EXTRACTED,
+            self::SPACE_ASPHYXIATED,
+            self::SPACE_BATTLE,
+            self::STARVATION,
             self::SUPER_NOVA,
-            self::DEPRESSION,
-            self::QUARANTINE,
         ]);
     }
 

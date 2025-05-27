@@ -13,8 +13,6 @@ enum ActionEnum: string
     case AUTO_DESTROY = 'auto_destroy';
     case KILL_PLAYER = 'kill_player';
     case RESET_SKILL_POINTS = 'reset_skill_points';
-    case TRIGGER_ALL_REBEL_CONTACTS = 'trigger_all_rebel_contacts';
-    case CREATE_TRADE = 'create_trade';
 
     // alpha actions
     case REJUVENATE = 'rejuvenate';
@@ -63,7 +61,6 @@ enum ActionEnum: string
     case TRY_KUBE = 'try_kube';
     case OPEN = 'open';
     case SHOOT = 'shoot';
-    case SHOOT_99 = 'shoot_99_percent';
     case HEAL = 'heal';
     case SELF_HEAL = 'self_heal';
     case RENOVATE = 'renovate';
@@ -72,12 +69,9 @@ enum ActionEnum: string
     case UPGRADE_DRONE_TO_TURBO = 'upgrade_drone_to_turbo';
     case UPGRADE_DRONE_TO_FIREFIGHTER = 'upgrade_drone_to_firefighter';
     case UPGRADE_DRONE_TO_PILOT = 'upgrade_drone_to_pilot';
-    case UPGRADE_DRONE_TO_SENSOR = 'upgrade_drone_to_sensor';
     case TAKE_CAT = 'take_cat';
     case PET_CAT = 'pet_cat';
     case SHOOT_CAT = 'shoot_cat';
-    case OPEN_CONTAINER = 'open_container';
-    case PLAY_WITH_DOG = 'play_with_dog';
 
     // Equipment-enabled actions
     case INSERT_FUEL = 'insert_fuel';
@@ -112,6 +106,7 @@ enum ActionEnum: string
     case TAKEOFF_TO_PLANET = 'takeoff_to_planet';
     case TAKEOFF_TO_PLANET_PATROL_SHIP = 'takeoff_to_planet_patrol_ship';
     case SHOWER = 'shower';
+    case SEARCH_FOR_MUSH_GENOME = 'search_for_mush_genome';
 
     // Permanent Player Actions
     case UNGAG = 'ungag';
@@ -188,20 +183,11 @@ enum ActionEnum: string
     case TOGGLE_PLASMA_SHIELD = 'toggle_plasma_shield';
     case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
     case TOGGLE_NERON_INHIBITION = 'toggle_neron_inhibition';
-    case TOGGLE_VOCODED_ANNOUNCEMENTS = 'toggle_vocoded_announcements';
     case DECODE_REBEL_SIGNAL = 'decode_rebel_signal';
     case PARTICIPATE_RESEARCH = 'participate_research';
-    case COMPUTE_EDEN = 'compute_eden';
-    case TRAVEL_TO_EDEN = 'travel_to_eden';
-    case ESTABLISH_LINK_WITH_SOL = 'establish_link_with_sol';
-    case UPGRADE_NERON = 'upgrade_neron';
-    case CONTACT_XYLOPH = 'contact_xyloph';
-    case ACCEPT_TRADE = 'accept_trade';
-    case REFUSE_TRADE = 'refuse_trade';
 
     // Titles-related actions
     case COMMANDER_ORDER = 'commander_order';
-    case COM_MANAGER_ANNOUNCEMENT = 'com_manager_announcement';
 
     public function toString(): string
     {
@@ -222,7 +208,6 @@ enum ActionEnum: string
             self::TOGGLE_PLASMA_SHIELD,
             self::ACCEPT_MISSION,
             self::REJECT_MISSION,
-            self::EXIT_TERMINAL,
         ]))->contains($this);
     }
 
@@ -410,7 +395,6 @@ enum ActionEnum: string
             self::ULTRAHEAL,
             self::PUBLIC_BROADCAST,
             self::TAKE_CAT,
-            self::OPEN_CONTAINER,
         ]);
     }
 

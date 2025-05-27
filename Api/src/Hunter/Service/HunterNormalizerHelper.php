@@ -23,7 +23,7 @@ class HunterNormalizerHelper implements HunterNormalizerHelperInterface
      */
     public function getHuntersToNormalize(Daedalus $daedalus): HunterCollection
     {
-        $attackingHunters = $daedalus->getHuntersAroundDaedalus();
+        $attackingHunters = $daedalus->getAttackingHunters();
 
         // we want to normalize only 17 hunters. If there are less than 17 hunters, no treatment is needed
         if ($attackingHunters->count() <= self::NUMBER_OF_HUNTERS_TO_NORMALIZE) {

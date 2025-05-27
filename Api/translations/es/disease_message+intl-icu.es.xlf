@@ -78,9 +78,9 @@
       </segment>
     </unit>
     <unit id="deaf">
-      <segment id="deaf" state="translated">
+      <segment id="deaf" state="initial">
         <source>deaf</source>
-        <target>...</target>
+        <target>deaf</target>
       </segment>
     </unit>
   </file>

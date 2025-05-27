@@ -1,4 +1,4 @@
-Mush\Chat\Entity\Channel:
+Mush\Communication\Entity\Channel:
   shortName: 'Channel'
   description: 'eMush Channels'
   attributes:

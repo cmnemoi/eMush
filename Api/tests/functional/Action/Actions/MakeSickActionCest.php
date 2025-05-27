@@ -23,19 +23,14 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\Player\Event\PlayerCycleEvent;
-use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -56,7 +51,6 @@ final class MakeSickActionCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private MakeSick $makeSickAction;
 
-    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
@@ -65,7 +59,6 @@ final class MakeSickActionCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MAKE_SICK->value]);
         $this->makeSickAction = $I->grabService(MakeSick::class);
 
-        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->addSkillToPlayer(SkillEnum::BACTEROPHILIAC, $I);
     }
@@ -193,19 +186,6 @@ final class MakeSickActionCest extends AbstractFunctionalTest
         $this->thenMycoAlarmPrintsPublicLog($I);
     }
 
-    public function shouldNotModifyPlayerHealthAfterConversion(FunctionalTester $I): void
-    {
-        $this->givenMakeSickOnlyGivesFlu($I);
-
-        $this->givenChunMakesSickKuanTi();
-
-        $this->givenKuanTiTurnsIntoMush();
-
-        $this->whenACyclePassesForKuanTi();
-
-        $this->thenKuanTiShouldHaveMaxHealth($I, 14);
-    }
-
     private function givenMycoAlarmInRoom(): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -214,25 +194,6 @@ final class MakeSickActionCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
-    }
-
-    private function givenChunMakesSickKuanTi(): void
-    {
-        $this->whenChunMakesSickKuanTi();
-    }
-
-    private function givenKuanTiTurnsIntoMush(): void
-    {
-        $this->eventService->callEvent(
-            event: new PlayerEvent(player: $this->kuanTi, tags: [], time: new \DateTime()),
-            name: PlayerEvent::CONVERSION_PLAYER,
-        );
-    }
-
-    private function givenMakeSickOnlyGivesFlu(FunctionalTester $I): void
-    {
-        $diseaseCauseConfig = $I->grabEntityFromRepository(DiseaseCauseConfig::class, ['causeName' => ActionEnum::MAKE_SICK->toString()]);
-        $diseaseCauseConfig->setDiseases([DiseaseEnum::FLU => 1]);
     }
 
     private function whenChunMakesSickKuanTi(): void
@@ -246,18 +207,10 @@ final class MakeSickActionCest extends AbstractFunctionalTest
         $this->makeSickAction->execute();
     }
 
-    private function whenACyclePassesForKuanTi(): void
-    {
-        $this->eventService->callEvent(
-            event: new PlayerCycleEvent(player: $this->kuanTi, tags: [EventEnum::NEW_CYCLE], time: new \DateTime()),
-            name: PlayerCycleEvent::PLAYER_NEW_CYCLE
-        );
-    }
-
     private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
     {
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':mycoalarm: DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            expectedRoomLog: 'DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->player,
                 log: LogEnum::MYCO_ALARM_RING,
@@ -266,10 +219,5 @@ final class MakeSickActionCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
-    }
-
-    private function thenKuanTiShouldHaveMaxHealth(FunctionalTester $I, int $expectedHealth): void
-    {
-        $I->assertEquals($expectedHealth, $this->kuanTi->getVariableByName(PlayerVariableEnum::HEALTH_POINT)->getMaxValue(), 'Kuan Ti max health should be ' . $expectedHealth);
     }
 }

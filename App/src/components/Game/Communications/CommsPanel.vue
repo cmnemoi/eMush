@@ -19,7 +19,7 @@
                 :name="channel.name"
                 :description="channel.description"
                 :selected="isChannelSelected(channel)"
-                :number-of-new-messages="numberOfNewMessages(channel)"
+                :number-of-new-messages="channel.numberOfNewMessages"
                 @select="changeChannel({ channel })"
             />
         </ul>
@@ -30,13 +30,6 @@
         <button class="action-button" @click="markAsRead()" v-if="currentChannel.isNotTipsChannel()">
             {{ $t('game.communications.markChannelAsRead') }}
         </button>
-        <Tippy tag="button" class="action-button" @click="exportChannel()">
-            🖨️
-            <template #content>
-                <h1 v-html="$t('game.communications.exportChannelAsPDF')"/>
-                <p v-html="$t('game.communications.exportChannelAsPDFDescription')"/>
-            </template>
-        </Tippy>
     </div>
 </template>
 
@@ -55,8 +48,6 @@ import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { exportChannelToPDF } from "@/services/export-channel-to-pdf.service";
-import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "CommsPanel",
@@ -67,8 +58,7 @@ export default defineComponent ({
         PrivateTab,
         RoomEventsTab,
         MushTab,
-        Tab,
-        Tippy
+        Tab
     },
     props: {
         room: Room,
@@ -139,23 +129,10 @@ export default defineComponent ({
             } else {
                 await this.markCurrentChannelAsRead(this.currentChannel);
             }
-        },
-        async exportChannel() : Promise<void> {
-            const chatbox = document.querySelector('.chatbox') as HTMLElement;
-            if (!chatbox) {
-                console.error('Chatbox not found');
-                return;
-            }
-
-            await exportChannelToPDF(chatbox);
-        },
-        numberOfNewMessages(channel: Channel): number {
-            return channel.id === this.currentChannel.id ? this.currentChannelNumberOfNewMessages : channel.numberOfNewMessages;
         }
     }
 });
 </script>
-
 
 <style lang="scss"> //Not scoped to apply to children components
 

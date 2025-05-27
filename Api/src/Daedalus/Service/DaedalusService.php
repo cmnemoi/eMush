@@ -11,7 +11,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Entity\TitlePriority;
-use Mush\Daedalus\Enum\CharacterSetEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Event\DaedalusInitEvent;
@@ -24,10 +23,8 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Game\Entity\GameConfig;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Repository\LocalizationConfigRepository;
 use Mush\Game\Service\CycleServiceInterface;
@@ -36,7 +33,6 @@ use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -172,7 +168,7 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function findAvailableCharacterForDaedalus(Daedalus $daedalus): Collection
     {
-        return $daedalus->getAvailableCharacters()->filter(
+        return $daedalus->getGameConfig()->getCharactersConfig()->filter(
             static fn (CharacterConfig $characterConfig) => !$daedalus->getPlayers()->exists(
                 static fn (int $key, Player $player) => ($player->getName() === $characterConfig->getCharacterName())
             )
@@ -181,45 +177,35 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus
     {
-        $this->entityManager->beginTransaction();
+        $daedalus = new Daedalus();
 
-        try {
-            $daedalus = new Daedalus();
-            $daedalusConfig = $gameConfig->getDaedalusConfig();
-            $daedalus
-                ->setCycle(0)
-                ->setDaedalusVariables($daedalusConfig);
+        $daedalusConfig = $gameConfig->getDaedalusConfig();
 
-            $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
-            if ($localizationConfig === null) {
-                throw new \Exception('there is no localizationConfig for this language');
-            }
+        $daedalus
+            ->setCycle(0)
+            ->setDaedalusVariables($daedalusConfig);
 
-            $neron = new Neron();
-            $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-            $daedalusInfo
-                ->setName($name)
-                ->setNeron($neron);
-            $this->persistDaedalusInfo($daedalusInfo);
-
-            $daedalus = $this->addTitlePrioritiesToDaedalus($daedalus);
-
-            $daedalus = $this->setAvailableCharacters($daedalus);
-
-            $daedalusEvent = new DaedalusInitEvent(
-                $daedalus,
-                $daedalusConfig,
-                [EventEnum::CREATE_DAEDALUS],
-                new \DateTime()
-            );
-            $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
-            $this->entityManager->commit();
-        } catch (\Throwable $throwable) {
-            $this->entityManager->rollback();
-            $this->entityManager->close();
-
-            throw $throwable;
+        $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
+        if ($localizationConfig === null) {
+            throw new \Exception('there is no localizationConfig for this language');
         }
+
+        $neron = new Neron();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setName($name)
+            ->setNeron($neron);
+        $this->persistDaedalusInfo($daedalusInfo);
+
+        $daedalus = $this->addTitlePrioritiesToDaedalus($daedalus);
+
+        $daedalusEvent = new DaedalusInitEvent(
+            $daedalus,
+            $daedalusConfig,
+            [EventEnum::CREATE_DAEDALUS],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
 
         return $daedalus;
     }
@@ -302,7 +288,7 @@ class DaedalusService implements DaedalusServiceInterface
         $chancesArray = [];
 
         /** @var CharacterConfig $characterConfig */
-        foreach ($daedalus->getAvailableCharacters() as $characterConfig) {
+        foreach ($gameConfig->getCharactersConfig() as $characterConfig) {
             if ($characterConfig
                 ->getInitStatuses()
                 ->map(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName())
@@ -311,11 +297,11 @@ class DaedalusService implements DaedalusServiceInterface
                 continue;
             }
 
-            if ($daedalus->getPlayers()->getPlayerByName($characterConfig->getName())?->hasStatus(PlayerStatusEnum::BEGINNER)) {
-                $mushChance = 1;
-            } else {
-                $mushChance = 2;
-            }
+            /**
+             * @TODO lower $mushChance if user is a beginner
+             * @TODO (maybe add a "I want to be mush" setting to increase this proba)
+             */
+            $mushChance = 1;
             $chancesArray[$characterConfig->getCharacterName()] = $mushChance;
         }
 
@@ -461,7 +447,7 @@ class DaedalusService implements DaedalusServiceInterface
     public function attributeTitles(Daedalus $daedalus, \DateTime $date): void
     {
         // Get the names of all alive players
-        $players = $daedalus->getPlayers()->getPlayersEligibleForTitle();
+        $players = $daedalus->getActivePlayers();
 
         foreach ($daedalus->getTitlePriorities() as $titlePriority) {
             $titleAssigned = false;
@@ -502,8 +488,8 @@ class DaedalusService implements DaedalusServiceInterface
             }
         }
 
-        // remove titles from inactive and mutated players
-        $inactivePlayers = $daedalus->getAlivePlayers()->getPlayersIneligibleForTitle();
+        // remove titles from inactive players
+        $inactivePlayers = $daedalus->getAlivePlayers()->getInactivePlayers();
         foreach ($daedalus->getTitlePriorities() as $titlePriority) {
             foreach ($titlePriority->getPriority() as $playerName) {
                 $player = $inactivePlayers->getPlayerByName($playerName);
@@ -516,33 +502,6 @@ class DaedalusService implements DaedalusServiceInterface
                 $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_REMOVED);
             }
         }
-    }
-
-    /**
-     * @deprecated do not call outside of DaedalusService and tests/cests
-     */
-    public function setAvailableCharacters(Daedalus $daedalus): Daedalus
-    {
-        $allCharacters = $daedalus->getGameConfig()->getCharactersConfig();
-        $playerCount = $daedalus->getDaedalusConfig()->getPlayerCount();
-
-        if ($daedalus->getDaedalusConfig()->getHoliday() === HolidayEnum::APRIL_FOOLS) {
-            $randomCharacters = $this->randomService->getRandomElements($allCharacters->toArray(), $playerCount);
-            $daedalus->setAvailableCharacters(new CharacterConfigCollection());
-            foreach ($randomCharacters as $randomCharacter) {
-                $daedalus->addAvailableCharacter($randomCharacter);
-            }
-        } else {
-            $allCharacters = $this->handleChaolaToggle($allCharacters, $daedalus);
-            while ($playerCount < $allCharacters->count()) {
-                // This should never trigger until playerCount is something different than 16, so doesn't matter for now. this is a failsafe for curious people messing with PlayerCount
-                $randomCharacter = $this->randomService->getRandomElement($allCharacters->toArray());
-                $allCharacters->removeElement($randomCharacter);
-            }
-            $daedalus->setAvailableCharacters($allCharacters);
-        }
-
-        return $daedalus;
     }
 
     private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): ?Player
@@ -599,22 +558,5 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         return $daedalus;
-    }
-
-    private function handleChaolaToggle(CharacterConfigCollection $characterCollection, Daedalus $daedalus): CharacterConfigCollection
-    {
-        $chaolaToggle = $daedalus->getDaedalusConfig()->getChaolaToggle();
-
-        $charactersToRemove = match ($chaolaToggle) {
-            CharacterSetEnum::ALL => [],
-            CharacterSetEnum::NONE => CharacterEnum::allPairs(),
-            CharacterSetEnum::ANDIE_DEREK => CharacterEnum::chaolaPair(),
-            CharacterSetEnum::FINOLA_CHAO => CharacterEnum::andrekPair(),
-            CharacterSetEnum::ONE => $this->randomService->isSuccessful(50) ? CharacterEnum::andrekPair() : CharacterEnum::chaolaPair(),
-            CharacterSetEnum::RANDOM => $this->randomService->getRandomElements(CharacterEnum::allPairs(), 2),
-            default => throw new \RuntimeException("Invalid value for chaolaToggle: {$chaolaToggle}"),
-        };
-
-        return $characterCollection->getAllExcept($charactersToRemove);
     }
 }

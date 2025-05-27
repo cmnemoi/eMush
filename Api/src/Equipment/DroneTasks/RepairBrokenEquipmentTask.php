@@ -9,6 +9,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\DroneRepairedEvent;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
+use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -18,22 +19,16 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
         protected EventServiceInterface $eventService,
         protected StatusServiceInterface $statusService,
         private D100RollServiceInterface $d100Roll,
+        private GetRandomElementsFromArrayServiceInterface $getRandomElementsFromArray,
     ) {
         parent::__construct($this->eventService, $this->statusService);
     }
 
     protected function applyEffect(Drone $drone, \DateTime $time): void
     {
-        if ($drone->cannotApplyTask($this)) {
-            $this->taskNotApplicable = true;
-
-            return;
-        }
-
+        // If there is no broken equipment in the room, the task is not applicable.
         $equipmentToRepair = $this->getEquipmentToRepair($drone);
-
         if (!$equipmentToRepair) {
-            // This should never happen, but throwing an exception would stall games if it ever did
             $this->taskNotApplicable = true;
 
             return;
@@ -57,8 +52,12 @@ class RepairBrokenEquipmentTask extends AbstractDroneTask
     private function getEquipmentToRepair(Drone $drone): ?GameEquipment
     {
         $brokenRoomEquipment = $drone->getBrokenDoorsAndEquipmentsInRoom();
+        $equipmentToRepair = $this->getRandomElementsFromArray->execute(
+            elements: $brokenRoomEquipment->toArray(),
+            number: 1
+        )->first();
 
-        return $brokenRoomEquipment->first() ?: null;
+        return $equipmentToRepair ?: null;
     }
 
     private function repairEquipment(Drone $drone, GameEquipment $equipmentToRepair, \DateTime $time): void

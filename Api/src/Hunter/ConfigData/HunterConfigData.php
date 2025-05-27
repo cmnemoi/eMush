@@ -2,7 +2,6 @@
 
 namespace Mush\Hunter\ConfigData;
 
-use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Hunter\Enum\HunterEnum;
@@ -32,14 +31,13 @@ class HunterConfigData
                 ToolItemEnum::SPACE_CAPSULE => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 2,
+                1 => 1,
                 2 => 1,
                 3 => 1,
             ],
             'targetProbabilities' => [
                 HunterTargetEnum::PATROL_SHIP => 0,
                 HunterTargetEnum::PLAYER => 0,
-                HunterTargetEnum::TRANSPORT => 0,
             ],
             'bonusAfterFailedShot' => 0,
             'numberOfActionsPerCycle' => 1,
@@ -67,7 +65,7 @@ class HunterConfigData
                 ItemEnum::PLASTIC_SCRAPS => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 2,
+                1 => 1,
                 2 => 1,
                 3 => 1,
                 4 => 1,
@@ -75,7 +73,6 @@ class HunterConfigData
             'targetProbabilities' => [
                 HunterTargetEnum::PATROL_SHIP => 15,
                 HunterTargetEnum::PLAYER => 5,
-                HunterTargetEnum::TRANSPORT => 20,
             ],
             'bonusAfterFailedShot' => 10,
             'numberOfActionsPerCycle' => 3,
@@ -102,13 +99,12 @@ class HunterConfigData
                 ItemEnum::PLASTIC_SCRAPS => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 2,
+                1 => 1,
                 2 => 1,
             ],
             'targetProbabilities' => [
                 HunterTargetEnum::PATROL_SHIP => 15,
                 HunterTargetEnum::PLAYER => 5,
-                HunterTargetEnum::TRANSPORT => 20,
             ],
             'bonusAfterFailedShot' => 10,
             'numberOfActionsPerCycle' => 1,
@@ -135,13 +131,12 @@ class HunterConfigData
                 ItemEnum::PLASTIC_SCRAPS => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 2,
+                1 => 1,
                 2 => 1,
             ],
             'targetProbabilities' => [
                 HunterTargetEnum::PATROL_SHIP => 15,
                 HunterTargetEnum::PLAYER => 5,
-                HunterTargetEnum::TRANSPORT => 20,
             ],
             'bonusAfterFailedShot' => 10,
             'numberOfActionsPerCycle' => 1,
@@ -167,64 +162,16 @@ class HunterConfigData
                 ItemEnum::PLASTIC_SCRAPS => 1,
             ],
             'numberOfDroppedScrap' => [
-                1 => 2,
+                1 => 1,
                 2 => 1,
                 3 => 1,
             ],
             'targetProbabilities' => [
                 HunterTargetEnum::PATROL_SHIP => 15,
                 HunterTargetEnum::PLAYER => 5,
-                HunterTargetEnum::TRANSPORT => 20,
             ],
             'bonusAfterFailedShot' => 10,
             'numberOfActionsPerCycle' => 1,
         ],
-        [
-            'name' => HunterEnum::TRANSPORT . '_default',
-            'hunterName' => HunterEnum::TRANSPORT,
-            'initialHealth' => 16,
-            'initialStatuses' => [],
-            'damageRange' => [0 => 1],
-            'hitChance' => 0,
-            'dodgeChance' => 0,
-            'drawCost' => 0,
-            'maxPerWave' => 0,
-            'drawWeight' => 0,
-            'spawnDifficulty' => 0,
-            'scrapDropTable' => [
-                GameRationEnum::STANDARD_RATION => 35,
-                ItemEnum::METAL_SCRAPS => 20,
-                ToolItemEnum::SPACE_CAPSULE => 15,
-                ItemEnum::BLASTER => 10,
-                ItemEnum::GRENADE => 10,
-                ItemEnum::LUNCHBOX => 10,
-                ItemEnum::PLASTIC_SCRAPS => 10,
-                ToolItemEnum::BANDAGE => 10,
-                ItemEnum::HYDROPOT => 1,
-            ],
-            'numberOfDroppedScrap' => [
-                1 => 2,
-                2 => 1,
-                3 => 1,
-                4 => 1,
-            ],
-            'targetProbabilities' => [
-                HunterTargetEnum::PATROL_SHIP => 0,
-                HunterTargetEnum::PLAYER => 0,
-            ],
-            'bonusAfterFailedShot' => 0,
-            'numberOfActionsPerCycle' => 0,
-        ],
     ];
-
-    public static function getByName(string $name): array
-    {
-        foreach (self::$dataArray as $data) {
-            if ($data['hunterName'] === $name) {
-                return $data;
-            }
-        }
-
-        throw new \Exception("Hunter config not found: {$name}");
-    }
 }

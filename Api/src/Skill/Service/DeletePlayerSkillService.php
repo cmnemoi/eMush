@@ -12,16 +12,13 @@ use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Event\SkillDeletedEvent;
 use Mush\Skill\Repository\SkillRepositoryInterface;
-use Mush\Status\Enum\SkillPointsEnum;
-use Mush\Status\Service\StatusServiceInterface;
 
 final class DeletePlayerSkillService
 {
     public function __construct(
         private EventServiceInterface $eventService,
         private ModifierCreationServiceInterface $modifierCreationService,
-        private SkillRepositoryInterface $skillRepository,
-        private StatusServiceInterface $statusService,
+        private SkillRepositoryInterface $skillRepository
     ) {}
 
     public function execute(SkillEnum $skillName, Player $player): void
@@ -29,8 +26,7 @@ final class DeletePlayerSkillService
         $skill = $player->getSkillByNameOrThrow($skillName);
 
         $this->deleteSkillModifiers($skill);
-        $this->deleteSkillPoints($skill);
-        $this->deleteSkill($skill);
+        $this->skillRepository->delete($skill);
         $this->dispatchSkillDeletedEvent($skill);
     }
 
@@ -55,21 +51,6 @@ final class DeletePlayerSkillService
                 time: $now
             );
         }
-    }
-
-    private function deleteSkillPoints(Skill $skill): void
-    {
-        $this->statusService->removeStatus(
-            statusName: SkillPointsEnum::fromSkill($skill)->toString(),
-            holder: $skill->getPlayer(),
-            tags: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function deleteSkill(Skill $skill): void
-    {
-        $this->skillRepository->delete($skill);
     }
 
     private function dispatchSkillDeletedEvent(Skill $skill): void

@@ -12,5 +12,4 @@ abstract class EventEnum
     public const string FIRE = 'fire';
     public const string PLANT_PRODUCTION = 'plant_production';
     public const string NEW_MESSAGE = 'new_message';
-    public const string PRINT_DOCUMENT = 'print_document';
 }

@@ -7,11 +7,12 @@
     "etwin": "eternaltwin"
   },
   "devDependencies": {
-    "@eternaltwin/cli": "^0.16.0"
+    "@eternaltwin/cli": "^0.14.3"
   },
   "workspaces": {
     "packages": [
       "App"
     ]
-  }
+  },
+  "packageManager": "yarn@4.5.1"
 }

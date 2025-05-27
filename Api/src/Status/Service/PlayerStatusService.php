@@ -13,7 +13,7 @@ class PlayerStatusService implements PlayerStatusServiceInterface
     public const STARVING_WARNING_STATUS_THRESHOLD = -23;
     public const STARVING_STATUS_THRESHOLD = -24;
     public const SUICIDAL_THRESHOLD = 1;
-    public const DEMORALIZED_THRESHOLD = 5;
+    public const DEMORALIZED_THRESHOLD = 3;
 
     private StatusServiceInterface $statusService;
 

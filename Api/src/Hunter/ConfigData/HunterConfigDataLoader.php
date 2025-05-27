@@ -3,20 +3,29 @@
 namespace Mush\Hunter\ConfigData;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mush\Action\Repository\ActionConfigRepository;
 use Mush\Game\ConfigData\ConfigDataLoader;
 use Mush\Game\Entity\Collection\ProbaCollection;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Repository\HunterConfigRepository;
 use Mush\Status\Repository\StatusConfigRepository;
 
-final class HunterConfigDataLoader extends ConfigDataLoader
+class HunterConfigDataLoader extends ConfigDataLoader
 {
+    private ActionConfigRepository $actionConfigRepository;
+    private HunterConfigRepository $hunterConfigRepository;
+    private StatusConfigRepository $statusConfigRepository;
+
     public function __construct(
         EntityManagerInterface $entityManager,
-        private HunterConfigRepository $hunterConfigRepository,
-        private StatusConfigRepository $statusConfigRepository,
+        ActionConfigRepository $actionConfigRepository,
+        HunterConfigRepository $hunterConfigRepository,
+        StatusConfigRepository $statusConfigRepository
     ) {
         parent::__construct($entityManager);
+        $this->actionConfigRepository = $actionConfigRepository;
+        $this->hunterConfigRepository = $hunterConfigRepository;
+        $this->statusConfigRepository = $statusConfigRepository;
     }
 
     public function loadConfigsData(): void
@@ -45,8 +54,7 @@ final class HunterConfigDataLoader extends ConfigDataLoader
                 ->setScrapDropTable(new ProbaCollection($hunterConfigData['scrapDropTable']))
                 ->setNumberOfDroppedScrap($hunterConfigData['numberOfDroppedScrap'])
                 ->setTargetProbabilities($hunterConfigData['targetProbabilities'])
-                ->setBonusAfterFailedShot($hunterConfigData['bonusAfterFailedShot'])
-                ->setNumberOfActionsPerCycle($hunterConfigData['numberOfActionsPerCycle']);
+                ->setBonusAfterFailedShot($hunterConfigData['bonusAfterFailedShot']);
             $this->setHunterConfigInitialStatuses($hunterConfig, $hunterConfigData);
 
             $this->entityManager->persist($hunterConfig);

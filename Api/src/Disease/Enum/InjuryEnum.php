@@ -34,11 +34,4 @@ abstract class InjuryEnum
     public const string MASHED_ARMS = 'mashed_arms';
     public const string MASHED_LEGS = 'mashed_legs';
     public const string TORN_TONGUE = 'torn_tongue';
-
-    public static function getAll(): array
-    {
-        $reflectionClass = new \ReflectionClass(__CLASS__);
-
-        return $reflectionClass->getConstants();
-    }
 }

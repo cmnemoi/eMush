@@ -8,12 +8,10 @@ export class Hunter {
     public health!: integer;
     public charges: integer|null;
     public actions: Array<Action>;
-    public transportImage: string|null;
 
     constructor() {
         this.charges = null;
         this.actions = new Array<Action>();
-        this.transportImage = null;
     }
 
     public load(object: any): Hunter {
@@ -27,7 +25,6 @@ export class Hunter {
             object.actions.forEach((actionObject: any) => {
                 this.actions.push((new Action).load(actionObject));
             });
-            this.transportImage = object.transportImage;
         }
 
         return this;

@@ -9,7 +9,6 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Place\Entity\Place;
@@ -124,10 +123,10 @@ final class GameEquipmentRepositoryCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus]);
 
         /** @var EquipmentConfig $breakableConfig */
-        $breakableConfig = $I->have(EquipmentConfig::class, ['name' => 'breakable_test', 'breakableType' => BreakableTypeEnum::BREAKABLE]);
+        $breakableConfig = $I->have(EquipmentConfig::class, ['name' => 'breakable_test', 'isBreakable' => true]);
 
         /** @var EquipmentConfig $unbreakableConfig */
-        $unbreakableConfig = $I->have(ItemConfig::class, ['name' => 'unbreakable_test', 'breakableType' => BreakableTypeEnum::NONE]);
+        $unbreakableConfig = $I->have(ItemConfig::class, ['name' => 'unbreakable_test', 'isBreakable' => false]);
 
         $breakableEquipment = new GameEquipment($room);
         $breakableEquipment
@@ -142,67 +141,19 @@ final class GameEquipmentRepositoryCest
         $I->haveInRepository($unbreakableItem);
 
         $criteria = new GameEquipmentCriteria($daedalus);
-        $criteria->setBreakableType(BreakableTypeEnum::BREAKABLE->value);
+        $criteria->setBreakable(true);
 
         $result = $this->repository->findByCriteria($criteria);
 
         $I->assertCount(1, $result);
         $I->assertContains($breakableEquipment, $result);
 
-        $criteria->setBreakableType(BreakableTypeEnum::NONE->value);
+        $criteria->setBreakable(false);
 
         $result = $this->repository->findByCriteria($criteria);
 
         $I->assertCount(1, $result);
         $I->assertContains($unbreakableItem, $result);
-    }
-
-    public function testFindByPersonal(FunctionalTester $I)
-    {
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['gameConfig' => $gameConfig]);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus]);
-
-        /** @var EquipmentConfig $personalConfig */
-        $personalConfig = $I->have(EquipmentConfig::class, ['name' => 'personal_test', 'isPersonal' => true]);
-
-        /** @var EquipmentConfig $nonPersonalConfig */
-        $nonPersonalConfig = $I->have(ItemConfig::class, ['name' => 'nonpersonal_test', 'isPersonal' => false]);
-
-        $personalEquipment = new GameEquipment($room);
-        $personalEquipment
-            ->setName('equipment 1')
-            ->setEquipment($personalConfig);
-        $I->haveInRepository($personalEquipment);
-
-        $nonPersonalItem = new GameItem($player);
-        $nonPersonalItem
-            ->setName('item 2')
-            ->setEquipment($nonPersonalConfig);
-        $I->haveInRepository($nonPersonalItem);
-
-        $criteria = new GameEquipmentCriteria($daedalus);
-        $criteria->setPersonal(true);
-
-        $result = $this->repository->findByCriteria($criteria);
-
-        $I->assertCount(1, $result);
-        $I->assertContains($personalEquipment, $result);
-
-        $criteria->setPersonal(false);
-
-        $result = $this->repository->findByCriteria($criteria);
-
-        $I->assertCount(1, $result);
-        $I->assertContains($nonPersonalItem, $result);
     }
 
     public function testFindByInstanceOf(FunctionalTester $I)

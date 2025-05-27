@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\ConfigData;
 
-use Mush\Chat\Enum\MessageModificationEnum;
-use Mush\Equipment\ConfigData\ReplaceEquipmentConfigData;
+use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Equipment\ConfigData\SpawnEquipmentConfigData;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Project\Enum\ProjectName;
@@ -82,7 +81,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::HEAT_LAMP,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST, SkillEnum::POLYVALENT],
                 'activationRate' => 50,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
@@ -132,7 +131,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::EXTRA_HYDROPONPOTS,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST],
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BOTANIST, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -365,7 +364,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::HYDROPONIC_INCUBATOR,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BOTANIST],
+                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BOTANIST, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -378,7 +377,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::ICARUS_LAVATORY,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 18,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::TECHNICIAN],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::TECHNICIAN, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     'modifier_for_player_prevent_dirty_for_exploration_finished',
@@ -480,7 +479,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::NOISE_REDUCER,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BIOLOGIST],
+                'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::BIOLOGIST, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     'direct_modifier_player_+2_max_actionPoint',
@@ -531,7 +530,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::OXY_MORE,
                 'type' => ProjectType::NERON_PROJECT,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BIOLOGIST],
+                'bonusSkills' => [SkillEnum::TECHNICIAN, SkillEnum::BIOLOGIST, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     'modifier_for_daedalus_+1oxygen_on_change.variable_if_reason_new_cycle_random_20',
@@ -557,7 +556,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::ANABOLICS,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 12,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -570,7 +569,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::ANTISPORE_GAS,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     ModifierNameEnum::DAEDALUS_MINUS_2_MAX_SPORES,
@@ -578,7 +577,6 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],
@@ -586,25 +584,21 @@ abstract class ProjectConfigData
                 'name' => ProjectName::CONSTIPASPORE_SERUM,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
-                'modifierConfigs' => [
-                    ModifierNameEnum::PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE,
-                ],
+                'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
-                    ProjectRequirementName::FOOD_IN_LABORATORY,
                 ],
             ],
             [
                 'name' => ProjectName::MERIDON_SCRAMBLER,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
-                'activationRate' => 20,
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
+                'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
@@ -616,15 +610,12 @@ abstract class ProjectConfigData
                 'name' => ProjectName::MUSHICIDE_SOAP,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
-                'replaceEquipmentConfigs' => [
-                    ReplaceEquipmentConfigData::REPLACE_SOAP_BY_SUPER_SOAP,
-                ],
+                'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::SOAP_IN_LABORATORY,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
@@ -633,7 +624,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::MUSHOVORE_BACTERIA,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 12,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     ModifierNameEnum::PLAYER_PLUS_1_MAX_SPORES,
@@ -641,7 +632,6 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
@@ -650,7 +640,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::MUSH_HUNTER_ZC16H,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
@@ -664,7 +654,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::MUSH_LANGUAGE,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
@@ -677,7 +667,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::MUSH_RACES,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
@@ -690,7 +680,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::MUSH_REPRODUCTIVE_SYSTEM,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 18,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
@@ -704,7 +694,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::MYCOALARM,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -712,7 +702,6 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],
@@ -720,7 +709,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::CREATE_MYCOSCAN,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 4,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -728,7 +717,6 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
                 ],
             ],
@@ -736,11 +724,11 @@ abstract class ProjectConfigData
                 'name' => ProjectName::NARCOTICS_DISTILLER,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
-                    SpawnEquipmentConfigData::ONE_NARCOTICS_DISTILLER_IN_MEDLAB,
+                    SpawnEquipmentConfigData::ONE_NARCOTICS_DISTILLER_IN_LABORATORY,
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [],
@@ -749,15 +737,12 @@ abstract class ProjectConfigData
                 'name' => ProjectName::NATAMY_RIFLE,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
-                'replaceEquipmentConfigs' => [
-                    ReplaceEquipmentConfigData::REPLACE_1_LABORATORY_BY_NATAMY_RIFLE,
-                ],
+                'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::BLASTER_IN_LABORATORY,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
@@ -766,7 +751,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::NCC_CONTACT_LENSES,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 12,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -781,7 +766,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::PATULINE_SCRAMBLER,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
@@ -789,7 +774,6 @@ abstract class ProjectConfigData
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                 ],
             ],
@@ -797,7 +781,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::PERPETUAL_HYDRATION,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
@@ -810,13 +794,12 @@ abstract class ProjectConfigData
                 'name' => ProjectName::PHEROMODEM,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY,
                 ],
@@ -825,7 +808,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::RETRO_FUNGAL_SERUM,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 1,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -833,7 +816,6 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                     ProjectRequirementName::MUSH_PLAYER_DEAD,
                     ProjectRequirementName::CHUN_IN_LABORATORY,
@@ -844,7 +826,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::SPORE_SUCKER,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 4,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -852,7 +834,6 @@ abstract class ProjectConfigData
                 ],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
-                    ProjectRequirementName::GAME_STARTED,
                     ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY,
                 ],
             ],
@@ -860,7 +841,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::SUPER_CALCULATOR,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 3,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [
@@ -875,12 +856,9 @@ abstract class ProjectConfigData
                 'name' => ProjectName::TESLA_SUP2X,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 12,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
-                'modifierConfigs' => [
-                    ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4,
-                    ModifierNameEnum::TURRET_CHARGES_PLUS_8,
-                ],
+                'modifierConfigs' => [],
                 'spawnEquipmentConfigs' => [],
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
@@ -891,7 +869,7 @@ abstract class ProjectConfigData
                 'name' => ProjectName::ULTRA_HEALING_POMADE,
                 'type' => ProjectType::RESEARCH,
                 'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC, SkillEnum::POLYVALENT],
                 'activationRate' => 100,
                 'modifierConfigs' => [
                     ModifierNameEnum::PLUS_1_HEALTH_POINTS_ON_HEAL,
@@ -900,21 +878,6 @@ abstract class ProjectConfigData
                 'replaceEquipmentConfigs' => [],
                 'requirements' => [
                     ProjectRequirementName::MEDIKIT_IN_LABORATORY,
-                ],
-            ],
-            [
-                'name' => ProjectName::GUARANA_CAPPUCCINO,
-                'type' => ProjectType::RESEARCH,
-                'efficiency' => 6,
-                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
-                'activationRate' => 100,
-                'modifierConfigs' => [
-                    ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE,
-                ],
-                'spawnEquipmentConfigs' => [],
-                'replaceEquipmentConfigs' => [],
-                'requirements' => [
-                    ProjectRequirementName::COFFEE_IN_LABORATORY,
                 ],
             ],
         ];

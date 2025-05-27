@@ -12,6 +12,4 @@ interface PlayerInfoRepositoryInterface
     public function getCurrentPlayerInfoForUserOrNull(User $user): ?PlayerInfo;
 
     public function findOneByUserAndGameStatusOrNull(User $user, string $gameStatus): ?PlayerInfo;
-
-    public function save(PlayerInfo $playerInfo): void;
 }

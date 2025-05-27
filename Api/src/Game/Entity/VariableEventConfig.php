@@ -161,6 +161,7 @@ class VariableEventConfig extends AbstractEventConfig
         if (!$variableHolder instanceof Player) {
             throw new \Exception('a player should be provided to create a playerVariableEvent');
         }
+
         if ($variableHolder->hasVariable($this->targetVariable)) {
             return new PlayerVariableEvent($variableHolder, $this->targetVariable, $this->quantity, $tags, $date);
         }

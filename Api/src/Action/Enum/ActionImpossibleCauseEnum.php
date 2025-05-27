@@ -117,26 +117,4 @@ abstract class ActionImpossibleCauseEnum
     public const string CAT_ALREADY_CONVERTED = 'cat_already_converted';
     public const string INFECT_CAT_NO_SPORE = 'infect_cat_no_spore';
     public const string PLAYER_IS_GERMAPHOBIC = 'player_is_germaphobic';
-    public const string EDEN_NOT_COMPUTED = 'eden_not_computed';
-    public const string LINK_WITH_SOL_NOT_ESTABLISHED = 'link_with_sol_not_established';
-    public const string MAX_NERON_VERSION_REACHED = 'max_neron_version_reached';
-    public const string TRADE_TERMS_NOT_MET = 'trade_terms_not_met';
-    public const string CYCLE_LIMIT_EVERY_4 = 'cycle_limit_every_4';
-    public const string CYCLE_LIMIT_EVERY_2 = 'cycle_limit_every_2';
-
-    // April Fools Dog messages
-    public const string DOG_IS_SEASICK = 'dog_is_seasick';
-    public const string NEED_A_BALL = 'need_a_ball';
-    public const string BOTHERING_CAT = 'bothering_cat';
-    public const string HANDS_FULL = 'hands_full';
-    public const string DOG_IS_WORRIED = 'dog_is_worried';
-    public const string ROOM_TOO_MESSY = 'room_too_messy';
-    public const string ROOM_TOO_SMALL = 'room_too_small';
-    public const string ROOM_TOO_TIGHT = 'room_too_tight';
-    public const string ROOM_TOO_SAD = 'room_too_sad';
-    public const string DISTRACTED_BY_FOOD = 'distracted_by_food';
-    public const string DISTRACTED_BY_PLANT = 'distracted_by_plant';
-    public const string DISTRACTED_BY_BROKEN_FUEL_TANK = 'distracted_by_broken_fuel_tank';
-    public const string WANTS_WALKIES = 'wants_walkies';
-    public const string PLAYTIME_SOLO = 'playtime_solo';
 }

@@ -4,10 +4,8 @@ namespace Mush\Tests\unit\Equipment\Normalizer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mockery;
-use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -18,7 +16,6 @@ use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Entity\GameConfig;
@@ -29,12 +26,9 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Factory\StatusFactory;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
@@ -62,10 +56,9 @@ final class EquipmentNormalizerTest extends TestCase
         $this->equipmentEffectService = \Mockery::mock(EquipmentEffectServiceInterface::class);
 
         $this->normalizer = new EquipmentNormalizer(
-            $this->consumableDiseaseService,
-            $this->equipmentEffectService,
-            $this->createStub(RebelBaseRepositoryInterface::class),
             $this->translationService,
+            $this->consumableDiseaseService,
+            $this->equipmentEffectService
         );
     }
 
@@ -97,7 +90,6 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $equipment->shouldReceive('getPlace')->andReturn($place);
-        $equipment->shouldReceive('getClassName')->andReturn(GameEquipment::class);
         $equipment->makePartial();
 
         $equipment
@@ -153,7 +145,6 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $time = new \DateTime();
         $equipment->shouldReceive('getUpdatedAt')->andReturn($time);
-        $equipment->shouldReceive('getClassName')->andReturn(GameItem::class);
         $equipment->makePartial();
 
         $equipment
@@ -217,7 +208,6 @@ final class EquipmentNormalizerTest extends TestCase
         $equipment->shouldReceive('getStatuses')->andReturn(new ArrayCollection([]));
         $equipment->shouldReceive('getHolder')->andReturn($place);
         $equipment->shouldReceive('getPlace')->andReturn($place);
-        $equipment->shouldReceive('getClassName')->andReturn(GameEquipment::class);
         $equipment->makePartial();
 
         $equipment
@@ -293,7 +283,6 @@ final class EquipmentNormalizerTest extends TestCase
         $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(false);
         $time = new \DateTime();
         $bananaTree->shouldReceive('getUpdatedAt')->andReturn($time);
-        $bananaTree->shouldReceive('getClassName')->andReturn(GameItem::class);
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);
@@ -357,7 +346,6 @@ final class EquipmentNormalizerTest extends TestCase
         $bananaTree->shouldReceive('hasStatus')->with(EquipmentStatusEnum::PLANT_YOUNG)->andReturn(true);
         $time = new \DateTime();
         $bananaTree->shouldReceive('getUpdatedAt')->andReturn($time);
-        $bananaTree->shouldReceive('getClassName')->andReturn(GameItem::class);
         $bananaTree->makePartial();
 
         $bananaTree->setEquipment($bananaTreeConfig);
@@ -390,69 +378,5 @@ final class EquipmentNormalizerTest extends TestCase
 
         self::assertIsArray($data);
         self::assertSame($expected, $data);
-    }
-
-    /**
-     * @dataProvider provideShouldNormalizeDroneUpgradesCases
-     */
-    public function testShouldNormalizeDroneUpgrades(string $upgrade): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-
-        $drone = GameEquipmentFactory::createDroneForHolder($player);
-        StatusFactory::createStatusByNameForHolder($upgrade, $drone);
-
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with($upgrade . '.description', [], 'status', LanguageEnum::FRENCH)
-            ->andReturn($upgrade)
-            ->once();
-
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('current_upgrades', [], 'misc', LanguageEnum::FRENCH)
-            ->andReturn('Current upgrades:')
-            ->once();
-
-        $this->translationService->shouldIgnoreMissing();
-
-        $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
-        $normalizedDrone = $this->normalizer->normalize($drone, null, ['currentPlayer' => $player]);
-
-        self::assertEquals(
-            [
-                'title' => 'Current upgrades:',
-                'effects' => [
-                    $upgrade,
-                ],
-            ],
-            $normalizedDrone['effects']
-        );
-    }
-
-    public function testShouldNormalizeDroneWithNoUpgrades(): void
-    {
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-
-        $drone = GameEquipmentFactory::createDroneForHolder($player);
-
-        $this->translationService->shouldIgnoreMissing();
-
-        $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
-        $normalizedDrone = $this->normalizer->normalize($drone, null, ['currentPlayer' => $player]);
-
-        self::assertEquals([], $normalizedDrone['effects']);
-    }
-
-    public static function provideShouldNormalizeDroneUpgradesCases(): iterable
-    {
-        return [
-            [EquipmentStatusEnum::TURBO_DRONE_UPGRADE],
-            [EquipmentStatusEnum::PILOT_DRONE_UPGRADE],
-            [EquipmentStatusEnum::SENSOR_DRONE_UPGRADE],
-            [EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE],
-        ];
     }
 }

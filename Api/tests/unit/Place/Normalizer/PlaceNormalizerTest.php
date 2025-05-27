@@ -257,53 +257,6 @@ final class PlaceNormalizerTest extends TestCase
         self::assertSame($expected, $data);
     }
 
-    public function testDoorsAreNotNormalizedAsEquipment()
-    {
-        // Create two rooms
-        $room1 = new Place();
-        $room1->setName(RoomEnum::BRIDGE);
-
-        $room2 = new Place();
-        $room2->setName(RoomEnum::LABORATORY);
-
-        // Create a door between the rooms
-        $door = Door::createFromRooms($room1, $room2);
-
-        // Mock the room that will be normalized
-        $room = $this->createMock(Place::class);
-        $room->method('getName')->willReturn(RoomEnum::BRIDGE);
-        $room->method('getPlayers')->willReturn(new PlayerCollection());
-        $room->method('getId')->willReturn(1);
-        $room->method('getDoors')->willReturn(new ArrayCollection());
-        $room->method('getEquipments')->willReturn(new ArrayCollection([$door]));
-        $room->method('getStatuses')->willReturn(new ArrayCollection());
-        $room->method('getType')->willReturn(PlaceTypeEnum::ROOM);
-
-        $this->translationService->shouldReceive('translate')->andReturn('translated')->once();
-
-        $normalizer = \Mockery::mock(NormalizerInterface::class);
-        $normalizer->shouldReceive('normalize')->andReturn([])->never();
-
-        $this->normalizer->setNormalizer($normalizer);
-
-        $data = $this->normalizer->normalize($room, null, ['currentPlayer' => new Player()]);
-
-        $expected = [
-            'id' => 1,
-            'key' => RoomEnum::BRIDGE,
-            'name' => 'translated',
-            'statuses' => [],
-            'doors' => [],
-            'players' => [],
-            'items' => [],
-            'equipments' => [], // Door should not be here
-            'type' => PlaceTypeEnum::ROOM,
-        ];
-
-        self::assertIsArray($data);
-        self::assertSame($expected, $data);
-    }
-
     private function createGameItem(string $name, $isStackable = false): GameItem
     {
         $gameItem = new GameItem(new Place());

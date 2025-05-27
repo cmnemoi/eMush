@@ -2,8 +2,9 @@
 
 namespace Mush\Tests\functional\Disease\Listener;
 
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -30,6 +31,7 @@ use Mush\Project\Entity\ProjectConfig;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -48,7 +50,7 @@ class PlayerCycleSubscriberCest
     public function testOnPlayerCycle(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -121,7 +123,7 @@ class PlayerCycleSubscriberCest
     public function testOnPlayerCycleSpontaneousCure(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -194,7 +196,7 @@ class PlayerCycleSubscriberCest
     public function testOnPlayerCycleDiseaseAppear(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -274,7 +276,7 @@ class PlayerCycleSubscriberCest
     public function testOnPlayerCycleBitingSymptom(FunctionalTester $I): void
     {
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->have(GameConfig::class);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -372,8 +374,11 @@ class PlayerCycleSubscriberCest
 
     public function testOnPlayerCycleDirtinessSymptom(FunctionalTester $I): void
     {
+        /** @var StatusConfig $dirtyStatus */
+        $dirtyStatus = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::DIRTY]);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$dirtyStatus])]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);

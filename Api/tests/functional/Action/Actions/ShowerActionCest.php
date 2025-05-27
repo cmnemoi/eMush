@@ -8,11 +8,12 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
+use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -117,6 +118,18 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $mushStatus = new ChargeStatus($this->player1, $mushStatusConfig);
         $I->haveInRepository($mushStatus);
 
+        /** @var VariableEventModifierConfig $mushShowerModifierConfig */
+        $mushShowerModifierConfig = current($I->grabEntitiesFromRepository(
+            TriggerEventModifierConfig::class,
+            [
+                'name' => ModifierNameEnum::MUSH_SHOWER_MALUS, ]
+        ));
+        $mushShowerModifier = new GameModifier($this->player1, $mushShowerModifierConfig);
+        $mushShowerModifier->setModifierProvider($this->player1);
+        $I->haveInRepository($mushShowerModifier);
+
+        $I->refreshEntities($this->player1);
+
         /** @var EquipmentConfig $equipmentConfig */
         $equipmentConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::SHOWER]);
 
@@ -138,7 +151,7 @@ final class ShowerActionCest extends AbstractFunctionalTest
 
         $this->showerAction->execute();
 
-        $I->assertEqualsWithDelta($this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3.5, $this->player1->getHealthPoint(), 0.5);
+        $I->assertEquals($this->player1->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3, $this->player1->getHealthPoint());
         $I->assertEquals(
             $this->player1->getPlayerInfo()->getCharacterConfig()->getInitActionPoint() - $this->action->getActionCost(),
             $this->player1->getActionPoint()
@@ -351,12 +364,11 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->showerAction->execute();
 
         // then KT should not have gained any health point, morale point or movement point
-        $expectedKTHealthPointAverage = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3.5; // -3 or -4 from Mush shower malus
-        $expectedKTHealthPointDelta = 0.5;
+        $expectedKTHealthPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitHealthPoint() - 3; // -3 from Mush shower malus
         $expectedKTMoralePoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint();
         $expectedKTMovementPoint = $this->kuanTi->getPlayerInfo()->getCharacterConfig()->getInitMovementPoint();
 
-        $I->assertEqualsWithDelta($expectedKTHealthPointAverage, $this->kuanTi->getHealthPoint(), $expectedKTHealthPointDelta);
+        $I->assertEquals($expectedKTHealthPoint, $this->kuanTi->getHealthPoint());
         $I->assertEquals($expectedKTMoralePoint, $this->kuanTi->getMoralPoint());
         $I->assertEquals($expectedKTMovementPoint, $this->kuanTi->getMovementPoint());
     }
@@ -488,77 +500,12 @@ final class ShowerActionCest extends AbstractFunctionalTest
         $this->thenPlayerShouldBeImmunized($I);
     }
 
-    public function shouldRemoveHumanSporeWithSuperSoap(FunctionalTester $I): void
-    {
-        $this->givenPlayerHasSpores(2);
-
-        $this->givenPlayerHasSuperSoap();
-
-        $this->whenPlayerTakesShower();
-
-        $this->thenPlayerShouldHaveSpores(1, $I);
-    }
-
-    public function shouldNotRemoveMushSporeWithSuperSoap(FunctionalTester $I): void
-    {
-        $this->givenPlayerHasSpores(2);
-
-        $this->givenPlayerHasSuperSoap();
-
-        $this->givenPlayerIsMush();
-
-        $this->whenPlayerTakesShower();
-
-        $this->thenPlayerShouldHaveSpores(2, $I);
-    }
-
-    public function shouldCostOneLessActionPointWithSuperSoap(FunctionalTester $I): void
-    {
-        $this->givenActionCostIs(2);
-
-        $this->givenPlayerHasSuperSoap();
-
-        $this->whenPlayerTriesToTakeShower();
-
-        $this->thenActionCostShouldBe(1, $I);
-    }
-
     private function givenPlayerHasAntiquePerfumeSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::ANTIQUE_PERFUME, $I);
     }
 
-    private function givenPlayerHasSpores(int $spores): void
-    {
-        $this->player->setSpores(2);
-    }
-
-    private function givenPlayerHasSuperSoap(): void
-    {
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::SUPER_SOAPER,
-            equipmentHolder: $this->player,
-            reasons: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function givenPlayerIsMush(): void
-    {
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::MUSH,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime()
-        );
-    }
-
-    private function givenActionCostIs(int $actionCost): void
-    {
-        $this->action->setActionCost($actionCost);
-    }
-
-    private function whenPlayerTriesToTakeShower(): void
+    private function whenPlayerTakesShower(): void
     {
         $this->showerAction->loadParameters(
             actionConfig: $this->action,
@@ -566,26 +513,11 @@ final class ShowerActionCest extends AbstractFunctionalTest
             player: $this->player,
             target: $this->shower
         );
-    }
-
-    private function whenPlayerTakesShower(): void
-    {
-        $this->whenPlayerTriesToTakeShower();
         $this->showerAction->execute();
     }
 
     private function thenPlayerShouldBeImmunized(FunctionalTester $I): void
     {
         $I->assertTrue($this->player->hasStatus(PlayerStatusEnum::ANTIQUE_PERFUME_IMMUNIZED));
-    }
-
-    private function thenPlayerShouldHaveSpores(int $spores, FunctionalTester $I): void
-    {
-        $I->assertEquals($spores, $this->player->getSpores());
-    }
-
-    private function thenActionCostShouldBe(int $actionCost, FunctionalTester $I): void
-    {
-        $I->assertEquals($actionCost, $this->showerAction->getActionPointCost());
     }
 }

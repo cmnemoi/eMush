@@ -22,11 +22,11 @@
         <source>firefighter.name</source>
         <target>Firefighter</target>
       </segment>
-      <segment id="firefighter.description" state="translated">
+      <segment id="firefighter.description" state="final">
         <source>firefighter.description</source>
         <target>The Firefighter has great experience which means they will always succeed when using the extinguisher... and they can also make it without an extinguisher!//
-:point: **Ending a fire** with an extinguisher is always successful.//
-:point: Can **extinguish manually** without an extinguisher.//
+:point: The **Extinguish Fire** action is always successful.//
+:point: Enables the action **Extinguish Manually**.//
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
@@ -35,13 +35,13 @@
         <source>pilot.name</source>
         <target>Pilot</target>
       </segment>
-      <segment id="pilot.description" state="translated">
+      <segment id="pilot.description" state="final">
         <source>pilot.description</source>
         <target>An expert in manoeuvring the Icarus, Pasiphae and Patroller craft. Their aerial mastery is impressive.
 //
-:point: **Doubled** odds of successful Patrol Craft shots.
+:point: **Doubled** chance of Patroller hit.
 //
-:point: **Never fails** landings and take-offs.
+:point: **Never misses** landings and take-offs.
 //
 :point: Bonus for developing certain **NERON projects**.</target>
       </segment>
@@ -77,9 +77,11 @@
         <source>physicist.name</source>
         <target>Physicist</target>
       </segment>
-      <segment id="physicist.description" state="translated">
+      <segment id="physicist.description" state="final">
         <source>physicist.description</source>
-        <target>The physicist is a high flier in the field of physics research. Their understanding of quantum mechanics and even the essence of the strings that make up our universe is their major talent. They also have the advantage when repairing PILGRED.//:point: +1 :pa_pilgred: per day (**PILGRED repair** Action Point).//:point: Bonus for developing certain **NERON projects** and **repairing PILGRED**.</target>
+        <target>The physicist is a high flier in the field of physics research. Their understanding of quantum mechanics and even the essence of the strings that make up our universe is their major talent. They also have the advantage when repairing PILGRED.//
+:point: +1 :pa_pilgred: per day (**PILGRED repair** Action Point).//
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="technician">
@@ -87,15 +89,14 @@
         <source>technician.name</source>
         <target>Technician</target>
       </segment>
-      <segment id="technician.description" state="translated">
+      <segment id="technician.description" state="final">
         <source>technician.description</source>
         <target>Qualified to repair materials, equipment and the hull of the Daedalus.//
 :point: +1 :pa_eng: per day (**Repair** Action Point).//
 :point: Can **Dismantle** objects.//
-:point: Can **Reinforce** objects.//
 :point: Chances to perform successful **Repairs** doubled.//
 :point: Chances to perform successful **Renovations** doubled.//
-:point: Bonus for developing certain **NERON projects** and **repairing PILGRED**.</target>
+:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="astrophysicist">
@@ -103,12 +104,9 @@
         <source>astrophysicist.name</source>
         <target>Astrophysicist</target>
       </segment>
-      <segment id="astrophysicist.description" state="translated">
+      <segment id="astrophysicist.description" state="final">
         <source>astrophysicist.description</source>
-        <target>Skilled in scanning for planets in range or to determine their composition.//
-:point: **Scanning** for new planets costs 1 less :pa:.//
-:point: **Analyzing** found planets uncovers one additional planet property.//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Skilled in scanning for planets in range or to determine their composition.//:point: The **Scan** action costs 1 less :pa:.//:point:The **Analyze** action discovers one additional planet property.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="computer">
@@ -116,12 +114,9 @@
         <source>it_expert.name</source>
         <target>IT Expert</target>
       </segment>
-      <segment id="it_expert.description" state="translated">
+      <segment id="it_expert.description" state="final">
         <source>it_expert.description</source>
-        <target>The IT Expert is at home as soon as they are in front of a screen. They manipulate the nexus, navigation and communications terminals with ease.//
-:point: +2 :pa_comp: per day (**IT** Action Points).//
-:point: Odds of success are doubled when using the **Hacker Kit**.//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>The IT Expert is at home as soon as they are in front of a screen. They manipulate the nexus, navigation and communications terminals with ease.//:point: +2 :pa_comp: per day (**IT** Action Points).//:point: Chances of success are doubled when using the **Hacker Kit**.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="conceptor">
@@ -129,11 +124,9 @@
         <source>conceptor.name</source>
         <target>Designer</target>
       </segment>
-      <segment id="conceptor.description" state="translated">
+      <segment id="conceptor.description" state="final">
         <source>conceptor.description</source>
-        <target>Can contribute for free to NERON projects twice per day.//
-:point: +2 :pa_core: per day (**NERON projects** Action Points)//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Has access to NERON's core twice per day (Free Actions).//:point: +2 :pa_core: per day (**NERON projects** Action Points)//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="creative">
@@ -141,11 +134,9 @@
         <source>creative.name</source>
         <target>Creative</target>
       </segment>
-      <segment id="creative.description" state="translated">
+      <segment id="creative.description" state="final">
         <source>creative.description</source>
-        <target>Sometimes you need to think outside the box.//
-:point: Failed actions have a 50% chance of refunding **1** :pa:.//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Sometimes you need to think outside the box.//:point: Every time you fail in an attempt to do something, there is a 50% chance of regaining **1** :pa:.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="shrink">
@@ -153,13 +144,9 @@
         <source>shrink.name</source>
         <target>Shrink</target>
       </segment>
-      <segment id="shrink.description" state="translated">
+      <segment id="shrink.description" state="final">
         <source>shrink.description</source>
-        <target>The Shrink is in charge of psychological support. They are able to keep morale high and treat psychological illnesses.//
-:point: Each cycle, **1 Morale Point (:pmo:) is regained** by all crewmates lying down in the same room.//
-:point: **Treats the psychological illnesses** of those crewmates.//
-:point: Grants the **Comfort** Action for raising morale.//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>The Shrink is in charge of psychological support. They are able to keep morale high and treat psychological illnesses.//:point: Each cycle, **1 Morale Point (:pmo:) is regained** by all crewmates lying down in the same room.//:point: **Treats psychological illnesses**.//:point: Grants the **Comfort** Action for raising morale.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="caffeine_junkie">
@@ -167,11 +154,9 @@
         <source>caffeine_junkie.name</source>
         <target>Caffeine Junkie</target>
       </segment>
-      <segment id="caffeine_junkie.description" state="translated">
+      <segment id="caffeine_junkie.description" state="final">
         <source>caffeine_junkie.description</source>
-        <target>The Caffeine Junkie is twice as effective as their colleagues when they have access to the coffee machine.//
-:point: +2 :pa: when they drink a **Coffee**.//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>The Caffeine Junkie is twice as effective as their colleagues when they have access to the coffee machine.//:point: +2 :pa: when they drink a **Coffee**.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="shooter">
@@ -179,13 +164,9 @@
         <source>shooter.name</source>
         <target>Shooter</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>shooter.description</source>
-        <target>At ease handling all kinds of weapons.//
-:point: +2 :pa_shoot: per day (**Shoot** Action Points).//
-:point: Expedition: +1 to combat strength, if you have a gun.//
-:point: Bonus for developing certain ** NERON projects **.//
-:point: Increase critical hit chance and decrease critical fail chance with guns.</target>
+        <target>At ease handling all kinds of weapons.//:point: +2 :pa_shoot: per day (**Shoot** Action Points).//:point: Expedition: +1 to combat strength, if you have a gun.//:point: Bonus for developing certain ** NERON projects **.</target>
       </segment>
     </unit>
     <unit id="chef">
@@ -193,13 +174,9 @@
         <source>chef.name</source>
         <target>Chef</target>
       </segment>
-      <segment id="chef.description" state="translated">
+      <segment id="chef.description" state="final">
         <source>chef.description</source>
-        <target>Formidable when it comes to knocking meals together. They also have an impressive awareness of what you should eat.//
-:point: Can read **food nutrition information**.//
-:point: Can read **fruit nutrition information**.//
-:point: +4 :pa_cook: per day (**Cooking** Action Points).//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Formidable when it comes to knocking meals together. They also have an impressive awareness of what you should eat.//:point: Can read **food nutrition information**.//:point: Can read **fruit nutrition information**.//:point: +4 :pa_cook: per day (**Cooking** Action Points).//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="nurse">
@@ -207,12 +184,9 @@
         <source>nurse.name</source>
         <target>Nurse</target>
       </segment>
-      <segment id="nurse.description" state="translated">
+      <segment id="nurse.description" state="final">
         <source>nurse.description</source>
-        <target>Always ready to help.//
-:point: +1 :pa_heal: every day (**Heal** Action Point).//
-:point: Can read **properties of medicines**.//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Always ready to help.//:point: +1 :pa_heal: every day (**Heal** Action Point).//:point: Can read **properties of medicines**.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="paranoid">
@@ -230,12 +204,9 @@
         <source>biologist.name</source>
         <target>Biologist</target>
       </segment>
-      <segment id="biologist.description" state="translated">
+      <segment id="biologist.description" state="final">
         <source>biologist.description</source>
-        <target>Highly skilled in laboratory research.//
-:point: Can read **properties of medicines**.//
-:point: **+4% bonus** when contributing to all **Research** in the laboratory.//
-:point: Bonus for developing certain **NERON projects**.</target>
+        <target>Highly skilled in laboratory research.//:point: Can read **properties of medicines**.//:point: **+4% bonus** of all **Research** in the laboratory.//:point: Bonus for developing certain **NERON projects**.</target>
       </segment>
     </unit>
     <unit id="mankind_only_hope">
@@ -243,21 +214,19 @@
         <source>mankind_only_hope.name</source>
         <target>Mankind's only hope</target>
       </segment>
-      <segment id="mankind_only_hope.description" state="translated">
+      <segment id="mankind_only_hope.description" state="final">
         <source>mankind_only_hope.description</source>
-        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//
-:point: Global daily morale loss is reduced by 1 point.</target>
+        <target>Her unique immune system makes her the last hope for humanity. As long as she stays alive, we'll have a shot at combatting the Mush invasion.//:point: Daily morale loss is reduced by 1 point.</target>
       </segment>
     </unit>
     <unit id="leader">
-      <segment id="leader.name" state="translated">
+      <segment id="leader.name" state="final">
         <source>leader.name</source>
         <target>Leader</target>
       </segment>
-      <segment id="leader.description" state="translated">
+      <segment id="leader.description" state="final">
         <source>leader.description</source>
-        <target>A charismatic leader knows how to effectively lead a team and increase morale using powerful, passionate speeches.//
-:point: For **2** :pa:, you can give a **Motivational speech** which increases the Morale (:pmo:) of crewmates in the current room.</target>
+        <target>A charismatic leader knows how to effectively lead a team and increase morale using powerful, passionate speeches.//:point: Grants the action **Motivational speech** which increases the Morale (:pmo:) of present crewmates.</target>
       </segment>
     </unit>
     <unit id="motivator">
@@ -276,10 +245,9 @@
         <source>confident.name</source>
         <target>Confidant</target>
       </segment>
-      <segment id="confident.description" state="translated">
+      <segment id="confident.description" state="final">
         <source>confident.description</source>
-        <target>Discreet and loyal, you share everyone's pain and as such have the sympathy of the whole crew...//
-:point: Once per day and per person, the other crewmates can confide in you for **1** :pa: to regain 2 :pmo:. In doing so, they will reveal their last X actions where X is your amount of :pmo:.</target>
+        <target>Discreet and loyal, you share everyone's pain and as such have the sympathy of the whole crew...//Once per day, the other players can confide in you to gain 2 :pmo:. In doing so, they will reveal their last X actions where X is your amount of :pmo:.</target>
       </segment>
     </unit>
     <unit id="survivalist">
@@ -287,12 +255,9 @@
         <source>survivalist.name</source>
         <target>Survivalist</target>
       </segment>
-      <segment id="survivalist.description" state="translated">
+      <segment id="survivalist.description" state="final">
         <source>survivalist.description</source>
-        <target>The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.//
-:point: Expedition: All damage **you receive** is **reduced by 1**.//
-:point: Expedition: The **Provision** event yields an additional steak.//
-:point: Expedition: Last to die in case a fatality occurs.</target>
+        <target>The Survivalist is great to have on exploration missions. They can defend themselves more effectively against extra-terrestrial life forms and generally deal with these encounters better than anyone else.//:point: Expedition: All damage is **reduced by 1**.//:point: Expedition: The **Provision** event yields an additional steak.//:point: Expedition: Last to die in case a fatality occurs.</target>
       </segment>
     </unit>
     <unit id="diplomat">
@@ -322,7 +287,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Once they begin their task, nothing can distract the determined crewmate.//:point: If an action **fails**, the chances of subsequent success **increases more rapidly**.</target>
+        <target>Once they begin their task, nothing can distract the determined player.//:point: If an action **fails**, the chances of subsequent success **increases more rapidly**.</target>
       </segment>
     </unit>
     <unit id="optimist">
@@ -610,7 +575,7 @@
         <source>politician.name</source>
         <target>Politician</target>
       </segment>
-      <segment id="politician.description" state="translated">
+      <segment id="politician.description" state="final">
         <source>politician.description</source>
         <target>Either they are with you or against you.//:point: **Unique** : For **3** :pa: you can declare a Coup at the Nexus. On next cycle, NERON will consider you as the new commander.</target>
       </segment>
@@ -802,7 +767,7 @@
       </segment>
       <segment id="medic.description" state="translated">
         <source>medic.description</source>
-        <target>Medics have full medical training, allowing them to carry out rapid, appropriate procedures. They are also skilled in surgery.//:point: **Heal** Actions earn an additional 2 :pv:.//:point: Can carry out **Operations**.//:point: Can read **properties of medicines**.//:point: +**4% bonus** on all laboratory **Research**.</target>
+        <target>Medics have full medical training, allowing them to carry out rapid, appropriate procedures. They are also skilled in surgery.//**Heal** Actions earn an additional 2 :pv:.//Can carry out **Operations**.//Can read **properties of medicines**.//+**4% bonus** on all laboratory **Research**.</target>
       </segment>
     </unit>
     <unit id="rebel">
@@ -812,7 +777,7 @@
       </segment>
       <segment id="rebel.description" state="translated">
         <source>rebel.description</source>
-        <target>Your links to the anti-Mush resistance allow you to understand and decode rebel transmissions much quicker than any other radio expert.//:point: **Doubles** your progress when decoding a rebel base.</target>
+        <target>Your links to the anti-Mush resistance allow you to understand and decode rebel transmissions much quicker than any other radio expert.//:point: **Doubles** your chances of contacting a rebel base.</target>
       </segment>
     </unit>
     <unit id="torturer">
@@ -902,7 +867,7 @@
       </segment>
       <segment id="metalworker.description" state="translated">
         <source>metalworker.description</source>
-        <target>It seems pretty clear that you're a really productive person.//:point: **Daily**: If you find yourself in a **storage**, you have a chance of finding scraps or better for **0** :pa:.</target>
+        <target>It seems pretty clear that you're a really productive person.//:point: **Daily**: If you find yourself in a **storage**, you have a chance of finding scraps or better for **0** :pa:. </target>
       </segment>
     </unit>
     <unit id="doorman">
@@ -952,7 +917,7 @@
       </segment>
       <segment id="ninja.description" state="translated">
         <source>ninja.description</source>
-        <target>Thanks to your overcharged myelin, your speed of movement is incredible.//:point: Your **hand-to-hand** attacks are now **anonymous** actions.</target>
+        <target>Thanks to your overcharged myelin, your speed of movement is incredible.//:point: Your **hand-to-hand** attacks are now **anonymous** actions. </target>
       </segment>
     </unit>
     <unit id="neron_depression">

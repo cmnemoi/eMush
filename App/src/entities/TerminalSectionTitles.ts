@@ -15,14 +15,6 @@ export class TerminalSectionTitles {
     public magneticNetDescription: string|null = null;
     public neronInhibitionName: string|null = null;
     public neronInhibitionDescription: string|null = null;
-    public toANewEdenTitle: string|null = null;
-    public toANewEdenDescription: string|null = null;
-    public contact: string|null = null;
-    public neronVersion: string|null = null;
-    public rebelBasesNetwork: string|null = null;
-    public xylophDb: string|null = null;
-    public vocodedAnnouncementName: string|null = null;
-    public vocodedAnnouncementDescription: string|null = null;
 
     public load(object: any): TerminalSectionTitles {
         if (object) {
@@ -42,14 +34,6 @@ export class TerminalSectionTitles {
             this.magneticNetDescription = object['magnetic_net_description'];
             this.neronInhibitionName = object['neron_inhibition_name'];
             this.neronInhibitionDescription = object['neron_inhibition_description'];
-            this.toANewEdenTitle = object['to_a_new_eden_title'];
-            this.toANewEdenDescription = object['to_a_new_eden_description'];
-            this.contact = object['contact'];
-            this.neronVersion = object['neron_version'];
-            this.rebelBasesNetwork = object['rebel_bases_network'];
-            this.xylophDb = object['xyloph_db'];
-            this.vocodedAnnouncementName = object['vocoded_announcements_name'];
-            this.vocodedAnnouncementDescription = object['vocoded_announcements_description'];
         }
         return this;
     }

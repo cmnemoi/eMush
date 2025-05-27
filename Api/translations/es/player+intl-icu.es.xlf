@@ -34,119 +34,119 @@ Actualmente tienes {quantityaction}  :pa: y {quantitymovement} :pm:</target>
       </segment>
     </unit>
     <unit id="triumph">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>triumph.name</source>
-        <target>Gloria personal</target>
+        <target>triumph.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>triumph.description</source>
-        <target>Gloria acumulada durante el viaje. Esta puntuación será calculada al final de la aventura y determina tu posición en la clasificación de la nave. (trabajo en progreso)</target>
+        <target>triumph.description</target>
       </segment>
     </unit>
     <unit id="titles">
-      <segment id="commander.name" state="translated">
+      <segment id="commander.name" state="initial">
         <source>commander.name</source>
-        <target>Comandante</target>
+        <target>commander.name</target>
       </segment>
-      <segment id="commander.desc" state="translated">
+      <segment id="commander.desc" state="initial">
         <source>commander.desc</source>
-        <target>Puede acceder a la **Terminal de Comando** para mover el Daedalus a través de las estrellas. // Una vez al día, puede **enviar una misión** a un miembro de la tripulación, quien recibirá 3 :pa: al aceptarla.</target>
+        <target>commander.desc</target>
       </segment>
-      <segment id="neron_manager.name" state="translated">
+      <segment id="neron_manager.name" state="initial">
         <source>neron_manager.name</source>
-        <target>Admin. de NERON</target>
+        <target>neron_manager.name</target>
       </segment>
-      <segment id="neron_manager.desc" state="translated">
+      <segment id="neron_manager.desc" state="initial">
         <source>neron_manager.desc</source>
-        <target>El Administrador de NERON puede acceder al BIOS de NERON. También tiene acceso privilegiado a las herramientas de gestión diarias.</target>
+        <target>neron_manager.desc</target>
       </segment>
-      <segment id="com_manager.name" state="translated">
+      <segment id="com_manager.name" state="initial">
         <source>com_manager.name</source>
-        <target>Oficial de Comunicaciones</target>
+        <target>com_manager.name</target>
       </segment>
-      <segment id="com_manager.desc" state="translated">
+      <segment id="com_manager.desc" state="initial">
         <source>com_manager.desc</source>
-        <target>El Oficial de Comunicaciones puede iniciar la toma de contacto cuando la comunicación con Sol esté restablecida.</target>
+        <target>com_manager.desc</target>
       </segment>
     </unit>
     <unit id="shoot">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>shoot.name</source>
-        <target>Puntos de Tiro</target>
+        <target>shoot.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>shoot.description</source>
-        <target>Los Puntos de Tiro te dan **acciones gratuitas** para todas las *acciones de tiro* en vuelo o a bordo.</target>
+        <target>shoot.description</target>
       </segment>
     </unit>
     <unit id="cook">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>cook.name</source>
-        <target>Puntos de Cocina</target>
+        <target>cook.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>cook.description</source>
-        <target>Los Puntos de Cocina te dan **acciones gratuitas** para todas las *acciones de la cocina*.</target>
+        <target>cook.description</target>
       </segment>
     </unit>
     <unit id="core">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>core.name</source>
-        <target>Puntos de Artífice</target>
+        <target>core.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>core.description</source>
-        <target>Los Puntos de Artífice te dan **acciones gratuitas** para participar en *proyectos de NERON*.</target>
+        <target>core.description</target>
       </segment>
     </unit>
     <unit id="engineer">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>engineer.name</source>
-        <target>Puntos de Mecánica</target>
+        <target>engineer.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>engineer.description</source>
-        <target>Los puntos de Mecánica te dan **acciones gratuitas** en las *reparaciones técnicas, desmantelamiento de objetos* y *desmontar cámaras*.</target>
+        <target>engineer.description</target>
       </segment>
     </unit>
     <unit id="garden">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>garden.name</source>
-        <target>Puntos de Jardinería</target>
+        <target>garden.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>garden.description</source>
-        <target>Los Puntos de Jardinería te dan **acciones gratuitas**  para la *jardinería*.</target>
+        <target>garden.description</target>
       </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>pilgred.name</source>
-        <target>Puntos de PILGRED</target>
+        <target>pilgred.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>pilgred.description</source>
-        <target>Los Puntos de PILGRED te dan **acciones gratuitas** para *reparar el PILGRED*.</target>
+        <target>pilgred.description</target>
       </segment>
     </unit>
     <unit id="computer">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>computer.name</source>
-        <target>Puntos de Informática</target>
+        <target>computer.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>computer.description</source>
-        <target>Los Puntos de Informática te dan **acciones gratuitas** para *avanzar proyectos e investigaciones, análisis planetarios* y *manipular terminales*.</target>
+        <target>computer.description</target>
       </segment>
     </unit>
     <unit id="heal">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>heal.name</source>
-        <target>Puntos de Cura</target>
+        <target>heal.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>heal.description</source>
-        <target>Los Puntos de Cura te dan **acciones gratuitas** para todas tus *acciones de cura* y *cirugías*</target>
+        <target>heal.description</target>
       </segment>
     </unit>
   </file>

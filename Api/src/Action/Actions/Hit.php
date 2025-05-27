@@ -5,40 +5,26 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\PlaceType;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ReachEnum;
-use Mush\Equipment\Service\UseWeaponService;
-use Mush\Game\Service\EventServiceInterface;
-use Mush\Game\Service\RandomServiceInterface;
+use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Game\Event\VariableEventInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Hit extends AttemptAction
 {
-    protected ActionEnum $name = ActionEnum::HIT;
+    private const int DAMAGE_SPREAD = 2;
 
-    public function __construct(
-        EventServiceInterface $eventService,
-        ActionServiceInterface $actionService,
-        ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
-        private UseWeaponService $useWeaponService,
-    ) {
-        parent::__construct(
-            $eventService,
-            $actionService,
-            $validator,
-            $randomService
-        );
-    }
+    protected ActionEnum $name = ActionEnum::HIT;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
@@ -52,6 +38,7 @@ final class Hit extends AttemptAction
                 'groups' => [ClassConstraint::VISIBILITY],
             ])
         );
+        $metadata->addConstraint(new PreMush(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::PRE_MUSH_AGGRESSIVE]));
         $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'planet', 'allowIfTypeMatches' => false, 'message' => ActionImpossibleCauseEnum::ON_PLANET]));
     }
 
@@ -62,13 +49,30 @@ final class Hit extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $tags = $this->player->hasStatus(PlayerStatusEnum::BERZERK)
-        ? array_merge($this->getTags(), [PlayerStatusEnum::BERZERK])
-        : $this->getTags();
+        if ($result->isAFail()) {
+            return;
+        }
 
-        $this->useWeaponService->execute(
-            result: $result,
-            tags: $tags,
+        /** @var Player $target */
+        $target = $this->target;
+
+        $damage = $this->randomService->random(
+            min: $this->getOutputQuantity(),
+            max: $this->getOutputQuantity() + self::DAMAGE_SPREAD
         );
+
+        $damageEvent = new PlayerVariableEvent(
+            $target,
+            PlayerVariableEnum::HEALTH_POINT,
+            -$damage,
+            $this->getTags(),
+            new \DateTime()
+        );
+
+        if ($result->isACriticalSuccess()) {
+            $damageEvent->addTag(ActionOutputEnum::CRITICAL_SUCCESS);
+        }
+
+        $this->eventService->callEvent($damageEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

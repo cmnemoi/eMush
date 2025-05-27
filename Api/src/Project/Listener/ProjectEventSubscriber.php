@@ -14,8 +14,8 @@ final readonly class ProjectEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private EventServiceInterface $eventService,
-        private ProposeNewNeronProjectsUseCase $proposeNewNeronProjects,
-        private UnproposeCurrentNeronProjectsUseCase $unproposeCurrentNeronProjects
+        private ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
+        private UnproposeCurrentNeronProjectsUseCase $unproposeCurrentNeronProjectsUseCase
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -32,7 +32,7 @@ final readonly class ProjectEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $this->dispatchFinishedProjectEvent($event);
+        $this->eventService->callEvent(new ProjectEvent(...$event->toArray()), ProjectEvent::PROJECT_FINISHED);
     }
 
     public function onProjectFinished(ProjectEvent $event): void
@@ -40,24 +40,13 @@ final readonly class ProjectEventSubscriber implements EventSubscriberInterface
         if ($event->isNotAboutNeronProject()) {
             return;
         }
-        if ($event->doesNotHaveTag(ProjectEvent::PROJECT_ADVANCED)) {
-            return;
-        }
 
         $daedalus = $event->getDaedalus();
 
-        $this->unproposeCurrentNeronProjects->execute($daedalus);
-        $this->proposeNewNeronProjects->execute(daedalus: $daedalus, number: $daedalus->getNumberOfProjectsByBatch());
-    }
+        // first, unpropose all current NERON projects
+        $this->unproposeCurrentNeronProjectsUseCase->execute($daedalus);
 
-    private function dispatchFinishedProjectEvent(ProjectEvent $event): void
-    {
-        $finishedProjectEvent = new ProjectEvent(...$event->toArray());
-        $finishedProjectEvent->addTag($event->getEventName());
-
-        $this->eventService->callEvent(
-            event: $finishedProjectEvent,
-            name: ProjectEvent::PROJECT_FINISHED
-        );
+        // then, propose new NERON projects
+        $this->proposeNewNeronProjectsUseCase->execute(daedalus: $daedalus, number: $daedalus->getNumberOfProjectsByBatch());
     }
 }

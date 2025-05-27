@@ -81,14 +81,6 @@ class CharacterConfigDataLoader extends ConfigDataLoader
     private function setCharacterConfigActions(CharacterConfig $characterConfig, array $characterConfigData): void
     {
         $actions = [];
-        foreach (CharacterConfigData::$commonActions as $actionName) {
-            /** @var ActionConfig $action */
-            $action = $this->actionConfigRepository->findOneBy(['name' => $actionName]);
-            if ($action === null) {
-                throw new \Exception('ActionConfig not found: ' . $actionName);
-            }
-            $actions[] = $action;
-        }
         foreach ($characterConfigData['actions'] as $actionName) {
             /** @var ActionConfig $action */
             $action = $this->actionConfigRepository->findOneBy(['name' => $actionName]);

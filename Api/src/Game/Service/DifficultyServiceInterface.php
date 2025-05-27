@@ -6,5 +6,5 @@ use Mush\Daedalus\Entity\Daedalus;
 
 interface DifficultyServiceInterface
 {
-    public function updateDaedalusDifficulty(Daedalus $daedalus): void;
+    public function updateDaedalusDifficultyPoints(Daedalus $daedalus, string $pointsType): void;
 }

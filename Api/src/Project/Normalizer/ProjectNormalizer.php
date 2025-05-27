@@ -54,8 +54,7 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
         $language = $project->getDaedalus()->getLanguage();
 
         return [
-            'type' => $project->getType()->toString(),
-            'translatedType' => $this->translationService->translate(
+            'type' => $this->translationService->translate(
                 key: "{$project->getName()}.type",
                 parameters: [],
                 domain: 'project',

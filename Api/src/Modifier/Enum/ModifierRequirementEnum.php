@@ -49,8 +49,6 @@ abstract class ModifierRequirementEnum
     public const string PLAYER_EQUIPMENT = 'player_equipment';
     public const string HOLDER_HAS_STATUS = 'status';
     public const string PLAYER_IS_NOT_MUSH = 'player_is_not_mush';
-    public const string PLAYER_IS_NOT_HYPERACTIVE = 'player_is_not_hyperactive';
-    public const string PLAYER_IS_PAOLA = 'player_is_paola';
     public const string HOLDER_NAME = 'holder_name';
     public const string STATUS_CHARGE_REACHES = 'status_charge_reaches';
     public const string LYING_DOWN_STATUS_CHARGE_REACHES_4 = 'LYING_DOWN_STATUS_CHARGE_REACHES_4';

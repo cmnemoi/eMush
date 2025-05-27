@@ -59,7 +59,7 @@
 			"sol_return": "Daedalus returned to Sol",
 			"eden": "Daedalus has settled on Eden",
 			"daedalus_destroyed": "Daedalus destroyed",
-			"killed_by_neron": "Contaminated crew assassinated by NERON",
+			"killed_by_neron": "Crew assassinated by NERON",
 			"super_nova": "Supernova"
 		}
 	},
@@ -73,7 +73,7 @@
 		"discoveredSuperNova": "Discovered Supernova Award",
 		"specialSuperNova": "Special Nova Award",
 		"normalSuperNova": "Prize Nova",
-		"numberOfHuntersKilled": "Hunters shot down",
+		"numberOfHuntersKilled": "Hunters defeated",
 		"amountOfMushPlayers": "Number of Mushs",
 		"endCause": {
 			"sol_return": "The Daedalus returned to Sol!",
@@ -90,25 +90,25 @@
 			"self_extracted": "Your guts needed some fresh air!",
 			"exploration": "Killed in an accident in an alien world!",
 			"exploration_combat": "Destroyed by an alien with a headache!",
-			"exploration_lost": "Something found you before your crewmates did!",
+			"exploration_lost": "Your crewmates found you, but something else found you first!",
 			"electrocuted": "Electrocuted by this old piece of junk!",
 			"injury": "Injured to death!",
 			"burnt": "Burnt out by an untimely fire!",
 			"clumsiness": "So badly in fact that you've achieved nothing at all...",
-			"space_battle": "Died from your vessel exploding in a spacecraft shoot-out!",
-			"space_asphyxiated": "Dead, abandoned in infinite space!",
+			"space_battle": "Death present in an annihilated device!",
+			"space_asphyxiated": "Dead left in outer space!",
 			"beheaded": "Beheaded by a coward!",
 			"starvation": "Starved to death!",
 			"quarantine": "Quarantined by NERON",
 			"black_bite": "Succumbed to an alien disease!",
 			"metal_plate": "Another victim claimed by the old Daed-shed!",
 			"rocketed": "Scattered by an inquisitive missile!",
-			"bled": "Bled out!",
+			"bled": "Drained of blood!",
 			"infection": "Succumbed to a massive infection!",
 			"mankarog": "Killed by a crafty Mankarog!",
 			"no_infirmerie": "Death lost in infinite space!",
 			"suicide": "Suicide with panache!",
-			"patrol_ship_explosion": "A failed maneuver!"
+			"patrol_ship_explosion": "A failed manoeuvre!"
 		}
 	},
 	"userBanner": {
@@ -166,7 +166,7 @@
 		"reason": "Reason",
 		"like": "Like",
 		"notyet": "You will be notified when the end game ranking is published.",
-		"endgame": "Confirm and continue"
+		"endgame": "Validate and continue"
 	},
 	"alerts": "Alerts:",
 	"downloading": "Downloading...",
@@ -207,9 +207,7 @@
 				"create": "Create equipment for ongoing Daedaluses",
 				"name": "Equipment name",
 				"quantity": "Quantity",
-				"place": "Room in which to create equipment",
-				"daedalus": "Daedalus identifier",
-				"createForDaedalus": "Creating equipment for the Daedalus"
+				"place": "Room in which to create equipment"
 			},
 			"projects": {
 				"title": "Projects",
@@ -426,10 +424,12 @@
 			"pageTitle": "Modification of the piece of equipment ",
 			"name": "Complete name",
 			"equipmentName": "Name",
-			"breakableType": "Breakable type",
-			"none": "Unbreakable",
-			"breakable": "Breakable",
-			"destroyOnBreak": "Destroy on break",
+			"isBreakable": "Is breakable",
+			"isNotBreakable": "Is not breakable",
+			"isFireBreakable": "Fire breakable",
+			"isNotFireBreakable": "Not fire breakable",
+			"isFireDestroyable": "Fire destroyable",
+			"isNotFireDestroyable": "Not fire destroyable",
 			"isPersonal": "Is personal",
 			"isNotPersonal": "Is not personal",
 			"dismountedProducts": "Items given when dismantled",
@@ -596,7 +596,7 @@
 		}
 	},
 	"charSelection": {
-		"selectLanguage": "Select a language to join a game 👉",
+		"selectLanguage": "Select a language to join a ship 👉",
 		"shipNotFound": "No ship was found. One should be created in the incoming hour!",
 		"startGame": "Start the game",
 		"youChoose": "You choose ",
@@ -623,8 +623,6 @@
 			"report": "Report",
 			"loadMoreMessages": "Load more messages",
 			"markChannelAsRead": "Mark channel as read",
-			"exportChannelAsPDF": "🖨️",
-			"exportChannelAsPDFDescription": "Will also copy the discussion to the clipboard.",
 			"unbookmark": "No more favorite",
 			"unbookmarkDescription": "Remove this thread from your favorites."
 		},
@@ -634,10 +632,6 @@
 		"commanderOrderPanel": {
 			"title": "Mission",
 			"tips": "You are the ship's *Commander* and you have the power to *command missions* from your comrades. You can choose who to send the mission you've freely decided on, and they'll receive :pa: if they accept. But there's no guarantee that your comrade will respect your orders..."
-		},
-		"ComManagerAnnouncementPanel": {
-			"title": "General Announcement",
-			"tips": "As a *Comms Manager*, you can make a general announcement. //// All your teammates will be **notified**, and the announcement will remain in the :tip: **Tips** tab. Each new announcement replaces the previous one."
 		},
 		"popUp": {
 			"close": "Close",
@@ -747,13 +741,6 @@
 			"roles": "Roles"
 		},
 		"sanction": {
-			"id": "Number",
-			"author": "Author",
-			"target": "Target",
-			"reason": "Reason",
-			"evidence": "Complained message",
-			"date": "Date",
-			"actions": "Actions",
 			"delete": "Delete",
 			"ban_user": "Ban",
 			"banDescription": "Ban this user from joining ships (you can unban him at any time).",
@@ -772,10 +759,7 @@
 			"banned": "Banned",
 			"report": "Complaint",
 			"report_abusive": "Abusive complaint",
-			"report_processed": "Complaint processed",
-			"alive": "ALIVE",
-			"name": "Sanction",
-			"showMore": "Display"
+			"report_processed": "Complaint processed"
 		},
 		"reason": {
 			"multi_account": "Multiaccount",
@@ -816,10 +800,7 @@
 			"message": "Message :",
 			"sanctionType": "Sanction type:",
 			"reason": "Reason:",
-			"evidence": "Reported message:",
-			"today": "Today",
-			"yesterday": "Yesterday",
-			"to": "at"
+			"evidence": "Reported message:"
 		},
 		"report": {
 			"name": "Report",
@@ -831,8 +812,7 @@
 			"player": "Player concerned by the complaint",
 			"seeContext": "See in context",
 			"message": "If you feel that a teammate is violating eMush's rules, please make sure you have selected a message illustrating the problem and explain in detail the reason for your complaint.",
-			"commanderMission": "Commander mission",
-			"comManagerAnnouncement": "General announcement"
+			"commanderMission": "Commander mission"
 		},
 		"actions": {
 			"name": "Actions",
@@ -847,7 +827,6 @@
 		"reduce": "Reduce",
 		"showAll": "Show all sanctions",
 		"sanctionsFor": "{username}'s sanctions list",
-		"reportsFor": "List of complaints sent against {username}.",
 		"isSanctionActive": "Active sanctions",
 		"sanctionType": "Sanction type",
 		"sanctionReason": "Reason",

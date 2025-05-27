@@ -6,8 +6,7 @@ import { formatText, helpers } from './formatText';
 describe('formatText', () => {
 
     beforeEach(() => {
-        sinon.stub(helpers, "computeEmoteHtmlByKey").returns("<img/>");
-        sinon.stub(helpers, "computeUiIconHtmlByKey").returns("<img/>");
+        sinon.stub(helpers, "computeImageHtml").returns("<img/>");
         sinon.stub(helpers, "computeCharacterImageHtmlByKey").returns("<img/>");
         sinon.stub(helpers, "computeAlertImageHtmlByKey").returns("<img/>");
         sinon.stub(helpers, "computeItemStatusImageHtmlByKey").returns("<img/>");
@@ -16,8 +15,7 @@ describe('formatText', () => {
     });
 
     afterEach(() => {
-        (helpers.computeEmoteHtmlByKey as any).restore();
-        (helpers.computeUiIconHtmlByKey as any).restore();
+        (helpers.computeImageHtml as any).restore();
         (helpers.computeCharacterImageHtmlByKey as any).restore();
         (helpers.computeAlertImageHtmlByKey as any).restore();
         (helpers.computeItemStatusImageHtmlByKey as any).restore();
@@ -74,6 +72,13 @@ describe('formatText', () => {
 
             expect(result).to.equal(`Raluca a pris un Débris métallique.<br>Raluca a pris un Débris métallique.`);
         });
+        it('should not replace https://emush.eternaltwin.org/ with <br>', () => {
+            const text = `https://emush.eternaltwin.org/`;
+
+            const result = formatText(text);
+
+            expect(result).to.equal(`https://emush.eternaltwin.org/`);
+        });
         it('should replace ://\\n with <br>', () => {
             const text = `Raluca a pris un Débris métallique://
             Raluca a pris un Débris métallique.`;
@@ -89,27 +94,6 @@ describe('formatText', () => {
             const result = formatText(text);
 
             expect(result).to.equal("Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 <img/> OU + 1 <img/> OU + 2<img/>.");
-        });
-        it('should replace [Twinpedia](https://twin.tithom.fr/mush) by a link', () => {
-            const text = "[Twinpedia](https://twin.tithom.fr/mush)";
-
-            const result = formatText(text);
-
-            expect(result).to.equal("<a href='https://twin.tithom.fr/mush' title='https://twin.tithom.fr/mush'>Twinpedia</a>");
-        });
-        it('should replace [Règlement](https://emush.eternaltwin.org/rules) by a link', () => {
-            const text = "[Règlement](https://emush.eternaltwin.org/rules)";
-
-            const result = formatText(text);
-
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules'>Règlement</a>");
-        });
-        it('should replace https://emush.eternaltwin.org/rules by a link', () => {
-            const text = "https://emush.eternaltwin.org/rules";
-
-            const result = formatText(text);
-
-            expect(result).to.equal("<a href='https://emush.eternaltwin.org/rules' title='https://emush.eternaltwin.org/rules'>https://emush.eternaltwin.org/rules</a>");
         });
     });
 

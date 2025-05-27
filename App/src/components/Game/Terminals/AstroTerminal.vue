@@ -17,9 +17,8 @@
             </div>
             <div class="analysis">
                 <ul>
-                    <li v-for="sector in planet.sectors" :key="`${sector.id}-${sector.key}`">
-                        <Tippy tag="li">
-                            <img :src="getSectorImage(sector)" :alt="sector.name">
+                    <li v-for="sector in planet.sectors" :key="sector.id">
+                        <Tippy tag="img" :src="getSectorImage(sector)" :alt="sector.name">
                             <template #content>
                                 <h1 v-html="formatText(sector.name)" />
                                 <p v-html="formatText(sector.description)" />
@@ -43,7 +42,7 @@
                             <h1 v-html="formatText(terminal.buttons.sharePlanet.name)" />
                             <p v-html="formatText(terminal.buttons.sharePlanet.description)" />
                         </template>
-                        <img :src="getImgUrl('ui_icons/planet.png')">
+                        <img :src="getImgUrl('planet.png')">
                     </Tippy>
                     <Tippy
                         v-if="deleteAction(planet)"
@@ -96,13 +95,11 @@ import { formatText } from "@/utils/formatText";
 import { mapActions, mapGetters } from "vuex";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "AstroTerminal",
     components : {
-        ActionButton,
-        Tippy
+        ActionButton
     },
     props: {
         terminal: {

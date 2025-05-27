@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Mush\Tests\functional\Player\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -17,16 +15,11 @@ use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
-use Mush\Hunter\Entity\HunterConfig;
-use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Config\CharacterConfigCollection;
 use Mush\Player\Service\PlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -52,14 +45,6 @@ class CreatePlayerServiceCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
-        $beginnerStatusConfig = new StatusConfig();
-        $beginnerStatusConfig
-            ->setStatusName(PlayerStatusEnum::BEGINNER)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($beginnerStatusConfig);
-
-        $rebelBaseContactDurationStatusConfig = $I->grabEntityFromRepository(StatusConfig::class, ['name' => DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_' . GameConfigEnum::DEFAULT]);
-
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
@@ -68,27 +53,22 @@ class CreatePlayerServiceCest
             'apprentron_technician' => 14,
         ]);
 
-        $daedalusConfig->setPlayerCount(2);
-
         $equipmentConfigs = new ArrayCollection();
         $equipmentConfigs->add($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'apprentron_technician_default']));
         $equipmentConfigs->add($I->grabEntityFromRepository(ItemConfig::class, ['name' => 'mush_sample_default']));
 
-        $hunterConfig = $I->grabEntityFromRepository(HunterConfig::class, ['name' => HunterEnum::TRANSPORT . '_' . GameConfigEnum::DEFAULT]);
-
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$mushStatusConfig, $rebelBaseContactDurationStatusConfig, $beginnerStatusConfig]),
+            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
             'daedalusConfig' => $daedalusConfig,
             'equipmentsConfig' => $equipmentConfigs,
-            'hunterConfigs' => new ArrayCollection([$hunterConfig]),
         ]);
 
         /** @var CharacterConfig $gioeleCharacterConfig */
-        $gioeleCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::GIOELE]);
+        $gioeleCharacterConfig = $I->have(CharacterConfig::class);
 
-        /** @var CharacterConfig $finolaCharacterConfig */
-        $finolaCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::FINOLA]);
+        /** @var $andieCharacterConfig $characterConfig */
+        $andieCharacterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
 
         /** @var Daedalus $daedalus */
         $daedalus = $I->have(Daedalus::class);
@@ -117,29 +97,34 @@ class CreatePlayerServiceCest
 
         $daedalus->addPlace($room);
         $daedalus->addPlace($storage);
+        $I->refreshEntities($daedalus);
 
         /** @var User $user */
         $user = $I->have(User::class);
 
-        $charactersConfig = new CharacterConfigCollection();
+        $charactersConfig = new ArrayCollection();
         $charactersConfig->add($gioeleCharacterConfig);
-        $charactersConfig->add($finolaCharacterConfig);
+        $charactersConfig->add($andieCharacterConfig);
 
         $gameConfig->setCharactersConfig($charactersConfig);
-        $daedalus->setAvailableCharacters($charactersConfig);
         $daedalusInfo->setGameConfig($gameConfig);
+
+        $I->expectThrowable(
+            \LogicException::class,
+            fn () => $this->playerService->createPlayer($daedalus, $user, 'non_existent_player')
+        );
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);
 
         $I->assertEquals($gioeleCharacterConfig, $playerGioele->getPlayerInfo()->getCharacterConfig());
         $I->assertEquals($gioeleCharacterConfig->getInitActionPoint(), $playerGioele->getActionPoint());
 
-        $playerFinola = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::FINOLA);
+        $playerAndie = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::ANDIE);
 
-        $I->assertEquals($finolaCharacterConfig, $playerFinola->getPlayerInfo()->getCharacterConfig());
-        $I->assertEquals($finolaCharacterConfig->getInitActionPoint(), $playerFinola->getActionPoint());
+        $I->assertEquals($andieCharacterConfig, $playerAndie->getPlayerInfo()->getCharacterConfig());
+        $I->assertEquals($andieCharacterConfig->getInitActionPoint(), $playerAndie->getActionPoint());
 
-        $I->assertTrue($playerFinola->isMush());
+        $I->assertTrue($playerAndie->isMush());
         $I->assertTrue($playerGioele->isMush());
         $I->assertNotNull($daedalus->getFilledAt());
     }

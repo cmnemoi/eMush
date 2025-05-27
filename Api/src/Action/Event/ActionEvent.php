@@ -53,9 +53,6 @@ class ActionEvent extends AbstractGameEvent
         parent::__construct($tags, new \DateTime());
 
         $player->getSkills()->map(fn (Skill $skill) => $this->addTag($skill->getNameAsString()));
-        if ($actionTarget instanceof GameEquipment) {
-            $this->addTag('action_on_equipment');
-        }
     }
 
     public function getAuthor(): Player
@@ -109,13 +106,6 @@ class ActionEvent extends AbstractGameEvent
         return $door instanceof Door ? $door : throw new \RuntimeException('Action target is not a door');
     }
 
-    public function getEquipmentActionTargetOrThrow(): GameEquipment
-    {
-        $equipment = $this->getActionTarget();
-
-        return $equipment instanceof GameEquipment ? $equipment : throw new \RuntimeException('Action target is not a game equipment');
-    }
-
     public function getActionParameters(): array
     {
         return $this->actionParameters;
@@ -165,28 +155,24 @@ class ActionEvent extends AbstractGameEvent
         return $this->actionConfig->getActionName();
     }
 
-    public function getActionNameAsString(): string
-    {
-        return $this->actionConfig->getActionName()->toString();
-    }
-
     public function shouldTriggerRoomTrap(): bool
     {
         $authorInteractsWithRoomEquipment = $this->actionProvider instanceof GameEquipment && $this->actionProvider->shouldTriggerRoomTrap();
         $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $this->actionProvider instanceof GameEquipment === false
             && $this->actionConfig->shouldTriggerRoomTrap();
 
-        return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->toString())
+        return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value)
             && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
+    }
+
+    public function shouldBeAnonymous(): bool
+    {
+        return $this->getActionName() === ActionEnum::HIT && $this->author?->hasSkill(SkillEnum::NINJA);
     }
 
     public function shouldCreateParfumeAntiqueImmunizedStatus(): bool
     {
-        return $this->author?->hasSkill(SkillEnum::ANTIQUE_PERFUME)
-            && $this->hasAnyTag([
-                ActionEnum::TAKE_SHOWER->toString(),
-                ActionEnum::WASH_IN_SINK->toString(),
-            ]);
+        return $this->author?->hasSkill(SkillEnum::ANTIQUE_PERFUME) && $this->hasTag(ActionEnum::TAKE_SHOWER->value);
     }
 
     public function shouldRemoveTargetLyingDownStatus(): bool
@@ -223,21 +209,5 @@ class ActionEvent extends AbstractGameEvent
         $place = $this->getPlace();
 
         return $place->hasOperationalEquipmentByName(ItemEnum::MYCO_ALARM) && $action->isDetectedByMycoAlarm();
-    }
-
-    public function shouldTriggerAttemptHandling(): bool
-    {
-        return $this->getActionConfig()->getSuccessRate() < 100 || $this->getActionConfig()->getActionCost() > 0;
-    }
-
-    /** @param array<ActionEnum> $actions */
-    public function isNotAboutAnyAction(array $actions): bool
-    {
-        return \in_array($this->getActionName(), $actions, true) === false;
-    }
-
-    public function getDaedalusId(): int
-    {
-        return $this->getAuthor()->getDaedalus()->getId();
     }
 }

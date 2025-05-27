@@ -44,18 +44,6 @@ const actions: ActionTree<any, any> = {
         }
         await dispatch('admin/endLoading', null, { root: true });
     },
-    async createEquipmentForDaedalus({ dispatch }, { equipmentName, quantity, place, daedalus }): Promise<void> {
-        await dispatch('admin/displayLoading', null, { root: true });
-        try {
-            const response: SuccessReponse = await AdminActionsService.createEquipmentForDaedalus(equipmentName, quantity, place, daedalus);
-            await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
-        } catch (error) {
-            console.error(error);
-            await dispatch('error/setError', error, { root: true });
-            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
-        }
-        await dispatch('admin/endLoading', null, { root: true });
-    },
     async createPlayersAllInitStatusesForOnGoingDaedaluses({ dispatch }): Promise<void> {
         await dispatch('admin/displayLoading', null, { root: true });
         try {

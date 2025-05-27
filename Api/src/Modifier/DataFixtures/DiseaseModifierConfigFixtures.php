@@ -130,8 +130,10 @@ class DiseaseModifierConfigFixtures extends Fixture implements DependentFixtureI
 
         /** @var AbstractEventConfig $eventConfig */
         $eventConfig = $this->getReference(EventConfigFixtures::MAX_HEALTH_REDUCE_2);
-        $reduceMax2HealthPoint = DirectModifierConfig::fromConfigData(ModifierConfigData::getByName('direct_modifier_player_-2_max_healthPoint'));
-        $reduceMax2HealthPoint->setTriggeredEvent($eventConfig);
+        $reduceMax2HealthPoint = new DirectModifierConfig('maxHealthReduce2');
+        $reduceMax2HealthPoint
+            ->setTriggeredEvent($eventConfig)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($reduceMax2HealthPoint);
 
         /** @var AbstractEventConfig $eventConfig */

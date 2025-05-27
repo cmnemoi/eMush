@@ -116,27 +116,6 @@ final class PlayerTest extends TestCase
         );
     }
 
-    public function testShouldReturnPlayerEfficiencyWithBotanistAndPolyvalent(): void
-    {
-        // Given I have a player
-        $daedalus = DaedalusFactory::createDaedalus();
-        $player = PlayerFactory::createPlayerWithDaedalus($daedalus);
-        $this->setPlayerId($player, 1);
-
-        // Given player has the Botanist and Polyvalent skills
-        Skill::createByNameForPlayer(SkillEnum::BOTANIST, $player);
-        Skill::createByNameForPlayer(SkillEnum::POLYVALENT, $player);
-
-        // when I ask for the player's efficiency in Trail Reducer project
-        $actualEfficiency = $player->getEfficiencyForProject(ProjectFactory::createHeatLampProject());
-
-        // Then I should get the expected efficiency
-        self::assertEquals(
-            expected: new PlayerEfficiency(7, 10),
-            actual: $actualEfficiency
-        );
-    }
-
     public function testShouldReturnPlayerEfficiencyWithNeronOnlyFriend(): void
     {
         // Given I have a player

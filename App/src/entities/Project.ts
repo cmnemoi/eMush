@@ -1,8 +1,7 @@
 import { ActionEnum } from "@/enums/action.enum";
 import { Action } from "./Action";
-import { arrayBuffer } from "stream/consumers";
 
-export type BonusSkill = {
+type BonusSkill = {
     key: string;
     name: string;
     description: string;
@@ -63,14 +62,5 @@ export class Project {
         }
 
         return this;
-    }
-
-    public toString(): string {
-        const skills:string[] = [];
-        this.bonusSkills.forEach(element => void{
-            skills : skills.push(element.name)
-        });
-        const formattedskills = skills.join(", ");
-        return `**${this.name}** : ${formattedskills} // *${this.description}* ${this.progress}`;
     }
 }

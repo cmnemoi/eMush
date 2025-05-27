@@ -1,16 +1,9 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\ConfigData\ActionDataLoader;
-use Mush\Communications\ConfigData\RebelBaseConfigDataLoader;
-use Mush\Communications\ConfigData\TradeAssetConfigDataLoader;
-use Mush\Communications\ConfigData\TradeConfigDataLoader;
-use Mush\Communications\ConfigData\TradeOptionConfigDataLoader;
-use Mush\Communications\ConfigData\XylophConfigDataLoader;
 use Mush\Daedalus\ConfigData\DaedalusConfigDataLoader;
 use Mush\Daedalus\ConfigData\RandomItemPlacesDataLoader;
 use Mush\Disease\ConfigData\ConsumableDiseaseConfigDataLoader;
@@ -18,7 +11,6 @@ use Mush\Disease\ConfigData\DiseaseCauseConfigDataLoader;
 use Mush\Disease\ConfigData\DiseaseConfigDataLoader;
 use Mush\Equipment\ConfigData\BlueprintDataLoader;
 use Mush\Equipment\ConfigData\BookDataLoader;
-use Mush\Equipment\ConfigData\ContainerDataLoader;
 use Mush\Equipment\ConfigData\DocumentDataLoader;
 use Mush\Equipment\ConfigData\DroneDataLoader;
 use Mush\Equipment\ConfigData\DrugDataLoader;
@@ -29,12 +21,9 @@ use Mush\Equipment\ConfigData\GearDataLoader;
 use Mush\Equipment\ConfigData\ItemConfigDataLoader;
 use Mush\Equipment\ConfigData\PatrolShipDataLoader;
 use Mush\Equipment\ConfigData\PlantDataLoader;
-use Mush\Equipment\ConfigData\PlumbingDataLoader;
 use Mush\Equipment\ConfigData\RationDataLoader;
 use Mush\Equipment\ConfigData\ToolDataLoader;
 use Mush\Equipment\ConfigData\WeaponDataLoader;
-use Mush\Equipment\ConfigData\WeaponEffectConfigDataLoader;
-use Mush\Equipment\ConfigData\WeaponEventConfigDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorConfigDataLoader;
 use Mush\Exploration\ConfigData\PlanetSectorEventConfigDataLoader;
 use Mush\Game\ConfigData\ConfigDataLoader;
@@ -59,9 +48,6 @@ use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\ContentStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
 
-/**
- * @SuppressWarnings(PHPMD)
- */
 class ConfigDataLoaderService
 {
     private ArrayCollection $dataLoaders;
@@ -81,17 +67,13 @@ class ConfigDataLoaderService
         DiseaseConfigDataLoader $diseaseConfigDataLoader,
         BookDataLoader $bookDataLoader,
         BlueprintDataLoader $blueprintDataLoader,
-        ContainerDataLoader $containerDataLoader,
         DocumentDataLoader $documentDataLoader,
         DrugDataLoader $drugDataLoader,
         FruitDataLoader $fruitDataLoader,
         GearDataLoader $gearDataLoader,
         PlantDataLoader $plantDataLoader,
-        PlumbingDataLoader $plumbingDataLoader,
         RationDataLoader $rationDataLoader,
         ToolDataLoader $toolDataLoader,
-        WeaponEventConfigDataLoader $weaponEventConfigDataLoader,
-        WeaponEffectConfigDataLoader $weaponEffectConfigDataLoader,
         WeaponDataLoader $weaponDataLoader,
         PatrolShipDataLoader $patrolShipDataLoader,
         ItemConfigDataLoader $itemConfigDataLoader,
@@ -112,11 +94,6 @@ class ConfigDataLoaderService
         PlanetSectorConfigDataLoader $planetSectorConfigDataLoader,
         ProjectRequirementsDataLoader $projectRequirementsDataLoader,
         ProjectConfigDataLoader $projectConfigDataLoader,
-        RebelBaseConfigDataLoader $rebelBaseConfigDataLoader,
-        XylophConfigDataLoader $xylophConfigDataLoader,
-        TradeAssetConfigDataLoader $tradeAssetConfigDataLoader,
-        TradeOptionConfigDataLoader $tradeOptionConfigDataLoader,
-        TradeConfigDataLoader $tradeConfigDataLoader,
         GameConfigDataLoader $gameConfigDataLoader,
         LocalizationConfigDataLoader $localizationConfigDataLoader,
     ) {
@@ -138,18 +115,14 @@ class ConfigDataLoaderService
                 $diseaseConfigDataLoader,
                 $blueprintDataLoader,
                 $bookDataLoader,
-                $containerDataLoader,
                 $documentDataLoader,
                 $drugDataLoader,
                 $fruitDataLoader,
                 $gearDataLoader,
                 $plantDataLoader,
-                $plumbingDataLoader,
                 $rationDataLoader,
                 $toolDataLoader,
                 $patrolShipDataLoader,
-                $weaponEventConfigDataLoader,
-                $weaponEffectConfigDataLoader,
                 $weaponDataLoader,
                 $equipmentConfigDataLoader,
                 $itemConfigDataLoader,
@@ -169,11 +142,6 @@ class ConfigDataLoaderService
                 $planetSectorConfigDataLoader,
                 $projectRequirementsDataLoader,
                 $projectConfigDataLoader,
-                $rebelBaseConfigDataLoader,
-                $xylophConfigDataLoader,
-                $tradeAssetConfigDataLoader,
-                $tradeOptionConfigDataLoader,
-                $tradeConfigDataLoader,
                 $gameConfigDataLoader,
                 $localizationConfigDataLoader,
             ]

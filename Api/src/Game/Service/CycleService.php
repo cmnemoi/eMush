@@ -12,7 +12,6 @@ use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\ValueObject\CycleChangeResult;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Lock\LockFactory;
 
@@ -215,9 +214,10 @@ class CycleService implements CycleServiceInterface
         $cycleElapsed = $this->getNumberOfCycleElapsed($dateDaedalusLastCycle, $dateTime, $daedalusInfo);
 
         if ($cycleElapsed > 0) {
+            $this->activateCycleChange($daedalus);
+
             try {
                 $this->entityManager->beginTransaction();
-                $this->activateCycleChange($daedalus);
                 for ($i = 0; $i < $cycleElapsed; ++$i) {
                     $dateDaedalusLastCycle->add(new \DateInterval('PT' . $daedalusConfig->getCycleLength() . 'M'));
                     $cycleEvent = new DaedalusCycleEvent(
@@ -243,6 +243,7 @@ class CycleService implements CycleServiceInterface
                     'trace' => $error->getTraceAsString(),
                 ]);
                 $this->entityManager->rollback();
+                $this->deactivateCycleChange($daedalus);
                 $this->entityManager->close();
 
                 throw $error;
@@ -309,5 +310,32 @@ class CycleService implements CycleServiceInterface
         $exploration->setIsChangingCycle(false);
         $this->entityManager->persist($exploration);
         $this->entityManager->flush();
+    }
+}
+
+class CycleChangeResult
+{
+    public int $daedalusCyclesElapsed;
+    public int $explorationCyclesElapsed;
+
+    public function __construct(int $daedalusCyclesElapsed, int $explorationCyclesElapsed)
+    {
+        $this->daedalusCyclesElapsed = $daedalusCyclesElapsed;
+        $this->explorationCyclesElapsed = $explorationCyclesElapsed;
+    }
+
+    public function noCycleElapsed(): bool
+    {
+        return $this->daedalusCyclesElapsed === 0 && $this->explorationCyclesElapsed === 0;
+    }
+
+    public function hasDaedalusCycleElapsed(): bool
+    {
+        return $this->daedalusCyclesElapsed > 0;
+    }
+
+    public function hasExplorationCycleElapsed(): bool
+    {
+        return $this->explorationCyclesElapsed > 0;
     }
 }

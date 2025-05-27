@@ -592,13 +592,6 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($planetDepths);
 
-        $tabulatrixQueue = new PlaceConfig();
-        $tabulatrixQueue
-            ->setPlaceName(RoomEnum::TABULATRIX_QUEUE)
-            ->setType(PlaceTypeEnum::QUEUE)
-            ->buildName(GameConfigEnum::DEFAULT);
-        $manager->persist($tabulatrixQueue);
-
         /** @var ArrayCollection $placeCollection */
         $placeCollection = new ArrayCollection([
             $bridge,
@@ -611,7 +604,6 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
             $frontStorage, $centerAlphaStorage, $centreBravoStorage, $rearAlphaStorage, $rearBravoStorage, $space,
             $patrolship_alpha_2_wallis, $patrolship_alpha_longane, $patrolship_alpha_jujube, $patrolship_alpha_tamarin,
             $patrolship_bravo_socrate, $patrolship_bravo_planton, $patrolship_bravo_epicure, $pasiphae, $planet, $planetDepths,
-            $tabulatrixQueue,
         ]);
         $daedalusConfig->setPlaceConfigs($placeCollection);
         $manager->persist($daedalusConfig);
@@ -656,7 +648,6 @@ class PlaceConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(RoomEnum::PASIPHAE, $pasiphae);
         $this->addReference(RoomEnum::PLANET, $planet);
         $this->addReference(RoomEnum::PLANET_DEPTHS, $planetDepths);
-        $this->addReference(RoomEnum::TABULATRIX_QUEUE, $tabulatrixQueue);
     }
 
     public function getDependencies(): array

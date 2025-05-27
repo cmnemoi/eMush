@@ -32,8 +32,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
         LogEnum::FOUND_ITEM_IN_EXPLORATION => LogEnum::FOUND_ITEM_IN_EXPLORATION,
         ActionEnum::PRINT_ZE_LIST->value => LogEnum::TABULATRIX_PRINTS,
         EquipmentEventReason::AWAKEN_SCHRODINGER => LogEnum::AWAKEN_SCHRODINGER,
-        ActionEnum::GEN_METAL->value => ActionLogEnum::GEN_METAL_SUCCESS,
-        EquipmentEventReason::AWAKEN_PAVLOV => LogEnum::AWAKEN_PAVLOV,
     ];
 
     private const DESTRUCTION_LOG_MAP = [
@@ -43,14 +41,10 @@ class EquipmentSubscriber implements EventSubscriberInterface
         EndCauseEnum::ASPHYXIA => LogEnum::OXY_LOW_USE_CAPSULE,
         PlanetSectorEvent::ITEM_LOST => LogEnum::LOST_ITEM_IN_EXPLORATION,
         ActionEnum::SHOOT_CAT->value => LogEnum::CAT_SHOT_DEAD,
-        ActionEnum::ATTACK->value => LogEnum::EQUIPMENT_DESTROYED,
-        ActionEnum::SHOOT->value => LogEnum::EQUIPMENT_DESTROYED,
-        ActionEnum::THROW_GRENADE->value => LogEnum::EQUIPMENT_DESTROYED,
     ];
 
     private const MOVE_EQUIPMENT_LOG_MAP = [
         ActionEnum::COLLECT_SCRAP->value => LogEnum::SCRAP_COLLECTED,
-        EventEnum::PRINT_DOCUMENT => LogEnum::TABULATRIX_PRINTS,
         ProjectName::FOOD_RETAILER->value => LogEnum::FRUIT_TRANSPORTED,
         Takeoff::DROP_CRITICAL_ITEM => LogEnum::DROP_SUCCESS,
     ];

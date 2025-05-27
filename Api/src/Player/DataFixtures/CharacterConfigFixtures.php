@@ -534,7 +534,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var ArrayCollection $characters */
         $characters = new ArrayCollection([
-            $andie, $chun, $chao, $derek, $eleesha, $finola, $frieda, $gioele, $hua, $ian,
+            $andie, $chun, $derek, $eleesha, $frieda, $gioele, $hua, $ian,
             $janice, $jinSu, $kuanTi, $paola, $raluca, $roland, $stephen, $terrence,
         ]);
 
@@ -620,9 +620,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $guardAction */
         $guardAction = $this->getReference(ActionEnum::GUARD->value);
 
-        /** @var ActionConfig $goBerserkAction */
-        $goBerserkAction = $this->getReference(MushActionFixtures::GO_BERSERK);
-
         /** @var ActionConfig $commanderOrderAction */
         $commanderOrderAction = $this->getReference(ActionEnum::COMMANDER_ORDER->value);
 
@@ -631,9 +628,6 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
 
         /** @var ActionConfig $rejectMissionAction */
         $rejectMissionAction = $this->getReference(ActionEnum::REJECT_MISSION->value);
-
-        /** @var ActionConfig $comManagerAnnouncementAction */
-        $comManagerAnnouncementAction = $this->getReference(ActionEnum::COM_MANAGER_ANNOUNCEMENT->value);
 
         /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
@@ -655,11 +649,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $surgeryAction,
             $killPlayerAction,
             $guardAction,
-            $goBerserkAction,
             $commanderOrderAction,
             $acceptMissionAction,
             $rejectMissionAction,
-            $comManagerAnnouncementAction,
         ]);
 
         $characterConfig = new CharacterConfig();

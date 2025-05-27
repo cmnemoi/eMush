@@ -11,7 +11,11 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
+use Mush\Game\Entity\Collection\EventChain;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Event\AbstractGameEvent;
+use Mush\Game\Event\VariableEventInterface;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeGetRandomElementsFromArrayService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -20,7 +24,6 @@ use Mush\Project\Factory\ProjectFactory;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Factory\StatusFactory;
-use Mush\Tests\unit\Project\TestDoubles\FakePlayerHealthVariableEventService;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -30,20 +33,33 @@ final class JukeboxProjectTest extends TestCase
 {
     public function testShouldGiveTwoMoralePointsToPlayer(): void
     {
-        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints();
+        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
         $jukebox = $this->givenAJukeboxEquipmentInPlayerRoom($player);
+
+        $this->givenJukeBoxPlaysPlayerMusic($jukebox, $player);
 
         $this->whenJukeboxWorksAtCycleChange($jukebox);
 
         $this->thenThePlayerShouldHaveMoralePoints(12, $player);
     }
 
+    public function testShouldNotGiveMoralePointsIfProjectIsNotFinished(): void
+    {
+        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
+
+        $jukebox = $this->givenAJukeboxEquipmentInPlayerRoom($player);
+
+        $this->whenJukeboxWorksAtCycleChange($jukebox);
+
+        $this->thenThePlayerShouldHaveMoralePoints(10, $player);
+    }
+
     public function testShouldNotGiveMoralePointsIfPlayerIsNotInJukeBoxRoom(): void
     {
-        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints();
+        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
@@ -56,13 +72,11 @@ final class JukeboxProjectTest extends TestCase
 
     public function testShouldNotGiveMoralePointsIfJukeBoxDoesNotPlayPlayerMusic(): void
     {
-        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints([CharacterEnum::ROLAND, CharacterEnum::RALUCA]);
+        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
         $jukebox = $this->givenAJukeboxEquipmentInPlayerRoom($player);
-
-        $this->givenJukeBoxPlaysPlayerMusic($jukebox, $player);
 
         $this->whenJukeboxWorksAtCycleChange($jukebox);
 
@@ -71,7 +85,7 @@ final class JukeboxProjectTest extends TestCase
 
     public function testShouldNotGiveMoralePointsIfJukeboxIsBroken(): void
     {
-        [[$player], $daedalus] = $this->givenAPlayerWithTenMoralePoints();
+        [$player, $daedalus] = $this->givenAPlayerWithTenMoralePoints();
 
         $this->givenJukeboxProjectIsFinished($daedalus);
 
@@ -86,18 +100,13 @@ final class JukeboxProjectTest extends TestCase
         $this->thenThePlayerShouldHaveMoralePoints(10, $player);
     }
 
-    private function givenAPlayerWithTenMoralePoints(array $characters = [CharacterEnum::RALUCA]): array
+    private function givenAPlayerWithTenMoralePoints(): array
     {
         $daedalus = $this->createDaedalusWithJukeboxProject();
-        $players = [];
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::RALUCA, $daedalus);
+        $player->setMoralPoint(10);
 
-        foreach ($characters as $character) {
-            $player = PlayerFactory::createPlayerByNameAndDaedalus($character, $daedalus);
-            $player->setMoralPoint(10);
-            $players[] = $player;
-        }
-
-        return [$players, $daedalus];
+        return [$player, $daedalus];
     }
 
     private function givenJukeboxProjectIsFinished(Daedalus $daedalus): void
@@ -150,7 +159,7 @@ final class JukeboxProjectTest extends TestCase
     private function whenJukeboxWorksAtCycleChange(GameEquipment $jukebox): void
     {
         $jukeboxCycleHandler = new JukeboxCycleHandler(
-            new FakePlayerHealthVariableEventService(),
+            new FakePlayerVariableEventService(),
             new InMemoryGameEquipmentRepository(),
             new FakeGetRandomElementsFromArrayService(),
             $this->createStub(RoomLogServiceInterface::class),
@@ -172,5 +181,35 @@ final class JukeboxProjectTest extends TestCase
         );
 
         return $daedalus;
+    }
+}
+
+/**
+ * Class to fake PlayerVariableEvent handling.
+ * For this test we are just interested in the morale point increment (we trust everything related to event handling is tested outside)
+ * so we basically hardcoding it.
+ */
+final class FakePlayerVariableEventService implements EventServiceInterface
+{
+    public function callEvent(AbstractGameEvent $event, string $name, ?AbstractGameEvent $caller = null): EventChain
+    {
+        if ($name !== VariableEventInterface::CHANGE_VARIABLE) {
+            return new EventChain();
+        }
+
+        $player = $event->getPlayer();
+        $player->setMoralPoint($player->getMoralPoint() + 2);
+
+        return new EventChain();
+    }
+
+    public function computeEventModifications(AbstractGameEvent $event, string $name): ?AbstractGameEvent
+    {
+        return null;
+    }
+
+    public function eventCancelReason(AbstractGameEvent $event, string $name): ?string
+    {
+        return null;
     }
 }

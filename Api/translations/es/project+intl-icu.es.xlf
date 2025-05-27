@@ -24,17 +24,17 @@
         <source>auto_watering.type</source>
         <target>auto_watering.type</target>
       </segment>
-      <segment id="auto_watering.name" state="translated">
+      <segment id="auto_watering.name" state="initial">
         <source>auto_watering.name</source>
-        <target>Regaderas automáticas</target>
+        <target>auto_watering.name</target>
       </segment>
-      <segment id="auto_watering.description" state="translated">
+      <segment id="auto_watering.description" state="initial">
         <source>auto_watering.description</source>
-        <target>Cada incendio tiene 25% de probabilidades de ser apagado automáticamente en cada ciclo.</target>
+        <target>auto_watering.description</target>
       </segment>
-      <segment id="auto_watering.lore" state="translated">
+      <segment id="auto_watering.lore" state="initial">
         <source>auto_watering.lore</source>
-        <target>¿Podrás convencer al terco de NERON de utilizar un sistema antiincendios?</target>
+        <target>auto_watering.lore</target>
       </segment>
     </unit>
     <unit id="dismantling">
@@ -42,17 +42,17 @@
         <source>dismantling.type</source>
         <target>dismantling.type</target>
       </segment>
-      <segment id="dismantling.name" state="translated">
+      <segment id="dismantling.name" state="initial">
         <source>dismantling.name</source>
-        <target>Desmantelamiento</target>
+        <target>dismantling.name</target>
       </segment>
-      <segment id="dismantling.description" state="translated">
+      <segment id="dismantling.description" state="initial">
         <source>dismantling.description</source>
-        <target>Genera 5 piezas metálicas en la Sala de Motores.</target>
+        <target>dismantling.description</target>
       </segment>
-      <segment id="dismantling.lore" state="translated">
+      <segment id="dismantling.lore" state="initial">
         <source>dismantling.lore</source>
-        <target>Desarmando todos los experimentos inútiles de Raluca en el PILGRED hay manera de recuperar una serie de piezas usadas que nos servirán para reforzar el casco de la nave o reparar los patrulleros.</target>
+        <target>dismantling.lore</target>
       </segment>
     </unit>
     <unit id="door_sensor">
@@ -60,17 +60,17 @@
         <source>door_sensor.type</source>
         <target>door_sensor.type</target>
       </segment>
-      <segment id="door_sensor.name" state="translated">
+      <segment id="door_sensor.name" state="initial">
         <source>door_sensor.name</source>
-        <target>Detectores de pistones defectuosos</target>
+        <target>door_sensor.name</target>
       </segment>
-      <segment id="door_sensor.description" state="translated">
+      <segment id="door_sensor.description" state="initial">
         <source>door_sensor.description</source>
-        <target>Las puertas bloqueadas son reportados en tus módulos personales.</target>
+        <target>door_sensor.description</target>
       </segment>
-      <segment id="door_sensor.lore" state="translated">
+      <segment id="door_sensor.lore" state="initial">
         <source>door_sensor.lore</source>
-        <target>Analizando el humo proveniente de los pistones defectuosos de las puertas automáticas, NERON ahora puede determinar con exactitud su posición en los módulos personales.</target>
+        <target>door_sensor.lore</target>
       </segment>
     </unit>
     <unit id="equipment_sensor">
@@ -1187,24 +1187,6 @@
       <segment id="ultra_healing_pomade.lore" state="initial">
         <source>ultra_healing_pomade.lore</source>
         <target>ultra_healing_pomade.lore</target>
-      </segment>
-    </unit>
-    <unit id="guarana_cappuccino">
-      <segment id="guarana_cappuccino.type" state="initial">
-        <source>guarana_cappuccino.type</source>
-        <target>guarana_cappuccino.type</target>
-      </segment>
-      <segment id="guarana_cappuccino.name" state="initial">
-        <source>guarana_cappuccino.name</source>
-        <target>guarana_cappuccino.name</target>
-      </segment>
-      <segment id="guarana_cappuccino.description" state="initial">
-        <source>guarana_cappuccino.description</source>
-        <target>guarana_cappuccino.description</target>
-      </segment>
-      <segment id="guarana_cappuccino.lore" state="initial">
-        <source>guarana_cappuccino.lore</source>
-        <target>guarana_cappuccino.lore</target>
       </segment>
     </unit>
   </file>

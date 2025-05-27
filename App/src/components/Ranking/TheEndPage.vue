@@ -58,7 +58,7 @@
                         </template>
                     </Tippy>
                     <Tippy tag="span" v-if="isModerator && !goldNovaPlayer.messageHasBeenModerated" @click="openEditDialog(goldNovaPlayer)">
-                        <img :src="getImgUrl('ui_icons/action_points/pa_core.png')" alt="Edit message">
+                        <img :src="getImgUrl('action_points/pa_core.png')" alt="Edit message">
                         <template #content>
                             <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                             <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
@@ -80,7 +80,7 @@
                         {{ goldNovaPlayer.cyclesSurvived }}
                     </p>
                     <p class="death-cause">
-                        <img :src="getImgUrl('ui_icons/dead.png')" alt="Dead" v-if="goldNovaPlayer.hasBadEndCause">
+                        <img :src="getImgUrl('dead.png')" alt="Dead" v-if="goldNovaPlayer.hasBadEndCause">
                         <img :src="getImgUrl('ready.png')" alt="Alive" v-else>
                         {{ $t("theEnd.endCause." + goldNovaPlayer.endCause) }}
                     </p>
@@ -131,7 +131,7 @@
                             {{ player.cyclesSurvived }}
                         </p>
                         <p class="death-cause">
-                            <img :src="getImgUrl('ui_icons/dead.png')" alt="Dead" v-if="player.hasBadEndCause">
+                            <img :src="getImgUrl('dead.png')" alt="Dead" v-if="player.hasBadEndCause">
                             <img :src="getImgUrl('ready.png')" alt="Alive" v-else>
                             {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
@@ -168,7 +168,7 @@
                                 </template>
                             </Tippy>
                             <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openEditDialog(player)">
-                                <img :src="getImgUrl('ui_icons/action_points/pa_core.png')" alt="Edit message">
+                                <img :src="getImgUrl('action_points/pa_core.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
@@ -226,7 +226,7 @@
                             {{ player.cyclesSurvived }}
                         </p>
                         <p class="death-cause">
-                            <img :src="getImgUrl('ui_icons/dead.png')" alt="Dead" v-if="player.hasBadEndCause">
+                            <img :src="getImgUrl('dead.png')" alt="Dead" v-if="player.hasBadEndCause">
                             <img :src="getImgUrl('ready.png')" alt="Alive" v-else>
                             {{ $t('theEnd.endCause.' + player.endCause) }}
                         </p>
@@ -254,7 +254,7 @@
                                 </template>
                             </Tippy>
                             <Tippy tag="span" v-if="isModerator && !player.messageHasBeenModerated" @click="openEditDialog(player)">
-                                <img :src="getImgUrl('ui_icons/action_points/pa_core.png')" alt="Edit message">
+                                <img :src="getImgUrl('action_points/pa_core.png')" alt="Edit message">
                                 <template #content>
                                     <h1>{{ $t('moderation.theEndPage.editMessage')}}</h1>
                                     <p>{{ $t('moderation.theEndPage.editMessageDescription') }}</p>
@@ -699,7 +699,7 @@ h2 {
         display: initial;
         float: left;
         margin-bottom: 1em;
-        list-style: disc inside url("/src/assets/images/ui_icons/point.png");
+        list-style: disc inside url("/src/assets/images/point.png");
     }
 
     button {

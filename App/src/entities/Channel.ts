@@ -10,18 +10,6 @@ export type CommanderMission = {
     isCompleted: boolean,
 };
 
-export type ComManagerAnnouncement = {
-    title: string,
-    element: ComManagerAnnouncementElement,
-};
-
-export type ComManagerAnnouncementElement = {
-    id: number,
-    comManager: {id: number, key: string, name: string},
-    announcement: string,
-    date: string,
-};
-
 type Tips = {
     teamObjectives: {
         title: string;
@@ -50,10 +38,6 @@ type Tips = {
             accept: string;
         }
     };
-    announcement: {
-        title: string;
-        element: ComManagerAnnouncement;
-    }
 }
 
 export class Channel {

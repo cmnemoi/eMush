@@ -38,7 +38,6 @@ class DaedalusSubscriber implements EventSubscriberInterface
                 $event->getTags(),
                 $event->getTime()
             );
-            $deleteEvent->addTag(DaedalusEvent::DELETE_DAEDALUS);
             $this->eventService->callEvent($deleteEvent, RoomEvent::DELETE_PLACE);
 
             $this->placeService->delete($place);

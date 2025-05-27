@@ -2,24 +2,39 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Coffee;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\BreakableTypeEnum;
+use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerInfo;
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\Factory\ProjectFactory;
+use Mush\Status\Entity\ChargeStatus;
+use Mush\Status\Entity\Config\ChargeStatusConfig;
+use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Status\Entity\Status;
+use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Event\StatusCycleEvent;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\User\Entity\User;
 
 /**
  * @internal
@@ -30,10 +45,6 @@ final class CoffeeActionCest extends AbstractFunctionalTest
     private Coffee $coffeeAction;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
-    private Place $laboratory;
-    private Place $refectory;
-    private GameEquipment $coffeeMachine;
 
     public function _before(FunctionalTester $I): void
     {
@@ -44,62 +55,107 @@ final class CoffeeActionCest extends AbstractFunctionalTest
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
-
-        $this->daedalus->getDaedalusConfig()->setCyclePerGameDay(8);
-        $this->laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
-        $this->refectory = $this->createExtraPlace(RoomEnum::REFECTORY, $I, $this->daedalus);
-
-        $this->coffeeMachine = $this->givenACoffeeMachineInRefectory($I);
-        // no random breakage
-        $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentBreakRateDistribution([]);
-        $this->coffeeMachine->getEquipment()->setBreakableType(BreakableTypeEnum::BREAKABLE);
     }
 
     public function testCanReach(FunctionalTester $I): void
     {
-        $this->givenPlayerIsIn($this->laboratory);
+        $room1 = new Place();
+        $room2 = new Place();
+
+        $player = $this->createPlayer(new Daedalus(), $room1);
+
+        $gameEquipment = $this->createCoffeeMachine($room2);
+
+        $coffeeActionEntity = new ActionConfig();
+        $coffeeActionEntity
+            ->setActionName(ActionEnum::COFFEE)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SELF);
+
+        $gameEquipment->getEquipment()->setActionConfigs(new ArrayCollection([$coffeeActionEntity]));
 
         $this->coffeeAction->loadParameters(
-            actionConfig: $this->coffeeActionConfig,
-            actionProvider: $this->coffeeMachine,
-            player: $this->player,
-            target: $this->coffeeMachine
+            actionConfig: $coffeeActionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment
         );
 
         $I->assertFalse($this->coffeeAction->isVisible());
 
-        $this->givenPlayerIsIn($this->refectory);
+        $gameEquipment->setHolder($room1);
 
         $I->assertTrue($this->coffeeAction->isVisible());
     }
 
     public function testBroken(FunctionalTester $I): void
     {
-        $this->givenPlayerIsIn($this->refectory);
+        $daedalus = new Daedalus();
+        $room = new Place();
+        $room->setDaedalus($daedalus);
+
+        $player = $this->createPlayer($daedalus, $room);
+
+        $gameEquipment = $this->createCoffeeMachine($room);
+
+        $coffeeActionEntity = new ActionConfig();
+        $coffeeActionEntity
+            ->setActionName(ActionEnum::COFFEE)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SELF);
 
         $this->coffeeAction->loadParameters(
-            actionConfig: $this->coffeeActionConfig,
-            actionProvider: $this->coffeeMachine,
-            player: $this->player,
-            target: $this->coffeeMachine
+            actionConfig: $coffeeActionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment
         );
+        $gameEquipment->getEquipment()->setActionConfigs(new ArrayCollection([$coffeeActionEntity]));
 
-        $this->givenCoffeeMachineIsBroken();
+        $statusConfig = new StatusConfig();
+        $statusConfig
+            ->setStatusName(EquipmentStatusEnum::BROKEN)
+            ->setVisibility(VisibilityEnum::PUBLIC);
+        new Status($gameEquipment, $statusConfig);
 
         $I->assertEquals(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $this->coffeeAction->cannotExecuteReason());
     }
 
     public function testNotCharged(FunctionalTester $I): void
     {
-        $this->coffeeAction->loadParameters(
-            actionConfig: $this->coffeeActionConfig,
-            actionProvider: $this->coffeeMachine,
-            player: $this->player,
-            target: $this->coffeeMachine
-        );
+        $pilgred = ProjectFactory::createPilgredProject();
+        $daedalus = $pilgred->getDaedalus();
+        $room = new Place();
+        $room->setDaedalus($daedalus);
 
-        $this->givenCoffeeMachineHasNoCharge();
+        $player = $this->createPlayer($daedalus, $room);
+
+        $gameEquipment = $this->createCoffeeMachine($room);
+
+        $coffeeActionEntity = new ActionConfig();
+        $coffeeActionEntity
+            ->setActionName(ActionEnum::COFFEE)
+            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
+            ->setRange(ActionRangeEnum::SELF);
+
+        $this->coffeeAction->loadParameters(
+            actionConfig: $coffeeActionEntity,
+            actionProvider: $gameEquipment,
+            player: $player,
+            target: $gameEquipment
+        );
+        $gameEquipment->getEquipment()->setActionConfigs(new ArrayCollection([$coffeeActionEntity]));
+
+        $statusConfig = new ChargeStatusConfig();
+        $statusConfig
+            ->setStatusName(EquipmentStatusEnum::HEAVY)
+            ->setVisibility(VisibilityEnum::PUBLIC)
+            ->setDischargeStrategies([ActionEnum::COFFEE->value])
+            ->setChargeStrategy(ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT);
+
+        $chargeStatus = new ChargeStatus($gameEquipment, $statusConfig);
+        $chargeStatus
+            ->setCharge(0);
 
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
@@ -107,161 +163,120 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotBeExecutableTwiceACycleIfPilgredIsCompleted(FunctionalTester $I): void
+    public function shouldGiveCoffeeAtEachCycleIfPilgredIsCompleted(FunctionalTester $I): void
     {
-        $this->givenPlayerIsIn($this->refectory);
-
-        $this->givenPilgredIsCompleted();
-
-        $this->givenPlayerPulledACoffee();
-
-        $this->thenPlayerCannotPullACoffeeBecauseCycleLimit($I);
-    }
-
-    public function shouldBeExecutableAtCycleFiveWithFissionCoffeeRoasterProject(FunctionalTester $I): void
-    {
-        $this->givenItIsCycle(4);
-
-        $this->givenPlayerIsIn($this->refectory);
-
-        $this->givenFissionCoffeeRoasterIsCompleted($I);
-
-        $this->givenPlayerPulledACoffee();
-
-        $this->whenANewCycleIsCalled();
-
-        $this->thenPlayerCanPullACoffee($I);
-    }
-
-    public function shouldGiveCoffeeEveryTwoCyclesIfPilgredIsCompleted(FunctionalTester $I): void
-    {
-        $this->givenPlayerIsIn($this->refectory);
-
-        $this->givenPilgredIsCompleted();
-
-        $this->givenItIsCycle(2);
-
-        $this->givenPlayerPulledACoffee();
-
-        $this->whenANewCycleIsCalled();
-        $I->assertEquals(3, $this->daedalus->getCycle());
-
-        $this->thenPlayerCanPullACoffee($I);
-
-        $this->givenPlayerPulledACoffee();
-
-        $this->whenANewCycleIsCalled();
-        $I->assertEquals(4, $this->daedalus->getCycle());
-
-        $this->thenPlayerCannotPullACoffeeBecauseCycleLimit($I);
-    }
-
-    public function shouldGiveCoffeeEveryCycleWithPilgredAndFissionRoaster(FunctionalTester $I): void
-    {
-        $this->givenPlayerIsIn($this->refectory);
-
-        $this->givenPilgredIsCompleted();
-        $this->givenFissionCoffeeRoasterIsCompleted($I);
-
-        $this->givenItIsCycle(2);
-
-        $this->givenPlayerPulledACoffee();
-
-        $this->whenANewCycleIsCalled();
-        $I->assertEquals(3, $this->daedalus->getCycle());
-
-        $this->thenPlayerCanPullACoffee($I);
-
-        $this->givenPlayerPulledACoffee();
-
-        $this->whenANewCycleIsCalled();
-        $I->assertEquals(4, $this->daedalus->getCycle());
-
-        $this->thenPlayerCanPullACoffee($I);
-    }
-
-    private function givenACoffeeMachineInRefectory(FunctionalTester $I): GameEquipment
-    {
-        return $this->gameEquipmentService->createGameEquipmentFromName(
+        // given I have a coffee machine in Chun's room
+        $coffeeMachine = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: EquipmentEnum::COFFEE_MACHINE,
-            equipmentHolder: $this->refectory,
+            equipmentHolder: $this->chun->getPlace(),
             reasons: [],
             time: new \DateTime()
         );
-    }
 
-    private function givenPlayerIsIn(Place $place)
-    {
-        $this->player->setPlace($place);
-    }
-
-    private function givenCoffeeMachineIsBroken(): void
-    {
-        $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::BROKEN,
-            $this->coffeeMachine,
-            [],
-            new \DateTime()
-        );
-    }
-
-    private function givenCoffeeMachineHasNoCharge(): void
-    {
-        $this->coffeeMachine->getChargeStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(0);
-    }
-
-    private function givenPilgredIsCompleted(): void
-    {
+        // given PILGRED is completed
         $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(100);
-    }
 
-    private function givenPilgredIsNotCompleted(): void
-    {
-        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(0);
-    }
-
-    private function givenFissionCoffeeRoasterIsCompleted(FunctionalTester $I): void
-    {
-        $this->finishProject(
-            project: $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER),
-            author: $this->chun,
-            I: $I
-        );
-    }
-
-    private function givenPlayerPulledACoffee(): void
-    {
+        // given Chun executes the coffee action
         $this->coffeeAction->loadParameters(
             actionConfig: $this->coffeeActionConfig,
-            actionProvider: $this->coffeeMachine,
-            player: $this->player,
-            target: $this->coffeeMachine
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
         );
         $this->coffeeAction->execute();
+
+        // when a cycle passes
+        $statusEvent = new StatusCycleEvent(
+            $coffeeMachine->getStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES),
+            $coffeeMachine,
+            tags: [EventEnum::NEW_CYCLE],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($statusEvent, StatusCycleEvent::STATUS_NEW_CYCLE);
+
+        // then Chun should be able to execute the coffee action again
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
+        $I->assertNull($this->coffeeAction->cannotExecuteReason());
     }
 
-    private function givenItIsCycle(int $cycle): void
+    public function shouldNotBeExecutableTwiceACycleIfPilgredIsCompleted(FunctionalTester $I): void
     {
-        $this->daedalus->setCycle($cycle);
+        // given I have a coffee machine in Chun's room
+        $coffeeMachine = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::COFFEE_MACHINE,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given PILGRED is completed
+        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(100);
+
+        // when Chun executes the coffee action
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
+        $this->coffeeAction->execute();
+
+        // then Chun should not be able to execute the coffee action again
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
+        $I->assertEquals(
+            expected: ActionImpossibleCauseEnum::CYCLE_LIMIT,
+            actual: $this->coffeeAction->cannotExecuteReason()
+        );
     }
 
-    private function whenANewCycleIsCalled(): void
+    public function shouldNotBeExecutableAfterOneCycleIfPilgredIsNotCompleted(FunctionalTester $I): void
     {
+        $this->setupNoIncidents();
+
+        // given I have a coffee machine in Chun's room
+        $coffeeMachine = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::COFFEE_MACHINE,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given PILGRED is not completed
+        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate(0);
+
+        // given Chun executes the coffee action
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
+        $this->coffeeAction->execute();
+
+        // when a cycle passes
         $daedalusEvent = new DaedalusCycleEvent(
             $this->daedalus,
             tags: [EventEnum::NEW_CYCLE],
             time: new \DateTime()
         );
         $this->eventService->callEvent($daedalusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-    }
 
-    private function thenPlayerCannotPullACoffeeBecauseDailyLimit(FunctionalTester $I): void
-    {
+        // then Chun should not be able to execute the coffee action again
         $this->coffeeAction->loadParameters(
             actionConfig: $this->coffeeActionConfig,
-            actionProvider: $this->coffeeMachine,
-            player: $this->player,
-            target: $this->coffeeMachine
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
         );
         $I->assertEquals(
             expected: ActionImpossibleCauseEnum::DAILY_LIMIT,
@@ -269,28 +284,98 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenPlayerCannotPullACoffeeBecauseCycleLimit(FunctionalTester $I): void
+    public function shouldBeExecutableAtCycleFourWithFissionCoffeeRoasterProject(FunctionalTester $I): void
     {
-        $this->coffeeAction->loadParameters(
-            actionConfig: $this->coffeeActionConfig,
-            actionProvider: $this->coffeeMachine,
-            player: $this->player,
-            target: $this->coffeeMachine
-        );
-        $I->assertEquals(
-            expected: ActionImpossibleCauseEnum::CYCLE_LIMIT_EVERY_2,
-            actual: $this->coffeeAction->cannotExecuteReason()
-        );
-    }
+        $this->setupNoIncidents();
 
-    private function thenPlayerCanPullACoffee(FunctionalTester $I): void
-    {
+        // given Daedalus is at cycle 3
+        $this->daedalus->setCycle(3);
+
+        // given I have a coffee machine in Chun's room
+        $coffeeMachine = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::COFFEE_MACHINE,
+            equipmentHolder: $this->chun->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given Fission Coffee Roaster project is completed
+        $this->finishProject(
+            project: $this->daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER),
+            author: $this->chun,
+            I: $I
+        );
+
+        // given Chun executes the coffee action
         $this->coffeeAction->loadParameters(
             actionConfig: $this->coffeeActionConfig,
-            actionProvider: $this->coffeeMachine,
-            player: $this->player,
-            target: $this->coffeeMachine
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
+        );
+        $this->coffeeAction->execute();
+
+        // when a cycle passes
+        $statusEvent = new DaedalusCycleEvent(
+            $this->daedalus,
+            tags: [EventEnum::NEW_CYCLE],
+            time: new \DateTime()
+        );
+        $this->eventService->callEvent($statusEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+        $I->assertEquals(4, $this->daedalus->getCycle());
+
+        // then Chun should be able to execute the coffee action again
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $coffeeMachine,
+            player: $this->chun,
+            target: $coffeeMachine
         );
         $I->assertNull($this->coffeeAction->cannotExecuteReason());
+    }
+
+    private function createPlayer(Daedalus $daedalus, Place $room): Player
+    {
+        $characterConfig = new CharacterConfig();
+        $characterConfig
+            ->setName('character name')
+            ->setInitActionPoint(10)
+            ->setInitMovementPoint(10)
+            ->setInitMoralPoint(10);
+
+        $player = new Player();
+        $player
+            ->setPlayerVariables($characterConfig)
+            ->setDaedalus($daedalus)
+            ->setPlace($room);
+
+        $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
+        $player->setPlayerInfo($playerInfo);
+
+        return $player;
+    }
+
+    private function createCoffeeMachine(Place $place): GameEquipment
+    {
+        $tool = new Tool();
+        $tool->setActions([$this->coffeeActionConfig])->setName('tool_coffee_test');
+
+        $gameEquipment = new GameEquipment($place);
+        $equipment = new EquipmentConfig();
+        $equipment->setEquipmentName(EquipmentEnum::COFFEE_MACHINE)->setMechanics([$tool]);
+        $gameEquipment
+            ->setEquipment($equipment)
+            ->setName(EquipmentEnum::COFFEE_MACHINE);
+
+        return $gameEquipment;
+    }
+
+    private function setupNoIncidents(): void
+    {
+        $this->daedalus->setDay(0);
+        $daedalusConfig = $this->daedalus->getDaedalusConfig();
+        $ref = new \ReflectionClass($daedalusConfig);
+        $ref->getProperty('cyclePerGameDay')->setValue($daedalusConfig, 1_000_000_000);
     }
 }

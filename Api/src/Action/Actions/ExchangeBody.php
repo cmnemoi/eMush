@@ -9,11 +9,8 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\GameVariableLevel;
 use Mush\Action\Validator\HasStatus;
-use Mush\Action\Validator\Reach;
-use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
@@ -48,24 +45,24 @@ final class ExchangeBody extends AbstractAction
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
-        $metadata->addConstraints([
-            new Reach([
-                'reach' => ReachEnum::ROOM,
-                'groups' => [ClassConstraint::VISIBILITY],
-            ]),
+        $metadata->addConstraint(
             new HasStatus([
                 'status' => PlayerStatusEnum::MUSH,
                 'target' => HasStatus::PARAMETER,
                 'contain' => false,
                 'groups' => ['visibility'],
-            ]),
+            ])
+        );
+        $metadata->addConstraint(
             new HasStatus([
                 'status' => PlayerStatusEnum::HAS_EXCHANGED_BODY,
                 'target' => HasStatus::PLAYER,
                 'contain' => false,
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::UNIQUE_ACTION,
-            ]),
+            ])
+        );
+        $metadata->addConstraint(
             new GameVariableLevel([
                 'variableName' => PlayerVariableEnum::SPORE,
                 'target' => GameVariableLevel::TARGET_PLAYER,
@@ -73,7 +70,7 @@ final class ExchangeBody extends AbstractAction
                 'groups' => ['execute'],
                 'message' => ActionImpossibleCauseEnum::TRANSFER_NO_SPORE,
             ]),
-        ]);
+        );
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

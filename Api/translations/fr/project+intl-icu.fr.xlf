@@ -156,9 +156,9 @@
       </segment>
       <segment id="pilgred.description" state="translated">
         <source>pilgred.description</source>
-        <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre. De plus, la machine à café se régénèrera quatre fois plus vite.</target>
+        <target>Réparer PILGRED vous permettra d'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.</target>
       </segment>
-      <segment id="pilgred.lore" state="translated">
+      <segment id="pilgred.lore" state="final">
         <source>pilgred.lore</source>
         <target/>
       </segment>
@@ -262,9 +262,9 @@
         <source>thalasso.name</source>
         <target>Thalasso</target>
       </segment>
-      <segment id="thalasso.description" state="translated">
+      <segment id="thalasso.description" state="final">
         <source>thalasso.description</source>
-        <target>Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU + 1 :pmo: OU + 2:pm:.</target>
+        <target>Si vous n'êtes pas Mush, chaque douche a 25% de chance de vous rapporter +1 :hp: OU +1 :pmo: OU +2 :pm:.</target>
       </segment>
       <segment id="thalasso.lore" state="translated">
         <source>thalasso.lore</source>
@@ -280,9 +280,9 @@
         <source>bric_broc.name</source>
         <target>Rafistolage Général</target>
       </segment>
-      <segment id="bric_broc.description" state="translated">
+      <segment id="bric_broc.description" state="final">
         <source>bric_broc.description</source>
-        <target>À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette... ce qui évite les pépins spontanés.</target>
+        <target>À chaque cycle, le Daedalus a 15% de chances de ne pas partir en miette...</target>
       </segment>
       <segment id="bric_broc.lore" state="translated">
         <source>bric_broc.lore</source>
@@ -336,7 +336,7 @@
       </segment>
       <segment id="fission_coffee_roaster.description" state="translated">
         <source>fission_coffee_roaster.description</source>
-        <target>La machine à café se régénère deux fois plus vite.</target>
+        <target>La machine à café se régénère également au cycle 4.</target>
       </segment>
       <segment id="fission_coffee_roaster.lore" state="translated">
         <source>fission_coffee_roaster.lore</source>
@@ -352,9 +352,9 @@
         <source>armour_corridor.name</source>
         <target>Coursives blindées</target>
       </segment>
-      <segment id="armour_corridor.description" state="translated">
+      <segment id="armour_corridor.description" state="final">
         <source>armour_corridor.description</source>
-        <target>Les dégâts de chaque attaque subie par la coque du Daedalus sont diminués d'un point.</target>
+        <target>Chaque attaque subie par le Daedalus est diminuée d'un point.</target>
       </segment>
       <segment id="armour_corridor.lore" state="translated">
         <source>armour_corridor.lore</source>
@@ -778,7 +778,7 @@
     <unit id="anabolics">
       <segment id="anabolics.type" state="translated">
         <source>anabolics.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="anabolics.name" state="translated">
         <source>anabolics.name</source>
@@ -786,7 +786,7 @@
       </segment>
       <segment id="anabolics.description" state="translated">
         <source>anabolics.description</source>
-        <target>Génère 4 Anabolisants, qui peuvent être consommés pour donner 8 :pm: .</target>
+        <target>Génère 4 Anabolisants.</target>
       </segment>
       <segment id="anabolics.lore" state="translated">
         <source>anabolics.lore</source>
@@ -796,7 +796,7 @@
     <unit id="antispore_gas">
       <segment id="antispore_gas.type" state="translated">
         <source>antispore_gas.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="antispore_gas.name" state="translated">
         <source>antispore_gas.name</source>
@@ -814,7 +814,7 @@
     <unit id="constipaspore_serum">
       <segment id="constipaspore_serum.type" state="translated">
         <source>constipaspore_serum.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="constipaspore_serum.name" state="translated">
         <source>constipaspore_serum.name</source>
@@ -822,7 +822,7 @@
       </segment>
       <segment id="constipaspore_serum.description" state="translated">
         <source>constipaspore_serum.description</source>
-        <target>Augmente le coût de la création de spores de 2 :pa:.</target>
+        <target>Augmente le coût de la création de spores de 2.</target>
       </segment>
       <segment id="constipaspore_serum.lore" state="translated">
         <source>constipaspore_serum.lore</source>
@@ -832,7 +832,7 @@
     <unit id="create_mycoscan">
       <segment id="create_mycoscan.type" state="translated">
         <source>create_mycoscan.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="create_mycoscan.name" state="translated">
         <source>create_mycoscan.name</source>
@@ -850,7 +850,7 @@
     <unit id="meridon_scrambler">
       <segment id="meridon_scrambler.type" state="translated">
         <source>meridon_scrambler.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="meridon_scrambler.name" state="translated">
         <source>meridon_scrambler.name</source>
@@ -868,7 +868,7 @@
     <unit id="mush_hunter_zc16h">
       <segment id="mush_hunter_zc16h.type" state="translated">
         <source>mush_hunter_zc16h.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="mush_hunter_zc16h.name" state="translated">
         <source>mush_hunter_zc16h.name</source>
@@ -886,7 +886,7 @@
     <unit id="mushicide_soap">
       <segment id="mushicide_soap.type" state="translated">
         <source>mushicide_soap.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="mushicide_soap.name" state="translated">
         <source>mushicide_soap.name</source>
@@ -904,7 +904,7 @@
     <unit id="mush_language">
       <segment id="mush_language.type" state="translated">
         <source>mush_language.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="mush_language.name" state="translated">
         <source>mush_language.name</source>
@@ -922,7 +922,7 @@
     <unit id="mushovore_bacteria">
       <segment id="mushovore_bacteria.type" state="translated">
         <source>mushovore_bacteria.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="mushovore_bacteria.name" state="translated">
         <source>mushovore_bacteria.name</source>
@@ -940,7 +940,7 @@
     <unit id="mush_races">
       <segment id="mush_races.type" state="translated">
         <source>mush_races.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="mush_races.name" state="translated">
         <source>mush_races.name</source>
@@ -958,7 +958,7 @@
     <unit id="mush_reproductive_system">
       <segment id="mush_reproductive_system.type" state="translated">
         <source>mush_reproductive_system.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="mush_reproductive_system.name" state="translated">
         <source>mush_reproductive_system.name</source>
@@ -976,7 +976,7 @@
     <unit id="mycoalarm">
       <segment id="mycoalarm.type" state="translated">
         <source>mycoalarm.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="mycoalarm.name" state="translated">
         <source>mycoalarm.name</source>
@@ -994,7 +994,7 @@
     <unit id="narcotics_distiller">
       <segment id="narcotics_distiller.type" state="translated">
         <source>narcotics_distiller.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="narcotics_distiller.name" state="translated">
         <source>narcotics_distiller.name</source>
@@ -1012,7 +1012,7 @@
     <unit id="natamy_rifle">
       <segment id="natamy_rifle.type" state="translated">
         <source>natamy_rifle.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="natamy_rifle.name" state="translated">
         <source>natamy_rifle.name</source>
@@ -1030,7 +1030,7 @@
     <unit id="ncc_contact_lenses">
       <segment id="ncc_contact_lenses.type" state="translated">
         <source>ncc_contact_lenses.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="ncc_contact_lenses.name" state="translated">
         <source>ncc_contact_lenses.name</source>
@@ -1048,7 +1048,7 @@
     <unit id="patuline_scrambler">
       <segment id="patuline_scrambler.type" state="translated">
         <source>patuline_scrambler.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="patuline_scrambler.name" state="translated">
         <source>patuline_scrambler.name</source>
@@ -1066,7 +1066,7 @@
     <unit id="perpetual_hydration">
       <segment id="perpetual_hydration.type" state="translated">
         <source>perpetual_hydration.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="perpetual_hydration.name" state="translated">
         <source>perpetual_hydration.name</source>
@@ -1084,7 +1084,7 @@
     <unit id="pheromodem">
       <segment id="pheromodem.type" state="translated">
         <source>pheromodem.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="pheromodem.name" state="translated">
         <source>pheromodem.name</source>
@@ -1102,7 +1102,7 @@
     <unit id="retro_fungal_serum">
       <segment id="retro_fungal_serum.type" state="translated">
         <source>retro_fungal_serum.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="retro_fungal_serum.name" state="translated">
         <source>retro_fungal_serum.name</source>
@@ -1120,7 +1120,7 @@
     <unit id="spore_sucker">
       <segment id="spore_sucker.type" state="translated">
         <source>spore_sucker.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="spore_sucker.name" state="translated">
         <source>spore_sucker.name</source>
@@ -1138,7 +1138,7 @@
     <unit id="super_calculator">
       <segment id="super_calculator.type" state="translated">
         <source>super_calculator.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="super_calculator.name" state="translated">
         <source>super_calculator.name</source>
@@ -1156,7 +1156,7 @@
     <unit id="tesla_sup2x">
       <segment id="tesla_sup2x.type" state="translated">
         <source>tesla_sup2x.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="tesla_sup2x.name" state="translated">
         <source>tesla_sup2x.name</source>
@@ -1174,7 +1174,7 @@
     <unit id="ultra_healing_pomade">
       <segment id="ultra_healing_pomade.type" state="translated">
         <source>ultra_healing_pomade.type</source>
-        <target>Rech.</target>
+        <target>Res.</target>
       </segment>
       <segment id="ultra_healing_pomade.name" state="translated">
         <source>ultra_healing_pomade.name</source>
@@ -1187,24 +1187,6 @@
       <segment id="ultra_healing_pomade.lore" state="translated">
         <source>ultra_healing_pomade.lore</source>
         <target>Grâce à quelques astuces basiques de chimie organique, vous pensez pouvoir mettre au point un medikit de base bien supérieur à ces vieux machins de la FDS.</target>
-      </segment>
-    </unit>
-    <unit id="guarana_cappuccino">
-      <segment id="guarana_cappuccino.type" state="translated">
-        <source>guarana_cappuccino.type</source>
-        <target>Rech.</target>
-      </segment>
-      <segment id="guarana_cappuccino.name" state="translated">
-        <source>guarana_cappuccino.name</source>
-        <target>Cappuccino au guarana</target>
-      </segment>
-      <segment id="guarana_cappuccino.description" state="translated">
-        <source>guarana_cappuccino.description</source>
-        <target>Les **Cafés** accordent 1 :pa: supplémentaire à leur buveur.</target>
-      </segment>
-      <segment id="guarana_cappuccino.lore" state="translated">
-        <source>guarana_cappuccino.lore</source>
-        <target>Le dose de cafféine incluse dans le café de notre cher distributeur est bien trop élevée pour que nous puissions envisager un nouveau surdosage. Cependant, en ajoutant des extraits de guarana sous forme d'une émulsion crémeuse sur la partie supérieure de chaque expresso, il devrait être possible d'augmenter encore un peu le caractère énergisant de la boisson.</target>
       </segment>
     </unit>
   </file>

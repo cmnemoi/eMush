@@ -2,9 +2,9 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="planet.ext">
     <unit id="landing">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>landing.name</source>
-        <target>Aterrizaje</target>
+        <target>landing.name</target>
       </segment>
       <segment id="description" state="initial">
         <source>landing.description</source>
@@ -12,109 +12,109 @@
       </segment>
     </unit>
     <unit id="forest">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>forest.name</source>
-        <target>Jungla</target>
+        <target>forest.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>forest.description</source>
-        <target>Este planeta está en parte cubierto de jungla.</target>
+        <target>forest.description</target>
       </segment>
     </unit>
     <unit id="mountain">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>mountain.name</source>
-        <target>Montaña</target>
+        <target>mountain.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>mountain.description</source>
-        <target>Este planeta presenta extensas elevaciones rocosas.</target>
+        <target>mountain.description</target>
       </segment>
     </unit>
     <unit id="swamp">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>swamp.name</source>
-        <target>Pantano</target>
+        <target>swamp.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>swamp.description</source>
-        <target>Este planeta tiene terrenos pantanosos y malolientes.</target>
+        <target>swamp.description</target>
       </segment>
     </unit>
     <unit id="desert">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>desert.name</source>
-        <target>Desierto</target>
+        <target>desert.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>desert.description</source>
-        <target>Este planeta tiene terrenos desérticos y hostiles.</target>
+        <target>desert.description</target>
       </segment>
     </unit>
     <unit id="ocean">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>ocean.name</source>
-        <target>Océano</target>
+        <target>ocean.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>ocean.description</source>
-        <target>En el mar, la vida es más sabrosa...</target>
+        <target>ocean.description</target>
       </segment>
     </unit>
     <unit id="cave">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>cave.name</source>
-        <target>Gruta</target>
+        <target>cave.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>cave.description</source>
-        <target>Este planeta está lleno de cuevas oscuras.</target>
+        <target>cave.description</target>
       </segment>
     </unit>
     <unit id="ruminant">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>ruminant.name</source>
-        <target>Rumiante</target>
+        <target>ruminant.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>ruminant.description</source>
-        <target>Manada de rumiantes u otra forma animal.</target>
+        <target>ruminant.description</target>
       </segment>
     </unit>
     <unit id="predator">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>predator.name</source>
-        <target>Predador</target>
+        <target>predator.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>predator.description</source>
-        <target>Formas de vida animal carnívora.</target>
+        <target>predator.description</target>
       </segment>
     </unit>
     <unit id="intelligent">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>intelligent.name</source>
-        <target>Vida inteligente</target>
+        <target>intelligent.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>intelligent.description</source>
-        <target>Forma avanzada de seres tal vez más inteligentes que tú.</target>
+        <target>intelligent.description</target>
       </segment>
     </unit>
     <unit id="insect">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>insect.name</source>
-        <target>Insectos</target>
+        <target>insect.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>insect.description</source>
-        <target>Presencia de insectos diversos.</target>
+        <target>insect.description</target>
       </segment>
     </unit>
     <unit id="mankarog">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>mankarog.name</source>
-        <target>Mankarog</target>
+        <target>mankarog.name</target>
       </segment>
       <segment id="description" state="initial">
         <source>mankarog.description</source>
@@ -122,79 +122,79 @@
       </segment>
     </unit>
     <unit id="hydrocarbon">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>hydrocarbon.name</source>
-        <target>Hidrocarburo</target>
+        <target>hydrocarbon.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>hydrocarbon.description</source>
-        <target>Presencia de hidrocarburo en el subsuelo.</target>
+        <target>hydrocarbon.description</target>
       </segment>
     </unit>
     <unit id="oxygen">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>oxygen.name</source>
-        <target>Oxígeno</target>
+        <target>oxygen.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>oxygen.description</source>
-        <target>Presencia de oxígeno en la atmósfera.</target>
+        <target>oxygen.description</target>
       </segment>
     </unit>
     <unit id="cold">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>cold.name</source>
-        <target>Temperatura baja</target>
+        <target>cold.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>cold.description</source>
-        <target>Frío intenso que puede dificultar la expedición.</target>
+        <target>cold.description</target>
       </segment>
     </unit>
     <unit id="hot">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>hot.name</source>
-        <target>Temperatura alta</target>
+        <target>hot.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>hot.description</source>
-        <target>Calor intenso que puede dificultar la expedición.</target>
+        <target>hot.description</target>
       </segment>
     </unit>
     <unit id="strong_wind">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>strong_wind.name</source>
-        <target>Viento fuerte</target>
+        <target>strong_wind.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>strong_wind.description</source>
-        <target>Poderosos vientos azotan el planeta.</target>
+        <target>strong_wind.description</target>
       </segment>
     </unit>
     <unit id="seismic_activity">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>seismic_activity.name</source>
-        <target>Sísmico</target>
+        <target>seismic_activity.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>seismic_activity.description</source>
-        <target>Fuerte actividad sísmica.</target>
+        <target>seismic_activity.description</target>
       </segment>
     </unit>
     <unit id="volcanic_activity">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>volcanic_activity.name</source>
-        <target>Volcán</target>
+        <target>volcanic_activity.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>volcanic_activity.description</source>
-        <target>Actividad volcánica.</target>
+        <target>volcanic_activity.description</target>
       </segment>
     </unit>
     <unit id="ruins">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>ruins.name</source>
-        <target>Ruina</target>
+        <target>ruins.name</target>
       </segment>
       <segment id="description" state="initial">
         <source>ruins.description</source>
@@ -202,53 +202,53 @@
       </segment>
     </unit>
     <unit id="wreck">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>wreck.name</source>
-        <target>Restos de nave</target>
+        <target>wreck.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>wreck.description</source>
-        <target>Presencia de restos de una nave desconocida.</target>
+        <target>wreck.description</target>
       </segment>
     </unit>
     <unit id="fruit_trees">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>fruit_trees.name</source>
-        <target>Huerta</target>
+        <target>fruit_trees.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>fruit_trees.description</source>
-        <target>Presencia de árboles frutales.</target>
+        <target>fruit_trees.description</target>
       </segment>
     </unit>
     <unit id="lost">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>lost.name</source>
-        <target>Extraviados</target>
+        <target>lost.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>lost.description</source>
-        <target>Presencia de miembros de la tripulación del Daedalus</target>
+        <target>lost.description</target>
       </segment>
     </unit>
     <unit id="cristal_field">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>cristal_field.name</source>
-        <target>Cristalitas</target>
+        <target>cristal_field.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>cristal_field.description</source>
-        <target>Zona de alta concentración de cristalitas.</target>
+        <target>cristal_field.description</target>
       </segment>
     </unit>
     <unit id="unknown">
-      <segment id="name" state="translated">
+      <segment id="name" state="initial">
         <source>unknown.name</source>
-        <target>¿¿??</target>
+        <target>unknown.name</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="initial">
         <source>unknown.description</source>
-        <target>Característica desconocida.</target>
+        <target>unknown.description</target>
       </segment>
     </unit>
     <unit id="orientation">

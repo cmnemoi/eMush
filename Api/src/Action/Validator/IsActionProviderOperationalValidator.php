@@ -8,10 +8,8 @@ use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
-use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
-use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\ChargeStrategyTypeEnum;
 use Symfony\Component\Validator\Constraint;
@@ -79,24 +77,8 @@ class IsActionProviderOperationalValidator extends ConstraintValidator
         return match ($chargeStatus->getStrategy()) {
             ChargeStrategyTypeEnum::CYCLE_INCREMENT => ActionImpossibleCauseEnum::CYCLE_LIMIT,
             ChargeStrategyTypeEnum::DAILY_INCREMENT => ActionImpossibleCauseEnum::DAILY_LIMIT,
-            ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT => $this->coffeeMachineViolationMessage($daedalus),
+            ChargeStrategyTypeEnum::COFFEE_MACHINE_CHARGE_INCREMENT => $daedalus->isPilgredFinished() ? ActionImpossibleCauseEnum::CYCLE_LIMIT : ActionImpossibleCauseEnum::DAILY_LIMIT,
             default => $defaultMessage,
         };
-    }
-
-    private function coffeeMachineViolationMessage(Daedalus $daedalus): string
-    {
-        if ($daedalus->getPilgred()->isFinished()) {
-            if ($daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER)->isFinished()) {
-                return ActionImpossibleCauseEnum::CYCLE_LIMIT;
-            }
-
-            return ActionImpossibleCauseEnum::CYCLE_LIMIT_EVERY_2;
-        }
-        if ($daedalus->getProjectByName(ProjectName::FISSION_COFFEE_ROASTER)->isFinished()) {
-            return ActionImpossibleCauseEnum::CYCLE_LIMIT_EVERY_4;
-        }
-
-        return ActionImpossibleCauseEnum::DAILY_LIMIT;
     }
 }

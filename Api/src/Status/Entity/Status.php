@@ -106,17 +106,6 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         throw new \LogicException('There should always be a target on a status target');
     }
 
-    public function getVisibleOwner(): VisibleStatusHolderInterface
-    {
-        $owner = $this->getOwner();
-
-        if (!$owner instanceof VisibleStatusHolderInterface) {
-            throw new \LogicException('Owner is not a VisibleStatusHolderInterface');
-        }
-
-        return $owner;
-    }
-
     public function setTargetOwner(StatusTarget $owner): self
     {
         $this->owner = $owner;
@@ -140,7 +129,7 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
             return $place;
         }
 
-        throw new \LogicException("Status {$this->getName()} target class is not supported ({$this->target->getClassName()})");
+        throw new \LogicException('There should always be a target on a status target');
     }
 
     /**
@@ -182,21 +171,14 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
             return $place;
         }
 
-        throw new \LogicException("Status {$this->getName()} has unhandled target type ({$this->target->getClassName()})");
+        throw new \LogicException("Status {$this->getName()} has unhandled target type.");
     }
 
     public function getPlayerTargetOrThrow(): Player
     {
         $target = $this->getTargetOrThrow();
 
-        return $target instanceof Player ? $target : throw new \RuntimeException("Status {$this->getName()} target is not a Player, but {$target->getClassName()}");
-    }
-
-    public function getPlaceTargetOrThrow(): Place
-    {
-        $target = $this->getTargetOrThrow();
-
-        return $target instanceof Place ? $target : throw new \RuntimeException("Status {$this->getName()} target is not a Place, but {$target->getClassName()}");
+        return $target instanceof Player ? $target : throw new \RuntimeException("Status {$this->getName()} target is not a Player.");
     }
 
     public function setStatusTargetOwner(StatusTarget $statusTarget): self

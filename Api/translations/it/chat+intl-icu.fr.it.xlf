@@ -70,10 +70,6 @@
         <source>tips.missions.accept</source>
         <target>tips.missions.accept</target>
       </segment>
-      <segment id="announcements.title" state="initial">
-        <source>tips.announcements.title</source>
-        <target>tips.announcements.title</target>
-      </segment>
     </unit>
     <unit id="room_log">
       <segment id="name" state="initial">

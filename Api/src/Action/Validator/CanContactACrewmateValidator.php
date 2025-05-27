@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
-use Mush\Chat\UseCase\GetContactablePlayersUseCase;
+use Mush\Communication\UseCase\GetContactablePlayersUseCase;
 use Symfony\Component\HttpFoundation\File\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

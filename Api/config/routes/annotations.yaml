@@ -23,7 +23,7 @@ room-log:
     type: annotation
     prefix: /api/v1
 communication:
-    resource: ../../src/Chat/Controller/
+    resource: ../../src/Communication/Controller/
     type: annotation
     prefix: /api/v1
 #game:

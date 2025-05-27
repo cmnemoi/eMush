@@ -9,23 +9,17 @@ use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
-use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
-use Mush\Communications\Repository\NeronVersionRepositoryInterface;
-use Mush\Communications\Repository\RebelBaseRepositoryInterface;
-use Mush\Communications\Repository\TradeRepositoryInterface;
-use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Hunter\Enum\HunterEnum;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -38,16 +32,19 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlanetServiceInterface $planetService;
+    private TranslationServiceInterface $translationService;
+
     public function __construct(
-        private readonly GameEquipmentServiceInterface $gameEquipmentService,
-        private readonly LinkWithSolRepositoryInterface $linkWithSolRepository,
-        private readonly NeronVersionRepositoryInterface $neronVersionRepository,
-        private readonly PlanetServiceInterface $planetService,
-        private readonly RebelBaseRepositoryInterface $rebelBaseRepository,
-        private readonly TranslationServiceInterface $translationService,
-        private readonly TradeRepositoryInterface $tradeRepository,
-        private readonly XylophRepositoryInterface $xylophEntryRepository
-    ) {}
+        GameEquipmentServiceInterface $gameEquipmentService,
+        PlanetServiceInterface $planetService,
+        TranslationServiceInterface $translationService
+    ) {
+        $this->gameEquipmentService = $gameEquipmentService;
+        $this->planetService = $planetService;
+        $this->translationService = $translationService;
+    }
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -108,9 +105,6 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'buttons' => $this->getNormalizedTerminalButtons($terminal),
             'projects' => $this->getNormalizedTerminalProjects($terminal, $format, $context),
             'items' => $this->getNormalizedTerminalItems($terminal, $format, $context),
-            'rebelBases' => $this->getNormalizedRebelBases($terminal, $format, $context),
-            'xylophEntries' => $this->getNormalizedXylophEntries($terminal, $format, $context),
-            'trades' => $this->getNormalizedTrades($terminal, $format, $context),
         ];
 
         $astroTerminalInfos = $this->normalizeAstroTerminalInfos($terminal, $format, $context);
@@ -119,19 +113,8 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $pilgredTerminalInfos = $this->getNormalizedPilgredTerminalInfos($terminal);
         $neronCoreInfos = $this->getNormalizedNeronCoreInfos($terminal);
         $researchTerminalInfos = $this->getNormalizedResearchTerminalInfos($terminal);
-        $calculatorInfos = $this->getNormalizedCalculatorInfos($terminal);
-        $commsCenterInfos = $this->getNormalizedCommsCenterInfos($terminal);
 
-        $normalizedTerminal['infos'] = array_merge(
-            $astroTerminalInfos,
-            $commandTerminalInfos,
-            $biosTerminalInfos,
-            $pilgredTerminalInfos,
-            $neronCoreInfos,
-            $researchTerminalInfos,
-            $calculatorInfos,
-            $commsCenterInfos,
-        );
+        $normalizedTerminal['infos'] = array_merge($astroTerminalInfos, $commandTerminalInfos, $biosTerminalInfos, $pilgredTerminalInfos, $neronCoreInfos, $researchTerminalInfos);
 
         return $normalizedTerminal;
     }
@@ -140,17 +123,11 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         $titles = [];
         $terminalKey = $terminal->getName();
-        $daedalusId = $terminal->getDaedalus()->getId();
-        $parameters = [];
-        if ($terminal->getName() === EquipmentEnum::COMMUNICATION_CENTER) {
-            $parameters['neronVersion'] = $this->neronVersionRepository->findByDaedalusIdOrThrow($daedalusId)->toString();
-        }
-
         if (\array_key_exists($terminalKey, EquipmentEnum::$terminalSectionTitlesMap)) {
             foreach (EquipmentEnum::$terminalSectionTitlesMap[$terminalKey] as $sectionKey) {
                 $titles[$sectionKey] = $this->translationService->translate(
                     $terminalKey . '.' . $sectionKey,
-                    $parameters,
+                    [],
                     'terminal',
                     $terminal->getDaedalus()->getLanguage(),
                 );
@@ -194,9 +171,12 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         $currentPlayer = $context['currentPlayer'];
 
         $playerItems = $currentPlayer->getEquipments();
-        $placeItems = $terminal->getPlace()->getNonPersonalItems();
+        $laboratoryItems = $terminal
+            ->getDaedalus()
+            ->getPlaceByNameOrThrow(RoomEnum::LABORATORY)
+            ->getItems();
 
-        $allItems = array_merge($playerItems->toArray(), $placeItems->toArray());
+        $allItems = array_merge($playerItems->toArray(), $laboratoryItems->toArray());
         $normalizedItems = [];
         foreach ($allItems as $item) {
             $normalizedItems[] = $this->normalizer->normalize($item, $format, $context);
@@ -227,19 +207,6 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $buttons;
-    }
-
-    private function getNormalizedRebelBases(GameEquipment $terminal, ?string $format, array $context): array
-    {
-        $daedalus = $terminal->getDaedalus();
-        $rebelBases = $this->rebelBaseRepository->findAllByDaedalusId($daedalus->getId());
-
-        $normalizedRebelBases = [];
-        foreach ($rebelBases as $rebelBase) {
-            $normalizedRebelBases[] = $this->normalizer->normalize($rebelBase, $format, $context);
-        }
-
-        return $normalizedRebelBases;
     }
 
     private function normalizeCommandTerminalInfos(GameEquipment $terminal): array
@@ -334,8 +301,6 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'currentCrewLock' => $neron->getCrewLock()->value,
             'neronInhibitionToggles' => $this->getTranslatedNeronInhibitionToggles($terminal),
             'isNeronInhibited' => $neron->isInhibited(),
-            'areVocodedAnnouncementsActive' => $neron->areVocodedAnnouncementsActive(),
-            'vocodedAnnouncementsToggles' => $this->getTranslatedVocodedAnnouncementsToggles($terminal),
         ];
         if ($daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD)) {
             $infos['plasmaShieldToggles'] = $this->getTranslatedPlasmaShieldToggles($terminal);
@@ -359,7 +324,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return [
-            'noProposedNeronProjects' => $daedalus->getProposedNeronProjects()->isEmpty(),
+            'noProposedNeronProjects' => $daedalus->hasNoProposedNeronProjects(),
             'noProposedNeronProjectsDescription' => $this->translationService->translate(
                 key: $terminalKey . '.no_proposed_neron_projects_description',
                 parameters: [],
@@ -375,76 +340,35 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         if ($terminalKey !== EquipmentEnum::RESEARCH_LABORATORY) {
             return [];
         }
+        $daedalus = $terminal->getDaedalus();
 
         return [
-            'requirements' => $this->getFullfilledResearchRequirements($terminal, $terminalKey),
+            'requirements' => $this->getFullfilledResearchRequirements($daedalus, $terminalKey),
         ];
     }
 
-    private function getNormalizedCalculatorInfos(GameEquipment $terminal): array
-    {
-        $terminalKey = $terminal->getName();
-        if ($terminalKey !== EquipmentEnum::CALCULATOR) {
-            return [];
-        }
-
-        $infos = [];
-        $infos['nothingToCompute'] = $this->getNothingToComputeInfo($terminal);
-        $infos['edenComputed'] = $this->getEdenComputedInfo($terminal);
-
-        return $infos;
-    }
-
-    private function getNothingToComputeInfo(GameEquipment $terminal): ?string
-    {
-        $place = $terminal->getPlace();
-        $terminalKey = $terminal->getName();
-
-        return $place->doesNotHaveEquipmentByName(ItemEnum::STARMAP_FRAGMENT) ? $this->translationService->translate(
-            key: $terminalKey . '.nothing_to_compute',
-            parameters: [],
-            domain: 'terminal',
-            language: $terminal->getDaedalus()->getLanguage()
-        ) : null;
-    }
-
-    private function getEdenComputedInfo(GameEquipment $terminal): ?string
-    {
-        $daedalus = $terminal->getDaedalus();
-        $terminalKey = $terminal->getName();
-
-        return $daedalus->hasStatus(DaedalusStatusEnum::EDEN_COMPUTED) ? $this->translationService->translate(
-            key: $terminalKey . '.eden_computed',
-            parameters: [],
-            domain: 'terminal',
-            language: $daedalus->getLanguage()
-        ) : null;
-    }
-
-    private function getFullfilledResearchRequirements(GameEquipment $terminal, string $terminalKey): array
+    private function getFullfilledResearchRequirements(Daedalus $daedalus, string $terminalKey): array
     {
         $allRequirements = new ArrayCollection(
             [
                 [
                     'key' => 'chun_present',
-                    'fullfilled' => $terminal->getPlace()->isChunForResearch(),
+                    'fullfilled' => $daedalus->isChunInLaboratory(),
                 ],
                 [
                     'key' => 'mush_dead',
-                    'fullfilled' => $terminal->getDaedalus()->getPlayers()->isThereAMushUnlockingProjects(),
+                    'fullfilled' => $daedalus->hasAnyMushDied(),
                 ],
             ]
         );
-        $language = $terminal->getDaedalus()->getLanguage();
 
         return $allRequirements
             ->filter(static fn ($requirement) => $requirement['fullfilled'])
-            ->map(function ($requirement) use ($terminalKey, $language) {
+            ->map(function ($requirement) use ($terminalKey) {
                 return $this->translationService->translate(
                     key: $terminalKey . '.' . $requirement['key'],
                     parameters: [],
-                    domain: 'terminal',
-                    language: $language,
+                    domain: 'terminal'
                 );
             })->toArray();
     }
@@ -458,7 +382,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return [
-            'pilgredIsFinished' => $daedalus->getPilgred()->isFinished(),
+            'pilgredIsFinished' => $daedalus->isPilgredFinished(),
             'pilgredFinishedDescription' => $this->translationService->translate(
                 key: $terminalKey . '.pilgred_finished_description',
                 parameters: [],
@@ -556,128 +480,5 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $neronInhibitionToggles;
-    }
-
-    private function getNormalizedCommsCenterInfos(GameEquipment $terminal)
-    {
-        $terminalKey = $terminal->getName();
-        if ($terminalKey !== EquipmentEnum::COMMUNICATION_CENTER) {
-            return [];
-        }
-
-        $daedalus = $terminal->getDaedalus();
-
-        $link = $this->linkWithSolRepository->findByDaedalusIdOrThrow($daedalus->getId());
-        $neronVersion = $this->neronVersionRepository->findByDaedalusIdOrThrow($daedalus->getId());
-
-        $infos = [
-            'linkStrength' => $this->translationService->translate(
-                key: $terminalKey . '.link_strength',
-                parameters: ['quantity' => $link->getStrength()],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            ),
-            'neronUpdateStatus' => $this->translationService->translate(
-                key: $terminalKey . '.neron_update_status',
-                parameters: ['quantity' => $neronVersion->getMinor()],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            ),
-            'selectRebelBaseToDecode' => $this->translationService->translate(
-                key: $terminalKey . '.select_rebel_base_to_decode',
-                parameters: [],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            ),
-            'never' => $this->translationService->translate(
-                key: $terminalKey . '.never',
-                parameters: [],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            ),
-        ];
-
-        if ($link->isEstablished()) {
-            $infos['linkEstablished'] = $this->translationService->translate(
-                key: $terminalKey . '.link_established',
-                parameters: [],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            );
-        }
-
-        if ($this->tradeRepository->isThereAvailableTrade($daedalus->getId())) {
-            if ($daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::ASTEROID)->count() > 0) {
-                $infos['cannotTradeUnderAttack'] = $this->translationService->translate(
-                    key: $terminalKey . '.cannot_trade_under_attack',
-                    parameters: [],
-                    domain: 'terminal',
-                    language: $daedalus->getLanguage()
-                );
-            }
-
-            $infos['seeCommunications'] = $this->translationService->translate(
-                key: $terminalKey . '.see_communications',
-                parameters: [],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            );
-            $infos['seeTrades'] = $this->translationService->translate(
-                key: $terminalKey . '.see_trades',
-                parameters: [],
-                domain: 'terminal',
-                language: $daedalus->getLanguage()
-            );
-        }
-
-        return $infos;
-    }
-
-    private function getNormalizedXylophEntries(GameEquipment $terminal, ?string $format, array $context): array
-    {
-        $daedalus = $terminal->getDaedalus();
-        $xylophEntries = $this->xylophEntryRepository->findAllByDaedalusId($daedalus->getId());
-
-        $normalizedXylophEntries = [];
-        foreach ($xylophEntries as $xylophEntry) {
-            $normalizedXylophEntries[] = $this->normalizer->normalize($xylophEntry, $format, $context);
-        }
-
-        return $normalizedXylophEntries;
-    }
-
-    private function getNormalizedTrades(GameEquipment $terminal, ?string $format, array $context): array
-    {
-        $daedalus = $terminal->getDaedalus();
-        if ($daedalus->getAttackingHunters()->getAllExceptType(HunterEnum::ASTEROID)->count() > 0) {
-            return [];
-        }
-
-        $trades = $this->tradeRepository->findAllByDaedalusId($daedalus->getId());
-
-        $normalizedTrades = [];
-        foreach ($trades as $trade) {
-            $normalizedTrades[] = $this->normalizer->normalize($trade, $format, $context);
-        }
-
-        return $normalizedTrades;
-    }
-
-    private function getTranslatedVocodedAnnouncementsToggles(GameEquipment $terminal): array
-    {
-        $vocodedAnnouncementsToggles = [];
-        foreach (['active', 'inactive'] as $toggle) {
-            $vocodedAnnouncementsToggles[] = [
-                'key' => $toggle,
-                'name' => $this->translationService->translate(
-                    key: $terminal->getName() . '.vocoded_announcements_toggle_' . $toggle,
-                    parameters: [],
-                    domain: 'terminal',
-                    language: $terminal->getDaedalus()->getLanguage()
-                ),
-            ];
-        }
-
-        return $vocodedAnnouncementsToggles;
     }
 }

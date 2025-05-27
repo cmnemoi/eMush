@@ -2,65 +2,65 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="planet.ext">
     <unit id="nothing_to_report">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>nothing_to_report.name</source>
         <target>Rien à signaler</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>nothing_to_report.description</source>
         <target>La zone est explorée, rien à signaler.{always_successful_thanks_to_skill}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="landing_description" state="translated">
+      <segment id="landing_description" state="final">
         <source>nothing_to_report.landing_description</source>
         <target>L'atterrissage se passe parfaitement bien, rien à signaler !</target>
       </segment>
-      <segment id="fruit_trees_description" state="translated">
+      <segment id="fruit_trees_description" state="final">
         <source>nothing_to_report.fruit_trees_description</source>
         <target>{version, select,
         1 {Les arbustes de la zone ne contiennent aucun fruit, vous n'êtes pas tombé à la bonne saison, il faudra revenir plus tard !}
         other {Après plusieurs heures passées à récolter de petits fruits noirs, vous vous apercevez que ceux-ci se sont ouverts et que leur contenu a détalé hors de vos sacs !}}</target>
       </segment>
-      <segment id="strong_wind_description" state="translated">
+      <segment id="strong_wind_description" state="final">
         <source>nothing_to_report.strong_wind_description</source>
         <target>{version, select,
         1 {À part le vent qui balaie la plaine, il n'y a strictement rien à signaler dans cette zone.}
         other {Rien d'autre que le vent qui agite la poussière.}}</target>
       </segment>
-      <segment id="cold_description" state="translated">
+      <segment id="cold_description" state="final">
         <source>nothing_to_report.cold_description</source>
         <target>A part le froid mordant qui gèle vos doigts de pieds, il n'y a pas grand chose d'intéressant dans cette zone… Brrrr…</target>
       </segment>
-      <segment id="swamp_description" state="translated">
+      <segment id="swamp_description" state="final">
         <source>nothing_to_report.swamp_description</source>
         <target>Ce marais est incroyablement calme… Rien de notable dans les parages.</target>
       </segment>
-      <segment id="predator_description" state="translated">
+      <segment id="predator_description" state="final">
         <source>nothing_to_report.predator_description</source>
         <target>Vous avez remarqué la présence d'un Écorcheur. La créature rôde un moment aux alentours de votre route, mais renonce à vous attaquer… Ouf !</target>
       </segment>
-      <segment id="hot_description" state="translated">
+      <segment id="hot_description" state="final">
         <source>nothing_to_report.hot_description</source>
         <target>Rien à signaler dans cette zone, mis à part ces trois *#@µ% de soleils qui massacrent l'expédition depuis… heu… C'était quand le matin, déjà ?</target>
       </segment>
-      <segment id="volcanic_activity_description" state="translated">
+      <segment id="volcanic_activity_description" state="final">
         <source>nothing_to_report.volcanic_activity_description</source>
         <target>{version, select,
         1 {Un grand volcan trône au milieu de cette zone, à votre niveau de grands jets de vapeurs hantent le paysage. Une odeur de souffre brûle vos narines…}
         other {De très bucoliques rivières de lave traversent paisiblement la région.}}</target>
       </segment>
-      <segment id="desert_description" state="translated">
+      <segment id="desert_description" state="final">
         <source>nothing_to_report.desert_description</source>
         <target>{version, select,
         1 {Avec surprise, vous découvrez que cette étendue désertique ne contient absolument aucun élément permettant d'améliorer votre situation.}
         other {Ce désert est désespérément vide… Personne à l'horizon…}}</target>
       </segment>
-      <segment id="ocean_description" state="translated">
+      <segment id="ocean_description" state="final">
         <source>nothing_to_report.ocean_description</source>
         <target>{version, select, 
         1 {De violents vents agitent l'océan. C'est un temps idéal pour faire du surf, mais vous devez sauver l'humanité...}
         other {La mer est calme. Rien d'intéressant par ici.}}</target>
       </segment>
-      <segment id="oxygen_description" state="translated">
+      <segment id="oxygen_description" state="final">
         <source>nothing_to_report.oxygen_description</source>
         <target>{equipment_first_letter, select,
         vowel {La pompe d'oxygène de {equipment} est enrayée, il n'y a rien à en tirer !}
@@ -68,43 +68,43 @@
         other {La pompe d'oxygène du {equipment} est enrayée, il n'y a rien à en tirer !}
         }</target>
       </segment>
-      <segment id="seismic_activity_description" state="translated">
+      <segment id="seismic_activity_description" state="final">
         <source>nothing_to_report.seismic_activity_description</source>
         <target>Le sol de cette planète est balafré de profondes crevasses... Ce n'est pas bon signe...</target>
       </segment>
-      <segment id="ruins_description" state="translated">
+      <segment id="ruins_description" state="final">
         <source>nothing_to_report.ruins_description</source>
         <target>Vous déambulez pendant plusieurs heures dans la cité en ruine sans trouver quoi que ce soit d'intéressant.</target>
       </segment>
-      <segment id="wreck_description" state="translated">
+      <segment id="wreck_description" state="final">
         <source>nothing_to_report.wreck_description</source>
         <target>L'épave est totalement vide... Quelle déception !</target>
       </segment>
-      <segment id="forest_description" state="translated">
+      <segment id="forest_description" state="final">
         <source>nothing_to_report.forest_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="cave_description" state="translated">
+      <segment id="cave_description" state="final">
         <source>nothing_to_report.cave_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="ruminant_description" state="translated">
+      <segment id="ruminant_description" state="final">
         <source>nothing_to_report.ruminant_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="intelligent_description" state="translated">
+      <segment id="intelligent_description" state="final">
         <source>nothing_to_report.intelligent_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="insect_description" state="translated">
+      <segment id="insect_description" state="final">
         <source>nothing_to_report.insect_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="mankarog_description" state="translated">
+      <segment id="mankarog_description" state="final">
         <source>nothing_to_report.mankarog_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
-      <segment id="cristal_field_description" state="translated">
+      <segment id="cristal_field_description" state="final">
         <source>nothing_to_report.cristal_field_description</source>
         <target>Un grand cri résonne. Un moment de panique. Puis plus rien…</target>
       </segment>
@@ -114,92 +114,92 @@
       </segment>
     </unit>
     <unit id="tired">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>tired.name</source>
         <target>Fatigue</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>tired.description</source>
         <target>{quantity, plural,
         one {Tous les équipiers subissent # point de dégâts.}
         other {Tous les équipiers subissent # points de dégâts.}
         }{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="landing_description" state="translated">
+      <segment id="landing_description" state="final">
         <source>tired.landing_description</source>
         <target>L'atterrissage est difficile, le vaisseau tourne et vire dans tous les sens, l'équipage est malade.</target>
       </segment>
-      <segment id="cold_description" state="translated">
+      <segment id="cold_description" state="final">
         <source>tired.cold_description</source>
         <target>Le froid ralentit de plus en plus votre progression. L'équipe a les membres gelés !</target>
       </segment>
-      <segment id="hot_description" state="translated">
+      <segment id="hot_description" state="final">
         <source>tired.hot_description</source>
         <target>Il règne ici une chaleur accablante, les membres de l'équipe suent à grosses gouttes !</target>
       </segment>
-      <segment id="swamp_description" state="translated">
+      <segment id="swamp_description" state="final">
         <source>tired.swamp_description</source>
         <target>Après deux heures de marche dans la vase, vous n'en pouvez plus de cette mélasse. Et des parasites. Et de la chaleur. Et de l'humidité. Et des hurlements…</target>
       </segment>
-      <segment id="mountain_description" state="translated">
+      <segment id="mountain_description" state="final">
         <source>tired.mountain_description</source>
         <target>L'exploration se transforme en séance d'escalade, l'équipe est épuisée.</target>
       </segment>
-      <segment id="strong_wind_description" state="translated">
+      <segment id="strong_wind_description" state="final">
         <source>tired.strong_wind_description</source>
         <target>L'équipe doit progresser en marchant contre un vent violent qui ralentit sa progression.</target>
       </segment>
-      <segment id="desert_description" state="translated">
+      <segment id="desert_description" state="final">
         <source>tired.desert_description</source>
         <target>La marche dans cette étendue désertique est pénible et très douloureuse.</target>
       </segment>
     </unit>
     <unit id="accident">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>accident.name</source>
         <target>Accident</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>accident.description</source>
         <target>Un équipier subit entre {min_quantity} et {max_quantity} points de dégâts.{rope_worked, select, true {////Esquivé Corde} other {}}{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="predator_description" state="translated">
+      <segment id="predator_description" state="final">
         <source>accident.predator_description</source>
         <target>Un Écorcheur attaque {character}… Vous parvenez à l'effrayer et la créature s'enfuit. {character} subit de graves blessures !</target>
       </segment>
-      <segment id="mountain_description" state="translated">
+      <segment id="mountain_description" state="final">
         <source>accident.mountain_description</source>
         <target>{character} chute d'une petite falaise et s'écrase 4 mètres plus bas… Ouch !</target>
       </segment>
-      <segment id="ruminant_description" state="translated">
+      <segment id="ruminant_description" state="final">
         <source>accident.ruminant_description</source>
         <target>Alors que vous mettez en joue un Chab Chab, la créature se précipite vers vous et heurte violemment {character} avant de s'enfuir…</target>
       </segment>
-      <segment id="insect_description" state="translated">
+      <segment id="insect_description" state="final">
         <source>accident.insect_description</source>
         <target>Un scolopendre géant se laisse tomber d'un arbre sur {character}. {character} parvient à le repousser mais la créature a entamé son repas…</target>
       </segment>
-      <segment id="cave_description" state="translated">
+      <segment id="cave_description" state="final">
         <source>accident.cave_description</source>
         <target>En sautant pour éviter un scorpion alien qui passait par là, {character} s'ouvre le cuir chevelu sur une stalactite.</target>
       </segment>
-      <segment id="seismic_activity_description" state="translated">
+      <segment id="seismic_activity_description" state="final">
         <source>accident.seismic_activity_description</source>
         <target>{character} chute dans une crevasse… Aïe !</target>
       </segment>
-      <segment id="ruins_description" state="translated">
+      <segment id="ruins_description" state="final">
         <source>accident.ruins_description</source>
         <target>Une arche en ruine s'écroule sur {character} !</target>
       </segment>
-      <segment id="cold_description" state="translated">
+      <segment id="cold_description" state="final">
         <source>accident.cold_description</source>
         <target>Le bras de {character} est gelé, ça a l'air de lui faire terriblement mal et en plus il y a de bonnes chances qu'il faille le couper !</target>
       </segment>
-      <segment id="hot_description" state="translated">
+      <segment id="hot_description" state="final">
         <source>accident.hot_description</source>
         <target>{character} s'écroule victime d'une insolation majeure.</target>
       </segment>
-      <segment id="landing_description" state="translated">
+      <segment id="landing_description" state="final">
         <source>accident.landing_description</source>
         <target>{character_gender, select,
         male {{equipment} atterit en catastrophe sur {planet}, durant la manoeuvre, {character} est blessé !}
@@ -209,29 +209,29 @@
       </segment>
     </unit>
     <unit id="disaster">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>disaster.name</source>
         <target>Catastrophe</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>disaster.description</source>
         <target>Tous les équipiers subissent entre {min_quantity} et {max_quantity} points de dégâts.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="landing_description" state="translated">
+      <segment id="landing_description" state="final">
         <source>disaster.landing_description</source>
         <target>{equipment} s'écrase sur le sol de {planet}. L'équipage est K.O.</target>
       </segment>
     </unit>
     <unit id="oxygen">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>oxygen.name</source>
         <target>Pompage</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>oxygen.description</source>
         <target>Vous gagnez {quantity} unités d'O².{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="oxygen_description" state="translated">
+      <segment id="oxygen_description" state="final">
         <source>oxygen.oxygen_description</source>
         <target>{quantity, select,
         8 {La pompe d'oxygène de {equipment} est prête à rendre l'âme, elle aspire péniblement {quantity} m³ d'oxygène.}
@@ -242,15 +242,15 @@
       </segment>
     </unit>
     <unit id="fuel">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>fuel.name</source>
         <target>Hydrocarbures</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fuel.description</source>
         <target>Vous gagnez {quantity} unités de Fuel.{has_drill, select, true {////x2 car l'expédition dispose de l'objet : Foreuse} other {}}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="hydrocarbon_description" state="translated">
+      <segment id="hydrocarbon_description" state="final">
         <source>fuel.hydrocarbon_description</source>
         <target>{has_drill, select,
           true {{quantity, select,
@@ -267,29 +267,29 @@
         other {Vous récupérez {quantity} unités de fuel.}}}
         }</target>
       </segment>
-      <segment id="cave_description" state="translated">
+      <segment id="cave_description" state="final">
         <source>fuel.cave_description</source>
         <target>Vous trouvez une veine de charbonite gélatineuse... Le réservoir du réacteur devrait pouvoir digérer ça !</target>
       </segment>
-      <segment id="mountain_description" state="translated">
+      <segment id="mountain_description" state="final">
         <source>fuel.mountain_description</source>
         <target>{character} trébuche sur des morceaux de charbonites gros comme le poing, chouette !</target>
       </segment>
-      <segment id="wreck_description" state="translated">
+      <segment id="wreck_description" state="final">
         <source>fuel.wreck_description</source>
         <target>En siphonnant les réservoirs de l'appareil, vous récupérez {quantity} tonnes de fuel.</target>
       </segment>
     </unit>
     <unit id="artefact">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>artefact.name</source>
         <target>Artefact</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>artefact.description</source>
         <target>Vous trouvez un artefact.{used_babel_module, select, true {////+100% Module Babel} other {}}{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="intelligent_description" state="translated">
+      <segment id="intelligent_description" state="final">
         <source>artefact.intelligent_description</source>
         <target>{target_equipment_gender, select,
         male {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {target_equipment} avant de reprendre sa route.}
@@ -297,19 +297,19 @@
         other {Derrière un rocher, vous trouvez une créature étrange très affaiblie. Vous lui donnez un peu d'eau afin qu'elle reprenne connaissance. La créature vous offre un {target_equipment} avant de reprendre sa route.}
         }</target>
       </segment>
-      <segment id="cave_description" state="translated">
+      <segment id="cave_description" state="final">
         <source>artefact.cave_description</source>
         <target>Au fond de la grotte, vous trouvez dans un petit coffret un objet bien étrange...</target>
       </segment>
-      <segment id="mankarog_description" state="translated">
+      <segment id="mankarog_description" state="final">
         <source>artefact.mankarog_description</source>
         <target>Vous avez découvert la tanière d'un Mankarog. En fouillant dans son garde-manger aussi grand qu'un immeuble de 8 étages, vous mettez la main sur un artefact alien !</target>
       </segment>
-      <segment id="ruins_description" state="translated">
+      <segment id="ruins_description" state="final">
         <source>artefact.ruins_description</source>
         <target>Au sein de la ruine du plus grand bâtiment de la cité vous trouvez un artefact alien intact !</target>
       </segment>
-      <segment id="wreck_description" state="translated">
+      <segment id="wreck_description" state="final">
         <source>artefact.wreck_description</source>
         <target>L'épave contient un artefact alien étrange... Bonne pioche !</target>
       </segment>
@@ -321,9 +321,9 @@
       </segment>
     </unit>
     <unit id="fight_prevented_by_item">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fight_prevented_by_item</source>
-        <target>Probabilité de combat annulée par {equipment}</target>
+        <target>Probabilité de combat annulée {equipment}</target>
       </segment>
     </unit>
     <unit id="skill_reduced_damage_for_player">
@@ -333,9 +333,9 @@
       </segment>
     </unit>
     <unit id="bonus_loot_thanks_to_skill">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>bonus_loot_thanks_to_skill</source>
-        <target>+ {quantity, plural, one {# obtenu} other {# obtenus}} car l'expédition dispose de la compétence : {skill}</target>
+        <target>+ {quantity} car l'expédition dispose de la compétence : {skill}</target>
       </segment>
     </unit>
     <unit id="fight_prevented_by_skill">
@@ -345,89 +345,89 @@
       </segment>
     </unit>
     <unit id="kill_random">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>kill_random.name</source>
         <target>Mort</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>kill_random.description</source>
         <target>Un équipier meurt.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="seismic_activity_description" state="translated">
+      <segment id="seismic_activity_description" state="final">
         <source>kill_random.seismic_activity_description</source>
         <target>Une faille s'ouvre sous les pieds de l'expédition !!! {character} glisse et disparaît dans un cri d'effroi !</target>
       </segment>
-      <segment id="mankarog_description" state="translated">
+      <segment id="mankarog_description" state="final">
         <source>kill_random.mankarog_description</source>
         <target>Alors que vous escaladez une petite colline vous découvrez trop tard qu'il s'agit d'une fesse de Mankarog... Celui-ci approche lentement son énorme main pour se gratter, et écrase {character} par mégarde.</target>
       </segment>
     </unit>
     <unit id="kill_all">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>kill_all.name</source>
         <target>Mort du groupe</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>kill_all.description</source>
         <target>Tous les équipiers meurent.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="volcanic_activity_description" state="translated">
+      <segment id="volcanic_activity_description" state="final">
         <source>kill_all.volcanic_activity_description</source>
         <target>Alors que la montagne la plus proche de l'expédition se met à cracher un jet de lave à plus de 500m de hauteur, le sol s'effondre sous leurs pieds et les engloutit dans un déluge de flammes.</target>
       </segment>
     </unit>
     <unit id="fight">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>fight.name</source>
         <target>Combat</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>fight.description</source>
         <target>Vous affrontez une créature.////Force Créature : {creature_strength}////Force Équipe : {expedition_strength}////{damage, select, 0 {Créature décède.} other {L'équipe subit {damage} points de dégâts.}}</target>
       </segment>
-      <segment id="intelligent_description" state="translated">
+      <segment id="intelligent_description" state="final">
         <source>fight.intelligent_description</source>
         <target>Un être étrange s'approche de vous et lance de grands cris aigus qui vous cassent les oreilles. Il va falloir le faire taire.</target>
       </segment>
-      <segment id="ruminant_description" state="translated">
+      <segment id="ruminant_description" state="final">
         <source>fight.ruminant_description</source>
         <target>Alors que vous tentiez d'approcher discrètement d'un Chab Chab, vous êtes rapidement encerclés par ses congénères… Il va falloir lutter pour votre survie !</target>
       </segment>
-      <segment id="predator_description" state="translated">
+      <segment id="predator_description" state="final">
         <source>fight.predator_description</source>
         <target>Vous vous sentez épiés. Un Écorcheur hostile et affamé vous guette... Votre équipe commence à fuir mais la créature se jette sur vous !</target>
       </segment>
-      <segment id="insect_description" state="translated">
+      <segment id="insect_description" state="final">
         <source>fight.insect_description</source>
         <target>Alors que vous marchez au pied d'une crevasse vous observez avec horreur un Carapanse en émerger... Il va falloir vous défendre !</target>
       </segment>
-      <segment id="mankarog_description" state="translated">
+      <segment id="mankarog_description" state="final">
         <source>fight.mankarog_description</source>
         <target>Une ombre gigantesque se dresse tout à coup au-dessus de l'expédition... Et ce n'est pas un nuage...</target>
       </segment>
-      <segment id="ruins_description" state="translated">
+      <segment id="ruins_description" state="final">
         <source>fight.ruins_description</source>
         <target>Alors que vous fouillez la cité en ruine, vous ne prenez pas garde à la horde de Zombies aliens qui entoure votre position... C'est une attaque surprise !</target>
       </segment>
-      <segment id="wreck_description" state="translated">
+      <segment id="wreck_description" state="final">
         <source>fight.wreck_description</source>
         <target>Apparemment le conducteur de l'appareil est toujours en vie ! Et manifestement, il n'a pas l'air de vous considérer comme son sauveur...</target>
       </segment>
-      <segment id="cristal_field_description" state="translated">
+      <segment id="cristal_field_description" state="final">
         <source>fight.cristal_field_description</source>
         <target>Les champs sont déserts... Un hululement sinistre vous assourdit... Un Torceur ! Nul mot pour décrire cette créature venue d'un monde sans lumière ni chaleur. Aux armes !</target>
       </segment>
     </unit>
     <unit id="provision">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>provision.name</source>
         <target>Provision</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>provision.description</source>
         <target>Vous gagnez {quantity, plural, one {# {equipment}} other {# {equipment_plural_name}}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="ruminant_description" state="translated">
+      <segment id="ruminant_description" state="final">
         <source>provision.ruminant_description</source>
         <target>{quantity, select,
         2 {Vous rencontrez une myriade de petits rongeurs. Dans la panique générale vous parvenez à attraper l'un d'entre eux.}
@@ -435,45 +435,45 @@
         other {Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.}
         }</target>
       </segment>
-      <segment id="ocean_description" state="translated">
+      <segment id="ocean_description" state="final">
         <source>provision.ocean_description</source>
         <target>En utilisant une ligne rudimentaire, vous arrivez à prendre un Empilodon. Belle pêche.</target>
       </segment>
-      <segment id="predator_description" state="translated">
+      <segment id="predator_description" state="final">
         <source>provision.predator_description</source>
         <target>Vous tombez sur un Écorcheur. La créature est immobile, elle semble endormie. Vous en profitez pour lui régler rapidement son compte, à vous les rations de viande !</target>
       </segment>
-      <segment id="intelligent_description" state="translated">
+      <segment id="intelligent_description" state="final">
         <source>provision.intelligent_description</source>
         <target>Alors que l'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.</target>
       </segment>
-      <segment id="insect_description" state="translated">
+      <segment id="insect_description" state="final">
         <source>provision.insect_description</source>
         <target>{character} remarque de gros papillons de nuit à l'abdomen bien gonflé et juteux... Mmmmh !</target>
       </segment>
     </unit>
     <unit id="harvest">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>harvest.name</source>
         <target>Récolte</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>harvest.description</source>
         <target>Vous gagnez {quantity, plural, one {# Fruit alien} other {# Fruits aliens}}.{fight_prevented_by_item}{bonus_loot_thanks_to_skill}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="forest_description" state="translated">
+      <segment id="forest_description" state="final">
         <source>harvest.forest_description</source>
         <target>Vous trouvez {quantity, plural, one {# fruit} other {# fruits}} qui ont l'air délicieux. Mieux vaut les ramener au vaisseau et les analyser avant de les manger…</target>
       </segment>
-      <segment id="swamp_description" state="translated">
+      <segment id="swamp_description" state="final">
         <source>harvest.swamp_description</source>
         <target>Le marais est rempli de grosses racines sur lesquelles poussent des fruits bizarres. Vous décidez d'en ramener quelques-uns.</target>
       </segment>
-      <segment id="mountain_description" state="translated">
+      <segment id="mountain_description" state="final">
         <source>harvest.mountain_description</source>
         <target>Au sommet du pic rocheux, vous remarquez un petit arbuste avec des baies un peu bizarres. Vous décidez d'en ramener quelques-unes.</target>
       </segment>
-      <segment id="fruit_trees_description" state="translated">
+      <segment id="fruit_trees_description" state="final">
         <source>harvest.fruit_trees_description</source>
         <target>{quantity, select, 
         1 {Plusieurs arbustes touffus attirent votre attention, dans l'un d'entre eux se trouve de curieux fruits…}
@@ -481,79 +481,79 @@
         other {Plusieurs arbustes touffus attirent votre attention, dans l'un d'entre eux se trouve de curieux fruits…}
         }</target>
       </segment>
-      <segment id="hot_description" state="translated">
+      <segment id="hot_description" state="final">
         <source>harvest.hot_description</source>
         <target>Vous découvrez une zone incroyablement fertile où poussent des plantes tropicales tout à fait singulières. Après avoir neutralisé celles qui tentent de vous ingérer, vous pouvez vous occuper des autres !</target>
       </segment>
     </unit>
     <unit id="disease">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>disease.name</source>
         <target>Maladie</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>disease.description</source>
         <target>Un équipier tombe malade.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="forest_description" state="translated">
+      <segment id="forest_description" state="final">
         <source>disease.forest_description</source>
         <target>Une liane gluante frôle la joue de {character}.</target>
       </segment>
-      <segment id="swamp_description" state="translated">
+      <segment id="swamp_description" state="final">
         <source>disease.swamp_description</source>
         <target>Après une heure de marche dans la vase, vous ne comptez plus les sangsues bizarres accrochées à vos mollets, elles ont bien dû vous pomper un demi-litre de sang.</target>
       </segment>
-      <segment id="insect_description" state="translated">
+      <segment id="insect_description" state="final">
         <source>disease.insect_description</source>
         <target>Soudain {character} se met à hurler, une grosse araignée fluorescente s'enfuit de sa combinaison, apparemment elle lui a mordu le téton !</target>
       </segment>
     </unit>
     <unit id="starmap">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>starmap.name</source>
         <target>Éclat de Carte</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>starmap.description</source>
         <target>Vous trouvez 1 éclat de carte stellaire en cristalite.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="cristal_field_description" state="translated">
+      <segment id="cristal_field_description" state="final">
         <source>starmap.cristal_field_description</source>
         <target>Ce champ de cristalite est en activité. Au centre de l'atrium principal, un éclat baignant dans des eaux métalliques fait converger des faisceaux de lumières aux couleurs inconnues. Allez hop, on l'embarque.</target>
       </segment>
     </unit>
     <unit id="mush_trap">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>mush_trap.name</source>
         <target>Piège Mush</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>mush_trap.description</source>
         <target>Tous les équipiers risquent une infection Mush.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="cristal_field_description" state="translated">
+      <segment id="cristal_field_description" state="final">
         <source>mush_trap.cristal_field_description</source>
         <target>Ces champs ont été visités récemment. Vous avancez mais… une odeur de moisi vous saisit à la gorge, des volutes roses vous asphyxient, c'est un piège ! Fuyez, le Mush est déjà là !</target>
       </segment>
     </unit>
     <unit id="again">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>again.name</source>
         <target>Érrance</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>again.description</source>
         <target>Échec de l'exploration de la zone. Il reste quand même des choses à découvrir…{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="desert_description" state="translated">
+      <segment id="desert_description" state="final">
         <source>again.desert_description</source>
         <target>Cette marche dans le désert ne rime à rien, vous n'avez aucune idée de votre position et décidez de revenir sur vos pas.</target>
       </segment>
-      <segment id="forest_description" state="translated">
+      <segment id="forest_description" state="final">
         <source>again.forest_description</source>
         <target>Vous vous perdez dans les méandres de la forêt.</target>
       </segment>
-      <segment id="cave_description" state="translated">
+      <segment id="cave_description" state="final">
         <source>again.cave_description</source>
         <target>Ce réseau de cavernes est inextricable, vous arrivez néanmoins à trouver la sortie, mais vous avez la sensation qu'il reste quelque chose là-dedans…</target>
       </segment>
@@ -566,22 +566,22 @@
       </segment>
     </unit>
     <unit id="item_lost">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>item_lost.name</source>
         <target>Objet perdu</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>item_lost.description</source>
         <target>Un objet possédé par un des équipiers est perdu.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="intelligent_description" state="translated">
+      <segment id="intelligent_description" state="final">
         <source>item_lost.intelligent_description</source>
         <target>{equipment_gender, select,
         male {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}
         female {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'une {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}
         other {Un être étrange tente de rentrer en contact avec vous, il inspecte chacun d'entre vous puis s'empare d'un {equipment} appartenant à {character} et s'enfuit à grandes enjambées.}}</target>
       </segment>
-      <segment id="strong_wind_description" state="translated">
+      <segment id="strong_wind_description" state="final">
         <source>item_lost.strong_wind_description</source>
         <target>{equipment_gender, select,
         male {Le vent souffle si fort que {character} laisse échapper un {equipment} ! On est pas près de le retrouver…}
@@ -590,45 +590,45 @@
       </segment>
     </unit>
     <unit id="back">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>back.name</source>
         <target>Retour</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>back.description</source>
         <target>Vous abandonnez l'expédition en cours.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="seismic_activity_description" state="translated">
+      <segment id="seismic_activity_description" state="final">
         <source>back.seismic_activity_description</source>
         <target>Une violente secousse paralyse l'expédition… Puis de nouveau le silence… Mieux vaut revenir au Daedalus vite fait !</target>
       </segment>
-      <segment id="volcanic_activity_description" state="translated">
+      <segment id="volcanic_activity_description" state="final">
         <source>back.volcanic_activity_description</source>
         <target>Après un grondement sourd, un volcan non loin d'ici commence à rejeter une épaisse fumée noire, vous rejoignez le Daedalus à toute vitesse !</target>
       </segment>
-      <segment id="mankarog_description" state="translated">
+      <segment id="mankarog_description" state="final">
         <source>back.mankarog_description</source>
         <target>L'expédition observe à l'horizon un Mankarog passer derrière une montagne… Il vaut mieux changer de cap dès maintenant avant d'avoir des ennuis.</target>
       </segment>
     </unit>
     <unit id="player_lost">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>player_lost.name</source>
         <target>Perdu</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>player_lost.description</source>
         <target>Un équipier se perd.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="cristal_field_description" state="translated">
+      <segment id="cristal_field_description" state="final">
         <source>player_lost.cristal_field_description</source>
         <target>Ces champs sont un vrai labyrinthe… Bon y a rien à secouer ici, on bouge. Est-ce que quelqu'un a vu {character} ?</target>
       </segment>
-      <segment id="forest_description" state="translated">
+      <segment id="forest_description" state="final">
         <source>player_lost.forest_description</source>
         <target>La forêt est si dense, qu'il est difficile de rester groupé. Au bout d'une heure de marche... {character} manque à l'appel.</target>
       </segment>
-      <segment id="ocean_description" state="translated">
+      <segment id="ocean_description" state="final">
         <source>player_lost.ocean_description</source>
         <target>{character_gender, select,
         male {Grosse galère... {character} est tombé à l'eau. Ça va complexifier la suite des opérations...}
@@ -636,38 +636,38 @@
         other {Grosse galère... {character} est tombé à l'eau. Ça va complexifier la suite des opérations...}
         }</target>
       </segment>
-      <segment id="cold_description" state="translated">
+      <segment id="cold_description" state="final">
         <source>player_lost.cold_description</source>
         <target>Alors que le vent se lève, la neige se met à tomber. Le ciel disparaît immédiatement sous un épais voile blanc et vous perdez rapidement la trace de {character}. Quelle poisse !</target>
       </segment>
     </unit>
     <unit id="find_lost">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>find_lost.name</source>
         <target>Retrouvaille</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>find_lost.description</source>
         <target>Un équipier perdu est retrouvé !{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="lost_description" state="translated">
+      <segment id="lost_description" state="final">
         <source>find_lost.lost_description</source>
         <target>{version, select,
         1 {Vous avez trouvé des traces de pas humaines !!! En les suivant vous tombez sur {character}. Quelle déception…}
-        other {Alors que vous vous apprêtiez à quitter la zone, vous entendez des cris derrière vous. Il s'agit de {character} qui court après vous en hurlant depuis plus d'une heure. Ses vêtements sont tout déchirés !}
+        other {Alors que vous vous apprétiez à quitter la zone, vous entendez des cris derrière vous. Il s'agit de {character} qui court après vous en hurlant depuis plus d'une heure. Ses vêtements sont tout déchirés !}
         }</target>
       </segment>
     </unit>
     <unit id="kill_lost">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>kill_lost.name</source>
         <target>Mort</target>
       </segment>
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>kill_lost.description</source>
         <target>L'équipier perdu meurt.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="lost_description" state="translated">
+      <segment id="lost_description" state="final">
         <source>kill_lost.lost_description</source>
         <target>{character_gender, select,
         male  {Vous avez trouvé {character} derrière un rocher ! Malheureusement, il ne bouge plus du tout. D'ailleurs, il n'a pas l'air de respirer non plus. A tous les coups, les gars du labo vont vous dire qu'il est mort…}

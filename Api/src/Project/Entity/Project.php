@@ -16,7 +16,6 @@ use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Player\Entity\Player;
-use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
 use Mush\Project\Factory\ProjectFactory;
@@ -30,7 +29,6 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     public const int CPU_PRIORITY_BONUS = 1;
     public const int PARTICIPATION_MALUS = 2;
     public const int SKILL_BONUS = 4;
-    public const int PRINTED_CIRCUIT_JELLY = 3;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -216,12 +214,6 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     public function finish(): void
     {
         $this->progress = 100;
-        $this->unpropose();
-    }
-
-    public function deactivate(): void
-    {
-        $this->progress = 0;
     }
 
     public function getClassName(): string
@@ -269,16 +261,6 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return $this->getType() !== ProjectType::PILGRED;
     }
 
-    public function isNeronOrPilgred(): bool
-    {
-        return $this->isNeronProject() || $this->isPilgred();
-    }
-
-    public function isPheromodem(): bool
-    {
-        return $this->getName() === ProjectName::PHEROMODEM->toString();
-    }
-
     public function isAvailableNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isAvailable();
@@ -292,11 +274,6 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     public function isFinishedNeronProject(): bool
     {
         return $this->isNeronProject() && $this->isFinished();
-    }
-
-    public function isPatulineScrambler(): bool
-    {
-        return $this->getName() === ProjectName::PATULINE_SCRAMBLER->toString();
     }
 
     public function getActions(Player $activePlayer, ?ActionHolderEnum $actionTarget = null): Collection

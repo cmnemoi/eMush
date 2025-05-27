@@ -19,7 +19,6 @@ final class DeleteEquipmentService implements DeleteEquipmentServiceInterface
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void {
-        $tags[] = $gameEquipment->getName();
         $this->eventService->callEvent(
             event: new EquipmentEvent(
                 equipment: $gameEquipment,

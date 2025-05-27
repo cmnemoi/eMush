@@ -14,6 +14,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Service\ActionStrategyServiceInterface;
 use Mush\Action\Service\GetActionTargetFromContextService;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -223,15 +224,13 @@ class ActionNormalizer implements NormalizerInterface
     {
         $actionName = $actionClass->getActionName();
         $daedalus = $currentPlayer->getDaedalus();
-        $actionProvider = $actionClass->getActionProvider();
 
         $translationParameters = [
             $currentPlayer->getLogKey() => $currentPlayer->getLogName(),
-            $actionProvider->getLogKey() => $actionProvider->getLogName(),
             'outputQuantity' => $actionClass->getOutputQuantity(),
         ];
 
-        if ($actionTarget) {
+        if ($actionTarget instanceof Player) {
             $translationParameters['target_' . $actionTarget->getLogKey()] = $actionTarget->getLogName();
         }
         if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
@@ -244,6 +243,11 @@ class ActionNormalizer implements NormalizerInterface
         }
         if (ActionEnum::getTakeOffToPlanetActions()->contains($actionName)) {
             $translationParameters['planet'] = $this->getTranslatedInOrbitPlanet($currentPlayer);
+        }
+        if ($actionName === ActionEnum::GRAFT->value) {
+            /** @var GameItem $fruit */
+            $fruit = $actionClass->getActionProvider();
+            $translationParameters[$fruit->getLogKey()] = $fruit->getLogName();
         }
 
         return $translationParameters;
@@ -260,7 +264,7 @@ class ActionNormalizer implements NormalizerInterface
             }
         }
 
-        return $this->prioritizeCorePointsOverITPoints($skillPointCosts);
+        return $skillPointCosts;
     }
 
     private function getTranslatedInOrbitPlanet(Player $currentPlayer): ?string
@@ -275,16 +279,5 @@ class ActionNormalizer implements NormalizerInterface
                 domain: 'planet',
                 language: $daedalus->getLanguage()
             ) : null;
-    }
-
-    private function prioritizeCorePointsOverITPoints(array $skillPointCosts): array
-    {
-        $itIndex = array_search('computer', $skillPointCosts, true);
-        $coreIndex = array_search('core', $skillPointCosts, true);
-        if ($coreIndex && $itIndex !== false && $coreIndex > $itIndex) {
-            [$skillPointCosts[$itIndex], $skillPointCosts[$coreIndex]] = [$skillPointCosts[$coreIndex], $skillPointCosts[$itIndex]];
-        }
-
-        return $skillPointCosts;
     }
 }

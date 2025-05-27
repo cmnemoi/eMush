@@ -8,5 +8,4 @@ class PlaceTypeEnum
     public const string PLANET = 'planet';
     public const string ROOM = 'room';
     public const string SPACE = 'space';
-    public const string QUEUE = 'queue';
 }

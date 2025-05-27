@@ -11,7 +11,7 @@
                             <img :src="getExploratorBody(explorator)" :alt="explorator">
                             <p>
                                 <img class="explorator-status" :src="getImgUrl('in_game.png')" v-if="explorator.isAlive">
-                                <img class="explorator-status" :src="getImgUrl('ui_icons/dead.png')" v-else>
+                                <img class="explorator-status" :src="getImgUrl('dead.png')" v-else>
                             </p>
                         </li>
                     </ul>

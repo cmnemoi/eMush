@@ -549,7 +549,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Vie intelligente',
                 'eventName' => 'Provision',
                 'eventDescription' => 'Alors que l\'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.',
-                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée par Drapeau blanc',
+                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée Drapeau blanc',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -857,117 +857,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Vergers',
                 'eventName' => 'Récolte',
                 'eventDescription' => 'Plusieurs arbustes touffus attirent votre attention, dans l\'un d\'entre eux se trouve de curieux fruits…',
-                'eventOutcome' => 'Vous gagnez 2 Fruits aliens.////+ 1 obtenu car l\'expédition dispose de la compétence : Botaniste',
-            ],
-            actual: $normalizedExplorationLog,
-        );
-    }
-
-    public function testNormalizeHarvestWithAPolyvalent(FunctionalTester $I): void
-    {
-        // given fruit trees sector has only harvest event
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::FRUIT_TREES,
-            events: [PlanetSectorEvent::HARVEST_1 => 1]
-        );
-
-        // given Chun has a spacesuit
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::SPACESUIT,
-            equipmentHolder: $this->chun,
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given Chun is a polyvalent
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::POLYVALENT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::POLYVALENT, $this->chun));
-
-        // given exploration is created
-        $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES], $I),
-            explorators: $this->players,
-        );
-        $closedExploration = $this->exploration->getClosedExploration();
-
-        // given one extra step are made to trigger the harvest event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-
-        // when harvest event exploration log is normalized
-        $explorationLog = $closedExploration->getLogs()->filter(
-            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
-        )->first();
-        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
-
-        // then exploration log is normalized as expected
-        $I->assertEquals(
-            expected: [
-                'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::FRUIT_TREES,
-                'planetSectorName' => 'Vergers',
-                'eventName' => 'Récolte',
-                'eventDescription' => 'Plusieurs arbustes touffus attirent votre attention, dans l\'un d\'entre eux se trouve de curieux fruits…',
-                'eventOutcome' => 'Vous gagnez 2 Fruits aliens.////+ 1 obtenu car l\'expédition dispose de la compétence : Botaniste',
-            ],
-            actual: $normalizedExplorationLog,
-        );
-    }
-
-    public function testNormalizeHarvestWithABotanistPolyvalent(FunctionalTester $I): void
-    {
-        // given fruit trees sector has only harvest event
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::FRUIT_TREES,
-            events: [PlanetSectorEvent::HARVEST_1 => 1]
-        );
-
-        // given Chun has a spacesuit
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::SPACESUIT,
-            equipmentHolder: $this->chun,
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given Chun is a botanist
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->chun));
-
-        // given Chun is a polyvalent
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::POLYVALENT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::POLYVALENT, $this->chun));
-
-        // given exploration is created
-        $this->exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::FRUIT_TREES], $I),
-            explorators: $this->players,
-        );
-        $closedExploration = $this->exploration->getClosedExploration();
-
-        // given one extra step are made to trigger the harvest event
-        $this->explorationService->dispatchExplorationEvent($this->exploration);
-
-        // when harvest event exploration log is normalized
-        $explorationLog = $closedExploration->getLogs()->filter(
-            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::HARVEST
-        )->first();
-        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
-
-        // then exploration log is normalized as expected
-        $I->assertEquals(
-            expected: [
-                'id' => $explorationLog->getId(),
-                'planetSectorKey' => PlanetSectorEnum::FRUIT_TREES,
-                'planetSectorName' => 'Vergers',
-                'eventName' => 'Récolte',
-                'eventDescription' => 'Plusieurs arbustes touffus attirent votre attention, dans l\'un d\'entre eux se trouve de curieux fruits…',
-                'eventOutcome' => 'Vous gagnez 2 Fruits aliens.////+ 1 obtenu car l\'expédition dispose de la compétence : Botaniste',
+                'eventOutcome' => 'Vous gagnez 2 Fruits aliens.////+ 1 car l\'expédition dispose de la compétence : Botaniste',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -1068,7 +958,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Ruminants',
                 'eventName' => 'Provision',
                 'eventDescription' => 'Vous chassez avec succès un Chab Chab... Vous récupérez de la viande alien.',
-                'eventOutcome' => 'Vous gagnez 6 Steaks aliens.////+ 2 obtenus car l\'expédition dispose de la compétence : Survie',
+                'eventOutcome' => 'Vous gagnez 6 Steaks aliens.////+ 2 car l\'expédition dispose de la compétence : Survie',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -1414,7 +1304,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
         // then exploration log is normalized as expected
         $firstVersion = 'Vous avez trouvé des traces de pas humaines !!! En les suivant vous tombez sur Chun. Quelle déception…';
-        $secondVersion = 'Alors que vous vous apprêtiez à quitter la zone, vous entendez des cris derrière vous. Il s\'agit de Chun qui court après vous en hurlant depuis plus d\'une heure. Ses vêtements sont tout déchirés !';
+        $secondVersion = 'Alors que vous vous apprétiez à quitter la zone, vous entendez des cris derrière vous. Il s\'agit de Chun qui court après vous en hurlant depuis plus d\'une heure. Ses vêtements sont tout déchirés !';
 
         $I->assertEquals(expected: 'Perdu', actual: $normalizedExplorationLog['planetSectorName']);
         $I->assertEquals(expected: 'Retrouvaille', actual: $normalizedExplorationLog['eventName']);

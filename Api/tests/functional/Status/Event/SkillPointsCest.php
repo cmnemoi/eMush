@@ -9,8 +9,6 @@ use Codeception\Example;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
-use Mush\RoomLog\Entity\RoomLog;
-use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -42,19 +40,11 @@ final class SkillPointsCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveIncreasedSkillPoints($I, $skillPoints);
     }
 
-    #[DataProvider('skillPointsDataProvider')]
-    public function shouldPrintPrivateLogOnGain(FunctionalTester $I, Example $skillPoints): void
+    private function skillPointsDataProvider(): array
     {
-        $this->givenPlayerHasZeroSkillPoints($skillPoints);
-
-        $this->whenADayPasses();
-
-        $I->seeInRepository(
-            entity: RoomLog::class,
-            params: [
-                'log' => StatusEventLogEnum::CHARGE_STATUS_UPDATED_LOGS['gain']['value'][$skillPoints['name']],
-            ],
-        );
+        return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
+            'name' => $skillPoints->toString(),
+        ])->toArray();
     }
 
     private function givenPlayerHasZeroSkillPoints(Example $skillPoints): void
@@ -101,14 +91,7 @@ final class SkillPointsCest extends AbstractFunctionalTest
             SkillPointsEnum::NURSE_POINTS => 1,
             SkillPointsEnum::SPORE_POINTS => 1,
             SkillPointsEnum::POLYMATH_IT_POINTS => 1,
-            default => throw new \LogicException("Please define the increment for {$skillPoints}"),
+            default => 0,
         };
-    }
-
-    private function skillPointsDataProvider(): array
-    {
-        return SkillPointsEnum::getAll()->map(static fn (SkillPointsEnum $skillPoints) => [
-            'name' => $skillPoints->toString(),
-        ])->toArray();
     }
 }

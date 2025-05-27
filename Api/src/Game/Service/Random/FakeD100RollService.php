@@ -6,7 +6,7 @@ namespace Mush\Game\Service\Random;
 
 final class FakeD100RollService implements D100RollServiceInterface
 {
-    public function __construct(private bool $isSuccessful = true) {}
+    public function __construct(private bool $isSuccessful) {}
 
     public function isSuccessful(int $successRate): bool
     {
@@ -16,15 +16,5 @@ final class FakeD100RollService implements D100RollServiceInterface
     public function isAFailure(int $successRate): bool
     {
         return $this->isSuccessful === false;
-    }
-
-    public function makeSuccessful(): void
-    {
-        $this->isSuccessful = true;
-    }
-
-    public function makeFail(): void
-    {
-        $this->isSuccessful = false;
     }
 }

@@ -30,7 +30,6 @@ class ItemEnum
     public const string NATAMY_RIFLE = 'natamy_rifle';
     public const string GRENADE = 'grenade';
     public const string ROCKET_LAUNCHER = 'rocket_launcher';
-    public const string BARE_HANDS = 'bare_hands';
     public const string TRACKER = 'tracker';
     public const string WALKIE_TALKIE = 'walkie_talkie';
     public const string ITRACKIE = 'itrackie';
@@ -45,11 +44,6 @@ class ItemEnum
     public const string HYDROPOT = 'hydropot';
     public const string SCHRODINGER = 'schrodinger';
     public const string SUPPORT_DRONE = 'support_drone';
-    public const string PAVLOV = 'pavlov';
-    public const string ANNIVERSARY_GIFT = 'anniversary_gift';
-    public const string COFFEE_THERMOS = 'coffee_thermos';
-    public const string STANDARD_RATION = 'standard_ration';
-    public const string LUNCHBOX = 'lunchbox';
 
     public static function getArtefacts(): ArrayCollection
     {

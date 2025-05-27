@@ -9,7 +9,7 @@ use Doctrine\Persistence\ObjectManager;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Chat\Enum\MessageModificationEnum;
+use Mush\Communication\Enum\MessageModificationEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -161,7 +161,15 @@ final class ProjectModifierConfigFixtures extends Fixture
         $manager->persist($noiseReducerModifier);
         $this->addReference($noiseReducerModifier->getName(), $noiseReducerModifier);
 
-        $radarTransVoidModifier = VariableEventModifierConfig::fromConfigData(ModifierConfigData::getByName('modifier_for_daedalus_x2_signal_on_action_contact_sol'));
+        $radarTransVoidModifier = new VariableEventModifierConfig('modifier_for_daedalus_x2_signal_on_action_contact_sol');
+        $radarTransVoidModifier
+            ->setTargetVariable(ActionVariableEnum::OUTPUT_QUANTITY)
+            ->setDelta(2)
+            ->setMode(VariableModifierModeEnum::MULTIPLICATIVE)
+            ->setTargetEvent(ActionVariableEvent::GET_OUTPUT_QUANTITY)
+            ->setPriority(ModifierPriorityEnum::MULTIPLICATIVE_MODIFIER_VALUE)
+            ->setTagConstraints([ActionEnum::CONTACT_SOL->value => ModifierRequirementEnum::ANY_TAGS])
+            ->setModifierRange(ModifierHolderClassEnum::DAEDALUS);
         $manager->persist($radarTransVoidModifier);
         $this->addReference($radarTransVoidModifier->getName(), $radarTransVoidModifier);
 
@@ -447,47 +455,6 @@ final class ProjectModifierConfigFixtures extends Fixture
         );
         $this->manager->persist($ultraHealingPomadeModifier);
         $this->addReference($ultraHealingPomadeModifier->getName(), $ultraHealingPomadeModifier);
-
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_TURRET_MAX_CHARGE_4);
-
-        $holderNameTurretActivationRequirement = ModifierActivationRequirement::fromConfigData(
-            ModifierActivationRequirementData::getByName('holder_name_turret')
-        );
-        $this->manager->persist($holderNameTurretActivationRequirement);
-        $this->addReference($holderNameTurretActivationRequirement->getName(), $holderNameTurretActivationRequirement);
-
-        $teslaSup2XMaxChargesModifier = DirectModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::TURRET_MAX_CHARGES_PLUS_4)
-        );
-        $teslaSup2XMaxChargesModifier
-            ->setTriggeredEvent($eventConfig)
-            ->addEventActivationRequirement($holderNameTurretActivationRequirement);
-        $this->manager->persist($teslaSup2XMaxChargesModifier);
-        $this->addReference($teslaSup2XMaxChargesModifier->getName(), $teslaSup2XMaxChargesModifier);
-
-        /** @var VariableEventConfig $eventConfig */
-        $eventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_TURRET_CHARGE_8);
-
-        $teslaSup2XChargesModifier = DirectModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::TURRET_CHARGES_PLUS_8)
-        );
-        $teslaSup2XChargesModifier
-            ->setTriggeredEvent($eventConfig);
-        $this->manager->persist($teslaSup2XChargesModifier);
-        $this->addReference($teslaSup2XChargesModifier->getName(), $teslaSup2XChargesModifier);
-
-        $constipasporeSerumModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PLUS_2_ACTION_POINTS_ON_EXTRACT_SPORE)
-        );
-        $this->manager->persist($constipasporeSerumModifier);
-        $this->addReference($constipasporeSerumModifier->getName(), $constipasporeSerumModifier);
-
-        $guaranaCappuccinoModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE)
-        );
-        $this->manager->persist($guaranaCappuccinoModifier);
-        $this->addReference($guaranaCappuccinoModifier->getName(), $guaranaCappuccinoModifier);
 
         $this->manager->flush();
     }

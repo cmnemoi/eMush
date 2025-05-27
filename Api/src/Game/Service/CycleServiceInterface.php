@@ -6,7 +6,6 @@ use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Exploration\Entity\Exploration;
-use Mush\Game\ValueObject\CycleChangeResult;
 
 interface CycleServiceInterface
 {

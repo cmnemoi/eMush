@@ -12,7 +12,6 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasEquipment;
 use Mush\Action\Validator\HasSkill;
-use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
@@ -50,10 +49,6 @@ abstract class AbstractUpgradeDrone extends AbstractAction
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
     {
         $metadata->addConstraints([
-            new Reach([
-                'reach' => ReachEnum::ROOM,
-                'groups' => [ClassConstraint::VISIBILITY],
-            ]),
             new HasSkill([
                 'skill' => SkillEnum::ROBOTICS_EXPERT,
                 'groups' => [ClassConstraint::VISIBILITY],

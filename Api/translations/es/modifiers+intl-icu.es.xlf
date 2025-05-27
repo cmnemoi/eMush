@@ -85,12 +85,6 @@
         <target>dirtiness_on_player.new.cycle.description</target>
       </segment>
     </unit>
-    <unit id="deaf_listen_on_read_message">
-      <segment id="description" state="initial">
-        <source>deaf_listen_on_read_message.description</source>
-        <target>deaf_listen_on_read_message.description</target>
-      </segment>
-    </unit>
     <unit id="deaf_speak_on_new_message">
       <segment id="description" state="translated">
         <source>deaf_speak_on_new_message.description</source>
@@ -115,16 +109,10 @@
         <target>foaming_mouth.description</target>
       </segment>
     </unit>
-    <unit id="mute_prevent_messages_on_new_message">
-      <segment id="description" state="initial">
-        <source>mute_prevent_messages_on_new_message.description</source>
-        <target>mute_prevent_messages_on_new_message.description</target>
-      </segment>
-    </unit>
-    <unit id="mute_prevent_actions_on_pre.action.description">
-      <segment id="description" state="initial">
-        <source>mute_prevent_actions_on_pre.action.description</source>
-        <target>mute_prevent_actions_on_pre.action.description</target>
+    <unit id="mute_modifier_on_new_message">
+      <segment id="description" state="translated">
+        <source>mute_modifier_on_new_message.description</source>
+        <target>mute.description</target>
       </segment>
     </unit>
     <unit id="sneezing_on_post.action">
@@ -161,18 +149,6 @@
       <segment id="description" state="translated">
         <source>septicemia_on_status.applied.description</source>
         <target>septicemia.description</target>
-      </segment>
-    </unit>
-    <unit id="septicemia_on_post.action">
-      <segment id="description" state="initial">
-        <source>septicemia_on_post.action.description</source>
-        <target>septicemia_on_post.action.description</target>
-      </segment>
-    </unit>
-    <unit id="septicemia_on_player.new.cycle">
-      <segment id="description" state="initial">
-        <source>septicemia_on_player.new.cycle.description</source>
-        <target>septicemia_on_player.new.cycle.description</target>
       </segment>
     </unit>
     <unit id="vomiting_on_post.action">
@@ -215,18 +191,6 @@
       <segment id="description" state="initial">
         <source>apply.cost_increase_if_player_in_room_four_people.description</source>
         <target>apply.cost_increase_if_player_in_room_four_people.description</target>
-      </segment>
-    </unit>
-    <unit id="apply.cost_increase_move_if_item_in_room_schrodinger">
-      <segment id="description" state="initial">
-        <source>apply.cost_increase_move_if_item_in_room_schrodinger.description</source>
-        <target>apply.cost_increase_move_if_item_in_room_schrodinger.description</target>
-      </segment>
-    </unit>
-    <unit id="apply.cost_increase_if_item_in_room_schrodinger">
-      <segment id="description" state="initial">
-        <source>apply.cost_increase_if_item_in_room_schrodinger.description</source>
-        <target>apply.cost_increase_if_item_in_room_schrodinger.description</target>
       </segment>
     </unit>
   </file>

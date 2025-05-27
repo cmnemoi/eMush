@@ -2,12 +2,12 @@
 
 namespace Mush\Tests\functional\Daedalus\Event;
 
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
-use Mush\Communications\Entity\LinkWithSol;
-use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
@@ -16,6 +16,7 @@ use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Entity\HunterConfig;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -33,18 +34,32 @@ use Mush\User\Entity\User;
 class DaedalusDestroyedOnEndDayCest
 {
     private EventServiceInterface $eventService;
-    private LinkWithSolRepositoryInterface $linkWithSolRepository;
 
     public function _before(FunctionalTester $I)
     {
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
     }
 
     public function testDestroyDaedalus(FunctionalTester $I)
     {
+        $statusConfig = new StatusConfig();
+        $statusConfig->setStatusName(PlayerStatusEnum::MUSH)->buildName(GameConfigEnum::TEST);
+        $I->haveInRepository($statusConfig);
+
+        /** @var LocalizationConfig $localizationConfig */
+        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+
+        /** @var DaedalusConfig $gameConfig */
+        $daedalusConfig = $I->grabEntityFromRepository(DaedalusConfig::class, ['name' => 'default']);
+        $hunterConfigs = $I->grabEntitiesFromRepository(HunterConfig::class);
+
         /** @var GameConfig $gameConfig */
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $gameConfig = $I->have(GameConfig::class, [
+            'daedalusConfig' => $daedalusConfig,
+            'localizationConfig' => $localizationConfig,
+            'statusConfigs' => new ArrayCollection([$statusConfig]),
+            'hunterConfigs' => new ArrayCollection($hunterConfigs),
+        ]);
 
         /** @var User $user */
         $user = $I->have(User::class);
@@ -60,16 +75,13 @@ class DaedalusDestroyedOnEndDayCest
             'filledAt' => new \DateTime(),
             'cycleStartedAt' => new \DateTime(),
         ]);
-        $daedalus->setDaedalusVariables($gameConfig->getDaedalusConfig());
+        $daedalus->setDaedalusVariables($daedalusConfig);
 
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => 'fr']));
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $daedalusInfo
             ->setNeron($neron)
             ->setGameStatus(GameStatusEnum::CURRENT);
         $I->haveInRepository($daedalusInfo);
-
-        $linkWithSol = new LinkWithSol($daedalus->getId());
-        $this->linkWithSolRepository->save($linkWithSol);
 
         $this->createProjects($I, $daedalus);
 
@@ -109,7 +121,7 @@ class DaedalusDestroyedOnEndDayCest
 
         $I->haveInRepository($player);
 
-        $status = new Status($player, $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::MUSH]));
+        $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
         $event = new DaedalusCycleEvent($daedalus, [], new \DateTime());
@@ -125,7 +137,7 @@ class DaedalusDestroyedOnEndDayCest
 
     private function createProjects(FunctionalTester $I, Daedalus $daedalus): void
     {
-        $projects = [ProjectName::NERON_PROJECT_THREAD, ProjectName::BEAT_BOX, ProjectName::PILGRED];
+        $projects = [ProjectName::NERON_PROJECT_THREAD, ProjectName::BEAT_BOX];
         foreach ($projects as $project) {
             $config = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => $project]);
             $project = new Project($config, $daedalus);

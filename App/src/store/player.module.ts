@@ -13,8 +13,7 @@ const state =  {
     confirmPopup: new ConfirmPopup(),
     displayMushSkills: false,
     playerChanged: false,
-    commanderOrderPanelOpen: false,
-    comManagerAnnouncementPanelOpen: false
+    commanderOrderPanelOpen: false
 };
 
 const getters: GetterTree<any, any> = {
@@ -38,9 +37,6 @@ const getters: GetterTree<any, any> = {
     },
     commanderOrderPanelOpen: (state: any): boolean => {
         return state.commanderOrderPanelOpen;
-    },
-    comManagerAnnouncementPanelOpen: (state: any): boolean => {
-        return state.comManagerAnnouncementPanelOpen;
     }
 };
 
@@ -85,6 +81,7 @@ const actions: ActionTree<any, any> = {
             const player = store.getters['player/player'];
             await Promise.all([
                 playerIsNull ? Promise.resolve() : (player.isAlive() ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve()),
+                playerIsNull ? Promise.resolve() : (player.isAlive() ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve()),
                 PlayerService.loadPlayer(playerId).then(async (player: Player | null) => {
                     commit('updatePlayer', player);
                     if (player === null) {
@@ -96,7 +93,7 @@ const actions: ActionTree<any, any> = {
 
                     await Promise.all([
                         playerIsNull ? this.dispatch("daedalus/loadAlerts", { daedalus: player.daedalus }) : Promise.resolve(),
-                        this.dispatch("daedalus/loadMinimap", { player }),
+                        playerIsNull ? this.dispatch("daedalus/loadMinimap", { player }) : Promise.resolve(),
                         this.dispatch("room/loadRoom", { room: player?.room })
                     ]);
                     if (player?.spaceBattle) {
@@ -172,12 +169,6 @@ const actions: ActionTree<any, any> = {
     },
     closeCommanderOrderPanel({ commit }) {
         commit('closeCommanderOrderPanel');
-    },
-    openComManagerAnnouncementPanel({ commit }) {
-        commit('openComManagerAnnouncementPanel');
-    },
-    closeComManagerAnnouncementPanel({ commit }) {
-        commit('closeComManagerAnnouncementPanel');
     }
 };
 
@@ -248,12 +239,6 @@ const mutations : MutationTree<any> = {
     },
     closeCommanderOrderPanel(state) {
         state.commanderOrderPanelOpen = false;
-    },
-    openComManagerAnnouncementPanel(state) {
-        state.comManagerAnnouncementPanelOpen = true;
-    },
-    closeComManagerAnnouncementPanel(state) {
-        state.comManagerAnnouncementPanelOpen = false;
     }
 };
 

@@ -10,6 +10,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerService;
+use Mush\Skill\Enum\SkillEnum;
 
 abstract class PlayerModifierLogEnum
 {
@@ -71,7 +72,7 @@ abstract class PlayerModifierLogEnum
             ModifierNameEnum::LETHARGY_MODIFIER => self::LETHARGY_WORKED,
             ModifierNameEnum::PANIC_ACTION_POINT_MODIFIER => self::PANIC_WORKED,
             ModifierNameEnum::PANIC_MOVEMENT_POINT_MODIFIER => self::PANIC_WORKED,
-            ModifierNameEnum::SELF_SACRIFICE_MODIFIER => self::SELF_SACRIFICE_WORKED,
+            SkillEnum::SELF_SACRIFICE->value => self::SELF_SACRIFICE_WORKED,
         ],
         self::VISIBILITY => [
             ModifierNameEnum::STARVING => VisibilityEnum::PRIVATE,
@@ -88,7 +89,7 @@ abstract class PlayerModifierLogEnum
             ModifierNameEnum::LETHARGY_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::PANIC_ACTION_POINT_MODIFIER => VisibilityEnum::PRIVATE,
             ModifierNameEnum::PANIC_MOVEMENT_POINT_MODIFIER => VisibilityEnum::PRIVATE,
-            ModifierNameEnum::SELF_SACRIFICE_MODIFIER => VisibilityEnum::PRIVATE,
+            SkillEnum::SELF_SACRIFICE->value => VisibilityEnum::PRIVATE,
         ],
     ];
 }

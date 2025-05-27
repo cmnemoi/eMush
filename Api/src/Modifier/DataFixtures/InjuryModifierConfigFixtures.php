@@ -10,8 +10,8 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Chat\Enum\MessageModificationEnum;
-use Mush\Chat\Event\MessageEvent;
+use Mush\Communication\Enum\MessageModificationEnum;
+use Mush\Communication\Event\MessageEvent;
 use Mush\Disease\Enum\SymptomEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Game\DataFixtures\EventConfigFixtures;
@@ -23,7 +23,6 @@ use Mush\Modifier\Entity\Config\EventModifierConfig;
 use Mush\Modifier\Entity\Config\ModifierActivationRequirement;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Modifier\Enum\ModifierPriorityEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Modifier\Enum\ModifierStrategyEnum;
@@ -265,9 +264,13 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         );
         $manager->persist($preventShoot);
 
-        $muteModifier = EventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::MUTE_PREVENT_MESSAGES_MODIFIER)
-        );
+        $muteModifier = new EventModifierConfig('mute_modifier');
+        $muteModifier
+            ->setTargetEvent(MessageEvent::NEW_MESSAGE)
+            ->setApplyWhenTargeted(false)
+            ->setPriority(ModifierPriorityEnum::PREVENT_EVENT)
+            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
+            ->setModifierRange(ModifierHolderClassEnum::PLAYER);
         $manager->persist($muteModifier);
 
         $cannotSpeakModifier = EventModifierConfig::fromConfigData(
@@ -379,7 +382,7 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
             ->setPriority(ModifierPriorityEnum::AFTER_INITIAL_EVENT)
             ->setTagConstraints([
                 ItemEnum::SCHRODINGER . '_action_target' => ModifierRequirementEnum::ALL_TAGS,
-                ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ALL_TAGS,
+                ActionEnum::TAKE->value => ModifierRequirementEnum::ALL_TAGS,
             ])
             ->setModifierStrategy(ModifierStrategyEnum::SYMPTOM_MODIFIER)
             ->setModifierActivationRequirements([])

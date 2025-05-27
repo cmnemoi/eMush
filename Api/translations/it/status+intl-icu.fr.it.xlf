@@ -1649,15 +1649,5 @@
         <target>antique_perfume_immunized.description</target>
       </segment>
     </unit>
-    <unit id="beginner">
-      <segment id="name" state="initial">
-        <source>beginner.name</source>
-        <target>beginner.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>beginner.description</source>
-        <target>beginner.description</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

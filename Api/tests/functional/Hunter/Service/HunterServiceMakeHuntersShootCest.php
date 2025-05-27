@@ -2,8 +2,8 @@
 
 namespace Mush\Tests\functional\Hunter\Service;
 
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Communication\Entity\Channel;
+use Mush\Communication\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -23,7 +23,6 @@ use Mush\Hunter\Entity\HunterTarget;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterTargetEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
-use Mush\Hunter\Service\CreateHunterService;
 use Mush\Hunter\Service\HunterService;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Project\Entity\Project;
@@ -46,7 +45,6 @@ use Symfony\Component\Uid\Uuid;
  */
 final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 {
-    private CreateHunterService $createHunter;
     private EventServiceInterface $eventService;
     private HunterService $hunterService;
     private GameEquipment $pasiphae;
@@ -57,7 +55,6 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->createHunter = $I->grabService(CreateHunterService::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->hunterService = $I->grabService(HunterService::class);
 
@@ -90,7 +87,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->daedalus->setHunterPoints(10); // spawn a single hunter
         $this->hunterService->unpoolHunters($this->daedalus, [], new \DateTime());
 
-        $this->hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $this->hunter = $this->daedalus->getAttackingHunters()->first();
         $this->hunter->setHitChance(100);
 
         $target = new HunterTarget($this->hunter);
@@ -103,7 +100,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
     public function testUnpoolHunters(FunctionalTester $I)
     {
         $this->hunterService->unpoolHunters($this->daedalus, [], new \DateTime());
-        $I->assertCount(1, $this->daedalus->getHuntersAroundDaedalus());
+        $I->assertCount(1, $this->daedalus->getAttackingHunters());
         $I->assertCount(0, $this->daedalus->getHunterPool());
     }
 
@@ -125,7 +122,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
         // then only `maxAsteroidsPerWave` asteroids are spawned
         $maxAsteroidsPerWave = $this->daedalus->getGameConfig()->getHunterConfigs()->filter(static fn ($hunterConfig) => $hunterConfig->getHunterName() === HunterEnum::ASTEROID)->first()->getMaxPerWave();
-        $I->assertCount($maxAsteroidsPerWave, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::ASTEROID));
+        $I->assertCount($maxAsteroidsPerWave, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::ASTEROID));
     }
 
     public function testMakeHuntersShootDaedalus(FunctionalTester $I)
@@ -133,7 +130,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         // given hunter has a 0% chance to target any other target (default, so do nothing)
 
         // when hunter shoots
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then daedalus hull is damaged
         $I->assertLessThan(
@@ -151,7 +148,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($this->hunter);
 
         // when hunter shoots
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then patrol ship armor is damaged
         $I->assertLessThan(
@@ -179,7 +176,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($this->hunter);
 
         // when hunter shoots
-        $hunters = $this->daedalus->getHuntersAroundDaedalus();
+        $hunters = $this->daedalus->getAttackingHunters();
         $this->hunterService->makeHuntersShoot($hunters);
 
         $I->assertTrue($this->player2->isInAPatrolShip());
@@ -212,27 +209,6 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
     }
 
-    public function testMakeHuntersShootHunter(FunctionalTester $I)
-    {
-        // given hunter targets a hunter
-        $target = new HunterTarget($this->hunter);
-        $target->setTargetEntity($this->hunter);
-        $this->hunter->setTarget($target);
-        $I->haveInRepository($this->hunter);
-
-        // when hunter shoots
-        $hunters = $this->daedalus->getHuntersAroundDaedalus();
-        $this->hunterService->makeHuntersShoot($hunters);
-
-        $I->assertTrue($this->player2->isInAPatrolShip());
-
-        // then hunter health is reduced
-        $I->assertLessThan(
-            expected: $this->hunter->getHunterConfig()->getInitialHealth(),
-            actual: $this->hunter->getHealth(),
-        );
-    }
-
     public function testMakeHuntersDoNotShootEntitiesNotInBattle(FunctionalTester $I): void
     {
         // given hunter has a 100% chance to target a player, but the player is in laboratory (not in battle)
@@ -241,7 +217,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($this->player2);
 
         // when hunter shoots
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then player health is not reduced
         $I->assertEquals(
@@ -261,7 +237,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->pasiphaeArmorStatus->setCharge(1);
 
         // when hunter shoots
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then patrol ship is destroyed and player is dead
         $I->dontSeeInRepository(GameEquipment::class, [
@@ -281,34 +257,10 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->player2->setHealthPoint(1);
 
         // when hunter shoots
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then player is dead
         $I->assertFalse($this->player2->isAlive());
-    }
-
-    public function testMakeHuntersShootTransport(FunctionalTester $I)
-    {
-        // given a transport is spawned
-        $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
-
-        /** @var Hunter $transport */
-        $transport = $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRANSPORT)->first();
-
-        // given hunter targets transport
-        $target = new HunterTarget($this->hunter);
-        $target->setTargetEntity($transport);
-        $this->hunter->setTarget($target);
-        $I->haveInRepository($this->hunter);
-
-        // when hunter shoots
-        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
-
-        // then patrolship should be damaged
-        $I->assertLessThan(
-            expected: $transport->getHunterConfig()->getInitialHealth(),
-            actual: $transport->getHealth()
-        );
     }
 
     public function testMakeHuntersShootHitChanceAugmentsAfterFailedShot(FunctionalTester $I): void
@@ -318,7 +270,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($this->hunter);
 
         // when hunter shoots
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then hunter hit chance is augmented by `bonusAfterFailedShot`
         $I->assertEquals(
@@ -334,7 +286,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($this->hunter);
 
         // when hunter shoots
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then hunter hit chance is back to default
         $I->assertEquals(
@@ -349,19 +301,19 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
-            ->getHuntersAroundDaedalus()
+            ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
             ->first();
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
         $asteroid->removeStatus($truceStatus);
 
-        $this->hunterService->makeHuntersShoot($daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
         $I->assertEquals(
             expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - $asteroid->getHealth(),
             actual: $daedalus->getHull()
         );
-        $I->assertIsEmpty($daedalus->getHuntersAroundDaedalus()); // asteroid should be destroyed
+        $I->assertIsEmpty($daedalus->getAttackingHunters()); // asteroid should be destroyed
     }
 
     public function testMakeHuntersShootAsteroidNotFullHealth(FunctionalTester $I)
@@ -370,7 +322,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
-            ->getHuntersAroundDaedalus()
+            ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
             ->first();
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
@@ -378,13 +330,13 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $asteroid->setHealth(1);
         $I->haveInRepository($asteroid);
 
-        $this->hunterService->makeHuntersShoot($daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
         $I->assertEquals(
             expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull() - $asteroid->getHealth(),
             actual: $daedalus->getHull()
         );
-        $I->assertIsEmpty($daedalus->getHuntersAroundDaedalus()); // asteroid should be destroyed
+        $I->assertIsEmpty($daedalus->getAttackingHunters()); // asteroid should be destroyed
     }
 
     public function testMakeHuntersShootD1000ActsThreeTimesACycle(FunctionalTester $I): void
@@ -393,7 +345,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $daedalus = $this->createDaedalusForD1000Test($I);
 
         // when hunter shoots
-        $this->hunterService->makeHuntersShoot($daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
         // then daedalus hull is damaged twice over the three actions it has
         // first time, d100 has a target so it shots
@@ -411,18 +363,18 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
         /** @var Hunter $asteroid */
         $asteroid = $daedalus
-            ->getHuntersAroundDaedalus()
+            ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
             ->first();
         $I->assertNotNull($asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES));
 
-        $this->hunterService->makeHuntersShoot($daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
         $I->assertEquals(
             expected: $daedalus->getGameConfig()->getDaedalusConfig()->getInitHull(),
             actual: $daedalus->getHull()
         ); // asteroid should not deal damage
-        $I->assertCount(1, $daedalus->getHuntersAroundDaedalus()); // asteroid should not be destroyed
+        $I->assertCount(1, $daedalus->getAttackingHunters()); // asteroid should not be destroyed
     }
 
     public function shouldNotReduceHullIfPlasmaShieldIfFinished(FunctionalTester $I): void
@@ -436,7 +388,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->daedalus->getNeron()->togglePlasmaShield();
 
         // when I make the hunter shoot
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then the hull should not be damaged
         $I->assertEquals(
@@ -457,7 +409,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $initShield = $this->daedalus->getShield();
 
         // when I make the hunter shoot
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then the shield should be damaged
         $I->assertLessThan(
@@ -478,7 +430,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->daedalus->setShield(1);
 
         // when I make the hunter shoot
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then the hull should be damaged
         $I->assertLessThan(
@@ -499,7 +451,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $daedalus = $this->getDaedalusForAsteroidTest($I);
 
         // remove asteroid truce status
-        $asteroid = $daedalus->getHuntersAroundDaedalus()->first();
+        $asteroid = $daedalus->getAttackingHunters()->first();
         $truceStatus = $asteroid->getStatusByName(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
         $asteroid->removeStatus($truceStatus);
 
@@ -510,7 +462,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $daedalus->setShield(5);
 
         // when I make the asteroid shoot
-        $this->hunterService->makeHuntersShoot($daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
         // then the hull should be damaged
         $I->assertLessThan(
@@ -541,7 +493,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
 
         // when I make the hunter shoot
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then the hull should be damaged by 1 less
         $I->assertEquals(
@@ -556,7 +508,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $daedalus = $this->getDaedalusForAsteroidTest($I);
 
         /** @var Hunter $asteroid */
-        $asteroid = $daedalus->getHuntersAroundDaedalus()->first();
+        $asteroid = $daedalus->getAttackingHunters()->first();
 
         // remove asteroid truce status
         $truceStatus = $asteroid->getStatusByNameOrThrow(HunterStatusEnum::ASTEROID_TRUCE_CYCLES);
@@ -573,7 +525,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         );
 
         // when I make the asteroid shoot
-        $this->hunterService->makeHuntersShoot($daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($daedalus->getAttackingHunters());
 
         // then the hull should be damaged by 1 less
         $I->assertEquals(
@@ -612,7 +564,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->daedalus->setShield(10);
 
         // when I make the hunter shoot
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then plasma shield should be damaged
         $I->assertEquals(
@@ -640,7 +592,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $this->finishProject($plasmaShield, $this->player, $I);
 
         // when I make the hunter shoot
-        $this->hunterService->makeHuntersShoot($this->daedalus->getHuntersAroundDaedalus());
+        $this->hunterService->makeHuntersShoot($this->daedalus->getAttackingHunters());
 
         // then the hull should be damaged
         $I->assertEquals(
@@ -675,7 +627,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
         /** @var Hunter $asteroid */
         $asteroid = $this->daedalus
-            ->getHuntersAroundDaedalus()
+            ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::ASTEROID)
             ->first();
         $hunterTarget = new HunterTarget($asteroid);
@@ -684,9 +636,9 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($asteroid);
 
         // delete hunters
-        $hunters = $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::HUNTER);
+        $hunters = $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::HUNTER);
         foreach ($hunters as $hunter) {
-            $this->daedalus->getSpace()->removeHunter($hunter);
+            $this->daedalus->removeHunter($hunter);
         }
 
         return $this->daedalus;
@@ -708,10 +660,6 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $I->haveInRepository($daedalus);
 
         $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::PLASMA_SHIELD]);
-        $project = new Project($projectConfig, $daedalus);
-        $I->haveInRepository($project);
-
-        $projectConfig = $I->grabEntityFromRepository(ProjectConfig::class, ['name' => ProjectName::MERIDON_SCRAMBLER]);
         $project = new Project($projectConfig, $daedalus);
         $I->haveInRepository($project);
 
@@ -753,7 +701,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
 
         /** @var Hunter $d1000 */
         $d1000 = $daedalus
-            ->getHuntersAroundDaedalus()
+            ->getAttackingHunters()
             ->filter(static fn ($hunter) => $hunter->getName() === HunterEnum::DICE)
             ->first();
 
@@ -778,7 +726,7 @@ final class HunterServiceMakeHuntersShootCest extends AbstractFunctionalTest
         $hunter->setHitChance(100);
         $hunter->getHunterConfig()->setDamageRange([6 => 1]);
 
-        $this->daedalus->getSpace()->addHunter($hunter);
+        $this->daedalus->addHunter($hunter);
 
         $I->haveInRepository($hunter);
         $I->haveInRepository($this->daedalus);

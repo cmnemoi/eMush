@@ -23,6 +23,8 @@ class GameFruitEnum
 
     /**
      * @return string[]
+     *
+     * @psalm-return array{0: string, 1: string, 2: string, 3: string, 4: string, 5: string, 6: string, 7: string, 8: string, 9: string, 10: string, 11: string, 12: string, 13: string}
      */
     public static function getAll(): array
     {
@@ -51,6 +53,8 @@ class GameFruitEnum
 
     /**
      * @return string[]
+     *
+     * @psalm-return array{banana: string, creepnut: string, meztine: string, guntiflop: string, ploshmina: string, precati: string, bottine: string, fragilane: string, anemole: string, peniraft: string, kubinus: string, caleboot: string, filandra: string}
      */
     public static function getGamePlants(): array
     {
@@ -68,7 +72,6 @@ class GameFruitEnum
             self::KUBINUS => GamePlantEnum::FIBONICCUS,
             self::CALEBOOT => GamePlantEnum::MYCOPIA,
             self::FILANDRA => GamePlantEnum::ASPERAGUNK,
-            self::JUMPKIN => GamePlantEnum::BUMPJUMPKIN,
         ];
     }
 
@@ -87,7 +90,6 @@ class GameFruitEnum
             self::KUBINUS,
             self::CALEBOOT,
             self::FILANDRA,
-            self::JUMPKIN,
         ]);
     }
 }

@@ -3,21 +3,16 @@
 namespace Mush\Equipment\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
-use Mush\Equipment\Enum\ContainerContentEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Equipment\Enum\WeaponEventEnum;
-use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\Enum\SkillEnum;
 
 /** @codeCoverageIgnore */
-class MechanicsData
+abstract class MechanicsData
 {
     public const string TOOL_COMMS_CENTER = 'tool_comms_center_default';
-    public const string TOOL_CALCULATOR = 'tool_calculator_default';
-    public const string GEAR_SUPER_SOAPER = 'gear_super_soaper_default';
 
     public static array $dataArray = [
         [
@@ -211,185 +206,9 @@ class MechanicsData
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'drug_bacta_default',
+            'name' => 'drug_default',
             'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_betapropyl_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_eufurylate_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_newke_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_phuxx_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_pinq_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_pymp_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_rosebud_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_soma_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_spyce_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_twinoid_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
-            'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
-            'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
-            'healthPoints' => [0 => 1],
-            'satiety' => null,
-            'extraEffects' => [],
-            'isPerishable' => false,
-            'actions' => [
-                'consume_drug',
-                ActionEnum::MIX_RATION_SPORE->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'drug_xenox_default',
-            'type' => 'drug',
-            'moralPoints' => [0 => 3, -2 => 2, 1 => 2, 3 => 1],
+            'moralPoints' => [0 => 1, -2 => 1, 1 => 1, 3 => 1],
             'actionPoints' => [0 => 3, 1 => 1, 3 => 1],
             'movementPoints' => [0 => 3, 2 => 1, 4 => 1],
             'healthPoints' => [0 => 1],
@@ -1113,27 +932,12 @@ class MechanicsData
         [
             'name' => 'weapon_blaster_default',
             'type' => 'weapon',
-            'damageSpread' => [2, 3],
-            'successfulEventKeys' => [
-                WeaponEventEnum::BLASTER_SUCCESSFUL_SHOT->value => 75,
-                WeaponEventEnum::BLASTER_TARGET_HEADSHOT->value => 1,
-                WeaponEventEnum::BLASTER_TARGET_RANDOM_INJURY->value => 2,
-                WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_MAX_DAMAGE_20_RANDOM_INJURY_TO_TARGET->value => 2,
-                WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_DAMAGED_EARS->value => 2,
-                WeaponEventEnum::BLASTER_SHOOTER_PLUS_2_DAMAGE_TARGET_30_TORN_TONGUE_TARGET_30_BURST_NOSE_TARGET_30_OPEN_AIR_BRAIN_TARGET_30_HEAD_TRAUMA->value => 1,
-                WeaponEventEnum::BLASTER_SHOOTER_PLUS_1_DAMAGE_TARGET_REMOVE_2_AP->value => 1,
-            ],
-            'failedEventKeys' => [
-                WeaponEventEnum::BLASTER_FAILED_SHOT->value => 75,
-                WeaponEventEnum::BLASTER_BREAK_WEAPON->value => 2,
-                WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->value => 2,
-                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->value => 2,
-                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->value => 1,
-                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP->value => 1,
-            ],
-            'baseAccuracy' => 50,
-            'baseDamageRange' => [],
-            'expeditionBonus' => 1,
+            'baseAccuracy' => 50.0,
+            'baseDamageRange' => [2 => 45, 3 => 45, 4 => 5, 5 => 5],
+            'expeditionBonus' => 1.0,
+            'criticalSuccessRate' => 5.0,
+            'criticalFailRate' => 1.0,
+            'oneShotRate' => 1.0,
             'actions' => [
                 ActionEnum::SHOOT->value,
                 ActionEnum::SHOOT_CAT->value,
@@ -1143,27 +947,12 @@ class MechanicsData
         [
             'name' => 'weapon_knife_default',
             'type' => 'weapon',
-            'damageSpread' => [1, 3],
-            'successfulEventKeys' => [
-                WeaponEventEnum::KNIFE_SUCCESSFUL_HIT_10_MINOR_HAEMORRHAGE->value => 75,
-                WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->value => 5,
-                WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE->value => 5,
-                WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_50_CRITICAL_HAEMORRHAGE_RANDOM_INJURY->value => 3,
-                WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_60_CRITICAL_HAEMORRHAGE_BUSTED_ARM_JOINT->value => 3,
-                WeaponEventEnum::KNIFE_INSTAGIB_BLED->value => 2,
-                WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_PUNCTURED_LUNG->value => 1,
-            ],
-            'failedEventKeys' => [
-                WeaponEventEnum::KNIFE_FAILED_HIT->value => 75,
-                WeaponEventEnum::KNIFE_BREAK_WEAPON->value => 3,
-                WeaponEventEnum::KNIFE_BREAK_WEAPON_SHOOTER_TORN_TONGUE->value => 3,
-                WeaponEventEnum::KNIFE_SHOOTER_BRUISED_SHOULDER->value => 2,
-                WeaponEventEnum::KNIFE_SHOOTER_DROP_WEAPON->value => 3,
-                WeaponEventEnum::KNIFE_SHOOTER_MINUS_2_AP->value => 1,
-            ],
             'baseAccuracy' => 60.0,
-            'baseDamageRange' => [],
+            'baseDamageRange' => [1 => 25, 2 => 25, 3 => 25, 4 => 12, 5 => 12],
             'expeditionBonus' => 1.0,
+            'criticalSuccessRate' => 25.0,
+            'criticalFailRate' => 20.0,
+            'oneShotRate' => 2.0,
             'actions' => [
                 ActionEnum::ATTACK->value,
             ],
@@ -1172,17 +961,20 @@ class MechanicsData
         [
             'name' => 'weapon_grenade_default',
             'type' => 'weapon',
-            'damageSpread' => [2, 8],
-            'successfulEventKeys' => [
-                WeaponEventEnum::GRENADE_SUCCESSFUL_THROW_SPLASH_DAMAGE_ALL->value => 40,
-                WeaponEventEnum::GRENADE_CRITICAL_THROW_SPLASH_DAMAGE_ALL_BREAK_ITEMS_SPLASH_WOUNDS->value => 10,
-            ],
-            'failedEventKeys' => [
-                WeaponEventEnum::GRENADE_FAILURE_PLACEHOLDER->value => 1,
-            ],
             'baseAccuracy' => 100.0,
-            'baseDamageRange' => [],
+            'baseDamageRange' => [
+                2 => 1,
+                3 => 1,
+                4 => 1,
+                5 => 1,
+                6 => 1,
+                7 => 1,
+                8 => 1,
+            ],
             'expeditionBonus' => 3.0,
+            'criticalSuccessRate' => 0.0,
+            'criticalFailRate' => 0.0,
+            'oneShotRate' => 0.0,
             'actions' => [
                 ActionEnum::THROW_GRENADE->value,
             ],
@@ -1191,157 +983,68 @@ class MechanicsData
         [
             'name' => 'weapon_natamy_rifle_default',
             'type' => 'weapon',
-            'damageSpread' => [2, 4],
-            'successfulEventKeys' => [
-                WeaponEventEnum::NATAMY_RIFLE_SUCCESSFUL_SHOT->value => 75,
-                WeaponEventEnum::NATAMY_RIFLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->value => 5,
-                WeaponEventEnum::NATAMY_RIFLE_TARGET_MASHED_FOOT->value => 5,
-                WeaponEventEnum::NATAMY_RIFLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => 3,
-                WeaponEventEnum::NATAMY_RIFLE_HEADSHOT->value => 1,
-                WeaponEventEnum::NATAMY_RIFLE_HEADSHOT_2->value => 1,
-            ],
-            'failedEventKeys' => [
-                WeaponEventEnum::NATAMY_RIFLE_FAILED_SHOT->value => 75,
-                WeaponEventEnum::NATAMY_RIFLE_TARGET_MINUS_1AP->value => 1,
-                WeaponEventEnum::NATAMY_RIFLE_BREAK_WEAPON->value => 1,
-                WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BURNT_HAND->value => 1,
-                WeaponEventEnum::NATAMY_RIFLE_SHOOTER_BROKEN_SHOULDER->value => 1,
-            ],
-            'baseAccuracy' => 50,
-            'baseDamageRange' => [],
-            'expeditionBonus' => 1,
-            'actions' => [
-                ActionEnum::SHOOT,
-                ActionEnum::SHOOT_CAT,
-            ],
+            'baseAccuracy' => 50.0,
+            'baseDamageRange' => [2 => 12],
+            'expeditionBonus' => 1.0,
+            'criticalSuccessRate' => 0.0,
+            'criticalFailRate' => 0.0,
+            'oneShotRate' => 0.0,
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_old_faithful_default',
             'type' => 'weapon',
-            'damageSpread' => [2, 3],
-            'successfulEventKeys' => [
-                WeaponEventEnum::OLD_FAITHFUL_SUCCESSFUL_SHOT->value => 75,
-                WeaponEventEnum::OLD_FAITHFUL_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->value => 5,
-                WeaponEventEnum::OLD_FAITHFUL_TARGET_MASHED_FOOT->value => 5,
-                WeaponEventEnum::OLD_FAITHFUL_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => 3,
-                WeaponEventEnum::OLD_FAITHFUL_HEADSHOT->value => 1,
-                WeaponEventEnum::OLD_FAITHFUL_HEADSHOT_2->value => 1,
-            ],
-            'failedEventKeys' => [
-                WeaponEventEnum::OLD_FAITHFUL_FAILED_SHOT->value => 75,
-                WeaponEventEnum::OLD_FAITHFUL_TARGET_MINUS_1AP->value => 1,
-                WeaponEventEnum::OLD_FAITHFUL_BREAK_WEAPON->value => 1,
-                WeaponEventEnum::OLD_FAITHFUL_SHOOTER_BURNT_HAND->value => 1,
-                WeaponEventEnum::OLD_FAITHFUL_SHOOTER_BROKEN_SHOULDER->value => 1,
-            ],
-            'baseAccuracy' => 50,
-            'baseDamageRange' => [],
-            'expeditionBonus' => 2,
-            'actions' => [
-                ActionEnum::SHOOT,
-                ActionEnum::SHOOT_CAT,
-            ],
+            'baseAccuracy' => 50.0,
+            'baseDamageRange' => [2 => 3],
+            'expeditionBonus' => 2.0,
+            'criticalSuccessRate' => 0.0,
+            'criticalFailRate' => 0.0,
+            'oneShotRate' => 0.0,
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_lizaro_jungle_default',
             'type' => 'weapon',
-            'damageSpread' => [3, 3],
-            'successfulEventKeys' => [
-                WeaponEventEnum::LIZARO_JUNGLE_SUCCESSFUL_SHOT->value => 75,
-                WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_PLUS_2_MAX_DAMAGE_SHOOTER_MINUS_1_AP_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_RANDOM_INJURY->value => 5,
-                WeaponEventEnum::LIZARO_JUNGLE_TARGET_MASHED_FOOT->value => 5,
-                WeaponEventEnum::LIZARO_JUNGLE_TARGET_BROKEN_SHOULDER_TARGET_CRITICAL_HAEMORRHAGE_40_PERCENTS_TARGET_HAEMORRHAGE_40_PERCENTS->value => 3,
-                WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT->value => 1,
-                WeaponEventEnum::LIZARO_JUNGLE_HEADSHOT_2->value => 1,
-            ],
-            'failedEventKeys' => [
-                WeaponEventEnum::LIZARO_JUNGLE_FAILED_SHOT->value => 75,
-                WeaponEventEnum::LIZARO_JUNGLE_TARGET_MINUS_1AP->value => 1,
-                WeaponEventEnum::LIZARO_JUNGLE_BREAK_WEAPON->value => 1,
-                WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_BURNT_HAND->value => 1,
-                WeaponEventEnum::LIZARO_JUNGLE_SHOOTER_BROKEN_SHOULDER->value => 1,
-            ],
-            'baseAccuracy' => 99,
-            'baseDamageRange' => [],
-            'expeditionBonus' => 1,
-            'actions' => [
-                'shoot_99_percent',
-                ActionEnum::SHOOT_CAT,
-            ],
+            'baseAccuracy' => 99.0,
+            'baseDamageRange' => [3 => 5],
+            'expeditionBonus' => 1.0,
+            'criticalSuccessRate' => 0.0,
+            'criticalFailRate' => 0.0,
+            'oneShotRate' => 0.0,
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
             'name' => 'weapon_rocket_launcher_default',
             'type' => 'weapon',
-            'damageSpread' => [6, 12],
-            'successfulEventKeys' => [
-                WeaponEventEnum::ROCKET_LAUNCHER_SUCCESSFUL_HIT_2_RANDOM_WOUNDS_4_ITEMS_6_SPLASH->value => 40,
-                WeaponEventEnum::ROCKET_LAUNCHER_ROCKETTED->value => 7,
-                WeaponEventEnum::ROCKET_LAUNCHER_CRITICAL_MINUS_8_DAMAGE_2_RANDOM_WOUNDS_2_BACKFIRE_WOUNDS_2_ITEMS->value => 2,
-                WeaponEventEnum::ROCKET_LAUNCHER_CRITICAL_3_RANDOM_WOUNDS_2_ITEMS->value => 4,
-            ],
-            'failedEventKeys' => [
-                WeaponEventEnum::ROCKET_LAUNCHER_MISS_10_ITEMS->value => 3,
-                WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_6_ITEMS->value => 3,
-                WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_6_ITEMS_BACKFIRE_ROCKETTED->value => 3,
-                WeaponEventEnum::ROCKET_LAUNCHER_FUMBLE_8_SPLASH_50_PERCENT_4_ITEMS->value => 3,
-            ],
             'baseAccuracy' => 50.0,
-            'baseDamageRange' => [],
-            'expeditionBonus' => 3,
-            'actions' => [
-                ActionEnum::SHOOT,
-            ],
+            'baseDamageRange' => [0 => 8],
+            'expeditionBonus' => 3.0,
+            'criticalSuccessRate' => 0.0,
+            'criticalFailRate' => 0.0,
+            'oneShotRate' => 0.0,
+            'actions' => [],
             'modifierConfigs' => [],
         ],
         [
-            'name' => 'weapon_bare_hands_default',
-            'type' => 'weapon',
-            'damageSpread' => [1, 2],
-            'successfulEventKeys' => [
-                WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->value => 15,
-                WeaponEventEnum::BARE_HANDS_PLUS_1_DAMAGE->value => 5,
-                WeaponEventEnum::BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS->value => 5,
-            ],
-            'failedEventKeys' => [
-                WeaponEventEnum::BARE_HANDS_FAILED_HIT->value => 30,
-                WeaponEventEnum::BARE_HANDS_FUMBLE->value => 10,
-            ],
-            'baseAccuracy' => 60,
-            'baseDamageRange' => [],
-            'expeditionBonus' => 0,
-            'actions' => [
-                ActionEnum::HIT,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'plumbing_kitchen_default',
-            'type' => 'plumbing',
+            'name' => 'tools_kitchen_default',
+            'type' => 'tool',
             'actions' => [
                 'cook',
                 'wash_in_sink',
             ],
             'modifierConfigs' => [],
-            'waterDamage' => [
-                3 => 1,
-                4 => 1,
-            ],
         ],
         [
-            'name' => 'plumbing_snc_kitchen_default',
-            'type' => 'plumbing',
+            'name' => 'tools_snc_kitchen_default',
+            'type' => 'tool',
             'actions' => [
                 'cook',
                 'wash_in_sink',
             ],
             'modifierConfigs' => [],
-            'waterDamage' => [
-                3 => 1,
-                4 => 1,
-            ],
         ],
         [
             'name' => 'tools_surgery_plot_default',
@@ -1372,7 +1075,7 @@ class MechanicsData
             'type' => 'gear',
             'actions' => [],
             'modifierConfigs' => [
-                'modifier_for_daedalus_-1actionPoint_on_comms_action',
+                'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
             ],
         ],
         [
@@ -1380,7 +1083,7 @@ class MechanicsData
             'type' => 'gear',
             'actions' => [],
             'modifierConfigs' => [
-                'modifier_for_daedalus_-1actionPoint_on_comms_action',
+                'modifier_for_daedalus_-1actionPoint_on_TODO coms. action',
                 'modifier_for_daedalus_x2_signal_on_action_contact_sol',
             ],
         ],
@@ -1551,9 +1254,6 @@ class MechanicsData
         [
             'name' => 'weapon_turret_default',
             'type' => 'weapon',
-            'damageSpread' => [],
-            'successfulEventKeys' => [],
-            'failedEventKeys' => [],
             'baseAccuracy' => 30,
             'baseDamageRange' => [2 => 1, 3 => 1, 4 => 1],
             'expeditionBonus' => 0,
@@ -1569,9 +1269,6 @@ class MechanicsData
         [
             'name' => 'weapon_patrol_ship_default',
             'type' => 'weapon',
-            'damageSpread' => [],
-            'successfulEventKeys' => [],
-            'failedEventKeys' => [],
             'baseAccuracy' => 40,
             'baseDamageRange' => [3 => 1, 4 => 1, 5 => 1, 6 => 1],
             'expeditionBonus' => 0,
@@ -2050,7 +1747,6 @@ class MechanicsData
                 ActionEnum::TOGGLE_PLASMA_SHIELD->value,
                 ActionEnum::TOGGLE_MAGNETIC_NET->value,
                 ActionEnum::TOGGLE_NERON_INHIBITION->value,
-                ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value,
                 ActionEnum::ACCESS_TERMINAL->value,
                 ActionEnum::EXIT_TERMINAL->value,
             ],
@@ -2067,7 +1763,6 @@ class MechanicsData
                 ActionEnum::TURN_DAEDALUS_LEFT->value,
                 ActionEnum::TURN_DAEDALUS_RIGHT->value,
                 ActionEnum::LEAVE_ORBIT->value,
-                ActionEnum::TRAVEL_TO_EDEN->value,
             ],
         ],
         [
@@ -2090,14 +1785,10 @@ class MechanicsData
             ],
         ],
         [
-            'name' => 'plumbing_shower_default',
-            'type' => 'plumbing',
+            'name' => 'tool_shower_default',
+            'type' => 'tool',
             'actions' => [
                 ActionEnum::TAKE_SHOWER->value,
-            ],
-            'waterDamage' => [
-                3 => 1,
-                4 => 1,
             ],
         ],
         [
@@ -2160,180 +1851,8 @@ class MechanicsData
             'name' => self::TOOL_COMMS_CENTER,
             'type' => EquipmentMechanicEnum::TOOL,
             'actions' => [
-                ActionEnum::ACCESS_TERMINAL->value,
-                ActionEnum::EXIT_TERMINAL->value,
-                ActionEnum::ESTABLISH_LINK_WITH_SOL->value,
-                ActionEnum::UPGRADE_NERON->value,
-                ActionEnum::DECODE_REBEL_SIGNAL->value,
-                ActionEnum::CONTACT_XYLOPH->value,
-                ActionEnum::ACCEPT_TRADE->value,
-                ActionEnum::REFUSE_TRADE->value,
+                ActionEnum::SEARCH_FOR_MUSH_GENOME->value,
             ],
-        ],
-        [
-            'name' => self::TOOL_CALCULATOR,
-            'type' => EquipmentMechanicEnum::TOOL,
-            'actions' => [
-                ActionEnum::ACCESS_TERMINAL->value,
-                ActionEnum::EXIT_TERMINAL->value,
-                ActionEnum::COMPUTE_EDEN->value,
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => self::GEAR_SUPER_SOAPER,
-            'type' => EquipmentMechanicEnum::GEAR,
-            'actions' => [],
-            'modifierConfigs' => [
-                'modifier_for_player_-1actionPoint_on_shower',
-                ModifierNameEnum::MINUS_1_SPORE_ON_TAKE_SHOWER,
-            ],
-        ],
-        [
-            'name' => 'container_anniversary_gift_default',
-            'type' => EquipmentMechanicEnum::CONTAINER,
-            'actions' => [
-                'open_container_cost_0',
-            ],
-            'containerContents' => ContainerContentEnum::ANNIVERSARY_GIFT_CONTENT,
-        ],
-        [
-            'name' => 'container_coffee_thermos_default',
-            'type' => EquipmentMechanicEnum::CONTAINER,
-            'actions' => [
-                'open_container_cost_0',
-            ],
-            'containerContents' => ContainerContentEnum::COFFEE_THERMOS_CONTENT,
-        ],
-        [
-            'name' => 'container_lunchbox_default',
-            'type' => EquipmentMechanicEnum::CONTAINER,
-            'actions' => [
-                'open_container_cost_0',
-            ],
-            'containerContents' => ContainerContentEnum::LUNCHBOX_CONTENT,
-        ],
-        [
-            'name' => 'apprentron_optimist_default',
-            'type' => 'book',
-            'skill' => SkillEnum::OPTIMIST,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_apprentice_default',
-            'type' => 'book',
-            'skill' => SkillEnum::APPRENTICE,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_sneak_default',
-            'type' => 'book',
-            'skill' => SkillEnum::SNEAK,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_politician_default',
-            'type' => 'book',
-            'skill' => SkillEnum::POLITICIAN,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_creative_default',
-            'type' => 'book',
-            'skill' => SkillEnum::CREATIVE,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_determined_default',
-            'type' => 'book',
-            'skill' => SkillEnum::DETERMINED,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_ocd_default',
-            'type' => 'book',
-            'skill' => SkillEnum::OCD,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_motivator_default',
-            'type' => 'book',
-            'skill' => SkillEnum::MOTIVATOR,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_caffeine_junkie_default',
-            'type' => 'book',
-            'skill' => SkillEnum::CAFFEINE_JUNKIE,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_genius_default',
-            'type' => 'book',
-            'skill' => SkillEnum::GENIUS,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_opportunist_default',
-            'type' => 'book',
-            'skill' => SkillEnum::OPPORTUNIST,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_rebel_default',
-            'type' => 'book',
-            'skill' => SkillEnum::REBEL,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
-        ],
-        [
-            'name' => 'apprentron_self_sacrifice_default',
-            'type' => 'book',
-            'skill' => SkillEnum::SELF_SACRIFICE,
-            'actions' => [
-                'read_book',
-            ],
-            'modifierConfigs' => [],
         ],
     ];
-
-    public static function getByName(string $name): array
-    {
-        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
-    }
 }

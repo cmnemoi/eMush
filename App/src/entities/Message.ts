@@ -67,10 +67,6 @@ export class Message {
     read(): void {
         this.isUnread = false;
     }
-    readWithChildren(): void {
-        this.read();
-        this.children.forEach((child: Message) => { child.read(); });
-    }
     private hideFirstChildren(): void {
         this.children.slice(0, -this.nbChildrenToDisplay).forEach(child => {
             child.isHidden = true;

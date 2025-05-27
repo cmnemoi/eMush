@@ -8,12 +8,6 @@ then
   echo -e "\e[01;31m Please run: vendor/bin/php-cs-fixer fix \e[0m"
   exit 1;
 fi
-vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/*
-if [ $? -ne 0 ];
-then
-  echo -e "\e[01;31m Please fix phpcs errors : vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/* \e[0m"
-  exit 1;
-fi
 vendor/bin/psalm
 if [ $? -ne 0 ];
 then

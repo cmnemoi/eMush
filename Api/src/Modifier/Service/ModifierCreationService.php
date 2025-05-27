@@ -51,14 +51,6 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void {
-        if ($this->holderAlreadyHasModifierFromThisProvider(
-            $holder,
-            $modifierConfig,
-            $modifierProvider
-        )) {
-            return;
-        }
-
         if ($modifierConfig instanceof DirectModifierConfig) {
             $this->createDirectModifier(
                 modifierConfig: $modifierConfig,
@@ -84,17 +76,21 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         ModifierProviderInterface $modifierProvider,
         array $tags = [],
         \DateTime $time = new \DateTime(),
-        ?bool $revertOnRemove = null
     ): void {
-        if ($modifierConfig instanceof DirectModifierConfig && ($revertOnRemove ?? $modifierConfig->getRevertOnRemove())) {
+        if (!$modifierConfig instanceof DirectModifierConfig) {
+            $this->deleteGameEventModifier(
+                modifierConfig: $modifierConfig,
+                holder: $holder,
+                modifierProvider: $modifierProvider
+            );
+        } elseif ($modifierConfig->getRevertOnRemove()) {
             $this->createDirectModifier($modifierConfig, $holder, $modifierProvider, $tags, $time, true);
+            $this->deleteGameEventModifier(
+                $modifierConfig,
+                $holder,
+                $modifierProvider
+            );
         }
-
-        $this->deleteGameEventModifier(
-            modifierConfig: $modifierConfig,
-            holder: $holder,
-            modifierProvider: $modifierProvider
-        );
     }
 
     public function createDirectModifier(
@@ -173,17 +169,5 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         if ($modifier) {
             $this->delete($modifier);
         }
-    }
-
-    private function holderAlreadyHasModifierFromThisProvider($holder, $modifierConfig, $modifierProvider): bool
-    {
-        foreach ($holder->getModifiers() as $gameModifier) {
-            if ($gameModifier->getModifierProvider() === $modifierProvider
-            && $gameModifier->getModifierConfig() === $modifierConfig) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

@@ -45,6 +45,9 @@ final class CycleEventCest extends AbstractFunctionalTest
 
     public function testLieDownStatus(FunctionalTester $I)
     {
+        // given daedalus is Day 0 so there will be no panic crisis
+        $this->daedalus->setDay(0);
+
         // given player is lying down
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::LYING_DOWN,
@@ -85,13 +88,13 @@ final class CycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // players might have a panic crisis at cycle change which would reduce their morale points. handling this case to avoid false positives
-        $firstPlayerPanicCrisis = $this->roomLogRepository->getOneBy([
+        $firstPlayerPanicCrisis = $this->roomLogRepository->findOneBy([
             'place' => $this->player->getPlace()->getLogName(),
             'playerInfo' => $this->player->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::PANIC_CRISIS,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
-        $secondPlayerPanicCrisis = $this->roomLogRepository->getOneBy([
+        $secondPlayerPanicCrisis = $this->roomLogRepository->findOneBy([
             'place' => $this->player2->getPlace()->getLogName(),
             'playerInfo' => $this->player2->getPlayerInfo(),
             'log' => PlayerModifierLogEnum::PANIC_CRISIS,
@@ -189,33 +192,6 @@ final class CycleEventCest extends AbstractFunctionalTest
 
         // then electric charges is now 10
         $I->assertEquals(10, $electricCharges->getCharge());
-    }
-
-    public function testGermaphobeStatusCycleSubscriber(FunctionalTester $I): void
-    {
-        // given player has germaphobe status
-        $this->statusService->createStatusFromName(PlayerStatusEnum::GERMAPHOBE, $this->player1, [], new \DateTime());
-        // given player has dirty status
-        $this->statusService->createStatusFromName(PlayerStatusEnum::DIRTY, $this->player1, [], new \DateTime());
-
-        $germaphobeStatus = -1;
-        $playerExpectedMoralPoint = $this->player->getPlayerInfo()->getCharacterConfig()->getInitMoralPoint() + $germaphobeStatus;
-
-        // when new cycle event is called
-        $daedalusCycleEvent = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
-        $this->eventService->callEvent($daedalusCycleEvent, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-
-        // then players have the expected morale points
-        $I->assertEquals($playerExpectedMoralPoint, $this->player1->getMoralPoint());
-
-        // then I can see germaphobe morale loss in first player room logs
-        $I->seeInRepository(RoomLog::class, [
-            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'place' => $this->player1->getPlace()->getName(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
-            'log' => LogEnum::GERMAPHOBE_MORALE_LOSS,
-            'visibility' => VisibilityEnum::PRIVATE,
-        ]);
     }
 
     private function getPanicCrisisPlayerDamage(): int

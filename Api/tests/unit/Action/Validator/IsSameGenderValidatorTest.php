@@ -5,11 +5,6 @@ namespace Mush\Tests\unit\Action\Validator;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\IsSameGenderValidator;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusConfig;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
@@ -44,16 +39,8 @@ final class IsSameGenderValidatorTest extends TestCase
         \Mockery::close();
     }
 
-    public function testAlwaysValid()
+    public function testValid()
     {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setFreeLove(false);
-        $gameConfig = new GameConfig();
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus = new Daedalus();
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
         $characterConfig = new CharacterConfig();
         $characterConfig->setCharacterName(CharacterEnum::DEREK);
         $player = new Player();
@@ -63,7 +50,6 @@ final class IsSameGenderValidatorTest extends TestCase
             $characterConfig
         );
         $player->setPlayerInfo($playerInfo);
-        $player->setDaedalus($daedalus);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setCharacterName(CharacterEnum::CHUN);
@@ -74,7 +60,6 @@ final class IsSameGenderValidatorTest extends TestCase
             $targetPlayerConfig
         );
         $target->setPlayerInfo($targetPlayerInfo);
-        $target->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
@@ -87,16 +72,8 @@ final class IsSameGenderValidatorTest extends TestCase
         $this->validator->validate($action, $this->constraint);
     }
 
-    public function testNoFreeLoveNotValid()
+    public function testNotValid()
     {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setFreeLove(false);
-        $gameConfig = new GameConfig();
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus = new Daedalus();
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
         $characterConfig = new CharacterConfig();
         $characterConfig->setCharacterName(CharacterEnum::PAOLA);
         $player = new Player();
@@ -106,7 +83,6 @@ final class IsSameGenderValidatorTest extends TestCase
             $characterConfig
         );
         $player->setPlayerInfo($playerInfo);
-        $player->setDaedalus($daedalus);
 
         $targetPlayerConfig = new CharacterConfig();
         $targetPlayerConfig->setCharacterName(CharacterEnum::CHUN);
@@ -117,7 +93,6 @@ final class IsSameGenderValidatorTest extends TestCase
             $targetPlayerConfig
         );
         $target->setPlayerInfo($targetPlayerInfo);
-        $target->setDaedalus($daedalus);
 
         $action = \Mockery::mock(AbstractAction::class);
         $action
@@ -128,49 +103,6 @@ final class IsSameGenderValidatorTest extends TestCase
 
         $this->initValidator($this->constraint->message);
         $this->validator->validate($action, $this->constraint, 'visibility');
-    }
-
-    public function testFreeLoveValid()
-    {
-        $daedalusConfig = new DaedalusConfig();
-        $daedalusConfig->setFreeLove(true);
-        $gameConfig = new GameConfig();
-        $gameConfig->setDaedalusConfig($daedalusConfig);
-        $daedalus = new Daedalus();
-        $daedalus->setDaedalusVariables($daedalusConfig);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-
-        $characterConfig = new CharacterConfig();
-        $characterConfig->setCharacterName(CharacterEnum::PAOLA);
-        $player = new Player();
-        $playerInfo = new PlayerInfo(
-            $player,
-            new User(),
-            $characterConfig
-        );
-        $player->setPlayerInfo($playerInfo);
-        $player->setDaedalus($daedalus);
-
-        $targetPlayerConfig = new CharacterConfig();
-        $targetPlayerConfig->setCharacterName(CharacterEnum::CHUN);
-        $target = new Player();
-        $targetPlayerInfo = new PlayerInfo(
-            $target,
-            new User(),
-            $targetPlayerConfig
-        );
-        $target->setPlayerInfo($targetPlayerInfo);
-        $target->setDaedalus($daedalus);
-
-        $action = \Mockery::mock(AbstractAction::class);
-        $action
-            ->shouldReceive([
-                'getTarget' => $target,
-                'getPlayer' => $player,
-            ]);
-
-        $this->initValidator();
-        $this->validator->validate($action, $this->constraint);
     }
 
     protected function initValidator(?string $expectedMessage = null)

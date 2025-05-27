@@ -262,40 +262,4 @@ final class PlayerEventCest extends AbstractFunctionalTest
         // then no exception is thrown
         $I->expect('No exception is thrown');
     }
-
-    public function shouldNotMakeMushPlayerSickEvenFromIncubatingDisease(FunctionalTester $I): void
-    {
-        // given I have an incubating disease
-        $this->playerDiseaseService->createDiseaseFromName(
-            diseaseName: DisorderEnum::CHRONIC_VERTIGO,
-            player: $this->player,
-            reasons: [],
-            delayMin: 1,
-            delayLength: 0,
-        );
-
-        // given player turns into a mush
-        $this->eventService->callEvent(
-            event: new PlayerEvent(
-                player: $this->player,
-                tags: [],
-                time: new \DateTime(),
-            ),
-            name: PlayerEvent::CONVERSION_PLAYER,
-        );
-
-        // when player has a new cycle
-        $playerEvent = new PlayerEvent(
-            player: $this->player,
-            tags: [],
-            time: new \DateTime(),
-        );
-        $this->eventService->callEvent($playerEvent, PlayerCycleEvent::PLAYER_NEW_CYCLE);
-
-        // then player should not be sick
-        $I->assertFalse(
-            $this->player->hasActiveDisorder(),
-            'Player should not be sick'
-        );
-    }
 }

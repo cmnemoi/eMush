@@ -88,7 +88,7 @@
       </segment>
       <segment id="exit_loc_prep" state="translated">
         <source>nexus.exit_loc_prep</source>
-        <target>to the</target>
+        <target>from the</target>
       </segment>
     </unit>
     <unit id="medlab">
@@ -156,7 +156,7 @@
       </segment>
       <segment id="enter_loc_prep" state="translated">
         <source>hydroponic_garden.enter_loc_prep</source>
-        <target>from the</target>
+        <target>to the</target>
       </segment>
       <segment id="exit_loc_prep" state="translated">
         <source>hydroponic_garden.exit_loc_prep</source>
@@ -174,7 +174,7 @@
       </segment>
       <segment id="enter_loc_prep" state="translated">
         <source>engine_room.enter_loc_prep</source>
-        <target>from the</target>
+        <target>to the</target>
       </segment>
       <segment id="exit_loc_prep" state="translated">
         <source>engine_room.exit_loc_prep</source>
@@ -192,7 +192,7 @@
       </segment>
       <segment id="enter_loc_prep" state="translated">
         <source>front_alpha_turret.enter_loc_prep</source>
-        <target>from the</target>
+        <target>to the</target>
       </segment>
       <segment id="exit_loc_prep" state="translated">
         <source>front_alpha_turret.exit_loc_prep</source>
@@ -202,7 +202,7 @@
     <unit id="centre_alpha_turret">
       <segment id="name" state="translated">
         <source>centre_alpha_turret.name</source>
-        <target>Center Alpha Turret</target>
+        <target>Centre Alpha Turret</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_alpha_turret.loc_prep</source>
@@ -210,7 +210,7 @@
       </segment>
       <segment id="enter_loc_prep" state="translated">
         <source>centre_alpha_turret.enter_loc_prep</source>
-        <target>from the</target>
+        <target>to the</target>
       </segment>
       <segment id="exit_loc_prep" state="translated">
         <source>centre_alpha_turret.exit_loc_prep</source>
@@ -256,7 +256,7 @@
     <unit id="centre_bravo_turret">
       <segment id="name" state="translated">
         <source>centre_bravo_turret.name</source>
-        <target>Center Bravo Turret</target>
+        <target>Centre Bravo Turret</target>
       </segment>
       <segment id="loc_prep" state="translated">
         <source>centre_bravo_turret.loc_prep</source>
@@ -524,7 +524,7 @@
       </segment>
     </unit>
     <unit id="patrol_ship_bravo_planton">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>patrol_ship_bravo_planton.name</source>
         <target>Patrol Ship Platon</target>
       </segment>
@@ -628,7 +628,7 @@
       </segment>
       <segment id="exit_loc_prep" state="translated">
         <source>pasiphae.exit_loc_prep</source>
-        <target>to the</target>
+        <target>from the</target>
       </segment>
     </unit>
     <unit id="space">

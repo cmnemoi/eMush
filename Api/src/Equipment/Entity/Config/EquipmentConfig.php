@@ -10,8 +10,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\EquipmentHolderInterface;
 use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\Weapon;
-use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
@@ -43,8 +41,14 @@ class EquipmentConfig
     #[ORM\ManyToMany(targetEntity: EquipmentMechanic::class)]
     private Collection $mechanics;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false, enumType: BreakableTypeEnum::class, options: ['default' => BreakableTypeEnum::NONE])]
-    private BreakableTypeEnum $breakableType = BreakableTypeEnum::NONE;
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $isBreakable = false;
+
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $isFireDestroyable = false;
+
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    private bool $isFireBreakable = false;
 
     #[ORM\Column(type: 'array', nullable: false)]
     private array $dismountedProducts = [];
@@ -72,7 +76,9 @@ class EquipmentConfig
         $config
             ->setName($configData['name'])
             ->setEquipmentName($configData['equipmentName'])
-            ->setBreakableType($configData['breakableType'])
+            ->setIsBreakable($configData['isBreakable'])
+            ->setIsFireDestroyable($configData['isFireDestroyable'])
+            ->setIsFireBreakable($configData['isFireBreakable'])
             ->setDismountedProducts($configData['dismountedProducts'])
             ->setIsPersonal($configData['isPersonal']);
 
@@ -172,36 +178,58 @@ class EquipmentConfig
         return $equipmentMechanics->first() ?: null;
     }
 
-    public function getMechanicByNameOrThrow(string $mechanic): ?EquipmentMechanic
-    {
-        $equipmentMechanics = $this->mechanics->filter(static fn (EquipmentMechanic $equipmentMechanic) => \in_array($mechanic, $equipmentMechanic->getMechanics(), true));
-
-        return $equipmentMechanics->first() ?: throw new \RuntimeException("No mechanics with name {$this->name} found.");
-    }
-
-    public function getWeaponMechanicOrThrow(): Weapon
-    {
-        $weapon = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::WEAPON);
-
-        return $weapon instanceof Weapon ? $weapon : throw new \RuntimeException("Equipment {$this->name} does not have a weapon mechanic.");
-    }
-
     // this is needed for api_platform to work
-    public function getBreakableType(): BreakableTypeEnum
+    public function getIsFireDestroyable(): bool
     {
-        return $this->breakableType;
+        return $this->isFireDestroyable;
     }
 
-    public function setBreakableType(BreakableTypeEnum $breakableType): static
+    public function isFireDestroyable(): bool
     {
-        $this->breakableType = $breakableType;
+        return $this->getIsFireDestroyable();
+    }
+
+    public function setIsFireDestroyable(bool $isFireDestroyable): static
+    {
+        $this->isFireDestroyable = $isFireDestroyable;
 
         return $this;
     }
 
-    public function canBeDamaged(): bool
+    // this is needed for api_platform to work
+    public function getIsFireBreakable(): bool
     {
-        return $this->breakableType !== BreakableTypeEnum::NONE;
+        return $this->isFireBreakable;
+    }
+
+    public function isFireBreakable(): bool
+    {
+        return $this->getIsFireBreakable();
+    }
+
+    public function setIsFireBreakable(bool $isFireBreakable): static
+    {
+        $this->isFireBreakable = $isFireBreakable;
+
+        return $this;
+    }
+
+    // this is needed for api_platform to work
+    public function getIsBreakable(): bool
+    {
+        return $this->isBreakable;
+    }
+
+    public function isBreakable(): bool
+    {
+        return $this->getIsBreakable();
+    }
+
+    public function setIsBreakable(bool $isBreakable): static
+    {
+        $this->isBreakable = $isBreakable;
+
+        return $this;
     }
 
     /**

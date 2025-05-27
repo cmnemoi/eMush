@@ -14,7 +14,6 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\HolidayEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -49,9 +48,6 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
     {
         $this->createRandomApprentronInStorage($event);
         $this->spawnMushSample($event);
-        if ($event->getDaedalus()->getDaedalusConfig()->getHoliday() === HolidayEnum::ANNIVERSARY) {
-            $this->createPresentsInPlayerInventories($event);
-        }
     }
 
     public function onTravelLaunched(DaedalusEvent $event): void
@@ -92,21 +88,6 @@ final class DaedalusEventSubscriber implements EventSubscriberInterface
             [DaedalusEvent::FULL_DAEDALUS],
             $event->getTime()
         );
-    }
-
-    private function createPresentsInPlayerInventories(DaedalusEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-
-        $players = $daedalus->getAlivePlayers();
-        foreach ($players as $player) {
-            $this->gameEquipmentService->createGameEquipmentFromName(
-                ItemEnum::ANNIVERSARY_GIFT,
-                $player,
-                [DaedalusEvent::FULL_DAEDALUS],
-                $event->getTime()
-            );
-        }
     }
 
     private function makePatrolShipsInBattleLand(DaedalusEvent $event): void

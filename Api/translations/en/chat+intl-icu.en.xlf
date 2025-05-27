@@ -23,7 +23,7 @@
         <source>tips.teamObjectives.elements</source>
         <target>{team, select,
         mush {**Eliminate all humans** by cooperating with other Mushs.//**Contaminate humans** to turn them into Mushs.//**Manipulate humans** to make them do things that put them at a disadvantage.//**Sabotage human actions** at the right moments, to prevent them from repairing the PILGRED and returning to Sol.}
-        other {**Eliminate the Mushs on board**.//**Make the anti-Mush serum**.//**Repair the PILGRED** to return to Sol, or find a new Eden.}}</target>
+        other {**Eliminate the Mushs on board**.//**Repair the PILGRED** to return to Sol.//**Cooperate with the other humans** to survive using your skills. 👇}}</target>
       </segment>
       <segment id="teamObjectives.mushTutorialTitle" state="translated">
         <source>tips.teamObjectives.mushTutorialTitle</source>
@@ -78,10 +78,6 @@
       <segment id="missions.accept" state="translated">
         <source>tips.missions.accept</source>
         <target>Accept?</target>
-      </segment>
-      <segment id="announcements.title" state="translated">
-        <source>tips.announcements.title</source>
-        <target>Announcements</target>
       </segment>
     </unit>
     <unit id="room_log">

@@ -59,6 +59,4 @@ interface RandomServiceInterface
     public function getRandomPlanetSectorsToReveal(Planet $planet, int $number): ArrayCollection;
 
     public function getRandomPlanetSectorsToVisit(Planet $planet, int $number): ArrayCollection;
-
-    public function getRandomXylophNameToDecode(array $xylophArray): null|int|string;
 }

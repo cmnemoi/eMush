@@ -56,6 +56,10 @@ class Take extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->putItemInPlayerInventory();
+
+        if ($this->gameItemTarget()->isATalkie()) {
+            $result->addDetail('reloadChannels', true);
+        }
     }
 
     private function putItemInPlayerInventory(): void

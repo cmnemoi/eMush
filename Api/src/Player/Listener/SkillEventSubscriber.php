@@ -36,12 +36,11 @@ final class SkillEventSubscriber implements EventSubscriberInterface
 
     private function applyLethargyBonus(SkillCreatedEvent $event): void
     {
-        $player = $event->skillPlayer();
-
-        if ($event->isNotAboutLethargy() || $player->isMush()) {
+        if ($event->isNotAboutLethargy()) {
             return;
         }
 
+        $player = $event->skillPlayer();
         $this->changePlayerVariableMaximum->execute(
             player: $player,
             variableName: PlayerVariableEnum::ACTION_POINT,
@@ -51,12 +50,11 @@ final class SkillEventSubscriber implements EventSubscriberInterface
 
     private function revertLethargyBonus(SkillDeletedEvent $event): void
     {
-        $player = $event->skillPlayer();
-
-        if ($event->isNotAboutLethargy() || $player->isMush()) {
+        if ($event->isNotAboutLethargy()) {
             return;
         }
 
+        $player = $event->skillPlayer();
         $this->changePlayerVariableMaximum->execute(
             player: $player,
             variableName: PlayerVariableEnum::ACTION_POINT,

@@ -107,7 +107,7 @@ abstract class AbstractMoveDaedalusAction extends AbstractAction
         if ($daedalus->getCombustionChamberFuel() <= 0) {
             return self::NO_FUEL;
         }
-        if ($daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::SPIDER)->count() > 0) {
+        if ($daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::SPIDER)->count() > 0) {
             return self::ARACK_PREVENTS_TRAVEL;
         }
 

@@ -52,7 +52,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>andie.tips</source>
-        <target>**Participate in research** at the Laboratory to slow down the Mushs thanks to your Polyvalent skill.//**Eliminate hunters** with Patrol Ships located in Bays to protect the ship.//**Participate in expeditions** to planets with Icarus located in Icarus Bay to launch them with your Pilot skill and make them safer with Polyvalent.</target>
+        <target>**Eliminate hunters** with Patrol Ships located in Bays to protect the ship.//**Recover scrap** from eliminated hunters with the Pasiphae located in Alpha 2 Bay to repair the ship's armor.//**Launch expeditions** to planets with Icarus located in Icarus Bay to collect resources.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>andie.tutorial</source>
@@ -156,7 +156,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>chun.tips</source>
-        <target>**Your presence is required at the laboratory** for multiple researches which can slow down the Mush, courtesy of your Immunized status.//**Investigate to identify Mushs** with your human teammates and private channels.//**Treat injured teammates** with the Medikit or in the Medlab.</target>
+        <target>**Identify human teammates**.//**Investigate to identify Mushs** with your human teammates and private channels.//**Treat injured teammates** with the Medikit or in the Medlab.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>chun.tutorial</source>
@@ -206,7 +206,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>derek.tips</source>
-        <target>//**Investigate to identify Mushs** with your human teammates and private channels.//**Eliminate confirmed Mushs** with your Shooter and Wrestler skills.//**Extinguish fires** with your Firefighter skill.</target>
+        <target>**Identify human teammates**.//**Investigate to identify Mushs** with your human teammates and private channels.//**Participate in expeditions** to make them safer with your Shooter skill.</target>
       </segment>
       <segment id="tips" state="translated">
         <source>derek.tutorial</source>
@@ -263,7 +263,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>eleesha.tips</source>
-        <target>//**Investigate to identify Mushs** with your human teammates and private channels, as well as your Tracker and Observant skills.//**Participate in NERON projects** using the NERON's core in the Nexus to improve the ship.//**Repair broken equipment** using your Technician skill.</target>
+        <target>**Identify human teammates**.//**Investigate to identify Mushs** with your human teammates and private channels.//**Participate in NERON projects** using the NERON's core in the Nexus to improve the ship.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>eleesha.tutorial</source>
@@ -366,7 +366,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>frieda.tips</source>
-        <target>**Scan and analyze planets** using the Astro terminal on the Bridge to seek expedition destinations, using your Astrophysician skill.//**Eliminate hunters** with Patrol Ships located in Bays to protect the ship.//**Launch expeditions** to planets with Icarus in Icarus Bay to collect resources.</target>
+        <target>**Eliminate hunters** with Patrol Ships located in Bays to protect the ship.//**Recover scrap** from eliminated hunters with the Pasiphae located in Alpha 2 Bay to repair the ship's armor.//**Launch expeditions** to planets with Icarus in Icarus Bay to collect resources.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>frieda.tutorial</source>
@@ -416,7 +416,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>gioele.tips</source>
-        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Scan planets** using the Astro Terminal on the Bridge to organize expeditions.//**Eliminate confirmed Mushs** using your Solid skill.</target>
+        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Scan planets** using the Astro Terminal on the Bridge to organize expeditions.//**Repair vital equipment** from the ship.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>gioele.tutorial</source>
@@ -518,7 +518,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>ian.tips</source>
-        <target>**Water** thirsty and dried out plants, and **treat** diseased plants.//**Plant fruits** in hydropots.//**Participate in research** at the Laboratory to slow down the Mushs thanks to your Biologist skill.</target>
+        <target>**Water** thirsty and dried out plants.//**Treat** diseased plants.//**Plant fruits** in hydropots.//**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>ian.tutorial</source>
@@ -668,7 +668,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>paola.tips</source>
-        <target>**Respond to contact request from Sol rebel bases, retrieve the Xyloph Database, and improve NERON's software** from the communications terminal on the Bridge.//**Eliminate hunters** using the ship's turrets thanks to your Gunner skill.//**Participate in research** at the Laboratory to slow down the Mushs thanks to your Biologist skill.</target>
+        <target>**Participate in NERON projects** using the NERON core in the Nexus to improve the ship.//**Scan planets** using the Astro Terminal on the Bridge to organize expeditions.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>paola.tutorial</source>
@@ -827,7 +827,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>stephen.tips</source>
-        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Eliminate confirmed Mush** using your Solid and Shooter skills.//**Copy a valuable skill** using Apprentice, depending on the needs of the crew.</target>
+        <target>**Participate in NERON projects** using NERON's core in the Nexus to improve the ship.//**Scan planets** using the Astro Terminal on the Bridge to organize expeditions.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>stephen.tutorial</source>
@@ -879,7 +879,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>terrence.tips</source>
-        <target>**Eliminate hunters** with Patrolships located in Bays to protect the ship.//**Recover scrap** from eliminated hunters with the Pasiphae located in Alpha 2 Bay to repair the ship's armor.//**Participate in NERON projects** using the NERON core at the Nexus to improve the ship. //**Repair vital equipment** from the ship.</target>
+        <target>**Eliminate hunters** with Patrolships located in Bays to protect the ship.//**Participate in NERON projects** using the NERON core at the Nexus to improve the ship. //**Repair vital equipment** from the ship.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>terrence.tutorial</source>
@@ -903,9 +903,9 @@
         <source>janice.age</source>
         <target>26</target>
       </segment>
-      <segment id="description" state="final">
+      <segment id="description" state="translated">
         <source>janice.description</source>
-        <target>A Digital Psychologist and one-woman enigma machine.</target>
+        <target>A Digital Psychologist and one-woman enigma solver.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>janice.employment</source>
@@ -930,7 +930,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>janice.tips</source>
-        <target>**Participate in NERON projects** using the NERON heart at the Nexus to improve the ship.//**Comfort demoralized teammates and stay near laid down teammates** to improve their morale using your Shrink skill.//**Change NERON's BIOS parameters** using the BIOS terminal at the Nexus thanks to your NERON Admin title.</target>
+        <target>**Participate in NERON projects** using the NERON heart at the Nexus to improve the ship.//**Comfort demoralized teammates** to improve their morale.//**Be present with laid down teammates** to improve their morale.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>janice.tutorial</source>
@@ -945,12 +945,6 @@
       <segment id="fullname" state="translated">
         <source>someone.fullname</source>
         <target>Someone</target>
-      </segment>
-    </unit>
-    <unit id="mush">
-      <segment id="name" state="translated">
-        <source>mush.name</source>
-        <target>Mush</target>
       </segment>
     </unit>
   </file>

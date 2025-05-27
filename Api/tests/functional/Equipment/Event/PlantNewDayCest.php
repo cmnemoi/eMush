@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Mush\Tests\functional\Equipment\Event;
 
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Equipment\Entity\Mechanics\Fruit;
+use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -33,9 +34,6 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-
-        // avoid false positive when fire tries to destroy plants
-        $this->daedalus->getGameConfig()->getDifficultyConfig()->setEquipmentFireBreakRate(0);
     }
 
     // produce oxygen, fruit, log
@@ -91,9 +89,6 @@ final class PlantNewDayCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        // given banana tree cannot get sick at cycle change to prevent false positives
-        $this->daedalus->getGameConfig()->getDifficultyConfig()->setPlantDiseaseRate(0);
-
         // when day change event is triggered
         $event = new DaedalusCycleEvent(
             $this->daedalus,
@@ -103,7 +98,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then a banana fruit is created
-        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA), 'Plant should have produced a fruit');
+        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA));
     }
 
     public function healthyPlantShouldProduceLog(FunctionalTester $I)
@@ -509,7 +504,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then Daedalus has 8 oxygen (-3 base + 1 per healthy plant)
-        $I->assertEquals(8, $this->daedalus->getOxygen(), 'Daedalus should have 8 oxygen (-3 base + 1 per healthy plant)');
+        $I->assertEquals(8, $this->daedalus->getOxygen());
     }
 
     public function youngPlantShouldProduceFruitAtMaturationCycle(FunctionalTester $I)
@@ -534,7 +529,7 @@ final class PlantNewDayCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // then a banana fruit is created
-        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA), 'Plant should have produced a banana fruit');
+        $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(GameFruitEnum::BANANA));
     }
 
     public function youngPlantShouldProduceLogAtMaturationCycle(FunctionalTester $I)

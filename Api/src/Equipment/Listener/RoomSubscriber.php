@@ -1,26 +1,31 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Mush\Equipment\Listener;
 
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Event\RoomEvent;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class RoomSubscriber implements EventSubscriberInterface
+class RoomSubscriber implements EventSubscriberInterface
 {
+    private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
+
     public function __construct(
-        private DeleteEquipmentServiceInterface $deleteEquipment,
-        private StatusServiceInterface $statusService,
-    ) {}
+        EventServiceInterface $eventService,
+        StatusServiceInterface $statusService
+    ) {
+        $this->eventService = $eventService;
+        $this->statusService = $statusService;
+    }
 
     public static function getSubscribedEvents(): array
     {
@@ -43,7 +48,7 @@ final class RoomSubscriber implements EventSubscriberInterface
             if (!$equipment->isBroken()
                 && !($equipment instanceof Door)
                 && !($equipment instanceof GameItem)
-                && $equipment->canBeDamaged()
+                && $equipment->isBreakable()
             ) {
                 $this->statusService->createStatusFromName(
                     EquipmentStatusEnum::BROKEN,
@@ -60,7 +65,15 @@ final class RoomSubscriber implements EventSubscriberInterface
     public function onDeletePlace(RoomEvent $event): void
     {
         foreach ($event->getPlace()->getEquipments() as $equipment) {
-            $this->deleteEquipment->execute($equipment, tags: $event->getTags(), time: $event->getTime());
+            $equipmentEvent = new EquipmentEvent(
+                $equipment,
+                false,
+                VisibilityEnum::HIDDEN,
+                $event->getTags(),
+                $event->getTime()
+            );
+
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DELETE);
         }
     }
 }

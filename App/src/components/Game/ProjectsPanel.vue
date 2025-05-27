@@ -15,7 +15,20 @@ import { PropType, defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { formatText } from "@/utils/formatText";
 import DaedalusProjectCard from "@/components/Game/DaedalusProjectCard.vue";
-import { DaedalusProjects } from "@/entities/Daedalus";
+
+type DaedalusProject = {
+    type: string;
+    key: string;
+    name: string;
+    description: string;
+    lore: string;
+}
+
+type DaedalusProjects = {
+    pilgred: DaedalusProject|undefined;
+    neronProjects: DaedalusProject[];
+    researchProjects: DaedalusProject[];
+}
 
 export default defineComponent ({
     name: "ProjectsPanel",

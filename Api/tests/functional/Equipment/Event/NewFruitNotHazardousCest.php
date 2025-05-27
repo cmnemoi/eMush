@@ -3,14 +3,11 @@
 namespace Mush\Tests\functional\Equipment\Event;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\EventEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
+use Mush\Status\Enum\StatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -20,63 +17,49 @@ use Mush\Tests\FunctionalTester;
 final class NewFruitNotHazardousCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
-    public function fruitProducedAtCycleChangeShouldNotBeHazardous(FunctionalTester $I): void
+    public function testPlantHealthy(FunctionalTester $I)
     {
-        // Arrange
-        $bananaTree = $this->createMatureBananaTree();
-        $this->setDaedalusCycle(8);
+        $bananaTreeConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GamePlantEnum::BANANA_TREE]);
 
-        // Act
-        $this->triggerNewCycle();
+        $bananaTree = $bananaTreeConfig->createGameEquipment($this->player1);
 
-        // Assert
-        $this->assertFruitNotHazardous($I, GameFruitEnum::BANANA, $bananaTree);
-    }
+        $I->haveInRepository($bananaTree);
+        $this->player1->addEquipment($bananaTree);
+        $I->refreshEntities($this->player1);
 
-    private function createMatureBananaTree(): GameEquipment
-    {
-        $bananaTree = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GamePlantEnum::BANANA_TREE,
-            equipmentHolder: $this->player->getPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-        $this->statusService->removeStatus(
-            statusName: EquipmentStatusEnum::PLANT_YOUNG,
-            holder: $bananaTree,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $characterConfig = $this->player1->getPlayerInfo()->getCharacterConfig();
+        $characterConfig->setMaxItemInInventory(1);
+        $I->refreshEntities($characterConfig);
 
-        return $bananaTree;
-    }
+        $this->daedalus->setCycle(8);
+        $I->flushToDatabase($this->daedalus);
 
-    private function setDaedalusCycle(int $cycle): void
-    {
-        $this->daedalus->setCycle($cycle);
-    }
+        $daedalusNewCycle = new DaedalusCycleEvent($this->daedalus, [], new \DateTime());
 
-    private function triggerNewCycle(): void
-    {
-        $daedalusNewCycle = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
         $this->eventService->callEvent($daedalusNewCycle, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
-    }
 
-    private function assertFruitNotHazardous(FunctionalTester $I, string $fruitName, GameEquipment $plant): void
-    {
-        $fruit = $plant->getPlace()->getEquipmentByNameOrThrow($fruitName);
-        $I->assertTrue($fruit->doesNotHaveStatus(EquipmentStatusEnum::UNSTABLE));
+        if ($this->player1->getPlace()->hasStatus(StatusEnum::FIRE)) {
+            $I->assertCount(1, $this->player1->getEquipments());
+            $I->assertCount(1, $this->player1->getPlace()->getEquipments());
+            $plant = $this->player1->getEquipments()->first();
+            $fruit = $this->player1->getPlace()->getEquipments()->first();
+            $I->assertInstanceOf(GameEquipment::class, $plant);
+            $I->assertInstanceOf(GameEquipment::class, $fruit);
+            $I->assertTrue($plant->getStatuses()->count() > 0);
+            $I->assertCount(0, $fruit->getStatuses());
+        } else {
+            $I->assertCount(1, $this->player1->getEquipments());
+            $plant = $this->player1->getEquipments()->first();
+            $I->assertInstanceOf(GameEquipment::class, $plant);
+            $I->assertTrue($plant->getStatuses()->count() > 0);
+        }
     }
 }

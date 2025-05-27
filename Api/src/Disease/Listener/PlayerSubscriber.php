@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\Listener;
 
-use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -121,7 +120,14 @@ final class PlayerSubscriber implements EventSubscriberInterface
         $characterConfig = $player->getPlayerInfo()->getCharacterConfig();
         $reasons = $event->getTags();
 
-        $initDiseases = $characterConfig->getInitDiseases()->map(static fn (DiseaseConfig $diseaseConfig) => $diseaseConfig->getDiseaseName());
+        $initDiseases = $characterConfig->getInitDiseases();
+        // get diseases name from initDiseases configs with a closure
+        $initDiseases = array_map(
+            static function ($diseaseConfig) {
+                return $diseaseConfig->getDiseaseName();
+            },
+            $initDiseases->toArray()
+        );
 
         foreach ($initDiseases as $diseaseName) {
             $this->playerDiseaseService->createDiseaseFromName(
@@ -135,27 +141,18 @@ final class PlayerSubscriber implements EventSubscriberInterface
     private function removeDeadPlayerDiseases(PlayerEvent $event): void
     {
         $diseases = $event->getPlayer()->getMedicalConditions();
-
         foreach ($diseases as $disease) {
-            $this->playerDiseaseService->removePlayerDisease(
-                playerDisease: $disease,
-                causes: $event->getTags(),
-                time: $event->getTime(),
-                visibility: VisibilityEnum::HIDDEN
-            );
+            $this->playerDiseaseService->delete($disease);
         }
     }
 
     private function applyTraumaToDeathAuthor(PlayerEvent $event): void
     {
         $author = $event->getAuthor();
-        $deadPlayer = $event->getPlayer();
 
         if (
             $this->randomService->isSuccessful(self::TRAUMA_AUTHOR_PROBABILTY)
-            && $author?->isHuman()
-            && $author->getPlace()->equals($deadPlayer->getPlace())
-            && $author->doesNotHaveSkill(SkillEnum::DETACHED_CREWMEMBER)
+            && $author?->isHuman() && $author->doesNotHaveSkill(SkillEnum::DETACHED_CREWMEMBER)
         ) {
             $this->roomLogService->createLog(
                 logKey: LogEnum::TRAUMA_DISEASE,

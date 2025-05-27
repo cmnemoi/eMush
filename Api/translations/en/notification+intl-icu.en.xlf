@@ -54,31 +54,11 @@
     <unit id="exploration_closed_by_u_turn">
       <segment state="translated">
         <source>exploration_closed_by_u_turn.subTitle</source>
-        <target>{character} started screaming and everyone returned to the ship double-quick!</target>
+        <target>Hua started screaming and everyone returned to the ship double-quick!</target>
       </segment>
       <segment state="translated">
         <source>exploration_closed_by_u_turn.description</source>
         <target>You may consult {exploration_link} to discover what happened...</target>
-      </segment>
-    </unit>
-    <unit id="announcement_received">
-      <segment state="translated">
-        <source>announcement_received.title</source>
-        <target>General Announcement</target>
-      </segment>
-      <segment state="translated">
-        <source>announcement_received.description</source>
-        <target>{message}////{character} / Jour {day} - Cycle {cycle} // You may read this again anytime in the :tip: Tips channel.</target>
-      </segment>
-    </unit>
-    <unit id="announcement_created">
-      <segment state="translated">
-        <source>announcement_created.title</source>
-        <target>Announcement broadcasted</target>
-      </segment>
-      <segment state="translated">
-        <source>announcement_created.description</source>
-        <target>{message}////{character} / Jour {day} - Cycle {cycle} // You may read this again anytime in the :tip: Tips channel.</target>
       </segment>
     </unit>
   </file>

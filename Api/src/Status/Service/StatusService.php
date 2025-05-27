@@ -9,7 +9,6 @@ use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -22,7 +21,6 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\ContentStatus;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\ChargeStatusEvent;
@@ -110,7 +108,7 @@ class StatusService implements StatusServiceInterface
         $statusConfigs = $daedalus->getGameConfig()->getStatusConfigs()->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $name);
 
         if ($statusConfigs->count() < 1) {
-            throw new \LogicException("there should be at least 1 statusConfig with this statusName ({$name}). There are currently {$statusConfigs->count()}");
+            throw new \LogicException("there should be at least 1 statusConfig with this name ({$name}). There are currently {$statusConfigs->count()}");
         }
 
         return $statusConfigs->first();
@@ -133,8 +131,6 @@ class StatusService implements StatusServiceInterface
         if ($status !== null) {
             return $status;
         }
-
-        $this->throwIfWrongBreakableType($statusConfig, $holder);
 
         // Create the entity
         if ($statusConfig->isNull()) {
@@ -389,45 +385,11 @@ class StatusService implements StatusServiceInterface
         return $attempt;
     }
 
-    private function throwIfWrongBreakableType(StatusConfig $statusConfig, StatusHolderInterface $holder)
-    {
-        if ($statusConfig->getStatusName() !== EquipmentStatusEnum::BROKEN) {
-            return;
-        }
-
-        if (!$holder instanceof GameEquipment || $holder->getEquipment()->getBreakableType() !== BreakableTypeEnum::BREAKABLE) {
-            throw new \LogicException('trying to apply broken status to an entity that is not a breakable equipment');
-        }
-    }
-
     private function delete(Status $status): void
     {
-        $ownerTarget = $status->getStatusTargetOwner();
-        $targetTarget = $status->getStatusTargetTarget();
-
-        $this->detachStatusFromOwner($status);
-        $this->removeStatusEntity($status);
-        $this->removeStatusTargetEntity($ownerTarget);
-        $this->removeStatusTargetEntity($targetTarget, $ownerTarget);
-
-        $this->entityManager->flush();
-    }
-
-    private function detachStatusFromOwner(Status $status): void
-    {
         $status->getOwner()->removeStatus($status);
-    }
 
-    private function removeStatusEntity(Status $status): void
-    {
         $this->entityManager->remove($status);
-    }
-
-    private function removeStatusTargetEntity(?StatusTarget $statusTarget, ?StatusTarget $alreadyRemoved = null): void
-    {
-        if ($statusTarget !== null && $statusTarget !== $alreadyRemoved) {
-            $statusTarget->removeStatusLinksTarget();
-            $this->entityManager->remove($statusTarget);
-        }
+        $this->entityManager->flush();
     }
 }

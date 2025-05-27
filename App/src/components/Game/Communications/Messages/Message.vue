@@ -195,7 +195,7 @@ export default defineComponent ({
             ModerationService.deleteMessage(this.message.id, params);
             this.moderationDialogVisible = false;
         },
-        openModerationDialog() {
+        openModerationDialog(moderationAction: string) {
             this.moderationDialogVisible = true;
         },
         closeModerationDialog() {
@@ -277,16 +277,8 @@ export default defineComponent ({
     background: white;
     word-break: break-word;
 
-    :deep(em) {
-        color: $red;
-    }
-
-    :deep(a) {
-        color: $deepGreen;
-
-        &:hover {
-            color: $green;
-        }
+    &::v-deep(em), &::v-deep(a) {
+        color: $red; // Make italics and links red
     }
 
     &.read {

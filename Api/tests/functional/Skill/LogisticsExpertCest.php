@@ -38,6 +38,9 @@ final class LogisticsExpertCest extends AbstractFunctionalTest
 
     public function shouldGiveActionPointToASingleOtherPlayer(FunctionalTester $I): void
     {
+        // setup no incidents to avoid false positive due to panic crisis
+        $this->daedalus->setDay(0);
+
         // given paola is a logistic expert
         $paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::LOGISTICS_EXPERT, $paola));
@@ -70,6 +73,9 @@ final class LogisticsExpertCest extends AbstractFunctionalTest
 
     public function multipleLogisticsExpertShouldGiveActionPointToMultiplePlayers(FunctionalTester $I): void
     {
+        // setup no incidents to avoid false positive due to panic crisis
+        $this->daedalus->setDay(0);
+
         // given Chun and KT are logistic experts
         $this->addSkillToPlayerService->execute(SkillEnum::LOGISTICS_EXPERT, $this->chun);
         $this->addSkillToPlayerService->execute(SkillEnum::LOGISTICS_EXPERT, $this->kuanTi);

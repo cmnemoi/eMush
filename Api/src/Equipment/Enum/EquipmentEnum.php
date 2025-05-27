@@ -57,7 +57,7 @@ class EquipmentEnum
     public const string TABULATRIX = 'tabulatrix';
     public const string HYDROPONIC_INCUBATOR = 'hydroponic_incubator';
     public const string SNC_KITCHEN = 'snc_kitchen';
-    public const string NULL = '';
+    public const string null = '';
 
     public static array $terminalSectionTitlesMap = [
         self::COMMAND_TERMINAL => ['orientate_daedalus', 'move_daedalus', 'general_informations', 'pilgred'],
@@ -73,21 +73,11 @@ class EquipmentEnum
             'magnetic_net_description',
             'neron_inhibition_name',
             'neron_inhibition_description',
-            'vocoded_announcements_name',
-            'vocoded_announcements_description',
         ],
-        self::CALCULATOR => [
-            'to_a_new_eden_title',
-            'to_a_new_eden_description',
-        ],
-        self::COMMUNICATION_CENTER => ['contact', 'neron_version', 'rebel_bases_network', 'xyloph_db'],
     ];
 
     public static array $terminalButtonsMap = [
         self::ASTRO_TERMINAL => ['share_planet'],
-        self::NERON_CORE => ['share_projects'],
-        self::AUXILIARY_TERMINAL => ['share_projects'],
-        self::PILGRED => ['share_projects'],
     ];
 
     public static function getBeds(): array
@@ -127,13 +117,6 @@ class EquipmentEnum
         return new ArrayCollection([
             self::NERON_CORE,
             self::AUXILIARY_TERMINAL,
-        ]);
-    }
-
-    public static function getResearchProjectTerminals(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::RESEARCH_LABORATORY,
         ]);
     }
 

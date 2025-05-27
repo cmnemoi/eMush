@@ -66,10 +66,10 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
     public const HUNTER_TRUCE_CYCLES = 'hunter_truce_cycles';
     public const FOLLOWING_HUNTERS_STATUS = 'following_hunters_status';
     public const CHANGED_CPU_PRIORITY = 'changed_cpu_priority';
-    public const COFFEE_THERMOS_CHARGE = 'coffee_thermos_charge';
-    public const LUNCHBOX_CHARGE = 'lunchbox_charge';
 
     public const UPDATING_TRACKIE_STATUS = 'updating_trackie_status';
+
+    public const SHOOTER_SKILL_POC = 'shooter_skill_poc';
 
     public function load(ObjectManager $manager): void
     {
@@ -246,6 +246,9 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($firstTime);
 
+        /** @var VariableEventModifierConfig $showerModifier */
+        $showerModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_SHOWER_MODIFIER);
+
         /** @var VariableEventModifierConfig $consumeSatietyModifier */
         $consumeSatietyModifier = $this->getReference(StatusModifierConfigFixtures::MUSH_CONSUME_SATIETY_MODIFIER);
 
@@ -267,6 +270,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->setMaxCharge(1)
             ->setStartCharge(0)
             ->setModifierConfigs([
+                $showerModifier,
                 $consumeModifier,
                 $consumeSatietyModifier,
                 $moraleModifier,
@@ -597,52 +601,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($neronDepression);
 
-        $coffeeThermosCharge = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName('electric_charges_coffee_thermos_default')
-        );
-        $manager->persist($coffeeThermosCharge);
-
-        $lunchboxCharge = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName('electric_charges_lunchbox_default')
-        );
-        $manager->persist($lunchboxCharge);
-
-        $contactedSolToday = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlayerStatusEnum::CONTACTED_SOL_TODAY . '_default')
-        );
-        $manager->persist($contactedSolToday);
-
-        $baseRebelContactDuration = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION . '_default')
-        );
-        $baseRebelContactDuration->setStartCharge(8);
-        $manager->persist($baseRebelContactDuration);
-
-        $accidentCooldown = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE . '_default')
-        );
-        $manager->persist($accidentCooldown);
-
-        $boardDiseaseCooldown = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE . '_default')
-        );
-        $manager->persist($boardDiseaseCooldown);
-
-        $electrocutionCooldown = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString() . '_default')
-        );
-        $manager->persist($electrocutionCooldown);
-
-        $joltCooldown = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlaceStatusEnum::SELECTED_FOR_JOLT->toString() . '_default')
-        );
-        $manager->persist($joltCooldown);
-
-        $anxietyAttackCooldown = ChargeStatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK . '_default')
-        );
-        $manager->persist($anxietyAttackCooldown);
-
         $gameConfig
             ->addStatusConfig($noGravityRepaired)
             ->addStatusConfig($attemptConfig)
@@ -696,16 +654,7 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasGenMetal)
             ->addStatusConfig($lyingDown)
             ->addStatusConfig($antiquePerfumeImmunized)
-            ->addStatusConfig($hasDaunted)
-            ->addStatusConfig($coffeeThermosCharge)
-            ->addStatusConfig($contactedSolToday)
-            ->addStatusConfig($baseRebelContactDuration)
-            ->addStatusConfig($lunchboxCharge)
-            ->addStatusConfig($accidentCooldown)
-            ->addStatusConfig($boardDiseaseCooldown)
-            ->addStatusConfig($electrocutionCooldown)
-            ->addStatusConfig($joltCooldown)
-            ->addStatusConfig($anxietyAttackCooldown);
+            ->addStatusConfig($hasDaunted);
 
         $manager->persist($gameConfig);
 
@@ -764,14 +713,6 @@ class ChargeStatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_GEN_METAL, $hasGenMetal);
         $this->addReference(PlayerStatusEnum::HAS_SABOTAGED_DOOR, $hasSabotagedDoor);
         $this->addReference(DaedalusStatusEnum::NERON_DEPRESSION, $neronDepression);
-        $this->addReference(self::COFFEE_THERMOS_CHARGE, $coffeeThermosCharge);
-        $this->addReference(DaedalusStatusEnum::REBEL_BASE_CONTACT_DURATION, $baseRebelContactDuration);
-        $this->addReference(self::LUNCHBOX_CHARGE, $lunchboxCharge);
-        $this->addReference(PlayerStatusEnum::SELECTED_FOR_STEEL_PLATE, $accidentCooldown);
-        $this->addReference(PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE, $boardDiseaseCooldown);
-        $this->addReference(PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->toString(), $electrocutionCooldown);
-        $this->addReference(PlaceStatusEnum::SELECTED_FOR_JOLT->toString(), $joltCooldown);
-        $this->addReference(PlayerStatusEnum::SELECTED_FOR_ANXIETY_ATTACK, $anxietyAttackCooldown);
     }
 
     public function getDependencies(): array

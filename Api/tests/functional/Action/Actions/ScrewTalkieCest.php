@@ -92,7 +92,7 @@ final class ScrewTalkieCest extends AbstractFunctionalTest
     private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
     {
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: ':mycoalarm: DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
+            expectedRoomLog: 'DRIIIIIIIIIIIIIIIIIIIIIIIIIINNNNNGGGGG!!!!',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->player,
                 log: LogEnum::MYCO_ALARM_RING,

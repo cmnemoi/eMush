@@ -5,173 +5,379 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Flirt;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\LanguageEnum;
+use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\AbstractFunctionalTest;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Tests\FunctionalTester;
+use Mush\User\Entity\User;
 
-/**
- * @internal
- */
-final class FlirtActionCest extends AbstractFunctionalTest
+class FlirtActionCest
 {
     private Flirt $flirtAction;
     private ActionConfig $action;
 
-    private StatusServiceInterface $statusService;
-
-    private Player $derek;
-    private Player $andie;
-    private Player $gioele;
-    private Player $paola;
-
     public function _before(FunctionalTester $I)
     {
-        parent::_before($I);
-
         $this->flirtAction = $I->grabService(Flirt::class);
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::FLIRT]);
-
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
-
-        $this->derek = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
-        $this->andie = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
-        $this->gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
-        $this->paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
-        $this->players->add($this->derek);
-        $this->players->add($this->andie);
-        $this->players->add($this->gioele);
-        $this->players->add($this->paola);
-
-        $this->givenFreeLoveIs(false);
     }
 
-    public function shouldFlirtIfPlayersAreDifferentSexesAndFreeLoveIsFalse(FunctionalTester $I): void
+    public function testFlirt(FunctionalTester $I)
     {
-        $this->whenAFlirtsWithB($this->chun, $this->kuanTi);
-        $this->thenAHasBInFlirtList($this->chun, $this->kuanTi, $I);
-    }
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $I->flushToDatabase();
 
-    public function shouldNotFlirtIfPlayersAlreadyFlirted(FunctionalTester $I): void
-    {
-        $this->whenAFlirtsWithB($this->chun, $this->kuanTi);
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
 
-        $this->whenATriesToFlirtWithB($this->chun, $this->kuanTi);
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::FLIRT_ALREADY_FLIRTED, $I);
-    }
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
 
-    public function shouldNotFlirtIfPlayersAreSameSexAndFreeLoveIsFalse(FunctionalTester $I): void
-    {
-        $this->whenATriesToFlirtWithB($this->derek, $this->kuanTi);
-        $this->thenActionShouldNotBeVisible($I);
-    }
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
 
-    public function shouldMaleFlirtIfPlayerIsAndieAndFreeLoveIsFalse(FunctionalTester $I): void
-    {
-        $this->whenAFlirtsWithB($this->andie, $this->kuanTi);
-        $this->thenAHasBInFlirtList($this->andie, $this->kuanTi, $I);
-    }
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
 
-    public function shouldFemaleFlirtIfPlayerIsAndieAndFreeLoveIsFalse(FunctionalTester $I): void
-    {
-        $this->whenAFlirtsWithB($this->andie, $this->chun);
-        $this->thenAHasBInFlirtList($this->andie, $this->chun, $I);
-    }
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
 
-    public function shouldMaleFlirtIfTargetIsAndieAndFreeLoveIsFalse(FunctionalTester $I): void
-    {
-        $this->whenAFlirtsWithB($this->kuanTi, $this->andie);
-        $this->thenAHasBInFlirtList($this->kuanTi, $this->andie, $I);
-    }
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::PAOLA]);
 
-    public function shouldFemaleFlirtIfTargetIsAndieAndFreeLoveIsFalse(FunctionalTester $I): void
-    {
-        $this->whenAFlirtsWithB($this->chun, $this->andie);
-        $this->thenAHasBInFlirtList($this->chun, $this->andie, $I);
-    }
+        /** @var Player $targetPlayer */
+        $targetPlayer = $I->have(Player::class, [
+            'daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $targetPlayer->setPlayerVariables($characterConfig2);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
 
-    public function shouldFlirtIfFreeLoveIsTrue(FunctionalTester $I): void
-    {
-        $this->givenFreeLoveIs(true);
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
 
-        $this->whenAFlirtsWithB($this->derek, $this->kuanTi);
-        $this->thenAHasBInFlirtList($this->derek, $this->kuanTi, $I);
-    }
-
-    public function paolaAndGioeleCannotFlirtTogetherEver(FunctionalTester $I): void
-    {
-        $this->whenATriesToFlirtWithB($this->gioele, $this->paola);
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::FLIRT_SAME_FAMILY, $I);
-
-        $this->givenFreeLoveIs(true);
-
-        $this->whenATriesToFlirtWithB($this->gioele, $this->paola);
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::FLIRT_SAME_FAMILY, $I);
-    }
-
-    public function antisocialCannotFlirtEver(FunctionalTester $I): void
-    {
-        $this->givenPlayerIsAntisocial($this->chun);
-
-        $this->whenATriesToFlirtWithB($this->chun, $this->derek);
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::FLIRT_ANTISOCIAL, $I);
-
-        $this->givenFreeLoveIs(true);
-
-        $this->whenATriesToFlirtWithB($this->chun, $this->paola);
-        $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::FLIRT_ANTISOCIAL, $I);
-    }
-
-    private function givenFreeLoveIs(bool $bool)
-    {
-        $this->daedalus->getDaedalusConfig()->setFreeLove($bool);
-    }
-
-    private function givenPlayerIsAntisocial(Player $player): void
-    {
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::ANTISOCIAL,
-            holder: $player,
-            tags: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function whenATriesToFlirtWithB(Player $player, Player $target)
-    {
         $this->flirtAction->loadParameters(
             actionConfig: $this->action,
             actionProvider: $player,
             player: $player,
-            target: $target
+            target: $targetPlayer
         );
-    }
 
-    private function whenAFlirtsWithB(Player $player, Player $target)
-    {
-        $this->whenATriesToFlirtWithB($player, $target);
+        $I->assertTrue($this->flirtAction->isVisible());
+        $I->assertNull($this->flirtAction->cannotExecuteReason());
+
         $this->flirtAction->execute();
+
+        $I->assertEquals(1, $player->getActionPoint());
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'log' => ActionLogEnum::FLIRT_SUCCESS,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        $I->assertTrue($player->HasFlirtedWith($targetPlayer));
+        $I->assertFalse($targetPlayer->HasFlirtedWith($player));
     }
 
-    private function thenActionShouldNotBeVisible(FunctionalTester $I): void
+    public function testCoupleOfMenFlirt(FunctionalTester $I)
     {
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
+
+        /** @var Player $targetPlayer */
+        $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
+
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
+        );
         $I->assertFalse($this->flirtAction->isVisible());
     }
 
-    private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
+    public function testCoupleOfWomenFlirt(FunctionalTester $I)
     {
-        $I->assertEquals(
-            expected: $message,
-            actual: $this->flirtAction->cannotExecuteReason(),
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::PAOLA]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
+
+        /** @var Player $targetPlayer */
+        $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
+
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
         );
+        $I->assertFalse($this->flirtAction->isVisible());
     }
 
-    private function thenAHasBInFlirtList(Player $player, Player $target, FunctionalTester $I): void
+    public function testAndieAndWomanFlirt(FunctionalTester $I)
     {
-        $I->assertTrue($player->hasFlirtedWith($target));
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
+
+        /** @var Player $targetPlayer */
+        $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
+
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
+        );
+
+        $I->assertTrue($this->flirtAction->isVisible());
+        $I->assertNull($this->flirtAction->cannotExecuteReason());
+
+        $this->flirtAction->execute();
+
+        $I->assertEquals(1, $player->getActionPoint());
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'log' => ActionLogEnum::FLIRT_SUCCESS,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        $I->assertTrue($player->HasFlirtedWith($targetPlayer));
+        $I->assertFalse($targetPlayer->HasFlirtedWith($player));
+    }
+
+    public function testAndieAndManFlirt(FunctionalTester $I)
+    {
+        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
+        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $I->haveInRepository($daedalusInfo);
+
+        /** @var Place $room */
+        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
+
+        /** @var CharacterConfig $characterConfig */
+        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ANDIE]);
+
+        /** @var Player $player */
+        $player = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $player->setPlayerVariables($characterConfig);
+        $player
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+
+        /** @var User $user */
+        $user = $I->have(User::class);
+        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+
+        $I->haveInRepository($playerInfo);
+        $player->setPlayerInfo($playerInfo);
+        $I->refreshEntities($player);
+
+        /** @var CharacterConfig $characterConfig2 */
+        $characterConfig2 = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHAO]);
+
+        /** @var Player $targetPlayer */
+        $targetPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
+            'place' => $room,
+        ]);
+        $targetPlayer->setPlayerVariables($characterConfig);
+        $targetPlayer
+            ->setActionPoint(2)
+            ->setHealthPoint(6);
+        $targetPlayerInfo = new PlayerInfo($targetPlayer, $user, $characterConfig2);
+
+        $I->haveInRepository($targetPlayerInfo);
+        $targetPlayer->setPlayerInfo($targetPlayerInfo);
+        $I->refreshEntities($targetPlayer);
+
+        $this->flirtAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $player,
+            player: $player,
+            target: $targetPlayer
+        );
+
+        $I->assertTrue($this->flirtAction->isVisible());
+        $I->assertNull($this->flirtAction->cannotExecuteReason());
+
+        $this->flirtAction->execute();
+
+        $I->assertEquals(1, $player->getActionPoint());
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $room->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'log' => ActionLogEnum::FLIRT_SUCCESS,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        $I->assertTrue($player->HasFlirtedWith($targetPlayer));
+        $I->assertFalse($targetPlayer->HasFlirtedWith($player));
     }
 }

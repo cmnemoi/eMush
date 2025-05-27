@@ -86,8 +86,7 @@ class TranslationService implements TranslationServiceInterface
         }
 
         if ($domain === LanguageEnum::CHARACTERS) {
-            $parameters[$parameterKey . '_gender'] = CharacterEnum::exists($parameterTranslationId) ? CharacterEnum::gender($parameterTranslationId) : 'male';
-            $parameters[$parameterKey . '_icon'] = ':' . $parameterTranslationId . ':';
+            $parameters[$parameterKey . '_gender'] = (CharacterEnum::isMale($parameterTranslationId) ? 'male' : 'female');
         }
 
         return $parameters;
@@ -113,15 +112,7 @@ class TranslationService implements TranslationServiceInterface
         if (\in_array($parameterKey, LanguageEnum::COPROLALIA_PARAMETERS, true)) {
             return $additionalInfoKey;
         }
-        if ($this->shouldReturnRawCharacterKey($parameterKey, $parameterTranslationId)) {
-            return $parameterTranslationId;
-        }
 
         return $parameterTranslationId . '.' . $additionalInfoKey;
-    }
-
-    private function shouldReturnRawCharacterKey(string $parameterKey, string $parameterTranslationId): bool
-    {
-        return str_contains($parameterKey, LanguageEnum::CHARACTER) && CharacterEnum::doesNotExist($parameterTranslationId);
     }
 }

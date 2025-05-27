@@ -274,7 +274,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
     private function givenHunterHasOneHealthPoint(): void
     {
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
         $hunterVariableEvent = new HunterVariableEvent(
             hunter: $hunter,
             variableName: HunterVariableEnum::HEALTH,
@@ -312,7 +312,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
     private function thenAttackingHunterShouldHaveLessHealth(FunctionalTester $I): void
     {
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
 
         $I->assertLessThan(6, $hunter->getHealth());
     }

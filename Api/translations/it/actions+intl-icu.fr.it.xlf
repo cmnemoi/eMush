@@ -1200,10 +1200,6 @@
         <source>guard.description</source>
         <target>guard.description</target>
       </segment>
-      <segment id="confirmation" state="initial">
-        <source>guard.confirmation</source>
-        <target>guard.confirmation</target>
-      </segment>
     </unit>
     <unit id="exchange_body">
       <segment id="name" state="initial">
@@ -1411,16 +1407,6 @@
         <target>upgrade_drone_to_pilot.description</target>
       </segment>
     </unit>
-    <unit id="upgrade_drone_to_sensor">
-      <segment id="name" state="initial">
-        <source>upgrade_drone_to_sensor.name</source>
-        <target>upgrade_drone_to_sensor.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>upgrade_drone_to_sensor.description</source>
-        <target>upgrade_drone_to_sensor.description</target>
-      </segment>
-    </unit>
     <unit id="take_cat">
       <segment id="name" state="initial">
         <source>take_cat.name</source>
@@ -1521,6 +1507,16 @@
         <target>neron_depress.description</target>
       </segment>
     </unit>
+    <unit id="search_for_mush_genome">
+      <segment id="search_for_mush_genome" state="initial">
+        <source>search_for_mush_genome.name</source>
+        <target>search_for_mush_genome.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>search_for_mush_genome.description</source>
+        <target>search_for_mush_genome.description</target>
+      </segment>
+    </unit>
     <unit id="participate_research">
       <segment id="name" state="initial">
         <source>participate_research.name</source>
@@ -1529,164 +1525,6 @@
       <segment id="description" state="initial">
         <source>participate_research.description</source>
         <target>participate_research.description</target>
-      </segment>
-    </unit>
-    <unit id="compute_eden">
-      <segment id="name" state="initial">
-        <source>compute_eden.name</source>
-        <target>compute_eden.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>compute_eden.description</source>
-        <target>compute_eden.description</target>
-      </segment>
-    </unit>
-    <unit id="travel_to_eden">
-      <segment id="name" state="initial">
-        <source>travel_to_eden.name</source>
-        <target>travel_to_eden.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>travel_to_eden.description</source>
-        <target>travel_to_eden.description</target>
-      </segment>
-      <segment id="confirmation" state="initial">
-        <source>travel_to_eden.confirmation</source>
-        <target>travel_to_eden.confirmation</target>
-      </segment>
-    </unit>
-    <unit id="shoot_cat">
-      <segment id="name" state="initial">
-        <source>shoot_cat.name</source>
-        <target>shoot_cat.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>shoot_cat.description</source>
-        <target>shoot_cat.description</target>
-      </segment>
-    </unit>
-    <unit id="open_container">
-      <segment id="name" state="initial">
-        <source>open_container.name</source>
-        <target>open_container.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>open_container.description</source>
-        <target>open_container.description</target>
-      </segment>
-    </unit>
-    <unit id="com_manager_announcement">
-      <segment id="name" state="initial">
-        <source>com_manager_announcement.name</source>
-        <target>com_manager_announcement.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>com_manager_announcement.description</source>
-        <target>com_manager_announcement.description</target>
-      </segment>
-    </unit>
-    <unit id="establish_link_with_sol">
-      <segment id="name" state="initial">
-        <source>establish_link_with_sol.name</source>
-        <target>establish_link_with_sol.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>establish_link_with_sol.description</source>
-        <target>establish_link_with_sol.description</target>
-      </segment>
-    </unit>
-    <unit id="upgrade_neron">
-      <segment id="name" state="initial">
-        <source>upgrade_neron.name</source>
-        <target>upgrade_neron.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>upgrade_neron.description</source>
-        <target>upgrade_neron.description</target>
-      </segment>
-    </unit>
-    <unit id="decode_rebel_signal">
-      <segment id="name" state="initial">
-        <source>decode_rebel_signal.name</source>
-        <target>decode_rebel_signal.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>decode_rebel_signal.description</source>
-        <target>decode_rebel_signal.description</target>
-      </segment>
-    </unit>
-    <unit id="contact_xyloph">
-      <segment id="name" state="initial">
-        <source>contact_xyloph.name</source>
-        <target>contact_xyloph.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>contact_xyloph.description</source>
-        <target>contact_xyloph.description</target>
-      </segment>
-    </unit>
-    <unit id="trigger_all_rebel_contacts">
-      <segment id="name" state="initial">
-        <source>trigger_all_rebel_contacts.name</source>
-        <target>trigger_all_rebel_contacts.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>trigger_all_rebel_contacts.description</source>
-        <target>trigger_all_rebel_contacts.description</target>
-      </segment>
-    </unit>
-    <unit id="play_with_dog">
-      <segment id="name" state="initial">
-        <source>play_with_dog.name</source>
-        <target>play_with_dog.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>play_with_dog.description</source>
-        <target>play_with_dog.description</target>
-      </segment>
-    </unit>
-    <unit id="accept_trade">
-      <segment id="name" state="initial">
-        <source>accept_trade.name</source>
-        <target>accept_trade.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>accept_trade.description</source>
-        <target>accept_trade.description</target>
-      </segment>
-    </unit>
-    <unit id="refuse_trade">
-      <segment id="name" state="initial">
-        <source>refuse_trade.name</source>
-        <target>refuse_trade.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>refuse_trade.description</source>
-        <target>refuse_trade.description</target>
-      </segment>
-    </unit>
-    <unit id="create_trade">
-      <segment id="name" state="initial">
-        <source>create_trade.name</source>
-        <target>create_trade.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>create_trade.description</source>
-        <target>create_trade.description</target>
-      </segment>
-    </unit>
-    <unit id="go_berserk">
-      <segment id="name" state="initial">
-        <source>go_berserk.name</source>
-        <target>go_berserk.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>go_berserk.description</source>
-        <target>go_berserk.description</target>
-      </segment>
-      <segment id="confirmation" state="initial">
-        <source>go_berserk.confirmation</source>
-        <target>go_berserk.confirmation</target>
       </segment>
     </unit>
   </file>

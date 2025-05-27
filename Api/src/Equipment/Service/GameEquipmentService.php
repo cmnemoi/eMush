@@ -19,13 +19,12 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
-use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
+use Mush\Equipment\Repository\GameEquipmentRepository;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
@@ -35,8 +34,7 @@ use Mush\Status\Service\StatusServiceInterface;
 final class GameEquipmentService implements GameEquipmentServiceInterface
 {
     private EntityManagerInterface $entityManager;
-    private GameEquipmentRepositoryInterface $repository;
-    private DamageEquipmentServiceInterface $damageEquipmentService;
+    private GameEquipmentRepository $repository;
     private EquipmentServiceInterface $equipmentService;
     private RandomServiceInterface $randomService;
     private EventServiceInterface $eventService;
@@ -45,8 +43,7 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        GameEquipmentRepositoryInterface $repository,
-        DamageEquipmentServiceInterface $damageEquipmentService,
+        GameEquipmentRepository $repository,
         EquipmentServiceInterface $equipmentService,
         RandomServiceInterface $randomService,
         EventServiceInterface $eventService,
@@ -55,7 +52,6 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
     ) {
         $this->entityManager = $entityManager;
         $this->repository = $repository;
-        $this->damageEquipmentService = $damageEquipmentService;
         $this->equipmentService = $equipmentService;
         $this->randomService = $randomService;
         $this->eventService = $eventService;
@@ -65,19 +61,21 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function persist(GameEquipment $equipment): GameEquipment
     {
-        $this->repository->save($equipment);
+        $this->entityManager->persist($equipment);
+        $this->entityManager->flush();
 
         return $equipment;
     }
 
     public function delete(GameEquipment $equipment): void
     {
-        $this->repository->delete($equipment);
+        $this->entityManager->remove($equipment);
+        $this->entityManager->flush();
     }
 
     public function findById(int $id): ?GameEquipment
     {
-        $equipment = $this->repository->findById($id);
+        $equipment = $this->repository->find($id);
 
         return $equipment instanceof GameEquipment ? $equipment : null;
     }
@@ -99,17 +97,7 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
     public function findByOwner(Player $player): ArrayCollection
     {
-        return new ArrayCollection($this->repository->findByOwner($player));
-    }
-
-    public function findEquipmentByNameAndPlace(string $name, Place $place, int $quantity): ArrayCollection
-    {
-        return new ArrayCollection($this->repository->findEquipmentByNameAndPlace($name, $place, $quantity));
-    }
-
-    public function findEquipmentByNameAndPlayer(string $name, Player $player, int $quantity): ArrayCollection
-    {
-        return new ArrayCollection($this->repository->findEquipmentByNameAndPlayer($name, $player, $quantity));
+        return new ArrayCollection($this->repository->findBy(['owner' => $player]));
     }
 
     public function createGameEquipmentFromName(
@@ -131,9 +119,9 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
     public function createGameEquipmentsFromName(
         string $equipmentName,
         EquipmentHolderInterface $equipmentHolder,
+        array $reasons,
+        \DateTime $time,
         int $quantity,
-        array $reasons = [],
-        \DateTime $time = new \DateTime(),
         string $visibility = VisibilityEnum::HIDDEN,
         ?Player $author = null
     ): array {
@@ -215,24 +203,34 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
             return;
         }
 
-        if (!$gameEquipment->canBeDamaged()) {
-            return;
+        if ($gameEquipment->getEquipment()->isFireDestroyable()
+            && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+        ) {
+            $equipmentEvent = new EquipmentEvent(
+                $gameEquipment,
+                false,
+                VisibilityEnum::PUBLIC,
+                [EventEnum::FIRE, $gameEquipment->getName()],
+                $date
+            );
+            $this->eventService->callEvent($equipmentEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
         }
 
-        if ($gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)) {
-            return;
-        }
+        if (!$gameEquipment->getStatusByName(EquipmentStatusEnum::BROKEN)
+            && $gameEquipment->getEquipment()->isFireBreakable()
+            && $this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())
+        ) {
+            $this->statusService->createStatusFromName(
+                EquipmentStatusEnum::BROKEN,
+                $gameEquipment,
+                [EventEnum::FIRE],
+                $date,
+                null,
+                VisibilityEnum::PUBLIC
+            );
 
-        if (!$this->randomService->isSuccessful($this->getGameConfig($gameEquipment)->getDifficultyConfig()->getEquipmentFireBreakRate())) {
-            return;
+            $this->persist($gameEquipment);
         }
-
-        $this->damageEquipmentService->execute(
-            gameEquipment: $gameEquipment,
-            tags: [EventEnum::FIRE, $gameEquipment->getName()],
-            time: $date,
-            visibility: VisibilityEnum::PUBLIC
-        );
     }
 
     public function handlePatrolShipDestruction(GameEquipment $patrolShip, ?Player $player, array $tags): void
@@ -266,13 +264,6 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
             time: $time,
         );
         $this->eventService->callEvent($moveEquipmentEvent, EquipmentEvent::CHANGE_HOLDER);
-    }
-
-    public function findGameEquipmentConfigFromNameAndDaedalus(
-        string $equipmentName,
-        Daedalus $daedalus
-    ): EquipmentConfig {
-        return $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
     }
 
     private function getEquipmentFromConfig(

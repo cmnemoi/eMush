@@ -124,7 +124,7 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
         }
 
         // given I have the last one has 1 health
-        $lowHealthHunter = $this->daedalus->getHuntersAroundDaedalus()->last();
+        $lowHealthHunter = $this->daedalus->getAttackingHunters()->last();
         $lowHealthHunter->setHealth(1);
 
         // when I call getHuntersToNormalize
@@ -181,7 +181,7 @@ final class HunterNormalizerHelperCest extends AbstractFunctionalTest
 
         $hunter = new Hunter($hunterConfig, $daedalus);
         $hunter->setHunterVariables($hunterConfig);
-        $daedalus->getSpace()->addHunter($hunter);
+        $daedalus->addHunter($hunter);
 
         return $hunter;
     }

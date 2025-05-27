@@ -7,11 +7,6 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\ShootHunterPatrolShip;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Communications\Entity\RebelBase;
-use Mush\Communications\Entity\RebelBaseConfig;
-use Mush\Communications\Enum\RebelBaseEnum;
-use Mush\Communications\Repository\RebelBaseRepositoryInterface;
-use Mush\Communications\Service\DecodeRebelSignalService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -38,9 +33,6 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
 
     private GameEquipment $patrolShip;
 
-    private RebelBaseRepositoryInterface $rebelBaseRepository;
-    private DecodeRebelSignalService $decodeRebelBase;
-
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
@@ -53,9 +45,6 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
 
         /** @var EventServiceInterface $eventService */
         $eventService = $I->grabService(EventServiceInterface::class);
-
-        $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
-        $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
 
         // given I have in Patrol Ship in space battle
         $patrolShipPlace = $this->createExtraPlace(placeName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN, I: $I, daedalus: $this->daedalus);
@@ -101,47 +90,12 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
         $this->thenIShouldSeeHunterDeathLog($I);
     }
 
-    public function shouldMakeOneMoreDamagePointWithCygniBase(FunctionalTester $I): void
-    {
-        $this->givenCygniBaseIsDecoded($I);
-        $this->givenPatrolShipDealsDamagePoints(1);
-        $this->givenChunHas100PercentChanceToHit();
-
-        $this->whenChunShootsWithBlasterGunOnAHunterWithSixHealthPoints();
-
-        $this->thenHunterShouldHaveLostTwoHealthPoints($I);
-    }
-
-    public function shouldLogCorrectlyWithCygniBase(FunctionalTester $I): void
-    {
-        $this->givenCygniBaseIsDecoded($I);
-        $this->givenPatrolShipDealsDamagePoints(5);
-        $this->givenChunHas100PercentChanceToHit();
-
-        $this->whenChunShootsWithBlasterGunOnAHunterWithSixHealthPoints();
-
-        $this->thenIShouldNotSeeShootHunterSuccessLog($I);
-        $this->thenIShouldSeeHunterDeathLog($I);
-    }
-
     private function givenBlasterGunProjectIsFinished(FunctionalTester $I): void
     {
         $this->finishProject(
             project: $this->daedalus->getProjectByName(ProjectName::PATROLSHIP_BLASTER_GUN),
             author: $this->player,
             I: $I,
-        );
-    }
-
-    private function givenCygniBaseIsDecoded(FunctionalTester $I): void
-    {
-        $cygniConfig = $I->grabEntityFromRepository(RebelBaseConfig::class, ['name' => RebelBaseEnum::CYGNI]);
-        $cygniRebelBase = new RebelBase(config: $cygniConfig, daedalusId: $this->daedalus->getId());
-        $this->rebelBaseRepository->save($cygniRebelBase);
-
-        $this->decodeRebelBase->execute(
-            rebelBase: $cygniRebelBase,
-            progress: 100,
         );
     }
 
@@ -159,7 +113,7 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
 
     private function whenChunShootsWithBlasterGunOnAHunterWithSixHealthPoints(): void
     {
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
         $hunter->setHealth(6);
 
         $this->shootHunterPatrolShipAction->loadParameters(
@@ -173,7 +127,7 @@ final class ShootHunterPatrolShipCest extends AbstractFunctionalTest
 
     private function thenHunterShouldHaveLostTwoHealthPoints(FunctionalTester $I): void
     {
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
         $I->assertEquals(4, $hunter->getHealth());
     }
 

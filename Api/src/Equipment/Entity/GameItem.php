@@ -134,14 +134,4 @@ class GameItem extends GameEquipment
     {
         return $this->getName() === ItemEnum::SCHRODINGER;
     }
-
-    public function isPersonal(): bool
-    {
-        return $this->equipment->isPersonal();
-    }
-
-    public function shouldBeNormalizedAsEquipment(): bool
-    {
-        return \in_array($this->getName(), [ItemEnum::SUPPORT_DRONE], true);
-    }
 }

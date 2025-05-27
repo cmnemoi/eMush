@@ -16,12 +16,9 @@ use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
-use Mush\Equipment\Entity\Mechanics\Container;
 use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\PatrolShip;
-use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -45,7 +42,6 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Entity\StatusTarget;
 use Mush\Status\Entity\TargetStatusTrait;
-use Mush\Status\Entity\VisibleStatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -58,7 +54,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'game_item' => GameItem::class,
     'drone' => Drone::class,
 ])]
-class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
+class GameEquipment implements StatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;
@@ -73,7 +69,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
-    protected ?int $id = null;
+    protected int $id;
 
     #[ORM\OneToMany(mappedBy: 'gameEquipment', targetEntity: StatusTarget::class, cascade: ['ALL'])]
     private Collection $statuses;
@@ -101,10 +97,6 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
 
     public function getId(): int
     {
-        if ($this->id === null) {
-            throw new \RuntimeException('Equipment is not persisted, or is about to be deleted');
-        }
-
         return $this->id;
     }
 
@@ -135,11 +127,6 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         }
 
         return $place;
-    }
-
-    public function isIn(string $placeName): bool
-    {
-        return $this->getPlace()->getName() === $placeName;
     }
 
     public function getHolder(): EquipmentHolderInterface
@@ -257,9 +244,9 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return !$this->isOperational();
     }
 
-    public function canBeDamaged(): bool
+    public function isBreakable(): bool
     {
-        return $this->getEquipment()->canBeDamaged();
+        return $this->getEquipment()->isBreakable();
     }
 
     public function shouldTriggerRoomTrap(): bool
@@ -331,18 +318,6 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         }
 
         return $charge;
-    }
-
-    public function isOnLastChargeOrSingleUse(): bool
-    {
-        $charges = $this->getStatuses()->filter(static fn (Status $status) => $status instanceof ChargeStatus);
-
-        $charge = $charges->first();
-        if (!$charge instanceof ChargeStatus || $charge->getCharge() === 1) {
-            return true;
-        }
-
-        return false;
     }
 
     // return actions provided by this entity and the other actionProviders it bears
@@ -476,27 +451,6 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $patrolShip instanceof PatrolShip ? $patrolShip : throw new \RuntimeException("Equipment {$this->name} does not have a patrol ship mechanic.");
     }
 
-    public function getBlueprintMechanicOrThrow(): Blueprint
-    {
-        $blueprint = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::BLUEPRINT);
-
-        return $blueprint instanceof Blueprint ? $blueprint : throw new \RuntimeException("Equipment {$this->name} does not have a blueprint mechanic.");
-    }
-
-    public function getPlumbingMechanicOrThrow(): Plumbing
-    {
-        $waterSupply = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::PLUMBING);
-
-        return $waterSupply instanceof Plumbing ? $waterSupply : throw new \RuntimeException("Equipment {$this->name} does not have a blueprint mechanic.");
-    }
-
-    public function getContainerMechanicOrThrow(): Container
-    {
-        $container = $this->getMechanicByNameOrThrow(EquipmentMechanicEnum::CONTAINER);
-
-        return $container instanceof Container ? $container : throw new \RuntimeException("Equipment {$this->name} does not have a container mechanic.");
-    }
-
     public function hasMechanicByName(string $mechanicName): bool
     {
         foreach ($this->getEquipment()->getMechanics() as $mechanic) {
@@ -529,7 +483,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
             return null;
         }
 
-        return $this->getDaedalus()->getPlayers()->getPlayerByName($target->getName());
+        return $this->getDaedalus()->getPlayerByName($target->getName());
     }
 
     public function updateSongWithPlayerFavorite(Player $player): void
@@ -579,31 +533,9 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $this->hasMechanicByName(EquipmentMechanicEnum::DRUG);
     }
 
-    public function isAMonoplaceShip(): bool
-    {
-        return \in_array($this->getName(), [
-            EquipmentEnum::PATROL_SHIP_ALPHA_LONGANE,
-            EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
-            EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
-            EquipmentEnum::PATROL_SHIP_BRAVO_SOCRATE,
-            EquipmentEnum::PATROL_SHIP_BRAVO_EPICURE,
-            EquipmentEnum::PATROL_SHIP_BRAVO_PLANTON,
-            EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
-            EquipmentEnum::PASIPHAE,
-        ], true);
-    }
-
     public function isAPatrolShip(): bool
     {
-        return \in_array($this->getName(), [
-            EquipmentEnum::PATROL_SHIP_ALPHA_LONGANE,
-            EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
-            EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
-            EquipmentEnum::PATROL_SHIP_BRAVO_SOCRATE,
-            EquipmentEnum::PATROL_SHIP_BRAVO_EPICURE,
-            EquipmentEnum::PATROL_SHIP_BRAVO_PLANTON,
-            EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS,
-        ], true);
+        return $this->hasMechanicByName(EquipmentMechanicEnum::PATROL_SHIP) && $this->getName() !== EquipmentEnum::PASIPHAE;
     }
 
     public function getFruitProduction(): int
@@ -632,28 +564,6 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         }
 
         return max(0, $maturationTimeLeft);
-    }
-
-    public function canProduceFruit(): bool
-    {
-        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {
-            if ($this->hasStatus($status)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public function canProduceOxygen(): bool
-    {
-        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED] as $status) {
-            if ($this->hasStatus($status)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public function getAllModifierConfigs(): ArrayCollection
@@ -693,7 +603,7 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
 
     public function shouldBeNormalizedAsItem(): bool
     {
-        return $this instanceof GameItem || \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
+        return \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
     }
 
     public function isSchrodinger(): bool
@@ -701,24 +611,26 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $this->getName() === ItemEnum::SCHRODINGER;
     }
 
-    public function isSofa(): bool
+    private function canProduceFruit(): bool
     {
-        return $this->getName() === EquipmentEnum::SWEDISH_SOFA;
+        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED, EquipmentStatusEnum::PLANT_THIRSTY] as $status) {
+            if ($this->hasStatus($status)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
-    public function isTabulatrix()
+    private function canProduceOxygen(): bool
     {
-        return $this->getName() === EquipmentEnum::TABULATRIX;
-    }
+        foreach ([EquipmentStatusEnum::PLANT_YOUNG, EquipmentStatusEnum::PLANT_DRY, EquipmentStatusEnum::PLANT_DISEASED] as $status) {
+            if ($this->hasStatus($status)) {
+                return false;
+            }
+        }
 
-    public function isNull(): bool
-    {
-        return $this->id === null;
-    }
-
-    public function isAGun(): bool
-    {
-        return ItemEnum::getGuns()->contains($this->getName());
+        return true;
     }
 
     private function isActionProvidedByMechanic(string $actionName): bool

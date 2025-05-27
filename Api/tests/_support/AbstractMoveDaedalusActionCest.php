@@ -9,8 +9,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Alert\Service\AlertServiceInterface;
-use Mush\Chat\Entity\Message;
-use Mush\Chat\Enum\NeronMessageEnum;
+use Mush\Communication\Entity\Message;
+use Mush\Communication\Enum\NeronMessageEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -333,7 +333,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         $arack = new Hunter($arackConfig, $this->daedalus);
         $arack->setHunterVariables($arackConfig);
-        $this->daedalus->getSpace()->addHunter($arack);
+        $this->daedalus->addHunter($arack);
 
         $I->haveInRepository($arack);
 
@@ -473,7 +473,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // then the 2 traxs are not in the pool
         $I->assertEquals(0, $this->daedalus->getHunterPool()->getAllHuntersByType(HunterEnum::TRAX)->count());
-        $I->assertEquals(2, $this->daedalus->getHuntersAroundDaedalus()->getAllHuntersByType(HunterEnum::TRAX)->count());
+        $I->assertEquals(2, $this->daedalus->getAttackingHunters()->getAllHuntersByType(HunterEnum::TRAX)->count());
     }
 
     public function testMoveDaedalusActionDeletesAllAttackingHuntersExceptHuntersAndTraxes(FunctionalTester $I): void
@@ -753,7 +753,7 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         $hunter = new Hunter($hunterConfig, $this->daedalus);
         $hunter->setHunterVariables($hunterConfig);
-        $this->daedalus->getSpace()->addHunter($hunter);
+        $this->daedalus->addHunter($hunter);
 
         $I->haveInRepository($hunter);
 

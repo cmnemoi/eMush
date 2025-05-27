@@ -2,51 +2,51 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="terminal.ext">
     <unit id="command_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>command_terminal.name</source>
         <target>Terminal de Commandement</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>command_terminal.tips</source>
         <target>En tant que *Commandant* vous êtes le seul à avoir accès à ce terminal. //// Le déplacement du vaisseau est nécessaire pour **aller vers une planète** et peut être utile pour se débarrasser des hunters. //// Pour aller vers une planète il faut **connaître l'orientation et le nombre d'unités de fuel**. Ces deux informations sont fournies depuis le *Terminal Astro*. Avec ces informations, quelqu'un doit d'abord remplir la chambre de combustion avec la quantité correcte de Fuel. Ensuite, orientez le Daedalus dans la bonne direction et lancez le déplacement ! //// Si le travail a été bien fait, le Daedalus se placera en orbite d'une planète qui pourra être explorée par l'équipage et ainsi obtenir des nouvelles ressources !</target>
       </segment>
-      <segment id="orientate_daedalus" state="translated">
+      <segment id="orientate_daedalus" state="final">
         <source>command_terminal.orientate_daedalus</source>
         <target>Orientation du Daedalus</target>
       </segment>
-      <segment id="move_daedalus" state="translated">
+      <segment id="move_daedalus" state="final">
         <source>command_terminal.move_daedalus</source>
         <target>Déplacement du Daedalus</target>
       </segment>
-      <segment id="general_informations" state="translated">
+      <segment id="general_informations" state="final">
         <source>command_terminal.general_informations</source>
         <target>Informations générales</target>
       </segment>
-      <segment id="pilgred" state="translated">
+      <segment id="pilgred" state="final">
         <source>command_terminal.pilgred</source>
         <target>Pilgred</target>
       </segment>
-      <segment id="difficulty_normal" state="translated">
+      <segment id="difficulty_normal" state="final">
         <source>command_terminal.difficulty_normal</source>
         <target>Nous voyageons actuellement dans l'**Espace proche**.</target>
       </segment>
-      <segment id="difficulty_hard" state="translated">
+      <segment id="difficulty_hard" state="final">
         <source>command_terminal.difficulty_hard</source>
         <target>Nous voyageons actuellement dans l'**Espace éloigné**.</target>
       </segment>
-      <segment id="difficulty_very_hard" state="translated">
+      <segment id="difficulty_very_hard" state="final">
         <source>command_terminal.difficulty_very_hard</source>
         <target>Nous voyageons actuellement dans l'**Espace infini**.</target>
       </segment>
-      <segment id="advance_daedalus_status_ok" state="translated">
+      <segment id="advance_daedalus_status_ok" state="final">
         <source>command_terminal.advance_daedalus_status_ok</source>
         <target>Les systèmes sont fonctionnels.</target>
       </segment>
-      <segment id="advance_daedalus_status_no_fuel" state="translated">
+      <segment id="advance_daedalus_status_no_fuel" state="final">
         <source>command_terminal.advance_daedalus_status_no_fuel</source>
         <target>Il n'y a pas de fuel dans la *Chambre de Combustion* ! Le voyage infra-luminique est impossible.</target>
       </segment>
-      <segment id="advance_daedalus_status_emergency_reactor_broken" state="translated">
+      <segment id="advance_daedalus_status_emergency_reactor_broken" state="final">
         <source>command_terminal.advance_daedalus_status_emergency_reactor_broken</source>
         <target>Le *Réacteur d'urgence* est en carafe ! Le voyage infra-luminique est impossible.</target>
       </segment>
@@ -62,23 +62,23 @@
       </segment>
     </unit>
     <unit id="astro_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>astro_terminal.name</source>
         <target>Terminal Astro</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>astro_terminal.tips</source>
         <target>Afin de trouver une planète à explorer, il faut d'abord *réaliser un scan* pour en trouver jusqu'à un maximum de {max_planets}. Les résultats des planètes trouvées sont personnels et exclusifs à chaque personne. //// Une fois une planète trouvée et choisie, vous devez communiquer à l'équipage l'*orientation et le fuel nécessaire* pour s'y rendre. Ceci permettra au *Commandant* de déplacer le Daedalus vers la planète choisie. //// Lorsque le Daedalus est arrivé et en orbite, il est impossible de scanner pour rechercher d'autres planètes. Par contre, vous pouvez *sonder la planète* en orbite pour obtenir des GéoDonnées supplementaires. Ces données serviront au corps expéditionnaire, qui pourra préparer à l'avance l'exploration. //// Pour sortir de l'orbite, le Commandant en charge doit exécuter l'action depuis le Terminal de Commandement.</target>
       </segment>
-      <segment id="orientation" state="translated">
+      <segment id="orientation" state="final">
         <source>astro_terminal.orientation</source>
         <target>Direction</target>
       </segment>
-      <segment id="distance" state="translated">
+      <segment id="distance" state="final">
         <source>astro_terminal.distance</source>
         <target>Fuel requis</target>
       </segment>
-      <segment id="in_orbit" state="translated">
+      <segment id="in_orbit" state="final">
         <source>astro_terminal.in_orbit</source>
         <target>*En orbite !*</target>
       </segment>
@@ -92,17 +92,13 @@
       </segment>
     </unit>
     <unit id="research_laboratory">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>research_laboratory.name</source>
         <target>Laboratoire de recherche</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>research_laboratory.tips</source>
-        <target>Réalisez ici des recherches bénéfiques pour tout l'équipage. Vous avez deux façons de collaborer : apporter des objets au laboratoire pour débloquer des nouvelles recherches, et faire avancer les recherches déjà en cours.
-//
-Certains objets débloquent leurs recherches en étant présent dans l'inventaire de la pièce, tandis que d'autres doivent être en main pour rendre leurs recherches visibles. 
-//
-Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir une recherche toute seule. En effet, si vous avancez une recherche plus d'une fois à la suite, l'efficacité de votre action diminuera. Le travail alterné avec vos camarades est la clé !</target>
+        <target>Réalisez ici des recherches bénéfiques pour tout l'équipage. Vous avez deux façons de collaborer : exploiter des objets dans le laboratoire pour débloquer des nouvelles recherches, et faire avancer les recherches déjà en cours. Pour exploiter un objet de votre inventaire, il suffit qu'il soit présent dans la pièce ou dans votre inventaire. Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir une recherche toute seule. En effet, si vous avancez une recherche plus d'une fois à la suite, l'efficacité de votre action diminuera. Le travail alterné avec un camarade est la clé !</target>
       </segment>
       <segment id="chun_present" state="translated">
         <source>research_laboratory.chun_present</source>
@@ -114,17 +110,17 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       </segment>
     </unit>
     <unit id="block_of_post_it">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>block_of_post_it.name</source>
         <target>Bloc de pense-bêtes</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>
     </unit>
     <unit id="exploration">
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>exploration.tips</source>
         <target>{isExplorationFinished, select, other {{quantity, plural, one {L'exploration se déroule automatiquement. Toutes les minutes, une nouvelle étape se déroule. Une fois parti, impossible de faire demi-tour.} other {L'exploration se déroule automatiquement. Toutes les # minutes, une nouvelle étape se déroule. Une fois parti, impossible de faire demi-tour.} }} true {Cette expédition est déjà terminée. Vous pouvez revoir ici les différents évènements qu'ont rencontrés les membres de l'équipage.}}</target>
       </segment>
@@ -146,7 +142,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       </segment>
     </unit>
     <unit id="closed_exploration">
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>closed_exploration.tips</source>
         <target>Ici vous pouvez lire le rapport de l'expédition que vous avez réalisée.</target>
       </segment>
@@ -166,7 +162,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       </segment>
       <segment id="cpu_priority.description" state="translated">
         <source>bios_terminal.cpu_priority_description</source>
-        <target>Contrôle la répartition des tranches CPU. Soit elle rend les projets ou recherches plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.</target>
+        <target>Contrôle la répartition des tranches CPU. Soit elle rend les projets plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.</target>
       </segment>
       <segment id="cpu_priority.astronavigation" state="translated">
         <source>bios_terminal.cpu_priority_astronavigation</source>
@@ -179,10 +175,6 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       <segment id="cpu_priority.pilgred" state="translated">
         <source>bios_terminal.cpu_priority_pilgred</source>
         <target>PILGRED</target>
-      </segment>
-      <segment id="cpu_priority.research" state="translated">
-        <source>bios_terminal.cpu_priority_research</source>
-        <target>Recherche</target>
       </segment>
       <segment id="cpu_priority.projects" state="translated">
         <source>bios_terminal.cpu_priority_projects</source>
@@ -198,7 +190,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       </segment>
       <segment id="crew_lock.description" state="translated">
         <source>bios_terminal.crew_lock_description</source>
-        <target>:point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.//:point: Verrouillage Recherche : les non-biologistes et non-médecins ne sont pas autorisés à participer à la Recherche scientifique.</target>
+        <target>:point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.</target>
       </segment>
       <segment id="crew_lock.projects" state="translated">
         <source>bios_terminal.crew_lock_projects</source>
@@ -207,10 +199,6 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       <segment id="crew_lock.piloting" state="translated">
         <source>bios_terminal.crew_lock_piloting</source>
         <target>Pilotage</target>
-      </segment>
-      <segment id="crew_lock.research" state="translated">
-        <source>bios_terminal.crew_lock_research</source>
-        <target>Recherche</target>
       </segment>
       <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>
@@ -260,29 +248,13 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>Non</target>
       </segment>
-      <segment id="vocoded_announcements_name" state="translated">
-        <source>bios_terminal.vocoded_announcements_name</source>
-        <target>Annonces vocodées</target>
-      </segment>
-      <segment id="vocoded_announcements_description" state="translated">
-        <source>bios_terminal.vocoded_announcements_description</source>
-        <target>Active la possibilité pour NERON de porter les messages de l'Administrateur NERON.</target>
-      </segment>
-      <segment id="vocoded_announcements_toggle_active" state="translated">
-        <source>bios_terminal.vocoded_announcements_toggle_active</source>
-        <target>Autorisées</target>
-      </segment>
-      <segment id="vocoded_announcements_toggle_inactive" state="translated">
-        <source>bios_terminal.vocoded_announcements_toggle_inactive</source>
-        <target>Pas autorisées</target>
-      </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>pilgred.name</source>
         <target>Réacteur PILGRED</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>pilgred.tips</source>
         <target>La remise en état de PILGRED demande des compétences énormes. Il vous faudra vous armer de patience et survivre pour y aboutir. Une fois réparé, la possibilité de revenir sur Sol vous sera ouverte. Qu'en ferez-vous ?</target>
       </segment>
@@ -290,141 +262,33 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>pilgred.pilgred_finished_description</source>
         <target>PILGRED est pleinement opérationnel.</target>
       </segment>
-      <segment id="share_projects_button_name" state="translated">
-        <source>pilgred.share_projects_button_name</source>
-        <target>Partager</target>
-      </segment>
-      <segment id="share_projects_button_description" state="translated">
-        <source>pilgred.share_projects_button_description</source>
-        <target>Partager l'avancement des réparations du PILGRED avec l'équipage.</target>
-      </segment>
     </unit>
     <unit id="neron_core">
       <segment id="name" state="translated">
         <source>neron_core.name</source>
         <target>Cœur de NERON</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>neron_core.tips</source>
-        <target>Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!</target>
+        <target>Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.</target>
       </segment>
-      <segment id="no_proposed_neron_projects_description" state="translated">
+      <segment id="no_proposed_neron_projects_description" state="final">
         <source>neron_core.no_proposed_neron_projects_description</source>
         <target>Il n'y a plus de projets à faire aboutir.</target>
       </segment>
-      <segment id="share_projects_button_name" state="translated">
-        <source>neron_core.share_projects_button_name</source>
-        <target>Partager</target>
-      </segment>
-      <segment id="share_projects_button_description" state="translated">
-        <source>neron_core.share_projects_button_description</source>
-        <target>Partager ces projets avec l'équipage.</target>
-      </segment>
     </unit>
     <unit id="auxiliary_terminal">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>auxiliary_terminal.name</source>
         <target>Cœur de NERON auxiliaire</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>auxiliary_terminal.tips</source>
-        <target>Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!</target>
+        <target>Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.</target>
       </segment>
-      <segment id="no_proposed_neron_projects_description" state="translated">
+      <segment id="no_proposed_neron_projects_description" state="final">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>Il n'y a plus de projets à faire aboutir.</target>
-      </segment>
-      <segment id="share_projects_button_name" state="translated">
-        <source>auxiliary_terminal.share_projects_button_name</source>
-        <target>Partager</target>
-      </segment>
-      <segment id="share_projects_button_description" state="translated">
-        <source>auxiliary_terminal.share_projects_button_description</source>
-        <target>Partager ces projets avec l'équipage.</target>
-      </segment>
-    </unit>
-    <unit id="calculator">
-      <segment id="name" state="final">
-        <source>calculator.name</source>
-        <target>Calculateur</target>
-      </segment>
-      <segment id="tips" state="final">
-        <source>calculator.tips</source>
-        <target>Ce module permet d'effectuer des calculs savants et/ou sans intérêt. Mais parfois la science réserve de bien belles surprises...</target>
-      </segment>
-      <segment id="to_a_new_eden_title" state="final">
-        <source>calculator.to_a_new_eden_title</source>
-        <target>Vers un nouvel Eden</target>
-      </segment>
-      <segment id="to_a_new_eden_description" state="final">
-        <source>calculator.to_a_new_eden_description</source>
-        <target>Le cristalite contient des coordonnées polaires qui se rapportent au centre du nuage de Magellan... Mais elles pointent hors de celui-ci, il va nous falloir une sacrée propulsion...</target>
-      </segment>
-      <segment id="nothing_to_compute" state="final">
-        <source>calculator.nothing_to_compute</source>
-        <target>Rien à calculer pour le moment. // En attente de matériel dans l'étagère...</target>
-      </segment>
-      <segment id="eden_computed" state="final">
-        <source>calculator.eden_computed</source>
-        <target>Le calcul des coordonnées d'Eden a été achevé avec succès. Les coordonnées ont été transférées vers NERON : consultez votre ***Commandant*** pour plus d'informations.</target>
-      </segment>
-    </unit>
-    <unit id="communication_center">
-      <segment id="name" state="translated">
-        <source>communication_center.name</source>
-        <target>Centre de communication</target>
-      </segment>
-      <segment id="tips" state="translated">
-        <source>communication_center.tips</source>
-        <target>Toute communication commence par **établir une liaison**.//Cette action simple peut être réalisée par n'importe quel membre de l'équipage. La liaison apporte des points de moral à toute l'équipe et débloque des nouvelles actions pour le Responsable Comm.//Si le contact échoue, au moins ça **améliorera la qualité du signal** et augmentera les chances de contact lors du prochain essai.</target>
-      </segment>
-      <segment id="contact" state="translated">
-        <source>communication_center.contact</source>
-        <target>Liaison</target>
-      </segment>
-      <segment id="contact" state="translated">
-        <source>communication_center.neron_version</source>
-        <target>NERON v{neronVersion}</target>
-      </segment>
-      <segment id="contact" state="translated">
-        <source>communication_center.neron_update_status</source>
-        <target>État de mise à jour : {quantity}%</target>
-      </segment>
-      <segment id="link_strength" state="translated">
-        <source>communication_center.link_strength</source>
-        <target>Signal : {quantity}%</target>
-      </segment>
-      <segment id="link_established" state="translated">
-        <source>communication_center.link_established</source>
-        <target>Connexion établie !</target>
-      </segment>
-      <segment id="rebel_bases_network" state="translated">
-        <source>communication_center.rebel_bases_network</source>
-        <target>Réseau de bases rebelles</target>
-      </segment>
-      <segment id="select_rebel_base_to_decode" state="translated">
-        <source>communication_center.select_rebel_base_to_decode</source>
-        <target>Choisissez une base rebelle pour pouvoir décoder son signal.</target>
-      </segment>
-      <segment id="xyloph_db" state="translated">
-        <source>communication_center.xyloph_db</source>
-        <target>Xyloph BDD</target>
-      </segment>
-      <segment id="cannot_trade_under_attack" state="translated">
-        <source>communication_center.cannot_trade_under_attack</source>
-        <target>Un autre vaisseau nous menace, il est impossible de commercer !</target>
-      </segment>
-      <segment id="never" state="translated">
-        <source>communication_center.never</source>
-        <target>Jamais !</target>
-      </segment>
-      <segment id="see_communications" state="translated">
-        <source>communication_center.see_communications</source>
-        <target>Voir les communications</target>
-      </segment>
-      <segment id="see_trades" state="translated">
-        <source>communication_center.see_trades</source>
-        <target>Voir les échanges</target>
       </segment>
     </unit>
   </file>

@@ -7,7 +7,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Mush\Action\DataFixtures\ActionsFixtures;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Equipment\ConfigData\EquipmentConfigData;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Document;
@@ -62,19 +61,6 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             SkillEnum::SHRINK,
             SkillEnum::SPRINTER,
             SkillEnum::TECHNICIAN,
-            SkillEnum::OPTIMIST,
-            SkillEnum::APPRENTICE,
-            SkillEnum::SNEAK,
-            SkillEnum::POLITICIAN,
-            SkillEnum::CREATIVE,
-            SkillEnum::DETERMINED,
-            SkillEnum::OCD,
-            SkillEnum::MOTIVATOR,
-            SkillEnum::CAFFEINE_JUNKIE,
-            SkillEnum::GENIUS,
-            SkillEnum::OPPORTUNIST,
-            SkillEnum::REBEL,
-            SkillEnum::SELF_SACRIFICE,
         ];
 
         foreach ($skillsArray as $skill) {
@@ -84,8 +70,12 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
                 ->addAction($readBook)
                 ->buildName(ItemEnum::APPRENTRON . '_' . $skill->value, GameConfigEnum::DEFAULT);
 
-            $apprenton = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::APPRENTRON . '_' . $skill->value));
+            $apprenton = new ItemConfig();
             $apprenton
+                ->setEquipmentName(ItemEnum::APPRENTRON . '_' . $skill->value)
+                ->setIsStackable(true)
+                ->setIsFireDestroyable(true)
+                ->setIsFireBreakable(false)
                 ->setMechanics([$apprentonMechanic])
                 ->setActionConfigs($actions)
                 ->buildName(GameConfigEnum::DEFAULT);
@@ -104,8 +94,12 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($readDocument)
             ->buildName(ItemEnum::DOCUMENT, GameConfigEnum::DEFAULT);
 
-        $document = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::DOCUMENT));
+        $document = new ItemConfig();
         $document
+            ->setEquipmentName(ItemEnum::DOCUMENT)
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
             ->setMechanics([$documentMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -120,8 +114,12 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($readDocument)
             ->buildName(ItemEnum::COMMANDERS_MANUAL, GameConfigEnum::DEFAULT);
 
-        $commandersManual = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::COMMANDERS_MANUAL));
+        $commandersManual = new ItemConfig();
         $commandersManual
+            ->setEquipmentName(ItemEnum::COMMANDERS_MANUAL)
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
             ->setMechanics([$commandersManualMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -136,8 +134,12 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($readDocument)
             ->buildName(ItemEnum::MUSH_RESEARCH_REVIEW, GameConfigEnum::DEFAULT);
 
-        $mushResearch = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::MUSH_RESEARCH_REVIEW));
+        $mushResearch = new ItemConfig();
         $mushResearch
+            ->setEquipmentName(ItemEnum::MUSH_RESEARCH_REVIEW)
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
             ->setMechanics([$mushResearchMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);
@@ -152,8 +154,12 @@ class BookConfigFixtures extends Fixture implements DependentFixtureInterface
             ->addAction($readDocument)
             ->buildName(ItemEnum::POST_IT, GameConfigEnum::DEFAULT);
 
-        $postIt = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ItemEnum::POST_IT));
+        $postIt = new ItemConfig();
         $postIt
+            ->setEquipmentName(ItemEnum::POST_IT)
+            ->setIsStackable(true)
+            ->setIsFireDestroyable(true)
+            ->setIsFireBreakable(false)
             ->setMechanics([$postItMechanic])
             ->setActionConfigs($actions)
             ->buildName(GameConfigEnum::DEFAULT);

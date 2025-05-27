@@ -27,13 +27,13 @@ class DroneTasksHandler
         private TakeoffTask $takeoffTask,
         private ShootHunterTask $shootHunterTask,
         private LandTask $landTask,
-        private MoveTask $moveTask
+        private MoveInRandomAdjacentRoomTask $moveInRandomAdjacentRoomTask
     ) {
         $extinguishFireTask->setNextDroneTask($repairBrokenEquipmentTask);
         $repairBrokenEquipmentTask->setNextDroneTask($takeoffTask);
         $takeoffTask->setNextDroneTask($shootHunterTask);
         $shootHunterTask->setNextDroneTask($landTask);
-        $landTask->setNextDroneTask($moveTask);
+        $landTask->setNextDroneTask($moveInRandomAdjacentRoomTask);
     }
 
     public function execute(Drone $drone, \DateTime $time): void
@@ -41,9 +41,7 @@ class DroneTasksHandler
         $this->applyTurboUpgrade($drone, $time);
 
         // Each task will call the next one if it cannot be executed, starting with the first one.
-        while ($drone->isOperational()) {
-            $this->extinguishFireTask->execute($drone, $time);
-        }
+        $this->extinguishFireTask->execute($drone, $time);
     }
 
     private function applyTurboUpgrade(Drone $drone, \DateTime $time): void

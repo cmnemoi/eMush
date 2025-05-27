@@ -10,7 +10,7 @@ import { messages, defaultLocale } from '@/i18n';
 import { mixin } from './mixin/mixin';
 import { plugin as VueTippy } from 'vue-tippy';
 import UUID from "vue3-uuid";
-import { VueHeadMixin, createHead } from '@unhead/vue/client';
+import { VueHeadMixin, createHead } from '@unhead/vue';
 
 // Set the base URL of the API
 ApiService.init(import.meta.env.VITE_APP_API_URL!);

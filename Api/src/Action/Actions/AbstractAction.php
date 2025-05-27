@@ -13,14 +13,12 @@ use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\AdminAction;
-use Mush\Action\Validator\AggressivePreMush;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasAction;
 use Mush\Action\Validator\IsActionProviderOperational;
 use Mush\Action\Validator\ModifierPreventAction;
 use Mush\Action\Validator\PlayerAlive;
 use Mush\Action\Validator\PlayerCanAffordPoints;
-use Mush\Action\Validator\PlayerMutated;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\EventServiceInterface;
@@ -82,12 +80,10 @@ abstract class AbstractAction
     {
         $metadata->addConstraint(new PlayerAlive(['groups' => ['visibility']]));
         $metadata->addConstraint(new HasAction(['groups' => ['visibility']]));
-        $metadata->addConstraint(new PlayerMutated(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::MUTATED]));
         $metadata->addConstraint(new PlayerCanAffordPoints(['groups' => ['execute']]));
         $metadata->addConstraint(new ModifierPreventAction(['groups' => ['execute'], 'message' => ActionImpossibleCauseEnum::SYMPTOMS_ARE_PREVENTING_ACTION]));
         $metadata->addConstraint(new IsActionProviderOperational(['groups' => ['execute']]));
         $metadata->addConstraint(new AdminAction(['groups' => [ClassConstraint::VISIBILITY]]));
-        $metadata->addConstraint(new AggressivePreMush(['groups' => ['execute']]));
     }
 
     public function isVisible(): bool
@@ -123,7 +119,8 @@ abstract class AbstractAction
             return new Error($reason);
         }
 
-        $result = $this->getActionResult();
+        $result = $this->checkResult();
+        $result->setVisibility($this->actionConfig->getVisibility($result->getName()));
 
         $preActionEvent = new ActionEvent(
             actionConfig: $this->actionConfig,
@@ -182,16 +179,6 @@ abstract class AbstractAction
     public function getActionProvider(): ActionProviderInterface
     {
         return $this->actionProvider;
-    }
-
-    public function getGameEquipmentActionProvider(): GameEquipment
-    {
-        return $this->actionProvider instanceof GameEquipment ? $this->actionProvider : throw new \InvalidArgumentException('Action provider is not a GameEquipment.');
-    }
-
-    public function itemActionProvider(): GameItem
-    {
-        return $this->actionProvider instanceof GameItem ? $this->actionProvider : throw new \InvalidArgumentException('Action provider is not a GameItem.');
     }
 
     public function getActionPointCost(): int
@@ -287,9 +274,9 @@ abstract class AbstractAction
         return \in_array($tag, $this->getTags(), true);
     }
 
-    public function isAdminAction(): bool
+    public function isNotAdminAction(): bool
     {
-        return \in_array(ActionTypeEnum::ACTION_ADMIN->toString(), $this->getActionConfig()->getTypes(), true);
+        return \in_array(ActionTypeEnum::ACTION_ADMIN, $this->getActionConfig()->getTypes(), true) === false;
     }
 
     abstract public function support(?LogParameterInterface $target, array $parameters): bool;
@@ -297,21 +284,4 @@ abstract class AbstractAction
     abstract protected function checkResult(): ActionResult;
 
     abstract protected function applyEffect(ActionResult $result): void;
-
-    protected function getParameterOrThrow(string $key): mixed
-    {
-        return $this->parameters[$key] ?? throw new \InvalidArgumentException("Parameter {$key} is not set.");
-    }
-
-    private function getActionResult(): ActionResult
-    {
-        $result = $this->checkResult();
-
-        $result->setActionProvider($this->actionProvider);
-        $result->setPlayer($this->player);
-        $result->setTarget($this->target);
-        $result->setVisibility($this->actionConfig->getVisibility($result->getName()));
-
-        return $result;
-    }
 }

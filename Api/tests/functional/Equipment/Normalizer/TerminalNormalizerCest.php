@@ -2,17 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\functional\Equipment\Normalizer;
+namespace Mush\Tests\functional\Equipment\Normalizer;
 
-use Codeception\Attribute\DataProvider;
-use Codeception\Example;
+use Mush\Action\Actions\Hide;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\TranslationService;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
@@ -36,6 +34,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     private TranslationService $translationService;
     private PlayerService $playerService;
     private NormalizerInterface $normalizer;
+    private Hide $hideAction;
     private Project $pilgredProject;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
@@ -50,6 +49,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->terminalNormalizer = $I->grabService(TerminalNormalizer::class);
         $this->terminalNormalizer->setNormalizer($this->normalizer);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
+        $this->hideAction = $I->grabService(Hide::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -59,18 +59,13 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->isChunPresentText = $this->translationService->translate(
             key: 'research_laboratory.chun_present',
             parameters: [],
-            domain: 'terminal',
-            language: $this->daedalus->getLanguage(),
+            domain: 'terminal'
         );
         $this->isAnyMushDeadText = $this->translationService->translate(
             key: 'research_laboratory.mush_dead',
             parameters: [],
-            domain: 'terminal',
-            language: $this->daedalus->getLanguage(),
+            domain: 'terminal'
         );
-        $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);
-
-        $this->givenGameHasStarted();
     }
 
     public function testShouldNormalizePilgredTerminal(FunctionalTester $I): void
@@ -188,7 +183,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
         $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
@@ -203,7 +198,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     public function testShouldNormalizeWithExtraInfosIfThereAreNoProposedProjects(FunctionalTester $I): void
     {
         // given I have 1 not proposed NERON project
-        $this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR);
+        $this->daedalus->getProjectByName(ProjectName::FIRE_SENSOR, $I);
 
         // given I have a NERON's core terminal
         $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -229,7 +224,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
         $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
@@ -276,7 +271,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(expected: EquipmentEnum::AUXILIARY_TERMINAL, actual: $normalizedTerminal['key']);
         $I->assertEquals(expected: 'Cœur de NERON auxiliaire', actual: $normalizedTerminal['name']);
         $I->assertEquals(
-            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
+            expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : si plus d'un projet avance en parallèle, le premier fini annulera les progrès des autres.",
             actual: $normalizedTerminal['tips']
         );
         $I->assertEquals(
@@ -334,24 +329,21 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 ActionEnum::TOGGLE_MAGNETIC_NET->value,
                 ActionEnum::TOGGLE_NERON_INHIBITION->value,
                 ActionEnum::TOGGLE_PLASMA_SHIELD->value,
-                ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value,
             ],
             actual: array_map(static fn ($action) => $action['key'], $normalizedTerminal['actions'])
         );
         $I->assertEquals(
             expected: [
                 'cpu_priority_name' => 'Priorité CPU',
-                'cpu_priority_description' => 'Contrôle la répartition des tranches CPU. Soit elle rend les projets ou recherches plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu\'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.',
+                'cpu_priority_description' => 'Contrôle la répartition des tranches CPU. Soit elle rend les projets plus faciles à réaliser, soit elle accroît le nombre de GeoDonnées fournies par les analyses de planètes, soit les CPU sont en mode paresseux et ne favorisent rien du tout.//Cette propriété ne peut être changée qu\'*une fois par jour et par personne* pour ne pas entraîner une surcharge cognitive de NERON.',
                 'crew_lock_name' => 'Verrou équipage',
-                'crew_lock_description' => ':point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.//:point: Verrouillage Recherche : les non-biologistes et non-médecins ne sont pas autorisés à participer à la Recherche scientifique.',
+                'crew_lock_description' => ':point: Verrouillage Pilotage : Les non-pilotes ne sont pas autorisés à piloter un Patrouilleur/Icarus.//:point: Verrouillage Projet : les non-concepteurs ne sont pas autorisés à participer au développement des projets.',
                 'plasma_shield_name' => 'Bouclier Plasma',
                 'plasma_shield_description' => 'Active le bouclier plasma.',
                 'magnetic_net_name' => 'Filet magnétique',
                 'magnetic_net_description' => 'Active le filet magnétique qui permet d\'abandonner les Patrouilleurs à leur triste sort. Ou pas...',
                 'neron_inhibition_name' => 'Entrave DMZ-CorePeace',
                 'neron_inhibition_description' => 'Active l\'inhibiteur de comportements de NERON. L\'inhibiteur permet de changer un certain nombre de comportements de NERON concernant l\'agressivité.',
-                'vocoded_announcements_name' => 'Annonces vocodées',
-                'vocoded_announcements_description' => 'Active la possibilité pour NERON de porter les messages de l\'Administrateur NERON.',
             ],
             actual: $normalizedTerminal['sectionTitles']
         );
@@ -368,14 +360,13 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'availableCpuPriorities' => [
                     ['key' => 'none', 'name' => 'Aucune'],
                     ['key' => 'astronavigation', 'name' => 'Astronavigation'],
+                    ['key' => 'defence', 'name' => 'Système de défense'],
                     ['key' => 'projects', 'name' => 'Projets'],
-                    ['key' => 'research', 'name' => 'Recherche'],
                 ],
                 'currentCpuPriority' => 'none',
                 'crewLocks' => [
                     ['key' => 'projects', 'name' => 'Projets'],
                     ['key' => 'piloting', 'name' => 'Pilotage'],
-                    ['key' => 'research', 'name' => 'Recherche'],
                 ],
                 'currentCrewLock' => 'piloting',
                 'plasmaShieldToggles' => [
@@ -392,11 +383,6 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'neronInhibitionToggles' => [
                     ['key' => 'active', 'name' => 'Oui'],
                     ['key' => 'inactive', 'name' => 'Non'],
-                ],
-                'areVocodedAnnouncementsActive' => false,
-                'vocodedAnnouncementsToggles' => [
-                    ['key' => 'active', 'name' => 'Autorisées'],
-                    ['key' => 'inactive', 'name' => 'Pas autorisées'],
                 ],
             ],
             actual: $normalizedTerminal['infos']
@@ -497,26 +483,6 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $I->assertNotEmpty($items);
     }
 
-    public function shouldNotNormalizePlacePersonalItems(FunctionalTester $I): void
-    {
-        $terminal = $this->givenLabTerminal();
-
-        $this->givenKuanTiHasItemsInInventory([ItemEnum::WALKIE_TALKIE]);
-
-        $this->gameEquipmentService->moveEquipmentTo(
-            equipment: $this->kuanTi->getEquipmentByNameOrThrow(ItemEnum::WALKIE_TALKIE),
-            newHolder: $terminal->getPlace(),
-        );
-
-        $this->givenKuanTiIsFocusedInResearchLab($terminal);
-
-        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
-
-        $items = $normalizedTerminal['items'];
-
-        $I->assertEmpty($items);
-    }
-
     public function testWhenNoRequirementIsMetThenShouldOnlySeeAnabolicsAndNarcoticsProject(FunctionalTester $I)
     {
         $this->givenChunIsNotInLab();
@@ -550,7 +516,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenAMushIsDeadShouldAddNewProjects(FunctionalTester $I): void
+    public function testWhenAMushIsDeadShouldAddNewProjects(FunctionalTester $I)
     {
         $this->givenChunIsNotInLab();
 
@@ -568,43 +534,6 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             ProjectName::MUSH_RACES,
             ProjectName::NARCOTICS_DISTILLER,
             ProjectName::PATULINE_SCRAMBLER,
-        ]);
-    }
-
-    #[DataProvider('deadCauseProvider')]
-    public function testSomeMushDeadCauseShouldNotUnlockNewProjects(FunctionalTester $I, Example $example): void
-    {
-        $this->givenChunIsNotInLab();
-
-        $this->givenAMushIsDeadForCause($example['cause'], $I);
-
-        $terminal = $this->givenLabTerminal();
-
-        $this->givenKuanTiIsFocusedInResearchLab($terminal);
-
-        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
-
-        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
-            ProjectName::ANABOLICS,
-            ProjectName::NARCOTICS_DISTILLER,
-        ]);
-    }
-
-    public function testAliveMushShouldNotUnlockProjects(FunctionalTester $I): void
-    {
-        $this->givenChunIsNotInLab();
-
-        $this->convertPlayerToMush($I, $this->kuanTi);
-
-        $terminal = $this->givenLabTerminal();
-
-        $this->givenKuanTiIsFocusedInResearchLab($terminal);
-
-        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
-
-        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
-            ProjectName::ANABOLICS,
-            ProjectName::NARCOTICS_DISTILLER,
         ]);
     }
 
@@ -664,57 +593,45 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function testWhenSchrodingerIsInPlayerInventoryShouldAddNewProject(FunctionalTester $I)
-    {
-        $this->givenChunIsNotInLab();
+    // TODO
+    // public function testWhenSchrodingerIsInPlayerInventoryShouldAddNewProject(FunctionalTester $I){
 
-        $terminal = $this->givenLabTerminal();
+    //     $this->givenChunIsNotInLab();
 
-        $this->givenKuanTiHasItemsInInventory([ItemEnum::SCHRODINGER]);
+    //     $terminal = $this->givenLabTerminal();
 
-        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+    //     $this->givenKuanTiHasItemsInInventory([ItemEnum::SCHRODINGER]);
 
-        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+    //     $this->givenKuanTiIsFocusedInResearchLab($terminal);
 
-        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
-            ProjectName::ANABOLICS,
-            ProjectName::NARCOTICS_DISTILLER,
-            ProjectName::NCC_CONTACT_LENSES,
-        ]);
-    }
+    //     $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
 
-    public function testWhenSchrodingerIsInLabShouldNotAddNewProject(FunctionalTester $I)
-    {
-        $this->givenChunIsNotInLab();
+    //     $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+    //         ProjectName::ANABOLICS,
+    //         ProjectName::NARCOTICS_DISTILLER,
+    //         ProjectName::NCC_CONTACT_LENSES,
+    //     ]);
+    // }
 
-        $terminal = $this->givenLabTerminal();
+    // public function testWhenSchrodingerIsInLabShouldNotAddNewProject(FunctionalTester $I){
 
-        $this->givenKuanTiHasItemsInInventory([]);
+    //     $this->givenChunIsNotInLab();
 
-        $this->givenLabHasEquipment([ItemEnum::SCHRODINGER]);
+    //     $terminal = $this->givenLabTerminal();
 
-        $this->givenKuanTiIsFocusedInResearchLab($terminal);
+    //     $this->givenKuanTiHasItemsInInventory([]);
 
-        $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
+    //     $this->givenLabHasEquipment([ItemEnum::SCHRODINGER]);
 
-        $this->thenProjectsShouldBe($I, $normalizedTerminal, [
-            ProjectName::ANABOLICS,
-            ProjectName::NARCOTICS_DISTILLER,
-        ]);
-    }
+    //     $this->givenKuanTiIsFocusedInResearchLab($terminal);
 
-    protected function deadCauseProvider(): array
-    {
-        return [
-            ['cause' => EndCauseEnum::QUARANTINE],
-            ['cause' => EndCauseEnum::ALIEN_ABDUCTED],
-        ];
-    }
+    //     $normalizedTerminal = $this->whenINormalizeTheTerminalForKuanTi($terminal);
 
-    private function givenGameHasStarted(): void
-    {
-        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
-    }
+    //     $this->thenProjectsShouldBe($I, $normalizedTerminal, [
+    //         ProjectName::ANABOLICS,
+    //         ProjectName::NARCOTICS_DISTILLER,
+    //     ]);
+    // }
 
     private function givenItemIsHidden($itemName)
     {
@@ -813,16 +730,6 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->playerService->killPlayer(
             player: $this->chun,
             endReason: EndCauseEnum::EXPLORATION,
-            time: new \DateTime(),
-        );
-    }
-
-    private function givenAMushIsDeadForCause(string $cause, FunctionalTester $I): void
-    {
-        $this->convertPlayerToMush($I, $this->player);
-        $this->playerService->killPlayer(
-            player: $this->player,
-            endReason: $cause,
             time: new \DateTime(),
         );
     }

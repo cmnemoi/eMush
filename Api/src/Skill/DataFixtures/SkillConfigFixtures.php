@@ -37,8 +37,8 @@ final class SkillConfigFixtures extends Fixture implements DependentFixtureInter
                 name: $skillConfigDto->name,
                 modifierConfigs: $this->getModifierConfigsFromDto($skillConfigDto),
                 actionConfigs: $this->getActionConfigsFromDto($skillConfigDto),
-                spawnEquipmentConfig: $this->getSpawnEquipmentConfigFromDto($skillConfigDto),
                 skillPointsConfig: $this->getSkillPointsConfigFromDto($skillConfigDto),
+                spawnEquipmentConfig: $this->getSpawnEquipmentConfigFromDto($skillConfigDto),
             );
             $manager->persist($skillConfig);
             $this->addReference($skillConfigDto->name->value, $skillConfig);

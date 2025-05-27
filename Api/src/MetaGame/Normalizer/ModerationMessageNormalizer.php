@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\MetaGame\Normalizer;
 
-use Mush\Chat\Entity\Message;
+use Mush\Communication\Entity\Message;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\TranslationServiceInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -15,7 +15,7 @@ final readonly class ModerationMessageNormalizer implements NormalizerInterface
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
-        return $data instanceof Message && \in_array('moderation_read', $context['groups'] ?? [], true) && $data->getParent() === null;
+        return $data instanceof Message && \in_array('moderation_read', $context['groups'] ?? [], true);
     }
 
     public function getSupportedTypes(?string $format): array
@@ -37,24 +37,19 @@ final readonly class ModerationMessageNormalizer implements NormalizerInterface
             $messageChildren[] = $this->normalize($child, $format, $context);
         }
 
-        $character = null;
-        if ($message->getNeron()) {
-            $character = CharacterEnum::NERON;
-        } elseif ($message->getAuthor()) {
+        if ($message->getAuthor()) {
             $character = $message->getAuthor()?->getCharacterConfig()->getName();
+        } else {
+            $character = null;
+            if ($message->getNeron()) {
+                $character = CharacterEnum::NERON;
+            }
         }
 
         $translationParameters = $message->getTranslationParameters();
-        $translatedAuthor = null;
         if ($message->getAuthor()) {
-            $translatedAuthor = $this->translationService->translate(
-                $message->getAuthor()?->getCharacterConfig()->getName(),
-                [],
-                'characters',
-                $language
-            );
             $translatedMessage = $message->getMessage();
-        } if ($message->isNeronMessage()) {
+        } elseif ($message->getNeron()) {
             $translatedMessage = $this->translationService->translate(
                 $message->getMessage(),
                 $translationParameters,
@@ -79,7 +74,7 @@ final readonly class ModerationMessageNormalizer implements NormalizerInterface
                     [],
                     'characters',
                     $language
-                ) . ($message->getNeron() && $message->getAuthor() ? " ({$translatedAuthor})" : ''),
+                ),
             ],
             'message' => $translatedMessage !== $message->getMessage() ? $translatedMessage . " ({$message->getMessage()})" : $translatedMessage,
             'date' => $message->getCreatedAt()?->format('d/m/Y H:i'),

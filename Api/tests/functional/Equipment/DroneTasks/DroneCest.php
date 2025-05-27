@@ -68,7 +68,6 @@ final class DroneCest extends AbstractFunctionalTest
             delta: 1,
             tags: [],
             time: new \DateTime(),
-            mode: VariableEventInterface::SET_VALUE,
         );
     }
 
@@ -350,8 +349,12 @@ final class DroneCest extends AbstractFunctionalTest
 
     public function firefighterShouldExtinguishFire(FunctionalTester $I): void
     {
+        $this->givenFrontCorridorExists($I);
+
         $this->givenFireInTheRoom();
+
         $this->givenDroneIsFirefighter();
+
         $this->givenDroneHas100PercentChanceToExtinguishFire($I);
 
         $this->whenDroneActs();
@@ -387,18 +390,19 @@ final class DroneCest extends AbstractFunctionalTest
         $this->givenDroneIsFirefighter();
         $this->givenDroneHas100PercentChanceToExtinguishFire($I);
         $this->givenDroneHasTurboUpgrade();
-        $this->givenFrontCorridorExists($I);
 
         $this->whenDroneActs();
 
         $this->thenFireShouldBeExtinguished($I);
-        $this->thenDroneShouldMoveToFrontCorridor($I);
+        $this->thenDroneShouldMove($I);
     }
 
     public function turboShouldPrintLog(FunctionalTester $I): void
     {
         $this->givenFireInTheRoom();
+
         $this->givenDroneIsFirefighter();
+
         $this->givenDroneHasTurboUpgrade();
 
         $this->whenDroneActs();
@@ -413,15 +417,6 @@ final class DroneCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
-    }
-
-    public function turboShouldAbortGracefullyIfNoneTaskIsApplicable(FunctionalTester $I): void
-    {
-        $this->givenDroneHasTurboUpgrade();
-
-        $this->whenDroneActs();
-
-        $I->expect('No infinite loop.');
     }
 
     public function pilotShouldTakeOff(FunctionalTester $I): void
@@ -464,31 +459,6 @@ final class DroneCest extends AbstractFunctionalTest
         $this->whenDroneActs();
 
         $this->thenDroneShouldBeInPatrolShipDockingPlace($I);
-    }
-
-    public function turboShouldMoveThenRepair(FunctionalTester $I): void
-    {
-        $this->givenDroneHasTurboUpgrade();
-        $this->givenFrontCorridorExists($I);
-        $mycoscan = $this->givenBrokenMycoscanInFrontCorridor($I);
-        $this->givenDroneHas100PercentChanceToRepairEquipment($mycoscan);
-
-        $this->whenDroneActs();
-
-        $this->thenDroneShouldBeInFrontCorridor($I);
-        $this->thenEquipmentShouldBeRepaired($mycoscan, $I);
-    }
-
-    public function sensorShouldFindPathToBrokenEquipmentAcrossMultipleRooms(FunctionalTester $I): void
-    {
-        $this->givenDroneHasTurboUpgrade();
-        $this->givenDroneHasSensorUpgrade();
-        $this->givenRoomPathToTurret($I);
-        $this->givenBrokenEquipmentInTurret($I);
-
-        $this->whenDroneActs();
-
-        $this->thenDroneShouldBeInRoom(RoomEnum::CENTRE_BRAVO_TURRET, $I);
     }
 
     private function givenABrokenDoor(FunctionalTester $I): Door
@@ -612,24 +582,6 @@ final class DroneCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenBrokenMycoscanInFrontCorridor(): GameEquipment
-    {
-        $mycoscan = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::MYCOSCAN,
-            equipmentHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_CORRIDOR),
-            reasons: [],
-            time: new \DateTime(),
-        );
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $mycoscan,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        return $mycoscan;
-    }
-
     private function whenDroneActs(): void
     {
         $this->droneTasksHandler->execute($this->drone, new \DateTime());
@@ -637,12 +589,20 @@ final class DroneCest extends AbstractFunctionalTest
 
     private function thenEquipmentShouldBeRepaired(GameEquipment $equipment, FunctionalTester $I): void
     {
-        $I->assertFalse($equipment->hasStatus(EquipmentStatusEnum::BROKEN), \sprintf('Equipment %s should not be broken', $equipment->getLogName()));
+        $I->assertFalse($equipment->hasStatus(EquipmentStatusEnum::BROKEN));
     }
 
     private function thenFireShouldBeExtinguished(FunctionalTester $I): void
     {
         $I->assertFalse($this->chun->getPlace()->hasStatus(StatusEnum::FIRE));
+    }
+
+    private function thenDroneShouldMove(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY)->getName(),
+            actual: $this->drone->getPlace()->getName(),
+        );
     }
 
     private function thenDroneShouldBeInPatrolShipPlace(FunctionalTester $I): void
@@ -655,7 +615,7 @@ final class DroneCest extends AbstractFunctionalTest
 
     private function thenHunterShouldBeShot(FunctionalTester $I): void
     {
-        $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
+        $hunter = $this->daedalus->getAttackingHunters()->first();
 
         $I->assertLessThan(
             expected: $hunter->getHunterConfig()->getInitialHealth(),
@@ -671,77 +631,11 @@ final class DroneCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenDroneShouldMoveToFrontCorridor(FunctionalTester $I): void
-    {
-        $I->assertEquals(
-            expected: RoomEnum::FRONT_CORRIDOR,
-            actual: $this->drone->getPlace()->getName(),
-        );
-    }
-
-    private function thenDroneShouldBeInFrontCorridor(FunctionalTester $I): void
-    {
-        $I->assertEquals(
-            expected: RoomEnum::FRONT_CORRIDOR,
-            actual: $this->drone->getPlace()->getName(),
-        );
-    }
-
     private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void
     {
         $droneInfo = $drone->getDroneInfo();
         $ref = new \ReflectionClass($droneInfo);
         $ref->getProperty('nickName')->setValue($droneInfo, $nickName);
         $ref->getProperty('serialNumber')->setValue($droneInfo, $serialNumber);
-    }
-
-    private function givenDroneHasSensorUpgrade(): void
-    {
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::SENSOR_DRONE_UPGRADE,
-            holder: $this->drone,
-            tags: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function givenRoomPathToTurret(FunctionalTester $I): void
-    {
-        // Create front corridor connected to laboratory
-        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
-        Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
-
-        // Create medlab connected to laboratory
-        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
-        Door::createFromRooms($this->chun->getPlace(), $medlab);
-
-        // Create turret connected to medlab
-        $turret = $this->createExtraPlace(RoomEnum::CENTRE_BRAVO_TURRET, $I, $this->daedalus);
-        Door::createFromRooms($medlab, $turret);
-    }
-
-    private function givenBrokenEquipmentInTurret(FunctionalTester $I): void
-    {
-        $turret = $this->daedalus->getPlaceByName(RoomEnum::CENTRE_BRAVO_TURRET);
-        $terminal = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::AUXILIARY_TERMINAL,
-            equipmentHolder: $turret,
-            reasons: [],
-            time: new \DateTime(),
-        );
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $terminal,
-            tags: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function thenDroneShouldBeInRoom(string $roomName, FunctionalTester $I): void
-    {
-        $I->assertEquals(
-            expected: $roomName,
-            actual: $this->drone->getPlace()->getName()
-        );
     }
 }

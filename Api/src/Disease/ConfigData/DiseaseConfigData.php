@@ -65,7 +65,7 @@ class DiseaseConfigData
             'override' => [],
             'modifierConfigs' => [
                 'cat_sneezing_on_move_random16',
-                'cat_allergy_on_take_schrodinger',
+                'cat_allergy_on_take_schrodinger_random16',
             ],
         ],
         [
@@ -1018,9 +1018,4 @@ class DiseaseConfigData
             ],
         ],
     ];
-
-    public static function getByName(string $name): array
-    {
-        return current(array_filter(self::$dataArray, static fn ($data) => $data['diseaseName'] === $name));
-    }
 }

@@ -125,31 +125,6 @@
                 <label :key="toggle.key">{{ toggle.name }}</label>
             </div>
         </section>
-        <section class="vocoded-announcement-section">
-            <Tippy tag="h3">
-                <img :src="getImgUrl('notes.gif')" />
-                {{ terminal.sectionTitles?.vocodedAnnouncementName }}
-                <template #content>
-                    <h1 v-html="formatText(terminal.sectionTitles?.vocodedAnnouncementName)" />
-                    <p v-html="formatText(terminal.sectionTitles?.vocodedAnnouncementDescription)" />
-                </template>
-            </Tippy>
-            <div
-                class="radio-buttons-container"
-                v-for="toggle in terminal.infos?.vocodedAnnouncementsToggles"
-                :key="toggle.key"
-            >
-                <input
-                    type="radio"
-                    v-model="selectedVocodedAnnouncementToggle"
-                    :value="toggle.key"
-                    :checked="selectedVocodedAnnouncementToggle === toggle.key"
-                    :disabled="!toggleVocodedAnnouncementAction.canExecute"
-                    @change="executeTargetAction(terminal, toggleVocodedAnnouncementAction)"
-                >
-                <label :key="toggle.key">{{ toggle.name }}</label>
-            </div>
-        </section>
     </div>
 </template>
 
@@ -180,9 +155,6 @@ export default defineComponent ({
         toggleNeronInhibitionAction(): Action {
             return this.terminal.getActionByKeyOrThrow(ActionEnum.TOGGLE_NERON_INHIBITION);
         },
-        toggleVocodedAnnouncementAction(): Action {
-            return this.terminal.getActionByKeyOrThrow(ActionEnum.TOGGLE_VOCODED_ANNOUNCEMENTS);
-        },
         target(): Terminal {
             return this.terminal;
         }
@@ -212,8 +184,7 @@ export default defineComponent ({
             selectedCrewLock: '',
             selectedPlasmaShieldToggle: '',
             selectedMagneticNetToggle: '',
-            selectedNeronInhibitionToggle: '',
-            selectedVocodedAnnouncementToggle: ''
+            selectedNeronInhibitionToggle: ''
         };
     },
     beforeMount() {
@@ -240,12 +211,6 @@ export default defineComponent ({
         if (isMagneticNetActive !== null) {
             this.selectedMagneticNetToggle = isMagneticNetActive ? 'active' : 'inactive';
         }
-
-        const areVocodedAnnouncementsActive = this.terminal.infos?.areVocodedAnnouncementsActive;
-        if (areVocodedAnnouncementsActive === null) {
-            throw new Error(`No areVocodedAnnouncementsActive found for terminal ${this.terminal?.key}`);
-        }
-        this.selectedVocodedAnnouncementToggle = areVocodedAnnouncementsActive ? 'active' : 'inactive';
     }
 });
 </script>

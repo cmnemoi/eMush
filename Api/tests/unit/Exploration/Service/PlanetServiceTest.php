@@ -5,16 +5,21 @@ namespace Mush\Tests\unit\Exploration\Service;
 use Doctrine\ORM\EntityManager;
 use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\SpaceCoordinates;
 use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Exploration\Repository\PlanetRepository;
 use Mush\Exploration\Service\PlanetService;
+use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\DifficultyEnum;
 use Mush\Game\Service\RandomServiceInterface;
+use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Factory\PlayerFactory;
+use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -51,13 +56,19 @@ final class PlanetServiceTest extends TestCase
         );
 
         // Given a Daedalus
-        $this->daedalus = DaedalusFactory::createDaedalus();
+        $this->daedalus = new Daedalus();
+        $this->gameConfig = new GameConfig();
+        new DaedalusInfo($this->daedalus, $this->gameConfig, new LocalizationConfig());
+        $difficultyConfig = new DifficultyConfig();
+        $difficultyConfig->setDifficultyModes([DifficultyEnum::NORMAL => 1, DifficultyEnum::HARD => 5, DifficultyEnum::VERY_HARD => 10]);
+        $this->gameConfig->setDifficultyConfig($difficultyConfig);
 
         // Given a player on this Daedalus
-        $this->player = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
-        $this->player->getCharacterConfig()->setMaxDiscoverablePlanets(2);
-
-        $this->gameConfig = $this->daedalus->getGameConfig();
+        $this->player = new Player();
+        $this->player->setDaedalus($this->daedalus);
+        $characterConfig = new CharacterConfig();
+        $characterConfig->setMaxDiscoverablePlanets(2);
+        new PlayerInfo($this->player, new User(), $characterConfig);
     }
 
     /**

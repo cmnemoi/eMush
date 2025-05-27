@@ -81,16 +81,7 @@
             v-for="(hunter, key) in player?.spaceBattle?.hunters"
             :key="key">
             <div class="ship-img-container">
-                <img
-                    v-if="hunter.transportImage"
-                    :class="hunter.transportImage + '-img'"
-                    :src="getHunterImage(hunter.transportImage)"
-                    :alt="hunter.name">
-                <img
-                    v-else
-                    :class="hunter.key + '-img'"
-                    :src="getHunterImage(hunter.key)"
-                    :alt="hunter.name">
+                <img :class="hunter.key + '-img'" :src="getHunterImage(hunter)" :alt="hunter.key">
             </div>
             <div class="stats">
                 <p class="quantity">{{ hunter.health }}</p>
@@ -164,8 +155,8 @@ export default defineComponent({
             const randomIndex = Math.floor(Math.random() * turret.occupiers.length);
             return turret.occupiers[randomIndex];
         },
-        getHunterImage(hunterKey: string) : string {
-            return hunterEnum[hunterKey].image;
+        getHunterImage(hunter: Hunter) : string {
+            return hunterEnum[hunter.key].image;
         },
         isHit(hunter: Hunter) : boolean {
             return this.isHunterBeenHit && hunter.id === this.targetedHunterId;
@@ -309,26 +300,6 @@ $hit-color: #fd1f07;
     .trax-img {
         top: -12px;
         left: -10px;
-    }
-
-    .transport_1-img {
-        top: -53px;
-        left: -30px;
-    }
-
-    .transport_2-img {
-        top: -32px;
-        left: -3px;
-    }
-
-    .transport_3-img {
-        top: -5px;
-        left: -8px;
-    }
-
-    .transport_4-img {
-        top: -5px;
-        left: -7px;
     }
 }
 

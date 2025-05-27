@@ -9,8 +9,6 @@
             <BiosTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.BIOS_TERMINAL)" :terminal="player.terminal" />
             <ProjectsTerminal v-else-if="player.isFocusedOnProjectsTerminal() || player.isFocusedOnPilgredTerminal()" :terminal="player.terminal" />
             <ResearchLabTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.RESEARCH_LAB_TERMINAL)" :terminal="player.terminal" />
-            <CalculatorTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.CALCULATOR)" :terminal="player.terminal" />
-            <CommunicationsTerminal v-else-if="player.isFocusedOnTerminal(TerminalEnum.COMMUNICATIONS_TERMINAL)" :terminal="player.terminal" />
         </div>
         <TerminalExitButton :terminal="player.terminal" />
     </div>
@@ -29,8 +27,6 @@ import { defineComponent } from "vue";
 import { TerminalEnum } from "@/enums/terminal.enum";
 import { Player } from "@/entities/Player";
 import { getImgUrl } from "@/utils/getImgUrl";
-import CalculatorTerminal from "./CalculatorTerminal.vue";
-import CommunicationsTerminal from "./CommunicationsTerminal.vue";
 
 export default defineComponent ({
     name: "TerminalPanel",
@@ -42,9 +38,7 @@ export default defineComponent ({
         BlockOfPostItTerminal,
         BiosTerminal,
         ProjectsTerminal,
-        ResearchLabTerminal,
-        CalculatorTerminal,
-        CommunicationsTerminal
+        ResearchLabTerminal
     },
     props: {
         player: {
@@ -99,7 +93,7 @@ export default defineComponent ({
         @extend %game-scrollbar;
     }
 
-    :deep(em) {
+    &::v-deep(em) {
         color: $red;
     }
 

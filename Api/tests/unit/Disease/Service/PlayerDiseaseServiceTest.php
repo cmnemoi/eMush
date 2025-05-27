@@ -6,7 +6,6 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Factory\DaedalusFactory;
-use Mush\Disease\ConfigData\DiseaseConfigData;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
@@ -14,6 +13,7 @@ use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Enum\DiseaseStatusEnum;
 use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\InjuryEnum;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;
 use Mush\Disease\Repository\InMemoryPlayerDiseaseRepository;
 use Mush\Disease\Service\PlayerDiseaseService;
@@ -175,7 +175,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(DiseaseEnum::ACID_REFLUX));
+        $diseaseConfig = new DiseaseConfig();
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
             ->setPlayer($player)
@@ -199,7 +199,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $player = new Player();
         $player->setDaedalus($daedalus);
 
-        $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_SHOULDER));
+        $diseaseConfig = new DiseaseConfig();
         $diseaseConfig->setOverride([InjuryEnum::BROKEN_SHOULDER]);
         $diseasePlayer = new PlayerDisease();
         $diseasePlayer
@@ -208,7 +208,8 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setDiseaseConfig($diseaseConfig)
             ->setDiseasePoint(1);
 
-        $diseaseConfig2 = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_SHOULDER));
+        $diseaseConfig2 = new DiseaseConfig();
+        $diseaseConfig2->setDiseaseName(InjuryEnum::BROKEN_SHOULDER);
         $diseasePlayer2 = new PlayerDisease();
         $diseasePlayer2
             ->setPlayer($player)
@@ -216,7 +217,6 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setDiseaseConfig($diseaseConfig2)
             ->setDiseasePoint(1);
         $player->addMedicalCondition($diseasePlayer2);
-        $this->playerDiseaseRepository->save($diseasePlayer2);
 
         $this->eventService
             ->shouldReceive('callEvent')
@@ -257,7 +257,6 @@ final class PlayerDiseaseServiceTest extends TestCase
             ->setPlayer($player)
             ->setStatus(DiseaseStatusEnum::ACTIVE)
             ->setResistancePoint(0);
-        $this->playerDiseaseRepository->save($diseasePlayer);
 
         $this->eventService->shouldReceive('callEvent')->once();
 
@@ -289,7 +288,7 @@ final class PlayerDiseaseServiceTest extends TestCase
 
     public function testHygienistShouldPreventPhysicialDiseaseCreation(): void
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus = $this->givenADaedalusWithDisease(DiseaseEnum::ACID_REFLUX);
 
         $player = $this->givenPlayerWithHygienistSkill($daedalus);
 
@@ -300,13 +299,35 @@ final class PlayerDiseaseServiceTest extends TestCase
 
     public function testHygienistShouldNotPreventDisorderCreation(): void
     {
-        $daedalus = DaedalusFactory::createDaedalus();
+        $daedalus = $this->givenADaedalusWithDisorder(DisorderEnum::AGORAPHOBIA);
 
         $player = $this->givenPlayerWithHygienistSkill($daedalus);
 
         $this->whenDiseaseIsCreatedForPlayer(DisorderEnum::AGORAPHOBIA, $player);
 
         $this->thenPlayerShouldHaveDisease($player, DisorderEnum::AGORAPHOBIA);
+    }
+
+    private function givenADaedalusWithDisease(string $diseaseName): Daedalus
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig->setDiseaseName($diseaseName);
+        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
+
+        return $daedalus;
+    }
+
+    private function givenADaedalusWithDisorder(string $disorderName): Daedalus
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+        $diseaseConfig = new DiseaseConfig();
+        $diseaseConfig
+            ->setDiseaseName($disorderName)
+            ->setType(MedicalConditionTypeEnum::DISORDER);
+        $daedalus->getGameConfig()->addDiseaseConfig($diseaseConfig);
+
+        return $daedalus;
     }
 
     private function givenPlayerWithHygienistSkill(Daedalus $daedalus): Player

@@ -14,7 +14,6 @@ use Mush\Modifier\DataFixtures\GearModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\InjuryModifierConfigFixtures;
 use Mush\Modifier\DataFixtures\StatusModifierConfigFixtures;
 use Mush\Modifier\Entity\Config\EventModifierConfig;
-use Mush\Modifier\Entity\Config\TriggerEventModifierConfig;
 use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Status\ConfigData\StatusConfigData;
@@ -22,7 +21,6 @@ use Mush\Status\Entity\Config\ContentStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
@@ -183,7 +181,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($reinforced);
 
-        /** @var TriggerEventModifierConfig $antisocialModifier */
+        /** @var VariableEventModifierConfig $antisocialModifier */
         $antisocialModifier = $this->getReference(StatusModifierConfigFixtures::ANTISOCIAL_MODIFIER);
 
         $antisocial = new StatusConfig();
@@ -194,17 +192,10 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($antisocial);
 
-        /** @var VariableEventModifierConfig $playerPlusOneDamageOnHit */
-        $playerPlusOneDamageOnHit = $this->getReference(ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT);
-
-        /** @var EventModifierConfig $mutePreventSpokenAction */
-        $mutePreventSpokenAction = $this->getReference(InjuryModifierConfigFixtures::PREVENT_SPOKEN);
-
         $berzerk = new StatusConfig();
         $berzerk
             ->setStatusName(PlayerStatusEnum::BERZERK)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$playerPlusOneDamageOnHit, $mutePreventSpokenAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($berzerk);
 
@@ -277,13 +268,10 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($gagged);
 
-        /** @var TriggerEventModifierConfig $germaphobeModifier */
-        $germaphobeModifier = $this->getReference(StatusModifierConfigFixtures::GERMAPHOBE_MODIFIER);
         $germaphobe = new StatusConfig();
         $germaphobe
             ->setStatusName(PlayerStatusEnum::GERMAPHOBE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$germaphobeModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($germaphobe);
 
@@ -310,17 +298,10 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($highlyInactive);
 
-        /** @var VariableEventModifierConfig $hyperactiveModifier */
-        $hyperactiveModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('hyperactive_modifier_for_player_+1movementPoint_on_new_cycle')
-        );
-        $manager->persist($hyperactiveModifier);
-
         $hyperactive = new StatusConfig();
         $hyperactive
             ->setStatusName(PlayerStatusEnum::HYPERACTIVE)
             ->setVisibility(VisibilityEnum::PUBLIC)
-            ->setModifierConfigs([$hyperactiveModifier])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($hyperactive);
 
@@ -474,6 +455,25 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($astronavigationNeronCpuPriority);
 
+        /** @var VariableEventModifierConfig $increasedMaxCharge */
+        $increasedMaxCharge = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_CHARGE);
+
+        /** @var VariableEventModifierConfig $increasedRechargeRate */
+        $increasedRechargeRate = $this->getReference(StatusModifierConfigFixtures::DEFENCE_NERON_CPU_PRIORITY_INCREASED_TURRET_RECHARGE_RATE);
+
+        /** @var array<int, VariableEventModifierConfig> $modifierConfigs */
+        $defenceModifierConfigs = [
+            $increasedRechargeRate,
+            $increasedMaxCharge,
+        ];
+        $defenceCpuPriority = new StatusConfig();
+        $defenceCpuPriority
+            ->setStatusName(DaedalusStatusEnum::DEFENCE_NERON_CPU_PRIORITY)
+            ->setModifierConfigs($defenceModifierConfigs)
+            ->setVisibility(VisibilityEnum::HIDDEN)
+            ->buildName(GameConfigEnum::DEFAULT);
+        $manager->persist($defenceCpuPriority);
+
         $mushTrapped = new StatusConfig();
         $mushTrapped
             ->setStatusName(PlaceStatusEnum::MUSH_TRAPPED->value)
@@ -568,11 +568,6 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $pilotDroneUpgrade->setModifierConfigs([$pilotDroneModifier]);
         $manager->persist($pilotDroneUpgrade);
 
-        $sensorDroneUpgrade = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(EquipmentStatusEnum::SENSOR_DRONE_UPGRADE . '_default')
-        );
-        $manager->persist($sensorDroneUpgrade);
-
         /** @var VariableEventModifierConfig $catOwnerModifierNiceCat */
         $catOwnerModifierNiceCat = $this->getReference('cat_owner_modifier_for_player_set_schrodinger_cant_hurt');
 
@@ -603,38 +598,10 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $fitfulSleep->setModifierConfigs([$fitfulSleepModifier]);
         $manager->persist($fitfulSleep);
 
-        $edenComputed = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(DaedalusStatusEnum::EDEN_COMPUTED . '_default')
+        $mushGenomeDiskFound = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND . '_default')
         );
-        $manager->persist($edenComputed);
-
-        /** @var TriggerEventModifierConfig $firstContactWithSolModifier */
-        $firstContactWithSolModifier = $this->getReference(ModifierNameEnum::PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS);
-        $linkWithSolEstablishedOnce = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(DaedalusStatusEnum::LINK_WITH_SOL_ESTABLISHED_ONCE . '_default')
-        );
-        $linkWithSolEstablishedOnce->setModifierConfigs([$firstContactWithSolModifier]);
-        $manager->persist($linkWithSolEstablishedOnce);
-
-        $ghostSample = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(DaedalusStatusEnum::GHOST_SAMPLE . '_default')
-        );
-        $manager->persist($ghostSample);
-
-        $ghostChun = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(DaedalusStatusEnum::GHOST_CHUN . '_default')
-        );
-        $manager->persist($ghostChun);
-
-        $aggroed = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(HunterStatusEnum::AGGROED . '_default')
-        );
-        $manager->persist($aggroed);
-
-        $beginner = StatusConfig::fromConfigData(
-            StatusConfigData::getByName(PlayerStatusEnum::BEGINNER . '_default')
-        );
-        $manager->persist($beginner);
+        $manager->persist($mushGenomeDiskFound);
 
         $gameConfig
             ->addStatusConfig($noGravity)
@@ -681,6 +648,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($screwedTalkie)
             ->addStatusConfig($inOrbit)
             ->addStatusConfig($astronavigationNeronCpuPriority)
+            ->addStatusConfig($defenceCpuPriority)
             ->addStatusConfig($mushTrapped)
             ->addStatusConfig($jukeboxSongStatus)
             ->addStatusConfig($hasLearnedSkill)
@@ -698,20 +666,15 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($upgradedFirefighter)
             ->addStatusConfig($pilotDroneUpgrade)
-            ->addStatusConfig($hasUsedOpportunistAsCommander)
+            ->addStatusConfig(statusConfig: $hasUsedOpportunistAsCommander)
             ->addStatusConfig($hasUsedOpportunistAsNeronManager)
             ->addStatusConfig($hasUsedOpportunistAsComManager)
             ->addStatusConfig($catOwner)
             ->addStatusConfig($catInfected)
             ->addStatusConfig($hasPettedCat)
             ->addStatusConfig($fitfulSleep)
-            ->addStatusConfig($edenComputed)
-            ->addStatusConfig($linkWithSolEstablishedOnce)
-            ->addStatusConfig($ghostSample)
-            ->addStatusConfig($ghostChun)
-            ->addStatusConfig($aggroed)
-            ->addStatusConfig($beginner)
-            ->addStatusConfig($sensorDroneUpgrade);
+            ->addStatusConfig($mushGenomeDiskFound);
+
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -771,16 +734,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_READ_MAGE_BOOK, $hasReadMageBook);
         $this->addReference(EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE, $upgradedFirefighter);
         $this->addReference(EquipmentStatusEnum::PILOT_DRONE_UPGRADE, $pilotDroneUpgrade);
-        $this->addReference(EquipmentStatusEnum::SENSOR_DRONE_UPGRADE, $sensorDroneUpgrade);
         $this->addReference(PlayerStatusEnum::CAT_OWNER, $catOwner);
         $this->addReference(EquipmentStatusEnum::CAT_INFECTED, $catInfected);
         $this->addReference(PlayerStatusEnum::HAS_PETTED_CAT, $hasPettedCat);
         $this->addReference(PlayerStatusEnum::FITFUL_SLEEP, $fitfulSleep);
-        $this->addReference(DaedalusStatusEnum::EDEN_COMPUTED, $edenComputed);
-        $this->addReference(DaedalusStatusEnum::GHOST_SAMPLE, $ghostSample);
-        $this->addReference(DaedalusStatusEnum::GHOST_CHUN, $ghostChun);
-        $this->addReference(HunterStatusEnum::AGGROED, $aggroed);
-        $this->addReference(PlayerStatusEnum::BEGINNER, $beginner);
+        $this->addReference(DaedalusStatusEnum::MUSH_GENOME_DISK_FOUND, $mushGenomeDiskFound);
 
         $manager->flush();
     }

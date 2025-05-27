@@ -482,7 +482,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         );
     }
 
-    public function closeExplorationShouldReturnOnlyTheIcarusWithTheAutoReturnProject(FunctionalTester $I): void
+    public function closeExplorationShouldReturnPlanetEquipmentInDaedalusWithAutoReturnIcarusProject(FunctionalTester $I): void
     {
         // given Auto Return Icarus project is finished
         $this->finishProject(
@@ -527,7 +527,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $this->explorationService->closeExploration($exploration, ['test']);
 
         // then I should see the steaks in Icarus Bay
-        $I->assertFalse(
+        $I->assertTrue(
             $this->daedalus
                 ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
                 ->hasEquipmentByName(GameRationEnum::ALIEN_STEAK)
@@ -545,104 +545,6 @@ final class ExplorationServiceCest extends AbstractExplorationTester
             $this->daedalus
                 ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
                 ->hasEquipmentByName(GearItemEnum::SPACESUIT)
-        );
-    }
-
-    public function closeExplorationShouldDestroyEverythingOnThePlanetIfExplorationFailed(FunctionalTester $I): void
-    {
-        // given a planet with 1 desert sector
-        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
-
-        // given Chun has a spacesuit
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::SPACESUIT,
-            equipmentHolder: $this->chun,
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given an exploration is created
-        $exploration = $this->createExploration(
-            planet: $planet,
-            explorators: new PlayerCollection([$this->chun]),
-        );
-
-        // given I have some steaks on the planet
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GameRationEnum::ALIEN_STEAK,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given Chun dies
-        $this->playerService->killPlayer(
-            player: $this->chun,
-            endReason: EndCauseEnum::INJURY,
-            time: new \DateTime(),
-        );
-
-        // when exploration is closed
-        $this->explorationService->closeExploration($exploration, ['test']);
-
-        // then the steaks should not be on the planet
-        $I->assertFalse(
-            $this->daedalus
-                ->getPlaceByNameOrThrow($this->daedalus->getPlanetPlace()->getName())
-                ->hasEquipmentByName(GameRationEnum::ALIEN_STEAK)
-        );
-
-        // then the icarus should not be on the planet
-        $I->assertFalse(
-            $this->daedalus
-                ->getPlaceByNameOrThrow($this->daedalus->getPlanetPlace()->getName())
-                ->hasEquipmentByName(EquipmentEnum::ICARUS)
-        );
-    }
-
-    public function closeExplorationShouldNotReturnPlanetEquipmentInDaedalusIfEveryoneIsLost(FunctionalTester $I): void
-    {
-        // given a planet with 1 desert sector
-        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
-
-        // given Chun has a spacesuit
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GearItemEnum::SPACESUIT,
-            equipmentHolder: $this->chun,
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given an exploration is created
-        $exploration = $this->createExploration(
-            planet: $planet,
-            explorators: new PlayerCollection([$this->chun]),
-        );
-
-        // given I have some steaks on the planet
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: GameRationEnum::ALIEN_STEAK,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given Chun is lost
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LOST,
-            holder: $this->chun,
-            tags: [],
-            time: new \DateTime(),
-        );
-
-        // when exploration is closed
-        $this->explorationService->closeExploration($exploration, ['test']);
-
-        // then I should see not Icarus in Icarus Bay
-        $I->assertFalse(
-            $this->daedalus
-                ->getPlaceByNameOrThrow(RoomEnum::ICARUS_BAY)
-                ->hasEquipmentByName(EquipmentEnum::ICARUS)
         );
     }
 
@@ -693,55 +595,6 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         );
 
         $I->assertSame($exploration->getNumberOfSectionsToVisit(), $scenario[1]);
-    }
-
-    public function closeExplorationShouldDeleteNonIcarusShipEvenWithAutoReturnProject(FunctionalTester $I): void
-    {
-        // given Auto Return Icarus project is finished
-        $this->finishProject(
-            project: $this->daedalus->getProjectByName(ProjectName::AUTO_RETURN_ICARUS),
-            author: $this->player,
-            I: $I,
-        );
-
-        // given a planet with 1 desert sector
-        $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
-
-        // given there is a non-Icarus ship on the planet
-        $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
-            equipmentHolder: $this->daedalus->getPlanetPlace(),
-            reasons: [],
-            time: new \DateTime(),
-        );
-
-        // given Chun is in Icarus Bay
-        $this->chun->changePlace($this->icarus->getPlace());
-
-        // given an exploration is created with the non-Icarus ship
-        $exploration = $this->explorationService->createExploration(
-            players: new PlayerCollection([$this->chun]),
-            explorationShip: $patrolShip,
-            numberOfSectorsToVisit: $planet->getSize(),
-            reasons: ['test'],
-        );
-
-        // given Chun dies
-        $this->playerService->killPlayer(
-            player: $this->chun,
-            endReason: EndCauseEnum::INJURY,
-            time: new \DateTime(),
-        );
-
-        // when exploration is closed
-        $this->explorationService->closeExploration($exploration, ['test']);
-
-        // then the non-Icarus ship should be deleted
-        $I->assertFalse(
-            $this->daedalus
-                ->getPlaceByNameOrThrow($this->daedalus->getPlanetPlace()->getName())
-                ->hasEquipmentByName(EquipmentEnum::PATROL_SHIP)
-        );
     }
 
     private function skillExplorationCycleIncrementDataProvider(): iterable

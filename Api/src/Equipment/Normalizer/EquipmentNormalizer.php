@@ -2,16 +2,14 @@
 
 namespace Mush\Equipment\Normalizer;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
-use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
-use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Plant;
@@ -32,12 +30,19 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
+    private TranslationServiceInterface $translationService;
+    private ConsumableDiseaseServiceInterface $consumableDiseaseService;
+    private EquipmentEffectServiceInterface $equipmentEffectService;
+
     public function __construct(
-        private ConsumableDiseaseServiceInterface $consumableDiseaseService,
-        private EquipmentEffectServiceInterface $equipmentEffectService,
-        private RebelBaseRepositoryInterface $rebelBaseRepository,
-        private TranslationServiceInterface $translationService,
-    ) {}
+        TranslationServiceInterface $translationService,
+        ConsumableDiseaseServiceInterface $consumableDiseaseService,
+        EquipmentEffectServiceInterface $equipmentEffectService
+    ) {
+        $this->translationService = $translationService;
+        $this->consumableDiseaseService = $consumableDiseaseService;
+        $this->equipmentEffectService = $equipmentEffectService;
+    }
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -88,7 +93,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'effects' => $this->getEquipmentEffects($equipment, $currentPlayer),
         ];
 
-        if ($equipment->shouldBeNormalizedAsItem()) {
+        if ($equipment->shouldBeNormalizedAsItem() || $equipment instanceof GameItem) {
             $normalizedEquipment['updatedAt'] = $equipment->getUpdatedAt();
         }
 
@@ -131,9 +136,6 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
         if ($player->canReadPlantProperties($equipment)) {
             return $this->getPlantEffects($equipment, $player->getDaedalus());
-        }
-        if ($equipment instanceof Drone) {
-            return $this->getDroneUpgrades($equipment, $player);
         }
 
         return [];
@@ -199,7 +201,6 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         $actionPoint = $consumableEffect->getActionPoint();
         if ($actionPoint) {
             $actionPoint += $this->getFrugivoreBonus($food, $player);
-            $actionPoint += $this->getSiriusRebelBaseBonus($food);
             $effects[] = $this->createEffectLine($actionPoint, 'action_point', $language);
         }
         $movementPoint = $consumableEffect->getMovementPoint();
@@ -280,12 +281,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
     private function getDefinition(GameEquipment $equipment, string $key, string $type, string $language): string
     {
-        $translationParameters = [];
-        if ($equipment->hasMechanicByName(EquipmentMechanicEnum::CONTAINER)) {
-            $translationParameters['quantity'] = $equipment->getUsedCharge(ActionEnum::OPEN_CONTAINER->toString())?->getCharge();
-        }
-
-        $description = $this->translationService->translate("{$key}.description", $translationParameters, $type, $language);
+        $description = $this->translationService->translate("{$key}.description", [], $type, $language);
 
         if (($blueprint = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
             foreach ($blueprint->getIngredients() as $name => $number) {
@@ -312,40 +308,5 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
 
         return 0;
-    }
-
-    private function getSiriusRebelBaseBonus(GameEquipment $food): int
-    {
-        $daedalus = $food->getDaedalus();
-
-        if (!$daedalus->hasModifierByModifierName(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)) {
-            return 0;
-        }
-
-        $siriusModifierConfig = $daedalus->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::SIRIUS_REBEL_BASE_MODIFIER)->getVariableModifierConfigOrThrow();
-        if (!\in_array($food->getName(), array_keys($siriusModifierConfig->getTagConstraints()), true)) {
-            return 0;
-        }
-
-        return (int) $siriusModifierConfig->getDelta();
-    }
-
-    private function getDroneUpgrades(Drone $drone, Player $player): array
-    {
-        if ($drone->isNotUpgraded()) {
-            return [];
-        }
-
-        $language = $player->getLanguage();
-
-        $upgrades = [];
-        foreach ($drone->getUpgrades() as $upgrade) {
-            $upgrades[] = $this->translationService->translate($upgrade->getName() . '.description', [], 'status', $language);
-        }
-
-        return [
-            'title' => $this->translationService->translate('current_upgrades', [], 'misc', $language),
-            'effects' => $upgrades,
-        ];
     }
 }

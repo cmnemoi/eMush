@@ -61,8 +61,6 @@ final class RetroactiveDirectModifierCest extends AbstractFunctionalTest
 
         $this->playerDisease = new PlayerDisease();
         $this->playerDisease->setPlayer($this->player)->setDiseaseConfig($diseaseConfig);
-        $I->haveInRepository($this->playerDisease);
-        $this->player->addMedicalCondition($this->playerDisease);
     }
 
     public function testDiseaseDirectModifierMaxHealth(FunctionalTester $I): void

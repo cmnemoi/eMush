@@ -17,11 +17,5 @@ services:
   Mush\Equipment\CycleHandler\:
     resource: '../CycleHandler/'
     tags: ['mush.equipment.cycle_handler']
-
-  Mush\Equipment\WeaponEffect\:
-    resource: '../WeaponEffect/'
-    tags: ['mush.equipment.weapon_effect_handler']
  
   Mush\Equipment\Repository\GameEquipmentRepositoryInterface: '@Mush\Equipment\Repository\GameEquipmentRepository'
-  Mush\Equipment\Repository\WeaponEventConfigRepositoryInterface: '@Mush\Equipment\Repository\WeaponEventConfigRepository'
-  Mush\Equipment\Repository\WeaponEffectConfigRepositoryInterface: '@Mush\Equipment\Repository\WeaponEffectConfigRepository'

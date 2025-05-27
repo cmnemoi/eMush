@@ -14,13 +14,13 @@ stages:
     - php -v
     - cd Api
     # Install all project dependencies
-    - composer install --ignore-platform-req=ext-protobuf
+    - composer install
     - cp .env.gitlab .env
 
 .php_with_db_template: &php_with_db_template
   extends: .php_template
   services:
-    - postgres:17.4-alpine
+    - postgres:16.3-alpine
   variables:
     POSTGRES_DB: emush_test
     POSTGRES_USER: runner
@@ -29,7 +29,7 @@ stages:
     - php -v
     - cd Api
     # Install all project dependencies
-    - composer install --ignore-platform-req=ext-protobuf
+    - composer install
     - cp .env.gitlab .env.test
     - cp .env.gitlab .env
     - bin/console doctrine:schema:update --complete -f
@@ -39,7 +39,7 @@ stages:
     - chmod go+r config/jwt/private.pem
 
 .node_template: &node_template
-  image: node:lts-slim
+  image: node:20-slim
   cache:
     paths:
       - node_modules/
@@ -47,19 +47,17 @@ stages:
     - cd App
     - yarn install
 
-check-mr-title:
+ # dummy job to check if the pipeline is valid or if there is no job to run
+check:
   stage: build
-  image:
-    name: debian:bookworm-slim
+  image: alpine:latest
   script:
-    - source ./.gitlab/scripts/conventional_mr_title.sh
-  rules:
-    - if: $CI_MERGE_REQUEST_ID
+    - echo "Pipeline is valid"
 
 build-front:
   stage: build
   needs: 
-    - job: check-mr-title
+    - job: check
       optional: true
   <<: *node_template
   script:
@@ -75,7 +73,8 @@ api-test-1:
   tags:
     - saas-linux-large-amd64
   needs: 
-    - job: check-mr-title
+    - job: check
+      optional: true
     - job: build-front
       optional: true
   script:
@@ -90,7 +89,8 @@ api-test-2:
   tags:
     - saas-linux-large-amd64
   needs: 
-    - job: check-mr-title
+    - job: check
+      optional: true
     - job: build-front
       optional: true
   script:
@@ -105,7 +105,8 @@ api-test-3:
   tags:
     - saas-linux-large-amd64
   needs: 
-    - job: check-mr-title
+    - job: check
+      optional: true
     - job: build-front
       optional: true
   script:
@@ -120,7 +121,8 @@ api-test-4:
   tags:
     - saas-linux-large-amd64
   needs: 
-    - job: check-mr-title
+    - job: check
+      optional: true
     - job: build-front
       optional: true
   script:
@@ -135,7 +137,8 @@ api-test-5:
   tags:
     - saas-linux-large-amd64
   needs: 
-    - job: check-mr-title
+    - job: check
+      optional: true
     - job: build-front
       optional: true
   script:
@@ -150,7 +153,8 @@ api-lint:
   tags: 
     - saas-linux-large-amd64
   needs:
-    - job: check-mr-title
+    - job: check
+      optional: true
     - job: build-front
       optional: true
   script:
@@ -163,7 +167,8 @@ translations-lint:
   <<: *php_template
   stage: test
   needs:
-    - job: check-mr-title
+    - job: check
+      optional: true
     - job: build-front
       optional: true
   script:
@@ -178,7 +183,9 @@ api-test-develop:
   stage: test
   tags:
     - saas-linux-large-amd64
-  needs:
+  needs: 
+    - job: check
+      optional: true
     - job: build-front
   script:
     - pecl install pcov && docker-php-ext-enable pcov
@@ -199,7 +206,8 @@ front-lint:
   <<: *node_template
   stage: test
   needs: 
-    - job: check-mr-title
+    - job: check
+      optional: true
     - job: build-front
       optional: true
   script:
@@ -212,7 +220,7 @@ front-test:
   <<: *node_template
   stage: test
   needs: 
-    - job: check-mr-title
+    - job: check
       optional: true
     - job: build-front
       optional: true

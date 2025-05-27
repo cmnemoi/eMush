@@ -44,8 +44,7 @@ class RoomEnum
     public const string PATROL_SHIP_ALPHA_2_WALLIS = 'patrol_ship_alpha_2_wallis';
     public const string PASIPHAE = 'pasiphae';
     public const string PLANET_DEPTHS = 'planet_depths';
-    public const string TABULATRIX_QUEUE = 'tabulatrix_queue';
-    public const string NULL = '';
+    public const string null = '';
 
     public static function getAllDaedalusRooms(): array
     {
@@ -114,15 +113,6 @@ class RoomEnum
             self::FRONT_BRAVO_TURRET,
             self::CENTRE_BRAVO_TURRET,
             self::REAR_BRAVO_TURRET,
-        ]);
-    }
-
-    public static function getCorridors(): ArrayCollection
-    {
-        return new ArrayCollection([
-            self::REAR_CORRIDOR,
-            self::FRONT_CORRIDOR,
-            self::CENTRAL_CORRIDOR,
         ]);
     }
 }

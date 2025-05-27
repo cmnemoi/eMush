@@ -28,16 +28,6 @@ class DiseaseCauseConfig
         $this->diseases = [];
     }
 
-    public static function fromConfigData(array $configData): self
-    {
-        $diseaseCauseConfig = new self();
-        $diseaseCauseConfig->setName($configData['name']);
-        $diseaseCauseConfig->setCauseName($configData['causeName']);
-        $diseaseCauseConfig->setDiseases($configData['diseases']);
-
-        return $diseaseCauseConfig;
-    }
-
     public function getId(): ?int
     {
         return $this->id;

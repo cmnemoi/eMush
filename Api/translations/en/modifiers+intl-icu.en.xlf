@@ -8,7 +8,7 @@
       </segment>
     </unit>
     <unit id="change.variable.decrease_on_player.new.cycle">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>change.variable.decrease_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Each cycle, lose **{quantity}** {emote}.}
@@ -59,7 +59,7 @@
       </segment>
     </unit>
     <unit id="roll.percentage_increase_cycle_disease">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>roll.percentage_increase_cycle_disease.description</source>
         <target>{quantity, select,
                     100 {Every cycle, fall ill.}
@@ -86,7 +86,7 @@
       </segment>
     </unit>
     <unit id="dirtiness_on_player.new.cycle">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>dirtiness_on_player.new.cycle.description</source>
         <target>{chance, select,
                     100 {Every cycle, makes you dirty.}
@@ -94,16 +94,10 @@
                     }</target>
       </segment>
     </unit>
-    <unit id="deaf_listen_on_read_message">
-      <segment id="description" state="translated">
-        <source>deaf_listen_on_read_message.description</source>
-        <target>Makes you deaf.</target>
-      </segment>
-    </unit>
     <unit id="deaf_speak_on_new_message">
       <segment id="description" state="translated">
         <source>deaf_speak_on_new_message.description</source>
-        <target>Removes volume control.</target>
+        <target>Makes you deaf.</target>
       </segment>
     </unit>
     <unit id="drooling_on_post.action">
@@ -124,16 +118,10 @@
         <target>Gives the symptom **Foaming Mouth**.</target>
       </segment>
     </unit>
-    <unit id="mute_prevent_messages_on_new_message">
+    <unit id="mute_modifier_on_new_message">
       <segment id="description" state="translated">
-        <source>mute_prevent_messages_on_new_message.description</source>
+        <source>mute_modifier_on_new_message.description</source>
         <target>Makes you mute.</target>
-      </segment>
-    </unit>
-    <unit id="mute_prevent_actions_on_pre.action.description">
-      <segment id="description" state="translated">
-        <source>mute_prevent_actions_on_pre.action.description</source>
-        <target>Prevents actions that require the ability to speak.</target>
       </segment>
     </unit>
     <unit id="sneezing_on_post.action">
@@ -170,18 +158,6 @@
       <segment id="description" state="translated">
         <source>septicemia_on_status.applied.description</source>
         <target>You will die if you become **Dirty**.</target>
-      </segment>
-    </unit>
-    <unit id="septicemia_on_post.action">
-      <segment id="description" state="translated">
-        <source>septicemia_on_post.action.description</source>
-        <target>You will die if you become **Dirty**.</target>
-      </segment>
-    </unit>
-    <unit id="septicemia_on_player.new.cycle">
-      <segment id="description" state="translated">
-        <source>septicemia_on_player.new.cycle.description</source>
-        <target>You will die if you stay **Dirty**.</target>
       </segment>
     </unit>
     <unit id="vomiting_on_post.action">
@@ -230,18 +206,6 @@
       <segment id="description" state="translated">
         <source>apply.cost_increase_if_player_in_room_four_people.description</source>
         <target>If there are at least **4** people in the room, each action costs **{quantity}** {emote} more.</target>
-      </segment>
-    </unit>
-    <unit id="apply.cost_increase_move_if_item_in_room_schrodinger">
-      <segment id="description" state="translated">
-        <source>apply.cost_increase_move_if_item_in_room_schrodinger.description</source>
-        <target>Each move costs **{quantity}** :pm: more with a cat present in the room.</target>
-      </segment>
-    </unit>
-    <unit id="apply.cost_increase_if_item_in_room_schrodinger">
-      <segment id="description" state="translated">
-        <source>apply.cost_increase_if_item_in_room_schrodinger.description</source>
-        <target>Each action costs **{quantity}** {emote} more with a cat present in the room.</target>
       </segment>
     </unit>
   </file>

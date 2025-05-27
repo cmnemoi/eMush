@@ -142,8 +142,7 @@ final class StatusServiceTest extends TestCase
         $chargeStatusConfig->setAutoRemove(true);
 
         $chargeStatus->setCharge(0);
-        $this->entityManager->shouldReceive('remove')->with($chargeStatus)->once();
-        $this->entityManager->shouldReceive('remove')->with(\Mockery::type('Mush\Status\Entity\StatusTarget'))->atLeast()->once();
+        $this->entityManager->shouldReceive('remove')->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->eventService->shouldReceive('callEvent')->once();
         $deleteEvent = new AbstractGameEvent([], new \DateTime());
@@ -388,7 +387,6 @@ final class StatusServiceTest extends TestCase
             ->setCharge(3);
 
         $this->entityManager->shouldReceive('remove')->with($attempt)->once();
-        $this->entityManager->shouldReceive('remove')->with(\Mockery::type('Mush\Status\Entity\StatusTarget'))->atLeast()->once();
         $this->entityManager->shouldReceive('flush')->once();
         $this->service->handleAttempt($player, ActionEnum::DISASSEMBLE->value, $actionResult, [], new \DateTime());
 

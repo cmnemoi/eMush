@@ -12,7 +12,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
-use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
@@ -33,25 +32,29 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
 
     public function handleNewCycle(GameEquipment $gameEquipment, \DateTime $dateTime): void
     {
-        if ($this->isNotJukebox($gameEquipment) || $gameEquipment->isNotOperational()) {
+        if ($gameEquipment->getName() !== $this->name) {
             return;
         }
 
         $jukebox = $gameEquipment;
-        $this->changeJukeboxSong($jukebox);
+        $daedalus = $jukebox->getDaedalus();
         $jukeboxPlayer = $jukebox->getCurrentJukeboxPlayer();
+
+        if ($jukebox->isNotOperational()) {
+            return;
+        }
+        if ($daedalus->projectIsNotFinished(ProjectName::BEAT_BOX)) {
+            return;
+        }
+
         if ($jukeboxPlayer?->canReachEquipment($jukebox)) {
             $this->applyJukeboxMoraleGainToPlayer($jukeboxPlayer, $dateTime);
         }
         $this->createJukeboxPlayedLog($jukebox, $dateTime);
+        $this->changeJukeboxSong($jukebox);
     }
 
     public function handleNewDay(GameEquipment $gameEquipment, \DateTime $dateTime): void {}
-
-    private function isNotJukebox(GameEquipment $gameEquipment): bool
-    {
-        return $gameEquipment->getName() !== $this->name;
-    }
 
     private function applyJukeboxMoraleGainToPlayer(Player $player, \DateTime $dateTime): void
     {
@@ -84,21 +87,18 @@ final class JukeboxCycleHandler extends AbstractCycleHandler
     {
         $daedalus = $jukebox->getDaedalus();
         $players = $daedalus->getPlayers();
-        $jukeboxPlayer = $jukebox->getCurrentJukeboxPlayer();
-
-        if ($this->areThereNoOtherCandidates($jukeboxPlayer, $players)) {
+        // If there are less than 2 players, we can't change the song to another player
+        if ($players->count() < 2) {
             return;
         }
 
+        $jukeboxPlayer = $jukebox->getCurrentJukeboxPlayer();
         $candidatePlayers = $jukeboxPlayer ? $players->getAllExcept($jukeboxPlayer)->toArray() : $players->toArray();
+
         $selectedPlayer = $this->getRandomElementsFromArray->execute($candidatePlayers, 1)->first();
 
         $jukebox->updateSongWithPlayerFavorite($selectedPlayer);
-        $this->gameEquipmentRepository->save($jukebox);
-    }
 
-    private function areThereNoOtherCandidates(?Player $currentJukeboxPlayer, PlayerCollection $players): bool
-    {
-        return $players->first() === $currentJukeboxPlayer && $players->count() < 2;
+        $this->gameEquipmentRepository->save($jukebox);
     }
 }

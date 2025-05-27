@@ -72,7 +72,6 @@ import small_takeoff_platform from "@/game/assets/tilemaps/small_takeoff_platfor
 import bay_door from "@/game/assets/tilemaps/bay_door.png";
 import yellow_lamp from "@/game/assets/tilemaps/yellow_lamp.png";
 import jukebox from "@/game/assets/tilemaps/jukebox.png";
-import support_drone from "@/game/assets/tilemaps/support_drone.png";
 import floor_lamp from "@/game/assets/tilemaps/floor_lamp.png";
 import magnetic_net from "@/game/assets/tilemaps/magnetic_net.png";
 import pasiphae from "@/game/assets/tilemaps/pasiphae.png";
@@ -180,7 +179,6 @@ import { Door } from "@/entities/Door";
 import { Planet } from "@/entities/Planet";
 import PatrolShipObject from "@/game/objects/patrolShipObject";
 import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
-import DroneObject from '@/game/objects/droneObject';
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -350,7 +348,6 @@ export default class DaedalusScene extends Phaser.Scene
         this.load.spritesheet('bay_door', bay_door, { frameWidth: 334, frameHeight: 230 });
         this.load.spritesheet('yellow_lamp', yellow_lamp, { frameWidth: 54, frameHeight: 69 });
         this.load.spritesheet('jukebox', jukebox, { frameWidth: 20, frameHeight: 31 });
-        this.load.spritesheet('support_drone', support_drone, { frameWidth: 22, frameHeight: 41 });
         this.load.spritesheet('floor_lamp', floor_lamp, { frameWidth: 32, frameHeight: 24 });
         this.load.spritesheet('magnetic_net', magnetic_net, { frameWidth: 48, frameHeight: 33 });
         this.load.spritesheet('pasiphae', pasiphae, { frameWidth: 106, frameHeight: 93 });
@@ -1053,8 +1050,6 @@ export default class DaedalusScene extends Phaser.Scene
 
         this.handleSpaceBattle(time, delta);
 
-        this.updateDroneAnimations(time, delta);
-
         if (this.targetHighlightObject !== undefined) {
             const worldPointer = this.input.mousePointer.updateWorldPoint(this.cameras.main);
             const pointerCoords = new CartesianCoordinates(worldPointer.worldX, worldPointer.worldY);
@@ -1268,18 +1263,5 @@ export default class DaedalusScene extends Phaser.Scene
         //     drawNeighbors: true,
         //     drawPortals: false
         // });
-    }
-
-    private updateDroneAnimations(time: number, delta: number): void
-    {
-        const sceneGameObjects = this.children.list;
-
-        for (let i=0; i < sceneGameObjects.length; i++) {
-            const gameObject = sceneGameObjects[i];
-
-            if (gameObject instanceof DroneObject) {
-                gameObject.update(time, delta);
-            }
-        }
     }
 }

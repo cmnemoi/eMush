@@ -9,15 +9,15 @@
 
 ### eMush API
 
-A REST API developed using [Symfony 6.4](https://symfony.com/doc/6.4/index.html) that manages the eMush game.
+An API developed using [Symfony 6.4](https://symfony.com/doc/6.4/index.html) that manages the eMush game.
 
 Please read [API.md](./Api/README.md) for details on the API architecture.
 
-### eMush App
+### eMush app
 
 A front-end developed using [VueJs 3](https://vuejs.org/guide/introduction.html).
 
-Please read [APP.md](./App/README.md) for details on the APP architecture.
+Please read [APP.md](./App/README.md) for details on the app architecture.
 
 ## Getting Started
 

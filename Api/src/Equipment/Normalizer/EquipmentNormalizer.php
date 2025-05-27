@@ -298,7 +298,6 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         if ($equipment instanceof Drone && $equipment->isUpgraded()) {
             $upgrades = '';
-            $language = $equipment->getDaedalus()->getLanguage();
 
             foreach ($equipment->getUpgrades() as $upgrade) {
                 $upgrades = $upgrades .
@@ -307,7 +306,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
                     $upgrade->getName() . '.description',
                     [],
                     'status',
-                    $language
+                    $language,
                 );
             }
             $description = "{$description}{$upgrades}";

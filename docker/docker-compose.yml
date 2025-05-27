@@ -29,7 +29,7 @@ services:
 
   #Database container
   mush_database:
-    image: postgres:17.2-alpine
+    image: postgres:17.5-alpine
     container_name: mush_database
     volumes:
       - ./Database:/docker-entrypoint-initdb.d
@@ -60,8 +60,8 @@ services:
       - CHOKIDAR_INTERVAL=100
       - YOUR_APP_WEB_HTTP_PORT=8080
 
-  musheternaltwin:
-    container_name: eternaltwin
+  mush_eternaltwin:
+    container_name: mush_eternaltwin
     build:
       context: ./Eternaltwin
       dockerfile: Dockerfile

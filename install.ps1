@@ -81,12 +81,12 @@ function Install-Postgres {
     
     # Create users and databases matching install.sh
     $queries = @"
-CREATE USER "mysql" WITH PASSWORD 'password';
-CREATE DATABASE "mush" WITH OWNER "mysql";
+CREATE USER "mysql" WITH PASSWORD 'password' IF NOT EXISTS;
+CREATE DATABASE "mush" WITH OWNER "mysql" IF NOT EXISTS;
 GRANT ALL PRIVILEGES ON DATABASE "mush" TO "mysql";
 
-CREATE USER "etwin.dev" WITH PASSWORD 'password';
-CREATE DATABASE "etwin.dev" WITH OWNER "etwin.dev";
+CREATE USER "etwin.dev" WITH PASSWORD 'password' IF NOT EXISTS;
+CREATE DATABASE "etwin.dev" WITH OWNER "etwin.dev" IF NOT EXISTS;
 GRANT ALL PRIVILEGES ON DATABASE "etwin.dev" TO "etwin.dev";
 
 \c etwin.dev
@@ -110,7 +110,7 @@ function Install-Frontend {
     Run-Command "choco install yarn -y"
 
     Log-Message "Setup front-end env variables..."
-    Run-Command "Copy-Item -Path App\.env.bare-metal -Destination App\.env"
+    Run-Command "Copy-Item -Path App\.env.bare-metal -Destination App\.env -Force"
 
     Log-Message "Installing front-end dependencies..."
     Set-Location App
@@ -121,7 +121,7 @@ function Install-Frontend {
 # Function to install Eternaltwin server
 function Install-Eternaltwin {
     Log-Message "Setup Eternaltwin env variables..."
-    Run-Command "Copy-Item -Path Eternaltwin\eternaltwin.bare-metal.toml -Destination Eternaltwin\eternaltwin.local.toml"
+    Run-Command "Copy-Item -Path Eternaltwin\eternaltwin.bare-metal.toml -Destination Eternaltwin\eternaltwin.local.toml -Force"
 
     Log-Message "Installing Eternaltwin server dependencies..."
     Set-Location Eternaltwin
@@ -156,17 +156,21 @@ function Install-Backend {
     }
 
     Log-Message "Installing Composer..."
-    Run-Command "choco install composer -y"
+    Run-Command "choco install composer --version=$COMPOSER_VERSION -y"
 
     Log-Message "Creating JWT certificates..."
     Set-Location Api
-    Run-Command "openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096"
-    Run-Command "openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout"
+    if (-not (Test-Path config\jwt\private.pem)) {
+        Run-Command "openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096"
+    }
+    if (-not (Test-Path config\jwt\public.pem)) {
+        Run-Command "openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout"
+    }
     Run-Command "icacls config\jwt\private.pem /grant Everyone:R"
 
     Log-Message "Setup back-end env variables..."
-    Run-Command "Copy-Item -Path .env.bare-metal -Destination .env.local"
-    Run-Command "Copy-Item -Path .env.bare-metal.test -Destination .env.test.local"
+    Run-Command "Copy-Item -Path .env.bare-metal -Destination .env.local -Force"
+    Run-Command "Copy-Item -Path .env.bare-metal.test -Destination .env.test.local -Force"
 
     Log-Message "Installing back-end dependencies..."
     Run-Command "composer install"

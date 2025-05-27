@@ -1,9 +1,9 @@
 # PowerShell script for uninstalling the project on Windows
 
 # Define variables
-$NODE_VERSION = "22.9.0"
-$POSTGRES_VERSION = "16"
-$PHP_VERSION = "8.3.12"
+$NODE_VERSION = "22.16.0"
+$POSTGRES_VERSION = "17"
+$PHP_VERSION = "8.3.21"
 $LOG_FILE = "uninstall.log"
 
 # Function to log messages
@@ -74,14 +74,13 @@ function Uninstall-Postgres {
 
 # Function to uninstall Node.js and related tools
 function Uninstall-Node {
-    Log-Message "Uninstalling nvm and related tools..."
+    Log-Message "Uninstalling Node.js and related tools..."
     
     # Remove Node.js
-    Run-Command "choco uninstall nodejs -y"
+    Run-Command "choco uninstall nodejs -y --version=$NODE_VERSION"
     Run-Command "choco uninstall yarn -y"
     
     # Remove related directories
-    Run-Command "Remove-Item -Path '$env:USERPROFILE\.nvm' -Recurse -Force -ErrorAction SilentlyContinue"
     Run-Command "Remove-Item -Path '$env:APPDATA\npm' -Recurse -Force -ErrorAction SilentlyContinue"
     Run-Command "Remove-Item -Path '$env:APPDATA\npm-cache' -Recurse -Force -ErrorAction SilentlyContinue"
 }
@@ -104,7 +103,7 @@ function Uninstall-PHP {
     )
     
     foreach ($ext in $extensions) {
-        Run-Command "choco uninstall $ext -y"
+        Run-Command "choco uninstall $ext -y --version=$PHP_VERSION"
     }
     
     Log-Message "Uninstalling Composer..."
@@ -118,9 +117,11 @@ function Uninstall-PHP {
 # Function to clean up remaining packages
 function Remove-UnusedPackages {
     Log-Message "Cleaning up unused packages..."
-    Run-Command "choco upgrade all -y"  # Updates package list
-    Run-Command "choco source remove -n=chocolatey"  # Removes outdated sources
     Run-Command "choco cleanup"  # Cleans up old versions
+    
+    # NOTE: Manual cleanup for PostgreSQL databases and users might be required.
+    # This script does not handle dropping specific databases (mush, etwin.dev) or users (mysql, etwin.dev).
+    # This would require connecting to the PostgreSQL server with appropriate credentials and executing SQL commands.
 }
 
 # Main uninstallation process

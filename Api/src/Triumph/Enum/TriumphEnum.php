@@ -12,7 +12,7 @@ enum TriumphEnum: string
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
     case RETURN_TO_SOL = 'return_to_sol';
     case SOL_MUSH_INTRUDER = 'sol_mush_intruder';
-    case NULL = '';
+    case NONE = '';
 
     public function toConfigKey(string $configKey): string
     {

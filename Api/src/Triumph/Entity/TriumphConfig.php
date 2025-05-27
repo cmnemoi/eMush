@@ -22,10 +22,10 @@ class TriumphConfig
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $key;
 
-    #[ORM\Column(type: 'string', nullable: false, enumType: TriumphEnum::class, options: ['default' => TriumphEnum::NULL])]
+    #[ORM\Column(type: 'string', nullable: false, enumType: TriumphEnum::class, options: ['default' => TriumphEnum::NONE])]
     private TriumphEnum $name;
 
-    #[ORM\Column(type: 'string', nullable: false, enumType: TriumphScope::class, options: ['default' => TriumphScope::NULL])]
+    #[ORM\Column(type: 'string', nullable: false, enumType: TriumphScope::class, options: ['default' => TriumphScope::NONE])]
     private TriumphScope $scope;
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
@@ -40,7 +40,7 @@ class TriumphConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $quantity;
 
-    #[ORM\Column(type: 'string', nullable: false, enumType: TriumphVisibility::class, options: ['default' => TriumphVisibility::NULL])]
+    #[ORM\Column(type: 'string', nullable: false, enumType: TriumphVisibility::class, options: ['default' => TriumphVisibility::NONE])]
     private TriumphVisibility $visibility;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]

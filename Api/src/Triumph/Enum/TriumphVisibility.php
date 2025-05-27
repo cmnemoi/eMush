@@ -8,7 +8,7 @@ enum TriumphVisibility: string
 {
     case PRIVATE = 'private';
     case HIDDEN = 'hidden';
-    case NULL = '';
+    case NONE = '';
 
     public function toString(): string
     {

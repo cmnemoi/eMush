@@ -10,7 +10,9 @@ enum TriumphScope: string
     case ALL_ALIVE_MUSHS = 'all_alive_mushs';
     case ALL_ALIVE_HUMANS = 'all_alive_humans';
     case ALL_MUSHS = 'all_mushs';
+
+    /** Use to target a specific character (defined in the triumph config `target` attribute) */
     case PERSONAL = 'personal';
 
-    case NULL = '';
+    case NONE = '';
 }

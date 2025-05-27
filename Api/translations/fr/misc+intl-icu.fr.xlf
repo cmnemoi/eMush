@@ -125,11 +125,5 @@
         <target>l'archive de l'expédition</target>
       </segment>
     </unit>
-    <unit id="drone_upgrades">
-      <segment id="current_upgrades" state="initial">
-        <source>current_upgrades</source>
-        <target>Améliorations actuelles :</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

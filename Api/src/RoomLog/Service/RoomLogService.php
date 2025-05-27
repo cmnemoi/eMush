@@ -11,6 +11,7 @@ use Mush\Chat\Enum\NeronPersonalitiesEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\ValueObject\GameDate;
+use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -292,6 +293,19 @@ final class RoomLogService implements RoomLogServiceInterface
 
     private function createExamineLog(Player $player, ?LogParameterInterface $actionParameter): RoomLog
     {
+        if ($actionParameter instanceof Drone) {
+            $logParameters = $this->getDroneLogParameters($actionParameter);
+
+            return $this->createLog(
+                $actionParameter->getLogName() . '.examine',
+                $player->getPlace(),
+                VisibilityEnum::PRIVATE,
+                'items',
+                $player,
+                $logParameters,
+            );
+        }
+
         if ($actionParameter instanceof GameItem) {
             return $this->createLog(
                 $actionParameter->getLogName() . '.examine',
@@ -316,6 +330,27 @@ final class RoomLogService implements RoomLogServiceInterface
         }
 
         throw new \LogicException('examine action is not implemented for this type of entity');
+    }
+
+    private function getDroneLogParameters(Drone $drone): array
+    {
+        $upgrades = '';
+
+        if ($drone->isUpgraded()) {
+            $language = $drone->getDaedalus()->getLanguage();
+            foreach ($drone->getUpgrades() as $upgrade) {
+                $upgrades = $upgrades .
+                '//' .
+                $this->translationService->translate(
+                    $upgrade->getName() . '.description',
+                    [],
+                    'status',
+                    $language
+                );
+            }
+        }
+
+        return ['drone_upgrades' => $upgrades];
     }
 
     private function getPatrolShipLogParameters(GameEquipment $patrolShip): array

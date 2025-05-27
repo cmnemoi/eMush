@@ -1852,7 +1852,8 @@ El dron realiza acciones similares a las del equipo.
 //
 Intenta reparar los equipos averiados de la sala antes de desplazarse.
 //
-Usado para operaciones de mantenimiento, casi pueden reemplazar a un ser humano, casi.</target>
+Usado para operaciones de mantenimiento, casi pueden reemplazar a un ser humano, casi.
+{drone_upgrades}</target>
       </segment>
     </unit>
     <unit id="jar_of_alien_oil">

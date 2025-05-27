@@ -444,7 +444,7 @@ final class EquipmentNormalizerTest extends TestCase
         $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
         $normalizedDrone = $this->normalizer->normalize($drone, null, ['currentPlayer' => $player]);
 
-        self::assertEquals("Support drone description", $normalizedDrone['description']);
+        self::assertEquals('Support drone description', $normalizedDrone['description']);
     }
 
     public static function provideShouldNormalizeDroneUpgradesCases(): iterable

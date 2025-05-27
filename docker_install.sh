@@ -15,58 +15,17 @@ run_command() {
     eval "$1" >> install.log 2>&1
 }
 
-# Function to detect OS
-detect_os() {
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        if [ -f /etc/debian_version ]; then
-            echo "debian"
-        elif [ -f /etc/arch-release ]; then
-            echo "arch"
-        else
-            echo "unsupported"
-        fi
-    else
-        echo "unsupported"
-    fi
-}
-
-# Function to install packages at OS level
+# Function to install packages
 install_package() {
     local package_name="$1"
-    local os_type=$(detect_os)
-
-    case $os_type in
-        debian)
-            run_command "sudo apt-get install -y $package_name"
-            ;;
-        arch)
-            run_command "sudo pacman -S --noconfirm $package_name"
-            ;;
-        *)
-            log_message "Unsupported operating system. Only Debian-based and Arch-based systems are supported for now."
-            exit 1
-            ;;
-    esac
+    log_message "Installing $package_name..."
+    run_command "sudo apt-get install -y $package_name"
 }
 
 # Function to update system
 update_system() {
-    local os_type=$(detect_os)
-
-    case $os_type in
-        debian)
-            log_message "Updating system..."
-            run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
-            ;;
-        arch)
-            log_message "Updating system..."
-            run_command "sudo pacman -Syu --noconfirm"
-            ;;
-        *)
-            log_message "Unsupported operating system. Currently only Debian-based and Arch-based systems are supported."
-            exit 1
-            ;;
-    esac
+    log_message "Updating system..."
+    run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
 }
 
 # Function to install Docker dependencies
@@ -193,7 +152,7 @@ install_project() {
     fill-daedalus
     echo "Installation completed successfully ! You can access it at http://localhost/."
     echo "Use the following credentials to login:"
-    echo "username: andie"
+    echo "username: chun"
     echo "password: 1234567891"
 }
 

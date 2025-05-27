@@ -30,46 +30,11 @@ run_command() {
     eval "$1" >> "$LOG_FILE" 2>&1
 }
 
-# Function to detect OS
-detect_os() {
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        if [ -f /etc/debian_version ]; then
-            echo "debian"
-        elif [ -f /etc/arch-release ]; then
-            echo "arch"
-        else
-            echo "unsupported"
-        fi
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "macos"
-    else
-        echo "unsupported"
-    fi
-}
-
-# Function to uninstall packages at OS level
+# Function to uninstall packages
 uninstall_package() {
     local package_name="$1"
-    local os_type=$(detect_os)
-
-    case $os_type in
-        debian)
-            run_command "sudo apt-get remove -y $package_name"
-            ;;
-        arch)
-            run_command "sudo pacman -Rf --noconfirm $package_name"
-            ;;
-        macos)
-            if command -v brew &> /dev/null; then
-                run_command "brew uninstall $package_name"
-            else
-                log_message "Homebrew is not installed. Cannot uninstall $package_name."
-            fi
-            ;;
-        *)
-            log_message "Unsupported operating system. Currently only Debian-based, Arch-based and macOS are supported."
-            ;;
-    esac
+    log_message "Uninstalling $package_name..."
+    run_command "sudo apt-get remove -y $package_name"
 }
 
 
@@ -120,20 +85,8 @@ uninstall_php() {
 }
 
 autoremove() {
-    local os_type=$(detect_os)
-    case $os_type in
-        debian)
-            log_message "Running: sudo apt-get autoremove -y"
-            run_command "sudo apt-get autoremove -y"
-            ;;
-        macos)
-            log_message "Running: brew cleanup"
-            run_command "brew cleanup"
-            ;;
-        *)
-            # Do nothing
-            ;;
-    esac
+    log_message "Running apt-get autoremove..."
+    run_command "sudo apt-get autoremove -y"
 }
 
 # Main uninstallation process

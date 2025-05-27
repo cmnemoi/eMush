@@ -20,6 +20,7 @@ check_required_commands() {
 clone_repository() {
     echo "Cloning eMush repository..."
     git clone https://gitlab.com/eternaltwin/mush/mush.git && cd mush
+    git checkout chore/install-scripts # temporary checkout for testing
 }
 
 # Function to launch the install script

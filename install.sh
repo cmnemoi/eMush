@@ -26,102 +26,33 @@ clean_pid_file() {
     fi
 }
 
-# Function to detect OS
-detect_os() {
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        if [ -f /etc/debian_version ]; then
-            echo "debian"
-        elif [ -f /etc/arch-release ]; then
-            echo "arch"
-        else
-            echo "unsupported"
-        fi
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "macos"
-    else
-        echo "unsupported"
-    fi
-}
-
-# Function to install packages at OS level
+# Function to install packages
 install_package() {
     local package_name="$1"
-    local os_type=$(detect_os)
-
-    case $os_type in
-        debian)
-            run_command "sudo apt-get install -y $package_name"
-            ;;
-        arch)
-            run_command "sudo pacman -S --noconfirm $package_name"
-            ;;
-        macos)
-            if ! command -v brew &> /dev/null; then
-                log_message "Homebrew is not installed. Installing Homebrew..."
-                run_command '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-            fi
-            run_command "brew install $package_name"
-            ;;
-        *)
-            log_message "Unsupported operating system. Cannot install $package_name."
-            exit 1
-            ;;
-    esac
+    log_message "Installing $package_name..."
+    run_command "sudo apt-get install -y $package_name"
 }
 
 # Function to update system
 update_system() {
-    local os_type=$(detect_os)
-
-    case $os_type in
-        debian)
-            log_message "Updating system..."
-            run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
-            ;;
-        arch)
-            log_message "Updating system..."
-            run_command "sudo pacman -Syu --noconfirm"
-            ;;
-        macos)
-            log_message "Updating system..."
-            run_command "brew update && brew upgrade"
-            ;;
-        *)
-            log_message "Unsupported operating system. Currently only Debian-based, Arch-based and macOS are supported."
-            exit 1
-            ;;
-    esac
+    log_message "Updating system..."
+    run_command "sudo apt-get update -y && sudo apt-get upgrade -y"
 }
 
 # Function to install and setup PostgreSQL
 install_postgres() {
-    log_message "Installing PostgreSQL..."
-    case $(detect_os) in
-        debian)
-            install_package "postgresql-${POSTGRES_VERSION}"
-            install_package "postgresql-client-common"
-            install_package "postgresql-client-${POSTGRES_VERSION}"
-            
-            # Create cluster if it doesn't exist
-            if [ ! -d "/var/lib/postgresql/${POSTGRES_VERSION}/main" ]; then
-                log_message "Creating PostgreSQL cluster..."
-                run_command "sudo pg_createcluster ${POSTGRES_VERSION} main"
-            fi
-            run_command "sudo service postgresql start"
-            ;;
-        arch)
-            install_package "postgresql"
-            if [ ! -d "/var/lib/postgres/data" ]; then
-                log_message "Initializing PostgreSQL database..."
-                run_command "sudo -u postgres initdb -D '/var/lib/postgres/data'"
-            fi
-            run_command "sudo systemctl start postgresql"
-            ;;
-        macos)
-            install_package "postgresql@${POSTGRES_VERSION}"
-            run_command "brew services start postgresql@${POSTGRES_VERSION}"
-            ;;
-    esac
+    log_message "Installing PostgreSQL ${POSTGRES_VERSION}..."
+    install_package "postgresql-${POSTGRES_VERSION}"
+    install_package "postgresql-client-common"
+    install_package "postgresql-client-${POSTGRES_VERSION}"
+    
+    # Create cluster if it doesn't exist
+    if [ ! -d "/var/lib/postgresql/${POSTGRES_VERSION}/main" ]; then
+        log_message "Creating PostgreSQL cluster..."
+        run_command "sudo pg_createcluster ${POSTGRES_VERSION} main"
+    fi
+    log_message "Starting PostgreSQL service..."
+    run_command "sudo service postgresql start"
 
     # Wait for PostgreSQL to start
     log_message "Waiting for PostgreSQL to start..."

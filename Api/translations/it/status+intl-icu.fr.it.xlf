@@ -1659,5 +1659,29 @@
         <target>beginner.description</target>
       </segment>
     </unit>
+    <unit id="turbo_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>turbo_drone_upgrade.description</source>
+        <target>turbo_drone_upgrade.description</target>
+      </segment>
+    </unit>
+    <unit id="pilot_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>pilot_drone_upgrade.description</source>
+        <target>pilot_drone_upgrade.description</target>
+      </segment>
+    </unit>
+    <unit id="sensor_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>sensor_drone_upgrade.description</source>
+        <target>sensor_drone_upgrade.description</target>
+      </segment>
+    </unit>
+    <unit id="firefighter_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>firefighter_drone_upgrade.description</source>
+        <target>firefighter_drone_upgrade.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

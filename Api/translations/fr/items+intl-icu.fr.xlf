@@ -1769,7 +1769,8 @@ Tente de réparer les équipements défectueux de la pièce avant de se déplace
         <target>Le meilleur ami de l'homme du Daedalus. Ce drone pourra accomplir de nombreuses tâches à votre place.
 Le Drone effectue des actions similaires à celles des équipiers.
 Tente de réparer les équipements défectueux de la pièce avant de se déplacer.
-Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Magellan, grâce à son protocole Beta|-Slave ils peuvent quasiment remplacer un vrai être humain. Sauf pour le faire.</target>
+Le drone de Soutien permet d'achever l'objectif de maintenance automatique de Magellan, grâce à son protocole Beta|-Slave ils peuvent quasiment remplacer un vrai être humain. Sauf pour le faire.
+{drone_upgrades}</target>
       </segment>
     </unit>
     <unit id="jar_of_alien_oil">

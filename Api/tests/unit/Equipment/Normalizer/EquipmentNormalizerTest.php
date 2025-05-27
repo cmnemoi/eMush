@@ -405,14 +405,14 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with($upgrade . '.description', [], 'status', LanguageEnum::FRENCH)
-            ->andReturn($upgrade)
+            ->with('support_drone.description', [], 'items', LanguageEnum::FRENCH)
+            ->andReturn('Support drone description')
             ->once();
 
         $this->translationService
             ->shouldReceive('translate')
-            ->with('current_upgrades', [], 'misc', LanguageEnum::FRENCH)
-            ->andReturn('Current upgrades:')
+            ->with($upgrade . '.description', [], 'status', LanguageEnum::FRENCH)
+            ->andReturn($upgrade)
             ->once();
 
         $this->translationService->shouldIgnoreMissing();
@@ -421,13 +421,8 @@ final class EquipmentNormalizerTest extends TestCase
         $normalizedDrone = $this->normalizer->normalize($drone, null, ['currentPlayer' => $player]);
 
         self::assertEquals(
-            [
-                'title' => 'Current upgrades:',
-                'effects' => [
-                    $upgrade,
-                ],
-            ],
-            $normalizedDrone['effects']
+            "Support drone description//{$upgrade}",
+            $normalizedDrone['description']
         );
     }
 
@@ -438,12 +433,18 @@ final class EquipmentNormalizerTest extends TestCase
 
         $drone = GameEquipmentFactory::createDroneForHolder($player);
 
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('support_drone.description', [], 'items', LanguageEnum::FRENCH)
+            ->andReturn('Support drone description')
+            ->once();
+
         $this->translationService->shouldIgnoreMissing();
 
         $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
         $normalizedDrone = $this->normalizer->normalize($drone, null, ['currentPlayer' => $player]);
 
-        self::assertEquals([], $normalizedDrone['effects']);
+        self::assertEquals('Support drone description', $normalizedDrone['description']);
     }
 
     public static function provideShouldNormalizeDroneUpgradesCases(): iterable

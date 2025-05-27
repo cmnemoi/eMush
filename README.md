@@ -7,9 +7,9 @@
 
 [eMush](https://emush.eternaltwin.org/) is an open source remake of Mush: the greatest space opera of Humanity, available on all your devices!
 
-### eMush Api
+### eMush API
 
-A REST Api developed using [Symfony 6.4](https://symfony.com/doc/6.4/index.html) that manages the eMush game.
+A REST API developed using [Symfony 6.4](https://symfony.com/doc/6.4/index.html) that manages the eMush game.
 
 Please read [API.md](./Api/README.md) for details on the API architecture.
 
@@ -31,36 +31,34 @@ This will create a new workspace in the cloud with all the dependencies installe
 
 ### Installing with Docker (recommended)
 
-#### GNU/Linux (Debian and Arch-based distributions)
+#### Windows
+
+- Install [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) ;
+- Install [Ubuntu](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Ubuntu` ;
+  - WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --set-default-version 2` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
+- Launch it : `wsl -d Ubuntu` ;
+- Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | bash` in your WSL2 terminal.
+
+#### Ubuntu (recommended)
 
 Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | bash` in your terminal.
-
-If you enconter any issue, refer to detailed Docker installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Docker-install-detailed-instructions) and ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
 
 #### MacOS
 
 - Install `git` and `make` ;
-- Install [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/) :
+- Install [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/) ;
 - Clone the repository : `git clone https://gitlab.com/eternaltwin/mush/mush.git && cd mush` ;
 - Run `make install`.
-
-#### Windows
-
-Refer to detailed Docker installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Docker-install-detailed-instructions).
 
 #### GNU/Linux (other distributions)
 
 Refer to detailed Docker installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Docker-install-detailed-instructions) and adapt to your needs.
 
+If you enconter any issue, ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
+
 ### Installing without Docker
 
 If you don't want to use Docker, here are two installation scripts.
-
-You need to install `git` and `curl` to run the installation scripts.
-
-#### Unix-like OS (Debian-based, Arch-based GNU/Linux OS, MacOS)
-
-Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.sh?ref_type=heads | bash` in your terminal.
 
 #### Windows (highly experimental)
 
@@ -71,7 +69,11 @@ Invoke-WebRequest -Uri "https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/c
 .\clone_and_install.ps1
 ```
 
-If you encounter any issue, refer to legacy installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Legacy-Windows-Install-Instructions) and ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
+If you encounter any issue (very likely), refer to legacy installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Legacy-Windows-Install-Instructions) and ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
+
+#### Ubuntu
+
+Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.sh?ref_type=heads | bash` in your terminal.
 
 ### Post-installation
 
@@ -81,7 +83,7 @@ If everything went well you should be able to access:
 
 Use the following credentials to login (all users - named by eMush characters - have the same password):
 ```
-username : andie
+username : chun
 password : 1234567891
 ```
 
@@ -96,7 +98,7 @@ With non-Docker install, run `cd Api && composer fill-daedalus` to fill a Daedal
   - Display the key : `cat ~/.ssh/id_rsa.pub`
   - Copy the key and add it to your GitLab profile here : https://gitlab.com/-/user_settings/ssh_keys/
 
-- Then be sure to use SSH remote to be able to push to the repository : `git remote set-url origin git@gitlab.com:eternaltwin/mush/mush.git` ;
+- Then use SSH remote to be able to push to the repository : `git remote set-url origin git@gitlab.com:eternaltwin/mush/mush.git` ;
 
 - Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us ;
 

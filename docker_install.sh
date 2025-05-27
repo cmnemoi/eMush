@@ -91,37 +91,37 @@ setup-env-variables() {
 
 build-docker-images() {
     docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build
-    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -T -u root mush_front chown -R node:node /www
-    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -T -u root mush_eternaltwin chown -R node:node /www
-    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -T -u root mush_php chown -R dev:dev /www
+    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -T -u root mush-front chown -R node:node /www
+    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -T -u root mush-eternaltwin chown -R node:node /www
+    docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml run -T -u root mush-php chown -R dev:dev /www
     docker compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up --no-start --remove-orphans
 }
 
 install-api() {
-    docker compose -f docker/docker-compose.yml run -T -u dev mush_php composer install &&\
-    docker compose -f docker/docker-compose.yml run -T -u dev mush_php ./reset.sh --init
+    docker compose -f docker/docker-compose.yml run -T -u dev mush-php composer install &&\
+    docker compose -f docker/docker-compose.yml run -T -u dev mush-php ./reset.sh --init
 }
 
 install-front() {
-    docker compose -f docker/docker-compose.yml run -T -u node mush_front yarn install &&\
-    docker compose -f docker/docker-compose.yml run -T -u node mush_front ./reset.sh
+    docker compose -f docker/docker-compose.yml run -T -u node mush-front yarn install &&\
+    docker compose -f docker/docker-compose.yml run -T -u node mush-front ./reset.sh
 }
 
 install-eternaltwin() {
-    docker compose -f docker/docker-compose.yml run -T -u node mush_eternaltwin yarn install
-    docker compose -f docker/docker-compose.yml run -T -u node mush_eternaltwin yarn etwin db reset
-    docker compose -f docker/docker-compose.yml run -T -u node mush_eternaltwin yarn etwin db sync
+    docker compose -f docker/docker-compose.yml run -T -u node mush-eternaltwin yarn install
+    docker compose -f docker/docker-compose.yml run -T -u node mush-eternaltwin yarn etwin db reset
+    docker compose -f docker/docker-compose.yml run -T -u node mush-eternaltwin yarn etwin db sync
 }
 
 setup-JWT-certificates() {
-    docker compose -f docker/docker-compose.yml run -T -u dev mush_php openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-	docker compose -f docker/docker-compose.yml run -T -u dev mush_php openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-	docker compose -f docker/docker-compose.yml run -T -u dev mush_php chmod go+r config/jwt/private.pem
+    docker compose -f docker/docker-compose.yml run -T -u dev mush-php openssl genpkey -pass pass:mush -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+	docker compose -f docker/docker-compose.yml run -T -u dev mush-php openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+	docker compose -f docker/docker-compose.yml run -T -u dev mush-php chmod go+r config/jwt/private.pem
 }
 
 reset-eternaltwin-database() {
-    docker compose -f docker/docker-compose.yml run -T -u node mush_eternaltwin yarn etwin db reset
-    docker compose -f docker/docker-compose.yml run -T -u node mush_eternaltwin yarn etwin db sync
+    docker compose -f docker/docker-compose.yml run -T -u node mush-eternaltwin yarn etwin db reset
+    docker compose -f docker/docker-compose.yml run -T -u node mush-eternaltwin yarn etwin db sync
 }
 
 start-docker-containers() {
@@ -133,7 +133,7 @@ sleep-ten-seconds() {
 }
 
 fill-daedalus() {
-    docker compose -f docker/docker-compose.yml run -T -u dev mush_php php bin/console mush:fill-daedalus
+    docker compose -f docker/docker-compose.yml run -T -u dev mush-php php bin/console mush:fill-daedalus
 }
 
 # Function to install project

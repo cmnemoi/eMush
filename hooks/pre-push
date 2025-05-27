@@ -14,10 +14,10 @@ run_local_commands() {
 }
 
 run_docker_commands() {
-    docker compose -f docker/docker-compose.yml exec -T -u dev mush_php vendor/bin/php-cs-fixer check --diff || return 1
-    docker compose -f docker/docker-compose.yml exec -T -u dev mush_php vendor/bin/psalm || return 1
-    docker compose -f docker/docker-compose.yml exec -T -u dev mush_php vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit || return 1
-    docker compose -f docker/docker-compose.yml exec -T -u node mush_front yarn lint --no-fix || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/php-cs-fixer check --diff || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/psalm || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u node mush-front yarn lint --no-fix || return 1
     return 0
 }
 

@@ -140,7 +140,7 @@ netsh int ipv6 set dynamic tcp start=60536 num=5000
 ```
 Restart your computer, then try to run `make docker-start` again.
 
-### ERROR: for mush_front  Cannot start service mush_front: driver failed programming external connectivity on endpoint mush_front : Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use 
+### ERROR: for mush-front  Cannot start service mush-front: driver failed programming external connectivity on endpoint mush-front : Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use 
 
 You need to stop the Apache instance running on port 80. For example on Ubuntu, you can run the following command: `sudo systemctl stop apache2`.
 

@@ -1,47 +1,47 @@
 name: mush
 
 services:
-  mush_apache:
-    build: Api/apache
-    container_name: mush_apache
+  mush-apache:
+    build: ./Api/apache
+    container_name: mush-apache
     volumes:
       - ./Api/config/vhosts:/etc/apache2/sites-enabled
       - ../Api:/www
     networks:
-      - mush_network
+      - mush-network
     depends_on:
-      - mush_php
+      - mush-php
 
-  mush_php:
-    build: Api/php
-    container_name: mush_php
+  mush-php:
+    build: ./Api/php
+    container_name: mush-php
     environment:
       - PHP_IDE_CONFIG=serverName=mush
       - PHP_CS_FIXER_IGNORE_ENV=1
     volumes:
       - ../Api:/www
     networks:
-      - mush_network
+      - mush-network
     links:
-      - mush_database
+      - mush-database
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
   #Database container
-  mush_database:
-    image: postgres:17.2-alpine
-    container_name: mush_database
+  mush-database:
+    image: postgres:17.5-alpine
+    container_name: mush-database
     volumes:
       - ./Database:/docker-entrypoint-initdb.d
     networks:
-      - mush_network
+      - mush-network
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: mysql
       POSTGRES_MULTIPLE_DATABASES: mush,etwin.dev
 
-  mush_front:
-    container_name: mush_front
+  mush-front:
+    container_name: mush-front
     build:
       context: ./App
       dockerfile: Dockerfile
@@ -60,18 +60,18 @@ services:
       - CHOKIDAR_INTERVAL=100
       - YOUR_APP_WEB_HTTP_PORT=8080
 
-  musheternaltwin:
-    container_name: eternaltwin
+  mush-eternaltwin:
+    container_name: mush-eternaltwin
     build:
       context: ./Eternaltwin
       dockerfile: Dockerfile
     volumes:
       - ../Eternaltwin:/www
     networks:
-      - mush_network
+      - mush-network
     stdin_open: true
     tty: true
 
 networks:
-  mush_network:
+  mush-network:
     driver: bridge

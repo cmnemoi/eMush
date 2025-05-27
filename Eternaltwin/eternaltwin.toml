@@ -2,7 +2,7 @@
 store = "Postgres"
 
 [postgres]
-host = "mush_database"
+host = "mush-database"
 port = 5432
 name = "etwin.dev"
 user = "mysql"

@@ -1,7 +1,31 @@
 #!/bin/sh
 
-docker compose -f docker/docker-compose.yml exec -T -u dev mush_php vendor/bin/php-cs-fixer check --diff || exit 1
-docker compose -f docker/docker-compose.yml exec -T -u dev mush_php vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/* || exit 1
-docker compose -f docker/docker-compose.yml exec -T -u dev mush_php vendor/bin/psalm || exit 1
-docker compose -f docker/docker-compose.yml exec -T -u dev mush_php vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit || exit 1
-docker compose -f docker/docker-compose.yml exec -T -u node mush_front yarn lint --no-fix || exit 1
+run_local_commands() {
+    cd Api
+    vendor/bin/php-cs-fixer check --diff || return 1
+    vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/* || return 1
+    vendor/bin/psalm || return 1
+    vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit || return 1
+    cd ..
+
+    cd App
+    yarn lint --no-fix || return 1
+    cd ..
+    return 0
+}
+
+run_docker_commands() {
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/php-cs-fixer check --diff || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/* || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/psalm || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/phpmd src text phpmd.xml --exclude src/*/DataFixtures/*,src/*/ConfigData/* --ignore-errors-on-exit || return 1
+    docker compose -f docker/docker-compose.yml exec -T -u node mush-front yarn lint --no-fix || return 1
+    return 0
+}
+
+# Try local commands first
+if command -v php >/dev/null 2>&1 && command -v yarn >/dev/null 2>&1; then
+    run_local_commands || exit 1
+else
+    run_docker_commands || exit 1
+fi

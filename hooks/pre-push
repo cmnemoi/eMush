@@ -1,6 +1,35 @@
 #!/bin/sh
 
+EXPECTED_PHP_VERSION="8.3"
+
+check_local_commands() {
+    if ! command -v php >/dev/null 2>&1; then
+        echo "Error: 'php' command not found. Please install PHP $EXPECTED_PHP_VERSION or ensure it's in your PATH."
+        return 1
+    fi
+
+    php_version=$(php -r "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;")
+    if [ "$php_version" != $EXPECTED_PHP_VERSION ]; then
+        echo "Error: PHP version $EXPECTED_PHP_VERSION is required. Current version is $php_version : please use the right version of PHP."
+        return 1
+    fi
+
+    if ! command -v yarn >/dev/null 2>&1; then
+        echo "Error: 'yarn' command not found. Please install Yarn or ensure it's in your PATH."
+        return 1
+    fi
+}
+
+check_containers_are_launched() {
+    if ! docker ps --format '{{.Names}}' | grep -q 'mush-php' || ! docker ps --format '{{.Names}}' | grep -q 'mush-front'; then
+        echo "Error: mush-php or mush-front Docker containers are not running. Skipping Docker commands."
+        return 1
+    fi
+}
+
 run_local_commands() {
+    check_local_commands || return 1
+
     cd Api
     vendor/bin/php-cs-fixer check --diff || return 1
     vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/* || return 1
@@ -15,6 +44,8 @@ run_local_commands() {
 }
 
 run_docker_commands() {
+    check_containers_are_launched || return 1
+
     docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/php-cs-fixer check --diff || return 1
     docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/phpcs --standard=PSR1 src tests -p -n --ignore=src/*/DataFixtures/*,src/*/ConfigData/* || return 1
     docker compose -f docker/docker-compose.yml exec -T -u dev mush-php vendor/bin/psalm || return 1
@@ -23,9 +54,4 @@ run_docker_commands() {
     return 0
 }
 
-# Try local commands first
-if command -v php >/dev/null 2>&1 && command -v yarn >/dev/null 2>&1; then
-    run_local_commands || exit 1
-else
-    run_docker_commands || exit 1
-fi
+run_docker_commands || run_local_commands

@@ -614,6 +614,7 @@
 			"messageInputAdvancedDescription": "Use an advanced editor to format your messages",
 			"buttonBold":"B",
 			"buttonItalic":"I",
+			"buttonStrike":"S",
 			"buttonErase":"Clear formatting",
 			"buttonCharacters":"Characters",
 			"buttonValidateAdvEditor":"Validate and send message",

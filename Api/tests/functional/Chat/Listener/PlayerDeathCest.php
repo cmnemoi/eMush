@@ -67,6 +67,7 @@ final class PlayerDeathCest
             'place' => $room,
         ]);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $player->setPlayerVariables($characterConfig);
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);

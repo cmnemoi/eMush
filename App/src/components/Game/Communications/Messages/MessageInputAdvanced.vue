@@ -225,7 +225,7 @@ export default defineComponent({
             });
         },
         beforeSelected(start: number): number {
-            // used to search formatting tag before selection, return position
+            // used to search formatting tag before selection, return new position if selected text have ~ or * before.
             let index = start - 1;
             while (index >= 0 && /[*~]/.test(this.editedText[index])) {
                 index--;

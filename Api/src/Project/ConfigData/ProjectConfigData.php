@@ -24,7 +24,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::PILGRED,
                 'type' => ProjectType::PILGRED,
-                'efficiency' => 60,
+                'efficiency' => 1,
                 'bonusSkills' => [SkillEnum::PHYSICIST, SkillEnum::TECHNICIAN],
                 'activationRate' => 100,
                 'modifierConfigs' => [],

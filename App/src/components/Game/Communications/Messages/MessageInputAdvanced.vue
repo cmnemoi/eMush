@@ -39,7 +39,7 @@
                     <img :src="getImgUrl('comms/buttonCharacters.png')" alt="characters">
                 </button>
             </div>
-            <!-- Grille de sélection des personnages -->
+            <!-- Characters grid selection -->
             <div v-if="showCharacterGrid" class="character-grid">
                 <div
                     v-for="character in characters"
@@ -64,7 +64,9 @@
             <div class="dialog-buttons">
                 <button
                     class="format-button"
-                    @click="cancel">
+                    @click="cancel"
+                    @keydown.esc.exact.prevent="cancel"
+                    >
                     <img :src="getImgUrl('comms/close.png')" alt="cancel">
                 </button>
                 <button
@@ -202,7 +204,7 @@ export default defineComponent({
             const afterIndex = this.afterSelected(end);
             const afterText = this.editedText.substring(afterIndex);
 
-            const cleanText = this.editedText.substring(beforeIndex, afterIndex).replace(/(^\*+|\*+$)/g, '');
+            const cleanText = this.editedText.substring(beforeIndex, afterIndex).replace(/(^[*|~]+|[*|~]+$)/g, '');
             this.editedText = this.editedText.substring(0, beforeIndex) + cleanText + afterText;
 
             // Focus and unselect text
@@ -215,7 +217,7 @@ export default defineComponent({
         beforeSelected(start: number): number {
             // used to search formatting tag before selection, return position
             let index = start - 1;
-            while (index >= 0 && this.editedText[index] === '*') {
+            while (index >= 0 && /[*~]/.test(this.editedText[index])) {
                 index--;
             }
             return index + 1;
@@ -223,7 +225,7 @@ export default defineComponent({
         afterSelected(end: number): number {
             // used to search formatting tag after selection, return position
             let index = end;
-            while (index < this.editedText.length && this.editedText[index] === '*') {
+            while (index < this.editedText.length && /[*~]/.test(this.editedText[index])) {
                 index++;
             }
             return index;

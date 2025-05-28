@@ -4,17 +4,14 @@
         class="format-button"
         @click="$emit('click')"
         :title="title"
-        :class="{ 'character-btn': isCharacterButton }">
-        <template v-if="isCharacterButton">
-            <img :src="getImgUrl('comms/buttonCharacters.png')" alt="characters">
-        </template>
-        <template v-else>
-            <span>
-                <component :is="formatTag">
-                    <div v-html="label"></div>
-                </component>
-            </span>
-        </template>
+    >
+        <span>
+            <component :is="formatTag">
+                <img v-if="type === 'characters'" :src="getImgUrl('comms/buttonCharacters.png')" alt="characters">
+                <img v-else-if="type === 'erase'" :src="getImgUrl('comms/buttonErase.png')" alt="erase">
+                <div v-else v-html="label" />
+            </component>
+        </span>
     </button>
 </template>
 
@@ -23,12 +20,12 @@ import { defineComponent, computed } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 
 export default defineComponent({
-    name: "FormatButton",
+    name: "RichTextEditorButton",
     props: {
         type: {
             type: String,
             required: true,
-            validator: (value: string) => ['bold', 'italic', 'bolditalic', 'strike', 'character'].includes(value)
+            validator: (value: string) => ['bold', 'italic', 'bolditalic', 'strike', 'characters'].includes(value)
         },
         label: {
             type: String,
@@ -41,8 +38,6 @@ export default defineComponent({
     },
     emits: ['click'],
     setup(props) {
-        const isCharacterButton = computed(() => props.type === 'character');
-
         const formatTag = computed(() => {
             switch (props.type) {
             case 'bold':
@@ -59,7 +54,6 @@ export default defineComponent({
         });
 
         return {
-            isCharacterButton,
             formatTag,
             getImgUrl
         };

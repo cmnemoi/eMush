@@ -2,44 +2,16 @@
     <div class="message-input-advanced-overlay" v-if="visible" @click.self="cancel">
         <div class="text-format-dialog">
             <div class="format-controls">
-                <FormatButton
-                    type="character"
-                    :label="$t('game.communications.buttonErase')"
-                    :title="$t('game.communications.buttonErase')"
-                    @click="clearFormatting"
-                />
-                <FormatButton
-                    type="bold"
-                    :label="$t('game.communications.buttonBold')"
-                    :title="$t('game.communications.buttonBold')"
-                    @click="applyFormatting('bold')"
-                />
-                <FormatButton
-                    type="italic"
-                    :label="$t('game.communications.buttonItalic')"
-                    :title="$t('game.communications.buttonItalic')"
-                    @click="applyFormatting('italic')"
-                />
-                <FormatButton
-                    type="bolditalic"
-                    :label="$t('game.communications.buttonBold')+'+'+$t('game.communications.buttonItalic')"
-                    :title="$t('game.communications.buttonBold')+'+'+$t('game.communications.buttonItalic')"
-                    @click="applyFormatting('bolditalic')"
-                />
-                <FormatButton
-                    type="strike"
-                    :label="$t('game.communications.buttonStrike')"
-                    :title="$t('game.communications.buttonStrike')"
-                    @click="applyFormatting('strike')"
-                />
-                <FormatButton
-                    type="character"
-                    :label="$t('game.communications.buttonCharacters')"
-                    :title="$t('game.communications.buttonCharacters')"
-                    @click="toggleCharacterGrid"
+                <RichTextEditorButton
+                    v-for="button in richTextEditorButtons"
+                    :key="button.type + button.action"
+                    :type="button.type"
+                    :label="$t(button.label)"
+                    :title="$t(button.title)"
+                    @click="handleRichEditorAction(button)"
                 />
             </div>
-            <CharacterEmotes v-if="showCharacterGrid" :characters="characters" @character-selected="insertCharacter" />
+            <RichTextEditorCharacterEmotes v-if="showCharacterGrid" :characters="characters" @character-selected="insertCharacter" />
 
             <textarea
                 v-model="editedText"
@@ -76,14 +48,15 @@ import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { characterEnum, CharacterInfos } from "@/enums/character";
 import { formatText } from "@/utils/formatText";
-import CharacterEmotes from "./CharacterEmotes.vue";
-import FormatButton from "./FormatButton.vue";
+import RichTextEditorCharacterEmotes from "./RichTextEditorCharacterEmotes.vue";
+import RichTextEditorButton from "./RichTextEditorButton.vue";
+import { richTextEditorButtons, RichTextEditorButtonConfig, FormattingType } from "./RichTextEditorConfig";
 
 export default defineComponent({
-    name: "MessageInputAdvanced",
+    name: "RichTextEditor",
     components: {
-        CharacterEmotes,
-        FormatButton
+        RichTextEditorCharacterEmotes,
+        RichTextEditorButton
     },
     props: {
         initialText: {
@@ -104,7 +77,8 @@ export default defineComponent({
                 text: ""
             },
             showCharacterGrid: false,
-            characters: characterEnum as {[key: string]: CharacterInfos}
+            characters: characterEnum as {[key: string]: CharacterInfos},
+            richTextEditorButtons
         };
     },
     computed: {
@@ -135,7 +109,24 @@ export default defineComponent({
             };
         },
 
-        applyFormatting(type: 'bold' | 'italic' | 'bolditalic' | 'strike'): void {
+        handleRichEditorAction(button: RichTextEditorButtonConfig): void {
+            switch (button.action) {
+            case 'clearFormatting':
+                this.clearFormatting();
+                break;
+            case 'applyFormatting':
+                if (!button.actionParam) {
+                    return;
+                }
+                this.applyFormatting(button.actionParam as FormattingType);
+                break;
+            case 'toggleCharacterGrid':
+                this.toggleCharacterGrid();
+                break;
+            }
+        },
+
+        applyFormatting(type: FormattingType): void {
             const element = this.$refs.textEditor as HTMLTextAreaElement;
             const selection = this.getTextSelection(element);
 
@@ -208,7 +199,7 @@ export default defineComponent({
             };
         },
 
-        formatSelectedText(selection: { start: number; end: number }, type: 'bold' | 'italic' | 'bolditalic' | 'strike'): string {
+        formatSelectedText(selection: { start: number; end: number }, type: FormattingType): string {
             const beforeIndex = this.beforeSelected(selection.start);
             const afterIndex = this.afterSelected(selection.end);
             const selectedText = this.editedText.substring(beforeIndex, afterIndex);
@@ -292,7 +283,7 @@ export default defineComponent({
             return index;
         },
 
-        applyFormattingForType(text: string, type: string): string {
+        applyFormattingForType(text: string, type: FormattingType): string {
             switch (type) {
             case 'bold':
                 return `**${text}**`;  // Gras

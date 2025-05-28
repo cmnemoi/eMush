@@ -17,7 +17,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 import { CharacterInfos } from "@/enums/character";
 
 export default defineComponent({
-    name: "CharacterEmotes",
+    name: "RichTextEditorCharacterEmotes",
     props: {
         characters: {
             type: Object as PropType<{[key: string]: CharacterInfos}>,

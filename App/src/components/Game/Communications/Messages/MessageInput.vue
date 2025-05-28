@@ -1,6 +1,6 @@
 <template>
     <form class="chat-input">
-        <div v-if="!showFormatDialog" class="form-container">
+        <div v-if="!showRichEditor" class="form-container">
             <textarea
                 v-model="text"
                 ref="input"
@@ -14,7 +14,7 @@
                 @keyup.enter.exact.prevent="clearTypedMessage"
             />
             <div class="buttons-container">
-                <Tippy tag="button" class="format-button" @click.prevent="editAdvancedMessage">
+                <Tippy tag="button" class="format-button" @click.prevent="openRichEditor">
                     <img :src="getImgUrl('comms/buttonFormat.png')" alt="format">
                     <template #content>
                         <h1 v-html="$t('game.communications.messageInputAdvanced')"/>
@@ -31,10 +31,10 @@
             </div>
         </div>
 
-        <MessageInputAdvanced
-            :visible="showFormatDialog"
+        <RichTextEditor
+            :visible="showRichEditor"
             :initial-text="text"
-            @cancel="closeFormatDialog"
+            @cancel="closeRichEditor"
             @send="sendNewMessage"
         />
 
@@ -47,13 +47,13 @@ import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
-import MessageInputAdvanced from "./RichTextEditor/MessageInputAdvanced.vue";
+import RichTextEditor from "./RichTextEditor/RichTextEditor.vue";
 import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "MessageInput",
     components: {
-        MessageInputAdvanced,
+        RichTextEditor,
         Tippy
     },
     props: {
@@ -69,7 +69,7 @@ export default defineComponent ({
     data(): any {
         return {
             text: this.typedMessage,
-            showFormatDialog: false
+            showRichEditor: false
         };
     },
     computed: {
@@ -81,7 +81,7 @@ export default defineComponent ({
         getImgUrl,
         sendNewMessage(messageToSend?: string): void {
             const textToSend = messageToSend !== undefined ? messageToSend : this.text;
-            this.showFormatDialog = false;
+            this.showRichEditor = false;
 
             if (textToSend.length > 0) {
                 const formattedText = textToSend.replace(/\n/g, "//");
@@ -92,7 +92,7 @@ export default defineComponent ({
                     channel: this.channel
                 });
                 this.text = "";
-                this.showFormatDialog = false;
+                this.closeRichEditor();
             }
         },
         breakLine (): void {
@@ -120,11 +120,11 @@ export default defineComponent ({
             element.style.height = "auto";
             element.style.height = element.scrollHeight + 2 + "px";
         },
-        editAdvancedMessage(): void {
-            this.showFormatDialog = true;
+        openRichEditor(): void {
+            this.showRichEditor = true;
         },
-        closeFormatDialog(): void {
-            this.showFormatDialog = false;
+        closeRichEditor(): void {
+            this.showRichEditor = false;
         }
     },
     mounted() {

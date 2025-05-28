@@ -73,6 +73,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
                 daedalusInfo: $closedPlayer->getClosedDaedalus()->getDaedalusInfo()
             );
             $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['triumph'] = $closedPlayer->getTriumph();
 
             // Tell moderators if closed player end message is hidden
             /** @var ?User $user */

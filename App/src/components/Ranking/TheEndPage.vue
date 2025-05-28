@@ -74,10 +74,10 @@
                 </p>
                 <div class="triumph">
                     <p class="score mush" v-if="goldNovaPlayer.isMush">
-                        {{ goldNovaPlayer.cyclesSurvived }}
+                        {{ goldNovaPlayer.triumph }}
                     </p>
                     <p class="score" v-else>
-                        {{ goldNovaPlayer.cyclesSurvived }}
+                        {{ goldNovaPlayer.triumph }}
                     </p>
                     <p class="death-cause">
                         <img :src="getImgUrl('ui_icons/dead.png')" alt="Dead" v-if="goldNovaPlayer.hasBadEndCause">
@@ -125,10 +125,10 @@
                     </div>
                     <div class="triumph">
                         <p class="score mush" v-if="player.isMush">
-                            {{ player.cyclesSurvived }}
+                            {{ player.triumph }}
                         </p>
                         <p class="score" v-else>
-                            {{ player.cyclesSurvived }}
+                            {{ player.triumph }}
                         </p>
                         <p class="death-cause">
                             <img :src="getImgUrl('ui_icons/dead.png')" alt="Dead" v-if="player.hasBadEndCause">
@@ -220,10 +220,10 @@
                     </div>
                     <div class="triumph">
                         <p class="score mush" v-if="player.isMush">
-                            {{ player.cyclesSurvived }}
+                            {{ player.triumph }}
                         </p>
                         <p class="score" v-else>
-                            {{ player.cyclesSurvived }}
+                            {{ player.triumph }}
                         </p>
                         <p class="death-cause">
                             <img :src="getImgUrl('ui_icons/dead.png')" alt="Dead" v-if="player.hasBadEndCause">
@@ -533,7 +533,7 @@ export default defineComponent ({
         getNthPlayer(n: number) {
             if (n < 1) return null;
             if (this.closedDaedalus && this.closedDaedalus.players) {
-                return this.sortPlayersByCycleSurvived(this.closedDaedalus.players)[n-1];
+                return this.sortPlayersByTriumph(this.closedDaedalus.players)[n-1];
             }
 
             return null;
@@ -553,21 +553,21 @@ export default defineComponent ({
         getPlayersInRange(start: number, end: number) {
             if (start < 1 || end > 16) return null;
             if (this.closedDaedalus && this.closedDaedalus.players) {
-                return this.sortPlayersByCycleSurvived(this.closedDaedalus.players).slice(start - 1, end);
+                return this.sortPlayersByTriumph(this.closedDaedalus.players).slice(start - 1, end);
             }
             return null;
         },
         formatEndMessage(message: string) {
             return `« ${formatText(message)} »`;
         },
-        sortPlayersByCycleSurvived(players: ClosedPlayer[], descending = true) {
+        sortPlayersByTriumph(players: ClosedPlayer[], descending = true) {
             return players.sort((a, b) => {
-                if (a.cyclesSurvived === null) return 1;
-                if (b.cyclesSurvived === null) return -1;
+                if (a.triumph === null) return 1;
+                if (b.triumph === null) return -1;
                 if (descending) {
-                    return b.cyclesSurvived - a.cyclesSurvived;
+                    return b.triumph - a.triumph;
                 }
-                return a.cyclesSurvived - b.cyclesSurvived;
+                return a.triumph - b.triumph;
             });
         },
         scrollToTop() {

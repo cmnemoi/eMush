@@ -40,6 +40,9 @@ class ClosedPlayer implements SanctionEvidenceInterface
     private int $cycleDeath = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
+    private int $triumph = 0;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $likes = 0;
 
     #[ORM\Column(type: 'boolean', nullable: false)]
@@ -134,6 +137,18 @@ class ClosedPlayer implements SanctionEvidenceInterface
     public function addLike(): static
     {
         ++$this->likes;
+
+        return $this;
+    }
+
+    public function getTriumph(): int
+    {
+        return $this->triumph;
+    }
+
+    public function setTriumph(int $quantity): static
+    {
+        $this->triumph = $quantity;
 
         return $this;
     }

@@ -67,9 +67,11 @@ final class FinishDaedalusEventTest extends TestCase
         $player3 = PlayerFactory::createPlayerWithDaedalus($this->daedalus);
         $this->givenPlayerIsMush($player3);
 
+        $this->player->setTriumph(50);
+
         $this->whenDaedalusFinishesWithReturnToSol();
 
-        $this->thenPlayerShouldHaveTriumphPoints($this->player, -20);
+        $this->thenPlayerShouldHaveTriumphPoints($this->player, 30); // 50 + (-10) * 2
     }
 
     private function givenATriumphConfigRepository(): void

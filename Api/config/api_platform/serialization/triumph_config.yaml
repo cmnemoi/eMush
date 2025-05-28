@@ -2,13 +2,15 @@ Mush\Triumph\Entity\TriumphConfig:
   attributes:
     id:
       groups: [ 'triumph_config_read' ]
+    key:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
     name:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
-    triumph:
+    scope:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
-    isIndividual:
+    targetedEvent:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
-    team:
+    targetedEventExpectedTags:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
     target:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
@@ -17,8 +19,4 @@ Mush\Triumph\Entity\TriumphConfig:
     visibility:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
     regressiveFactor:
-      groups: [ 'triumph_config_read', 'triumph_config_write' ]
-    computeStrategy:
-      groups: [ 'triumph_config_read', 'triumph_config_write' ]
-    applicationStrategies:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]

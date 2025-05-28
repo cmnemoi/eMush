@@ -1,11 +1,20 @@
 Mush\Triumph\Entity\TriumphConfig:
   properties:
+    key:
+      - NotBlank: ~
+      - Type: string
     name:
       - NotBlank: ~
-      - Type: string
+      - Type: Mush\Triumph\Enum\TriumphEnum
     scope:
       - NotBlank: ~
+      - Type: Mush\Triumph\Enum\TriumphScope
+    targetedEvent:
+      - NotBlank: ~
       - Type: string
+    targetedEventExpectedTags:
+      - NotBlank: ~
+      - Type: array
     target:
       - NotBlank: ~
       - Type: string
@@ -14,13 +23,7 @@ Mush\Triumph\Entity\TriumphConfig:
       - Type: integer
     visibility:
       - NotBlank: ~
-      - Type: string
+      - Type: Mush\Triumph\Enum\TriumphVisibility
     regressiveFactor:
       - NotBlank: ~
       - Type: integer
-    hasComputeStrategy:
-      - NotBlank: ~
-      - Type: boolean
-    applicationStrategies:
-      - NotBlank: ~
-      - Type: array

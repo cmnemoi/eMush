@@ -33,6 +33,13 @@
                 </button>
                 <button
                     type="button"
+                    class="format-button"
+                    @click="applyFormatting('strike')"
+                    :title="$t('game.communications.buttonStrike')">
+                    <span><s><div v-html="$t('game.communications.buttonStrike')"></div></s></span>
+                </button>
+                <button
+                    type="button"
                     class="format-button character-btn"
                     @click="toggleCharacterGrid"
                     :title="$t('game.communications.buttonCharacters')">

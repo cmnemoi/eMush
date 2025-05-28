@@ -181,6 +181,9 @@ export default defineComponent({
             case 'bolditalic':
                 formattedText = `***${cleanText}***`;  // Gras et italique
                 break;
+            case 'strike':
+                formattedText = `~~${cleanText}~~`;  // Gras et italique
+                break;
             }
 
             this.editedText = this.editedText.substring(0, beforeIndex) + formattedText + afterText;

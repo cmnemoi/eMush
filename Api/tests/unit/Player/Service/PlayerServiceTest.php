@@ -157,7 +157,8 @@ final class PlayerServiceTest extends TestCase
         $player = new Player();
         $player
             ->setDaedalus($daedalus)
-            ->setPlace($room);
+            ->setPlace($room)
+            ->setPlayerVariables($characterConfig);
         $playerInfo = new PlayerInfo($player, new User(), $characterConfig);
         $player->setPlayerInfo($playerInfo);
         $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();

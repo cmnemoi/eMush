@@ -615,6 +615,7 @@
 			"buttonBold":"G",
 			"buttonItalic":"I",
 			"buttonErase":"Supprimer mise en forme",
+			"buttonStrike":"S",
 			"buttonCharacters":"Personnages",
 			"buttonValidateAdvEditor":"Valider et envoyer le message",
 			"bookmark": "Favori",

@@ -32,7 +32,6 @@
         </div>
 
         <MessageInputAdvanced
-
             :visible="showFormatDialog"
             :initial-text="text"
             @cancel="closeFormatDialog"
@@ -48,13 +47,14 @@ import { Channel } from "@/entities/Channel";
 import { Message } from "@/entities/Message";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
-import MessageInputAdvanced from "./MessageInputAdvanced.vue";
+import MessageInputAdvanced from "./RichTextEditor/MessageInputAdvanced.vue";
 import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: "MessageInput",
     components: {
-        MessageInputAdvanced  // Enregistrez le composant ici
+        MessageInputAdvanced,
+        Tippy
     },
     props: {
         channel: {

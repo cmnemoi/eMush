@@ -31,6 +31,7 @@ export interface CharacterInfos {
     head?: string,
     body: string,
     portrait?: string,
+    keyName: string,
 };
 
 export const characterEnum : {[index: string]: CharacterInfos}  = {

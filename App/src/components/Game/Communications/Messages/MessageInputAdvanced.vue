@@ -383,6 +383,9 @@ export default defineComponent({
         &:hover {
             background-color: #00B0EC;
         }
+        :deep(s) {
+            text-decoration: line-through;
+        }
     }
     .character-grid {
         display: grid;

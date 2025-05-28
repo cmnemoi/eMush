@@ -421,7 +421,7 @@ export default defineComponent({
         }
 
         .character-name {
-            margin-top: 4px;
+            margin-top: 2px;
             font-size: 11px;
             text-align: center;
         }

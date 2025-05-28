@@ -1,14 +1,29 @@
-Mush\Game\Entity\TriumphConfig:
+Mush\Triumph\Entity\TriumphConfig:
   properties:
+    key:
+      - NotBlank: ~
+      - Type: string
     name:
       - NotBlank: ~
+      - Type: Mush\Triumph\Enum\TriumphEnum
+    scope:
+      - NotBlank: ~
+      - Type: Mush\Triumph\Enum\TriumphScope
+    targetedEvent:
+      - NotBlank: ~
       - Type: string
-    triumph:
+    targetedEventExpectedTags:
+      - NotBlank: ~
+      - Type: array
+    target:
+      - NotBlank: ~
+      - Type: string
+    quantity:
       - NotBlank: ~
       - Type: integer
-    isAllCrew:
+    visibility:
       - NotBlank: ~
-      - Type: boolean
-    team:
+      - Type: Mush\Triumph\Enum\TriumphVisibility
+    regressiveFactor:
       - NotBlank: ~
-      - Type: string
+      - Type: integer

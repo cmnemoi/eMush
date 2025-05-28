@@ -18,6 +18,7 @@ abstract class EventPriorityEnum
     public const int NERON_PROJECT_THREAD = 14; // NERON makes projects progress before oxygen consumption
     public const int DAEDALUS_VARIABLES = 12; // oxygen consumption
     public const int PLAYERS = 10; // New points for players // effect of player statuses
+    public const int PLAYER_TRIUMPH = 9; // New triumphs for players
     public const int EQUIPMENTS = 8;  // recharge, effect of statuses
     public const int DAEDALUS_INCIDENTS = 6; // trigger incident in the daedalus (falling ceiling electric arcs...)
     public const int ROOMS = 4; // fires

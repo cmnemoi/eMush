@@ -55,6 +55,7 @@
                 v-model="editedText"
                 class="edit-area"
                 @select="handleTextSelection"
+                @keydown.esc.exact.prevent="cancel"
                 @keydown.enter.exact.prevent="confirm"
                 ref="textEditor"
             ></textarea>
@@ -65,8 +66,7 @@
                 <button
                     class="format-button"
                     @click="cancel"
-                    @keydown.esc.exact.prevent="cancel"
-                    >
+                >
                     <img :src="getImgUrl('comms/close.png')" alt="cancel">
                 </button>
                 <button

@@ -16,12 +16,12 @@ use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Game\Entity\DifficultyConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\TitleConfig;
-use Mush\Game\Entity\TriumphConfig;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Project\Entity\ProjectConfig;
 use Mush\Skill\Entity\SkillConfig;
 use Mush\Status\Entity\Config\StatusConfig;
+use Mush\Triumph\Entity\TriumphConfig;
 
 class GameConfigDataLoader extends ConfigDataLoader
 {
@@ -33,7 +33,7 @@ class GameConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (GameConfigData::$dataArray as $gameConfigData) {
+        foreach (GameConfigData::getAll() as $gameConfigData) {
             $gameConfig = $this->entityManager->getRepository(GameConfig::class)->findOneBy(['name' => $gameConfigData['name']]);
 
             if ($gameConfig === null) {
@@ -138,10 +138,10 @@ class GameConfigDataLoader extends ConfigDataLoader
     {
         $triumphConfigs = [];
         foreach ($gameConfigData['triumphConfigs'] as $triumphConfigName) {
-            $triumphConfig = $this->entityManager->getRepository(TriumphConfig::class)->findOneBy(['name' => $triumphConfigName]);
+            $triumphConfig = $this->entityManager->getRepository(TriumphConfig::class)->findOneBy(['key' => $triumphConfigName]);
 
             if ($triumphConfig === null) {
-                throw new \Exception("Triumph config {$triumphConfigName} not found");
+                throw new \Exception("Triumph config {$triumphConfigName->value} not found");
             }
 
             $triumphConfigs[] = $triumphConfig;

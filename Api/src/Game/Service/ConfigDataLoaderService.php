@@ -42,7 +42,6 @@ use Mush\Game\ConfigData\DifficultyConfigDataLoader;
 use Mush\Game\ConfigData\GameConfigDataLoader;
 use Mush\Game\ConfigData\LocalizationConfigDataLoader;
 use Mush\Game\ConfigData\TitleConfigDataLoader;
-use Mush\Game\ConfigData\TriumphConfigDataLoader;
 use Mush\Game\ConfigData\VariableEventConfigDataLoader;
 use Mush\Hunter\ConfigData\HunterConfigDataLoader;
 use Mush\Modifier\ConfigData\DirectModifierConfigDataLoader;
@@ -58,6 +57,7 @@ use Mush\Skill\ConfigData\SkillConfigDataLoader;
 use Mush\Status\ConfigData\ChargeStatusConfigDataLoader;
 use Mush\Status\ConfigData\ContentStatusConfigDataLoader;
 use Mush\Status\ConfigData\StatusConfigDataLoader;
+use Mush\Triumph\ConfigData\TriumphConfigDataLoader;
 
 /**
  * @SuppressWarnings(PHPMD)

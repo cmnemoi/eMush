@@ -53,6 +53,11 @@ class PlayerCollection extends ArrayCollection
         return $this->getPlayerByName($name) ?? throw new \RuntimeException("Player with name {$name} not found");
     }
 
+    public function getAllByName(string $name): self
+    {
+        return $this->filter(static fn (Player $player) => $player->getName() === $name);
+    }
+
     public function getPlayersWithSkill(SkillEnum $skill): self
     {
         return $this->filter(static fn (Player $player) => $player->hasSkill($skill));
@@ -180,6 +185,11 @@ class PlayerCollection extends ArrayCollection
             static fn (Player $player) => $player->getPlayerInfo()->getClosedPlayer()->isMush() && $player->isDead()
             && EndCauseEnum::unlocksNewProjects($player->getPlayerInfo()->getClosedPlayer()->getEndCause())
         )->count() > 0;
+    }
+
+    public function getAllActive(): self
+    {
+        return $this->filter(static fn (Player $player) => $player->isActive());
     }
 
     private function getPlayerWithStatus(string $status): ?Player

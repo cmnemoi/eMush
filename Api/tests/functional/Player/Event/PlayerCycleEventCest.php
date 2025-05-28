@@ -703,20 +703,17 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $I->assertTrue($this->kuanTi->getMoralPoint() === 8 || $this->kuanTi->getMoralPoint() === 8 - $this->getPanicCrisisPlayerDamage());
     }
 
-    /**
-     * @covers \Mush\Player\Service\PlayerService::handleTriumphChange
-     */
     public function ensureTriumphIsGivenIfNotInactive(FunctionalTester $I): void
     {
         // Given the player has the status inactive.
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::INACTIVE,
-            holder: $this->player,
+            holder: $this->player2,
             tags: [],
             time: new \DateTime()
         );
 
-        $initialTriumph = $this->player->getTriumph();
+        $initialTriumph = $this->player2->getTriumph();
 
         // when the new day event is triggered
         $event = new DaedalusCycleEvent(
@@ -727,7 +724,7 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 
         // The player should have the same amount of triumph as before.
-        $I->assertSame($initialTriumph, $this->player->getTriumph(), 'The triumph count has shifted when it shouldn\'t!');
+        $I->assertSame($initialTriumph, $this->player2->getTriumph(), 'The triumph count has shifted when it shouldn\'t!');
     }
 
     public function hyperactivePreventsLyingDownGainAndGivesMovementPoint(FunctionalTester $I): void

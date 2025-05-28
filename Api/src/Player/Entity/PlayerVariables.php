@@ -75,7 +75,7 @@ class PlayerVariables extends GameVariableCollection
             variableCollection: $this,
             name: PlayerVariableEnum::TRIUMPH,
             initValue: 0,
-            minValue: null,
+            minValue: 0,
         );
 
         parent::__construct([

@@ -56,5 +56,6 @@
         <source>explorator.log</source>
         <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition en tant que Hua !</target>
       </segment>
+    </unit>
   </file>
 </xliff>

@@ -37,5 +37,25 @@
         <target>Vous gagnez {quantity} :triumph_mush: car vous faites désormais partie du Mush !</target>
       </segment>
     </unit>
+    <unit id="expedition">
+      <segment id="expedition.name" state="translated">
+        <source>expedition.name</source>
+        <target>Expédition</target>
+      </segment>
+      <segment id="expedition.log" state="translated">
+        <source>expedition</source>
+        <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition.</target>
+      </segment>
+    </unit>
+    <unit id="explorator">
+      <segment id="explorator.name" state="translated">
+        <source>explorator.name</source>
+        <target>Exploratrice</target>
+      </segment>
+      <segment id="explorator.log" state="translated">
+        <source>explorator.log</source>
+        <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition en tant que Hua !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

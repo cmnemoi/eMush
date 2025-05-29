@@ -8,9 +8,13 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class ExplorationEvent extends AbstractGameEvent
+class ExplorationEvent extends AbstractGameEvent implements TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string ALL_EXPLORATORS_ARE_DEAD = 'exploration.all_explorators_are_dead';
     public const string ALL_EXPLORATORS_STUCKED = 'exploration.all_explorators_stucked';
     public const string ALL_SECTORS_VISITED = 'exploration.all_sectors_visited';

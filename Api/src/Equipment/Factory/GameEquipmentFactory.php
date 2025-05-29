@@ -61,6 +61,10 @@ final class GameEquipmentFactory
 
     public static function createEquipmentByNameForHolder(string $name, EquipmentHolderInterface $holder): GameEquipment
     {
+        if (!$holder instanceof Place) {
+            throw new \LogicException('Only Place holders are supported! If you want to create an equipment for a player, use createItemByNameForHolder instead.');
+        }
+
         $equipmentConfig = new EquipmentConfig();
         $equipmentConfig
             ->setEquipmentName($name)

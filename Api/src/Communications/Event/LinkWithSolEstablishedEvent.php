@@ -13,8 +13,8 @@ use Mush\Triumph\Event\TriumphSourceEventTrait;
 final class LinkWithSolEstablishedEvent extends AbstractGameEvent implements TriumphSourceEventInterface
 {
     use TriumphSourceEventTrait;
-    public const string FIRST_CONTACT = 'first_contact';
 
+    public const string FIRST_CONTACT = 'first_contact';
     public readonly int $daedalusId;
 
     public function __construct(private readonly Daedalus $daedalus, array $tags = [], \DateTime $time = new \DateTime())

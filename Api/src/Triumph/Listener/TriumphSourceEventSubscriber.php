@@ -6,6 +6,7 @@ namespace Mush\Triumph\Listener;
 
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,6 +23,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => ['onDaedalusNewCycle', EventPriorityEnum::PLAYER_TRIUMPH],
             DaedalusEvent::FINISH_DAEDALUS => ['onDaedalusFinish', EventPriorityEnum::HIGH],
             DaedalusEvent::FULL_DAEDALUS => ['onDaedalusFull', EventPriorityEnum::LOW],
+            ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
         ];
     }
 
@@ -36,6 +38,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onExplorationStarted(ExplorationEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

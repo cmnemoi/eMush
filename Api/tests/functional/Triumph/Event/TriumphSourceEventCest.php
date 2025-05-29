@@ -7,16 +7,17 @@ namespace Mush\Tests\functional\Triumph\Event;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Tests\AbstractFunctionalTest;
+use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
  */
-final class TriumphSourceEventCest extends AbstractFunctionalTest
+final class TriumphSourceEventCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
 
@@ -76,5 +77,23 @@ final class TriumphSourceEventCest extends AbstractFunctionalTest
 
         // Mush initial bonus triumph
         $I->assertEquals(120, $this->player->getTriumph());
+    }
+
+    public function shouldGiveTriumphOnExplorationStarted(FunctionalTester $I): void
+    {
+        // given
+        $planet = $this->createPlanet(
+            sectors: [PlanetSectorEnum::OXYGEN],
+            functionalTester: $I
+        );
+
+        // when
+        $this->createExploration(
+            planet: $planet,
+            explorators: $this->players,
+        );
+
+        // then I should gain expedition triumph
+        $I->assertEquals(3, $this->player->getTriumph());
     }
 }

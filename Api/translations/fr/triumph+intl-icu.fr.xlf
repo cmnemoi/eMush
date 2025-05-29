@@ -37,5 +37,15 @@
         <target>Vous gagnez {quantity} :triumph_mush: car vous faites désormais partie du Mush !</target>
       </segment>
     </unit>
+    <unit id="expedition">
+      <segment id="expedition.name" state="translated">
+        <source>expedition.name</source>
+        <target>Expédition</target>
+      </segment>
+      <segment id="expedition.log" state="translated">
+        <source>expedition</source>
+        <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

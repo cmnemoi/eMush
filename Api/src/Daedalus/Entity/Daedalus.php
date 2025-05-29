@@ -656,6 +656,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->exploration;
     }
 
+    public function getExplorationOrThrow(): Exploration
+    {
+        return $this->exploration ?? throw new \RuntimeException('This daedalus has no exploration');
+    }
+
     public function setExploration(?Exploration $exploration): static
     {
         $this->exploration = $exploration;

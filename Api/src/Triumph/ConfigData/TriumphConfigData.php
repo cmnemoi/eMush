@@ -7,6 +7,7 @@ namespace Mush\Triumph\ConfigData;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Triumph\Dto\TriumphConfigDto;
@@ -72,6 +73,13 @@ abstract class TriumphConfigData
                 targetedEvent: DaedalusEvent::FULL_DAEDALUS,
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 120,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EXPEDITION->toConfigKey('default'),
+                name: TriumphEnum::EXPEDITION,
+                targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
+                scope: TriumphScope::ALL_ACTIVE_EXPLORERS,
+                quantity: 3,
             ),
         ];
     }

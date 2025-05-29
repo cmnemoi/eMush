@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\functional\Triumph\Event;
+namespace Mush\Tests\unit\Triumph\TestDoubles;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Collection\PlayerCollection;

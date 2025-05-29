@@ -144,7 +144,8 @@
       </segment>
       <segment id="description" state="translated">
         <source>extract_spore.description</source>
-        <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).</target>
+        <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
+        L'ensemble des **Mush** peuvent encore produire **{quantity_remaining} spores** aujourd'hui.</target>
       </segment>
     </unit>
     <unit id="flirt">

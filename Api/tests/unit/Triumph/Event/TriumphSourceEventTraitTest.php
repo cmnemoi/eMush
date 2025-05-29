@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\unit\Triumph\Event;
+namespace Mush\Tests\functional\Triumph\Event;
 
-use Mush\Tests\unit\Triumph\TestDoubles\TriumphSourceEventTraitTestClass;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphEnum;

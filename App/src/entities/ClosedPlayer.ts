@@ -13,6 +13,7 @@ export class ClosedPlayer {
     public closedDaedalusId: integer|null;
     public daysSurvived: integer|null;
     public cyclesSurvived: integer|null;
+    public triumph: integer|null;
     public rank: integer|null;
     public language: string|null;
     public messageIsHidden: boolean|null;
@@ -35,6 +36,7 @@ export class ClosedPlayer {
         this.closedDaedalusId = null;
         this.daysSurvived = null;
         this.cyclesSurvived = null;
+        this.triumph = null;
         this.rank = null;
         this.language = null;
         this.messageIsHidden = null;
@@ -56,6 +58,7 @@ export class ClosedPlayer {
             this.closedDaedalusId = object.closedDaedalusId;
             this.daysSurvived = object.daysSurvived;
             this.cyclesSurvived = object.cyclesSurvived;
+            this.triumph = object.triumph;
             this.rank = object.rank;
             this.language = object.language;
             this.messageIsHidden = object.messageIsHidden;
@@ -80,6 +83,7 @@ export class ClosedPlayer {
             'closedDaedalusId': this.closedDaedalusId,
             'daysSurvived': this.daysSurvived,
             'cyclesSurvived': this.cyclesSurvived,
+            'triumph': this.triumph,
             'rank': this.rank,
             'language': this.language,
             'messageIsHidden': this.messageIsHidden,

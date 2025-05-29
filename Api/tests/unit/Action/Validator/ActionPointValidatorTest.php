@@ -9,7 +9,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\PlayerCanAffordPoints;
 use Mush\Action\Validator\PlayerCanAffordPointsValidator;
 use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
+use Mush\Player\Factory\PlayerFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
@@ -54,7 +54,7 @@ final class ActionPointValidatorTest extends TestCase
             ->setMaxMoralPoint(12)
             ->setMaxMovementPoint(12)
             ->setInitMovementPoint(5);
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player
             ->setPlayerVariables($characterConfig);
 
@@ -64,7 +64,7 @@ final class ActionPointValidatorTest extends TestCase
                 'getPlayer' => $player,
                 'getActionConfig' => new ActionConfig(),
                 'getTarget' => null,
-                'getActionProvider' => new Player(),
+                'getActionProvider' => PlayerFactory::createPlayer(),
                 'getTags' => [],
             ]);
 
@@ -84,7 +84,7 @@ final class ActionPointValidatorTest extends TestCase
             ->setMaxMoralPoint(12)
             ->setMaxMovementPoint(12)
             ->setInitMovementPoint(5);
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player
             ->setPlayerVariables($characterConfig);
 
@@ -94,7 +94,7 @@ final class ActionPointValidatorTest extends TestCase
                 'getPlayer' => $player,
                 'getActionConfig' => new ActionConfig(),
                 'getTarget' => null,
-                'getActionProvider' => new Player(),
+                'getActionProvider' => PlayerFactory::createPlayer(),
                 'getTags' => [],
             ]);
 

@@ -14,6 +14,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Normalizer\PlaceNormalizer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -187,7 +188,7 @@ final class PlaceNormalizerTest extends TestCase
         $normalizer = \Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn([]);
 
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
 
         $this->normalizer->setNormalizer($normalizer);
 
@@ -235,7 +236,7 @@ final class PlaceNormalizerTest extends TestCase
         $normalizer = \Mockery::mock(NormalizerInterface::class);
         $normalizer->shouldReceive('normalize')->andReturn(['updatedAt' => null])->twice();
 
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
 
         $this->normalizer->setNormalizer($normalizer);
 

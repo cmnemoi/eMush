@@ -202,17 +202,17 @@ export default defineComponent({
         getTextSelection(element: HTMLTextAreaElement): TextSelection {
             const originalStart = element.selectionStart;
             const originalEnd = element.selectionEnd;
-            
+
             // Only on correct selection, search for extended selection (with * or ~ symbols)
             if (originalStart !== originalEnd) {
                 const newStart = this.getPositionbeforeSelected(originalStart);
                 const newEnd = this.getPositionAfterSelected(originalEnd);
-            
+
                 if (newStart !== originalStart || newEnd !== originalEnd) {
                     element.setSelectionRange(newStart, newEnd);
                 }
             }
-            
+
             return {
                 start: element.selectionStart,
                 end: element.selectionEnd

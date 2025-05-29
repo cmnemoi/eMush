@@ -118,6 +118,44 @@ final class ProjectFinishedEventTest extends TestCase
         $this->thenPlayerShouldHaveTriumph($player, 0);
     }
 
+    public function testShouldGiveResearchBrillantTriumphToAllHumans(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = $this->givenPlayerWithDaedalus($daedalus);
+        $player2 = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenResearchBrillantTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::RETRO_FUNGAL_SERUM, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        $this->thenPlayersShouldHaveTriumph([$player, $player2], 16);
+    }
+
+    public function testShouldNotGiveResearchBrillantTriumphToMush(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenPlayerIsMush($player);
+        $this->givenResearchBrillantTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::RETRO_FUNGAL_SERUM, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        $this->thenPlayerShouldHaveTriumph($player, 0);
+    }
+
+    public function testShouldNotGiveResearchBrillantTriumphIfResearchIsNotOnTheList(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenResearchBrillantTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::MUSHOVORE_BACTERIA, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        $this->thenPlayerShouldHaveTriumph($player, 0);
+    }
+
     public static function provideShouldGiveResearchSmallTriumphToAllHumansCases(): iterable
     {
         return [
@@ -174,7 +212,16 @@ final class ProjectFinishedEventTest extends TestCase
     {
         $this->triumphConfigRepository->save(
             TriumphConfig::fromDto(
-                TriumphConfigData::getByName(TriumphEnum::RESEARCH)
+                TriumphConfigData::getByName(TriumphEnum::RESEARCH_STANDARD)
+            )
+        );
+    }
+
+    private function givenResearchBrillantTriumphConfig(): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(
+                TriumphConfigData::getByName(TriumphEnum::RESEARCH_BRILLANT)
             )
         );
     }

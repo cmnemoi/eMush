@@ -87,5 +87,15 @@
         <target>Vous gagnez {quantity} :triumph: car une recherche a été réalisée.</target>
       </segment>
     </unit>
+    <unit id="research_major">
+      <segment id="research_major.name" state="translated">
+        <source>research_major.name</source>
+        <target>Recherche majeure</target>
+      </segment>
+      <segment id="research_major.log" state="translated">
+        <source>research_major.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche majeure a été réalisée !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

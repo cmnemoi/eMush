@@ -23,8 +23,7 @@ export class ClosedPlayer {
     public messageIsEdited: boolean|null;
     public messageHasBeenModerated: boolean = false;
     public hasBadEndCause!: boolean;
-    public triumphGains: Array<TriumphGain>;
-
+    public triumphGains: string[] = [];
 
     constructor() {
         this.iri = null;
@@ -47,7 +46,6 @@ export class ClosedPlayer {
         this.language = null;
         this.messageIsHidden = null;
         this.messageIsEdited = null;
-        this.triumphGains = [];
     }
     load(object :any): ClosedPlayer {
         if (typeof object !== "undefined") {

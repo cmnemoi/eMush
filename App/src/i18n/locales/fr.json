@@ -109,7 +109,10 @@
 			"no_infirmerie": "Mort perdu dans l'espace infini !",
 			"suicide": "Suicidé avec panache !",
 			"patrol_ship_explosion": "Manœuvre ratée !"
-		}
+		},
+		"historyAndTriumph": "Historique et Triomphe",
+		"historyAndTriumphDescription": "Cliquez ici pour connaître l'historique et le triomphe de **{character}**.",
+		"triumph": "Triomphe"
 	},
 	"userBanner": {
 		"userShips": "Fiche"

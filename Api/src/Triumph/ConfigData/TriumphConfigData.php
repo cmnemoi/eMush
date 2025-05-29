@@ -121,6 +121,19 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 3,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::RESEARCH_STANDARD->toConfigKey('default'),
+                name: TriumphEnum::RESEARCH_STANDARD,
+                targetedEvent: ProjectEvent::PROJECT_FINISHED,
+                tagConstraints: [
+                    ProjectName::MUSH_LANGUAGE->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSH_HUNTER_ZC16H->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSH_RACES->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 6,
+            ),
         ];
     }
 

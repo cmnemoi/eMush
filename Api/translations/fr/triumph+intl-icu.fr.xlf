@@ -77,5 +77,15 @@
         <target>Vous gagnez {quantity} :triumph: car une recherche mineure a été réalisée.</target>
       </segment>
     </unit>
+    <unit id="research_standard">
+      <segment id="research_standard.name" state="translated">
+        <source>research_standard.name</source>
+        <target>Recherche</target>
+      </segment>
+      <segment id="research_standard.log" state="translated">
+        <source>research_standard.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche a été réalisée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

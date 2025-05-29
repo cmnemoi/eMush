@@ -77,6 +77,47 @@ final class ProjectFinishedEventTest extends TestCase
         $this->thenPlayerShouldHaveTriumph($player, 0);
     }
 
+    /**
+     * @dataProvider provideShouldGiveResearchTriumphToAllHumansCases
+     */
+    public function testShouldGiveResearchTriumphToAllHumans(ProjectName $projectName): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = $this->givenPlayerWithDaedalus($daedalus);
+        $player2 = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenResearchTriumphConfig();
+        $event = $this->givenProjectFinishedEvent($projectName, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        $this->thenPlayersShouldHaveTriumph([$player, $player2], 6);
+    }
+
+    public function testShouldNotGiveResearchTriumphToMush(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenPlayerIsMush($player);
+        $this->givenResearchTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::MUSH_HUNTER_ZC16H, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        $this->thenPlayerShouldHaveTriumph($player, 0);
+    }
+
+    public function testShouldNotGiveResearchTriumphIfResearchIsNotOnTheList(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenResearchTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::MUSHOVORE_BACTERIA, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        $this->thenPlayerShouldHaveTriumph($player, 0);
+    }
+
     public static function provideShouldGiveResearchSmallTriumphToAllHumansCases(): iterable
     {
         return [
@@ -89,6 +130,16 @@ final class ProjectFinishedEventTest extends TestCase
             ProjectName::MYCOALARM->toString() => [ProjectName::MYCOALARM],
             ProjectName::PATULINE_SCRAMBLER->toString() => [ProjectName::PATULINE_SCRAMBLER],
             ProjectName::PHEROMODEM->toString() => [ProjectName::PHEROMODEM],
+        ];
+    }
+
+    public static function provideShouldGiveResearchTriumphToAllHumansCases(): iterable
+    {
+        return [
+            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
+            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
+            ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
+            ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => [ProjectName::MUSH_REPRODUCTIVE_SYSTEM],
         ];
     }
 
@@ -115,6 +166,15 @@ final class ProjectFinishedEventTest extends TestCase
         $this->triumphConfigRepository->save(
             TriumphConfig::fromDto(
                 TriumphConfigData::getByName(TriumphEnum::RESEARCH_SMALL)
+            )
+        );
+    }
+
+    private function givenResearchTriumphConfig(): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(
+                TriumphConfigData::getByName(TriumphEnum::RESEARCH)
             )
         );
     }

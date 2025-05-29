@@ -11,6 +11,7 @@ enum TriumphScope: string
     case ALL_ALIVE_HUMANS = 'all_alive_humans';
     case ALL_MUSHS = 'all_mushs';
     case ALL_ACTIVE_EXPLORERS = 'all_active_explorers';
+    case ALL_ACTIVE_HUMAN_EXPLORERS = 'all_active_human_explorers';
 
     case NONE = '';
 }

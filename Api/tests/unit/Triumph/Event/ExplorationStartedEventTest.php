@@ -18,6 +18,8 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Entity\TriumphConfig;
@@ -109,6 +111,26 @@ final class ExplorationStartedEventTest extends TestCase
     {
         $daedalus = $this->givenDaedalus();
         $hua = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::HUA, $daedalus);
+
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::EXPLORATOR))
+        );
+        $explorationStartedEvent = $this->givenExplorationStartedEventWithExplorers([$hua]);
+
+        $this->whenChangeTriumphFromEventIsExecuted($explorationStartedEvent);
+
+        self::assertEquals(0, $hua->getTriumph());
+    }
+
+    public function testShouldNotGiveExploratorTriumphToHuaIsSheIsMush(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $hua = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::HUA, $daedalus);
+        GameEquipmentFactory::createItemByNameForHolder(
+            name: GearItemEnum::SPACESUIT,
+            holder: $hua,
+        );
+        StatusFactory::createStatusByNameForHolder(PlayerStatusEnum::MUSH, $hua);
 
         $this->triumphConfigRepository->save(
             TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::EXPLORATOR))

@@ -85,7 +85,7 @@ abstract class TriumphConfigData
                 key: TriumphEnum::EXPLORATOR->toConfigKey('default'),
                 name: TriumphEnum::EXPLORATOR,
                 targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
-                scope: TriumphScope::ALL_ACTIVE_EXPLORERS,
+                scope: TriumphScope::ALL_ACTIVE_HUMAN_EXPLORERS,
                 target: CharacterEnum::HUA,
                 quantity: 3,
             ),

@@ -6,6 +6,7 @@ namespace Mush\Tests\unit\Player\Entity;
 
 use Mush\Player\Entity\ClosedPlayer;
 use Mush\Triumph\Enum\TriumphEnum;
+use Mush\Triumph\ValueObject\TriumphGain;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -78,12 +79,9 @@ final class ClosedPlayerTriumphGainTest extends TestCase
     private function thenTriumphGainsShouldContainExactly(ClosedPlayer $closedPlayer, array $expectedGains): void
     {
         $gains = $closedPlayer->getTriumphGains();
-        self::assertCount(\count($expectedGains), $gains);
-        foreach ($expectedGains as $index => $expectedGain) {
-            $gain = $gains->get($index);
-            self::assertSame($expectedGain['triumphKey'], $gain->getTriumphKey(), "TriumphEnum mismatch at index {$index}");
-            self::assertSame($expectedGain['value'], $gain->getValue(), "Value mismatch at index {$index}");
-            self::assertSame($expectedGain['count'], $gain->getCount(), "Count mismatch at index {$index}");
-        }
+        self::assertSame(
+            expected: $expectedGains,
+            actual: $gains->map(static fn (TriumphGain $gain) => $gain->toArray())->toArray(),
+        );
     }
 }

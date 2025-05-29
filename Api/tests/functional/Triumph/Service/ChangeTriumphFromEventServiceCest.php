@@ -11,6 +11,7 @@ use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
+use Mush\Triumph\ValueObject\TriumphGain;
 
 /**
  * @internal
@@ -63,9 +64,13 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
         }
 
         $closedPlayer = $this->player->getPlayerInfo()->getClosedPlayer();
-        $I->assertCount(1, $closedPlayer->getTriumphGains());
-        $I->assertEquals(TriumphEnum::CYCLE_HUMAN, $closedPlayer->getTriumphGains()->first()->getTriumphKey());
-        $I->assertEquals(1, $closedPlayer->getTriumphGains()->first()->getValue());
-        $I->assertEquals(2, $closedPlayer->getTriumphGains()->first()->getCount());
+        $I->assertSame(
+            expected: [[
+                'triumphKey' => TriumphEnum::CYCLE_HUMAN,
+                'value' => 1,
+                'count' => 2,
+            ]],
+            actual: $closedPlayer->getTriumphGains()->map(static fn (TriumphGain $gain) => $gain->toArray())->toArray(),
+        );
     }
 }

@@ -133,10 +133,7 @@ export default defineComponent({
 
         applyFormatting(type: FormattingType): void {
             const element = this.$refs.textEditor as HTMLTextAreaElement;
-            const selection: TextSelection = {
-                start: element.selectionStart,
-                end: element.selectionEnd
-            };
+            const selection = this.getTextSelection(element);
 
             if (!this.isValidSelection(selection)) {
                 return;
@@ -153,10 +150,7 @@ export default defineComponent({
 
         clearFormatting(): void {
             const element = this.$refs.textEditor as HTMLTextAreaElement;
-            const selection: TextSelection = {
-                start: element.selectionStart,
-                end: element.selectionEnd
-            };
+            const selection = this.getTextSelection(element);
 
             if (!this.isValidSelection(selection)) {
                 return;
@@ -206,10 +200,39 @@ export default defineComponent({
         },
 
         getTextSelection(element: HTMLTextAreaElement): TextSelection {
+            const originalStart = element.selectionStart;
+            const originalEnd = element.selectionEnd;
+            
+            // Only on correct selection, search for extended selection (with * or ~ symbols)
+            if (originalStart !== originalEnd) {
+                const newStart = this.getPositionbeforeSelected(originalStart);
+                const newEnd = this.getPositionAfterSelected(originalEnd);
+            
+                if (newStart !== originalStart || newEnd !== originalEnd) {
+                    element.setSelectionRange(newStart, newEnd);
+                }
+            }
+            
             return {
                 start: element.selectionStart,
                 end: element.selectionEnd
             };
+        },
+        getPositionbeforeSelected(start: number): number {
+            // used to search formatting tag before selection, return new start position
+            let index = start - 1;
+            while (index >= 0 && /[*~]/.test(this.editedText[index])) {
+                index--;
+            }
+            return index + 1;
+        },
+        getPositionAfterSelected(end: number): number {
+            // used to search formatting tag after selection, return new end position
+            let index = end;
+            while (index < this.editedText.length && /[*~]/.test(this.editedText[index])) {
+                index++;
+            }
+            return index;
         },
 
         updateCursorPosition(element: HTMLTextAreaElement, position: number): void {

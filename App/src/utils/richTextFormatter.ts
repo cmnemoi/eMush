@@ -15,10 +15,10 @@ export function cleanExistingFormatting(text: string): string {
     let previousText = '';
 
     const patterns = [
-        /\*\*\*(.*?)\*\*\*/g, // bolditalic
-        /\*\*(.*?)\*\*/g,   // bold
-        /~~(.*?)~~/g,       // strike
-        /\*(.*?)\*/g        // italic
+        /\*+(.*?)\*+/g,     // bolditalic or bold or italic
+        ///\*\*(.*?)\*\*/g,   // bold
+        /~~(.*?)~~/g       // strike
+        ///\*(.*?)\*/g        // italic
     ];
 
     do {

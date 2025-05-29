@@ -18,6 +18,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Normalizer\DeadPlayerNormalizer;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
@@ -37,6 +38,7 @@ final class DeadPlayerNormalizerTest extends TestCase
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new DeadPlayerNormalizer($this->translationService);
+        $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
     }
 
     /**
@@ -204,6 +206,7 @@ final class DeadPlayerNormalizerTest extends TestCase
                 'description' => 'translated injury description',
             ],
             'isMush' => false,
+            'triumphGains' => null,
             'players' => [
                 0 => [
                     'id' => 3,

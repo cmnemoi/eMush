@@ -1,4 +1,5 @@
 import { Character } from "@/entities/Character";
+import { toArray } from "@/utils/toArray";
 
 export class DeadPlayerInfo {
     public id!: number;
@@ -9,6 +10,7 @@ export class DeadPlayerInfo {
     public endCauseValue: string|null;
     public endCauseDescription: string|null;
     public likes: integer;
+    public triumphGains: string[] = [];
     public players: Array<DeadPlayerInfo>;
 
     constructor() {
@@ -45,6 +47,12 @@ export class DeadPlayerInfo {
                 object.players.forEach((deadPlayerObject: any) => {
                     const deadPlayer = (new DeadPlayerInfo()).load(deadPlayerObject);
                     this.players.push(deadPlayer);
+                });
+            }
+
+            if (object.triumphGains) {
+                toArray(object.triumphGains).forEach((triumphGainObject: string) => {
+                    this.triumphGains.push(triumphGainObject);
                 });
             }
         }

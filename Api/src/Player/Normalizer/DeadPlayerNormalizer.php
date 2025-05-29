@@ -52,6 +52,8 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
 
         $endCause = $deadPlayerInfo->getEndCause();
 
+        $context['language'] = $language;
+
         $playerData = [
             'id' => $player->getId(),
             'character' => [
@@ -87,6 +89,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
             'gameStatus' => $playerInfo->getGameStatus(),
             'endCause' => $this->normalizeEndReason($endCause, $language),
             'isMush' => $player->isMush(),
+            'triumphGains' => $this->normalizer->normalize($deadPlayerInfo->getTriumphGains(), $format, $context),
         ];
 
         $playerData['players'] = $this->getOtherPlayers($player, $language);

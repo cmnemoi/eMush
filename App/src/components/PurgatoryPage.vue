@@ -25,7 +25,7 @@
                             id="epitaph"
                             v-model="epitaph"
                             maxlength="300"
-                            placeholder="Laissez vos impressions sur la partie ici !"
+                            :placeholder="$t('deathpage.epitaphPlaceholder')"
                         />
                         <p :class="{ limit: !(maxChar - epitaph.length) }" class="char-count">
                             {{ (maxChar - epitaph.length) }} char.
@@ -38,7 +38,7 @@
                             {{ deadPlayerInfo.endCauseDescription }}
                         </p>
                     </div>
-                    <HistoryLogs />
+                    <HistoryLogs :triumph-gains="deadPlayerInfo.triumphGains" />
                 </div>
             </div>
             <table class="crew-summary">

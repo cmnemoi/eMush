@@ -248,9 +248,9 @@ final class PlayerService implements PlayerServiceInterface
                 return $player;
             }
 
-            $this->markPlayerAsDead($player, $endReason, $time);
             $this->removePlayerTitles($player);
             $this->createClosedPlayer($player, $endReason, $time);
+            $this->markPlayerAsDead($player, $endReason, $time);
             $this->dispatchPlayerDeathEvent($player, $endReason, $time, $author);
             $this->playerRepository->save($player);
             $this->playerRepository->commitTransaction();
@@ -331,8 +331,8 @@ final class PlayerService implements PlayerServiceInterface
             ->setEndCause($endCause)
             ->setIsMush($player->isMush())
             ->setClosedDaedalus($player->getDaedalus()->getDaedalusInfo()->getClosedDaedalus())
-            ->setFinishedAt($date)
-            ->setTriumph($player->getTriumph());
+            ->setFinishedAt($date);
+
         $this->persistClosedPlayer($closedPlayer);
     }
 

@@ -39,7 +39,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycleDeath = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $triumph = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]

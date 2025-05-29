@@ -33,7 +33,6 @@ use Mush\Game\Repository\LocalizationConfigRepository;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
@@ -243,13 +242,12 @@ class DaedalusService implements DaedalusServiceInterface
 
         /** @var Player $player */
         foreach ($daedalus->getPlayers() as $player) {
-            /** @var ClosedPlayer $deadPlayerInfo */
-            $deadPlayerInfo = $player->getPlayerInfo()->getClosedPlayer();
+            $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
 
-            $deadPlayerInfo->setClosedDaedalus($closedDaedalus);
-            $closedDaedalus->addPlayer($deadPlayerInfo);
+            $closedPlayer->setClosedDaedalus($closedDaedalus);
+            $closedDaedalus->addPlayer($closedPlayer);
 
-            $this->entityManager->persist($deadPlayerInfo);
+            $this->entityManager->persist($closedPlayer);
             $this->entityManager->flush();
         }
 

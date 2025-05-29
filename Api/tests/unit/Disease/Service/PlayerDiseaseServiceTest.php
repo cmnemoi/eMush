@@ -87,7 +87,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $this
@@ -117,7 +117,7 @@ final class PlayerDiseaseServiceTest extends TestCase
         $gameConfig->addDiseaseConfig($diseaseConfig);
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $this->randomService
@@ -148,7 +148,7 @@ final class PlayerDiseaseServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $this->randomService
@@ -172,7 +172,7 @@ final class PlayerDiseaseServiceTest extends TestCase
     public function testHandleNewCycleIncubatedDiseaseAppear()
     {
         $daedalus = new Daedalus();
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(DiseaseEnum::ACID_REFLUX));
@@ -196,7 +196,7 @@ final class PlayerDiseaseServiceTest extends TestCase
     public function testHandleNewCycleIncubatedDiseaseAppearAndOverrodeDisease()
     {
         $daedalus = new Daedalus();
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $diseaseConfig = DiseaseConfig::fromConfigData(DiseaseConfigData::getByName(InjuryEnum::BROKEN_SHOULDER));
@@ -249,7 +249,7 @@ final class PlayerDiseaseServiceTest extends TestCase
     public function testHealDisease()
     {
         $daedalus = new Daedalus();
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $diseasePlayer = new PlayerDisease();
@@ -270,7 +270,7 @@ final class PlayerDiseaseServiceTest extends TestCase
     public function testTreatDisease()
     {
         $daedalus = new Daedalus();
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $diseasePlayer = new PlayerDisease();

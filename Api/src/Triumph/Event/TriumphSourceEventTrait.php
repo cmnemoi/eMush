@@ -31,6 +31,34 @@ trait TriumphSourceEventTrait
 
     public function hasExpectedTagsFor(TriumphConfig $triumphConfig): bool
     {
-        return $this->hasAllTags($triumphConfig->getTargetedEventExpectedTags());
+        if (!$triumphConfig->hasTagConstraints()) {
+            return true;
+        }
+
+        $anyConstraint = null;
+        foreach ($triumphConfig->getTagConstraints() as $tag => $constraint) {
+            switch ($constraint) {
+                case TriumphSourceEventInterface::ANY_TAG:
+                    $anyConstraint = $anyConstraint || $this->hasTag($tag);
+
+                    break;
+
+                case TriumphSourceEventInterface::ALL_TAGS:
+                    if ($this->doesNotHaveTag($tag)) {
+                        return false;
+                    }
+
+                    break;
+
+                default:
+                    throw new \LogicException('unexpected constraint type');
+            }
+        }
+
+        if ($anyConstraint === null) {
+            return true;
+        }
+
+        return $anyConstraint;
     }
 }

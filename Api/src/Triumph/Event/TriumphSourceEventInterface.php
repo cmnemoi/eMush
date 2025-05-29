@@ -10,11 +10,18 @@ use Mush\Triumph\Entity\TriumphConfig;
 
 interface TriumphSourceEventInterface
 {
+    public const ANY_TAG = 'any_tag';
+    public const ALL_TAGS = 'all_tags';
+
+    public function doesNotHaveTag(string $tag): bool;
+
     public function getDaedalus(): Daedalus;
 
     public function getEventName(): string;
 
     public function getTargetsForTriumph(TriumphConfig $triumphConfig): PlayerCollection;
+
+    public function hasTag(string $tag): bool;
 
     public function hasExpectedTagsFor(TriumphConfig $triumphConfig): bool;
 }

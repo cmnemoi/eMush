@@ -14,6 +14,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
 
 abstract class TriumphConfigData
 {
@@ -41,8 +42,8 @@ abstract class TriumphConfigData
                 key: TriumphEnum::CHUN_LIVES->toConfigKey('default'),
                 name: TriumphEnum::CHUN_LIVES,
                 targetedEvent: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
-                targetedEventExpectedTags: [
-                    EventEnum::NEW_DAY,
+                tagConstraints: [
+                    EventEnum::NEW_DAY => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::CHUN,
@@ -52,8 +53,8 @@ abstract class TriumphConfigData
                 key: TriumphEnum::RETURN_TO_SOL->toConfigKey('default'),
                 name: TriumphEnum::RETURN_TO_SOL,
                 targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
-                targetedEventExpectedTags: [
-                    ActionEnum::RETURN_TO_SOL->toString(),
+                tagConstraints: [
+                    ActionEnum::RETURN_TO_SOL->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 20,
@@ -62,8 +63,8 @@ abstract class TriumphConfigData
                 key: TriumphEnum::SOL_MUSH_INTRUDER->toConfigKey('default'),
                 name: TriumphEnum::SOL_MUSH_INTRUDER,
                 targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
-                targetedEventExpectedTags: [
-                    ActionEnum::RETURN_TO_SOL->toString(),
+                tagConstraints: [
+                    ActionEnum::RETURN_TO_SOL->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: -10,
@@ -94,8 +95,8 @@ abstract class TriumphConfigData
                 key: TriumphEnum::SOL_CONTACT->toConfigKey('default'),
                 name: TriumphEnum::SOL_CONTACT,
                 targetedEvent: LinkWithSolEstablishedEvent::class,
-                targetedEventExpectedTags: [
-                    LinkWithSolEstablishedEvent::FIRST_CONTACT,
+                tagConstraints: [
+                    LinkWithSolEstablishedEvent::FIRST_CONTACT => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 8

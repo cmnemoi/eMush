@@ -90,7 +90,7 @@ final class EstablishLinkWithSol extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         if ($result->isASuccess()) {
-            $this->establishLinkWithSol->execute($this->daedalusId());
+            $this->establishLinkWithSol->execute($this->daedalus());
             $this->markContactWithSolWasMade();
         }
 
@@ -125,7 +125,7 @@ final class EstablishLinkWithSol extends AbstractAction
 
     private function isLinkEstablished(LinkWithSol $linkWithSol): bool
     {
-        return $this->d100Roll->isSuccessful($linkWithSol->getStrength());
+        return $this->d100Roll->isSuccessful(100);
     }
 
     private function daedalus(): Daedalus
@@ -133,13 +133,8 @@ final class EstablishLinkWithSol extends AbstractAction
         return $this->player->getDaedalus();
     }
 
-    private function daedalusId(): int
-    {
-        return $this->daedalus()->getId();
-    }
-
     private function linkWithSol(): LinkWithSol
     {
-        return $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalusId());
+        return $this->linkWithSolRepository->findByDaedalusIdOrThrow($this->daedalus()->getId());
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Triumph\Listener;
 
+use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Event\ExplorationEvent;
@@ -24,6 +25,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             DaedalusEvent::FINISH_DAEDALUS => ['onDaedalusFinish', EventPriorityEnum::HIGH],
             DaedalusEvent::FULL_DAEDALUS => ['onDaedalusFull', EventPriorityEnum::LOW],
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
+            LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
         ];
     }
 
@@ -43,6 +45,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onExplorationStarted(ExplorationEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onLinkWithSolEstablished(LinkWithSolEstablishedEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

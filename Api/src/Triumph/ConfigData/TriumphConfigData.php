@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Triumph\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Event\ExplorationEvent;
@@ -88,6 +89,16 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ACTIVE_HUMAN_EXPLORERS,
                 target: CharacterEnum::HUA,
                 quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::SOL_CONTACT->toConfigKey('default'),
+                name: TriumphEnum::SOL_CONTACT,
+                targetedEvent: LinkWithSolEstablishedEvent::class,
+                targetedEventExpectedTags: [
+                    LinkWithSolEstablishedEvent::FIRST_CONTACT,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 8
             ),
         ];
     }

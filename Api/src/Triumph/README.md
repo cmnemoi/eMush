@@ -37,7 +37,7 @@ You can add new scopes to restrain your triumph targets.
    - implement [TriumphSourceEventInterface](./Event/TriumphSourceEventInterface.php)
    - some methods are already implemented in [TriumphSourceEventTrait](./Event/TriumphSourceEventTrait.php)
    - be added to [TriumphSourceEventSubscriber](./Listener/TriumphSourceEventSubscriber.php)
-3. Add the triumph log in [triumph+intl-icu.fr.xlf](./translations/fr/triumph+intl-icu.fr.xlf)
+3. Add the triumph log french translation in [triumph+intl-icu.fr.xlf](../../translations/fr/triumph+intl-icu.fr.xlf)
 
 ### Concrete Example
 

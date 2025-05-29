@@ -528,6 +528,9 @@ class GameConfigData
                     PlaceStatusEnum::SELECTED_FOR_JOLT->value . '_default',
                     PlaceStatusEnum::SELECTED_FOR_ELECTROCUTION->value . '_default',
                     PlayerStatusEnum::SELECTED_FOR_BOARD_DISEASE . '_default',
+                    PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE . '_default',
+                    PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE . '_default',
+                    PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

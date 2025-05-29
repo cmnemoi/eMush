@@ -78,4 +78,7 @@ abstract class PlayerStatusEnum
     public const string SELECTED_FOR_STEEL_PLATE = 'selected_for_steel_plate';
     public const string SELECTED_FOR_BOARD_DISEASE = 'selected_for_board_disease';
     public const string SELECTED_FOR_ANXIETY_ATTACK = 'selected_for_anxiety_attack';
+    public const string HAS_GAINED_COMMANDER_TITLE = 'has_gained_commander_title';
+    public const string HAS_GAINED_NERON_MANAGER_TITLE = 'has_gained_neron_manager_title';
+    public const string HAS_GAINED_COM_MANAGER_TITLE = 'has_gained_com_manager_title';
 }

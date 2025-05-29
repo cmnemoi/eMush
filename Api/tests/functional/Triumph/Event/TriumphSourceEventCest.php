@@ -15,6 +15,8 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -24,12 +26,14 @@ use Mush\Tests\FunctionalTester;
 final class TriumphSourceEventCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldGiveTriumphOnDaedalusNewCycle(FunctionalTester $I): void
@@ -128,6 +132,20 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
 
         // research_small triumph
         $I->assertEquals(3, $this->player->getTriumph());
+    }
+
+    public function shouldGiveTriumphOnStatusApplied(FunctionalTester $I): void
+    {
+        $stephen = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::STEPHEN);
+
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE,
+            holder: $stephen,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        $I->assertEquals(4, $stephen->getTriumph());
     }
 
     public function shouldGiveTriumphOnProjectAdvanced(FunctionalTester $I): void

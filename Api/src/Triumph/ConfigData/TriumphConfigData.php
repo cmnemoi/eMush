@@ -15,6 +15,8 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
@@ -193,6 +195,19 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::RALUCA,
                 quantity: 2,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::AMBITIOUS->toConfigKey('default'),
+                name: TriumphEnum::AMBITIOUS,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE => TriumphSourceEventInterface::ANY_TAG,
+                    PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
+                    PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: CharacterEnum::STEPHEN,
+                quantity: 4,
             ),
         ];
     }

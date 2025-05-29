@@ -1944,6 +1944,27 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE . '_default',
+            'statusName' => PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE . '_default',
+            'statusName' => PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE . '_default',
+            'statusName' => PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

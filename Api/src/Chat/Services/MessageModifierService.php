@@ -51,7 +51,7 @@ final class MessageModifierService implements MessageModifierServiceInterface
 
     private function applyDeafSpeakEffect(string $message): string
     {
-        return strtoupper($message);
+        return mb_strtoupper($message);
     }
 
     private function applyDeafListenEffect(): string

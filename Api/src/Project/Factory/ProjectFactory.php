@@ -11,11 +11,19 @@ use Mush\Project\Enum\ProjectName;
 
 final class ProjectFactory
 {
-    public static function createNeronProjectByName(ProjectName $name): Project
+    public static function createProjectByName(ProjectName $name): Project
     {
         return new Project(
-            config: ProjectConfigFactory::createNeronProjectConfigByName($name),
+            config: ProjectConfigFactory::createProjectConfigByName($name),
             daedalus: DaedalusFactory::createDaedalus(),
+        );
+    }
+
+    public static function createProjectByNameForDaedalus(ProjectName $name, Daedalus $daedalus): Project
+    {
+        return new Project(
+            config: ProjectConfigFactory::createProjectConfigByName($name),
+            daedalus: $daedalus,
         );
     }
 
@@ -110,7 +118,7 @@ final class ProjectFactory
     public static function createNeronProjectByNameForDaedalus(ProjectName $name, Daedalus $daedalus): Project
     {
         return new Project(
-            config: ProjectConfigFactory::createNeronProjectConfigByName($name),
+            config: ProjectConfigFactory::createProjectConfigByName($name),
             daedalus: $daedalus,
         );
     }

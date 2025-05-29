@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Player\Repository;
+namespace Mush\Tests\unit\Triumph\Event;
 
 use Codeception\PHPUnit\TestCase;
 use Mush\Daedalus\Entity\Daedalus;

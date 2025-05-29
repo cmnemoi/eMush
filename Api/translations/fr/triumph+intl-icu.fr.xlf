@@ -67,5 +67,55 @@
         <target>Vous gagnez {quantity} :triumph: car le Daedalus a contacté Sol pour la première fois.</target>
       </segment>
     </unit>
+    <unit id="research_small">
+      <segment id="research_small.name" state="translated">
+        <source>research_small.name</source>
+        <target>Recherche mineure</target>
+      </segment>
+      <segment id="research_small.log" state="translated">
+        <source>research_small.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche mineure a été réalisée.</target>
+      </segment>
+    </unit>
+    <unit id="research_standard">
+      <segment id="research_standard.name" state="translated">
+        <source>research_standard.name</source>
+        <target>Recherche</target>
+      </segment>
+      <segment id="research_standard.log" state="translated">
+        <source>research_standard.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche a été réalisée.</target>
+      </segment>
+    </unit>
+    <unit id="research_brillant">
+      <segment id="research_brillant.name" state="translated">
+        <source>research_brillant.name</source>
+        <target>Recherche majeure</target>
+      </segment>
+      <segment id="research_brillant.log" state="translated">
+        <source>research_brillant.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche majeure a été réalisée !</target>
+      </segment>
+    </unit>
+    <unit id="mush_specialist">
+      <segment id="mush_specialist.name" state="translated">
+        <source>mush_specialist.name</source>
+        <target>Spécialité Mush</target>
+      </segment>
+      <segment id="mush_specialist.log" state="translated">
+        <source>mush_specialist.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche sur le Mush a été réalisée en votre présence en tant que Finola !</target>
+      </segment>
+    </unit>
+    <unit id="precious_body">
+      <segment id="precious_body.name" state="translated">
+        <source>precious_body.name</source>
+        <target>Le Précieux</target>
+      </segment>
+      <segment id="precious_body.log" state="translated">
+        <source>precious_body.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche nécessitant votre présence en tant que Chun a été réalisée !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

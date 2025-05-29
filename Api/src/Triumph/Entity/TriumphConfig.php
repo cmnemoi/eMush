@@ -98,7 +98,12 @@ class TriumphConfig
         return $this->targetedEvent;
     }
 
-    public function getTargetedEventExpectedTags(): array
+    public function hasTagConstraints(): bool
+    {
+        return \count($this->targetedEventExpectedTags) > 0;
+    }
+
+    public function getTagConstraints(): array
     {
         return $this->targetedEventExpectedTags;
     }
@@ -115,7 +120,7 @@ class TriumphConfig
             $triumphConfigDto->name,
             $triumphConfigDto->scope,
             $triumphConfigDto->targetedEvent,
-            $triumphConfigDto->targetedEventExpectedTags,
+            $triumphConfigDto->tagConstraints,
             $triumphConfigDto->target,
             $triumphConfigDto->quantity,
             $triumphConfigDto->visibility,
@@ -129,7 +134,7 @@ class TriumphConfig
         $this->name = $triumphConfigDto->name;
         $this->scope = $triumphConfigDto->scope;
         $this->targetedEvent = $triumphConfigDto->targetedEvent;
-        $this->targetedEventExpectedTags = $triumphConfigDto->targetedEventExpectedTags;
+        $this->targetedEventExpectedTags = $triumphConfigDto->tagConstraints;
         $this->target = $triumphConfigDto->target;
         $this->quantity = $triumphConfigDto->quantity;
         $this->visibility = $triumphConfigDto->visibility;

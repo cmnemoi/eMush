@@ -16,9 +16,7 @@ export function cleanExistingFormatting(text: string): string {
 
     const patterns = [
         /\*+(.*?)\*+/g,     // bolditalic or bold or italic
-        ///\*\*(.*?)\*\*/g,   // bold
         /~~(.*?)~~/g       // strike
-        ///\*(.*?)\*/g        // italic
     ];
 
     do {

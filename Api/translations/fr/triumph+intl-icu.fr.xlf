@@ -57,5 +57,15 @@
         <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition en tant que Hua !</target>
       </segment>
     </unit>
+    <unit id="sol_contact">
+      <segment id="sol_contact.name" state="translated">
+        <source>sol_contact.name</source>
+        <target>Contact avec Sol</target>
+      </segment>
+      <segment id="sol_contact.log" state="translated">
+        <source>sol_contact.log</source>
+        <target>Vous gagnez {quantity} :triumph: car le Daedalus a contacté Sol pour la première fois.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

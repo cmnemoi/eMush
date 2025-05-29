@@ -6,6 +6,7 @@ namespace Mush\Communications\Service;
 
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\EventServiceInterface;
 
 final readonly class EstablishLinkWithSolService
@@ -15,14 +16,14 @@ final readonly class EstablishLinkWithSolService
         private LinkWithSolRepositoryInterface $linkWithSolRepository
     ) {}
 
-    public function execute(int $daedalusId): void
+    public function execute(Daedalus $daedalus): void
     {
-        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($daedalusId);
+        $linkWithSol = $this->linkWithSolRepository->findByDaedalusIdOrThrow($daedalus->getId());
         $linkWithSol->establish();
         $this->linkWithSolRepository->save($linkWithSol);
 
         $this->eventService->callEvent(
-            event: new LinkWithSolEstablishedEvent($daedalusId),
+            event: new LinkWithSolEstablishedEvent($daedalus),
             name: LinkWithSolEstablishedEvent::class
         );
     }

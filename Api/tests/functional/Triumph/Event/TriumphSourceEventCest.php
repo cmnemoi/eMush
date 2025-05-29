@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\functional\Triumph\Event;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -95,5 +96,18 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
 
         // then I should gain expedition triumph
         $I->assertEquals(3, $this->player->getTriumph());
+    }
+
+    public function shouldGiveTriumphOnLinkWithSolEstablished(FunctionalTester $I): void
+    {
+        $this->player->setTriumph(0);
+
+        $this->eventService->callEvent(
+            event: new LinkWithSolEstablishedEvent($this->daedalus),
+            name: LinkWithSolEstablishedEvent::class,
+        );
+
+        // then I should gain sol contact triumph
+        $I->assertEquals(8, $this->player->getTriumph());
     }
 }

@@ -14,6 +14,7 @@ use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Communications\Entity\LinkWithSol;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
+use Mush\Communications\Service\KillLinkWithSolService;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -21,6 +22,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
@@ -41,6 +43,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private LinkWithSolRepositoryInterface $linkWithSolRepository;
+    private KillLinkWithSolService $killLinkWithSolService;
 
     private ActionConfig $actionConfig;
     private EstablishLinkWithSol $establishLinkWithSol;
@@ -55,6 +58,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->linkWithSolRepository = $I->grabService(LinkWithSolRepositoryInterface::class);
+        $this->killLinkWithSolService = $I->grabService(KillLinkWithSolService::class);
 
         $this->actionConfig = $I->grabEntityFromRepository(
             ActionConfig::class,
@@ -69,7 +73,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->givenKuanTiIsFocusedOnCommsCenter();
     }
 
-    public function shouldNotBeVisibleIfPLayerIsNotFocusedOnCommsCenter(FunctionalTester $I): void
+    public function shouldNotBeVisibleIfPlayerIsNotFocusedOnCommsCenter(FunctionalTester $I): void
     {
         $this->givenChunIsNotFocusedOnCommsCenter();
 
@@ -143,6 +147,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->givenAllPlayersHaveMorale(0);
 
         $this->givenChunEstablishesLinkWithSol();
+
+        $this->givenLinkWithSolIsKilled();
 
         $this->whenKuanTiEstablishesLinkWithSol();
 
@@ -266,6 +272,28 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->whenChunEstablishesLinkWithSol();
 
         $this->thenCommsDownAlertIsDeleted($I);
+    }
+
+    public function shouldGiveTriumphWhenSuccedingForTheFirstTime(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->thenPlayerShouldHaveTriumph($this->chun, 8, $I);
+    }
+
+    public function shouldNotGiveTriumphWhenSucceedingForTheSecondTime(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->givenChunEstablishesLinkWithSol();
+
+        $this->givenLinkWithSolIsKilled();
+
+        $this->whenKuanTiEstablishesLinkWithSol();
+
+        $this->thenPlayerShouldHaveTriumph($this->chun, 8, $I);
     }
 
     private function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
@@ -523,5 +551,15 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function givenLinkProgressWillBe(int $progress): void
     {
         $this->actionConfig->setOutputQuantity($progress);
+    }
+
+    private function givenLinkWithSolIsKilled(): void
+    {
+        $this->killLinkWithSolService->execute($this->daedalus->getId());
+    }
+
+    private function thenPlayerShouldHaveTriumph(Player $player, int $expectedTriumph, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedTriumph, $player->getTriumph(), message: "{$player->getName()} should have {$expectedTriumph} triumph");
     }
 }

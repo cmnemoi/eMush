@@ -12,8 +12,9 @@ enum TriumphEnum: string
     case EXPEDITION = 'expedition';
     case EXPLORATOR = 'explorator';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
-    case RESEARCH_STANDARD = 'research_standard';
+    case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';
+    case RESEARCH_STANDARD = 'research_standard';
     case RETURN_TO_SOL = 'return_to_sol';
     case SOL_CONTACT = 'sol_contact';
     case SOL_MUSH_INTRUDER = 'sol_mush_intruder';

@@ -134,6 +134,16 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 6,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::RESEARCH_BRILLANT->toConfigKey('default'),
+                name: TriumphEnum::RESEARCH_BRILLANT,
+                targetedEvent: ProjectEvent::PROJECT_FINISHED,
+                tagConstraints: [
+                    ProjectName::RETRO_FUNGAL_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 16,
+            ),
         ];
     }
 

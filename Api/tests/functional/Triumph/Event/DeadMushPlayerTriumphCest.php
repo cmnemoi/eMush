@@ -15,7 +15,7 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class LoseTriumphCest extends AbstractFunctionalTest
+final class DeadMushPlayerTriumphCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;

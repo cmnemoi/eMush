@@ -435,7 +435,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function isMush(): bool
     {
-        return $this->playerInfo->getClosedPlayer()->isMush();
+        return $this->isAlive() ? $this->hasStatus(PlayerStatusEnum::MUSH) : $this->playerInfo->getClosedPlayer()->isMush();
     }
 
     public function getMedicalConditions(): PlayerDiseaseCollection

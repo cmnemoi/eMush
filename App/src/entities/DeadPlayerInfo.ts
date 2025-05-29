@@ -6,9 +6,10 @@ export class DeadPlayerInfo {
     public character!: Character;
     public deathDay: integer|null;
     public deathCycle: integer|null;
-    public endCauseKey: string|null;
-    public endCauseValue: string|null;
-    public endCauseDescription: string|null;
+    public endCauseKey!: string;
+    public endCauseShortName!: string;
+    public endCauseName!: string;
+    public endCauseDescription!: string;
     public likes: integer;
     public triumphGains: string[] = [];
     public players: Array<DeadPlayerInfo>;
@@ -17,9 +18,6 @@ export class DeadPlayerInfo {
         this.character = new Character();
         this.deathDay = null;
         this.deathCycle = null;
-        this.endCauseKey = null;
-        this.endCauseValue = null;
-        this.endCauseDescription= null;
         this.likes = 0;
         this.players = [];
     }
@@ -33,9 +31,9 @@ export class DeadPlayerInfo {
 
             if (typeof object.endCause !== "undefined") {
                 this.endCauseKey = object.endCause['key'];
-                this.endCauseValue = object.endCause['name'];
+                this.endCauseName = object.endCause['name'];
+                this.endCauseShortName = object.endCause['shortName'];
                 this.endCauseDescription = object.endCause['description'];
-
             }
 
             if (typeof object.character !== "undefined") {

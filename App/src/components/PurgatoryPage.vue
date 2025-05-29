@@ -35,7 +35,7 @@
                         <p class="death-cause">
                             <img :src="getImgUrl('ready.png')" alt="alive" v-if="deadPlayerInfo.hasGoodEndCause()">
                             <img :src="getImgUrl('ui_icons/dead.png')" alt="dead" v-else>
-                            {{ deadPlayerInfo.endCauseDescription }}
+                            {{ deadPlayerInfo.endCauseName }}
                         </p>
                     </div>
                     <HistoryLogs :triumph-gains="deadPlayerInfo.triumphGains" />
@@ -52,7 +52,7 @@
                     <tr v-for="crewPlayer in deadPlayerInfo.players" :key="crewPlayer.id">
                         <td><img :src="characterBody(crewPlayer.character.key)" class="char hua"> <span class="charname">{{ crewPlayer.character.name }}</span></td>
                         <td>{{ formatDeathDate(crewPlayer.deathDay, crewPlayer.deathCycle) }}</td>
-                        <td>{{ crewPlayer.endCauseValue }}</td>
+                        <td>{{ crewPlayer.endCauseShortName }}</td>
                         <td>
                             <button class="like" :class="isPlayerLiked(crewPlayer.id) ? 'liked' : ''" @click="toggleLike(crewPlayer.id)">
                                 {{ getNumberLikes(crewPlayer) }} <img :src="getImgUrl('dislike.png')">

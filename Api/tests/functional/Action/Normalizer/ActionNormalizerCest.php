@@ -12,11 +12,13 @@ use Mush\Action\Normalizer\ActionNormalizer;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
+use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -81,6 +83,49 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'successRate' => 100,
                 'name' => 'Piéger pièce',
                 'description' => 'Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.//Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.',
+                'canExecute' => true,
+                'confirmation' => null,
+            ],
+            actual: $normalizedAction,
+        );
+    }
+
+    public function shouldNormalizeExtractSporeAction(FunctionalTester $I): void
+    {
+        // given KT is Mush
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I normalize extract spore action for KT
+        /** @var Action $trapClosetAction */
+        $extractSporeAction = $this->kuanTi
+            ->getProvidedActions(ActionHolderEnum::PLAYER, [ActionRangeEnum::SELF])
+            ->filter(static fn (Action $action) => $action->getActionConfig()->getActionName() === ActionEnum::EXTRACT_SPORE)
+            ->first();
+
+        $normalizedAction = $this->normalizer->normalize($extractSporeAction, format: null, context: ['currentPlayer' => $this->kuanTi]);
+
+        // then I should see the normalized action
+        $I->assertEquals(
+            expected: [
+                'id' => $extractSporeAction->getActionConfig()->getId(),
+                'key' => 'extract_spore',
+                'actionProvider' => [
+                    'id' => $this->kuanTi->getId(),
+                    'class' => Player::class,
+                ],
+                'actionPointCost' => 2,
+                'moralPointCost' => 0,
+                'movementPointCost' => 0,
+                'skillPointCosts' => [],
+                'successRate' => 100,
+                'name' => 'Extirper un spore',
+                'description' => "Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
+        L'ensemble des **Mush** peuvent encore produire **4 spores** aujourd'hui.//Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.",
                 'canExecute' => true,
                 'confirmation' => null,
             ],

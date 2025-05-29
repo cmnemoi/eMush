@@ -12,7 +12,6 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Project\Enum\ProjectName;
-use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -121,54 +120,6 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 3,
-            ),
-            new TriumphConfigDto(
-                key: TriumphEnum::RESEARCH_STANDARD->toConfigKey('default'),
-                name: TriumphEnum::RESEARCH_STANDARD,
-                targetedEvent: ProjectEvent::PROJECT_FINISHED,
-                tagConstraints: [
-                    ProjectName::MUSH_LANGUAGE->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSH_HUNTER_ZC16H->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSH_RACES->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => TriumphSourceEventInterface::ANY_TAG,
-                ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                quantity: 6,
-            ),
-            new TriumphConfigDto(
-                key: TriumphEnum::RESEARCH_BRILLANT->toConfigKey('default'),
-                name: TriumphEnum::RESEARCH_BRILLANT,
-                targetedEvent: ProjectEvent::PROJECT_FINISHED,
-                tagConstraints: [
-                    ProjectName::RETRO_FUNGAL_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
-                ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                quantity: 16,
-            ),
-            new TriumphConfigDto(
-                key: TriumphEnum::MUSH_SPECIALIST->toConfigKey('default'),
-                name: TriumphEnum::MUSH_SPECIALIST,
-                targetedEvent: ProjectEvent::PROJECT_FINISHED,
-                tagConstraints: [
-                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectRequirementName::MUSH_PLAYER_DEAD->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectRequirementName::CHUN_IN_LABORATORY->toString() => TriumphSourceEventInterface::ANY_TAG,
-                ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::FINOLA,
-                quantity: 3,
-            ),
-            new TriumphConfigDto(
-                key: TriumphEnum::PRECIOUS_BODY->toConfigKey('default'),
-                name: TriumphEnum::PRECIOUS_BODY,
-                targetedEvent: ProjectEvent::PROJECT_FINISHED,
-                tagConstraints: [
-                    ProjectRequirementName::CHUN_IN_LABORATORY->toString() => TriumphSourceEventInterface::ALL_TAGS,
-                ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::CHUN,
-                quantity: 4,
             ),
         ];
     }

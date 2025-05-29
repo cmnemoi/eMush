@@ -8,7 +8,7 @@
                     :type="button.type"
                     :label="$t(button.label)"
                     :title="$t(button.title)"
-                    @click="handleRichEditorAction(button)"
+                    @click="executeRichEditorAction(button)"
                 />
             </div>
             <RichTextEditorCharacterEmotes v-if="showCharacterGrid" :characters="characters" @character-selected="insertCharacter" />
@@ -16,7 +16,7 @@
             <textarea
                 v-model="editedText"
                 class="edit-area"
-                @select="handleTextSelection"
+                @select="selectHighlightedText"
                 @keydown.esc.exact.prevent="cancel"
                 @keydown.enter.exact.prevent="confirm"
                 ref="textEditor"
@@ -100,7 +100,7 @@ export default defineComponent({
     },
     methods: {
         getImgUrl,
-        handleTextSelection(): void {
+        selectHighlightedText(): void {
             const element = this.$refs.textEditor as HTMLTextAreaElement;
             this.selection = {
                 start: element.selectionStart,
@@ -109,7 +109,7 @@ export default defineComponent({
             };
         },
 
-        handleRichEditorAction(button: RichTextEditorButtonConfig): void {
+        executeRichEditorAction(button: RichTextEditorButtonConfig): void {
             switch (button.action) {
             case 'clearFormatting':
                 this.clearFormatting();
@@ -200,35 +200,25 @@ export default defineComponent({
         },
 
         formatSelectedText(selection: { start: number; end: number }, type: FormattingType): string {
-            const beforeIndex = this.beforeSelected(selection.start);
-            const afterIndex = this.afterSelected(selection.end);
-            const selectedText = this.editedText.substring(beforeIndex, afterIndex);
+            const selectedText = this.editedText.substring(selection.start, selection.end);
 
             const cleanText = this.cleanExistingFormatting(selectedText);
             return this.applyFormattingForType(cleanText, type);
         },
 
-        updateTextWithFormatting(element: HTMLTextAreaElement, selection: { start: number }, formattedText: string): void {
-            const beforeIndex = this.beforeSelected(selection.start);
-            const afterIndex = this.afterSelected(selection.start + formattedText.length);
-
-            this.replaceTextInRange(beforeIndex, afterIndex, formattedText);
+        updateTextWithFormatting(element: HTMLTextAreaElement, selection: { start: number; end: number }, formattedText: string): void {
+            this.replaceTextInRange(selection.start, selection.end, formattedText);
             this.updateCursorPosition(element, selection.start + formattedText.length);
         },
 
         clearSelectedTextFormatting(selection: { start: number; end: number }): string {
-            const beforeIndex = this.beforeSelected(selection.start);
-            const afterIndex = this.afterSelected(selection.end);
-            const selectedText = this.editedText.substring(beforeIndex, afterIndex);
+            const selectedText = this.editedText.substring(selection.start, selection.end);
 
             return this.cleanExistingFormatting(selectedText);
         },
 
         updateTextWithCleanedFormatting(element: HTMLTextAreaElement, selection: { start: number; end: number }, cleanText: string): void {
-            const beforeIndex = this.beforeSelected(selection.start);
-            const afterIndex = this.afterSelected(selection.end);
-
-            this.replaceTextInRange(beforeIndex, afterIndex, cleanText);
+            this.replaceTextInRange(selection.start, selection.end, cleanText);
             this.updateCursorPosition(element, selection.start + cleanText.length);
         },
 
@@ -267,22 +257,6 @@ export default defineComponent({
                 this.editedText.substring(end);
         },
 
-        beforeSelected(start: number): number {
-            let index = start - 1;
-            while (index >= 0 && /[*~]/.test(this.editedText[index])) {
-                index--;
-            }
-            return index + 1;
-        },
-
-        afterSelected(end: number): number {
-            let index = end;
-            while (index < this.editedText.length && /[*~]/.test(this.editedText[index])) {
-                index++;
-            }
-            return index;
-        },
-
         applyFormattingForType(text: string, type: FormattingType): string {
             switch (type) {
             case 'bold':
@@ -292,7 +266,7 @@ export default defineComponent({
             case 'bolditalic':
                 return `***${text}***`;  // Gras et italique
             case 'strike':
-                return `~~${text}~~`;  // Gras et italique
+                return `~~${text}~~`;  // Barré
             default:
                 return text; // Return original text if type is unknown
             }

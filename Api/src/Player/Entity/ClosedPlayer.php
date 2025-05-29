@@ -39,8 +39,8 @@ class ClosedPlayer implements SanctionEvidenceInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycleDeath = 0;
 
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
-    private int $triumph = 0;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $triumph = 0;
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $likes = 0;
@@ -141,7 +141,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
         return $this;
     }
 
-    public function getTriumph(): int
+    public function getTriumph(): ?int
     {
         return $this->triumph;
     }

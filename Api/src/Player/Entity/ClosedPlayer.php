@@ -39,13 +39,8 @@ class ClosedPlayer implements SanctionEvidenceInterface
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $cycleDeath = 0;
 
-<<<<<<< HEAD
-    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
-    private int $triumph = 0;
-=======
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $triumph = 0;
->>>>>>> dd656981c (fix: Pages loading ClosedPlayer from the older version will not throw an error)
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $likes = 0;

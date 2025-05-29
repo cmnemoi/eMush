@@ -11,6 +11,8 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Event\ProjectEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
@@ -100,6 +102,24 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 8
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::RESEARCH_SMALL->toConfigKey('default'),
+                name: TriumphEnum::RESEARCH_SMALL,
+                targetedEvent: ProjectEvent::PROJECT_FINISHED,
+                tagConstraints: [
+                    ProjectName::MUSHOVORE_BACTERIA->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::PATULINE_SCRAMBLER->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MERIDON_SCRAMBLER->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::CREATE_MYCOSCAN->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::ANTISPORE_GAS->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MYCOALARM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::PHEROMODEM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSHICIDE_SOAP->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::CONSTIPASPORE_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 3,
             ),
         ];
     }

@@ -29,6 +29,8 @@ The [`TriumphScope`](./Enum/TriumphScope.php) enum defines which players receive
 - `ALL_ALIVE_MUSHS`: All Mush players who are still alive
 - `ALL_ALIVE_HUMANS`: All human players who are still alive
 - `ALL_MUSHS`: All Mush players
+- `ALL_ACTIVE_EXPLORERS`: All explorers not stucked in Icarus nor lost
+- `ALL_ACTIVE_HUMAN_EXPLORERS`: All human explorers not stucked in Icarus nor lost
 
 You can add new scopes to restrain your triumph targets.
 

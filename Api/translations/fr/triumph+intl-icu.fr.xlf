@@ -67,5 +67,15 @@
         <target>Vous gagnez {quantity} :triumph: car le Daedalus a contacté Sol pour la première fois.</target>
       </segment>
     </unit>
+    <unit id="research_small">
+      <segment id="research_small.name" state="translated">
+        <source>research_small.name</source>
+        <target>Recherche mineure</target>
+      </segment>
+      <segment id="research_small.log" state="translated">
+        <source>research_small.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche mineure a été réalisée.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

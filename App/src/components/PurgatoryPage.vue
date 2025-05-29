@@ -14,8 +14,10 @@
                                 {{ getUserInfo.username }}
                             </p>
                         </div>
-                        <p class="score">
-                            {{ player.triumph?.quantity }}<img :src="getImgUrl('ui_icons/player_variables/triumph.png')" alt="triumph">
+                        <p :class="{ mush: player.isMush }" class="score">
+                            {{ player.triumph?.quantity }}
+                            <img v-if="player.isMush" :src="getImgUrl('ui_icons/player_variables/triumph_mush.png')" alt="triumph">
+                            <img v-else :src="getImgUrl('ui_icons/player_variables/triumph.png')" alt="triumph">
                         </p>
                     </div>
                     <div class="epitaph-form">
@@ -33,7 +35,7 @@
                         <p class="death-cause">
                             <img :src="getImgUrl('ready.png')" alt="alive" v-if="deadPlayerInfo.hasGoodEndCause()">
                             <img :src="getImgUrl('ui_icons/dead.png')" alt="dead" v-else>
-                            {{ deadPlayerInfo.endCauseValue }}
+                            {{ deadPlayerInfo.endCauseDescription }}
                         </p>
                     </div>
                     <HistoryLogs />
@@ -210,6 +212,10 @@ h1 {
             font-size: 2.6em;
             letter-spacing: .05em;
             text-shadow: 0 0 2px black;
+
+            &.mush {
+                color: $mushRed;
+            }
 
             img {
                 vertical-align: middle;

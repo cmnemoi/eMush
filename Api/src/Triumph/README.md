@@ -35,6 +35,7 @@ You can add new scopes to restrain your triumph targets.
 1. Add the triumph config to [TriumphConfigData](./ConfigData/TriumphConfigData.php)
 2. If the triumph listens to a new event, it should:
    - implement [TriumphSourceEventInterface](./Event/TriumphSourceEventInterface.php)
+   - some methods are already implemented in [TriumphSourceEventTrait](./Event/TriumphSourceEventTrait.php)
    - be added to [TriumphSourceEventSubscriber](./Listener/TriumphSourceEventSubscriber.php)
 3. Add the triumph log in [triumph+intl-icu.fr.xlf](./translations/fr/triumph+intl-icu.fr.xlf)
 

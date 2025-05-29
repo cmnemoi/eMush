@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -9,6 +10,8 @@ use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Triumph\Enum\TriumphEnum;
+use Mush\Triumph\ValueObject\TriumphGain;
 use Mush\User\Entity\User;
 
 #[ORM\Entity]
@@ -59,6 +62,9 @@ class ClosedPlayer implements SanctionEvidenceInterface
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isAlphaMush = false;
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $triumphGains = [];
 
     public function getId(): int
     {
@@ -295,5 +301,27 @@ class ClosedPlayer implements SanctionEvidenceInterface
     public function isDead(): bool
     {
         return $this->playerInfo->isDead();
+    }
+
+    public function recordTriumphGain(TriumphEnum $triumphKey, int $quantity): void
+    {
+        foreach ($this->triumphGains as $key => $gainArray) {
+            $gain = TriumphGain::fromArray($gainArray);
+            if ($gain->equals($triumphKey, $quantity)) {
+                $gain->incrementCount();
+                $this->triumphGains[$key] = $gain->toArray();
+
+                return;
+            }
+        }
+
+        $this->triumphGains[] = (new TriumphGain($triumphKey, $quantity))->toArray();
+    }
+
+    public function getTriumphGains(): ArrayCollection
+    {
+        return new ArrayCollection(
+            array_map(static fn (array $gain) => TriumphGain::fromArray($gain), $this->triumphGains)
+        );
     }
 }

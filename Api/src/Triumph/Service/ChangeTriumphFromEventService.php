@@ -36,6 +36,7 @@ final class ChangeTriumphFromEventService
         $quantity = $this->computeTriumphForPlayer($triumphConfig, $player);
 
         $player->addTriumph($quantity);
+        $this->recordTriumphGain($triumphConfig, $player, $quantity);
 
         $this->eventService->callEvent(
             new TriumphChangedEvent($player, $triumphConfig, $quantity),
@@ -50,5 +51,11 @@ final class ChangeTriumphFromEventService
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
             default => $triumphConfig->getQuantity(),
         };
+    }
+
+    private function recordTriumphGain(TriumphConfig $triumphConfig, Player $player, int $quantity): void
+    {
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $closedPlayer->recordTriumphGain($triumphConfig->getName(), $quantity);
     }
 }

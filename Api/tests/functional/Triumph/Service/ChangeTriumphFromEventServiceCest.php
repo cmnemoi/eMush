@@ -48,4 +48,24 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
             I: $I,
         );
     }
+
+    public function shouldRecordTriumphMultipleGainsInClosedPlayer(FunctionalTester $I): void
+    {
+        for ($i = 0; $i < 2; ++$i) {
+            $event = new DaedalusCycleEvent(
+                daedalus: $this->daedalus,
+                tags: [],
+                time: new \DateTime(),
+            );
+            $event->setEventName(DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+
+            $this->changeTriumphFromEventService->execute($event);
+        }
+
+        $closedPlayer = $this->player->getPlayerInfo()->getClosedPlayer();
+        $I->assertCount(1, $closedPlayer->getTriumphGains());
+        $I->assertEquals(TriumphEnum::CYCLE_HUMAN, $closedPlayer->getTriumphGains()->first()->getTriumphKey());
+        $I->assertEquals(1, $closedPlayer->getTriumphGains()->first()->getQuantity());
+        $I->assertEquals(2, $closedPlayer->getTriumphGains()->first()->getCount());
+    }
 }

@@ -167,6 +167,22 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         $this->thenPlayerShouldHaveTriumph($player, 0);
     }
 
+    public function testShouldRecordTriumphGainInClosedPlayer(): void
+    {
+        // Given
+        $player = $this->givenAHumanPlayer();
+        $this->givenTriumphConfigExists(TriumphEnum::CYCLE_HUMAN);
+        $event = $this->givenANewDaedalusCycleEvent($this->daedalus);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        self::assertCount(1, $closedPlayer->getTriumphGains());
+        self::assertTrue($closedPlayer->getTriumphGains()->first()->equals(TriumphEnum::CYCLE_HUMAN, 1));
+    }
+
     private function givenAHumanPlayer(): Player
     {
         return PlayerFactory::createPlayerWithDaedalus($this->daedalus);

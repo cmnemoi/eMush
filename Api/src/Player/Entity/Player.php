@@ -435,7 +435,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function isMush(): bool
     {
-        return $this->hasStatus(PlayerStatusEnum::MUSH);
+        return $this->playerInfo->getClosedPlayer()->isMush();
     }
 
     public function getMedicalConditions(): PlayerDiseaseCollection
@@ -772,6 +772,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function addTriumph(int $triumph): static
     {
         $this->playerVariables->changeValueByName($triumph, PlayerVariableEnum::TRIUMPH);
+        $this->playerInfo->getClosedPlayer()->setTriumph($this->getTriumph());
 
         return $this;
     }

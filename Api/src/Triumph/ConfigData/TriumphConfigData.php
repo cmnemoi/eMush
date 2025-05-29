@@ -182,6 +182,18 @@ abstract class TriumphConfigData
                 target: CharacterEnum::KUAN_TI,
                 quantity: 3,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PILGRED_MOTHER->toConfigKey('default'),
+                name: TriumphEnum::PILGRED_MOTHER,
+                targetedEvent: ProjectEvent::PROJECT_ADVANCED,
+                tagConstraints: [
+                    ProjectName::PILGRED->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                    ProjectEvent::NEXT_20_PERCENTS => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: CharacterEnum::RALUCA,
+                quantity: 2,
+            ),
         ];
     }
 

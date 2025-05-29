@@ -14,6 +14,7 @@ enum TriumphEnum: string
     case MAGELLAN_ARK = 'magellan_ark';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
     case MUSH_SPECIALIST = 'mush_specialist';
+    case PILGRED_MOTHER = 'pilgred_mother';
     case PRECIOUS_BODY = 'precious_body';
     case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';

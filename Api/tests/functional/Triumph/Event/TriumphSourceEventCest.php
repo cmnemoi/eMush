@@ -9,6 +9,7 @@ use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Enum\PlanetSectorEnum;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -127,5 +128,22 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
 
         // research_small triumph
         $I->assertEquals(3, $this->player->getTriumph());
+    }
+
+    public function shouldGiveTriumphOnProjectAdvanced(FunctionalTester $I): void
+    {
+        $raluca = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::RALUCA);
+
+        $this->daedalus->getProjectByName(ProjectName::PILGRED)->makeProgress(20);
+        $this->eventService->callEvent(
+            event: new ProjectEvent(
+                project: $this->daedalus->getProjectByName(ProjectName::PILGRED),
+                author: $this->player,
+            ),
+            name: ProjectEvent::PROJECT_ADVANCED,
+        );
+
+        // pilgred_mother triumph
+        $I->assertEquals(2, $raluca->getTriumph());
     }
 }

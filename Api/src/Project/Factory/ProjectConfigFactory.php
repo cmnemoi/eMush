@@ -31,7 +31,7 @@ final class ProjectConfigFactory
         );
     }
 
-    public static function createNeronProjectConfigByName(ProjectName $name): ProjectConfig
+    public static function createProjectConfigByName(ProjectName $name): ProjectConfig
     {
         return new ProjectConfig(...self::getConfigDataFromName($name));
     }

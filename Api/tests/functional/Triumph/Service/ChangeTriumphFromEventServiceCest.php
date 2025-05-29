@@ -41,7 +41,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
             expectedRoomLog: 'Vous avez gagné 1 :triumph: car vous avez survécu un cycle de plus.',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->player,
-                log: TriumphEnum::CYCLE_HUMAN->toString(),
+                log: TriumphEnum::CYCLE_HUMAN->toLogKey(),
                 visibility: VisibilityEnum::PRIVATE,
                 inPlayerRoom: true,
             ),
@@ -65,7 +65,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
         $closedPlayer = $this->player->getPlayerInfo()->getClosedPlayer();
         $I->assertCount(1, $closedPlayer->getTriumphGains());
         $I->assertEquals(TriumphEnum::CYCLE_HUMAN, $closedPlayer->getTriumphGains()->first()->getTriumphKey());
-        $I->assertEquals(1, $closedPlayer->getTriumphGains()->first()->getQuantity());
+        $I->assertEquals(1, $closedPlayer->getTriumphGains()->first()->getValue());
         $I->assertEquals(2, $closedPlayer->getTriumphGains()->first()->getCount());
     }
 }

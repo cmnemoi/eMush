@@ -203,6 +203,7 @@ final class DeadPlayerNormalizerTest extends TestCase
                 'name' => 'translated injury',
                 'description' => 'translated injury description',
             ],
+            'isMush' => false,
             'players' => [
                 0 => [
                     'id' => 3,

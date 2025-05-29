@@ -33,7 +33,7 @@ final class TriumphChangedEvent extends AbstractGameEvent
 
     public function getLogKey(): string
     {
-        return $this->triumphConfig->getName()->toString();
+        return $this->triumphConfig->getLogKey();
     }
 
     public function getVisibility(): string

@@ -10,7 +10,7 @@ final class TriumphGain
 {
     public function __construct(
         private readonly TriumphEnum $triumphKey,
-        private readonly int $quantity,
+        private readonly int $value,
         private int $count = 1,
     ) {}
 
@@ -19,9 +19,14 @@ final class TriumphGain
         return $this->triumphKey;
     }
 
-    public function getQuantity(): int
+    public function getValue(): int
     {
-        return $this->quantity;
+        return $this->value;
+    }
+
+    public function getValueAsString(): string
+    {
+        return $this->value >= 0 ? "+{$this->value}" : "{$this->value}";
     }
 
     public function getCount(): int
@@ -36,19 +41,24 @@ final class TriumphGain
 
     public function equals(TriumphEnum $triumphKey, int $quantity): bool
     {
-        return $this->triumphKey === $triumphKey && $this->quantity === $quantity;
+        return $this->triumphKey === $triumphKey && $this->value === $quantity;
+    }
+
+    public function toEmoteCode(): string
+    {
+        return $this->triumphKey->toEmoteCode();
     }
 
     public static function fromArray(array $gain): self
     {
-        return new self($gain['triumphKey'], $gain['quantity'], $gain['count']);
+        return new self($gain['triumphKey'], $gain['value'], $gain['count']);
     }
 
     public function toArray(): array
     {
         return [
             'triumphKey' => $this->triumphKey,
-            'quantity' => $this->quantity,
+            'value' => $this->value,
             'count' => $this->count,
         ];
     }

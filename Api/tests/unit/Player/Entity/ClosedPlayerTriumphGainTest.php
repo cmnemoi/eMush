@@ -22,7 +22,7 @@ final class ClosedPlayerTriumphGainTest extends TestCase
         $this->thenTriumphGainsShouldContainExactly($closedPlayer, [
             [
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
-                'quantity' => 1,
+                'value' => 1,
                 'count' => 1,
             ],
         ]);
@@ -38,13 +38,13 @@ final class ClosedPlayerTriumphGainTest extends TestCase
         $this->thenTriumphGainsShouldContainExactly($closedPlayer, [
             [
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
-                'quantity' => 1,
+                'value' => 1,
                 'count' => 2,
             ],
         ]);
     }
 
-    public function testShouldAddTriumphGainWithSameKeyButDifferentQuantity(): void
+    public function testShouldAddTriumphGainWithSameKeyButDifferentValue(): void
     {
         $closedPlayer = $this->givenClosedPlayer();
 
@@ -54,12 +54,12 @@ final class ClosedPlayerTriumphGainTest extends TestCase
         $this->thenTriumphGainsShouldContainExactly($closedPlayer, [
             [
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
-                'quantity' => 1,
+                'value' => 1,
                 'count' => 1,
             ],
             [
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
-                'quantity' => 2,
+                'value' => 2,
                 'count' => 1,
             ],
         ]);
@@ -82,7 +82,7 @@ final class ClosedPlayerTriumphGainTest extends TestCase
         foreach ($expectedGains as $index => $expectedGain) {
             $gain = $gains->get($index);
             self::assertSame($expectedGain['triumphKey'], $gain->getTriumphKey(), "TriumphEnum mismatch at index {$index}");
-            self::assertSame($expectedGain['quantity'], $gain->getQuantity(), "Quantity mismatch at index {$index}");
+            self::assertSame($expectedGain['value'], $gain->getValue(), "Value mismatch at index {$index}");
             self::assertSame($expectedGain['count'], $gain->getCount(), "Count mismatch at index {$index}");
         }
     }

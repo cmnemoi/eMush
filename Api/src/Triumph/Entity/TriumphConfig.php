@@ -88,6 +88,11 @@ class TriumphConfig
         return $this->target;
     }
 
+    public function hasATarget(): bool
+    {
+        return $this->target !== '';
+    }
+
     public function getTargetedEvent(): string
     {
         return $this->targetedEvent;

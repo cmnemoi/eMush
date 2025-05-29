@@ -12,8 +12,5 @@ enum TriumphScope: string
     case ALL_MUSHS = 'all_mushs';
     case ALL_ACTIVE_EXPLORERS = 'all_active_explorers';
 
-    /** Use to target a specific character (defined in the triumph config `target` attribute) */
-    case PERSONAL = 'personal';
-
     case NONE = '';
 }

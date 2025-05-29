@@ -43,7 +43,7 @@ abstract class TriumphConfigData
                 targetedEventExpectedTags: [
                     EventEnum::NEW_DAY,
                 ],
-                scope: TriumphScope::PERSONAL,
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::CHUN,
                 quantity: 1,
             ),
@@ -79,6 +79,14 @@ abstract class TriumphConfigData
                 name: TriumphEnum::EXPEDITION,
                 targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
                 scope: TriumphScope::ALL_ACTIVE_EXPLORERS,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EXPLORATOR->toConfigKey('default'),
+                name: TriumphEnum::EXPLORATOR,
+                targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
+                scope: TriumphScope::ALL_ACTIVE_EXPLORERS,
+                target: CharacterEnum::HUA,
                 quantity: 3,
             ),
         ];

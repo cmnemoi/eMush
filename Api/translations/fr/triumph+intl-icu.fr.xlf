@@ -47,5 +47,14 @@
         <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition.</target>
       </segment>
     </unit>
+    <unit id="explorator">
+      <segment id="explorator.name" state="translated">
+        <source>explorator.name</source>
+        <target>Exploratrice</target>
+      </segment>
+      <segment id="explorator.log" state="translated">
+        <source>explorator.log</source>
+        <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition en tant que Hua !</target>
+      </segment>
   </file>
 </xliff>

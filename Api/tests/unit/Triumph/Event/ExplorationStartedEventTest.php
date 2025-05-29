@@ -13,6 +13,7 @@ use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -51,7 +52,7 @@ final class ExplorationStartedEventTest extends TestCase
         $daedalus = $this->givenDaedalus();
         [$explorer1, $explorer2] = $this->givenExplorersWithSpacesuits($daedalus, 2);
         $this->givenExplorationTriumphConfig();
-        $explorationStartedEvent = $this->givenExplorationStartedEventWithExplorers([$explorer1, $explorer2], $explorer1);
+        $explorationStartedEvent = $this->givenExplorationStartedEventWithExplorers([$explorer1, $explorer2]);
 
         $this->whenChangeTriumphFromEventIsExecuted($explorationStartedEvent);
 
@@ -78,12 +79,45 @@ final class ExplorationStartedEventTest extends TestCase
         [$explorer] = $this->givenExplorersWithSpacesuits($daedalus, 1);
         $stuckedExplorer = $this->givenPlayerWithDaedalus($daedalus);
         $this->givenExplorationTriumphConfig();
-        $explorationStartedEvent = $this->givenExplorationStartedEventWithExplorers([$explorer, $stuckedExplorer], $explorer);
+        $explorationStartedEvent = $this->givenExplorationStartedEventWithExplorers([$explorer, $stuckedExplorer]);
 
         $this->whenChangeTriumphFromEventIsExecuted($explorationStartedEvent);
 
         $this->thenPlayerShouldHaveTriumph($explorer, 3, 'Explorer should have 3 triumph');
         $this->thenPlayerShouldHaveTriumph($stuckedExplorer, 0, 'Stucked explorer should not have any triumph');
+    }
+
+    public function testShouldGiveExploratorTriumphToHua(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $hua = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::HUA, $daedalus);
+        GameEquipmentFactory::createItemByNameForHolder(
+            name: GearItemEnum::SPACESUIT,
+            holder: $hua,
+        );
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::EXPLORATOR))
+        );
+        $explorationStartedEvent = $this->givenExplorationStartedEventWithExplorers([$hua]);
+
+        $this->whenChangeTriumphFromEventIsExecuted($explorationStartedEvent);
+
+        self::assertEquals(3, $hua->getTriumph());
+    }
+
+    public function testShouldNotGiveExploratorTriumphToHuaIfSheIsStuckedInIcarus(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $hua = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::HUA, $daedalus);
+
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::EXPLORATOR))
+        );
+        $explorationStartedEvent = $this->givenExplorationStartedEventWithExplorers([$hua]);
+
+        $this->whenChangeTriumphFromEventIsExecuted($explorationStartedEvent);
+
+        self::assertEquals(0, $hua->getTriumph());
     }
 
     private function givenDaedalus(): Daedalus

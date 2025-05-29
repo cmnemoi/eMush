@@ -51,6 +51,13 @@ import { formatText } from "@/utils/formatText";
 import RichTextEditorCharacterEmotes from "./RichTextEditorCharacterEmotes.vue";
 import RichTextEditorButton from "./RichTextEditorButton.vue";
 import { richTextEditorButtons, RichTextEditorButtonConfig, FormattingType } from "./RichTextEditorConfig";
+import {
+    applySelectedTextFormatting,
+    clearSelectedTextFormattingLogic,
+    insertTextAtPositionLogic,
+    formatCharacterName,
+    TextSelection
+} from "@/utils/richTextFormatter";
 
 export default defineComponent({
     name: "RichTextEditor",
@@ -73,8 +80,7 @@ export default defineComponent({
             editedText: this.initialText,
             selection: {
                 start: 0,
-                end: 0,
-                text: ""
+                end: 0
             },
             showCharacterGrid: false,
             characters: characterEnum as {[key: string]: CharacterInfos},
@@ -88,7 +94,7 @@ export default defineComponent({
         }
     },
     watch: {
-        visible(newVal) {
+        visible(newVal: boolean) {
             if (!newVal) {
                 return;
             }
@@ -104,8 +110,7 @@ export default defineComponent({
             const element = this.$refs.textEditor as HTMLTextAreaElement;
             this.selection = {
                 start: element.selectionStart,
-                end: element.selectionEnd,
-                text: this.editedText.substring(element.selectionStart, element.selectionEnd)
+                end: element.selectionEnd
             };
         },
 
@@ -128,15 +133,19 @@ export default defineComponent({
 
         applyFormatting(type: FormattingType): void {
             const element = this.$refs.textEditor as HTMLTextAreaElement;
-            const selection = this.getTextSelection(element);
+            const selection: TextSelection = {
+                start: element.selectionStart,
+                end: element.selectionEnd
+            };
 
             if (!this.isValidSelection(selection)) {
                 return;
             }
 
             try {
-                const formattedText = this.formatSelectedText(selection, type);
-                this.updateTextWithFormatting(element, selection, formattedText);
+                const { newFullText, modifiedPart } = applySelectedTextFormatting(this.editedText, selection, type);
+                this.editedText = newFullText;
+                this.updateCursorPosition(element, selection.start + modifiedPart.length);
             } catch (error) {
                 console.error('Error applying formatting:', error);
             }
@@ -144,15 +153,19 @@ export default defineComponent({
 
         clearFormatting(): void {
             const element = this.$refs.textEditor as HTMLTextAreaElement;
-            const selection = this.getTextSelection(element);
+            const selection: TextSelection = {
+                start: element.selectionStart,
+                end: element.selectionEnd
+            };
 
             if (!this.isValidSelection(selection)) {
                 return;
             }
 
             try {
-                const cleanText = this.clearSelectedTextFormatting(selection);
-                this.updateTextWithCleanedFormatting(element, selection, cleanText);
+                const { newFullText, modifiedPart } = clearSelectedTextFormattingLogic(this.editedText, selection);
+                this.editedText = newFullText;
+                this.updateCursorPosition(element, selection.start + modifiedPart.length);
             } catch (error) {
                 console.error('Error clearing formatting:', error);
             }
@@ -163,8 +176,9 @@ export default defineComponent({
             const cursorPosition = element.selectionStart;
 
             try {
-                const formattedCharacter = this.formatCharacterName(characterName);
-                this.insertTextAtPosition(element, cursorPosition, formattedCharacter);
+                const formattedCharacter = formatCharacterName(characterName);
+                this.editedText = insertTextAtPositionLogic(this.editedText, cursorPosition, formattedCharacter);
+                this.updateCursorPosition(element, cursorPosition + formattedCharacter.length);
                 this.closeCharacterGrid();
             } catch (error) {
                 console.error('Error inserting character:', error);
@@ -187,60 +201,15 @@ export default defineComponent({
             this.showCharacterGrid = !this.showCharacterGrid;
         },
 
-        isValidSelection(selection: { text: string }): boolean {
-            return Boolean(selection.text);
+        isValidSelection(selection: TextSelection): boolean {
+            return selection.start !== selection.end;
         },
 
-        getTextSelection(element: HTMLTextAreaElement): { start: number; end: number; text: string } {
+        getTextSelection(element: HTMLTextAreaElement): TextSelection {
             return {
                 start: element.selectionStart,
-                end: element.selectionEnd,
-                text: this.editedText.substring(element.selectionStart, element.selectionEnd)
+                end: element.selectionEnd
             };
-        },
-
-        formatSelectedText(selection: { start: number; end: number }, type: FormattingType): string {
-            const selectedText = this.editedText.substring(selection.start, selection.end);
-
-            const cleanText = this.cleanExistingFormatting(selectedText);
-            return this.applyFormattingForType(cleanText, type);
-        },
-
-        updateTextWithFormatting(element: HTMLTextAreaElement, selection: { start: number; end: number }, formattedText: string): void {
-            this.replaceTextInRange(selection.start, selection.end, formattedText);
-            this.updateCursorPosition(element, selection.start + formattedText.length);
-        },
-
-        clearSelectedTextFormatting(selection: { start: number; end: number }): string {
-            const selectedText = this.editedText.substring(selection.start, selection.end);
-
-            return this.cleanExistingFormatting(selectedText);
-        },
-
-        updateTextWithCleanedFormatting(element: HTMLTextAreaElement, selection: { start: number; end: number }, cleanText: string): void {
-            this.replaceTextInRange(selection.start, selection.end, cleanText);
-            this.updateCursorPosition(element, selection.start + cleanText.length);
-        },
-
-        formatCharacterName(characterName: string): string {
-            return `:${characterName}:`;
-        },
-
-        insertTextAtPosition(element: HTMLTextAreaElement, position: number, text: string): void {
-            this.editedText =
-                this.editedText.substring(0, position) +
-                text +
-                this.editedText.substring(position);
-
-            this.updateCursorPosition(element, position + text.length);
-        },
-
-        closeCharacterGrid(): void {
-            this.showCharacterGrid = false;
-        },
-
-        cleanExistingFormatting(text: string): string {
-            return text.replace(/(^[*|~]+|[*|~]+$)/g, '');
         },
 
         updateCursorPosition(element: HTMLTextAreaElement, position: number): void {
@@ -250,26 +219,8 @@ export default defineComponent({
             });
         },
 
-        replaceTextInRange(start: number, end: number, newText: string): void {
-            this.editedText =
-                this.editedText.substring(0, start) +
-                newText +
-                this.editedText.substring(end);
-        },
-
-        applyFormattingForType(text: string, type: FormattingType): string {
-            switch (type) {
-            case 'bold':
-                return `**${text}**`;  // Gras
-            case 'italic':
-                return `*${text}*`;  // Italique
-            case 'bolditalic':
-                return `***${text}***`;  // Gras et italique
-            case 'strike':
-                return `~~${text}~~`;  // Barré
-            default:
-                return text; // Return original text if type is unknown
-            }
+        closeCharacterGrid(): void {
+            this.showCharacterGrid = false;
         }
     }
 });
@@ -428,4 +379,3 @@ export default defineComponent({
     }
 
 </style>
-

@@ -14,6 +14,7 @@ export class ClosedPlayer {
     public daysSurvived: integer|null;
     public cyclesSurvived: integer|null;
     public triumph: integer|null;
+    public score: integer|null;
     public rank: integer|null;
     public language: string|null;
     public messageIsHidden: boolean|null;
@@ -37,6 +38,7 @@ export class ClosedPlayer {
         this.daysSurvived = null;
         this.cyclesSurvived = null;
         this.triumph = null;
+        this.score = null;
         this.rank = null;
         this.language = null;
         this.messageIsHidden = null;
@@ -65,6 +67,7 @@ export class ClosedPlayer {
             this.messageIsEdited = object.messageIsEdited;
             this.messageHasBeenModerated = (this.messageIsEdited || this.messageIsHidden) ?? false;
             this.hasBadEndCause = ['sol_return', 'eden'].includes(this.endCause ?? '') ? false : true;
+            this.score = this.triumph ?? this.cyclesSurvived;
         }
         return this;
     }

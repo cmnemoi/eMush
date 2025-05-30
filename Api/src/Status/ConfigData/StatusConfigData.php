@@ -1950,6 +1950,7 @@ abstract class StatusConfigData
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE . '_default',
@@ -1957,6 +1958,7 @@ abstract class StatusConfigData
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
             'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
         [
             'name' => PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE . '_default',
@@ -1964,6 +1966,15 @@ abstract class StatusConfigData
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
             'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerStatusEnum::POINTLESS_PLAYER . '_default',
+            'statusName' => PlayerStatusEnum::POINTLESS_PLAYER,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
         ],
     ];
 

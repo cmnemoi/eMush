@@ -14,30 +14,27 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class TryKube extends AbstractAction
 {
-    private const int KUBE_SUCCESS_RATE = 4;
-
     protected ActionEnum $name = ActionEnum::TRY_KUBE;
-
-    private RandomServiceInterface $randomService;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        RandomServiceInterface $randomService,
+        private RandomServiceInterface $randomService,
+        private StatusServiceInterface $statusService,
     ) {
         parent::__construct(
             $eventService,
             $actionService,
             $validator
         );
-
-        $this->randomService = $randomService;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -58,7 +55,15 @@ class TryKube extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @TODO add triumph when successful */
-        $solveKube = $this->randomService->isSuccessful(self::KUBE_SUCCESS_RATE);
+        if (!$this->randomService->isSuccessful($this->getOutputQuantity())) {
+            return;
+        }
+
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::POINTLESS_PLAYER,
+            holder: $this->player,
+            tags: $this->getTags(),
+            time: new \DateTime()
+        );
     }
 }

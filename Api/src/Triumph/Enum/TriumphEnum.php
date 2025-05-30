@@ -12,6 +12,7 @@ enum TriumphEnum: string
     case CYCLE_MUSH = 'cycle_mush';
     case EXPEDITION = 'expedition';
     case EXPLORATOR = 'explorator';
+    case KUBE_SOLVED = 'kube_solved';
     case MAGELLAN_ARK = 'magellan_ark';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
     case MUSH_SPECIALIST = 'mush_specialist';
@@ -22,6 +23,7 @@ enum TriumphEnum: string
     case RESEARCH_STANDARD = 'research_standard';
     case RETURN_TO_SOL = 'return_to_sol';
     case SOL_CONTACT = 'sol_contact';
+    case SOL_MUSH_INVASION = 'sol_mush_invasion';
     case SOL_MUSH_INTRUDER = 'sol_mush_intruder';
     case NONE = '';
 

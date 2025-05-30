@@ -20,6 +20,7 @@ use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
+use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 
 abstract class TriumphConfigData
@@ -74,6 +75,16 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: -10,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::SOL_MUSH_INVASION->toConfigKey('default'),
+                name: TriumphEnum::SOL_MUSH_INVASION,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::RETURN_TO_SOL->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 16,
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::MUSH_INITIAL_BONUS->toConfigKey('default'),
@@ -208,6 +219,17 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::STEPHEN,
                 quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::KUBE_SOLVED->toConfigKey('default'),
+                name: TriumphEnum::KUBE_SOLVED,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    PlayerStatusEnum::POINTLESS_PLAYER => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_PLAYERS,
+                target: TriumphTarget::STATUS_HOLDER->toString(),
+                quantity: 5,
             ),
         ];
     }

@@ -25,11 +25,7 @@ final class ChangeTriumphFromEventService
         $triumphConfigs = $this->triumphConfigRepository->findAllByTargetedEvent($event);
 
         foreach ($triumphConfigs as $triumphConfig) {
-            if (!$event->hasExpectedTagsFor($triumphConfig)) {
-                continue;
-            }
-
-            $event->getTargetsForTriumph($triumphConfig)->map(
+            $event->getTriumphTargets($triumphConfig)->map(
                 fn (Player $player) => $this->addTriumphToPlayer($triumphConfig, $player)
             );
         }

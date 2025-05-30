@@ -8,14 +8,19 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Factory\StatusFactory;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
+use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphEnum;
+use Mush\Triumph\Enum\TriumphScope;
+use Mush\Triumph\Enum\TriumphTarget;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use PHPUnit\Framework\TestCase;
 
@@ -82,6 +87,32 @@ final class StatusEventTest extends TestCase
 
         // Then
         $this->thenPlayerShouldHaveNoTriumph($stephen);
+    }
+
+    public function testShouldGiveStatusAppliedTriumphToHolder(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player1 = $this->givenPlayerWithDaedalus($daedalus);
+        $player2 = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenStatusAppliedTriumphConfig();
+        $event = $this->givenStatusEventForPlayer($player1, 'test_status');
+
+        $this->whenChangeTriumphFromEventIsExecuted($event);
+
+        $this->thenPlayerShouldHaveTriumph($player1, 1);
+        $this->thenPlayerShouldHaveTriumph($player2, 0);
+    }
+
+    public function testShouldNotGiveAnotherStatusAppliedTriumphToHolder(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player1 = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenStatusAppliedTriumphConfig();
+        $event = $this->givenStatusEventForPlayer($player1, 'test_status_another');
+
+        $this->whenChangeTriumphFromEventIsExecuted($event);
+
+        $this->thenPlayerShouldHaveTriumph($player1, 0);
     }
 
     public static function provideShouldGiveAmbitiousTriumphToStephenWhenGainingTitleCases(): iterable
@@ -155,6 +186,41 @@ final class StatusEventTest extends TestCase
         return $event;
     }
 
+    private function givenDaedalus(): object
+    {
+        return DaedalusFactory::createDaedalus();
+    }
+
+    private function givenPlayerWithDaedalus(object $daedalus): object
+    {
+        return PlayerFactory::createPlayerWithDaedalus($daedalus);
+    }
+
+    private function givenStatusAppliedTriumphConfig(): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(
+                new TriumphConfigDto(
+                    key: 'status_applied_test',
+                    name: TriumphEnum::KUBE_SOLVED,
+                    targetedEvent: StatusEvent::STATUS_APPLIED,
+                    tagConstraints: [
+                        'test_status' => TriumphSourceEventInterface::ALL_TAGS,
+                    ],
+                    scope: TriumphScope::ALL_ALIVE_PLAYERS,
+                    target: TriumphTarget::STATUS_HOLDER->toString(),
+                    quantity: 1,
+                )
+            )
+        );
+    }
+
+    // When methods
+    private function whenChangeTriumphFromEventIsExecuted(StatusEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
     // Then methods
     private function thenStephenShouldHaveAmbitiousTriumph($stephen): void
     {
@@ -164,5 +230,10 @@ final class StatusEventTest extends TestCase
     private function thenPlayerShouldHaveNoTriumph($player): void
     {
         self::assertEquals(0, $player->getTriumph());
+    }
+
+    private function thenPlayerShouldHaveTriumph(Player $player, int $expectedTriumph): void
+    {
+        self::assertEquals($expectedTriumph, $player->getTriumph());
     }
 }

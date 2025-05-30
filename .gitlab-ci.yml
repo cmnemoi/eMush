@@ -75,7 +75,7 @@ build-front:
 api-test:
   <<: *php_with_db_template
   stage: test
-  parallel: ${TOTAL_SHARDS}
+  parallel: $TOTAL_SHARDS
   tags:
     - saas-linux-large-amd64
   needs:

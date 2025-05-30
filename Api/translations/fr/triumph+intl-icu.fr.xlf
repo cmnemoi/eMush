@@ -114,7 +114,7 @@
       </segment>
       <segment id="precious_body.log" state="translated">
         <source>precious_body.log</source>
-        <target>Vous gagnez {quantity} :triumph: car une recherche nécessitant votre présence en tant que Chuna été réalisée !</target>
+        <target>Vous gagnez {quantity} :triumph: car une recherche nécessitant votre présence en tant que Chun a été réalisée !</target>
       </segment>
     </unit>
   </file>

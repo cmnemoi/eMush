@@ -1373,9 +1373,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
             return 100;
         }
 
-        $efficiency = $this->getScalableEfficiencyForProject($project);
-
-        return $this->getEfficiencyWithExternalItems($efficiency, $project);
+        return $this->getScalableEfficiencyForProject($project);
     }
 
     private function getMaxEfficiencyForProject(Project $project): int

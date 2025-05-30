@@ -97,5 +97,15 @@
         <target>Vous gagnez {quantity} :triumph: car une recherche majeure a été réalisée !</target>
       </segment>
     </unit>
+    <unit id="mush_specialist">
+      <segment id="mush_specialist.name" state="translated">
+        <source>mush_specialist.name</source>
+        <target>Spécialité Mush</target>
+      </segment>
+      <segment id="mush_specialist.log" state="translated">
+        <source>mush_specialist.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche sur le Mush a été réalisée en votre présence en tant que Finola !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -13,6 +13,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
+use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -169,6 +170,17 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::CHUN,
                 quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MAGELLAN_ARK->toConfigKey('default'),
+                name: TriumphEnum::MAGELLAN_ARK,
+                targetedEvent: ProjectEvent::PROJECT_FINISHED,
+                tagConstraints: [
+                    ProjectType::NERON_PROJECT->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: CharacterEnum::KUAN_TI,
+                quantity: 3,
             ),
         ];
     }

@@ -33,17 +33,13 @@ final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEvent
         $this->project = $project;
         $this->addTags([
             $project->getName(),
+            $project->getType()->toString(),
             ...$project->getRequirements()->map(static fn (ProjectRequirement $requirement) => $requirement->getName())->toArray(),
         ]);
 
         if ($project->hasCrossedProgressStepForThreshold(20)) {
             $this->addTag(self::NEXT_20_PERCENTS);
         }
-        $this->addTags([
-            $project->getName(),
-            $project->getType()->toString(),
-            ...$project->getRequirements()->map(static fn (ProjectRequirement $requirement) => $requirement->getName())->toArray(),
-        ]);
     }
 
     public function getProject(): Project

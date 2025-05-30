@@ -14,6 +14,8 @@ use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -32,6 +34,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private StatusServiceInterface $statusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerServiceInterface $playerService;
 
     public function _before(FunctionalTester $I)
     {
@@ -39,6 +42,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
     public function shouldDecreaseOxygen(FunctionalTester $I): void
@@ -47,12 +51,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->daedalus->setOxygen(10);
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then Daedalus has 7 oxygen (-1 base + 2*-1 per missing / broken oxygen tank)
         $I->assertEquals(7, $this->daedalus->getOxygen());
@@ -72,12 +71,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
             new \DateTime()
         );
 
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // we cannot be sure that the tank is broken, but chances are really high so overall the test works
         // base oxygen loss is -3 with one operational tank it should be -2
@@ -100,12 +94,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $jinSu->setMoralPoint(0);
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then Jin Su is dead and is not commander, but Gioele is commander
         $I->assertFalse($jinSu->isAlive());
@@ -134,12 +123,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         );
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then Jin Su is not commander, but Gioele is commander
         $I->assertEmpty($jinSu->getTitles());
@@ -163,12 +147,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->haveInRepository($gioele);
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then Jin Su is commander, but Gioele is not commander anymore
         $I->assertTrue($jinSu->hasTitle(TitleEnum::COMMANDER));
@@ -196,12 +175,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         );
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then Jin Su is not commander, but Gioele is commander
         $I->assertEmpty($jinSu->getTitles());
@@ -234,12 +208,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         );
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then Jin Su is not commander anymore
         $I->assertFalse($jinSu->hasTitle(TitleEnum::COMMANDER));
@@ -259,12 +228,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(50, $this->daedalus->getShield());
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then Daedalus has 55 shield
         $I->assertEquals(55, $this->daedalus->getShield());
@@ -283,12 +247,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->assertEquals(50, $this->daedalus->getShield());
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then Daedalus has 50 shield
         $I->assertEquals(50, $this->daedalus->getShield());
@@ -318,12 +277,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         );
 
         // when a new cycle passes
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then a Neron announcement should have been created
         $announcement = $I->grabEntityFromRepository(
@@ -361,12 +315,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         );
 
         // given a new cycle passes
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // given the fire is extinguished
         $I->assertFalse($this->chun->getPlace()->hasStatus(StatusEnum::FIRE));
@@ -408,12 +357,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->daedalus->addIncidentPoints(500);
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then I should see no incidents in logs
 
@@ -468,12 +412,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         (new \ReflectionClass($config))->getProperty('activationRate')->setValue($config, 100);
 
         // when cycle change event is triggered
-        $event = new DaedalusCycleEvent(
-            $this->daedalus,
-            [EventEnum::NEW_CYCLE],
-            new \DateTime()
-        );
-        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenANewCyclePasses();
 
         // then I should see a neron announcement
         $I->seeInRepository(
@@ -482,5 +421,41 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
                 'message' => NeronMessageEnum::PATCHING_UP,
             ]
         );
+    }
+
+    public function shouldNeronKillWhenOnlyMushRemainOnCycleChange(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->whenAllHumanPlayersDie();
+        $I->assertTrue($this->kuanTi->isAlive());
+        $this->kuanTi->setTriumph(0);
+        $this->whenANewCyclePasses();
+        $I->assertFalse($this->kuanTi->isAlive());
+        $I->assertEquals(EndCauseEnum::KILLED_BY_NERON, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getEndCause());
+        $I->assertNotEquals(EndCauseEnum::KILLED_BY_NERON, $this->chun->getPlayerInfo()->getClosedPlayer()->getEndCause());
+        $I->assertEquals(8, $this->kuanTi->getTriumph());
+        $I->assertEquals(8, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(GameStatusEnum::FINISHED, $this->daedalus->getDaedalusInfo()->getGameStatus());
+    }
+
+    private function whenANewCyclePasses(): void
+    {
+        $event = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($event, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+    }
+
+    private function whenAllHumanPlayersDie(): void
+    {
+        foreach ($this->daedalus->getAlivePlayers()->getHumanPlayer() as $human) {
+            $this->playerService->killPlayer(
+                player: $human,
+                endReason: EndCauseEnum::DEPRESSION,
+                time: new \DateTime(),
+            );
+        }
     }
 }

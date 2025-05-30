@@ -11,7 +11,9 @@ The [`TriumphConfig`](./Entity/TriumphConfig.php) entity contains the following 
 - `name`: triumph name (from [`TriumphEnum`](./Enum/TriumphEnum.php))
 - `scope`: Determines which players receive the triumph (from [`TriumphScope`](./Enum/TriumphScope.php))
 - `targetedEvent`: The event that triggers this triumph
-- `targetedEventExpectedTags`: Additional tags that must be present in the event for the triumph to be awarded (for the moment, all tags must be present for the triumph to apply - TODO)
+- `tagConstraints`: An array of tags that the event must have to trigger the triumph
+  - ANY_TAG: The triumph will be triggered if the event has at least one of these tags
+  - ALL_TAGS: The triumph will be triggered if the event has all of these tags
 - `target`: If set, only this character will receive the triumph. You can combine this `scope` to create more complex targeting conditions
 - `quantity`: The amount of triumph points awarded
 - `visibility`: Controls the visibility of triumph log
@@ -27,6 +29,8 @@ The [`TriumphScope`](./Enum/TriumphScope.php) enum defines which players receive
 - `ALL_ALIVE_MUSHS`: All Mush players who are still alive
 - `ALL_ALIVE_HUMANS`: All human players who are still alive
 - `ALL_MUSHS`: All Mush players
+- `ALL_ACTIVE_EXPLORERS`: All explorers not stucked in Icarus nor lost
+- `ALL_ACTIVE_HUMAN_EXPLORERS`: All human explorers not stucked in Icarus nor lost
 
 You can add new scopes to restrain your triumph targets.
 
@@ -49,9 +53,9 @@ new TriumphConfigDto(
     name: TriumphEnum::CHUN_LIVES,
     targetedEvent: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
     targetedEventExpectedTags: [
-        EventEnum::NEW_DAY,
+        EventEnum::NEW_DAY => TriumphSourceEventInterface::ALL_TAGS,
     ],
-    scope: TriumphScope::PERSONAL,
+    scope: TriumphScope::ALL_ALIVE_HUMANS,
     target: CharacterEnum::CHUN,
     quantity: 1,
 )
@@ -60,5 +64,5 @@ new TriumphConfigDto(
 This triumph:
 - Is triggered on each new cycle of the Daedalus (event: `DAEDALUS_NEW_CYCLE`)
 - Only applies if the event has the tag `NEW_DAY`
-- Uses the `PERSONAL` scope and `target` to award it to Chun only
+- Uses the `target` attribute to apply it on Chun only
 

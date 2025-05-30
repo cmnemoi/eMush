@@ -8,9 +8,14 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectRequirement;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-final class ProjectEvent extends AbstractGameEvent
+final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string PROJECT_ADVANCED = 'project.advanced';
     public const string PROJECT_FINISHED = 'project.finished';
     private Project $project;
@@ -24,6 +29,10 @@ final class ProjectEvent extends AbstractGameEvent
         parent::__construct($tags, $time);
         $this->author = $author;
         $this->project = $project;
+        $this->addTags([
+            $project->getName(),
+            ...$project->getRequirements()->map(static fn (ProjectRequirement $requirement) => $requirement->getName())->toArray(),
+        ]);
     }
 
     public function getProject(): Project

@@ -195,7 +195,7 @@ final class PlayerTest extends TestCase
         $pilgred = ProjectFactory::createPilgredProject();
         $trailReducer = ProjectFactory::createTrailReducerProject();
         $heatLamp = ProjectFactory::createHeatLampProject();
-        $fireSensor = ProjectFactory::createNeronProjectByName(ProjectName::FIRE_SENSOR);
+        $fireSensor = ProjectFactory::createProjectByName(ProjectName::FIRE_SENSOR);
 
         return [
             'PILGRED, 0 participations' => [$pilgred, 0, new PlayerEfficiency(1, 1)],
@@ -235,7 +235,7 @@ final class PlayerTest extends TestCase
         $plasmaShield = ProjectFactory::createPlasmaShieldProject();
         $heatLamp = ProjectFactory::createHeatLampProject();
         $trailReducer = ProjectFactory::createTrailReducerProject();
-        $fireSensor = ProjectFactory::createNeronProjectByName(ProjectName::FIRE_SENSOR);
+        $fireSensor = ProjectFactory::createProjectByName(ProjectName::FIRE_SENSOR);
 
         return [
             'Plasma Shield, 0 participations' => [$plasmaShield, 0, new PlayerEfficiency(2, 3)],

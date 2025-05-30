@@ -19,4 +19,9 @@ enum ProjectRequirementName: string
     case FOOD_IN_LABORATORY = 'food_in_laboratory';
     case COFFEE_IN_LABORATORY = 'coffee_in_laboratory';
     case GAME_STARTED = 'game_started';
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
 }

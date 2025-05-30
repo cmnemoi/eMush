@@ -12,6 +12,8 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Event\ProjectEvent;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -109,5 +111,21 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
 
         // then I should gain sol contact triumph
         $I->assertEquals(8, $this->player->getTriumph());
+    }
+
+    public function shouldGiveTriumphOnProjectFinished(FunctionalTester $I): void
+    {
+        $this->player->setTriumph(0);
+
+        $this->eventService->callEvent(
+            event: new ProjectEvent(
+                project: $this->daedalus->getProjectByName(ProjectName::ANTISPORE_GAS),
+                author: $this->player,
+            ),
+            name: ProjectEvent::PROJECT_FINISHED,
+        );
+
+        // research_small triumph
+        $I->assertEquals(3, $this->player->getTriumph());
     }
 }

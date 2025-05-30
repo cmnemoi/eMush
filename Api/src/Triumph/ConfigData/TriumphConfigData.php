@@ -15,9 +15,12 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
+use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 
 abstract class TriumphConfigData
@@ -181,6 +184,17 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::KUAN_TI,
                 quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::KUBE_SOLVED->toConfigKey('default'),
+                name: TriumphEnum::KUBE_SOLVED,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    PlayerStatusEnum::POINTLESS_PLAYER => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_PLAYERS,
+                target: TriumphTarget::STATUS_HOLDER->toString(),
+                quantity: 5,
             ),
         ];
     }

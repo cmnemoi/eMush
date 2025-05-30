@@ -14,9 +14,13 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
+class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string STATUS_APPLIED = 'status.applied';
     public const string STATUS_DELETED = 'status.deleted';
     public const string STATUS_REMOVED = 'status.removed';

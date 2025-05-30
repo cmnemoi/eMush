@@ -636,6 +636,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($beginner);
 
+        $pointlessPlayer = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::POINTLESS_PLAYER . '_default')
+        );
+        $manager->persist($pointlessPlayer);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -711,7 +716,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($ghostChun)
             ->addStatusConfig($aggroed)
             ->addStatusConfig($beginner)
-            ->addStatusConfig($sensorDroneUpgrade);
+            ->addStatusConfig($sensorDroneUpgrade)
+            ->addStatusConfig($pointlessPlayer);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -781,6 +787,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::GHOST_CHUN, $ghostChun);
         $this->addReference(HunterStatusEnum::AGGROED, $aggroed);
         $this->addReference(PlayerStatusEnum::BEGINNER, $beginner);
+        $this->addReference(PlayerStatusEnum::POINTLESS_PLAYER, $pointlessPlayer);
 
         $manager->flush();
     }

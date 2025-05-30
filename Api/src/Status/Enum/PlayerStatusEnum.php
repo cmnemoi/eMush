@@ -78,4 +78,5 @@ abstract class PlayerStatusEnum
     public const string SELECTED_FOR_STEEL_PLATE = 'selected_for_steel_plate';
     public const string SELECTED_FOR_BOARD_DISEASE = 'selected_for_board_disease';
     public const string SELECTED_FOR_ANXIETY_ATTACK = 'selected_for_anxiety_attack';
+    public const string POINTLESS_PLAYER = 'pointless_player';
 }

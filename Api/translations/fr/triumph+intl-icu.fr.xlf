@@ -43,7 +43,7 @@
         <target>Expédition</target>
       </segment>
       <segment id="expedition.log" state="translated">
-        <source>expedition</source>
+        <source>expedition.log</source>
         <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition.</target>
       </segment>
     </unit>
@@ -125,6 +125,16 @@
       <segment id="magellan_ark.log" state="translated">
         <source>magellan_ark.log</source>
         <target>Vous gagnez {quantity} :triumph: car un projet NERON a été réalisé en votre présence en tant que Kuan Ti !</target>
+      </segment>
+    </unit>
+    <unit id="kube_solved">
+      <segment id="kube_solved.name" state="translated">
+        <source>precious_body.name</source>
+        <target>Kuboïd</target>
+      </segment>
+      <segment id="kube_solved.log" state="initial">
+        <source>precious_body.log</source>
+        <target>precious_body.log</target>
       </segment>
     </unit>
   </file>

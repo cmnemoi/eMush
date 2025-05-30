@@ -96,6 +96,7 @@ final class TryKubeTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true);
+        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $result = $this->actionHandler->execute();
 

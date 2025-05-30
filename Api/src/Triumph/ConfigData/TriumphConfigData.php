@@ -88,6 +88,7 @@ abstract class TriumphConfigData
                 quantity: 16,
             ),
             new TriumphConfigDto(
+<<<<<<< HEAD
                 key: TriumphEnum::MUSH_VICTORY->toConfigKey('default'),
                 name: TriumphEnum::MUSH_VICTORY,
                 targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
@@ -98,6 +99,8 @@ abstract class TriumphConfigData
                 quantity: 8,
             ),
             new TriumphConfigDto(
+=======
+>>>>>>> d6d2f1c3e (feat(triumph): Mush return to Sol)
                 key: TriumphEnum::MUSH_INITIAL_BONUS->toConfigKey('default'),
                 name: TriumphEnum::MUSH_INITIAL_BONUS,
                 targetedEvent: DaedalusEvent::FULL_DAEDALUS,

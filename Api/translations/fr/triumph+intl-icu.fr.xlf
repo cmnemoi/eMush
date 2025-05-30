@@ -117,5 +117,15 @@
         <target>Vous gagnez {quantity} :triumph: car une recherche nécessitant votre présence en tant que Chun a été réalisée !</target>
       </segment>
     </unit>
+    <unit id="magellan_ark">
+      <segment id="magellan_ark.name" state="translated">
+        <source>magellan_ark.name</source>
+        <target>L'Arche de Magellan</target>
+      </segment>
+      <segment id="magellan_ark.log" state="translated">
+        <source>magellan_ark.log</source>
+        <target>Vous gagnez {quantity} :triumph: car un projet NERON a été réalisé en votre présence en tant que Kuan Ti !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -77,6 +77,30 @@ final class TryKubeCest extends AbstractFunctionalTest
         $I->assertEquals(5, $this->player->getTriumph());
     }
 
+    public function shouldNotGiveGloryToOtherPlayersThanTheSolver(FunctionalTester $I)
+    {
+        $this->whenPlayerSolvesTheKube();
+
+        $I->assertEquals(5, $this->player->getTriumph());
+        $I->assertEquals(0, $this->player2->getTriumph());
+    }
+
+    public function shouldNotGiveGloryToFirstSolversWhenAnotherPlayerSolvesTheKube(FunctionalTester $I)
+    {
+        $this->whenPlayerSolvesTheKube();
+
+        $this->tryKube->loadParameters(
+            actionConfig: $this->tryKubeConfig,
+            actionProvider: $this->madKube,
+            player: $this->player2,
+            target: $this->madKube
+        );
+        $this->tryKube->execute();
+
+        $I->assertEquals(5, $this->player->getTriumph());
+        $I->assertEquals(5, $this->player2->getTriumph());
+    }
+
     private function givenMadKubeInTheRoom(): GameItem
     {
         return $this->gameEquipmentService->createGameEquipmentFromName(

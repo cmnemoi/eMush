@@ -31,6 +31,12 @@
         <target>Vous perdez {quantity} :triumph: car des Mushs vous ont suivis sur Sol...</target>
       </segment>
     </unit>
+    <unit id="sol_mush_invasion">
+      <segment id="sol_mush_invasion" state="initial">
+        <source>sol_mush_invasion</source>
+        <target>sol_mush_invasion</target>
+      </segment>
+    </unit>
     <unit id="mush_initial_bonus">
       <segment id="mush_initial_bonus" state="translated">
         <source>mush_initial_bonus</source>
@@ -135,6 +141,15 @@
       <segment id="kube_solved.log" state="initial">
         <source>kube_solved.log</source>
         <target>Vous avez gagné {quantity} :triumph: car vous avez résolu le MAD Kube.</target>
+      </segment>
+    <unit id="mush_victory">
+      <segment id="mush_victory.name" state="initial">
+        <source>mush_victory.name</source>
+        <target>mush_victory.name</target>
+      </segment>
+      <segment id="mush_victory.log" state="initial">
+        <source>mush_victory.log</source>
+        <target>mush_victory.log</target>
       </segment>
     </unit>
   </file>

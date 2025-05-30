@@ -732,10 +732,10 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($aggroed)
             ->addStatusConfig($beginner)
             ->addStatusConfig($sensorDroneUpgrade)
-            ->addStatusConfig($pointlessPlayer)
             ->addStatusConfig($hasGainedCommanderTitle)
             ->addStatusConfig($hasGainedNeronManagerTitle)
-            ->addStatusConfig($hasGainedComManagerTitle);
+            ->addStatusConfig($hasGainedComManagerTitle)
+            ->addStatusConfig($pointlessPlayer);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);

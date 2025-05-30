@@ -11,7 +11,6 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Status\Event\StatusEvent;
-use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

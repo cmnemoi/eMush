@@ -10,8 +10,6 @@ use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Factory\StatusFactory;
@@ -97,7 +95,7 @@ final class StatusEventTest extends TestCase
         $player1 = $this->givenPlayerWithDaedalus($daedalus);
         $player2 = $this->givenPlayerWithDaedalus($daedalus);
         $this->givenStatusAppliedTriumphConfig();
-        $event = $this->givenStatusAppliedEventForPlayer($player1);
+        $event = $this->givenStatusEventForPlayer($player1, 'test_status');
 
         $this->whenChangeTriumphFromEventIsExecuted($event);
 
@@ -110,7 +108,7 @@ final class StatusEventTest extends TestCase
         $daedalus = $this->givenDaedalus();
         $player1 = $this->givenPlayerWithDaedalus($daedalus);
         $this->givenStatusAppliedTriumphConfig();
-        $event = $this->givenAnotherStatusAppliedEventForPlayer($player1);
+        $event = $this->givenStatusEventForPlayer($player1, 'test_status_another');
 
         $this->whenChangeTriumphFromEventIsExecuted($event);
 
@@ -174,7 +172,7 @@ final class StatusEventTest extends TestCase
 
     private function givenStatusEventForPlayer($player, string $statusName): StatusEvent
     {
-        return new StatusEvent(
+        $event = new StatusEvent(
             status: StatusFactory::createStatusByNameForHolder(
                 name: $statusName,
                 holder: $player,
@@ -183,8 +181,11 @@ final class StatusEventTest extends TestCase
             tags: [],
             time: new \DateTime(),
         );
+        $event->setEventName(StatusEvent::STATUS_APPLIED);
+
+        return $event;
     }
-    
+
     private function givenDaedalus(): object
     {
         return DaedalusFactory::createDaedalus();
@@ -212,30 +213,6 @@ final class StatusEventTest extends TestCase
                 )
             )
         );
-    }
-
-    private function givenStatusAppliedEventForPlayer(Player $player): StatusEvent
-    {
-        $statusConfig = new StatusConfig();
-        $statusConfig->setStatusName('test_status');
-        $status = new Status($player, $statusConfig);
-        $player->addStatus($status);
-        $event = new StatusEvent($status, $player, [], new \DateTime());
-        $event->setEventName(StatusEvent::STATUS_APPLIED);
-
-        return $event;
-    }
-
-    private function givenAnotherStatusAppliedEventForPlayer(Player $player): StatusEvent
-    {
-        $statusConfig = new StatusConfig();
-        $statusConfig->setStatusName('test_status_another');
-        $status = new Status($player, $statusConfig);
-        $player->addStatus($status);
-        $event = new StatusEvent($status, $player, [], new \DateTime());
-        $event->setEventName(StatusEvent::STATUS_APPLIED);
-
-        return $event;
     }
 
     // When methods

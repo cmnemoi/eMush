@@ -7,7 +7,6 @@ namespace Mush\Triumph\Service;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
-use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Event\TriumphChangedEvent;

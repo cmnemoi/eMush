@@ -31,6 +31,12 @@
         <target>sol_mush_intruder</target>
       </segment>
     </unit>
+    <unit id="sol_mush_invasion">
+      <segment id="sol_mush_invasion" state="initial">
+        <source>sol_mush_invasion</source>
+        <target>sol_mush_invasion</target>
+      </segment>
+    </unit>
     <unit id="mush_initial_bonus">
       <segment id="mush_initial_bonus" state="initial">
         <source>mush_initial_bonus</source>

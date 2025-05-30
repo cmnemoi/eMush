@@ -61,6 +61,26 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         $I->assertEquals(20, $this->player->getTriumph());
     }
 
+    public function shouldGiveTriumphOnDaedalusFinishedWithMush(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+
+        $this->chun->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+
+        $event = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [ActionEnum::RETURN_TO_SOL->toString()],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($event, DaedalusEvent::FINISH_DAEDALUS);
+
+        // return to sol human triumph (20 base - 10 for mush intruder = 10)
+        $I->assertEquals(10, $this->chun->getTriumph());
+        // return to sol mush triumph (16 base)
+        $I->assertEquals(16, $this->kuanTi->getTriumph());
+    }
+
     public function shouldGiveTriumphOnDaedalusFull(FunctionalTester $I): void
     {
         $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);

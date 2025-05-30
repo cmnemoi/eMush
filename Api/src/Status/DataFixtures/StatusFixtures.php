@@ -651,6 +651,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($hasGainedComManagerTitle);
 
+        $pointlessPlayer = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::POINTLESS_PLAYER . '_default')
+        );
+        $manager->persist($pointlessPlayer);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -727,6 +732,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($aggroed)
             ->addStatusConfig($beginner)
             ->addStatusConfig($sensorDroneUpgrade)
+            ->addStatusConfig($pointlessPlayer)
             ->addStatusConfig($hasGainedCommanderTitle)
             ->addStatusConfig($hasGainedNeronManagerTitle)
             ->addStatusConfig($hasGainedComManagerTitle);
@@ -802,6 +808,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE, $hasGainedCommanderTitle);
         $this->addReference(PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE, $hasGainedNeronManagerTitle);
         $this->addReference(PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE, $hasGainedComManagerTitle);
+        $this->addReference(PlayerStatusEnum::POINTLESS_PLAYER, $pointlessPlayer);
 
         $manager->flush();
     }

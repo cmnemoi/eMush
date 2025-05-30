@@ -31,6 +31,12 @@
         <target>Vous perdez {quantity} :triumph: car des Mushs vous ont suivis sur Sol...</target>
       </segment>
     </unit>
+    <unit id="sol_mush_invasion">
+      <segment id="sol_mush_invasion" state="initial">
+        <source>sol_mush_invasion</source>
+        <target>sol_mush_invasion</target>
+      </segment>
+    </unit>
     <unit id="mush_initial_bonus">
       <segment id="mush_initial_bonus" state="translated">
         <source>mush_initial_bonus</source>
@@ -43,7 +49,7 @@
         <target>Expédition</target>
       </segment>
       <segment id="expedition.log" state="translated">
-        <source>expedition</source>
+        <source>expedition.log</source>
         <target>Vous avez gagné {quantity} :triumph: car vous participez à une expédition.</target>
       </segment>
     </unit>
@@ -145,6 +151,16 @@
       <segment id="ambitious.log" state="translated">
         <source>ambitious.log</source>
         <target>Vous avez gagné {quantity} :triumph: car vous avez obtenu un titre en tant que Stephen !</target>
+      </segment>
+    </unit>
+    <unit id="kube_solved">
+      <segment id="kube_solved.name" state="translated">
+        <source>kube_solved.name</source>
+        <target>Kuboïd</target>
+      </segment>
+      <segment id="kube_solved.log" state="initial">
+        <source>kube_solved.log</source>
+        <target>kube_solved.log</target>
       </segment>
     </unit>
   </file>

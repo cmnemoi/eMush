@@ -19,7 +19,7 @@ interface TriumphSourceEventInterface
 
     public function getEventName(): string;
 
-    public function getTargetsForTriumph(TriumphConfig $triumphConfig): PlayerCollection;
+    public function getScopeTargetsForTriumph(TriumphConfig $triumphConfig): PlayerCollection;
 
     public function hasTag(string $tag): bool;
 

@@ -81,4 +81,5 @@ abstract class PlayerStatusEnum
     public const string HAS_GAINED_COMMANDER_TITLE = 'has_gained_commander_title';
     public const string HAS_GAINED_NERON_MANAGER_TITLE = 'has_gained_neron_manager_title';
     public const string HAS_GAINED_COM_MANAGER_TITLE = 'has_gained_com_manager_title';
+    public const string POINTLESS_PLAYER = 'pointless_player';
 }

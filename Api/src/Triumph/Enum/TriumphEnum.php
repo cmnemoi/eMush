@@ -13,6 +13,7 @@ enum TriumphEnum: string
     case EXPLORATOR = 'explorator';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
     case MUSH_SPECIALIST = 'mush_specialist';
+    case PRECIOUS_BODY = 'precious_body';
     case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';
     case RESEARCH_STANDARD = 'research_standard';

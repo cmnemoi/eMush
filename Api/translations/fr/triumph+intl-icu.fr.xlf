@@ -107,5 +107,15 @@
         <target>Vous gagnez {quantity} :triumph: car une recherche sur le Mush a été réalisée en votre présence en tant que Finola !</target>
       </segment>
     </unit>
+    <unit id="precious_body">
+      <segment id="precious_body.name" state="translated">
+        <source>precious_body.name</source>
+        <target>Le Précieux</target>
+      </segment>
+      <segment id="precious_body.log" state="translated">
+        <source>precious_body.log</source>
+        <target>Vous gagnez {quantity} :triumph: car une recherche nécessitant votre présence en tant que Chuna été réalisée !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

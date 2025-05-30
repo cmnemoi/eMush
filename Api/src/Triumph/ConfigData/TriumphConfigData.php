@@ -166,6 +166,21 @@ abstract class TriumphConfigData
                 target: CharacterEnum::FINOLA,
                 quantity: 3,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PRECIOUS_BODY->toConfigKey('default'),
+                name: TriumphEnum::PRECIOUS_BODY,
+                targetedEvent: ProjectEvent::PROJECT_FINISHED,
+                tagConstraints: [
+                    ProjectName::CREATE_MYCOSCAN->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSH_HUNTER_ZC16H->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSHICIDE_SOAP->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSHOVORE_BACTERIA->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::RETRO_FUNGAL_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: CharacterEnum::CHUN,
+                quantity: 4,
+            ),
         ];
     }
 

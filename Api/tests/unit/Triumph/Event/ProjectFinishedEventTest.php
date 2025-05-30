@@ -209,6 +209,33 @@ final class ProjectFinishedEventTest extends TestCase
         self::assertEquals(0, $player->getTriumph());
     }
 
+    /**
+     * @dataProvider provideShouldGivePreciousBodyTriumphToChunCases
+     */
+    public function testShouldGivePreciousBodyTriumphToChun(ProjectName $projectName): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $chun = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::CHUN, $daedalus);
+        $this->givenPreciousBodyTriumphConfig();
+        $event = $this->givenProjectFinishedEvent($projectName, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(4, $chun->getTriumph());
+    }
+
+    public function testShouldNotGivePreciousBodyTriumphToOtherCharacter(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::HUA, $daedalus);
+        $this->givenPreciousBodyTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::MUSH_HUNTER_ZC16H, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(0, $player->getTriumph());
+    }
+
     public static function provideShouldGiveResearchSmallTriumphToAllHumansCases(): iterable
     {
         return [
@@ -249,6 +276,17 @@ final class ProjectFinishedEventTest extends TestCase
             ProjectName::CONSTIPASPORE_SERUM->toString() => [ProjectName::CONSTIPASPORE_SERUM],
             ProjectName::SPORE_SUCKER->toString() => [ProjectName::SPORE_SUCKER],
             ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
+        ];
+    }
+
+    public static function provideShouldGivePreciousBodyTriumphToChunCases(): iterable
+    {
+        return [
+            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
+            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
+            ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
+            ProjectName::MUSHOVORE_BACTERIA->toString() => [ProjectName::MUSHOVORE_BACTERIA],
+            ProjectName::RETRO_FUNGAL_SERUM->toString() => [ProjectName::RETRO_FUNGAL_SERUM],
         ];
     }
 
@@ -293,6 +331,15 @@ final class ProjectFinishedEventTest extends TestCase
         $this->triumphConfigRepository->save(
             TriumphConfig::fromDto(
                 TriumphConfigData::getByName(TriumphEnum::RESEARCH_BRILLANT)
+            )
+        );
+    }
+
+    private function givenPreciousBodyTriumphConfig(): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(
+                TriumphConfigData::getByName(TriumphEnum::PRECIOUS_BODY)
             )
         );
     }

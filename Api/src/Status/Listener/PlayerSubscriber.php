@@ -103,17 +103,10 @@ final class PlayerSubscriber implements EventSubscriberInterface
     public function onTitleAttributed(PlayerEvent $playerEvent): void
     {
         $player = $playerEvent->getPlayer();
-        $title = $playerEvent->getTags()[0];
-
-        $statusName = match ($title) {
-            TitleEnum::COMMANDER => PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE,
-            TitleEnum::COM_MANAGER => PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE,
-            TitleEnum::NERON_MANAGER => PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE,
-            default => throw new \LogicException("Title {$title} not supported"),
-        };
+        $title = $playerEvent->getTitle();
 
         $this->statusService->createStatusFromName(
-            statusName: $statusName,
+            statusName: TitleEnum::getHasGainedTitleStatusName($title),
             holder: $player,
             tags: $playerEvent->getTags(),
             time: $playerEvent->getTime(),

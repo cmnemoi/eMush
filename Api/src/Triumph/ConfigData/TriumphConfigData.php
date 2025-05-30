@@ -144,6 +144,28 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 16,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSH_SPECIALIST->toConfigKey('default'),
+                name: TriumphEnum::MUSH_SPECIALIST,
+                targetedEvent: ProjectEvent::PROJECT_FINISHED,
+                tagConstraints: [
+                    ProjectName::PATULINE_SCRAMBLER->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MERIDON_SCRAMBLER->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::CREATE_MYCOSCAN->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::NATAMY_RIFLE->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::ANTISPORE_GAS->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSH_LANGUAGE->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSH_HUNTER_ZC16H->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MYCOALARM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSH_RACES->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::CONSTIPASPORE_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::SPORE_SUCKER->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectName::MUSHICIDE_SOAP->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: CharacterEnum::FINOLA,
+                quantity: 3,
+            ),
         ];
     }
 

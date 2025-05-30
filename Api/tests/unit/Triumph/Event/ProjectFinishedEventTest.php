@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\unit\Triumph\Event;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Project\Enum\ProjectName;
@@ -156,6 +157,58 @@ final class ProjectFinishedEventTest extends TestCase
         $this->thenPlayerShouldHaveTriumph($player, 0);
     }
 
+    /**
+     * @dataProvider provideShouldGiveMushSpecialistTriumphToFinolaCases
+     */
+    public function testShouldGiveMushSpecialistTriumphToFinola(ProjectName $projectName): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $finola = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::FINOLA, $daedalus);
+        $this->givenMushSpecialistTriumphConfig();
+        $event = $this->givenProjectFinishedEvent($projectName, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(3, $finola->getTriumph());
+    }
+
+    public function testShouldNotGiveMushSpecialistTriumphToMushFinola(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $finola = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::FINOLA, $daedalus);
+        $this->givenPlayerIsMush($finola);
+        $this->givenMushSpecialistTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::MUSH_HUNTER_ZC16H, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(0, $finola->getTriumph());
+    }
+
+    public function testShouldNotGiveMushSpecialistTriumphToFinolaIfProjectNotOnTheList(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $finola = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::FINOLA, $daedalus);
+        $this->givenMushSpecialistTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::NCC_CONTACT_LENSES, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(0, $finola->getTriumph());
+    }
+
+    public function testShouldNotGiveMushSpecialistTriumphToOtherCharacter(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::HUA, $daedalus);
+        $this->givenMushSpecialistTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::MUSH_HUNTER_ZC16H, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(0, $player->getTriumph());
+    }
+
     public static function provideShouldGiveResearchSmallTriumphToAllHumansCases(): iterable
     {
         return [
@@ -178,6 +231,24 @@ final class ProjectFinishedEventTest extends TestCase
             ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
             ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
             ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => [ProjectName::MUSH_REPRODUCTIVE_SYSTEM],
+        ];
+    }
+
+    public static function provideShouldGiveMushSpecialistTriumphToFinolaCases(): iterable
+    {
+        return [
+            ProjectName::PATULINE_SCRAMBLER->toString() => [ProjectName::PATULINE_SCRAMBLER],
+            ProjectName::MERIDON_SCRAMBLER->toString() => [ProjectName::MERIDON_SCRAMBLER],
+            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
+            ProjectName::NATAMY_RIFLE->toString() => [ProjectName::NATAMY_RIFLE],
+            ProjectName::ANTISPORE_GAS->toString() => [ProjectName::ANTISPORE_GAS],
+            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
+            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
+            ProjectName::MYCOALARM->toString() => [ProjectName::MYCOALARM],
+            ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
+            ProjectName::CONSTIPASPORE_SERUM->toString() => [ProjectName::CONSTIPASPORE_SERUM],
+            ProjectName::SPORE_SUCKER->toString() => [ProjectName::SPORE_SUCKER],
+            ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
         ];
     }
 
@@ -250,6 +321,13 @@ final class ProjectFinishedEventTest extends TestCase
         $event->setEventName(ProjectEvent::PROJECT_FINISHED);
 
         return $event;
+    }
+
+    private function givenMushSpecialistTriumphConfig(): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::MUSH_SPECIALIST))
+        );
     }
 
     private function whenChangeTriumphFromEventIsExecutedFor(ProjectEvent $event): void

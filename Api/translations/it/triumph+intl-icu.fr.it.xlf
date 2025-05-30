@@ -123,14 +123,34 @@
         <target>precious_body.log</target>
       </segment>
     </unit>
+    <unit id="magellan_ark">
+      <segment id="magellan_ark.name" state="initial">
+        <source>magellan_ark.name</source>
+        <target>magellan_ark.name</target>
+      </segment>
+      <segment id="magellan_ark.log" state="initial">
+        <source>magellan_ark.log</source>
+        <target>magellan_ark.log</target>
+      </segment>
+    </unit>
     <unit id="kube_solved">
       <segment id="kube_solved.name" state="initial">
-        <source>precious_body.name</source>
-        <target>precious_body.name</target>
+        <source>kube_solved.name</source>
+        <target>kube_solved.name</target>
       </segment>
       <segment id="kube_solved.log" state="initial">
-        <source>precious_body.log</source>
-        <target>precious_body.log</target>
+        <source>kube_solved.log</source>
+        <target>kube_solved.log</target>
+      </segment>
+    </unit>
+    <unit id="mush_victory">
+      <segment id="mush_victory.name" state="initial">
+        <source>mush_victory.name</source>
+        <target>mush_victory.name</target>
+      </segment>
+      <segment id="mush_victory.log" state="initial">
+        <source>mush_victory.log</source>
+        <target>mush_victory.log</target>
       </segment>
     </unit>
   </file>

@@ -236,6 +236,42 @@ final class ProjectFinishedEventTest extends TestCase
         self::assertEquals(0, $player->getTriumph());
     }
 
+    public function testShouldGiveMagellanArkTriumphToKuanTi(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $kuanTi = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::KUAN_TI, $daedalus);
+        $this->givenMagellanArkTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::ARMOUR_CORRIDOR, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(3, $kuanTi->getTriumph());
+    }
+
+    public function testShouldNotGiveMagellanArkTriumphToOtherCharacter(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::HUA, $daedalus);
+        $this->givenMagellanArkTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::ARMOUR_CORRIDOR, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(0, $player->getTriumph());
+    }
+
+    public function testShouldNotGiveMagellanArkTriumphIfNotNeronProject(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $kuanTi = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::KUAN_TI, $daedalus);
+        $this->givenMagellanArkTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::MUSH_HUNTER_ZC16H, $daedalus);
+
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+
+        self::assertEquals(0, $kuanTi->getTriumph());
+    }
+
     public static function provideShouldGiveResearchSmallTriumphToAllHumansCases(): iterable
     {
         return [
@@ -344,6 +380,15 @@ final class ProjectFinishedEventTest extends TestCase
         $this->triumphConfigRepository->save(
             TriumphConfig::fromDto(
                 TriumphConfigData::getByName(TriumphEnum::PRECIOUS_BODY)
+            )
+        );
+    }
+
+    private function givenMagellanArkTriumphConfig(): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(
+                TriumphConfigData::getByName(TriumphEnum::MAGELLAN_ARK)
             )
         );
     }

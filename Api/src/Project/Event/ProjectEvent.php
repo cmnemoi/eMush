@@ -31,6 +31,7 @@ final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEvent
         $this->project = $project;
         $this->addTags([
             $project->getName(),
+            $project->getType()->toString(),
             ...$project->getRequirements()->map(static fn (ProjectRequirement $requirement) => $requirement->getName())->toArray(),
         ]);
     }

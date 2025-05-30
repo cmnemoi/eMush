@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Status\Listener;
 
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Event\PlayerChangedPlaceEvent;
 use Mush\Player\Event\PlayerEvent;
@@ -11,18 +14,12 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Service\UserServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerSubscriber implements EventSubscriberInterface
+final class PlayerSubscriber implements EventSubscriberInterface
 {
-    private StatusServiceInterface $statusService;
-    private UserServiceInterface $userService;
-
     public function __construct(
-        StatusServiceInterface $statusService,
-        UserServiceInterface $userService,
-    ) {
-        $this->statusService = $statusService;
-        $this->userService = $userService;
-    }
+        private StatusServiceInterface $statusService,
+        private UserServiceInterface $userService,
+    ) {}
 
     public static function getSubscribedEvents()
     {
@@ -33,6 +30,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::NEW_PLAYER => ['onNewPlayer', 100],
             PlayerEvent::DEATH_PLAYER => 'onPlayerDeath',
             PlayerChangedPlaceEvent::class => 'onPlayerChangedPlace',
+            PlayerEvent::TITLE_ATTRIBUTED => 'onTitleAttributed',
         ];
     }
 
@@ -100,6 +98,19 @@ class PlayerSubscriber implements EventSubscriberInterface
         } else {
             $this->createPreviousRoomStatus($event);
         }
+    }
+
+    public function onTitleAttributed(PlayerEvent $playerEvent): void
+    {
+        $player = $playerEvent->getPlayer();
+        $title = $playerEvent->getTitle();
+
+        $this->statusService->createStatusFromName(
+            statusName: TitleEnum::getHasGainedTitleStatusName($title),
+            holder: $player,
+            tags: $playerEvent->getTags(),
+            time: $playerEvent->getTime(),
+        );
     }
 
     private function deleteCeasefireStatus(PlayerChangedPlaceEvent $event): void

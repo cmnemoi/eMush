@@ -3,6 +3,7 @@
 namespace Mush\Player\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -71,5 +72,15 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
     public function getDaedalus(): Daedalus
     {
         return $this->getPlayer()->getDaedalus();
+    }
+
+    public function getTitle(): string
+    {
+        $title = $this->getTags()[0];
+        if (!TitleEnum::isValidTitle($title)) {
+            throw new \LogicException("{$title} is not a valid title");
+        }
+
+        return $title;
     }
 }

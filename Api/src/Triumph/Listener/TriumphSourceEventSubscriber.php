@@ -10,6 +10,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Project\Event\ProjectEvent;
+use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -27,8 +28,9 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             DaedalusEvent::FULL_DAEDALUS => ['onDaedalusFull', EventPriorityEnum::LOW],
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
-            ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
             ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
+            ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
+            StatusEvent::STATUS_APPLIED => 'onStatusApplied',
         ];
     }
 
@@ -63,6 +65,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onProjectAdvanced(ProjectEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onStatusApplied(StatusEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

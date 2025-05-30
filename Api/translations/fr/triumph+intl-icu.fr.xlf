@@ -124,7 +124,7 @@
       </segment>
       <segment id="magellan_ark.log" state="translated">
         <source>magellan_ark.log</source>
-        <target>Vous gagnez {quantity} :triumph: car un projet NERON a été réalisé en votre présence en tant que Kuan Ti !</target>
+        <target>Vous avez gagné {quantity} :triumph: car un projet NERON a été réalisé en votre présence en tant que Kuan Ti !</target>
       </segment>
     </unit>
     <unit id="pilgred_mother">
@@ -135,6 +135,16 @@
       <segment id="pilgred_mother.log" state="translated">
         <source>pilgred_mother</source>
         <target>Vous avez gagné {quantity} :triumph: en tant que Raluca car PILGRED a avancé significativement !</target>
+      </segment>
+    </unit>
+    <unit id="ambitious">
+      <segment id="ambitious.name" state="translated">
+        <source>ambitious.name</source>
+        <target>Ambitieux</target>
+      </segment>
+      <segment id="ambitious.log" state="translated">
+        <source>ambitious.log</source>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez obtenu un titre en tant que Stephen !</target>
       </segment>
     </unit>
   </file>

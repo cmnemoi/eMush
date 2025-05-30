@@ -6,6 +6,7 @@ namespace Mush\Triumph\Service;
 
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Event\TriumphChangedEvent;
@@ -50,6 +51,7 @@ final class ChangeTriumphFromEventService
     {
         return match ($triumphConfig->getName()) {
             TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
+            TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
             default => $triumphConfig->getQuantity(),
         };
     }

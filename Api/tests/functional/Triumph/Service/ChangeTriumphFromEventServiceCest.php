@@ -38,7 +38,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
         $this->changeTriumphFromEventService->execute($event);
 
         $this->ISeeTranslatedRoomLogInRepository(
-            expectedRoomLog: 'Vous gagnez 1 :triumph: car vous avez survécu un cycle de plus.',
+            expectedRoomLog: 'Vous avez gagné 1 :triumph: car vous avez survécu un cycle de plus.',
             actualRoomLogDto: new RoomLogDto(
                 player: $this->player,
                 log: TriumphEnum::CYCLE_HUMAN->toString(),

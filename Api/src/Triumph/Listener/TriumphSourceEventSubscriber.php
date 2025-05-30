@@ -28,6 +28,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
+            ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
         ];
     }
 
@@ -57,6 +58,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onProjectFinished(ProjectEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onProjectAdvanced(ProjectEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

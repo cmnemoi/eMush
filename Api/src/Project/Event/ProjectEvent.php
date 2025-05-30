@@ -16,8 +16,10 @@ final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEvent
 {
     use TriumphSourceEventTrait;
 
+    public const string NEXT_20_PERCENTS = 'next_20_percents';
     public const string PROJECT_ADVANCED = 'project.advanced';
     public const string PROJECT_FINISHED = 'project.finished';
+
     private Project $project;
 
     public function __construct(
@@ -34,6 +36,10 @@ final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEvent
             $project->getType()->toString(),
             ...$project->getRequirements()->map(static fn (ProjectRequirement $requirement) => $requirement->getName())->toArray(),
         ]);
+
+        if ($project->hasCrossedProgressStepForThreshold(20)) {
+            $this->addTag(self::NEXT_20_PERCENTS);
+        }
     }
 
     public function getProject(): Project

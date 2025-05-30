@@ -4,25 +4,25 @@
     <unit id="cycle_human">
       <segment id="cycle_human" state="translated">
         <source>cycle_human</source>
-        <target>Vous gagnez {quantity} :triumph: car vous avez survécu un cycle de plus.</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez survécu un cycle de plus.</target>
       </segment>
     </unit>
     <unit id="cycle_mush">
       <segment id="cycle_mush" state="translated">
         <source>cycle_mush</source>
-        <target>Vous perdez {quantity} :triumph_mush: car vous avez laissé ces humains survivre un cycle de plus.</target>
+        <target>Vous avez perdu {quantity} :triumph_mush: car vous avez laissé ces humains survivre un cycle de plus.</target>
       </segment>
     </unit>
     <unit id="chun_lives">
       <segment id="chun_lives" state="translated">
         <source>chun_lives</source>
-        <target>Vous gagnez {quantity} :triumph: car vous avez survécu un jour de plus en tant que Chun !</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez survécu un jour de plus en tant que Chun !</target>
       </segment>
     </unit>
     <unit id="return_to_sol">
       <segment id="return_to_sol" state="translated">
         <source>return_to_sol</source>
-        <target>Vous gagnez {quantity} :triumph: car vous êtes rentré sur Sol !</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous êtes rentré sur Sol !</target>
       </segment>
     </unit>
     <unit id="sol_mush_intruder">
@@ -34,7 +34,7 @@
     <unit id="mush_initial_bonus">
       <segment id="mush_initial_bonus" state="translated">
         <source>mush_initial_bonus</source>
-        <target>Vous gagnez {quantity} :triumph_mush: car vous faites désormais partie du Mush !</target>
+        <target>Vous avez gagné {quantity} :triumph_mush: car vous faites désormais partie du Mush !</target>
       </segment>
     </unit>
     <unit id="expedition">
@@ -44,7 +44,7 @@
       </segment>
       <segment id="expedition.log" state="translated">
         <source>expedition</source>
-        <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition.</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous participez à une expédition.</target>
       </segment>
     </unit>
     <unit id="explorator">
@@ -54,7 +54,7 @@
       </segment>
       <segment id="explorator.log" state="translated">
         <source>explorator.log</source>
-        <target>Vous gagnez {quantity} :triumph: car vous participez à une expédition en tant que Hua !</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous participez à une expédition en tant que Hua !</target>
       </segment>
     </unit>
     <unit id="sol_contact">
@@ -64,7 +64,7 @@
       </segment>
       <segment id="sol_contact.log" state="translated">
         <source>sol_contact.log</source>
-        <target>Vous gagnez {quantity} :triumph: car le Daedalus a contacté Sol pour la première fois.</target>
+        <target>Vous avez gagné {quantity} :triumph: car le Daedalus a contacté Sol pour la première fois.</target>
       </segment>
     </unit>
     <unit id="research_small">
@@ -74,7 +74,7 @@
       </segment>
       <segment id="research_small.log" state="translated">
         <source>research_small.log</source>
-        <target>Vous gagnez {quantity} :triumph: car une recherche mineure a été réalisée.</target>
+        <target>Vous avez gagné {quantity} :triumph: car une recherche mineure a été réalisée.</target>
       </segment>
     </unit>
     <unit id="research_standard">
@@ -84,7 +84,7 @@
       </segment>
       <segment id="research_standard.log" state="translated">
         <source>research_standard.log</source>
-        <target>Vous gagnez {quantity} :triumph: car une recherche a été réalisée.</target>
+        <target>Vous avez gagné {quantity} :triumph: car une recherche a été réalisée.</target>
       </segment>
     </unit>
     <unit id="research_brillant">
@@ -94,7 +94,7 @@
       </segment>
       <segment id="research_brillant.log" state="translated">
         <source>research_brillant.log</source>
-        <target>Vous gagnez {quantity} :triumph: car une recherche majeure a été réalisée !</target>
+        <target>Vous avez gagné {quantity} :triumph: car une recherche majeure a été réalisée !</target>
       </segment>
     </unit>
     <unit id="mush_specialist">
@@ -104,7 +104,7 @@
       </segment>
       <segment id="mush_specialist.log" state="translated">
         <source>mush_specialist.log</source>
-        <target>Vous gagnez {quantity} :triumph: car une recherche sur le Mush a été réalisée en votre présence en tant que Finola !</target>
+        <target>Vous avez gagné {quantity} :triumph: car une recherche sur le Mush a été réalisée en votre présence en tant que Finola !</target>
       </segment>
     </unit>
     <unit id="precious_body">
@@ -114,7 +114,7 @@
       </segment>
       <segment id="precious_body.log" state="translated">
         <source>precious_body.log</source>
-        <target>Vous gagnez {quantity} :triumph: car une recherche nécessitant votre présence en tant que Chun a été réalisée !</target>
+        <target>Vous avez gagné {quantity} :triumph: car une recherche nécessitant votre présence en tant que Chun a été réalisée !</target>
       </segment>
     </unit>
     <unit id="magellan_ark">
@@ -125,6 +125,16 @@
       <segment id="magellan_ark.log" state="translated">
         <source>magellan_ark.log</source>
         <target>Vous gagnez {quantity} :triumph: car un projet NERON a été réalisé en votre présence en tant que Kuan Ti !</target>
+      </segment>
+    </unit>
+    <unit id="pilgred_mother">
+      <segment id="pilgred_mother.name" state="translated">
+        <source>pilgred_mother.name</source>
+        <target>Maman</target>
+      </segment>
+      <segment id="pilgred_mother.log" state="translated">
+        <source>pilgred_mother</source>
+        <target>Vous avez gagné {quantity} :triumph: en tant que Raluca car PILGRED a avancé significativement !</target>
       </segment>
     </unit>
   </file>

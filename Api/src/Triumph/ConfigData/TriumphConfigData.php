@@ -77,6 +77,16 @@ abstract class TriumphConfigData
                 quantity: -10,
             ),
             new TriumphConfigDto(
+                key: TriumphEnum::SOL_MUSH_INVASION->toConfigKey('default'),
+                name: TriumphEnum::SOL_MUSH_INVASION,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::RETURN_TO_SOL->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 16,
+            ),
+            new TriumphConfigDto(
                 key: TriumphEnum::MUSH_INITIAL_BONUS->toConfigKey('default'),
                 name: TriumphEnum::MUSH_INITIAL_BONUS,
                 targetedEvent: DaedalusEvent::FULL_DAEDALUS,

@@ -138,9 +138,9 @@
         <source>kube_solved.name</source>
         <target>Kuboïd</target>
       </segment>
-      <segment id="kube_solved.log" state="initial">
+      <segment id="kube_solved.log" state="translated">
         <source>kube_solved.log</source>
-        <target>kube_solved.log</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez résolu le MAD Kube.</target>
       </segment>
     </unit>
     <unit id="mush_victory">

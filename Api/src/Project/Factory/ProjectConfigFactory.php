@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Mush\Project\Factory;
 
 use Mush\Project\ConfigData\ProjectConfigData;
+use Mush\Project\ConfigData\ProjectRequirementsConfigData;
 use Mush\Project\Entity\ProjectConfig;
+use Mush\Project\Entity\ProjectRequirement;
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 
 final class ProjectConfigFactory
@@ -33,7 +36,19 @@ final class ProjectConfigFactory
 
     public static function createProjectConfigByName(ProjectName $name): ProjectConfig
     {
-        return new ProjectConfig(...self::getConfigDataFromName($name));
+        $config = self::getConfigDataFromName($name);
+
+        return new ProjectConfig(
+            name: $name,
+            type: $config['type'],
+            efficiency: $config['efficiency'],
+            bonusSkills: $config['bonusSkills'],
+            activationRate: $config['activationRate'],
+            modifierConfigs: $config['modifierConfigs'],
+            spawnEquipmentConfigs: $config['spawnEquipmentConfigs'],
+            replaceEquipmentConfigs: $config['replaceEquipmentConfigs'],
+            requirements: array_map(static fn (ProjectRequirementName $requirementName) => ProjectRequirement::fromDto(ProjectRequirementsConfigData::getByName($requirementName)), $config['requirements']),
+        );
     }
 
     public static function createNullConfig(): ProjectConfig

@@ -264,18 +264,22 @@ final class ProjectFinishedEventTest extends TestCase
     public static function provideShouldGiveMushSpecialistTriumphToFinolaCases(): iterable
     {
         return [
-            ProjectName::PATULINE_SCRAMBLER->toString() => [ProjectName::PATULINE_SCRAMBLER],
-            ProjectName::MERIDON_SCRAMBLER->toString() => [ProjectName::MERIDON_SCRAMBLER],
-            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
-            ProjectName::NATAMY_RIFLE->toString() => [ProjectName::NATAMY_RIFLE],
             ProjectName::ANTISPORE_GAS->toString() => [ProjectName::ANTISPORE_GAS],
-            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
-            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
-            ProjectName::MYCOALARM->toString() => [ProjectName::MYCOALARM],
-            ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
             ProjectName::CONSTIPASPORE_SERUM->toString() => [ProjectName::CONSTIPASPORE_SERUM],
-            ProjectName::SPORE_SUCKER->toString() => [ProjectName::SPORE_SUCKER],
+            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
+            ProjectName::MERIDON_SCRAMBLER->toString() => [ProjectName::MERIDON_SCRAMBLER],
+            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
+            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
+            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
+            ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
+            ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => [ProjectName::MUSH_REPRODUCTIVE_SYSTEM],
             ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
+            ProjectName::MYCOALARM->toString() => [ProjectName::MYCOALARM],
+            ProjectName::NATAMY_RIFLE->toString() => [ProjectName::NATAMY_RIFLE],
+            ProjectName::PATULINE_SCRAMBLER->toString() => [ProjectName::PATULINE_SCRAMBLER],
+            ProjectName::PHEROMODEM->toString() => [ProjectName::PHEROMODEM],
+            ProjectName::RETRO_FUNGAL_SERUM->toString() => [ProjectName::RETRO_FUNGAL_SERUM],
+            ProjectName::SPORE_SUCKER->toString() => [ProjectName::SPORE_SUCKER],
         ];
     }
 

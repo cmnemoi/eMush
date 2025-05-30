@@ -85,7 +85,8 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return $this->id;
     }
 
-    public function getRequirements()
+    /** @return Collection<int, ProjectRequirement> */
+    public function getRequirements(): Collection
     {
         return $this->config->getRequirements();
     }

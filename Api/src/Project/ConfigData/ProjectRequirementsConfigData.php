@@ -86,4 +86,11 @@ abstract class ProjectRequirementsConfigData
             ),
         ];
     }
+
+    public static function getByName(ProjectRequirementName $name): ProjectRequirementConfigDto
+    {
+        return current(
+            array_filter(self::getAll(), static fn (ProjectRequirementConfigDto $dto) => $dto->name === $name)
+        );
+    }
 }

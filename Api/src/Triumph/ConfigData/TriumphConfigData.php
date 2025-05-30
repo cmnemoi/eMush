@@ -12,6 +12,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Project\Enum\ProjectName;
+use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
@@ -149,18 +150,10 @@ abstract class TriumphConfigData
                 name: TriumphEnum::MUSH_SPECIALIST,
                 targetedEvent: ProjectEvent::PROJECT_FINISHED,
                 tagConstraints: [
-                    ProjectName::PATULINE_SCRAMBLER->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MERIDON_SCRAMBLER->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::CREATE_MYCOSCAN->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::NATAMY_RIFLE->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::ANTISPORE_GAS->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSH_LANGUAGE->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSH_HUNTER_ZC16H->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MYCOALARM->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSH_RACES->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::CONSTIPASPORE_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::SPORE_SUCKER->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSHICIDE_SOAP->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectRequirementName::MUSH_SAMPLE_IN_LABORATORY->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectRequirementName::MUSH_PLAYER_DEAD->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectRequirementName::CHUN_IN_LABORATORY->toString() => TriumphSourceEventInterface::ANY_TAG,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::FINOLA,
@@ -171,11 +164,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::PRECIOUS_BODY,
                 targetedEvent: ProjectEvent::PROJECT_FINISHED,
                 tagConstraints: [
-                    ProjectName::CREATE_MYCOSCAN->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSH_HUNTER_ZC16H->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSHICIDE_SOAP->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::MUSHOVORE_BACTERIA->toString() => TriumphSourceEventInterface::ANY_TAG,
-                    ProjectName::RETRO_FUNGAL_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ProjectRequirementName::CHUN_IN_LABORATORY->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::CHUN,

@@ -67,6 +67,15 @@ class ProjectRequirement
         };
     }
 
+    public static function fromDto(ProjectRequirementConfigDto $dto): self
+    {
+        return new self(
+            name: $dto->name,
+            type: $dto->type,
+            target: $dto->target,
+        );
+    }
+
     private function getTargetOrThrow(): string
     {
         if ('' === $this->target) {

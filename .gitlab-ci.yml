@@ -3,9 +3,6 @@ stages:
   - test
   - release
 
-variables:
-  TOTAL_SHARDS: 8
-
 .php_template: &php_template
   image: registry.gitlab.com/eternaltwin/mush/mush/api:latest
   cache:
@@ -75,7 +72,7 @@ build-front:
 api-test:
   <<: *php_with_db_template
   stage: test
-  parallel: $TOTAL_SHARDS
+  parallel: 8
   tags:
     - saas-linux-large-amd64
   needs:
@@ -84,7 +81,7 @@ api-test:
       optional: true
   script:
     - SHARD_INDEX=$((CI_NODE_INDEX + 1))
-    - php vendor/bin/codecept run --shard ${SHARD_INDEX}/${TOTAL_SHARDS}
+    - php vendor/bin/codecept run --shard ${SHARD_INDEX}/8
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.php", "Api/**/*.xlf"]

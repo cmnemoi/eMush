@@ -213,7 +213,7 @@ final class OnPlayerDeathCest extends AbstractExplorationTester
         // When Chun kills human
         $this->playerService->killPlayer(
             player: $this->kuanTi,
-            endReason: EndCauseEnum::ASSASSINATED,
+            endReason: EndCauseEnum::INJURY,
             author: $this->chun
         );
 
@@ -221,5 +221,78 @@ final class OnPlayerDeathCest extends AbstractExplorationTester
         $I->assertEquals(0, $this->chun->getTriumph());
         $I->assertEquals(0, $this->kuanTi->getTriumph());
         $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    public function shouldHumanChaoGetExtraGloryOnKill(FunctionalTester $I): void
+    {
+        $chao = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::CHAO);
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $chao->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+        $this->chun->setTriumph(0);
+
+        // When Chao kills human
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::ROCKETED,
+            author: $chao
+        );
+
+        // Chao gained 3 triumph from kill
+        $I->assertEquals(3, $chao->getTriumph());
+
+        // When Chao kills Mush
+        $this->playerService->killPlayer(
+            player: $this->kuanTi,
+            endReason: EndCauseEnum::BEHEADED,
+            author: $chao
+        );
+
+        // Chao gained 3 triumph from kill and 3 triumph from Mush kill
+        $I->assertEquals(9, $chao->getTriumph());
+
+        // Kuan Ti has gained 7 triumph from Chun death
+        $I->assertEquals(7, $this->kuanTi->getTriumph());
+        $I->assertEquals(7, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+
+        // Chun gained no triumph
+        $I->assertEquals(0, $this->chun->getTriumph());
+        $I->assertEquals(0, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    public function shouldMushChaoGetNoExtraGloryOnKill(FunctionalTester $I): void
+    {
+        $chao = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::CHAO);
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->convertPlayerToMush($I, $chao);
+        $chao->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+        $this->chun->setTriumph(0);
+
+        // When Chao kills Mush
+        $this->playerService->killPlayer(
+            player: $this->kuanTi,
+            endReason: EndCauseEnum::BEHEADED,
+            author: $chao
+        );
+
+        // Chao gained no triumph
+        $I->assertEquals(0, $chao->getTriumph());
+
+        // When Chao kills Chun
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::ROCKETED,
+            author: $chao
+        );
+
+        // Chao gained 3 triumph from enemy kill and 7 triumph from Chun death (no personal kill triumph)
+        $I->assertEquals(10, $chao->getTriumph());
+
+        // Kuan Ti and Chun gained no triumph
+        $I->assertEquals(0, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
+        $I->assertEquals(0, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 }

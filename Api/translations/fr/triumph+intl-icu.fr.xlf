@@ -257,5 +257,25 @@
         <target>humanocide_cat.log</target>
       </segment>
     </unit>
+    <unit id="psychopat">
+      <segment id="psychopat.name" state="initial">
+        <source>psychopat.name</source>
+        <target>psychopat.name</target>
+      </segment>
+      <segment id="psychopat.log" state="initial">
+        <source>psychopat.log</source>
+        <target>psychopat.log</target>
+      </segment>
+    </unit>
+    <unit id="psychocat">
+      <segment id="psychocat.name" state="initial">
+        <source>psychocat.name</source>
+        <target>psychocat.name</target>
+      </segment>
+      <segment id="psychocat.log" state="initial">
+        <source>psychocat.log</source>
+        <target>psychocat.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

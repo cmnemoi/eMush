@@ -325,6 +325,32 @@ abstract class TriumphConfigData
                 target: TriumphTarget::AUTHOR->toString(),
                 quantity: 3,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PSYCHOPAT->toConfigKey('default'),
+                name: TriumphEnum::PSYCHOPAT,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::ASSASSINATED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BEHEADED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BLED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::INJURY => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::ROCKETED => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: TriumphTarget::AUTHOR_CHAO->toString(),
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PSYCHOCAT->toConfigKey('default'),
+                name: TriumphEnum::PSYCHOCAT,
+                targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
+                tagConstraints: [
+                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: TriumphTarget::AUTHOR_CHAO->toString(),
+                quantity: 3,
+            ),
         ];
     }
 

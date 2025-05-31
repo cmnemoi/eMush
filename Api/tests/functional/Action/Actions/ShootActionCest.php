@@ -80,6 +80,19 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldDieBeheaded($I);
     }
 
+    public function headshotEventGiveGloryWhenKillingAnEnemy(FunctionalTester $I): void
+    {
+        $this->givenBlasterHas100ChanceToDispatchEvent(WeaponEventEnum::BLASTER_TARGET_HEADSHOT->toString());
+
+        $this->givenKuanTiIsMush($I);
+
+        $initialTriumph = $this->chun->getTriumph();
+
+        $this->whenChunShootsAtKuanTi();
+
+        $this->thenChunShouldHaveTriumph($initialTriumph + 3, $I);
+    }
+
     #[DataProvider('weaponEventLogProvider')]
     public function eventShouldPrintPublicLog(FunctionalTester $I, Example $weaponEventLog): void
     {
@@ -279,6 +292,20 @@ final class ShootActionCest extends AbstractFunctionalTest
         $this->whenChunShootsAtKuanTiWithOldFaithful();
 
         $this->thenKuanTiShouldBeDead($I);
+    }
+
+    public function oldFaithfulHeadshotEventGiveGloryWhenKillingAnEnemy(FunctionalTester $I): void
+    {
+        $this->givenChunHasAOldFaithful();
+        $this->givenOldFaithfulHas100ChanceToDispatchEvent(WeaponEventEnum::OLD_FAITHFUL_HEADSHOT_2->toString());
+
+        $this->givenKuanTiIsMush($I);
+
+        $initialTriumph = $this->chun->getTriumph();
+
+        $this->whenChunShootsAtKuanTiWithOldFaithful();
+
+        $this->thenChunShouldHaveTriumph($initialTriumph + 3, $I);
     }
 
     public function oldFaithfulFailedShotShouldNotRemoveHealthPoints(FunctionalTester $I): void
@@ -547,6 +574,11 @@ final class ShootActionCest extends AbstractFunctionalTest
         }
     }
 
+    private function givenKuanTiIsMush(FunctionalTester $I)
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+    }
+
     private function whenChunShootsAtKuanTi(): void
     {
         $this->shootAction->loadParameters(
@@ -686,6 +718,11 @@ final class ShootActionCest extends AbstractFunctionalTest
     private function thenHealthPointsLostShouldBeExactly(int $originalHealthPoints, int $healthPointsLost, FunctionalTester $I): void
     {
         $I->assertEquals($originalHealthPoints * 2, $this->chun->getHealthPoint() + $this->kuanTi->getHealthPoint() + $healthPointsLost);
+    }
+
+    private function thenChunShouldHaveTriumph(int $expectedTriumph, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedTriumph, $this->chun->getTriumph());
     }
 
     private function weaponEventLogProvider(): array

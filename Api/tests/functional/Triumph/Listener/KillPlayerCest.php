@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\functional\Triumph\Event;
+namespace Mush\Tests\functional\Triumph\Listener;
 
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Enum\EndCauseEnum;
@@ -13,7 +13,7 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class OnPlayerDeathCest extends AbstractExplorationTester
+final class KillPlayerCest extends AbstractExplorationTester
 {
     private PlayerServiceInterface $playerService;
 

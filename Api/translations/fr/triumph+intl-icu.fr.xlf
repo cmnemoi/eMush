@@ -173,6 +173,16 @@
         <target>mush_victory.log</target>
       </segment>
     </unit>
+    <unit id="super_nova">
+      <segment id="super_nova.name" state="initial">
+        <source>super_nova.name</source>
+        <target>super_nova.name</target>
+      </segment>
+      <segment id="super_nova.log" state="initial">
+        <source>super_nova.log</source>
+        <target>super_nova.log</target>
+      </segment>
+    </unit>
     <unit id="chun_dead">
       <segment id="chun_dead.name" state="initial">
         <source>chun_dead.name</source>

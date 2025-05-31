@@ -101,6 +101,17 @@ abstract class TriumphConfigData
                 quantity: 8,
             ),
             new TriumphConfigDto(
+                key: TriumphEnum::SUPER_NOVA->toConfigKey('default'),
+                name: TriumphEnum::SUPER_NOVA,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::SUPER_NOVA => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_PLAYERS,
+                target: TriumphTarget::EVENT_SUBJECT->toString(),
+                quantity: 20,
+            ),
+            new TriumphConfigDto(
                 key: TriumphEnum::MUSH_INITIAL_BONUS->toConfigKey('default'),
                 name: TriumphEnum::MUSH_INITIAL_BONUS,
                 targetedEvent: DaedalusEvent::FULL_DAEDALUS,

@@ -97,6 +97,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
         return match ($targetSetting) {
             TriumphTarget::AUTHOR->toString() => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
             TriumphTarget::AUTHOR_CHAO->toString() => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor() && $player->getName() === CharacterEnum::CHAO),
+            TriumphTarget::EVENT_SUBJECT->toString() => $scopeTargets->filter(fn (Player $player) => $player === $this->getPlayer()),
             default => throw new \LogicException("Triumph target {$targetSetting} is not supported"),
         };
     }

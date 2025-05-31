@@ -164,6 +164,22 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
         $this->thenPlayerShouldBeDead($chun);
     }
 
+    public function testShouldDistributeTriumphWhenTradingPlayer(): void
+    {
+        // Given
+        $this->givenDaedalusWithStoragesAndTrader();
+        $tradeOption = $this->givenTradeOptionRequiringSpecificPlayer(CharacterEnum::HUA);
+        $hua = $this->givenInactivePlayerInStorage(CharacterEnum::HUA, RoomEnum::CENTER_ALPHA_STORAGE);
+        $this->givenPlayerIsMush($hua);
+        $this->givenAlienScienceTriumphConfig();
+
+        // When
+        $this->whenConsumingTradeAssets($tradeOption);
+
+        // Then
+        $this->thenPlayerShouldBeDead($chun);
+    }
+
     public function testShouldThrowIfSpecificPlayerIsNotTradable(): void
     {
         // Given
@@ -349,6 +365,16 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
 
         return $project;
     }
+
+    private function givenPlayerIsMush(Player $player): void
+    {
+        StatusFactory::createStatusByNameForHolder(
+            name: PlayerStatusEnum::MUSH,
+            holder: $player,
+        );
+    }
+
+    private function givenAlienScienceTriumphConfig(): void {}
 
     private function whenConsumingTradeAssets(TradeOption $tradeOption): void
     {

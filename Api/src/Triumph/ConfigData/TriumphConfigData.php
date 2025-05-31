@@ -366,6 +366,17 @@ abstract class TriumphConfigData
                 target: TriumphTarget::AUTHOR_CHAO->toString(),
                 quantity: 3,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::ALIEN_SCIENCE->toConfigKey('default'),
+                name: TriumphEnum::ALIEN_SCIENCE,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::ALIEN_ABDUCTED => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_PLAYERS,
+                target: TriumphTarget::EVENT_SUBJECT->toString(),
+                quantity: 16,
+            ),
         ];
     }
 

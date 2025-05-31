@@ -233,5 +233,15 @@
         <target>psychopat.log</target>
       </segment>
     </unit>
+    <unit id="alien_science">
+      <segment id="alien_science.name" state="initial">
+        <source>alien_science.name</source>
+        <target>alien_science.name</target>
+      </segment>
+      <segment id="alien_science.log" state="initial">
+        <source>alien_science.log</source>
+        <target>alien_science.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

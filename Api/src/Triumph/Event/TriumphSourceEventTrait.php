@@ -63,7 +63,7 @@ trait TriumphSourceEventTrait
 
     protected function getEventSpecificTargets(string $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
-        throw new \LogicException('Not implemented');
+        throw new \LogicException('You need to implement getEventSpecificTargets in ' . static::class . ' if using a non-character target!');
     }
 
     private function filterTargetsBySetting(string $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
@@ -85,6 +85,7 @@ trait TriumphSourceEventTrait
             TriumphScope::ALL_ACTIVE_HUMAN_EXPLORERS => $this->getDaedalus()->getExplorationOrThrow()->getActiveExplorators()->getHumanPlayer(),
             TriumphScope::ALL_ACTIVE_EXPLORERS => $this->getDaedalus()->getExplorationOrThrow()->getActiveExplorators(),
             TriumphScope::ALL_MUSHS => $this->getDaedalus()->getMushPlayers(),
+            TriumphScope::HUMAN_AUTHOR => new PlayerCollection([$this->getAuthorOrThrow()]),
             default => throw new \LogicException('Unsupported triumph scope: ' . $triumphConfig->getScope()->value),
         };
     }

@@ -7,6 +7,7 @@ namespace Mush\Triumph\Listener;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Event\PlayerEvent;
@@ -33,6 +34,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
         ];
     }
 
@@ -77,6 +79,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onStatusApplied(StatusEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onEquipmentCreated(EquipmentEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

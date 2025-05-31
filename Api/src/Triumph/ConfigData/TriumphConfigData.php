@@ -8,6 +8,8 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Enum\GamePlantEnum;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
@@ -256,6 +258,30 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 7,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::NATURALIST->toConfigKey('default'),
+                name: TriumphEnum::NATURALIST,
+                targetedEvent: EquipmentEvent::EQUIPMENT_CREATED,
+                tagConstraints: [
+                    ActionEnum::TRANSPLANT->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                    GamePlantEnum::ASPERAGUNK => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::BIFFLON => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::BUMPJUMPKIN => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::BUTTALIEN => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::CACTAX => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::CREEPIST => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::FIBONICCUS => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::GRAAPSHOOT => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::MYCOPIA => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::PLATACIA => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::PRECATUS => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::PULMMINAGRO => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::TUBILISCUS => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::HUMAN_AUTHOR,
+                target: CharacterEnum::IAN,
+                quantity: 3,
             ),
         ];
     }

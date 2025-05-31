@@ -52,6 +52,11 @@ enum TriumphEnum: string
 
     private function isMushTriumph(): bool
     {
-        return \in_array($this->value, [self::CYCLE_MUSH, self::MUSH_INITIAL_BONUS, self::SOL_MUSH_INTRUDER], true);
+        return \in_array($this, [
+            self::CYCLE_MUSH,
+            self::MUSH_INITIAL_BONUS,
+            self::MUSH_VICTORY,
+            self::SOL_MUSH_INVASION,
+        ], true);
     }
 }

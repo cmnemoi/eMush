@@ -47,4 +47,15 @@ final class TriumphGainNormalizerTest extends TestCase
 
         self::assertEquals('1 x Cycle Humain ( -1 :triumph: )', $data);
     }
+
+    public function testMushGain(): void
+    {
+        $gain = new TriumphGain(TriumphEnum::CYCLE_MUSH, 1, 1);
+
+        $this->translationService->method('translate')->willReturn('Cycle Mush');
+
+        $data = $this->normalizer->normalize($gain, null, ['language' => LanguageEnum::FRENCH]);
+
+        self::assertEquals('1 x Cycle Mush ( +1 :triumph_mush: )', $data);
+    }
 }

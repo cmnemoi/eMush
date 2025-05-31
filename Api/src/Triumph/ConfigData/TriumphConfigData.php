@@ -253,6 +253,20 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 7,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSH_FEAR->toConfigKey('default'),
+                name: TriumphEnum::MUSH_FEAR,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::ALL_TAGS,
+                    EndCauseEnum::EDEN => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::QUARANTINE => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::SOL_RETURN => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: CharacterEnum::GIOELE,
+                quantity: 3,
+            ),
         ];
     }
 

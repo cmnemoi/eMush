@@ -26,6 +26,7 @@ use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 final class PlayerService implements PlayerServiceInterface
@@ -341,6 +342,9 @@ final class PlayerService implements PlayerServiceInterface
         $playerDeathEvent = new PlayerEvent($player, [$endCause], $date);
         $playerDeathEvent->setAuthor($author);
         $playerDeathEvent->addTag($player->getName());
+        if ($player->hasStatus(PlayerStatusEnum::MUSH)) {
+            $playerDeathEvent->addTag(PlayerStatusEnum::MUSH);
+        }
         $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
     }
 

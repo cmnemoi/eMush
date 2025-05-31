@@ -15,6 +15,7 @@ enum TriumphEnum: string
     case EXPLORATOR = 'explorator';
     case KUBE_SOLVED = 'kube_solved';
     case MAGELLAN_ARK = 'magellan_ark';
+    case MUSH_FEAR = 'mush_fear';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
     case MUSH_SPECIALIST = 'mush_specialist';
     case MUSH_VICTORY = 'mush_victory';

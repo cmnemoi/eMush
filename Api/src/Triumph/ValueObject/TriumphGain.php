@@ -26,7 +26,7 @@ final class TriumphGain
 
     public function getValueAsString(): string
     {
-        return $this->value >= 0 ? "+{$this->value}" : "{$this->value}";
+        return $this->value > 0 ? "+{$this->value}" : "{$this->value}";
     }
 
     public function getCount(): int

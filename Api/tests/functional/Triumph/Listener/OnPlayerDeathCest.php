@@ -138,4 +138,88 @@ final class OnPlayerDeathCest extends AbstractExplorationTester
         // Chun gets no triumph
         $I->assertEquals(0, $this->chun->getTriumph());
     }
+
+    public function shouldGiveMushGloryOnHumanKill(FunctionalTester $I): void
+    {
+        $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->convertPlayerToMush($I, $roland);
+        $roland->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+        $this->chun->setTriumph(0);
+
+        // When Mush kills Chun (+7 triumph to Mush team)
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::BLED,
+            author: $this->kuanTi
+        );
+
+        // Killer Mush gains +3 triumph from a kill
+        $I->assertEquals(10, $this->kuanTi->getTriumph());
+        // Other Mush gain no extra triumph
+        $I->assertEquals(7, $roland->getTriumph());
+        // Human victim gains no triumph
+        $I->assertEquals(0, $this->chun->getTriumph());
+        $I->assertEquals(0, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    public function shouldNotGiveMushGloryOnMushKill(FunctionalTester $I): void
+    {
+        $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->convertPlayerToMush($I, $roland);
+        $roland->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+
+        // When Mush kills Mush
+        $this->playerService->killPlayer(
+            player: $roland,
+            endReason: EndCauseEnum::BLED,
+            author: $this->kuanTi
+        );
+
+        // No triumph gain
+        $I->assertEquals(0, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $roland->getTriumph());
+        $I->assertEquals(0, $roland->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    public function shouldGiveHumanGloryOnMushKill(FunctionalTester $I): void
+    {
+        $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $roland->setTriumph(0);
+        $this->chun->setTriumph(0);
+
+        // When Chun kills Mush
+        $this->playerService->killPlayer(
+            player: $this->kuanTi,
+            endReason: EndCauseEnum::ASSASSINATED,
+            author: $this->chun
+        );
+
+        // Human killer gains triumph
+        $I->assertEquals(3, $this->chun->getTriumph());
+        // Non-killing humans gain no triumph from a kill
+        $I->assertEquals(0, $roland->getTriumph());
+    }
+
+    public function shouldNotGiveHumanGloryOnHumanKill(FunctionalTester $I): void
+    {
+        $this->kuanTi->setTriumph(0);
+        $this->chun->setTriumph(0);
+
+        // When Chun kills human
+        $this->playerService->killPlayer(
+            player: $this->kuanTi,
+            endReason: EndCauseEnum::ASSASSINATED,
+            author: $this->chun
+        );
+
+        // No triumph gain
+        $I->assertEquals(0, $this->chun->getTriumph());
+        $I->assertEquals(0, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
 }

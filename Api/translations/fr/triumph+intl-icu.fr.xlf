@@ -193,5 +193,45 @@
         <target>mush_fear.log</target>
       </segment>
     </unit>
+    <unit id="mushicide">
+      <segment id="mushicide.name" state="initial">
+        <source>mushicide.name</source>
+        <target>mushicide.name</target>
+      </segment>
+      <segment id="mush_fear.log" state="initial">
+        <source>mushicide.log</source>
+        <target>mushicide.log</target>
+      </segment>
+    </unit>
+    <unit id="mushicide_cat">
+      <segment id="mushicide_cat.name" state="initial">
+        <source>mushicide_cat.name</source>
+        <target>mushicide_cat.name</target>
+      </segment>
+      <segment id="mushicide_cat.log" state="initial">
+        <source>mushicide_cat.log</source>
+        <target>mushicide_cat.log</target>
+      </segment>
+    </unit>
+    <unit id="humanocide">
+      <segment id="humanocide.name" state="initial">
+        <source>humanocide.name</source>
+        <target>humanocide.name</target>
+      </segment>
+      <segment id="humanocide.log" state="initial">
+        <source>humanocide.log</source>
+        <target>humanocide.log</target>
+      </segment>
+    </unit>
+    <unit id="humanocide_cat">
+      <segment id="humanocide_cat.name" state="initial">
+        <source>humanocide_cat.name</source>
+        <target>humanocide_cat.name</target>
+      </segment>
+      <segment id="humanocide_cat.log" state="initial">
+        <source>humanocide_cat.log</source>
+        <target>humanocide_cat.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -6,8 +6,11 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
+use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
@@ -86,5 +89,13 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
         }
 
         return $title;
+    }
+
+    protected function getEventSpecificTargets(string $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    {
+        return match ($targetSetting) {
+            TriumphTarget::AUTHOR->toString() => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
+            default => throw new \LogicException("Triumph target {$targetSetting} is not supported"),
+        };
     }
 }

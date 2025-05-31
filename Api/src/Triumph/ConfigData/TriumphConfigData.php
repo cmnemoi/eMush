@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
@@ -17,6 +18,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
@@ -269,6 +271,62 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 target: CharacterEnum::GIOELE,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSHICIDE->toConfigKey('default'),
+                name: TriumphEnum::MUSHICIDE,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::ASSASSINATED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BEHEADED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BLED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::INJURY => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::ROCKETED => TriumphSourceEventInterface::ANY_TAG,
+                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: TriumphTarget::AUTHOR->toString(),
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSHICIDE_CAT->toConfigKey('default'),
+                name: TriumphEnum::MUSHICIDE_CAT,
+                targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
+                tagConstraints: [
+                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    EquipmentStatusEnum::CAT_INFECTED => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                target: TriumphTarget::AUTHOR->toString(),
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::HUMANOCIDE->toConfigKey('default'),
+                name: TriumphEnum::HUMANOCIDE,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::ASSASSINATED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BEHEADED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BLED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::INJURY => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::ROCKETED => TriumphSourceEventInterface::ANY_TAG,
+                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                target: TriumphTarget::AUTHOR->toString(),
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::HUMANOCIDE_CAT->toConfigKey('default'),
+                name: TriumphEnum::HUMANOCIDE_CAT,
+                targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
+                tagConstraints: [
+                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    EquipmentStatusEnum::CAT_INFECTED => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                target: TriumphTarget::AUTHOR->toString(),
                 quantity: 3,
             ),
         ];

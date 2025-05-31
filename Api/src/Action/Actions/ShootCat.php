@@ -22,6 +22,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -100,14 +101,18 @@ class ShootCat extends AttemptAction
 
     private function killCat(): void
     {
+        $cat = $this->gameItemTarget();
         $interactEvent = new InteractWithEquipmentEvent(
-            $this->gameItemTarget(),
+            $cat,
             $this->player,
             VisibilityEnum::PUBLIC,
             $this->getTags(),
             new \DateTime(),
         );
         $interactEvent->addTag(self::CAT_DEATH_TAG);
+        if ($cat->hasStatus(EquipmentStatusEnum::CAT_INFECTED)) {
+            $interactEvent->addTag(EquipmentStatusEnum::CAT_INFECTED);
+        }
 
         $this->eventService->callEvent($interactEvent, EquipmentEvent::EQUIPMENT_DESTROYED);
     }

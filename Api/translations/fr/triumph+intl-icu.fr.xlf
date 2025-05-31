@@ -815,5 +815,15 @@
         <target>cm_use_extinguisher.log</target>
       </segment>
     </unit>
+    <unit id="naturalist">
+      <segment id="naturalist.name" state="translated">
+        <source>naturalist.name</source>
+        <target>Naturaliste</target>
+      </segment>
+      <segment id="naturalist.log" state="translated">
+        <source>naturalist.log</source>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez planté un fruit alien en tant que Ian !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

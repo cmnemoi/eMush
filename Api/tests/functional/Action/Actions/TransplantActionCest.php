@@ -16,10 +16,13 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Fruit;
 use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Place\Entity\Place;
@@ -29,16 +32,27 @@ use Mush\Player\Entity\PlayerInfo;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-class TransplantActionCest
+/**
+ * @internal
+ */
+final class TransplantActionCest extends AbstractFunctionalTest
 {
     private Transplant $transplantAction;
+    private ActionConfig $actionConfig;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, [
+            'actionName' => ActionEnum::TRANSPLANT,
+        ]);
         $this->transplantAction = $I->grabService(Transplant::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function testTransplant(FunctionalTester $I)
@@ -256,5 +270,53 @@ class TransplantActionCest
         $I->assertInstanceOf(ChargeStatus::class, $status);
         $I->assertEquals(0, $status->getCharge());
         $I->assertEquals(15, $status->getVariableByName($status->getName())->getMaxValue());
+    }
+
+    public function shouldGiveNaturalistTriumphToIanWhenTransplantingAlienFruit(FunctionalTester $I): void
+    {
+        // Given
+        $ian = $this->givenIanPlayerWithHydropot($I);
+        $alienFruit = $this->givenAlienFruitInIanPlace($I, $ian);
+
+        // When
+        $this->whenIanTransplantsAlienFruit($alienFruit, $ian);
+
+        // Then
+        $this->thenIanShouldReceiveNaturalistTriumph($I, $ian);
+    }
+
+    private function givenIanPlayerWithHydropot(FunctionalTester $I): Player
+    {
+        $ian = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::IAN);
+
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::HYDROPOT,
+            equipmentHolder: $ian->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        return $ian;
+    }
+
+    private function givenAlienFruitInIanPlace(FunctionalTester $I, Player $ian): GameItem
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameFruitEnum::KUBINUS,
+            equipmentHolder: $ian->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function whenIanTransplantsAlienFruit(GameItem $alienFruit, Player $ian): void
+    {
+        $this->transplantAction->loadParameters($this->actionConfig, $alienFruit, $ian, $alienFruit);
+        $this->transplantAction->execute();
+    }
+
+    private function thenIanShouldReceiveNaturalistTriumph(FunctionalTester $I, Player $ian): void
+    {
+        $I->assertEquals(3, $ian->getTriumph());
     }
 }

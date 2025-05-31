@@ -73,7 +73,7 @@ trait TriumphSourceEventTrait
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
-        throw new \LogicException('Not implemented');
+        throw new \LogicException('You need to implement getEventSpecificTargets in ' . static::class . ' if using a non-character target!');
     }
 
     private function getScopeTargetsForTriumph(TriumphConfig $triumphConfig): PlayerCollection

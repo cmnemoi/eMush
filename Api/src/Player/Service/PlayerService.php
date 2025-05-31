@@ -340,6 +340,7 @@ final class PlayerService implements PlayerServiceInterface
     {
         $playerDeathEvent = new PlayerEvent($player, [$endCause], $date);
         $playerDeathEvent->setAuthor($author);
+        $playerDeathEvent->addTag($player->getName());
         $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
     }
 

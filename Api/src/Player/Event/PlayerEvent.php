@@ -8,9 +8,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\RoomLog\Event\LoggableEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
+class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string NEW_PLAYER = 'new.player';
     public const string DEATH_PLAYER = 'death.player';
     public const string METAL_PLATE = 'metal.plate';

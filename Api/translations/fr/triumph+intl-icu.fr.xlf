@@ -173,5 +173,15 @@
         <target>mush_victory.log</target>
       </segment>
     </unit>
+    <unit id="chun_dead">
+      <segment id="chun_dead.name" state="initial">
+        <source>chun_dead.name</source>
+        <target>chun_dead.name</target>
+      </segment>
+      <segment id="chun_dead.log" state="initial">
+        <source>chun_dead.log</source>
+        <target>chun_dead.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

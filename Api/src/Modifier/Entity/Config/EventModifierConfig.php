@@ -113,9 +113,6 @@ class EventModifierConfig extends AbstractModifierConfig
         return $this->tagConstraints;
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     */
     public function doModifierApplies(AbstractGameEvent $event): bool
     {
         if ($event->getEventName() !== $this->getTargetEvent()) {

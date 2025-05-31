@@ -12,6 +12,7 @@ interface TriumphSourceEventInterface
 {
     public const ANY_TAG = 'any_tag';
     public const ALL_TAGS = 'all_tags';
+    public const NONE_TAGS = 'none_tags';
 
     public function doesNotHaveTag(string $tag): bool;
 

@@ -7,6 +7,7 @@ namespace Mush\Triumph\Enum;
 enum TriumphEnum: string
 {
     case AMBITIOUS = 'ambitious';
+    case CHUN_DEAD = 'chun_dead';
     case CHUN_LIVES = 'chun_lives';
     case CYCLE_HUMAN = 'cycle_human';
     case CYCLE_MUSH = 'cycle_mush';

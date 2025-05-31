@@ -9,6 +9,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
@@ -28,6 +29,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             DaedalusEvent::FULL_DAEDALUS => ['onDaedalusFull', EventPriorityEnum::LOW],
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
+            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
@@ -55,6 +57,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onLinkWithSolEstablished(LinkWithSolEstablishedEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onDeathPlayer(PlayerEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

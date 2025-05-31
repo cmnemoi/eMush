@@ -12,6 +12,7 @@ use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
@@ -242,6 +243,19 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,
                 target: TriumphTarget::STATUS_HOLDER->toString(),
                 quantity: 5,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CHUN_DEAD->toConfigKey('default'),
+                name: TriumphEnum::CHUN_DEAD,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    CharacterEnum::CHUN => TriumphSourceEventInterface::ALL_TAGS,
+                    EndCauseEnum::EDEN => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::QUARANTINE => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::SOL_RETURN => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 7,
             ),
         ];
     }

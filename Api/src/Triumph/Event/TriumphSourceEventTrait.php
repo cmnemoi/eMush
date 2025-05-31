@@ -27,10 +27,6 @@ trait TriumphSourceEventTrait
 
     public function hasExpectedTagsFor(TriumphConfig $triumphConfig): bool
     {
-        if (!$triumphConfig->hasTagConstraints()) {
-            return true;
-        }
-
         $anyConstraint = null;
         foreach ($triumphConfig->getTagConstraints() as $tag => $constraint) {
             switch ($constraint) {
@@ -41,6 +37,13 @@ trait TriumphSourceEventTrait
 
                 case TriumphSourceEventInterface::ALL_TAGS:
                     if ($this->doesNotHaveTag($tag)) {
+                        return false;
+                    }
+
+                    break;
+
+                case TriumphSourceEventInterface::NONE_TAGS:
+                    if ($this->hasTag($tag)) {
                         return false;
                     }
 

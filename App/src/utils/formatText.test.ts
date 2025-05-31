@@ -135,5 +135,11 @@ describe('formatText', () => {
                 "<em><strong>INVENTAIRE</em></strong>"
             ]).to.include(result);
         });
+        it('should allow multiple nested bold, italic and strike elements', () => {
+            const text = "**~~mixed *nested* text~~**";
+            const result = formatText(text);
+
+            expect(result).to.equal("<strong><s>mixed <em>nested</em> text</s></strong>");
+        });
     });
 });

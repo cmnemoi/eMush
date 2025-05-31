@@ -17,8 +17,6 @@
       "webpack-env",
       "Phaser",
       "node",
-      "mocha",
-      "chai"
     ],
     "typeRoots": [
       "./node_modules/phaser/types"

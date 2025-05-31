@@ -97,6 +97,19 @@ final class AttackCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldDieBledOut($I);
     }
 
+    public function instagibEventShouldGiveGloryWhenKillingAnEnemy(FunctionalTester $I): void
+    {
+        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_INSTAGIB_BLED->toString());
+
+        $this->givenKuanTiIsMush($I);
+
+        $initialTriumph = $this->chun->getTriumph();
+
+        $this->whenChunAttacksKuanTi();
+
+        $this->thenChunShouldHaveTriumph($initialTriumph + 3, $I);
+    }
+
     public function bruisedShoulderEventShouldInflictInjuryToPlayer(FunctionalTester $I): void
     {
         $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_SHOOTER_BRUISED_SHOULDER->toString());
@@ -194,6 +207,11 @@ final class AttackCest extends AbstractFunctionalTest
         $this->attack->execute();
     }
 
+    private function givenKuanTiIsMush(FunctionalTester $I)
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+    }
+
     private function thenKuanTiShouldHaveLessOrEqualHealthPoints(int $healthPoints, FunctionalTester $I): void
     {
         $I->assertLessThanOrEqual($healthPoints, $this->kuanTi->getHealthPoint());
@@ -237,5 +255,10 @@ final class AttackCest extends AbstractFunctionalTest
     private function thenKnifeShouldBeInShelf(FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->getPlace()->hasEquipmentByName(ItemEnum::KNIFE));
+    }
+
+    private function thenChunShouldHaveTriumph(int $expectedTriumph, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedTriumph, $this->chun->getTriumph());
     }
 }

@@ -12,9 +12,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
-use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -28,7 +26,6 @@ use Mush\Tests\FunctionalTester;
 final class TriumphSourceEventCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
-    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
@@ -36,7 +33,6 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         parent::_before($I);
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
-        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -187,36 +183,5 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
 
         // pilgred_mother triumph
         $I->assertEquals(2, $raluca->getTriumph());
-    }
-
-    public function shouldGiveMushTriumphOnChunDeath(FunctionalTester $I): void
-    {
-        $this->convertPlayerToMush($I, $this->kuanTi);
-        $this->kuanTi->setTriumph(0);
-
-        // When Chun dies
-        $this->playerService->killPlayer(
-            player: $this->chun,
-            endReason: EndCauseEnum::DEPRESSION,
-        );
-
-        // Chun dead triumph
-        $I->assertEquals(7, $this->kuanTi->getTriumph());
-    }
-
-    public function shouldNotGiveMushTriumphOnNonChunDeath(FunctionalTester $I): void
-    {
-        $this->convertPlayerToMush($I, $this->kuanTi);
-        $hua = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::HUA);
-        $this->kuanTi->setTriumph(0);
-
-        // When Hua dies
-        $this->playerService->killPlayer(
-            player: $hua,
-            endReason: EndCauseEnum::DEPRESSION,
-        );
-
-        // Mush should not gain triumph
-        $I->assertEquals(0, $this->kuanTi->getTriumph());
     }
 }

@@ -7,6 +7,7 @@ namespace Mush\Triumph\Enum;
 enum TriumphTarget: string
 {
     case AUTHOR = 'author';
+    case AUTHOR_CHAO = 'author_chao';
     case STATUS_HOLDER = 'status_holder';
 
     public function toString(): string

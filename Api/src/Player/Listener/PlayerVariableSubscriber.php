@@ -106,7 +106,8 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
             $this->playerService->killPlayer(
                 player: $player,
                 endReason: $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP) ?? EndCauseEnum::INJURY,
-                time: $event->getTime()
+                time: $event->getTime(),
+                author: $event->getAuthor()
             );
         }
     }

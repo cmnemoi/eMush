@@ -85,7 +85,7 @@ trait TriumphSourceEventTrait
             TriumphScope::ALL_ACTIVE_HUMAN_EXPLORERS => $this->getDaedalus()->getExplorationOrThrow()->getActiveExplorators()->getHumanPlayer(),
             TriumphScope::ALL_ACTIVE_EXPLORERS => $this->getDaedalus()->getExplorationOrThrow()->getActiveExplorators(),
             TriumphScope::ALL_MUSHS => $this->getDaedalus()->getMushPlayers(),
-            TriumphScope::HUMAN_AUTHOR => new PlayerCollection([$this->getAuthorOrThrow()]),
+            TriumphScope::HUMAN_AUTHOR => (new PlayerCollection([$this->getAuthorOrThrow()]))->getHumanPlayer(),
             default => throw new \LogicException('Unsupported triumph scope: ' . $triumphConfig->getScope()->value),
         };
     }

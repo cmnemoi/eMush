@@ -14,6 +14,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Factory\StatusFactory;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Entity\TriumphConfig;
@@ -99,6 +101,21 @@ final class EquipmentCreatedEventTest extends TestCase
         $this->thenPlayerShouldNotHaveTriumph($ian);
     }
 
+    public function testShouldNotGiveNaturalistTriumphToMushIanWhenCreatingAlienPlant(): void
+    {
+        // Given
+        $ian = $this->givenPlayerIan();
+        $this->givenIanIsMush($ian);
+        $this->givenNaturalistTriumphConfig();
+        $event = $this->givenEquipmentCreatedEventForPlantAndAuthor(GamePlantEnum::BIFFLON, $ian, [ActionEnum::TRANSPLANT->value]);
+
+        // When
+        $this->changeTriumphFromEventService->execute($event);
+
+        // Then
+        $this->thenPlayerShouldNotHaveTriumph($ian);
+    }
+
     public static function provideShouldGiveNaturalistTriumphToIanWhenCreatingAlienPlantCases(): iterable
     {
         return [
@@ -149,6 +166,14 @@ final class EquipmentCreatedEventTest extends TestCase
         return PlayerFactory::createPlayerByNameAndDaedalus(
             CharacterEnum::HUA,
             DaedalusFactory::createDaedalus()
+        );
+    }
+
+    private function givenIanIsMush(Player $ian): void
+    {
+        StatusFactory::createStatusByNameForHolder(
+            PlayerStatusEnum::MUSH,
+            $ian,
         );
     }
 

@@ -89,6 +89,21 @@ final class StatusEventTest extends TestCase
         $this->thenPlayerShouldHaveNoTriumph($stephen);
     }
 
+    public function testShouldNotGiveAmbitiousTriumphToStephenWhenOtherPlayerGainsTitle(): void
+    {
+        // Given
+        $stephen = $this->givenStephenPlayer();
+        $hua = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::HUA, $stephen->getDaedalus());
+        $this->givenAmbitiousTriumphConfig();
+        $statusEvent = $this->givenStatusEventForPlayer($hua, PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE);
+
+        // When
+        $this->changeTriumphFromEventService->execute($statusEvent);
+
+        // Then
+        $this->thenPlayerShouldHaveNoTriumph($stephen);
+    }
+
     public function testShouldGiveStatusAppliedTriumphToHolder(): void
     {
         $daedalus = $this->givenDaedalus();
@@ -170,7 +185,7 @@ final class StatusEventTest extends TestCase
         );
     }
 
-    private function givenStatusEventForPlayer($player, string $statusName): StatusEvent
+    private function givenStatusEventForPlayer(Player $player, string $statusName): StatusEvent
     {
         $event = new StatusEvent(
             status: StatusFactory::createStatusByNameForHolder(
@@ -222,12 +237,12 @@ final class StatusEventTest extends TestCase
     }
 
     // Then methods
-    private function thenStephenShouldHaveAmbitiousTriumph($stephen): void
+    private function thenStephenShouldHaveAmbitiousTriumph(Player $stephen): void
     {
         self::assertEquals(4, $stephen->getTriumph());
     }
 
-    private function thenPlayerShouldHaveNoTriumph($player): void
+    private function thenPlayerShouldHaveNoTriumph(Player $player): void
     {
         self::assertEquals(0, $player->getTriumph());
     }

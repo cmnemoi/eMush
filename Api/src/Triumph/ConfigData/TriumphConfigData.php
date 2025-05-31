@@ -223,12 +223,13 @@ abstract class TriumphConfigData
                 name: TriumphEnum::AMBITIOUS,
                 targetedEvent: StatusEvent::STATUS_APPLIED,
                 tagConstraints: [
+                    CharacterEnum::STEPHEN => TriumphSourceEventInterface::ALL_TAGS,
                     PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                     PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                     PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::STEPHEN,
+                target: TriumphTarget::STATUS_HOLDER->toString(),
                 quantity: 4,
             ),
             new TriumphConfigDto(

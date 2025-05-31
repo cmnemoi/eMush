@@ -74,7 +74,7 @@ final class OnPlayerDeathCest extends AbstractExplorationTester
         $I->assertEquals(0, $this->chun->getTriumph());
     }
 
-    public function shouldGiveHumanGioeleTriumphOnHumanDeath(FunctionalTester $I): void
+    public function shouldNotGiveHumanGioeleTriumphOnHumanDeath(FunctionalTester $I): void
     {
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
         $gioele->setTriumph(0);
@@ -92,7 +92,7 @@ final class OnPlayerDeathCest extends AbstractExplorationTester
         $I->assertEquals(0, $this->chun->getTriumph());
     }
 
-    public function shouldGiveMushGioeleTriumphOnNonChunDeath(FunctionalTester $I): void
+    public function shouldNotGiveMushGioeleTriumphOnNonChunDeath(FunctionalTester $I): void
     {
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
         $hua = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::HUA);

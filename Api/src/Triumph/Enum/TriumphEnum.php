@@ -16,6 +16,7 @@ enum TriumphEnum: string
     case MAGELLAN_ARK = 'magellan_ark';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
     case MUSH_SPECIALIST = 'mush_specialist';
+    case MUSH_VICTORY = 'mush_victory';
     case PILGRED_MOTHER = 'pilgred_mother';
     case PRECIOUS_BODY = 'precious_body';
     case RESEARCH_BRILLANT = 'research_brillant';
@@ -25,6 +26,7 @@ enum TriumphEnum: string
     case SOL_CONTACT = 'sol_contact';
     case SOL_MUSH_INVASION = 'sol_mush_invasion';
     case SOL_MUSH_INTRUDER = 'sol_mush_intruder';
+    case SUPER_NOVA = 'super_nova';
     case NONE = '';
 
     public function toConfigKey(string $configKey): string

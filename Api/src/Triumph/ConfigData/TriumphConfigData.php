@@ -11,6 +11,7 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
@@ -85,6 +86,16 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 16,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSH_VICTORY->toConfigKey('default'),
+                name: TriumphEnum::MUSH_VICTORY,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    EndCauseEnum::KILLED_BY_NERON => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 8,
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::MUSH_INITIAL_BONUS->toConfigKey('default'),

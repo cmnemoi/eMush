@@ -163,5 +163,15 @@
         <target>Vous avez gagné {quantity} :triumph: car vous avez résolu le MAD Kube.</target>
       </segment>
     </unit>
+    <unit id="mush_victory">
+      <segment id="mush_victory.name" state="initial">
+        <source>mush_victory.name</source>
+        <target>mush_victory.name</target>
+      </segment>
+      <segment id="mush_victory.log" state="initial">
+        <source>mush_victory.log</source>
+        <target>mush_victory.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

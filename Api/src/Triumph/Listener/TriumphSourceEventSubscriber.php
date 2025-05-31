@@ -31,7 +31,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
-            PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', EventPriorityEnum::HIGHEST],
+            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',

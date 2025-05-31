@@ -93,7 +93,7 @@
                             <span v-html="formatText(gain)" />
                         </li>
                     </ul>
-                    <Tippy tag="button" @click="showTriumphGainsDetails">
+                    <Tippy tag="button" @click="showPlayerTriumphGainsDetails(goldNovaPlayer)">
                         <img :src="getImgUrl('notes.gif')" :alt="$t('theEnd.historyAndTriumph')">
                         <template #content>
                             <h1>{{ $t('theEnd.historyAndTriumph') }}</h1>
@@ -593,18 +593,6 @@ export default defineComponent ({
             window.scrollTo({
                 top: 0
             });
-        },
-        showTriumphGainsDetails() {
-            console.log('goldNovaPlayer:', this.goldNovaPlayer);
-            if (this.goldNovaPlayer && this.goldNovaPlayer.triumphGains) {
-                console.log('triumphGains:', this.goldNovaPlayer.triumphGains);
-                this.dispatchOpenTriumphGainsPopUp({
-                    playerName: this.getPlayerCharacterCompleteName(this.goldNovaPlayer),
-                    gains: this.goldNovaPlayer.triumphGains
-                });
-            } else {
-                console.log('goldNovaPlayer or triumphGains is null/undefined/empty.');
-            }
         },
         showPlayerTriumphGainsDetails(player: ClosedPlayer) {
             if (player && player.triumphGains) {

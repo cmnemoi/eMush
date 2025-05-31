@@ -183,5 +183,15 @@
         <target>chun_dead.log</target>
       </segment>
     </unit>
+    <unit id="mush_fear">
+      <segment id="mush_fear.name" state="initial">
+        <source>mush_fear.name</source>
+        <target>mush_fear.name</target>
+      </segment>
+      <segment id="mush_fear.log" state="initial">
+        <source>mush_fear.log</source>
+        <target>mush_fear.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

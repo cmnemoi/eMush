@@ -242,10 +242,8 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldNotGainSkillPoints($I);
     }
 
-    public function shouldTriumphStickToPlayers(FunctionalTester $I): void
+    public function shouldTriumphStayIntact(FunctionalTester $I): void
     {
-        $this->givenSourcePlayerHasSpores(1);
-
         $this->givenSourcePlayerHasTriumph(2);
         $this->givenTargetPlayerHasTriumph(3);
 
@@ -500,7 +498,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     {
         $I->assertEquals($quantity, $this->source->getTriumph());
     }
-    
+
     private function thenTargetPlayerShouldHaveTriumph(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->target->getTriumph());

@@ -208,7 +208,7 @@
       </segment>
       <segment id="super_nova.log" state="translated">
         <source>super_nova.log</source>
-        <target>You won {quantity} :triumph: because you scattered by a stellar explosion.</target>
+        <target>You won {quantity} :triumph: because you have been scattered by a stellar explosion.</target>
       </segment>
     </unit>
     <unit id="chun_dead">

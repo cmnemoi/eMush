@@ -14,11 +14,14 @@ enum TriumphScope: string
     case ALL_PLAYERS = 'all_players';
 
     // Personal triumph
+    case PERSONAL_CHAO = 'personal_chao';
     case PERSONAL_CHUN = 'personal_chun';
     case PERSONAL_FINOLA = 'personal_finola';
+    case PERSONAL_GIOELE = 'personal_gioele';
     case PERSONAL_HUA = 'personal_hua';
     case PERSONAL_KUAN_TI = 'personal_kuan_ti';
     case PERSONAL_RALUCA = 'personal_raluca';
+    case PERSONAL_STEPHEN = 'personal_stephen';
 
     case NONE = '';
 }

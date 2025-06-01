@@ -3,7 +3,6 @@
 namespace Mush\Player\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -92,13 +91,12 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
         return $title;
     }
 
-    protected function getEventSpecificTargets(string $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {
-            TriumphTarget::AUTHOR->toString() => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
-            TriumphTarget::AUTHOR_CHAO->toString() => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor() && $player->getName() === CharacterEnum::CHAO),
-            TriumphTarget::EVENT_SUBJECT->toString() => $scopeTargets->filter(fn (Player $player) => $player === $this->getPlayer()),
-            default => throw new \LogicException("Triumph target {$targetSetting} is not supported"),
+            TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
+            TriumphTarget::EVENT_SUBJECT => $scopeTargets->filter(fn (Player $player) => $player === $this->getPlayer()),
+            default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
     }
 }

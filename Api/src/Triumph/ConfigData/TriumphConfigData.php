@@ -107,7 +107,7 @@ abstract class TriumphConfigData
                     EndCauseEnum::SUPER_NOVA => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_PLAYERS,
-                target: TriumphTarget::EVENT_SUBJECT->toString(),
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: 20,
             ),
             new TriumphConfigDto(
@@ -233,12 +233,11 @@ abstract class TriumphConfigData
                 name: TriumphEnum::AMBITIOUS,
                 targetedEvent: StatusEvent::STATUS_APPLIED,
                 tagConstraints: [
-                    CharacterEnum::STEPHEN => TriumphSourceEventInterface::ALL_TAGS,
                     PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                     PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                     PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                scope: TriumphScope::PERSONAL_STEPHEN,
                 targetSetting: TriumphTarget::STATUS_HOLDER,
                 quantity: 4,
             ),
@@ -276,8 +275,7 @@ abstract class TriumphConfigData
                     EndCauseEnum::QUARANTINE => TriumphSourceEventInterface::NONE_TAGS,
                     EndCauseEnum::SOL_RETURN => TriumphSourceEventInterface::NONE_TAGS,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::GIOELE,
+                scope: TriumphScope::PERSONAL_GIOELE,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -293,7 +291,7 @@ abstract class TriumphConfigData
                     PlayerStatusEnum::MUSH => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: TriumphTarget::AUTHOR->toString(),
+                targetSetting: TriumphTarget::AUTHOR,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -305,7 +303,7 @@ abstract class TriumphConfigData
                     EquipmentStatusEnum::CAT_INFECTED => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: TriumphTarget::AUTHOR->toString(),
+                targetSetting: TriumphTarget::AUTHOR,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -321,7 +319,7 @@ abstract class TriumphConfigData
                     PlayerStatusEnum::MUSH => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
-                target: TriumphTarget::AUTHOR->toString(),
+                targetSetting: TriumphTarget::AUTHOR,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -333,7 +331,7 @@ abstract class TriumphConfigData
                     EquipmentStatusEnum::CAT_INFECTED => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
-                target: TriumphTarget::AUTHOR->toString(),
+                targetSetting: TriumphTarget::AUTHOR,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -347,8 +345,8 @@ abstract class TriumphConfigData
                     EndCauseEnum::INJURY => TriumphSourceEventInterface::ANY_TAG,
                     EndCauseEnum::ROCKETED => TriumphSourceEventInterface::ANY_TAG,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: TriumphTarget::AUTHOR_CHAO->toString(),
+                scope: TriumphScope::PERSONAL_CHAO,
+                targetSetting: TriumphTarget::AUTHOR,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -358,8 +356,8 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: TriumphTarget::AUTHOR_CHAO->toString(),
+                scope: TriumphScope::PERSONAL_CHAO,
+                targetSetting: TriumphTarget::AUTHOR,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -370,7 +368,7 @@ abstract class TriumphConfigData
                     EndCauseEnum::ALIEN_ABDUCTED => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_PLAYERS,
-                target: TriumphTarget::EVENT_SUBJECT->toString(),
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: 16,
             ),
         ];

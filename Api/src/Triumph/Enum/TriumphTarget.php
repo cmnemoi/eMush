@@ -6,6 +6,7 @@ namespace Mush\Triumph\Enum;
 
 enum TriumphTarget: string
 {
+    case ACTIVE_EXPLORERS = 'active_explorers';
     case STATUS_HOLDER = 'status_holder';
     case NONE = 'none';
 

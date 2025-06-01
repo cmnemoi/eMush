@@ -223,7 +223,7 @@ final class StatusEventTest extends TestCase
                         'test_status' => TriumphSourceEventInterface::ALL_TAGS,
                     ],
                     scope: TriumphScope::ALL_ALIVE_PLAYERS,
-                    target: TriumphTarget::STATUS_HOLDER->toString(),
+                    target: TriumphTarget::STATUS_HOLDER,
                     quantity: 1,
                 )
             )

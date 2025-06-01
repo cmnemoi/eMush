@@ -23,7 +23,7 @@ trait TriumphSourceEventTrait
             return $scopeTargets;
         }
 
-        return $this->filterTargetsBySetting($triumphConfig->getTarget(), $scopeTargets);
+        return $this->getEventSpecificTargets($triumphConfig->getTarget(), $scopeTargets);
     }
 
     public function hasExpectedTagsFor(TriumphConfig $triumphConfig): bool
@@ -67,24 +67,20 @@ trait TriumphSourceEventTrait
         throw new \LogicException('Not implemented');
     }
 
-    private function filterTargetsBySetting(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
-    {
-        if (CharacterEnum::exists(substr($targetSetting->toString(), 9))) {
-            return $scopeTargets->getAllByName($targetSetting->toString());
-        }
-
-        return $this->getEventSpecificTargets($targetSetting, $scopeTargets);
-    }
-
     private function getScopeTargetsForTriumph(TriumphConfig $triumphConfig): PlayerCollection
     {
+        $triumphScope = $triumphConfig->getScope();
+
+        $possibleCharacterName = substr($triumphScope->value, 9);
+        if (CharacterEnum::exists($possibleCharacterName)) {
+            return $this->getDaedalus()->getAlivePlayers()->getHumanPlayer()->getAllByName($possibleCharacterName);
+        }
+
         return match ($triumphConfig->getScope()) {
             TriumphScope::ALL_ACTIVE_HUMANS => $this->getDaedalus()->getAlivePlayers()->getHumanPlayer()->getActivePlayers(),
             TriumphScope::ALL_ALIVE_HUMANS => $this->getDaedalus()->getAlivePlayers()->getHumanPlayer(),
             TriumphScope::ALL_ALIVE_MUSHS => $this->getDaedalus()->getAlivePlayers()->getMushPlayer(),
             TriumphScope::ALL_ALIVE_PLAYERS => $this->getDaedalus()->getAlivePlayers(),
-            TriumphScope::ALL_ACTIVE_HUMAN_EXPLORERS => $this->getDaedalus()->getExplorationOrThrow()->getActiveExplorators()->getHumanPlayer(),
-            TriumphScope::ALL_ACTIVE_EXPLORERS => $this->getDaedalus()->getExplorationOrThrow()->getActiveExplorators(),
             TriumphScope::ALL_MUSHS => $this->getDaedalus()->getMushPlayers(),
             default => throw new \LogicException('Unsupported triumph scope: ' . $triumphConfig->getScope()->value),
         };

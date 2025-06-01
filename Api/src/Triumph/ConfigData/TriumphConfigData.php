@@ -108,7 +108,8 @@ abstract class TriumphConfigData
                 key: TriumphEnum::EXPEDITION->toConfigKey('default'),
                 name: TriumphEnum::EXPEDITION,
                 targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
-                scope: TriumphScope::ALL_ACTIVE_EXPLORERS,
+                scope: TriumphScope::ALL_ALIVE_PLAYERS,
+                target: TriumphTarget::ACTIVE_EXPLORERS,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -116,6 +117,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::EXPLORATOR,
                 targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
                 scope: TriumphScope::PERSONAL_HUA,
+                target: TriumphTarget::ACTIVE_EXPLORERS,
                 quantity: 3,
             ),
             new TriumphConfigDto(

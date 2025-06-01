@@ -35,7 +35,7 @@ class TriumphConfig
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $targetedEventExpectedTags;
 
-    #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
+    #[ORM\Column(type: 'string', nullable: false, enumType: TriumphTarget::class, options: ['default' => TriumphTarget::NONE])]
     private TriumphTarget $target;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
@@ -91,7 +91,7 @@ class TriumphConfig
 
     public function hasATarget(): bool
     {
-        return $this->target !== '';
+        return $this->target !== TriumphTarget::NONE;
     }
 
     public function getTargetedEvent(): string

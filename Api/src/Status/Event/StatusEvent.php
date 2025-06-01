@@ -159,7 +159,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
     {
         return match ($targetSetting) {
             TriumphTarget::STATUS_HOLDER => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getPlayerStatusHolder())),
-            default => throw new \LogicException("Triumph target {$targetSetting} is not supported"),
+            default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
     }
 }

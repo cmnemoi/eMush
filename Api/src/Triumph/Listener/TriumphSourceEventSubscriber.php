@@ -33,6 +33,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
             PlanetSectorEvent::PLANET_SECTOR_EVENT => 'onPlanetSectorEvent',
+            PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
@@ -71,6 +72,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onPlanetSectorEvent(PlanetSectorEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onConversionPlayer(PlayerEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

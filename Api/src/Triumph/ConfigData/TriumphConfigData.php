@@ -513,6 +513,17 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 8,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::NEW_MUSH->toConfigKey('default'),
+                name: TriumphEnum::NEW_MUSH,
+                targetedEvent: PlayerEvent::CONVERSION_PLAYER,
+                tagConstraints: [
+                    ActionEnum::EXCHANGE_BODY->toString() => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_MUSHS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 8,
+            ),
         ];
     }
 

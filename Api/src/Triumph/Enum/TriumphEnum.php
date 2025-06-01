@@ -33,6 +33,7 @@ enum TriumphEnum: string
     case MUSH_VICTORY = 'mush_victory';
     case MUSHICIDE = 'mushicide';
     case MUSHICIDE_CAT = 'mushicide_cat';
+    case NEW_MUSH = 'new_mush';
     case PILGRED_MOTHER = 'pilgred_mother';
     case PSYCHOCAT = 'psychocat';
     case PSYCHOPAT = 'psychopat';
@@ -80,6 +81,7 @@ enum TriumphEnum: string
             self::HUMANOCIDE,
             self::MUSH_INITIAL_BONUS,
             self::MUSH_VICTORY,
+            self::NEW_MUSH,
             self::SOL_MUSH_INVASION,
         ], true);
     }

@@ -351,5 +351,15 @@
         <target>Vous avez gagné {quantity} :triumph: en atteignant Eden !</target>
       </segment>
     </unit>
+    <unit id="new_mush">
+      <segment id="new_mush.name" state="translated">
+        <source>new_mush.name</source>
+        <target>new_mush.name</target>
+      </segment>
+      <segment id="new_mush.log" state="translated">
+        <source>new_mush.log</source>
+        <target>new_mush.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

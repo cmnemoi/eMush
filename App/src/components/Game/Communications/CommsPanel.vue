@@ -62,7 +62,7 @@ import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { exportChannelToPDF } from "@/services/export-channel-to-pdf.service";
+import { exportChannelToPDF, exportChannelToClipboard } from "@/services/export-channel-to-pdf.service";
 import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
@@ -154,7 +154,7 @@ export default defineComponent ({
                 return;
             }
 
-            await exportChannelToPDF(chatbox, false);
+            await exportChannelToClipboard(chatbox);
         },
         async exportChannelasPDF() : Promise<void> {
             const chatbox = document.querySelector('.chatbox') as HTMLElement;
@@ -163,7 +163,7 @@ export default defineComponent ({
                 return;
             }
 
-            await exportChannelToPDF(chatbox, true);
+            await exportChannelToPDF(chatbox);
         },
         numberOfNewMessages(channel: Channel): number {
             return channel.id === this.currentChannel.id ? this.currentChannelNumberOfNewMessages : channel.numberOfNewMessages;

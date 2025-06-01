@@ -35,6 +35,11 @@ final class ChangeTriumphFromEventService
     {
         $quantity = $this->computeTriumphForPlayer($triumphConfig, $player);
 
+        // Don't call triumph changed by 0 event unless the config explicitly states 0 triumph change
+        if ($quantity === 0 && $triumphConfig->getQuantity() !== 0) {
+            return;
+        }
+
         $player->addTriumph($quantity);
         $this->recordTriumphGain($triumphConfig, $player, $quantity);
 

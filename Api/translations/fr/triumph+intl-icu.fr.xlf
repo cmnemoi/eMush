@@ -203,16 +203,6 @@
         <target>mushicide.log</target>
       </segment>
     </unit>
-    <unit id="mushicide_cat">
-      <segment id="mushicide_cat.name" state="initial">
-        <source>mushicide_cat.name</source>
-        <target>mushicide_cat.name</target>
-      </segment>
-      <segment id="mushicide_cat.log" state="initial">
-        <source>mushicide_cat.log</source>
-        <target>mushicide_cat.log</target>
-      </segment>
-    </unit>
     <unit id="humanocide">
       <segment id="humanocide.name" state="initial">
         <source>humanocide.name</source>
@@ -223,16 +213,6 @@
         <target>humanocide.log</target>
       </segment>
     </unit>
-    <unit id="humanocide_cat">
-      <segment id="humanocide_cat.name" state="initial">
-        <source>humanocide_cat.name</source>
-        <target>humanocide_cat.name</target>
-      </segment>
-      <segment id="humanocide_cat.log" state="initial">
-        <source>humanocide_cat.log</source>
-        <target>humanocide_cat.log</target>
-      </segment>
-    </unit>
     <unit id="psychopat">
       <segment id="psychopat.name" state="initial">
         <source>psychopat.name</source>
@@ -241,16 +221,6 @@
       <segment id="psychopat.log" state="initial">
         <source>psychopat.log</source>
         <target>psychopat.log</target>
-      </segment>
-    </unit>
-    <unit id="psychocat">
-      <segment id="psychocat.name" state="initial">
-        <source>psychocat.name</source>
-        <target>psychocat.name</target>
-      </segment>
-      <segment id="psychocat.log" state="initial">
-        <source>psychocat.log</source>
-        <target>psychocat.log</target>
       </segment>
     </unit>
   </file>

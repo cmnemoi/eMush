@@ -8,6 +8,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Triumph\Entity\TriumphConfig;
+use Mush\Triumph\Enum\TriumphEnum;
 
 final class TriumphChangedEvent extends AbstractGameEvent
 {
@@ -33,7 +34,7 @@ final class TriumphChangedEvent extends AbstractGameEvent
 
     public function getLogKey(): string
     {
-        return $this->triumphConfig->getName()->toString();
+        return $this->getTriumphLogName()->toString();
     }
 
     public function getVisibility(): string
@@ -44,5 +45,17 @@ final class TriumphChangedEvent extends AbstractGameEvent
     public function getQuantity(): int
     {
         return abs($this->quantity);
+    }
+
+    private function getTriumphLogName(): TriumphEnum
+    {
+        $configName = $this->triumphConfig->getName();
+
+        return match ($configName) {
+            TriumphEnum::MUSHICIDE_CAT => TriumphEnum::MUSHICIDE,
+            TriumphEnum::HUMANOCIDE_CAT => TriumphEnum::HUMANOCIDE,
+            TriumphEnum::PSYCHOCAT => TriumphEnum::PSYCHOPAT,
+            default => $configName,
+        };
     }
 }

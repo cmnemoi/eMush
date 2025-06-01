@@ -54,8 +54,7 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     EventEnum::NEW_DAY => TriumphSourceEventInterface::ALL_TAGS,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::CHUN,
+                scope: TriumphScope::PERSONAL_CHUN,
                 quantity: 1,
             ),
             new TriumphConfigDto(
@@ -116,8 +115,7 @@ abstract class TriumphConfigData
                 key: TriumphEnum::EXPLORATOR->toConfigKey('default'),
                 name: TriumphEnum::EXPLORATOR,
                 targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
-                scope: TriumphScope::ALL_ACTIVE_HUMAN_EXPLORERS,
-                target: CharacterEnum::HUA,
+                scope: TriumphScope::PERSONAL_HUA,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -181,8 +179,7 @@ abstract class TriumphConfigData
                     ProjectRequirementName::MUSH_GENOME_DISK_IN_LABORATORY->toString() => TriumphSourceEventInterface::ANY_TAG,
                     ProjectRequirementName::CHUN_IN_LABORATORY->toString() => TriumphSourceEventInterface::ANY_TAG,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::FINOLA,
+                scope: TriumphScope::PERSONAL_FINOLA,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -192,8 +189,7 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     ProjectRequirementName::CHUN_IN_LABORATORY->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::CHUN,
+                scope: TriumphScope::PERSONAL_CHUN,
                 quantity: 4,
             ),
             new TriumphConfigDto(
@@ -203,8 +199,7 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     ProjectType::NERON_PROJECT->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::KUAN_TI,
+                scope: TriumphScope::PERSONAL_KUAN_TI,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -215,8 +210,7 @@ abstract class TriumphConfigData
                     ProjectName::PILGRED->toString() => TriumphSourceEventInterface::ALL_TAGS,
                     ProjectEvent::NEXT_20_PERCENTS => TriumphSourceEventInterface::ALL_TAGS,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: CharacterEnum::RALUCA,
+                scope: TriumphScope::PERSONAL_RALUCA,
                 quantity: 2,
             ),
             new TriumphConfigDto(
@@ -230,7 +224,7 @@ abstract class TriumphConfigData
                     PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: TriumphTarget::STATUS_HOLDER->toString(),
+                target: TriumphTarget::STATUS_HOLDER,
                 quantity: 4,
             ),
             new TriumphConfigDto(
@@ -241,7 +235,7 @@ abstract class TriumphConfigData
                     PlayerStatusEnum::POINTLESS_PLAYER => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,
-                target: TriumphTarget::STATUS_HOLDER->toString(),
+                target: TriumphTarget::STATUS_HOLDER,
                 quantity: 5,
             ),
             new TriumphConfigDto(

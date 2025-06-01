@@ -7,6 +7,7 @@ namespace Mush\Triumph\Enum;
 enum TriumphTarget: string
 {
     case STATUS_HOLDER = 'status_holder';
+    case NONE = 'none';
 
     public function toString(): string
     {

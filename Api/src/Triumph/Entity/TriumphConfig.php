@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
+use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Enum\TriumphVisibility;
 
 #[ORM\Entity]
@@ -35,7 +36,7 @@ class TriumphConfig
     private array $targetedEventExpectedTags;
 
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
-    private string $target;
+    private TriumphTarget $target;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $quantity;
@@ -52,7 +53,7 @@ class TriumphConfig
         TriumphScope $scope,
         string $targetedEvent,
         array $targetedEventExpectedTags,
-        string $target,
+        TriumphTarget $target,
         int $quantity,
         TriumphVisibility $visibility,
         int $regressiveFactor,
@@ -83,7 +84,7 @@ class TriumphConfig
         return $this->scope;
     }
 
-    public function getTarget(): string
+    public function getTarget(): TriumphTarget
     {
         return $this->target;
     }

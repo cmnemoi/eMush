@@ -8,6 +8,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphScope;
+use Mush\Triumph\Enum\TriumphTarget;
 
 trait TriumphSourceEventTrait
 {
@@ -61,15 +62,15 @@ trait TriumphSourceEventTrait
         return $anyConstraint;
     }
 
-    protected function getEventSpecificTargets(string $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         throw new \LogicException('Not implemented');
     }
 
-    private function filterTargetsBySetting(string $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    private function filterTargetsBySetting(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
-        if (CharacterEnum::exists($targetSetting)) {
-            return $scopeTargets->getAllByName($targetSetting);
+        if (CharacterEnum::exists(substr($targetSetting->toString(), 9))) {
+            return $scopeTargets->getAllByName($targetSetting->toString());
         }
 
         return $this->getEventSpecificTargets($targetSetting, $scopeTargets);

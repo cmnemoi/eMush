@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Triumph\Service;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -72,5 +75,23 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
             ]],
             actual: $closedPlayer->getTriumphGains()->map(static fn (TriumphGain $gain) => $gain->toArray())->toArray(),
         );
+    }
+
+    public function shouldNotPrintLogWhenComputedTriumphIsZero(FunctionalTester $I): void
+    {
+        $event = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [ActionEnum::RETURN_TO_SOL->toString()],
+            time: new \DateTime(),
+        );
+        $event->setEventName(DaedalusEvent::FINISH_DAEDALUS);
+
+        $this->changeTriumphFromEventService->execute($event);
+
+        // Since there is no Mush, I shouldn't see Mush intruder glory change.
+        $I->dontSeeInRepository(RoomLog::class, [
+            'place' => $this->player->getPlace()->getName(),
+            'log' => TriumphEnum::SOL_MUSH_INTRUDER->toString(),
+        ]);
     }
 }

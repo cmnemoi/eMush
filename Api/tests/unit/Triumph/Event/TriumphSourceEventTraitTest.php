@@ -9,6 +9,7 @@ use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
+use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Enum\TriumphVisibility;
 use PHPUnit\Framework\TestCase;
 
@@ -70,7 +71,7 @@ final class TriumphSourceEventTraitTest extends TestCase
             quantity: 1,
             tagConstraints: $tagConstraints,
             visibility: TriumphVisibility::NONE,
-            target: '',
+            targetSetting: TriumphTarget::NONE,
             regressiveFactor: 0
         );
 

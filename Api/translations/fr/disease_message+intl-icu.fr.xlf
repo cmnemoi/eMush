@@ -203,9 +203,9 @@
                     other {invalid adjective}
                     }</target>
       </segment>
-      <segment id="adjective_coprolalia" state="translated">
+      <segment id="adjective_coprolalia" state="initial">
         <source>adjective_coprolalia</source>
-        <target/>
+        <target>adjective_coprolalia</target>
       </segment>
       <segment id="adjective_female_single" state="translated">
         <source>adjective_female_single_coprolalia</source>

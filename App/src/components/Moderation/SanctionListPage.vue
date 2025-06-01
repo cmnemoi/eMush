@@ -385,7 +385,6 @@ export default defineComponent({
                 })
                 .then((remoteRowData: any) => {
                     this.reportRowData = remoteRowData['hydra:member'].map((reportData: object) => {
-                        console.log(reportData);
                         return (new ModerationSanction()).load(reportData);
                     });
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];

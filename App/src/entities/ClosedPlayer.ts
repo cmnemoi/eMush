@@ -1,3 +1,5 @@
+import { toArray } from "@/utils/toArray";
+
 export class ClosedPlayer {
     public iri: string|null;
     public id: number|null;
@@ -21,6 +23,7 @@ export class ClosedPlayer {
     public messageIsEdited: boolean|null;
     public messageHasBeenModerated: boolean = false;
     public hasBadEndCause!: boolean;
+    public triumphGains: string[] = [];
 
     constructor() {
         this.iri = null;
@@ -68,6 +71,11 @@ export class ClosedPlayer {
             this.messageHasBeenModerated = (this.messageIsEdited || this.messageIsHidden) ?? false;
             this.hasBadEndCause = ['sol_return', 'eden'].includes(this.endCause ?? '') ? false : true;
             this.score = this.triumph ?? this.cyclesSurvived;
+            if (object.triumphGains) {
+                toArray(object.triumphGains).forEach((triumphGainObject: string) => {
+                    this.triumphGains.push(triumphGainObject);
+                });
+            }
         }
         return this;
     }

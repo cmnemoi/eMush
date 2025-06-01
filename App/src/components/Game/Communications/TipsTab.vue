@@ -71,7 +71,7 @@
             <div class="banner">
                 <span><img :src="getImgUrl('comms/tip.png')"> {{ channel.name }} <img :src="getImgUrl('comms/tip.png')"></span>
             </div>
-            <div :class="'tip ' + (player.isMush() ? ' red' : 'cyan')">
+            <div :class="'tip ' + (player.isMush ? ' red' : 'cyan')">
                 <span class="title" v-html="formatText(channel.tips.teamObjectives.title)"/>
                 <ul class="list">
                     <li v-for="element in channel.tips.teamObjectives.elements" :key="element" v-html="formatText(element)"/>

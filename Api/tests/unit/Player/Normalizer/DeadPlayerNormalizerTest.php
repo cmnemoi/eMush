@@ -18,6 +18,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Normalizer\DeadPlayerNormalizer;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @internal
@@ -37,6 +38,7 @@ final class DeadPlayerNormalizerTest extends TestCase
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new DeadPlayerNormalizer($this->translationService);
+        $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
     }
 
     /**
@@ -115,6 +117,11 @@ final class DeadPlayerNormalizerTest extends TestCase
             ->times(1);
         $this->translationService
             ->shouldReceive('translate')
+            ->with('allergy.short_name', [], 'end_cause', LanguageEnum::FRENCH)
+            ->andReturn('translated end cause')
+            ->times(1);
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('allergy.description', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated end cause description')
             ->times(1);
@@ -125,12 +132,22 @@ final class DeadPlayerNormalizerTest extends TestCase
             ->times(1);
         $this->translationService
             ->shouldReceive('translate')
+            ->with('injury.short_name', [], 'end_cause', LanguageEnum::FRENCH)
+            ->andReturn('translated injury')
+            ->times(1);
+        $this->translationService
+            ->shouldReceive('translate')
             ->with('injury.description', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated injury description')
             ->times(1);
         $this->translationService
             ->shouldReceive('translate')
             ->with('still_living.name', [], 'end_cause', LanguageEnum::FRENCH)
+            ->andReturn('translated still living')
+            ->times(1);
+        $this->translationService
+            ->shouldReceive('translate')
+            ->with('still_living.short_name', [], 'end_cause', LanguageEnum::FRENCH)
             ->andReturn('translated still living')
             ->times(1);
         $this->translationService
@@ -200,9 +217,12 @@ final class DeadPlayerNormalizerTest extends TestCase
             'gameStatus' => 'finished',
             'endCause' => [
                 'key' => EndCauseEnum::INJURY,
+                'shortName' => 'translated injury',
                 'name' => 'translated injury',
                 'description' => 'translated injury description',
             ],
+            'isMush' => false,
+            'triumphGains' => null,
             'players' => [
                 0 => [
                     'id' => 3,
@@ -216,6 +236,7 @@ final class DeadPlayerNormalizerTest extends TestCase
                     'likes' => 1,
                     'endCause' => [
                         'key' => EndCauseEnum::ALLERGY,
+                        'shortName' => 'translated end cause',
                         'name' => 'translated end cause',
                         'description' => 'translated end cause description',
                     ],
@@ -232,6 +253,7 @@ final class DeadPlayerNormalizerTest extends TestCase
                     'likes' => 0,
                     'endCause' => [
                         'key' => EndCauseEnum::STILL_LIVING,
+                        'shortName' => 'translated still living',
                         'name' => 'translated still living',
                         'description' => 'translated still living description',
                     ],

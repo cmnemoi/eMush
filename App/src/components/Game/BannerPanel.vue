@@ -61,7 +61,7 @@
                     <Tippy tag="li">
                         <span>
                             {{ player.triumph?.quantity }}
-                            <img v-if="player.isMush()" :src="getImgUrl('ui_icons/player_variables/triumph_mush.png')">
+                            <img v-if="player.isMush" :src="getImgUrl('ui_icons/player_variables/triumph_mush.png')">
                             <img v-else :src="getImgUrl('ui_icons/player_variables/triumph.png')">
                         </span>
                         <template #content>

@@ -52,6 +52,8 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
 
         $endCause = $deadPlayerInfo->getEndCause();
 
+        $context['language'] = $language;
+
         $playerData = [
             'id' => $player->getId(),
             'character' => [
@@ -86,6 +88,8 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
             ],
             'gameStatus' => $playerInfo->getGameStatus(),
             'endCause' => $this->normalizeEndReason($endCause, $language),
+            'isMush' => $player->isMush(),
+            'triumphGains' => $this->normalizer->normalize($deadPlayerInfo->getTriumphGains(), $format, $context),
         ];
 
         $playerData['players'] = $this->getOtherPlayers($player, $language);
@@ -129,11 +133,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
                 $normalizedOtherPlayer['deathCycle'] = $otherClosedPlayer->getCycleDeath();
                 $normalizedOtherPlayer['likes'] = $otherClosedPlayer->getLikes();
 
-                if ($otherPlayerInfo->getGameStatus() !== GameStatusEnum::CURRENT) {
-                    $endCause = $otherClosedPlayer->getEndCause();
-                } else {
-                    $endCause = EndCauseEnum::STILL_LIVING;
-                }
+                $endCause = $otherPlayerInfo->isAlive() ? EndCauseEnum::STILL_LIVING : $otherClosedPlayer->getEndCause();
                 $normalizedOtherPlayer['endCause'] = $this->normalizeEndReason($endCause, $language);
                 $otherPlayers[] = $normalizedOtherPlayer;
             }
@@ -146,8 +146,14 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
     {
         return [
             'key' => $endCause,
-            'name' => $this->translationService->translate(
+            'shortName' => $this->translationService->translate(
                 $endCause . '.name',
+                [],
+                LanguageEnum::END_CAUSE,
+                $language
+            ),
+            'name' => $this->translationService->translate(
+                $endCause . '.short_name',
                 [],
                 LanguageEnum::END_CAUSE,
                 $language

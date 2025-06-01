@@ -6,6 +6,12 @@ type BasicPopUp = {
     isOpen: boolean;
 }
 
+type TriumphGainsPopUpData = {
+    isOpen: boolean;
+    playerName: string | null;
+    gains: string[] | null;
+};
+
 type PlayerNotificationPopUp = {
     title?: string;
     subTitle?: string;
@@ -28,7 +34,12 @@ const state = {
         subTitle: '',
         description: '',
         isOpen: false
-    }
+    },
+    triumphGainsPopUp: {
+        isOpen: false,
+        playerName: null,
+        gains: null
+    } as TriumphGainsPopUpData
 };
 
 const getters: GetterTree<any, any> = {
@@ -43,6 +54,9 @@ const getters: GetterTree<any, any> = {
     },
     playerNotificationPopUp: (state: any): PlayerNotificationPopUp => {
         return state.playerNotificationPopUp;
+    },
+    triumphGainsPopUp: (state: any): TriumphGainsPopUpData => {
+        return state.triumphGainsPopUp;
     }
 };
 
@@ -78,6 +92,16 @@ const mutations: MutationTree<any> = {
     },
     closePlayerNotificationPopUp(state) {
         state.playerNotificationPopUp.isOpen = false;
+    },
+    openTriumphGainsPopUp(state, payload: { playerName: string, gains: string[] }) {
+        state.triumphGainsPopUp.isOpen = true;
+        state.triumphGainsPopUp.playerName = payload.playerName;
+        state.triumphGainsPopUp.gains = payload.gains;
+    },
+    closeTriumphGainsPopUp(state) {
+        state.triumphGainsPopUp.isOpen = false;
+        state.triumphGainsPopUp.playerName = null;
+        state.triumphGainsPopUp.gains = null;
     }
 };
 
@@ -105,6 +129,12 @@ const actions: ActionTree<any, any> = {
     },
     closePlayerNotificationPopUp({ commit }) {
         commit('closePlayerNotificationPopUp');
+    },
+    openTriumphGainsPopUp({ commit }, payload: { playerName: string, gains: string[] }) {
+        commit('openTriumphGainsPopUp', payload);
+    },
+    closeTriumphGainsPopUp({ commit }) {
+        commit('closeTriumphGainsPopUp');
     }
 };
 

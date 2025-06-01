@@ -1,23 +1,23 @@
 import { Character } from "@/entities/Character";
+import { toArray } from "@/utils/toArray";
 
 export class DeadPlayerInfo {
     public id!: number;
     public character!: Character;
     public deathDay: integer|null;
     public deathCycle: integer|null;
-    public endCauseKey: string|null;
-    public endCauseValue: string|null;
-    public endCauseDescription: string|null;
+    public endCauseKey!: string;
+    public endCauseShortName!: string;
+    public endCauseName!: string;
+    public endCauseDescription!: string;
     public likes: integer;
+    public triumphGains: string[] = [];
     public players: Array<DeadPlayerInfo>;
 
     constructor() {
         this.character = new Character();
         this.deathDay = null;
         this.deathCycle = null;
-        this.endCauseKey = null;
-        this.endCauseValue = null;
-        this.endCauseDescription= null;
         this.likes = 0;
         this.players = [];
     }
@@ -31,9 +31,9 @@ export class DeadPlayerInfo {
 
             if (typeof object.endCause !== "undefined") {
                 this.endCauseKey = object.endCause['key'];
-                this.endCauseValue = object.endCause['name'];
+                this.endCauseName = object.endCause['name'];
+                this.endCauseShortName = object.endCause['shortName'];
                 this.endCauseDescription = object.endCause['description'];
-
             }
 
             if (typeof object.character !== "undefined") {
@@ -45,6 +45,12 @@ export class DeadPlayerInfo {
                 object.players.forEach((deadPlayerObject: any) => {
                     const deadPlayer = (new DeadPlayerInfo()).load(deadPlayerObject);
                     this.players.push(deadPlayer);
+                });
+            }
+
+            if (object.triumphGains) {
+                toArray(object.triumphGains).forEach((triumphGainObject: string) => {
+                    this.triumphGains.push(triumphGainObject);
                 });
             }
         }

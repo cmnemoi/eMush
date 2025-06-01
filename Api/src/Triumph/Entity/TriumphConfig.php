@@ -113,6 +113,11 @@ class TriumphConfig
         return $this->visibility;
     }
 
+    public function getLogKey(): string
+    {
+        return $this->name->toLogKey();
+    }
+
     public static function fromDto(TriumphConfigDto $triumphConfigDto): self
     {
         return new self(

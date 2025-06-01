@@ -2,32 +2,52 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="triumph.ext">
     <unit id="cycle_human">
-      <segment id="cycle_human" state="translated">
-        <source>cycle_human</source>
+      <segment id="cycle_human.name" state="translated">
+        <source>cycle_human.name</source>
+        <target>Cycle Humain</target>
+      </segment>
+      <segment id="cycle_human.log" state="translated">
+        <source>cycle_human.log</source>
         <target>Vous avez gagné {quantity} :triumph: car vous avez survécu un cycle de plus.</target>
       </segment>
     </unit>
     <unit id="cycle_mush">
-      <segment id="cycle_mush" state="translated">
-        <source>cycle_mush</source>
+      <segment id="cycle_mush.name" state="translated">
+        <source>cycle_mush.name</source>
+        <target>Cycle Mush</target>
+      </segment>
+      <segment id="cycle_mush.log" state="translated">
+        <source>cycle_mush.log</source>
         <target>Vous avez perdu {quantity} :triumph_mush: car vous avez laissé ces humains survivre un cycle de plus.</target>
       </segment>
     </unit>
     <unit id="chun_lives">
-      <segment id="chun_lives" state="translated">
-        <source>chun_lives</source>
+      <segment id="chun_lives.name" state="translated">
+        <source>chun_lives.name</source>
+        <target>Chun vit !</target>
+      </segment>
+      <segment id="chun_lives.log" state="translated">
+        <source>chun_lives.log</source>
         <target>Vous avez gagné {quantity} :triumph: car vous avez survécu un jour de plus en tant que Chun !</target>
       </segment>
     </unit>
     <unit id="return_to_sol">
-      <segment id="return_to_sol" state="translated">
-        <source>return_to_sol</source>
+      <segment id="return_to_sol.name" state="translated">
+        <source>return_to_sol.name</source>
+        <target>Retour sur Sol</target>
+      </segment>
+      <segment id="return_to_sol.log" state="translated">
+        <source>return_to_sol.log</source>
         <target>Vous avez gagné {quantity} :triumph: car vous êtes rentré sur Sol !</target>
       </segment>
     </unit>
     <unit id="sol_mush_intruder">
-      <segment id="sol_mush_intruder" state="translated">
-        <source>sol_mush_intruder</source>
+      <segment id="sol_mush_intruder.name" state="translated">
+        <source>sol_mush_intruder.name</source>
+        <target>Retour sur Sol infiltré</target>
+      </segment>
+      <segment id="sol_mush_intruder.log" state="translated">
+        <source>sol_mush_intruder.log</source>
         <target>Vous perdez {quantity} :triumph: car des Mushs vous ont suivis sur Sol...</target>
       </segment>
     </unit>
@@ -38,8 +58,12 @@
       </segment>
     </unit>
     <unit id="mush_initial_bonus">
-      <segment id="mush_initial_bonus" state="translated">
-        <source>mush_initial_bonus</source>
+      <segment id="mush_initial_bonus.name" state="translated">
+        <source>mush_initial_bonus.name</source>
+        <target>Mushiformé</target>
+      </segment>
+      <segment id="mush_initial_bonus.log" state="translated">
+        <source>mush_initial_bonus.log</source>
         <target>Vous avez gagné {quantity} :triumph_mush: car vous faites désormais partie du Mush !</target>
       </segment>
     </unit>

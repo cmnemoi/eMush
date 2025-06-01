@@ -35,8 +35,28 @@ enum TriumphEnum: string
         return $this->value . '_' . $configKey;
     }
 
+    public function toLogKey(): string
+    {
+        return "{$this->value}.log";
+    }
+
     public function toString(): string
     {
         return $this->value;
+    }
+
+    public function toEmoteCode(): string
+    {
+        return $this->isMushTriumph() ? ':triumph_mush:' : ':triumph:';
+    }
+
+    private function isMushTriumph(): bool
+    {
+        return \in_array($this, [
+            self::CYCLE_MUSH,
+            self::MUSH_INITIAL_BONUS,
+            self::MUSH_VICTORY,
+            self::SOL_MUSH_INVASION,
+        ], true);
     }
 }

@@ -171,6 +171,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'healthPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::HEALTH_POINT, $language),
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
             'skillPoints' => $this->getNormalizedSkillPoints($player, $language),
+            'isMush' => $player->isMush(),
         ]);
         if ($player->hasNotification()) {
             $playerData['notification'] = $this->normalizer->normalize($player->getNotificationOrThrow(), $format, $context);

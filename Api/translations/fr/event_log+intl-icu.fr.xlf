@@ -609,6 +609,16 @@
                   }</target>
       </segment>
     </unit>
+    <unit id="player_leave_chat_mutated">
+      <segment id="player_leave_chat_mutated" state="translated">
+        <source>player_leave_chat_mutated</source>
+        <target>{character_gender, select,
+                  male {**{character}** a quitté la discussion, il a muté.}
+                  female {**{character}** a quitté la discussion, elle a muté.}
+                  other {**{character}** a quitté la discussion, il a muté.}
+                  }</target>
+      </segment>
+    </unit>
     <unit id="player_leave_chat_lost">
       <segment id="player_leave_chat_lost" state="translated">
         <source>player_leave_chat_lost</source>

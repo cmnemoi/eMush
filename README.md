@@ -50,6 +50,14 @@ Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_
 - Clone the repository : `git clone https://gitlab.com/eternaltwin/mush/mush.git && cd mush` ;
 - Run `make install`.
 
+#### Arch (Manjaro)
+
+ - Install `docker` and `docker-compose` with pamac (`sudo pamac install docker docker-compose`) ;
+ - Install docker service (`sudo systemctl enable docker`) and run it (`sudo systemctl start docker`) ;
+ - Integrate your user in docker group (`sudo usermod -aG docker ${USER}`) reconnect your profile (logout, login) ;
+ - Clone the repository : `git clone https://gitlab.com/eternaltwin/mush/mush.git && cd mush` ;
+ - Run `make install`
+ 
 #### GNU/Linux (other distributions)
 
 Refer to detailed Docker installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Docker-install-detailed-instructions) and adapt to your needs.

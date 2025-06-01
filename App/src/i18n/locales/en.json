@@ -638,8 +638,10 @@
 			"report": "Report",
 			"loadMoreMessages": "Load more messages",
 			"markChannelAsRead": "Mark channel as read",
+			"exportChannelAsClipboard": "📋",
+			"exportChannelAsClipboardDescription": "copy the discussion to the clipboard.",
 			"exportChannelAsPDF": "🖨️",
-			"exportChannelAsPDFDescription": "Will also copy the discussion to the clipboard.",
+			"exportChannelAsPDFDescription": "Create a PDF file with the discussion.",
 			"unbookmark": "No more favorite",
 			"unbookmarkDescription": "Remove this thread from your favorites."
 		},

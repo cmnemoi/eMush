@@ -1,7 +1,8 @@
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
-export async function exportChannelToPDF(chatbox: HTMLElement): Promise<void> {
+export async function exportChannelToPDF(chatbox: HTMLElement, toPDF: boolean): Promise<void> {
+    const maxHeightCanvas = 32767;
     const html2canvasScale = 1.5;
     const jpgCompression = 0.8;
     const sizeReduction = 1.0;
@@ -24,34 +25,37 @@ export async function exportChannelToPDF(chatbox: HTMLElement): Promise<void> {
         useCORS: true
     }).then(canvas => {
         const imgData = canvas.toDataURL('image/jpeg', jpgCompression);
-        copyCanvasToClipboard(canvas);
-        const pdf = new jsPDF({
-            orientation: 'p',
-            unit: 'mm',
-            format: [pageWidth, pageHeight],
-            compress: true
-        });
+        if (!toPDF) {
+            copyCanvasToClipboard(canvas);
+        } else {
+            const pdf = new jsPDF({
+                orientation: 'p',
+                unit: 'mm',
+                format: [pageWidth, pageHeight],
+                compress: true
+            });
 
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-        let position = 0;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
 
-        pdf.addImage(imgData, 'JPEG', (pageWidth-imgWidth)/2, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
             pdf.addImage(imgData, 'JPEG', (pageWidth-imgWidth)/2, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', (pageWidth-imgWidth)/2, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            chatbox.style.height = originalStyle.height;
+            chatbox.style.maxHeight = originalStyle.maxHeight;
+            chatbox.style.overflow = originalStyle.overflow;
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0,10);
+            const timeStr = now.toTimeString().slice(0,8).replace(/:/g, '-');
+            pdf.save(`emush-comm-channel-${dateStr}_${timeStr}.pdf`);
         }
-        chatbox.style.height = originalStyle.height;
-        chatbox.style.maxHeight = originalStyle.maxHeight;
-        chatbox.style.overflow = originalStyle.overflow;
-        const now = new Date();
-        const dateStr = now.toISOString().slice(0,10);
-        const timeStr = now.toTimeString().slice(0,8).replace(/:/g, '-');
-        pdf.save(`emush-comm-channel-${dateStr}_${timeStr}.pdf`);
     });
 }
 

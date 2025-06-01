@@ -30,7 +30,14 @@
         <button class="action-button" @click="markAsRead()" v-if="currentChannel.isNotTipsChannel()">
             {{ $t('game.communications.markChannelAsRead') }}
         </button>
-        <Tippy tag="button" class="action-button" @click="exportChannel()">
+        <Tippy tag="button" class="action-button" @click="exportChannelAsClipboard()">
+            📋
+            <template #content>
+                <h1 v-html="$t('game.communications.exportChannelAsClipboard')"/>
+                <p v-html="$t('game.communications.exportChannelAsClipboardDescription')"/>
+            </template>
+        </Tippy>
+        <Tippy tag="button" class="action-button" @click="exportChannelAsPDF()">
             🖨️
             <template #content>
                 <h1 v-html="$t('game.communications.exportChannelAsPDF')"/>
@@ -140,14 +147,23 @@ export default defineComponent ({
                 await this.markCurrentChannelAsRead(this.currentChannel);
             }
         },
-        async exportChannel() : Promise<void> {
+        async exportChannelasClipboard() : Promise<void> {
             const chatbox = document.querySelector('.chatbox') as HTMLElement;
             if (!chatbox) {
                 console.error('Chatbox not found');
                 return;
             }
 
-            await exportChannelToPDF(chatbox);
+            await exportChannelToPDF(chatbox, false);
+        },
+        async exportChannelasPDF() : Promise<void> {
+            const chatbox = document.querySelector('.chatbox') as HTMLElement;
+            if (!chatbox) {
+                console.error('Chatbox not found');
+                return;
+            }
+
+            await exportChannelToPDF(chatbox, true);
         },
         numberOfNewMessages(channel: Channel): number {
             return channel.id === this.currentChannel.id ? this.currentChannelNumberOfNewMessages : channel.numberOfNewMessages;

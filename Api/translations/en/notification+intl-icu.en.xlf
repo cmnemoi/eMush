@@ -68,7 +68,7 @@
       </segment>
       <segment state="translated">
         <source>announcement_received.description</source>
-        <target>{message}////{character} / Jour {day} - Cycle {cycle} // You may read this again anytime in the :tip: Tips channel.</target>
+        <target>{message}////{character} / Day {day} - Cycle {cycle} // You may read this again anytime in the :tip: Tips channel.</target>
       </segment>
     </unit>
     <unit id="announcement_created">

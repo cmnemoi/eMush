@@ -98,7 +98,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>alien_abducted.short_name</source>
-        <target>Has sido secuestrado.</target>
+        <target>Fuiste secuestrado por extraterrestres.</target>
       </segment>
       <segment id="category" state="translated">
         <source>alien_abducted.category</source>
@@ -600,9 +600,13 @@
         <source>still_living.name</source>
         <target>Aún no</target>
       </segment>
-      <segment id="description" state="translated">
-        <source>still_living.description</source>
+      <segment id="short_name" state="translated">
+        <source>still_living.short_name</source>
         <target>Este jugador aún vive</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>still_living.description</source>
+        <target>still_living.description</target>
       </segment>
     </unit>
   </file>

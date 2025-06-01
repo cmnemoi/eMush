@@ -1730,17 +1730,17 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
     </unit>
     <unit id="go_berserk">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>go_berserk.name</source>
-        <target>go_berserk.name</target>
+        <target>Muter</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>go_berserk.description</source>
-        <target>go_berserk.description</target>
+        <target>Permet de muter en la forme terminale Mush. La mutation vous guérira partiellement et donnera un bonus à vos dommages. Les personnages humains qui entrent dans votre pièce ne peuvent que repartir d'où ils viennent ou combattre. Vous ne pourrez plus faire grand-chose à part frapper et vous déplacer. Que demander de plus.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>go_berserk.confirmation</source>
-        <target>go_berserk.confirmation</target>
+        <target>Cette action ne peut être annulée et vous révélera à tout le monde. Êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
   </file>

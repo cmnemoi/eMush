@@ -59,7 +59,7 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
       </segment>
       <segment id="neron_manager.desc" state="translated">
         <source>neron_manager.desc</source>
-        <target>The NERON Administrator can access NERON's BIOS. They also have privileged access to the daily operations systems.</target>
+        <target>The NERON Administrator can access **NERON's BIOS** to tweak some of the ship's parameters. // They can also **talk as NERON on the public channel** by typing */neron* at the start of their message.</target>
       </segment>
       <segment id="com_manager.name" state="translated">
         <source>com_manager.name</source>
@@ -67,7 +67,7 @@ Currently, you have {quantityAction} :pa: and {quantityMovement} :pm:.</target>
       </segment>
       <segment id="com_manager.desc" state="translated">
         <source>com_manager.desc</source>
-        <target>The Communications Officer can start to contact others once contact with Sol has been re-established.</target>
+        <target>The Communications officer can access the **Communications Terminal** to re-establish contact with the rebel network of Sol. // They can create **General Announcements**, which will be sent to all crew members. // They are also able to **access the communications channels without a talkie**.</target>
       </segment>
     </unit>
     <unit id="shoot">

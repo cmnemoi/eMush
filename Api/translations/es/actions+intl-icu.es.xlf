@@ -18,7 +18,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>coffee.description</source>
-        <target>Café</target>
+        <target>¡Un buen café y estará listo para la acción!</target>
       </segment>
     </unit>
     <unit id="dispense">

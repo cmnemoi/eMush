@@ -600,6 +600,10 @@
         <source>still_living.name</source>
         <target>still_living.name</target>
       </segment>
+      <segment id="short_name" state="translated">
+        <source>still_living.short_name</source>
+        <target>still_living.description</target>
+      </segment>
       <segment id="description" state="initial">
         <source>still_living.description</source>
         <target>still_living.description</target>

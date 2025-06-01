@@ -136,7 +136,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
-        <target>Un bloc de estos papelitos horribles...</target>
+        <target/>
       </segment>
     </unit>
     <unit id="exploration">

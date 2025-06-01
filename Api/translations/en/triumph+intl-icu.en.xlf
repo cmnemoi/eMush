@@ -264,7 +264,7 @@
     <unit id="alien_science">
       <segment id="alien_science.name" state="translated">
         <source>alien_science.name</source>
-        <target> Research subject</target>
+        <target>Research subject</target>
       </segment>
       <segment id="alien_science.log" state="translated">
         <source>alien_science.log</source>
@@ -274,7 +274,7 @@
     <unit id="eden_mush_invasion">
       <segment id="eden_mush_invasion.name" state="translated">
         <source>eden_mush_invasion.name</source>
-        <target> Invasion of Eden</target>
+        <target>Invasion of Eden</target>
       </segment>
       <segment id="eden_mush_invasion.log" state="translated">
         <source>eden_mush_invasion.log</source>
@@ -284,7 +284,7 @@
     <unit id="eden_mush_intruder">
       <segment id="eden_mush_intruder.name" state="translated">
         <source>eden_mush_intruder.name</source>
-        <target> Eden Contaminated</target>
+        <target>Eden Contaminated</target>
       </segment>
       <segment id="eden_mush_intruder.log" state="translated">
         <source>eden_mush_intruder.log</source>
@@ -294,7 +294,7 @@
     <unit id="eden_one_man">
       <segment id="eden_one_man.name" state="translated">
         <source>eden_one_man.name</source>
-        <target> One for all</target>
+        <target>One for all</target>
       </segment>
       <segment id="eden_one_man.log" state="translated">
         <source>eden_one_man.log</source>

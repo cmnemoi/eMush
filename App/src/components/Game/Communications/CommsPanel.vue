@@ -30,14 +30,14 @@
         <button class="action-button" @click="markAsRead()" v-if="currentChannel.isNotTipsChannel()">
             {{ $t('game.communications.markChannelAsRead') }}
         </button>
-        <Tippy tag="button" class="action-button" @click="exportChannelAsClipboard()">
+        <Tippy tag="button" class="action-button" @click="exportChannelasClipboard()">
             📋
             <template #content>
                 <h1 v-html="$t('game.communications.exportChannelAsClipboard')"/>
                 <p v-html="$t('game.communications.exportChannelAsClipboardDescription')"/>
             </template>
         </Tippy>
-        <Tippy tag="button" class="action-button" @click="exportChannelAsPDF()">
+        <Tippy tag="button" class="action-button" @click="exportChannelasPDF()">
             🖨️
             <template #content>
                 <h1 v-html="$t('game.communications.exportChannelAsPDF')"/>

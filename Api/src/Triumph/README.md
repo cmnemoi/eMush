@@ -14,7 +14,7 @@ The [`TriumphConfig`](./Entity/TriumphConfig.php) entity contains the following 
 - `tagConstraints`: An array of tags that the event must have to trigger the triumph
   - ANY_TAG: The triumph will be triggered if the event has at least one of these tags
   - ALL_TAGS: The triumph will be triggered if the event has all of these tags
-- `target`: Determines what relation to the event players should be in to receive the triumph, as long as they fit within the scope (from [`TriumphTarget`](./Enum/TriumphTarget.php))
+- `targetSetting`: Determines what relation to the event players should be in to receive the triumph, as long as they fit within the scope (from [`TriumphTarget`](./Enum/TriumphTarget.php))
 - `quantity`: The amount of triumph points awarded
 - `visibility`: Controls the visibility of triumph log
   - `PRIVATE`: Only visible to the player who earned it

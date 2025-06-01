@@ -21,11 +21,13 @@ final class Version20250601151635 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE triumph_config ALTER target SET DEFAULT \'none\'');
+        $this->addSql('ALTER TABLE triumph_config RENAME COLUMN target TO target_setting');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE triumph_config RENAME COLUMN target_setting TO target');
         $this->addSql('ALTER TABLE triumph_config ALTER target SET DEFAULT \'\'');
     }
 }

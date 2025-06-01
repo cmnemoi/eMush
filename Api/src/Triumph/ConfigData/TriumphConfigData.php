@@ -109,7 +109,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::EXPEDITION,
                 targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,
-                target: TriumphTarget::ACTIVE_EXPLORERS,
+                targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -117,7 +117,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::EXPLORATOR,
                 targetedEvent: ExplorationEvent::EXPLORATION_STARTED,
                 scope: TriumphScope::PERSONAL_HUA,
-                target: TriumphTarget::ACTIVE_EXPLORERS,
+                targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
                 quantity: 3,
             ),
             new TriumphConfigDto(
@@ -226,7 +226,7 @@ abstract class TriumphConfigData
                     PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
-                target: TriumphTarget::STATUS_HOLDER,
+                targetSetting: TriumphTarget::STATUS_HOLDER,
                 quantity: 4,
             ),
             new TriumphConfigDto(
@@ -237,7 +237,7 @@ abstract class TriumphConfigData
                     PlayerStatusEnum::POINTLESS_PLAYER => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,
-                target: TriumphTarget::STATUS_HOLDER,
+                targetSetting: TriumphTarget::STATUS_HOLDER,
                 quantity: 5,
             ),
             new TriumphConfigDto(

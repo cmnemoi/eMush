@@ -17,7 +17,7 @@ use Mush\Triumph\Enum\TriumphVisibility;
  * @property int               $quantity         The amount of triumph points awarded
  * @property array             $tagConstraints   Controls the application of the triumph based on the event tags
  * @property TriumphVisibility $visibility       Controls the visibility of triumph log
- * @property TriumphTarget     $target           Determines what relation to the event players should be in to receive the triumph, as long as they fit within the scope (see [`TriumphTarget`](./Enum/TriumphTarget.php))
+ * @property TriumphTarget     $targetSetting    Determines what relation to the event players should be in to receive the triumph, as long as they fit within the scope (see [`TriumphTarget`](./Enum/TriumphTarget.php))
  * @property int               $regressiveFactor Determines after how many gains the gains has 2x less chance to be earned (TODO)
  */
 final readonly class TriumphConfigDto
@@ -30,7 +30,7 @@ final readonly class TriumphConfigDto
         public int $quantity,
         public array $tagConstraints = [],
         public TriumphVisibility $visibility = TriumphVisibility::PRIVATE,
-        public TriumphTarget $target = TriumphTarget::NONE,
+        public TriumphTarget $targetSetting = TriumphTarget::NONE,
         public int $regressiveFactor = 0,
     ) {}
 }

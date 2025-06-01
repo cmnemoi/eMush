@@ -19,11 +19,11 @@ trait TriumphSourceEventTrait
         }
 
         $scopeTargets = $this->getScopeTargetsForTriumph($triumphConfig);
-        if (!$triumphConfig->hasATarget()) {
+        if (!$triumphConfig->hasATargetSetting()) {
             return $scopeTargets;
         }
 
-        return $this->getEventSpecificTargets($triumphConfig->getTarget(), $scopeTargets);
+        return $this->getEventSpecificTargets($triumphConfig->getTargetSetting(), $scopeTargets);
     }
 
     public function hasExpectedTagsFor(TriumphConfig $triumphConfig): bool

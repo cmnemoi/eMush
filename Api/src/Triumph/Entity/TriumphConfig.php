@@ -36,7 +36,7 @@ class TriumphConfig
     private array $targetedEventExpectedTags;
 
     #[ORM\Column(type: 'string', nullable: false, enumType: TriumphTarget::class, options: ['default' => TriumphTarget::NONE])]
-    private TriumphTarget $target;
+    private TriumphTarget $targetSetting;
 
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $quantity;
@@ -53,7 +53,7 @@ class TriumphConfig
         TriumphScope $scope,
         string $targetedEvent,
         array $targetedEventExpectedTags,
-        TriumphTarget $target,
+        TriumphTarget $targetSetting,
         int $quantity,
         TriumphVisibility $visibility,
         int $regressiveFactor,
@@ -63,7 +63,7 @@ class TriumphConfig
         $this->scope = $scope;
         $this->targetedEvent = $targetedEvent;
         $this->targetedEventExpectedTags = $targetedEventExpectedTags;
-        $this->target = $target;
+        $this->targetSetting = $targetSetting;
         $this->quantity = $quantity;
         $this->visibility = $visibility;
         $this->regressiveFactor = $regressiveFactor;
@@ -84,14 +84,14 @@ class TriumphConfig
         return $this->scope;
     }
 
-    public function getTarget(): TriumphTarget
+    public function getTargetSetting(): TriumphTarget
     {
-        return $this->target;
+        return $this->targetSetting;
     }
 
-    public function hasATarget(): bool
+    public function hasATargetSetting(): bool
     {
-        return $this->target !== TriumphTarget::NONE;
+        return $this->targetSetting !== TriumphTarget::NONE;
     }
 
     public function getTargetedEvent(): string
@@ -127,7 +127,7 @@ class TriumphConfig
             $triumphConfigDto->scope,
             $triumphConfigDto->targetedEvent,
             $triumphConfigDto->tagConstraints,
-            $triumphConfigDto->target,
+            $triumphConfigDto->targetSetting,
             $triumphConfigDto->quantity,
             $triumphConfigDto->visibility,
             $triumphConfigDto->regressiveFactor,
@@ -141,7 +141,7 @@ class TriumphConfig
         $this->scope = $triumphConfigDto->scope;
         $this->targetedEvent = $triumphConfigDto->targetedEvent;
         $this->targetedEventExpectedTags = $triumphConfigDto->tagConstraints;
-        $this->target = $triumphConfigDto->target;
+        $this->targetSetting = $triumphConfigDto->targetSetting;
         $this->quantity = $triumphConfigDto->quantity;
         $this->visibility = $triumphConfigDto->visibility;
         $this->regressiveFactor = $triumphConfigDto->regressiveFactor;

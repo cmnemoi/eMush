@@ -71,7 +71,7 @@ final class TriumphSourceEventTraitTest extends TestCase
             quantity: 1,
             tagConstraints: $tagConstraints,
             visibility: TriumphVisibility::NONE,
-            target: TriumphTarget::NONE,
+            targetSetting: TriumphTarget::NONE,
             regressiveFactor: 0
         );
 

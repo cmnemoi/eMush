@@ -3,7 +3,9 @@
 namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Triumph\Enum\TriumphTarget;
 
 class InteractWithEquipmentEvent extends EquipmentEvent
 {
@@ -30,5 +32,13 @@ class InteractWithEquipmentEvent extends EquipmentEvent
         }
 
         return $logParameters;
+    }
+
+    protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    {
+        return match ($targetSetting) {
+            TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
+            default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
+        };
     }
 }

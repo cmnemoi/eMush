@@ -6,6 +6,7 @@ namespace Mush\Triumph\Enum;
 
 enum TriumphEnum: string
 {
+    case ALIEN_SCIENCE = 'alien_science';
     case AMBITIOUS = 'ambitious';
     case CHUN_DEAD = 'chun_dead';
     case CHUN_LIVES = 'chun_lives';
@@ -13,12 +14,19 @@ enum TriumphEnum: string
     case CYCLE_MUSH = 'cycle_mush';
     case EXPEDITION = 'expedition';
     case EXPLORATOR = 'explorator';
+    case HUMANOCIDE = 'humanocide';
+    case HUMANOCIDE_CAT = 'humanocide_cat';
     case KUBE_SOLVED = 'kube_solved';
     case MAGELLAN_ARK = 'magellan_ark';
+    case MUSH_FEAR = 'mush_fear';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
     case MUSH_SPECIALIST = 'mush_specialist';
     case MUSH_VICTORY = 'mush_victory';
+    case MUSHICIDE = 'mushicide';
+    case MUSHICIDE_CAT = 'mushicide_cat';
     case PILGRED_MOTHER = 'pilgred_mother';
+    case PSYCHOCAT = 'psychocat';
+    case PSYCHOPAT = 'psychopat';
     case PRECIOUS_BODY = 'precious_body';
     case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';

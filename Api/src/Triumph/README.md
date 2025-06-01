@@ -14,6 +14,7 @@ The [`TriumphConfig`](./Entity/TriumphConfig.php) entity contains the following 
 - `tagConstraints`: An array of tags that the event must have to trigger the triumph
   - ANY_TAG: The triumph will be triggered if the event has at least one of these tags
   - ALL_TAGS: The triumph will be triggered if the event has all of these tags
+  - NONE_TAGS: The triumph will be triggered if the event has none of these tags
 - `targetSetting`: Determines what relation to the event players should be in to receive the triumph, as long as they fit within the scope (from [`TriumphTarget`](./Enum/TriumphTarget.php))
 - `quantity`: The amount of triumph points awarded
 - `visibility`: Controls the visibility of triumph log
@@ -30,6 +31,7 @@ The [`TriumphScope`](./Enum/TriumphScope.php) enum defines which players receive
 - `ALL_ALIVE_HUMANS`: All human players who are still alive
 - `ALL_ALIVE_PLAYER`: All players (human or Mush) who are still alive
 - `ALL_MUSHS`: All Mush players
+- `ALL_PLAYERS`: All players
 
 You can add new scopes to restrain your triumph targets.
 

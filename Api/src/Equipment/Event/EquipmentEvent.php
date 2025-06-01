@@ -6,9 +6,13 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterface
+class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterface, TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const EQUIPMENT_BROKEN = 'equipment.broken';
     public const EQUIPMENT_CREATED = 'equipment.created';
     public const EQUIPMENT_DESTROYED = 'equipment.destroyed';

@@ -197,6 +197,16 @@
         <target>mush_victory.log</target>
       </segment>
     </unit>
+    <unit id="super_nova">
+      <segment id="super_nova.name" state="initial">
+        <source>super_nova.name</source>
+        <target>super_nova.name</target>
+      </segment>
+      <segment id="super_nova.log" state="initial">
+        <source>super_nova.log</source>
+        <target>super_nova.log</target>
+      </segment>
+    </unit>
     <unit id="chun_dead">
       <segment id="chun_dead.name" state="initial">
         <source>chun_dead.name</source>
@@ -205,6 +215,56 @@
       <segment id="chun_dead.log" state="initial">
         <source>chun_dead.log</source>
         <target>chun_dead.log</target>
+      </segment>
+    </unit>
+    <unit id="mush_fear">
+      <segment id="mush_fear.name" state="initial">
+        <source>mush_fear.name</source>
+        <target>mush_fear.name</target>
+      </segment>
+      <segment id="mush_fear.log" state="initial">
+        <source>mush_fear.log</source>
+        <target>mush_fear.log</target>
+      </segment>
+    </unit>
+    <unit id="mushicide">
+      <segment id="mushicide.name" state="initial">
+        <source>mushicide.name</source>
+        <target>mushicide.name</target>
+      </segment>
+      <segment id="mush_fear.log" state="initial">
+        <source>mushicide.log</source>
+        <target>mushicide.log</target>
+      </segment>
+    </unit>
+    <unit id="humanocide">
+      <segment id="humanocide.name" state="initial">
+        <source>humanocide.name</source>
+        <target>humanocide.name</target>
+      </segment>
+      <segment id="humanocide.log" state="initial">
+        <source>humanocide.log</source>
+        <target>humanocide.log</target>
+      </segment>
+    </unit>
+    <unit id="psychopat">
+      <segment id="psychopat.name" state="initial">
+        <source>psychopat.name</source>
+        <target>psychopat.name</target>
+      </segment>
+      <segment id="psychopat.log" state="initial">
+        <source>psychopat.log</source>
+        <target>psychopat.log</target>
+      </segment>
+    </unit>
+    <unit id="alien_science">
+      <segment id="alien_science.name" state="initial">
+        <source>alien_science.name</source>
+        <target>alien_science.name</target>
+      </segment>
+      <segment id="alien_science.log" state="initial">
+        <source>alien_science.log</source>
+        <target>alien_science.log</target>
       </segment>
     </unit>
   </file>

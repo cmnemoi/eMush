@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
@@ -27,6 +28,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class TriumphSourceEventCest extends AbstractExplorationTester
 {
+    private DaedalusServiceInterface $daedalusService;
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
@@ -35,6 +37,7 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
     {
         parent::_before($I);
 
+        $this->daedalusService = $I->grabService(DaedalusServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -189,34 +192,34 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         $I->assertEquals(2, $raluca->getTriumph());
     }
 
-    public function shouldGiveMushTriumphOnChunDeath(FunctionalTester $I): void
+    public function shouldGiveTriumphOnSuperNova(FunctionalTester $I): void
     {
         $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->chun->setTriumph(0);
         $this->kuanTi->setTriumph(0);
 
-        // When Chun dies
+        $this->daedalusService->endDaedalus($this->daedalus, EndCauseEnum::SUPER_NOVA, new \DateTime());
+
+        // super_nova triumph
+        $I->assertGreaterThanOrEqual(20, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(20, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    public function shouldNotGiveTriumphOnSuperNovaForAlreadyDeadPlayers(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+
         $this->playerService->killPlayer(
             player: $this->chun,
             endReason: EndCauseEnum::DEPRESSION,
         );
 
-        // Chun dead triumph
-        $I->assertEquals(7, $this->kuanTi->getTriumph());
-    }
-
-    public function shouldNotGiveMushTriumphOnNonChunDeath(FunctionalTester $I): void
-    {
-        $this->convertPlayerToMush($I, $this->kuanTi);
-        $hua = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::HUA);
+        $this->chun->setTriumph(0);
         $this->kuanTi->setTriumph(0);
 
-        // When Hua dies
-        $this->playerService->killPlayer(
-            player: $hua,
-            endReason: EndCauseEnum::DEPRESSION,
-        );
+        $this->daedalusService->endDaedalus($this->daedalus, EndCauseEnum::SUPER_NOVA, new \DateTime());
 
-        // Mush should not gain triumph
-        $I->assertEquals(0, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(20, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 }

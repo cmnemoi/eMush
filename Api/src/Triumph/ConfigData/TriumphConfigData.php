@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
@@ -17,6 +18,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Triumph\Dto\TriumphConfigDto;
@@ -96,6 +98,17 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::SUPER_NOVA->toConfigKey('default'),
+                name: TriumphEnum::SUPER_NOVA,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::SUPER_NOVA => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_PLAYERS,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
+                quantity: 20,
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::MUSH_INITIAL_BONUS->toConfigKey('default'),
@@ -220,12 +233,11 @@ abstract class TriumphConfigData
                 name: TriumphEnum::AMBITIOUS,
                 targetedEvent: StatusEvent::STATUS_APPLIED,
                 tagConstraints: [
-                    CharacterEnum::STEPHEN => TriumphSourceEventInterface::ALL_TAGS,
                     PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                     PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                     PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                 ],
-                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                scope: TriumphScope::PERSONAL_STEPHEN,
                 targetSetting: TriumphTarget::STATUS_HOLDER,
                 quantity: 4,
             ),
@@ -252,6 +264,112 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 7,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSH_FEAR->toConfigKey('default'),
+                name: TriumphEnum::MUSH_FEAR,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::ALL_TAGS,
+                    EndCauseEnum::EDEN => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::QUARANTINE => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::SOL_RETURN => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_GIOELE,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSHICIDE->toConfigKey('default'),
+                name: TriumphEnum::MUSHICIDE,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::ASSASSINATED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BEHEADED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BLED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::INJURY => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::ROCKETED => TriumphSourceEventInterface::ANY_TAG,
+                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSHICIDE_CAT->toConfigKey('default'),
+                name: TriumphEnum::MUSHICIDE_CAT,
+                targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
+                tagConstraints: [
+                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    EquipmentStatusEnum::CAT_INFECTED => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::HUMANOCIDE->toConfigKey('default'),
+                name: TriumphEnum::HUMANOCIDE,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::ASSASSINATED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BEHEADED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BLED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::INJURY => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::ROCKETED => TriumphSourceEventInterface::ANY_TAG,
+                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::HUMANOCIDE_CAT->toConfigKey('default'),
+                name: TriumphEnum::HUMANOCIDE_CAT,
+                targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
+                tagConstraints: [
+                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                    EquipmentStatusEnum::CAT_INFECTED => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PSYCHOPAT->toConfigKey('default'),
+                name: TriumphEnum::PSYCHOPAT,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::ASSASSINATED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BEHEADED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::BLED => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::INJURY => TriumphSourceEventInterface::ANY_TAG,
+                    EndCauseEnum::ROCKETED => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::PERSONAL_CHAO,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PSYCHOCAT->toConfigKey('default'),
+                name: TriumphEnum::PSYCHOCAT,
+                targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
+                tagConstraints: [
+                    ActionEnum::SHOOT_CAT->value => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_CHAO,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::ALIEN_SCIENCE->toConfigKey('default'),
+                name: TriumphEnum::ALIEN_SCIENCE,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    EndCauseEnum::ALIEN_ABDUCTED => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_PLAYERS,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
+                quantity: 16,
             ),
         ];
     }

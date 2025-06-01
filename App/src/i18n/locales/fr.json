@@ -646,9 +646,9 @@
 			"report": "Plainte",
 			"loadMoreMessages": "Charger plus de messages",
 			"markChannelAsRead": "Marquer le canal comme lu",
-			"exportChannelAsClipboard": "📋",
+			"exportChannelAsClipboard": "Presse-papier 📋",
 			"exportChannelAsClipboardDescription": "copie la discussion dans le presse-papier.",
-			"exportChannelAsPDF": "🖨️",
+			"exportChannelAsPDF": "Fichier PDF 🖨️",
 			"exportChannelAsPDFDescription": "Créé un fichier PDF contenant la discussion.",			"unbookmark": "Plus favori",
 			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
 		},

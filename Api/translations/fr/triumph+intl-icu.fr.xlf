@@ -52,13 +52,13 @@
       </segment>
     </unit>
     <unit id="sol_mush_invasion">
-      <segment id="sol_mush_invasion" state="initial">
+      <segment id="sol_mush_invasion" state="translated">
         <source>sol_mush_invasion.name</source>
         <target>Invasion de Sol contaminé</target>
       </segment>
-      <segment id="sol_mush_invasion.log" state="initial">
+      <segment id="sol_mush_invasion.log" state="translated">
         <source>sol_mush_invasion.log</source>
-        <target>Vous avez gagné {quantity} :triumph_mush: en invahissant Sol en tant que Mush !</target>
+        <target>Vous avez gagné {quantity} :triumph_mush: en envahissant Sol en tant que Mush !</target>
       </segment>
     </unit>
     <unit id="mush_initial_bonus">
@@ -192,161 +192,161 @@
       </segment>
     </unit>
     <unit id="mush_victory">
-      <segment id="mush_victory.name" state="initial">
+      <segment id="mush_victory.name" state="translated">
         <source>mush_victory.name</source>
         <target>Le Mush a vaincu</target>
       </segment>
-      <segment id="mush_victory.log" state="initial">
+      <segment id="mush_victory.log" state="translated">
         <source>mush_victory.log</source>
         <target>Vous avez gagné {quantity} :triumph_mush: car le Mush a pris le contrôle total de ce vaisseau !</target>
       </segment>
     </unit>
     <unit id="super_nova">
-      <segment id="super_nova.name" state="initial">
+      <segment id="super_nova.name" state="translated">
         <source>super_nova.name</source>
         <target>Super Nova</target>
       </segment>
-      <segment id="super_nova.log" state="initial">
+      <segment id="super_nova.log" state="translated">
         <source>super_nova.log</source>
-        <target>Vous avez gagné {quantity} :triumph: car vous avez éparpillé par une explosion stellaire.</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez été éparpillé par une explosion stellaire.</target>
       </segment>
     </unit>
     <unit id="chun_dead">
-      <segment id="chun_dead.name" state="initial">
+      <segment id="chun_dead.name" state="translated">
         <source>chun_dead.name</source>
         <target>Sans Espoir</target>
       </segment>
-      <segment id="chun_dead.log" state="initial">
+      <segment id="chun_dead.log" state="translated">
         <source>chun_dead.log</source>
         <target>Vous avez gagné {quantity} :triumph_mush: car :chun: le Seul Espoir de l'Humanité a quitté ce monde.</target>
       </segment>
     </unit>
     <unit id="mush_fear">
-      <segment id="mush_fear.name" state="initial">
+      <segment id="mush_fear.name" state="translated">
         <source>mush_fear.name</source>
         <target>Peur du Mush</target>
       </segment>
-      <segment id="mush_fear.log" state="initial">
+      <segment id="mush_fear.log" state="translated">
         <source>mush_fear.log</source>
         <target>Vous avez gagné {quantity} :triumph: car un Mush a été éliminé en votre présence en tant que Gioele !</target>
       </segment>
     </unit>
     <unit id="mushicide">
-      <segment id="mushicide.name" state="initial">
+      <segment id="mushicide.name" state="translated">
         <source>mushicide.name</source>
         <target>Mushicide</target>
       </segment>
-      <segment id="mush_fear.log" state="initial">
+      <segment id="mush_fear.log" state="translated">
         <source>mushicide.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en portant le coup fatal à Mush !</target>
+        <target>Vous avez gagné {quantity} :triumph: en portant le coup fatal à un Mush !</target>
       </segment>
     </unit>
     <unit id="humanocide">
-      <segment id="humanocide.name" state="initial">
+      <segment id="humanocide.name" state="translated">
         <source>humanocide.name</source>
         <target>Humanocide</target>
       </segment>
-      <segment id="humanocide.log" state="initial">
+      <segment id="humanocide.log" state="translated">
         <source>humanocide.log</source>
         <target>Vous avez gagné {quantity} :triumph_mush: en portant le coup fatal à un humain.</target>
       </segment>
     </unit>
     <unit id="psychopat">
-      <segment id="psychopat.name" state="initial">
+      <segment id="psychopat.name" state="translated">
         <source>psychopat.name</source>
         <target>Psy-Chao-pate</target>
       </segment>
-      <segment id="psychopat.log" state="initial">
+      <segment id="psychopat.log" state="translated">
         <source>psychopat.log</source>
         <target>Vous avez gagné {quantity} :triumph: en portant le coup fatal à un équipier en tant que Chao.</target>
       </segment>
     </unit>
     <unit id="alien_science">
-      <segment id="alien_science.name" state="initial">
+      <segment id="alien_science.name" state="translated">
         <source>alien_science.name</source>
         <target>Objet de recherche</target>
       </segment>
-      <segment id="alien_science.log" state="initial">
+      <segment id="alien_science.log" state="translated">
         <source>alien_science.log</source>
         <target>Vous avez gagné {quantity} :triumph: en étant vendu à un vaisseau alien.</target>
       </segment>
     </unit>
     <unit id="eden_mush_invasion">
-      <segment id="eden_mush_invasion.name" state="initial">
+      <segment id="eden_mush_invasion.name" state="translated">
         <source>eden_mush_invasion.name</source>
         <target>Invasion d'Eden</target>
       </segment>
-      <segment id="eden_mush_invasion.log" state="initial">
+      <segment id="eden_mush_invasion.log" state="translated">
         <source>eden_mush_invasion.log</source>
         <target>Vous avez gagné {quantity} :triumph_mush: en invahissant Eden en tant que Mush !</target>
       </segment>
     </unit>
     <unit id="eden_mush_intruder">
-      <segment id="eden_mush_intruder.name" state="initial">
+      <segment id="eden_mush_intruder.name" state="translated">
         <source>eden_mush_intruder.name</source>
         <target>Contamination d'Eden</target>
       </segment>
-      <segment id="eden_mush_intruder.log" state="initial">
+      <segment id="eden_mush_intruder.log" state="translated">
         <source>eden_mush_intruder.log</source>
         <target>Vous avez perdu {quantity} :triumph: car des Mushs vous ont suivis sur Eden...</target>
       </segment>
     </unit>
     <unit id="eden_one_man">
-      <segment id="eden_one_man.name" state="initial">
+      <segment id="eden_one_man.name" state="translated">
         <source>eden_one_man.name</source>
         <target>Un pour tous</target>
       </segment>
-      <segment id="eden_one_man.log" state="initial">
+      <segment id="eden_one_man.log" state="translated">
         <source>eden_one_man.log</source>
-        <target>Vous avez gagné {quantity} :triumph: car {quantity} {quantity, select 1 {équipier a} other {équipiers ont}} ont atteint Eden.</target>
+        <target>Vous avez gagné {quantity} :triumph: car {quantity} {quantity, select 1 {équipier a} other {équipiers ont}} atteint Eden.</target>
       </segment>
     </unit>
     <unit id="eden_engineers">
-      <segment id="eden_engineers.name" state="initial">
+      <segment id="eden_engineers.name" state="translated">
         <source>eden_engineers.name</source>
         <target>Futur technique</target>
       </segment>
-      <segment id="eden_engineers.log" state="initial">
+      <segment id="eden_engineers.log" state="translated">
         <source>eden_engineers.log</source>
         <target>Vous avez gagné {quantity} :triumph: en atteignant Eden en tant que technicien.</target>
       </segment>
     </unit>
     <unit id="eden_biologists">
-      <segment id="eden_biologists.name" state="initial">
+      <segment id="eden_biologists.name" state="translated">
         <source>eden_biologists.name</source>
         <target>Futur biologique</target>
       </segment>
-      <segment id="eden_biologists.log" state="initial">
+      <segment id="eden_biologists.log" state="translated">
         <source>eden_biologists.log</source>
         <target>Vous avez gagné {quantity} :triumph: en atteignant Eden en tant que biologiste.</target>
       </segment>
     </unit>
     <unit id="savior">
-      <segment id="savior.name" state="initial">
+      <segment id="savior.name" state="translated">
         <source>savior.name</source>
         <target>Sauveur</target>
       </segment>
-      <segment id="savior.log" state="initial">
+      <segment id="savior.log" state="translated">
         <source>savior.log</source>
         <target>Vous avez gagné {quantity} :triumph: en atteignant Eden en tant que Jin Su !</target>
       </segment>
     </unit>
     <unit id="remedy">
-      <segment id="remedy.name" state="initial">
+      <segment id="remedy.name" state="translated">
         <source>remedy.name</source>
         <target>Remède</target>
       </segment>
-      <segment id="remedy.log" state="initial">
+      <segment id="remedy.log" state="translated">
         <source>remedy.log</source>
         <target>Vous avez gagné {quantity} :triumph: en atteignant Eden en tant que Chun !</target>
       </segment>
     </unit>
     <unit id="eden_at_least">
-      <segment id="eden_at_least.name" state="initial">
+      <segment id="eden_at_least.name" state="translated">
         <source>eden_at_least.name</source>
         <target>Ève et Adam</target>
       </segment>
-      <segment id="eden_at_least.log" state="initial">
+      <segment id="eden_at_least.log" state="translated">
         <source>eden_at_least.log</source>
         <target>Vous avez gagné {quantity} :triumph: en atteignant Eden !</target>
       </segment>

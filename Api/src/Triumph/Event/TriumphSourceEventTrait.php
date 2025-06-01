@@ -82,6 +82,7 @@ trait TriumphSourceEventTrait
             TriumphScope::ALL_ALIVE_MUSHS => $this->getDaedalus()->getAlivePlayers()->getMushPlayer(),
             TriumphScope::ALL_ALIVE_PLAYERS => $this->getDaedalus()->getAlivePlayers(),
             TriumphScope::ALL_MUSHS => $this->getDaedalus()->getMushPlayers(),
+            TriumphScope::ALL_PLAYERS => $this->getDaedalus()->getPlayers(),
             default => throw new \LogicException('Unsupported triumph scope: ' . $triumphConfig->getScope()->value),
         };
     }

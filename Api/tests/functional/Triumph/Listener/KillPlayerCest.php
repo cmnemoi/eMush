@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\functional\Triumph\Event;
+namespace Mush\Tests\functional\Triumph\Listener;
 
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Enum\EndCauseEnum;
@@ -13,7 +13,7 @@ use Mush\Tests\FunctionalTester;
 /**
  * @internal
  */
-final class OnPlayerDeathCest extends AbstractExplorationTester
+final class KillPlayerCest extends AbstractExplorationTester
 {
     private PlayerServiceInterface $playerService;
 
@@ -294,5 +294,25 @@ final class OnPlayerDeathCest extends AbstractExplorationTester
         $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
         $I->assertEquals(0, $this->chun->getTriumph());
         $I->assertEquals(0, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    public function shouldDistributeTriumphOnPlayerAbducted(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->kuanTi->setTriumph(0);
+        $this->chun->setTriumph(0);
+
+        // When Chun sells Mush
+        $this->playerService->killPlayer(
+            player: $this->kuanTi,
+            endReason: EndCauseEnum::ALIEN_ABDUCTED,
+            author: $this->chun
+        );
+
+        // Sold player gets triumph
+        $I->assertEquals(16, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+
+        // Trader gets no triumph despite selling an enemy
+        $I->assertEquals(0, $this->chun->getTriumph());
     }
 }

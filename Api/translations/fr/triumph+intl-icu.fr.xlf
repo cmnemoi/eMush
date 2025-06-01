@@ -197,6 +197,16 @@
         <target>mush_victory.log</target>
       </segment>
     </unit>
+    <unit id="super_nova">
+      <segment id="super_nova.name" state="initial">
+        <source>super_nova.name</source>
+        <target>super_nova.name</target>
+      </segment>
+      <segment id="super_nova.log" state="initial">
+        <source>super_nova.log</source>
+        <target>super_nova.log</target>
+      </segment>
+    </unit>
     <unit id="chun_dead">
       <segment id="chun_dead.name" state="initial">
         <source>chun_dead.name</source>
@@ -245,6 +255,16 @@
       <segment id="psychopat.log" state="initial">
         <source>psychopat.log</source>
         <target>psychopat.log</target>
+      </segment>
+    </unit>
+    <unit id="alien_science">
+      <segment id="alien_science.name" state="initial">
+        <source>alien_science.name</source>
+        <target>alien_science.name</target>
+      </segment>
+      <segment id="alien_science.log" state="initial">
+        <source>alien_science.log</source>
+        <target>alien_science.log</target>
       </segment>
     </unit>
   </file>

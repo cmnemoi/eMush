@@ -11,6 +11,7 @@ enum TriumphScope: string
     case ALL_ALIVE_HUMANS = 'all_alive_humans';
     case ALL_ALIVE_PLAYERS = 'all_alive_players';
     case ALL_MUSHS = 'all_mushs';
+    case ALL_PLAYERS = 'all_players';
 
     // Personal triumph
     case PERSONAL_CHUN = 'personal_chun';

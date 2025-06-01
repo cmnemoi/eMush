@@ -1,7 +1,7 @@
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
-export const page = {
+const page = {
     maxHeightCanvas: 32767,
     html2canvasScale: 1.5,
     jpgCompression: 0.8,
@@ -10,8 +10,7 @@ export const page = {
     pageHeight: 295
 };
 
-
-export async function createChannelCanvas(chatbox: HTMLElement): Promise<HTMLCanvasElement> {
+async function createChannelCanvas(chatbox: HTMLElement): Promise<HTMLCanvasElement> {
     const imgWidth = page.pageWidth * page.sizeReduction;
 
     const originalStyle = {

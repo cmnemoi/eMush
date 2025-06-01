@@ -88,7 +88,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
                 'place' => $this->player->getPlace()->getName(),
                 'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
                 'playerInfo' => $this->player->getPlayerInfo(),
-                'log' => TriumphEnum::MUSHICIDE->toString(),
+                'log' => TriumphEnum::MUSHICIDE->toLogKey(),
                 'visibility' => VisibilityEnum::PRIVATE,
             ]
         );
@@ -97,7 +97,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
         $I->dontSeeInRepository(
             entity: RoomLog::class,
             params: [
-                'log' => TriumphEnum::MUSHICIDE_CAT->toString(),
+                'log' => TriumphEnum::MUSHICIDE_CAT->toLogKey(),
             ]
         );
     }

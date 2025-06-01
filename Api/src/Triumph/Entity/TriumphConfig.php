@@ -116,7 +116,7 @@ class TriumphConfig
 
     public function getLogKey(): string
     {
-        return $this->name->toLogKey();
+        return $this->getTriumphLogName()->toLogKey();
     }
 
     public static function fromDto(TriumphConfigDto $triumphConfigDto): self
@@ -145,5 +145,15 @@ class TriumphConfig
         $this->quantity = $triumphConfigDto->quantity;
         $this->visibility = $triumphConfigDto->visibility;
         $this->regressiveFactor = $triumphConfigDto->regressiveFactor;
+    }
+
+    private function getTriumphLogName(): TriumphEnum
+    {
+        return match ($this->name) {
+            TriumphEnum::MUSHICIDE_CAT => TriumphEnum::MUSHICIDE,
+            TriumphEnum::HUMANOCIDE_CAT => TriumphEnum::HUMANOCIDE,
+            TriumphEnum::PSYCHOCAT => TriumphEnum::PSYCHOPAT,
+            default => $this->name,
+        };
     }
 }

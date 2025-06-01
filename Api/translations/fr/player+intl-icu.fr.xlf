@@ -60,7 +60,7 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       </segment>
       <segment id="neron_manager.desc" state="translated">
         <source>neron_manager.desc</source>
-        <target>L'Administrateur NERON peut accéder au BIOS de NERON. Il a également des accès privilégiés aux programmes de gestion du quotidien.</target>
+        <target>L'Administrateur NERON peut accéder au **BIOS de NERON** pour changer certains paramètres du Daedalus. // Il peut également **parler en tant que NERON** sur le canal public en écrivant */neron* au début de leur message.</target>
       </segment>
       <segment id="com_manager.name" state="translated">
         <source>com_manager.name</source>
@@ -68,7 +68,7 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       </segment>
       <segment id="com_manager.desc" state="translated">
         <source>com_manager.desc</source>
-        <target>Le Responsable des Communications peut engager des opérations de prise de contact une fois que le contact avec Sol est rétabli.</target>
+        <target>Le Responsable des Communications peut accéder au **Centre de Communication** pour rétablir le contact avec le réseau rebelle de Sol. // Il peut créer des **Annonces Générales**, qui sont envoyées à tous les membres de l'équipage. // Il peut également **accéder aux canaux de communication sans porter un talkie**.</target>
       </segment>
     </unit>
     <unit id="shoot">

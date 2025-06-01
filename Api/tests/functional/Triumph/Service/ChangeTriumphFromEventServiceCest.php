@@ -83,7 +83,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
         $I->seeInRepository(
             entity: RoomLog::class,
             params: [
-                'place' => $this->player->getName(),
+                'place' => $this->player->getPlace()->getName(),
                 'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'log' => TriumphEnum::MUSHICIDE->toString(),

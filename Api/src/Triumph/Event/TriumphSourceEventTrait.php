@@ -6,6 +6,8 @@ namespace Mush\Triumph\Event;
 
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Player;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphScope;
 use Mush\Triumph\Enum\TriumphTarget;
@@ -81,6 +83,8 @@ trait TriumphSourceEventTrait
             TriumphScope::ALL_ALIVE_HUMANS => $this->getDaedalus()->getAlivePlayers()->getHumanPlayer(),
             TriumphScope::ALL_ALIVE_MUSHS => $this->getDaedalus()->getAlivePlayers()->getMushPlayer(),
             TriumphScope::ALL_ALIVE_PLAYERS => $this->getDaedalus()->getAlivePlayers(),
+            TriumphScope::ALL_ALIVE_HUMAN_PHARMACISTS => $this->getDaedalus()->getAlivePlayers()->getHumanPlayer()->filter(static fn (Player $player) => $player->hasAnySkill([SkillEnum::NURSE, SkillEnum::BIOLOGIST, SkillEnum::MEDIC])),
+            TriumphScope::ALL_ALIVE_HUMAN_TECHNICIANS => $this->getDaedalus()->getAlivePlayers()->getHumanPlayer()->filter(static fn (Player $player) => $player->hasSkill(SkillEnum::TECHNICIAN)),
             TriumphScope::ALL_MUSHS => $this->getDaedalus()->getMushPlayers(),
             TriumphScope::ALL_PLAYERS => $this->getDaedalus()->getPlayers(),
             default => throw new \LogicException('Unsupported triumph scope: ' . $triumphConfig->getScope()->value),

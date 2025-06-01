@@ -12,6 +12,12 @@ enum TriumphEnum: string
     case CHUN_LIVES = 'chun_lives';
     case CYCLE_HUMAN = 'cycle_human';
     case CYCLE_MUSH = 'cycle_mush';
+    case EDEN_AT_LEAST = 'eden_at_least';
+    case EDEN_BIOLOGISTS = 'eden_biologists';
+    case EDEN_ENGINEERS = 'eden_engineers';
+    case EDEN_MUSH_INTRUDER = 'eden_mush_intruder';
+    case EDEN_MUSH_INVASION = 'eden_mush_invasion';
+    case EDEN_ONE_MAN = 'eden_one_man';
     case EXPEDITION = 'expedition';
     case EXPLORATOR = 'explorator';
     case HUMANOCIDE = 'humanocide';
@@ -28,10 +34,12 @@ enum TriumphEnum: string
     case PSYCHOCAT = 'psychocat';
     case PSYCHOPAT = 'psychopat';
     case PRECIOUS_BODY = 'precious_body';
+    case REMEDY = 'remedy';
     case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';
     case RESEARCH_STANDARD = 'research_standard';
     case RETURN_TO_SOL = 'return_to_sol';
+    case SAVIOR = 'savior';
     case SOL_CONTACT = 'sol_contact';
     case SOL_MUSH_INVASION = 'sol_mush_invasion';
     case SOL_MUSH_INTRUDER = 'sol_mush_intruder';

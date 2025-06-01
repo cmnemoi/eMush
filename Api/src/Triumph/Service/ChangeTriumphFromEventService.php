@@ -52,7 +52,8 @@ final class ChangeTriumphFromEventService
     private function computeTriumphForPlayer(TriumphConfig $triumphConfig, Player $player): int
     {
         return match ($triumphConfig->getName()) {
-            TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
+            TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
+            TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
             default => $triumphConfig->getQuantity(),
         };

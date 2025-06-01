@@ -267,5 +267,165 @@
         <target>alien_science.log</target>
       </segment>
     </unit>
+    <unit id="eden_at_least">
+      <segment id="eden_at_least.name" state="initial">
+        <source>eden_at_least.name</source>
+        <target>eden_at_least.name</target>
+      </segment>
+      <segment id="eden_at_least.log" state="initial">
+        <source>eden_at_least.log</source>
+        <target>eden_at_least.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_invasion">
+      <segment id="eden_mush_invasion.name" state="initial">
+        <source>eden_mush_invasion.name</source>
+        <target>eden_mush_invasion.name</target>
+      </segment>
+      <segment id="eden_mush_invasion.log" state="initial">
+        <source>eden_mush_invasion.log</source>
+        <target>eden_mush_invasion.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_intruder">
+      <segment id="eden_mush_intruder.name" state="initial">
+        <source>eden_mush_intruder.name</source>
+        <target>eden_mush_intruder.name</target>
+      </segment>
+      <segment id="eden_mush_intruder.log" state="initial">
+        <source>eden_mush_intruder.log</source>
+        <target>eden_mush_intruder.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_one_man">
+      <segment id="eden_one_man.name" state="initial">
+        <source>eden_one_man.name</source>
+        <target>eden_one_man.name</target>
+      </segment>
+      <segment id="eden_one_man.log" state="initial">
+        <source>eden_one_man.log</source>
+        <target>eden_one_man.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_engineers">
+      <segment id="eden_engineers.name" state="initial">
+        <source>eden_engineers.name</source>
+        <target>eden_engineers.name</target>
+      </segment>
+      <segment id="eden_engineers.log" state="initial">
+        <source>eden_engineers.log</source>
+        <target>eden_engineers.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_biologists">
+      <segment id="eden_biologists.name" state="initial">
+        <source>eden_biologists.name</source>
+        <target>eden_biologists.name</target>
+      </segment>
+      <segment id="eden_biologists.log" state="initial">
+        <source>eden_biologists.log</source>
+        <target>eden_biologists.log</target>
+      </segment>
+    </unit>
+    <unit id="savior">
+      <segment id="savior.name" state="initial">
+        <source>savior.name</source>
+        <target>savior.name</target>
+      </segment>
+      <segment id="savior.log" state="initial">
+        <source>savior.log</source>
+        <target>savior.log</target>
+      </segment>
+    </unit>
+    <unit id="remedy">
+      <segment id="remedy.name" state="initial">
+        <source>remedy.name</source>
+        <target>remedy.name</target>
+      </segment>
+      <segment id="remedy.log" state="initial">
+        <source>remedy.log</source>
+        <target>remedy.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_at_least">
+      <segment id="eden_at_least.name" state="initial">
+        <source>eden_at_least.name</source>
+        <target>eden_at_least.name</target>
+      </segment>
+      <segment id="eden_at_least.log" state="initial">
+        <source>eden_at_least.log</source>
+        <target>eden_at_least.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_invasion">
+      <segment id="eden_mush_invasion.name" state="initial">
+        <source>eden_mush_invasion.name</source>
+        <target>eden_mush_invasion.name</target>
+      </segment>
+      <segment id="eden_mush_invasion.log" state="initial">
+        <source>eden_mush_invasion.log</source>
+        <target>eden_mush_invasion.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_intruder">
+      <segment id="eden_mush_intruder.name" state="initial">
+        <source>eden_mush_intruder.name</source>
+        <target>eden_mush_intruder.name</target>
+      </segment>
+      <segment id="eden_mush_intruder.log" state="initial">
+        <source>eden_mush_intruder.log</source>
+        <target>eden_mush_intruder.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_one_man">
+      <segment id="eden_one_man.name" state="initial">
+        <source>eden_one_man.name</source>
+        <target>eden_one_man.name</target>
+      </segment>
+      <segment id="eden_one_man.log" state="initial">
+        <source>eden_one_man.log</source>
+        <target>eden_one_man.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_engineers">
+      <segment id="eden_engineers.name" state="initial">
+        <source>eden_engineers.name</source>
+        <target>eden_engineers.name</target>
+      </segment>
+      <segment id="eden_engineers.log" state="initial">
+        <source>eden_engineers.log</source>
+        <target>eden_engineers.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_biologists">
+      <segment id="eden_biologists.name" state="initial">
+        <source>eden_biologists.name</source>
+        <target>eden_biologists.name</target>
+      </segment>
+      <segment id="eden_biologists.log" state="initial">
+        <source>eden_biologists.log</source>
+        <target>eden_biologists.log</target>
+      </segment>
+    </unit>
+    <unit id="savior">
+      <segment id="savior.name" state="initial">
+        <source>savior.name</source>
+        <target>savior.name</target>
+      </segment>
+      <segment id="savior.log" state="initial">
+        <source>savior.log</source>
+        <target>savior.log</target>
+      </segment>
+    </unit>
+    <unit id="remedy">
+      <segment id="remedy.name" state="initial">
+        <source>remedy.name</source>
+        <target>remedy.name</target>
+      </segment>
+      <segment id="remedy.log" state="initial">
+        <source>remedy.log</source>
+        <target>remedy.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

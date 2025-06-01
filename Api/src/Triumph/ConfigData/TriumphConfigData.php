@@ -371,6 +371,86 @@ abstract class TriumphConfigData
                 targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: 16,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_AT_LEAST->toConfigKey('default'),
+                name: TriumphEnum::EDEN_AT_LEAST,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 6,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_MUSH_INVASION->toConfigKey('default'),
+                name: TriumphEnum::EDEN_MUSH_INVASION,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 32,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_MUSH_INTRUDER->toConfigKey('default'),
+                name: TriumphEnum::EDEN_MUSH_INTRUDER,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: -16,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_ONE_MAN->toConfigKey('default'),
+                name: TriumphEnum::EDEN_ONE_MAN,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 1,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_ENGINEERS->toConfigKey('default'),
+                name: TriumphEnum::EDEN_ENGINEERS,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMAN_TECHNICIANS,
+                quantity: 6,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_BIOLOGISTS->toConfigKey('default'),
+                name: TriumphEnum::EDEN_BIOLOGISTS,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMAN_PHARMACISTS,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::SAVIOR->toConfigKey('default'),
+                name: TriumphEnum::SAVIOR,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_JIN_SU,
+                quantity: 8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::REMEDY->toConfigKey('default'),
+                name: TriumphEnum::REMEDY,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_CHUN,
+                quantity: 4,
+            ),
         ];
     }
 

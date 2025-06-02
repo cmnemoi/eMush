@@ -28,6 +28,9 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\ConfigData\TriumphConfigData;
+use Mush\Triumph\Entity\TriumphConfig;
+use Mush\Triumph\Enum\TriumphEnum;
 use Mush\User\Entity\User;
 
 class PlayerContaminationCest
@@ -163,6 +166,9 @@ class PlayerContaminationCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
+        $mushStartConfig = TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::MUSH_INITIAL_BONUS));
+        $I->haveInRepository($mushStartConfig);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
@@ -171,6 +177,7 @@ class PlayerContaminationCest
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'triumphConfig' => new ArrayCollection([$mushStartConfig]),
         ]);
 
         /** @var User $user */

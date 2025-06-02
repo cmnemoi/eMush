@@ -14,6 +14,7 @@ use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
@@ -34,16 +35,19 @@ final class ExplorationStartedEventTest extends TestCase
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
     private EventServiceInterface $eventService;
+    private CycleServiceInterface $cycleService;
 
     /**
      * @before
      */
     protected function setUp(): void
     {
+        $this->cycleService = $this->createStub(CycleServiceInterface::class);
         $this->eventService = $this->createStub(EventServiceInterface::class);
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
 
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
+            cycleService: $this->cycleService,
             eventService: $this->eventService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );

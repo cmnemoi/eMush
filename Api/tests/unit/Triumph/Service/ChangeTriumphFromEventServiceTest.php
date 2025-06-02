@@ -9,6 +9,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -29,6 +30,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
 {
     private ChangeTriumphFromEventService $service;
 
+    private CycleServiceInterface $cycleService;
     private EventServiceInterface $eventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
     private Daedalus $daedalus;
@@ -38,9 +40,11 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
      */
     protected function setUp(): void
     {
+        $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
         $this->service = new ChangeTriumphFromEventService(
+            cycleService: $this->cycleService,
             eventService: $this->eventService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );

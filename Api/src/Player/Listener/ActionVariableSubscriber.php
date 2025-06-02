@@ -3,6 +3,7 @@
 namespace Mush\Player\Listener;
 
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -10,6 +11,7 @@ use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ActionVariableSubscriber implements EventSubscriberInterface
@@ -47,7 +49,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
     {
         if ($event->shouldHurtPlayer($this->d100Roll)) {
             $this->hurtPlayer($event);
-            $this->infectPlayer($event);
+            $this->haveCatInfectPlayer($event);
         }
     }
 
@@ -66,19 +68,36 @@ class ActionVariableSubscriber implements EventSubscriberInterface
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function infectPlayer(ActionVariableEvent $event): void
+    private function haveCatInfectPlayer(ActionVariableEvent $event): void
     {
-        if ($event->shouldNotInfectPlayer()) {
+        $actionAuthor = $event->getAuthor();
+
+        if ($actionAuthor->isMush()) {
             return;
         }
 
+        $pickedItem = $event->getActionTarget();
+
+        if (!$pickedItem instanceof GameItem) {
+            return;
+        }
+
+        $catInfectedStatus = $pickedItem->getStatusByName(EquipmentStatusEnum::CAT_INFECTED);
+
+        if (!$catInfectedStatus) {
+            return;
+        }
+
+        $infectAuthor = $catInfectedStatus->getPlayerTargetOrThrow();
+
         $playerVariableEvent = new PlayerVariableEvent(
-            $event->getAuthor(),
+            $actionAuthor,
             PlayerVariableEnum::SPORE,
             1,
             $event->getTagsWithout(EndCauseEnum::CLUMSINESS),
             $event->getTime()
         );
+        $playerVariableEvent->setAuthor($infectAuthor);
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 }

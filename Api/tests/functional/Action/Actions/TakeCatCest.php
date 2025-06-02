@@ -13,6 +13,7 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -32,6 +33,7 @@ final class TakeCatCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private GameItem $schrodinger;
+    private Player $jinSu;
 
     public function _before(FunctionalTester $I): void
     {
@@ -42,7 +44,7 @@ final class TakeCatCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->givenCatIsInShelf($I);
+        $this->givenCatIsInShelf();
     }
 
     public function shouldPrintPublicLog(FunctionalTester $I): void
@@ -104,7 +106,22 @@ final class TakeCatCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenCatIsInShelf(FunctionalTester $I): void
+    public function shouldGiveMushTriumphToAuthorIfInfectedCatConvertsAPlayer(FunctionalTester $I): void
+    {
+        $this->givenCatIsInfected($I);
+
+        $this->givenPlayerHasSpores(2);
+
+        $this->actionConfig->setInjuryRate(100);
+
+        $this->givenAuthorHasTriumph(0);
+
+        $this->whenPlayerTakesCat();
+
+        $this->thenAuthorShouldHaveTriumph(8, $I);
+    }
+
+    private function givenCatIsInShelf(): void
     {
         $this->schrodinger = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::SCHRODINGER,
@@ -116,11 +133,11 @@ final class TakeCatCest extends AbstractFunctionalTest
 
     private function givenCatIsInfected(FunctionalTester $I): void
     {
-        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+        $this->jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
 
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::MUSH,
-            holder: $jinSu,
+            holder: $this->jinSu,
             tags: [],
             time: new \DateTime(),
         );
@@ -130,7 +147,7 @@ final class TakeCatCest extends AbstractFunctionalTest
             holder: $this->schrodinger,
             tags: [],
             time: new \DateTime(),
-            target: $jinSu,
+            target: $this->jinSu,
         );
     }
 
@@ -147,6 +164,11 @@ final class TakeCatCest extends AbstractFunctionalTest
     private function givenPlayerHasSpores(int $spores): void
     {
         $this->player->setSpores($spores);
+    }
+
+    private function givenAuthorHasTriumph(int $triumph): void
+    {
+        $this->jinSu->setTriumph($triumph);
     }
 
     private function whenPlayerTriesToTakeCat(): void
@@ -168,5 +190,10 @@ final class TakeCatCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveSpores(int $expectedSpores, FunctionalTester $I): void
     {
         $I->assertEquals($expectedSpores, $this->player->getSpores());
+    }
+
+    private function thenAuthorShouldHaveTriumph(int $triumph, FunctionalTester $I): void
+    {
+        $I->assertEquals($triumph, $this->jinSu->getTriumph());
     }
 }

@@ -115,8 +115,12 @@ abstract class TriumphConfigData
             new TriumphConfigDto(
                 key: TriumphEnum::MUSH_INITIAL_BONUS->toConfigKey('default'),
                 name: TriumphEnum::MUSH_INITIAL_BONUS,
-                targetedEvent: DaedalusEvent::FULL_DAEDALUS,
+                targetedEvent: PlayerEvent::CONVERSION_PLAYER,
+                tagConstraints: [
+                    DaedalusEvent::FULL_DAEDALUS => TriumphSourceEventInterface::ALL_TAGS,
+                ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: 120,
             ),
             new TriumphConfigDto(
@@ -523,6 +527,18 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_MUSHS,
                 targetSetting: TriumphTarget::AUTHOR,
                 quantity: 8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CYCLE_MUSH_LATE->toConfigKey('default'),
+                name: TriumphEnum::CYCLE_MUSH_LATE,
+                targetedEvent: PlayerEvent::CONVERSION_PLAYER,
+                tagConstraints: [
+                    ActionEnum::EXCHANGE_BODY->toString() => TriumphSourceEventInterface::NONE_TAGS,
+                    DaedalusEvent::FULL_DAEDALUS => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_MUSHS,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
+                quantity: -3,
             ),
         ];
     }

@@ -14,6 +14,7 @@ enum TriumphEnum: string
     case CHUN_LIVES = 'chun_lives';
     case CYCLE_HUMAN = 'cycle_human';
     case CYCLE_MUSH = 'cycle_mush';
+    case CYCLE_MUSH_LATE = 'cycle_mush_late';
     case EDEN_AT_LEAST = 'eden_at_least';
     case EDEN_BIOLOGISTS = 'eden_biologists';
     case EDEN_ENGINEERS = 'eden_engineers';

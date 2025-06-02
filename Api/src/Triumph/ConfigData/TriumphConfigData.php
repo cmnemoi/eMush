@@ -9,6 +9,7 @@ use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
@@ -462,6 +463,23 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_STEPHEN,
                 targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
                 quantity: 2,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::ALIEN_FRIEND->toConfigKey('default'),
+                name: TriumphEnum::ALIEN_FRIEND,
+                targetedEvent: PlanetSectorEvent::PLANET_SECTOR_EVENT,
+                tagConstraints: [
+                    PlanetSectorEnum::INSECT => TriumphSourceEventInterface::ANY_TAG,
+                    PlanetSectorEnum::INTELLIGENT => TriumphSourceEventInterface::ANY_TAG,
+                    PlanetSectorEnum::MANKAROG => TriumphSourceEventInterface::ANY_TAG,
+                    PlanetSectorEnum::PREDATOR => TriumphSourceEventInterface::ANY_TAG,
+                    PlanetSectorEnum::RUMINANT => TriumphSourceEventInterface::ANY_TAG,
+                    PlanetSectorEvent::FIGHT => TriumphSourceEventInterface::ANY_TAG,
+                    PlanetSectorEvent::PROVISION => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::PERSONAL_JANICE,
+                targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
+                quantity: 3,
             ),
         ];
     }

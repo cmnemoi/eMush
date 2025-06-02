@@ -361,5 +361,15 @@
         <target>pretty_cook.log</target>
       </segment>
     </unit>
+    <unit id="alien_friend">
+      <segment id="alien_friend.name" state="initial">
+        <source>alien_friend.name</source>
+        <target>alien_friend.name</target>
+      </segment>
+      <segment id="alien_friend.log" state="initial">
+        <source>alien_friend.log</source>
+        <target>alien_friend.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

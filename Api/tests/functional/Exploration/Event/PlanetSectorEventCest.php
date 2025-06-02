@@ -739,25 +739,45 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(0, $stephen->getTriumph());
     }
 
+    public function testInsectsImproveJaniceTriumph(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INSECT], $I),
+            explorators: $this->players
+        );
+
+        $this->givenEveryoneHasZeroTriumph(0);
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice gets 3 personal triumph for encountering a life form
+        $I->assertEquals(3, $this->janice->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
+    }
+
     public function testProvisionEvent(FunctionalTester $I): void
     {
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::RUMINANT], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::OCEAN], $I),
             explorators: $this->players
         );
 
-        // given only provision event can happen in ruminant sector
+        // given only provision event can happen in oceanic sector
         $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::RUMINANT,
-            events: [PlanetSectorEvent::PROVISION_4 => 1]
+            sectorName: PlanetSectorEnum::OCEAN,
+            events: [PlanetSectorEvent::PROVISION_3 => 1]
         );
+
+        $this->givenEveryoneHasZeroTriumph();
 
         // when provision event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then I should see 4 alien steaks in planet place
-        $I->assertCount(4, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
+        $I->assertCount(3, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
 
         // then I should see 4 public logs in planet place to tell an explorator has found an alien steak
         $roomLogs = $I->grabEntitiesFromRepository(
@@ -768,12 +788,16 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 'log' => LogEnum::FOUND_ITEM_IN_EXPLORATION,
             ]
         );
-        $I->assertCount(4, $roomLogs);
+        $I->assertCount(3, $roomLogs);
         $roomLogParameters = $roomLogs[0]->getParameters();
         $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
 
         // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
         $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
+
+        // then Janice should get 3 triumph despite being lost as active explorator
+        $I->assertEquals(3, $this->janice->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
     }
 
     public function testHarvestEvent(FunctionalTester $I): void

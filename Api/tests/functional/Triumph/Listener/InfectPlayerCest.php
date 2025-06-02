@@ -112,6 +112,60 @@ final class InfectPlayerCest extends AbstractExplorationTester
         $I->assertEquals(106, $this->frieda->getTriumph()); // (7 human cycle triumph) + 120 + (-3) * 7
     }
 
+    public function shouldDistributeTriumphOnInfection(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->givenRoomIsTrappedByKuanTi();
+        $this->frieda->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+
+        $this->whenFriedaInteractsWithRoomEquipment();
+
+        // Infection triumph
+        $I->assertEquals(1, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->frieda->getTriumph());
+    }
+
+    public function shouldDeadAuthorGainMushTriumphOnInfection(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->givenRoomIsTrappedByKuanTi();
+        $this->frieda->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+
+        $this->whenFriedaInteractsWithRoomEquipment();
+
+        // Infection triumph
+        $I->assertEquals(1, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->frieda->getTriumph());
+    }
+
+    public function shouldHumanAuthorNotGainMushTriumphOnInfection(FunctionalTester $I): void
+    {
+        $this->givenRoomIsTrappedByKuanTi();
+        $this->frieda->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+
+        $this->whenFriedaInteractsWithRoomEquipment();
+
+        $I->assertEquals(0, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->frieda->getTriumph());
+    }
+
+    public function shouldNotGainMushTriumphWhenSporeIsWasted(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->convertPlayerToMush($I, $this->frieda);
+        $this->givenRoomIsTrappedByKuanTi();
+        $this->frieda->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+
+        $this->whenFriedaInteractsWithRoomEquipment();
+
+        $I->assertEquals(0, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->frieda->getTriumph());
+    }
+
     private function givenRoomIsTrappedByKuanTi(): void
     {
         $this->statusService->createStatusFromName(

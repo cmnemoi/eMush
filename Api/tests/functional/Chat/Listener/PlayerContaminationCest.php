@@ -239,11 +239,16 @@ class PlayerContaminationCest
         $I->assertEquals(0, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
 
-        $message = $I->grabEntityFromRepository(Message::class, [
+        $messages = $I->grabEntitiesFromRepository(Message::class, [
             'channel' => $mushChannel,
             'message' => MushMessageEnum::INFECT_ACTION,
         ]);
-        $I->assertEquals($message->getTranslationParameters(), ['quantity' => 3, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false']);
+
+        $messageTranslationParametersArray = array_map(static fn ($message) => $message->getTranslationParameters(), $messages);
+
+        $I->assertContainsEquals(['quantity' => 1, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false'], $messageTranslationParametersArray);
+        $I->assertContainsEquals(['quantity' => 2, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false'], $messageTranslationParametersArray);
+        $I->assertNotContainsEquals(['quantity' => 3, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false'], $messageTranslationParametersArray);
 
         $I->assertCount(1, $mushChannel->getParticipants());
 

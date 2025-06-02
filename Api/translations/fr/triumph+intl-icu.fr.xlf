@@ -352,13 +352,23 @@
       </segment>
     </unit>
     <unit id="new_mush">
-      <segment id="new_mush.name" state="translated">
+      <segment id="new_mush.name" state="initial">
         <source>new_mush.name</source>
         <target>new_mush.name</target>
       </segment>
-      <segment id="new_mush.log" state="translated">
+      <segment id="new_mush.log" state="initial">
         <source>new_mush.log</source>
         <target>new_mush.log</target>
+      </segment>
+    </unit>
+    <unit id="infect">
+      <segment id="infect.name" state="initial">
+        <source>infect.name</source>
+        <target>infect.name</target>
+      </segment>
+      <segment id="infect.log" state="initial">
+        <source>infect.log</source>
+        <target>infect.log</target>
       </segment>
     </unit>
   </file>

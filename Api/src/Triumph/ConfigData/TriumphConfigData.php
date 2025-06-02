@@ -540,6 +540,14 @@ abstract class TriumphConfigData
                 targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: -3,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::INFECT->toConfigKey('default'),
+                name: TriumphEnum::INFECT,
+                targetedEvent: PlayerEvent::INFECTION_PLAYER,
+                scope: TriumphScope::ALL_MUSHS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 1,
+            ),
         ];
     }
 

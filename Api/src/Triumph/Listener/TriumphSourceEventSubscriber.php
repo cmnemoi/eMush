@@ -35,6 +35,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             PlanetSectorEvent::PLANET_SECTOR_EVENT => 'onPlanetSectorEvent',
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
+            PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
             ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
@@ -82,6 +83,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onDeathPlayer(PlayerEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onInfectionPlayer(PlayerEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

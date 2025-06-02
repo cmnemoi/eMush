@@ -25,6 +25,7 @@ enum TriumphEnum: string
     case EXPLORATOR = 'explorator';
     case HUMANOCIDE = 'humanocide';
     case HUMANOCIDE_CAT = 'humanocide_cat';
+    case INFECT = 'infect';
     case KUBE_SOLVED = 'kube_solved';
     case MAGELLAN_ARK = 'magellan_ark';
     case MUSH_FEAR = 'mush_fear';

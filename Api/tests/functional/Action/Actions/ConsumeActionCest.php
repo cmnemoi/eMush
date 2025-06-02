@@ -23,6 +23,7 @@ use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -55,6 +56,8 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
+    private Player $contaminator;
+
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
@@ -65,6 +68,9 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->contaminator = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::STEPHEN);
+        $this->convertPlayerToMush($I, $this->contaminator);
     }
 
     public function testConsume(FunctionalTester $I)
@@ -587,6 +593,17 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldGiveTenMushTriumphToContaminatorWhenHumanEatsSevenSpores(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasAContaminatedRationWithSpores(7);
+
+        $this->givenContaminatorhasTriumph(0);
+
+        $this->whenKuanTiConsumesTheRation();
+
+        $this->thenContaminatorShouldHaveTriumph(10, $I); // +1 infection, +1 infection, +8 conversion
+    }
+
     private function givenKuanTiHasAContaminatedRationWithSpores(int $spores): void
     {
         $ration = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -600,7 +617,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             $this->statusService->createOrIncrementChargeStatus(
                 name: EquipmentStatusEnum::CONTAMINATED,
                 holder: $ration,
-                target: $this->chun,
+                target: $this->contaminator,
             );
         }
     }
@@ -613,6 +630,11 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenContaminatorhasTriumph(int $quantity): void
+    {
+        $this->contaminator->setTriumph($quantity);
     }
 
     private function whenKuanTiConsumesTheRation(): void
@@ -629,5 +651,10 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     private function thenKuanTiShouldBeContaminatedBySpores(int $spores, FunctionalTester $I): void
     {
         $I->assertEquals($spores, $this->kuanTi->getSpores());
+    }
+
+    private function thenContaminatorShouldHaveTriumph(int $triumph, FunctionalTester $I): void
+    {
+        $I->assertEquals($triumph, $this->contaminator->getTriumph());
     }
 }

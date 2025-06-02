@@ -1976,6 +1976,14 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT . '_default',
+            'statusName' => DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

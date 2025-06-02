@@ -421,5 +421,25 @@
         <target>looking_for_kivanc.log</target>
       </segment>
     </unit>
+    <unit id="star_map_1">
+      <segment id="star_map_1.name" state="initial">
+        <source>star_map_1.name</source>
+        <target>star_map_1.name</target>
+      </segment>
+      <segment id="star_map_1.log" state="initial">
+        <source>star_map_1.log</source>
+        <target>star_map_1.log</target>
+      </segment>
+    </unit>
+    <unit id="star_map_n">
+      <segment id="star_map_n.name" state="initial">
+        <source>star_map_n.name</source>
+        <target>star_map_n.name</target>
+      </segment>
+      <segment id="star_map_n.log" state="initial">
+        <source>star_map_n.log</source>
+        <target>star_map_n.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

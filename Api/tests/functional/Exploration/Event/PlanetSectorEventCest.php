@@ -1058,11 +1058,25 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::STARMAP => 1]
         );
 
+        // given Raluca stays in the ship
+        $raluca = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::RALUCA);
+        $this->players->add($raluca);
+
+        // given everyone has 0 triumph
+        foreach ($this->players as $player) {
+            $player->setTriumph(0);
+        }
+
         // when starmap event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then I should see a starmap fragment in planet place
         $I->assertTrue($this->daedalus->getPlanetPlace()->hasEquipmentByName(ItemEnum::STARMAP_FRAGMENT));
+
+        // then everyone should gain 6 triumph
+        foreach ($this->players as $player) {
+            $I->assertEquals(6, $player->getTriumph());
+        }
 
         // then I should see 1 public logs in planet place to tell an explorator has found a starmap fragment
         $roomLog = $I->grabEntityFromRepository(

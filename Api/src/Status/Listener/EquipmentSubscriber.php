@@ -5,6 +5,7 @@ namespace Mush\Status\Listener;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GearItemEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\TransformEquipmentEvent;
 use Mush\Equipment\Service\DamageEquipmentServiceInterface;
@@ -12,6 +13,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\Status;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -42,6 +44,7 @@ final class EquipmentSubscriber implements EventSubscriberInterface
             ],
             EquipmentEvent::EQUIPMENT_CREATED => [
                 ['onNewEquipmentInInventory', -2000], // after the overflowing part has been solved
+                ['onEquipmentCreated', 20],
             ],
             EquipmentEvent::INVENTORY_OVERFLOW => [
                 ['onEquipmentRemovedFromInventory'],
@@ -105,6 +108,18 @@ final class EquipmentSubscriber implements EventSubscriberInterface
                 $statusConfig = $this->statusService->getStatusConfigByNameAndDaedalus(PlayerStatusEnum::BURDENED, $holder->getDaedalus());
                 $this->statusService->createStatusFromConfig($statusConfig, $holder, $reasons, $time);
             }
+        }
+    }
+
+    public function onEquipmentCreated(EquipmentEvent $event): void
+    {
+        if ($event->getGameEquipment()->getName() === ItemEnum::STARMAP_FRAGMENT) {
+            $this->statusService->createStatusFromName(
+                statusName: DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT,
+                holder: $event->getDaedalus(),
+                tags: $event->getTags(),
+                time: $event->getTime(),
+            );
         }
     }
 

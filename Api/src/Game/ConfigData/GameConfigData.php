@@ -532,6 +532,7 @@ class GameConfigData
                     PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE . '_default',
                     PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE . '_default',
                     PlayerStatusEnum::POINTLESS_PLAYER . '_default',
+                    DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

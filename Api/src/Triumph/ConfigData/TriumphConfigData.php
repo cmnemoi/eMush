@@ -13,6 +13,7 @@ use Mush\Communications\Event\RebelBaseDecodedEvent;
 use Mush\Communications\Event\XylophEntryDecodedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\ExplorationEvent;
@@ -26,6 +27,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -607,6 +609,28 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::PERSONAL_PAOLA,
                 quantity: 8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::STAR_MAP_1->toConfigKey('default'),
+                name: TriumphEnum::STAR_MAP_1,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_PLAYERS,
+                quantity: 6,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::STAR_MAP_N->toConfigKey('default'),
+                name: TriumphEnum::STAR_MAP_N,
+                targetedEvent: ExplorationEvent::EXPLORATION_NEW_CYCLE,
+                tagConstraints: [
+                    ItemEnum::STARMAP_FRAGMENT => TriumphSourceEventInterface::ALL_TAGS,
+                    DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_PLAYERS,
+                targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
+                quantity: 1,
             ),
         ];
     }

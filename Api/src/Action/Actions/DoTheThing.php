@@ -31,7 +31,6 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
-use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -169,10 +168,7 @@ class DoTheThing extends AbstractAction
         }
 
         // may become pregnant
-        $becomePregnant = $this->randomService->isSuccessful(self::PREGNANCY_RATE);
-        if ($becomePregnant) {
-            $this->addPregnantStatus($player, $target);
-        }
+        $this->checkForPregnancy($player, $target);
 
         // may transmit an STD
         $transmitStd = $this->randomService->isSuccessful(self::STD_TRANSMISSION_RATE);
@@ -190,6 +186,17 @@ class DoTheThing extends AbstractAction
         // add did_the_thing status until the end of the day
         $this->addDidTheThingStatus($player);
         $this->addDidTheThingStatus($target);
+    }
+
+    private function checkForPregnancy(Player $player, Player $target): void
+    {
+        $becomePregnant = $this->randomService->isSuccessful(self::PREGNANCY_RATE)
+        && CharacterEnum::isMale($player->getName()) !== CharacterEnum::isMale($target->getName());
+        if ($becomePregnant) {
+            $femalePlayer = CharacterEnum::isMale($player->getName()) ? $target : $player;
+            $malePlayer = CharacterEnum::isMale($player->getName()) ? $player : $target;
+            $this->addPregnantStatus($femalePlayer, $malePlayer);
+        }
     }
 
     private function addMoralPoints(Player $player, int $moralePoints): void
@@ -232,28 +239,21 @@ class DoTheThing extends AbstractAction
         );
     }
 
-    private function addPregnantStatus(Player $player, Player $target): void
+    private function addPregnantStatus(Player $mother, Player $father): void
     {
-        $playerName = $player->getPlayerInfo()->getCharacterConfig()->getCharacterName();
-        $targetName = $target->getPlayerInfo()->getCharacterConfig()->getCharacterName();
-
-        // Won't make male characters pregnant
-        if (CharacterEnum::isMale($playerName) && CharacterEnum::isMale($targetName)) {
-            return;
+        if (!$mother->isMush() && $father->isMush()) {
+            $this->infect($father, $mother);
         }
 
-        // won't make female characters pregnant between themselves
-        if (!CharacterEnum::isMale($playerName) && !CharacterEnum::isMale($targetName)) {
-            return;
+        $tags = $this->getActionConfig()->getActionTags();
+        if ($mother->isMush()) {
+            $tags[] = PlayerStatusEnum::MUSH;
         }
-
-        /** @var StatusHolderInterface $femalePlayer */
-        $femalePlayer = CharacterEnum::isMale($playerName) ? $target : $player;
 
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::PREGNANT,
-            $femalePlayer,
-            $this->getActionConfig()->getActionTags(),
+            $mother,
+            $tags,
             new \DateTime(),
             null,
             VisibilityEnum::PRIVATE

@@ -84,12 +84,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         }
 
         // given Janice is lost
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LOST,
-            holder: $this->janice,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenLostPlayer($this->janice);
     }
 
     public function testAccidentHurtsExplorator(FunctionalTester $I): void
@@ -691,6 +686,57 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 'eventName' => PlanetSectorEvent::FIGHT,
             ]
         );
+    }
+
+    public function testFightImprovesStephenTriumph(FunctionalTester $I): void
+    {
+        $stephen = $this->givenStephenWithSpacesuit($I);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only fight event can happen in intelligent sector
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::FIGHT_8,
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
+        $this->givenEveryoneHasZeroTriumph(0);
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Stephen gets 2 personal triumph for fight event
+        $I->assertEquals(2, $stephen->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
+    }
+
+    public function testFightDoesNotImproveStephenTriumphWhenNotActiveExplorator(FunctionalTester $I): void
+    {
+        $stephen = $this->givenStephenWithSpacesuit($I);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun, $this->kuanTi, $this->janice, $this->derek])
+        );
+
+        // given only fight event can happen in intelligent sector
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::FIGHT_8,
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
+        $this->givenEveryoneHasZeroTriumph(0);
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Stephen gets no triumph
+        $I->assertEquals(0, $stephen->getTriumph());
     }
 
     public function testProvisionEvent(FunctionalTester $I): void
@@ -1536,6 +1582,39 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private function givenChunHasTenHealthPoints(): void
     {
         $this->chun->setHealthPoint(10);
+    }
+
+    private function givenStephenWithSpacesuit(FunctionalTester $I): Player
+    {
+        $stephen = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::STEPHEN);
+        $this->players->add($stephen);
+
+        // given Stephen has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $stephen,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        return $stephen;
+    }
+
+    private function givenEveryoneHasZeroTriumph(): void
+    {
+        foreach ($this->players as $player) {
+            $player->setTriumph(0);
+        }
+    }
+
+    private function givenLostPlayer(Player $player): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $player,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     private function whenExplorationEventIsDispatched(Exploration $exploration): void

@@ -34,6 +34,7 @@ enum TriumphEnum: string
     case PSYCHOCAT = 'psychocat';
     case PSYCHOPAT = 'psychopat';
     case PRECIOUS_BODY = 'precious_body';
+    case PRETTY_COOK = 'pretty_cook';
     case REMEDY = 'remedy';
     case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';

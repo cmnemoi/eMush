@@ -9,6 +9,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Event\ProjectEvent;
@@ -31,6 +32,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
+            PlanetSectorEvent::PLANET_SECTOR_EVENT => 'onPlanetSectorEvent',
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
@@ -64,6 +66,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onLinkWithSolEstablished(LinkWithSolEstablishedEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onPlanetSectorEvent(PlanetSectorEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

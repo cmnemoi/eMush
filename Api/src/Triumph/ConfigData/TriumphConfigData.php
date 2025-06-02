@@ -10,6 +10,7 @@ use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Player\Enum\EndCauseEnum;
@@ -450,6 +451,17 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::PERSONAL_CHUN,
                 quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PRETTY_COOK->toConfigKey('default'),
+                name: TriumphEnum::PRETTY_COOK,
+                targetedEvent: PlanetSectorEvent::PLANET_SECTOR_EVENT,
+                tagConstraints: [
+                    PlanetSectorEvent::FIGHT => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::PERSONAL_STEPHEN,
+                targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
+                quantity: 2,
             ),
         ];
     }

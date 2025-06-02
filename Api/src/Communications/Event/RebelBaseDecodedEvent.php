@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Communications\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
@@ -27,5 +28,10 @@ final class RebelBaseDecodedEvent extends AbstractGameEvent implements TriumphSo
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function getDaedalusStatistics(): DaedalusStatistics
+    {
+        return $this->getDaedalus()->getDaedalusInfo()->getDaedalusStatistics();
     }
 }

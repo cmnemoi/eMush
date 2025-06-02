@@ -11,6 +11,7 @@ use Mush\Action\Entity\ActionHolderInterface;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
@@ -175,6 +176,11 @@ class Planet implements LogParameterInterface, ActionHolderInterface
     public function getDaedalus(): Daedalus
     {
         return $this->player->getDaedalus();
+    }
+
+    public function getDaedalusStatistics(): DaedalusStatistics
+    {
+        return $this->getDaedalus()->getDaedalusInfo()->getDaedalusStatistics();
     }
 
     public function getClassName(): string

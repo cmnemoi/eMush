@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Scan;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -293,6 +294,23 @@ final class ScanCest extends AbstractFunctionalTest
         $this->scanAction->execute();
 
         $I->assertEquals(8 - 2, $this->player->getActionPoint());
+    }
+
+    public function testPlanetsFoundCounterShouldIncrementWhenAPlanetIsCreated(FunctionalTester $I): void
+    {
+        // given the planets found counter is set to 0
+        $this->daedalus->getDaedalusInfo()->setDaedalusStatistics(new DaedalusStatistics(planetsFound: 0));
+        // when player scans
+        $this->scanAction->loadParameters(
+            actionConfig: $this->scanActionConfig,
+            actionProvider: $this->astroTerminal,
+            player: $this->player,
+            target: $this->astroTerminal
+        );
+        $this->scanAction->execute();
+
+        // then the planets found counter should be incremented to 1.
+        $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getPlanetsFound(), 'planetsFound should be 1.');
     }
 
     public function shouldCostOneLessActionPointForAnAstrophysicist(FunctionalTester $I): void

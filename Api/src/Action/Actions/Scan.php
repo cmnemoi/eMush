@@ -11,6 +11,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NumberOfDiscoverablePlanets;
 use Mush\Action\Validator\Reach;
+use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ReachEnum;
@@ -33,7 +34,8 @@ final class Scan extends AttemptAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         RandomServiceInterface $randomService,
-        PlanetServiceInterface $planetService
+        PlanetServiceInterface $planetService,
+        private DaedalusRepositoryInterface $daedalusRepository,
     ) {
         parent::__construct($eventService, $actionService, $validator, $randomService);
         $this->planetService = $planetService;
@@ -69,6 +71,9 @@ final class Scan extends AttemptAction
         }
 
         $planet = $this->planetService->createPlanet($this->player);
+
+        $planet->getDaedalusStatistics()->changePlanetsFound(1);
+        $this->daedalusRepository->save($this->player->getDaedalus());
 
         $numberOfSectorsToReveal = $this->getOutputQuantity();
         if ($numberOfSectorsToReveal <= 0) {

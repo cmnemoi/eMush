@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Exploration\Event;
 
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Exploration\Entity\Exploration;
@@ -297,5 +298,35 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         // then estimated duration should be 30 minutes
         $I->assertEquals(30, $exploration->getEstimatedDuration());
+    }
+
+    public function testExplorationsStartedCounterShouldIncrementWhenAnExplorationIsCreated(FunctionalTester $I): void
+    {
+        // given players have a spacesuit
+        foreach ($this->players as $player) {
+            $this->gameEquipmentService->createGameEquipmentFromName(
+                equipmentName: GearItemEnum::SPACESUIT,
+                equipmentHolder: $player,
+                reasons: [],
+                time: new \DateTime(),
+            );
+        }
+
+        // given I have a planet to explore
+        $planet = $this->createPlanet(
+            sectors: [
+                PlanetSectorEnum::DESERT,
+            ],
+            functionalTester: $I,
+        );
+
+        // given the explorations started counter is set to 0
+        $this->daedalus->getDaedalusInfo()->setDaedalusStatistics(new DaedalusStatistics(explorationsStarted: 0));
+
+        // given I have an exploration on this planet
+        $exploration = $this->createExploration($planet, $this->players);
+
+        // then the explorations started counter should be incremented to 1.
+        $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getExplorationsStarted(), 'explorationsStarted should be 1.');
     }
 }

@@ -161,13 +161,13 @@
         <target>Vous avez gagné {quantity} :triumph: car un projet NERON a été réalisé en votre présence en tant que Kuan Ti !</target>
       </segment>
     </unit>
-    <unit id="pilgred_mother">
+    <unit id="pilgred_mother.log">
       <segment id="pilgred_mother.name" state="translated">
         <source>pilgred_mother.name</source>
         <target>Maman</target>
       </segment>
       <segment id="pilgred_mother.log" state="translated">
-        <source>pilgred_mother</source>
+        <source>pilgred_mother.log</source>
         <target>Vous avez gagné {quantity} :triumph: en tant que Raluca car PILGRED a avancé significativement !</target>
       </segment>
     </unit>

@@ -54,7 +54,7 @@ class ExplorationEvent extends AbstractGameEvent implements TriumphSourceEventIn
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {
-            TriumphTarget::ACTIVE_EXPLORERS => $scopeTargets->filter(fn (Player $player) => $this->exploration->getActiveExplorators()->contains($player)),
+            TriumphTarget::ACTIVE_EXPLORERS => $scopeTargets->filter(fn (Player $player) => $this->exploration->getNotLostActiveExplorators()->contains($player)),
             default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
     }

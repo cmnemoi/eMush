@@ -351,5 +351,25 @@
         <target>You have earned {quantity} :triumph: by reaching Eden!</target>
       </segment>
     </unit>
+    <unit id="pretty_cook">
+      <segment id="pretty_cook.name" state="initial">
+        <source>pretty_cook.name</source>
+        <target>pretty_cook.name</target>
+      </segment>
+      <segment id="pretty_cook.log" state="initial">
+        <source>pretty_cook.log</source>
+        <target>pretty_cook.log</target>
+      </segment>
+    </unit>
+    <unit id="alien_friend">
+      <segment id="alien_friend.name" state="initial">
+        <source>alien_friend.name</source>
+        <target>alien_friend.name</target>
+      </segment>
+      <segment id="alien_friend.log" state="initial">
+        <source>alien_friend.log</source>
+        <target>alien_friend.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

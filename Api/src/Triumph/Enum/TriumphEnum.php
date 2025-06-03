@@ -6,6 +6,7 @@ namespace Mush\Triumph\Enum;
 
 enum TriumphEnum: string
 {
+    case ALIEN_FRIEND = 'alien_friend';
     case ALIEN_SCIENCE = 'alien_science';
     case AMBITIOUS = 'ambitious';
     case CHUN_DEAD = 'chun_dead';
@@ -34,6 +35,7 @@ enum TriumphEnum: string
     case PSYCHOCAT = 'psychocat';
     case PSYCHOPAT = 'psychopat';
     case PRECIOUS_BODY = 'precious_body';
+    case PRETTY_COOK = 'pretty_cook';
     case REMEDY = 'remedy';
     case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';

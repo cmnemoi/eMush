@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -31,6 +32,7 @@ final class FinishDaedalusEventTest extends TestCase
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
     private EventServiceInterface $eventService;
+    private CycleServiceInterface $cycleService;
 
     private Daedalus $daedalus;
     private Player $player;
@@ -40,6 +42,7 @@ final class FinishDaedalusEventTest extends TestCase
     {
         $this->givenATriumphConfigRepository();
         $this->givenAnEventService();
+        $this->givenACycleService();
         $this->givenAChangeTriumphFromEventService();
         $this->givenADaedalusWithTwoPlayers();
     }
@@ -195,9 +198,17 @@ final class FinishDaedalusEventTest extends TestCase
         $this->eventService = $eventService;
     }
 
+    private function givenACycleService(): void
+    {
+        /** @var CycleServiceInterface $eventService */
+        $cycleService = $this->createStub(CycleServiceInterface::class);
+        $this->cycleService = $cycleService;
+    }
+
     private function givenAChangeTriumphFromEventService(): void
     {
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
+            cycleService: $this->cycleService,
             eventService: $this->eventService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );

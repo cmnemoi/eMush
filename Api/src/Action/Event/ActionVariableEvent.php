@@ -5,14 +5,12 @@ namespace Mush\Action\Event;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Enum\ActionVariableEnum;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Entity\GameVariable;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface as D100Roll;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\LogParameterInterface;
-use Mush\Status\Enum\EquipmentStatusEnum;
 
 class ActionVariableEvent extends ActionEvent implements VariableEventInterface
 {
@@ -92,23 +90,8 @@ class ActionVariableEvent extends ActionEvent implements VariableEventInterface
         return $this->isAboutPercentageInjuryVariable() && $d100Roll->isSuccessful($this->getRoundedQuantity());
     }
 
-    public function shouldNotInfectPlayer(): bool
-    {
-        $author = $this->getAuthor();
-        $pickedItem = $this->getItemActionTarget();
-
-        return $pickedItem->doesNotHaveStatus(EquipmentStatusEnum::CAT_INFECTED) || $author->isMush();
-    }
-
     private function isAboutPercentageInjuryVariable(): bool
     {
         return $this->getVariableName() === ActionVariableEnum::PERCENTAGE_INJURY;
-    }
-
-    private function getItemActionTarget(): GameItem
-    {
-        $actionTarget = $this->getActionTarget();
-
-        return $actionTarget instanceof GameItem ? $actionTarget : GameItem::createNull();
     }
 }

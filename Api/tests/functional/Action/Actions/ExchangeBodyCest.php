@@ -242,6 +242,17 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldNotGainSkillPoints($I);
     }
 
+    public function shouldTriumphStayIntact(FunctionalTester $I): void
+    {
+        $this->givenSourcePlayerHasTriumph(2);
+        $this->givenTargetPlayerHasTriumph(3);
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenSourcePlayerShouldHaveTriumph(2, $I);
+        $this->thenTargetPlayerShouldHaveTriumph(3, $I);
+    }
+
     private function givenTargetPlayerHasShooterSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->target);
@@ -334,6 +345,16 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenSourcePlayerHasTriumph(int $quantity): void
+    {
+        $this->source->setTriumph($quantity);
+    }
+
+    private function givenTargetPlayerHasTriumph(int $quantity): void
+    {
+        $this->target->setTriumph($quantity);
     }
 
     private function whenSourceTriesToExchangeBodyWithTarget(): void
@@ -471,5 +492,15 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
+    }
+
+    private function thenSourcePlayerShouldHaveTriumph(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->source->getTriumph());
+    }
+
+    private function thenTargetPlayerShouldHaveTriumph(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->target->getTriumph());
     }
 }

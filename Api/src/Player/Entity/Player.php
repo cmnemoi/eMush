@@ -765,6 +765,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function setTriumph(int $triumph): static
     {
         $this->playerVariables->setValueByName($triumph, PlayerVariableEnum::TRIUMPH);
+        $this->playerInfo->getClosedPlayer()->setTriumph($triumph);
 
         return $this;
     }

@@ -7,6 +7,7 @@ namespace Mush\Tests\unit\Triumph\Event;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\TitleEnum;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -32,6 +33,7 @@ final class StatusEventTest extends TestCase
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
     private EventServiceInterface $eventService;
+    private CycleServiceInterface $cycleService;
 
     /**
      * @before
@@ -39,6 +41,7 @@ final class StatusEventTest extends TestCase
     protected function setUp(): void
     {
         $this->givenEventService();
+        $this->givenCycleService();
         $this->givenInMemoryTriumphConfigRepository();
         $this->givenChangeTriumphFromEventService();
     }
@@ -172,6 +175,11 @@ final class StatusEventTest extends TestCase
         $this->eventService = $this->createStub(EventServiceInterface::class);
     }
 
+    private function givenCycleService(): void
+    {
+        $this->cycleService = $this->createStub(CycleServiceInterface::class);
+    }
+
     private function givenInMemoryTriumphConfigRepository(): void
     {
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
@@ -180,6 +188,7 @@ final class StatusEventTest extends TestCase
     private function givenChangeTriumphFromEventService(): void
     {
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
+            cycleService: $this->cycleService,
             eventService: $this->eventService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );

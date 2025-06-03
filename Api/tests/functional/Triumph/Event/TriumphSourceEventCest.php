@@ -14,7 +14,6 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
-use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
@@ -97,12 +96,9 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
     {
         $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
 
-        $this->player->setTriumph(0);
-        $this->eventService->callEvent(
-            event: new PlayerEvent($this->player, [], new \DateTime()),
-            name: PlayerEvent::CONVERSION_PLAYER
-        );
+        $this->kuanTi->setTriumph(0);
 
+        // When Alpha Mush is selected and Kuan Ti is the only selectable character
         $event = new DaedalusEvent(
             daedalus: $this->daedalus,
             tags: [],
@@ -111,7 +107,7 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         $this->eventService->callEvent($event, DaedalusEvent::FULL_DAEDALUS);
 
         // Mush initial bonus triumph
-        $I->assertEquals(120, $this->player->getTriumph());
+        $I->assertEquals(120, $this->kuanTi->getTriumph());
     }
 
     public function shouldGiveTriumphOnExplorationStarted(FunctionalTester $I): void

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Triumph\Service;
 
+use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
@@ -16,6 +18,7 @@ use Mush\Triumph\Repository\TriumphConfigRepositoryInterface;
 final class ChangeTriumphFromEventService
 {
     public function __construct(
+        private CycleServiceInterface $cycleService,
         private EventServiceInterface $eventService,
         private TriumphConfigRepositoryInterface $triumphConfigRepository,
     ) {}
@@ -52,6 +55,7 @@ final class ChangeTriumphFromEventService
     private function computeTriumphForPlayer(TriumphConfig $triumphConfig, Player $player): int
     {
         return match ($triumphConfig->getName()) {
+            TriumphEnum::CYCLE_MUSH_LATE => $this->computeNewMushTriumph($player->getDaedalus(), $triumphConfig->getQuantity()),
             TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
@@ -62,6 +66,16 @@ final class ChangeTriumphFromEventService
     private function recordTriumphGain(TriumphConfig $triumphConfig, Player $player, int $quantity): void
     {
         $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
-        $closedPlayer->recordTriumphGain($triumphConfig->getName(), $quantity);
+        $closedPlayer->recordTriumphGain($triumphConfig->getLogName(), $quantity);
+    }
+
+    private function computeNewMushTriumph(Daedalus $daedalus, int $triumphChangePerCycle): int
+    {
+        $startingTriumph = $daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::MUSH_INITIAL_BONUS)->getQuantity();
+        $filledAt = $daedalus->getFilledAt() ?? new \DateTime();
+        $nextCycleAt = $this->cycleService->getDateStartNextCycle($daedalus);
+        $cyclesLasted = $this->cycleService->getNumberOfCycleElapsed($filledAt, $nextCycleAt, $daedalus->getDaedalusInfo());
+
+        return max($startingTriumph + $cyclesLasted * $triumphChangePerCycle, 0);
     }
 }

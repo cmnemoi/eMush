@@ -14,6 +14,7 @@ enum TriumphEnum: string
     case CHUN_LIVES = 'chun_lives';
     case CYCLE_HUMAN = 'cycle_human';
     case CYCLE_MUSH = 'cycle_mush';
+    case CYCLE_MUSH_LATE = 'cycle_mush_late';
     case EDEN_AT_LEAST = 'eden_at_least';
     case EDEN_BIOLOGISTS = 'eden_biologists';
     case EDEN_ENGINEERS = 'eden_engineers';
@@ -24,6 +25,7 @@ enum TriumphEnum: string
     case EXPLORATOR = 'explorator';
     case HUMANOCIDE = 'humanocide';
     case HUMANOCIDE_CAT = 'humanocide_cat';
+    case INFECT = 'infect';
     case KUBE_SOLVED = 'kube_solved';
     case MAGELLAN_ARK = 'magellan_ark';
     case MUSH_FEAR = 'mush_fear';
@@ -33,6 +35,7 @@ enum TriumphEnum: string
     case MUSH_VICTORY = 'mush_victory';
     case MUSHICIDE = 'mushicide';
     case MUSHICIDE_CAT = 'mushicide_cat';
+    case NEW_MUSH = 'new_mush';
     case PILGRED_MOTHER = 'pilgred_mother';
     case PSYCHOCAT = 'psychocat';
     case PSYCHOPAT = 'psychopat';
@@ -78,8 +81,11 @@ enum TriumphEnum: string
             self::CYCLE_MUSH,
             self::EDEN_MUSH_INVASION,
             self::HUMANOCIDE,
+            self::INFECT,
             self::MUSH_INITIAL_BONUS,
+            self::MUSH_PREGNANT,
             self::MUSH_VICTORY,
+            self::NEW_MUSH,
             self::SOL_MUSH_INVASION,
         ], true);
     }

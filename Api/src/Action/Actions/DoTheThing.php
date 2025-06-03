@@ -195,7 +195,7 @@ class DoTheThing extends AbstractAction
             return;
         }
 
-        if ($this->randomService->isSuccessful(self::PREGNANCY_RATE)) {
+        if (!$this->randomService->isSuccessful(self::PREGNANCY_RATE)) {
             return;
         }
 

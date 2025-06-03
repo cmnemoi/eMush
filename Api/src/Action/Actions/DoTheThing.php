@@ -245,15 +245,10 @@ class DoTheThing extends AbstractAction
             $this->infect($father, $mother);
         }
 
-        $tags = $this->getActionConfig()->getActionTags();
-        if ($mother->isMush()) {
-            $tags[] = PlayerStatusEnum::MUSH;
-        }
-
         $this->statusService->createStatusFromName(
             PlayerStatusEnum::PREGNANT,
             $mother,
-            $tags,
+            $this->getActionConfig()->getActionTags(),
             new \DateTime(),
             null,
             VisibilityEnum::PRIVATE

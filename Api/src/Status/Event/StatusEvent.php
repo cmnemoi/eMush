@@ -15,6 +15,7 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
@@ -49,6 +50,9 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
         parent::__construct($tags, $time);
         $this->addTag($status->getName());
         $this->addTag($holder->getName());
+        if ($holder instanceof Player && $holder->isMush()) {
+            $this->addTag(PlayerStatusEnum::MUSH);
+        }
     }
 
     public function getStatus(): Status

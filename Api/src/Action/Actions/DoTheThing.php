@@ -190,12 +190,12 @@ class DoTheThing extends AbstractAction
 
     private function checkForPregnancy(Player $player, Player $target): void
     {
-        // if characters are same sex, stop
-        if (CharacterEnum::isMale($player->getName()) === CharacterEnum::isMale($target->getName())) {
+        if (!$this->randomService->isSuccessful(self::PREGNANCY_RATE)) {
             return;
         }
 
-        if (!$this->randomService->isSuccessful(self::PREGNANCY_RATE)) {
+        // if characters are same sex, stop
+        if (CharacterEnum::isMale($player->getName()) === CharacterEnum::isMale($target->getName())) {
             return;
         }
 

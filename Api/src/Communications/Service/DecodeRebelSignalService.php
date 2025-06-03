@@ -53,7 +53,7 @@ final readonly class DecodeRebelSignalService
 
         $tags[] = $rebelBase->getName();
         $this->eventService->callEvent(
-            event: new RebelBaseDecodedEvent($rebelBase->getDaedalusId(), $tags),
+            event: new RebelBaseDecodedEvent($rebelBase->getDaedalus(), $tags),
             name: RebelBaseDecodedEvent::class,
         );
     }

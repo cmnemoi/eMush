@@ -7,6 +7,7 @@ namespace Mush\Triumph\ConfigData;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
+use Mush\Communications\Event\RebelBaseDecodedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -576,6 +577,13 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_TERRENCE,
                 targetSetting: TriumphTarget::AUTHOR,
                 quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::REBEL_CONTACT->toConfigKey('default'),
+                name: TriumphEnum::REBEL_CONTACT,
+                targetedEvent: RebelBaseDecodedEvent::class,
+                scope: TriumphScope::PERSONAL_ELEESHA,
+                quantity: 2,
             ),
         ];
     }

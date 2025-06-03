@@ -43,6 +43,7 @@ enum TriumphEnum: string
     case PRECIOUS_BODY = 'precious_body';
     case PREGNANCY = 'pregnancy';
     case PRETTY_COOK = 'pretty_cook';
+    case REBEL_CONTACT = 'rebel_contact';
     case REMEDY = 'remedy';
     case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';

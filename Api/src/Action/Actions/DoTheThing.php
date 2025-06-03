@@ -190,13 +190,22 @@ class DoTheThing extends AbstractAction
 
     private function checkForPregnancy(Player $player, Player $target): void
     {
-        $becomePregnant = $this->randomService->isSuccessful(self::PREGNANCY_RATE)
-        && CharacterEnum::isMale($player->getName()) !== CharacterEnum::isMale($target->getName());
-        if ($becomePregnant) {
-            $femalePlayer = CharacterEnum::isMale($player->getName()) ? $target : $player;
-            $malePlayer = CharacterEnum::isMale($player->getName()) ? $player : $target;
-            $this->addPregnantStatus($femalePlayer, $malePlayer);
+        // if characters are same sex, stop
+        if (CharacterEnum::isMale($player->getName()) === CharacterEnum::isMale($target->getName())) {
+            return;
         }
+
+        if ($this->randomService->isSuccessful(self::PREGNANCY_RATE)) {
+            return;
+        }
+
+        if ($player->hasStatus(PlayerStatusEnum::PREGNANT) || $target->hasStatus(PlayerStatusEnum::PREGNANT)) {
+            return;
+        }
+
+        $femalePlayer = CharacterEnum::isMale($player->getName()) ? $target : $player;
+        $malePlayer = CharacterEnum::isMale($player->getName()) ? $player : $target;
+        $this->addPregnantStatus($femalePlayer, $malePlayer);
     }
 
     private function addMoralPoints(Player $player, int $moralePoints): void
@@ -241,6 +250,7 @@ class DoTheThing extends AbstractAction
 
     private function addPregnantStatus(Player $mother, Player $father): void
     {
+        // transfer second spore from male to female
         if (!$mother->isMush() && $father->isMush()) {
             $this->infect($father, $mother);
         }

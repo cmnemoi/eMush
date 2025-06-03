@@ -261,7 +261,7 @@ class ActionService implements ActionServiceInterface
             actionTarget: $actionTarget,
         );
         if ($result) {
-            $event->addTag($result->getResultTag());
+            $event->addTags($result->getResultTags());
         }
 
         return $event;

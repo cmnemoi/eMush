@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Mush\Triumph\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
+use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Player\Enum\EndCauseEnum;
@@ -450,6 +452,19 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::PERSONAL_CHUN,
                 quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::NICE_SURGERY->toConfigKey('default'),
+                name: TriumphEnum::NICE_SURGERY,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionOutputEnum::CRITICAL_SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::SURGERY->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ActionEnum::SELF_SURGERY->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 5,
             ),
         ];
     }

@@ -466,6 +466,20 @@ abstract class TriumphConfigData
                 targetSetting: TriumphTarget::AUTHOR,
                 quantity: 5,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::ROBOTIC_GRAAL->toConfigKey('default'),
+                name: TriumphEnum::ROBOTIC_GRAAL,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionEnum::UPGRADE_DRONE_TO_FIREFIGHTER->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ActionEnum::UPGRADE_DRONE_TO_PILOT->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ActionEnum::UPGRADE_DRONE_TO_SENSOR->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ActionEnum::UPGRADE_DRONE_TO_TURBO->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::PERSONAL_TERRENCE,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 4,
+            ),
         ];
     }
 

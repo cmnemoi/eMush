@@ -40,6 +40,7 @@ enum TriumphEnum: string
     case RESEARCH_SMALL = 'research_small';
     case RESEARCH_STANDARD = 'research_standard';
     case RETURN_TO_SOL = 'return_to_sol';
+    case ROBOTIC_GRAAL = 'robotic_graal';
     case SAVIOR = 'savior';
     case SOL_CONTACT = 'sol_contact';
     case SOL_MUSH_INVASION = 'sol_mush_invasion';

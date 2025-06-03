@@ -361,5 +361,15 @@
         <target>nice_surgery.log</target>
       </segment>
     </unit>
+    <unit id="robotic_graal">
+      <segment id="robotic_graal.name" state="initial">
+        <source>robotic_graal.name</source>
+        <target>robotic_graal.name</target>
+      </segment>
+      <segment id="robotic_graal.log" state="initial">
+        <source>robotic_graal.log</source>
+        <target>robotic_graal.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

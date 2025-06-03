@@ -201,9 +201,13 @@ abstract class ActionResult
         return $this instanceof CriticalSuccess === false;
     }
 
-    public function getResultTag(): string
+    public function getResultTags(): array
     {
-        return $this->isASuccess() ? ActionOutputEnum::SUCCESS : ActionOutputEnum::FAIL;
+        $tags = [$this->isASuccess() ? ActionOutputEnum::SUCCESS : ActionOutputEnum::FAIL];
+        $this->isACriticalSuccess() ? $tags[] = ActionOutputEnum::CRITICAL_SUCCESS : null;
+        $this->isACriticalFail() ? $tags[] = ActionOutputEnum::CRITICAL_FAIL : null;
+
+        return $tags;
     }
 
     public function doesNotHaveContent(): bool

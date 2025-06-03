@@ -371,5 +371,15 @@
         <target>infect.log</target>
       </segment>
     </unit>
+    <unit id="nice_surgery">
+      <segment id="nice_surgery.name" state="initial">
+        <source>nice_surgery.name</source>
+        <target>nice_surgery.name</target>
+      </segment>
+      <segment id="nice_surgery.log" state="initial">
+        <source>nice_surgery.log</source>
+        <target>nice_surgery.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

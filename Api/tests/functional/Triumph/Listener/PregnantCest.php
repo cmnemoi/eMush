@@ -33,9 +33,12 @@ final class PregnantCest extends AbstractExplorationTester
         $this->human = $this->chun;
         $this->otherHuman = $this->kuanTi;
         $this->mush = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::FINOLA);
-        $this->convertPlayerToMush($I, $this->mush);
         $this->otherMush = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
+        $this->convertPlayerToMush($I, $this->mush);
         $this->convertPlayerToMush($I, $this->otherMush);
+        // Nullify triumph coming from conversion
+        $this->mush->setTriumph(0);
+        $this->otherMush->setTriumph(0);
     }
 
     public function shouldDistributeTriumphOnHumanPregnancy(FunctionalTester $I): void

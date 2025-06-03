@@ -86,7 +86,10 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
         if ($variableName === PlayerVariableEnum::SPORE && $delta > 0) {
             $initialMushStatus = $player->isMush();
-            for ($i = 0; $i < $delta && $initialMushStatus === $player->isMush(); ++$i) {
+            for ($i = 0; $i < $delta; ++$i) {
+                if ($this->playerHasChangedSide($player, $initialMushStatus)) {
+                    break;
+                }
                 $player = $this->playerVariableService->handleGameVariableChange($variableName, 1, $player);
                 $this->handleInfection($player, $playerEvent);
             }
@@ -121,5 +124,10 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         } elseif ($playerEvent->getRoundedQuantity() > 0) {
             $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
         }
+    }
+
+    private function playerHasChangedSide(Player $player, bool $wasMush): bool
+    {
+        return $player->isMush() !== $wasMush;
     }
 }

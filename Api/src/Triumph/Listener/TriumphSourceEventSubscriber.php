@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Triumph\Listener;
 
+use Mush\Action\Event\ActionEvent;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
@@ -26,6 +27,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            ActionEvent::RESULT_ACTION => 'onResultAction',
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => ['onDaedalusNewCycle', EventPriorityEnum::PLAYER_TRIUMPH],
             DaedalusEvent::FINISH_DAEDALUS => ['onDaedalusFinish', EventPriorityEnum::HIGH],
             DaedalusEvent::FULL_DAEDALUS => ['onDaedalusFull', EventPriorityEnum::LOW],
@@ -40,6 +42,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
         ];
+    }
+
+    public function onResultAction(ActionEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
     }
 
     public function onDaedalusNewCycle(DaedalusCycleEvent $event): void

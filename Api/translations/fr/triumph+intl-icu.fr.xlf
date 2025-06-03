@@ -371,5 +371,25 @@
         <target>infect.log</target>
       </segment>
     </unit>
+    <unit id="nice_surgery">
+      <segment id="nice_surgery.name" state="initial">
+        <source>nice_surgery.name</source>
+        <target>nice_surgery.name</target>
+      </segment>
+      <segment id="nice_surgery.log" state="initial">
+        <source>nice_surgery.log</source>
+        <target>nice_surgery.log</target>
+      </segment>
+    </unit>
+    <unit id="robotic_graal">
+      <segment id="robotic_graal.name" state="initial">
+        <source>robotic_graal.name</source>
+        <target>robotic_graal.name</target>
+      </segment>
+      <segment id="robotic_graal.log" state="initial">
+        <source>robotic_graal.log</source>
+        <target>robotic_graal.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -741,6 +741,14 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     public function testInsectsImproveJaniceTriumph(FunctionalTester $I): void
     {
+        // given Janice not lost
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
         // given an exploration is created
         $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::INSECT], $I),
@@ -757,8 +765,33 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(0, $this->chun->getTriumph());
     }
 
+    public function testInsectsNotImproveJaniceTriumphWhenLost(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INSECT], $I),
+            explorators: $this->players
+        );
+
+        $this->givenEveryoneHasZeroTriumph(0);
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice gets no personal triumph
+        $I->assertEquals(0, $this->janice->getTriumph());
+    }
+
     public function testProvisionEvent(FunctionalTester $I): void
     {
+        // given Janice not lost
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
         // given an exploration is created
         $exploration = $this->createExploration(
             planet: $this->createPlanet([PlanetSectorEnum::OCEAN], $I),
@@ -792,10 +825,10 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $roomLogParameters = $roomLogs[0]->getParameters();
         $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
 
-        // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
-        $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
+        // then the founder should be Chun, Kuan-Ti or Janice (not Derek - stuck in ship)
+        $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName(), $this->janice->getLogName()], true));
 
-        // then Janice should get 3 triumph despite being lost as active explorator
+        // then Janice should get 3 triumph
         $I->assertEquals(3, $this->janice->getTriumph());
         $I->assertEquals(0, $this->chun->getTriumph());
     }

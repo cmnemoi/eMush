@@ -11,7 +11,9 @@ use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 
 abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
@@ -27,7 +29,7 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
-        $this->givenChunHasASupportDrone();
+        $this->givenPlayerHasASupportDrone($this->chun);
         $this->setupDroneNicknameAndSerialNumber($this->drone, 0, 0);
     }
 
@@ -42,7 +44,7 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
     {
         $this->addSkillToPlayer(SkillEnum::ROBOTICS_EXPERT, $I);
 
-        $this->givenChunHasPiecesOfScrapMetalOnReach(4);
+        $this->givenPlayerHasPiecesOfScrapMetalOnReach($this->chun, 4);
 
         $this->givenChunUpgradesDrone();
 
@@ -64,9 +66,9 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
     {
         $this->addSkillToPlayer(SkillEnum::ROBOTICS_EXPERT, $I);
 
-        $this->givenChunHasPiecesOfScrapMetalOnReach(2);
+        $this->givenPlayerHasPiecesOfScrapMetalOnReach($this->chun, 2);
 
-        $this->whenChunUpgradesDrone();
+        $this->whenPlayerUpgradesDrone($this->chun);
 
         $this->thenDroneShouldHaveUpgradeStatus($I);
     }
@@ -75,9 +77,9 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
     {
         $this->addSkillToPlayer(SkillEnum::ROBOTICS_EXPERT, $I);
 
-        $this->givenChunHasPiecesOfScrapMetalOnReach(2);
+        $this->givenPlayerHasPiecesOfScrapMetalOnReach($this->chun, 2);
 
-        $this->whenChunUpgradesDrone();
+        $this->whenPlayerUpgradesDrone($this->chun);
 
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: "**Chun** s'acharne un peu sur ce pauvre **Robo Wheatley #0**. Mais c'est pour son bien. **Robo Wheatley #0** reçoit l'amélioration **{$this->upgradeDrone->upgradeName()}**.",
@@ -95,18 +97,33 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
     {
         $this->addSkillToPlayer(SkillEnum::ROBOTICS_EXPERT, $I);
 
-        $this->givenChunHasPiecesOfScrapMetalOnReach(3);
+        $this->givenPlayerHasPiecesOfScrapMetalOnReach($this->chun, 3);
 
-        $this->whenChunUpgradesDrone();
+        $this->whenPlayerUpgradesDrone($this->chun);
 
         $this->thenChunShouldHaveScrapMetalOnReach(1, $I);
     }
 
-    private function givenChunHasASupportDrone(): void
+    public function shouldProvideTerrencePersonalTriumph(FunctionalTester $I): void
+    {
+        $terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
+
+        $this->addSkillToPlayer(SkillEnum::ROBOTICS_EXPERT, $I, $terrence);
+
+        $this->givenPlayerHasASupportDrone($terrence);
+
+        $this->givenPlayerHasPiecesOfScrapMetalOnReach($terrence, 2);
+
+        $this->whenPlayerUpgradesDrone($terrence);
+
+        $this->thenPlayerShouldHaveTriumph(4, $terrence, $I);
+    }
+
+    private function givenPlayerHasASupportDrone(Player $player): void
     {
         $this->drone = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::SUPPORT_DRONE,
-            equipmentHolder: $this->chun,
+            equipmentHolder: $player,
             reasons: [],
             time: new \DateTime()
         );
@@ -114,26 +131,26 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
 
     private function givenChunUpgradesDrone(): void
     {
-        $this->whenChunUpgradesDrone();
+        $this->whenPlayerUpgradesDrone($this->chun);
     }
 
-    private function givenChunHasPiecesOfScrapMetalOnReach(int $quantity): void
+    private function givenPlayerHasPiecesOfScrapMetalOnReach(Player $player, int $quantity): void
     {
         $this->gameEquipmentService->createGameEquipmentsFromName(
             equipmentName: ItemEnum::METAL_SCRAPS,
-            equipmentHolder: $this->chun,
+            equipmentHolder: $player,
             reasons: [],
             time: new \DateTime(),
             quantity: $quantity,
         );
     }
 
-    private function whenChunUpgradesDrone(): void
+    private function whenPlayerUpgradesDrone(Player $player): void
     {
         $this->upgradeDrone->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->drone,
-            player: $this->chun,
+            player: $player,
             target: $this->drone,
         );
         $this->upgradeDrone->execute();
@@ -172,6 +189,11 @@ abstract class AbstractUpgradeDroneCest extends AbstractFunctionalTest
         $actualQuantity = $chunScrapMetal->count() + $roomScrapMetal->count();
 
         $I->assertEquals($quantity, $actualQuantity);
+    }
+
+    private function thenPlayerShouldHaveTriumph(int $quantity, Player $player, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $player->getTriumph());
     }
 
     private function setupDroneNicknameAndSerialNumber(Drone $drone, int $nickName, int $serialNumber): void

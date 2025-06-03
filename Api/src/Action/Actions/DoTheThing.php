@@ -251,7 +251,7 @@ class DoTheThing extends AbstractAction
     private function addPregnantStatus(Player $mother, Player $father): void
     {
         // transfer second spore from male to female
-        if (!$mother->isMush() && $father->isMush()) {
+        if ($mother->isHuman() && $father->isMush()) {
             $this->infect($father, $mother);
         }
 

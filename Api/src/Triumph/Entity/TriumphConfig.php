@@ -71,7 +71,7 @@ class TriumphConfig
 
     public function getName(): TriumphEnum
     {
-        return $this->getTriumphName();
+        return $this->name;
     }
 
     public function getQuantity(): int
@@ -116,7 +116,7 @@ class TriumphConfig
 
     public function getLogKey(): string
     {
-        return $this->getTriumphName()->toLogKey();
+        return $this->getLogName()->toLogKey();
     }
 
     public static function fromDto(TriumphConfigDto $triumphConfigDto): self
@@ -147,7 +147,7 @@ class TriumphConfig
         $this->regressiveFactor = $triumphConfigDto->regressiveFactor;
     }
 
-    private function getTriumphName(): TriumphEnum
+    public function getLogName(): TriumphEnum
     {
         return match ($this->name) {
             TriumphEnum::MUSHICIDE_CAT => TriumphEnum::MUSHICIDE,

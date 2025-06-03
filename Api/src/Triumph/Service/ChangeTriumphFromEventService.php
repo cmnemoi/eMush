@@ -66,7 +66,7 @@ final class ChangeTriumphFromEventService
     private function recordTriumphGain(TriumphConfig $triumphConfig, Player $player, int $quantity): void
     {
         $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
-        $closedPlayer->recordTriumphGain($triumphConfig->getName(), $quantity);
+        $closedPlayer->recordTriumphGain($triumphConfig->getLogName(), $quantity);
     }
 
     private function computeNewMushTriumph(Daedalus $daedalus, int $triumphChangePerCycle): int

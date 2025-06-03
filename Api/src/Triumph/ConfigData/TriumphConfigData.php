@@ -240,7 +240,7 @@ abstract class TriumphConfigData
                     PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE => TriumphSourceEventInterface::ANY_TAG,
                 ],
                 scope: TriumphScope::PERSONAL_STEPHEN,
-                targetSetting: TriumphTarget::STATUS_HOLDER,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: 4,
             ),
             new TriumphConfigDto(
@@ -251,7 +251,7 @@ abstract class TriumphConfigData
                     PlayerStatusEnum::POINTLESS_PLAYER => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,
-                targetSetting: TriumphTarget::STATUS_HOLDER,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: 5,
             ),
             new TriumphConfigDto(
@@ -480,6 +480,38 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_JANICE,
                 targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
                 quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PREGNANCY->toConfigKey('default'),
+                name: TriumphEnum::PREGNANCY,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    PlayerStatusEnum::PREGNANT => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
+                quantity: 8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::ALL_PREGNANT->toConfigKey('default'),
+                name: TriumphEnum::ALL_PREGNANT,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    PlayerStatusEnum::PREGNANT => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 2,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::MUSH_PREGNANT->toConfigKey('default'),
+                name: TriumphEnum::MUSH_PREGNANT,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    PlayerStatusEnum::PREGNANT => TriumphSourceEventInterface::ALL_TAGS,
+                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 8,
             ),
         ];
     }

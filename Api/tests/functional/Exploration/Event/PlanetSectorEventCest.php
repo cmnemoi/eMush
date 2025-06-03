@@ -704,7 +704,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             sector: PlanetSectorEnum::INTELLIGENT,
         );
 
-        $this->givenEveryoneHasZeroTriumph(0);
+        $this->givenEveryoneHasZeroTriumph();
 
         // when fight is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
@@ -730,7 +730,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             sector: PlanetSectorEnum::INTELLIGENT,
         );
 
-        $this->givenEveryoneHasZeroTriumph(0);
+        $this->givenEveryoneHasZeroTriumph();
 
         // when fight is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
@@ -755,7 +755,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
-        $this->givenEveryoneHasZeroTriumph(0);
+        $this->givenEveryoneHasZeroTriumph();
 
         // when fight is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
@@ -773,7 +773,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
-        $this->givenEveryoneHasZeroTriumph(0);
+        $this->givenEveryoneHasZeroTriumph();
 
         // when fight is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
@@ -809,10 +809,10 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // when provision event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then I should see 4 alien steaks in planet place
+        // then I should see 3 alien steaks in planet place
         $I->assertCount(3, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
 
-        // then I should see 4 public logs in planet place to tell an explorator has found an alien steak
+        // then I should see 3 public logs in planet place to tell an explorator has found an alien steak
         $roomLogs = $I->grabEntitiesFromRepository(
             entity: RoomLog::class,
             params: [

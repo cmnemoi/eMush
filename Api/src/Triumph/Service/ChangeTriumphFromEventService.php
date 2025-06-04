@@ -29,14 +29,14 @@ final class ChangeTriumphFromEventService
 
         foreach ($triumphConfigs as $triumphConfig) {
             $event->getTriumphTargets($triumphConfig)->map(
-                fn (Player $player) => $this->addTriumphToPlayer($triumphConfig, $player)
+                fn (Player $player) => $this->addTriumphToPlayer($triumphConfig, $player, $event->getTags())
             );
         }
     }
 
-    private function addTriumphToPlayer(TriumphConfig $triumphConfig, Player $player): void
+    private function addTriumphToPlayer(TriumphConfig $triumphConfig, Player $player, array $tags): void
     {
-        $quantity = $this->computeTriumphForPlayer($triumphConfig, $player);
+        $quantity = $this->computeTriumphForPlayer($triumphConfig, $player, $tags);
 
         // Don't call triumph changed by 0 event unless the config explicitly states 0 triumph change
         if ($quantity === 0 && $triumphConfig->getQuantity() !== 0) {
@@ -52,13 +52,14 @@ final class ChangeTriumphFromEventService
         );
     }
 
-    private function computeTriumphForPlayer(TriumphConfig $triumphConfig, Player $player): int
+    private function computeTriumphForPlayer(TriumphConfig $triumphConfig, Player $player, array $tags): int
     {
         return match ($triumphConfig->getName()) {
             TriumphEnum::CYCLE_MUSH_LATE => $this->computeNewMushTriumph($player->getDaedalus(), $triumphConfig->getQuantity()),
             TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
+            TriumphEnum::TR_ANATHEM => \in_array(TriumphSourceEventInterface::MUSH_SUBJECT, $tags, true) ? $triumphConfig->getQuantity() : -$triumphConfig->getQuantity(),
             default => $triumphConfig->getQuantity(),
         };
     }

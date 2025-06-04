@@ -22,6 +22,8 @@ interface TriumphSourceEventInterface
 
     public function getEventName(): string;
 
+    public function getTags(): array;
+
     public function hasTag(string $tag): bool;
 
     public function getTriumphTargets(TriumphConfig $triumphConfig): PlayerCollection;

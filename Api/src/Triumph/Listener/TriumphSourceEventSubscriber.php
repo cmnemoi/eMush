@@ -46,6 +46,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             RebelBaseDecodedEvent::class => 'onRebelBaseDecoded',
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
+            StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
             XylophEntryDecodedEvent::class => 'onXylophEntryDecoded',
         ];
     }

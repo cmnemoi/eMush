@@ -15,6 +15,7 @@ enum TriumphEnum: string
     case CYCLE_HUMAN = 'cycle_human';
     case CYCLE_MUSH = 'cycle_mush';
     case CYCLE_MUSH_LATE = 'cycle_mush_late';
+    case DAEDALUS_DEFENDER = 'daedalus_defender';
     case EDEN_AT_LEAST = 'eden_at_least';
     case EDEN_BIOLOGISTS = 'eden_biologists';
     case EDEN_ENGINEERS = 'eden_engineers';
@@ -25,6 +26,7 @@ enum TriumphEnum: string
     case EXPLORATOR = 'explorator';
     case HUMANOCIDE = 'humanocide';
     case HUMANOCIDE_CAT = 'humanocide_cat';
+    case HUNTER_NEMESIS = 'hunter_nemesis';
     case INFECT = 'infect';
     case KUBE_SOLVED = 'kube_solved';
     case LANDER = 'lander';

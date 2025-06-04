@@ -17,6 +17,7 @@ use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Factory\StatusFactory;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Entity\TriumphConfig;
@@ -31,6 +32,7 @@ final class FinishDaedalusEventTest extends TestCase
 {
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
+    private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
     private CycleServiceInterface $cycleService;
 
@@ -41,6 +43,7 @@ final class FinishDaedalusEventTest extends TestCase
     protected function setUp(): void
     {
         $this->givenATriumphConfigRepository();
+        $this->givenAStatusService();
         $this->givenAnEventService();
         $this->givenACycleService();
         $this->givenAChangeTriumphFromEventService();
@@ -191,6 +194,13 @@ final class FinishDaedalusEventTest extends TestCase
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
     }
 
+    private function givenAStatusService(): void
+    {
+        /** @var StatusServiceInterface $statusService */
+        $statusService = $this->createStub(StatusServiceInterface::class);
+        $this->statusService = $statusService;
+    }
+
     private function givenAnEventService(): void
     {
         /** @var EventServiceInterface $eventService */
@@ -210,6 +220,7 @@ final class FinishDaedalusEventTest extends TestCase
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
             cycleService: $this->cycleService,
             eventService: $this->eventService,
+            statusService: $this->statusService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );
     }

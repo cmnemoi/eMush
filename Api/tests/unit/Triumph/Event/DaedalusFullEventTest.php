@@ -13,6 +13,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Factory\StatusFactory;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Entity\TriumphConfig;
@@ -27,6 +28,7 @@ final class DaedalusFullEventTest extends TestCase
 {
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
+    private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
     private CycleServiceInterface $cycleService;
 
@@ -69,6 +71,13 @@ final class DaedalusFullEventTest extends TestCase
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
     }
 
+    private function givenAStatusService(): void
+    {
+        /** @var StatusServiceInterface $statusService */
+        $statusService = $this->createStub(StatusServiceInterface::class);
+        $this->statusService = $statusService;
+    }
+
     private function givenAnEventService(): void
     {
         /** @var EventServiceInterface $eventService */
@@ -88,6 +97,7 @@ final class DaedalusFullEventTest extends TestCase
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
             cycleService: $this->cycleService,
             eventService: $this->eventService,
+            statusService: $this->statusService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );
     }

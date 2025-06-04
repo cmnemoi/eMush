@@ -21,6 +21,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
@@ -675,6 +676,23 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 targetSetting: TriumphTarget::AUTHOR,
                 quantity: -8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::DAEDALUS_DEFENDER->toConfigKey('default'),
+                name: TriumphEnum::DAEDALUS_DEFENDER,
+                targetedEvent: HunterEvent::HUNTER_DEATH,
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 1,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::HUNTER_NEMESIS->toConfigKey('default'),
+                name: TriumphEnum::HUNTER_NEMESIS,
+                targetedEvent: HunterEvent::HUNTER_DEATH,
+                scope: TriumphScope::PERSONAL_ROLAND,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 1,
+                regressiveFactor: 8
             ),
         ];
     }

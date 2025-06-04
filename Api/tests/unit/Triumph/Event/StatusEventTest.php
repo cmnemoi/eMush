@@ -14,6 +14,7 @@ use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Event\StatusEvent;
 use Mush\Status\Factory\StatusFactory;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Dto\TriumphConfigDto;
@@ -32,6 +33,7 @@ final class StatusEventTest extends TestCase
 {
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
+    private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
     private CycleServiceInterface $cycleService;
 
@@ -40,6 +42,7 @@ final class StatusEventTest extends TestCase
      */
     protected function setUp(): void
     {
+        $this->givenStatusService();
         $this->givenEventService();
         $this->givenCycleService();
         $this->givenInMemoryTriumphConfigRepository();
@@ -170,6 +173,11 @@ final class StatusEventTest extends TestCase
         );
     }
 
+    private function givenStatusService(): void
+    {
+        $this->statusService = $this->createStub(StatusServiceInterface::class);
+    }
+
     private function givenEventService(): void
     {
         $this->eventService = $this->createStub(EventServiceInterface::class);
@@ -190,6 +198,7 @@ final class StatusEventTest extends TestCase
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
             cycleService: $this->cycleService,
             eventService: $this->eventService,
+            statusService: $this->statusService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );
     }

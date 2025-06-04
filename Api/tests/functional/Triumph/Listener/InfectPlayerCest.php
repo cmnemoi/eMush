@@ -19,13 +19,13 @@ use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\AbstractExplorationTester;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
  */
-final class InfectPlayerCest extends AbstractExplorationTester
+final class InfectPlayerCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;

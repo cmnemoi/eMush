@@ -411,5 +411,15 @@
         <target>rebel_contact.log</target>
       </segment>
     </unit>
+    <unit id="looking_for_kivanc">
+      <segment id="looking_for_kivanc.name" state="initial">
+        <source>looking_for_kivanc.name</source>
+        <target>looking_for_kivanc.name</target>
+      </segment>
+      <segment id="looking_for_kivanc.log" state="initial">
+        <source>looking_for_kivanc.log</source>
+        <target>looking_for_kivanc.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

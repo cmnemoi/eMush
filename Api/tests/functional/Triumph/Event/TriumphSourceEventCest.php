@@ -7,10 +7,15 @@ namespace Mush\Tests\functional\Triumph\Event;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communications\Entity\RebelBase;
 use Mush\Communications\Entity\RebelBaseConfig;
+use Mush\Communications\Entity\XylophConfig;
+use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
+use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\DecodeRebelSignalService;
+use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
@@ -34,10 +39,12 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
 {
     private DaedalusServiceInterface $daedalusService;
     private DecodeRebelSignalService $decodeRebelBase;
+    private DecodeXylophDatabaseServiceInterface $decodeXylophDatabaseService;
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
     private RebelBaseRepositoryInterface $rebelBaseRepository;
     private StatusServiceInterface $statusService;
+    private XylophRepositoryInterface $xylophRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -50,6 +57,8 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
 
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
         $this->decodeRebelBase = $I->grabService(DecodeRebelSignalService::class);
+        $this->decodeXylophDatabaseService = $I->grabService(DecodeXylophDatabaseServiceInterface::class);
+        $this->xylophRepository = $I->grabService(XylophRepositoryInterface::class);
     }
 
     public function shouldGiveTriumphOnDaedalusNewCycle(FunctionalTester $I): void
@@ -248,5 +257,26 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         $I->assertEquals(10, $eleesha->getTriumph());
         $I->assertEquals(8, $this->chun->getTriumph());
         $I->assertEquals(0, $this->kuanTi->getTriumph());
+    }
+
+    public function shouldGainPaolaTriumphOnKivancDecoded(FunctionalTester $I): void
+    {
+        $paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
+
+        // When Kivanc contacted
+        $kivancConfig = $I->grabEntityFromRepository(XylophConfig::class, ['key' => XylophEnum::KIVANC->toString() . '_default']);
+        $xylophEntry = new XylophEntry(
+            xylophConfig: $kivancConfig,
+            daedalusId: $this->daedalus->getId(),
+        );
+        $this->xylophRepository->save($xylophEntry);
+        $this->decodeXylophDatabaseService->execute(
+            xylophEntry: $xylophEntry,
+            player: $this->chun,
+        );
+
+        // Then Paola should gain 8 triumph
+        $I->assertEquals(8, $paola->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
     }
 }

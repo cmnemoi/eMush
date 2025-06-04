@@ -45,6 +45,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
             RebelBaseDecodedEvent::class => 'onRebelBaseDecoded',
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
             XylophEntryDecodedEvent::class => 'onXylophEntryDecoded',
         ];
     }
@@ -126,6 +127,15 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onStatusRemoved(StatusEvent $event): void
+    {
+        echo "\nonStatusRemoved tags:\n";
+        foreach ($event->getTags() as $tag) {
+            echo "- {$tag}\n";
+        }
         $this->changeTriumphFromEventService->execute($event);
     }
 

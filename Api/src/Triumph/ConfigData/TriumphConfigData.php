@@ -646,6 +646,20 @@ abstract class TriumphConfigData
                 targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: 8,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::TR_ANATHEM->toConfigKey('default'),
+                name: TriumphEnum::TR_ANATHEM,
+                targetedEvent: StatusEvent::STATUS_REMOVED,
+                tagConstraints: [
+                    PlayerStatusEnum::PARIAH => TriumphSourceEventInterface::ALL_TAGS,
+                    PlayerEvent::DEATH_PLAYER => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::RETURN_TO_SOL->toString() => TriumphSourceEventInterface::NONE_TAGS,
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 8,
+            ),
         ];
     }
 

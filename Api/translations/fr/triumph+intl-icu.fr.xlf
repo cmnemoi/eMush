@@ -451,5 +451,15 @@
         <target>lander.log</target>
       </segment>
     </unit>
+    <unit id="tr_anathem">
+      <segment id="tr_anathem.name" state="initial">
+        <source>tr_anathem.name</source>
+        <target>tr_anathem.name</target>
+      </segment>
+      <segment id="tr_anathem.log" state="initial">
+        <source>tr_anathem.log</source>
+        <target>tr_anathem.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

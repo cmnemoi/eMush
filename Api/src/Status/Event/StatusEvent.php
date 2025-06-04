@@ -86,6 +86,11 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
         return $this->target;
     }
 
+    public function getStatusTargetOrThrow(): StatusHolderInterface
+    {
+        return $this->target ?? throw new \RuntimeException("Target for status {$this->status->getName()} not found.");
+    }
+
     public function setStatusTarget(?StatusHolderInterface $target): self
     {
         $this->target = $target;
@@ -166,6 +171,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
     {
         return match ($targetSetting) {
             TriumphTarget::EVENT_SUBJECT => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getPlayerStatusHolder())),
+            TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getStatusTargetOrThrow())),
             default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
     }

@@ -11,9 +11,11 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Alert\Entity\Alert;
 use Mush\Alert\Enum\AlertEnum;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
@@ -34,6 +36,7 @@ final class AnathemaCest extends AbstractFunctionalTest
     private ActionConfig $attemptActionConfig;
     private Hit $attemptAction;
 
+    private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
@@ -46,6 +49,7 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->attemptAction = $I->grabService(Hit::class);
         $this->attemptActionConfig->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::COVERT);
 
+        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -139,6 +143,50 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldNotHavePariahStatus($I);
     }
 
+    public function shouldNotChangeTriumphByAnathemaWhenVictimizerDies(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->givenChunHasTriumph(10);
+
+        $this->whenChunDies();
+
+        $this->thenChunShouldHaveTriumph(10, $I);
+    }
+
+    public function shouldProvideTriumphWhenMushPariahDies(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->givenKuanTiIsMush($I);
+
+        $this->whenKuanTiDies();
+
+        $this->thenChunShouldHaveTriumph(8, $I);
+    }
+
+    public function shouldLoseTriumphWhenHumanPariahDies(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->givenChunHasTriumph(10);
+
+        $this->whenKuanTiDies();
+
+        $this->thenChunShouldHaveTriumph(2, $I);
+    }
+
+    public function shouldNotChangeTriumphByAnathemaWhenReturningToSol(FunctionalTester $I): void
+    {
+        $this->givenChunUsesAnathemaOnKuanTi();
+
+        $this->givenChunHasTriumph(10);
+
+        $this->whenReturningToSol();
+
+        $this->thenChunShouldHaveTriumph(30, $I);
+    }
+
     private function givenChunUsesAnathemaOnKuanTi(): void
     {
         $this->whenChunUsesAnathemaOnKuanTi();
@@ -147,6 +195,16 @@ final class AnathemaCest extends AbstractFunctionalTest
     private function givenActionSuccessRateIs(int $actionSuccessRate): void
     {
         $this->attemptActionConfig->setSuccessRate($actionSuccessRate);
+    }
+
+    private function givenKuanTiIsMush(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+    }
+
+    private function givenChunHasTriumph(int $quantity): void
+    {
+        $this->chun->setTriumph($quantity);
     }
 
     private function whenKuanTiAttemptsAction(): void
@@ -216,6 +274,16 @@ final class AnathemaCest extends AbstractFunctionalTest
         );
     }
 
+    private function whenReturningToSol(): void
+    {
+        $event = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [ActionEnum::RETURN_TO_SOL->toString()],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($event, DaedalusEvent::FINISH_DAEDALUS);
+    }
+
     private function thenKuanTiShouldHavePariahStatus(FunctionalTester $I): void
     {
         $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::PARIAH));
@@ -265,5 +333,10 @@ final class AnathemaCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals($message, $this->anathema->cannotExecuteReason());
+    }
+
+    private function thenChunShouldHaveTriumph(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->chun->getTriumph());
     }
 }

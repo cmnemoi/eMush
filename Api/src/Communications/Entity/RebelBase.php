@@ -160,7 +160,7 @@ class RebelBase implements ModifierProviderInterface
     }
 
     /**
-     * @deprecated should be used only in Doctrine repositories
+     * @deprecated should be used only in Doctrine repositories. Use getDaedalusId() instead.
      */
     public function getDaedalus(): Daedalus
     {

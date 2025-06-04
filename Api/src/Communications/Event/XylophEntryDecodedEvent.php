@@ -9,7 +9,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-final class RebelBaseDecodedEvent extends AbstractGameEvent implements TriumphSourceEventInterface
+final class XylophEntryDecodedEvent extends AbstractGameEvent implements TriumphSourceEventInterface
 {
     use TriumphSourceEventTrait;
 

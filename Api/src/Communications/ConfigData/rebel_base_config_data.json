@@ -3,9 +3,7 @@
         "key": "wolf_default",
         "name": "wolf",
         "contactOrder": 1,
-        "modifierConfigs": [
-            "plus_8_triumph_points_for_all_players"
-        ],
+        "modifierConfigs": [],
         "statusConfig": null
     },
     {

@@ -3,7 +3,6 @@
 namespace Mush\Modifier\ConfigData;
 
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Modifier\Enum\ModifierRequirementEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -186,12 +185,6 @@ class ModifierActivationRequirementData
             'activationRequirementName' => ModifierRequirementEnum::HOLDER_HAS_STATUS,
             'activationRequirement' => PlayerStatusEnum::HYPERACTIVE,
             'value' => ModifierRequirementEnum::ABSENT_STATUS,
-        ],
-        [
-            'name' => ModifierRequirementEnum::PLAYER_IS_PAOLA,
-            'activationRequirementName' => ModifierRequirementEnum::HOLDER_NAME,
-            'activationRequirement' => CharacterEnum::PAOLA,
-            'value' => 100,
         ],
     ];
 

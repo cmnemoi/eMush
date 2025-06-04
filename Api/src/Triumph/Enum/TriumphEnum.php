@@ -27,6 +27,7 @@ enum TriumphEnum: string
     case HUMANOCIDE_CAT = 'humanocide_cat';
     case INFECT = 'infect';
     case KUBE_SOLVED = 'kube_solved';
+    case LOOKING_FOR_KIVANC = 'looking_for_kivanc';
     case MAGELLAN_ARK = 'magellan_ark';
     case MUSH_FEAR = 'mush_fear';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';
@@ -43,6 +44,8 @@ enum TriumphEnum: string
     case PRECIOUS_BODY = 'precious_body';
     case PREGNANCY = 'pregnancy';
     case PRETTY_COOK = 'pretty_cook';
+    case REBEL_CONTACT = 'rebel_contact';
+    case REBEL_WOLF = 'rebel_wolf';
     case REMEDY = 'remedy';
     case RESEARCH_BRILLANT = 'research_brillant';
     case RESEARCH_SMALL = 'research_small';

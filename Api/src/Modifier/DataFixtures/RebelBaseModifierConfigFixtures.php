@@ -18,15 +18,6 @@ final class RebelBaseModifierConfigFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        /** @var VariableEventConfig $plus8TriumphEventConfig */
-        $plus8TriumphEventConfig = $this->getReference(EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS);
-        $wolfTriumphModifier = DirectModifierConfig::fromConfigData(
-            ModifierConfigData::getByName(ModifierNameEnum::PLUS_8_TRIUMPH_POINTS_FOR_ALL_PLAYERS)
-        );
-        $wolfTriumphModifier->setTriggeredEvent($plus8TriumphEventConfig);
-        $manager->persist($wolfTriumphModifier);
-        $this->addReference($wolfTriumphModifier->getName(), $wolfTriumphModifier);
-
         $siriusActionPointModifier = VariableEventModifierConfig::fromConfigData(
             ModifierConfigData::getByName(ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINT_ON_CONSUME_ACTION_IF_STANDARD_RATION)
         );

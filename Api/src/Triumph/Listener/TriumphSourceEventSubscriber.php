@@ -6,6 +6,8 @@ namespace Mush\Triumph\Listener;
 
 use Mush\Action\Event\ActionEvent;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
+use Mush\Communications\Event\RebelBaseDecodedEvent;
+use Mush\Communications\Event\XylophEntryDecodedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -40,7 +42,9 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
             ProjectEvent::PROJECT_ADVANCED => 'onProjectAdvanced',
             ProjectEvent::PROJECT_FINISHED => 'onProjectFinished',
+            RebelBaseDecodedEvent::class => 'onRebelBaseDecoded',
             StatusEvent::STATUS_APPLIED => 'onStatusApplied',
+            XylophEntryDecodedEvent::class => 'onXylophEntryDecoded',
         ];
     }
 
@@ -109,7 +113,17 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
         $this->changeTriumphFromEventService->execute($event);
     }
 
+    public function onRebelBaseDecoded(RebelBaseDecodedEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
     public function onStatusApplied(StatusEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onXylophEntryDecoded(XylophEntryDecodedEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

@@ -391,5 +391,35 @@
         <target>robotic_graal.log</target>
       </segment>
     </unit>
+    <unit id="rebel_wolf">
+      <segment id="rebel_wolf.name" state="initial">
+        <source>rebel_wolf.name</source>
+        <target>rebel_wolf.name</target>
+      </segment>
+      <segment id="rebel_wolf.log" state="initial">
+        <source>rebel_wolf.log</source>
+        <target>rebel_wolf.log</target>
+      </segment>
+    </unit>
+    <unit id="rebel_contact">
+      <segment id="rebel_contact.name" state="initial">
+        <source>rebel_contact.name</source>
+        <target>rebel_contact.name</target>
+      </segment>
+      <segment id="rebel_contact.log" state="initial">
+        <source>rebel_contact.log</source>
+        <target>rebel_contact.log</target>
+      </segment>
+    </unit>
+    <unit id="looking_for_kivanc">
+      <segment id="looking_for_kivanc.name" state="initial">
+        <source>looking_for_kivanc.name</source>
+        <target>looking_for_kivanc.name</target>
+      </segment>
+      <segment id="looking_for_kivanc.log" state="initial">
+        <source>looking_for_kivanc.log</source>
+        <target>looking_for_kivanc.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

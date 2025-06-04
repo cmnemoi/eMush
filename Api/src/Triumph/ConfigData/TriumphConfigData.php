@@ -6,7 +6,11 @@ namespace Mush\Triumph\ConfigData;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Communications\Enum\RebelBaseEnum;
+use Mush\Communications\Enum\XylophEnum;
 use Mush\Communications\Event\LinkWithSolEstablishedEvent;
+use Mush\Communications\Event\RebelBaseDecodedEvent;
+use Mush\Communications\Event\XylophEntryDecodedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Event\EquipmentEvent;
@@ -576,6 +580,33 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_TERRENCE,
                 targetSetting: TriumphTarget::AUTHOR,
                 quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::REBEL_CONTACT->toConfigKey('default'),
+                name: TriumphEnum::REBEL_CONTACT,
+                targetedEvent: RebelBaseDecodedEvent::class,
+                scope: TriumphScope::PERSONAL_ELEESHA,
+                quantity: 2,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::REBEL_WOLF->toConfigKey('default'),
+                name: TriumphEnum::REBEL_WOLF,
+                targetedEvent: RebelBaseDecodedEvent::class,
+                tagConstraints: [
+                    RebelBaseEnum::WOLF->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::LOOKING_FOR_KIVANC->toConfigKey('default'),
+                name: TriumphEnum::LOOKING_FOR_KIVANC,
+                targetedEvent: XylophEntryDecodedEvent::class,
+                tagConstraints: [
+                    XylophEnum::KIVANC->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_PAOLA,
+                quantity: 8,
             ),
         ];
     }

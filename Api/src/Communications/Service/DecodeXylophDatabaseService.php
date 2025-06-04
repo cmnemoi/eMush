@@ -4,6 +4,7 @@ namespace Mush\Communications\Service;
 
 use Mush\Communications\Entity\XylophEntry;
 use Mush\Communications\Enum\XylophEnum;
+use Mush\Communications\Event\XylophEntryDecodedEvent;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
@@ -15,6 +16,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Exception\GameException;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Service\ModifierCreationServiceInterface;
@@ -30,6 +32,7 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
 {
     public function __construct(
         private DaedalusRepositoryInterface $daedalusRepository,
+        private EventServiceInterface $eventService,
         private ModifierCreationServiceInterface $modifierCreationService,
         private GameEquipmentServiceInterface $gameEquipmentService,
         private KillLinkWithSolService $killLinkWithSol,
@@ -72,6 +75,11 @@ final readonly class DecodeXylophDatabaseService implements DecodeXylophDatabase
             default => throw new \LogicException('undefined xyloph entry name'),
         };
 
+        $tags[] = $xylophEntry->getName()->toString();
+        $this->eventService->callEvent(
+            event: new XylophEntryDecodedEvent($daedalus, $tags),
+            name: XylophEntryDecodedEvent::class,
+        );
         $this->markXylophDatabaseDecoded($xylophEntry);
     }
 

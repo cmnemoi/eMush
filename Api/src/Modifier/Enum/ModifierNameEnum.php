@@ -148,8 +148,6 @@ abstract class ModifierNameEnum
     public const string GERMAPHOBE_MODIFIER = 'germaphobe_modifier';
     public const string PLUS_3_MORALE_POINTS_FOR_ALL_PLAYERS = 'plus_3_morale_points_for_all_players';
     public const string FIRST_SOL_CONTACT_MODIFIER = 'first_sol_contact_modifier';
-    public const string PLUS_8_TRIUMPH_POINTS_FOR_ALL_PLAYERS = 'plus_8_triumph_points_for_all_players';
-    public const string WOLF_REBEL_BASE_MODIFIER = 'wolf_rebel_base_modifier';
     public const string PLUS_6_MORALE_POINTS_FOR_ALL_PLAYERS = 'plus_6_morale_points_for_all_players';
     public const string KALADAAN_REBEL_BASE_MODIFIER = 'kaladaan_rebel_base_modifier';
     public const string PLAYER_PLUS_1_ACTION_POINT_ON_CONSUME_ACTION_IF_STANDARD_RATION = 'player_plus_1_action_point_on_consume_action_if_standard_ration';
@@ -160,8 +158,6 @@ abstract class ModifierNameEnum
     public const string CYGNI_PLUS_1_DAMAGE_PATROL_SHIPS = 'cygni_plus_1_damage_patrol_ships';
     public const string DOUBLE_DECODE_BASE_SIGNAL = 'double_decode_base_signal';
     public const string KIVANC_MODIFIER = 'kivanc_modifier';
-    public const string PLUS_8_TRIUMPH_POINTS_FOR_PAOLA = 'plus_8_triumph_points_for_paola';
-    public const string PAOLA_PERSONAL_TRIUMPH_MODIFIER = 'paola_personal_triumph_modifier';
     public const string PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE = 'player_+1_action_points_on_consume_action_if_coffee';
     public const string GUARANA_CAPPUCCINO_MODIFIER = 'guarana_cappuccino_modifier';
     public const string PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM = 'player_+1_morale_point_to_other_laid_down_players';

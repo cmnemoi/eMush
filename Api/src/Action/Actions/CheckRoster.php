@@ -12,6 +12,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CheckRoster extends AbstractAction
@@ -28,6 +29,11 @@ class CheckRoster extends AbstractAction
         parent::__construct($eventService, $actionService, $validator);
 
         $this->gameEquipmentService = $gameEquipmentService;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addConstraint(new Reach(['reach' => ReachEnum::ROOM, 'groups' => ['visibility']]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

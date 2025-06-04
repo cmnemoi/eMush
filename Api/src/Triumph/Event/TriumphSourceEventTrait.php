@@ -14,8 +14,11 @@ use Mush\Triumph\Enum\TriumphTarget;
 
 trait TriumphSourceEventTrait
 {
+    protected const string MUSH_SUBJECT = 'mush_subject';
+
     public function getTriumphTargets(TriumphConfig $triumphConfig): PlayerCollection
     {
+        $this->addEventTags();
         if (!$this->hasExpectedTagsFor($triumphConfig)) {
             return new PlayerCollection();
         }
@@ -68,6 +71,8 @@ trait TriumphSourceEventTrait
     {
         throw new \LogicException('Not implemented');
     }
+
+    protected function addEventTags() {}
 
     private function getScopeTargetsForTriumph(TriumphConfig $triumphConfig): PlayerCollection
     {

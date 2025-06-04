@@ -32,15 +32,15 @@ final class HunterCest extends AbstractFunctionalTest
     public function shouldGainTriumphOnShootingDownHunters(FunctionalTester $I)
     {
         $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
-        $this->givenHuntersSpawnOfAmount(11);
-        $this->whenPlayerShootsDownHunters($roland, 8);
-        $this->thenPlayerShouldHaveTriumph($roland, 16, $I); // should get double points up to this point
+        $this->givenHuntersSpawnOfAmount(30);
+        $this->whenPlayerShootsDownHunters($roland, 9);
+        $this->thenPlayerShouldHaveTriumph($roland, 18, $I); // should get double points up to this point
         $this->whenPlayerShootsDownHunters($roland, 1);
-        $this->thenPlayerShouldHaveTriumph($roland, 17, $I); // gained only 1 point, extra point prevented due to regressive factor
+        $this->thenPlayerShouldHaveTriumph($roland, 19, $I); // gained only 1 point, extra point prevented due to regressive factor
         $this->whenPlayerShootsDownHunters($roland, 1);
-        $this->thenPlayerShouldHaveTriumph($roland, 19, $I);
+        $this->thenPlayerShouldHaveTriumph($roland, 21, $I);
         $this->whenPlayerShootsDownHunters($roland, 1);
-        $this->thenPlayerShouldHaveTriumph($roland, 20, $I);
+        $this->thenPlayerShouldHaveTriumph($roland, 22, $I);
     }
 
     private function givenHuntersSpawnOfAmount(int $quantity): void

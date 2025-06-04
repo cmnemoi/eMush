@@ -439,6 +439,24 @@
       <segment id="star_map_n.log" state="initial">
         <source>star_map_n.log</source>
         <target>star_map_n.log</target>
+    <unit id="daedalus_defender">
+      <segment id="daedalus_defender.name" state="initial">
+        <source>daedalus_defender.name</source>
+        <target>daedalus_defender.name</target>
+      </segment>
+      <segment id="daedalus_defender.log" state="initial">
+        <source>daedalus_defender.log</source>
+        <target>daedalus_defender.log</target>
+      </segment>
+    </unit>
+    <unit id="hunter_nemesis">
+      <segment id="hunter_nemesis.name" state="initial">
+        <source>hunter_nemesis.name</source>
+        <target>hunter_nemesis.name</target>
+      </segment>
+      <segment id="hunter_nemesis.log" state="initial">
+        <source>hunter_nemesis.log</source>
+        <target>hunter_nemesis.log</target>
       </segment>
     </unit>
     <unit id="lander">

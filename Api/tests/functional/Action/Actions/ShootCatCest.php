@@ -9,12 +9,17 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -43,7 +48,7 @@ final class ShootCatCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->givenCatIsInShelf($I);
+        $this->givenCatIsInShelf();
         $this->givenPlayerHasBlaster($I);
     }
 
@@ -144,7 +149,78 @@ final class ShootCatCest extends AbstractFunctionalTest
         $I->assertEquals(10, $this->player->getMoralPoint());
     }
 
-    private function givenCatIsInShelf(FunctionalTester $I): void
+    public function shouldSpendOneActionPointForPlayerWithCrazyEyesHoldingCat(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasCrazyEyes($I);
+
+        $this->givenCatIsInPlayerInventory($I);
+
+        $initialActionPoints = $this->player->getActionPoint();
+
+        $this->whenPlayerShoots();
+
+        $I->assertEquals($initialActionPoints - 1, $this->player->getActionPoint());
+    }
+
+    public function shouldHumanKillerGainTriumphWhenShootingInfectedCat(FunctionalTester $I): void
+    {
+        $this->givenShotIsSuccessful($I);
+
+        $this->givenCatIsInfected();
+
+        $initialTriumph = $this->player->getTriumph();
+
+        $initialWitnessTriumph = $this->player2->getTriumph();
+
+        $this->whenPlayerShoots();
+
+        $I->assertEquals($initialTriumph + 3, $this->player->getTriumph());
+
+        $I->assertEquals($initialWitnessTriumph, $this->player2->getTriumph());
+    }
+
+    public function shouldMushKillerGainTriumphWhenShootingNonInfectedCat(FunctionalTester $I): void
+    {
+        $mushPlayer = $this->givenMushPlayer($I);
+
+        $this->givenShotIsSuccessful($I);
+
+        $initialTriumph = $mushPlayer->getTriumph();
+
+        $this->whenMushShoots($mushPlayer, $I);
+
+        $I->assertEquals($initialTriumph + 3, $mushPlayer->getTriumph());
+    }
+
+    public function shouldMushKillerGainNoTriumphWhenShootingInfectedCat(FunctionalTester $I): void
+    {
+        $mushPlayer = $this->givenMushPlayer($I);
+
+        $this->givenShotIsSuccessful($I);
+
+        $this->givenCatIsInfected();
+
+        $initialTriumph = $mushPlayer->getTriumph();
+
+        $this->whenMushShoots($mushPlayer, $I);
+
+        $I->assertEquals($initialTriumph, $mushPlayer->getTriumph());
+    }
+
+    public function shouldGainNoTriumphWhenMissingAShot(FunctionalTester $I): void
+    {
+        $this->givenShotIsFailure($I);
+
+        $this->givenCatIsInfected();
+
+        $initialTriumph = $this->player->getTriumph();
+
+        $this->whenPlayerShoots();
+
+        $I->assertEquals($initialTriumph, $this->player->getTriumph());
+    }
+
+    private function givenCatIsInShelf(): void
     {
         $this->schrodinger = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::SCHRODINGER,
@@ -152,6 +228,20 @@ final class ShootCatCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenCatIsInPlayerInventory(FunctionalTester $I): void
+    {
+        $eventService = $I->grabService(EventServiceInterface::class);
+        $itemEvent = new MoveEquipmentEvent(
+            equipment: $this->schrodinger,
+            newHolder: $this->player,
+            author: $this->player,
+            visibility: VisibilityEnum::HIDDEN,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $eventService->callEvent($itemEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 
     private function givenPlayerHasBlaster(FunctionalTester $I): void
@@ -196,6 +286,27 @@ final class ShootCatCest extends AbstractFunctionalTest
         $this->player->setMoralPoint($moralPoint);
     }
 
+    private function givenPlayerHasCrazyEyes(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::CRAZY_EYE, $I, $this->player);
+    }
+
+    private function givenMushPlayer(FunctionalTester $I): Player
+    {
+        return $this->convertPlayerToMush($I, $this->kuanTi);
+    }
+
+    private function givenCatIsInfected(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::CAT_INFECTED,
+            holder: $this->schrodinger,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->player
+        );
+    }
+
     private function whenPlayerTriesToShootCat(): void
     {
         $this->shootCat->loadParameters(
@@ -209,6 +320,26 @@ final class ShootCatCest extends AbstractFunctionalTest
     private function whenPlayerShoots(): void
     {
         $this->whenPlayerTriesToShootCat();
+        $this->shootCat->execute();
+    }
+
+    private function whenMushShoots(Player $mush, FunctionalTester $I): void
+    {
+        $I->assertTrue($mush->hasStatus(PlayerStatusEnum::MUSH));
+
+        $blaster = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::BLASTER,
+            equipmentHolder: $mush,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        $this->shootCat->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $blaster,
+            player: $mush,
+            target: $this->schrodinger,
+        );
         $this->shootCat->execute();
     }
 }

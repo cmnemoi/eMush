@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="triumph.ext">
+    <unit id="cycle_human">
+      <segment id="cycle_human.name" state="initial">
+        <source>cycle_human.name</source>
+        <target>cycle_human.name</target>
+      </segment>
+      <segment id="cycle_human.log" state="initial">
+        <source>cycle_human.log</source>
+        <target>cycle_human.log</target>
+      </segment>
+    </unit>
+    <unit id="cycle_mush">
+      <segment id="cycle_mush.name" state="initial">
+        <source>cycle_mush.name</source>
+        <target>cycle_mush.name</target>
+      </segment>
+      <segment id="cycle_mush.log" state="initial">
+        <source>cycle_mush.log</source>
+        <target>cycle_mush.log</target>
+      </segment>
+    </unit>
+    <unit id="chun_lives">
+      <segment id="chun_lives.name" state="initial">
+        <source>chun_lives.name</source>
+        <target>chun_lives.name</target>
+      </segment>
+      <segment id="chun_lives.log" state="initial">
+        <source>chun_lives.log</source>
+        <target>chun_lives.log</target>
+      </segment>
+    </unit>
+    <unit id="return_to_sol">
+      <segment id="return_to_sol.name" state="initial">
+        <source>return_to_sol.name</source>
+        <target>return_to_sol.name</target>
+      </segment>
+      <segment id="return_to_sol.log" state="initial">
+        <source>return_to_sol.log</source>
+        <target>return_to_sol.log</target>
+      </segment>
+    </unit>
+    <unit id="sol_mush_intruder">
+      <segment id="sol_mush_intruder.name" state="initial">
+        <source>sol_mush_intruder.name</source>
+        <target>sol_mush_intruder.name</target>
+      </segment>
+      <segment id="sol_mush_intruder.log" state="initial">
+        <source>sol_mush_intruder.log</source>
+        <target>sol_mush_intruder.log</target>
+      </segment>
+    </unit>
+    <unit id="sol_mush_invasion">
+      <segment id="sol_mush_invasion" state="initial">
+        <source>sol_mush_invasion.name</source>
+        <target>sol_mush_invasion.name</target>
+      </segment>
+      <segment id="sol_mush_invasion.log" state="initial">
+        <source>sol_mush_invasion.log</source>
+        <target>sol_mush_invasion.log</target>
+      </segment>
+    </unit>
+    <unit id="mush_initial_bonus">
+      <segment id="mush_initial_bonus.name" state="initial">
+        <source>mush_initial_bonus.name</source>
+        <target>mush_initial_bonus.name</target>
+      </segment>
+      <segment id="mush_initial_bonus.log" state="initial">
+        <source>mush_initial_bonus.log</source>
+        <target>mush_initial_bonus.log</target>
+      </segment>
+    </unit>
+    <unit id="expedition">
+      <segment id="expedition.name" state="initial">
+        <source>expedition.name</source>
+        <target>expedition.name</target>
+      </segment>
+      <segment id="expedition.log" state="initial">
+        <source>expedition.log</source>
+        <target>expedition.log</target>
+      </segment>
+    </unit>
+    <unit id="explorator">
+      <segment id="explorator.name" state="initial">
+        <source>explorator.name</source>
+        <target>explorator.name</target>
+      </segment>
+      <segment id="explorator.log" state="initial">
+        <source>explorator.log</source>
+        <target>explorator.log</target>
+      </segment>
+    </unit>
+    <unit id="sol_contact">
+      <segment id="sol_contact.name" state="initial">
+        <source>sol_contact.name</source>
+        <target>sol_contact.name</target>
+      </segment>
+      <segment id="sol_contact.log" state="initial">
+        <source>sol_contact.log</source>
+        <target>sol_contact.log</target>
+      </segment>
+    </unit>
+    <unit id="research_small">
+      <segment id="research_small.name" state="initial">
+        <source>research_small.name</source>
+        <target>research_small.name</target>
+      </segment>
+      <segment id="research_small.log" state="initial">
+        <source>research_small.log</source>
+        <target>research_small.log</target>
+      </segment>
+    </unit>
+    <unit id="research_standard">
+      <segment id="research_standard.name" state="initial">
+        <source>research_standard.name</source>
+        <target>research_standard.name</target>
+      </segment>
+      <segment id="research_standard.log" state="initial">
+        <source>research_standard.log</source>
+        <target>research_standard.log</target>
+      </segment>
+    </unit>
+    <unit id="research_brillant">
+      <segment id="research_brillant.name" state="initial">
+        <source>research_brillant.name</source>
+        <target>research_brillant.name</target>
+      </segment>
+      <segment id="research_brillant.log" state="initial">
+        <source>research_brillant.log</source>
+        <target>research_brillant.log</target>
+      </segment>
+    </unit>
+    <unit id="mush_specialist">
+      <segment id="mush_specialist.name" state="initial">
+        <source>mush_specialist.name</source>
+        <target>mush_specialist.name</target>
+      </segment>
+      <segment id="mush_specialist.log" state="initial">
+        <source>mush_specialist.log</source>
+        <target>mush_specialist.log</target>
+      </segment>
+    </unit>
+    <unit id="precious_body">
+      <segment id="precious_body.name" state="initial">
+        <source>precious_body.name</source>
+        <target>precious_body.name</target>
+      </segment>
+      <segment id="precious_body.log" state="initial">
+        <source>precious_body.log</source>
+        <target>precious_body.log</target>
+      </segment>
+    </unit>
+    <unit id="magellan_ark">
+      <segment id="magellan_ark.name" state="initial">
+        <source>magellan_ark.name</source>
+        <target>magellan_ark.name</target>
+      </segment>
+      <segment id="magellan_ark.log" state="initial">
+        <source>magellan_ark.log</source>
+        <target>magellan_ark.log</target>
+      </segment>
+    </unit>
+    <unit id="pilgred_mother">
+      <segment id="pilgred_mother.name" state="initial">
+        <source>pilgred_mother.name</source>
+        <target>pilgred_mother.name</target>
+      </segment>
+      <segment id="pilgred_mother.log" state="initial">
+        <source>pilgred_mother</source>
+        <target>pilgred_mother</target>
+      </segment>
+    </unit>
+    <unit id="ambitious">
+      <segment id="ambitious.name" state="initial">
+        <source>ambitious.name</source>
+        <target>ambitious.name</target>
+      </segment>
+      <segment id="ambitious.log" state="initial">
+        <source>ambitious.log</source>
+        <target>ambitious.log</target>
+      </segment>
+    </unit>
+    <unit id="kube_solved">
+      <segment id="kube_solved.name" state="initial">
+        <source>kube_solved.name</source>
+        <target>kube_solved.name</target>
+      </segment>
+      <segment id="kube_solved.log" state="initial">
+        <source>kube_solved.log</source>
+        <target>kube_solved.log</target>
+      </segment>
+    </unit>
+    <unit id="mush_victory">
+      <segment id="mush_victory.name" state="initial">
+        <source>mush_victory.name</source>
+        <target>mush_victory.name</target>
+      </segment>
+      <segment id="mush_victory.log" state="initial">
+        <source>mush_victory.log</source>
+        <target>mush_victory.log</target>
+      </segment>
+    </unit>
+    <unit id="super_nova">
+      <segment id="super_nova.name" state="initial">
+        <source>super_nova.name</source>
+        <target>super_nova.name</target>
+      </segment>
+      <segment id="super_nova.log" state="initial">
+        <source>super_nova.log</source>
+        <target>super_nova.log</target>
+      </segment>
+    </unit>
+    <unit id="chun_dead">
+      <segment id="chun_dead.name" state="initial">
+        <source>chun_dead.name</source>
+        <target>chun_dead.name</target>
+      </segment>
+      <segment id="chun_dead.log" state="initial">
+        <source>chun_dead.log</source>
+        <target>chun_dead.log</target>
+      </segment>
+    </unit>
+    <unit id="mush_fear">
+      <segment id="mush_fear.name" state="initial">
+        <source>mush_fear.name</source>
+        <target>mush_fear.name</target>
+      </segment>
+      <segment id="mush_fear.log" state="initial">
+        <source>mush_fear.log</source>
+        <target>mush_fear.log</target>
+      </segment>
+    </unit>
+    <unit id="mushicide">
+      <segment id="mushicide.name" state="initial">
+        <source>mushicide.name</source>
+        <target>mushicide.name</target>
+      </segment>
+      <segment id="mush_fear.log" state="initial">
+        <source>mushicide.log</source>
+        <target>mushicide.log</target>
+      </segment>
+    </unit>
+    <unit id="humanocide">
+      <segment id="humanocide.name" state="initial">
+        <source>humanocide.name</source>
+        <target>humanocide.name</target>
+      </segment>
+      <segment id="humanocide.log" state="initial">
+        <source>humanocide.log</source>
+        <target>humanocide.log</target>
+      </segment>
+    </unit>
+    <unit id="psychopat">
+      <segment id="psychopat.name" state="initial">
+        <source>psychopat.name</source>
+        <target>psychopat.name</target>
+      </segment>
+      <segment id="psychopat.log" state="initial">
+        <source>psychopat.log</source>
+        <target>psychopat.log</target>
+      </segment>
+    </unit>
+    <unit id="alien_science">
+      <segment id="alien_science.name" state="initial">
+        <source>alien_science.name</source>
+        <target>alien_science.name</target>
+      </segment>
+      <segment id="alien_science.log" state="initial">
+        <source>alien_science.log</source>
+        <target>alien_science.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_invasion">
+      <segment id="eden_mush_invasion.name" state="initial">
+        <source>eden_mush_invasion.name</source>
+        <target>eden_mush_invasion.name</target>
+      </segment>
+      <segment id="eden_mush_invasion.log" state="initial">
+        <source>eden_mush_invasion.log</source>
+        <target>eden_mush_invasion.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_intruder">
+      <segment id="eden_mush_intruder.name" state="initial">
+        <source>eden_mush_intruder.name</source>
+        <target>eden_mush_intruder.name</target>
+      </segment>
+      <segment id="eden_mush_intruder.log" state="initial">
+        <source>eden_mush_intruder.log</source>
+        <target>eden_mush_intruder.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_one_man">
+      <segment id="eden_one_man.name" state="initial">
+        <source>eden_one_man.name</source>
+        <target>eden_one_man.name</target>
+      </segment>
+      <segment id="eden_one_man.log" state="initial">
+        <source>eden_one_man.log</source>
+        <target>eden_one_man.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_engineers">
+      <segment id="eden_engineers.name" state="initial">
+        <source>eden_engineers.name</source>
+        <target>eden_engineers.name</target>
+      </segment>
+      <segment id="eden_engineers.log" state="initial">
+        <source>eden_engineers.log</source>
+        <target>eden_engineers.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_biologists">
+      <segment id="eden_biologists.name" state="initial">
+        <source>eden_biologists.name</source>
+        <target>eden_biologists.name</target>
+      </segment>
+      <segment id="eden_biologists.log" state="initial">
+        <source>eden_biologists.log</source>
+        <target>eden_biologists.log</target>
+      </segment>
+    </unit>
+    <unit id="savior">
+      <segment id="savior.name" state="initial">
+        <source>savior.name</source>
+        <target>savior.name</target>
+      </segment>
+      <segment id="savior.log" state="initial">
+        <source>savior.log</source>
+        <target>savior.log</target>
+      </segment>
+    </unit>
+    <unit id="remedy">
+      <segment id="remedy.name" state="initial">
+        <source>remedy.name</source>
+        <target>remedy.name</target>
+      </segment>
+      <segment id="remedy.log" state="initial">
+        <source>remedy.log</source>
+        <target>remedy.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_at_least">
+      <segment id="eden_at_least.name" state="initial">
+        <source>eden_at_least.name</source>
+        <target>eden_at_least.name</target>
+      </segment>
+      <segment id="eden_at_least.log" state="initial">
+        <source>eden_at_least.log</source>
+        <target>eden_at_least.log</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

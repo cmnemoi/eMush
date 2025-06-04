@@ -6,6 +6,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
@@ -15,15 +16,21 @@ use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Triumph\Enum\TriumphTarget;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class ActionEvent extends AbstractGameEvent
+class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string PRE_ACTION = 'pre.action';
     public const string POST_ACTION = 'post.action';
     public const string RESULT_ACTION = 'result.action';
@@ -53,8 +60,8 @@ class ActionEvent extends AbstractGameEvent
         parent::__construct($tags, new \DateTime());
 
         $player->getSkills()->map(fn (Skill $skill) => $this->addTag($skill->getNameAsString()));
-        if ($actionProvider === $actionTarget) {
-            $this->addTag('action_self');
+        if ($actionTarget instanceof GameEquipment) {
+            $this->addTag('action_on_equipment');
         }
     }
 
@@ -136,7 +143,7 @@ class ActionEvent extends AbstractGameEvent
     public function setActionResult(ActionResult $actionResult): self
     {
         $this->actionResult = $actionResult;
-        $this->addTag($actionResult->getResultTag());
+        $this->addTags($actionResult->getResultTags());
 
         return $this;
     }
@@ -239,5 +246,18 @@ class ActionEvent extends AbstractGameEvent
     public function getDaedalusId(): int
     {
         return $this->getAuthor()->getDaedalus()->getId();
+    }
+
+    public function getDaedalus(): Daedalus
+    {
+        return $this->getAuthor()->getDaedalus();
+    }
+
+    protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    {
+        return match ($targetSetting) {
+            TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
+            default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
+        };
     }
 }

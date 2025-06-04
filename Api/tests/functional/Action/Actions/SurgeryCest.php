@@ -13,6 +13,7 @@ use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -139,6 +140,25 @@ final class SurgeryCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveASepsis($I);
     }
 
+    public function shouldGiveTriumphOnCriticalSuccess(FunctionalTester $I): void
+    {
+        $this->givenChunHasMedikit();
+
+        $this->givenKuanTiIsInjured();
+
+        $this->givenKuanTiIsLaidDown();
+
+        $this->givenSurgeryFailRateIs(0);
+
+        $this->givenSurgeryCriticalRateIs(100);
+
+        $this->whenChunMakesASurgeryOnKuanTi();
+
+        $this->thenPlayerShouldHaveTriumph(5, $this->chun, $I);
+
+        $this->thenPlayerShouldHaveTriumph(0, $this->kuanTi, $I);
+    }
+
     private function givenKuanTiIsInjured(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(
@@ -221,5 +241,10 @@ final class SurgeryCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveASepsis(FunctionalTester $I): void
     {
         $I->assertNotNull($this->kuanTi->getMedicalConditionByName(DiseaseEnum::SEPSIS), 'Kuan Ti should have sepsis');
+    }
+
+    private function thenPlayerShouldHaveTriumph(int $quantity, Player $player, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $player->getTriumph());
     }
 }

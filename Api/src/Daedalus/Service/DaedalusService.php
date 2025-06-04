@@ -33,7 +33,6 @@ use Mush\Game\Repository\LocalizationConfigRepository;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
-use Mush\Player\Entity\ClosedPlayer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Config\CharacterConfigCollection;
@@ -243,13 +242,12 @@ class DaedalusService implements DaedalusServiceInterface
 
         /** @var Player $player */
         foreach ($daedalus->getPlayers() as $player) {
-            /** @var ClosedPlayer $deadPlayerInfo */
-            $deadPlayerInfo = $player->getPlayerInfo()->getClosedPlayer();
+            $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
 
-            $deadPlayerInfo->setClosedDaedalus($closedDaedalus);
-            $closedDaedalus->addPlayer($deadPlayerInfo);
+            $closedPlayer->setClosedDaedalus($closedDaedalus);
+            $closedDaedalus->addPlayer($closedPlayer);
 
-            $this->entityManager->persist($deadPlayerInfo);
+            $this->entityManager->persist($closedPlayer);
             $this->entityManager->flush();
         }
 
@@ -455,67 +453,10 @@ class DaedalusService implements DaedalusServiceInterface
         return $this->daedalusRepository->findAllDaedalusesOnCycleChange();
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     */
     public function attributeTitles(Daedalus $daedalus, \DateTime $date): void
     {
-        // Get the names of all alive players
-        $players = $daedalus->getPlayers()->getPlayersEligibleForTitle();
-
-        foreach ($daedalus->getTitlePriorities() as $titlePriority) {
-            $titleAssigned = false;
-            $title = $titlePriority->getName();
-
-            foreach ($titlePriority->getPriority() as $priorityCharacter) {
-                // This will return the player if it is alive, and null if not
-                $player = $players->getPlayerByName($priorityCharacter);
-
-                // if the player is not alive, continue to the next one
-                if (!$player) {
-                    continue;
-                }
-
-                if (!$titleAssigned && !$player->hasTitle($title)) {
-                    // If first person in order of priority does not have title, assign it
-                    $player->addTitle($title);
-                    $playerEvent = new PlayerEvent(
-                        $player,
-                        [$title],
-                        $date
-                    );
-                    $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_ATTRIBUTED);
-                    $titleAssigned = true;
-                } elseif (!$titleAssigned && $player->hasTitle($title)) {
-                    $titleAssigned = true;
-                } elseif ($titleAssigned && $player->hasTitle($title)) {
-                    // If someone has a title when they are not the player alive with the biggest priority, remove it
-                    // For when an inactive player wakes up
-                    $player->removeTitle($title);
-                    $playerEvent = new PlayerEvent(
-                        $player,
-                        [$title],
-                        $date
-                    );
-                    $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_REMOVED);
-                }
-            }
-        }
-
-        // remove titles from inactive and mutated players
-        $inactivePlayers = $daedalus->getAlivePlayers()->getPlayersIneligibleForTitle();
-        foreach ($daedalus->getTitlePriorities() as $titlePriority) {
-            foreach ($titlePriority->getPriority() as $playerName) {
-                $player = $inactivePlayers->getPlayerByName($playerName);
-                if (!$player) {
-                    continue;
-                }
-
-                $player->removeTitle($titlePriority->getName());
-                $playerEvent = new PlayerEvent($player, [$titlePriority->getName()], $date);
-                $this->eventService->callEvent($playerEvent, PlayerEvent::TITLE_REMOVED);
-            }
-        }
+        $this->assignTitlesToEligiblePlayers($daedalus, $date);
+        $this->removeTitlesFromIneligiblePlayers($daedalus, $date);
     }
 
     /**
@@ -543,6 +484,82 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         return $daedalus;
+    }
+
+    private function assignTitlesToEligiblePlayers(Daedalus $daedalus, \DateTime $date): void
+    {
+        $eligiblePlayers = $daedalus->getPlayers()->getPlayersEligibleForTitle();
+
+        foreach ($daedalus->getTitlePriorities() as $titlePriority) {
+            $this->assignTitleToHighestPriorityPlayer($titlePriority, $eligiblePlayers, $date);
+        }
+    }
+
+    private function assignTitleToHighestPriorityPlayer(
+        TitlePriority $titlePriority,
+        PlayerCollection $eligiblePlayers,
+        \DateTime $date
+    ): void {
+        $title = $titlePriority->getName();
+        $titleAssigned = false;
+
+        foreach ($titlePriority->getPriority() as $priorityCharacter) {
+            $player = $eligiblePlayers->getPlayerByName($priorityCharacter);
+            if (!$player) {
+                continue;
+            }
+
+            if (!$titleAssigned) {
+                if (!$player->hasTitle($title)) {
+                    $this->assignTitleToPlayer($player, $title, $date);
+                }
+                $titleAssigned = true;
+            } elseif ($player->hasTitle($title)) {
+                $this->removeTitleFromPlayer($player, $title, $date);
+            }
+        }
+    }
+
+    private function assignTitleToPlayer(Player $player, string $title, \DateTime $date): void
+    {
+        $player->addTitle($title);
+        $this->dispatchTitleEvent($player, $title, $date, PlayerEvent::TITLE_ATTRIBUTED);
+    }
+
+    private function removeTitleFromPlayer(Player $player, string $title, \DateTime $date): void
+    {
+        $player->removeTitle($title);
+        $this->dispatchTitleEvent($player, $title, $date, PlayerEvent::TITLE_REMOVED);
+    }
+
+    private function removeTitlesFromIneligiblePlayers(Daedalus $daedalus, \DateTime $date): void
+    {
+        $ineligiblePlayers = $daedalus->getAlivePlayers()->getPlayersIneligibleForTitle();
+
+        foreach ($daedalus->getTitlePriorities() as $titlePriority) {
+            $this->removeTitleFromIneligiblePlayer($titlePriority, $ineligiblePlayers, $date);
+        }
+    }
+
+    private function removeTitleFromIneligiblePlayer(
+        TitlePriority $titlePriority,
+        PlayerCollection $ineligiblePlayers,
+        \DateTime $date
+    ): void {
+        foreach ($titlePriority->getPriority() as $playerName) {
+            $player = $ineligiblePlayers->getPlayerByName($playerName);
+            if (!$player) {
+                continue;
+            }
+
+            $this->removeTitleFromPlayer($player, $titlePriority->getName(), $date);
+        }
+    }
+
+    private function dispatchTitleEvent(Player $player, string $title, \DateTime $date, string $eventType): void
+    {
+        $playerEvent = new PlayerEvent($player, [$title], $date);
+        $this->eventService->callEvent($playerEvent, $eventType);
     }
 
     private function getRandomPlayersWithLessOxygen(Daedalus $daedalus): ?Player

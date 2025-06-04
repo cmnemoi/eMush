@@ -5,19 +5,19 @@
 [![discord](https://user-content.gitlab-static.net/7e2a439cd72fbe75267ad51eece2abd136f004b2/68747470733a2f2f696d672e736869656c64732e696f2f646973636f72642f363933303832303131343834363834333438)](https://discord.com/channels/693082011484684348/746873392463872071)
 [![localization](https://user-content.gitlab-static.net/d208b981d10933645dfa09029e4afbd7ea88b82e/68747470733a2f2f6261646765732e63726f7764696e2e6e65742f652f36626663626161663734323533613238333761646162303566613035353165332f6c6f63616c697a65642e737667)](https://eternaltwin.crowdin.com/emush)
 
-[eMush](https://emush.eternaltwin.org/) is an open source remake of Mush: the greatest space opera epic of Humanity, directly in your browser!
+[eMush](https://emush.eternaltwin.org/) is an open source remake of Mush: the greatest space opera of Humanity, available on all your devices!
 
-### eMush Api
+### eMush API
 
-A REST Api developed using [Symfony 6.2](https://symfony.com/doc/6.2/index.html) that manages the eMush game.
+An API developed using [Symfony 6.4](https://symfony.com/doc/6.4/index.html) that manages the eMush game.
 
 Please read [API.md](./Api/README.md) for details on the API architecture.
 
-### eMush App
+### eMush app
 
 A front-end developed using [VueJs 3](https://vuejs.org/guide/introduction.html).
 
-Please read [APP.md](./App/README.md) for details on the APP architecture.
+Please read [APP.md](./App/README.md) for details on the app architecture.
 
 ## Getting Started
 
@@ -29,70 +29,53 @@ If you don't want to go through the installation process, you can use the projec
 
 This will create a new workspace in the cloud with all the dependencies installed and the project ready to run with your prefered IDE. You need a Gitpod account to use this feature.
 
-### Installing with Docker
+### Installing with Docker (recommended)
 
-#### Windows Users:
+#### Windows
 
-Windows users first need to install WSL2 and Docker Desktop.
+- Install [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) ;
+- Install [Ubuntu](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Ubuntu` ;
+  - WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --set-default-version 2` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
+- Launch it : `wsl -d Ubuntu` ;
+- Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | bash` in your WSL2 terminal.
 
-Docker Desktop for Windows can be downloaded [here](https://docs.docker.com/desktop/install/windows-install/).
+#### Ubuntu (recommended)
 
-WSL2 should be installed by default on recent Windows 10+ versions. Try running `wsl --set-default-version 2` in a Powershell terminal. If it doesn't work, follow the instructions [here](https://learn.microsoft.com/fr-fr/windows/wsl/install-manual).
+Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_docker_install.sh?ref_type=heads | bash` in your terminal.
 
-Install [Debian](https://apps.microsoft.com/detail/9msvkqc78pk6) with WSL2 : `wsl --install -d Debian`
+#### MacOS
 
-Then launch it : `wsl -d Debian`
+- Install `git` and `make` ;
+- Install [Docker Desktop](https://docs.docker.com/desktop/install/mac-install/) ;
+- Clone the repository : `git clone https://gitlab.com/eternaltwin/mush/mush.git && cd mush` ;
+- Run `make install`.
 
-After configuring your Debian account, you can install the project following the instructions below.
+#### GNU/Linux (other distributions)
 
-#### Install build tools and Docker
+Refer to detailed Docker installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Docker-install-detailed-instructions) and adapt to your needs.
 
-- Install build tools and Git :
+If you enconter any issue, ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
 
-```bash
-sudo -s
-apt update -y
-apt install build-essential curl git -y
-```
-- Install Docker and Docker Compose in command line :
+### Installing without Docker
 
-```bash
-install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-chmod a+r /etc/apt/keyrings/docker.asc
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-apt update -y
-apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-exit # Quit root mode
-cd ~ # Go back to your home directory
-```
-Then, add your user to the Docker group :
+If you don't want to use Docker, here are two installation scripts.
 
-```bash
-sudo groupadd docker
-sudo usermod -aG docker $USER
-newgrp docker
+#### Windows (highly experimental)
+
+Run those commands in a Powershell terminal:
+
+```powershell
+Invoke-WebRequest -Uri "https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.ps1?ref_type=heads" -OutFile "clone_and_install.ps1"
+.\clone_and_install.ps1
 ```
 
-Run `docker run hello-world` to check if Docker is correctly installed. If not :
-- try to run it in a new terminal ;
-- log off and log in again ;
-- restart your computer and try again.
+If you encounter any issue (very likely), refer to legacy installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Legacy-Windows-Install-Instructions) and ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
 
-#### Install the project
+#### Ubuntu
 
-- If not done yet, generate a SSH key and add it to your GitLab profile :
-  - Generate the key : `ssh-keygen -t rsa -b 2048 -C "SSH Key for eMush repository (https://gitlab.com/eternaltwin/mush/mush)"`
-  - Display the key : `cat ~/.ssh/id_rsa.pub`
-  - Copy the key and add it to your GitLab profile here : https://gitlab.com/-/user_settings/ssh_keys/
+Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_install.sh?ref_type=heads | bash` in your terminal.
 
-- Clone the repository and move to it : `git clone git@gitlab.com:eternaltwin/mush/mush.git && cd mush`
-
-- Build the project : `make install`
-
-That's it! 
+### Post-installation
 
 If everything went well you should be able to access:
   - Swagger API documentation : http://localhost:8080/swagger/
@@ -100,86 +83,26 @@ If everything went well you should be able to access:
 
 Use the following credentials to login (all users - named by eMush characters - have the same password):
 ```
-username : andie
+username : chun
 password : 1234567891
 ```
 
-You should land in a fully working Daedalus!
+With Docker install, you should land in a fully working Daedalus!
 
-### Installing without Docker
-
-TODO : write a Bash and a Powershell script because I hate typing multiple commands to install a project
-
-- Clone repository https://gitlab.com/eternaltwin/mush/mush.git
-
-- Install NVM and yarn https://github.com/coreybutler/nvm-windows/releases
-```
-nvm install latest
-nvm use latest
-npm install -g yarn
-```
-	
-- Download the last version of PHP https://windows.php.net/download#php-8.3
-   - Add the folder containing php.exe to PATH
-   - Add in your php.ini
-```
-activate extension=pdo_pgsql
-activate extension=intl
-```
-
-- Download Composer https://getcomposer.org/download/
-  - Add the folder containing composer.bat to PATH
-
-- Download and install Postgresql https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-  - Create new user identified by mysql with password password
-  - Create database mush with user mysql as owner
-  - Create database etwin.dev with user mysql as owner
-
-- Create the JWT certificates (https://github.com/lexik/LexikJWTAuthenticationBundle):
-```bash
-openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-chmod go+r config/jwt/private.pem
-```
-  - Use `mush` as passphrase or update the `.env` with your passphrase
-
-
-- In folder `Api/`
-
-  - `cp .env.dist .env`
-  - Replace all instances of `mush_eternaltwin` by `localhost` in your `.env`
-  - Install and launch eMush back-end:
-
-```
-composer update
-php bin/console mush:migrate --dev
-php -S localhost:8080 -t public
-```
-
-- In folder `App/`
-
-  - `cp .env.dist .env`
-  - Modify `.env` `VITE_APP_URL` value to `http://localhost:5173`
-  - Install and launch eMush front-end:
-```
-yarn install
-yarn serve
-```
-
-- In folder `EternalTwin/`
-
-  - `cp eternaltwin.toml eternaltwin.local.toml`
-  - Modify `eternaltwin.local.toml` `uri` value to `http://localhost:5173`
-  - Install and launch Eternaltwin server:
-```
-yarn install
-yarn etwin db create
-yarn etwin start
-```
+With non-Docker install, run `cd Api && composer fill-daedalus` to fill a Daedalus with players.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+- If not done yet, generate a SSH key and add it to your GitLab profile :
+  - Generate the key : `ssh-keygen -t rsa -b 2048 -C "SSH Key for eMush repository (https://gitlab.com/eternaltwin/mush/mush)"`
+  - Display the key : `cat ~/.ssh/id_rsa.pub`
+  - Copy the key and add it to your GitLab profile here : https://gitlab.com/-/user_settings/ssh_keys/
+
+- Then use SSH remote to be able to push to the repository : `git remote set-url origin git@gitlab.com:eternaltwin/mush/mush.git` ;
+
+- Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us ;
+
+- When your first Merge Request is ready, ask access to the repository by sending us your GitLab username on [Discord](https://discord.com/channels/693082011484684348/746873392463872071) :)
 
 ## Endpoints
 A swagger is available that list all the available endpoints and their specifications : [Swagger](http://localhost:8080/swagger/)
@@ -216,6 +139,12 @@ netsh int ipv4 set dynamic tcp start=60536 num=5000
 netsh int ipv6 set dynamic tcp start=60536 num=5000
 ```
 Restart your computer, then try to run `make docker-start` again.
+
+### ERROR: for mush-front  Cannot start service mush-front: driver failed programming external connectivity on endpoint mush-front : Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use 
+
+You need to stop the Apache instance running on port 80. For example on Ubuntu, you can run the following command: `sudo systemctl stop apache2`.
+
+If you don't have use of this Apache server, you can disable it by running `sudo systemctl disable apache2` to avoid having to stop it manually each time you want to run the project.
 
 ### Use different ports
 To use different port modify the docker/docker-compose.dev.yml file

@@ -1559,66 +1559,6 @@
         <target>fire.description</target>
       </segment>
     </unit>
-    <unit id="pilot">
-      <segment id="name" state="initial">
-        <source>pilot.name</source>
-        <target>pilot.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>pilot.description</source>
-        <target>pilot.description</target>
-      </segment>
-    </unit>
-    <unit id="shooter">
-      <segment id="name" state="initial">
-        <source>shooter.name</source>
-        <target>shooter.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>shooter.description</source>
-        <target>shooter.description</target>
-      </segment>
-    </unit>
-    <unit id="technician">
-      <segment id="technician.name" state="initial">
-        <source>technician.name</source>
-        <target>technician.name</target>
-      </segment>
-      <segment id="technician.description" state="initial">
-        <source>technician.description</source>
-        <target>technician.description</target>
-      </segment>
-    </unit>
-    <unit id="conceptor">
-      <segment id="conceptor.name" state="initial">
-        <source>conceptor.name</source>
-        <target>conceptor.name</target>
-      </segment>
-      <segment id="conceptor.description" state="initial">
-        <source>conceptor.description</source>
-        <target>conceptor.description</target>
-      </segment>
-    </unit>
-    <unit id="shrink">
-      <segment id="shrink.name" state="initial">
-        <source>shrink.name</source>
-        <target>shrink.name</target>
-      </segment>
-      <segment id="shrink.description" state="initial">
-        <source>shrink.description</source>
-        <target>shrink.description</target>
-      </segment>
-    </unit>
-    <unit id="mankind_only_hope">
-      <segment id="mankind_only_hope.name" state="initial">
-        <source>mankind_only_hope.name</source>
-        <target>mankind_only_hope.name</target>
-      </segment>
-      <segment id="mankind_only_hope.description" state="initial">
-        <source>mankind_only_hope.description</source>
-        <target>mankind_only_hope.description</target>
-      </segment>
-    </unit>
     <unit id="genius_idea">
       <segment id="name" state="initial">
         <source>genius_idea.name</source>
@@ -1657,6 +1597,30 @@
       <segment id="description" state="initial">
         <source>beginner.description</source>
         <target>beginner.description</target>
+      </segment>
+    </unit>
+    <unit id="turbo_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>turbo_drone_upgrade.description</source>
+        <target>turbo_drone_upgrade.description</target>
+      </segment>
+    </unit>
+    <unit id="pilot_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>pilot_drone_upgrade.description</source>
+        <target>pilot_drone_upgrade.description</target>
+      </segment>
+    </unit>
+    <unit id="sensor_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>sensor_drone_upgrade.description</source>
+        <target>sensor_drone_upgrade.description</target>
+      </segment>
+    </unit>
+    <unit id="firefighter_drone_upgrade">
+      <segment id="description" state="initial">
+        <source>firefighter_drone_upgrade.description</source>
+        <target>firefighter_drone_upgrade.description</target>
       </segment>
     </unit>
   </file>

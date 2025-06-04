@@ -1,12 +1,22 @@
-Mush\Game\Entity\TriumphConfig:
+Mush\Triumph\Entity\TriumphConfig:
   attributes:
     id:
       groups: [ 'triumph_config_read' ]
+    key:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
     name:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
-    triumph:
+    scope:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
-    isAllCrew:
+    targetedEvent:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
-    team:
+    targetedEventExpectedTags:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    target:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    quantity:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    visibility:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    regressiveFactor:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]

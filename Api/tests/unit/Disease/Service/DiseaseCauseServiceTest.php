@@ -32,6 +32,7 @@ use Mush\Game\Service\Random\ProbaCollectionRandomElementService;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
+use Mush\Player\Factory\PlayerFactory;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -108,7 +109,7 @@ final class DiseaseCauseServiceTest extends TestCase
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment(new Place());
@@ -146,7 +147,7 @@ final class DiseaseCauseServiceTest extends TestCase
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
 
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment(new Place());
@@ -168,7 +169,7 @@ final class DiseaseCauseServiceTest extends TestCase
     public function testConsumableWithDiseases()
     {
         $daedalus = DaedalusFactory::createDaedalus();
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $gameEquipment = new GameEquipment(new Place());
@@ -203,7 +204,7 @@ final class DiseaseCauseServiceTest extends TestCase
     {
         $daedalus = DaedalusFactory::createDaedalus();
 
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         $diseaseName = DiseaseEnum::FOOD_POISONING;
@@ -259,7 +260,7 @@ final class DiseaseCauseServiceTest extends TestCase
 
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, $gameConfig, new LocalizationConfig());
-        $player = new Player();
+        $player = PlayerFactory::createPlayer();
         $player->setDaedalus($daedalus);
 
         // when I create disease for perished food cause

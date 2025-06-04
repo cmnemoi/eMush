@@ -117,7 +117,7 @@
                 <Tippy
                     tag="li"
                     class="genome"
-                    v-if="player.isMush()"
+                    v-if="player.isMush"
                     @click="toggleMushSkillsDisplay">
                     <button>
                         <img :src="getImgUrl('mush_module.png')" alt="Mush Genome">

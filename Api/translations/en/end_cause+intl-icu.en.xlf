@@ -600,6 +600,10 @@
         <source>still_living.name</source>
         <target>Not yet</target>
       </segment>
+      <segment id="short_name" state="translated">
+        <source>still_living.short_name</source>
+        <target>This player is still alive.</target>
+      </segment>
       <segment id="description" state="translated">
         <source>still_living.description</source>
         <target>This player is still alive.</target>

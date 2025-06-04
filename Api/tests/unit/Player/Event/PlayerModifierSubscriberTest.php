@@ -257,7 +257,7 @@ final class PlayerModifierSubscriberTest extends TestCase
             ->with(PlayerVariableEnum::SPORE, 1, $player)
             ->andReturn($player)
             ->once();
-        $this->eventService->shouldReceive('callEvent')->twice();
+        $this->eventService->shouldReceive('callEvent')->once();
         $this->playerModifierSubscriber->onChangeVariable($event);
     }
 

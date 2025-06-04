@@ -9,14 +9,21 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Triumph\Enum\TriumphTarget;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
+class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string STATUS_APPLIED = 'status.applied';
     public const string STATUS_DELETED = 'status.deleted';
     public const string STATUS_REMOVED = 'status.removed';
@@ -43,6 +50,9 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
         parent::__construct($tags, $time);
         $this->addTag($status->getName());
         $this->addTag($holder->getName());
+        if ($holder instanceof Player && $holder->isMush()) {
+            $this->addTag(PlayerStatusEnum::MUSH);
+        }
     }
 
     public function getStatus(): Status
@@ -147,5 +157,13 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    {
+        return match ($targetSetting) {
+            TriumphTarget::EVENT_SUBJECT => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getPlayerStatusHolder())),
+            default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
+        };
     }
 }

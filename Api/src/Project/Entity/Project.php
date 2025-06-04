@@ -43,6 +43,9 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     #[ORM\Column(type: 'integer', length: 255, nullable: false, options: ['default' => 0])]
     private int $progress = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $previousProgress = 0;
+
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
     private bool $available = true;
 
@@ -80,12 +83,22 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return ProjectFactory::createNullProject();
     }
 
+    public static function createWithProgresses(int $previousProgress, int $progress): self
+    {
+        $project = self::createNull();
+        $project->progress = $progress;
+        $project->previousProgress = $previousProgress;
+
+        return $project;
+    }
+
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getRequirements()
+    /** @return Collection<int, ProjectRequirement> */
+    public function getRequirements(): Collection
     {
         return $this->config->getRequirements();
     }
@@ -150,7 +163,7 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
 
     public function getProgress(): int
     {
-        return $this->progress;
+        return min($this->progress, 100);
     }
 
     public function hasBeenAdvanced(): bool
@@ -191,6 +204,8 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
             throw new ProgressShouldBePositive($progress);
         }
 
+        $this->previousProgress = $this->progress;
+
         $this->progress += $progress;
         if ($this->progress > 100) {
             $this->progress = 100;
@@ -215,6 +230,7 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
 
     public function finish(): void
     {
+        $this->previousProgress = $this->progress;
         $this->progress = 100;
         $this->unpropose();
     }
@@ -380,8 +396,27 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return new ArrayCollection($this->config->getModifierConfigs()->toArray());
     }
 
+    public function getNumberOfProgressStepsCrossedForThreshold(int $threshold): int
+    {
+        $previousStep = intdiv($this->getPreviousProgress(), $threshold);
+        $currentStep = intdiv($this->getProgress(), $threshold);
+        $stepsCrossed = $currentStep - $previousStep;
+
+        return $stepsCrossed > 0 ? $stepsCrossed : 0;
+    }
+
+    public function hasCrossedProgressStepForThreshold(int $threshold): bool
+    {
+        return $this->getNumberOfProgressStepsCrossedForThreshold($threshold) > 0;
+    }
+
     private function equals(self $project): bool
     {
         return $this->id === $project->getId();
+    }
+
+    private function getPreviousProgress(): int
+    {
+        return min($this->previousProgress, 100);
     }
 }

@@ -15,8 +15,11 @@ use Mush\Equipment\Enum\WeaponEventEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Skill\Enum\SkillEnum;
@@ -48,13 +51,13 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->givenChunHasAGrenade();
+        $this->givenAGrenadeHeldBy($this->chun);
         $this->givenNeronIsNotInhibited();
     }
 
-    /*public function shouldDestroyGrenade(FunctionalTester $I): void
+    public function shouldDestroyGrenade(FunctionalTester $I): void
     {
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $this->thenGrenadeIsDestroyed($I);
     }
@@ -63,7 +66,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     {
         $this->givenKuanTiHasHealthPoint(10);
 
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $this->thenKuanTiShouldHaveLessThanOrEqualHealthPoint(8, $I);
     }
@@ -72,7 +75,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     {
         $this->givenKuanTiIsInSpace();
 
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $this->thenActionIsNotExecutableWithMessage(
             ActionImpossibleCauseEnum::LAUNCH_GRENADE_ALONE,
@@ -84,7 +87,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     {
         $this->givenNeronIsInhibited();
 
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $this->thenActionIsNotExecutableWithMessage(
             ActionImpossibleCauseEnum::DMZ_CORE_PEACE,
@@ -107,7 +110,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
 
     public function shouldCreateAPublicLog(FunctionalTester $I): void
     {
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $I->seeInRepository(
             entity: RoomLog::class,
@@ -123,7 +126,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     {
         $this->givenGrenadeHas100ChanceToDispatchEvent(WeaponEventEnum::GRENADE_CRITICAL_THROW_SPLASH_DAMAGE_ALL_BREAK_ITEMS_SPLASH_WOUNDS->toString());
 
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $this->thenKuanTiShouldHaveAnInjury($I);
     }
@@ -134,10 +137,10 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
 
         $this->givenMycoAlarmInRoom();
 
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $this->thenMycoAlarmIsBroken($I);
-    }*/
+    }
 
     public function shouldSpendOneActionPointForPlayerWithCrazyEyesWhenInShelvingUnit(FunctionalTester $I): void
     {
@@ -147,7 +150,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
 
         $initialActionPoints = $this->chun->getVariableValueByName(PlayerVariableEnum::ACTION_POINT);
 
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $this->thenChunShouldHaveActionPoints($initialActionPoints - 1, $I);
     }
@@ -158,16 +161,38 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
 
         $initialActionPoints = $this->chun->getVariableValueByName(PlayerVariableEnum::ACTION_POINT);
 
-        $this->whenChunThrowsGrenade();
+        $this->whenGrenadeThrownBy($this->chun);
 
         $this->thenChunShouldHaveActionPoints($initialActionPoints - 1, $I);
     }
 
-    private function givenChunHasAGrenade(): void
+    public function shouldStackGloryGainOnGrenadeKill(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+
+        $chao = $this->givenChaoInRoomWithKuanTiAndChun($I);
+
+        $this->givenAGrenadeHeldBy($chao);
+
+        $this->givenChunAndKuanTiOnOneHealth();
+
+        $this->thenRoomShouldHaveLivingPlayersOfAmount(3, $chao->getPlace(), $I);
+
+        $initialTriumph = $chao->getTriumph();
+
+        $this->whenGrenadeThrownBy($chao);
+
+        $this->thenRoomShouldHaveLivingPlayersOfAmount(1, $chao->getPlace(), $I);
+
+        // +3 psychopat kill Chun, +3 psychopat kill Kuan Ti, +3 mushicide kill Kuan Ti = +9 triumph
+        $this->thenPlayerShouldHaveTriumph($initialTriumph + 9, $chao, $I);
+    }
+
+    private function givenAGrenadeHeldBy(Player $player): void
     {
         $this->grenade = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::GRENADE,
-            equipmentHolder: $this->chun,
+            equipmentHolder: $player,
             reasons: [],
             time: new \DateTime()
         );
@@ -252,12 +277,27 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $eventService->callEvent($itemEvent, EquipmentEvent::CHANGE_HOLDER);
     }
 
-    private function whenChunThrowsGrenade(): void
+    private function givenChaoInRoomWithKuanTiAndChun(FunctionalTester $I): Player
+    {
+        $chao = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::CHAO);
+        $I->assertEquals($this->chun->getPlace(), $chao->getPlace());
+        $I->assertEquals($this->kuanTi->getPlace(), $chao->getPlace());
+
+        return $chao;
+    }
+
+    private function givenChunAndKuanTiOnOneHealth(): void
+    {
+        $this->chun->setHealthPoint(1);
+        $this->kuanTi->setHealthPoint(1);
+    }
+
+    private function whenGrenadeThrownBy(Player $player): void
     {
         $this->throwGrenade->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->grenade,
-            player: $this->chun,
+            player: $player,
             target: $this->grenade,
         );
         $this->throwGrenade->execute();
@@ -306,5 +346,15 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     private function thenChunShouldHaveActionPoints(int $expectedValue, FunctionalTester $I): void
     {
         $I->assertEquals($expectedValue, $this->chun->getVariableValueByName(PlayerVariableEnum::ACTION_POINT));
+    }
+
+    private function thenRoomShouldHaveLivingPlayersOfAmount(int $expectedAmount, Place $room, FunctionalTester $I): void
+    {
+        $I->assertCount($expectedAmount, $room->getAlivePlayers());
+    }
+
+    private function thenPlayerShouldHaveTriumph(int $expectedValue, Player $player, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedValue, $player->getVariableValueByName(PlayerVariableEnum::TRIUMPH));
     }
 }

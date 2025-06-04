@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="triumph.ext">
+    <unit id="cycle_human">
+      <segment id="cycle_human.name" state="translated">
+        <source>cycle_human.name</source>
+        <target>Human Cycle</target>
+      </segment>
+      <segment id="cycle_human.log" state="translated">
+        <source>cycle_human.log</source>
+        <target>You have earned {quantity} :triumph: for surviving another cycle.</target>
+      </segment>
+    </unit>
+    <unit id="cycle_mush">
+      <segment id="cycle_mush.name" state="translated">
+        <source>cycle_mush.name</source>
+        <target>Mush Cycle</target>
+      </segment>
+      <segment id="cycle_mush.log" state="translated">
+        <source>cycle_mush.log</source>
+        <target>You have lost {quantity} :triumph_mush: for letting these humans survive another cycle.</target>
+      </segment>
+    </unit>
+    <unit id="chun_lives">
+      <segment id="chun_lives.name" state="translated">
+        <source>chun_lives.name</source>
+        <target>Chun lives!</target>
+      </segment>
+      <segment id="chun_lives.log" state="translated">
+        <source>chun_lives.log</source>
+        <target>You have earned {quantity} :triumph: for surviving another day as Chun!</target>
+      </segment>
+    </unit>
+    <unit id="return_to_sol">
+      <segment id="return_to_sol.name" state="translated">
+        <source>return_to_sol.name</source>
+        <target>Return to Sol</target>
+      </segment>
+      <segment id="return_to_sol.log" state="translated">
+        <source>return_to_sol.log</source>
+        <target>You have earned {quantity} :triumph: for returning to Sol!</target>
+      </segment>
+    </unit>
+    <unit id="sol_mush_intruder">
+      <segment id="sol_mush_intruder.name" state="translated">
+        <source>sol_mush_intruder.name</source>
+        <target>Infiltrated Return to Sol</target>
+      </segment>
+      <segment id="sol_mush_intruder.log" state="translated">
+        <source>sol_mush_intruder.log</source>
+        <target>You have lost {quantity} :triumph: because Mushs followed you to Sol...</target>
+      </segment>
+    </unit>
+    <unit id="sol_mush_invasion">
+      <segment id="sol_mush_invasion" state="translated">
+        <source>sol_mush_invasion.name</source>
+        <target>Contaminated Invasion of Sol</target>
+      </segment>
+      <segment id="sol_mush_invasion.log" state="translated">
+        <source>sol_mush_invasion.log</source>
+        <target>You have earned {quantity} :triumph_mush: by invading Sol as a Mush!</target>
+      </segment>
+    </unit>
+    <unit id="mush_initial_bonus">
+      <segment id="mush_initial_bonus.name" state="translated">
+        <source>mush_initial_bonus.name</source>
+        <target>Mushified</target>
+      </segment>
+      <segment id="mush_initial_bonus.log" state="translated">
+        <source>mush_initial_bonus.log</source>
+        <target>You have earned {quantity} :triumph_mush: for now being an agent of the Mush!</target>
+      </segment>
+    </unit>
+    <unit id="expedition">
+      <segment id="expedition.name" state="translated">
+        <source>expedition.name</source>
+        <target>Expedition</target>
+      </segment>
+      <segment id="expedition.log" state="translated">
+        <source>expedition.log</source>
+        <target>You have earned {quantity} :triumph: for participating in an expedition.</target>
+      </segment>
+    </unit>
+    <unit id="explorator">
+      <segment id="explorator.name" state="translated">
+        <source>explorator.name</source>
+        <target>Explorer</target>
+      </segment>
+      <segment id="explorator.log" state="translated">
+        <source>explorator.log</source>
+        <target>You have earned {quantity} :triumph: for participating in an expedition as Hua!</target>
+      </segment>
+    </unit>
+    <unit id="sol_contact">
+      <segment id="sol_contact.name" state="translated">
+        <source>sol_contact.name</source>
+        <target>Contact with Sol</target>
+      </segment>
+      <segment id="sol_contact.log" state="translated">
+        <source>sol_contact.log</source>
+        <target>You have earned {quantity} :triumph: as the Daedalus contacted Sol for the first time.</target>
+      </segment>
+    </unit>
+    <unit id="research_small">
+      <segment id="research_small.name" state="translated">
+        <source>research_small.name</source>
+        <target>Minor Research</target>
+      </segment>
+      <segment id="research_small.log" state="translated">
+        <source>research_small.log</source>
+        <target>You have earned {quantity} :triumph: as a minor research project has been completed.</target>
+      </segment>
+    </unit>
+    <unit id="research_standard">
+      <segment id="research_standard.name" state="translated">
+        <source>research_standard.name</source>
+        <target>Research</target>
+      </segment>
+      <segment id="research_standard.log" state="translated">
+        <source>research_standard.log</source>
+        <target>You have earned {quantity} :triumph: as a research project has been completed.</target>
+      </segment>
+    </unit>
+    <unit id="research_brillant">
+      <segment id="research_brillant.name" state="translated">
+        <source>research_brillant.name</source>
+        <target>Major Research</target>
+      </segment>
+      <segment id="research_brillant.log" state="translated">
+        <source>research_brillant.log</source>
+        <target>You have earned {quantity} :triumph: as a major research project has been completed!</target>
+      </segment>
+    </unit>
+    <unit id="mush_specialist">
+      <segment id="mush_specialist.name" state="translated">
+        <source>mush_specialist.name</source>
+        <target>Mush Specialty</target>
+      </segment>
+      <segment id="mush_specialist.log" state="translated">
+        <source>mush_specialist.log</source>
+        <target>You have earned {quantity} :triumph: as a research project against the Mush has been completed in your presence as Finola!</target>
+      </segment>
+    </unit>
+    <unit id="precious_body">
+      <segment id="precious_body.name" state="translated">
+        <source>precious_body.name</source>
+        <target>The Precious One</target>
+      </segment>
+      <segment id="precious_body.log" state="translated">
+        <source>precious_body.log</source>
+        <target>You have earned {quantity} :triumph: as a research requiring your presence as Chun has been completed!</target>
+      </segment>
+    </unit>
+    <unit id="magellan_ark">
+      <segment id="magellan_ark.name" state="translated">
+        <source>magellan_ark.name</source>
+        <target>Magellan's Ark</target>
+      </segment>
+      <segment id="magellan_ark.log" state="translated">
+        <source>magellan_ark.log</source>
+        <target>You have earned {quantity} :triumph: as a NERON project has been completed in your presence as Kuan Ti!</target>
+      </segment>
+    </unit>
+    <unit id="pilgred_mother">
+      <segment id="pilgred_mother.name" state="translated">
+        <source>pilgred_mother.name</source>
+        <target>Mother</target>
+      </segment>
+      <segment id="pilgred_mother.log" state="translated">
+        <source>pilgred_mother</source>
+        <target>You have earned {quantity} :triumph: as Raluca because PILGRED made significant progress!</target>
+      </segment>
+    </unit>
+    <unit id="ambitious">
+      <segment id="ambitious.name" state="translated">
+        <source>ambitious.name</source>
+        <target>Ambitious</target>
+      </segment>
+      <segment id="ambitious.log" state="translated">
+        <source>ambitious.log</source>
+        <target>You have earned {quantity} :triumph: for earning a title as Stephen!</target>
+      </segment>
+    </unit>
+    <unit id="kube_solved">
+      <segment id="kube_solved.name" state="translated">
+        <source>kube_solved.name</source>
+        <target>Kuboid</target>
+      </segment>
+      <segment id="kube_solved.log" state="translated">
+        <source>kube_solved.log</source>
+        <target>You have earned {quantity} :triumph: for solving the MAD Kube.</target>
+      </segment>
+    </unit>
+    <unit id="mush_victory">
+      <segment id="mush_victory.name" state="translated">
+        <source>mush_victory.name</source>
+        <target>Mush Victory</target>
+      </segment>
+      <segment id="mush_victory.log" state="translated">
+        <source>mush_victory.log</source>
+        <target>You have earned {quantity} :triumph_mush: as the Mush has taken full control of this ship!</target>
+      </segment>
+    </unit>
+    <unit id="super_nova">
+      <segment id="super_nova.name" state="translated">
+        <source>super_nova.name</source>
+        <target>Super Nova</target>
+      </segment>
+      <segment id="super_nova.log" state="translated">
+        <source>super_nova.log</source>
+        <target>You won {quantity} :triumph: because you scattered by a stellar explosion.</target>
+      </segment>
+    </unit>
+    <unit id="chun_dead">
+      <segment id="chun_dead.name" state="translated">
+        <source>chun_dead.name</source>
+        <target>Without Hope</target>
+      </segment>
+      <segment id="chun_dead.log" state="translated">
+        <source>chun_dead.log</source>
+        <target>You have earned {quantity} :triumph: as :chun: the Mankind's only hope has left this world.</target>
+      </segment>
+    </unit>
+    <unit id="mush_fear">
+      <segment id="mush_fear.name" state="translated">
+        <source>mush_fear.name</source>
+        <target> Fear of the Mush</target>
+      </segment>
+      <segment id="mush_fear.log" state="translated">
+        <source>mush_fear.log</source>
+        <target>You have earned {quantity} :triumph: because a Mush has been eliminated in your presence as Gioele!</target>
+      </segment>
+    </unit>
+    <unit id="mushicide">
+      <segment id="mushicide.name" state="translated">
+        <source>mushicide.name</source>
+        <target>Mushicide</target>
+      </segment>
+      <segment id="mush_fear.log" state="translated">
+        <source>mushicide.log</source>
+        <target>You have earned {quantity} :triumph: by delivering the fatal blow to a Mush!</target>
+      </segment>
+    </unit>
+    <unit id="humanocide">
+      <segment id="humanocide.name" state="translated">
+        <source>humanocide.name</source>
+        <target>Humanocide</target>
+      </segment>
+      <segment id="humanocide.log" state="translated">
+        <source>humanocide.log</source>
+        <target>You have earned {quantity} :triumph: by delivering the fatal blow to a human.</target>
+      </segment>
+    </unit>
+    <unit id="psychopat">
+      <segment id="psychopat.name" state="translated">
+        <source>psychopat.name</source>
+        <target>Psy-Chao-path</target>
+      </segment>
+      <segment id="psychopat.log" state="translated">
+        <source>psychopat.log</source>
+        <target>You have earned {quantity} :triumph: by delivering the fatal blow to a crewmate as Chao.</target>
+      </segment>
+    </unit>
+    <unit id="alien_science">
+      <segment id="alien_science.name" state="translated">
+        <source>alien_science.name</source>
+        <target>Research subject</target>
+      </segment>
+      <segment id="alien_science.log" state="translated">
+        <source>alien_science.log</source>
+        <target>You have earned {quantity} :triumph: by being sold to an alien ship.</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_invasion">
+      <segment id="eden_mush_invasion.name" state="translated">
+        <source>eden_mush_invasion.name</source>
+        <target>Invasion of Eden</target>
+      </segment>
+      <segment id="eden_mush_invasion.log" state="translated">
+        <source>eden_mush_invasion.log</source>
+        <target>You have earned {quantity} :triumph_mush: by invading Eden as Mush!</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_intruder">
+      <segment id="eden_mush_intruder.name" state="translated">
+        <source>eden_mush_intruder.name</source>
+        <target>Eden Contaminated</target>
+      </segment>
+      <segment id="eden_mush_intruder.log" state="translated">
+        <source>eden_mush_intruder.log</source>
+        <target>You have lost {quantity} :triumph: because Mushs followed you to Eden...</target>
+      </segment>
+    </unit>
+    <unit id="eden_one_man">
+      <segment id="eden_one_man.name" state="translated">
+        <source>eden_one_man.name</source>
+        <target>One for all</target>
+      </segment>
+      <segment id="eden_one_man.log" state="translated">
+        <source>eden_one_man.log</source>
+        <target>You have earned {quantity} :triumph: because {quantity} {quantity, select 1 {teammate has} other {teammates have}} reached Eden.</target>
+      </segment>
+    </unit>
+    <unit id="eden_engineers">
+      <segment id="eden_engineers.name" state="translated">
+        <source>eden_engineers.name</source>
+        <target>Future Tech</target>
+      </segment>
+      <segment id="eden_engineers.log" state="translated">
+        <source>eden_engineers.log</source>
+        <target>You have earned {quantity} :triumph: by reaching Eden as a technician.</target>
+      </segment>
+    </unit>
+    <unit id="eden_biologists">
+      <segment id="eden_biologists.name" state="translated">
+        <source>eden_biologists.name</source>
+        <target>Future Biologist</target>
+      </segment>
+      <segment id="eden_biologists.log" state="translated">
+        <source>eden_biologists.log</source>
+        <target>You have earned {quantity} :triumph: by reaching Eden as a biologist.</target>
+      </segment>
+    </unit>
+    <unit id="savior">
+      <segment id="savior.name" state="translated">
+        <source>savior.name</source>
+        <target>Savior</target>
+      </segment>
+      <segment id="savior.log" state="translated">
+        <source>savior.log</source>
+        <target>You have won {quantity} :triumph: by reaching Eden as Jin Su!</target>
+      </segment>
+    </unit>
+    <unit id="remedy">
+      <segment id="remedy.name" state="translated">
+        <source>remedy.name</source>
+        <target>Remedy</target>
+      </segment>
+      <segment id="remedy.log" state="translated">
+        <source>remedy.log</source>
+        <target>You have won {quantity} :triumph: by reaching Eden as Chun!</target>
+      </segment>
+    </unit>
+    <unit id="eden_at_least">
+      <segment id="eden_at_least.name" state="translated">
+        <source>eden_at_least.name</source>
+        <target>Eve and Adam</target>
+      </segment>
+      <segment id="eden_at_least.log" state="translated">
+        <source>eden_at_least.log</source>
+        <target>You have earned {quantity} :triumph: by reaching Eden!</target>
+      </segment>
+    </unit>
+    <unit id="pretty_cook">
+      <segment id="pretty_cook.name" state="initial">
+        <source>pretty_cook.name</source>
+        <target>pretty_cook.name</target>
+      </segment>
+      <segment id="pretty_cook.log" state="initial">
+        <source>pretty_cook.log</source>
+        <target>pretty_cook.log</target>
+      </segment>
+    </unit>
+    <unit id="alien_friend">
+      <segment id="alien_friend.name" state="initial">
+        <source>alien_friend.name</source>
+        <target>alien_friend.name</target>
+      </segment>
+      <segment id="alien_friend.log" state="initial">
+        <source>alien_friend.log</source>
+        <target>alien_friend.log</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

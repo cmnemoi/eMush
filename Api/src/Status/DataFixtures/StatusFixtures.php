@@ -636,6 +636,26 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($beginner);
 
+        $hasGainedCommanderTitle = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE . '_default')
+        );
+        $manager->persist($hasGainedCommanderTitle);
+
+        $hasGainedNeronManagerTitle = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE . '_default')
+        );
+        $manager->persist($hasGainedNeronManagerTitle);
+
+        $hasGainedComManagerTitle = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE . '_default')
+        );
+        $manager->persist($hasGainedComManagerTitle);
+
+        $pointlessPlayer = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::POINTLESS_PLAYER . '_default')
+        );
+        $manager->persist($pointlessPlayer);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -711,7 +731,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($ghostChun)
             ->addStatusConfig($aggroed)
             ->addStatusConfig($beginner)
-            ->addStatusConfig($sensorDroneUpgrade);
+            ->addStatusConfig($sensorDroneUpgrade)
+            ->addStatusConfig($hasGainedCommanderTitle)
+            ->addStatusConfig($hasGainedNeronManagerTitle)
+            ->addStatusConfig($hasGainedComManagerTitle)
+            ->addStatusConfig($pointlessPlayer);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -781,6 +805,10 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DaedalusStatusEnum::GHOST_CHUN, $ghostChun);
         $this->addReference(HunterStatusEnum::AGGROED, $aggroed);
         $this->addReference(PlayerStatusEnum::BEGINNER, $beginner);
+        $this->addReference(PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE, $hasGainedCommanderTitle);
+        $this->addReference(PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE, $hasGainedNeronManagerTitle);
+        $this->addReference(PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE, $hasGainedComManagerTitle);
+        $this->addReference(PlayerStatusEnum::POINTLESS_PLAYER, $pointlessPlayer);
 
         $manager->flush();
     }

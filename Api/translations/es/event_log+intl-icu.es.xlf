@@ -996,5 +996,11 @@
         <target>trade_assets_created</target>
       </segment>
     </unit>
+    <unit id="player_leave_chat_mutated">
+      <segment state="initial">
+        <source>player_leave_chat_mutated</source>
+        <target>player_leave_chat_mutated</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

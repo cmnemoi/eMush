@@ -84,12 +84,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         }
 
         // given Janice is lost
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::LOST,
-            holder: $this->janice,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->givenLostPlayer($this->janice);
     }
 
     public function testAccidentHurtsExplorator(FunctionalTester $I): void
@@ -693,27 +688,131 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
     }
 
-    public function testProvisionEvent(FunctionalTester $I): void
+    public function testFightImprovesStephenTriumph(FunctionalTester $I): void
     {
+        $stephen = $this->givenStephenWithSpacesuit($I);
+
         // given an exploration is created
         $exploration = $this->createExploration(
-            planet: $this->createPlanet([PlanetSectorEnum::RUMINANT], $I),
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
             explorators: $this->players
         );
 
-        // given only provision event can happen in ruminant sector
-        $this->setupPlanetSectorEvents(
-            sectorName: PlanetSectorEnum::RUMINANT,
-            events: [PlanetSectorEvent::PROVISION_4 => 1]
+        // given only fight event can happen in intelligent sector
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::FIGHT_8,
+            sector: PlanetSectorEnum::INTELLIGENT,
         );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Stephen gets 2 personal triumph for fight event
+        $I->assertEquals(2, $stephen->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
+    }
+
+    public function testFightDoesNotImproveStephenTriumphWhenNotActiveExplorator(FunctionalTester $I): void
+    {
+        $stephen = $this->givenStephenWithSpacesuit($I);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun, $this->kuanTi, $this->janice, $this->derek])
+        );
+
+        // given only fight event can happen in intelligent sector
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::FIGHT_8,
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Stephen gets no triumph
+        $I->assertEquals(0, $stephen->getTriumph());
+    }
+
+    public function testInsectsImproveJaniceTriumph(FunctionalTester $I): void
+    {
+        // given Janice not lost
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INSECT], $I),
+            explorators: $this->players
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice gets 3 personal triumph for encountering a life form
+        $I->assertEquals(3, $this->janice->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
+    }
+
+    public function testInsectsNotImproveJaniceTriumphWhenLost(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INSECT], $I),
+            explorators: $this->players
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice gets no personal triumph
+        $I->assertEquals(0, $this->janice->getTriumph());
+    }
+
+    public function testProvisionEvent(FunctionalTester $I): void
+    {
+        // given Janice not lost
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::OCEAN], $I),
+            explorators: $this->players
+        );
+
+        // given only provision event can happen in oceanic sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::OCEAN,
+            events: [PlanetSectorEvent::PROVISION_3 => 1]
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
 
         // when provision event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
-        // then I should see 4 alien steaks in planet place
-        $I->assertCount(4, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
+        // then I should see 3 alien steaks in planet place
+        $I->assertCount(3, $this->daedalus->getPlanetPlace()->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === GameRationEnum::ALIEN_STEAK));
 
-        // then I should see 4 public logs in planet place to tell an explorator has found an alien steak
+        // then I should see 3 public logs in planet place to tell an explorator has found an alien steak
         $roomLogs = $I->grabEntitiesFromRepository(
             entity: RoomLog::class,
             params: [
@@ -722,12 +821,16 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 'log' => LogEnum::FOUND_ITEM_IN_EXPLORATION,
             ]
         );
-        $I->assertCount(4, $roomLogs);
+        $I->assertCount(3, $roomLogs);
         $roomLogParameters = $roomLogs[0]->getParameters();
         $I->assertEquals(GameRationEnum::ALIEN_STEAK, $roomLogParameters['target_item']);
 
-        // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
-        $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
+        // then the founder should be Chun, Kuan-Ti or Janice (not Derek - stuck in ship)
+        $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName(), $this->janice->getLogName()], true));
+
+        // then Janice should get 3 triumph
+        $I->assertEquals(3, $this->janice->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
     }
 
     public function testHarvestEvent(FunctionalTester $I): void
@@ -1536,6 +1639,39 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private function givenChunHasTenHealthPoints(): void
     {
         $this->chun->setHealthPoint(10);
+    }
+
+    private function givenStephenWithSpacesuit(FunctionalTester $I): Player
+    {
+        $stephen = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::STEPHEN);
+        $this->players->add($stephen);
+
+        // given Stephen has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $stephen,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        return $stephen;
+    }
+
+    private function givenEveryoneHasZeroTriumph(): void
+    {
+        foreach ($this->players as $player) {
+            $player->setTriumph(0);
+        }
+    }
+
+    private function givenLostPlayer(Player $player): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $player,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     private function whenExplorationEventIsDispatched(Exploration $exploration): void

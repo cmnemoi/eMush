@@ -206,6 +206,16 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $player;
     }
 
+    public function getHumanPlayers(): PlayerCollection
+    {
+        return $this->getPlayers()->getHumanPlayer();
+    }
+
+    public function getMushPlayers(): PlayerCollection
+    {
+        return $this->getPlayers()->getMushPlayer();
+    }
+
     public function getVisibleResearchProjectsForPlayer(Player $player): ProjectCollection
     {
         return $this
@@ -644,6 +654,11 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
     public function getExploration(): ?Exploration
     {
         return $this->exploration;
+    }
+
+    public function getExplorationOrThrow(): Exploration
+    {
+        return $this->exploration ?? throw new \RuntimeException('This daedalus has no exploration');
     }
 
     public function setExploration(?Exploration $exploration): static

@@ -14,8 +14,10 @@
                                 {{ getUserInfo.username }}
                             </p>
                         </div>
-                        <p class="score">
-                            {{ player.triumph?.quantity }}<img :src="getImgUrl('ui_icons/player_variables/triumph.png')" alt="triumph">
+                        <p :class="{ mush: player.isMush }" class="score">
+                            {{ player.triumph?.quantity }}
+                            <img v-if="player.isMush" :src="getImgUrl('ui_icons/player_variables/triumph_mush.png')" alt="triumph">
+                            <img v-else :src="getImgUrl('ui_icons/player_variables/triumph.png')" alt="triumph">
                         </p>
                     </div>
                     <div class="epitaph-form">
@@ -23,7 +25,7 @@
                             id="epitaph"
                             v-model="epitaph"
                             maxlength="300"
-                            placeholder="Laissez vos impressions sur la partie ici !"
+                            :placeholder="$t('deathpage.epitaphPlaceholder')"
                         />
                         <p :class="{ limit: !(maxChar - epitaph.length) }" class="char-count">
                             {{ (maxChar - epitaph.length) }} char.
@@ -33,10 +35,10 @@
                         <p class="death-cause">
                             <img :src="getImgUrl('ready.png')" alt="alive" v-if="deadPlayerInfo.hasGoodEndCause()">
                             <img :src="getImgUrl('ui_icons/dead.png')" alt="dead" v-else>
-                            {{ deadPlayerInfo.endCauseValue }}
+                            {{ deadPlayerInfo.endCauseName }}
                         </p>
                     </div>
-                    <HistoryLogs />
+                    <HistoryLogs :triumph-gains="deadPlayerInfo.triumphGains" />
                 </div>
             </div>
             <table class="crew-summary">
@@ -50,7 +52,7 @@
                     <tr v-for="crewPlayer in deadPlayerInfo.players" :key="crewPlayer.id">
                         <td><img :src="characterBody(crewPlayer.character.key)" class="char hua"> <span class="charname">{{ crewPlayer.character.name }}</span></td>
                         <td>{{ formatDeathDate(crewPlayer.deathDay, crewPlayer.deathCycle) }}</td>
-                        <td>{{ crewPlayer.endCauseValue }}</td>
+                        <td>{{ crewPlayer.endCauseShortName }}</td>
                         <td>
                             <button class="like" :class="isPlayerLiked(crewPlayer.id) ? 'liked' : ''" @click="toggleLike(crewPlayer.id)">
                                 {{ getNumberLikes(crewPlayer) }} <img :src="getImgUrl('dislike.png')">
@@ -210,6 +212,10 @@ h1 {
             font-size: 2.6em;
             letter-spacing: .05em;
             text-shadow: 0 0 2px black;
+
+            &.mush {
+                color: $mushRed;
+            }
 
             img {
                 vertical-align: middle;

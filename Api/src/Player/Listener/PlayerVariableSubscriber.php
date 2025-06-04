@@ -45,11 +45,9 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $player = $playerEvent->getPlayer();
         $delta = $playerEvent->getRoundedQuantity();
-        $variableName = $playerEvent->getVariableName();
 
-        $this->handlePlayerVariableChange($playerEvent, $player, $variableName, $delta);
+        $this->handlePlayerVariableChange($playerEvent, $delta);
     }
 
     public function onSetValue(VariableEventInterface $playerEvent): void
@@ -58,14 +56,12 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $player = $playerEvent->getPlayer();
         $newValue = $playerEvent->getRoundedQuantity();
         $variable = $playerEvent->getVariable();
-        $variableName = $variable->getName();
 
         $delta = $newValue - $variable->getValue();
 
-        $this->handlePlayerVariableChange($playerEvent, $player, $variableName, $delta);
+        $this->handlePlayerVariableChange($playerEvent, $delta);
     }
 
     public function onChangeMaxValue(VariableEventInterface $playerEvent): void
@@ -83,20 +79,25 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         $this->playerService->persist($player);
     }
 
-    private function handlePlayerVariableChange(PlayerVariableEvent $playerEvent, Player $player, string $variableName, int $delta): void
+    private function handlePlayerVariableChange(PlayerVariableEvent $playerEvent, int $delta): void
     {
-        $player = $this->playerVariableService->handleGameVariableChange($variableName, $delta, $player);
+        $variableName = $playerEvent->getVariableName();
+        $player = $playerEvent->getPlayer();
 
-        switch ($playerEvent->getVariableName()) {
-            case PlayerVariableEnum::HEALTH_POINT:
-                $this->handleHealthPointModifier($player, $playerEvent);
-
-                return;
-
-            case PlayerVariableEnum::SPORE:
+        if ($variableName === PlayerVariableEnum::SPORE && $delta > 0) {
+            $initialMushStatus = $player->isMush();
+            for ($i = 0; $i < $delta; ++$i) {
+                if ($this->playerHasChangedSide($player, $initialMushStatus)) {
+                    break;
+                }
+                $player = $this->playerVariableService->handleGameVariableChange($variableName, 1, $player);
                 $this->handleInfection($player, $playerEvent);
-
-                return;
+            }
+        } else {
+            $player = $this->playerVariableService->handleGameVariableChange($variableName, $delta, $player);
+            if ($variableName === PlayerVariableEnum::HEALTH_POINT) {
+                $this->handleHealthPointModifier($player, $playerEvent);
+            }
         }
     }
 
@@ -106,7 +107,8 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
             $this->playerService->killPlayer(
                 player: $player,
                 endReason: $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP) ?? EndCauseEnum::INJURY,
-                time: $event->getTime()
+                time: $event->getTime(),
+                author: $event->getAuthor()
             );
         }
     }
@@ -117,12 +119,15 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($playerEvent->getRoundedQuantity() > 0) {
-            $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
-        }
-
         if ($player->getVariableByName(PlayerVariableEnum::SPORE)->isMax() && !$player->isMush()) {
             $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
+        } elseif ($playerEvent->getRoundedQuantity() > 0) {
+            $this->eventService->callEvent($playerEvent, PlayerEvent::INFECTION_PLAYER);
         }
+    }
+
+    private function playerHasChangedSide(Player $player, bool $wasMush): bool
+    {
+        return $player->isMush() !== $wasMush;
     }
 }

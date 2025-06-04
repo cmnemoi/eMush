@@ -235,7 +235,10 @@ class ActionNormalizer implements NormalizerInterface
             $translationParameters['target_' . $actionTarget->getLogKey()] = $actionTarget->getLogName();
         }
         if ($actionName === ActionEnum::EXTRACT_SPORE->value) {
-            $translationParameters['quantity'] = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE)->getMaxValue();
+            $sporeGameVariable = $daedalus->getVariableByName(DaedalusVariableEnum::SPORE);
+
+            $translationParameters['quantity_maximum'] = $sporeGameVariable->getMaxValue();
+            $translationParameters['quantity_remaining'] = $sporeGameVariable->getMaxValue() - $sporeGameVariable->getValue();
         }
         if ($actionName === ActionEnum::PRINT_ZE_LIST->value) {
             /** @var PrintZeList $printZeListAction */

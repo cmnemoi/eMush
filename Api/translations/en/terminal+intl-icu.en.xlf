@@ -130,7 +130,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>block_of_post_it.name</source>
         <target>Block of post-it notes</target>
       </segment>
-      <segment id="tips" state="translated">
+      <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>

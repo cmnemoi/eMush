@@ -159,7 +159,7 @@ const actions: ActionTree<any, any> = {
     },
 
     initMushSkillsDisplay({ commit }, { player }) {
-        commit('setDisplayMushSkills', player.isMush());
+        commit('setDisplayMushSkills', player.isMush);
     },
     toggleMushSkillsDisplay({ commit }) {
         commit('toggleMushSkillsDisplay');

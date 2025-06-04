@@ -3,13 +3,21 @@
 namespace Mush\Player\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
+use Mush\Triumph\Enum\TriumphTarget;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
+class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string NEW_PLAYER = 'new.player';
     public const string DEATH_PLAYER = 'death.player';
     public const string METAL_PLATE = 'metal.plate';
@@ -71,5 +79,24 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface
     public function getDaedalus(): Daedalus
     {
         return $this->getPlayer()->getDaedalus();
+    }
+
+    public function getTitle(): string
+    {
+        $title = $this->getTags()[0];
+        if (!TitleEnum::isValidTitle($title)) {
+            throw new \LogicException("{$title} is not a valid title");
+        }
+
+        return $title;
+    }
+
+    protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    {
+        return match ($targetSetting) {
+            TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
+            TriumphTarget::EVENT_SUBJECT => $scopeTargets->filter(fn (Player $player) => $player === $this->getPlayer()),
+            default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
+        };
     }
 }

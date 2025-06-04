@@ -87,6 +87,15 @@ abstract class ActionResult
         throw new \RuntimeException('Action provider is not a GameItem');
     }
 
+    public function getGameItemActionProviderOrDefault(): GameItem
+    {
+        if ($this->actionProvider instanceof GameItem) {
+            return $this->actionProvider;
+        }
+
+        return GameItem::createNull();
+    }
+
     public function setEquipment(GameEquipment $equipment): self
     {
         $this->equipment = $equipment;
@@ -192,9 +201,13 @@ abstract class ActionResult
         return $this instanceof CriticalSuccess === false;
     }
 
-    public function getResultTag(): string
+    public function getResultTags(): array
     {
-        return $this->isASuccess() ? ActionOutputEnum::SUCCESS : ActionOutputEnum::FAIL;
+        $tags = [$this->isASuccess() ? ActionOutputEnum::SUCCESS : ActionOutputEnum::FAIL];
+        $this->isACriticalSuccess() ? $tags[] = ActionOutputEnum::CRITICAL_SUCCESS : null;
+        $this->isACriticalFail() ? $tags[] = ActionOutputEnum::CRITICAL_FAIL : null;
+
+        return $tags;
     }
 
     public function doesNotHaveContent(): bool

@@ -142,7 +142,8 @@
       </segment>
       <segment id="description" state="translated">
         <source>extract_spore.description</source>
-        <target>Extract a spore with which to infect a crewmate (but before that, watch out for cameras).</target>
+        <target>Extract a spore with which to infect a crewmate (but before that, watch out for cameras).//
+        The entire **Mush** crew can still create **{quantity_remaining} spores** today.</target>
       </segment>
     </unit>
     <unit id="flirt">

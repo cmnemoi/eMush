@@ -1,3 +1,5 @@
+import { toArray } from "@/utils/toArray";
+
 export class ClosedPlayer {
     public iri: string|null;
     public id: number|null;
@@ -13,12 +15,15 @@ export class ClosedPlayer {
     public closedDaedalusId: integer|null;
     public daysSurvived: integer|null;
     public cyclesSurvived: integer|null;
+    public triumph: integer|null;
+    public score: integer|null;
     public rank: integer|null;
     public language: string|null;
     public messageIsHidden: boolean|null;
     public messageIsEdited: boolean|null;
     public messageHasBeenModerated: boolean = false;
     public hasBadEndCause!: boolean;
+    public triumphGains: string[] = [];
 
     constructor() {
         this.iri = null;
@@ -35,6 +40,8 @@ export class ClosedPlayer {
         this.closedDaedalusId = null;
         this.daysSurvived = null;
         this.cyclesSurvived = null;
+        this.triumph = null;
+        this.score = null;
         this.rank = null;
         this.language = null;
         this.messageIsHidden = null;
@@ -56,12 +63,19 @@ export class ClosedPlayer {
             this.closedDaedalusId = object.closedDaedalusId;
             this.daysSurvived = object.daysSurvived;
             this.cyclesSurvived = object.cyclesSurvived;
+            this.triumph = object.triumph;
             this.rank = object.rank;
             this.language = object.language;
             this.messageIsHidden = object.messageIsHidden;
             this.messageIsEdited = object.messageIsEdited;
             this.messageHasBeenModerated = (this.messageIsEdited || this.messageIsHidden) ?? false;
             this.hasBadEndCause = ['sol_return', 'eden'].includes(this.endCause ?? '') ? false : true;
+            this.score = this.triumph ?? this.cyclesSurvived;
+            if (object.triumphGains) {
+                toArray(object.triumphGains).forEach((triumphGainObject: string) => {
+                    this.triumphGains.push(triumphGainObject);
+                });
+            }
         }
         return this;
     }
@@ -80,6 +94,7 @@ export class ClosedPlayer {
             'closedDaedalusId': this.closedDaedalusId,
             'daysSurvived': this.daysSurvived,
             'cyclesSurvived': this.cyclesSurvived,
+            'triumph': this.triumph,
             'rank': this.rank,
             'language': this.language,
             'messageIsHidden': this.messageIsHidden,

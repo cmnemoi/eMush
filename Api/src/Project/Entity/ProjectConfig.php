@@ -70,7 +70,8 @@ class ProjectConfig
         $this->requirements = new ArrayCollection($requirements);
     }
 
-    public function getRequirements()
+    /** @return Collection<int, ProjectRequirement> */
+    public function getRequirements(): Collection
     {
         return $this->requirements;
     }

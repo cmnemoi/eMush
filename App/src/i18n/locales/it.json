@@ -109,7 +109,10 @@
 			"no_infirmerie": "Mort perdu dans l'espace infini !",
 			"suicide": "Suicidé avec panache !",
 			"patrol_ship_explosion": "Manœuvre ratée !"
-		}
+		},
+		"historyAndTriumph": "Historique et Triomphe",
+		"historyAndTriumphDescription": "Cliquez ici pour connaître l'historique et le triomphe de **{character}**.",
+		"triumph": "Triomphe"
 	},
 	"userBanner": {
 		"userShips": "Fiche"
@@ -166,7 +169,12 @@
 		"reason": "Cause",
 		"like": "J'aime",
 		"notyet": "Vous serez notifié quand le classement de fin de partie sera publié.",
-		"endgame": "Valider et continuer"
+		"endgame": "Valider et continuer",
+		"highlights": "Grands Moments",
+		"triumphHistory": "Historique de Triomphe",
+		"epitaphPlaceholder": "Laissez vos impressions sur la partie ici !",
+		"readMore": "Voir plus...",
+		"readLess": "Voir moins..."
 	},
 	"alerts": "Alertes :",
 	"downloading": "Téléchargement...",
@@ -610,6 +618,21 @@
 			"hideMessageChildren": "Cacher {count} réponse | Cacher {count} réponses",
 			"newCycle": "Nouveau cycle",
 			"myMessageHere": "Mon message ici !",
+			"messageInputAdvanced": "Éditeur avancé",
+			"messageInputAdvancedDescription": "Utilise un éditeur avancé pour la mise en forme de vos messages",
+			"boldButtonTitle": "G",
+			"boldButtonDescription": "Gras",
+			"italicButtonTitle": "I",
+			"italicButtonDescription": "Italique",
+			"boldItalicButtonTitle": "B+I",
+			"boldItalicButtonDescription": "Gras et italique",
+			"eraseButtonTitle": "🧹",
+			"eraseButtonDescription": "Supprimer la mise en forme",
+			"strikeButtonTitle": "S",
+			"strikeButtonDescription": "Barré",
+			"charactersButtonTitle": "👤",
+			"charactersButtonDescription": "Personnages",
+			"buttonValidateAdvEditor": "Valider et envoyer le message",
 			"bookmark": "Favori",
 			"bookmarkDescription": "Mettre ce fil de discussion en favori.",
 			"invite": "Inviter",

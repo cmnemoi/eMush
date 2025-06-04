@@ -108,6 +108,10 @@ class Drone extends GameItem
 
         $baseSuccessRate = $repairActionConfig->getSuccessRate();
 
+        if ($baseSuccessRate >= 100) {
+            return 100;
+        }
+
         return (int) min($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getFailedRepairAttempts(), 99);
     }
 
@@ -119,12 +123,22 @@ class Drone extends GameItem
             EquipmentMechanicEnum::TOOL,
         );
 
+        if ($baseSuccessRate >= 100) {
+            return 100;
+        }
+
         return (int) min($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getExtinguishFailedAttempts(), 99);
     }
 
     public function getShootHunterSuccessRate(): int
     {
-        $successRate = $this->shootHunterBaseSuccessRate() * $this->pilotBonus();
+        $baseSuccessRate = $this->shootHunterBaseSuccessRate();
+
+        if ($baseSuccessRate >= 100) {
+            return 100;
+        }
+
+        $successRate = $baseSuccessRate * $this->pilotBonus();
 
         return (int) min($successRate * self::ATTEMPT_INCREASE ** $this->getShootHunterFailedAttempts(), 99);
     }
@@ -193,9 +207,9 @@ class Drone extends GameItem
         return $this->getStatusesByName(self::UPGRADES);
     }
 
-    public function isNotUpgraded(): bool
+    public function isUpgraded(): bool
     {
-        return $this->getUpgrades()->isEmpty();
+        return $this->getUpgrades()->count() > 0;
     }
 
     public function huntersAreAttacking(): bool

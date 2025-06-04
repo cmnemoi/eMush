@@ -5,9 +5,13 @@ namespace Mush\Daedalus\Event;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class DaedalusCycleEvent extends AbstractGameEvent
+class DaedalusCycleEvent extends AbstractGameEvent implements TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
     public const string DAEDALUS_NEW_CYCLE = 'daedalus.new.cycle';
 
     protected Daedalus $daedalus;

@@ -1,29 +1,48 @@
 <template>
     <div class="history-logs">
-        <span class="tab">Grands Moments</span>
-        <span class="tab active">Historique de Triomphe</span>
+        <span class="tab"> {{ $t('deathpage.highlights') }} </span>
+        <span class="tab active"> {{ $t('deathpage.triumphHistory') }} </span>
         <div class="logs">
-            Not implemented yet ...
-
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 2 x Cycle Humain ( + 1 )</p>-->
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 1 x Ambitieux ( + 4 )</p>-->
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 1 x Contact Avec Sol ( + 8 )</p>-->
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 1 x Vers le Nouvel Eden ( + 6 )</p>-->
-            <!--            <p><img :src=getImgUrl('point.png')" alt="dot"> 3 x Cycle Humain ( + 1 )</p>-->
+            <div>
+                <p v-for="gain in displayedTriumphGains" :key="gain">
+                    <img :src="getImgUrl('ui_icons/point.png')" alt="dot"> <span v-html="formatText(gain)" />
+                </p>
+            </div>
+            <div class="logs-actions">
+                <a v-if="shouldShowReadMore" class="read-more-link" @click="toggleDisplayLimit">{{ $t('deathpage.readMore') }}</a>
+                <a v-if="shouldShowReadLess" class="read-more-link" @click="toggleDisplayLimit">{{ $t('deathpage.readLess') }}</a>
+            </div>
         </div>
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { getImgUrl } from "@/utils/getImgUrl";
+<script lang="ts" setup>
+import { ref, computed } from 'vue';
+import { getImgUrl } from '@/utils/getImgUrl';
+import { formatText } from '@/utils/formatText';
+const props = defineProps<{ triumphGains: string[] }>();
 
-export default defineComponent ({
-    name: "HistoryLogs",
-    methods: {
-        getImgUrl
-    }
-});
+// refs
+const showAllTriumphGains = ref(false);
+
+// computed
+const displayedTriumphGains = computed(() =>
+    showAllTriumphGains.value ? props.triumphGains : props.triumphGains.slice(0, displayLimit)
+);
+const shouldShowReadMore = computed(() =>
+    !showAllTriumphGains.value && props.triumphGains.length > displayLimit
+);
+const shouldShowReadLess = computed(() =>
+    showAllTriumphGains.value && props.triumphGains.length > displayLimit
+);
+
+// methods
+const toggleDisplayLimit = () => {
+    showAllTriumphGains.value = !showAllTriumphGains.value;
+};
+
+// data
+const displayLimit = 3;
 </script>
 
 <style lang="scss" scoped>
@@ -54,7 +73,24 @@ export default defineComponent ({
     font-size: .8em;
     letter-spacing: .05em;
     padding: 1em;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 
     p { margin: .5em 0; }
+
+    .logs-actions {
+        align-self: flex-end;
+        margin-top: 0.5em;
+    }
+}
+
+.read-more-link {
+    color: $deepGreen;
+    cursor: pointer;
+    text-decoration: underline;
+    display: inline-block;
+    font-size: 0.9em;
+    margin-left: 1em;
 }
 </style>

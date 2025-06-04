@@ -203,7 +203,7 @@ Accessing database from terminal :
 
 On your host machine (not the docker container) run:
 ```
-docker exec -it mush_database bash
+docker exec -it mush-database bash
 psql --username mysql mush
 ```
 List the tables with:

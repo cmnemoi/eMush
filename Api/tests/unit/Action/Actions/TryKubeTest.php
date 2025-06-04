@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Status\Service\StatusServiceInterface;
 
 /**
  * @internal
@@ -20,6 +21,9 @@ final class TryKubeTest extends AbstractActionTest
 {
     /** @var Mockery\Mock|RandomServiceInterface */
     private RandomServiceInterface $randomService;
+
+    /** @var Mockery\Mock|StatusServiceInterface */
+    private StatusServiceInterface $statusService;
 
     /**
      * @before
@@ -31,12 +35,14 @@ final class TryKubeTest extends AbstractActionTest
         $this->createActionEntity(ActionEnum::TRY_KUBE, 1);
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->actionHandler = new TryKube(
             $this->eventService,
             $this->actionService,
             $this->validator,
             $this->randomService,
+            $this->statusService,
         );
     }
 
@@ -90,6 +96,7 @@ final class TryKubeTest extends AbstractActionTest
 
         $this->actionService->shouldReceive('applyCostToPlayer')->andReturn($player);
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true);
+        $this->statusService->shouldReceive('createStatusFromName')->once();
 
         $result = $this->actionHandler->execute();
 

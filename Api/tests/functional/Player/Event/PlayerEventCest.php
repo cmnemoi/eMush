@@ -37,6 +37,9 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\ConfigData\TriumphConfigData;
+use Mush\Triumph\Entity\TriumphConfig;
+use Mush\Triumph\Enum\TriumphEnum;
 use Mush\User\Entity\User;
 
 final class PlayerEventCest
@@ -101,6 +104,7 @@ final class PlayerEventCest
             'place' => $room,
         ]);
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $player->setPlayerVariables($characterConfig);
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
@@ -250,6 +254,17 @@ final class PlayerEventCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
+        $diseaseCause
+            ->setCauseName(DiseaseCauseEnum::INFECTION)
+            ->setDiseases([
+                DiseaseEnum::FUNGIC_INFECTION => 1,
+            ])
+            ->buildName(GameConfigEnum::TEST);
+        $I->haveInRepository($diseaseCause);
+
+        $mushStartConfig = TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::MUSH_INITIAL_BONUS));
+        $I->haveInRepository($mushStartConfig);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
@@ -258,6 +273,7 @@ final class PlayerEventCest
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'triumphConfig' => new ArrayCollection([$mushStartConfig]),
         ]);
 
         /** @var User $user */
@@ -326,12 +342,16 @@ final class PlayerEventCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($mushStatusConfig);
 
+        $mushStartConfig = TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::MUSH_INITIAL_BONUS));
+        $I->haveInRepository($mushStartConfig);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
         /** @var GameConfig $gameConfig */
         $gameConfig = $I->have(GameConfig::class, [
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
+            'triumphConfig' => new ArrayCollection([$mushStartConfig]),
         ]);
 
         /** @var User $user */

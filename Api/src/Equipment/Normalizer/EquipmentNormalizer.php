@@ -132,9 +132,6 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         if ($player->canReadPlantProperties($equipment)) {
             return $this->getPlantEffects($equipment, $player->getDaedalus());
         }
-        if ($equipment instanceof Drone) {
-            return $this->getDroneUpgrades($equipment, $player);
-        }
 
         return [];
     }
@@ -299,6 +296,22 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             }
         }
 
+        if ($equipment instanceof Drone && $equipment->isUpgraded()) {
+            $upgrades = '';
+
+            foreach ($equipment->getUpgrades() as $upgrade) {
+                $upgrades = $upgrades .
+                '//' .
+                $this->translationService->translate(
+                    $upgrade->getName() . '.description',
+                    [],
+                    'status',
+                    $language,
+                );
+            }
+            $description = "{$description}{$upgrades}";
+        }
+
         return $description;
     }
 
@@ -328,24 +341,5 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
 
         return (int) $siriusModifierConfig->getDelta();
-    }
-
-    private function getDroneUpgrades(Drone $drone, Player $player): array
-    {
-        if ($drone->isNotUpgraded()) {
-            return [];
-        }
-
-        $language = $player->getLanguage();
-
-        $upgrades = [];
-        foreach ($drone->getUpgrades() as $upgrade) {
-            $upgrades[] = $this->translationService->translate($upgrade->getName() . '.description', [], 'status', $language);
-        }
-
-        return [
-            'title' => $this->translationService->translate('current_upgrades', [], 'misc', $language),
-            'effects' => $upgrades,
-        ];
     }
 }

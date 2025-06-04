@@ -8,11 +8,18 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
+use Mush\Project\Entity\ProjectRequirement;
+use Mush\Triumph\Event\TriumphSourceEventInterface;
+use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-final class ProjectEvent extends AbstractGameEvent
+final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEventInterface
 {
+    use TriumphSourceEventTrait;
+
+    public const string NEXT_20_PERCENTS = 'next_20_percents';
     public const string PROJECT_ADVANCED = 'project.advanced';
     public const string PROJECT_FINISHED = 'project.finished';
+
     private Project $project;
 
     public function __construct(
@@ -24,6 +31,15 @@ final class ProjectEvent extends AbstractGameEvent
         parent::__construct($tags, $time);
         $this->author = $author;
         $this->project = $project;
+        $this->addTags([
+            $project->getName(),
+            $project->getType()->toString(),
+            ...$project->getRequirements()->map(static fn (ProjectRequirement $requirement) => $requirement->getName())->toArray(),
+        ]);
+
+        if ($project->hasCrossedProgressStepForThreshold(20)) {
+            $this->addTag(self::NEXT_20_PERCENTS);
+        }
     }
 
     public function getProject(): Project

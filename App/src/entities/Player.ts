@@ -50,6 +50,7 @@ export class Player {
     public mushSkills: Array<Skill>;
     public skillPoints: Array<SkillPoint>;
     public notification: PlayerNotification|null;
+    public isMush!: boolean;
     public isSeated: boolean;
 
     public constructor() {
@@ -166,6 +167,9 @@ export class Player {
             if (object.notification) {
                 this.notification = object.notification;
             }
+            if (object.isMush) {
+                this.isMush = object.isMush;
+            }
         }
 
         return this;
@@ -249,10 +253,6 @@ export class Player {
 
     public isAlive(): boolean {
         return !this.isDead();
-    }
-
-    public isMush(): boolean {
-        return this.hasStatusByKey(StatusPlayerNameEnum.MUSH);
     }
 
     public getActionByKey(key: string): Action | undefined {

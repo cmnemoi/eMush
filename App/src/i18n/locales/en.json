@@ -109,7 +109,10 @@
 			"no_infirmerie": "Death lost in infinite space!",
 			"suicide": "Suicide with panache!",
 			"patrol_ship_explosion": "A failed maneuver!"
-		}
+		},
+		"historyAndTriumph": "History and Glory",
+		"historyAndTriumphDescription": "Click here the history and the glory of **{character}**.",
+		"triumph": "Glory"
 	},
 	"userBanner": {
 		"userShips": "File"
@@ -166,7 +169,12 @@
 		"reason": "Reason",
 		"like": "Like",
 		"notyet": "You will be notified when the end game ranking is published.",
-		"endgame": "Confirm and continue"
+		"endgame": "Confirm and continue",
+		"highlights": "Highlights",
+		"triumphHistory": "Glory history",
+		"epitaphPlaceholder": "Leave your thoughts on the game here!",
+		"readMore": "Read more...",
+		"readLess": "Read less..."
 	},
 	"alerts": "Alerts:",
 	"downloading": "Downloading...",
@@ -610,6 +618,21 @@
 			"hideMessageChildren": "Hide {count} answer | Hide {count} answers",
 			"newCycle": "New cycle",
 			"myMessageHere": "My message here!",
+			"messageInputAdvanced": "Advanced editor",
+			"messageInputAdvancedDescription": "Use an advanced editor to format your messages",
+			"boldButtonTitle": "B",
+			"boldButtonDescription": "Bold",
+			"italicButtonTitle": "I",
+			"italicButtonDescription": "Italic",
+			"boldItalicButtonTitle": "B+I",
+			"boldItalicButtonDescription": "Bold and italic",
+			"eraseButtonTitle": "🧹",
+			"eraseButtonDescription": "Clear formatting",
+			"strikeButtonTitle": "S",
+			"strikeButtonDescription": "Strike",
+			"charactersButtonTitle": "👤",
+			"charactersButtonDescription": "Characters",
+			"buttonValidateAdvEditor": "Validate and send message",
 			"bookmark": "Favorite",
 			"bookmarkDescription": "Bookmark this thread.",
 			"invite": "Invite",

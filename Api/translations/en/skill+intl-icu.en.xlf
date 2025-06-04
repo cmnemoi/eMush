@@ -184,7 +184,8 @@
         <target>At ease handling all kinds of weapons.//
 :point: +2 :pa_shoot: per day (**Shoot** Action Points).//
 :point: Expedition: +1 to combat strength, if you have a gun.//
-:point: Bonus for developing certain ** NERON projects **.</target>
+:point: Bonus for developing certain ** NERON projects **.//
+:point: Increase critical hit chance and decrease critical fail chance with guns.</target>
       </segment>
     </unit>
     <unit id="chef">

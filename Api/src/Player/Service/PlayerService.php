@@ -7,7 +7,6 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\GameStatusEnum;
-use Mush\Game\Enum\TriumphEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -25,9 +24,9 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\ClosedPlayerRepositoryInterface;
 use Mush\Player\Repository\PlayerInfoRepositoryInterface;
 use Mush\Player\Repository\PlayerRepositoryInterface;
-use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\User\Entity\User;
 
 final class PlayerService implements PlayerServiceInterface
@@ -206,10 +205,6 @@ final class PlayerService implements PlayerServiceInterface
 
         $this->applyCycleChangesPointsGain($player, $date);
 
-        if ($player->isActive()) {
-            $this->handleTriumphChange($player, $date);
-        }
-
         return $this->persist($player);
     }
 
@@ -254,9 +249,9 @@ final class PlayerService implements PlayerServiceInterface
                 return $player;
             }
 
-            $this->markPlayerAsDead($player, $endReason, $time);
             $this->removePlayerTitles($player);
             $this->createClosedPlayer($player, $endReason, $time);
+            $this->markPlayerAsDead($player, $endReason, $time);
             $this->dispatchPlayerDeathEvent($player, $endReason, $time, $author);
             $this->playerRepository->save($player);
             $this->playerRepository->commitTransaction();
@@ -316,27 +311,6 @@ final class PlayerService implements PlayerServiceInterface
         }
     }
 
-    private function handleTriumphChange(Player $player, \DateTime $date): void
-    {
-        $gameConfig = $player->getDaedalus()->getGameConfig();
-
-        $humanTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_HUMAN);
-        $mushTriumph = $gameConfig->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CYCLE_MUSH);
-        $triumphChange = $player->isMush() ? $mushTriumph->getTriumph() : $humanTriumph->getTriumph();
-
-        $player->addTriumph($triumphChange);
-
-        $this->roomLogService->createLog(
-            PlayerModifierLogEnum::GAIN_TRIUMPH,
-            $player->getPlace(),
-            VisibilityEnum::PRIVATE,
-            'event_log',
-            $player,
-            ['quantity' => $triumphChange],
-            $date
-        );
-    }
-
     private function markPlayerAsDead(Player $player, string $endCause, \DateTime $date): void
     {
         $playerInfo = $player->getPlayerInfo();
@@ -359,6 +333,7 @@ final class PlayerService implements PlayerServiceInterface
             ->setIsMush($player->isMush())
             ->setClosedDaedalus($player->getDaedalus()->getDaedalusInfo()->getClosedDaedalus())
             ->setFinishedAt($date);
+
         $this->persistClosedPlayer($closedPlayer);
     }
 
@@ -366,6 +341,10 @@ final class PlayerService implements PlayerServiceInterface
     {
         $playerDeathEvent = new PlayerEvent($player, [$endCause], $date);
         $playerDeathEvent->setAuthor($author);
+        $playerDeathEvent->addTag($player->getName());
+        if ($player->hasStatus(PlayerStatusEnum::MUSH)) {
+            $playerDeathEvent->addTag(PlayerStatusEnum::MUSH);
+        }
         $this->eventService->callEvent($playerDeathEvent, PlayerEvent::DEATH_PLAYER);
     }
 

@@ -28,6 +28,9 @@ use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\ConfigData\TriumphConfigData;
+use Mush\Triumph\Entity\TriumphConfig;
+use Mush\Triumph\Enum\TriumphEnum;
 use Mush\User\Entity\User;
 
 class PlayerContaminationCest
@@ -163,6 +166,9 @@ class PlayerContaminationCest
             ->buildName(GameConfigEnum::TEST);
         $I->haveInRepository($diseaseCause);
 
+        $mushStartConfig = TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::MUSH_INITIAL_BONUS));
+        $I->haveInRepository($mushStartConfig);
+
         /** @var LocalizationConfig $localizationConfig */
         $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
 
@@ -171,6 +177,7 @@ class PlayerContaminationCest
             'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
             'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
             'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
+            'triumphConfig' => new ArrayCollection([$mushStartConfig]),
         ]);
 
         /** @var User $user */
@@ -232,11 +239,16 @@ class PlayerContaminationCest
         $I->assertEquals(0, $player->getSpores());
         $I->assertEquals($room, $player->getPlace());
 
-        $message = $I->grabEntityFromRepository(Message::class, [
+        $messages = $I->grabEntitiesFromRepository(Message::class, [
             'channel' => $mushChannel,
             'message' => MushMessageEnum::INFECT_ACTION,
         ]);
-        $I->assertEquals($message->getTranslationParameters(), ['quantity' => 3, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false']);
+
+        $messageTranslationParametersArray = array_map(static fn ($message) => $message->getTranslationParameters(), $messages);
+
+        $I->assertContainsEquals(['quantity' => 1, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false'], $messageTranslationParametersArray);
+        $I->assertContainsEquals(['quantity' => 2, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false'], $messageTranslationParametersArray);
+        $I->assertNotContainsEquals(['quantity' => 3, 'character' => 'ian', 'target_character' => 'andie', 'is_player_mush' => 'false'], $messageTranslationParametersArray);
 
         $I->assertCount(1, $mushChannel->getParticipants());
 

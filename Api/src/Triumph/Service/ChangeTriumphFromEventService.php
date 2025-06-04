@@ -23,6 +23,7 @@ final class ChangeTriumphFromEventService
         private CycleServiceInterface $cycleService,
         private EventServiceInterface $eventService,
         private StatusServiceInterface $statusService,
+        private StatusServiceInterface $statusService,
         private TriumphConfigRepositoryInterface $triumphConfigRepository,
     ) {}
 

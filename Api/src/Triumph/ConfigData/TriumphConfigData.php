@@ -22,6 +22,7 @@ use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Hunter\Event\HunterEvent;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;

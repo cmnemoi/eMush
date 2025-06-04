@@ -15,6 +15,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Enum\DroneNicknameEnum;
+use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -29,6 +30,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\ContentStatus;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -165,6 +167,10 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
             $time
         );
         $event->setAuthor($author);
+        if ($equipment->getName() === ItemEnum::STARMAP_FRAGMENT
+        && $holder->getDaedalus()->doesNotHaveStatus(DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT)) {
+            $event->addTag(DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT);
+        }
         $this->eventService->callEvent($event, EquipmentEvent::EQUIPMENT_CREATED);
 
         return $equipment;

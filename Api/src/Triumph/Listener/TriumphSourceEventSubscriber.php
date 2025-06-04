@@ -13,7 +13,6 @@ use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
-use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Event\ProjectEvent;
@@ -34,8 +33,8 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => ['onDaedalusNewCycle', EventPriorityEnum::PLAYER_TRIUMPH],
             DaedalusEvent::FINISH_DAEDALUS => ['onDaedalusFinish', EventPriorityEnum::HIGH],
             DaedalusEvent::FULL_DAEDALUS => ['onDaedalusFull', EventPriorityEnum::LOW],
+            EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
-            ExplorationEvent::EXPLORATION_NEW_CYCLE => ['onExplorationNewCycle', EventPriorityEnum::VERY_LOW],
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
             PlanetSectorEvent::PLANET_SECTOR_EVENT => 'onPlanetSectorEvent',
@@ -70,12 +69,12 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
         $this->changeTriumphFromEventService->execute($event);
     }
 
-    public function onEquipmentDestroyed(EquipmentEvent $event): void
+    public function onEquipmentCreated(EquipmentEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }
 
-    public function onExplorationNewCycle(ExplorationEvent $event): void
+    public function onEquipmentDestroyed(EquipmentEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

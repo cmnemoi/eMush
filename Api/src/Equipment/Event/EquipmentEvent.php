@@ -4,8 +4,10 @@ namespace Mush\Equipment\Event;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Place\Entity\Place;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Event\LoggableEventInterface;
+use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
@@ -36,6 +38,7 @@ class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterfa
         $this->created = $created;
 
         parent::__construct($equipment, $equipment->getDaedalus(), $tags, $time);
+        $this->addTag($equipment->getName());
     }
 
     public function isCreated(): bool
@@ -69,5 +72,13 @@ class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterfa
         }
 
         return $logParameters;
+    }
+
+    protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    {
+        return match ($targetSetting) {
+            TriumphTarget::ACTIVE_EXPLORERS => $scopeTargets->filter(fn (Player $player) => $this->daedalus->getExploration()?->getNotLostActiveExplorators()->contains($player)),
+            default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
+        };
     }
 }

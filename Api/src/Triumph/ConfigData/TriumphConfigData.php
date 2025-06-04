@@ -613,8 +613,9 @@ abstract class TriumphConfigData
             new TriumphConfigDto(
                 key: TriumphEnum::STAR_MAP_1->toConfigKey('default'),
                 name: TriumphEnum::STAR_MAP_1,
-                targetedEvent: StatusEvent::STATUS_APPLIED,
+                targetedEvent: EquipmentEvent::EQUIPMENT_CREATED,
                 tagConstraints: [
+                    ItemEnum::STARMAP_FRAGMENT => TriumphSourceEventInterface::ALL_TAGS,
                     DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,
@@ -623,7 +624,7 @@ abstract class TriumphConfigData
             new TriumphConfigDto(
                 key: TriumphEnum::STAR_MAP_N->toConfigKey('default'),
                 name: TriumphEnum::STAR_MAP_N,
-                targetedEvent: ExplorationEvent::EXPLORATION_NEW_CYCLE,
+                targetedEvent: EquipmentEvent::EQUIPMENT_CREATED,
                 tagConstraints: [
                     ItemEnum::STARMAP_FRAGMENT => TriumphSourceEventInterface::ALL_TAGS,
                     DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT => TriumphSourceEventInterface::NONE_TAGS,

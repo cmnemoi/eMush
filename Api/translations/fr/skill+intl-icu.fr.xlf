@@ -711,7 +711,7 @@
       </segment>
       <segment id="green_jelly.description" state="translated">
         <source>green_jelly.description</source>
-        <target>Vous produisez une gelée verte acide étrange avec vos aisselles...//:point: Pour **1** :pa:, vous pouvez provoquer la casse d'un objet électronique. Celui-ci mettra plusieurs cycles avant de se dégrader.//:point: La casse de cet objet est **toujours** annoncée par NERON.</target>
+        <target>Vous produisez une gelée verte acide étrange avec vos aisselles...//:point: Pour **1** :pa:, vous pouvez provoquer la casse d'un objet électronique. Celui-ci mettra plusieurs cycles avant de se dégrader.</target>
       </segment>
     </unit>
     <unit id="massive_mushification">

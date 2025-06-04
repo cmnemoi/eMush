@@ -84,7 +84,7 @@ final class HideActionTest extends AbstractActionTest
                 static fn (AbstractGameEvent $event) => $event instanceof InteractWithEquipmentEvent
                 && $event->getGameEquipment() === $gameItem
                 && $event->getAuthor() === $player
-                && $event->getTags() === [ActionEnum::HIDE->value]
+                && $event->getTags() === [ActionEnum::HIDE->value, 'itemName']
             )
             ->once();
 

@@ -616,7 +616,6 @@ abstract class TriumphConfigData
                 name: TriumphEnum::STAR_MAP_1,
                 targetedEvent: EquipmentEvent::EQUIPMENT_CREATED,
                 tagConstraints: [
-                    ItemEnum::STARMAP_FRAGMENT => TriumphSourceEventInterface::ALL_TAGS,
                     DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,

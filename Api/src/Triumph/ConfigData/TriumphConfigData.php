@@ -27,6 +27,7 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
+use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -627,6 +628,7 @@ abstract class TriumphConfigData
                 targetedEvent: EquipmentEvent::EQUIPMENT_CREATED,
                 tagConstraints: [
                     ItemEnum::STARMAP_FRAGMENT => TriumphSourceEventInterface::ALL_TAGS,
+                    LogEnum::FOUND_ITEM_IN_EXPLORATION => TriumphSourceEventInterface::ALL_TAGS,
                     DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,

@@ -9,6 +9,8 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Event\TriumphChangedEvent;
@@ -20,6 +22,7 @@ final class ChangeTriumphFromEventService
     public function __construct(
         private CycleServiceInterface $cycleService,
         private EventServiceInterface $eventService,
+        private StatusServiceInterface $statusService,
         private TriumphConfigRepositoryInterface $triumphConfigRepository,
     ) {}
 
@@ -36,6 +39,10 @@ final class ChangeTriumphFromEventService
 
     private function addTriumphToPlayer(TriumphConfig $triumphConfig, Player $player): void
     {
+        if ($this->isPreventedByRegression($triumphConfig, $player)) {
+            return;
+        }
+
         $quantity = $this->computeTriumphForPlayer($triumphConfig, $player);
 
         // Don't call triumph changed by 0 event unless the config explicitly states 0 triumph change
@@ -77,5 +84,25 @@ final class ChangeTriumphFromEventService
         $cyclesLasted = $this->cycleService->getNumberOfCycleElapsed($filledAt, $nextCycleAt, $daedalus->getDaedalusInfo());
 
         return max($startingTriumph + $cyclesLasted * $triumphChangePerCycle, 0);
+    }
+
+    private function isPreventedByRegression(TriumphConfig $triumphConfig, Player $player): bool
+    {
+        if ($triumphConfig->isRegressive()) {
+            return false;
+        }
+
+        $timesTriumphChanged = $this->statusService->createOrIncrementChargeStatus(
+            name: PlayerStatusEnum::PERSONAL_TRIUMPH_REGRESSION,
+            holder: $player
+        )->getCharge();
+
+        $regressiveTriumphChanged = $timesTriumphChanged - $triumphConfig->getRegressiveFactor();
+
+        if ($regressiveTriumphChanged > 0 && $regressiveTriumphChanged % 2 === 1) {
+            return true;
+        }
+
+        return false;
     }
 }

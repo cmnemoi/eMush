@@ -9,13 +9,13 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
-use Mush\Tests\AbstractExplorationTester;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
  */
-final class PregnantCest extends AbstractExplorationTester
+final class PregnantCest extends AbstractFunctionalTest
 {
     private StatusServiceInterface $statusService;
 

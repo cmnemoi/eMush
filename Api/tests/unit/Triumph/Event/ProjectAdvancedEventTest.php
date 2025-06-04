@@ -14,6 +14,7 @@ use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Project\Factory\ProjectFactory;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Entity\TriumphConfig;
@@ -28,6 +29,7 @@ final class ProjectAdvancedEventTest extends TestCase
 {
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
+    private StatusServiceInterface $statusService;
     private EventServiceInterface $eventService;
     private CycleServiceInterface $cycleService;
 
@@ -36,6 +38,7 @@ final class ProjectAdvancedEventTest extends TestCase
      */
     protected function setUp(): void
     {
+        $this->givenStatusService();
         $this->givenEventService();
         $this->givenCycleService();
         $this->givenInMemoryTriumphConfigRepository();
@@ -117,8 +120,14 @@ final class ProjectAdvancedEventTest extends TestCase
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
             cycleService: $this->cycleService,
             eventService: $this->eventService,
+            statusService: $this->statusService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );
+    }
+
+    private function givenStatusService(): void
+    {
+        $this->statusService = $this->createStub(StatusServiceInterface::class);
     }
 
     private function givenEventService(): void

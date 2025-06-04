@@ -1984,6 +1984,20 @@ abstract class StatusConfigData
             'modifierConfigs' => [],
             'actionConfigs' => [],
         ],
+        [
+            'name' => PlayerStatusEnum::PERSONAL_TRIUMPH_REGRESSION . '_default',
+            'statusName' => PlayerStatusEnum::PERSONAL_TRIUMPH_REGRESSION,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'charge_status_config',
+            'chargeVisibility' => VisibilityEnum::HIDDEN,
+            'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
+            'maxCharge' => null,
+            'startCharge' => 1,
+            'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
+            'autoRemove' => false,
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -7,13 +7,13 @@ namespace Mush\Tests\functional\Triumph\Listener;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Tests\AbstractExplorationTester;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
  */
-final class KillPlayerCest extends AbstractExplorationTester
+final class KillPlayerCest extends AbstractFunctionalTest
 {
     private PlayerServiceInterface $playerService;
 

@@ -14,6 +14,7 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Event\ExplorationEvent;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Event\ProjectEvent;
 use Mush\Status\Event\StatusEvent;
@@ -36,6 +37,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
+            HunterEvent::HUNTER_DEATH => 'onHunterDeath',
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
             PlanetSectorEvent::PLANET_SECTOR_EVENT => 'onPlanetSectorEvent',
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
@@ -80,6 +82,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onExplorationStarted(ExplorationEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onHunterDeath(HunterEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

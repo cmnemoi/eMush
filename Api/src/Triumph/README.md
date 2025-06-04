@@ -20,7 +20,7 @@ The [`TriumphConfig`](./Entity/TriumphConfig.php) entity contains the following 
 - `visibility`: Controls the visibility of triumph log
   - `PRIVATE`: Only visible to the player who earned it
   - `HIDDEN`: Not visible to players
-- `regressiveFactor`: Determines after how many gains the gains has 2x less chance to be earned (TODO)
+- `regressiveFactor`: Determines after how many gains the gains become 2x less likely
 
 ## Triumph Scopes
 

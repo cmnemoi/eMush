@@ -41,19 +41,21 @@ final readonly class DecodeRebelSignalService
 
     private function createRebelBaseModifiers(RebelBase $rebelBase, array $tags): void
     {
+        $daedalus = $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId());
+
         foreach ($rebelBase->getModifierConfigs() as $modifierConfig) {
             $this->modifierCreationService->createModifier(
                 modifierConfig: $modifierConfig,
-                holder: $this->daedalusRepository->findByIdOrThrow($rebelBase->getDaedalusId()),
+                holder: $daedalus,
                 modifierProvider: $rebelBase,
                 tags: $tags,
                 time: new \DateTime(),
             );
         }
 
-        $tags[] = $rebelBase->getName();
+        $tags[] = $rebelBase->getName()->toString();
         $this->eventService->callEvent(
-            event: new RebelBaseDecodedEvent($rebelBase->getDaedalus(), $tags),
+            event: new RebelBaseDecodedEvent($daedalus, $tags),
             name: RebelBaseDecodedEvent::class,
         );
     }

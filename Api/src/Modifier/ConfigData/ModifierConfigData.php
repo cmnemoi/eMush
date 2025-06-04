@@ -3903,18 +3903,6 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => [],
         ],
         [
-            'name' => ModifierNameEnum::PLUS_8_TRIUMPH_POINTS_FOR_ALL_PLAYERS,
-            'modifierName' => ModifierNameEnum::WOLF_REBEL_BASE_MODIFIER,
-            'revertOnRemove' => false,
-            'modifierRange' => ModifierHolderClassEnum::DAEDALUS,
-            'type' => 'direct_modifier',
-            'targetFilters' => [],
-            'eventActivationRequirements' => [],
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS,
-            'modifierActivationRequirements' => [],
-        ],
-        [
             'name' => ModifierNameEnum::PLUS_6_MORALE_POINTS_FOR_ALL_PLAYERS,
             'modifierName' => ModifierNameEnum::KALADAAN_REBEL_BASE_MODIFIER,
             'revertOnRemove' => false,
@@ -4008,20 +3996,6 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::DECODE_REBEL_SIGNAL->value => ModifierRequirementEnum::ANY_TAGS,
             ],
-        ],
-        [
-            'name' => ModifierNameEnum::PLUS_8_TRIUMPH_POINTS_FOR_PAOLA,
-            'modifierName' => ModifierNameEnum::PAOLA_PERSONAL_TRIUMPH_MODIFIER,
-            'revertOnRemove' => false,
-            'modifierRange' => ModifierHolderClassEnum::PLAYER,
-            'type' => 'direct_modifier',
-            'targetFilters' => [],
-            'eventActivationRequirements' => [
-                ModifierRequirementEnum::PLAYER_IS_PAOLA,
-            ],
-            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
-            'triggeredEvent' => EventConfigData::CHANGE_VARIABLE_PLAYER_PLUS_8_TRIUMPH_POINTS,
-            'modifierActivationRequirements' => [],
         ],
         [
             'name' => ModifierNameEnum::PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE,

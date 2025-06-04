@@ -53,7 +53,7 @@
         "name": "kivanc",
         "weight": 4,
         "quantity": -1,
-        "modifierConfigs": ["double_decode_base_signal", "plus_8_triumph_points_for_paola"]
+        "modifierConfigs": ["double_decode_base_signal"]
     },
     {
         "key": "cook_default",

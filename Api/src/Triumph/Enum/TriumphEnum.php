@@ -55,8 +55,11 @@ enum TriumphEnum: string
     case REBEL_WOLF = 'rebel_wolf';
     case REMEDY = 'remedy';
     case RESEARCH_BRILLANT = 'research_brillant';
+    case RESEARCH_BRILLANT_END = 'research_brillant_end';
     case RESEARCH_SMALL = 'research_small';
+    case RESEARCH_SMALL_END = 'research_small_end';
     case RESEARCH_STANDARD = 'research_standard';
+    case RESEARCH_STANDARD_END = 'research_standard_end';
     case RETURN_TO_SOL = 'return_to_sol';
     case ROBOTIC_GRAAL = 'robotic_graal';
     case SAVIOR = 'savior';

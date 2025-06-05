@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -66,6 +67,9 @@ final class ChangeTriumphFromEventService
             TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
+            TriumphEnum::RESEARCH_BRILLANT_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_BRILLANT, $player->getDaedalus()) * $triumphConfig->getQuantity(),
+            TriumphEnum::RESEARCH_SMALL_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_SMALL, $player->getDaedalus()) * $triumphConfig->getQuantity(),
+            TriumphEnum::RESEARCH_STANDARD_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_STANDARD, $player->getDaedalus()) * $triumphConfig->getQuantity(),
             default => $triumphConfig->getQuantity(),
         };
     }
@@ -99,5 +103,13 @@ final class ChangeTriumphFromEventService
         $divisor = 1 + (int) ($timesTriumphChanged / $triumphConfig->getRegressiveFactor());
 
         return $timesTriumphChanged % $divisor !== 0;
+    }
+
+    private function getNumberOfCompletedTriumphResearch(TriumphEnum $triumphName, Daedalus $daedalus): int
+    {
+        $config = $daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow($triumphName);
+        $researchNames = array_keys($config->getTagConstraints());
+
+        return $daedalus->getFinishedResearchProjects()->filter(static fn (Project $research) => \in_array($research->getName(), $researchNames, true))->count();
     }
 }

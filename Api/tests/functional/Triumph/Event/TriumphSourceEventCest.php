@@ -281,4 +281,56 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         $I->assertEquals(8, $paola->getTriumph());
         $I->assertEquals(0, $this->chun->getTriumph());
     }
+
+    public function shouldGiveResearchTriumphOnDaedalusFinished(FunctionalTester $I): void
+    {
+        $this->player->setTriumph(0);
+
+        // +3 triumph (extra +4 for Chun personal)
+        $this->eventService->callEvent(
+            event: new ProjectEvent(
+                project: $project = $this->daedalus->getProjectByName(ProjectName::CREATE_MYCOSCAN),
+                author: $this->kuanTi,
+            ),
+            name: ProjectEvent::PROJECT_FINISHED,
+        );
+        $project->finish();
+        // +6 triumph
+        $this->eventService->callEvent(
+            event: new ProjectEvent(
+                project: $project = $this->daedalus->getProjectByName(ProjectName::MUSH_LANGUAGE),
+                author: $this->kuanTi,
+            ),
+            name: ProjectEvent::PROJECT_FINISHED,
+        );
+        $project->finish();
+        // +6 triumph
+        $this->eventService->callEvent(
+            event: new ProjectEvent(
+                project: $project = $this->daedalus->getProjectByName(ProjectName::MUSH_RACES),
+                author: $this->kuanTi,
+            ),
+            name: ProjectEvent::PROJECT_FINISHED,
+        );
+        $project->finish();
+
+        $finola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::FINOLA);
+
+        // then Chun should have 19 triumph and Kuan Ti 15 triumph
+        $I->assertEquals(19, $this->chun->getTriumph());
+        $I->assertEquals(15, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $finola->getTriumph());
+
+        $event = new DaedalusEvent(
+            daedalus: $this->daedalus,
+            tags: [ActionEnum::RETURN_TO_SOL->toString()],
+            time: new \DateTime(),
+        );
+        $this->eventService->callEvent($event, DaedalusEvent::FINISH_DAEDALUS);
+
+        // every human gains 20 triumph (return to Sol) + 15 triumph (research)
+        $I->assertEquals(54, $this->chun->getTriumph());
+        $I->assertEquals(50, $this->kuanTi->getTriumph());
+        $I->assertEquals(35, $finola->getTriumph());
+    }
 }

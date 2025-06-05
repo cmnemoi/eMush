@@ -201,6 +201,39 @@ abstract class TriumphConfigData
                 quantity: 16,
             ),
             new TriumphConfigDto(
+                key: TriumphEnum::RESEARCH_SMALL_END->toConfigKey('default'),
+                name: TriumphEnum::RESEARCH_SMALL_END,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::RETURN_TO_SOL->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::RESEARCH_STANDARD_END->toConfigKey('default'),
+                name: TriumphEnum::RESEARCH_STANDARD_END,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::RETURN_TO_SOL->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 6,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::RESEARCH_BRILLANT_END->toConfigKey('default'),
+                name: TriumphEnum::RESEARCH_BRILLANT_END,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::RETURN_TO_SOL->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 16,
+            ),
+            new TriumphConfigDto(
                 key: TriumphEnum::MUSH_SPECIALIST->toConfigKey('default'),
                 name: TriumphEnum::MUSH_SPECIALIST,
                 targetedEvent: ProjectEvent::PROJECT_FINISHED,

@@ -551,5 +551,35 @@
         <target>planet_finder.log</target>
       </segment>
     </unit>
+    <unit id="eden_cat">
+      <segment id="eden_cat.name" state="initial">
+        <source>eden_cat.name</source>
+        <target>eden_cat.name</target>
+      </segment>
+      <segment id="eden_cat.log" state="initial">
+        <source>eden_cat.log</source>
+        <target>eden_cat.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_no_cat">
+      <segment id="eden_no_cat.name" state="initial">
+        <source>eden_no_cat.name</source>
+        <target>eden_no_cat.name</target>
+      </segment>
+      <segment id="eden_no_cat.log" state="initial">
+        <source>eden_no_cat.log</source>
+        <target>eden_no_cat.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_cat">
+      <segment id="eden_mush_cat.name" state="initial">
+        <source>eden_mush_cat.name</source>
+        <target>eden_mush_cat.name</target>
+      </segment>
+      <segment id="eden_mush_cat.log" state="initial">
+        <source>eden_mush_cat.log</source>
+        <target>eden_mush_cat.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

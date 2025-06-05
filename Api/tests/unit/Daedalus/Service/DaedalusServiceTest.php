@@ -41,6 +41,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use PHPUnit\Framework\TestCase;
 
@@ -76,6 +77,9 @@ final class DaedalusServiceTest extends TestCase
     /** @var Mockery\Mock|PlayerServiceInterface */
     private PlayerServiceInterface $playerService;
 
+    /** @var Mockery\Mock|StatusServiceInterface */
+    private StatusServiceInterface $statusService;
+
     private DaedalusService $service;
 
     /**
@@ -92,6 +96,7 @@ final class DaedalusServiceTest extends TestCase
         $this->daedalusInfoRepository = \Mockery::mock(DaedalusInfoRepository::class);
         $this->daedalusRepository = \Mockery::mock(DaedalusRepository::class);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
+        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -104,6 +109,7 @@ final class DaedalusServiceTest extends TestCase
             $this->daedalusRepository,
             $this->createStub(TitlePriorityRepositoryInterface::class),
             $this->playerService,
+            $this->statusService,
         );
     }
 

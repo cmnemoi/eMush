@@ -634,6 +634,18 @@ abstract class TriumphConfigData
                 targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
                 quantity: 1,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::LANDER->toConfigKey('default'),
+                name: TriumphEnum::LANDER,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    PlayerStatusEnum::FIRST => TriumphSourceEventInterface::ALL_TAGS,
+                    EndCauseEnum::EDEN => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_PLAYERS,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
+                quantity: 8,
+            ),
         ];
     }
 

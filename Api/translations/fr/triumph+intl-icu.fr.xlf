@@ -441,5 +441,15 @@
         <target>star_map_n.log</target>
       </segment>
     </unit>
+    <unit id="lander">
+      <segment id="lander.name" state="initial">
+        <source>lander.name</source>
+        <target>lander.name</target>
+      </segment>
+      <segment id="lander.log" state="initial">
+        <source>lander.log</source>
+        <target>lander.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

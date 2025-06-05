@@ -42,6 +42,7 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 
 class DaedalusService implements DaedalusServiceInterface
@@ -56,6 +57,7 @@ class DaedalusService implements DaedalusServiceInterface
     private DaedalusRepository $daedalusRepository;
     private TitlePriorityRepositoryInterface $titlePriorityRepository;
     private PlayerServiceInterface $playerService;
+    private StatusServiceInterface $statusService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -67,7 +69,8 @@ class DaedalusService implements DaedalusServiceInterface
         DaedalusInfoRepository $daedalusInfoRepository,
         DaedalusRepository $daedalusRepository,
         TitlePriorityRepositoryInterface $titlePriorityRepository,
-        PlayerServiceInterface $playerService
+        PlayerServiceInterface $playerService,
+        StatusServiceInterface $statusService
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -79,6 +82,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->daedalusRepository = $daedalusRepository;
         $this->titlePriorityRepository = $titlePriorityRepository;
         $this->playerService = $playerService;
+        $this->statusService = $statusService;
     }
 
     /**
@@ -371,6 +375,9 @@ class DaedalusService implements DaedalusServiceInterface
         $playerAliveNb = $daedalus->getPlayers()->getPlayerAlive()->count();
         for ($i = 0; $i < $playerAliveNb; ++$i) {
             $player = $this->randomService->getAlivePlayerInDaedalus($daedalus);
+            if ($i === 0) {
+                $this->markPlayerAsFirst($player, $reasons);
+            }
 
             $endCause = EndCauseEnum::mapEndCause($reasons);
             $this->playerService->killPlayer(player: $player, endReason: $endCause, time: $date);
@@ -633,5 +640,15 @@ class DaedalusService implements DaedalusServiceInterface
         };
 
         return $characterCollection->getAllExcept($charactersToRemove);
+    }
+
+    private function markPlayerAsFirst(Player $player, array $reasons): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::FIRST,
+            holder: $player,
+            tags: $reasons,
+            time: new \DateTime(),
+        );
     }
 }

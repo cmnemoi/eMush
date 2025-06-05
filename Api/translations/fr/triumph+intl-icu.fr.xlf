@@ -461,5 +461,15 @@
         <target>tr_anathem.log</target>
       </segment>
     </unit>
+    <unit id="tr_anathem_loss">
+      <segment id="tr_anathem_loss.name" state="initial">
+        <source>tr_anathem_loss.name</source>
+        <target>tr_anathem_loss.name</target>
+      </segment>
+      <segment id="tr_anathem_loss.log" state="initial">
+        <source>tr_anathem_loss.log</source>
+        <target>tr_anathem_loss.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

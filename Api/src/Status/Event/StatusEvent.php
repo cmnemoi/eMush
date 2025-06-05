@@ -160,7 +160,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
         return $this->daedalus;
     }
 
-    protected function addEventTags()
+    protected function addEventTags(): void
     {
         if ($this->holder instanceof Player && $this->holder->isMush()) {
             $this->addTag(self::MUSH_SUBJECT);

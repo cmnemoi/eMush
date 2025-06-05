@@ -65,7 +65,7 @@ trait TriumphSourceEventTrait
         return $anyConstraint;
     }
 
-    protected function addEventTags() {}
+    protected function addEventTags(): void {}
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {

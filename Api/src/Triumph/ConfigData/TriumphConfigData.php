@@ -657,6 +657,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::FAST_FORWARD,
                 targetedEvent: DaedalusEvent::TRAVEL_LAUNCHED,
                 scope: TriumphScope::PERSONAL_JIN_SU,
+                targetSetting: TriumphTarget::COMMANDER,
                 quantity: 3,
                 regressiveFactor: 6
             ),

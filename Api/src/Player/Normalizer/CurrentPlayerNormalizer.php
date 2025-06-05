@@ -335,21 +335,26 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function getTranslatedTriumphDescription(Player $player): string
     {
         $baseDescription = $this->translationService->translate('triumph.description', [], 'player', $player->getDaedalus()->getLanguage());
+        $translatedTriumphs = $this->getTranslatedPersonalTriumphs($player);
 
+        return $baseDescription . ' // ' . implode(' // ', $translatedTriumphs);
+    }
+
+    private function getTranslatedPersonalTriumphs(Player $player): array
+    {
         $personalTriumphs = $this->triumphConfigRepository->findAllPersonalTriumphsForPlayer($player);
-        $translatedTriumphs = [];
-        foreach ($personalTriumphs as $personalTriumph) {
-            $translatedTriumphs[] = $this->translationService->translate(
-                $personalTriumph->getName()->toString() . '.personal_description',
+
+        return array_map(
+            fn ($triumph) => ':point: ' . $this->translationService->translate(
+                $triumph->getName()->toString() . '.personal_description',
                 [
-                    'quantity' => $personalTriumph->getQuantity(),
-                    'regressiveFactor' => $personalTriumph->getRegressiveFactor(),
+                    'quantity' => $triumph->getQuantity(),
+                    'regressiveFactor' => $triumph->getRegressiveFactor(),
                 ],
                 'triumph',
                 $player->getLanguage()
-            );
-        }
-
-        return str_replace('//', ' // ', $baseDescription . '//:point: ' . implode('//:point: ', $translatedTriumphs));
+            ),
+            $personalTriumphs
+        );
     }
 }

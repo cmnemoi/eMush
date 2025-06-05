@@ -21,6 +21,7 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Project\Enum\ProjectName;
@@ -675,6 +676,65 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 targetSetting: TriumphTarget::AUTHOR,
                 quantity: -8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::DAEDALUS_DEFENDER->toConfigKey('default'),
+                name: TriumphEnum::DAEDALUS_DEFENDER,
+                targetedEvent: HunterEvent::HUNTER_DEATH,
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 1,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::HUNTER_NEMESIS->toConfigKey('default'),
+                name: TriumphEnum::HUNTER_NEMESIS,
+                targetedEvent: HunterEvent::HUNTER_DEATH,
+                scope: TriumphScope::PERSONAL_ROLAND,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 1,
+                regressiveFactor: 8
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::FAST_FORWARD->toConfigKey('default'),
+                name: TriumphEnum::FAST_FORWARD,
+                targetedEvent: DaedalusEvent::TRAVEL_LAUNCHED,
+                scope: TriumphScope::PERSONAL_JIN_SU,
+                targetSetting: TriumphTarget::COMMANDER,
+                quantity: 3,
+                regressiveFactor: 6
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PLANET_SEARCHER->toConfigKey('default'),
+                name: TriumphEnum::PLANET_SEARCHER,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionOutputEnum::SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::SCAN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_FRIEDA,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 2,
+                regressiveFactor: 4
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::NEW_PLANET->toConfigKey('default'),
+                name: TriumphEnum::NEW_PLANET,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    DaedalusStatusEnum::IN_ORBIT => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 5,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PLANET_FINDER->toConfigKey('default'),
+                name: TriumphEnum::PLANET_FINDER,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    DaedalusStatusEnum::IN_ORBIT => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_FRIEDA,
+                quantity: 1,
             ),
         ];
     }

@@ -114,6 +114,16 @@ class TriumphConfig
         return $this->visibility;
     }
 
+    public function getRegressiveFactor(): int
+    {
+        return $this->regressiveFactor;
+    }
+
+    public function isRegressive(): bool
+    {
+        return $this->regressiveFactor !== 0;
+    }
+
     public function getLogKey(): string
     {
         return $this->getLogName()->toLogKey();

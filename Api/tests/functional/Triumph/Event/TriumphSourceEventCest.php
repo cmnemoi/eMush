@@ -23,6 +23,7 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
@@ -140,11 +141,12 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         // when
         $this->createExploration(
             planet: $planet,
-            explorators: $this->players,
+            explorators: new PlayerCollection([$this->player]),
         );
 
-        // then I should gain expedition triumph
-        $I->assertEquals(3, $this->player->getTriumph());
+        // then players should gain 5 triumph for new planet and explorers 3 triumph for exploration started
+        $I->assertEquals(8, $this->player->getTriumph());
+        $I->assertEquals(5, $this->player2->getTriumph());
     }
 
     public function shouldGiveTriumphOnLinkWithSolEstablished(FunctionalTester $I): void

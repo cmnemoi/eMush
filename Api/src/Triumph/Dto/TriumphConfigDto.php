@@ -18,7 +18,7 @@ use Mush\Triumph\Enum\TriumphVisibility;
  * @property array             $tagConstraints   Controls the application of the triumph based on the event tags
  * @property TriumphVisibility $visibility       Controls the visibility of triumph log
  * @property TriumphTarget     $targetSetting    Determines what relation to the event players should be in to receive the triumph, as long as they fit within the scope (see [`TriumphTarget`](./Enum/TriumphTarget.php))
- * @property int               $regressiveFactor Determines after how many gains the gains has 2x less chance to be earned (TODO)
+ * @property int               $regressiveFactor Determines after how many gains the divider increases, making further gains less likely to happen
  */
 final readonly class TriumphConfigDto
 {

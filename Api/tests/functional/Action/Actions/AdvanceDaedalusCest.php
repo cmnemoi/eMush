@@ -9,6 +9,7 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Tests\AbstractMoveDaedalusActionCest;
 use Mush\Tests\FunctionalTester;
@@ -52,6 +53,9 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         $planet = $this->planetService->createPlanet($this->player);
         $I->haveInRepository($planet);
 
+        // given Frieda character
+        $frieda = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::FRIEDA);
+
         // given Daedalus coordinates matches the planet coordinates
         $this->daedalus->setCombustionChamberFuel($planet->getDistance());
         $this->daedalus->setOrientation($planet->getOrientation());
@@ -68,6 +72,11 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
 
         // then daedalus has an in orbit status
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
+
+        // then players should gain 5 triumph and Frieda an extra triumph point
+        $I->assertEquals(5, $this->player->getTriumph());
+        $I->assertEquals(5, $this->player2->getTriumph());
+        $I->assertEquals(6, $frieda->getTriumph());
     }
 
     public function testAdvanceDaedalusDoesNotCreatesInOrbitStatusIfNotGoingToAPlanet(FunctionalTester $I): void

@@ -91,6 +91,13 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
         return $title;
     }
 
+    protected function addEventTags(): void
+    {
+        if ($this->player->isMush()) {
+            $this->addTag(self::MUSH_SUBJECT);
+        }
+    }
+
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {

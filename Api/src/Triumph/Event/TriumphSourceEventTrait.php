@@ -16,6 +16,7 @@ trait TriumphSourceEventTrait
 {
     public function getTriumphTargets(TriumphConfig $triumphConfig): PlayerCollection
     {
+        $this->addEventTags();
         if (!$this->hasExpectedTagsFor($triumphConfig)) {
             return new PlayerCollection();
         }
@@ -63,6 +64,8 @@ trait TriumphSourceEventTrait
 
         return $anyConstraint;
     }
+
+    protected function addEventTags(): void {}
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {

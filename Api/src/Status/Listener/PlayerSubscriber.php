@@ -68,6 +68,8 @@ final class PlayerSubscriber implements EventSubscriberInterface
 
     public function onPlayerDeath(PlayerEvent $playerEvent): void
     {
+        $playerEvent->addTag($playerEvent->getEventName());
+
         $this->statusService->removeAllStatuses($playerEvent->getPlayer(), $playerEvent->getTags(), $playerEvent->getTime());
 
         $this->removePariahStatus($playerEvent);

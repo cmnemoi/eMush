@@ -15,7 +15,6 @@ use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
@@ -50,9 +49,6 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
         parent::__construct($tags, $time);
         $this->addTag($status->getName());
         $this->addTag($holder->getName());
-        if ($holder instanceof Player && $holder->isMush()) {
-            $this->addTag(PlayerStatusEnum::MUSH);
-        }
     }
 
     public function getStatus(): Status
@@ -88,6 +84,11 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
     public function getStatusTarget(): ?StatusHolderInterface
     {
         return $this->target;
+    }
+
+    public function getStatusTargetOrThrow(): StatusHolderInterface
+    {
+        return $this->target ?? throw new \RuntimeException("Target for status {$this->status->getName()} not found.");
     }
 
     public function setStatusTarget(?StatusHolderInterface $target): self
@@ -159,10 +160,18 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
         return $this->daedalus;
     }
 
+    protected function addEventTags(): void
+    {
+        if ($this->holder instanceof Player && $this->holder->isMush()) {
+            $this->addTag(self::MUSH_SUBJECT);
+        }
+    }
+
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {
             TriumphTarget::EVENT_SUBJECT => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getPlayerStatusHolder())),
+            TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getStatusTargetOrThrow())),
             default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
     }

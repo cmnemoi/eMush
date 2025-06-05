@@ -14,6 +14,8 @@ interface TriumphSourceEventInterface
     public const ALL_TAGS = 'all_tags';
     public const NONE_TAGS = 'none_tags';
 
+    public const string MUSH_SUBJECT = 'mush_subject';
+
     public function doesNotHaveTag(string $tag): bool;
 
     public function getDaedalus(): Daedalus;

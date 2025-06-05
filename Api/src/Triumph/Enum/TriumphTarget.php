@@ -8,6 +8,7 @@ enum TriumphTarget: string
 {
     case ACTIVE_EXPLORERS = 'active_explorers';
     case AUTHOR = 'author';
+    case COMMANDER = 'commander';
     case EVENT_SUBJECT = 'event_subject';
     case NONE = '';
 

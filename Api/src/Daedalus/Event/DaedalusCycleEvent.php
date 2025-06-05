@@ -3,8 +3,12 @@
 namespace Mush\Daedalus\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
+use Mush\Player\Entity\Collection\PlayerCollection;
+use Mush\Player\Entity\Player;
+use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
@@ -47,5 +51,13 @@ class DaedalusCycleEvent extends AbstractGameEvent implements TriumphSourceEvent
     public function getLinkWithSolCycleKillChance(): int
     {
         return $this->daedalus->getGameConfig()->getDifficultyConfig()->getLinkWithSolCycleFailureRate();
+    }
+
+    protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
+    {
+        return match ($targetSetting) {
+            TriumphTarget::COMMANDER => $scopeTargets->filter(static fn (Player $player) => $player->hasTitle(TitleEnum::COMMANDER)),
+            default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
+        };
     }
 }

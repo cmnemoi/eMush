@@ -511,5 +511,45 @@
         <target>tr_anathem_loss.log</target>
       </segment>
     </unit>
+    <unit id="fast_forward">
+      <segment id="fast_forward.name" state="initial">
+        <source>fast_forward.name</source>
+        <target>fast_forward.name</target>
+      </segment>
+      <segment id="fast_forward.log" state="initial">
+        <source>fast_forward.log</source>
+        <target>fast_forward.log</target>
+      </segment>
+    </unit>
+    <unit id="planet_searcher">
+      <segment id="planet_searcher.name" state="initial">
+        <source>planet_searcher.name</source>
+        <target>planet_searcher.name</target>
+      </segment>
+      <segment id="planet_searcher.log" state="initial">
+        <source>planet_searcher.log</source>
+        <target>planet_searcher.log</target>
+      </segment>
+    </unit>
+    <unit id="new_planet">
+      <segment id="new_planet.name" state="initial">
+        <source>new_planet.name</source>
+        <target>new_planet.name</target>
+      </segment>
+      <segment id="new_planet.log" state="initial">
+        <source>new_planet.log</source>
+        <target>new_planet.log</target>
+      </segment>
+    </unit>
+    <unit id="planet_finder">
+      <segment id="planet_finder.name" state="initial">
+        <source>planet_finder.name</source>
+        <target>planet_finder.name</target>
+      </segment>
+      <segment id="planet_finder.log" state="initial">
+        <source>planet_finder.log</source>
+        <target>planet_finder.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

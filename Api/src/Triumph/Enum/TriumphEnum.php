@@ -40,6 +40,7 @@ enum TriumphEnum: string
     case MUSHICIDE = 'mushicide';
     case MUSHICIDE_CAT = 'mushicide_cat';
     case NEW_MUSH = 'new_mush';
+    case NEW_PLANET = 'new_planet';
     case NICE_SURGERY = 'nice_surgery';
     case PILGRED_MOTHER = 'pilgred_mother';
     case PLANET_SEARCHER = 'planet_searcher';

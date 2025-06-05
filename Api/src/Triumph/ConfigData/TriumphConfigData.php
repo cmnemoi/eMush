@@ -674,6 +674,16 @@ abstract class TriumphConfigData
                 quantity: 2,
                 regressiveFactor: 4
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::NEW_PLANET->toConfigKey('default'),
+                name: TriumphEnum::NEW_PLANET,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    DaedalusStatusEnum::IN_ORBIT => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 5,
+            ),
         ];
     }
 

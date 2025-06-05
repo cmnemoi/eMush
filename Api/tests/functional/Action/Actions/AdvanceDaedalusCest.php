@@ -68,6 +68,10 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
 
         // then daedalus has an in orbit status
         $I->assertTrue($this->daedalus->hasStatus(DaedalusStatusEnum::IN_ORBIT));
+
+        // then players should gain 5 triumph
+        $I->assertEquals(5, $this->player->getTriumph());
+        $I->assertEquals(5, $this->player2->getTriumph());
     }
 
     public function testAdvanceDaedalusDoesNotCreatesInOrbitStatusIfNotGoingToAPlanet(FunctionalTester $I): void

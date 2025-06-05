@@ -481,5 +481,15 @@
         <target>planet_searcher.log</target>
       </segment>
     </unit>
+    <unit id="new_planet">
+      <segment id="new_planet.name" state="initial">
+        <source>new_planet.name</source>
+        <target>new_planet.name</target>
+      </segment>
+      <segment id="new_planet.log" state="initial">
+        <source>new_planet.log</source>
+        <target>new_planet.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

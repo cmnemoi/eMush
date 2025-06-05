@@ -24,6 +24,7 @@ enum TriumphEnum: string
     case EDEN_ONE_MAN = 'eden_one_man';
     case EXPEDITION = 'expedition';
     case EXPLORATOR = 'explorator';
+    case FAST_FORWARD = 'fast_forward';
     case HUMANOCIDE = 'humanocide';
     case HUMANOCIDE_CAT = 'humanocide_cat';
     case HUNTER_NEMESIS = 'hunter_nemesis';

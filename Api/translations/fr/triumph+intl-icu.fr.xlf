@@ -461,5 +461,15 @@
         <target>hunter_nemesis.log</target>
       </segment>
     </unit>
+    <unit id="fast_forward">
+      <segment id="fast_forward.name" state="initial">
+        <source>fast_forward.name</source>
+        <target>fast_forward.name</target>
+      </segment>
+      <segment id="fast_forward.log" state="initial">
+        <source>fast_forward.log</source>
+        <target>fast_forward.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

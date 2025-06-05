@@ -652,6 +652,14 @@ abstract class TriumphConfigData
                 quantity: 1,
                 regressiveFactor: 8
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::FAST_FORWARD->toConfigKey('default'),
+                name: TriumphEnum::FAST_FORWARD,
+                targetedEvent: DaedalusEvent::TRAVEL_LAUNCHED,
+                scope: TriumphScope::PERSONAL_JIN_SU,
+                quantity: 3,
+                regressiveFactor: 6
+            ),
         ];
     }
 

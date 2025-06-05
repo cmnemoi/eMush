@@ -99,11 +99,11 @@
             <div class="cycle-time">
                 <Tippy tag="div">
                     <ul>
-                        <li v-if="!isCycleChangeAvailable(daedalus)"><img class="casio-img" :src="getImgUrl('casio.png')"></li>
                         <li>
                             <countdown-timer :end-date="daedalus?.timer?.timerCycle">
                                 <template #default="countdownTimer">
                                     <div v-if="!isCycleChangeAvailable(daedalus) && !countdownTimer.isCountdownFinished" class="timer">
+                                        <li><img class="casio-img" :src="getImgUrl('casio.png')"></li>
                                         <span v-show="countdownTimer.hour > 0" class="cycle-time-left">{{ countdownTimer.hour }}h</span>
                                         <span class="cycle-time-left">{{ countdownTimer.min }}m</span>
                                         <span class="cycle-time-left">{{ countdownTimer.sec }}s</span>

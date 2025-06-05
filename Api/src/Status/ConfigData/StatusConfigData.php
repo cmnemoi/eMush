@@ -1992,7 +1992,7 @@ abstract class StatusConfigData
             'chargeVisibility' => VisibilityEnum::HIDDEN,
             'chargeStrategy' => ChargeStrategyTypeEnum::NONE,
             'maxCharge' => null,
-            'startCharge' => 1,
+            'startCharge' => 0,
             'dischargeStrategies' => [ChargeStrategyTypeEnum::NONE],
             'autoRemove' => false,
             'modifierConfigs' => [],

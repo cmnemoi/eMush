@@ -95,7 +95,7 @@ final class ChangeTriumphFromEventService
         $timesTriumphChanged = $this->statusService->createOrIncrementChargeStatus(
             name: PlayerStatusEnum::PERSONAL_TRIUMPH_REGRESSION,
             holder: $player
-        )->getCharge() - 1;
+        )->getCharge();
         $divisor = 1 + (int) ($timesTriumphChanged / $triumphConfig->getRegressiveFactor());
 
         return $timesTriumphChanged % $divisor !== 0;

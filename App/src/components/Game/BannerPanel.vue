@@ -102,12 +102,11 @@
                         <li v-if="!isCycleChangeAvailable(daedalus)"><img class="casio-img" :src="getImgUrl('casio.png')"></li>
                         <li>
                             <countdown-timer :end-date="daedalus?.timer?.timerCycle">
-                                <template #default="slotProps">
-                                    <div v-if="!isCycleChangeAvailable(daedalus)"  class="timer">
-                                        <span v-show="slotProps.hour > 0" class="cycle-time-left">{{ slotProps.hour
-                                        }}h</span>
-                                        <span class="cycle-time-left">{{ slotProps.min }}m</span>
-                                        <span class="cycle-time-left">{{ slotProps.sec }}s</span>
+                                <template #default="countdownTimer">
+                                    <div v-if="!isCycleChangeAvailable(daedalus) && !countdownTimer.isCountdownFinished" class="timer">
+                                        <span v-show="countdownTimer.hour > 0" class="cycle-time-left">{{ countdownTimer.hour }}h</span>
+                                        <span class="cycle-time-left">{{ countdownTimer.min }}m</span>
+                                        <span class="cycle-time-left">{{ countdownTimer.sec }}s</span>
                                     </div>
                                     <div v-else>
                                         <button class="new-cycle-button flashing" @click="triggerCycleChange(player)">{{ $t('game.communications.newCycle') }}</button>

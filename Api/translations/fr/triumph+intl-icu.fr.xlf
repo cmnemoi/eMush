@@ -439,6 +439,8 @@
       <segment id="star_map_n.log" state="initial">
         <source>star_map_n.log</source>
         <target>star_map_n.log</target>
+      </segment>
+    </unit>
     <unit id="daedalus_defender">
       <segment id="daedalus_defender.name" state="initial">
         <source>daedalus_defender.name</source>

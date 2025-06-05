@@ -88,7 +88,7 @@ final class ChangeTriumphFromEventService
 
     private function isPreventedByRegression(TriumphConfig $triumphConfig, Player $player): bool
     {
-        if ($triumphConfig->isRegressive()) {
+        if (!$triumphConfig->isRegressive()) {
             return false;
         }
 

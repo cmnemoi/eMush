@@ -121,7 +121,7 @@ class TriumphConfig
 
     public function isRegressive(): bool
     {
-        return $this->regressiveFactor === 0;
+        return $this->regressiveFactor !== 0;
     }
 
     public function getLogKey(): string

@@ -65,8 +65,8 @@
                             <img v-else :src="getImgUrl('ui_icons/player_variables/triumph.png')">
                         </span>
                         <template #content>
-                            <h1 v-html="player?.triumph?.name" />
-                            <p v-html="player?.triumph?.description" />
+                            <h1 v-html="formatContent(player?.triumph?.name)" />
+                            <p v-html="formatContent(player?.triumph?.description)" />
                         </template>
                     </Tippy>
                 </ul>

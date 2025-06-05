@@ -2,6 +2,8 @@
 
 namespace Mush\Game\Enum;
 
+use Mush\Triumph\Enum\TriumphScope;
+
 abstract class CharacterEnum
 {
     public const string ANDIE = 'andie';
@@ -128,5 +130,30 @@ abstract class CharacterEnum
     public static function allPairs(): array
     {
         return array_merge(self::chaolaPair(), self::andrekPair());
+    }
+
+    public static function toPersonalTriumphScope(string $character): TriumphScope
+    {
+        return match ($character) {
+            self::ANDIE => TriumphScope::PERSONAL_ANDIE,
+            self::CHAO => TriumphScope::PERSONAL_CHAO,
+            self::CHUN => TriumphScope::PERSONAL_CHUN,
+            self::DEREK => TriumphScope::PERSONAL_DEREK,
+            self::ELEESHA => TriumphScope::PERSONAL_ELEESHA,
+            self::FINOLA => TriumphScope::PERSONAL_FINOLA,
+            self::FRIEDA => TriumphScope::PERSONAL_FRIEDA,
+            self::GIOELE => TriumphScope::PERSONAL_GIOELE,
+            self::HUA => TriumphScope::PERSONAL_HUA,
+            self::IAN => TriumphScope::PERSONAL_IAN,
+            self::JANICE => TriumphScope::PERSONAL_JANICE,
+            self::JIN_SU => TriumphScope::PERSONAL_JIN_SU,
+            self::KUAN_TI => TriumphScope::PERSONAL_KUAN_TI,
+            self::PAOLA => TriumphScope::PERSONAL_PAOLA,
+            self::RALUCA => TriumphScope::PERSONAL_RALUCA,
+            self::ROLAND => TriumphScope::PERSONAL_ROLAND,
+            self::STEPHEN => TriumphScope::PERSONAL_STEPHEN,
+            self::TERRENCE => TriumphScope::PERSONAL_TERRENCE,
+            default => throw new \RuntimeException("No personal triumph scope for character {$character}"),
+        };
     }
 }

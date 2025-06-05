@@ -132,10 +132,6 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
 
     public function onStatusRemoved(StatusEvent $event): void
     {
-        echo "\nonStatusRemoved tags:\n";
-        foreach ($event->getTags() as $tag) {
-            echo "- {$tag}\n";
-        }
         $this->changeTriumphFromEventService->execute($event);
     }
 

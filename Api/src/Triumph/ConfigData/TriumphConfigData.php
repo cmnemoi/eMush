@@ -684,6 +684,16 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 5,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PLANET_FINDER->toConfigKey('default'),
+                name: TriumphEnum::PLANET_FINDER,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    DaedalusStatusEnum::IN_ORBIT => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_FRIEDA,
+                quantity: 1,
+            ),
         ];
     }
 

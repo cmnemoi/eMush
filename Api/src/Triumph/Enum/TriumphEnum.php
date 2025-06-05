@@ -43,6 +43,7 @@ enum TriumphEnum: string
     case NEW_PLANET = 'new_planet';
     case NICE_SURGERY = 'nice_surgery';
     case PILGRED_MOTHER = 'pilgred_mother';
+    case PLANET_FINDER = 'planet_finder';
     case PLANET_SEARCHER = 'planet_searcher';
     case PSYCHOCAT = 'psychocat';
     case PSYCHOPAT = 'psychopat';

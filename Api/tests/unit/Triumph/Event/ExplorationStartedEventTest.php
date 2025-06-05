@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
+use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Exploration\Entity\Planet;
 use Mush\Exploration\Entity\PlanetName;
@@ -46,12 +47,14 @@ final class ExplorationStartedEventTest extends TestCase
     {
         $this->cycleService = $this->createStub(CycleServiceInterface::class);
         $this->eventService = $this->createStub(EventServiceInterface::class);
+        $this->gameEquipmentRepository = new InMemoryGameEquipmentRepository();
         $this->statusService = $this->createStub(StatusServiceInterface::class);
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
 
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
             cycleService: $this->cycleService,
             eventService: $this->eventService,
+            gameEquipmentRepository: $this->gameEquipmentRepository,
             statusService: $this->statusService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );

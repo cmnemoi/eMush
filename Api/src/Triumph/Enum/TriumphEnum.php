@@ -18,9 +18,12 @@ enum TriumphEnum: string
     case DAEDALUS_DEFENDER = 'daedalus_defender';
     case EDEN_AT_LEAST = 'eden_at_least';
     case EDEN_BIOLOGISTS = 'eden_biologists';
+    case EDEN_CAT = 'eden_cat';
     case EDEN_ENGINEERS = 'eden_engineers';
+    case EDEN_MUSH_CAT = 'eden_mush_cat';
     case EDEN_MUSH_INTRUDER = 'eden_mush_intruder';
     case EDEN_MUSH_INVASION = 'eden_mush_invasion';
+    case EDEN_NO_CAT = 'eden_no_cat';
     case EDEN_ONE_MAN = 'eden_one_man';
     case EXPEDITION = 'expedition';
     case EXPLORATOR = 'explorator';

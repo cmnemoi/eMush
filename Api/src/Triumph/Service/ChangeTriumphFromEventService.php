@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace Mush\Triumph\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Triumph\Entity\TriumphConfig;
@@ -23,6 +27,7 @@ final class ChangeTriumphFromEventService
     public function __construct(
         private CycleServiceInterface $cycleService,
         private EventServiceInterface $eventService,
+        private GameEquipmentRepositoryInterface $gameEquipmentRepository,
         private StatusServiceInterface $statusService,
         private TriumphConfigRepositoryInterface $triumphConfigRepository,
     ) {}
@@ -64,6 +69,7 @@ final class ChangeTriumphFromEventService
     {
         return match ($triumphConfig->getName()) {
             TriumphEnum::CYCLE_MUSH_LATE => $this->computeNewMushTriumph($player->getDaedalus(), $triumphConfig->getQuantity()),
+            TriumphEnum::EDEN_CAT, TriumphEnum::EDEN_MUSH_CAT, TriumphEnum::EDEN_NO_CAT => $this->checkCatStatus($triumphConfig, $player->getDaedalus()) ? $triumphConfig->getQuantity() : 0,
             TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
@@ -111,5 +117,22 @@ final class ChangeTriumphFromEventService
         $researchNames = array_keys($config->getTagConstraints());
 
         return $daedalus->getFinishedResearchProjects()->filter(static fn (Project $research) => \in_array($research->getName(), $researchNames, true))->count();
+    }
+
+    private function checkCatStatus(TriumphConfig $triumphConfig, Daedalus $daedalus): bool
+    {
+        $cats = $this->gameEquipmentRepository->findByNameAndDaedalus(ItemEnum::SCHRODINGER, $daedalus);
+
+        // Check if there are no cats existing.
+        if (\count($cats) === 0) {
+            return $triumphConfig->getName() === TriumphEnum::EDEN_NO_CAT;
+        }
+
+        // Else, check if there are any infected cats.
+        if (\count(array_filter($cats, static fn (GameItem $cat) => $cat->hasStatus(EquipmentStatusEnum::CAT_INFECTED))) > 0) {
+            return $triumphConfig->getName() === TriumphEnum::EDEN_MUSH_CAT;
+        }
+
+        return $triumphConfig->getName() === TriumphEnum::EDEN_CAT;
     }
 }

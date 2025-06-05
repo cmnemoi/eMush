@@ -769,6 +769,36 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_FRIEDA,
                 quantity: 1,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_CAT->toConfigKey('default'),
+                name: TriumphEnum::EDEN_CAT,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_NO_CAT->toConfigKey('default'),
+                name: TriumphEnum::EDEN_NO_CAT,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: -4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_MUSH_CAT->toConfigKey('default'),
+                name: TriumphEnum::EDEN_MUSH_CAT,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: -8,
+            ),
         ];
     }
 

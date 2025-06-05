@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\unit\Triumph\Event;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\CycleServiceInterface;
@@ -34,6 +35,7 @@ final class StatusEventTest extends TestCase
     private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private InMemoryTriumphConfigRepository $triumphConfigRepository;
     private StatusServiceInterface $statusService;
+    private InMemoryGameEquipmentRepository $gameEquipmentRepository;
     private EventServiceInterface $eventService;
     private CycleServiceInterface $cycleService;
 
@@ -45,6 +47,7 @@ final class StatusEventTest extends TestCase
         $this->givenStatusService();
         $this->givenEventService();
         $this->givenCycleService();
+        $this->givenInMemoryGameEquipmentRepository();
         $this->givenInMemoryTriumphConfigRepository();
         $this->givenChangeTriumphFromEventService();
     }
@@ -193,11 +196,17 @@ final class StatusEventTest extends TestCase
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
     }
 
+    private function givenInMemoryGameEquipmentRepository(): void
+    {
+        $this->gameEquipmentRepository = new InMemoryGameEquipmentRepository();
+    }
+
     private function givenChangeTriumphFromEventService(): void
     {
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
             cycleService: $this->cycleService,
             eventService: $this->eventService,
+            gameEquipmentRepository: $this->gameEquipmentRepository,
             statusService: $this->statusService,
             triumphConfigRepository: $this->triumphConfigRepository,
         );

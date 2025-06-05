@@ -335,6 +335,10 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private function getTranslatedTriumphDescription(Player $player): string
     {
         $baseDescription = $this->translationService->translate('triumph.description', [], 'player', $player->getDaedalus()->getLanguage());
+        if ($player->isMush()) {
+            return $baseDescription;
+        }
+
         $translatedTriumphs = $this->getTranslatedPersonalTriumphs($player);
 
         return $baseDescription . ' // ' . implode(' // ', $translatedTriumphs);

@@ -42,7 +42,7 @@ Actuellement vous avez {quantityAction} :pa: et {quantityMovement} :pm:.</target
       </segment>
       <segment id="description" state="translated">
         <source>triumph.description</source>
-        <target>Triomphe accumulé pendant ce voyage. (en chantier)</target>
+        <target>Triomphe accumulé pendant ce voyage.//La valeur sera finalisée après la fin du voyage.//Elle déterminera votre classement dans le palmarès du vaisseau.</target>
       </segment>
     </unit>
     <unit id="titles">

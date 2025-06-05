@@ -774,7 +774,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::EDEN_CAT,
                 targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
                 tagConstraints: [
-                    EndCauseEnum::EDEN => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 4,
@@ -784,7 +784,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::EDEN_NO_CAT,
                 targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
                 tagConstraints: [
-                    EndCauseEnum::EDEN => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: -4,
@@ -794,7 +794,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::EDEN_MUSH_CAT,
                 targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
                 tagConstraints: [
-                    EndCauseEnum::EDEN => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: -8,

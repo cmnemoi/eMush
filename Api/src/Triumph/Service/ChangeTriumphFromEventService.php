@@ -123,11 +123,13 @@ final class ChangeTriumphFromEventService
     {
         $cats = $this->gameEquipmentRepository->findByNameAndDaedalus(ItemEnum::SCHRODINGER, $daedalus);
 
+        // Check if there are no cats existing.
         if (\count($cats) === 0) {
             return $triumphConfig->getName() === TriumphEnum::EDEN_NO_CAT;
         }
 
-        if (array_filter($cats, static fn (GameItem $cat) => $cat->hasStatus(EquipmentStatusEnum::CAT_INFECTED)) > 0) {
+        // Else, check if there are any infected cats.
+        if (\count(array_filter($cats, static fn (GameItem $cat) => $cat->hasStatus(EquipmentStatusEnum::CAT_INFECTED))) > 0) {
             return $triumphConfig->getName() === TriumphEnum::EDEN_MUSH_CAT;
         }
 

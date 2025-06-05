@@ -79,6 +79,13 @@ class TriumphConfig
         return $this->quantity;
     }
 
+    public function setQuantity($quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
     public function getScope(): TriumphScope
     {
         return $this->scope;

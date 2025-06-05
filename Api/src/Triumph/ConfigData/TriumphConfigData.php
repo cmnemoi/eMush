@@ -660,6 +660,19 @@ abstract class TriumphConfigData
                 quantity: 3,
                 regressiveFactor: 6
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PLANET_SEARCHER->toConfigKey('default'),
+                name: TriumphEnum::PLANET_SEARCHER,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionOutputEnum::SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::SCAN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_FRIEDA,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 2,
+                regressiveFactor: 4
+            ),
         ];
     }
 

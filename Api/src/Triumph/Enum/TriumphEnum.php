@@ -42,6 +42,7 @@ enum TriumphEnum: string
     case NEW_MUSH = 'new_mush';
     case NICE_SURGERY = 'nice_surgery';
     case PILGRED_MOTHER = 'pilgred_mother';
+    case PLANET_SEARCHER = 'planet_searcher';
     case PSYCHOCAT = 'psychocat';
     case PSYCHOPAT = 'psychopat';
     case PRECIOUS_BODY = 'precious_body';

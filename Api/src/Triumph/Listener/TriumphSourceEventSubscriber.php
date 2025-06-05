@@ -33,6 +33,7 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
             DaedalusCycleEvent::DAEDALUS_NEW_CYCLE => ['onDaedalusNewCycle', EventPriorityEnum::PLAYER_TRIUMPH],
             DaedalusEvent::FINISH_DAEDALUS => ['onDaedalusFinish', EventPriorityEnum::HIGH],
             DaedalusEvent::FULL_DAEDALUS => ['onDaedalusFull', EventPriorityEnum::LOW],
+            EquipmentEvent::EQUIPMENT_CREATED => 'onEquipmentCreated',
             EquipmentEvent::EQUIPMENT_DESTROYED => 'onEquipmentDestroyed',
             ExplorationEvent::EXPLORATION_STARTED => ['onExplorationStarted', EventPriorityEnum::VERY_LOW],
             LinkWithSolEstablishedEvent::class => 'onLinkWithSolEstablished',
@@ -64,6 +65,11 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
     }
 
     public function onDaedalusFull(DaedalusEvent $event): void
+    {
+        $this->changeTriumphFromEventService->execute($event);
+    }
+
+    public function onEquipmentCreated(EquipmentEvent $event): void
     {
         $this->changeTriumphFromEventService->execute($event);
     }

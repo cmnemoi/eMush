@@ -1058,11 +1058,84 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             events: [PlanetSectorEvent::STARMAP => 1]
         );
 
+        // given Raluca stays in the ship
+        $raluca = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::RALUCA);
+        $this->players->add($raluca);
+
+        // given everyone has 0 triumph
+        foreach ($this->players as $player) {
+            $player->setTriumph(0);
+        }
+
         // when starmap event is dispatched
         $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then I should see a starmap fragment in planet place
         $I->assertTrue($this->daedalus->getPlanetPlace()->hasEquipmentByName(ItemEnum::STARMAP_FRAGMENT));
+
+        // then everyone should gain 6 triumph
+        foreach ($this->players as $player) {
+            $I->assertEquals(6, $player->getTriumph());
+        }
+
+        // then I should see 1 public logs in planet place to tell an explorator has found a starmap fragment
+        $roomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'place' => $this->daedalus->getPlanetPlace()->getLogName(),
+                'visibility' => VisibilityEnum::PUBLIC,
+                'log' => LogEnum::FOUND_ITEM_IN_EXPLORATION,
+            ]
+        );
+        $roomLogParameters = $roomLog->getParameters();
+
+        // then the founder should be Chun or Kuan-Ti (not Janice or Derek - lost or stuck in ship)
+        $I->assertTrue(\in_array($roomLogParameters['character'], [$this->chun->getLogName(), $this->kuanTi->getLogName()], true));
+    }
+
+    public function testSecondStarmapEvent(FunctionalTester $I): void
+    {
+        // given starmap already created
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::STARMAP_FRAGMENT,
+            equipmentHolder: $this->derek,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given only artefact event can happen in intelligent life sector
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [PlanetSectorEvent::ARTEFACT => 1]
+        );
+
+        // given only starmap can be obtained from artefact event
+        /** @var PlanetSectorEventConfig $sectorEventConfig */
+        $sectorEventConfig = $I->grabEntityFromRepository(PlanetSectorEventConfig::class, ['name' => PlanetSectorEvent::ARTEFACT]);
+        $sectorEventConfig->setOutputTable(['starmap_fragment' => 1]);
+
+        // given everyone has 0 triumph
+        foreach ($this->players as $player) {
+            $player->setTriumph(0);
+        }
+
+        // when starmap event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then I should see a starmap fragment in planet place
+        $I->assertTrue($this->daedalus->getPlanetPlace()->hasEquipmentByName(ItemEnum::STARMAP_FRAGMENT));
+
+        // then Chun and Kuan-Ti should gain 1 triumph (not Janice or Derek - lost or stuck in ship)
+        $I->assertEquals(1, $this->chun->getTriumph());
+        $I->assertEquals(1, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->janice->getTriumph());
+        $I->assertEquals(0, $this->derek->getTriumph());
 
         // then I should see 1 public logs in planet place to tell an explorator has found a starmap fragment
         $roomLog = $I->grabEntityFromRepository(
@@ -1714,5 +1787,17 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         ]);
 
         $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $player));
+    }
+
+    private function dispatchPlanetSectorEvent(PlanetSectorEventConfig $eventConfig, PlanetSectorEvent $event): void
+    {
+        $planetSectorEvent = new PlanetSectorEvent(
+            $event->getPlanetSector(),
+            $eventConfig,
+            $event->getTags(),
+            $event->getTime(),
+            $event->getVisibility()
+        );
+        $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
     }
 }

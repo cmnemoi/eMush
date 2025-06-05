@@ -23,4 +23,5 @@ abstract class DaedalusStatusEnum
     public const string REBEL_BASE_CONTACT_DURATION = 'rebel_base_contact_duration';
     public const string GHOST_SAMPLE = 'ghost_sample';
     public const string GHOST_CHUN = 'ghost_chun';
+    public const string FIRST_STARMAP_FRAGMENT = 'first_starmap_fragment';
 }

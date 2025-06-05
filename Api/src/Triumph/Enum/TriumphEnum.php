@@ -56,6 +56,8 @@ enum TriumphEnum: string
     case SOL_CONTACT = 'sol_contact';
     case SOL_MUSH_INVASION = 'sol_mush_invasion';
     case SOL_MUSH_INTRUDER = 'sol_mush_intruder';
+    case STAR_MAP_1 = 'star_map_1';
+    case STAR_MAP_N = 'star_map_n';
     case SUPER_NOVA = 'super_nova';
     case NONE = '';
 

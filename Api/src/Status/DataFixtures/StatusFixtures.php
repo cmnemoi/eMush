@@ -656,6 +656,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($pointlessPlayer);
 
+        $firstStarmapFragment = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT . '_default')
+        );
+        $manager->persist($firstStarmapFragment);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -735,7 +740,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasGainedCommanderTitle)
             ->addStatusConfig($hasGainedNeronManagerTitle)
             ->addStatusConfig($hasGainedComManagerTitle)
-            ->addStatusConfig($pointlessPlayer);
+            ->addStatusConfig($pointlessPlayer)
+            ->addStatusConfig($firstStarmapFragment);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -809,6 +815,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE, $hasGainedNeronManagerTitle);
         $this->addReference(PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE, $hasGainedComManagerTitle);
         $this->addReference(PlayerStatusEnum::POINTLESS_PLAYER, $pointlessPlayer);
+        $this->addReference(DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT, $firstStarmapFragment);
 
         $manager->flush();
     }

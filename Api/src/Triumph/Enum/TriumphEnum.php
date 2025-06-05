@@ -61,6 +61,7 @@ enum TriumphEnum: string
     case STAR_MAP_N = 'star_map_n';
     case SUPER_NOVA = 'super_nova';
     case TR_ANATHEM = 'tr_anathem';
+    case TR_ANATHEM_LOSS = 'tr_anathem_loss';
     case NONE = '';
 
     public function toConfigKey(string $configKey): string

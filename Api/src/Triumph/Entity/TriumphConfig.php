@@ -154,7 +154,6 @@ class TriumphConfig
             TriumphEnum::HUMANOCIDE_CAT => TriumphEnum::HUMANOCIDE,
             TriumphEnum::PSYCHOCAT => TriumphEnum::PSYCHOPAT,
             TriumphEnum::CYCLE_MUSH_LATE => TriumphEnum::MUSH_INITIAL_BONUS,
-            TriumphEnum::TR_ANATHEM_LOSS => TriumphEnum::TR_ANATHEM,
             default => $this->name,
         };
     }

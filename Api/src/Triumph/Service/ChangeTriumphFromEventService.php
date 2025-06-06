@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace Mush\Triumph\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
@@ -69,10 +73,14 @@ final class ChangeTriumphFromEventService
     {
         return match ($triumphConfig->getName()) {
             TriumphEnum::CYCLE_MUSH_LATE => $this->computeNewMushTriumph($player->getDaedalus(), $triumphConfig->getQuantity()),
+            TriumphEnum::EDEN_ALIEN_PLANT, TriumphEnum::EDEN_ALIEN_PLANT_PLUS => $this->getDifferentAlienPlantCount($player->getDaedalus()) * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_CAT, TriumphEnum::EDEN_MUSH_CAT, TriumphEnum::EDEN_NO_CAT => $this->checkCatStatus($triumphConfig, $player->getDaedalus()) ? $triumphConfig->getQuantity() : 0,
+            TriumphEnum::EDEN_MICROBES => $player->getDaedalus()->getAlivePlayers()->filter(static fn (Player $player) => $player->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->count() > 0)->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
+            TriumphEnum::EDEN_SEXY => $this->isCrewReproductive($player->getDaedalus()->getAlivePlayers()) ? $triumphConfig->getQuantity() : 0,
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
+            TriumphEnum::PREGNANT_IN_EDEN => $player->getDaedalus()->getAlivePlayers()->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::PREGNANT))->count() * $triumphConfig->getQuantity(),
             TriumphEnum::RESEARCH_BRILLANT_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_BRILLANT, $player->getDaedalus()) * $triumphConfig->getQuantity(),
             TriumphEnum::RESEARCH_SMALL_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_SMALL, $player->getDaedalus()) * $triumphConfig->getQuantity(),
             TriumphEnum::RESEARCH_STANDARD_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_STANDARD, $player->getDaedalus()) * $triumphConfig->getQuantity(),
@@ -134,5 +142,19 @@ final class ChangeTriumphFromEventService
         }
 
         return $triumphConfig->getName() === TriumphEnum::EDEN_CAT;
+    }
+
+    private function getDifferentAlienPlantCount(Daedalus $daedalus): int
+    {
+        $searchedItemNames = GamePlantEnum::getAlienPlants();
+        $existingAlienPlants = $this->gameEquipmentRepository->findByNamesAndDaedalus($searchedItemNames, $daedalus);
+        $existingAlienPlantNames = array_map(static fn (GameEquipment $plant) => $plant->getName(), $existingAlienPlants);
+
+        return \count(array_unique($existingAlienPlantNames));
+    }
+
+    private function isCrewReproductive(PlayerCollection $crew): bool
+    {
+        return $crew->getMalePlayers()->count() > 0 && $crew->getMalePlayers()->count() < $crew->count();
     }
 }

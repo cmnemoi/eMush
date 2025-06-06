@@ -821,6 +821,68 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_ANDIE,
                 quantity: 4,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PREGNANT_IN_EDEN->toConfigKey('default'),
+                name: TriumphEnum::PREGNANT_IN_EDEN,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_PREGNANT->toConfigKey('default'),
+                name: TriumphEnum::EDEN_PREGNANT,
+                targetedEvent: StatusEvent::STATUS_REMOVED,
+                tagConstraints: [
+                    PlayerStatusEnum::PREGNANT => TriumphSourceEventInterface::ALL_TAGS,
+                    EndCauseEnum::EDEN => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_PLAYERS,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
+                quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_SEXY->toConfigKey('default'),
+                name: TriumphEnum::EDEN_SEXY,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_MICROBES->toConfigKey('default'),
+                name: TriumphEnum::EDEN_MICROBES,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: -4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_ALIEN_PLANT->toConfigKey('default'),
+                name: TriumphEnum::EDEN_ALIEN_PLANT,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 1,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_ALIEN_PLANT_PLUS->toConfigKey('default'),
+                name: TriumphEnum::EDEN_ALIEN_PLANT_PLUS,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_IAN,
+                quantity: 3,
+            ),
         ];
     }
 

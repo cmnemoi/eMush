@@ -601,5 +601,65 @@
         <target>andie_fate.log</target>
       </segment>
     </unit>
+    <unit id="pregnant_in_eden">
+      <segment id="eden_mush_cat.name" state="initial">
+        <source>eden_mush_cat.name</source>
+        <target>eden_mush_cat.name</target>
+      </segment>
+      <segment id="eden_mush_cat.log" state="initial">
+        <source>eden_mush_cat.log</source>
+        <target>eden_mush_cat.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_pregnant">
+      <segment id="eden_pregnant.name" state="initial">
+        <source>eden_pregnant.name</source>
+        <target>eden_pregnant.name</target>
+      </segment>
+      <segment id="eden_pregnant.log" state="initial">
+        <source>eden_pregnant.log</source>
+        <target>eden_pregnant.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_sexy">
+      <segment id="eden_sexy.name" state="initial">
+        <source>eden_sexy.name</source>
+        <target>eden_sexy.name</target>
+      </segment>
+      <segment id="eden_sexy.log" state="initial">
+        <source>eden_sexy.log</source>
+        <target>eden_sexy.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_microbes">
+      <segment id="eden_microbes.name" state="initial">
+        <source>eden_microbes.name</source>
+        <target>eden_microbes.name</target>
+      </segment>
+      <segment id="eden_microbes.log" state="initial">
+        <source>eden_microbes.log</source>
+        <target>eden_microbes.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_alien_plant">
+      <segment id="eden_alien_plant.name" state="initial">
+        <source>eden_alien_plant.name</source>
+        <target>eden_alien_plant.name</target>
+      </segment>
+      <segment id="eden_alien_plant.log" state="initial">
+        <source>eden_alien_plant.log</source>
+        <target>eden_alien_plant.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_alien_plant_plus">
+      <segment id="eden_alien_plant_plus.name" state="initial">
+        <source>eden_alien_plant_plus.name</source>
+        <target>eden_alien_plant_plus.name</target>
+      </segment>
+      <segment id="eden_alien_plant_plus.log" state="initial">
+        <source>eden_alien_plant_plus.log</source>
+        <target>eden_alien_plant_plus.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

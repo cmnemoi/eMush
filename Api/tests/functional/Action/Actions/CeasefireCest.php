@@ -13,10 +13,12 @@ use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
@@ -39,6 +41,7 @@ final class CeasefireCest extends AbstractFunctionalTest
     private Hit $hit;
     private Move $move;
     private EventServiceInterface $eventService;
+    private Player $paola;
 
     public function _before(FunctionalTester $I): void
     {
@@ -53,6 +56,15 @@ final class CeasefireCest extends AbstractFunctionalTest
 
         $this->givenChunIsADiplomat($I);
         $this->givenKuanTiIsADiplomat($I);
+    }
+
+    public function shouldNotBeVisibleIfPlayerIsNotDiplomat(FunctionalTester $I): void
+    {
+        $this->givenPaolaIsNotADiplomat($I);
+
+        $this->whenPaolaTriesToCeasefire();
+
+        $this->thenCeasefireActionIsNotVisible(I: $I);
     }
 
     public function shouldNotBeVisibleIfPlayerNotInARoom(FunctionalTester $I): void
@@ -190,12 +202,27 @@ final class CeasefireCest extends AbstractFunctionalTest
         $this->chun->changePlace($this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
     }
 
+    private function givenPaolaIsNotADiplomat(FunctionalTester $I): void
+    {
+        $this->paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
+    }
+
     private function whenChunTriesToCeasefire(): void
     {
         $this->ceasefire->loadParameters(
             actionConfig: $this->actionConfig,
             actionProvider: $this->chun,
             player: $this->chun,
+            target: null,
+        );
+    }
+
+    private function whenPaolaTriesToCeasefire(): void
+    {
+        $this->ceasefire->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->paola,
+            player: $this->paola,
             target: null,
         );
     }

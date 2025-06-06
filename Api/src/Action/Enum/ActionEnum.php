@@ -49,7 +49,6 @@ enum ActionEnum: string
     case WATER_PLANT = 'water_plant';
     case TREAT_PLANT = 'treat_plant';
     case TRANSPLANT = 'transplant';
-    case HYBRIDIZE = 'hybridize';
     case HACK = 'hack';
     case EXTINGUISH = 'extinguish';
     case GAG = 'gag';
@@ -406,7 +405,7 @@ enum ActionEnum: string
             self::OPEN,
             self::WRITE,
             self::SHRED,
-            self::HYBRIDIZE,
+            self::GRAFT,
             self::ULTRAHEAL,
             self::PUBLIC_BROADCAST,
             self::TAKE_CAT,

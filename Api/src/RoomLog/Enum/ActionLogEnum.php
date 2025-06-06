@@ -32,8 +32,6 @@ abstract class ActionLogEnum
     public const string HIT_CRITICAL_SUCCESS = 'hit_critical_success';
     public const string HIT_SUCCESS = 'hit_success';
     public const string HIT_FAIL = 'hit_fail';
-    public const string HYBRIDIZE_SUCCESS = 'hybridize_success';
-    public const string HYBRIDIZE_FAIL = 'transplant_fail';
     public const string HYPERFREEZE_SUCCESS = 'hyperfreeze_success';
     public const string PHAGOCYTE_SUCCESS = 'phagocyte_success';
     public const string INFECT_SUCCESS = 'infect_success';
@@ -234,10 +232,6 @@ abstract class ActionLogEnum
         ],
         ActionEnum::TRY_KUBE->value => [
             ActionOutputEnum::SUCCESS => self::TRY_KUBE,
-        ],
-        ActionEnum::HYBRIDIZE->value => [
-            ActionOutputEnum::SUCCESS => self::HYBRIDIZE_SUCCESS,
-            ActionOutputEnum::FAIL => self::HYBRIDIZE_FAIL,
         ],
         ActionEnum::EXTINGUISH->value => [
             ActionOutputEnum::SUCCESS => self::EXTINGUISH_SUCCESS,

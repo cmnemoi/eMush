@@ -253,18 +253,6 @@ other {invalid gender input}
 }</target>
       </segment>
     </unit>
-    <unit id="hybridize_success">
-      <segment id="hybridize_success" state="translated">
-        <source>hybridize_success</source>
-        <target>Qué alivio, **{character}** ha hecho bien su injerto de **{target_equipment}**. ¡La planta quedó perfecta!</target>
-      </segment>
-    </unit>
-    <unit id="hybridize_fail">
-      <segment id="hybridize_fail" state="translated">
-        <source>hybridize_fail</source>
-        <target>Qué alivio... oh pero... **{character}** no hizo bien el injerto de **{target_equipment}**. La plantita se debilita y muere... Algo arruinó la operación.</target>
-      </segment>
-    </unit>
     <unit id="treat_plant_success">
       <segment id="treat_plant_success" state="translated">
         <source>treat_plant_success</source>

@@ -23,7 +23,7 @@ final class HasSkillValidator extends ConstraintValidator
 
         $player = $value->getPlayer();
 
-        if ($player->hasSkill($constraint->skill) === false) {
+        if ($player->hasStandaloneSkill($constraint->skill) === false) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

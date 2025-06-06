@@ -1352,6 +1352,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->isMush() || $player->isInactive();
     }
 
+    public function hasStandaloneSkill(SkillEnum $skillName): bool
+    {
+        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
+    }
+
     private function hasPheromodemConnectedTracker(): bool
     {
         $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);
@@ -1489,11 +1494,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         }
 
         return $result;
-    }
-
-    private function hasStandaloneSkill(SkillEnum $skillName): bool
-    {
-        return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
     private function hasSkillThroughPolyvalent(SkillEnum $skillName): bool

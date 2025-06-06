@@ -524,24 +524,6 @@
                 }</target>
       </segment>
     </unit>
-    <unit id="hybridize_success">
-      <segment id="hybridize_success" state="translated">
-        <source>hybridize_success</source>
-        <target>{target_equipment_first_letter, select,
-                    vowel {Quel soulagement, **{character}** a réussi sa greffe d'**{target_equipment}**. La petite plante se porte bien !}
-                    other {Quel soulagement, **{character}** a réussi sa greffe de **{target_equipment}**. La petite plante se porte bien !}
-                }</target>
-      </segment>
-    </unit>
-    <unit id="hybridize_fail">
-      <segment id="hybridize_fail" state="translated">
-        <source>hybridize_fail</source>
-        <target>{target_equipment_first_letter, select,
-                    vowel {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe d'**{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
-                    other {Quel soulagement... oh mais... **{character}** n'a pas réussi sa greffe de **{target_equipment}**. La petite plante reste chétive et meurt... Quelque chose a du contaminer l'opération.}
-                }</target>
-      </segment>
-    </unit>
     <unit id="treat_plant_success">
       <segment id="treat_plant_success" state="translated">
         <source>treat_plant_success</source>

@@ -307,18 +307,6 @@
         <target>**{character}** has picked up the **{target_equipment}**.</target>
       </segment>
     </unit>
-    <unit id="hybridize_success">
-      <segment id="hybridize_success" state="translated">
-        <source>hybridize_success</source>
-        <target>What a relief, **{character}** has successfully created a crossbreed of the **{target_equipment}**. The little plant is doing great!</target>
-      </segment>
-    </unit>
-    <unit id="hybridize_fail">
-      <segment id="hybridize_fail" state="translated">
-        <source>hybridize_fail</source>
-        <target>What a relief... oh wait... **{character}** has not succeeded in their attempt to crossbreed a **{target_equipment}**. The little plant didn't grow and eventually died... Something must have contaminated the procedure.</target>
-      </segment>
-    </unit>
     <unit id="treat_plant_success">
       <segment id="treat_plant_success" state="translated">
         <source>treat_plant_success</source>

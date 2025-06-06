@@ -38,13 +38,6 @@ final class TriumphGainNormalizer implements NormalizerInterface
             language: $context['language'],
         );
 
-        $emoteCode = $triumphGain->toEmoteCode();
-
-        if ($emoteCode === '') {
-            $triumphGain->setIsMush($context['isMush']);
-            $emoteCode = $triumphGain->toEmoteCode();
-        }
-
-        return "{$triumphGain->getCount()} x {$triumphName} ( {$triumphGain->getValueAsString()} {$emoteCode} )";
+        return "{$triumphGain->getCount()} x {$triumphName} ( {$triumphGain->getValueAsString()} {$triumphGain->toEmoteCode()} )";
     }
 }

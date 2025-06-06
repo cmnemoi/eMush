@@ -63,6 +63,15 @@ final class GraftCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldNotSeeAction($I);
     }
 
+    public function shouldNotBeVisibleIfPlayerIsPolyvalent(FunctionalTester $I): void
+    {
+        $this->givenKuanTiIsAPolyvalent($I);
+        $this->givenKuanTiHasABananaTree();
+        $this->givenKuanTiHasAnAnemole();
+
+        $this->thenKuanTiShouldNotSeeAction($I);
+    }
+
     public function shouldNotBeVisibleIfFruitToGraftWouldGiveTheSamePlant(FunctionalTester $I): void
     {
         $banana = $this->givenChunHasABanana();
@@ -300,6 +309,11 @@ final class GraftCest extends AbstractFunctionalTest
     private function givenChunHasGreenThumb(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::GREEN_THUMB, $I);
+    }
+
+    private function givenKuanTiIsAPolyvalent(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::POLYVALENT, $I, $this->kuanTi);
     }
 
     private function whenChunGraftsOnBananaTree(): ActionResult

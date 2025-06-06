@@ -217,18 +217,6 @@
         <target>take</target>
       </segment>
     </unit>
-    <unit id="hybridize_success">
-      <segment id="hybridize_success" state="initial">
-        <source>hybridize_success</source>
-        <target>hybridize_success</target>
-      </segment>
-    </unit>
-    <unit id="hybridize_fail">
-      <segment id="hybridize_fail" state="initial">
-        <source>hybridize_fail</source>
-        <target>hybridize_fail</target>
-      </segment>
-    </unit>
     <unit id="treat_plant_success">
       <segment id="treat_plant_success" state="initial">
         <source>treat_plant_success</source>

@@ -3,6 +3,7 @@
 namespace Mush\Tests\functional\Hunter\Event;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -83,5 +84,27 @@ final class HunterDeathEventCest extends AbstractFunctionalTest
 
         // then the hunter dropped some scrap in the space
         $I->assertNotEmpty($this->daedalus->getSpace()->getEquipments()); // the hunter killed should drop some scrap
+    }
+
+    public function testShipsDestroyedCounterShouldIncrementWhenAHunterIsKilled(FunctionalTester $I): void
+    {
+        // given 1 hunter is attacking
+        $I->assertCount(1, $this->daedalus->getHuntersAroundDaedalus());
+
+        // given the ships destroyed counter is set to 0
+        $this->daedalus->getDaedalusInfo()->setDaedalusStatistics(new DaedalusStatistics(shipsDestroyed: 0));
+
+        // when an event said this hunter is dead
+        $hunterDeathEvent = new HunterEvent(
+            $this->hunter,
+            VisibilityEnum::PUBLIC,
+            ['test', ActionEnum::SHOOT_HUNTER->value],
+            new \DateTime()
+        );
+        $hunterDeathEvent->setAuthor($this->player1);
+        $this->eventService->callEvent($hunterDeathEvent, HunterEvent::HUNTER_DEATH);
+
+        // then the ships destroyed counter should be incremented to 1.
+        $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getShipsDestroyed(), 'shipsDestroyed should be 1.');
     }
 }

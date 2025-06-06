@@ -57,7 +57,7 @@ final class Graft extends AbstractAction
             ]),
             new HasSkill([
                 'skill' => SkillEnum::BOTANIST,
-                'groups' => ['visibility'],
+                'groups' => [ClassConstraint::VISIBILITY],
             ]),
             new FruitToGraftGivesDifferentPlant([
                 'groups' => ['visibility'],

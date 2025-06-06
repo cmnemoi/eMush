@@ -71,6 +71,12 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
                 daedalusInfo: $daedalus->getDaedalusInfo()
             );
             $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['shipsDestroyed'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getShipsDestroyed();
+            $data['planetsFound'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getPlanetsFound();
+            $data['mushAmount'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount();
+            $data['sporesCreated'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getSporesCreated();
+            $data['explorationsStarted'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getExplorationsStarted();
+            $data['rebelBasesContacted'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getRebelBasesContacted();
         }
 
         return $data;

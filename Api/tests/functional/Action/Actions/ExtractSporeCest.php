@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Project\Enum\ProjectName;
@@ -82,6 +83,23 @@ final class ExtractSporeCest extends AbstractFunctionalTest
 
         // then action should cost 0 action points
         $I->assertEquals(0, $this->extractSporeAction->getActionPointCost());
+    }
+
+    public function sporesCreatedCounterShouldIncrementWhenASporeIsExctracted(FunctionalTester $I): void
+    {
+        // given the spore created counter is set to 0
+        $this->daedalus->getDaedalusInfo()->setDaedalusStatistics(new DaedalusStatistics(sporesCreated: 0));
+
+        // when Kuan Ti extracts spore
+        $this->extractSporeAction->loadParameters(
+            actionConfig: $this->extractSporeActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi
+        );
+        $this->extractSporeAction->execute();
+
+        // then the spores created counter should be incremented to 1.
+        $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getSporesCreated(), 'sporesCreated should be 1.');
     }
 
     public function antisporeGasShouldLimitSporeExtraction(FunctionalTester $I): void

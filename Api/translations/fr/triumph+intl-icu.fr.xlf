@@ -581,5 +581,25 @@
         <target>eden_mush_cat.log</target>
       </segment>
     </unit>
+    <unit id="pregnant_in_eden">
+      <segment id="eden_mush_cat.name" state="initial">
+        <source>eden_mush_cat.name</source>
+        <target>eden_mush_cat.name</target>
+      </segment>
+      <segment id="eden_mush_cat.log" state="initial">
+        <source>eden_mush_cat.log</source>
+        <target>eden_mush_cat.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_pregnant">
+      <segment id="eden_pregnant.name" state="initial">
+        <source>eden_pregnant.name</source>
+        <target>eden_pregnant.name</target>
+      </segment>
+      <segment id="eden_pregnant.log" state="initial">
+        <source>eden_pregnant.log</source>
+        <target>eden_pregnant.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

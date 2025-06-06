@@ -38,10 +38,10 @@ final class TriumphGainNormalizer implements NormalizerInterface
             language: $context['language'],
         );
 
-        echo "\nContext keys:\n";
-        foreach (array_keys($context) as $key) {
-            echo "- {$key}\n";
-        }
+        //echo "\nContext keys:\n";
+        //foreach (array_keys($context) as $key) {
+        //    echo "- {$key}\n";
+        //}
 
         //$emoteCode = $triumphGain->toEmoteCode();
         //

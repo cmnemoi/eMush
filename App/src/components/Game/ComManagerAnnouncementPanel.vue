@@ -66,7 +66,7 @@ export default defineComponent ({
         }),
         breakLine(): void {
             // find current caret position
-            const element = this.$refs.input;
+            const element = this.$refs.input as HTMLTextAreaElement;
             const caretPos = element.selectionStart;
 
             // insert \n at the caret position
@@ -77,13 +77,21 @@ export default defineComponent ({
         },
         getImgUrl,
         async executeTargetAction(action: Action): Promise<void> {
-            if(action.canExecute) {
-                this.announcement = this.announcement.replace(/\n/g, "//");
-                const params = { "announcement": this.announcement };
-                this.announcement = '';
-                await this.executeAction({ target: null, action, params });
-                await this.closeComManagerAnnouncementPanel();
+            if (!action.canExecute || !this.announcement) {
+                return;
             }
+
+            const params = { "announcement": this.formatBreakLines(this.announcement) };
+            this.resetAnnouncement();
+
+            await this.executeAction({ target: null, action, params });
+            await this.closeComManagerAnnouncementPanel();
+        },
+        formatBreakLines(text: string): string {
+            return text.replace(/\n/g, "//");
+        },
+        resetAnnouncement(): void {
+            this.announcement = "";
         }
     },
     data() {

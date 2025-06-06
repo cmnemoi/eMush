@@ -28,6 +28,7 @@ enum TriumphEnum: string
     case EDEN_NO_CAT = 'eden_no_cat';
     case EDEN_ONE_MAN = 'eden_one_man';
     case EDEN_PREGNANT = 'eden_pregnant';
+    case EDEN_SEXY = 'eden_sexy';
     case EXPEDITION = 'expedition';
     case EXPLORATOR = 'explorator';
     case FAST_FORWARD = 'fast_forward';

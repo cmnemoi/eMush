@@ -192,6 +192,11 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->isActive());
     }
 
+    public function getMalePlayers(): self
+    {
+        return $this->filter(static fn (Player $player) => $player->isMale());
+    }
+
     private function getPlayerWithStatus(string $status): ?Player
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;

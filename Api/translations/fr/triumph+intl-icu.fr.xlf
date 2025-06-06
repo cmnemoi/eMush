@@ -621,5 +621,15 @@
         <target>eden_pregnant.log</target>
       </segment>
     </unit>
+    <unit id="eden_sexy">
+      <segment id="eden_sexy.name" state="initial">
+        <source>eden_sexy.name</source>
+        <target>eden_sexy.name</target>
+      </segment>
+      <segment id="eden_sexy.log" state="initial">
+        <source>eden_sexy.log</source>
+        <target>eden_sexy.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

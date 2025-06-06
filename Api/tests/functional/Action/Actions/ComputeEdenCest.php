@@ -186,6 +186,36 @@ final class ComputeEdenCest extends AbstractFunctionalTest
         $this->thenDaedalusShouldNotHaveEdenComputedStatus($I);
     }
 
+    public function shouldProvideTriumphOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCalculator();
+
+        $this->givenStarmapFragmentsInRoom(number: 3);
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->givenZeroTriumph();
+
+        $this->whenPlayerTriesToComputeEden();
+
+        $this->thenPlayerShouldHaveTriumph(4, $I);
+    }
+
+    public function shouldNotProvideTriumphOnFailure(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCalculator();
+
+        $this->givenStarmapFragmentsInRoom(number: 3);
+
+        $this->givenActionSuccessRateIs(0);
+
+        $this->givenZeroTriumph();
+
+        $this->whenPlayerTriesToComputeEden();
+
+        $this->thenPlayerShouldHaveTriumph(0, $I);
+    }
+
     private function givenCalculatorInRoom(): void
     {
         $this->calculator = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -256,6 +286,14 @@ final class ComputeEdenCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenZeroTriumph(): void
+    {
+        /** @var Player $player */
+        foreach ($this->daedalus->getPlayers() as $player) {
+            $player->setTriumph(0);
+        }
+    }
+
     private function whenPlayerTriesToComputeEden(): void
     {
         $this->computeEden->loadParameters(
@@ -293,5 +331,11 @@ final class ComputeEdenCest extends AbstractFunctionalTest
             expected: $itPoints,
             actual: $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT)->getSkillPoints(),
         );
+    }
+
+    private function thenPlayerShouldHaveTriumph(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->player->getTriumph());
+        $I->assertEquals(0, $this->player2->getTriumph());
     }
 }

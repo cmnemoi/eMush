@@ -16,6 +16,7 @@ use Mush\Communications\Repository\TradeRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Hunter\Enum\HunterEnum;
@@ -127,6 +128,18 @@ final class RefuseTradeCest extends AbstractFunctionalTest
                 'message' => NeronMessageEnum::MERCHANT_LEAVE,
             ],
         );
+    }
+
+    public function shouldNotGiveTriumphOnRefuseTrade(FunctionalTester $I): void
+    {
+        $andie = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+
+        $this->whenPlayerRefusesTrade();
+
+        $I->assertEquals(0, $andie->getTriumph());
+        $I->assertEquals(0, $this->player->getTriumph());
     }
 
     private function givenTradeAndTransport(): array

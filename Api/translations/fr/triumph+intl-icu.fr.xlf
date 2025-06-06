@@ -581,5 +581,25 @@
         <target>eden_mush_cat.log</target>
       </segment>
     </unit>
+    <unit id="eden_computed">
+      <segment id="eden_computed.name" state="initial">
+        <source>eden_computed.name</source>
+        <target>eden_computed.name</target>
+      </segment>
+      <segment id="eden_computed.log" state="initial">
+        <source>eden_computed.log</source>
+        <target>eden_computed.log</target>
+      </segment>
+    </unit>
+    <unit id="andie_fate">
+      <segment id="andie_fate.name" state="initial">
+        <source>andie_fate.name</source>
+        <target>andie_fate.name</target>
+      </segment>
+      <segment id="andie_fate.log" state="initial">
+        <source>andie_fate.log</source>
+        <target>andie_fate.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

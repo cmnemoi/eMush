@@ -821,6 +821,16 @@ abstract class TriumphConfigData
                 targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: 4,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_SEXY->toConfigKey('default'),
+                name: TriumphEnum::EDEN_SEXY,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 4,
+            ),
         ];
     }
 

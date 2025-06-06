@@ -10,6 +10,7 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
@@ -72,6 +73,7 @@ final class ChangeTriumphFromEventService
             TriumphEnum::EDEN_CAT, TriumphEnum::EDEN_MUSH_CAT, TriumphEnum::EDEN_NO_CAT => $this->checkCatStatus($triumphConfig, $player->getDaedalus()) ? $triumphConfig->getQuantity() : 0,
             TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
+            TriumphEnum::EDEN_SEXY => $this->isCrewReproductive($player->getDaedalus()->getAlivePlayers()) ? $triumphConfig->getQuantity() : 0,
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
             TriumphEnum::PREGNANT_IN_EDEN => $player->getDaedalus()->getAlivePlayers()->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::PREGNANT))->count() * $triumphConfig->getQuantity(),
             TriumphEnum::RESEARCH_BRILLANT_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_BRILLANT, $player->getDaedalus()) * $triumphConfig->getQuantity(),
@@ -135,5 +137,10 @@ final class ChangeTriumphFromEventService
         }
 
         return $triumphConfig->getName() === TriumphEnum::EDEN_CAT;
+    }
+
+    private function isCrewReproductive(PlayerCollection $crew): bool
+    {
+        return $crew->getMalePlayers()->count() > 0 && $crew->getMalePlayers()->count() < $crew->count();
     }
 }

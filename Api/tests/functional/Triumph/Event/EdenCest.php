@@ -146,11 +146,12 @@ final class EdenCest extends AbstractExplorationTester
 
         $this->whenDaedalusTravelsToEden();
 
-        // human triumph: 20 initial - 4 (eden_no_cat) - 16 (eden_mush_intruder) + 6 (eden_at_least) + 3 (eden_one_man) + 16 (pregnant_in_eden)
+        // human triumph: 20 initial - 4 (eden_no_cat) - 16 (eden_mush_intruder)
+        //                + 6 (eden_at_least) + 3 (eden_one_man) + 16 (pregnant_in_eden) + 4 (eden_sexy)
         // Chun triumph: human triumph + 4 (eden_pregnant) + 4 (remedy)
         // mush triumph: 20 initial + 32 (eden_mush_invasion) + 4 (eden_pregnant)
-        $I->assertEquals(33, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
-        $I->assertEquals(25, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(37, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(29, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
         $I->assertEquals(56, $paola->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 

@@ -16,8 +16,10 @@ enum TriumphScope: string
     case ALL_ALIVE_HUMAN_TECHNICIANS = 'all_alive_human_technicians';
 
     // Personal triumph
+    case PERSONAL_ANDIE = 'personal_andie';
     case PERSONAL_CHAO = 'personal_chao';
     case PERSONAL_CHUN = 'personal_chun';
+    case PERSONAL_DEREK = 'personal_derek';
     case PERSONAL_ELEESHA = 'personal_eleesha';
     case PERSONAL_FINOLA = 'personal_finola';
     case PERSONAL_FRIEDA = 'personal_frieda';

@@ -10,6 +10,7 @@ enum TriumphEnum: string
     case ALIEN_SCIENCE = 'alien_science';
     case ALL_PREGNANT = 'all_pregnant';
     case AMBITIOUS = 'ambitious';
+    case ANDIE_FATE = 'andie_fate';
     case CHUN_DEAD = 'chun_dead';
     case CHUN_LIVES = 'chun_lives';
     case CYCLE_HUMAN = 'cycle_human';
@@ -19,6 +20,7 @@ enum TriumphEnum: string
     case EDEN_AT_LEAST = 'eden_at_least';
     case EDEN_BIOLOGISTS = 'eden_biologists';
     case EDEN_CAT = 'eden_cat';
+    case EDEN_COMPUTED = 'eden_computed';
     case EDEN_ENGINEERS = 'eden_engineers';
     case EDEN_MUSH_CAT = 'eden_mush_cat';
     case EDEN_MUSH_INTRUDER = 'eden_mush_intruder';
@@ -35,6 +37,8 @@ enum TriumphEnum: string
     case KUBE_SOLVED = 'kube_solved';
     case LANDER = 'lander';
     case LOOKING_FOR_KIVANC = 'looking_for_kivanc';
+    case LOVED = 'loved';
+    case LOVER = 'lover';
     case MAGELLAN_ARK = 'magellan_ark';
     case MUSH_FEAR = 'mush_fear';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';

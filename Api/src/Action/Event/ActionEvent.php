@@ -253,6 +253,16 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         return $this->getAuthor()->getDaedalus();
     }
 
+    protected function addEventTags(): void
+    {
+        if ($this->actionConfig->getActionName() === ActionEnum::FLIRT) {
+            $target = $this->getPlayerActionTargetOrThrow();
+            if ($target->getFlirts()->contains($this->getAuthor())) {
+                $this->addTag(self::LOVE_BACK);
+            }
+        }
+    }
+
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {

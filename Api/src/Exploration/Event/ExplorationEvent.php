@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Exploration\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Exploration\Entity\Exploration;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Place\Entity\Place;
@@ -49,6 +50,11 @@ class ExplorationEvent extends AbstractGameEvent implements TriumphSourceEventIn
     public function getStartPlace(): Place
     {
         return $this->getDaedalus()->getPlaceByNameOrThrow($this->exploration->getStartPlaceName());
+    }
+
+    public function getDaedalusStatistics(): DaedalusStatistics
+    {
+        return $this->getDaedalus()->getDaedalusInfo()->getDaedalusStatistics();
     }
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection

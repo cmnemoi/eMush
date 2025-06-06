@@ -46,6 +46,9 @@ class DaedalusInfo
     #[ORM\OneToMany(mappedBy: 'daedalusInfo', targetEntity: ClosedExploration::class)]
     private Collection $closedExplorations;
 
+    #[ORM\Embedded(class: DaedalusStatistics::class)]
+    private DaedalusStatistics $daedalusStatistics;
+
     public function __construct(Daedalus $daedalus, GameConfig $gameConfig, LocalizationConfig $localizationConfig)
     {
         $this->daedalus = $daedalus;
@@ -58,6 +61,7 @@ class DaedalusInfo
         $this->closedDaedalus->setDaedalusInfo($this);
 
         $this->closedExplorations = new ArrayCollection();
+        $this->daedalusStatistics = new DaedalusStatistics();
     }
 
     public function getId(): ?int
@@ -138,6 +142,13 @@ class DaedalusInfo
         return $this;
     }
 
+    public function setDaedalusStatistics(DaedalusStatistics $daedalusStatistics): static
+    {
+        $this->daedalusStatistics = $daedalusStatistics;
+
+        return $this;
+    }
+
     public function isDaedalusFinished(): bool
     {
         return $this->gameStatus === GameStatusEnum::FINISHED || $this->gameStatus === GameStatusEnum::CLOSED;
@@ -182,5 +193,10 @@ class DaedalusInfo
     public function startDaedalus(): void
     {
         $this->gameStatus = GameStatusEnum::CURRENT;
+    }
+
+    public function getDaedalusStatistics(): DaedalusStatistics
+    {
+        return $this->daedalusStatistics;
     }
 }

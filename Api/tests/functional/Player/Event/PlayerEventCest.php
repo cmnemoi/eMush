@@ -8,6 +8,7 @@ use Mush\Chat\Entity\Channel;
 use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
@@ -365,6 +366,8 @@ final class PlayerEventCest
         $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
         $I->haveInRepository($daedalusInfo);
 
+        $daedalus->getDaedalusInfo()->setDaedalusStatistics(new DaedalusStatistics(shipsDestroyed: 0));
+
         $mushChannel = new Channel();
         $mushChannel
             ->setDaedalus($daedalusInfo)
@@ -398,5 +401,6 @@ final class PlayerEventCest
         $I->assertEquals(2, $sporesVariable->getMaxValue());
         $I->assertEquals($room, $player->getPlace());
         $I->assertEquals(12, $player->getMoralPoint());
+        $I->assertEquals(1, $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount());
     }
 }

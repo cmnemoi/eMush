@@ -21,6 +21,7 @@ use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
@@ -295,6 +296,22 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $this->givenHasContactedKivanc($I);
 
         $this->thenMaxEfficiencyShouldBeQuadrupleTo($initialSignalMaxEfficiency, $I);
+    }
+
+    public function shouldIncrementRebelBasesCounterOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+        $this->givenRebelBaseSignalIsAt(RebelBaseEnum::WOLF, 99);
+        // given the rebel bases counter is set to 0
+        $this->daedalus->getDaedalusInfo()->setDaedalusStatistics(new DaedalusStatistics(rebelBasesContacted: 0));
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
+
+        // then the rebel bases counter should be incremented to 1.
+        $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getRebelBasesContacted(), 'rebelBasesContacted should be 1.');
     }
 
     private function givenCommsCenterInRoom(): void

@@ -3,6 +3,7 @@
 namespace Mush\Player\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
@@ -79,6 +80,11 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
     public function getDaedalus(): Daedalus
     {
         return $this->getPlayer()->getDaedalus();
+    }
+
+    public function getDaedalusStatistics(): DaedalusStatistics
+    {
+        return $this->getDaedalus()->getDaedalusInfo()->getDaedalusStatistics();
     }
 
     public function getTitle(): string

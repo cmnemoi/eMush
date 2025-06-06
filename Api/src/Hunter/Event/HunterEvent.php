@@ -3,6 +3,7 @@
 namespace Mush\Hunter\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Hunter\Entity\Hunter;
 use Mush\Place\Entity\Place;
@@ -57,6 +58,11 @@ class HunterEvent extends AbstractGameEvent implements LoggableEventInterface, T
     public function getDaedalus(): Daedalus
     {
         return $this->hunter->getDaedalus();
+    }
+
+    public function getDaedalusStatistics(): DaedalusStatistics
+    {
+        return $this->getDaedalus()->getDaedalusInfo()->getDaedalusStatistics();
     }
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection

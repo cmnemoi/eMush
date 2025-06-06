@@ -843,7 +843,7 @@ abstract class TriumphConfigData
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::EDEN_ALIEN_PLANT->toConfigKey('default'),
-                name: TriumphEnum::EDEN_MICROBES,
+                name: TriumphEnum::EDEN_ALIEN_PLANT,
                 targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
                 tagConstraints: [
                     ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
@@ -853,7 +853,7 @@ abstract class TriumphConfigData
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::EDEN_ALIEN_PLANT_PLUS->toConfigKey('default'),
-                name: TriumphEnum::EDEN_MICROBES,
+                name: TriumphEnum::EDEN_ALIEN_PLANT_PLUS,
                 targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
                 tagConstraints: [
                     ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,

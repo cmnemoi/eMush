@@ -131,7 +131,6 @@ final class EdenCest extends AbstractExplorationTester
         $I->assertEquals(8, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 
-    // NOTE: Include pluralism triumph when implemented
     public function testPregnantEden(FunctionalTester $I): void
     {
         $this->givenNoLanderTriumphGain();

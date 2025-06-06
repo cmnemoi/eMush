@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Triumph\Event;
 
+use Mush\Action\Actions\Graft;
+use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Disease\Entity\PlayerDisease;
@@ -12,6 +14,8 @@ use Mush\Disease\Enum\DisorderEnum;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\GameFruitEnum;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
@@ -22,6 +26,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -212,6 +217,42 @@ final class EdenCest extends AbstractExplorationTester
         $I->assertEquals(16, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 
+    public function testAlienPlantEden(FunctionalTester $I): void
+    {
+        $this->givenNoLanderTriumphGain();
+        $this->givenPlayerDies($this->chun);
+        $ian = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::IAN);
+
+        // Given alien plants that will count
+        $this->givenItemInDaedalus(GamePlantEnum::CREEPIST);
+        $this->givenItemInDaedalus(GamePlantEnum::PRECATUS);
+
+        // Given items that don't count (duplicate alien plants, non-alien plant, alien fruit)
+        $this->givenItemInDaedalus(GamePlantEnum::CREEPIST);
+        $this->givenItemInDaedalus(GamePlantEnum::CREEPIST);
+        $this->givenItemInDaedalus(GamePlantEnum::CREEPIST);
+        $this->givenItemInDaedalus(GamePlantEnum::BANANA_TREE);
+        $this->givenItemInDaedalus(GameFruitEnum::KUBINUS);
+        $this->givenItemInDaedalus(GameFruitEnum::CALEBOOT);
+        $this->givenItemInDaedalus(GameFruitEnum::CREEPNUT);
+        $this->givenItemInDaedalus(GameFruitEnum::FILANDRA);
+
+        // Given third alien plant that gets grafted to banana tree
+        $this->addSkillToPlayer(SkillEnum::BOTANIST, $I, $this->kuanTi);
+        $thirdAlienPlant = $this->givenItemInDaedalus(GamePlantEnum::CACTAX, $this->kuanTi);
+        $banana = $this->givenItemInDaedalus(GameFruitEnum::BANANA, $this->kuanTi);
+        $this->givenPlantGraftedByPlayer($thirdAlienPlant, $banana, $this->kuanTi, $I);
+
+        $this->givenEveryoneHasTriumph(4);
+
+        $this->whenDaedalusTravelsToEden();
+
+        // human triumph: 4 initial - 4 (eden_no_cat) + 6 (eden_at_least) + 2 (eden_one_man) + 2 (eden_alien_plant) + 6 for Ian (eden_alien_plant_plus)
+        $I->assertEquals(4, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(10, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(16, $ian->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
     private function givenPlayerDies(Player $player): void
     {
         $this->playerService->killPlayer(
@@ -306,6 +347,30 @@ final class EdenCest extends AbstractExplorationTester
             time: new \DateTime(),
             visibility: VisibilityEnum::PRIVATE
         );
+    }
+
+    private function givenItemInDaedalus(string $itemName, ?Player $holder = null): GameItem
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $itemName,
+            equipmentHolder: $holder ?? $this->daedalus->getSpace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlantGraftedByPlayer(GameItem $plant, GameItem $fruit, Player $player, FunctionalTester $I): void
+    {
+        /** @var Graft $graftAction */
+        $graftAction = $I->grabService(Graft::class);
+        $graftActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::GRAFT]);
+        $graftAction->loadParameters(
+            actionConfig: $graftActionConfig,
+            actionProvider: $fruit,
+            player: $player,
+            target: $plant,
+        );
+        $graftAction->execute();
     }
 
     private function whenDaedalusTravelsToEden(): void

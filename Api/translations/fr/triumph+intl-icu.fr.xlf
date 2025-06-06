@@ -641,5 +641,25 @@
         <target>eden_microbes.log</target>
       </segment>
     </unit>
+    <unit id="eden_alien_plant">
+      <segment id="eden_alien_plant.name" state="initial">
+        <source>eden_alien_plant.name</source>
+        <target>eden_alien_plant.name</target>
+      </segment>
+      <segment id="eden_alien_plant.log" state="initial">
+        <source>eden_alien_plant.log</source>
+        <target>eden_alien_plant.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_alien_plant_plus">
+      <segment id="eden_alien_plant_plus.name" state="initial">
+        <source>eden_alien_plant_plus.name</source>
+        <target>eden_alien_plant_plus.name</target>
+      </segment>
+      <segment id="eden_alien_plant_plus.log" state="initial">
+        <source>eden_alien_plant_plus.log</source>
+        <target>eden_alien_plant_plus.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -20,6 +20,8 @@ interface GameEquipmentRepositoryInterface
 
     public function findEquipmentByNameAndDaedalus(string $name, Daedalus $daedalus): array;
 
+    public function findByNamesAndDaedalus(array $names, Daedalus $daedalus): array;
+
     public function findByOwner(Player $player): array;
 
     public function findEquipmentByNameAndPlace(string $name, Place $place, int $quantity): array;

@@ -101,7 +101,13 @@ enum TriumphEnum: string
 
     public function toEmoteCode(): string
     {
-        return $this->isMushTriumph() ? ':triumph_mush:' : ':triumph:';
+        if ($this->isMushTriumph()) {
+            return ':triumph_mush:';
+        }
+        if ($this->isHumanTriumph()) {
+            return ':triumph:';
+        }
+        return '';
     }
 
     private function isMushTriumph(): bool
@@ -117,6 +123,56 @@ enum TriumphEnum: string
             self::MUSH_VICTORY,
             self::NEW_MUSH,
             self::SOL_MUSH_INVASION,
+        ], true);
+    }
+
+    private function isHumanTriumph(): bool
+    {
+        return \in_array($this, [
+            self::ALIEN_FRIEND,
+            self::ALL_PREGNANT,
+            self::AMBITIOUS,
+            self::CHUN_LIVES,
+            self::CYCLE_HUMAN,
+            self::DAEDALUS_DEFENDER,
+            self::EDEN_AT_LEAST,
+            self::EDEN_BIOLOGISTS,
+            self::EDEN_CAT,
+            self::EDEN_ENGINEERS,
+            self::EDEN_MUSH_CAT,
+            self::EDEN_MUSH_INTRUDER,
+            self::EDEN_NO_CAT,
+            self::EDEN_ONE_MAN,
+            self::EXPLORATOR,
+            self::FAST_FORWARD,
+            self::HUNTER_NEMESIS,
+            self::LOOKING_FOR_KIVANC,
+            self::MAGELLAN_ARK,
+            self::MUSH_FEAR,
+            self::MUSH_SPECIALIST,
+            self::MUSHICIDE,
+            self::NEW_PLANET,
+            self::NICE_SURGERY,
+            self::PILGRED_MOTHER,
+            self::PLANET_FINDER,
+            self::PLANET_SEARCHER,
+            self::PSYCHOPAT,
+            self::PRECIOUS_BODY,
+            self::PREGNANCY,
+            self::PRETTY_COOK,
+            self::REBEL_CONTACT,
+            self::REBEL_WOLF,
+            self::REMEDY,
+            self::RESEARCH_BRILLANT,
+            self::RESEARCH_SMALL,
+            self::RESEARCH_STANDARD,
+            self::RETURN_TO_SOL,
+            self::ROBOTIC_GRAAL,
+            self::SAVIOR,
+            self::SOL_CONTACT,
+            self::SOL_MUSH_INTRUDER,
+            self::TR_ANATHEM,
+            self::TR_ANATHEM_LOSS,
         ], true);
     }
 }

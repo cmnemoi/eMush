@@ -25,6 +25,7 @@ final class ClosedPlayerTriumphGainTest extends TestCase
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
                 'value' => 1,
                 'count' => 1,
+                'isMush' => false,
             ],
         ]);
     }
@@ -41,6 +42,7 @@ final class ClosedPlayerTriumphGainTest extends TestCase
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
                 'value' => 1,
                 'count' => 2,
+                'isMush' => false,
             ],
         ]);
     }
@@ -57,11 +59,13 @@ final class ClosedPlayerTriumphGainTest extends TestCase
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
                 'value' => 1,
                 'count' => 1,
+                'isMush' => false,
             ],
             [
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
                 'value' => 2,
                 'count' => 1,
+                'isMush' => false,
             ],
         ]);
     }
@@ -73,7 +77,7 @@ final class ClosedPlayerTriumphGainTest extends TestCase
 
     private function whenRecordTriumphGain(ClosedPlayer $closedPlayer, TriumphEnum $triumph, int $count): void
     {
-        $closedPlayer->recordTriumphGain($triumph, $count);
+        $closedPlayer->recordTriumphGain($triumph, $count, $closedPlayer->isMush());
     }
 
     private function thenTriumphGainsShouldContainExactly(ClosedPlayer $closedPlayer, array $expectedGains): void

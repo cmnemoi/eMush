@@ -6,6 +6,7 @@ namespace Mush\Triumph\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -145,15 +146,11 @@ final class ChangeTriumphFromEventService
 
     private function getDifferentAlienPlantCount(Daedalus $daedalus): int
     {
-        $result = 0;
+        $searchedItemNames = GamePlantEnum::getAlienPlants();
+        $existingAlienPlants = $this->gameEquipmentRepository->findByNamesAndDaedalus($searchedItemNames, $daedalus);
+        $existingAlienPlantNames = array_map(static fn (GameEquipment $plant) => $plant->getName(), $existingAlienPlants);
 
-        $alienPlantNames = GamePlantEnum::getAlienPlants();
-
-        foreach ($alienPlantNames as $plantName) {
-            \count($this->gameEquipmentRepository->findByNameAndDaedalus($plantName, $daedalus)) === 0 ?: $result++;
-        }
-
-        return $result;
+        return \count(array_unique($existingAlienPlantNames));
     }
 
     private function isCrewReproductive(PlayerCollection $crew): bool

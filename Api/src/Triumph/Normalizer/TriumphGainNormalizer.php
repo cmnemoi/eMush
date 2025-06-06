@@ -39,7 +39,7 @@ final class TriumphGainNormalizer implements NormalizerInterface
         );
 
         $emoteCode = $triumphGain->toEmoteCode();
-        
+
         if ($emoteCode === '') {
             $triumphGain->setIsMush($context['isMush']);
             $emoteCode = $triumphGain->toEmoteCode();

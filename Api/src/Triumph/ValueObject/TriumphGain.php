@@ -40,9 +40,17 @@ final class TriumphGain
         ++$this->count;
     }
 
-    public function equals(TriumphEnum $triumphKey, int $quantity): bool
+    public function equals(TriumphEnum $triumphKey, int $quantity, bool $isMush): bool
     {
-        return $this->triumphKey === $triumphKey && $this->value === $quantity;
+        if ($this->triumphKey !== $triumphKey || $this->value !== $quantity) {
+            return false;
+        }
+
+        if ($this->isMush === null) {
+            $this->setIsMush($isMush);
+        }
+
+        return $this->isMush === $isMush;
     }
 
     public function toEmoteCode(): string
@@ -77,5 +85,5 @@ final class TriumphGain
     private function isIsMushSet(): bool
     {
         return $this->isMush === null;
-    } 
+    }
 }

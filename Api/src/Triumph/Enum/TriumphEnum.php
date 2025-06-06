@@ -107,6 +107,7 @@ enum TriumphEnum: string
         if ($this->isHumanTriumph()) {
             return ':triumph:';
         }
+
         return '';
     }
 

@@ -307,7 +307,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
     {
         foreach ($this->triumphGains as $key => $gainArray) {
             $gain = TriumphGain::fromArray($gainArray);
-            if ($gain->equals($triumphKey, $quantity, $isMush)) {
+            if ($gain->equals($triumphKey, $quantity, $this->isMush())) {
                 $gain->incrementCount();
                 $this->triumphGains[$key] = $gain->toArray();
 

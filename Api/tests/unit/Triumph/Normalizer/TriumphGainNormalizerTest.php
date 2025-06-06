@@ -50,7 +50,7 @@ final class TriumphGainNormalizerTest extends TestCase
 
     public function testMushGain(): void
     {
-        $gain = new TriumphGain(TriumphEnum::CYCLE_MUSH, 1, 1);
+        $gain = new TriumphGain(TriumphEnum::CYCLE_MUSH, 1, 1, true);
 
         $this->translationService->method('translate')->willReturn('Cycle Mush');
 

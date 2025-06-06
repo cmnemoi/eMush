@@ -73,6 +73,7 @@ final class ChangeTriumphFromEventService
             TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::PILGRED_MOTHER => $player->getDaedalus()->getProjectByName(ProjectName::PILGRED)->getNumberOfProgressStepsCrossedForThreshold(20) * $triumphConfig->getQuantity(),
+            TriumphEnum::PREGNANT_IN_EDEN => $player->getDaedalus()->getAlivePlayers()->filter(static fn (Player $player) => $player->hasStatus(PlayerStatusEnum::PREGNANT))->count() * $triumphConfig->getQuantity(),
             TriumphEnum::RESEARCH_BRILLANT_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_BRILLANT, $player->getDaedalus()) * $triumphConfig->getQuantity(),
             TriumphEnum::RESEARCH_SMALL_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_SMALL, $player->getDaedalus()) * $triumphConfig->getQuantity(),
             TriumphEnum::RESEARCH_STANDARD_END => $this->getNumberOfCompletedTriumphResearch(TriumphEnum::RESEARCH_STANDARD, $player->getDaedalus()) * $triumphConfig->getQuantity(),

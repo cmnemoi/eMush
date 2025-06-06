@@ -19,6 +19,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
@@ -96,7 +97,7 @@ final class EdenCest extends AbstractExplorationTester
         $this->whenDaedalusTravelsToEden();
 
         // triumph: 6 (eden_at_least) + 1 (eden_one_man) + 4 (eden_cat) + 8 (lander)
-        $I->assertEquals(19, $this->kuanTi->getTriumph());
+        $I->assertEquals(19, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
         $I->assertEquals(0, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 
@@ -126,8 +127,31 @@ final class EdenCest extends AbstractExplorationTester
         $this->whenDaedalusTravelsToEden();
 
         // triumph: 8 initial + 6 (eden_at_least) + 1 (eden_one_man) - 8 (eden_mush_cat) + 8 (lander)
-        $I->assertEquals(15, $this->kuanTi->getTriumph());
+        $I->assertEquals(15, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
         $I->assertEquals(8, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    // NOTE: Include pluralism triumph when implemented
+    public function testPregnantEden(FunctionalTester $I): void
+    {
+        $this->givenNoLanderTriumphGain();
+
+        $paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
+        $this->convertPlayerToMush($I, $paola);
+
+        $this->givenPregnant($this->chun);
+        $this->givenPregnant($paola);
+
+        $this->givenEveryoneHasTriumph(20);
+
+        $this->whenDaedalusTravelsToEden();
+
+        // human triumph: 20 initial - 4 (eden_no_cat) - 16 (eden_mush_intruder) + 6 (eden_at_least) + 3 (eden_one_man) + 16 (pregnant_in_eden)
+        // Chun triumph: human triumph + 4 (eden_pregnant) + 4 (remedy)
+        // mush triumph: 20 initial + 32 (eden_mush_invasion) + 4 (eden_pregnant)
+        $I->assertEquals(33, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(25, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(56, $paola->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 
     private function givenPlayerDies(Player $player): void
@@ -184,6 +208,16 @@ final class EdenCest extends AbstractExplorationTester
     private function givenNoLanderTriumphGain(): void
     {
         $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::LANDER)->setQuantity(0);
+    }
+
+    private function givenPregnant(Player $player): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::PREGNANT,
+            holder: $player,
+            tags: [ActionEnum::DO_THE_THING->toString()],
+            time: new \DateTime(),
+        );
     }
 
     private function whenDaedalusTravelsToEden(): void

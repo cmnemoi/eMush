@@ -25,6 +25,7 @@ enum TriumphEnum: string
     case EDEN_MUSH_INVASION = 'eden_mush_invasion';
     case EDEN_NO_CAT = 'eden_no_cat';
     case EDEN_ONE_MAN = 'eden_one_man';
+    case EDEN_PREGNANT = 'eden_pregnant';
     case EXPEDITION = 'expedition';
     case EXPLORATOR = 'explorator';
     case FAST_FORWARD = 'fast_forward';
@@ -49,11 +50,12 @@ enum TriumphEnum: string
     case PILGRED_MOTHER = 'pilgred_mother';
     case PLANET_FINDER = 'planet_finder';
     case PLANET_SEARCHER = 'planet_searcher';
-    case PSYCHOCAT = 'psychocat';
-    case PSYCHOPAT = 'psychopat';
     case PRECIOUS_BODY = 'precious_body';
     case PREGNANCY = 'pregnancy';
+    case PREGNANT_IN_EDEN = 'pregnant_in_eden';
     case PRETTY_COOK = 'pretty_cook';
+    case PSYCHOCAT = 'psychocat';
+    case PSYCHOPAT = 'psychopat';
     case REBEL_CONTACT = 'rebel_contact';
     case REBEL_WOLF = 'rebel_wolf';
     case REMEDY = 'remedy';

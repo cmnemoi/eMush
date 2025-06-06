@@ -821,6 +821,28 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_ANDIE,
                 quantity: 4,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PREGNANT_IN_EDEN->toConfigKey('default'),
+                name: TriumphEnum::PREGNANT_IN_EDEN,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 8,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_PREGNANT->toConfigKey('default'),
+                name: TriumphEnum::EDEN_PREGNANT,
+                targetedEvent: StatusEvent::STATUS_REMOVED,
+                tagConstraints: [
+                    PlayerStatusEnum::PREGNANT => TriumphSourceEventInterface::ALL_TAGS,
+                    EndCauseEnum::EDEN => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_PLAYERS,
+                targetSetting: TriumphTarget::EVENT_SUBJECT,
+                quantity: 4,
+            ),
         ];
     }
 

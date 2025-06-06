@@ -799,6 +799,28 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: -8,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_COMPUTED->toConfigKey('default'),
+                name: TriumphEnum::EDEN_COMPUTED,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionOutputEnum::SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::COMPUTE_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 4,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::ANDIE_FATE->toConfigKey('default'),
+                name: TriumphEnum::ANDIE_FATE,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionEnum::ACCEPT_TRADE->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_ANDIE,
+                quantity: 4,
+            ),
         ];
     }
 

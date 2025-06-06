@@ -10,6 +10,7 @@ enum TriumphEnum: string
     case ALIEN_SCIENCE = 'alien_science';
     case ALL_PREGNANT = 'all_pregnant';
     case AMBITIOUS = 'ambitious';
+    case ANDIE_FATE = 'andie_fate';
     case CHUN_DEAD = 'chun_dead';
     case CHUN_LIVES = 'chun_lives';
     case CYCLE_HUMAN = 'cycle_human';
@@ -19,6 +20,7 @@ enum TriumphEnum: string
     case EDEN_AT_LEAST = 'eden_at_least';
     case EDEN_BIOLOGISTS = 'eden_biologists';
     case EDEN_CAT = 'eden_cat';
+    case EDEN_COMPUTED = 'eden_computed';
     case EDEN_ENGINEERS = 'eden_engineers';
     case EDEN_MUSH_CAT = 'eden_mush_cat';
     case EDEN_MUSH_INTRUDER = 'eden_mush_intruder';

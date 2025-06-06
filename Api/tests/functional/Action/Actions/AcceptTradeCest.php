@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Exception\GameException;
@@ -247,6 +248,20 @@ final class AcceptTradeCest extends AbstractFunctionalTest
                 'message' => NeronMessageEnum::MERCHANT_EXCHANGE,
             ],
         );
+    }
+
+    public function shouldGiveAndieTriumph(FunctionalTester $I): void
+    {
+        $andie = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $trade = $this->givenForestDealTrade(requiredHydropot: 1, offeredOxygen: 10);
+        $this->givenItemInPlace(ItemEnum::HYDROPOT, RoomEnum::FRONT_STORAGE);
+
+        $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
+
+        $I->assertEquals(4, $andie->getTriumph());
+        $I->assertEquals(0, $this->player->getTriumph());
     }
 
     private function givenStorages(FunctionalTester $I): void

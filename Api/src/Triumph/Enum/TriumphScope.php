@@ -23,6 +23,7 @@ enum TriumphScope: string
     case PERSONAL_FRIEDA = 'personal_frieda';
     case PERSONAL_GIOELE = 'personal_gioele';
     case PERSONAL_HUA = 'personal_hua';
+    case PERSONAL_IAN = 'personal_ian';
     case PERSONAL_JANICE = 'personal_janice';
     case PERSONAL_JIN_SU = 'personal_jin_su';
     case PERSONAL_KUAN_TI = 'personal_kuan_ti';

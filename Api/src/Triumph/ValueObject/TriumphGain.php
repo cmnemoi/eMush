@@ -12,7 +12,7 @@ final class TriumphGain
         private readonly TriumphEnum $triumphKey,
         private readonly int $value,
         private int $count = 1,
-        private ?bool $isMush = null,
+        private bool $isMush = false,
     ) {}
 
     public function getTriumphKey(): TriumphEnum
@@ -52,7 +52,7 @@ final class TriumphGain
 
     public static function fromArray(array $gain): self
     {
-        return new self($gain['triumphKey'], $gain['value'], $gain['count'], $gain['isMush'] ?? null);
+        return new self($gain['triumphKey'], $gain['value'], $gain['count'], $gain['isMush'] ?? false);
     }
 
     public function toArray(): array

@@ -303,7 +303,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
         return $this->playerInfo->isDead();
     }
 
-    public function recordTriumphGain(TriumphEnum $triumphKey, int $quantity, bool $isMush): void
+    public function recordTriumphGain(TriumphEnum $triumphKey, int $quantity): void
     {
         foreach ($this->triumphGains as $key => $gainArray) {
             $gain = TriumphGain::fromArray($gainArray);
@@ -315,7 +315,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
             }
         }
 
-        $this->triumphGains[] = (new TriumphGain($triumphKey, $quantity, 1, $isMush))->toArray();
+        $this->triumphGains[] = (new TriumphGain($triumphKey, $quantity, 1, $this->isMush()))->toArray();
     }
 
     public function getTriumphGains(): ArrayCollection

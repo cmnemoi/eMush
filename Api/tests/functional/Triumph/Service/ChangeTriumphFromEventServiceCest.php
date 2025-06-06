@@ -121,6 +121,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
                 'triumphKey' => TriumphEnum::CYCLE_HUMAN,
                 'value' => 1,
                 'count' => 2,
+                'isMush' => false,
             ]],
             actual: $closedPlayer->getTriumphGains()->map(static fn (TriumphGain $gain) => $gain->toArray())->toArray(),
         );

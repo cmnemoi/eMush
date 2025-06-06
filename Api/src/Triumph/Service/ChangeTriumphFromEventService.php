@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Triumph\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
@@ -71,6 +72,7 @@ final class ChangeTriumphFromEventService
         return match ($triumphConfig->getName()) {
             TriumphEnum::CYCLE_MUSH_LATE => $this->computeNewMushTriumph($player->getDaedalus(), $triumphConfig->getQuantity()),
             TriumphEnum::EDEN_CAT, TriumphEnum::EDEN_MUSH_CAT, TriumphEnum::EDEN_NO_CAT => $this->checkCatStatus($triumphConfig, $player->getDaedalus()) ? $triumphConfig->getQuantity() : 0,
+            TriumphEnum::EDEN_MICROBES => $player->getDaedalus()->getAlivePlayers()->filter(static fn (Player $player) => $player->getMedicalConditions()->getByDiseaseType(MedicalConditionTypeEnum::DISEASE)->count() > 0)->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_MUSH_INTRUDER, TriumphEnum::SOL_MUSH_INTRUDER => $player->getDaedalus()->getMushPlayers()->getPlayerAlive()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_ONE_MAN => $player->getDaedalus()->getAlivePlayers()->count() * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_SEXY => $this->isCrewReproductive($player->getDaedalus()->getAlivePlayers()) ? $triumphConfig->getQuantity() : 0,

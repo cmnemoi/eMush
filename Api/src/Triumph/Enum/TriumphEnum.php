@@ -20,6 +20,7 @@ enum TriumphEnum: string
     case EDEN_BIOLOGISTS = 'eden_biologists';
     case EDEN_CAT = 'eden_cat';
     case EDEN_ENGINEERS = 'eden_engineers';
+    case EDEN_MICROBES = 'eden_microbes';
     case EDEN_MUSH_CAT = 'eden_mush_cat';
     case EDEN_MUSH_INTRUDER = 'eden_mush_intruder';
     case EDEN_MUSH_INVASION = 'eden_mush_invasion';

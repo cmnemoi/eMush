@@ -6,11 +6,15 @@ namespace Mush\Tests\functional\Triumph\Event;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Disease\Entity\PlayerDisease;
+use Mush\Disease\Enum\DiseaseEnum;
+use Mush\Disease\Enum\DisorderEnum;
+use Mush\Disease\Enum\InjuryEnum;
+use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
-use Mush\Equipment\Service\DeleteEquipmentServiceInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -30,9 +34,9 @@ use Mush\Triumph\Enum\TriumphEnum;
  */
 final class EdenCest extends AbstractExplorationTester
 {
-    private DeleteEquipmentServiceInterface $deleteEquipmentService;
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerDiseaseServiceInterface $playerDiseaseService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
 
@@ -40,9 +44,9 @@ final class EdenCest extends AbstractExplorationTester
     {
         parent::_before($I);
 
-        $this->deleteEquipmentService = $I->grabService(DeleteEquipmentServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -154,6 +158,60 @@ final class EdenCest extends AbstractExplorationTester
         $I->assertEquals(56, $paola->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 
+    public function testSickEden(FunctionalTester $I): void
+    {
+        $this->givenNoLanderTriumphGain();
+
+        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::FLU);
+        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::GASTROENTERIS);
+        $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::ACID_REFLUX);
+        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, DiseaseEnum::ACID_REFLUX);
+
+        $this->givenEveryoneHasTriumph(12);
+
+        $this->whenDaedalusTravelsToEden();
+
+        // human triumph: 12 initial - 4 (eden_no_cat) - 8 (eden_microbes)
+        //                + 6 (eden_at_least) + 2 (eden_one_man) + 4 (eden_sexy) + 4 for Chun (remedy)
+        $I->assertEquals(16, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(12, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    public function testIllnessCuredAndDisorderInjuryEden(FunctionalTester $I): void
+    {
+        $this->givenNoLanderTriumphGain();
+
+        $chunFlu = $this->givenPlayerGetsActiveMedicalCondition($this->chun, DiseaseEnum::FLU);
+        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, DisorderEnum::AGORAPHOBIA);
+        $this->givenPlayerGetsActiveMedicalCondition($this->kuanTi, InjuryEnum::BROKEN_FINGER);
+        $this->givenCuredMedicalCondition($chunFlu); // Chun no longer ill
+
+        $this->givenEveryoneHasTriumph(12);
+
+        $this->whenDaedalusTravelsToEden();
+
+        // human triumph: 12 initial - 4 (eden_no_cat)
+        //                + 6 (eden_at_least) + 2 (eden_one_man) + 4 (eden_sexy) + 4 for Chun (remedy)
+        $I->assertEquals(24, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(20, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
+    public function testSilentIllnessEden(FunctionalTester $I): void
+    {
+        $this->givenNoLanderTriumphGain();
+
+        $this->givenPlayerGetsIncubatingMedicalCondition($this->chun, DiseaseEnum::FLU);
+
+        $this->givenEveryoneHasTriumph(12);
+
+        $this->whenDaedalusTravelsToEden();
+
+        // human triumph: 12 initial - 4 (eden_no_cat) - 4 (eden_microbes)
+        //                + 6 (eden_at_least) + 2 (eden_one_man) + 4 (eden_sexy) + 4 for Chun (remedy)
+        $I->assertEquals(20, $this->chun->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(16, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+    }
+
     private function givenPlayerDies(Player $player): void
     {
         $this->playerService->killPlayer(
@@ -217,6 +275,36 @@ final class EdenCest extends AbstractExplorationTester
             holder: $player,
             tags: [ActionEnum::DO_THE_THING->toString()],
             time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerGetsIncubatingMedicalCondition(Player $player, string $diseaseName): PlayerDisease
+    {
+        return $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: $diseaseName,
+            player: $player,
+            reasons: [],
+            delayMin: 3,
+            delayLength: 0,
+        );
+    }
+
+    private function givenPlayerGetsActiveMedicalCondition(Player $player, string $diseaseName): PlayerDisease
+    {
+        return $this->playerDiseaseService->createDiseaseFromName(
+            diseaseName: $diseaseName,
+            player: $player,
+            reasons: [],
+        );
+    }
+
+    private function givenCuredMedicalCondition(PlayerDisease $disease): void
+    {
+        $this->playerDiseaseService->removePlayerDisease(
+            playerDisease: $disease,
+            causes: [],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::PRIVATE
         );
     }
 

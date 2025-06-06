@@ -104,10 +104,10 @@ enum TriumphEnum: string
         if ($this->isMushTriumph()) {
             return ':triumph_mush:';
         }
-        //if ($this->isHumanTriumph()) {
-        return ':triumph:';
-        //}
-        //return '';
+        if ($this->isHumanTriumph()) {
+            return ':triumph:';
+        }
+        return '';
     }
 
     private function isMushTriumph(): bool

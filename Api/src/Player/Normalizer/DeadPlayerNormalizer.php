@@ -53,6 +53,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
         $endCause = $deadPlayerInfo->getEndCause();
 
         $context['language'] = $language;
+        $context['isMush'] = $player->isMush();
 
         $playerData = [
             'id' => $player->getId(),

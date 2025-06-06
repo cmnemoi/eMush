@@ -38,20 +38,13 @@ final class TriumphGainNormalizer implements NormalizerInterface
             language: $context['language'],
         );
 
-        //echo "\nContext keys:\n";
-        //foreach (array_keys($context) as $key) {
-        //    echo "- {$key}\n";
-        //}
+        $emoteCode = $triumphGain->toEmoteCode();
+        
+        if ($emoteCode === '') {
+            $triumphGain->setIsMush($context['isMush']);
+            $emoteCode = $triumphGain->toEmoteCode();
+        }
 
-        //$emoteCode = $triumphGain->toEmoteCode();
-        //
-        //if ($emoteCode === '') {
-        //    /** @var ClosedPlayer $player */
-        //    $player = $context['currentPlayer'];
-        //    $triumphGain->setIsMush($player->isMush());
-        //    $emoteCode = $triumphGain->toEmoteCode();
-        //}
-
-        return "{$triumphGain->getCount()} x {$triumphName} ( {$triumphGain->getValueAsString()} {$triumphGain->toEmoteCode()} )";
+        return "{$triumphGain->getCount()} x {$triumphName} ( {$triumphGain->getValueAsString()} {$emoteCode} )";
     }
 }

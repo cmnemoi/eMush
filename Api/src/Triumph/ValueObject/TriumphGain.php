@@ -56,7 +56,7 @@ final class TriumphGain
 
     public static function fromArray(array $gain): self
     {
-        return new self($gain['triumphKey'], $gain['value'], $gain['count'], $gain['isMush']);
+        return new self($gain['triumphKey'], $gain['value'], $gain['count'], $gain['isMush'] ?? null);
     }
 
     public function toArray(): array

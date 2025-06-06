@@ -77,7 +77,7 @@ final class ClosedPlayerTriumphGainTest extends TestCase
 
     private function whenRecordTriumphGain(ClosedPlayer $closedPlayer, TriumphEnum $triumph, int $count): void
     {
-        $closedPlayer->recordTriumphGain($triumph, $count);
+        $closedPlayer->recordTriumphGain($triumph, $count, $closedPlayer->isMush());
     }
 
     private function thenTriumphGainsShouldContainExactly(ClosedPlayer $closedPlayer, array $expectedGains): void

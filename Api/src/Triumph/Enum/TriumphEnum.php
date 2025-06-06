@@ -16,6 +16,8 @@ enum TriumphEnum: string
     case CYCLE_MUSH = 'cycle_mush';
     case CYCLE_MUSH_LATE = 'cycle_mush_late';
     case DAEDALUS_DEFENDER = 'daedalus_defender';
+    case EDEN_ALIEN_PLANT = 'eden_alien_plant';
+    case EDEN_ALIEN_PLANT_PLUS = 'eden_alien_plant_plus';
     case EDEN_AT_LEAST = 'eden_at_least';
     case EDEN_BIOLOGISTS = 'eden_biologists';
     case EDEN_CAT = 'eden_cat';

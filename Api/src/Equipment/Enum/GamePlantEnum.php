@@ -42,6 +42,28 @@ class GamePlantEnum
         ];
     }
 
+    /**
+     * @return string[]
+     */
+    public static function getAlienPlants(): array
+    {
+        return [
+            self::CREEPIST,
+            self::CACTAX,
+            self::BIFFLON,
+            self::PULMMINAGRO,
+            self::PRECATUS,
+            self::BUTTALIEN,
+            self::PLATACIA,
+            self::TUBILISCUS,
+            self::GRAAPSHOOT,
+            self::FIBONICCUS,
+            self::MYCOPIA,
+            self::ASPERAGUNK,
+            self::BUMPJUMPKIN,
+        ];
+    }
+
     public static function getGameFruit(string $plantName): string
     {
         return array_flip(GameFruitEnum::getGamePlants())[$plantName];

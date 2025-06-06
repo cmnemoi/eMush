@@ -841,6 +841,26 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: -4,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_ALIEN_PLANT->toConfigKey('default'),
+                name: TriumphEnum::EDEN_MICROBES,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 1,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::EDEN_ALIEN_PLANT_PLUS->toConfigKey('default'),
+                name: TriumphEnum::EDEN_MICROBES,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    ActionEnum::TRAVEL_TO_EDEN->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_IAN,
+                quantity: 3,
+            ),
         ];
     }
 

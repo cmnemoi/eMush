@@ -260,8 +260,8 @@ final class AcceptTradeCest extends AbstractFunctionalTest
 
         $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
 
-        $I->assertEquals(10, $andie->getTriumph());
-        $I->assertEquals(6, $this->player->getTriumph());
+        $I->assertEquals(4, $andie->getTriumph());
+        $I->assertEquals(0, $this->player->getTriumph());
     }
 
     private function givenStorages(FunctionalTester $I): void

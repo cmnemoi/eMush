@@ -631,5 +631,15 @@
         <target>eden_sexy.log</target>
       </segment>
     </unit>
+    <unit id="eden_microbes">
+      <segment id="eden_microbes.name" state="initial">
+        <source>eden_microbes.name</source>
+        <target>eden_microbes.name</target>
+      </segment>
+      <segment id="eden_microbes.log" state="initial">
+        <source>eden_microbes.log</source>
+        <target>eden_microbes.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

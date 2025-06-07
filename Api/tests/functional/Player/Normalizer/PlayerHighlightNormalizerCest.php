@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\functional\Action\Normalizer;
+namespace Mush\tests\functional\Player\Normalizer;
 
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Normalizer\ActionHighlightNormalizer;
-use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Game\Enum\LanguageEnum;
+use Mush\Player\Normalizer\PlayerHighlightNormalizer;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
 /**
  * @internal
  */
-final class ActionHighlightNormalizerCest extends AbstractFunctionalTest
+final class PlayerHighlightNormalizerCest extends AbstractFunctionalTest
 {
-    private ActionHighlightNormalizer $normalizer;
+    private PlayerHighlightNormalizer $normalizer;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
-        $this->normalizer = $I->grabService(ActionHighlightNormalizer::class);
+        $this->normalizer = $I->grabService(PlayerHighlightNormalizer::class);
     }
 
     public function shouldNormalizeActionHighlight(FunctionalTester $I): void
     {
-        $actionHighlight = new ActionHighlight(
-            actionName: ActionEnum::SCAN,
+        $actionHighlight = new PlayerHighlight(
+            name: ActionEnum::SCAN->toString(),
             actionResult: (new Success())->getName(),
         );
 

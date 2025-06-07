@@ -31,9 +31,9 @@ final class PlayerHighlightNormalizer implements NormalizerInterface
         $language = $context['language'];
 
         return $this->translationService->translate(
-            key: $highlight->toLogKey(),
+            key: $highlight->toTranslationKey(),
             parameters: $highlight->toTranslationParameters(),
-            domain: 'actions',
+            domain: 'highlight',
             language: $language
         );
     }

@@ -10,14 +10,6 @@
         <source>build.description</source>
         <target>Assemble un objet à partir d'autres objets.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>build.highlight</source>
-        <target>Vous avez assemblé {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
-                }.</target>
-      </segment>
     </unit>
     <unit id="coffee">
       <segment id="coffee" state="translated">
@@ -55,10 +47,6 @@
                 female {Vous ne pouvez le faire qu'une fois par jour. Êtes-vous sûre de vouloir continuer ?}
                 other {Vous ne pouvez le faire qu'une fois par jour. Êtes-vous sûr de vouloir continuer ?}
                 }</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>do_the_thing.highlight</source>
-        <target>Vous avez passé la nuit avec **{character}**.</target>
       </segment>
     </unit>
     <unit id="check_spore_level">
@@ -99,10 +87,6 @@
       <segment id="description" state="translated">
         <source>eat_spore.description</source>
         <target>Consommer un spore pour vous apporter 4 :pa: et 4 :hp:.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>eat_spore.highlight</source>
-        <target>Miam un spore shomp shomp et ça repart !</target>
       </segment>
     </unit>
     <unit id="cook">
@@ -163,10 +147,6 @@
         <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
         L'ensemble des **Mush** peuvent encore produire **{quantity_remaining} spores** aujourd'hui.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>extract_spore.highlight</source>
-        <target>Vous avez créé un **spore**.</target>
-      </segment>
     </unit>
     <unit id="flirt">
       <segment id="name" state="translated">
@@ -184,10 +164,6 @@
                 female {Cette action est irrémédiable. Êtes-vous sûre de vouloir continuer ?}
                 other {Cette action est irrémédiable. Êtes-vous sûr de vouloir continuer ?}
                 }</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>flirt.highlight</source>
-        <target>Vous avez fleureté avec **{character}**.</target>
       </segment>
     </unit>
     <unit id="get_up">
@@ -219,10 +195,6 @@
         <source>hit.description</source>
         <target>Engager la conversation de façon musclée.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>hit.highlight</source>
-        <target>Vous avez frappé **{character}**.</target>
-      </segment>
     </unit>
     <unit id="hyperfreeze">
       <segment id="hyperfreeze" state="translated">
@@ -242,10 +214,6 @@
       <segment id="description" state="translated">
         <source>infect.description</source>
         <target>Poinçonner une personne avec un spore permets de l'infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>infect.highlight</source>
-        <target>Vous avez poinçonné **{character}**.</target>
       </segment>
     </unit>
     <unit id="lie_down">
@@ -307,14 +275,6 @@
         <source>search.description</source>
         <target>Permet de retrouver un objet caché à l'endroit où vous vous trouvez.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>search.highlight</source>
-        <target>Vous avez trouvé {equipment_gender, select,
-                male {un {equipment}}
-                female {une {equipment}}
-                other {un {equipment}}
-                } caché !</target>
-      </segment>
     </unit>
     <unit id="rejuvenate">
       <segment id="rejuvenate" state="translated">
@@ -348,10 +308,6 @@ Merci de nous aider !</target>
       <segment id="description" state="translated">
         <source>shred.description</source>
         <target>Ces maudits papiers pullulent partout. Sus à l'envahisseur !</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>shred.highlight</source>
-        <target>Vous avez déchiré des informations importantes... Ou presque.</target>
       </segment>
     </unit>
     <unit id="take">
@@ -453,14 +409,6 @@ Merci de nous aider !</target>
         <source>sabotage.description</source>
         <target>Casse l'équipement ciblé.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>sabotage.highlight</source>
-        <target>Vous avez saboté {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
-                }</target>
-      </segment>
     </unit>
     <unit id="take_shower">
       <segment id="name" state="translated">
@@ -470,10 +418,6 @@ Merci de nous aider !</target>
       <segment id="description" state="translated">
         <source>take_shower.description</source>
         <target>Quand la crasse se fait épaisse, quand la propreté cesse, quand les turpitudes des odeurs vous oppressent. Une solution : la douche.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>take_shower.highlight</source>
-        <target>Vous avez pris une douche bien méritée !</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">
@@ -488,10 +432,6 @@ Merci de nous aider !</target>
 Cette action n'est disponible qu'une fois par jour pour l'ensemble de l'équipage.
 Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>wash_in_sink.highlight</source>
-        <target>Vous avez pris une douche bien méritée !</target>
-      </segment>
     </unit>
     <unit id="extinguish">
       <segment id="name" state="translated">
@@ -501,10 +441,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>extinguish.description</source>
         <target>Avec un peu d'adresse, vous arriverez à vous débarrasser du feu. Faites attention à ne pas vous brûler.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>extinguish.highlight</source>
-        <target>Vous avez éteint un incendie !</target>
       </segment>
     </unit>
     <unit id="heal">
@@ -516,10 +452,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>heal.description</source>
         <target>Rend des Points de Vie ( :hp: ) à la cible. Si celle-ci est malade, enlève un point de maladie à l'une de ses maladies.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>heal.highlight</source>
-        <target>Vous avez soigné **{character}**.</target>
-      </segment>
     </unit>
     <unit id="self_heal">
       <segment id="name" state="translated">
@@ -529,10 +461,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>self_heal.description</source>
         <target>Vous rend des Points de Vie (:hp:) . Si vous êtes malade, enlève un point de maladie à l'une de vos maladies.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>self_heal.highlight</source>
-        <target>Vous vous êtes soigné.</target>
       </segment>
     </unit>
     <unit id="ultraheal">
@@ -564,10 +492,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>comfort.description</source>
         <target>Vous savez écouter votre prochain, ce qui lui remonte le moral.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>comfort.highlight</source>
-        <target>Vous avez réconforté **{character}**.</target>
-      </segment>
     </unit>
     <unit id="open">
       <segment id="name" state="translated">
@@ -597,10 +521,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>spread_fire.description</source>
         <target>Permet de satisfaire un des besoins de NERON... et vos intérêts.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>spread_fire.highlight</source>
-        <target>Vous avez mis le feu.</target>
       </segment>
     </unit>
     <unit id="install_camera">
@@ -641,10 +561,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>remove_spore.description</source>
         <target>Permet d'ôter des vilaines pustules suspectées de vous contaminer.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>remove_spore.highlight</source>
-        <target>Vous vous êtes retiré un spore.</target>
       </segment>
     </unit>
     <unit id="report_equipment">
@@ -696,10 +612,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>extinguish_manually.description</source>
         <target>C'est fou ce qu'on peut faire avec de la poussière, des draps ou un chat crevé... Faites attention à ne pas vous brûler.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>extinguish_manually.highlight</source>
-        <target>Vous avez éteint un incendie avec les moyens du bord !</target>
-      </segment>
     </unit>
     <unit id="motivational_speech">
       <segment id="name" state="translated">
@@ -709,10 +621,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>motivational_speech.description</source>
         <target>Chaque autre équipier présent dans la salle regagne 2 :pmo:.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>motivational_speech.highlight</source>
-        <target>Vous avez donné un discours enflammé !</target>
       </segment>
     </unit>
     <unit id="boring_speech">
@@ -724,10 +632,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>boring_speech.description</source>
         <target>Chaque autre équipier présent dans la salle regagne 3 :pm:.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>boring_speech.highlight</source>
-        <target>Vous avez donné un discours passionant (ou pas...) !</target>
-      </segment>
     </unit>
     <unit id="make_sick">
       <segment id="name" state="translated">
@@ -737,10 +641,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>make_sick.description</source>
         <target>Permet de rendre malade un de vos camarades.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>make_sick.highlight</source>
-        <target>Vous avez donné une *maladie* à **{character}**.</target>
       </segment>
     </unit>
     <unit id="fake_disease">
@@ -761,10 +661,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>surgery.description</source>
         <target>Effectuer un acte chirurgical n'est jamais anodin, mais parfois nécessaire.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>surgery.highlight</source>
-        <target>Vous avez effectué une chirurgie sur **{character}**.</target>
       </segment>
     </unit>
     <unit id="self_surgery">
@@ -806,10 +702,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>screw_talkie.description</source>
         <target>Permet de casser le talkie-walkie d'un membre d'équipage, puis de se faire passer pour lui jusqu'à ce qu'il le répare.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>screw_talkie.highlight</source>
-        <target>Vous vous êtes emparé d'un talkie-walkie !</target>
-      </segment>
     </unit>
     <unit id="update_talkie">
       <segment id="name" state="translated">
@@ -830,14 +722,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>attack.description</source>
         <target>Vous avez une arme de corps à corps et vous avez envie de vous en servir ?</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>attack.highlight</source>
-        <target>Vous avez agressé **{character}**.</target>
-      </segment>
-      <segment id="highlight_fail" state="translated">
-        <source>attack.highlight_fail</source>
-        <target>Vous avez tenté d'agresser **{character}** sans succès...</target>
-      </segment>
     </unit>
     <unit id="shoot">
       <segment id="name" state="translated">
@@ -847,14 +731,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>shoot.description</source>
         <target>Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>shoot.highlight</source>
-        <target>Vous avez tiré sur **{character}**.</target>
-      </segment>
-      <segment id="highlight_fail" state="translated">
-        <source>shoot.highlight_fail</source>
-        <target>Vous avez tenté de tirer sur **{character}** sans succès...</target>
       </segment>
     </unit>
     <unit id="suicide">
@@ -939,14 +815,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="confirmation" state="translated">
         <source>play_arcade.confirmation</source>
         <target>En raison de ses vérins mortels et de ses void balls insupportables, la Dynarcade est réservée aux vrais de vrais. Continuer ?</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>play_arcade.highlight</source>
-        <target>Vous avez pwné la Dynarcade.</target>
-      </segment>
-      <segment id="highlight_fail" state="translated">
-        <source>play_arcade.highlight_fail</source>
-        <target>Vous avez perdu sur la Dynarcade !</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">
@@ -1110,14 +978,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>hack.description</source>
         <target>Permet de tenter de forcer l'accès à ce terminal grâce à votre Bidouilleur.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>hack.highlight</source>
-        <target>Vous avez pris le contrôle {equipment_gender, select,
-                male {du **{equipment}**}
-                female {de la **{equipment}**}
-                other {du **{equipment}**}
-                }</target>
-      </segment>
     </unit>
     <unit id="exit_terminal">
       <segment id="name" state="translated">
@@ -1142,10 +1002,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
                 other {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
                 }</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>advance_daedalus.highlight</source>
-        <target>Vous avez fait voyager le Daedalus.</target>
-      </segment>
     </unit>
     <unit id="scan">
       <segment id="name" state="translated">
@@ -1155,10 +1011,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>scan.description</source>
         <target>Permet de changer les planètes disponibles comme choix pour le prochain voyage.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>scan.highlight</source>
-        <target>Vous avez découvert une nouvelle planète !</target>
       </segment>
     </unit>
     <unit id="analyze_planet">
@@ -1180,10 +1032,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>turn_daedalus_left.description</source>
         <target>Permet de changer le cap du vaisseau.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>turn_daedalus_left.highlight</source>
-        <target>Vous avez changé l'orientation du Daedalus.</target>
-      </segment>
     </unit>
     <unit id="turn_daedalus_right">
       <segment id="name" state="translated">
@@ -1193,10 +1041,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>turn_daedalus_right.description</source>
         <target>Permet de changer le cap du vaisseau.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>turn_daedalus_right.highlight</source>
-        <target>Vous avez changé l'orientation du Daedalus.</target>
       </segment>
     </unit>
     <unit id="delete_planet">
@@ -1248,10 +1092,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
                 other {Les explorations demandent de la préparation, si la planète n'a pas d'atmosphère respirable ou est habitée par des organismes hostiles, vous devriez prendre vos dispositions. Êtes-vous sûr de vouloir continuer ?}
                 }</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>takeoff_to_planet.highlight</source>
-        <target>Vous avez fait décoller l'Icarus.</target>
-      </segment>
     </unit>
     <unit id="takeoff_to_planet_patrol_ship">
       <segment id="name" state="translated">
@@ -1298,10 +1138,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
                 other {Cette action est lourde de conséquences. Êtes-vous sûr de vouloir continuer ?}
                 }</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>return_to_sol.highlight</source>
-        <target>Vous avez fait voyager le Daedalus vers Sol.</target>
-      </segment>
     </unit>
     <unit id="participate">
       <segment id="name" state="translated">
@@ -1322,10 +1158,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>trap_closet.description</source>
         <target>Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>trap_closet.highlight</source>
-        <target>Vous avez piégé une pièce. On devrait toujours se méfier des étagères.</target>
-      </segment>
     </unit>
     <unit id="chitchat">
       <segment id="chitchat" state="translated">
@@ -1335,10 +1167,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>chitchat.description</source>
         <target>Révèle une partie de vos dernières actions au joueur en échange d'une oreille attentive.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>chitchat.highlight</source>
-        <target>Vous vous êtes confié à **{character}**.</target>
       </segment>
     </unit>
     <unit id="graft">
@@ -1353,10 +1181,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="confirmation" state="translated">
         <source>graft.confirmation</source>
         <target>Cette action nécessite des conditions optimales d'hygiène pour être réalisée. Voulez-vous continuer ?</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>graft.highlight</source>
-        <target>Vous avez fait une greffe !</target>
       </segment>
     </unit>
     <unit id="learn">
@@ -1382,10 +1206,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>put_through_door.description</source>
         <target>Faites lui bouffer les gonds !//:point: Coûte 1 :pa: de moins sur les inactifs.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>put_through_door.highlight</source>
-        <target>Vous avez flanqué **{character}** à la porte.</target>
-      </segment>
     </unit>
     <unit id="become_genius">
       <segment id="name" state="translated">
@@ -1395,10 +1215,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>become_genius.description</source>
         <target>Votre prochaine réparation, recherche ou projet est automatiquement réussi. Cette action est **unique**.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>become_genius.highlight</source>
-        <target>Vous avez eu une idée de génie !</target>
       </segment>
     </unit>
     <unit id="premonition">
@@ -1428,10 +1244,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>ceasefire.confirmation</source>
         <target>Cette action n'est disponible qu'une fois par partie.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>ceasefire.highlight</source>
-        <target>Lassé de cette enfer, vous avez déclaré un cessez-le-feu !</target>
-      </segment>
     </unit>
     <unit id="guard">
       <segment id="guard" state="translated">
@@ -1456,10 +1268,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>exchange_body.description</source>
         <target>Permet d'échanger votre corps avec la cible. Cette action est irrémédiable. Vos compétences seront remises à zéro. **Les scores de :triumph: seront échangés**.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>exchange_body.highlight</source>
-        <target>Vous avez échangé votre corps avec **{character}** !</target>
-      </segment>
     </unit>
     <unit id="accept_mission">
       <segment id="name" state="translated">
@@ -1482,10 +1290,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>commander_order.description</source>
         <target>Permet de donner une mission à un de vos subalternes. Celui-ci se verra octroyer 3 :pa: pour l'accomplir s'il l'accepte. // Vous ne pouvez utiliser cette action qu'une fois par jour. // Cette action est restituée si votre subalterne la refuse.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>commander_order.highlight</source>
-        <target>Vous avez donné un ordre.</target>
-      </segment>
     </unit>
     <unit id="print_ze_list">
       <segment id="name" state="translated">
@@ -1495,10 +1299,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>print_ze_list.description</source>
         <target>Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s'affine d'un nom. Cette liste contient actuellement {numberOfNames, select, 1 {**1** nom} other{**{numberOfNames}** noms}}.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>print_ze_list.highlight</source>
-        <target>Vous avez imprimé LA liste.</target>
       </segment>
     </unit>
     <unit id="depress">
@@ -1510,10 +1310,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>depress.description</source>
         <target>Permet de faire perdre 2 :pmo: à la cible.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>depress.highlight</source>
-        <target>Vous avez mis le moral de **{character}** en berne.</target>
-      </segment>
     </unit>
     <unit id="delog">
       <segment id="name" state="translated">
@@ -1523,10 +1319,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>delog.description</source>
         <target>Les logs de cette pièce vont être effacés et cette pièce ne les retrouvera qu'au prochain cycle.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>delog.highlight</source>
-        <target>Vous avez effacé la mémoire de NERON.</target>
       </segment>
     </unit>
     <unit id="run_home">
@@ -1542,10 +1334,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>run_home.confirmation</source>
         <target>Cette action interrompra l'expédition pour toute l'équipe. Continuer ?</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>run_home.highlight</source>
-        <target>Vous avez décidé que cette expédition était trop risquée.</target>
-      </segment>
     </unit>
     <unit id="putsch">
       <segment id="name" state="translated">
@@ -1559,10 +1347,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="confirmation" state="translated">
         <source>putsch.confirmation</source>
         <target>Cette action peut être très mal perçue, êtes-vous sûr de vouloir continuer ?</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>putsch.highlight</source>
-        <target>Vous vous êtes autoproclamé Chef !</target>
       </segment>
     </unit>
     <unit id="anathema">
@@ -1578,10 +1362,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>anathema.confirmation</source>
         <target>Cette action est très puissante et mènera sans doute à des représailles. Continuer ?</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>anathema.highlight</source>
-        <target>Vous avez jeté l'anathème sur **{character}**.</target>
-      </segment>
     </unit>
     <unit id="mix_ration_spore">
       <segment id="name" state="translated">
@@ -1591,10 +1371,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>mix_ration_spore.description</source>
         <target>Permet de mettre un spore dans une denrée ingérable.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>mix_ration_spore.highlight</source>
-        <target>Vous avez préparé un petit encas fongique.</target>
       </segment>
     </unit>
     <unit id="slime_trap">
@@ -1606,10 +1382,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>slime_trap.description</source>
         <target>Permet de provoquer un état de salissure dans quelques cycles.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>slime_trap.highlight</source>
-        <target>Vous avez empégué **{character}**.</target>
-      </segment>
     </unit>
     <unit id="slime_object">
       <segment id="name" state="translated">
@@ -1619,14 +1391,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>slime_object.description</source>
         <target>L'objet ciblé deviendra cassé d'ici 1 à {outputQuantity} cycles.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>slime_object.highlight</source>
-        <target>Vous avez englué {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
-                }</target>
       </segment>
     </unit>
     <unit id="mass_ggeddon">
@@ -1642,10 +1406,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>mass_ggeddon.confirmation</source>
         <target>Cette action est très puissante et mènera sans doute à des représailles. Continuer ?</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>mass_ggeddon.highlight</source>
-        <target>Vous avez provoqué une moisification massive !</target>
-      </segment>
     </unit>
     <unit id="reinforce">
       <segment id="name" state="translated">
@@ -1655,14 +1415,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>reinforce.description</source>
         <target>Permet de blinder un objet démontable pour qu'il ne le soit plus. Protège également contre les sabotages.//Consomme 1 **Débris métallique**.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>reinforce.highlight</source>
-        <target>Vous avez blindé {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
-                }</target>
       </segment>
     </unit>
     <unit id="throw_grenade.name">
@@ -1683,12 +1435,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Cette action est dangereuse. Êtes-vous sûr de vouloir continuer ?</target>
       </segment>
     </unit>
-    <unit id="throw_grenade.highlight">
-      <segment id="highlight" state="translated">
-        <source>throw_grenade.highlight</source>
-        <target>Vous avez fait irruption et lancé une **Grenade**.</target>
-      </segment>
-    </unit>
     <unit id="upgrade_drone_to_turbo">
       <segment id="name" state="translated">
         <source>upgrade_drone_to_turbo.name</source>
@@ -1697,10 +1443,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>upgrade_drone_to_turbo.description</source>
         <target>Permet d'ajouter à ce drone ://**80% de chance d'agir une seconde fois à chaque cycle.**//Le Drone est capable d'évoluer, profitez-en !</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>upgrade_drone_to_turbo.highlight</source>
-        <target>Vous avez amélioré un drone.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_firefighter">
@@ -1712,10 +1454,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>upgrade_drone_to_firefighter.description</source>
         <target>Permet d'ajouter à ce drone ://**Tente d'éteindre les incendies dans la pièce avant de se déplacer. Deviens également ignifuge.**//Le Drone est capable d'évoluer, profitez-en !</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>upgrade_drone_to_firefighter.highlight</source>
-        <target>Vous avez amélioré un drone.</target>
-      </segment>
     </unit>
     <unit id="upgrade_drone_to_pilot">
       <segment id="name" state="translated">
@@ -1726,10 +1464,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>upgrade_drone_to_pilot.description</source>
         <target>Permet d'ajouter à ce drone ://**Tente d'emprunter un patrouilleur et de détruire tous les hunters avant de se déplacer. A un bonus de 20% en visée par rapport aux humains.**//Le Drone est capable d'évoluer, profitez-en !</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>upgrade_drone_to_pilot.highlight</source>
-        <target>Vous avez amélioré un drone.</target>
-      </segment>
     </unit>
     <unit id="upgrade_drone_to_sensor">
       <segment id="name" state="translated">
@@ -1739,10 +1473,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>upgrade_drone_to_sensor.description</source>
         <target>Permet d'ajouter à ce drone ://**Se dirige intelligemment vers le feu, l'équipement cassé ou le patrouilleur le plus proche au lieu de se déplacer aléatoirement.**//Le Drone est capable d'évoluer, profitez-en !</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>upgrade_drone_to_sensor.highlight</source>
-        <target>Vous avez amélioré un drone en Senseur.</target>
       </segment>
     </unit>
     <unit id="take_cat">
@@ -1764,10 +1494,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>pet_cat.description</source>
         <target>Permet de câliner amoureusement Schrödinger. Apporte un peu de joie la première fois...</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>pet_cat.highlight</source>
-        <target>Vous avez fait un cââââââââliiiiiin à **Schrödinger**.</target>
-      </segment>
     </unit>
     <unit id="convert_cat">
       <segment id="name" state="translated">
@@ -1777,10 +1503,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>convert_cat.description</source>
         <target>Permet de câliner "amoureusement" Schrödinger et d'en faire un agent du Mush.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>convert_cat.highlight</source>
-        <target>Vous avez fait voyager **Schrödinger** vers le Mush.</target>
       </segment>
     </unit>
     <unit id="torture">
@@ -1792,10 +1514,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>torture.description</source>
         <target>Torturez un équipier pour obtenir la vérité. Il perdra 1 :hp: puis révélera une action récente par :hp: manquant.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>torture.highlight</source>
-        <target>Vous avez torturé **{character}**.</target>
-      </segment>
     </unit>
     <unit id="cure">
       <segment id="cure" state="translated">
@@ -1805,10 +1523,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>cure.description</source>
         <target>Le vaccin anti-Mush injecte un retro-fongique puissant qui annule tout les effets du Mush sur un sujet infecté.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>cure.highlight</source>
-        <target>Vous avez vacciné **{character}** contre le Mush.</target>
       </segment>
     </unit>
     <unit id="daunt">
@@ -1820,10 +1534,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>daunt.description</source>
         <target>**Journalier**. Permet d'intimider un joueur pour lui imposer vos idées.//:point: Fait perdre 2 :pa: et 4 :pm: à la cible.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>daunt.highlight</source>
-        <target>Vous avez terrorisé **{character}**.</target>
-      </segment>
     </unit>
     <unit id="gen_metal">
       <segment id="gen_metal" state="translated">
@@ -1833,10 +1543,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>gen_metal.description</source>
         <target>Permet de fouiner les stockages pour trouver des débris ou des choses **vraiment** utiles.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>gen_metal.highlight</source>
-        <target>Vous avez fouiné un peu partout.</target>
       </segment>
     </unit>
     <unit id="door_sabotage">
@@ -1848,10 +1554,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>door_sabotage.description</source>
         <target>**Journalier** : Permet de saboter une porte au hasard dans la pièce.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>door_sabotage.highlight</source>
-        <target>Vous avez saboté une porte.</target>
-      </segment>
     </unit>
     <unit id="give_nightmare">
       <segment id="give_nightmare" state="translated">
@@ -1862,10 +1564,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>give_nightmare.description</source>
         <target>Permet d'infliger des terreurs nocturnes à un membre d'équipage allongé, ce qui le privera de ses bonus de repos.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>give_nightmare.highlight</source>
-        <target>Vous avez fait venir le Marchand de Terreur pour **{character}**.</target>
-      </segment>
     </unit>
     <unit id="neron_depress">
       <segment id="neron_depress" state="translated">
@@ -1875,10 +1573,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>neron_depress.description</source>
         <target>Permet de déprimer NERON ce qui va le dérégler complètement au prochain cycle.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>neron_depress.highlight</source>
-        <target>Vous avez déprimé NERON.</target>
       </segment>
     </unit>
     <unit id="participate_research">
@@ -1900,10 +1594,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>compute_eden.description</source>
         <target>L'extraction des données du Cristalite peut vous apprendre beaucoup de choses sur les Edenistes.</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>compute_eden.highlight</source>
-        <target>Vous avez calculé le trajet vers Eden.</target>
-      </segment>
     </unit>
     <unit id="travel_to_eden">
       <segment id="name" state="translated">
@@ -1918,10 +1608,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>travel_to_eden.confirmation</source>
         <target>Cette action est irrémédiable, êtes-vous sûr de vouloir continuer ?</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>travel_to_eden.highlight</source>
-        <target>Vous avez fait voyager le Daedalus vers Eden.</target>
-      </segment>
     </unit>
     <unit id="shoot_cat">
       <segment id="name" state="translated">
@@ -1931,22 +1617,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>shoot_cat.description</source>
         <target>Tirer sur quelqu'un pour le blesser, le tuer ou plus si affinité. Attention, jeux de mains, jeux de vilains !</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>shoot_cat.highlight</source>
-        <target>Vous avez ouvert le feu sur {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
-                }.</target>
-      </segment>
-      <segment id="highlight_fail" state="translated">
-        <source>shoot_cat.highlight_fail</source>
-        <target>Vous avez tenté de tirer sur {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
-                } sans succès...</target>
       </segment>
     </unit>
     <unit id="open_container">
@@ -1988,10 +1658,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>upgrade_neron.description</source>
         <target>Mettre à jour NERON permet de profiter de certains miracles de ce qu'aurait dû être le NERON du projet Magellan.//**Une fois complété, permet de faire aboutir un Projet.**</target>
       </segment>
-      <segment id="highlight" state="translated">
-        <source>upgrade_neron.highlight</source>
-        <target>Vous avez augmenté le numéro de version NERON.</target>
-      </segment>
     </unit>
     <unit id="decode_rebel_signal">
       <segment id="name" state="translated">
@@ -2011,10 +1677,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>contact_xyloph.description</source>
         <target>Permet de contacter le port d'attache de Daedalus, que reste-t-il là-bas...//**Chaque contact vous permettra de récupérer un nouvel avantage (des plans pour l'atelier, des informations sur le Mush, etc.).**</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>contact_xyloph.highlight</source>
-        <target>Vous avez effectué une transmission avec Xyloph !</target>
       </segment>
     </unit>
     <unit id="trigger_all_rebel_contacts">
@@ -2045,10 +1707,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="description" state="translated">
         <source>accept_trade.description</source>
         <target>Vous validez cet accord commercial... Les conséquences peuvent être très lourdes.</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>accept_trade.highlight</source>
-        <target>Vous avez validé un accord commercial.</target>
       </segment>
     </unit>
     <unit id="refuse_trade">
@@ -2083,10 +1741,6 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       <segment id="confirmation" state="translated">
         <source>go_berserk.confirmation</source>
         <target>Cette action ne peut être annulée et vous révélera à tout le monde. Êtes-vous sûr de vouloir continuer ?</target>
-      </segment>
-      <segment id="highlight" state="translated">
-        <source>go_berserk.highlight</source>
-        <target>Vous vous êtes transformé en horrible monstre furieux !</target>
       </segment>
     </unit>
   </file>

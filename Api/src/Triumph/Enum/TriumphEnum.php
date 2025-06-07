@@ -107,6 +107,7 @@ enum TriumphEnum: string
     public static function personalEdenTriumphs(): array
     {
         return [
+            self::EDEN_ALIEN_PLANT,
             self::REMEDY,
             self::SAVIOR,
         ];

@@ -28,12 +28,15 @@ final class InMemoryTriumphConfigRepository implements TriumphConfigRepositoryIn
         return $triumphConfigs;
     }
 
-    public function findAllPersonalTriumphsForPlayer(Player $player): array
+    public function findAllPersonalTriumphsForPlayerExcept(Player $player, array $except = []): array
     {
         $triumphConfigs = [];
 
         foreach ($this->triumphConfigs as $triumphConfig) {
-            if (CharacterEnum::toPersonalTriumphScope($player->getName()) === $triumphConfig->getScope()) {
+            if (
+                CharacterEnum::toPersonalTriumphScope($player->getName()) === $triumphConfig->getScope()
+                && !\in_array($triumphConfig->getName(), $except, true)
+            ) {
                 $triumphConfigs[] = $triumphConfig;
             }
         }

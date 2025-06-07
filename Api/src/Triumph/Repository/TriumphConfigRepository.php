@@ -26,11 +26,13 @@ final class TriumphConfigRepository extends ServiceEntityRepository implements T
         return $this->findBy(['targetedEvent' => $targetedEvent->getEventName()]);
     }
 
-    public function findAllPersonalTriumphsForPlayer(Player $player): array
+    public function findAllPersonalTriumphsForPlayerExcept(Player $player, array $except = []): array
     {
         $queryBuilder = $this->createQueryBuilder('triumphConfig');
         $queryBuilder
             ->where('triumphConfig.scope = :scope')
+            ->andWhere('triumphConfig.name NOT IN (:exclude)')
+            ->setParameter('exclude', $except)
             ->setParameter('scope', CharacterEnum::toPersonalTriumphScope($player->getName())->toString());
 
         return $queryBuilder->getQuery()->getResult();

@@ -104,6 +104,14 @@ enum TriumphEnum: string
         return $this->isMushTriumph() ? ':triumph_mush:' : ':triumph:';
     }
 
+    public static function personalEdenTriumphs(): array
+    {
+        return [
+            self::REMEDY,
+            self::SAVIOR,
+        ];
+    }
+
     private function isMushTriumph(): bool
     {
         return \in_array($this, [

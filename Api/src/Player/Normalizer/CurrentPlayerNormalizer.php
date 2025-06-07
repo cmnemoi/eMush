@@ -27,6 +27,7 @@ use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Repository\TriumphConfigRepositoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -346,7 +347,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
     private function getTranslatedPersonalTriumphs(Player $player): array
     {
-        $personalTriumphs = $this->triumphConfigRepository->findAllPersonalTriumphsForPlayer($player);
+        $personalTriumphs = $this->triumphConfigRepository->findAllPersonalTriumphsForPlayerExcept($player, except: TriumphEnum::personalEdenTriumphs());
 
         return array_map(
             fn ($triumph) => ':point: ' . $this->translationService->translate(

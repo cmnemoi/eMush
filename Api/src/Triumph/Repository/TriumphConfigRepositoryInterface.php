@@ -18,5 +18,5 @@ interface TriumphConfigRepositoryInterface
     /**
      * @return array<TriumphConfig>
      */
-    public function findAllPersonalTriumphsForPlayer(Player $player): array;
+    public function findAllPersonalTriumphsForPlayerExcept(Player $player, array $except = []): array;
 }

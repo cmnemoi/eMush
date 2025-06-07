@@ -27,3 +27,6 @@ Mush\Triumph\Entity\TriumphConfig:
     regressiveFactor:
       - NotBlank: ~
       - Type: integer
+    registerWhenZero:
+      - NotBlank: ~
+      - Type: boolean

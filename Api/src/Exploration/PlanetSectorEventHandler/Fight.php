@@ -87,6 +87,8 @@ final class Fight extends AbstractPlanetSectorEventHandler
         $logParameters['damage'] = $damage;
 
         if ($damage === 0) {
+            $event->addTag(PlanetSectorEvent::FIGHT_WON);
+
             return $this->createExplorationLog($event, $logParameters);
         }
 

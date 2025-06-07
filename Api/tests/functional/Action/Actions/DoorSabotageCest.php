@@ -19,6 +19,7 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
+use Mush\Triumph\Enum\TriumphEnum;
 
 /**
  * @internal
@@ -85,6 +86,17 @@ final class DoorSabotageCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage($I, ActionImpossibleCauseEnum::DAILY_LIMIT);
     }
 
+    public function shouldRewardWithCustomSabotageTriumph(FunctionalTester $I): void
+    {
+        $this->givenCustomSabotageConfigRewardsWithTriumph(7);
+
+        $this->givenSomeDoorsInRoom($I);
+
+        $this->whenPlayerSabotagesDoor();
+
+        $this->thenPlayerShouldHaveTriumph(7, $I);
+    }
+
     private function givenSomeDoorsInRoom(FunctionalTester $I): void
     {
         $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
@@ -120,6 +132,11 @@ final class DoorSabotageCest extends AbstractFunctionalTest
         $this->doorSabotage->execute();
     }
 
+    private function givenCustomSabotageConfigRewardsWithTriumph(int $quantity): void
+    {
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_SABOTAGE)->setQuantity($quantity);
+    }
+
     private function whenPlayerSabotagesDoor(): void
     {
         $this->doorSabotage->loadParameters(
@@ -138,5 +155,10 @@ final class DoorSabotageCest extends AbstractFunctionalTest
     private function thenOneDoorShouldBeBroken(FunctionalTester $I): void
     {
         $I->assertCount(1, $this->player->getPlace()->getBrokenDoors());
+    }
+
+    private function thenPlayerShouldHaveTriumph(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->player->getTriumph());
     }
 }

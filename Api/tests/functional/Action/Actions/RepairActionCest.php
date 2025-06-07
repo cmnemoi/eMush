@@ -5,6 +5,7 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\Examine;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionConfig;
+use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
@@ -21,6 +22,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\Enum\TriumphEnum;
 
 /**
  * @internal
@@ -172,6 +174,52 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then Kuan Ti should still have two technician points
         $I->assertEquals(2, $technicianSkill->getSkillPoints());
+    }
+
+    public function shouldRewardCustomRepairObjectTriumphOnSuccess(FunctionalTester $I): void
+    {
+        // given repair object rewards with 7 triumph
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_REPAIR_OBJECT)->setQuantity(7);
+
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
+
+        // when Kuan Ti repairs the Mycoscan
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->kuanTi,
+            target: $mycoscan
+        );
+        $result = $this->repairAction->execute();
+        $I->assertInstanceOf(Success::class, $result);
+
+        // then Kuan Ti should gain 7 triumph
+        $I->assertEquals(7, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
+    }
+
+    public function shouldNotRewardCustomRepairObjectTriumphOnFailure(FunctionalTester $I): void
+    {
+        // given repair object rewards with 7 triumph
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_REPAIR_OBJECT)->setQuantity(7);
+
+        // given I have a broken Mycoscan in the room
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
+
+        // when Kuan Ti fails to repair the Mycoscan
+        $this->repairActionConfig->setSuccessRate(0);
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $mycoscan,
+            player: $this->kuanTi,
+            target: $mycoscan
+        );
+        $result = $this->repairAction->execute();
+        $I->assertInstanceOf(Fail::class, $result);
+
+        // then Kuan Ti should gain no triumph
+        $I->assertEquals(0, $this->kuanTi->getTriumph());
     }
 
     public function playerWithGeniusIdeaShouldAlwaysSucceed(FunctionalTester $I): void

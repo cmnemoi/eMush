@@ -90,6 +90,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
             'endCause' => $this->normalizeEndReason($endCause, $language),
             'isMush' => $player->isMush(),
             'triumphGains' => $this->normalizer->normalize($deadPlayerInfo->getTriumphGains(), $format, $context),
+            'actionHighlights' => $this->getNormalizedActionHighlights($player, $format, $context),
         ];
 
         $playerData['players'] = $this->getOtherPlayers($player, $language);
@@ -165,5 +166,29 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
                 $language
             ),
         ];
+    }
+
+    private function getNormalizedActionHighlights(Player $player, ?string $format, array $context): array
+    {
+        $actionHighlights = $player->getPlayerInfo()->getActionHighlights();
+        $normalizedActionHighlights = [];
+
+        foreach ($actionHighlights as $actionHighlight) {
+            $normalizedActionHighlight = $this->normalizer->normalize($actionHighlight, $format, $context);
+
+            // Skip if the action highlight is already in the list (e.g. Upgrade drone which are different actions for each upgrade)
+            if (\in_array($normalizedActionHighlight, $normalizedActionHighlights, true)) {
+                continue;
+            }
+
+            // Skip if the action highlight has not been translated (e.g. failed actions)
+            if ($normalizedActionHighlight === $actionHighlight->toLogKey()) {
+                continue;
+            }
+
+            $normalizedActionHighlights[] = $normalizedActionHighlight;
+        }
+
+        return $normalizedActionHighlights;
     }
 }

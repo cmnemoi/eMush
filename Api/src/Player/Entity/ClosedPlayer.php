@@ -307,7 +307,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
     {
         foreach ($this->triumphGains as $key => $gainArray) {
             $gain = TriumphGain::fromArray($gainArray);
-            if ($gain->equals($triumphKey, $quantity)) {
+            if ($gain->equals($triumphKey, $quantity, $this->isMush())) {
                 $gain->incrementCount();
                 $this->triumphGains[$key] = $gain->toArray();
 
@@ -315,7 +315,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
             }
         }
 
-        $this->triumphGains[] = (new TriumphGain($triumphKey, $quantity))->toArray();
+        $this->triumphGains[] = (new TriumphGain($triumphKey, $quantity, 1, $this->isMush()))->toArray();
     }
 
     public function getTriumphGains(): ArrayCollection

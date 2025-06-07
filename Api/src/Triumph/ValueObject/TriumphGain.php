@@ -12,6 +12,7 @@ final class TriumphGain
         private readonly TriumphEnum $triumphKey,
         private readonly int $value,
         private int $count = 1,
+        private bool $isMush = false,
     ) {}
 
     public function getTriumphKey(): TriumphEnum
@@ -39,19 +40,19 @@ final class TriumphGain
         ++$this->count;
     }
 
-    public function equals(TriumphEnum $triumphKey, int $quantity): bool
+    public function equals(TriumphEnum $triumphKey, int $quantity, bool $isMush): bool
     {
-        return $this->triumphKey === $triumphKey && $this->value === $quantity;
+        return $this->triumphKey === $triumphKey && $this->value === $quantity && $this->isMush === $isMush;
     }
 
     public function toEmoteCode(): string
     {
-        return $this->triumphKey->toEmoteCode();
+        return $this->isMush ? ':triumph_mush:' : ':triumph:';
     }
 
     public static function fromArray(array $gain): self
     {
-        return new self($gain['triumphKey'], $gain['value'], $gain['count']);
+        return new self($gain['triumphKey'], $gain['value'], $gain['count'], $gain['isMush'] ?? false);
     }
 
     public function toArray(): array
@@ -60,6 +61,7 @@ final class TriumphGain
             'triumphKey' => $this->triumphKey,
             'value' => $this->value,
             'count' => $this->count,
+            'isMush' => $this->isMush,
         ];
     }
 }

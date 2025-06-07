@@ -192,7 +192,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         // Then
         $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
         self::assertCount(1, $closedPlayer->getTriumphGains());
-        self::assertTrue($closedPlayer->getTriumphGains()->first()->equals(TriumphEnum::CYCLE_HUMAN, 1));
+        self::assertTrue($closedPlayer->getTriumphGains()->first()->equals(TriumphEnum::CYCLE_HUMAN, 1, false));
     }
 
     private function givenAHumanPlayer(): Player

@@ -53,16 +53,16 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                     'value' => 5,
                 ],
                 [
-                    'name' => 'Bases rebelles contactées',
-                    'value' => 1,
-                ],
-                [
                     'name' => 'Spores générés',
                     'value' => 4,
                 ],
                 [
                     'name' => 'Nombre de Mush',
                     'value' => 2,
+                ],
+                [
+                    'name' => 'Bases rebelles contactées',
+                    'value' => 1,
                 ],
             ],
             actual: $normalizedDaedalus['statistics']['lines']

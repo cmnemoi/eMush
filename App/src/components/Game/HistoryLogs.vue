@@ -2,7 +2,7 @@
     <div class="history-logs">
         <span class="tab"> {{ $t('deathpage.highlights') }} </span>
         <span class="tab active"> {{ $t('deathpage.triumphHistory') }} </span>
-        <div class="logs">
+        <div class="logs" v-if="activeTab === 'triumph'">
             <div>
                 <p v-for="gain in displayedTriumphGains" :key="gain">
                     <img :src="getImgUrl('ui_icons/point.png')" alt="dot"> <span v-html="formatText(gain)" />
@@ -13,6 +13,13 @@
                 <a v-if="shouldShowReadLess" class="read-more-link" @click="toggleDisplayLimit">{{ $t('deathpage.readLess') }}</a>
             </div>
         </div>
+        <div class="logs" v-if="activeTab === 'action'">
+            <div>
+                <p v-for="highlight in displayedActionHighlights" :key="highlight">
+                    <span v-html="formatText(highlight)" />
+                </p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -20,20 +27,31 @@
 import { ref, computed } from 'vue';
 import { getImgUrl } from '@/utils/getImgUrl';
 import { formatText } from '@/utils/formatText';
-const props = defineProps<{ triumphGains: string[] }>();
+const props = defineProps<{ triumphGains: string[], actionHighlights: string[] }>();
 
 // refs
 const showAllTriumphGains = ref(false);
+const showAllActionHighlights = ref(false);
+const activeTab = ref('triumph');
 
 // computed
 const displayedTriumphGains = computed(() =>
     showAllTriumphGains.value ? props.triumphGains : props.triumphGains.slice(0, displayLimit)
+);
+const displayedActionHighlights = computed(() =>
+    showAllActionHighlights.value ? props.actionHighlights : props.actionHighlights.slice(0, displayLimit)
 );
 const shouldShowReadMore = computed(() =>
     !showAllTriumphGains.value && props.triumphGains.length > displayLimit
 );
 const shouldShowReadLess = computed(() =>
     showAllTriumphGains.value && props.triumphGains.length > displayLimit
+);
+const shouldShowReadMoreAction = computed(() =>
+    !showAllActionHighlights.value && props.actionHighlights.length > displayLimit
+);
+const shouldShowReadLessAction = computed(() =>
+    showAllActionHighlights.value && props.actionHighlights.length > displayLimit
 );
 
 // methods

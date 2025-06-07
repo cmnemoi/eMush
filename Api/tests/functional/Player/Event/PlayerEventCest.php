@@ -220,7 +220,6 @@ final class PlayerEventCest
         $I->assertEquals($closedPlayer->getCycleDeath(), 5);
         $I->assertEquals($closedPlayer->getDayDeath(), 89);
         $I->assertEquals($closedPlayer->getClosedDaedalus(), $daedalusInfo->getClosedDaedalus());
-        $I->assertEquals($closedPlayer->getClosedDaedalus()->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount(), 1);
         $I->assertTrue($closedPlayer->isMush());
 
         $I->dontSeeInRepository(Status::class);

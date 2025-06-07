@@ -253,7 +253,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldHaveTriumph(3, $I);
     }
 
-    public function shouldHaveSameStatisticCount(FunctionalTester $I): void
+    public function shouldNotIncrementStatisticCount(FunctionalTester $I): void
     {
         $initialMushStatistic = $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount();
 

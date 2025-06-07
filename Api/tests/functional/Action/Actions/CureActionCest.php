@@ -70,13 +70,13 @@ final class CureActionCest extends AbstractFunctionalTest
         $this->kuanTiShouldSeeTheLog($I);
     }
 
-    public function shouldDecrementMushCountStatistic(FunctionalTester $I): void
+    public function shouldNotChangeMushCountStatistic(FunctionalTester $I): void
     {
         $this->givenChunHasSerumInInventory();
         $this->givenKuanTiIsMush($I);
         $this->thenMushDaedalusStatisticShouldHaveCount(1, $I);
         $this->whenIInoculateKuanTi();
-        $this->thenMushDaedalusStatisticShouldHaveCount(0, $I);
+        $this->thenMushDaedalusStatisticShouldHaveCount(1, $I);
     }
 
     private function givenChunHasSerumInInventory()

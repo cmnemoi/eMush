@@ -8,12 +8,14 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Service\RoomLogService;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\Enum\TriumphEnum;
 
 /**
  * @internal
@@ -79,6 +81,25 @@ final class CureActionCest extends AbstractFunctionalTest
         $this->thenMushDaedalusStatisticShouldHaveCount(1, $I);
     }
 
+    public function shouldRewardWithCustomMushVaccinatedTriumph(FunctionalTester $I): void
+    {
+        $this->givenCustomMushVaccinatedConfigRewardsWithTriumph(7);
+        $this->givenChunHasSerumInInventory();
+        $this->givenKuanTiIsMush($I);
+        $this->whenIInoculateKuanTi();
+        $this->thenPlayerShouldHaveTriumph(7, $this->chun, $I);
+        $this->thenPlayerShouldHaveTriumph(120, $this->kuanTi, $I); // Initial Mush bonus
+    }
+
+    public function shouldNotRewardWithCustomMushVaccinatedTriumphWhenInoculatingHuman(FunctionalTester $I): void
+    {
+        $this->givenCustomMushVaccinatedConfigRewardsWithTriumph(7);
+        $this->givenChunHasSerumInInventory();
+        $this->whenIInoculateKuanTi();
+        $this->thenPlayerShouldHaveTriumph(0, $this->chun, $I);
+        $this->thenPlayerShouldHaveTriumph(0, $this->kuanTi, $I);
+    }
+
     private function givenChunHasSerumInInventory()
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -92,6 +113,11 @@ final class CureActionCest extends AbstractFunctionalTest
     private function givenKuanTiIsMush(FunctionalTester $I)
     {
         $this->convertPlayerToMush($I, $this->kuanTi);
+    }
+
+    private function givenCustomMushVaccinatedConfigRewardsWithTriumph(int $quantity): void
+    {
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_MUSH_VACCINATED)->setQuantity($quantity);
     }
 
     private function whenIInoculateKuanTi()
@@ -140,5 +166,10 @@ final class CureActionCest extends AbstractFunctionalTest
     private function thenMushDaedalusStatisticShouldHaveCount(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount());
+    }
+
+    private function thenPlayerShouldHaveTriumph(int $quantity, Player $player, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $player->getTriumph());
     }
 }

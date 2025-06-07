@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Triumph\ConfigData;
 
+use Mush\Action\Actions\Cure;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Communications\Enum\RebelBaseEnum;
@@ -902,6 +903,9 @@ abstract class TriumphConfigData
                 targetedEvent: PlayerEvent::DEATH_PLAYER,
                 tagConstraints: [
                     TriumphSourceEventInterface::MUSH_SUBJECT => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::EDEN => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::QUARANTINE => TriumphSourceEventInterface::NONE_TAGS,
+                    EndCauseEnum::SOL_RETURN => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 0,
@@ -941,10 +945,9 @@ abstract class TriumphConfigData
             new TriumphConfigDto(
                 key: TriumphEnum::CM_MUSH_VACCINATED->toConfigKey('default'),
                 name: TriumphEnum::CM_MUSH_VACCINATED,
-                targetedEvent: StatusEvent::STATUS_REMOVED,
+                targetedEvent: EquipmentEvent::EQUIPMENT_DESTROYED,
                 tagConstraints: [
-                    ActionEnum::CURE->toString() => TriumphSourceEventInterface::ALL_TAGS,
-                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::ALL_TAGS,
+                    Cure::PLAYER_VACCINATED => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 targetSetting: TriumphTarget::AUTHOR,

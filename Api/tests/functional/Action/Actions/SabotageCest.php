@@ -22,6 +22,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\Enum\TriumphEnum;
 
 /**
  * @internal
@@ -123,6 +124,36 @@ final class SabotageCest extends AbstractFunctionalTest
         $I->assertEquals(VisibilityEnum::SECRET, $log->getVisibility());
     }
 
+    public function shouldGiveSabotageCustomTriumphOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenCustomSabotageConfigRewardsWithTriumph(7);
+
+        $this->givenACameraInPlayerRoom();
+
+        $this->givenPlayerIsMush();
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->whenPlayerSabotagesCamera();
+
+        $this->thenPlayerShouldHaveTriumph(7, $I);
+    }
+
+    public function shouldNotGiveSabotageCustomTriumphOnFailure(FunctionalTester $I): void
+    {
+        $this->givenCustomSabotageConfigRewardsWithTriumph(7);
+
+        $this->givenACameraInPlayerRoom();
+
+        $this->givenPlayerIsMush();
+
+        $this->givenActionSuccessRateIs(0);
+
+        $this->whenPlayerSabotagesCamera();
+
+        $this->thenPlayerShouldHaveTriumph(0, $I);
+    }
+
     private function givenPlayerHasSaboteurSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::SABOTEUR, $I);
@@ -141,6 +172,11 @@ final class SabotageCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenCustomSabotageConfigRewardsWithTriumph(int $quantity): void
+    {
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_SABOTAGE)->setQuantity($quantity);
     }
 
     private function whenPlayerTriesToSabotagePasiphae(): void
@@ -212,5 +248,10 @@ final class SabotageCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals($message, $this->sabotageAction->cannotExecuteReason());
+    }
+
+    private function thenPlayerShouldHaveTriumph(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->player->getTriumph());
     }
 }

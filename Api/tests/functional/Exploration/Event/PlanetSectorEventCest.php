@@ -46,6 +46,7 @@ use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
+use Mush\Triumph\Enum\TriumphEnum;
 
 final class PlanetSectorEventCest extends AbstractExplorationTester
 {
@@ -737,6 +738,69 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then Stephen gets no triumph
         $I->assertEquals(0, $stephen->getTriumph());
+    }
+
+    public function testFightImprovesCustomAlienDownTriumphWhenNoDamageDealt(FunctionalTester $I): void
+    {
+        $this->givenCustomAlienDownConfigRewardsWithTriumph(7);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun, $this->kuanTi, $this->janice, $this->derek])
+        );
+
+        // given chun has 2 grenades (+6 strength)
+        $this->gameEquipmentService->createGameEquipmentsFromName(
+            equipmentName: ItemEnum::GRENADE,
+            equipmentHolder: $this->chun,
+            quantity: 2,
+        );
+
+        // given only fight event can happen in intelligent sector of strength 8
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::FIGHT_8,
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched (team strength: 8)
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then every active explorer (Chun and Kuan Ti) gets 7 triumph
+        $I->assertEquals(7, $this->chun->getTriumph());
+        $I->assertEquals(7, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->janice->getTriumph());
+        $I->assertEquals(0, $this->derek->getTriumph());
+    }
+
+    public function testFightDoesNotImproveCustomAlienDownTriumphWhenDamageDealt(FunctionalTester $I): void
+    {
+        $this->givenCustomAlienDownConfigRewardsWithTriumph(7);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: new PlayerCollection([$this->chun, $this->kuanTi, $this->janice, $this->derek])
+        );
+
+        // given only fight event can happen in intelligent sector of strength 8
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::FIGHT_8,
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched (team strength: 2)
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then no one gets triumph
+        $I->assertEquals(0, $this->chun->getTriumph());
+        $I->assertEquals(0, $this->kuanTi->getTriumph());
+        $I->assertEquals(0, $this->janice->getTriumph());
+        $I->assertEquals(0, $this->derek->getTriumph());
     }
 
     public function testInsectsImproveJaniceTriumph(FunctionalTester $I): void
@@ -1745,6 +1809,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             tags: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenCustomAlienDownConfigRewardsWithTriumph(int $quantity): void
+    {
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_ALIEN_DOWN)->setQuantity($quantity);
     }
 
     private function whenExplorationEventIsDispatched(Exploration $exploration): void

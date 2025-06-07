@@ -21,6 +21,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\Enum\TriumphEnum;
 
 /**
  * @internal
@@ -166,6 +167,24 @@ final class InfectPlayerCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->frieda->getTriumph());
     }
 
+    public function shouldRewardCustomAllNewMushTriumph(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->givenCustomAllNewMushRewardsWithTriumph(7);
+        $this->givenRoomIsTrappedByKuanTi();
+        $this->frieda->setSpores(2);
+        $this->kuanTi->setTriumph(0);
+        $this->frieda->setTriumph(0);
+
+        $this->whenFriedaInteractsWithRoomEquipment();
+
+        $I->assertTrue($this->frieda->hasStatus(PlayerStatusEnum::MUSH));
+        // Conversion triumph + 7 custom
+        $I->assertEquals(15, $this->kuanTi->getTriumph());
+        // "Late" convert triumph + 7 custom
+        $I->assertEquals(127, $this->frieda->getTriumph());
+    }
+
     private function givenRoomIsTrappedByKuanTi(): void
     {
         $this->statusService->createStatusFromName(
@@ -188,6 +207,11 @@ final class InfectPlayerCest extends AbstractFunctionalTest
     private function givenDaedalusIsRegisteredAsFull(): void
     {
         $this->daedalus->setFilledAt(new \DateTime());
+    }
+
+    private function givenCustomAllNewMushRewardsWithTriumph(int $quantity): void
+    {
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_ALL_NEW_MUSH)->setQuantity($quantity);
     }
 
     private function whenFriedaInteractsWithRoomEquipment(): void

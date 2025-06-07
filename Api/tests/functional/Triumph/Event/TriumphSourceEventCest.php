@@ -16,6 +16,7 @@ use Mush\Communications\Repository\RebelBaseRepositoryInterface;
 use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Communications\Service\DecodeRebelSignalService;
 use Mush\Communications\Service\DecodeXylophDatabaseServiceInterface;
+use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
@@ -32,6 +33,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\Enum\TriumphEnum;
 
 /**
  * @internal
@@ -332,5 +334,39 @@ final class TriumphSourceEventCest extends AbstractExplorationTester
         $I->assertEquals(54, $this->chun->getTriumph());
         $I->assertEquals(50, $this->kuanTi->getTriumph());
         $I->assertEquals(35, $finola->getTriumph());
+    }
+
+    public function shouldGiveCustomDaedalusExplodeTriumph(FunctionalTester $I): void
+    {
+        $ian = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::IAN);
+        $eleesha = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ELEESHA);
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->convertPlayerToMush($I, $ian);
+
+        // Given dead Chun
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::DEPRESSION
+        );
+
+        // Given 0 triumph
+        $this->kuanTi->setTriumph(0);
+        $ian->setTriumph(0);
+
+        // Given custom Daedalus explode triumph giving 4 glory
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_DAEDALUS_EXPLODE)->setQuantity(4);
+
+        // When hull is decreased to 0 causing Daedalus to explode
+        $this->daedalusService->changeVariable(
+            variableName: DaedalusVariableEnum::HULL,
+            daedalus: $this->daedalus,
+            change: -100,
+            date: new \DateTime()
+        );
+
+        // Then Mush should get 4 custom triumph
+        $I->assertEquals(4, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(4, $ian->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(0, $eleesha->getPlayerInfo()->getClosedPlayer()->getTriumph());
     }
 }

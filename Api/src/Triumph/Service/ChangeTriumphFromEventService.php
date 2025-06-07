@@ -55,8 +55,8 @@ final class ChangeTriumphFromEventService
 
         $quantity = $this->computeTriumphForPlayer($triumphConfig, $player);
 
-        // Don't call triumph changed by 0 event unless the config explicitly states 0 triumph change
-        if ($quantity === 0 && $triumphConfig->getQuantity() !== 0) {
+        // Don't call triumph changed by 0 event unless the config allows it
+        if ($quantity === 0 && !$triumphConfig->shouldRegisterZeroTriumph()) {
             return;
         }
 
@@ -72,6 +72,7 @@ final class ChangeTriumphFromEventService
     private function computeTriumphForPlayer(TriumphConfig $triumphConfig, Player $player): int
     {
         return match ($triumphConfig->getName()) {
+            TriumphEnum::CYCLE_HUMAN => $player->isActive() ? $triumphConfig->getQuantity() : 0,
             TriumphEnum::CYCLE_MUSH_LATE => $this->computeNewMushTriumph($player->getDaedalus(), $triumphConfig->getQuantity()),
             TriumphEnum::EDEN_ALIEN_PLANT, TriumphEnum::EDEN_ALIEN_PLANT_PLUS => $this->getDifferentAlienPlantCount($player->getDaedalus()) * $triumphConfig->getQuantity(),
             TriumphEnum::EDEN_CAT, TriumphEnum::EDEN_MUSH_CAT, TriumphEnum::EDEN_NO_CAT => $this->checkCatStatus($triumphConfig, $player->getDaedalus()) ? $triumphConfig->getQuantity() : 0,

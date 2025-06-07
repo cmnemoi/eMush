@@ -49,6 +49,9 @@ class DaedalusInfo
     #[ORM\Embedded(class: DaedalusStatistics::class)]
     private DaedalusStatistics $daedalusStatistics;
 
+    #[ORM\Embedded(class: DaedalusProjectsStatistics::class)]
+    private DaedalusProjectsStatistics $daedalusProjectsStatistics;
+
     public function __construct(Daedalus $daedalus, GameConfig $gameConfig, LocalizationConfig $localizationConfig)
     {
         $this->daedalus = $daedalus;
@@ -62,6 +65,7 @@ class DaedalusInfo
 
         $this->closedExplorations = new ArrayCollection();
         $this->daedalusStatistics = new DaedalusStatistics();
+        $this->daedalusProjectsStatistics = new DaedalusProjectsStatistics();
     }
 
     public function getId(): ?int
@@ -149,6 +153,13 @@ class DaedalusInfo
         return $this;
     }
 
+    public function setDaedalusProjectsStatistics(DaedalusProjectsStatistics $daedalusProjectsStatistics): static
+    {
+        $this->daedalusProjectsStatistics = $daedalusProjectsStatistics;
+
+        return $this;
+    }
+
     public function isDaedalusFinished(): bool
     {
         return $this->gameStatus === GameStatusEnum::FINISHED || $this->gameStatus === GameStatusEnum::CLOSED;
@@ -198,5 +209,10 @@ class DaedalusInfo
     public function getDaedalusStatistics(): DaedalusStatistics
     {
         return $this->daedalusStatistics;
+    }
+
+    public function getDaedalusProjectsStatistics(): DaedalusProjectsStatistics
+    {
+        return $this->daedalusProjectsStatistics;
     }
 }

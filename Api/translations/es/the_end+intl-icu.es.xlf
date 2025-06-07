@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
+  <file id="the_end.ext">
+    <unit id="statistics">
+      <segment state="initial">
+        <source>statistics</source>
+        <target>statistics</target>
+      </segment>
+    </unit>
+    <unit id="shipsDestroyed">
+      <segment state="initial">
+        <source>shipsDestroyed</source>
+        <target>shipsDestroyed</target>
+      </segment>
+    </unit>
+    <unit id="planetsFound">
+      <segment state="initial">
+        <source>planetsFound</source>
+        <target>planetsFound</target>
+      </segment>
+    </unit>
+    <unit id="explorationsStarted">
+      <segment state="initial">
+        <source>explorationsStarted</source>
+        <target>explorationsStarted</target>
+      </segment>
+    </unit>
+    <unit id="rebelBasesContacted">
+      <segment state="initial">
+        <source>rebelBasesContacted</source>
+        <target>rebelBasesContacted</target>
+      </segment>
+    </unit>
+    <unit id="sporesCreated">
+      <segment state="initial">
+        <source>sporesCreated</source>
+        <target>sporesCreated</target>
+      </segment>
+    </unit>
+    <unit id="mushAmount">
+      <segment state="initial">
+        <source>mushAmount</source>
+        <target>mushAmount</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

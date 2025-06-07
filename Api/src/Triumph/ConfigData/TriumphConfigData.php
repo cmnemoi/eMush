@@ -887,6 +887,17 @@ abstract class TriumphConfigData
                 quantity: 3,
             ),
             new TriumphConfigDto(
+                key: TriumphEnum::LOVER->toConfigKey('default'),
+                name: TriumphEnum::LOVER,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    TriumphSourceEventInterface::LOVE_BACK => TriumphSourceEventInterface::ALL_TAGS,
+                    CharacterEnum::DEREK => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_DEREK,
+                quantity: 2,
+            ),
+            new TriumphConfigDto(
                 key: TriumphEnum::CM_ALIEN_DOWN->toConfigKey('default'),
                 name: TriumphEnum::CM_ALIEN_DOWN,
                 targetedEvent: PlanetSectorEvent::PLANET_SECTOR_EVENT,

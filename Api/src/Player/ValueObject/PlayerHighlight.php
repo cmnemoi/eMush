@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Mush\Action\ValueObject;
+namespace Mush\Player\ValueObject;
 
-use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Game\Enum\ActionOutputEnum;
 
-final class ActionHighlight
+final class PlayerHighlight
 {
     public function __construct(
-        private ActionEnum $actionName,
+        private string $name,
         private string $actionResult,
         private array $target = [],
     ) {}
@@ -19,7 +18,7 @@ final class ActionHighlight
     public static function fromActionEvent(ActionEvent $event): self
     {
         $highlight = new self(
-            actionName: $event->getActionName(),
+            name: $event->getActionName()->toString(),
             actionResult: $event->getActionResultOrThrow()->getName(),
         );
 
@@ -34,7 +33,7 @@ final class ActionHighlight
     public static function fromArray(array $array): self
     {
         return new self(
-            actionName: $array['actionName'],
+            name: $array['name'],
             actionResult: $array['actionResult'],
             target: $array['target'],
         );
@@ -42,7 +41,7 @@ final class ActionHighlight
 
     public function toLogKey(): string
     {
-        return $this->isSuccessHighlight() ? "{$this->actionName->toString()}.highlight" : "{$this->actionName->toString()}.highlight_fail";
+        return $this->isSuccessHighlight() ? "{$this->name}.highlight" : "{$this->name}.highlight_fail";
     }
 
     public function toTranslationParameters(): array
@@ -53,7 +52,7 @@ final class ActionHighlight
     public function toArray(): array
     {
         return [
-            'actionName' => $this->actionName,
+            'name' => $this->name,
             'actionResult' => $this->actionResult,
             'target' => $this->target,
         ];

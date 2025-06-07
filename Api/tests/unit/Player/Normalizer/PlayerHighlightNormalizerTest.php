@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Mush\tests\unit\Action\Normalizer;
+namespace Mush\tests\unit\Player\Normalizer;
 
 use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Normalizer\ActionHighlightNormalizer;
-use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Enum\CharacterEnum;
@@ -17,27 +15,29 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Player\Normalizer\PlayerHighlightNormalizer;
+use Mush\Player\ValueObject\PlayerHighlight;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  */
-final class ActionHighlightNormalizerTest extends TestCase
+final class PlayerHighlightNormalizerTest extends TestCase
 {
-    private ActionHighlightNormalizer $normalizer;
+    private PlayerHighlightNormalizer $normalizer;
     private TranslationServiceInterface $translationService;
 
     protected function setUp(): void
     {
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
-        $this->normalizer = new ActionHighlightNormalizer($this->translationService);
+        $this->normalizer = new PlayerHighlightNormalizer($this->translationService);
     }
 
     public function testShouldNormalizeSimpleActionHighlight(): void
     {
         // Given
-        $actionHighlight = new ActionHighlight(
-            actionName: ActionEnum::SCAN,
+        $actionHighlight = new PlayerHighlight(
+            name: ActionEnum::SCAN->toString(),
             actionResult: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn('Vous avez découvert une nouvelle planète !');
@@ -53,8 +53,8 @@ final class ActionHighlightNormalizerTest extends TestCase
     {
         // Given
         $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
-        $actionHighlight = new ActionHighlight(
-            actionName: ActionEnum::HIT,
+        $actionHighlight = new PlayerHighlight(
+            name: ActionEnum::HIT->toString(),
             target: [$chun->getLogKey() => $chun->getLogName()],
             actionResult: (new Success())->getName(),
         );
@@ -75,8 +75,8 @@ final class ActionHighlightNormalizerTest extends TestCase
     {
         // Given
         $biosTerminal = GameEquipmentFactory::createEquipmentByName(EquipmentEnum::BIOS_TERMINAL);
-        $actionHighlight = new ActionHighlight(
-            actionName: ActionEnum::SABOTAGE,
+        $actionHighlight = new PlayerHighlight(
+            name: ActionEnum::SABOTAGE->toString(),
             target: [$biosTerminal->getLogKey() => $biosTerminal->getLogName()],
             actionResult: (new Success())->getName(),
         );
@@ -97,8 +97,8 @@ final class ActionHighlightNormalizerTest extends TestCase
     {
         // Given
         $laboratory = Place::createRoomByName(RoomEnum::LABORATORY);
-        $actionHighlight = new ActionHighlight(
-            actionName: ActionEnum::SPREAD_FIRE,
+        $actionHighlight = new PlayerHighlight(
+            name: ActionEnum::SPREAD_FIRE->toString(),
             target: [$laboratory->getLogKey() => $laboratory->getLogName()],
             actionResult: (new Success())->getName(),
         );
@@ -119,8 +119,8 @@ final class ActionHighlightNormalizerTest extends TestCase
     {
         // Given
         $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
-        $actionHighlight = new ActionHighlight(
-            actionName: ActionEnum::ATTACK,
+        $actionHighlight = new PlayerHighlight(
+            name: ActionEnum::ATTACK->toString(),
             target: [$chun->getLogKey() => $chun->getLogName()],
             actionResult: (new Fail())->getName(),
         );
@@ -146,7 +146,7 @@ final class ActionHighlightNormalizerTest extends TestCase
             ->once();
     }
 
-    private function whenNormalizingActionHighlight(ActionHighlight $actionHighlight): string
+    private function whenNormalizingActionHighlight(PlayerHighlight $actionHighlight): string
     {
         return $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
     }

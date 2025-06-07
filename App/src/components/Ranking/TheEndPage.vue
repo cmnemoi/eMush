@@ -11,7 +11,7 @@
         @close=closeReportDialog
         @submit-report=submitReport
     />
-    <TriumphGainsPopup />
+    <PlayerHistoryPopup />
     <div class="container" v-if="closedDaedalus">
         <div class="ending-screen">
             <img :src="getImgUrl('ending-sol.png')" :alt="$t('theEnd.endCause.sol_return')" v-if="closedDaedalus.endCause === 'sol_return'">
@@ -89,11 +89,11 @@
                         <img :src="getImgUrl('nova/first.png')" alt="First"> {{ $t('theEnd.goldSuperNova') }}
                     </p>
                     <ul>
-                        <li v-for="gain in goldNovaPlayer.triumphGains.slice(0, 3)" :key="gain">
-                            <span v-html="formatText(gain)" />
+                        <li v-for="highlight in goldNovaPlayer.highlights.slice(0, 3)" :key="highlight">
+                            <span v-html="formatText(highlight)" />
                         </li>
                     </ul>
-                    <Tippy tag="button" @click="showPlayerTriumphGainsDetails(goldNovaPlayer)">
+                    <Tippy tag="button" @click="showPlayerDetailedHistory(goldNovaPlayer)">
                         <img :src="getImgUrl('notes.gif')" :alt="$t('theEnd.historyAndTriumph')">
                         <template #content>
                             <h1>{{ $t('theEnd.historyAndTriumph') }}</h1>
@@ -188,11 +188,11 @@
                             </Tippy>
                         </p>
                         <ul>
-                            <li v-for="gain in player.triumphGains.slice(0, 3)" :key="gain">
-                                <span v-html="formatContent(gain)" />
+                            <li v-for="highlight in player.highlights.slice(0, 3)" :key="highlight">
+                                <span v-html="formatContent(highlight)" />
                             </li>
                         </ul>
-                        <Tippy tag="button" @click="showPlayerTriumphGainsDetails(player)">
+                        <Tippy tag="button" @click="showPlayerDetailedHistory(player)">
                             <img :src="getImgUrl('notes.gif')" alt="Historique et Triomphe">
                             <template #content>
                                 <h1>{{ $t('theEnd.historyAndTriumph') }}</h1>
@@ -279,11 +279,11 @@
                             </Tippy>
                         </p>
                         <ul>
-                            <li v-for="gain in player.triumphGains.slice(0, 3)" :key="gain">
-                                <span v-html="formatContent(gain)" />
+                            <li v-for="highlight in player.highlights.slice(0, 3)" :key="highlight">
+                                <span v-html="formatText(highlight)" />
                             </li>
                         </ul>
-                        <Tippy tag="button" @click="showPlayerTriumphGainsDetails(player)">
+                        <Tippy tag="button" @click="showPlayerDetailedHistory(player)">
                             <img :src="getImgUrl('notes.gif')" alt="Historique et Triomphe">
                             <template #content>
                                 <h1>{{ $t('theEnd.historyAndTriumph') }}</h1>
@@ -421,7 +421,7 @@ import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup
 import { getImgUrl } from "@/utils/getImgUrl";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
 import { formatText } from "@/utils/formatText";
-import TriumphGainsPopup from "@/components/Ranking/TriumphGainsPopup.vue";
+import PlayerHistoryPopup from "@/components/Ranking/PlayerHistoryPopup.vue";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -437,7 +437,7 @@ interface ClosedDaedalusState {
 
 export default defineComponent ({
     name: 'TheEnd',
-    components: { ReportPopup, ModerationActionPopup, TriumphGainsPopup },
+    components: { ReportPopup, ModerationActionPopup, PlayerHistoryPopup },
     computed: {
         ...mapGetters({
             isModerator: 'auth/isModerator'
@@ -459,7 +459,7 @@ export default defineComponent ({
     methods: {
         ...mapActions({
             reportClosedPlayer: 'moderation/reportClosedPlayer',
-            dispatchOpenTriumphGainsPopUp: 'popup/openTriumphGainsPopUp'
+            dispatchOpenPlayerHistoryPopUp: 'popup/openPlayerHistoryPopUp'
         }),
         getImgUrl,
         formatText,
@@ -588,13 +588,12 @@ export default defineComponent ({
                 top: 0
             });
         },
-        showPlayerTriumphGainsDetails(player: ClosedPlayer) {
-            if (player && player.triumphGains) {
-                this.dispatchOpenTriumphGainsPopUp({
-                    playerName: this.getPlayerCharacterCompleteName(player),
-                    gains: player.triumphGains
-                });
-            }
+        showPlayerDetailedHistory(player: ClosedPlayer) {
+            this.dispatchOpenPlayerHistoryPopUp({
+                playerName: this.getPlayerCharacterCompleteName(player),
+                gains: player.triumphGains,
+                highlights: player.highlights
+            });
         }
     },
     beforeMount() {

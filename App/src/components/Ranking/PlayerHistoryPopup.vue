@@ -4,6 +4,12 @@
         @close="closePopUp"
     >
         <h1>{{ popUpData.playerName }}</h1>
+        <h2>{{ $t('deathpage.highlights') }}</h2>
+        <ul>
+            <li v-for="(highlight, index) in popUpData.highlights" :key="index">
+                <span v-html="formatText(highlight)" />
+            </li>
+        </ul>
         <h2>{{ $t('theEnd.triumph') }}</h2>
         <ul>
             <li v-for="(gain, index) in popUpData.gains" :key="index">
@@ -20,16 +26,16 @@ import PopUp from "@/components/Utils/PopUp.vue";
 import { formatText } from "@/utils/formatText";
 
 export default defineComponent ({
-    name: "TriumphGainsPopup",
+    name: "PlayerHistoryPopup",
     components: { PopUp },
     computed: {
         ...mapGetters({
-            popUpData: 'popup/triumphGainsPopUp'
+            popUpData: 'popup/playerHistoryPopUp'
         })
     },
     methods: {
         ...mapActions({
-            closePopUp: 'popup/closeTriumphGainsPopUp'
+            closePopUp: 'popup/closePlayerHistoryPopUp'
         }),
         formatText
     }

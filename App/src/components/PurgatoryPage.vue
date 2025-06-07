@@ -38,7 +38,7 @@
                             {{ deadPlayerInfo.endCauseName }}
                         </p>
                     </div>
-                    <HistoryLogs :triumph-gains="deadPlayerInfo.triumphGains" />
+                    <HistoryLogs :triumph-gains="deadPlayerInfo.triumphGains" :action-highlights="deadPlayerInfo.actionHighlights" />
                 </div>
             </div>
             <table class="crew-summary">

@@ -21,7 +21,7 @@ class ExplorationStartedSubscriber implements EventSubscriberInterface
 
     public function onExplorationStarted(ExplorationEvent $event): void
     {
-        $event->getDaedalusStatistics()->changeExplorationsStarted(1);
+        $event->getDaedalusStatistics()->incrementExplorationsStarted();
 
         $this->daedalusRepository->save($event->getDaedalus());
     }

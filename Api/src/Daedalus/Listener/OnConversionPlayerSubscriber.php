@@ -21,7 +21,7 @@ class OnConversionPlayerSubscriber implements EventSubscriberInterface
 
     public function onConversionPlayer(PlayerEvent $event): void
     {
-        $event->getDaedalusStatistics()->changeMushAmount(1);
+        $event->getDaedalusStatistics()->incrementMushAmount();
 
         $this->daedalusRepository->save($event->getDaedalus());
     }

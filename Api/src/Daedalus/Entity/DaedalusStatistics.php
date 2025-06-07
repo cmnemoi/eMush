@@ -36,8 +36,12 @@ class DaedalusStatistics
         return $this->planetsFound;
     }
 
-    public function changePlanetsFound(int $delta): static
+    public function incrementPlanetsFound(int $delta = 1): static
     {
+        if ($delta < 0) {
+            return $this;
+        }
+
         $this->planetsFound += $delta;
 
         return $this;
@@ -48,8 +52,12 @@ class DaedalusStatistics
         return $this->explorationsStarted;
     }
 
-    public function changeExplorationsStarted(int $delta): static
+    public function incrementExplorationsStarted(int $delta = 1): static
     {
+        if ($delta < 0) {
+            return $this;
+        }
+
         $this->explorationsStarted += $delta;
 
         return $this;
@@ -60,8 +68,12 @@ class DaedalusStatistics
         return $this->shipsDestroyed;
     }
 
-    public function changeShipsDestroyed(int $delta): static
+    public function incrementShipsDestroyed(int $delta = 1): static
     {
+        if ($delta < 0) {
+            return $this;
+        }
+
         $this->shipsDestroyed += $delta;
 
         return $this;
@@ -72,8 +84,12 @@ class DaedalusStatistics
         return $this->rebelBasesContacted;
     }
 
-    public function changeRebelBasesContacted(int $delta): static
+    public function incrementRebelBasesContacted(int $delta = 1): static
     {
+        if ($delta < 0) {
+            return $this;
+        }
+
         $this->rebelBasesContacted += $delta;
 
         return $this;
@@ -84,8 +100,12 @@ class DaedalusStatistics
         return $this->sporesCreated;
     }
 
-    public function changeSporesCreated(int $delta): static
+    public function incrementSporesCreated(int $delta = 1): static
     {
+        if ($delta < 0) {
+            return $this;
+        }
+
         $this->sporesCreated += $delta;
 
         return $this;
@@ -96,8 +116,12 @@ class DaedalusStatistics
         return $this->mushAmount;
     }
 
-    public function changeMushAmount(int $delta): static
+    public function incrementMushAmount(int $delta = 1): static
     {
+        if ($delta < 0) {
+            return $this;
+        }
+
         $this->mushAmount += $delta;
 
         return $this;

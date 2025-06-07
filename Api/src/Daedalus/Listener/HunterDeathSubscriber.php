@@ -25,7 +25,7 @@ class HunterDeathSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $event->getDaedalusStatistics()->changeShipsDestroyed(1);
+        $event->getDaedalusStatistics()->incrementShipsDestroyed();
 
         $this->daedalusRepository->save($event->getDaedalus());
     }

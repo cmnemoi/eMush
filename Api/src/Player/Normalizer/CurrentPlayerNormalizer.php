@@ -27,6 +27,8 @@ use Mush\Player\Service\PlayerVariableServiceInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Triumph\Enum\TriumphEnum;
+use Mush\Triumph\Repository\TriumphConfigRepositoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -47,6 +49,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     private HunterNormalizerHelperInterface $hunterNormalizerHelper;
     private ClosedExplorationServiceInterface $closedExplorationService;
     private ExplorationServiceInterface $explorationService;
+    private TriumphConfigRepositoryInterface $triumphConfigRepository;
 
     public function __construct(
         GameEquipmentServiceInterface $equipmentService,
@@ -59,7 +62,8 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         GearToolServiceInterface $gearToolService,
         HunterNormalizerHelperInterface $hunterNormalizerHelper,
         ClosedExplorationServiceInterface $closedExplorationService,
-        ExplorationServiceInterface $explorationService
+        ExplorationServiceInterface $explorationService,
+        TriumphConfigRepositoryInterface $triumphConfigRepository
     ) {
         $this->gameEquipmentService = $equipmentService;
         $this->playerService = $playerService;
@@ -72,6 +76,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         $this->hunterNormalizerHelper = $hunterNormalizerHelper;
         $this->closedExplorationService = $closedExplorationService;
         $this->explorationService = $explorationService;
+        $this->triumphConfigRepository = $triumphConfigRepository;
     }
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
@@ -129,7 +134,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'gameStatus' => $player->getPlayerInfo()->getGameStatus(),
             'triumph' => [
                 'name' => $this->translationService->translate('triumph.name', [], 'player', $language),
-                'description' => $this->translationService->translate('triumph.description', [], 'player', $language),
+                'description' => $this->getTranslatedTriumphDescription($player),
                 'quantity' => $player->getTriumph(),
             ],
             'daedalus' => $this->normalizer->normalize($daedalus, $format, $context),
@@ -326,5 +331,35 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
         }
 
         return $normalizedSkills;
+    }
+
+    private function getTranslatedTriumphDescription(Player $player): string
+    {
+        $baseDescription = $this->translationService->translate('triumph.description', [], 'player', $player->getDaedalus()->getLanguage());
+        if ($player->isMush()) {
+            return $baseDescription;
+        }
+
+        $translatedTriumphs = $this->getTranslatedPersonalTriumphs($player);
+
+        return $baseDescription . ' // ' . implode(' // ', $translatedTriumphs);
+    }
+
+    private function getTranslatedPersonalTriumphs(Player $player): array
+    {
+        $personalTriumphs = $this->triumphConfigRepository->findAllPersonalTriumphsForPlayerExcept($player, except: TriumphEnum::personalEdenTriumphs());
+
+        return array_map(
+            fn ($triumph) => ':point: ' . $this->translationService->translate(
+                $triumph->getName()->toString() . '.personal_description',
+                [
+                    'quantity' => $triumph->getQuantity(),
+                    'regressiveFactor' => $triumph->getRegressiveFactor(),
+                ],
+                'triumph',
+                $player->getLanguage()
+            ),
+            $personalTriumphs
+        );
     }
 }

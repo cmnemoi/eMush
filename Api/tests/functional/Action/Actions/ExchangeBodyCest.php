@@ -253,6 +253,15 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldHaveTriumph(3, $I);
     }
 
+    public function shouldNotIncrementStatisticCount(FunctionalTester $I): void
+    {
+        $initialMushStatistic = $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount();
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenMushDaedalusStatisticShouldBe($initialMushStatistic, $I);
+    }
+
     private function givenTargetPlayerHasShooterSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->target);
@@ -502,5 +511,10 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function thenTargetPlayerShouldHaveTriumph(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->target->getTriumph());
+    }
+
+    private function thenMushDaedalusStatisticShouldBe(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount());
     }
 }

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Project\Event;
 
+use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
 use Mush\Project\Enum\ProjectName;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
 
 /**
  * @internal

@@ -3,6 +3,7 @@
 namespace Mush\Status\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
@@ -158,6 +159,11 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function getDaedalusStatistics(): DaedalusStatistics
+    {
+        return $this->daedalus->getDaedalusInfo()->getDaedalusStatistics();
     }
 
     protected function addEventTags(): void

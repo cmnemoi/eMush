@@ -70,6 +70,15 @@ final class CureActionCest extends AbstractFunctionalTest
         $this->kuanTiShouldSeeTheLog($I);
     }
 
+    public function shouldDecrementMushCountStatistic(FunctionalTester $I): void
+    {
+        $this->givenChunHasSerumInInventory();
+        $this->givenKuanTiIsMush($I);
+        $this->thenMushDaedalusStatisticShouldHaveCount(1, $I);
+        $this->whenIInoculateKuanTi();
+        $this->thenMushDaedalusStatisticShouldHaveCount(0, $I);
+    }
+
     private function givenChunHasSerumInInventory()
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
@@ -126,5 +135,10 @@ final class CureActionCest extends AbstractFunctionalTest
                 static fn (RoomLog $log) => $log->getLog() === 'player_vaccinated'
             )->toArray()
         );
+    }
+
+    private function thenMushDaedalusStatisticShouldHaveCount(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount());
     }
 }

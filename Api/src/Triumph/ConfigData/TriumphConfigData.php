@@ -885,6 +885,130 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_IAN,
                 quantity: 3,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_ALIEN_DOWN->toConfigKey('default'),
+                name: TriumphEnum::CM_ALIEN_DOWN,
+                targetedEvent: PlanetSectorEvent::PLANET_SECTOR_EVENT,
+                tagConstraints: [
+                    PlanetSectorEvent::FIGHT_WON => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_ALL_MUSH_HUMANICIDE->toConfigKey('default'),
+                name: TriumphEnum::CM_ALL_MUSH_HUMANICIDE,
+                targetedEvent: PlayerEvent::DEATH_PLAYER,
+                tagConstraints: [
+                    TriumphSourceEventInterface::MUSH_SUBJECT => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_ALL_NEW_MUSH->toConfigKey('default'),
+                name: TriumphEnum::CM_ALL_NEW_MUSH,
+                targetedEvent: PlayerEvent::CONVERSION_PLAYER,
+                tagConstraints: [
+                    ActionEnum::EXCHANGE_BODY->toString() => TriumphSourceEventInterface::NONE_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_DAEDALUS_EXPLODE->toConfigKey('default'),
+                name: TriumphEnum::CM_DAEDALUS_EXPLODE,
+                targetedEvent: DaedalusEvent::FINISH_DAEDALUS,
+                tagConstraints: [
+                    EndCauseEnum::DAEDALUS_DESTROYED => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_EXTINGUISH->toConfigKey('default'),
+                name: TriumphEnum::CM_EXTINGUISH,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionEnum::EXTINGUISH_MANUALLY->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionOutputEnum::SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_MUSH_VACCINATED->toConfigKey('default'),
+                name: TriumphEnum::CM_MUSH_VACCINATED,
+                targetedEvent: StatusEvent::STATUS_REMOVED,
+                tagConstraints: [
+                    ActionEnum::CURE->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                    PlayerStatusEnum::MUSH => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_PILGRED->toConfigKey('default'),
+                name: TriumphEnum::CM_PILGRED,
+                targetedEvent: ProjectEvent::PROJECT_FINISHED,
+                tagConstraints: [
+                    ProjectName::PILGRED->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_PLAYERS,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_REPAIR_HULL->toConfigKey('default'),
+                name: TriumphEnum::CM_REPAIR_HULL,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionEnum::STRENGTHEN_HULL->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionOutputEnum::SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_REPAIR_OBJECT->toConfigKey('default'),
+                name: TriumphEnum::CM_REPAIR_OBJECT,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionEnum::REPAIR->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionOutputEnum::SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_SABOTAGE->toConfigKey('default'),
+                name: TriumphEnum::CM_SABOTAGE,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionOutputEnum::SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionEnum::DOOR_SABOTAGE->toString() => TriumphSourceEventInterface::ANY_TAG,
+                    ActionEnum::SABOTAGE->toString() => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::ALL_ALIVE_MUSHS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 0,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::CM_USE_EXTINGUISHER->toConfigKey('default'),
+                name: TriumphEnum::CM_USE_EXTINGUISHER,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    ActionEnum::EXTINGUISH->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                    ActionOutputEnum::SUCCESS => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 0,
+            ),
         ];
     }
 

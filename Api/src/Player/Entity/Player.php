@@ -16,7 +16,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Chat\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -55,6 +54,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\PlayerRepository;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
@@ -1367,9 +1367,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
-    public function addActionHighlight(ActionHighlight $actionHighlight): static
+    public function addPlayerHighlight(PlayerHighlight $playerHighlight): static
     {
-        $this->playerInfo->addActionHighlight($actionHighlight);
+        $this->playerInfo->addPlayerHighlight($playerHighlight);
 
         return $this;
     }

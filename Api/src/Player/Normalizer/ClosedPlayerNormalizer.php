@@ -100,7 +100,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
 
     private function getNormalizedActionHighlights(ClosedPlayer $closedPlayer, ?string $format, array $context): array
     {
-        $actionHighlights = $closedPlayer->getActionHighlights();
+        $actionHighlights = $closedPlayer->getPlayerHighlights();
         $normalizedActionHighlights = [];
 
         foreach ($actionHighlights as $actionHighlight) {

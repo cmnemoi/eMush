@@ -141,7 +141,7 @@ final class PlayerHighlightNormalizerTest extends TestCase
     {
         $this->translationService
             ->shouldReceive('translate')
-            ->with($key, $parameters, 'actions', LanguageEnum::FRENCH)
+            ->with($key, $parameters, 'highlight', LanguageEnum::FRENCH)
             ->andReturn($translation)
             ->once();
     }

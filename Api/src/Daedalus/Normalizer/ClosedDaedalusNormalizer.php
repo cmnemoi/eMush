@@ -49,36 +49,47 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         $context[self::ALREADY_CALLED] = true;
 
-        $data = $this->normalizer->normalize($object, $format, $context);
+        $normalizedDaedalus = $this->normalizer->normalize($object, $format, $context);
 
-        if (!\is_array($data)) {
+        if (!\is_array($normalizedDaedalus)) {
             throw new \Exception('normalized closedDaedalus should be an array');
         }
 
-        if ($daedalus->isDaedalusFinished()) {
-            $createdAt = $daedalus->getCreatedAt();
-            if ($createdAt === null) {
-                throw new \Exception('ClosedDaedalus createdAt attribute should not be null');
-            }
-            $finishedAt = $daedalus->getFinishedAt();
-            if ($finishedAt === null) {
-                throw new \Exception('ClosedDaedalus finishedAt attribute should not be null');
-            }
-
-            $data['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(
-                start: $createdAt,
-                end: $finishedAt,
-                daedalusInfo: $daedalus->getDaedalusInfo()
-            );
-            $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
-            $data['shipsDestroyed'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getShipsDestroyed();
-            $data['planetsFound'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getPlanetsFound();
-            $data['mushAmount'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount();
-            $data['sporesCreated'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getSporesCreated();
-            $data['explorationsStarted'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getExplorationsStarted();
-            $data['rebelBasesContacted'] = $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getRebelBasesContacted();
+        if (!$daedalus->isDaedalusFinished()) {
+            return $normalizedDaedalus;
         }
 
-        return $data;
+        $normalizedDaedalus['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(
+            start: $daedalus->getCreatedAtOrThrow(),
+            end: $daedalus->getFinishedAtOrThrow(),
+            daedalusInfo: $daedalus->getDaedalusInfo()
+        );
+        $normalizedDaedalus['statistics'] = $this->getNormalizedStatistics($daedalus);
+
+        return $normalizedDaedalus;
+    }
+
+    private function getNormalizedStatistics(ClosedDaedalus $daedalus): array
+    {
+        $normalizedStatistics = [];
+        $normalizedStatistics['title'] = $this->translationService->translate(
+            key: 'statistics',
+            parameters: [],
+            domain: 'the_end',
+            language: $daedalus->getLanguage()
+        );
+        foreach ($daedalus->getDaedalusInfo()->getDaedalusStatistics()->toArray() as $statistic) {
+            $normalizedStatistics['lines'][] = [
+                'name' => $this->translationService->translate(
+                    key: $statistic->name,
+                    parameters: [],
+                    domain: 'the_end',
+                    language: $daedalus->getLanguage()
+                ),
+                'value' => $statistic->value,
+            ];
+        }
+
+        return $normalizedStatistics;
     }
 }

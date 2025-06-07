@@ -1,5 +1,10 @@
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 
+type DaedalusStatistics = {
+    title: string;
+    lines: {name: string, value: number}[];
+}
+
 export class ClosedDaedalus {
     public iri: string|null;
     public id: number|null;
@@ -7,9 +12,7 @@ export class ClosedDaedalus {
     public endDay: integer|null;
     public endCycle: integer|null;
     public players: ClosedPlayer[]|null;
-    public numberOfHuntersKilled: integer|null;
-    public daysSurvived: integer|null;
-    public cyclesSurvived: integer|null;
+    public statistics!: DaedalusStatistics;
 
     constructor() {
         this.iri = null;
@@ -18,9 +21,6 @@ export class ClosedDaedalus {
         this.endDay = null;
         this.endCycle = null;
         this.players = [];
-        this.numberOfHuntersKilled = null;
-        this.daysSurvived = null;
-        this.cyclesSurvived = null;
     }
     load(object :any): ClosedDaedalus {
         if (typeof object !== "undefined") {
@@ -29,9 +29,7 @@ export class ClosedDaedalus {
             this.endCause = object.endCause;
             this.endDay = object.endDay;
             this.endCycle = object.endCycle;
-            this.numberOfHuntersKilled = object.numberOfHuntersKilled;
-            this.daysSurvived = object.daysSurvived;
-            this.cyclesSurvived = object.cyclesSurvived;
+            this.statistics = object.statistics;
             if (typeof object.players !== 'undefined') {
                 const players: ClosedPlayer[] = [];
                 object.players.forEach((playerData: any) => {
@@ -52,9 +50,7 @@ export class ClosedDaedalus {
             'endDay': this.endDay,
             'endCycle': this.endCycle,
             'players': players,
-            'numberOfHuntersKilled': this.numberOfHuntersKilled,
-            'daysSurvived': this.daysSurvived,
-            'cyclesSurvived': this.cyclesSurvived
+            'statistics': this.statistics
         };
 
         return data;

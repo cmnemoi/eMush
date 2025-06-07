@@ -129,8 +129,12 @@ class ClosedDaedalus
         return $this;
     }
 
-    public function getFinishedAt(): ?\DateTime
+    public function getFinishedAtOrThrow(): \DateTime
     {
+        if ($this->finishedAt === null) {
+            throw new \RuntimeException("Closed daedalus {$this->id} should have a non null finishedAt attribute");
+        }
+
         return $this->finishedAt;
     }
 
@@ -139,5 +143,14 @@ class ClosedDaedalus
         $this->finishedAt = $finishedAt;
 
         return $this;
+    }
+
+    public function getCreatedAtOrThrow(): \DateTime
+    {
+        if ($this->createdAt === null) {
+            throw new \RuntimeException("Closed daedalus {$this->id} should have a non null createdAt attribute");
+        }
+
+        return $this->createdAt;
     }
 }

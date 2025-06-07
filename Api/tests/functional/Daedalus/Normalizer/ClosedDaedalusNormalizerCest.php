@@ -38,11 +38,34 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
         // when i normalize
         $normalizedDaedalus = $this->normalizer->normalize($closedDaedalus);
 
-        $I->assertEquals(2, $normalizedDaedalus['mushAmount']);
-        $I->assertEquals(4, $normalizedDaedalus['sporesCreated']);
-        $I->assertEquals(5, $normalizedDaedalus['shipsDestroyed']);
-        $I->assertEquals(1, $normalizedDaedalus['planetsFound']);
-        $I->assertEquals(2, $normalizedDaedalus['explorationsStarted']);
-        $I->assertEquals(1, $normalizedDaedalus['rebelBasesContacted']);
+        $I->assertEquals(
+            expected: [
+                [
+                    'name' => 'Planètes trouvées',
+                    'value' => 1,
+                ],
+                [
+                    'name' => 'Explorations',
+                    'value' => 2,
+                ],
+                [
+                    'name' => 'Vaisseaux détruits',
+                    'value' => 5,
+                ],
+                [
+                    'name' => 'Spores générés',
+                    'value' => 4,
+                ],
+                [
+                    'name' => 'Nombre de Mush',
+                    'value' => 2,
+                ],
+                [
+                    'name' => 'Bases rebelles contactées',
+                    'value' => 1,
+                ],
+            ],
+            actual: $normalizedDaedalus['statistics']['lines']
+        );
     }
 }

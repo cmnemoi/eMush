@@ -20,3 +20,5 @@ Mush\Triumph\Entity\TriumphConfig:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
     regressiveFactor:
       groups: [ 'triumph_config_read', 'triumph_config_write' ]
+    registerWhenZero:
+      groups: [ 'triumph_config_read', 'triumph_config_write' ]

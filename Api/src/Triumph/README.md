@@ -21,12 +21,12 @@ The [`TriumphConfig`](./Entity/TriumphConfig.php) entity contains the following 
   - `PRIVATE`: Only visible to the player who earned it
   - `HIDDEN`: Not visible to players
 - `regressiveFactor`: Determines after how many gains the divider increases, making further gains less likely to happen
+- `registerWhenZero`: Determines whether 0 triumph gains should be registered
 
 ## Triumph Scopes
 
 The [`TriumphScope`](./Enum/TriumphScope.php) enum defines which players receive a triumph:
 
-- `ALL_ACTIVE_HUMANS`: All human players who are currently active in the game
 - `ALL_ALIVE_MUSHS`: All Mush players who are still alive
 - `ALL_ALIVE_HUMANS`: All human players who are still alive
 - `ALL_ALIVE_PLAYER`: All players (human or Mush) who are still alive

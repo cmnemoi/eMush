@@ -19,6 +19,7 @@ use Mush\Triumph\Enum\TriumphVisibility;
  * @property TriumphVisibility $visibility       Controls the visibility of triumph log
  * @property TriumphTarget     $targetSetting    Determines what relation to the event players should be in to receive the triumph, as long as they fit within the scope (see [`TriumphTarget`](./Enum/TriumphTarget.php))
  * @property int               $regressiveFactor Determines after how many gains the divider increases, making further gains less likely to happen
+ * @property bool              $registerWhenZero Determines whether 0 triumph gains should be registered
  */
 final readonly class TriumphConfigDto
 {
@@ -32,5 +33,6 @@ final readonly class TriumphConfigDto
         public TriumphVisibility $visibility = TriumphVisibility::PRIVATE,
         public TriumphTarget $targetSetting = TriumphTarget::NONE,
         public int $regressiveFactor = 0,
+        public bool $registerWhenZero = false,
     ) {}
 }

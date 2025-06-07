@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\tests\unit\Triumph\Service;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
+use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
 use Mush\Game\Enum\CharacterEnum;
@@ -75,7 +77,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         $this->thenPlayerShouldHaveTriumph($player2, 1);
     }
 
-    public function testShouldNotGiveAllActiveHumanTriumphToInactivePlayers(): void
+    public function testShouldNotIncrementCycleHumanTriumphToInactivePlayers(): void
     {
         // Given
         $player = $this->givenAHumanPlayer();
@@ -154,6 +156,21 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
     {
         // Given
         $player = $this->givenAHumanPlayer();
+        $this->givenTriumphConfigExists(TriumphEnum::RETURN_TO_SOL);
+        $event = $this->givenReturnToSolEvent($this->daedalus);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenTriumphChangedEventShouldBeDispatched();
+    }
+
+    public function testShouldDispatchZeroTriumphChangedEventWhenRegisterZeroEnabled(): void
+    {
+        // Given
+        $player = $this->givenAHumanPlayer();
+        $this->givenPlayerIsInactive($player);
         $this->givenTriumphConfigExists(TriumphEnum::CYCLE_HUMAN);
         $event = $this->givenANewDaedalusCycleEvent($this->daedalus);
 
@@ -162,6 +179,20 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
 
         // Then
         $this->thenTriumphChangedEventShouldBeDispatched();
+    }
+
+    public function testShouldNotDispatchZeroTriumphChangedEventWhenRegisterZeroDisabled(): void
+    {
+        // Given
+        $player = $this->givenAHumanPlayer();
+        $this->givenTriumphConfigExists(TriumphEnum::SOL_MUSH_INTRUDER);
+        $event = $this->givenReturnToSolEvent($this->daedalus);
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenTriumphChangedEventShouldNotBeDispatched();
     }
 
     public function testShouldNotGiveTriumphToDeadPlayer(): void
@@ -238,6 +269,14 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         return $event;
     }
 
+    private function givenReturnToSolEvent(Daedalus $daedalus): DaedalusEvent
+    {
+        $event = new DaedalusEvent($daedalus, [ActionEnum::RETURN_TO_SOL->toString()], new \DateTime());
+        $event->setEventName(DaedalusEvent::FINISH_DAEDALUS);
+
+        return $event;
+    }
+
     private function givenANewCycleEventWithTags(Daedalus $daedalus, array $tags): DaedalusCycleEvent
     {
         $event = new DaedalusCycleEvent($daedalus, $tags, new \DateTime());
@@ -276,5 +315,10 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
     private function thenTriumphChangedEventShouldBeDispatched(): void
     {
         $this->eventService->shouldHaveReceived('callEvent')->once();
+    }
+
+    private function thenTriumphChangedEventShouldNotBeDispatched(): void
+    {
+        $this->eventService->shouldNotHaveReceived('callEvent');
     }
 }

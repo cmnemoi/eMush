@@ -47,6 +47,9 @@ class TriumphConfig
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $regressiveFactor;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $registerWhenZero;
+
     private function __construct(
         string $key,
         TriumphEnum $name,
@@ -57,6 +60,7 @@ class TriumphConfig
         int $quantity,
         TriumphVisibility $visibility,
         int $regressiveFactor,
+        bool $registerWhenZero,
     ) {
         $this->key = $key;
         $this->name = $name;
@@ -67,6 +71,7 @@ class TriumphConfig
         $this->quantity = $quantity;
         $this->visibility = $visibility;
         $this->regressiveFactor = $regressiveFactor;
+        $this->registerWhenZero = $registerWhenZero;
     }
 
     public function getName(): TriumphEnum
@@ -131,6 +136,11 @@ class TriumphConfig
         return $this->regressiveFactor !== 0;
     }
 
+    public function shouldRegisterZeroTriumph(): bool
+    {
+        return $this->registerWhenZero;
+    }
+
     public function getLogKey(): string
     {
         return $this->getLogName()->toLogKey();
@@ -148,6 +158,7 @@ class TriumphConfig
             $triumphConfigDto->quantity,
             $triumphConfigDto->visibility,
             $triumphConfigDto->regressiveFactor,
+            $triumphConfigDto->registerWhenZero,
         );
     }
 

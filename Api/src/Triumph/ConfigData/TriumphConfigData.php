@@ -51,8 +51,9 @@ abstract class TriumphConfigData
                 key: TriumphEnum::CYCLE_HUMAN->toConfigKey('default'),
                 name: TriumphEnum::CYCLE_HUMAN,
                 targetedEvent: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
-                scope: TriumphScope::ALL_ACTIVE_HUMANS,
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 1,
+                registerWhenZero: true,
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::CYCLE_MUSH->toConfigKey('default'),
@@ -582,6 +583,7 @@ abstract class TriumphConfigData
                 scope: TriumphScope::ALL_MUSHS,
                 targetSetting: TriumphTarget::EVENT_SUBJECT,
                 quantity: -3,
+                registerWhenZero: true,
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::INFECT->toConfigKey('default'),

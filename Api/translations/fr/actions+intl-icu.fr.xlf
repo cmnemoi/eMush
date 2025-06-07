@@ -1012,6 +1012,10 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>scan.description</source>
         <target>Permet de changer les planètes disponibles comme choix pour le prochain voyage.</target>
       </segment>
+      <segment id="highlight" state="translated">
+        <source>scan.highlight</source>
+        <target>Vous avez découvert une nouvelle planète !</target>
+      </segment>
     </unit>
     <unit id="analyze_planet">
       <segment id="name" state="translated">

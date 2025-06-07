@@ -33,7 +33,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
         if ($player->isMush() && $playerEvent->getVariableName() === PlayerVariableEnum::SPORE) {
             $change = $playerEvent->getRoundedQuantity();
 
-            $playerEvent->getDaedalusStatistics()->changeSporesCreated($change);
+            $playerEvent->getDaedalusStatistics()->incrementSporesCreated($change);
             $this->daedalusRepository->save($playerEvent->getDaedalus());
         }
     }
@@ -52,7 +52,7 @@ class PlayerVariableSubscriber implements EventSubscriberInterface
 
             $delta = $newValue - $variable->getValue();
 
-            $playerEvent->getDaedalusStatistics()->changeSporesCreated($delta);
+            $playerEvent->getDaedalusStatistics()->incrementSporesCreated($delta);
             $this->daedalusRepository->save($playerEvent->getDaedalus());
         }
     }

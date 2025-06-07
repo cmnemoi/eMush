@@ -72,7 +72,7 @@ final class Scan extends AttemptAction
 
         $planet = $this->planetService->createPlanet($this->player);
 
-        $planet->getDaedalusStatistics()->changePlanetsFound(1);
+        $planet->getDaedalusStatistics()->incrementPlanetsFound();
         $this->daedalusRepository->save($this->player->getDaedalus());
 
         $numberOfSectorsToReveal = $this->getOutputQuantity();

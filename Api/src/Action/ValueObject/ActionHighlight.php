@@ -23,8 +23,9 @@ final class ActionHighlight
             actionResult: $event->getActionResultOrThrow()->getName(),
         );
 
-        if ($event->getActionTarget() !== null) {
-            $highlight->target = [$event->getActionTarget()->getLogKey() => $event->getActionTarget()->getLogName()];
+        $actionTarget = $event->getActionTarget();
+        if ($actionTarget !== null) {
+            $highlight->target = [$actionTarget->getLogKey() => $actionTarget->getLogName()];
         }
 
         return $highlight;

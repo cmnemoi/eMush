@@ -883,6 +883,17 @@ abstract class TriumphConfigData
                 scope: TriumphScope::PERSONAL_IAN,
                 quantity: 3,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::LOVER->toConfigKey('default'),
+                name: TriumphEnum::LOVER,
+                targetedEvent: ActionEvent::RESULT_ACTION,
+                tagConstraints: [
+                    TriumphSourceEventInterface::LOVE_BACK => TriumphSourceEventInterface::ALL_TAGS,
+                    CharacterEnum::DEREK => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::PERSONAL_DEREK,
+                quantity: 2,
+            ),
         ];
     }
 

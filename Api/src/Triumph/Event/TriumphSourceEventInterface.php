@@ -15,6 +15,7 @@ interface TriumphSourceEventInterface
     public const NONE_TAGS = 'none_tags';
 
     public const string MUSH_SUBJECT = 'mush_subject';
+    public const string LOVE_BACK = 'love_back';
 
     public function doesNotHaveTag(string $tag): bool;
 

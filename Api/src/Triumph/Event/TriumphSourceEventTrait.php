@@ -65,6 +65,10 @@ trait TriumphSourceEventTrait
         return $anyConstraint;
     }
 
+    /**
+     * This function retrieves tags from events for triumph config tag constraints.
+     * Logic should be implemented in the class.
+     */
     protected function addEventTags(): void {}
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection

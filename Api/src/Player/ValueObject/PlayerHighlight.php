@@ -39,7 +39,7 @@ final class PlayerHighlight
         );
     }
 
-    public function toLogKey(): string
+    public function toTranslationKey(): string
     {
         return $this->isSuccessHighlight() ? "{$this->name}.highlight" : "{$this->name}.highlight_fail";
     }

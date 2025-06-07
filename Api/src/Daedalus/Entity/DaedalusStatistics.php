@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Game\ValueObject\NamedInteger;
 
 #[ORM\Embeddable]
 class DaedalusStatistics
@@ -100,5 +101,20 @@ class DaedalusStatistics
         $this->mushAmount += $delta;
 
         return $this;
+    }
+
+    /**
+     * @return array<string, NamedInteger>
+     */
+    public function toArray(): array
+    {
+        return [
+            'planetsFound' => new NamedInteger('planetsFound', $this->planetsFound),
+            'explorationsStarted' => new NamedInteger('explorationsStarted', $this->explorationsStarted),
+            'shipsDestroyed' => new NamedInteger('shipsDestroyed', $this->shipsDestroyed),
+            'sporesCreated' => new NamedInteger('sporesCreated', $this->sporesCreated),
+            'mushAmount' => new NamedInteger('mushAmount', $this->mushAmount),
+            'rebelBasesContacted' => new NamedInteger('rebelBasesContacted', $this->rebelBasesContacted),
+        ];
     }
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="the_end.ext">
+    <unit id="statistics">
+      <segment state="translated">
+        <source>statistics</source>
+        <target>Statistiques :</target>
+      </segment>
+    </unit>
+    <unit id="shipsDestroyed">
+      <segment state="translated">
+        <source>shipsDestroyed</source>
+        <target>Vaisseaux détruits</target>
+      </segment>
+    </unit>
+    <unit id="planetsFound">
+      <segment state="translated">
+        <source>planetsFound</source>
+        <target>Planètes trouvées</target>
+      </segment>
+    </unit>
+    <unit id="explorationsStarted">
+      <segment state="translated">
+        <source>explorationsStarted</source>
+        <target>Explorations</target>
+      </segment>
+    </unit>
+    <unit id="rebelBasesContacted">
+      <segment state="translated">
+        <source>rebelBasesContacted</source>
+        <target>Bases rebelles contactées</target>
+      </segment>
+    </unit>
+    <unit id="sporesCreated">
+      <segment state="translated">
+        <source>sporesCreated</source>
+        <target>Spores générés</target>
+      </segment>
+    </unit>
+    <unit id="mushAmount">
+      <segment state="translated">
+        <source>mushAmount</source>
+        <target>Nombre de Mush</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

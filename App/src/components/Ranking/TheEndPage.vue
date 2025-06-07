@@ -295,30 +295,24 @@
             </div>
         </div>
 
-        <h2>Daedalus :</h2>
+        <h2>{{ closedDaedalus.statistics.title }}</h2>
         <div class="ship">
-            <div class="stats">
-                <!-- <div>
-                    <p>Planètes trouvées</p>
-                    <p>36</p>
-                </div>
-                <div>
-                    <p>Explorations</p>
-                    <p>18</p>
-                </div>
-                <div>
-                    <p>Spores générés</p>
-                    <p>0</p>
-                </div> -->
-                <div>
-                    <p>{{ $t("theEnd.numberOfHuntersKilled")  }}</p>
-                    <p>{{ closedDaedalus.numberOfHuntersKilled }}</p>
-                </div>
-                <div>
-                    <p>{{ $t("theEnd.amountOfMushPlayers") }}</p>
-                    <p>{{ getAmountOfMushPlayers() }}</p>
-                </div>
-            </div>
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th v-for="statistic in closedDaedalus.statistics.lines" :key="statistic.name">
+                            {{ statistic.name }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td v-for="statistic in closedDaedalus.statistics.lines" :key="statistic.name">
+                            {{ statistic.value }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <!-- <div class="progress">
                 <div>
@@ -878,46 +872,34 @@ h2 {
     }
 }
 
-
 .ship {
     align-self: stretch;
     margin: 0 0.5rem;
-
-    & > div {
-        background-color: #222b6b;
-        margin-bottom: 1.2em;
-        border-radiuS: 3px;
-    }
 }
 
-.stats {
-    flex-direction: row;
-    justify-content: space-evenly;
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
     text-align: center;
+    background-color: #222b6b;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
 
-    div {
-        flex: 1;
+.stats-table th, .stats-table td {
+    padding: 0.75em;
+    border-bottom: 1px dotted #0f0f43;
+    font-weight: bold;
+}
 
-        p:first-child {
-            padding: 0.5em;
-            opacity: .6;
-            font-size: .9em;
-            font-weight: bold;
-            border-bottom: 1px solid #0f0f43;
-        }
+.stats-table th {
+    opacity: 0.6;
+    font-size: 0.9em;
+}
 
-        p:last-child {
-            margin: .5em 0;
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-    }
-
-    div p:first-child {
-        font-size: .9em;
-        font-weight: bold;
-        opacity: .6;
-    }
+.stats-table td {
+    font-size: 1.4rem;
 }
 
 .progress, .roles, .honors {

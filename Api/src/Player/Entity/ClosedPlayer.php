@@ -6,11 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\ValueObject\TriumphGain;
 use Mush\User\Entity\User;
@@ -68,7 +68,7 @@ class ClosedPlayer implements SanctionEvidenceInterface
     private array $triumphGains = [];
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
-    private array $actionHighlights = [];
+    private array $playerHighlights = [];
 
     public function getId(): int
     {
@@ -334,18 +334,18 @@ class ClosedPlayer implements SanctionEvidenceInterface
         );
     }
 
-    public function getActionHighlights(): array
+    public function getPlayerHighlights(): array
     {
-        return array_map(static fn (array $highlight) => ActionHighlight::fromArray($highlight), $this->actionHighlights);
+        return array_map(static fn (array $highlight) => PlayerHighlight::fromArray($highlight), $this->playerHighlights);
     }
 
-    public function addActionHighlight(ActionHighlight $actionHighlight): static
+    public function addPlayerHighlight(PlayerHighlight $playerHighlight): static
     {
-        if (\in_array($actionHighlight->toArray(), $this->actionHighlights, true)) {
+        if (\in_array($playerHighlight->toArray(), $this->playerHighlights, true)) {
             return $this;
         }
 
-        $this->actionHighlights[] = $actionHighlight->toArray();
+        $this->playerHighlights[] = $playerHighlight->toArray();
 
         return $this;
     }

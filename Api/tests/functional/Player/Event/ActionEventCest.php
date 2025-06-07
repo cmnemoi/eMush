@@ -8,8 +8,8 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
-use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -82,7 +82,7 @@ final class ActionEventCest extends AbstractFunctionalTest
                     'target' => [],
                 ],
             ],
-            actual: array_map(static fn (ActionHighlight $actionHighlight) => $actionHighlight->toArray(), $this->player->getPlayerInfo()->getActionHighlights()),
+            actual: array_map(static fn (PlayerHighlight $actionHighlight) => $actionHighlight->toArray(), $this->player->getPlayerInfo()->getActionHighlights()),
         );
     }
 }

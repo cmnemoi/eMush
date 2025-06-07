@@ -4,11 +4,11 @@ namespace Mush\Player\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Daedalus\Entity\PlayerStatistics;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\User\Entity\User;
 
 #[ORM\Entity(repositoryClass: PlayerInfoRepository::class)]
@@ -146,12 +146,12 @@ class PlayerInfo
 
     public function getActionHighlights(): array
     {
-        return $this->closedPlayer->getActionHighlights();
+        return $this->closedPlayer->getPlayerHighlights();
     }
 
-    public function addActionHighlight(ActionHighlight $actionHighlight): static
+    public function addPlayerHighlight(PlayerHighlight $playerHighlight): static
     {
-        $this->closedPlayer->addActionHighlight($actionHighlight);
+        $this->closedPlayer->addPlayerHighlight($playerHighlight);
 
         return $this;
     }

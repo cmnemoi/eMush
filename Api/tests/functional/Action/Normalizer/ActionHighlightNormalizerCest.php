@@ -30,7 +30,7 @@ final class ActionHighlightNormalizerCest extends AbstractFunctionalTest
     {
         $actionHighlight = new ActionHighlight(
             actionName: ActionEnum::SCAN,
-            actionResult: new Success(),
+            actionResult: (new Success())->getName(),
         );
 
         $normalized = $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);

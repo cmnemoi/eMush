@@ -76,6 +76,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
             $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
             $data['triumph'] = $closedPlayer->getTriumph();
             $data['triumphGains'] = $this->normalizer->normalize($closedPlayer->getTriumphGains(), $format, $context);
+            $data['actionHighlights'] = $this->getNormalizedActionHighlights($closedPlayer, $format, $context);
 
             // Tell moderators if closed player end message is hidden
             /** @var ?User $user */
@@ -95,5 +96,29 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         }
 
         return $data;
+    }
+
+    private function getNormalizedActionHighlights(ClosedPlayer $closedPlayer, ?string $format, array $context): array
+    {
+        $actionHighlights = $closedPlayer->getActionHighlights();
+        $normalizedActionHighlights = [];
+
+        foreach ($actionHighlights as $actionHighlight) {
+            $normalizedActionHighlight = $this->normalizer->normalize($actionHighlight, $format, $context);
+
+            // Skip if the action highlight is already in the list (e.g. Upgrade drone which are different actions for each upgrade)
+            if (\in_array($normalizedActionHighlight, $normalizedActionHighlights, true)) {
+                continue;
+            }
+
+            // Skip if the action highlight has not been translated (e.g. failed actions)
+            if ($normalizedActionHighlight === $actionHighlight->toLogKey()) {
+                continue;
+            }
+
+            $normalizedActionHighlights[] = $normalizedActionHighlight;
+        }
+
+        return $normalizedActionHighlights;
     }
 }

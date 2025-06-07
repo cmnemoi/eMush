@@ -16,6 +16,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Chat\Entity\Message;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -1346,6 +1347,13 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function hasStandaloneSkill(SkillEnum $skillName): bool
     {
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
+    }
+
+    public function addActionHighlight(ActionHighlight $actionHighlight): static
+    {
+        $this->playerInfo->addActionHighlight($actionHighlight);
+
+        return $this;
     }
 
     private function hasPheromodemConnectedTracker(): bool

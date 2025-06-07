@@ -223,6 +223,7 @@ final class DeadPlayerNormalizerTest extends TestCase
             ],
             'isMush' => false,
             'triumphGains' => null,
+            'actionHighlights' => null,
             'players' => [
                 0 => [
                     'id' => 3,

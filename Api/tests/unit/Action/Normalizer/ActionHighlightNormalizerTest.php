@@ -33,93 +33,126 @@ final class ActionHighlightNormalizerTest extends TestCase
         $this->normalizer = new ActionHighlightNormalizer($this->translationService);
     }
 
-    public function testShouldNormalizeSimpleHighlight(): void
+    public function testShouldNormalizeSimpleActionHighlight(): void
     {
+        // Given
         $actionHighlight = new ActionHighlight(
             actionName: ActionEnum::SCAN,
-            actionResult: new Success(),
+            actionResult: (new Success())->getName(),
         );
+        $this->givenTranslationServiceWillReturn('Vous avez découvert une nouvelle planète !');
 
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('scan.highlight', ['result' => 'success'], 'actions', LanguageEnum::FRENCH)
-            ->andReturn('Vous avez découvert une nouvelle planète !')
-            ->once();
+        // When
+        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
 
-        $normalized = $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
-
-        self::assertEquals('Vous avez découvert une nouvelle planète !', $normalized);
+        // Then
+        $this->thenShouldReturnTranslatedHighlight('Vous avez découvert une nouvelle planète !', $normalized);
     }
 
-    public function testShouldNormalizeHighlightWithPlayerTarget(): void
+    public function testShouldNormalizeActionHighlightWithPlayerTarget(): void
     {
+        // Given
+        $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
         $actionHighlight = new ActionHighlight(
             actionName: ActionEnum::HIT,
-            target: PlayerFactory::createPlayerByName(CharacterEnum::CHUN),
-            actionResult: new Success(),
+            target: [$chun->getLogKey() => $chun->getLogName()],
+            actionResult: (new Success())->getName(),
+        );
+        $this->givenTranslationServiceWillReturn(
+            'Vous avez frappé **Chun**.',
+            'hit.highlight',
+            ['character' => 'chun']
         );
 
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('hit.highlight', ['character' => 'chun', 'result' => 'success'], 'actions', LanguageEnum::FRENCH)
-            ->andReturn('Vous avez frappé **Chun**.')
-            ->once();
+        // When
+        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
 
-        $normalized = $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
-        self::assertEquals('Vous avez frappé **Chun**.', $normalized);
+        // Then
+        $this->thenShouldReturnTranslatedHighlight('Vous avez frappé **Chun**.', $normalized);
     }
 
-    public function testShouldNormalizeHighlightWithEquipmentParameter(): void
+    public function testShouldNormalizeActionHighlightWithEquipmentTarget(): void
     {
+        // Given
+        $biosTerminal = GameEquipmentFactory::createEquipmentByName(EquipmentEnum::BIOS_TERMINAL);
         $actionHighlight = new ActionHighlight(
             actionName: ActionEnum::SABOTAGE,
-            target: GameEquipmentFactory::createEquipmentByName(EquipmentEnum::BIOS_TERMINAL),
-            actionResult: new Success(),
+            target: [$biosTerminal->getLogKey() => $biosTerminal->getLogName()],
+            actionResult: (new Success())->getName(),
+        );
+        $this->givenTranslationServiceWillReturn(
+            'Vous avez saboté un **Terminal BIOS**.',
+            'sabotage.highlight',
+            ['equipment' => 'bios_terminal']
         );
 
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('sabotage.highlight', ['equipment' => 'bios_terminal', 'result' => 'success'], 'actions', LanguageEnum::FRENCH)
-            ->andReturn('Vous avez saboté un **Terminal BIOS**.')
-            ->once();
+        // When
+        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
 
-        $normalized = $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
-        self::assertEquals('Vous avez saboté un **Terminal BIOS**.', $normalized);
+        // Then
+        $this->thenShouldReturnTranslatedHighlight('Vous avez saboté un **Terminal BIOS**.', $normalized);
     }
 
-    public function testShouldNormalizeHighlightWithPlaceParameter(): void
+    public function testShouldNormalizeActionHighlightWithPlaceTarget(): void
     {
+        // Given
+        $laboratory = Place::createRoomByName(RoomEnum::LABORATORY);
         $actionHighlight = new ActionHighlight(
             actionName: ActionEnum::SPREAD_FIRE,
-            target: Place::createRoomByName(RoomEnum::LABORATORY),
-            actionResult: new Success(),
+            target: [$laboratory->getLogKey() => $laboratory->getLogName()],
+            actionResult: (new Success())->getName(),
+        );
+        $this->givenTranslationServiceWillReturn(
+            'Vous avez mis le feu au **Laboratoire**.',
+            'spread_fire.highlight',
+            ['place' => 'laboratory']
         );
 
-        $this->translationService
-            ->shouldReceive('translate')
-            ->with('spread_fire.highlight', ['place' => 'laboratory', 'result' => 'success'], 'actions', LanguageEnum::FRENCH)
-            ->andReturn('Vous avez mis le feu au **Laboratoire**.')
-            ->once();
+        // When
+        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
 
-        $normalized = $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
-        self::assertEquals('Vous avez mis le feu au **Laboratoire**.', $normalized);
+        // Then
+        $this->thenShouldReturnTranslatedHighlight('Vous avez mis le feu au **Laboratoire**.', $normalized);
     }
 
-    public function testShouldNormalizeHighlightFromFailedAction(): void
+    public function testShouldNormalizeFailedActionHighlight(): void
     {
+        // Given
+        $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
         $actionHighlight = new ActionHighlight(
             actionName: ActionEnum::ATTACK,
-            target: PlayerFactory::createPlayerByName(CharacterEnum::CHUN),
-            actionResult: new Fail(),
+            target: [$chun->getLogKey() => $chun->getLogName()],
+            actionResult: (new Fail())->getName(),
+        );
+        $this->givenTranslationServiceWillReturn(
+            'Vous avez tenté d\'agresser **Chun** sans succès...',
+            'attack.highlight_fail',
+            ['character' => 'chun']
         );
 
+        // When
+        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
+
+        // Then
+        $this->thenShouldReturnTranslatedHighlight('Vous avez tenté d\'agresser **Chun** sans succès...', $normalized);
+    }
+
+    private function givenTranslationServiceWillReturn(string $translation, string $key = 'scan.highlight', array $parameters = []): void
+    {
         $this->translationService
             ->shouldReceive('translate')
-            ->with('attack.highlight', ['character' => 'chun', 'result' => 'fail'], 'actions', LanguageEnum::FRENCH)
-            ->andReturn('Vous avez tenté d\'agresser **Chun** sans succès...')
+            ->with($key, $parameters, 'actions', LanguageEnum::FRENCH)
+            ->andReturn($translation)
             ->once();
+    }
 
-        $normalized = $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
-        self::assertEquals('Vous avez tenté d\'agresser **Chun** sans succès...', $normalized);
+    private function whenNormalizingActionHighlight(ActionHighlight $actionHighlight): string
+    {
+        return $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
+    }
+
+    private function thenShouldReturnTranslatedHighlight(string $expected, string $actual): void
+    {
+        self::assertEquals($expected, $actual);
     }
 }

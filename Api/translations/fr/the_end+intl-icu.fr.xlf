@@ -2,45 +2,45 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="the_end.ext">
     <unit id="statistics">
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics</source>
-        <target>statistics</target>
+        <target>Statistiques :</target>
       </segment>
     </unit>
     <unit id="shipsDestroyed">
-      <segment state="initial">
+      <segment state="translated">
         <source>shipsDestroyed</source>
-        <target>shipsDestroyed</target>
+        <target>Vaisseaux détruits</target>
       </segment>
     </unit>
     <unit id="planetsFound">
-      <segment state="initial">
+      <segment state="translated">
         <source>planetsFound</source>
-        <target>planetsFound</target>
+        <target>Planètes trouvées</target>
       </segment>
     </unit>
     <unit id="explorationsStarted">
-      <segment state="initial">
+      <segment state="translated">
         <source>explorationsStarted</source>
-        <target>explorationsStarted</target>
+        <target>Explorations</target>
       </segment>
     </unit>
     <unit id="rebelBasesContacted">
-      <segment state="initial">
+      <segment state="translated">
         <source>rebelBasesContacted</source>
-        <target>rebelBasesContacted</target>
+        <target>Bases rebelles contactées</target>
       </segment>
     </unit>
     <unit id="sporesCreated">
-      <segment state="initial">
+      <segment state="translated">
         <source>sporesCreated</source>
-        <target>sporesCreated</target>
+        <target>Spores générés</target>
       </segment>
     </unit>
     <unit id="mushAmount">
-      <segment state="initial">
+      <segment state="translated">
         <source>mushAmount</source>
-        <target>mushAmount</target>
+        <target>Nombre de Mush</target>
       </segment>
     </unit>
   </file>

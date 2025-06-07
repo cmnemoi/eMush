@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Player\Listener;
 
 use Mush\Action\Event\ActionEvent;
+use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -67,6 +68,7 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         $actionName = $event->getActionName();
 
         $author->addActionToHistory($actionName);
+        $author->addActionHighlight(ActionHighlight::fromActionEvent($event));
 
         $this->playerRepository->save($author);
     }

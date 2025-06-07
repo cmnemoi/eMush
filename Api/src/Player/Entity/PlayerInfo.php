@@ -4,6 +4,7 @@ namespace Mush\Player\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Daedalus\Entity\PlayerStatistics;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -141,5 +142,17 @@ class PlayerInfo
     public function isDead(): bool
     {
         return $this->isAlive() === false;
+    }
+
+    public function getActionHighlights(): array
+    {
+        return $this->closedPlayer->getActionHighlights();
+    }
+
+    public function addActionHighlight(ActionHighlight $actionHighlight): static
+    {
+        $this->closedPlayer->addActionHighlight($actionHighlight);
+
+        return $this;
     }
 }

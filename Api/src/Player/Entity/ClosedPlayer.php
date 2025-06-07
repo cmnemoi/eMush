@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Action\ValueObject\ActionHighlight;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
@@ -65,6 +66,9 @@ class ClosedPlayer implements SanctionEvidenceInterface
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $triumphGains = [];
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $actionHighlights = [];
 
     public function getId(): int
     {
@@ -328,5 +332,21 @@ class ClosedPlayer implements SanctionEvidenceInterface
         return new ArrayCollection(
             array_map(static fn (array $gain) => TriumphGain::fromArray($gain), $this->triumphGains)
         );
+    }
+
+    public function getActionHighlights(): array
+    {
+        return array_map(static fn (array $highlight) => ActionHighlight::fromArray($highlight), $this->actionHighlights);
+    }
+
+    public function addActionHighlight(ActionHighlight $actionHighlight): static
+    {
+        if (\in_array($actionHighlight->toArray(), $this->actionHighlights, true)) {
+            return $this;
+        }
+
+        $this->actionHighlights[] = $actionHighlight->toArray();
+
+        return $this;
     }
 }

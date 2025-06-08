@@ -38,4 +38,29 @@ final class TradeFactory
             transportId: $transportId,
         );
     }
+
+    public static function createProjectTestTrade(int $requiredProjects, int $offeredOxygen, int $transportId): Trade
+    {
+        return new Trade(
+            name: TradeEnum::FOREST_DEAL,
+            tradeOptions: [
+                new TradeOption(
+                    requiredAssets: [
+                        new TradeAsset(
+                            type: TradeAssetEnum::RANDOM_PROJECT,
+                            quantity: $requiredProjects,
+                        ),
+                    ],
+                    offeredAssets: [
+                        new TradeAsset(
+                            type: TradeAssetEnum::ITEM,
+                            quantity: $offeredOxygen,
+                            assetName: ItemEnum::OXYGEN_CAPSULE,
+                        ),
+                    ],
+                ),
+            ],
+            transportId: $transportId,
+        );
+    }
 }

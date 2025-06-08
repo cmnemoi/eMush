@@ -33,7 +33,7 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Project::class => false,
+            Project::class => true,
         ];
     }
 

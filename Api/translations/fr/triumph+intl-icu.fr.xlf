@@ -30,6 +30,10 @@
         <source>chun_lives.log</source>
         <target>Vous avez gagné {quantity} :triumph: en survivant un jour de plus en tant que Chun !</target>
       </segment>
+      <segment id="chun_lives.personal_description" state="translated">
+        <source>chun_lives.personal_description</source>
+        <target>Chun gagne {quantity} :triumph: à chaque jour de survie.</target>
+      </segment>
     </unit>
     <unit id="return_to_sol">
       <segment id="return_to_sol.name" state="translated">
@@ -90,6 +94,10 @@
         <source>explorator.log</source>
         <target>Vous avez gagné {quantity} :triumph: en participant à une expédition en tant que Hua !</target>
       </segment>
+      <segment id="explorator.personal_description" state="translated">
+        <source>explorator.personal_description</source>
+        <target>Hua gagne {quantity} :triumph: à chaque fois qu'elle part en exploration sur une planète.</target>
+      </segment>
     </unit>
     <unit id="sol_contact">
       <segment id="sol_contact.name" state="translated">
@@ -140,6 +148,10 @@
         <source>mush_specialist.log</source>
         <target>Vous avez gagné {quantity} :triumph: car une recherche sur le Mush a été réalisée en votre présence en tant que Finola !</target>
       </segment>
+      <segment id="mush_specialist.personal_description" state="translated">
+        <source>mush_specialist.personal_description</source>
+        <target>Finola gagne {quantity} :triumph: pour chaque recherche sur le Mush complétée.</target>
+      </segment>
     </unit>
     <unit id="precious_body">
       <segment id="precious_body.name" state="translated">
@@ -149,6 +161,10 @@
       <segment id="precious_body.log" state="translated">
         <source>precious_body.log</source>
         <target>Vous avez gagné {quantity} :triumph: car une recherche nécessitant votre présence en tant que Chun a été réalisée !</target>
+      </segment>
+      <segment id="precious_body.personal_description" state="translated">
+        <source>precious_body.personal_description</source>
+        <target>Chun gagne {quantity} :triumph: à chaque fois qu'une recherche nécessitant sa présence aboutit.</target>
       </segment>
     </unit>
     <unit id="magellan_ark">
@@ -160,6 +176,10 @@
         <source>magellan_ark.log</source>
         <target>Vous avez gagné {quantity} :triumph: car un projet NERON a été réalisé en votre présence en tant que Kuan Ti !</target>
       </segment>
+      <segment id="magellan_ark.personal_description" state="translated">
+        <source>magellan_ark.personal_description</source>
+        <target>Kuan Ti gagne {quantity} :triumph: pour chaque projet NERON complété.</target>
+      </segment>
     </unit>
     <unit id="pilgred_mother">
       <segment id="pilgred_mother.name" state="translated">
@@ -170,6 +190,10 @@
         <source>pilgred_mother</source>
         <target>Vous avez gagné {quantity} :triumph: en tant que Raluca car PILGRED a avancé significativement !</target>
       </segment>
+      <segment id="pilgred_mother.personal_description" state="translated">
+        <source>pilgred_mother.personal_description</source>
+        <target>Raluca gagne {quantity} :triumph: pour chaque tranche de 20% de réparation de PILGRED effectuée.</target>
+      </segment>
     </unit>
     <unit id="ambitious">
       <segment id="ambitious.name" state="translated">
@@ -179,6 +203,10 @@
       <segment id="ambitious.log" state="translated">
         <source>ambitious.log</source>
         <target>Vous avez gagné {quantity} :triumph: en obtenant un titre en tant que Stephen !</target>
+      </segment>
+      <segment id="ambitious.personal_description" state="translated">
+        <source>ambitious.personal_description</source>
+        <target>Stephen gagne {quantity} :triumph: à chaque titre reçu.</target>
       </segment>
     </unit>
     <unit id="kube_solved">
@@ -230,6 +258,10 @@
         <source>mush_fear.log</source>
         <target>Vous avez gagné {quantity} :triumph: car un Mush a été éliminé en votre présence en tant que Gioele !</target>
       </segment>
+      <segment id="mush_fear.personal_description" state="translated">
+        <source>mush_fear.personal_description</source>
+        <target>Gioele gagne {quantity} :triumph: à chaque fois qu'un Mush meurt.</target>
+      </segment>
     </unit>
     <unit id="mushicide">
       <segment id="mushicide.name" state="translated">
@@ -259,6 +291,10 @@
       <segment id="psychopat.log" state="translated">
         <source>psychopat.log</source>
         <target>Vous avez gagné {quantity} :triumph: en portant le coup fatal à un équipier en tant que Chao.</target>
+      </segment>
+      <segment id="psychopat.personal_description" state="translated">
+        <source>psychopat.personal_description</source>
+        <target>Chao gagne {quantity} :triumph: à chaque coup fatal porté.</target>
       </segment>
     </unit>
     <unit id="alien_science">
@@ -330,6 +366,10 @@
         <source>savior.log</source>
         <target>Vous avez gagné {quantity} :triumph: en atteignant Eden en tant que Jin Su !</target>
       </segment>
+      <segment id="savior.personal_description" state="translated">
+        <source>savior.personal_description</source>
+        <target>Jin Su gagne {quantity} :triumph: lorsqu'elle atteint Eden.</target>
+      </segment>
     </unit>
     <unit id="remedy">
       <segment id="remedy.name" state="translated">
@@ -339,6 +379,10 @@
       <segment id="remedy.log" state="translated">
         <source>remedy.log</source>
         <target>Vous avez gagné {quantity} :triumph: en atteignant Eden en tant que Chun !</target>
+      </segment>
+      <segment id="remedy.personal_description" state="translated">
+        <source>remedy.personal_description</source>
+        <target>Chun gagne {quantity} :triumph: lorsqu'elle atteint Eden.</target>
       </segment>
     </unit>
     <unit id="eden_at_least">
@@ -390,6 +434,10 @@
         <source>robotic_graal.log</source>
         <target>robotic_graal.log</target>
       </segment>
+      <segment id="robotic_graal.personal_description" state="initial">
+        <source>robotic_graal.personal_description</source>
+        <target>Terrence gagne {quantity} :triumph: à chaque fois qu'il améliore un drone.</target>
+      </segment>
     </unit>
     <unit id="rebel_wolf">
       <segment id="rebel_wolf.name" state="initial">
@@ -419,6 +467,10 @@
       <segment id="looking_for_kivanc.log" state="initial">
         <source>looking_for_kivanc.log</source>
         <target>looking_for_kivanc.log</target>
+      </segment>
+      <segment id="looking_for_kivanc.personal_description" state="initial">
+        <source>looking_for_kivanc.personal_description</source>
+        <target>Paola gagne {quantity} :triumph: lorsque le contact avec Kivanç est rétabli au Centre de Communuication.</target>
       </segment>
     </unit>
     <unit id="star_map_1">
@@ -460,25 +512,9 @@
         <source>hunter_nemesis.log</source>
         <target>hunter_nemesis.log</target>
       </segment>
-    </unit>
-    <unit id="daedalus_defender">
-      <segment id="daedalus_defender.name" state="initial">
-        <source>daedalus_defender.name</source>
-        <target>daedalus_defender.name</target>
-      </segment>
-      <segment id="daedalus_defender.log" state="initial">
-        <source>daedalus_defender.log</source>
-        <target>daedalus_defender.log</target>
-      </segment>
-    </unit>
-    <unit id="hunter_nemesis">
-      <segment id="hunter_nemesis.name" state="initial">
-        <source>hunter_nemesis.name</source>
-        <target>hunter_nemesis.name</target>
-      </segment>
-      <segment id="hunter_nemesis.log" state="initial">
-        <source>hunter_nemesis.log</source>
-        <target>hunter_nemesis.log</target>
+      <segment id="hunter_nemesis.personal_description" state="initial">
+        <source>hunter_nemesis.personal_description</source>
+        <target>Roland gagne {quantity} :triumph: à chaque hunter qu'il abat. Passé {regressiveFactor} gains, ces derniers seront de moins en moins fréquents.</target>
       </segment>
     </unit>
     <unit id="lander">
@@ -530,6 +566,10 @@
         <source>planet_searcher.log</source>
         <target>planet_searcher.log</target>
       </segment>
+      <segment id="planet_searcher.personal_description" state="initial">
+        <source>planet_searcher.personal_description</source>
+        <target>Frieda gagne {quantity} :triumph: à chaque planète qu'elle découvre sur le Terminal Astro. Passé {regressiveFactor} gains, ces gains seront de moins en moins fréquents.</target>
+      </segment>
     </unit>
     <unit id="new_planet">
       <segment id="new_planet.name" state="initial">
@@ -549,6 +589,10 @@
       <segment id="planet_finder.log" state="initial">
         <source>planet_finder.log</source>
         <target>planet_finder.log</target>
+      </segment>
+      <segment id="planet_finder.personal_description" state="initial">
+        <source>planet_finder.personal_description</source>
+        <target>Frieda gagne {quantity} :triumph: à chaque fois qu'elle arrive en orbite d'une nouvelle planète.</target>
       </segment>
     </unit>
     <unit id="eden_cat">

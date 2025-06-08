@@ -5,6 +5,7 @@ namespace Mush\Daedalus\Normalizer;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Project\Enum\ProjectType;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -65,6 +66,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
             daedalusInfo: $daedalus->getDaedalusInfo()
         );
         $normalizedDaedalus['statistics'] = $this->getNormalizedStatistics($daedalus);
+        $normalizedDaedalus['projects'] = $this->getNormalizedProjects($daedalus);
 
         return $normalizedDaedalus;
     }
@@ -91,5 +93,51 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $normalizedStatistics;
+    }
+
+    private function getNormalizedProjects(ClosedDaedalus $daedalus): array
+    {
+        $normalizedProjects = [];
+
+        foreach ($daedalus->getDaedalusInfo()->getDaedalusProjectsStatistics()->toArray() as $categoryBaseName => $category) {
+            $categoryName = $this->translationService->translate(
+                key: $categoryBaseName,
+                parameters: [],
+                domain: 'the_end',
+                language: $daedalus->getLanguage()
+            );
+
+            $normalizedProjects[$categoryBaseName] = [
+                'title' => $categoryName,
+                'lines' => [],
+            ];
+
+            foreach ($category as $projectBaseName) {
+                $normalizedProjects[$categoryBaseName]['lines'][] = [
+                    'type' => ProjectType::fromCategory($categoryBaseName)->toString(),
+                    'key' => $projectBaseName,
+                    'name' => $this->translationService->translate(
+                        key: "{$projectBaseName}.name",
+                        parameters: [],
+                        domain: 'project',
+                        language: $daedalus->getLanguage()
+                    ),
+                    'description' => $this->translationService->translate(
+                        key: "{$projectBaseName}.description",
+                        parameters: [],
+                        domain: 'project',
+                        language: $daedalus->getLanguage()
+                    ),
+                    'lore' => $this->translationService->translate(
+                        key: "{$projectBaseName}.lore",
+                        parameters: [],
+                        domain: 'project',
+                        language: $daedalus->getLanguage()
+                    ),
+                ];
+            }
+        }
+
+        return $normalizedProjects;
     }
 }

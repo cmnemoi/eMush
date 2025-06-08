@@ -13,6 +13,7 @@ use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Communications\Entity\Trade;
 use Mush\Communications\Factory\TradeFactory;
 use Mush\Communications\Repository\TradeRepositoryInterface;
+use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -26,6 +27,7 @@ use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Repository\HunterRepositoryInterface;
 use Mush\Hunter\Service\CreateHunterService;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -153,6 +155,28 @@ final class AcceptTradeCest extends AbstractFunctionalTest
 
         $frontStorage = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::FRONT_STORAGE);
         $I->assertFalse($frontStorage->hasEquipmentByName(ItemEnum::HYDROPOT), 'Hydropot in front storage should be consumed');
+    }
+
+    public function shouldRemoveProjectsFromDaedalusProjectsStatistics(FunctionalTester $I): void
+    {   // given it has a new DaedalusProjectsStatistics
+        $daedalusProjectsStatistics = new DaedalusProjectsStatistics();
+        $this->daedalus->getDaedalusInfo()->setDaedalusProjectsStatistics($daedalusProjectsStatistics);
+
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+
+        $trade = $this->givenTestProjectTrade(requiredProjects: 1, offeredOxygen: 10);
+
+        // given a project is finished
+        $this->finishProject(
+            $this->daedalus->getProjectByName(ProjectName::ARMOUR_CORRIDOR),
+            $this->player,
+            $I
+        );
+
+        $this->whenPlayerAcceptsTrade(tradeOptionId: $trade->getTradeOptions()->first()->getId());
+
+        $I->assertTrue(\count($daedalusProjectsStatistics->getNeronProjectsCompleted()) === 0, 'NeronProjectsCompleted should be empty');
     }
 
     public function shouldGiveOfferedTradeOptionAssets(FunctionalTester $I): void
@@ -307,6 +331,24 @@ final class AcceptTradeCest extends AbstractFunctionalTest
 
         $trade = TradeFactory::createForestDealTrade(
             requiredHydropot: $requiredHydropot,
+            offeredOxygen: $offeredOxygen,
+            transportId: $transport->getId(),
+        );
+        $this->tradeRepository->save($trade);
+
+        return $trade;
+    }
+
+    private function givenTestProjectTrade(int $requiredProjects, int $offeredOxygen): Trade
+    {
+        $transport = new Hunter(
+            hunterConfig: $this->daedalus->getGameConfig()->getHunterConfigs()->getByNameOrThrow(HunterEnum::TRANSPORT),
+            daedalus: $this->daedalus,
+        );
+        $this->hunterRepository->save($transport);
+
+        $trade = TradeFactory::createProjectTestTrade(
+            requiredProjects: $requiredProjects,
             offeredOxygen: $offeredOxygen,
             transportId: $transport->getId(),
         );

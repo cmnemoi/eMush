@@ -26,7 +26,7 @@ class OnConversionPlayerSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $event->getDaedalusStatistics()->changeMushAmount(1);
+        $event->getDaedalusStatistics()->incrementMushAmount();
 
         $this->daedalusRepository->save($event->getDaedalus());
     }

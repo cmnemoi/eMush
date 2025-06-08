@@ -21,7 +21,7 @@ class RebelBaseDecodedSubscriber implements EventSubscriberInterface
 
     public function onRebelBaseDecoded(RebelBaseDecodedEvent $event): void
     {
-        $event->getDaedalusStatistics()->changeRebelBasesContacted(1);
+        $event->getDaedalusStatistics()->incrementRebelBasesContacted();
 
         $this->daedalusRepository->save($event->getDaedalus());
     }

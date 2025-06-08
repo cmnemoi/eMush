@@ -110,7 +110,8 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: PlayerDisease::class)]
     private Collection $medicalConditions;
 
-    #[ORM\OneToMany(mappedBy: 'player', targetEntity: self::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\ManyToMany(targetEntity: self::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'player_player_flirts')]
     private Collection $flirts;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: ModifierHolder::class, cascade: ['REMOVE'])]

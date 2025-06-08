@@ -21,15 +21,28 @@ final class PlayerVariableEventCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-
         $this->eventService = $I->grabService(EventServiceInterface::class);
     }
 
-    public function shouldNotDecrementSporesCreatedStat(FunctionalTester $I): void
+    public function shouldNotDecrementSporesCreatedStatWhenMushConsumesSpore(FunctionalTester $I): void
+    {
+        // Given
+        $this->givenPlayerIsConvertedToMush($I);
+
+        // When
+        $this->whenMushConsumesSpore();
+
+        // Then
+        $this->thenSporesCreatedStatShouldRemainUnchanged($I);
+    }
+
+    private function givenPlayerIsConvertedToMush(FunctionalTester $I): void
     {
         $this->convertPlayerToMush($I, $this->player);
+    }
 
-        // let's imagine a Mush consumes their spore
+    private function whenMushConsumesSpore(): void
+    {
         $event = new PlayerVariableEvent(
             player: $this->player,
             variableName: PlayerVariableEnum::SPORE,
@@ -38,7 +51,14 @@ final class PlayerVariableEventCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
         $this->eventService->callEvent($event, VariableEventInterface::CHANGE_VARIABLE);
+    }
 
-        $I->assertEquals(0, $this->player->getDaedalus()->getDaedalusInfo()->getDaedalusStatistics()->getSporesCreated());
+    private function thenSporesCreatedStatShouldRemainUnchanged(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            0,
+            $this->player->getDaedalus()->getDaedalusInfo()->getDaedalusStatistics()->getSporesCreated(),
+            'Spores created statistic should remain at 0 when Mush consumes a spore'
+        );
     }
 }

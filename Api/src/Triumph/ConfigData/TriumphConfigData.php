@@ -892,9 +892,9 @@ abstract class TriumphConfigData
                 targetedEvent: ActionEvent::RESULT_ACTION,
                 tagConstraints: [
                     TriumphSourceEventInterface::LOVE_BACK => TriumphSourceEventInterface::ALL_TAGS,
-                    CharacterEnum::DEREK => TriumphSourceEventInterface::ALL_TAGS,
                 ],
                 scope: TriumphScope::PERSONAL_DEREK,
+                targetSetting: TriumphTarget::PARTICIPANT,
                 quantity: 2,
             ),
             new TriumphConfigDto(

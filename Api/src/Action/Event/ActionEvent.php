@@ -267,6 +267,7 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
     {
         return match ($targetSetting) {
             TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
+            TriumphTarget::PARTICIPANT => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor() || $player === $this->getPlayerActionTarget()),
             default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
     }

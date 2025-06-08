@@ -110,7 +110,8 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: PlayerDisease::class)]
     private Collection $medicalConditions;
 
-    #[ORM\OneToMany(mappedBy: 'player', targetEntity: self::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\ManyToMany(targetEntity: self::class, cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'player_player_flirts')]
     private Collection $flirts;
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: ModifierHolder::class, cascade: ['REMOVE'])]
@@ -531,15 +532,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return new ArrayCollection($modifierConfigs);
     }
 
-    public function getFlirts(): PlayerCollection
-    {
-        if (!$this->flirts instanceof PlayerCollection) {
-            $this->flirts = new PlayerCollection($this->flirts->toArray());
-        }
-
-        return $this->flirts;
-    }
-
     public function setFlirts(Collection $flirts): static
     {
         $this->flirts = $flirts;
@@ -556,7 +548,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function hasFlirtedWith(self $playerTarget): bool
     {
-        return $this->getFlirts()->exists(static fn (int $id, Player $player) => $player === $playerTarget);
+        return $this->flirts->contains($playerTarget);
     }
 
     public function addSkill(Skill $skill): static

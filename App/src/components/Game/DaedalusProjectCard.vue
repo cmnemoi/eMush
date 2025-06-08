@@ -1,6 +1,6 @@
 <template>
     <Tippy tag="li" class="project-card">
-        <span v-html="formatText(project.translatedType)"></span>
+        <span v-if="displayProjectType" v-html="formatText(project.translatedType)"/>
         <img :src="getProjectImage(project)" :alt="project.name">
         <template #content>
             <h1 v-html="formatText(project.name)"/>
@@ -27,6 +27,10 @@ export default defineComponent ({
         project: {
             type: Object as PropType<DaedalusProject>,
             required: true
+        },
+        displayProjectType: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {

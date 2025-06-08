@@ -189,7 +189,7 @@
                         </p>
                         <ul>
                             <li v-for="gain in player.triumphGains.slice(0, 3)" :key="gain">
-                                <span v-html="formatContent(gain)" />
+                                <span v-html="formatText(gain)" />
                             </li>
                         </ul>
                         <Tippy tag="button" @click="showPlayerTriumphGainsDetails(player)">
@@ -280,7 +280,7 @@
                         </p>
                         <ul>
                             <li v-for="gain in player.triumphGains.slice(0, 3)" :key="gain">
-                                <span v-html="formatContent(gain)" />
+                                <span v-html="formatText(gain)" />
                             </li>
                         </ul>
                         <Tippy tag="button" @click="showPlayerTriumphGainsDetails(player)">
@@ -314,35 +314,18 @@
                 </tbody>
             </table>
 
-            <!-- <div class="progress">
-                <div>
-                    <p>Recherches</p>
-                    <ul>
-                        <li><img :src="getImgUrl('researches/mycoscan.png')" alt="Mycoscan"></li>
-                        <li><img :src="getImgUrl('researches/pheromodem.png')" alt="Pheromodem"></li>
-                    </ul>
-                </div>
-                <div>
-                    <p>Projets NERON</p>
-                    <ul>
-                        <li><img :src="getImgUrl('projects/dismantling.png')" alt="Dismantling"></li>
-                        <li><img :src="getImgUrl('projects/trash_load.png')" alt="Trash load"></li>
-                    </ul>
-                </div>
-                <div>
-                    <p>PILGRED</p>
-                    <ul>
-                        <li><img :src="getImgUrl('projects/pilgred.png')" alt="Pilgred"></li>
-                    </ul>
-                </div>
-                <div>
-                    <p>Bases rebelles</p>
-                    <ul>
-                        <li><img :src="getImgUrl('rebel_bases/bases_centauri.png')" alt="Centauri"></li>
-                        <li><img :src="getImgUrl('rebel_bases/bases_cygni.png')" alt="Cygni"></li>
-                    </ul>
+            <div class="progress">
+                <div v-for="projectType in projectTypes" :key="projectType">
+                    <p>{{ closedDaedalus.projects[projectType].title }}</p>
+                    <DaedalusProjectCard
+                        v-for="projectLine in closedDaedalus.projects[projectType].lines"
+                        :key="projectLine.key"
+                        :project="projectLine"
+                        :display-project-type="false"
+                    />
                 </div>
             </div>
+            <!--
             <div class="roles">
                 <div>
                     <p>Les Commandants</p>
@@ -374,7 +357,7 @@
                     </ul>
                 </div>
                 <div>
-                    <p>« J'aurais pas dû venir »</p>
+                    <p>"J'aurais pas dû venir"</p>
                     <ul>
                         <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
                     </ul>
@@ -422,6 +405,8 @@ import { getImgUrl } from "@/utils/getImgUrl";
 import ReportPopup from "@/components/Moderation/ReportPopup.vue";
 import { formatText } from "@/utils/formatText";
 import TriumphGainsPopup from "@/components/Ranking/TriumphGainsPopup.vue";
+import { toArray } from "@/utils/toArray";
+import DaedalusProjectCard from "@/components/Game/DaedalusProjectCard.vue";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -433,11 +418,12 @@ interface ClosedDaedalusState {
     reportPopupVisible: boolean,
     currentAction: { key: string, value: string },
     currentPlayer: ClosedPlayer|null,
+    projectTypes: readonly ['researchProjects', 'neronProjects', 'pilgredProjects']
 }
 
 export default defineComponent ({
     name: 'TheEnd',
-    components: { ReportPopup, ModerationActionPopup, TriumphGainsPopup },
+    components: { ReportPopup, ModerationActionPopup, TriumphGainsPopup, DaedalusProjectCard },
     computed: {
         ...mapGetters({
             isModerator: 'auth/isModerator'
@@ -453,7 +439,8 @@ export default defineComponent ({
             moderationDialogVisible: false,
             reportPopupVisible: false,
             currentAction: { key: "", value: "" },
-            currentPlayer: null
+            currentPlayer: null,
+            projectTypes: ['researchProjects', 'neronProjects', 'pilgredProjects'] as const
         };
     },
     methods: {
@@ -463,6 +450,7 @@ export default defineComponent ({
         }),
         getImgUrl,
         formatText,
+        toArray,
         async loadData() {
             const closedDaedalusId = String(this.$route.params.closedDaedalusId);
             await DaedalusService.loadClosedDaedalus(Number(closedDaedalusId))
@@ -905,8 +893,10 @@ h2 {
 .progress, .roles, .honors {
     & > div {
         flex-direction: row;
+        background-color: #222b6b;
+        padding: 0.5em;
 
-        &:not(:last-child) { border-bottom: 1px solid #0f0f43; }
+        &:not(:last-child) { border-bottom: 1px dotted #0f0f43; }
 
         p {
             width: 25%;
@@ -917,11 +907,6 @@ h2 {
             font-size: .9em;
             font-weight: bold;
             text-align: center;
-        }
-
-        ul {
-            flex-flow: row wrap;
-            padding: .8em;
         }
 
         li {
@@ -941,6 +926,7 @@ a.back {
     width: 85%;
     max-width: 300px;
     margin: auto;
+    margin-top: 1em;
 }
 
 @media only screen and (max-width: 560px) {

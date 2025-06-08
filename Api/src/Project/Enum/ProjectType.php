@@ -15,4 +15,13 @@ enum ProjectType: string
     {
         return $this->value;
     }
+
+    public static function fromCategory(string $category): self
+    {
+        return match ($category) {
+            'neronProjects' => self::NERON_PROJECT,
+            'pilgredProjects' => self::PILGRED,
+            'researchProjects' => self::RESEARCH,
+        };
+    }
 }

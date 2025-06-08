@@ -102,7 +102,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 [
-                    'type' => 'neron',
+                    'type' => 'neron_project',
                     'key' => 'armour_corridor',
                     'name' => 'Coursives blindées',
                     'description' => 'Les dégâts de chaque attaque subie par la coque du Daedalus sont diminués d\'un point.',

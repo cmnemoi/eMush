@@ -30,6 +30,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class Cure extends AbstractAction
 {
+    public const string PLAYER_VACCINATED = 'player_vaccinated';
     protected ActionEnum $name = ActionEnum::CURE;
     protected StatusServiceInterface $statusService;
 
@@ -70,6 +71,7 @@ class Cure extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $target = $this->playerTarget();
+        $mushCured = $target->isMush();
 
         $this->statusService->removeStatus(
             PlayerStatusEnum::MUSH,
@@ -78,18 +80,19 @@ class Cure extends AbstractAction
             new \DateTime(),
         );
 
-        $this->destroySerum();
+        $this->destroySerum($mushCured);
     }
 
-    private function destroySerum()
+    private function destroySerum(bool $mushCured)
     {
         $serum = $this->getPlayer()->getEquipmentByNameOrThrow(ToolItemEnum::RETRO_FUNGAL_SERUM);
+        $tags = $mushCured ? array_merge($this->getTags(), [self::PLAYER_VACCINATED]) : $this->getTags();
 
         $equipmentEvent = new InteractWithEquipmentEvent(
             $serum,
             $this->player,
             VisibilityEnum::HIDDEN,
-            $this->getTags(),
+            $tags,
             new \DateTime()
         );
 

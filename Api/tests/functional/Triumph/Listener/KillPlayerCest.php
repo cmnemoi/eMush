@@ -9,6 +9,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\Enum\TriumphEnum;
 
 /**
  * @internal
@@ -313,6 +314,48 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $I->assertEquals(16, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
 
         // Trader gets no triumph despite selling an enemy
+        $I->assertEquals(0, $this->chun->getTriumph());
+    }
+
+    public function shouldRewardWithCustomAllMushHumanicideTriumph(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->kuanTi->setTriumph(0);
+
+        // Given custom config rewards with 7 triumph
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_ALL_MUSH_HUMANICIDE)->setQuantity(7);
+
+        // When Chun dies
+        $this->playerService->killPlayer(
+            player: $this->chun,
+            endReason: EndCauseEnum::DEPRESSION,
+        );
+
+        // Then Mush gains 7 triumph for Chun death and 7 custom triumph
+        $I->assertEquals(14, $this->kuanTi->getTriumph());
+    }
+
+    public function shouldNotRewardWithCustomAllMushHumanicideTriumphOnMushDeath(FunctionalTester $I): void
+    {
+        $eleesha = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ELEESHA);
+        $this->convertPlayerToMush($I, $this->kuanTi);
+        $this->convertPlayerToMush($I, $eleesha);
+        $eleesha->setTriumph(0);
+        $this->kuanTi->setTriumph(0);
+        $this->chun->setTriumph(0);
+
+        // Given custom config rewards with 7 triumph
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_ALL_MUSH_HUMANICIDE)->setQuantity(7);
+
+        // When Mush dies
+        $this->playerService->killPlayer(
+            player: $this->kuanTi,
+            endReason: EndCauseEnum::DEPRESSION,
+        );
+
+        // No triumph gain
+        $I->assertEquals(0, $eleesha->getTriumph());
+        $I->assertEquals(0, $this->kuanTi->getTriumph());
         $I->assertEquals(0, $this->chun->getTriumph());
     }
 }

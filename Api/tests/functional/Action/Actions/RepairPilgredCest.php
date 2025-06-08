@@ -28,6 +28,7 @@ use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Triumph\Enum\TriumphEnum;
 
 /**
  * @internal
@@ -270,6 +271,26 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveOnePilgredPoint($I);
     }
 
+    public function shouldNotGiveCustomTriumphOnPilgredAdvanced(FunctionalTester $I): void
+    {
+        $this->givenCustomPilgredRewardsWithTriumph(7);
+
+        $this->whenPlayerRepairsPILGRED();
+
+        $this->thenAllPlayersShouldHaveTriumph(0, $I);
+    }
+
+    public function shouldGiveCustomTriumphOnPilgredFinished(FunctionalTester $I): void
+    {
+        $this->givenCustomPilgredRewardsWithTriumph(7);
+
+        $this->givenPilgredProgressIs(99);
+
+        $this->whenPlayerRepairsPILGRED();
+
+        $this->thenAllPlayersShouldHaveTriumph(7, $I);
+    }
+
     private function givenPlayerIsAPhysicist(FunctionalTester $I): void
     {
         $this->player->getCharacterConfig()->setSkillConfigs([
@@ -286,6 +307,16 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     private function givenPlayerHasTwoPilgredPoints(FunctionalTester $I): void
     {
         $I->assertEquals(2, $this->player->getSkillByNameOrThrow(SkillEnum::PHYSICIST)->getSkillPoints());
+    }
+
+    private function givenCustomPilgredRewardsWithTriumph(int $quantity): void
+    {
+        $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_PILGRED)->setQuantity($quantity);
+    }
+
+    private function givenPilgredProgressIs(int $quantity): void
+    {
+        $this->daedalus->getPilgred()->makeProgressAndUpdateParticipationDate($quantity);
     }
 
     private function whenPlayerRepairsPILGRED(): void
@@ -308,6 +339,12 @@ final class RepairPilgredCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveTenActionPoints(FunctionalTester $I): void
     {
         $I->assertEquals(10, $this->player->getActionPoint());
+    }
+
+    private function thenAllPlayersShouldHaveTriumph(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->player->getTriumph());
+        $I->assertEquals($quantity, $this->player2->getTriumph());
     }
 
     private function setPlayerProjectEfficiencyToZero(Player $player, Project $project): void

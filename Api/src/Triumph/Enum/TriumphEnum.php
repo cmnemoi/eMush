@@ -13,6 +13,17 @@ enum TriumphEnum: string
     case ANDIE_FATE = 'andie_fate';
     case CHUN_DEAD = 'chun_dead';
     case CHUN_LIVES = 'chun_lives';
+    case CM_ALIEN_DOWN = 'cm_alien_down';
+    case CM_ALL_MUSH_HUMANICIDE = 'cm_all_mush_humanicide';
+    case CM_ALL_NEW_MUSH = 'cm_all_new_mush';
+    case CM_DAEDALUS_EXPLODE = 'cm_daedalus_explode';
+    case CM_EXTINGUISH = 'cm_extinguish';
+    case CM_MUSH_VACCINATED = 'cm_mush_vaccinated';
+    case CM_PILGRED = 'cm_pilgred';
+    case CM_REPAIR_OBJECT = 'cm_repair_object';
+    case CM_REPAIR_HULL = 'cm_repair_hull';
+    case CM_SABOTAGE = 'cm_sabotage';
+    case CM_USE_EXTINGUISHER = 'cm_use_extinguisher';
     case CYCLE_HUMAN = 'cycle_human';
     case CYCLE_MUSH = 'cycle_mush';
     case CYCLE_MUSH_LATE = 'cycle_mush_late';

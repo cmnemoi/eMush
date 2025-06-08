@@ -705,5 +705,115 @@
         <target>eden_alien_plant_plus.log</target>
       </segment>
     </unit>
+    <unit id="cm_alien_down">
+      <segment id="cm_alien_down.name" state="initial">
+        <source>cm_alien_down.name</source>
+        <target>cm_alien_down.name</target>
+      </segment>
+      <segment id="cm_alien_down.log" state="initial">
+        <source>cm_alien_down.log</source>
+        <target>cm_alien_down.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_all_mush_humanicide">
+      <segment id="cm_all_mush_humanicide.name" state="initial">
+        <source>cm_all_mush_humanicide.name</source>
+        <target>cm_all_mush_humanicide.name</target>
+      </segment>
+      <segment id="cm_all_mush_humanicide.log" state="initial">
+        <source>cm_all_mush_humanicide.log</source>
+        <target>cm_all_mush_humanicide.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_all_new_mush">
+      <segment id="cm_all_new_mush.name" state="initial">
+        <source>cm_all_new_mush.name</source>
+        <target>cm_all_new_mush.name</target>
+      </segment>
+      <segment id="cm_all_new_mush.log" state="initial">
+        <source>cm_all_new_mush.log</source>
+        <target>cm_all_new_mush.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_daedalus_explode">
+      <segment id="cm_daedalus_explode.name" state="initial">
+        <source>cm_daedalus_explode.name</source>
+        <target>cm_daedalus_explode.name</target>
+      </segment>
+      <segment id="cm_daedalus_explode.log" state="initial">
+        <source>cm_daedalus_explode.log</source>
+        <target>cm_daedalus_explode.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_extinguish">
+      <segment id="cm_extinguish.name" state="initial">
+        <source>cm_extinguish.name</source>
+        <target>cm_extinguish.name</target>
+      </segment>
+      <segment id="cm_extinguish.log" state="initial">
+        <source>cm_extinguish.log</source>
+        <target>cm_extinguish.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_mush_vaccinated">
+      <segment id="cm_mush_vaccinated.name" state="initial">
+        <source>cm_mush_vaccinated.name</source>
+        <target>cm_mush_vaccinated.name</target>
+      </segment>
+      <segment id="cm_mush_vaccinated.log" state="initial">
+        <source>cm_mush_vaccinated.log</source>
+        <target>cm_mush_vaccinated.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_pilgred">
+      <segment id="cm_pilgred.name" state="initial">
+        <source>cm_pilgred.name</source>
+        <target>cm_pilgred.name</target>
+      </segment>
+      <segment id="cm_pilgred.log" state="initial">
+        <source>cm_pilgred.log</source>
+        <target>cm_pilgred.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_repair_object">
+      <segment id="cm_repair_object.name" state="initial">
+        <source>cm_repair_object.name</source>
+        <target>cm_repair_object.name</target>
+      </segment>
+      <segment id="cm_repair_object.log" state="initial">
+        <source>cm_repair_object.log</source>
+        <target>cm_repair_object.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_repair_hull">
+      <segment id="cm_repair_hull.name" state="initial">
+        <source>cm_repair_hull.name</source>
+        <target>cm_repair_hull.name</target>
+      </segment>
+      <segment id="cm_repair_hull.log" state="initial">
+        <source>cm_repair_hull.log</source>
+        <target>cm_repair_hull.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_sabotage">
+      <segment id="cm_sabotage.name" state="initial">
+        <source>cm_sabotage.name</source>
+        <target>cm_sabotage.name</target>
+      </segment>
+      <segment id="cm_sabotage.log" state="initial">
+        <source>cm_sabotage.log</source>
+        <target>cm_sabotage.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_use_extinguisher">
+      <segment id="cm_use_extinguisher.name" state="initial">
+        <source>cm_use_extinguisher.name</source>
+        <target>cm_use_extinguisher.name</target>
+      </segment>
+      <segment id="cm_use_extinguisher.log" state="initial">
+        <source>cm_use_extinguisher.log</source>
+        <target>cm_use_extinguisher.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

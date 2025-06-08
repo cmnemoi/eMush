@@ -126,6 +126,29 @@ final class FlirtActionCest extends AbstractFunctionalTest
         $this->thenActionShouldNotBeExecutableWithMessage(ActionImpossibleCauseEnum::FLIRT_ANTISOCIAL, $I);
     }
 
+    public function shouldGiveDerekTriumphWhenLovedBack(FunctionalTester $I): void
+    {
+        $this->whenAFlirtsWithB($this->derek, $this->chun);
+        $this->thenDerekShouldHaveTriumph(0, $I);
+        $this->whenAFlirtsWithB($this->chun, $this->derek);
+        $this->thenDerekShouldHaveTriumph(2, $I);
+    }
+
+    public function shouldGiveDerekTriumphWhenLovingBack(FunctionalTester $I): void
+    {
+        $this->whenAFlirtsWithB($this->chun, $this->derek);
+        $this->thenDerekShouldHaveTriumph(0, $I);
+        $this->whenAFlirtsWithB($this->derek, $this->chun);
+        $this->thenDerekShouldHaveTriumph(2, $I);
+    }
+
+    public function shouldNotGiveDerekTriumphWhenTwoOtherPeopleAreFlirtingEachOther(FunctionalTester $I): void
+    {
+        $this->whenAFlirtsWithB($this->chun, $this->andie);
+        $this->whenAFlirtsWithB($this->andie, $this->chun);
+        $this->thenDerekShouldHaveTriumph(0, $I);
+    }
+
     private function givenFreeLoveIs(bool $bool)
     {
         $this->daedalus->getDaedalusConfig()->setFreeLove($bool);
@@ -173,5 +196,10 @@ final class FlirtActionCest extends AbstractFunctionalTest
     private function thenAHasBInFlirtList(Player $player, Player $target, FunctionalTester $I): void
     {
         $I->assertTrue($player->hasFlirtedWith($target));
+    }
+
+    private function thenDerekShouldHaveTriumph(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->derek->getTriumph());
     }
 }

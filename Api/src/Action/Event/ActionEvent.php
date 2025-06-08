@@ -253,10 +253,21 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         return $this->getAuthor()->getDaedalus();
     }
 
+    protected function addEventTags(): void
+    {
+        if ($this->actionConfig->getActionName() === ActionEnum::FLIRT) {
+            $target = $this->getPlayerActionTargetOrThrow();
+            if ($target->hasFlirtedWith($this->getAuthor())) {
+                $this->addTag(self::LOVE_BACK);
+            }
+        }
+    }
+
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {
             TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
+            TriumphTarget::PARTICIPANT => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor() || $player === $this->getPlayerActionTarget()),
             default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
     }

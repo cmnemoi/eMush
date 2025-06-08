@@ -53,6 +53,7 @@ enum TriumphEnum: string
     case KUBE_SOLVED = 'kube_solved';
     case LANDER = 'lander';
     case LOOKING_FOR_KIVANC = 'looking_for_kivanc';
+    case LOVER = 'lover';
     case MAGELLAN_ARK = 'magellan_ark';
     case MUSH_FEAR = 'mush_fear';
     case MUSH_INITIAL_BONUS = 'mush_initial_bonus';

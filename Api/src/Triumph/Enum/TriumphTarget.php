@@ -10,6 +10,7 @@ enum TriumphTarget: string
     case AUTHOR = 'author';
     case COMMANDER = 'commander';
     case EVENT_SUBJECT = 'event_subject';
+    case PARTICIPANT = 'participant';
     case NONE = '';
 
     public function toString(): string

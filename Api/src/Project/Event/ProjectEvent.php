@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Project\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
@@ -59,6 +60,11 @@ final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEvent
     public function getDaedalus(): Daedalus
     {
         return $this->project->getDaedalus();
+    }
+
+    public function getDaedalusProjectsStatistics(): DaedalusProjectsStatistics
+    {
+        return $this->getDaedalus()->getDaedalusInfo()->getDaedalusProjectsStatistics();
     }
 
     public function isNotAboutFinishedProject(): bool

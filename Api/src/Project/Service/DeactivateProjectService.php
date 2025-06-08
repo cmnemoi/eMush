@@ -27,5 +27,7 @@ final readonly class DeactivateProjectService
                 modifierProvider: $project
             );
         }
+
+        $project->getDaedalusProjectsStatistics()->removeCompletedProject($project);
     }
 }

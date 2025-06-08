@@ -65,6 +65,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
             daedalusInfo: $daedalus->getDaedalusInfo()
         );
         $normalizedDaedalus['statistics'] = $this->getNormalizedStatistics($daedalus);
+        $normalizedDaedalus['projects'] = $this->getNormalizedProjects($daedalus);
 
         return $normalizedDaedalus;
     }
@@ -91,5 +92,55 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $normalizedStatistics;
+    }
+
+    private function getNormalizedProjects(ClosedDaedalus $daedalus): array
+    {
+        $normalizedProjects = [];
+
+        foreach ($daedalus->getDaedalusInfo()->getDaedalusProjectsStatistics()->toArray() as $categoryBaseName => $category) {
+            $categoryName = $this->translationService->translate(
+                key: $categoryBaseName,
+                parameters: [],
+                domain: 'the_end',
+                language: $daedalus->getLanguage()
+            );
+
+            $normalizedProjects[$categoryBaseName] = [
+                'title' => $categoryName,
+                'lines' => [],
+            ];
+
+            foreach ($category as $projectBaseName) {
+                $projectName = $this->translationService->translate(
+                    key: "{$projectBaseName}.name",
+                    parameters: [],
+                    domain: 'project',
+                    language: $daedalus->getLanguage()
+                );
+
+                $projectDescription = $this->translationService->translate(
+                    key: "{$projectBaseName}.description",
+                    parameters: [],
+                    domain: 'project',
+                    language: $daedalus->getLanguage()
+                );
+
+                $projectLore = $this->translationService->translate(
+                    key: "{$projectBaseName}.lore",
+                    parameters: [],
+                    domain: 'project',
+                    language: $daedalus->getLanguage()
+                );
+
+                $normalizedProjects[$categoryBaseName]['lines'][] = [
+                    'name' => $projectName,
+                    'description' => $projectDescription,
+                    'lore' => $projectLore,
+                ];
+            }
+        }
+
+        return $normalizedProjects;
     }
 }

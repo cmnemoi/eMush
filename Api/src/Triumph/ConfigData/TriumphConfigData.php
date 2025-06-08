@@ -337,8 +337,8 @@ abstract class TriumphConfigData
                     GamePlantEnum::PULMMINAGRO => TriumphSourceEventInterface::ANY_TAG,
                     GamePlantEnum::TUBILISCUS => TriumphSourceEventInterface::ANY_TAG,
                 ],
-                scope: TriumphScope::HUMAN_AUTHOR,
-                target: CharacterEnum::IAN,
+                scope: TriumphScope::PERSONAL_IAN,
+                targetSetting: TriumphTarget::AUTHOR,
                 quantity: 3,
             ),
             new TriumphConfigDto(

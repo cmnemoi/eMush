@@ -83,6 +83,7 @@ class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterfa
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {
+            TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor()),
             TriumphTarget::ACTIVE_EXPLORERS => $scopeTargets->filter(fn (Player $player) => $this->daedalus->getExplorationOrThrow()->getNotLostActiveExplorators()->contains($player)),
             default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };

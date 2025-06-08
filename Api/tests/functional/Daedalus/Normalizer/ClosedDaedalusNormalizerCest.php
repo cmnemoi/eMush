@@ -102,6 +102,8 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 [
+                    'type' => 'neron',
+                    'key' => 'armour_corridor',
                     'name' => 'Coursives blindées',
                     'description' => 'Les dégâts de chaque attaque subie par la coque du Daedalus sont diminués d\'un point.',
                     'lore' => 'Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo-armure !',
@@ -112,6 +114,8 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 [
+                    'type' => 'research',
+                    'key' => 'anabolics',
                     'name' => 'Anabolisant',
                     'description' => 'Génère 4 Anabolisants, qui peuvent être consommés pour donner 8 :pm: .',
                     'lore' => 'La molécule de Grempf stimule la création d\'hormones androgènes telles que la testostérone. Cela fonctionne sur les êtres humains quel que soit leur sexe, les animaux et même les plantes. Vous avez déjà entendu parler de la mystérieuse transhumance des séquoias du parc de Yosemite ? Bah voilà.',
@@ -122,6 +126,8 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 [
+                    'type' => 'pilgred',
+                    'key' => 'pilgred',
                     'name' => 'PILGRED',
                     'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre. De plus, la machine à café se régénèrera quatre fois plus vite.',
                     'lore' => '',

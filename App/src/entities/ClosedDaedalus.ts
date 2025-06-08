@@ -1,8 +1,24 @@
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
+import { DaedalusProject } from "./Daedalus";
 
 type DaedalusStatistics = {
     title: string;
     lines: {name: string, value: number}[];
+}
+
+type ClosedDaedalusProjects = {
+    neronProjects: {
+        title: string;
+        lines: DaedalusProject[];
+    };
+    researchProjects: {
+        title: string;
+        lines: DaedalusProject[];
+    };
+    pilgredProjects: {
+        title: string;
+        lines: DaedalusProject[];
+    };
 }
 
 export class ClosedDaedalus {
@@ -13,6 +29,7 @@ export class ClosedDaedalus {
     public endCycle: integer|null;
     public players: ClosedPlayer[]|null;
     public statistics!: DaedalusStatistics;
+    public projects!: ClosedDaedalusProjects;
 
     constructor() {
         this.iri = null;
@@ -30,6 +47,7 @@ export class ClosedDaedalus {
             this.endDay = object.endDay;
             this.endCycle = object.endCycle;
             this.statistics = object.statistics;
+            this.projects = object.projects;
             if (typeof object.players !== 'undefined') {
                 const players: ClosedPlayer[] = [];
                 object.players.forEach((playerData: any) => {
@@ -50,7 +68,8 @@ export class ClosedDaedalus {
             'endDay': this.endDay,
             'endCycle': this.endCycle,
             'players': players,
-            'statistics': this.statistics
+            'statistics': this.statistics,
+            'projects': this.projects
         };
 
         return data;

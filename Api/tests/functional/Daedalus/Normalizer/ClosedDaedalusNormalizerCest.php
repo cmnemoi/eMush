@@ -107,7 +107,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                     'lore' => 'Eurêka ! Dans Magellan, les fibres optiques qui longent les coursives peuvent se compresser automatiquement pour pouvoir rajouter facilement des câbles. En injectant des câbles en trop, vous pouvez créer une pseudo-armure !',
                 ],
             ],
-            actual: $normalizedDaedalus['projects']['Projets Néron']
+            actual: $normalizedDaedalus['projects']['neronProjects']['lines']
         );
         $I->assertEquals(
             expected: [
@@ -117,7 +117,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                     'lore' => 'La molécule de Grempf stimule la création d\'hormones androgènes telles que la testostérone. Cela fonctionne sur les êtres humains quel que soit leur sexe, les animaux et même les plantes. Vous avez déjà entendu parler de la mystérieuse transhumance des séquoias du parc de Yosemite ? Bah voilà.',
                 ],
             ],
-            actual: $normalizedDaedalus['projects']['Recherches']
+            actual: $normalizedDaedalus['projects']['researchProjects']['lines']
         );
         $I->assertEquals(
             expected: [
@@ -127,7 +127,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                     'lore' => '',
                 ],
             ],
-            actual: $normalizedDaedalus['projects']['PILGRED']
+            actual: $normalizedDaedalus['projects']['pilgredProjects']['lines']
         );
     }
 }

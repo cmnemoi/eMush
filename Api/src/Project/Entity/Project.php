@@ -12,6 +12,7 @@ use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
 use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
@@ -196,6 +197,11 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     public function getDaedalus(): Daedalus
     {
         return $this->daedalus;
+    }
+
+    public function getDaedalusProjectsStatistics(): DaedalusProjectsStatistics
+    {
+        return $this->getDaedalus()->getDaedalusInfo()->getDaedalusProjectsStatistics();
     }
 
     public function makeProgress(int $progress): void

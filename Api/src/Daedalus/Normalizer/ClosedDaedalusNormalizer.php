@@ -106,7 +106,10 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
                 language: $daedalus->getLanguage()
             );
 
-            $normalizedProjects[$categoryName] = [];
+            $normalizedProjects[$categoryBaseName] = [
+                'title' => $categoryName,
+                'lines' => [],
+            ];
 
             foreach ($category as $projectBaseName) {
                 $projectName = $this->translationService->translate(
@@ -130,7 +133,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
                     language: $daedalus->getLanguage()
                 );
 
-                $normalizedProjects[$categoryName][] = [
+                $normalizedProjects[$categoryBaseName]['lines'][] = [
                     'name' => $projectName,
                     'description' => $projectDescription,
                     'lore' => $projectLore,

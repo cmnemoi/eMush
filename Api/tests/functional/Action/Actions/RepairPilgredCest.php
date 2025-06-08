@@ -280,7 +280,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
         $this->thenAllPlayersShouldHaveTriumph(0, $I);
     }
 
-    public function shouldNotGiveCustomTriumphOnPilgredFinished(FunctionalTester $I): void
+    public function shouldGiveCustomTriumphOnPilgredFinished(FunctionalTester $I): void
     {
         $this->givenCustomPilgredRewardsWithTriumph(7);
 

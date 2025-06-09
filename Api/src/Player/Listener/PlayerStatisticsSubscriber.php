@@ -40,13 +40,11 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             $playerStatistics->incrementActionPointsWasted($apSpent);
         } elseif ($apSpent > 0 && $apSpent <= $apBaseCost) {
             $playerStatistics->incrementActionPointsUsed($apSpent);
-            $playerStatistics->incrementActionsDone();
         } elseif ($apSpent > $apBaseCost) {
             $playerStatistics->incrementActionPointsUsed($apBaseCost);
             $playerStatistics->incrementActionPointsWasted($apSpent - $apBaseCost);
-            $playerStatistics->incrementActionsDone();
         } elseif ($apBaseCost > 0 && $this->hasUsedSkillPoint($event)) {
-            $playerStatistics->incrementActionsDone();
+            $playerStatistics->incrementActionPointsUsed($apBaseCost);
         }
 
         $this->playerRepository->save($player);

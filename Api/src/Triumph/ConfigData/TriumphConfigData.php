@@ -14,6 +14,7 @@ use Mush\Communications\Event\RebelBaseDecodedEvent;
 use Mush\Communications\Event\XylophEntryDecodedEvent;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Event\DaedalusEvent;
+use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Exploration\Enum\PlanetSectorEnum;
@@ -315,6 +316,30 @@ abstract class TriumphConfigData
                 ],
                 scope: TriumphScope::ALL_ALIVE_MUSHS,
                 quantity: 7,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::NATURALIST->toConfigKey('default'),
+                name: TriumphEnum::NATURALIST,
+                targetedEvent: EquipmentEvent::EQUIPMENT_CREATED,
+                tagConstraints: [
+                    ActionEnum::TRANSPLANT->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                    GamePlantEnum::ASPERAGUNK => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::BIFFLON => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::BUMPJUMPKIN => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::BUTTALIEN => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::CACTAX => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::CREEPIST => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::FIBONICCUS => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::GRAAPSHOOT => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::MYCOPIA => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::PLATACIA => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::PRECATUS => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::PULMMINAGRO => TriumphSourceEventInterface::ANY_TAG,
+                    GamePlantEnum::TUBILISCUS => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::PERSONAL_IAN,
+                targetSetting: TriumphTarget::AUTHOR,
+                quantity: 3,
             ),
             new TriumphConfigDto(
                 key: TriumphEnum::MUSH_FEAR->toConfigKey('default'),

@@ -103,7 +103,8 @@ class Transplant extends AbstractAction
             $this->player,
             $this->getActionConfig()->getActionTags(),
             new \DateTime(),
-            VisibilityEnum::PUBLIC
+            VisibilityEnum::PUBLIC,
+            author: $this->player,
         );
     }
 }

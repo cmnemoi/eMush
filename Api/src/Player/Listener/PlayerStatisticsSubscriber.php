@@ -66,6 +66,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
 
         // Waste AP spent on movement
         if ($event->getActionName() === ActionEnum::CONVERT_ACTION_TO_MOVEMENT) {
+            $playerStatistics->incrementActionPointsUsed($apSpent);
             $playerStatistics->incrementActionPointsWasted($apSpent);
         }
 

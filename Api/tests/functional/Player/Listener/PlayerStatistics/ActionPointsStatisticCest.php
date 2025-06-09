@@ -8,6 +8,7 @@ use Mush\Action\Actions\Consume;
 use Mush\Action\Actions\Daunt;
 use Mush\Action\Actions\ExtractSpore;
 use Mush\Action\Actions\Move;
+use Mush\Action\Actions\Search;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Communications\Entity\RebelBase;
@@ -57,7 +58,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->givenDaedalusHasIcarusBay($I);
     }
 
-    public function shouldUpdateTargetedActionReducingAnotherPlayerActionPoints(FunctionalTester $I)
+    public function shouldUpdateTargetedActionReducingAnotherPlayerActionPoints(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::INTIMIDATING, $I, $this->kuanTi);
 
@@ -72,7 +73,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionsDone($this->chun, 0, $I);
     }
 
-    public function shouldUpdateModifiedToIncreaseCostMushAction(FunctionalTester $I)
+    public function shouldUpdateModifiedToIncreaseCostMushAction(FunctionalTester $I): void
     {
         $this->givenKuanTiIsMush($I);
         $this->givenCompleteProject(ProjectName::CONSTIPASPORE_SERUM, $I);
@@ -84,7 +85,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 1, $I);
     }
 
-    public function shouldUpdateModifiedToIncreaseCostMushActionButWithSkillPoint(FunctionalTester $I)
+    public function shouldUpdateModifiedToIncreaseCostMushActionButWithSkillPoint(FunctionalTester $I): void
     {
         $this->givenKuanTiIsMush($I);
         $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->kuanTi); // given spore skill point
@@ -97,7 +98,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 1, $I);
     }
 
-    public function shouldWasteActionPointSpentForMovement(FunctionalTester $I)
+    public function shouldWasteActionPointSpentForMovement(FunctionalTester $I): void
     {
         $this->givenKuanTiHasNoMovementPoints();
 
@@ -108,7 +109,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
-    public function shouldWasteMoreActionPointsSpentForMovement(FunctionalTester $I)
+    public function shouldWasteMoreActionPointsSpentForMovement(FunctionalTester $I): void
     {
         $this->givenKuanTiHasNoMovementPoints();
         $this->givenKuanTiHasStatus(PlayerStatusEnum::DISABLED);
@@ -122,7 +123,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
-    public function shouldWasteActionPointsOnModifiedConsumptionGain(FunctionalTester $I)
+    public function shouldWasteActionPointsOnModifiedConsumptionGain(FunctionalTester $I): void
     {
         $this->givenSiriusRebelBaseIsDecoded($I);
         $ration = $this->givenKuanTiHasItem(ItemEnum::STANDARD_RATION);
@@ -135,7 +136,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
-    public function shouldWasteActionPointsOnCycleChange(FunctionalTester $I)
+    public function shouldWasteActionPointsOnCycleChange(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::LOGISTICS_EXPERT, $I, $this->chun);
         $this->givenKuanTiHasActionPoints(11);
@@ -147,7 +148,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
-    public function shouldWasteActionPointsWhenFullOnCycleChange(FunctionalTester $I)
+    public function shouldWasteActionPointsWhenFullOnCycleChange(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::LOGISTICS_EXPERT, $I, $this->chun);
         $this->givenKuanTiHasActionPoints(12);
@@ -156,6 +157,17 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
+        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
+    }
+
+    public function shouldNotIncrementStatisticsOnFreeAction(FunctionalTester $I)
+    {
+        $this->addSkillToPlayer(SkillEnum::OBSERVANT, $I, $this->kuanTi);
+
+        $this->whenKuanTiSearchesTheRoom($I);
+
+        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
+        $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
@@ -295,6 +307,19 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
     {
         $event = new DaedalusEvent($this->daedalus, [], new \DateTime());
         $this->eventService->callEvent($event, DaedalusEvent::DAEDALUS_NEW_CYCLE);
+    }
+
+    private function whenKuanTiSearchesTheRoom(FunctionalTester $I): void
+    {
+        $search = $I->grabService(Search::class);
+        $actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SEARCH]);
+
+        $search->loadParameters(
+            actionConfig: $actionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+        );
+        $search->execute();
     }
 
     private function thenPlayerShouldHaveActionPointsUsed(Player $player, int $quantity, FunctionalTester $I): void

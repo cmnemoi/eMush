@@ -31,7 +31,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $player = $event->getAuthorOrThrow();
+        $player = $event->getAuthor();
         $playerStatistics = $player->getPlayerInfo()->getStatistics();
         $apBaseCost = $event->getActionConfig()->getActionCost();
         $apSpent = $event->getRoundedQuantity();

@@ -28,6 +28,8 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $timesTalked = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
+    private int $actionsDone = 0;
+    #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $actionPointsUsed = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $actionPointsWasted = 0;
@@ -64,7 +66,17 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $revealedSecretActionsTaken = 0;
 
-    public function __construct() {}
+    public function getActionsDone(): int
+    {
+        return $this->actionsDone;
+    }
+
+    public function incrementActionsDone(): static
+    {
+        ++$this->actionsDone;
+
+        return $this;
+    }
 
     public function getActionPointsUsed(): int
     {
@@ -78,6 +90,22 @@ class PlayerStatistics
         }
 
         $this->actionPointsUsed += $delta;
+
+        return $this;
+    }
+
+    public function getActionPointsWasted(): int
+    {
+        return $this->actionPointsWasted;
+    }
+
+    public function incrementActionPointsWasted(int $delta): static
+    {
+        if ($delta < 0) {
+            throw new \LogicException("Delta for action points used shouldn't be negative");
+        }
+
+        $this->actionPointsWasted += $delta;
 
         return $this;
     }

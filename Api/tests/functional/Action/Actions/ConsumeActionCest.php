@@ -604,6 +604,26 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->thenContaminatorShouldHaveTriumph(10, $I); // +1 infection, +1 infection, +8 conversion
     }
 
+    public function shouldImproveTimesEatenStatisticWhenEatingContaminatedRation(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasAContaminatedRationWithSpores(4);
+
+        $this->whenKuanTiConsumesTheRation();
+
+        $I->assertEquals(1, $this->kuanTi->getPlayerInfo()->getStatistics()->getTimesEaten());
+        $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getStatistics()->getDrugsTaken());
+    }
+
+    public function shouldImproveTimesEatenStatisticWhenEatingFruit(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasKubinus();
+
+        $this->whenKuanTiConsumesTheKubinus();
+
+        $I->assertEquals(1, $this->kuanTi->getPlayerInfo()->getStatistics()->getTimesEaten());
+        $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getStatistics()->getDrugsTaken());
+    }
+
     private function givenKuanTiHasAContaminatedRationWithSpores(int $spores): void
     {
         $ration = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -637,6 +657,16 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->contaminator->setTriumph($quantity);
     }
 
+    private function givenKuanTiHasKubinus(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameFruitEnum::KUBINUS,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenKuanTiConsumesTheRation(): void
     {
         $this->consumeAction->loadParameters(
@@ -644,6 +674,17 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             actionProvider: $this->kuanTi->getEquipmentByName(GameRationEnum::STANDARD_RATION),
             player: $this->kuanTi,
             target: $this->kuanTi->getEquipmentByName(GameRationEnum::STANDARD_RATION),
+        );
+        $this->consumeAction->execute();
+    }
+
+    private function whenKuanTiConsumesTheKubinus(): void
+    {
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $this->kuanTi->getEquipmentByName(GameFruitEnum::KUBINUS),
+            player: $this->kuanTi,
+            target: $this->kuanTi->getEquipmentByName(GameFruitEnum::KUBINUS),
         );
         $this->consumeAction->execute();
     }

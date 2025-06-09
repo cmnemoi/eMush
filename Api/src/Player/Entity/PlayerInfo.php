@@ -35,7 +35,7 @@ class PlayerInfo
     #[ORM\OneToOne(inversedBy: 'playerInfo', targetEntity: ClosedPlayer::class, cascade: ['ALL'])]
     private ClosedPlayer $closedPlayer;
 
-    #[ORM\OneToOne(targetEntity: PlayerStatistics::class)]
+    #[ORM\Embedded(class: PlayerStatistics::class)]
     private PlayerStatistics $playerStatistics;
 
     public function __construct(

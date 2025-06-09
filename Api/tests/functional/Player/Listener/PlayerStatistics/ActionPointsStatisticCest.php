@@ -78,7 +78,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->whenKuanTiExtractsASpore($I); // 2 AP base + 2 AP modified cost
 
-        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 2, $I);
+        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 4, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
     }
 
@@ -100,7 +100,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->whenKuanTiMovesTo(RoomEnum::MEDLAB);
 
-        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
+        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 1, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 1, $I);
     }
 
@@ -113,7 +113,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         // 2 AP cost = 1 MP base + 2 MP burdened - 1 MP disabled with Chun in room (conversion rate: 1 AP to 1 MP)
         $this->whenKuanTiMovesTo(RoomEnum::MEDLAB);
 
-        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
+        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 2, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
     }
 

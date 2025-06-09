@@ -37,11 +37,12 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
         $apSpent = $event->getRoundedQuantity();
 
         if ($event->getActionName() === ActionEnum::CONVERT_ACTION_TO_MOVEMENT) {
+            $playerStatistics->incrementActionPointsUsed($apSpent);
             $playerStatistics->incrementActionPointsWasted($apSpent);
         } elseif ($apSpent > 0 && $apSpent <= $apBaseCost) {
             $playerStatistics->incrementActionPointsUsed($apSpent);
         } elseif ($apSpent > $apBaseCost) {
-            $playerStatistics->incrementActionPointsUsed($apBaseCost);
+            $playerStatistics->incrementActionPointsUsed($apSpent);
             $playerStatistics->incrementActionPointsWasted($apSpent - $apBaseCost);
         } elseif ($apBaseCost > 0 && $this->hasUsedSkillPoint($event)) {
             $playerStatistics->incrementActionPointsUsed($apBaseCost);

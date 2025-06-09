@@ -26,8 +26,8 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionVariableEvent::APPLY_COST => 'onApplyCost',
             ActionEvent::RESULT_ACTION => 'onResultAction',
+            ActionVariableEvent::APPLY_COST => 'onApplyCost',
             PlayerCycleEvent::PLAYER_NEW_CYCLE => 'onNewCycle',
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
             VariableEventInterface::CHANGE_VARIABLE => ['onChangeVariable', 1], // Before the variable is changed

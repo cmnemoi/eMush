@@ -72,7 +72,7 @@ class PlayerStatistics
     public function incrementActionPointsUsed(int $delta): static
     {
         if ($delta < 0) {
-            throw new \LogicException("Delta for action points used shouldn't be negative");
+            throw new \LogicException("Increase for action points used statistic shouldn't be negative");
         }
 
         $this->actionPointsUsed += $delta;
@@ -88,7 +88,7 @@ class PlayerStatistics
     public function incrementActionPointsWasted(int $delta): static
     {
         if ($delta < 0) {
-            throw new \LogicException("Delta for action points used shouldn't be negative");
+            throw new \LogicException("Increase for action points wasted statistic shouldn't be negative");
         }
 
         $this->actionPointsWasted += $delta;

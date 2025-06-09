@@ -28,6 +28,8 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $timesTalked = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
+    private int $actionsDone = 0;
+    #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $actionPointsUsed = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $actionPointsWasted = 0;

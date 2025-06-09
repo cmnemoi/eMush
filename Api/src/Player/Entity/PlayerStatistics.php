@@ -28,8 +28,6 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $timesTalked = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
-    private int $actionsDone = 0;
-    #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $actionPointsUsed = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $actionPointsWasted = 0;
@@ -65,18 +63,6 @@ class PlayerStatistics
     private int $uncoveredSecretActionsTaken = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $revealedSecretActionsTaken = 0;
-
-    public function getActionsDone(): int
-    {
-        return $this->actionsDone;
-    }
-
-    public function incrementActionsDone(): static
-    {
-        ++$this->actionsDone;
-
-        return $this;
-    }
 
     public function getActionPointsUsed(): int
     {

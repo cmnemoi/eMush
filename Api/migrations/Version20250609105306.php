@@ -30,7 +30,6 @@ final class Version20250609105306 extends AbstractMigration
         $this->addSql('ALTER TABLE player_info ADD player_statistics_lost_cycles INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_times_killed INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_times_talked INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE player_info ADD player_statistics_actions_done INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_action_points_used INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_action_points_wasted INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_times_eaten INT DEFAULT 0 NOT NULL');
@@ -64,7 +63,6 @@ final class Version20250609105306 extends AbstractMigration
         $this->addSql('ALTER TABLE player_info DROP player_statistics_lost_cycles');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_times_killed');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_times_talked');
-        $this->addSql('ALTER TABLE player_info DROP player_statistics_actions_done');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_action_points_used');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_action_points_wasted');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_times_eaten');

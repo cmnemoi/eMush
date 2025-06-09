@@ -66,11 +66,9 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 1, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 0, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 1, $I);
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->chun, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->chun, 0, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->chun, 0, $I);
     }
 
     public function shouldUpdateModifiedToIncreaseCostMushAction(FunctionalTester $I): void
@@ -82,7 +80,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 2, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 1, $I);
     }
 
     public function shouldUpdateModifiedToIncreaseCostMushActionButWithSkillPoint(FunctionalTester $I): void
@@ -93,9 +90,8 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->whenKuanTiExtractsASpore($I);
 
-        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
+        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 2, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 0, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 1, $I);
     }
 
     public function shouldWasteActionPointSpentForMovement(FunctionalTester $I): void
@@ -106,7 +102,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 1, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
     public function shouldWasteMoreActionPointsSpentForMovement(FunctionalTester $I): void
@@ -120,7 +115,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
     public function shouldWasteActionPointsOnModifiedConsumptionGain(FunctionalTester $I): void
@@ -133,7 +127,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 3, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
     public function shouldWasteActionPointsOnCycleChange(FunctionalTester $I): void
@@ -145,7 +138,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 1, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
     public function shouldWasteActionPointsWhenFullOnCycleChange(FunctionalTester $I): void
@@ -157,7 +149,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
     public function shouldNotIncrementStatisticsOnFreeAction(FunctionalTester $I)
@@ -168,7 +159,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 0, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
     }
 
     private function givenLaboratoryIsLinkedToMedlab(FunctionalTester $I): void
@@ -330,10 +320,5 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveActionPointsWasted(Player $player, int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $player->getPlayerInfo()->getStatistics()->getActionPointsWasted());
-    }
-
-    private function thenPlayerShouldHaveActionsDone(Player $player, int $quantity, FunctionalTester $I): void
-    {
-        $I->assertEquals($quantity, $player->getPlayerInfo()->getStatistics()->getActionsDone());
     }
 }

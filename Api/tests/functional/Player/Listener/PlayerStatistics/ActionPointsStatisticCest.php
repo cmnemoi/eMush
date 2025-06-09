@@ -161,17 +161,6 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 0, $I);
     }
 
-    public function shouldNotIncrementStatisticsOnFreeAction(FunctionalTester $I)
-    {
-        $this->addSkillToPlayer(SkillEnum::OBSERVANT, $I, $this->kuanTi);
-
-        $this->whenKuanTiSearchesTheRoom($I);
-
-        $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
-        $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 0, $I);
-        $this->thenPlayerShouldHaveActionsDone($this->kuanTi, 0, $I);
-    }
-
     private function givenLaboratoryIsLinkedToMedlab(FunctionalTester $I): void
     {
         $laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);

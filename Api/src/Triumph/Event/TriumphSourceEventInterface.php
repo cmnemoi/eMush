@@ -6,7 +6,6 @@ namespace Mush\Triumph\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Collection\PlayerCollection;
-use Mush\Player\Entity\Player;
 use Mush\Triumph\Entity\TriumphConfig;
 
 interface TriumphSourceEventInterface
@@ -19,8 +18,6 @@ interface TriumphSourceEventInterface
     public const string LOVE_BACK = 'love_back';
 
     public function doesNotHaveTag(string $tag): bool;
-
-    public function getAuthorOrThrow(): Player;
 
     public function getDaedalus(): Daedalus;
 

@@ -59,6 +59,8 @@ final class TryKubeCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::TRY_KUBE,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+
+        $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getKubeUsed());
     }
 
     public function shouldSolveTheKube(FunctionalTester $I)

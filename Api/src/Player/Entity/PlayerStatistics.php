@@ -64,6 +64,66 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $revealedSecretActionsTaken = 0;
 
+    public function getTimesCooked(): int
+    {
+        return $this->timesCooked;
+    }
+
+    public function incrementTimesCooked(): static
+    {
+        ++$this->timesCooked;
+
+        return $this;
+    }
+
+    public function getTechSuccesses(): int
+    {
+        return $this->techSuccesses;
+    }
+
+    public function incrementTechSuccesses(): static
+    {
+        ++$this->techSuccesses;
+
+        return $this;
+    }
+
+    public function getTechFails(): int
+    {
+        return $this->techFails;
+    }
+
+    public function incrementTechFails(): static
+    {
+        ++$this->techFails;
+
+        return $this;
+    }
+
+    public function getLinkImproved(): int
+    {
+        return $this->linkImproved;
+    }
+
+    public function incrementLinkImproved(): static
+    {
+        ++$this->linkImproved;
+
+        return $this;
+    }
+
+    public function getTimesCaressed(): int
+    {
+        return $this->timesCaressed;
+    }
+
+    public function incrementTimesCaressed(): static
+    {
+        ++$this->timesCaressed;
+
+        return $this;
+    }
+
     public function getActionPointsUsed(): int
     {
         return $this->actionPointsUsed;
@@ -96,6 +156,18 @@ class PlayerStatistics
         return $this;
     }
 
+    public function getTimesEaten(): int
+    {
+        return $this->timesEaten;
+    }
+
+    public function incrementTimesEaten(): static
+    {
+        ++$this->timesEaten;
+
+        return $this;
+    }
+
     public function getSleptCycles(): int
     {
         return $this->sleptCycles;
@@ -120,6 +192,30 @@ class PlayerStatistics
         return $this;
     }
 
+    public function getTimesHacked(): int
+    {
+        return $this->timesHacked;
+    }
+
+    public function incrementTimesHacked(): static
+    {
+        ++$this->timesHacked;
+
+        return $this;
+    }
+
+    public function getLinkFixed(): int
+    {
+        return $this->linkFixed;
+    }
+
+    public function incrementLinkFixed(): static
+    {
+        ++$this->linkFixed;
+
+        return $this->incrementLinkImproved();
+    }
+
     public function getSleepInterupted(): int
     {
         return $this->sleepInterupted;
@@ -128,6 +224,30 @@ class PlayerStatistics
     public function incrementSleepInterupted(): static
     {
         ++$this->sleepInterupted;
+
+        return $this;
+    }
+
+    public function getDrugsTaken(): int
+    {
+        return $this->drugsTaken;
+    }
+
+    public function incrementDrugsTaken(): static
+    {
+        ++$this->drugsTaken;
+
+        return $this;
+    }
+
+    public function getKubeUsed(): int
+    {
+        return $this->kubeUsed;
+    }
+
+    public function incrementKubeUsed(): static
+    {
+        ++$this->kubeUsed;
 
         return $this;
     }

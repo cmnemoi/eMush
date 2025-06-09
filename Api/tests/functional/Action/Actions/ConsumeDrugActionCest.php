@@ -116,7 +116,7 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
         );
         $this->consumeAction->execute();
 
-        // then the depression should still be there
+        // then the depression should not be there
         $I->assertNull($this->player->getMedicalConditionByName(DisorderEnum::DEPRESSION));
 
         // then I should not see the private healing log reserved to spontaneous healing
@@ -150,6 +150,30 @@ final class ConsumeDrugActionCest extends AbstractFunctionalTest
             ],
             actual: $healingLog->getParameters(),
         );
+    }
+
+    public function shouldImproveDrugsTakenStatistic(FunctionalTester $I): void
+    {
+        // given I have a bacta drug in Chun's inventory
+        $bacta = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GameDrugEnum::BACTA,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // when Chun eats the bacta
+        $this->consumeAction->loadParameters(
+            $this->consumeConfig,
+            $bacta,
+            $this->chun,
+            $bacta
+        );
+        $this->consumeAction->execute();
+
+        // then drugs taken statistic should be improved and times eaten not
+        $I->assertEquals(1, $this->chun->getPlayerInfo()->getStatistics()->getDrugsTaken());
+        $I->assertEquals(0, $this->chun->getPlayerInfo()->getStatistics()->getTimesEaten());
     }
 
     private function getDrugItem(): GameItem

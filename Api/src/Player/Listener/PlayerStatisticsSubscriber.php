@@ -65,12 +65,24 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
 
     public function onResultAction(ActionEvent $event): void
     {
-        if (!$event->shouldRemoveTargetLyingDownStatus()) {
-            return;
+        $author = $event->getAuthor();
+        $stat = $author->getPlayerInfo()->getStatistics();
+
+        if ($event->shouldRemoveTargetLyingDownStatus()) {
+            $stat->incrementSleepInterupted();
         }
 
-        $author = $event->getAuthor();
-        $author->getPlayerInfo()->getStatistics()->incrementSleepInterupted();
+        match ($event->getActionName()) {
+            ActionEnum::CONSUME => $stat->incrementTimesEaten(),
+            ActionEnum::CONSUME_DRUG => $stat->incrementDrugsTaken(),
+            ActionEnum::CONVERT_CAT, ActionEnum::PET_CAT => $stat->incrementTimesCaressed(),
+            ActionEnum::COOK, ActionEnum::EXPRESS_COOK => $stat->incrementTimesCooked(),
+            ActionEnum::ESTABLISH_LINK_WITH_SOL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementLinkFixed() : $stat->incrementLinkImproved(),
+            ActionEnum::HACK => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTimesHacked() : null,
+            ActionEnum::RENOVATE, ActionEnum::REPAIR, ActionEnum::STRENGTHEN_HULL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTechSuccesses() : $stat->incrementTechFails(),
+            ActionEnum::TRY_KUBE => $stat->incrementKubeUsed(),
+            default => null,
+        };
 
         $this->playerRepository->save($author);
     }

@@ -286,14 +286,29 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     public function shouldNotGiveTriumphWhenSucceedingForTheSecondTime(FunctionalTester $I): void
     {
         $this->givenLinkWithSolStrengthIs(100);
-
         $this->givenChunEstablishesLinkWithSol();
-
         $this->givenLinkWithSolIsKilled();
 
         $this->whenKuanTiEstablishesLinkWithSol();
 
         $this->thenPlayerShouldHaveTriumph($this->chun, 8, $I);
+    }
+
+    public function shouldImproveStatistic(FunctionalTester $I): void
+    {
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->thenChunShouldHaveLinkImprovedStatistic(1, $I);
+    }
+
+    public function shouldImproveStatisticOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenLinkWithSolStrengthIs(100);
+
+        $this->whenChunEstablishesLinkWithSol();
+
+        $this->thenChunShouldHaveLinkImprovedStatistic(1, $I);
+        $this->thenChunShouldHaveLinkFixedStatistic(1, $I);
     }
 
     private function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
@@ -561,5 +576,15 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveTriumph(Player $player, int $expectedTriumph, FunctionalTester $I): void
     {
         $I->assertEquals($expectedTriumph, $player->getTriumph(), message: "{$player->getName()} should have {$expectedTriumph} triumph");
+    }
+
+    private function thenChunShouldHaveLinkImprovedStatistic(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->chun->getPlayerInfo()->getStatistics()->getLinkImproved());
+    }
+
+    private function thenChunShouldHaveLinkFixedStatistic(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->chun->getPlayerInfo()->getStatistics()->getLinkFixed());
     }
 }

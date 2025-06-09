@@ -126,6 +126,27 @@ final class HackCest extends AbstractFunctionalTest
         ]);
     }
 
+    public function testHackSuccessImprovesTimesHackedStatistic(FunctionalTester $I): void
+    {
+        $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
+        $this->givenAHackerKitInPlayerInventory($I);
+
+        // given player has a 100% chance to hack the command terminal
+        $this->hackActionConfig->setSuccessRate(100);
+
+        // when player hacks the command terminal
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
+        $this->hackAction->execute();
+
+        // then times hacked statistic is improved
+        $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getTimesHacked());
+    }
+
     public function testHackFailDoesNotGrantFocusedStatus(FunctionalTester $I): void
     {
         $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
@@ -172,6 +193,27 @@ final class HackCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::HACK_FAIL,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+    }
+
+    public function testHackFailDoesNotImproveTimesHackedStatistic(FunctionalTester $I): void
+    {
+        $commandTerminal = $this->givenACommandTerminalOnTheBridge($I);
+        $this->givenAHackerKitInPlayerInventory($I);
+
+        // given player has a 0% chance to hack the command terminal
+        $this->hackActionConfig->setSuccessRate(0);
+
+        // when player hacks the command terminal
+        $this->hackAction->loadParameters(
+            actionConfig: $this->hackActionConfig,
+            actionProvider: $commandTerminal,
+            player: $this->player,
+            target: $commandTerminal
+        );
+        $this->hackAction->execute();
+
+        // then times hacked statistic is not improved
+        $I->assertEquals(0, $this->player->getPlayerInfo()->getStatistics()->getTimesHacked());
     }
 
     public function testHackNotVisibleIfPlayerDoesNotHaveHackerKitInInventory(FunctionalTester $I): void

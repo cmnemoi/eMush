@@ -47,16 +47,6 @@
         <target>Vous avez poinçonné **{character}**.</target>
       </segment>
     </unit>
-    <unit id="search">
-      <segment id="highlight" state="translated">
-        <source>search.highlight</source>
-        <target>Vous avez trouvé {equipment_gender, select,
-                male {un {equipment}}
-                female {une {equipment}}
-                other {un {equipment}}
-                } caché !</target>
-      </segment>
-    </unit>
     <unit id="shred">
       <segment id="highlight" state="translated">
         <source>shred.highlight</source>

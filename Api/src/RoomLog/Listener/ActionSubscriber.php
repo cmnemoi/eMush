@@ -11,6 +11,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -26,6 +27,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function __construct(
         private D100RollServiceInterface $d100Roll,
+        private PlayerRepositoryInterface $playerRepository,
         private RoomLogServiceInterface $roomLogService,
         private TranslationServiceInterface $translationService,
     ) {}
@@ -58,6 +60,8 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         if ($event->getActionName()->isDetectedByMycoAlarm()) {
             $this->improvePlayerStatisticBasedOnLog($event, $actionLog);
+
+            $this->playerRepository->save($event->getAuthor());
         }
     }
 

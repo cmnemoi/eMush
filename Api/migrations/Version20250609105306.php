@@ -55,6 +55,7 @@ final class Version20250609105306 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE player_info DROP player_statistics_times_cooked');
+        $this->addSql('ALTER TABLE player_info DROP player_statistics_planets_found');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_planets_fully_scanned');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_tech_successes');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_tech_fails');

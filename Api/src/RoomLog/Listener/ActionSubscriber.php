@@ -17,6 +17,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ActionSubscriber implements EventSubscriberInterface
@@ -53,6 +54,10 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         if ($actionLog?->isPublicOrRevealed()) {
             $this->handleCatNoises($event);
+        }
+
+        if ($event->getActionName()->isDetectedByMycoAlarm()) {
+            $this->improvePlayerStatisticBasedOnLog($event, $actionLog);
         }
     }
 
@@ -355,6 +360,37 @@ final class ActionSubscriber implements EventSubscriberInterface
             [LogParameterKeyEnum::ITEM => ItemEnum::SCHRODINGER],
             $event->getTime()
         );
+    }
+
+    private function improvePlayerStatisticBasedOnLog(ActionEvent $event, ?RoomLog $actionLog): void
+    {
+        $action = $event->getActionName();
+
+        if ($action === ActionEnum::GO_BERSERK) {
+            return;
+        }
+
+        $place = $event->getPlace();
+        $statistic = $event->getAuthor()->getPlayerInfo()->getStatistics();
+
+        if ($place->hasOperationalEquipmentByName(ItemEnum::MYCO_ALARM)
+            && !$place->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
+            $statistic->incrementUnstealthActionsTaken();
+
+            return;
+        }
+
+        if ($action === ActionEnum::CONVERT_CAT) {
+            $statistic->incrementStealthActionsTaken();
+
+            return;
+        }
+
+        match ($actionLog?->getVisibility()) {
+            VisibilityEnum::PUBLIC => throw new \LogicException('Public actions should be handled manually'),
+            VisibilityEnum::REVEALED => $statistic->incrementUnstealthActionsTaken(),
+            default => $statistic->incrementStealthActionsTaken(),
+        };
     }
 
     private function createObservantNoticeSomethingLog(Player $player): void

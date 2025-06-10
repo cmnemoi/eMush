@@ -60,9 +60,9 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $traitorUsed = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
-    private int $uncoveredSecretActionsTaken = 0;
+    private int $stealthActionsTaken = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
-    private int $revealedSecretActionsTaken = 0;
+    private int $unstealthActionsTaken = 0;
 
     public function getTimesCooked(): int
     {
@@ -248,6 +248,30 @@ class PlayerStatistics
     public function incrementKubeUsed(): static
     {
         ++$this->kubeUsed;
+
+        return $this;
+    }
+
+    public function getStealthActionsTaken(): int
+    {
+        return $this->stealthActionsTaken;
+    }
+
+    public function incrementStealthActionsTaken(): static
+    {
+        ++$this->stealthActionsTaken;
+
+        return $this;
+    }
+
+    public function getUnstealthActionsTaken(): int
+    {
+        return $this->unstealthActionsTaken;
+    }
+
+    public function incrementUnstealthActionsTaken(): static
+    {
+        ++$this->unstealthActionsTaken;
 
         return $this;
     }

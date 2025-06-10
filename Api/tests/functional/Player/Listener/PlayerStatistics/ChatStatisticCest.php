@@ -7,6 +7,7 @@ namespace Mush\Tests\functional\Player\Listener\PlayerStatistics;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Dto\CreateMessage;
 use Mush\Chat\Entity\Message;
+use Mush\Chat\Services\ChannelServiceInterface;
 use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -17,11 +18,13 @@ use Mush\Tests\FunctionalTester;
  */
 final class ChatStatisticCest extends AbstractFunctionalTest
 {
+    private ChannelServiceInterface $channelService;
     private MessageServiceInterface $messageService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
+        $this->channelService = $I->grabService(ChannelServiceInterface::class);
         $this->messageService = $I->grabService(MessageServiceInterface::class);
 
         $this->givenChunIsCommsOfficer();
@@ -40,6 +43,15 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveMessageCount(2, $I);
     }
 
+    public function shouldNotIncrementWhenTalkingInPrivate(FunctionalTester $I): void
+    {
+        $channel = $this->givenChunHasPrivateChannel();
+
+        $this->whenChunTalksToPrivateChannelWithMessage($channel, 'test');
+
+        $this->thenChunShouldHaveMessageCount(0, $I);
+    }
+
     private function givenChunIsCommsOfficer(): void
     {
         $this->chun->addTitle(TitleEnum::COM_MANAGER);
@@ -53,6 +65,11 @@ final class ChatStatisticCest extends AbstractFunctionalTest
     private function givenVocodedAnnouncementsAreEnabled(): void
     {
         $this->chun->getDaedalus()->getNeron()->toggleVocodedAnnouncements();
+    }
+
+    private function givenChunHasPrivateChannel(): Channel
+    {
+        return $this->channelService->createPrivateChannel($this->chun);
     }
 
     private function whenChunTalksWithMessage(string $text): Message
@@ -80,6 +97,20 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $messageDto->setChannel($this->publicChannel);
         $messageDto->setMessage($text);
         $messageDto->setParent($parent);
+        $messageDto->setPlayer($this->chun);
+
+        $this->messageService->createPlayerMessage(
+            player: $this->player,
+            createMessage: $messageDto
+        );
+    }
+
+    private function whenChunTalksToPrivateChannelWithMessage(Channel $privateChannel, string $text): void
+    {
+        $messageDto = new CreateMessage();
+        $messageDto->setChannel($privateChannel);
+        $messageDto->setMessage($text);
+        $messageDto->setParent(null);
         $messageDto->setPlayer($this->chun);
 
         $this->messageService->createPlayerMessage(

@@ -115,7 +115,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
     public function onPostAction(ActionEvent $event): void
     {
         if ($event->getActionName() !== ActionEnum::ANALYZE_PLANET
-        || $event->getActionTargetAsPlanet()->getUnrevealedSectors() > 0) {
+        || $event->getActionTargetAsPlanet()->getUnrevealedSectors()->count() > 0) {
             return;
         }
 

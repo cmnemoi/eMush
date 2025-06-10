@@ -79,6 +79,15 @@ final class AttackCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveAnInjury($I);
     }
 
+    public function criticalHitEventShouldImproveInjuryCountToTarget(FunctionalTester $I): void
+    {
+        $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_PLUS_2_DAMAGE_RANDOM_INJURY->toString());
+
+        $this->whenChunAttacksKuanTi();
+
+        $this->thenKuanTiShouldHaveInjuryCount(1, $I);
+    }
+
     public function instagibEventShouldKillTarget(FunctionalTester $I): void
     {
         $this->givenKnifeHas100ChanceToDispatchEvent(WeaponEventEnum::KNIFE_INSTAGIB_BLED->toString());
@@ -144,6 +153,22 @@ final class AttackCest extends AbstractFunctionalTest
         $this->whenChunAttacksKuanTi();
 
         $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::BROKEN_EQUIPMENT, $I);
+    }
+
+    public function shouldNotIncreaseKnifeDodgedOnSuccess(FunctionalTester $I): void
+    {
+        $this->whenChunAttacksKuanTi();
+
+        $this->thenKuanTiShouldHaveKnifeDodgedStatAt(0, $I);
+    }
+
+    public function shouldNotIncreaseKnifeDodgedOnFailure(FunctionalTester $I): void
+    {
+        $this->actionConfig->setSuccessRate(0);
+
+        $this->whenChunAttacksKuanTi();
+
+        $this->thenKuanTiShouldHaveKnifeDodgedStatAt(1, $I);
     }
 
     private function givenKnifeHas100ChanceToDispatchEvent(string $event): void
@@ -260,5 +285,15 @@ final class AttackCest extends AbstractFunctionalTest
     private function thenChunShouldHaveTriumph(int $expectedTriumph, FunctionalTester $I): void
     {
         $I->assertEquals($expectedTriumph, $this->chun->getTriumph());
+    }
+
+    private function thenKuanTiShouldHaveKnifeDodgedStatAt(int $expectedCount, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedCount, $this->kuanTi->getPlayerInfo()->getStatistics()->getKnifeDodged());
+    }
+
+    private function thenKuanTiShouldHaveInjuryCount(int $expectedCount, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedCount, $this->kuanTi->getPlayerInfo()->getStatistics()->getInjuryCount());
     }
 }

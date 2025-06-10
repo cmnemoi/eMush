@@ -416,6 +416,9 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
             expected: $this->player->getLogName(),
             actual: $roomLog->getParameters()['target_character']
         );
+
+        // then player gains statistic
+        $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getLostCycles());
     }
 
     public function shrinkShouldGiveMoraleToLaidDownPlayers(FunctionalTester $I): void

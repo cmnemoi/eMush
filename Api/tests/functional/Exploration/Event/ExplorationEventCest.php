@@ -16,6 +16,8 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
 use Mush\Tests\FunctionalTester;
 
@@ -23,6 +25,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
 {
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -30,6 +33,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testExplorationCyclesAreIncrementedOnNewCycles(FunctionalTester $I): void
@@ -328,5 +332,39 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         // then the explorations started counter should be incremented to 1.
         $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getExplorationsStarted(), 'explorationsStarted should be 1.');
+    }
+
+    public function testShouldIncrementLostPlayerStatistic(FunctionalTester $I): void
+    {
+        // given I have a breathable planet to explore
+        $planet = $this->createPlanet(
+            sectors: [
+                PlanetSectorEnum::DESERT,
+                PlanetSectorEnum::OXYGEN,
+            ],
+            functionalTester: $I,
+        );
+
+        // given Kuan Ti is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given I have an exploration on this planet
+        $exploration = $this->createExploration($planet, $this->players);
+
+        // when exploration cycles is advanced
+        $cycleEvent = new ExplorationEvent(
+            $exploration,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime(),
+        );
+        $this->eventService->callEvent($cycleEvent, ExplorationEvent::EXPLORATION_NEW_CYCLE);
+
+        // then Kuan Ti has lost cycles 2 (starting expedition and new cycle)
+        $I->assertEquals(2, $this->kuanTi->getPlayerInfo()->getStatistics()->getLostCycles());
     }
 }

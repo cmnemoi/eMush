@@ -275,7 +275,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             ActionEnum::ESTABLISH_LINK_WITH_SOL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementLinkFixed() : $stat->incrementLinkImproved(),
             ActionEnum::HACK => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTimesHacked() : null,
             ActionEnum::RENOVATE, ActionEnum::REPAIR, ActionEnum::STRENGTHEN_HULL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTechSuccesses() : $stat->incrementTechFails(),
-            ActionEnum::SABOTAGE => $event->getAuthor()->hasStatus(PlayerStatusEnum::BERZERK) ? $stat->incrementMutateDamageDealt(1) : null,
+            ActionEnum::SABOTAGE => $event->getAuthor()->hasStatus(PlayerStatusEnum::BERZERK) && $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementMutateDamageDealt(1) : null,
             ActionEnum::SCAN => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementPlanetsFound() : null,
             ActionEnum::SHOOT_CAT => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementKillCount() : null,
             ActionEnum::TRY_KUBE => $stat->incrementKubeUsed(),

@@ -3,10 +3,18 @@
 namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
+use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Chat\Event\MessageEvent;
+use Mush\Disease\Enum\MedicalConditionTypeEnum;
+use Mush\Disease\Event\DiseaseEvent;
+use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Hunter\Event\HunterEvent;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerCycleEvent;
@@ -27,10 +35,17 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::RESULT_ACTION => 'onResultAction',
+            ActionEvent::POST_ACTION => 'onPostAction',
             ActionVariableEvent::APPLY_COST => 'onApplyCost',
+            DiseaseEvent::APPEAR_DISEASE => 'onAppearDisease',
+            HunterEvent::HUNTER_DEATH => 'onHunterDeath',
+            MessageEvent::NEW_MESSAGE => 'onNewMessage',
+            PlanetSectorEvent::PLANET_SECTOR_EVENT => 'onPlanetSectorEvent',
             PlayerCycleEvent::PLAYER_NEW_CYCLE => 'onNewCycle',
+            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
-            VariableEventInterface::CHANGE_VARIABLE => ['onChangeVariable', 1], // Before the variable is changed
+            VariableEventInterface::CHANGE_VARIABLE => [['onChangeActionVariable', 1], // Before the variable is changed
+                ['onChangeHealthVariable']],
         ];
     }
 
@@ -63,6 +78,22 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
         $this->playerRepository->save($player);
     }
 
+    public function onAppearDisease(DiseaseEvent $event): void
+    {
+        $player = $event->getPlayerDisease()->getPlayer();
+        $stat = $player->getPlayerInfo()->getStatistics();
+        $diseaseType = $event->getPlayerDisease()->getDiseaseConfig()->getType();
+
+        match ($diseaseType) {
+            MedicalConditionTypeEnum::DISEASE => $stat->incrementIllnessCount(),
+            MedicalConditionTypeEnum::DISORDER => null,
+            MedicalConditionTypeEnum::INJURY => $stat->incrementInjuryCount(),
+            default => throw new \LogicException('Unknown contracted disease type'),
+        };
+
+        $this->playerRepository->save($player);
+    }
+
     public function onResultAction(ActionEvent $event): void
     {
         $author = $event->getAuthor();
@@ -72,32 +103,99 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             $stat->incrementSleepInterupted();
         }
 
-        match ($event->getActionName()) {
-            ActionEnum::CONSUME => $stat->incrementTimesEaten(),
-            ActionEnum::CONSUME_DRUG => $stat->incrementDrugsTaken(),
-            ActionEnum::CONVERT_CAT, ActionEnum::PET_CAT => $stat->incrementTimesCaressed(),
-            ActionEnum::COOK, ActionEnum::EXPRESS_COOK => $stat->incrementTimesCooked(),
-            ActionEnum::ESTABLISH_LINK_WITH_SOL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementLinkFixed() : $stat->incrementLinkImproved(),
-            ActionEnum::HACK => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTimesHacked() : null,
-            ActionEnum::RENOVATE, ActionEnum::REPAIR, ActionEnum::STRENGTHEN_HULL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTechSuccesses() : $stat->incrementTechFails(),
-            ActionEnum::TRY_KUBE => $stat->incrementKubeUsed(),
-            default => null,
-        };
+        if (\in_array(ActionTypeEnum::ACTION_AGGRESSIVE->toString(), $event->getActionConfig()->getTypes(), true)) {
+            $stat->incrementAggressiveActionsCount();
+        }
+
+        $this->incrementStatisticBasedOnActionName($event);
 
         $this->playerRepository->save($author);
+    }
+
+    public function onPostAction(ActionEvent $event): void
+    {
+        if ($event->getActionName() !== ActionEnum::ANALYZE_PLANET
+        || $event->getActionTargetAsPlanet()->getUnrevealedSectors() > 0) {
+            return;
+        }
+
+        $player = $event->getAuthor();
+        $player->getPlayerInfo()->getStatistics()->incrementPlanetsFullyScanned();
+
+        $this->playerRepository->save($player);
+    }
+
+    public function onHunterDeath(HunterEvent $event): void
+    {
+        $player = $event->getAuthor();
+
+        if (!$player instanceof Player) {
+            return;
+        }
+
+        $player->getPlayerInfo()->getStatistics()->incrementHuntersDestroyed();
+
+        $this->playerRepository->save($player);
+    }
+
+    public function onNewMessage(MessageEvent $event): void
+    {
+        $player = $event->getAuthor();
+
+        if (!$player instanceof Player || $event->getChannel()->getScope() !== ChannelScopeEnum::PUBLIC) {
+            return;
+        }
+
+        $player->getPlayerInfo()->getStatistics()->incrementMessageCount();
+    }
+
+    public function onPlanetSectorEvent(PlanetSectorEvent $event): void
+    {
+        if ($event->isNegative()) {
+            /** @var Player $traitor */
+            foreach ($event->getExploration()->getTraitors() as $traitor) {
+                $traitor->getPlayerInfo()->getStatistics()->incrementTraitorUsed();
+
+                $this->playerRepository->save($traitor);
+            }
+        }
+
+        /** @var Player $lostPlayer */
+        foreach ($event->getDaedalus()->getLostPlayers() as $lostPlayer) {
+            $lostPlayer->getPlayerInfo()->getStatistics()->incrementLostCycles();
+
+            $this->playerRepository->save($lostPlayer);
+        }
     }
 
     public function onNewCycle(PlayerCycleEvent $event): void
     {
         $player = $event->getPlayer();
 
-        if ($player->doesNotHaveStatus(PlayerStatusEnum::LYING_DOWN)) {
+        if ($player->hasStatus(PlayerStatusEnum::LYING_DOWN)) {
+            $player->getPlayerInfo()->getStatistics()->incrementSleptByCycle();
+
+            $this->playerRepository->save($player);
+        }
+
+        if ($player->hasStatus(PlayerStatusEnum::LOST)) {
+            $player->getPlayerInfo()->getStatistics()->incrementLostCycles();
+
+            $this->playerRepository->save($player);
+        }
+    }
+
+    public function onDeathPlayer(PlayerEvent $event): void
+    {
+        $killer = $event->getAuthor();
+
+        if (!$killer instanceof Player || $killer === $event->getPlayer()) {
             return;
         }
 
-        $player->getPlayerInfo()->getStatistics()->incrementSleptByCycle();
+        $killer->getPlayerInfo()->getStatistics()->incrementKillCount();
 
-        $this->playerRepository->save($player);
+        $this->playerRepository->save($killer);
     }
 
     public function onStatusRemoved(StatusEvent $event): void
@@ -114,7 +212,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
         $this->playerRepository->save($killedPlayer);
     }
 
-    public function onChangeVariable(VariableEventInterface $event): void
+    public function onChangeActionVariable(VariableEventInterface $event): void
     {
         if (!$event instanceof PlayerVariableEvent) {
             return;
@@ -125,6 +223,27 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             $player->getPlayerInfo()->getStatistics()->incrementActionPointsWasted($this->getVariablePointsOverMax($event));
             $this->playerRepository->save($player);
         }
+    }
+
+    public function onChangeHealthVariable(VariableEventInterface $event): void
+    {
+        if (!$event instanceof PlayerVariableEvent) {
+            return;
+        }
+
+        $hpReduced = $event->getRoundedQuantity();
+        $berzerkAuthor = $event->getAuthor();
+
+        if (!$berzerkAuthor instanceof Player
+        || $berzerkAuthor->doesNotHaveStatus(PlayerStatusEnum::BERZERK)
+        || $event->getVariableName() !== PlayerVariableEnum::HEALTH_POINT
+        || $hpReduced >= 0) {
+            return;
+        }
+
+        $berzerkAuthor->getPlayerInfo()->getStatistics()->incrementMutateDamageDealt(-$hpReduced);
+
+        $this->playerRepository->save($berzerkAuthor);
     }
 
     private function hasUsedSkillPoint(ActionVariableEvent $event): bool
@@ -141,6 +260,27 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS,
             ModifierNameEnum::SKILL_POINT_SPORE,
         ]);
+    }
+
+    private function incrementStatisticBasedOnActionName(ActionEvent $event): void
+    {
+        $stat = $event->getAuthor()->getPlayerInfo()->getStatistics();
+
+        match ($event->getActionName()) {
+            ActionEnum::ATTACK => $event->getActionResultOrThrow()->isASuccess() ?: $event->getPlayerActionTargetOrThrow()->getPlayerInfo()->getStatistics()->incrementKnifeDodged(),
+            ActionEnum::CONSUME => $stat->incrementTimesEaten(),
+            ActionEnum::CONSUME_DRUG => $stat->incrementDrugsTaken(),
+            ActionEnum::CONVERT_CAT, ActionEnum::PET_CAT => $stat->incrementTimesCaressed(),
+            ActionEnum::COOK, ActionEnum::EXPRESS_COOK => $stat->incrementTimesCooked(),
+            ActionEnum::ESTABLISH_LINK_WITH_SOL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementLinkFixed() : $stat->incrementLinkImproved(),
+            ActionEnum::HACK => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTimesHacked() : null,
+            ActionEnum::RENOVATE, ActionEnum::REPAIR, ActionEnum::STRENGTHEN_HULL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTechSuccesses() : $stat->incrementTechFails(),
+            ActionEnum::SABOTAGE => $event->getAuthor()->hasStatus(PlayerStatusEnum::BERZERK) ? $stat->incrementMutateDamageDealt(1) : null,
+            ActionEnum::SCAN => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementPlanetsFound() : null,
+            ActionEnum::SHOOT_CAT => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementKillCount() : null,
+            ActionEnum::TRY_KUBE => $stat->incrementKubeUsed(),
+            default => null,
+        };
     }
 
     private function playerHasWastedActionPoints(PlayerVariableEvent $event): bool

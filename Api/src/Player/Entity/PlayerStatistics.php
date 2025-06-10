@@ -10,6 +10,8 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $timesCooked = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
+    private int $planetsFound = 0;
+    #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $planetsFullyScanned = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $techSuccesses = 0;
@@ -54,7 +56,7 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $knifeDodged = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
-    private int $attackedTimes = 0;
+    private int $aggressiveActionsDone = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $kubeUsed = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
@@ -72,6 +74,30 @@ class PlayerStatistics
     public function incrementTimesCooked(): static
     {
         ++$this->timesCooked;
+
+        return $this;
+    }
+
+    public function getPlanetsFound(): int
+    {
+        return $this->planetsFound;
+    }
+
+    public function incrementPlanetsFound(): static
+    {
+        ++$this->planetsFound;
+
+        return $this;
+    }
+
+    public function getPlanetsFullyScanned(): int
+    {
+        return $this->planetsFullyScanned;
+    }
+
+    public function incrementPlanetsFullyScanned(): static
+    {
+        ++$this->planetsFullyScanned;
 
         return $this;
     }
@@ -228,6 +254,94 @@ class PlayerStatistics
         return $this;
     }
 
+    public function getMutateDamageDealt(): int
+    {
+        return $this->mutantDamageDealt;
+    }
+
+    public function incrementMutateDamageDealt(int $delta): static
+    {
+        if ($delta < 0) {
+            throw new \LogicException("Increase for mutate damage dealt statistic shouldn't be negative");
+        }
+
+        $this->mutantDamageDealt += $delta;
+
+        return $this;
+    }
+
+    public function getHuntersDestroyed(): int
+    {
+        return $this->huntersDestroyed;
+    }
+
+    public function incrementHuntersDestroyed(): static
+    {
+        ++$this->huntersDestroyed;
+
+        return $this;
+    }
+
+    public function getLostCycles(): int
+    {
+        return $this->lostCycles;
+    }
+
+    public function incrementLostCycles(): static
+    {
+        ++$this->lostCycles;
+
+        return $this;
+    }
+
+    public function getKillCount(): int
+    {
+        return $this->timesKilled;
+    }
+
+    public function incrementKillCount(): static
+    {
+        ++$this->timesKilled;
+
+        return $this;
+    }
+
+    public function getMessageCount(): int
+    {
+        return $this->timesTalked;
+    }
+
+    public function incrementMessageCount(): static
+    {
+        ++$this->timesTalked;
+
+        return $this;
+    }
+
+    public function getInjuryCount(): int
+    {
+        return $this->injuriesContracted;
+    }
+
+    public function incrementInjuryCount(): static
+    {
+        ++$this->injuriesContracted;
+
+        return $this;
+    }
+
+    public function getIllnessCount(): int
+    {
+        return $this->illnessesContracted;
+    }
+
+    public function incrementIllnessCount(): static
+    {
+        ++$this->illnessesContracted;
+
+        return $this;
+    }
+
     public function getDrugsTaken(): int
     {
         return $this->drugsTaken;
@@ -240,6 +354,30 @@ class PlayerStatistics
         return $this;
     }
 
+    public function getKnifeDodged(): int
+    {
+        return $this->knifeDodged;
+    }
+
+    public function incrementKnifeDodged(): static
+    {
+        ++$this->knifeDodged;
+
+        return $this;
+    }
+
+    public function getAggressiveActionsDone(): int
+    {
+        return $this->aggressiveActionsDone;
+    }
+
+    public function incrementAggressiveActionsCount(): static
+    {
+        ++$this->aggressiveActionsDone;
+
+        return $this;
+    }
+
     public function getKubeUsed(): int
     {
         return $this->kubeUsed;
@@ -248,6 +386,18 @@ class PlayerStatistics
     public function incrementKubeUsed(): static
     {
         ++$this->kubeUsed;
+
+        return $this;
+    }
+
+    public function getTraitorUsed(): int
+    {
+        return $this->traitorUsed;
+    }
+
+    public function incrementTraitorUsed(): static
+    {
+        ++$this->traitorUsed;
 
         return $this;
     }

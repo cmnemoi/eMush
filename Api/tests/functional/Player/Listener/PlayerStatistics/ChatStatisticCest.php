@@ -120,6 +120,34 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         );
     }
 
+    private function whenChunTalksToPrivateChannelWithMessage(Channel $privateChannel, string $text): void
+    {
+        $messageDto = new CreateMessage();
+        $messageDto->setChannel($privateChannel);
+        $messageDto->setMessage($text);
+        $messageDto->setParent(null);
+        $messageDto->setPlayer($this->chun);
+
+        $this->messageService->createPlayerMessage(
+            player: $this->chun,
+            createMessage: $messageDto
+        );
+    }
+
+    private function whenChunTalksToPrivateChannelWithMessage(Channel $privateChannel, string $text): void
+    {
+        $messageDto = new CreateMessage();
+        $messageDto->setChannel($privateChannel);
+        $messageDto->setMessage($text);
+        $messageDto->setParent(null);
+        $messageDto->setPlayer($this->chun);
+
+        $this->messageService->createPlayerMessage(
+            player: $this->chun,
+            createMessage: $messageDto
+        );
+    }
+
     private function thenNeronMessageShouldExist(FunctionalTester $I, Channel $channel, string $message): void
     {
         $I->seeInRepository(Message::class, [

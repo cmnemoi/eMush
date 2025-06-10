@@ -39,7 +39,7 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $this->whenChunPutsMessageInFavorite($message);
         $this->whenChunTalksWithReplyToMessage($message, 'test');
 
-        $this->thenMessageShouldBeCreatedWithNeron($I, $this->publicChannel, 'test');
+        $this->thenNeronMessageShouldExist($I, $this->publicChannel, 'test');
         $this->thenChunShouldHaveMessageCount(2, $I);
     }
 
@@ -49,6 +49,7 @@ final class ChatStatisticCest extends AbstractFunctionalTest
 
         $this->whenChunTalksToPrivateChannelWithMessage($channel, 'test');
 
+        $this->thenChunPrivateMessageShouldExist($I, $channel, 'test');
         $this->thenChunShouldHaveMessageCount(0, $I);
     }
 
@@ -119,12 +120,21 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenMessageShouldBeCreatedWithNeron(FunctionalTester $I, Channel $channel, string $message): void
+    private function thenNeronMessageShouldExist(FunctionalTester $I, Channel $channel, string $message): void
     {
         $I->seeInRepository(Message::class, [
             'channel' => $channel,
             'message' => $message,
             'neron' => $this->player->getDaedalus()->getNeron(),
+        ]);
+    }
+
+    private function thenChunPrivateMessageShouldExist(FunctionalTester $I, Channel $channel, string $message): void
+    {
+        $I->seeInRepository(Message::class, [
+            'channel' => $channel,
+            'message' => $message,
+            'author' => $this->chun,
         ]);
     }
 

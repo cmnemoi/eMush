@@ -92,7 +92,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
     {
         if ($event->getStatusName() !== PlayerStatusEnum::LYING_DOWN
         || $event->doesNotHaveTag(PlayerEvent::DEATH_PLAYER)
-        || \count(array_intersect(EndCauseEnum::getNotDeathEndCauses()->toArray(), $event->getTags()))) {
+        || $event->hasanyTag(EndCauseEnum::getNotDeathEndCauses()->toArray())) {
             return;
         }
 

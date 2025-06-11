@@ -95,4 +95,40 @@ class PlayerStatistics
 
         return $this;
     }
+
+    public function getSleptCycles(): int
+    {
+        return $this->sleptCycles;
+    }
+
+    public function incrementSleptByCycle(): static
+    {
+        ++$this->sleptCycles;
+
+        return $this;
+    }
+
+    public function hasDiedDuringSleep(): bool
+    {
+        return $this->diedDuringSleep;
+    }
+
+    public function markAsDiedDuringSleep(): static
+    {
+        $this->diedDuringSleep = true;
+
+        return $this;
+    }
+
+    public function getSleepInterupted(): int
+    {
+        return $this->sleepInterupted;
+    }
+
+    public function incrementSleepInterupted(): static
+    {
+        ++$this->sleepInterupted;
+
+        return $this;
+    }
 }

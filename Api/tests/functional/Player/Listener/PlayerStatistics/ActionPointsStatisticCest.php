@@ -134,7 +134,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::LOGISTICS_EXPERT, $I, $this->chun);
         $this->givenKuanTiHasActionPoints(11);
 
-        $this->whenCycleAdvances($I);
+        $this->whenCycleAdvanced($I);
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 1, $I);
@@ -145,7 +145,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::LOGISTICS_EXPERT, $I, $this->chun);
         $this->givenKuanTiHasActionPoints(12);
 
-        $this->whenCycleAdvances($I);
+        $this->whenCycleAdvanced($I);
 
         $this->thenPlayerShouldHaveActionPointsUsed($this->kuanTi, 0, $I);
         $this->thenPlayerShouldHaveActionPointsWasted($this->kuanTi, 2, $I);
@@ -293,7 +293,7 @@ final class ActionPointsStatisticCest extends AbstractFunctionalTest
         $consume->execute();
     }
 
-    private function whenCycleAdvances(): void
+    private function whenCycleAdvanced(): void
     {
         $event = new DaedalusEvent($this->daedalus, [], new \DateTime());
         $this->eventService->callEvent($event, DaedalusEvent::DAEDALUS_NEW_CYCLE);

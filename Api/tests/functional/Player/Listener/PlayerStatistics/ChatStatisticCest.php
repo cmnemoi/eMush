@@ -82,7 +82,7 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $messageDto->setPlayer($this->chun);
 
         return $this->messageService->createPlayerMessage(
-            player: $this->player,
+            player: $this->chun,
             createMessage: $messageDto
         );
     }
@@ -101,7 +101,7 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $messageDto->setPlayer($this->chun);
 
         $this->messageService->createPlayerMessage(
-            player: $this->player,
+            player: $this->chun,
             createMessage: $messageDto
         );
     }
@@ -115,7 +115,7 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $messageDto->setPlayer($this->chun);
 
         $this->messageService->createPlayerMessage(
-            player: $this->player,
+            player: $this->chun,
             createMessage: $messageDto
         );
     }
@@ -125,16 +125,16 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $I->seeInRepository(Message::class, [
             'channel' => $channel,
             'message' => $message,
-            'neron' => $this->player->getDaedalus()->getNeron(),
+            'neron' => $this->chun->getDaedalus()->getNeron(),
         ]);
     }
 
     private function thenChunPrivateMessageShouldExist(FunctionalTester $I, Channel $channel, string $message): void
     {
         $I->seeInRepository(Message::class, [
-            'channel' => $channel->getId(),
+            'channel' => $channel,
             'message' => $message,
-            'author' => $this->chun->getId(),
+            'author' => $this->chun,
         ]);
     }
 

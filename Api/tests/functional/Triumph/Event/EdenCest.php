@@ -257,8 +257,9 @@ final class EdenCest extends AbstractExplorationTester
     {
         $this->playerService->killPlayer(
             player: $player,
-            endReason: EndCauseEnum::DEPRESSION,
+            endReason: EndCauseEnum::ALIEN_ABDUCTED,
         );
+        $player->setTriumph(0);
     }
 
     private function givenEveryoneHasTriumph(int $quantity): void

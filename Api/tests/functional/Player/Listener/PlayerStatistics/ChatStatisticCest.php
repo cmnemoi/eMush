@@ -160,7 +160,7 @@ final class ChatStatisticCest extends AbstractFunctionalTest
     private function thenChunPrivateMessageShouldExist(FunctionalTester $I, Channel $channel, string $message): void
     {
         $I->seeInRepository(Message::class, [
-            'channel' => $channel,
+            'channel' => $channel->getId(),
             'message' => $message,
             'author' => $this->chun->getPlayerInfo(),
         ]);

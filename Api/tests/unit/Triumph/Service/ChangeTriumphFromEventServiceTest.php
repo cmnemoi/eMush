@@ -97,6 +97,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         // Given
         $player = $this->givenAMushPlayer();
         $player2 = $this->givenAMushPlayer();
+        $this->givenAHumanPlayer();
         $this->givenTriumphConfigExists(TriumphEnum::CYCLE_MUSH);
         $this->givenPlayerHasTriumph($player, 120);
         $this->givenPlayerHasTriumph($player2, 120);

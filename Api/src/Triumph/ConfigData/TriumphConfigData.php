@@ -62,7 +62,7 @@ abstract class TriumphConfigData
                 name: TriumphEnum::CYCLE_MUSH,
                 targetedEvent: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
                 tagConstraints: [
-                    EndCauseEnum::KILLED_BY_NERON => TriumphSourceEventInterface::NONE_TAGS,
+                    DaedalusEvent::FINISH_DAEDALUS => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::ALL_MUSHS,
                 quantity: -2,

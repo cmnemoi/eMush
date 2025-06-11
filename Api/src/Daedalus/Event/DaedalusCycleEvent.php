@@ -8,6 +8,7 @@ use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
@@ -51,6 +52,13 @@ class DaedalusCycleEvent extends AbstractGameEvent implements TriumphSourceEvent
     public function getLinkWithSolCycleKillChance(): int
     {
         return $this->daedalus->getGameConfig()->getDifficultyConfig()->getLinkWithSolCycleFailureRate();
+    }
+
+    protected function addEventTags(): void
+    {
+        if ($this->getDaedalus()->getAlivePlayers()->getHumanPlayer()->isEmpty()) {
+            $this->addTag(EndCauseEnum::KILLED_BY_NERON);
+        }
     }
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection

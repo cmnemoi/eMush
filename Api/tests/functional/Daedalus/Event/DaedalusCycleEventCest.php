@@ -428,13 +428,13 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->kuanTi);
         $this->whenAllHumanPlayersDie();
         $I->assertTrue($this->kuanTi->isAlive());
-        $this->kuanTi->setTriumph(0);
+        $this->kuanTi->setTriumph(2);
         $this->whenANewCyclePasses();
         $I->assertFalse($this->kuanTi->isAlive());
         $I->assertEquals(EndCauseEnum::KILLED_BY_NERON, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getEndCause());
         $I->assertNotEquals(EndCauseEnum::KILLED_BY_NERON, $this->chun->getPlayerInfo()->getClosedPlayer()->getEndCause());
-        $I->assertEquals(8, $this->kuanTi->getTriumph());
-        $I->assertEquals(8, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
+        $I->assertEquals(10, $this->kuanTi->getTriumph());
+        $I->assertEquals(10, $this->kuanTi->getPlayerInfo()->getClosedPlayer()->getTriumph());
         $I->assertEquals(GameStatusEnum::FINISHED, $this->daedalus->getDaedalusInfo()->getGameStatus());
     }
 

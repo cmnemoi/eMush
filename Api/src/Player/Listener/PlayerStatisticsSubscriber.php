@@ -36,15 +36,18 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
         $apBaseCost = $event->getActionConfig()->getActionCost();
         $apSpent = $event->getRoundedQuantity();
 
+        $playerStatistics->incrementActionPointsUsed($apSpent);
+
+        // Waste AP spent over the base cost
+        $playerStatistics->incrementActionPointsWasted(max($apSpent - $apBaseCost, 0));
+
+        // Waste AP spent on movement
         if ($event->getActionName() === ActionEnum::CONVERT_ACTION_TO_MOVEMENT) {
-            $playerStatistics->incrementActionPointsUsed($apSpent);
             $playerStatistics->incrementActionPointsWasted($apSpent);
-        } elseif ($apSpent > 0 && $apSpent <= $apBaseCost) {
-            $playerStatistics->incrementActionPointsUsed($apSpent);
-        } elseif ($apSpent > $apBaseCost) {
-            $playerStatistics->incrementActionPointsUsed($apSpent);
-            $playerStatistics->incrementActionPointsWasted($apSpent - $apBaseCost);
-        } elseif ($apBaseCost > 0 && $this->hasUsedSkillPoint($event)) {
+        }
+
+        // If spent a skill point, count it as using AP that got replaced
+        if ($this->hasUsedSkillPoint($event)) {
             $playerStatistics->incrementActionPointsUsed($apBaseCost);
         }
 
@@ -53,20 +56,13 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
 
     public function onChangeVariable(VariableEventInterface $event): void
     {
-        $apIncreased = $event->getRoundedQuantity();
-
-        if (!$event instanceof PlayerVariableEvent
-        || $event->getVariableName() !== PlayerVariableEnum::ACTION_POINT
-        || $apIncreased <= 0) {
+        if (!$event instanceof PlayerVariableEvent) {
             return;
         }
 
-        $player = $event->getPlayer();
-        $playerActionPoints = $player->getVariableByName(PlayerVariableEnum::ACTION_POINT);
-        $missingActionPoints = $playerActionPoints->getMaxValueOrThrow() - $playerActionPoints->getValue();
-
-        if ($apIncreased > $missingActionPoints) {
-            $player->getPlayerInfo()->getStatistics()->incrementActionPointsWasted($apIncreased - $missingActionPoints);
+        if ($this->playerHasWastedActionPoints($event)) {
+            $player = $event->getPlayer();
+            $player->getPlayerInfo()->getStatistics()->incrementActionPointsWasted($this->getVariablePointsOverMax($event));
             $this->playerRepository->save($player);
         }
     }
@@ -85,5 +81,26 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             ModifierNameEnum::SKILL_POINT_POLYMATH_IT_POINTS,
             ModifierNameEnum::SKILL_POINT_SPORE,
         ]);
+    }
+
+    private function playerHasWastedActionPoints(PlayerVariableEvent $event): bool
+    {
+        return $this->doesIncreaseActionPoints($event) && $this->getVariablePointsOverMax($event) > 0;
+    }
+
+    private function doesIncreaseActionPoints(PlayerVariableEvent $event): bool
+    {
+        return $event->getVariableName() === PlayerVariableEnum::ACTION_POINT
+        && $event->getRoundedQuantity() > 0;
+    }
+
+    private function getVariablePointsOverMax(PlayerVariableEvent $event): int
+    {
+        $variableGain = $event->getRoundedQuantity();
+        $playerVariable = $event->getPlayer()->getVariableByName($event->getVariableName());
+        $playerValue = $playerVariable->getValue();
+        $playerMax = $playerVariable->getMaxValueOrThrow();
+
+        return $playerValue + $variableGain - $playerMax;
     }
 }

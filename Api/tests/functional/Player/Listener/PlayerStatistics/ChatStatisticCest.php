@@ -134,7 +134,7 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $I->seeInRepository(Message::class, [
             'channel' => $channel,
             'message' => $message,
-            'author' => $this->chun,
+            'author' => $this->chun->getPlayerInfo(),
         ]);
     }
 

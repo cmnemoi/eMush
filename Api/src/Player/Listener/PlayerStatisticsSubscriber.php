@@ -3,12 +3,18 @@
 namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
+use Mush\Player\Event\PlayerCycleEvent;
+use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PlayerStatisticsSubscriber implements EventSubscriberInterface
@@ -20,7 +26,10 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionVariableEvent::APPLY_COST => 'onApplyCost',
+            PlayerCycleEvent::PLAYER_NEW_CYCLE => 'onNewCycle',
+            StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
             VariableEventInterface::CHANGE_VARIABLE => ['onChangeVariable', 1], // Before the variable is changed
         ];
     }
@@ -52,6 +61,45 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
         }
 
         $this->playerRepository->save($player);
+    }
+
+    public function onResultAction(ActionEvent $event): void
+    {
+        if (!$event->shouldRemoveTargetLyingDownStatus()) {
+            return;
+        }
+
+        $author = $event->getAuthor();
+        $author->getPlayerInfo()->getStatistics()->incrementSleepInterupted();
+
+        $this->playerRepository->save($author);
+    }
+
+    public function onNewCycle(PlayerCycleEvent $event): void
+    {
+        $player = $event->getPlayer();
+
+        if ($player->doesNotHaveStatus(PlayerStatusEnum::LYING_DOWN)) {
+            return;
+        }
+
+        $player->getPlayerInfo()->getStatistics()->incrementSleptByCycle();
+
+        $this->playerRepository->save($player);
+    }
+
+    public function onStatusRemoved(StatusEvent $event): void
+    {
+        if ($event->getStatusName() !== PlayerStatusEnum::LYING_DOWN
+        || $event->doesNotHaveTag(PlayerEvent::DEATH_PLAYER)
+        || $event->hasanyTag(EndCauseEnum::getNotDeathEndCauses()->toArray())) {
+            return;
+        }
+
+        $killedPlayer = $event->getPlayerStatusHolder();
+        $killedPlayer->getPlayerInfo()->getStatistics()->markAsDiedDuringSleep();
+
+        $this->playerRepository->save($killedPlayer);
     }
 
     public function onChangeVariable(VariableEventInterface $event): void

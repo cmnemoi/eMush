@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Daedalus\Enum\FunFactEnum;
 
 #[ORM\Embeddable]
 class PlayerStatistics
@@ -110,6 +111,11 @@ class PlayerStatistics
         ++$this->techFails;
 
         return $this;
+    }
+
+    public function getTechFailRate(): float
+    {
+        return $this->getTechFails() > 0 ? $this->getTechFails() / ($this->getTechFails() + $this->getTechSuccesses()) : 0;
     }
 
     public function getLinkImproved(): int
@@ -410,5 +416,37 @@ class PlayerStatistics
         ++$this->unstealthActionsTaken;
 
         return $this;
+    }
+
+    public function getNumberStatisticForFunFact(string $funFact): int
+    {
+        return match ($funFact) {
+            FunFactEnum::BEST_COOK => $this->getTimesCooked(),
+            FunFactEnum::BEST_PLANET_SCANNER => $this->getPlanetScanRatio(),
+            FunFactEnum::BEST_TECHNICIAN => $this->getTechSuccesses(),
+            FunFactEnum::SOL_COLLABS => $this->getLinkImproved(),
+            FunFactEnum::BEST_CARESSER => $this->getTimesCaressed(),
+            FunFactEnum::BEST_HUNTER_KILLER => $this->getHuntersDestroyed(),
+            FunFactEnum::BEST_LOST => $this->getLostCycles(),
+            FunFactEnum::BEST_KILLER => $this->getKillCount(),
+            FunFactEnum::MOST_TALKATIVE, FunFactEnum::LESS_TALKATIVE => $this->getMessageCount(),
+            FunFactEnum::LESS_ACTIVE, FunFactEnum::MOST_ACTIVE => $this->getActionPointsUsed(),
+            FunFactEnum::BEST_EATER => $this->getTimesEaten(),
+            FunFactEnum::BEST_ACTION_WASTER, FunFactEnum::WORST_ACTION_WASTER => $this->getActionPointsWasted(),
+            FunFactEnum::BEST_SLEEPER => $this->getSleptCycles(),
+            FunFactEnum::BEST_HACKER => $this->getTimesHacked(),
+            FunFactEnum::BEST_COM_TECHNICIAN => $this->getLinkFixed(),
+            FunFactEnum::BEST_SANDMAN => $this->getSleepInterupted(),
+            FunFactEnum::BEST_TERRORIST => $this->getMutateDamageDealt(),
+            FunFactEnum::BEST_WOUNDED => $this->getInjuryCount(),
+            FunFactEnum::BEST_DISEASED => $this->getIllnessCount(),
+            FunFactEnum::DRUG_ADDICT, FunFactEnum::LESSER_DRUGGED => $this->getDrugsTaken(),
+            FunFactEnum::KNIFE_EVADER => $this->getKnifeDodged(),
+            FunFactEnum::BEST_AGRO, FunFactEnum::WORST_AGRO => $this->getAggressiveActionsDone(),
+            FunFactEnum::KUBE_ADDICT => $this->getKubeUsed(),
+            FunFactEnum::BEST_ALIEN_TRAITOR => $this->getTraitorUsed(),
+            FunFactEnum::STEALTHIEST => $this->getStealthActionsTaken(),
+            default => throw new \LogicException('Cannot get numeric value for this fun fact'),
+        };
     }
 }

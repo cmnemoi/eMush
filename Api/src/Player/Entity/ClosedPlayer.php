@@ -206,6 +206,11 @@ class ClosedPlayer implements SanctionEvidenceInterface
         return $this;
     }
 
+    public function getFinishedAtOrThrow(): \DateTime
+    {
+        return $this->finishedAt ?? throw new \RuntimeException('This closed player does not have finished at set');
+    }
+
     public function hideMessage(): static
     {
         $this->messageIsHidden = true;

@@ -53,6 +53,13 @@ class DaedalusCycleEvent extends AbstractGameEvent implements TriumphSourceEvent
         return $this->daedalus->getGameConfig()->getDifficultyConfig()->getLinkWithSolCycleFailureRate();
     }
 
+    protected function addEventTags(): void
+    {
+        if ($this->getDaedalus()->getAlivePlayers()->getHumanPlayer()->isEmpty()) {
+            $this->addTag(DaedalusEvent::FINISH_DAEDALUS);
+        }
+    }
+
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {

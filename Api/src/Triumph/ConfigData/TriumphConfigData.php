@@ -61,6 +61,9 @@ abstract class TriumphConfigData
                 key: TriumphEnum::CYCLE_MUSH->toConfigKey('default'),
                 name: TriumphEnum::CYCLE_MUSH,
                 targetedEvent: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
+                tagConstraints: [
+                    DaedalusEvent::FINISH_DAEDALUS => TriumphSourceEventInterface::NONE_TAGS,
+                ],
                 scope: TriumphScope::ALL_MUSHS,
                 quantity: -2,
             ),

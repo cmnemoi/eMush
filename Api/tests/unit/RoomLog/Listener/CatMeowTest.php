@@ -23,6 +23,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Player\Repository\InMemoryPlayerRepository;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Listener\ActionSubscriber;
 use Mush\RoomLog\Repository\InMemoryRoomLogRepository;
@@ -39,6 +40,7 @@ final class CatMeowTest extends TestCase
     private ActionSubscriber $actionSubscriber;
     private RoomLogService $roomLogService;
     private FakeD100Roll $catMeowRoll;
+    private InMemoryPlayerRepository $playerRepository;
     private InMemoryRoomLogRepository $roomLogRepository;
     private Player $player;
 
@@ -48,6 +50,7 @@ final class CatMeowTest extends TestCase
     protected function setUp(): void
     {
         $this->catMeowRoll = new FakeD100Roll(isSuccessful: true);
+        $this->playerRepository = new InMemoryPlayerRepository();
         $this->roomLogRepository = new InMemoryRoomLogRepository();
         $translationService = $this->createStub(TranslationServiceInterface::class);
 
@@ -60,6 +63,7 @@ final class CatMeowTest extends TestCase
 
         $this->actionSubscriber = new ActionSubscriber(
             $this->catMeowRoll,
+            $this->playerRepository,
             $this->roomLogService,
             $translationService,
         );

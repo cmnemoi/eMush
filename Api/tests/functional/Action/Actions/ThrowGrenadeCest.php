@@ -166,7 +166,7 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveActionPoints($initialActionPoints - 1, $I);
     }
 
-    public function shouldStackGloryGainOnGrenadeKill(FunctionalTester $I): void
+    public function testGrenadeMultiKill(FunctionalTester $I): void
     {
         $this->convertPlayerToMush($I, $this->kuanTi);
 
@@ -186,6 +186,8 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
 
         // +3 psychopat kill Chun, +3 psychopat kill Kuan Ti, +3 mushicide kill Kuan Ti = +9 triumph
         $this->thenPlayerShouldHaveTriumph($initialTriumph + 9, $chao, $I);
+        $this->thenPlayerShouldHaveKillCount(2, $chao, $I);
+        $this->thenPlayerShouldHaveAggressiveActionsCount(1, $chao, $I);
     }
 
     private function givenAGrenadeHeldBy(Player $player): void
@@ -356,5 +358,15 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveTriumph(int $expectedValue, Player $player, FunctionalTester $I): void
     {
         $I->assertEquals($expectedValue, $player->getVariableValueByName(PlayerVariableEnum::TRIUMPH));
+    }
+
+    private function thenPlayerShouldHaveKillCount(int $expectedValue, Player $player, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedValue, $player->getPlayerInfo()->getStatistics()->getKillCount());
+    }
+
+    private function thenPlayerShouldHaveAggressiveActionsCount(int $expectedValue, Player $player, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedValue, $player->getPlayerInfo()->getStatistics()->getAggressiveActionsDone());
     }
 }

@@ -220,6 +220,31 @@ final class ShootCatCest extends AbstractFunctionalTest
         $I->assertEquals($initialTriumph, $this->player->getTriumph());
     }
 
+    public function shouldGainKillCountOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenShotIsSuccessful($I);
+
+        $this->whenPlayerShoots();
+
+        $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getKillCount());
+    }
+
+    public function shouldNotGainKillCountOnFail(FunctionalTester $I): void
+    {
+        $this->givenShotIsFailure($I);
+
+        $this->whenPlayerShoots();
+
+        $I->assertEquals(0, $this->player->getPlayerInfo()->getStatistics()->getKillCount());
+    }
+
+    public function shouldImproveAggressiveCount(FunctionalTester $I): void
+    {
+        $this->whenPlayerShoots();
+
+        $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getAggressiveActionsDone());
+    }
+
     private function givenCatIsInShelf(): void
     {
         $this->schrodinger = $this->gameEquipmentService->createGameEquipmentFromName(

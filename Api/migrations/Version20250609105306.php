@@ -21,7 +21,7 @@ final class Version20250609105306 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE player_info ADD player_statistics_times_cooked INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE player_info ADD player_statistics_planets_fully_scanned INT DEFAULT 0 NOT NULL');
+        $this->addSql('ALTER TABLE player_info ADD player_statistics_planet_scan_ratio INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_tech_successes INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_tech_fails INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_link_improved INT DEFAULT 0 NOT NULL');
@@ -43,18 +43,18 @@ final class Version20250609105306 extends AbstractMigration
         $this->addSql('ALTER TABLE player_info ADD player_statistics_illnesses_contracted INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_drugs_taken INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_knife_dodged INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE player_info ADD player_statistics_attacked_times INT DEFAULT 0 NOT NULL');
+        $this->addSql('ALTER TABLE player_info ADD player_statistics_aggressive_actions_done INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_kube_used INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_traitor_used INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE player_info ADD player_statistics_uncovered_secret_actions_taken INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE player_info ADD player_statistics_revealed_secret_actions_taken INT DEFAULT 0 NOT NULL');
+        $this->addSql('ALTER TABLE player_info ADD player_statistics_stealth_actions_taken INT DEFAULT 0 NOT NULL');
+        $this->addSql('ALTER TABLE player_info ADD player_statistics_unstealth_actions_taken INT DEFAULT 0 NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE player_info DROP player_statistics_times_cooked');
-        $this->addSql('ALTER TABLE player_info DROP player_statistics_planets_fully_scanned');
+        $this->addSql('ALTER TABLE player_info DROP player_statistics_planet_scan_ratio');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_tech_successes');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_tech_fails');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_link_improved');
@@ -76,10 +76,10 @@ final class Version20250609105306 extends AbstractMigration
         $this->addSql('ALTER TABLE player_info DROP player_statistics_illnesses_contracted');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_drugs_taken');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_knife_dodged');
-        $this->addSql('ALTER TABLE player_info DROP player_statistics_attacked_times');
+        $this->addSql('ALTER TABLE player_info DROP player_statistics_aggressive_actions_done');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_kube_used');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_traitor_used');
-        $this->addSql('ALTER TABLE player_info DROP player_statistics_uncovered_secret_actions_taken');
-        $this->addSql('ALTER TABLE player_info DROP player_statistics_revealed_secret_actions_taken');
+        $this->addSql('ALTER TABLE player_info DROP player_statistics_stealth_actions_taken');
+        $this->addSql('ALTER TABLE player_info DROP player_statistics_unstealth_actions_taken');
     }
 }

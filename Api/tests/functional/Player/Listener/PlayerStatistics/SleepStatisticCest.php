@@ -56,6 +56,8 @@ final class SleepStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerShouldBeAlive($this->chun, $I);
         $this->thenPlayerMustHaveSleptCycles(1, $this->chun, $I);
         $this->thenPlayerMustHaveDiedInSleep($this->kuanTi, $I);
+        $this->thenPlayerShouldHaveKillCount(0, $this->chun, $I);
+        $this->thenPlayerShouldHaveKillCount(0, $this->kuanTi, $I);
 
         $this->whenCycleAdvanced();
 
@@ -76,6 +78,8 @@ final class SleepStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerMustHaveDiedInSleep($this->chun, $I);
         $this->thenPlayerShouldBeDead($this->kuanTi, $I);
         $this->thenPlayerShouldNotBeMarkedAsDiedInSleep($this->kuanTi, $I);
+        $this->thenPlayerShouldHaveKillCount(0, $this->chun, $I);
+        $this->thenPlayerShouldHaveKillCount(1, $this->kuanTi, $I);
     }
 
     public function testForceWakeUp(FunctionalTester $I): void
@@ -88,6 +92,8 @@ final class SleepStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerMustHaveInteruptedSleepTimes(0, $this->kuanTi, $I);
         $this->thenPlayerShouldNotBeMarkedAsDiedInSleep($this->chun, $I);
         $this->thenPlayerShouldNotBeMarkedAsDiedInSleep($this->kuanTi, $I);
+        $this->thenPlayerShouldHaveKillCount(0, $this->chun, $I);
+        $this->thenPlayerShouldHaveKillCount(0, $this->kuanTi, $I);
     }
 
     public function shouldNotCountSleepInteruptedWhenWakingUpToHit(FunctionalTester $I): void
@@ -111,6 +117,8 @@ final class SleepStatisticCest extends AbstractFunctionalTest
         $this->thenPlayerMustHaveInteruptedSleepTimes(0, $this->kuanTi, $I);
         $this->thenPlayerShouldNotBeMarkedAsDiedInSleep($this->chun, $I);
         $this->thenPlayerMustHaveDiedInSleep($this->kuanTi, $I);
+        $this->thenPlayerShouldHaveKillCount(1, $this->chun, $I);
+        $this->thenPlayerShouldHaveKillCount(0, $this->kuanTi, $I);
     }
 
     public function shouldNotDieInSleepWhenReturningToSol(FunctionalTester $I): void
@@ -118,6 +126,7 @@ final class SleepStatisticCest extends AbstractFunctionalTest
         $this->whenReturningToSol();
 
         $this->thenPlayerShouldNotBeMarkedAsDiedInSleep($this->chun, $I);
+        $this->thenPlayerShouldHaveKillCount(0, $this->chun, $I);
     }
 
     private function givenPlayerSleepsOnSofa(Player $player): void
@@ -257,5 +266,10 @@ final class SleepStatisticCest extends AbstractFunctionalTest
     private function thenPlayerMustHaveInteruptedSleepTimes(int $quantity, Player $player, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $player->getPlayerInfo()->getStatistics()->getSleepInterupted());
+    }
+
+    private function thenPlayerShouldHaveKillCount(int $quantity, Player $player, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $player->getPlayerInfo()->getStatistics()->getKillCount());
     }
 }

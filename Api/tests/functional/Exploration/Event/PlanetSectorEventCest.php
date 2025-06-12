@@ -1741,6 +1741,43 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
                 'playerInfo' => $this->kuanTi->getPlayerInfo(),
             ]
         );
+
+        $I->assertEquals(1, $this->chun->getPlayerInfo()->getStatistics()->getTraitorUsed());
+        $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getStatistics()->getTraitorUsed());
+    }
+
+    public function traitorExploratorShouldNotHaveAPrivateLogWhenTriggeringPositiveEvent(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::TRAITOR, $I);
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::NOTHING_TO_REPORT,
+            sector: PlanetSectorEnum::LANDING,
+        );
+
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: PlanetSectorEvent::ARTEFACT,
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
+        $exploration = $this->givenAnExplorationIsCreatedOnSectorForPlayers(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            players: [$this->chun, $this->kuanTi],
+            I: $I
+        );
+
+        $this->whenExplorationEventIsDispatched($exploration);
+
+        $I->cantSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'visibility' => VisibilityEnum::PRIVATE,
+                'log' => LogEnum::TRAITOR_WORKED,
+            ]
+        );
+
+        $I->assertEquals(0, $this->chun->getPlayerInfo()->getStatistics()->getTraitorUsed());
+        $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getStatistics()->getTraitorUsed());
     }
 
     private function givenChunIsASurvivalist(FunctionalTester $I): void

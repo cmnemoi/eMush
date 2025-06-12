@@ -106,5 +106,8 @@ final class HunterDeathEventCest extends AbstractFunctionalTest
 
         // then the ships destroyed counter should be incremented to 1.
         $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getShipsDestroyed(), 'shipsDestroyed should be 1.');
+
+        // then player's counter should also be incremented by 1.
+        $I->assertEquals(1, $this->player1->getPlayerInfo()->getStatistics()->getHuntersDestroyed(), 'player\'s huntersDestroyed should be 1.');
     }
 }

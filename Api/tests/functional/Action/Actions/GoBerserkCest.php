@@ -226,6 +226,8 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->whenKuanTiHitsChun();
 
         $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - 2, $I);
+
+        $this->thenKuanTiShouldHaveMutateDamageStatisticAt(2, $I);
     }
 
     public function shouldIncreaseDamageByOnePointRegardlessOfHumanSkills(FunctionalTester $I): void
@@ -243,6 +245,8 @@ final class GoBerserkCest extends AbstractFunctionalTest
         $this->whenKuanTiHitsChun();
 
         $this->thenChunShouldHaveHealthPointsOfAmount($initialHealthPoint - 2, $I);
+
+        $this->thenKuanTiShouldHaveMutateDamageStatisticAt(2, $I);
     }
 
     public function shouldNotPreventThemselvesFromDoingAdminAction(FunctionalTester $I): void
@@ -542,6 +546,11 @@ final class GoBerserkCest extends AbstractFunctionalTest
     private function thenKuanTiShouldHaveHealthPointsOfAmount(int $expectedHealthPoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedHealthPoints, $this->kuanTi->getVariableValueByName(PlayerVariableEnum::HEALTH_POINT));
+    }
+
+    private function thenKuanTiShouldHaveMutateDamageStatisticAt(int $expectedStat, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedStat, $this->kuanTi->getPlayerInfo()->getStatistics()->getMutateDamageDealt());
     }
 
     private function createDoorFromTo(Place $from, Place $to, FunctionalTester $I): void

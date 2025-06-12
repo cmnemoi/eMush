@@ -290,6 +290,21 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->thenPlanetHasTwoRevealedSectors($I);
     }
 
+    public function shouldIncrementStatisticOnlyWhenPlanetFullyScanned(FunctionalTester $I): void
+    {
+        $this->givenPlanetWithExactlyTwoUnrevealedZones($I);
+
+        $initialPlanetScanRatio = $this->player->getPlayerInfo()->getStatistics()->getPlanetScanRatio();
+
+        $this->whenPlayerAnalyzesThePlanet(); // 1 zone revealed
+
+        $this->thenPlayerShouldHavePlanetScanRatio($initialPlanetScanRatio, $I);
+
+        $this->whenPlayerAnalyzesThePlanet();
+
+        $this->thenPlayerShouldHavePlanetScanRatio($initialPlanetScanRatio + 2, $I);
+    }
+
     private function givenAPlanetScannerInEngineRoom(FunctionalTester $I): void
     {
         $engineRoom = $this->createExtraPlace(RoomEnum::ENGINE_ROOM, $I, $this->daedalus);
@@ -341,6 +356,11 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::ASTROPHYSICIST, $this->player));
     }
 
+    private function givenPlanetWithExactlyTwoUnrevealedZones(FunctionalTester $I): void
+    {
+        $this->planetService->revealPlanetSectors($this->planet, $this->planet->getUnrevealedSectors()->count() - 2);
+    }
+
     private function whenPlayerAnalyzesThePlanet(): void
     {
         $this->analyzePlanetAction->loadParameters(
@@ -366,5 +386,10 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     {
         $itExpertSkill = $this->player->getSkillByNameOrThrow(SkillEnum::IT_EXPERT);
         $I->assertEquals(3, $itExpertSkill->getSkillPoints());
+    }
+
+    private function thenPlayerShouldHavePlanetScanRatio(int $expectedCount, FunctionalTester $I): void
+    {
+        $I->assertEquals($expectedCount, $this->player->getPlayerInfo()->getStatistics()->getPlanetScanRatio());
     }
 }

@@ -154,6 +154,49 @@ final class SabotageCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTriumph(0, $I);
     }
 
+    public function shouldNotImproveStatisticWhenNotMutated(FunctionalTester $I): void
+    {
+        $this->givenACameraInPlayerRoom();
+
+        $this->givenPlayerIsMush();
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->whenPlayerSabotagesCamera();
+
+        $this->thenPlayerShouldHaveMutateDamageDealtStatisticAt(0, $I);
+    }
+
+    public function shouldNotImproveStatisticWhenMutatedOnFail(FunctionalTester $I): void
+    {
+        $this->givenACameraInPlayerRoom();
+
+        $this->givenPlayerIsMush();
+
+        $this->givenPlayerIsBerzerk();
+
+        $this->givenActionSuccessRateIs(0);
+
+        $this->whenPlayerSabotagesCamera();
+
+        $this->thenPlayerShouldHaveMutateDamageDealtStatisticAt(0, $I);
+    }
+
+    public function shouldImproveStatisticWhenMutatedOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenACameraInPlayerRoom();
+
+        $this->givenPlayerIsMush();
+
+        $this->givenPlayerIsBerzerk();
+
+        $this->givenActionSuccessRateIs(100);
+
+        $this->whenPlayerSabotagesCamera();
+
+        $this->thenPlayerShouldHaveMutateDamageDealtStatisticAt(1, $I);
+    }
+
     private function givenPlayerHasSaboteurSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::SABOTEUR, $I);
@@ -177,6 +220,16 @@ final class SabotageCest extends AbstractFunctionalTest
     private function givenCustomSabotageConfigRewardsWithTriumph(int $quantity): void
     {
         $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_SABOTAGE)->setQuantity($quantity);
+    }
+
+    private function givenPlayerIsBerzerk(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::BERZERK,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     private function whenPlayerTriesToSabotagePasiphae(): void
@@ -253,5 +306,10 @@ final class SabotageCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveTriumph(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->player->getTriumph());
+    }
+
+    private function thenPlayerShouldHaveMutateDamageDealtStatisticAt(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->player->getPlayerInfo()->getStatistics()->getMutateDamageDealt());
     }
 }

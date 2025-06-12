@@ -326,14 +326,14 @@ final class ScanCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveSixActionPoints($I);
     }
 
-    private function shouldDecreasePlanetScanRatio(FunctionalTester $I): void
+    public function shouldDecreasePlanetScanRatio(FunctionalTester $I): void
     {
         $this->whenPlayerScans();
 
         $this->thenPlayerPlanetScanRatioShouldBe(-1, $I);
     }
 
-    private function shouldNotChangePlanetScanRatioOnFail(FunctionalTester $I): void
+    public function shouldNotChangePlanetScanRatioOnFail(FunctionalTester $I): void
     {
         $this->scanActionConfig->setSuccessRate(0);
 

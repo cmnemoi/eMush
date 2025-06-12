@@ -17,8 +17,10 @@
             <h2 class="subtitle">{{ $t("rules.communication.title") }}</h2>
             <p class="text"> {{ $t("rules.communication.introText") }} </p>
             <ul class="rulesList">
+                <li class="rule"> <span v-html="$t('rules.communication.mandatoryCommunication')"></span></li>
                 <li class="rule"> <span v-html="$t('rules.communication.courtesy')"></span></li>
                 <li class="rule"><img class="alpha" :src="getImgUrl('ui_icons/action_points/pa_core.png')"> <span v-html="$t('rules.communication.spokenLanguage')"></span></li>
+                <li class="rule"> <span v-html="$t('rules.communication.flood')"></span></li>
             </ul>
         </div>
 

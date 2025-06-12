@@ -6,7 +6,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Action\Event\ActionVariableEvent;
-use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Chat\Event\MessageEvent;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Disease\Event\DiseaseEvent;

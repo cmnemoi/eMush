@@ -21,8 +21,7 @@ final class Version20250609105306 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE player_info ADD player_statistics_times_cooked INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE player_info ADD player_statistics_planets_found INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE player_info ADD player_statistics_planets_fully_scanned INT DEFAULT 0 NOT NULL');
+        $this->addSql('ALTER TABLE player_info ADD player_statistics_planet_scan_ratio INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_tech_successes INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_tech_fails INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_link_improved INT DEFAULT 0 NOT NULL');
@@ -55,8 +54,7 @@ final class Version20250609105306 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE player_info DROP player_statistics_times_cooked');
-        $this->addSql('ALTER TABLE player_info DROP player_statistics_planets_found');
-        $this->addSql('ALTER TABLE player_info DROP player_statistics_planets_fully_scanned');
+        $this->addSql('ALTER TABLE player_info DROP player_statistics_planet_scan_ratio');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_tech_successes');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_tech_fails');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_link_improved');

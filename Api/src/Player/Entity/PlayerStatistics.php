@@ -10,9 +10,7 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $timesCooked = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
-    private int $planetsFound = 0;
-    #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
-    private int $planetsFullyScanned = 0;
+    private int $planetScanRatio = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $techSuccesses = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
@@ -78,26 +76,14 @@ class PlayerStatistics
         return $this;
     }
 
-    public function getPlanetsFound(): int
+    public function getPlanetScanRatio(): int
     {
-        return $this->planetsFound;
+        return $this->planetScanRatio;
     }
 
-    public function incrementPlanetsFound(): static
+    public function changePlanetScanRatio(int $delta): static
     {
-        ++$this->planetsFound;
-
-        return $this;
-    }
-
-    public function getPlanetsFullyScanned(): int
-    {
-        return $this->planetsFullyScanned;
-    }
-
-    public function incrementPlanetsFullyScanned(): static
-    {
-        ++$this->planetsFullyScanned;
+        $this->planetScanRatio += $delta;
 
         return $this;
     }

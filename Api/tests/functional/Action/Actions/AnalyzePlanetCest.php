@@ -294,13 +294,15 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
     {
         $this->givenPlanetWithExactlyTwoUnrevealedZones($I);
 
+        $initialPlanetScanRatio = $this->player->getPlayerInfo()->getStatistics()->getPlanetScanRatio();
+
         $this->whenPlayerAnalyzesThePlanet(); // 1 zone revealed
 
-        $this->thenPlayerShouldHavePlanetsFullyScannedCount(0, $I);
+        $this->thenPlayerShouldHavePlanetScanRatio($initialPlanetScanRatio, $I);
 
         $this->whenPlayerAnalyzesThePlanet();
 
-        $this->thenPlayerShouldHavePlanetsFullyScannedCount(1, $I);
+        $this->thenPlayerShouldHavePlanetScanRatio($initialPlanetScanRatio + 2, $I);
     }
 
     private function givenAPlanetScannerInEngineRoom(FunctionalTester $I): void
@@ -386,8 +388,8 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
         $I->assertEquals(3, $itExpertSkill->getSkillPoints());
     }
 
-    private function thenPlayerShouldHavePlanetsFullyScannedCount(int $expectedCount, FunctionalTester $I): void
+    private function thenPlayerShouldHavePlanetScanRatio(int $expectedCount, FunctionalTester $I): void
     {
-        $I->assertEquals($expectedCount, $this->player->getPlayerInfo()->getStatistics()->getPlanetsFullyScanned());
+        $I->assertEquals($expectedCount, $this->player->getPlayerInfo()->getStatistics()->getPlanetScanRatio());
     }
 }

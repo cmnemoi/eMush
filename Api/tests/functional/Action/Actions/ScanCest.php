@@ -326,6 +326,22 @@ final class ScanCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveSixActionPoints($I);
     }
 
+    private function shouldDecreasePlanetScanRatio(FunctionalTester $I): void
+    {
+        $this->whenPlayerScans();
+
+        $this->thenPlayerPlanetScanRatioShouldBe(-1, $I);
+    }
+
+    private function shouldNotChangePlanetScanRatioOnFail(FunctionalTester $I): void
+    {
+        $this->scanActionConfig->setSuccessRate(0);
+
+        $this->whenPlayerScans();
+
+        $this->thenPlayerPlanetScanRatioShouldBe(0, $I);
+    }
+
     private function givenPlayerHasEightActionPoints(FunctionalTester $I): void
     {
         $I->assertEquals(8, $this->player->getActionPoint());
@@ -358,5 +374,10 @@ final class ScanCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveSixActionPoints(FunctionalTester $I): void
     {
         $I->assertEquals(6, $this->player->getActionPoint());
+    }
+
+    private function thenPlayerPlanetScanRatioShouldBe(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->player->getPlayerInfo()->getStatistics()->getPlanetScanRatio());
     }
 }

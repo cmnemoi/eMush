@@ -120,7 +120,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
         }
 
         $player = $event->getAuthor();
-        $player->getPlayerInfo()->getStatistics()->incrementPlanetsFullyScanned();
+        $player->getPlayerInfo()->getStatistics()->changePlanetScanRatio(2);
 
         $this->playerRepository->save($player);
     }
@@ -276,7 +276,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             ActionEnum::HACK => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTimesHacked() : null,
             ActionEnum::RENOVATE, ActionEnum::REPAIR, ActionEnum::STRENGTHEN_HULL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTechSuccesses() : $stat->incrementTechFails(),
             ActionEnum::SABOTAGE => $event->getAuthor()->hasStatus(PlayerStatusEnum::BERZERK) && $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementMutateDamageDealt(1) : null,
-            ActionEnum::SCAN => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementPlanetsFound() : null,
+            ActionEnum::SCAN => $event->getActionResultOrThrow()->isASuccess() ? $stat->changePlanetScanRatio(-1) : null,
             ActionEnum::SHOOT_CAT => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementKillCount() : null,
             ActionEnum::TRY_KUBE => $stat->incrementKubeUsed(),
             default => null,

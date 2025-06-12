@@ -17,6 +17,7 @@ use Mush\Game\Service\Random\FakeGetRandomIntegerService as FakeGetRandomInteger
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Player\Repository\InMemoryPlayerRepository;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Listener\ActionSubscriber;
@@ -34,6 +35,7 @@ final class ActionSubscriberTest extends TestCase
     private ActionSubscriber $actionSubscriber;
     private FakeGetRandomInteger $getRandomInteger;
     private InMemoryRoomLogRepository $roomLogRepository;
+    private InMemoryPlayerRepository $playerRepository;
     private RoomLogService $roomLogService;
     private FakeD100Roll $roomLogServiceD100Roll;
     private FakeD100Roll $d100Roll;
@@ -45,6 +47,7 @@ final class ActionSubscriberTest extends TestCase
     {
         $this->d100Roll = new FakeD100Roll();
         $this->getRandomInteger = new FakeGetRandomInteger(result: 0);
+        $this->playerRepository = new InMemoryPlayerRepository();
         $this->roomLogRepository = new InMemoryRoomLogRepository();
         $this->roomLogServiceD100Roll = new FakeD100Roll();
         $translationService = $this->createStub(TranslationServiceInterface::class);
@@ -58,6 +61,7 @@ final class ActionSubscriberTest extends TestCase
 
         $this->actionSubscriber = new ActionSubscriber(
             $this->d100Roll,
+            $this->playerRepository,
             $this->roomLogService,
             $translationService,
         );

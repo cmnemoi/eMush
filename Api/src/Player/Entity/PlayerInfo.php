@@ -4,6 +4,7 @@ namespace Mush\Player\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Daedalus\Entity\PlayerStatistics;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\PlayerInfoRepository;
@@ -34,6 +35,9 @@ class PlayerInfo
     #[ORM\OneToOne(inversedBy: 'playerInfo', targetEntity: ClosedPlayer::class, cascade: ['ALL'])]
     private ClosedPlayer $closedPlayer;
 
+    #[ORM\Embedded(class: PlayerStatistics::class)]
+    private PlayerStatistics $playerStatistics;
+
     public function __construct(
         Player $player,
         User $user,
@@ -43,6 +47,7 @@ class PlayerInfo
         $this->user = $user;
         $this->characterConfig = $characterConfig;
         $this->closedPlayer = new ClosedPlayer();
+        $this->playerStatistics = new PlayerStatistics();
         $this->gameStatus = GameStatusEnum::CURRENT;
 
         $this->player->setPlayerInfo($this);
@@ -101,6 +106,11 @@ class PlayerInfo
     public function getClosedPlayer(): ClosedPlayer
     {
         return $this->closedPlayer;
+    }
+
+    public function getStatistics(): PlayerStatistics
+    {
+        return $this->playerStatistics;
     }
 
     public function getDaedalusId(): int

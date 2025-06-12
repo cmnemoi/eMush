@@ -137,6 +137,9 @@ final class RenovateActionCest extends AbstractFunctionalTest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->assertFalse($pasiphae->hasStatus(EquipmentStatusEnum::BROKEN));
+
+        $I->assertEquals(1, $this->player1->getPlayerInfo()->getStatistics()->getTechSuccesses());
+        $I->assertEquals(0, $this->player1->getPlayerInfo()->getStatistics()->getTechFails());
     }
 
     public function testRenovateFail(FunctionalTester $I): void
@@ -203,6 +206,9 @@ final class RenovateActionCest extends AbstractFunctionalTest
             'log' => ActionLogEnum::RENOVATE_FAIL,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
+
+        $I->assertEquals(0, $this->player1->getPlayerInfo()->getStatistics()->getTechSuccesses());
+        $I->assertEquals(1, $this->player1->getPlayerInfo()->getStatistics()->getTechFails());
     }
 
     public function testRenovateNotVisibleIfPatrolShipNotBrokenAndNotDamaged(FunctionalTester $I): void

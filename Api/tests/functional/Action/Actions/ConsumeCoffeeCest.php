@@ -107,6 +107,13 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveActionPoints(8, $I);
     }
 
+    public function shouldImproveTimesEatenStatistic(FunctionalTester $I): void
+    {
+        $this->whenPlayerConsumesCoffee();
+
+        $this->thenPlayerTimesEatenStatisticShouldBe(1, $I);
+    }
+
     public function shouldPrintAPrivateLog(FunctionalTester $I): void
     {
         $this->givenPlayerHasActionPoints(8);
@@ -179,5 +186,10 @@ final class ConsumeCoffeeCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveActionPoints(int $expectedActionPoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedActionPoints, $this->player->getActionPoint());
+    }
+
+    private function thenPlayerTimesEatenStatisticShouldBe(int $quantity, FunctionalTester $I): void
+    {
+        $I->assertEquals($quantity, $this->player->getPlayerInfo()->getStatistics()->getTimesEaten());
     }
 }

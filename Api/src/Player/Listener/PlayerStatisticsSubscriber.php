@@ -103,7 +103,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
             $stat->incrementSleepInterupted();
         }
 
-        if (\in_array(ActionTypeEnum::ACTION_AGGRESSIVE->toString(), $event->getActionConfig()->getTypes(), true)) {
+        if ($event->hasTag(ActionTypeEnum::ACTION_AGGRESSIVE->toString())) {
             $stat->incrementAggressiveActionsCount();
         }
 
@@ -142,7 +142,7 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
     {
         $player = $event->getAuthor();
 
-        if (!$player instanceof Player || $event->getChannel()->getScope() !== ChannelScopeEnum::PUBLIC) {
+        if (!$player instanceof Player || !$event->getChannel()->isPublic()) {
             return;
         }
 

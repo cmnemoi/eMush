@@ -1536,7 +1536,7 @@ Dispositivo para apagar incendios.</target>
       </segment>
       <segment id="description" state="translated">
         <source>hacker_kit.description</source>
-        <target>Te permite desbloquear el acceso a un módulo protegido como el Terminal de Comando o el Bios de NERON.</target>
+        <target>Te permite desbloquear el acceso a un módulo protegido como el Terminal de Comando o el Bios de NERON. // :point: Este objeto es tan importante que NERON **jamás** dejará a nadie despegar con él.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>hacker_kit.examine</source>

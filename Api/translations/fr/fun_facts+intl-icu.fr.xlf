@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="fun_facts.ext">
+    <unit id="best_cook">
+      <segment id="best_cook.name" state="translated">
+        <source>best_cook.name</source>
+        <target>Mitonne soir et matin</target>
+      </segment>
+      <segment id="best_cook.description" state="translated">
+        <source>best_cook.description</source>
+        <target>« Quand j'ai rien d'autre à faire, eh ben... J'cuisine ! Quoi, y'en a trop ?! Qui finit pas son assiette ?!! »</target>
+      </segment>
+    </unit>
+    <unit id="best_planet_scanner">
+      <segment id="best_planet_scanner.name" state="translated">
+        <source>best_planet_scanner.name</source>
+        <target>Astrophysicien de génie</target>
+      </segment>
+      <segment id="best_planet_scanner.description" state="translated">
+        <source>best_planet_scanner.description</source>
+        <target>Celui là aime découvrir des planètes et les scanner, les scanner, jusqu'à ce qu'il n'y ait plus rien à scanner !</target>
+      </segment>
+    </unit>
+    <unit id="earliest_death">
+      <segment id="earliest_death.name" state="translated">
+        <source>earliest_death.name</source>
+        <target>Ébauche inachevée</target>
+      </segment>
+      <segment id="earliest_death.description" state="translated">
+        <source>earliest_death.description</source>
+        <target>C'est peut être quelqu'un qui aurait pu marquer l'Histoire, sauf qu'il est mort avant d'avoir commencé.</target>
+      </segment>
+    </unit>
+    <unit id="best_technician">
+      <segment id="best_technician.name" state="translated">
+        <source>best_technician.name</source>
+        <target>Technicien omnipotent</target>
+      </segment>
+      <segment id="best_technician.description" state="translated">
+        <source>best_technician.description</source>
+        <target>Ce gars là a compris que les objets cassés, eh ben ils marchent pas, donc faut les réparer !</target>
+      </segment>
+    </unit>
+    <unit id="unluckier_technician">
+      <segment id="unluckier_technician.name" state="translated">
+        <source>unluckier_technician.name</source>
+        <target>Deux-mains-gauches</target>
+      </segment>
+      <segment id="unluckier_technician.description" state="translated">
+        <source>unluckier_technician.description</source>
+        <target>Lui, il ne faut pas lui laisser la clef à molette. Il ne sait visiblement rien faire avec...</target>
+      </segment>
+    </unit>
+    <unit id="sol_collabs">
+      <segment id="sol_collabs.name" state="translated">
+        <source>sol_collabs.name</source>
+        <target>Assistant radio de service</target>
+      </segment>
+      <segment id="sol_collabs.description" state="translated">
+        <source>sol_collabs.description</source>
+        <target>Voilà quelqu'un qui a compris l'utilité d'établir la liaison radio du terminal de communication.</target>
+      </segment>
+    </unit>
+    <unit id="best_caresser">
+      <segment id="best_caresser.name" state="translated">
+        <source>best_caresser.name</source>
+        <target>Accro au poils de chat</target>
+      </segment>
+      <segment id="best_caresser.description" state="translated">
+        <source>best_caresser.description</source>
+        <target>C'était sympa de câliner le chat, mais c'est normalement pas l'objet principal du voyage...</target>
+      </segment>
+    </unit>
+    <unit id="best_hunter_killer">
+      <segment id="best_hunter_killer.name" state="translated">
+        <source>best_hunter_killer.name</source>
+        <target>Pilote classe Battlestar</target>
+      </segment>
+      <segment id="best_hunter_killer.description" state="translated">
+        <source>best_hunter_killer.description</source>
+        <target>Digne incarnation de Starbuck l'héroïne, Fléau destructeur de vaisselle spatiale ennemie !</target>
+      </segment>
+    </unit>
+    <unit id="best_lost">
+      <segment id="best_lost.name" state="translated">
+        <source>best_lost.name</source>
+        <target>« J'aurais pas dû venir ».</target>
+      </segment>
+      <segment id="best_lost.description" state="translated">
+        <source>best_lost.description</source>
+        <target>Il est venu, il s'est perdu, il a attendu ...loooooongtemps..., et il aurait pu y rester.</target>
+      </segment>
+    </unit>
+    <unit id="best_killer">
+      <segment id="best_killer.name" state="translated">
+        <source>best_killer.name</source>
+        <target>Assassin compulsif</target>
+      </segment>
+      <segment id="best_killer.description" state="translated">
+        <source>best_killer.description</source>
+        <target>S'il avait pu manger ses coéquipiers, il l'aurait peut-être fait. A la croque-au-sel.</target>
+      </segment>
+    </unit>
+    <unit id="most_talkative">
+      <segment id="most_talkative.name" state="translated">
+        <source>most_talkative.name</source>
+        <target>Compagnon loquace</target>
+      </segment>
+      <segment id="most_talkative.description" state="translated">
+        <source>most_talkative.description</source>
+        <target>La petite voix qu'on entend de jour comme de nuit dans le talkie-walkie walkie. Adieu solitude !</target>
+      </segment>
+    </unit>
+    <unit id="less_talkative">
+      <segment id="less_talkative.name" state="translated">
+        <source>less_talkative.name</source>
+        <target>En mode silence-radio</target>
+      </segment>
+      <segment id="less_talkative.description" state="translated">
+        <source>less_talkative.description</source>
+        <target>Celui-là n'a visiblement jamais trouvé le bouton du talkie-walkie walkie...</target>
+      </segment>
+    </unit>
+    <unit id="less_active">
+      <segment id="less_active.name" state="translated">
+        <source>less_active.name</source>
+        <target>Glandeur invertébré</target>
+      </segment>
+      <segment id="less_active.description" state="translated">
+        <source>less_active.description</source>
+        <target>Ne s'est pas trop foulé, même si c'est la fin du monde. Non, pour lui, c'est les autres qui triment.</target>
+      </segment>
+    </unit>
+    <unit id="most_active">
+      <segment id="most_active.name" state="translated">
+        <source>most_active.name</source>
+        <target>Increvable hyperactif</target>
+      </segment>
+      <segment id="most_active.description" state="translated">
+        <source>most_active.description</source>
+        <target>Il ne s’arrête jamais et sincèrement, on se demande ce qu'il prend pour tenir le coup...</target>
+      </segment>
+    </unit>
+    <unit id="best_eater">
+      <segment id="best_eater.name" state="translated">
+        <source>best_eater.name</source>
+        <target>Quand l'appétit va...</target>
+      </segment>
+      <segment id="best_eater.description" state="translated">
+        <source>best_eater.description</source>
+        <target>Passe son temps à grailler tout ce qui lui passe sous le nez, et racle aussi le fond des étagères.</target>
+      </segment>
+    </unit>
+    <unit id="best_action_waster">
+      <segment id="best_action_waster.name" state="translated">
+        <source>best_action_waster.name</source>
+        <target>Dilapidateur d'énergie</target>
+      </segment>
+      <segment id="best_action_waster.description" state="translated">
+        <source>best_action_waster.description</source>
+        <target>« Mon crédo ? Gâcher beaucoup de points d'action, et profiter du soleil ! »</target>
+      </segment>
+    </unit>
+    <unit id="worst_action_waster">
+      <segment id="worst_action_waster.name" state="translated">
+        <source>worst_action_waster.name</source>
+        <target>SuperOptimisator</target>
+      </segment>
+      <segment id="worst_action_waster.description" state="translated">
+        <source>worst_action_waster.description</source>
+        <target>Il n'a presque jamais gaspillé de point d'action. Parce que lui, il a compris le but du jeu.</target>
+      </segment>
+    </unit>
+    <unit id="best_sleeper">
+      <segment id="best_sleeper.name" state="translated">
+        <source>best_sleeper.name</source>
+        <target>Dormeur indolent</target>
+      </segment>
+      <segment id="best_sleeper.description" state="translated">
+        <source>best_sleeper.description</source>
+        <target>C'est lui qui a passé le plus de temps au lit. Mais seulement pour dormir. Ahlala...</target>
+      </segment>
+    </unit>
+    <unit id="dead_during_sleep">
+      <segment id="dead_during_sleep.name" state="translated">
+        <source>dead_during_sleep.name</source>
+        <target>Rest In Peace</target>
+      </segment>
+      <segment id="dead_during_sleep.description" state="translated">
+        <source>dead_during_sleep.description</source>
+        <target>Incendie, asphyxie, famine, traîtrise, violence aveugle... ? Non, lui, il est mort dans son sommeil.</target>
+      </segment>
+    </unit>
+    <unit id="best_hacker">
+      <segment id="best_hacker.name" state="translated">
+        <source>best_hacker.name</source>
+        <target>Bidouilleur Anonymous</target>
+      </segment>
+      <segment id="best_hacker.description" state="translated">
+        <source>best_hacker.description</source>
+        <target>A défaut d'avoir des titres pompeux, il a de la ressource ! Et l'accès aux terminaux qui vont bien.</target>
+      </segment>
+    </unit>
+    <unit id="best_com_technician">
+      <segment id="best_com_technician.name" state="translated">
+        <source>best_com_technician.name</source>
+        <target>Resp. Comm. dévoué</target>
+      </segment>
+      <segment id="best_com_technician.description" state="translated">
+        <source>best_com_technician.description</source>
+        <target>A passé beaucoup de temps et d'efforts à bidouiller la radio. Vous l'avez remercié, au moins ?</target>
+      </segment>
+    </unit>
+    <unit id="best_sandman">
+      <segment id="best_sandman.name" state="translated">
+        <source>best_sandman.name</source>
+        <target>Cauchemar ambulant</target>
+      </segment>
+      <segment id="best_sandman.description" state="translated">
+        <source>best_sandman.description</source>
+        <target>A trop joué à Croquemonster et s'est fait une joie de pourrir le sommeil de ses petits camarades.</target>
+      </segment>
+    </unit>
+    <unit id="best_terrorist">
+      <segment id="best_terrorist.name" state="translated">
+        <source>best_terrorist.name</source>
+        <target>Mutant Force Brute</target>
+      </segment>
+      <segment id="best_terrorist.description" state="translated">
+        <source>best_terrorist.description</source>
+        <target>Terrifiant mutant terroriste brutal et increvable capable de vous mettre une zouille sans nom !</target>
+      </segment>
+    </unit>
+    <unit id="best_wounded">
+      <segment id="best_wounded.name" state="translated">
+        <source>best_wounded.name</source>
+        <target>Malchanceux démuni</target>
+      </segment>
+      <segment id="best_wounded.description" state="translated">
+        <source>best_wounded.description</source>
+        <target>Blessé de service à qui il n'arrive que des malheurs trop injustes … fallait peut-être pas y aller à poil ?</target>
+      </segment>
+    </unit>
+    <unit id="best_diseased">
+      <segment id="best_diseased.name" state="translated">
+        <source>best_diseased.name</source>
+        <target>Faiblard souffreteux</target>
+      </segment>
+      <segment id="best_diseased.description" state="translated">
+        <source>best_diseased.description</source>
+        <target>Malade incurable qui choppe toutes les saletés qui passent. Alors il faut pas trop lui en demander.</target>
+      </segment>
+    </unit>
+    <unit id="drug_addict">
+      <segment id="drug_addict.name" state="translated">
+        <source>drug_addict.name</source>
+        <target>« c'est ..juste..récréatif.. »</target>
+      </segment>
+      <segment id="drug_addict.description" state="translated">
+        <source>drug_addict.description</source>
+        <target>Grand utilisateur de produit pas nets qui font voir des bambis hilares et des poulpes sacrés.</target>
+      </segment>
+    </unit>
+    <unit id="knife_evader">
+      <segment id="knife_evader.name" state="translated">
+        <source>knife_evader.name</source>
+        <target>Mi ninja mi anguille</target>
+      </segment>
+      <segment id="knife_evader.description" state="translated">
+        <source>knife_evader.description</source>
+        <target>Il esquive les lames comme personne, et personne ne peut le fumer. C'est l'homme ninja-anguille.</target>
+      </segment>
+    </unit>
+    <unit id="best_agro">
+      <segment id="best_agro.name" state="translated">
+        <source>best_agro.name</source>
+        <target>Dingue dangereux</target>
+      </segment>
+      <segment id="best_agro.description" state="translated">
+        <source>best_agro.description</source>
+        <target>Un type super agressif qui attaque tout ce qui bouge. La terreur de poules de basse-cour.</target>
+      </segment>
+    </unit>
+    <unit id="worst_agro">
+      <segment id="worst_agro.name" state="translated">
+        <source>worst_agro.name</source>
+        <target>La violence c'est le mal</target>
+      </segment>
+      <segment id="worst_agro.description" state="translated">
+        <source>worst_agro.description</source>
+        <target>Pacifiste inconditionnel qui ne fait presque de mal à personne. Ce sont les autres qui s'en occupent.</target>
+      </segment>
+    </unit>
+    <unit id="lesser_drugged">
+      <segment id="lesser_drugged.name" state="translated">
+        <source>lesser_drugged.name</source>
+        <target>Pureté stupéfiante</target>
+      </segment>
+      <segment id="lesser_drugged.description" state="translated">
+        <source>lesser_drugged.description</source>
+        <target>La drogue c'est mal, n'y touchez pas les enfants. N'y touchez pas vous non plus, ou je vous fume.</target>
+      </segment>
+    </unit>
+    <unit id="kube_addict">
+      <segment id="kube_addict.name" state="translated">
+        <source>kube_addict.name</source>
+        <target>Joueur useless</target>
+      </segment>
+      <segment id="kube_addict.description" state="translated">
+        <source>kube_addict.description</source>
+        <target>Addict du mad'Kube, le truc qui sert à rien. Vous n'iriez pas plutôt faire un tour sur Galaxy 55 ?...</target>
+      </segment>
+    </unit>
+    <unit id="best_alien_traitor">
+      <segment id="best_alien_traitor.name" state="translated">
+        <source>best_alien_traitor.name</source>
+        <target>Traître en expédition</target>
+      </segment>
+      <segment id="best_alien_traitor.description" state="translated">
+        <source>best_alien_traitor.description</source>
+        <target>LE coéquipier que personne n'aurait jamais dû emmener sur cette maudite planète...</target>
+      </segment>
+    </unit>
+    <unit id="stealthiest">
+      <segment id="stealthiest.name" state="translated">
+        <source>stealthiest.name</source>
+        <target>Fourbasse masquée</target>
+      </segment>
+      <segment id="stealthiest.description" state="translated">
+        <source>stealthiest.description</source>
+        <target>C'est le champignon furtif masqué ayant commis le plus d'actions fourbes en douce !</target>
+      </segment>
+    </unit>
+    <unit id="unstealthiest">
+      <segment id="unstealthiest.name" state="translated">
+        <source>unstealthiest.name</source>
+        <target>Champignon découvert</target>
+      </segment>
+      <segment id="unstealthiest.description" state="translated">
+        <source>unstealthiest.description</source>
+        <target>Un champignon pas discret qui s'est fait gauler en pleine action. Et bah alors ?</target>
+      </segment>
+    </unit>
+    <unit id="unstealthiest_and_killed">
+      <segment id="unstealthiest_and_killed.name" state="translated">
+        <source>unstealthiest_and_killed.name</source>
+        <target>Champignon décapité</target>
+      </segment>
+      <segment id="unstealthiest_and_killed.description" state="translated">
+        <source>unstealthiest_and_killed.description</source>
+        <target>« La discrétion, mais pourquoi faire ? » …Eh bien, pour ne pas finir en omelette des bois...</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

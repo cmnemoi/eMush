@@ -174,7 +174,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
             );
 
             /** @var ClosedPlayer $displayedPlayer */
-            $displayedPlayer = $this->randomService->getRandomElement($funFact);
+            $displayedPlayer = $this->randomService->getRandomElement($funFact->toArray());
             $normalizedFunFacts[] = [
                 'title' => $translatedName,
                 'description' => $translatedDescription,

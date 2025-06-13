@@ -876,7 +876,7 @@ h2 {
 }
 
 .progress, .roles, .honors {
-    margin: 0.5em;
+    margin-bottom: 20px;
 
     & > div {
         flex-direction: row;

@@ -915,8 +915,10 @@
 		"communication": {
 			"title": "Communication",
 			"introText": "The rules concerning communication apply to all places allowing the player to communicate by sending messages: main channel, private channels, Mush channel, missions, general announcements, messages at the end of ships. These messages can all be subjected to moderation after the facts, at the discretion of the game’s admins and moderators according to the following guidelines:",
+			"mandatoryCommunication": "<strong>Communication</strong>: Communication is a fundamental pillar of the game. To achieve your team’s objective, it is essential to share information with your teammates in order to organize and coordinate.",
 			"courtesy": "<strong>Courtesy</strong>: Communication being an essential part of the game, players are allowed a lot of leeway as to the words used, and the aim here is not to list the forbidden words exhaustively. However, in order to guarantee a sound and inclusive game atmosphere to all players, any form of explicit language, intolerance, hatred, discrimination, harassment, violence is strictly prohibited.",
-			"spokenLanguage": "<strong>Spoken language</strong>: The player must be able to communicate easily in the language of the server."
+			"spokenLanguage": "<strong>Spoken language</strong>: The player must be able to communicate easily in the language of the server.",
+			"flood": "<strong>Flood</strong>: Players must not abuse the communication systems provided. In particular, flooding is prohibited, and special attention should be paid to spelling and syntax. Any advertising for a site or service external to Eternaltwin is forbidden."
 		},
 		"behaviour": {
 			"title": "Behaviour",

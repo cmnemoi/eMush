@@ -1468,7 +1468,7 @@ L'extincteur est un dispositif de sécurité de taille standard désigné pour p
       </segment>
       <segment id="description" state="translated">
         <source>hacker_kit.description</source>
-        <target>Le bidouilleur vous permet de débloquer l'accès d'un module protégé tel que le Terminal de Commandement ou le Bios de NERON</target>
+        <target>Le bidouilleur vous permet de débloquer l'accès d'un module protégé tel que le Terminal de Commandement ou le Bios de NERON. // :point: Cet objet est d'une importance telle que NERON ne permettra **jamais** de s'envoler avec.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>hacker_kit.examine</source>

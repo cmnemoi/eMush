@@ -30,9 +30,9 @@
         <source>chun_lives.log</source>
         <target>You have earned {quantity} :triumph: for surviving another day as Chun!</target>
       </segment>
-      <segment id="chun_lives.personal_description" state="initial">
+      <segment id="chun_lives.personal_description" state="translated">
         <source>chun_lives.personal_description</source>
-        <target>chun_lives.personal_description</target>
+        <target>Chun earns {quantity} :triumph: for each day survived.</target>
       </segment>
     </unit>
     <unit id="return_to_sol">
@@ -94,9 +94,9 @@
         <source>explorator.log</source>
         <target>You have earned {quantity} :triumph: for participating in an expedition as Hua!</target>
       </segment>
-      <segment id="explorator.personal_description" state="initial">
+      <segment id="explorator.personal_description" state="translated">
         <source>explorator.personal_description</source>
-        <target>explorator.personal_description</target>
+        <target>Hua earns {quantity} :triumph: each time she explores a planet. </target>
       </segment>
     </unit>
     <unit id="sol_contact">
@@ -148,9 +148,9 @@
         <source>mush_specialist.log</source>
         <target>You have earned {quantity} :triumph: as a research project against the Mush has been completed in your presence as Finola!</target>
       </segment>
-      <segment id="mush_specialist.personal_description" state="initial">
+      <segment id="mush_specialist.personal_description" state="translated">
         <source>mush_specialist.personal_description</source>
-        <target>mush_specialist.personal_description</target>
+        <target>Finola earns {quantity} :triumph:  for every completed piece of Mush research.</target>
       </segment>
     </unit>
     <unit id="precious_body">
@@ -162,9 +162,9 @@
         <source>precious_body.log</source>
         <target>You have earned {quantity} :triumph: as a research requiring your presence as Chun has been completed!</target>
       </segment>
-      <segment id="precious_body.personal_description" state="initial">
+      <segment id="precious_body.personal_description" state="translated">
         <source>precious_body.personal_description</source>
-        <target>precious_body.personal_description</target>
+        <target>Chun earns {quantity} :triumph: for every time a piece of research requiring her presence is completed.</target>
       </segment>
     </unit>
     <unit id="magellan_ark">
@@ -176,9 +176,9 @@
         <source>magellan_ark.log</source>
         <target>You have earned {quantity} :triumph: as a NERON project has been completed in your presence as Kuan Ti!</target>
       </segment>
-      <segment id="magellan_ark.personal_description" state="initial">
+      <segment id="magellan_ark.personal_description" state="translated">
         <source>magellan_ark.personal_description</source>
-        <target>magellan_ark.personal_description</target>
+        <target>Kuan Ti earns {quantity} :triumph: for every NERON project taken to completion.</target>
       </segment>
     </unit>
     <unit id="pilgred_mother">
@@ -190,9 +190,9 @@
         <source>pilgred_mother</source>
         <target>You have earned {quantity} :triumph: as Raluca because PILGRED made significant progress!</target>
       </segment>
-      <segment id="pilgred_mother.personal_description" state="initial">
+      <segment id="pilgred_mother.personal_description" state="translated">
         <source>pilgred_mother.personal_description</source>
-        <target>pilgred_mother.personal_description</target>
+        <target>Raluca earns {quantity} :triumph: for every 20% of the PILGRED repairs successfully completed.</target>
       </segment>
     </unit>
     <unit id="ambitious">
@@ -204,9 +204,9 @@
         <source>ambitious.log</source>
         <target>You have earned {quantity} :triumph: for earning a title as Stephen!</target>
       </segment>
-      <segment id="ambitious.personal_description" state="initial">
+      <segment id="ambitious.personal_description" state="translated">
         <source>ambitious.personal_description</source>
-        <target>ambitious.personal_description</target>
+        <target>Stephen earns {quantity} :triumph: for every title received.</target>
       </segment>
     </unit>
     <unit id="kube_solved">
@@ -258,9 +258,9 @@
         <source>mush_fear.log</source>
         <target>You have earned {quantity} :triumph: because a Mush has been eliminated in your presence as Gioele!</target>
       </segment>
-      <segment id="mush_fear.personal_description" state="initial">
+      <segment id="mush_fear.personal_description" state="translated">
         <source>mush_fear.personal_description</source>
-        <target>mush_fear.personal_description</target>
+        <target>Gioele earns {quantity} :triumph: every time a Mush is killed.</target>
       </segment>
     </unit>
     <unit id="mushicide">
@@ -292,9 +292,9 @@
         <source>psychopat.log</source>
         <target>You have earned {quantity} :triumph: by delivering the fatal blow to a crewmate as Chao.</target>
       </segment>
-      <segment id="psychopat.personal_description" state="initial">
+      <segment id="psychopat.personal_description" state="translated">
         <source>psychopat.personal_description</source>
-        <target>psychopat.personal_description</target>
+        <target>Chao earns {quantity} :triumph: for each fatal blow dealt.</target>
       </segment>
     </unit>
     <unit id="alien_science">
@@ -366,9 +366,9 @@
         <source>savior.log</source>
         <target>You have won {quantity} :triumph: by reaching Eden as Jin Su!</target>
       </segment>
-      <segment id="savior.personal_description" state="initial">
+      <segment id="savior.personal_description" state="translated">
         <source>savior.personal_description</source>
-        <target>savior.personal_description</target>
+        <target>Jin Su earns {quantity} :triumph: upon reaching Eden.</target>
       </segment>
     </unit>
     <unit id="remedy">
@@ -380,9 +380,9 @@
         <source>remedy.log</source>
         <target>You have won {quantity} :triumph: by reaching Eden as Chun!</target>
       </segment>
-      <segment id="remedy.personal_description" state="initial">
+      <segment id="remedy.personal_description" state="translated">
         <source>remedy.personal_description</source>
-        <target>remedy.personal_description</target>
+        <target>Chun earns {quantity} :triumph: upon reaching Eden.</target>
       </segment>
     </unit>
     <unit id="eden_at_least">
@@ -396,87 +396,87 @@
       </segment>
     </unit>
     <unit id="new_mush">
-      <segment id="new_mush.name" state="initial">
+      <segment id="new_mush.name" state="translated">
         <source>new_mush.name</source>
-        <target>new_mush.name</target>
+        <target> And Another!</target>
       </segment>
-      <segment id="new_mush.log" state="initial">
+      <segment id="new_mush.log" state="translated">
         <source>new_mush.log</source>
-        <target>new_mush.log</target>
+        <target>You have earned {quantity} :triumph_mush: by implanting the ultimate parasite in a human!</target>
       </segment>
     </unit>
     <unit id="infect">
-      <segment id="infect.name" state="initial">
+      <segment id="infect.name" state="translated">
         <source>infect.name</source>
-        <target>infect.name</target>
+        <target>Contaminated</target>
       </segment>
-      <segment id="infect.log" state="initial">
+      <segment id="infect.log" state="translated">
         <source>infect.log</source>
-        <target>infect.log</target>
+        <target>You have earned {quantity} :triumph_mush: by infecting a human.</target>
       </segment>
     </unit>
     <unit id="nice_surgery">
-      <segment id="nice_surgery.name" state="initial">
+      <segment id="nice_surgery.name" state="translated">
         <source>nice_surgery.name</source>
-        <target>nice_surgery.name</target>
+        <target> Intricate surgery</target>
       </segment>
-      <segment id="nice_surgery.log" state="initial">
+      <segment id="nice_surgery.log" state="translated">
         <source>nice_surgery.log</source>
-        <target>nice_surgery.log</target>
+        <target>You have earned {quantity} :triumph: by performing an exceptional surgery!</target>
       </segment>
     </unit>
     <unit id="robotic_graal">
-      <segment id="robotic_graal.name" state="initial">
+      <segment id="robotic_graal.name" state="translated">
         <source>robotic_graal.name</source>
-        <target>robotic_graal.name</target>
+        <target> Robotic grail</target>
       </segment>
-      <segment id="robotic_graal.log" state="initial">
+      <segment id="robotic_graal.log" state="translated">
         <source>robotic_graal.log</source>
-        <target>robotic_graal.log</target>
+        <target>You have earned {quantity} :triumph_mush: by upgrading a drone as Terrence!</target>
       </segment>
-      <segment id="robotic_graal.personal_description" state="initial">
+      <segment id="robotic_graal.personal_description" state="translated">
         <source>robotic_graal.personal_description</source>
-        <target>robotic_graal.personal_description</target>
+        <target>Terrence earns {quantity} :triumph: each time he upgrades a drone.</target>
       </segment>
     </unit>
     <unit id="rebel_wolf">
-      <segment id="rebel_wolf.name" state="initial">
+      <segment id="rebel_wolf.name" state="translated">
         <source>rebel_wolf.name</source>
-        <target>rebel_wolf.name</target>
+        <target> Were-Rebel</target>
       </segment>
-      <segment id="rebel_wolf.log" state="initial">
+      <segment id="rebel_wolf.log" state="translated">
         <source>rebel_wolf.log</source>
-        <target>rebel_wolf.log</target>
+        <target>You have earned {quantity} :triumph: because the Daedalus has contacted the Lost Children of Wolf.</target>
       </segment>
     </unit>
     <unit id="rebel_contact">
-      <segment id="rebel_contact.name" state="initial">
+      <segment id="rebel_contact.name" state="translated">
         <source>rebel_contact.name</source>
-        <target>rebel_contact.name</target>
+        <target> Rebel Networks</target>
       </segment>
-      <segment id="rebel_contact.log" state="initial">
+      <segment id="rebel_contact.log" state="translated">
         <source>rebel_contact.log</source>
-        <target>rebel_contact.log</target>
+        <target>You have earned {quantity} :triumph: as Eleesha because the Daedalus has contacted a rebel base!</target>
       </segment>
     </unit>
     <unit id="looking_for_kivanc">
-      <segment id="looking_for_kivanc.name" state="initial">
+      <segment id="looking_for_kivanc.name" state="translated">
         <source>looking_for_kivanc.name</source>
-        <target>looking_for_kivanc.name</target>
+        <target> Kivanç, My Love</target>
       </segment>
-      <segment id="looking_for_kivanc.log" state="initial">
+      <segment id="looking_for_kivanc.log" state="translated">
         <source>looking_for_kivanc.log</source>
-        <target>looking_for_kivanc.log</target>
+        <target>You have earned {quantity} :triumph: for contacting Kivanç as Paola!</target>
       </segment>
-      <segment id="looking_for_kivanc.personal_description" state="initial">
+      <segment id="looking_for_kivanc.personal_description" state="translated">
         <source>looking_for_kivanc.personal_description</source>
-        <target>looking_for_kivanc.personal_description</target>
+        <target>Paola earns {quantity} :triumph: when contact with Kivanç is restored at the Communication Center.</target>
       </segment>
     </unit>
     <unit id="star_map_1">
-      <segment id="star_map_1.name" state="initial">
+      <segment id="star_map_1.name" state="translated">
         <source>star_map_1.name</source>
-        <target>star_map_1.name</target>
+        <target>Towards New Eden</target>
       </segment>
       <segment id="star_map_1.log" state="initial">
         <source>star_map_1.log</source>

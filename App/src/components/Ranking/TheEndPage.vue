@@ -348,39 +348,20 @@
                         <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
                     </ul>
                 </div>
-            </div>
-            <div class="honors">
-                <div>
-                    <p>Bidouilleur Anonymous</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
-                    </ul>
-                </div>
-                <div>
-                    <p>"J'aurais pas dû venir"</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
-                    </ul>
-                </div>
-                <div>
-                    <p>La violence c'est le mal</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
-                    </ul>
-                </div>
-                <div>
-                    <p>Quand l'appétit va...</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
-                    </ul>
-                </div>
-                <div>
-                    <p>Dilapidateur d'énergie</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/terrence.png')" alt="Terrence"> Terrence</li>
-                    </ul>
-                </div>
             </div> -->
+            <div class="honors" v-if="funFacts?.length > 0">
+                <div v-for="(funFact, name) in closedDaedalus.funFacts" :key="name">
+                    <Tippy>
+                        <p>{{ funFact.title }}</p>
+                        <template #content>
+                            <p>{{ funFact.description }}</p>
+                        </template>
+                    </Tippy>
+                    <ul>
+                        <li><img class="body" :src="getPlayerCharacterBody(funFact.player)" :alt="getPlayerCharacterCompleteName(funFact.player)"></li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <router-link class="back" :to="{}">
             <span @click="$router.go(-1)">{{ $t('util.goBack') }}</span>
@@ -419,6 +400,7 @@ interface ClosedDaedalusState {
     currentAction: { key: string, value: string },
     currentPlayer: ClosedPlayer|null,
     projectTypes: readonly ['researchProjects', 'neronProjects', 'pilgredProjects']
+    funFacts: readonly ['funFacts'],
 }
 
 export default defineComponent ({
@@ -440,7 +422,8 @@ export default defineComponent ({
             reportPopupVisible: false,
             currentAction: { key: "", value: "" },
             currentPlayer: null,
-            projectTypes: ['researchProjects', 'neronProjects', 'pilgredProjects'] as const
+            projectTypes: ['researchProjects', 'neronProjects', 'pilgredProjects'] as const,
+            funFacts: ['funFacts'] as const
         };
     },
     methods: {

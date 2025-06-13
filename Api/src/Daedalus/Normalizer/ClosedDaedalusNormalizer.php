@@ -4,7 +4,9 @@ namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Project\Enum\ProjectType;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -16,13 +18,16 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
     private const string ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
     private CycleServiceInterface $cycleService;
+    private RandomServiceInterface $randomService;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         CycleServiceInterface $cycleService,
+        RandomServiceInterface $randomService,
         TranslationServiceInterface $translationService
     ) {
         $this->cycleService = $cycleService;
+        $this->randomService = $randomService;
         $this->translationService = $translationService;
     }
 
@@ -67,6 +72,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         );
         $normalizedDaedalus['statistics'] = $this->getNormalizedStatistics($daedalus);
         $normalizedDaedalus['projects'] = $this->getNormalizedProjects($daedalus);
+        $normalizedDaedalus['funFacts'] = $this->getNormalizedRandomFunFacts($daedalus);
 
         return $normalizedDaedalus;
     }
@@ -139,5 +145,43 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $normalizedProjects;
+    }
+
+    private function getNormalizedRandomFunFacts(ClosedDaedalus $daedalus): array
+    {
+        $normalizedFunFacts = [];
+
+        $funFacts = $daedalus->getDaedalusInfo()->getFunFacts();
+
+        for ($i = 0; $i < 5; ++$i) {
+            $funFact = $this->randomService->getRandomElement($funFacts);
+            if ($funFact === null) {
+                break;
+            }
+            $name = key($funFact);
+            unset($funFacts[$name]);
+            $translatedName = $this->translationService->translate(
+                key: "{$name}.name",
+                parameters: [],
+                domain: 'fun_facts',
+                language: $daedalus->getLanguage()
+            );
+            $translatedDescription = $this->translationService->translate(
+                key: "{$name}.description",
+                parameters: [],
+                domain: 'fun_facts',
+                language: $daedalus->getLanguage()
+            );
+
+            /** @var ClosedPlayer $displayedPlayer */
+            $displayedPlayer = $this->randomService->getRandomElement($funFact);
+            $normalizedFunFacts[] = [
+                'title' => $translatedName,
+                'description' => $translatedDescription,
+                'player' => $displayedPlayer,
+            ];
+        }
+
+        return $normalizedFunFacts;
     }
 }

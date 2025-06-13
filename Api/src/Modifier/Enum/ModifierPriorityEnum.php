@@ -45,6 +45,7 @@ abstract class ModifierPriorityEnum
         self::INITIAL_SET_VALUE,
         self::BEFORE_MULTIPLICATIVE_MODIFIER_VALUE,
         self::MULTIPLICATIVE_MODIFIER_VALUE,
+        self::BEFORE_ADDITIVE_MODIFIER_VALUE,
         self::ADDITIVE_MODIFIER_VALUE,
         self::BEFORE_OVERRIDE_VALUE_PRIORITY,
         self::OVERRIDE_VALUE_PRIORITY,

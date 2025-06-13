@@ -6,6 +6,7 @@ use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
 use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Daedalus\Normalizer\ClosedDaedalusNormalizer;
 use Mush\Daedalus\Service\DaedalusService;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -134,6 +135,54 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                 ],
             ],
             actual: $normalizedDaedalus['projects']['pilgredProjects']['lines']
+        );
+    }
+
+    public function shouldNormalizeDaedalusFunFactsCorrectly(FunctionalTester $I): void
+    {
+        // given Kuan Ti removed from the game
+        $this->daedalus->removePlayer($this->kuanTi);
+
+        // given the daedalus is returns to Sol
+        $closedDaedalus = $this->daedalusService->endDaedalus($this->daedalus, EndCauseEnum::SOL_RETURN, new \DateTime());
+
+        // when i normalize
+        $normalizedDaedalus = $this->normalizer->normalize($closedDaedalus);
+
+        $I->assertEqualsCanonicalizing(
+            expected: [
+                [
+                    'title' => 'Pureté stupéfiante',
+                    'description' => 'La drogue c\'est mal, n\'y touchez pas les enfants. N\'y touchez pas vous non plus, ou je vous fume.',
+                    'characterLogName' => 'chun',
+                    'characterName' => 'Chun',
+                ],
+                [
+                    'title' => 'En mode silence-radio',
+                    'description' => 'Celui-là n\'a visiblement jamais trouvé le bouton du talkie-walkie walkie...',
+                    'characterLogName' => 'chun',
+                    'characterName' => 'Chun',
+                ],
+                [
+                    'title' => 'Glandeur invertébré',
+                    'description' => 'Ne s\'est pas trop foulé, même si c\'est la fin du monde. Non, pour lui, c\'est les autres qui triment.',
+                    'characterLogName' => 'chun',
+                    'characterName' => 'Chun',
+                ],
+                [
+                    'title' => 'SuperOptimisator',
+                    'description' => 'Il n\'a presque jamais gaspillé de point d\'action. Parce que lui, il a compris le but du jeu.',
+                    'characterLogName' => 'chun',
+                    'characterName' => 'Chun',
+                ],
+                [
+                    'title' => 'La violence c\'est le mal',
+                    'description' => 'Pacifiste inconditionnel qui ne fait presque de mal à personne. Ce sont les autres qui s\'en occupent.',
+                    'characterLogName' => 'chun',
+                    'characterName' => 'Chun',
+                ],
+            ],
+            actual: $normalizedDaedalus['funFacts']
         );
     }
 }

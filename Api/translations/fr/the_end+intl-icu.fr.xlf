@@ -43,19 +43,19 @@
         <target>Nombre de Mush</target>
       </segment>
     </unit>
-        <unit id="neronProjects">
+    <unit id="neronProjects">
       <segment state="translated">
         <source>neronProjects</source>
         <target>Projets Néron</target>
       </segment>
     </unit>
-        <unit id="researchProjects">
+    <unit id="researchProjects">
       <segment state="translated">
         <source>researchProjects</source>
         <target>Recherches</target>
       </segment>
     </unit>
-        <unit id="pilgredProjects">
+    <unit id="pilgredProjects">
       <segment state="translated">
         <source>pilgredProjects</source>
         <target>PILGRED</target>

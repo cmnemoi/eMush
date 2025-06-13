@@ -368,7 +368,7 @@
       </segment>
       <segment id="savior.personal_description" state="translated">
         <source>savior.personal_description</source>
-        <target>Jin Su gagne {quantity} :triumph: lorsqu'elle atteint Eden.</target>
+        <target>Jin Su gagne {quantity} :triumph: lorsqu'il atteint Eden.</target>
       </segment>
     </unit>
     <unit id="remedy">
@@ -396,43 +396,43 @@
       </segment>
     </unit>
     <unit id="new_mush">
-      <segment id="new_mush.name" state="initial">
+      <segment id="new_mush.name" state="translated">
         <source>new_mush.name</source>
-        <target>new_mush.name</target>
+        <target>Un de plus !</target>
       </segment>
-      <segment id="new_mush.log" state="initial">
+      <segment id="new_mush.log" state="translated">
         <source>new_mush.log</source>
-        <target>new_mush.log</target>
+        <target>Vous avez gagné {quantity} :triumph_mush: en insérant l'ultime parasite à un humain !</target>
       </segment>
     </unit>
     <unit id="infect">
-      <segment id="infect.name" state="initial">
+      <segment id="infect.name" state="translated">
         <source>infect.name</source>
-        <target>infect.name</target>
+        <target>Infecté</target>
       </segment>
-      <segment id="infect.log" state="initial">
+      <segment id="infect.log" state="translated">
         <source>infect.log</source>
-        <target>infect.log</target>
+        <target>Vous avez gagné {quantity} :triumph_mush: en infectant un humain.</target>
       </segment>
     </unit>
     <unit id="nice_surgery">
-      <segment id="nice_surgery.name" state="initial">
+      <segment id="nice_surgery.name" state="translated">
         <source>nice_surgery.name</source>
-        <target>nice_surgery.name</target>
+        <target>Boucherie fine</target>
       </segment>
-      <segment id="nice_surgery.log" state="initial">
+      <segment id="nice_surgery.log" state="translated">
         <source>nice_surgery.log</source>
-        <target>nice_surgery.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en effectuant une chirurgie exceptionnelle !</target>
       </segment>
     </unit>
     <unit id="robotic_graal">
-      <segment id="robotic_graal.name" state="initial">
+      <segment id="robotic_graal.name" state="translated">
         <source>robotic_graal.name</source>
-        <target>robotic_graal.name</target>
+        <target>Graal robotique</target>
       </segment>
-      <segment id="robotic_graal.log" state="initial">
+      <segment id="robotic_graal.log" state="translated">
         <source>robotic_graal.log</source>
-        <target>robotic_graal.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en améliorant un drone en tant que Terrence !</target>
       </segment>
       <segment id="robotic_graal.personal_description" state="translated">
         <source>robotic_graal.personal_description</source>
@@ -440,33 +440,33 @@
       </segment>
     </unit>
     <unit id="rebel_wolf">
-      <segment id="rebel_wolf.name" state="initial">
+      <segment id="rebel_wolf.name" state="translated">
         <source>rebel_wolf.name</source>
-        <target>rebel_wolf.name</target>
+        <target>Rebel Garou</target>
       </segment>
-      <segment id="rebel_wolf.log" state="initial">
+      <segment id="rebel_wolf.log" state="translated">
         <source>rebel_wolf.log</source>
-        <target>rebel_wolf.log</target>
+        <target>Vous avez gagné {quantity} :triumph: car le Daedalus a contacté les Enfants Perdus de Wolf.</target>
       </segment>
     </unit>
     <unit id="rebel_contact">
-      <segment id="rebel_contact.name" state="initial">
+      <segment id="rebel_contact.name" state="translated">
         <source>rebel_contact.name</source>
-        <target>rebel_contact.name</target>
+        <target>Réseaux Rebelles</target>
       </segment>
-      <segment id="rebel_contact.log" state="initial">
+      <segment id="rebel_contact.log" state="translated">
         <source>rebel_contact.log</source>
-        <target>rebel_contact.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en tant qu'Eleesha car le Daedalus a contacté une base rebelle !</target>
       </segment>
     </unit>
     <unit id="looking_for_kivanc">
-      <segment id="looking_for_kivanc.name" state="initial">
+      <segment id="looking_for_kivanc.name" state="translated">
         <source>looking_for_kivanc.name</source>
-        <target>looking_for_kivanc.name</target>
+        <target>Kivanç, Mon Amour</target>
       </segment>
-      <segment id="looking_for_kivanc.log" state="initial">
+      <segment id="looking_for_kivanc.log" state="translated">
         <source>looking_for_kivanc.log</source>
-        <target>looking_for_kivanc.log</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez contacté Kivanç en tant que Paola !</target>
       </segment>
       <segment id="looking_for_kivanc.personal_description" state="translated">
         <source>looking_for_kivanc.personal_description</source>
@@ -474,9 +474,9 @@
       </segment>
     </unit>
     <unit id="star_map_1">
-      <segment id="star_map_1.name" state="initial">
+      <segment id="star_map_1.name" state="translated">
         <source>star_map_1.name</source>
-        <target>star_map_1.name</target>
+        <target>Vers le Nouvel Eden</target>
       </segment>
       <segment id="star_map_1.log" state="initial">
         <source>star_map_1.log</source>

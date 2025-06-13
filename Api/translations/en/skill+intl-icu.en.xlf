@@ -702,7 +702,7 @@
       </segment>
       <segment id="green_jelly.description" state="translated">
         <source>green_jelly.description</source>
-        <target>You produce an acidic green jelly from your armpits.//:point: For **1** :pa:, you can break an electronic object. It will take a few cycles for the object to break down.</target>
+        <target>You produce an acidic green jelly from your armpits.//:point: For **1** :pa:, you can break an electronic object. It will take a few cycles for the object to break down.//:point: This breakage is **always** announced by NERON.</target>
       </segment>
     </unit>
     <unit id="massive_mushification">

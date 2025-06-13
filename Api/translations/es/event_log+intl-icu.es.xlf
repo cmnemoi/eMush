@@ -781,9 +781,11 @@
         <source>lost_research_headline</source>
         <target>lost_research_headline</target>
       </segment>
-      <segment id="lost_research_sample" state="initial">
+      <segment id="lost_research_sample" state="translated">
         <source>lost_research_sample</source>
-        <target>lost_research_sample</target>
+        <target>Sujeto : {character} Resultado: {is_negative, select,
+true {Negativo}
+other {¡¡¡Muestra insuficiente!!!}</target>
       </segment>
     </unit>
     <unit id="observant_noticed_something">

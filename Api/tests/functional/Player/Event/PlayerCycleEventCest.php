@@ -743,6 +743,19 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
         $this->thenChunShouldHaveAPMP($I, 1, 2);
     }
 
+    public function hyperactiveAndBrokenGravitySimulatorCancelOut(FunctionalTester $I): void
+    {
+        $this->givenChunHasHyperactive();
+
+        $this->givenChunHasAPMP(0, 0);
+
+        $this->givenGravitySimulatorIsBroken();
+
+        $this->whenNewCycleEventIsTriggered();
+
+        $this->thenChunShouldHaveAPMP($I, 1, 1);
+    }
+
     private function givenChunHasHyperactive(): void
     {
         $this->statusService->createStatusFromName(
@@ -767,6 +780,18 @@ final class PlayerCycleEventCest extends AbstractFunctionalTest
     {
         $this->chun->setActionPoint($AP);
         $this->chun->setMovementPoint($MP);
+    }
+
+    private function givenGravitySimulatorIsBroken()
+    {
+        $gravitySimulator = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::GRAVITY_SIMULATOR,
+            equipmentHolder: $this->daedalus->getPlaces()->first(),
+            reasons: ['test'],
+            time: new \DateTime(),
+            visibility: VisibilityEnum::HIDDEN
+        );
+        $this->statusService->createStatusFromName(EquipmentStatusEnum::BROKEN, $gravitySimulator, [], new \DateTime());
     }
 
     private function whenNewCycleEventIsTriggered(): void

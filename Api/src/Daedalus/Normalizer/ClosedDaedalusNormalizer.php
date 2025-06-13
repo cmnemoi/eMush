@@ -171,10 +171,17 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
             );
 
             $displayedCharacter = (string) $this->randomService->getRandomElement($funFacts[$name]);
+            $characterName = $this->translationService->translate(
+                key: "{$displayedCharacter}.name",
+                parameters: [],
+                domain: 'characters',
+                language: $daedalus->getLanguage()
+            );
             $normalizedFunFacts[] = [
                 'title' => $translatedName,
                 'description' => $translatedDescription,
-                'characterName' => $displayedCharacter,
+                'characterLogName' => $displayedCharacter,
+                'characterName' => $characterName,
             ];
             unset($funFacts[$name]);
         }

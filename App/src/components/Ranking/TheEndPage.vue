@@ -351,14 +351,16 @@
             </div> -->
             <div class="honors" v-if="funFacts?.length > 0">
                 <div v-for="(funFact, name) in closedDaedalus.funFacts" :key="name">
-                    <Tippy>
-                        <p>{{ funFact.title }}</p>
-                        <template #content>
-                            <p>{{ funFact.description }}</p>
-                        </template>
-                    </Tippy>
+                    <p>
+                        <Tippy>
+                            {{ funFact.title }}
+                            <template #content>
+                                <p>{{ funFact.description }}</p>
+                            </template>
+                        </Tippy>
+                    </p>
                     <ul>
-                        <li><img class="body" :src="getImgUrl(`char/body/${funFact.characterName}.png`)" :alt="funFact.characterName"></li>
+                        <li><img class="body" :src="getImgUrl(`char/body/${funFact.characterLogName}.png`)" :alt="funFact.characterName"> {{ funFact.characterName }}</li>
                     </ul>
                 </div>
             </div>
@@ -874,6 +876,8 @@ h2 {
 }
 
 .progress, .roles, .honors {
+    margin: 0.5em;
+
     & > div {
         flex-direction: row;
         background-color: #222b6b;

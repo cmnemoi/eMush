@@ -1298,7 +1298,7 @@ abstract class ModifierConfigData
             'modifierName' => 'hyperactive_modifier',
             'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
             'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
-            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'priority' => ModifierPriorityEnum::BEFORE_ADDITIVE_MODIFIER_VALUE,
             'applyOnTarget' => true,
             'modifierRange' => 'player',
             'type' => 'variable_event_modifier',

@@ -13,6 +13,7 @@ abstract class ModifierPriorityEnum
     public const string MULTIPLICATIVE_MODIFIER_VALUE = 'multiplicativeModifierPriority';
     public const string BEFORE_MULTIPLICATIVE_MODIFIER_VALUE = 'beforeMultiplicativeModifierPriority';
     public const string ADDITIVE_MODIFIER_VALUE = 'additiveModifierPriority';
+    public const string BEFORE_ADDITIVE_MODIFIER_VALUE = 'beforeAdditiveModifierPriority';
     public const string OVERRIDE_VALUE_PRIORITY = 'overrideValuePriority';
     public const string BEFORE_OVERRIDE_VALUE_PRIORITY = 'beforeOverrideValuePriority';
     public const string AFTER_OVERRIDE_VALUE_PRIORITY = 'afterOverrideValuePriority';
@@ -28,6 +29,7 @@ abstract class ModifierPriorityEnum
         self::ATTEMPT_INCREASE => -17,
         self::BEFORE_MULTIPLICATIVE_MODIFIER_VALUE => -16,
         self::MULTIPLICATIVE_MODIFIER_VALUE => -15,
+        self::BEFORE_ADDITIVE_MODIFIER_VALUE => -11,
         self::ADDITIVE_MODIFIER_VALUE => -10,
         self::BEFORE_OVERRIDE_VALUE_PRIORITY => -6,
         self::OVERRIDE_VALUE_PRIORITY => -5,

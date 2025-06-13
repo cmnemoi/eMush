@@ -236,7 +236,7 @@
       </segment>
       <segment id="super_nova.log" state="translated">
         <source>super_nova.log</source>
-        <target>Vous avez gagné {quantity} :triumph: car vous avez éparpillé par une explosion stellaire.</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez été éparpillé par une explosion stellaire.</target>
       </segment>
     </unit>
     <unit id="chun_dead">
@@ -434,7 +434,7 @@
         <source>robotic_graal.log</source>
         <target>robotic_graal.log</target>
       </segment>
-      <segment id="robotic_graal.personal_description" state="initial">
+      <segment id="robotic_graal.personal_description" state="translated">
         <source>robotic_graal.personal_description</source>
         <target>Terrence gagne {quantity} :triumph: à chaque fois qu'il améliore un drone.</target>
       </segment>
@@ -468,7 +468,7 @@
         <source>looking_for_kivanc.log</source>
         <target>looking_for_kivanc.log</target>
       </segment>
-      <segment id="looking_for_kivanc.personal_description" state="initial">
+      <segment id="looking_for_kivanc.personal_description" state="translated">
         <source>looking_for_kivanc.personal_description</source>
         <target>Paola gagne {quantity} :triumph: lorsque le contact avec Kivanç est rétabli au Centre de Communuication.</target>
       </segment>
@@ -512,7 +512,7 @@
         <source>hunter_nemesis.log</source>
         <target>hunter_nemesis.log</target>
       </segment>
-      <segment id="hunter_nemesis.personal_description" state="initial">
+      <segment id="hunter_nemesis.personal_description" state="translated">
         <source>hunter_nemesis.personal_description</source>
         <target>Roland gagne {quantity} :triumph: à chaque hunter qu'il abat. Passé {regressiveFactor} gains, ces derniers seront de moins en moins fréquents.</target>
       </segment>
@@ -566,7 +566,7 @@
         <source>planet_searcher.log</source>
         <target>planet_searcher.log</target>
       </segment>
-      <segment id="planet_searcher.personal_description" state="initial">
+      <segment id="planet_searcher.personal_description" state="translated">
         <source>planet_searcher.personal_description</source>
         <target>Frieda gagne {quantity} :triumph: à chaque planète qu'elle découvre sur le Terminal Astro. Passé {regressiveFactor} gains, ces gains seront de moins en moins fréquents.</target>
       </segment>
@@ -590,7 +590,7 @@
         <source>planet_finder.log</source>
         <target>planet_finder.log</target>
       </segment>
-      <segment id="planet_finder.personal_description" state="initial">
+      <segment id="planet_finder.personal_description" state="translated">
         <source>planet_finder.personal_description</source>
         <target>Frieda gagne {quantity} :triumph: à chaque fois qu'elle arrive en orbite d'une nouvelle planète.</target>
       </segment>

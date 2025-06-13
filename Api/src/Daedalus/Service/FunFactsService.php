@@ -10,7 +10,6 @@ use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\PlayerStatistics;
 use Mush\Daedalus\Enum\FunFactEnum;
 use Mush\Player\Entity\ClosedPlayer;
-use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
 
 final class FunFactsService implements FunFactsServiceInterface
@@ -27,17 +26,16 @@ final class FunFactsService implements FunFactsServiceInterface
 
         foreach (FunFactEnum::getAll() as $funFact) {
             if (FunFactEnum::looksForGreatestStatValue($funFact)) {
-                $funFacts[$funFact] = $this->getPlayersFromGreatestStatisticValue($funFact, $closedDaedalus);
+                $funFacts[$funFact] = $this->getPlayerNamesFromGreatestStatisticValue($funFact, $closedDaedalus);
             } elseif (FunFactEnum::looksForSmallestStatValue($funFact)) {
-                $funFacts[$funFact] = $this->getPlayersFromSmallestStatisticValue($funFact, $closedDaedalus);
+                $funFacts[$funFact] = $this->getPlayerNamesFromSmallestStatisticValue($funFact, $closedDaedalus);
             } else {
-                $funFacts[$funFact] = $this->getPlayersFromOtherMetrics($funFact, $closedDaedalus);
+                $funFacts[$funFact] = $this->getPlayerNamesFromOtherMetrics($funFact, $closedDaedalus);
             }
         }
 
-        /** @var PlayerCollection $players */
         foreach ($funFacts as $key => $players) {
-            if ($players->isEmpty()) {
+            if (\count($players) === 0) {
                 unset($funFacts[$key]);
             }
         }
@@ -45,56 +43,58 @@ final class FunFactsService implements FunFactsServiceInterface
         $daedalusInfo->setFunFacts($funFacts);
     }
 
-    private function getPlayersFromGreatestStatisticValue(string $funFact, ClosedDaedalus $closedDaedalus): PlayerCollection
+    private function getPlayerNamesFromGreatestStatisticValue(string $funFact, ClosedDaedalus $closedDaedalus): array
     {
         $statisticValues = $this->getValueSetFromFunFact($funFact, $closedDaedalus);
         $greatestValue = $this->getGreatestNumberFromArray($statisticValues->toArray());
         if ($greatestValue === null || $greatestValue <= 0) {
-            return new PlayerCollection();
+            return [];
         }
 
-        return new PlayerCollection($closedDaedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getNumberStatisticForFunFact($funFact) === $greatestValue)->toArray());
+        return $closedDaedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getNumberStatisticForFunFact($funFact) === $greatestValue)
+            ->map(static fn (ClosedPlayer $player) => $player->getLogName())->toArray();
     }
 
-    private function getPlayersFromSmallestStatisticValue(string $funFact, ClosedDaedalus $closedDaedalus): PlayerCollection
+    private function getPlayerNamesFromSmallestStatisticValue(string $funFact, ClosedDaedalus $closedDaedalus): array
     {
         $statisticValues = $this->getValueSetFromFunFact($funFact, $closedDaedalus);
         $smallestValue = $this->getSmallestNumberFromArray($statisticValues->toArray());
 
-        return new PlayerCollection($closedDaedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getNumberStatisticForFunFact($funFact) === $smallestValue)->toArray());
+        return $closedDaedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getNumberStatisticForFunFact($funFact) === $smallestValue)
+            ->map(static fn (ClosedPlayer $player) => $player->getLogName())->toArray();
     }
 
-    private function getPlayersFromOtherMetrics(string $funFact, ClosedDaedalus $closedDaedalus): PlayerCollection
+    private function getPlayerNamesFromOtherMetrics(string $funFact, ClosedDaedalus $closedDaedalus): array
     {
         return match ($funFact) {
-            FunFactEnum::UNLUCKIER_TECHNICIAN => $this->getUnluckiestTechnicianAsCollection($closedDaedalus),
-            FunFactEnum::EARLIEST_DEATH => $this->getFirstToDiePlayerAsCollection($closedDaedalus),
-            FunFactEnum::DEAD_DURING_SLEEP => new PlayerCollection($closedDaedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->hasDiedDuringSleep())->toArray()),
-            FunFactEnum::UNSTEALTHIEST => $this->getNotAssassinatedUnstealthiestPlayerAsCollection($closedDaedalus),
-            FunFactEnum::UNSTEALTHIEST_AND_KILLED => $this->getAssassinatedUnstealthiestPlayerAsCollection($closedDaedalus),
+            FunFactEnum::UNLUCKIER_TECHNICIAN => $this->getUnluckiestTechnicianAsNameArray($closedDaedalus),
+            FunFactEnum::EARLIEST_DEATH => $this->getFirstToDiePlayerAsNameArray($closedDaedalus),
+            FunFactEnum::DEAD_DURING_SLEEP => $closedDaedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->hasDiedDuringSleep())->map(static fn (ClosedPlayer $player) => $player->getLogName())->toArray(),
+            FunFactEnum::UNSTEALTHIEST => $this->getNotAssassinatedUnstealthiestPlayerAsNameArray($closedDaedalus),
+            FunFactEnum::UNSTEALTHIEST_AND_KILLED => $this->getAssassinatedUnstealthiestPlayerAsNameArray($closedDaedalus),
             default => throw new \LogicException('Unknown fun fact to handle'),
         };
     }
 
-    private function getUnluckiestTechnicianAsCollection(ClosedDaedalus $closedDaedalus): PlayerCollection
+    private function getUnluckiestTechnicianAsNameArray(ClosedDaedalus $closedDaedalus): array
     {
         $candidates = $closedDaedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getTechFails() > 0);
         $failRates = $candidates->map(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getTechFailRate());
         $highestRate = $this->getGreatestNumberFromArray($failRates->toArray());
         if ($highestRate === null || $highestRate <= 0) {
-            return new PlayerCollection();
+            return [];
         }
 
-        return new PlayerCollection($candidates->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getTechFails() >= $highestRate)->toArray());
+        return $candidates->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getTechFails() >= $highestRate)->map(static fn (ClosedPlayer $player) => $player->getLogName())->toArray();
     }
 
-    private function getFirstToDiePlayerAsCollection(ClosedDaedalus $closedDaedalus): PlayerCollection
+    private function getFirstToDiePlayerAsNameArray(ClosedDaedalus $closedDaedalus): array
     {
         $deadPlayers = $closedDaedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => !\in_array($player->getEndCause(), EndCauseEnum::getNotDeathEndCauses()->toArray(), true));
         $deathTimestamps = $deadPlayers->map(static fn (ClosedPlayer $player) => $player->getFinishedAtOrThrow()->getTimestamp());
         $earliestDeath = $this->getSmallestNumberFromArray($deathTimestamps->toArray());
 
-        return new PlayerCollection($deadPlayers->filter(static fn (ClosedPlayer $player) => $player->getFinishedAtOrThrow()->getTimestamp() === $earliestDeath)->toArray());
+        return $deadPlayers->filter(static fn (ClosedPlayer $player) => $player->getFinishedAtOrThrow()->getTimestamp() === $earliestDeath)->map(static fn (ClosedPlayer $player) => $player->getLogName())->toArray();
     }
 
     private function getValueSetFromFunFact(string $funFact, ClosedDaedalus $closedDaedalus): ArrayCollection
@@ -104,28 +104,28 @@ final class FunFactsService implements FunFactsServiceInterface
         return $playersStatistics->map(static fn (PlayerStatistics $stat) => $stat->getNumberStatisticForFunFact($funFact));
     }
 
-    private function getNotAssassinatedUnstealthiestPlayerAsCollection(ClosedDaedalus $closedDaedalus): PlayerCollection
+    private function getNotAssassinatedUnstealthiestPlayerAsNameArray(ClosedDaedalus $closedDaedalus): array
     {
         $candidates = $closedDaedalus->getPlayers()->filter(fn (ClosedPlayer $player) => $this->wasAssassinated($player) === false);
         $unstealthyValues = $candidates->map(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getUnstealthActionsTaken());
         $greatestValue = $this->getGreatestNumberFromArray($unstealthyValues->toArray());
         if ($greatestValue === null || $greatestValue <= 0) {
-            return new PlayerCollection();
+            return [];
         }
 
-        return new PlayerCollection($candidates->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getUnstealthActionsTaken() === $greatestValue)->toArray());
+        return $candidates->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getUnstealthActionsTaken() === $greatestValue)->map(static fn (ClosedPlayer $player) => $player->getLogName())->toArray();
     }
 
-    private function getAssassinatedUnstealthiestPlayerAsCollection(ClosedDaedalus $closedDaedalus): PlayerCollection
+    private function getAssassinatedUnstealthiestPlayerAsNameArray(ClosedDaedalus $closedDaedalus): array
     {
         $candidates = $closedDaedalus->getPlayers()->filter(fn (ClosedPlayer $player) => $this->wasAssassinated($player));
         $unstealthyValues = $candidates->map(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getUnstealthActionsTaken());
         $greatestValue = $this->getGreatestNumberFromArray($unstealthyValues->toArray());
         if ($greatestValue === null || $greatestValue <= 0) {
-            return new PlayerCollection();
+            return [];
         }
 
-        return new PlayerCollection($candidates->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getUnstealthActionsTaken() === $greatestValue)->toArray());
+        return $candidates->filter(static fn (ClosedPlayer $player) => $player->getPlayerInfo()->getStatistics()->getUnstealthActionsTaken() === $greatestValue)->map(static fn (ClosedPlayer $player) => $player->getLogName())->toArray();
     }
 
     private function wasAssassinated(ClosedPlayer $player): bool

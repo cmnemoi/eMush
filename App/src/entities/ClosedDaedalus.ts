@@ -24,7 +24,7 @@ type ClosedDaedalusProjects = {
 type FunFact = {
     title: string;
     description: string;
-    player: ClosedPlayer;
+    characterName: string;
 }
 
 export class ClosedDaedalus {

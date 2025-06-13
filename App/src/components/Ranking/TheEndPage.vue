@@ -358,7 +358,7 @@
                         </template>
                     </Tippy>
                     <ul>
-                        <li><img class="body" :src="getPlayerCharacterBody(funFact.player)" :alt="getPlayerCharacterCompleteName(funFact.player)"></li>
+                        <li><img class="body" :src="getImgUrl(`char/body/${funFact.characterName}.png`)" :alt="funFact.characterName"></li>
                     </ul>
                 </div>
             </div>

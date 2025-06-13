@@ -6,7 +6,6 @@ use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
-use Mush\Player\Entity\ClosedPlayer;
 use Mush\Project\Enum\ProjectType;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -154,12 +153,10 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $funFacts = $daedalus->getDaedalusInfo()->getFunFacts();
 
         for ($i = 0; $i < 5; ++$i) {
-            $funFact = $this->randomService->getRandomElement($funFacts);
-            if ($funFact === null) {
+            if (\count($funFacts) === 0) {
                 break;
             }
-            $name = key($funFact);
-            unset($funFacts[$name]);
+            $name = array_rand($funFacts);
             $translatedName = $this->translationService->translate(
                 key: "{$name}.name",
                 parameters: [],
@@ -173,13 +170,13 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
                 language: $daedalus->getLanguage()
             );
 
-            /** @var ClosedPlayer $displayedPlayer */
-            $displayedPlayer = $this->randomService->getRandomElement($funFact->toArray());
+            $displayedCharacter = (string) $this->randomService->getRandomElement($funFacts[$name]);
             $normalizedFunFacts[] = [
                 'title' => $translatedName,
                 'description' => $translatedDescription,
-                'player' => $displayedPlayer,
+                'characterName' => $displayedCharacter,
             ];
+            unset($funFacts[$name]);
         }
 
         return $normalizedFunFacts;

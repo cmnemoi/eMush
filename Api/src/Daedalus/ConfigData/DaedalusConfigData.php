@@ -111,7 +111,7 @@ class DaedalusConfigData
                 'support_drone_blueprint' => 1,
             ],
             'playerCount' => 16,
-            'chaolaToggle' => CharacterSetEnum::FINOLA_CHAO,
+            'chaolaToggle' => CharacterSetEnum::ONE,
         ],
     ];
 

@@ -325,30 +325,18 @@
                     />
                 </div>
             </div>
-            <!--
             <div class="roles">
-                <div>
-                    <p>Les Commandants</p>
+                <div v-for="(titleHolder) in closedDaedalus.titleHolders" :key="titleHolder.title">
+                    <p>{{ titleHolder.title }}</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
+                        <CharacterSignature
+                            v-for="characterKey in titleHolder.characterKeys"
+                            :key="characterKey"
+                            :character-key="characterKey"
+                        />
                     </ul>
                 </div>
-                <div>
-                    <p>Les Responsables des Communications</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
-                    </ul>
-                </div>
-                <div>
-                    <p>L'Administrateur NERON</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
-                    </ul>
-                </div>
-            </div> -->
+            </div>
             <div class="honors" v-if="funFacts?.length > 0">
                 <div v-for="(funFact, name) in closedDaedalus.funFacts" :key="name">
                     <p>
@@ -361,7 +349,7 @@
                         </Tippy>
                     </p>
                     <ul>
-                        <li><img class="body" :src="getImgUrl(`char/body/${funFact.characterLogName}.png`)" :alt="funFact.characterName"> {{ funFact.characterName }}</li>
+                        <CharacterSignature :character-key="funFact.characterKey" />
                     </ul>
                 </div>
             </div>
@@ -391,6 +379,7 @@ import { formatText } from "@/utils/formatText";
 import TriumphGainsPopup from "@/components/Ranking/TriumphGainsPopup.vue";
 import { toArray } from "@/utils/toArray";
 import DaedalusProjectCard from "@/components/Game/DaedalusProjectCard.vue";
+import CharacterSignature from "@/components/Game/CharacterSignature.vue";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -408,7 +397,7 @@ interface ClosedDaedalusState {
 
 export default defineComponent ({
     name: 'TheEnd',
-    components: { ReportPopup, ModerationActionPopup, TriumphGainsPopup, DaedalusProjectCard },
+    components: { ReportPopup, ModerationActionPopup, TriumphGainsPopup, DaedalusProjectCard, CharacterSignature },
     computed: {
         ...mapGetters({
             isModerator: 'auth/isModerator'

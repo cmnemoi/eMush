@@ -71,6 +71,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         );
         $normalizedDaedalus['statistics'] = $this->getNormalizedStatistics($daedalus);
         $normalizedDaedalus['projects'] = $this->getNormalizedProjects($daedalus);
+        $normalizedDaedalus['titleHolders'] = $this->getNormalizedTitleHolders($daedalus);
         $normalizedDaedalus['funFacts'] = $this->getNormalizedRandomFunFacts($daedalus);
 
         return $normalizedDaedalus;
@@ -146,6 +147,30 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         return $normalizedProjects;
     }
 
+    private function getNormalizedTitleHolders(ClosedDaedalus $daedalus): array
+    {
+        $normalizedTitleHolders = [];
+
+        foreach ($daedalus->getDaedalusInfo()->getGameConfig()->getTitleConfigs() as $titleConfig) {
+            $translatedTitle = $this->translationService->translate(
+                key: $titleConfig->getName(),
+                parameters: [],
+                domain: 'the_end',
+                language: $daedalus->getLanguage()
+            );
+            $normalizedTitleHolders[$titleConfig->getName()] = [
+                'title' => $translatedTitle,
+                'characterKeys' => [],
+            ];
+        }
+
+        foreach ($daedalus->getDaedalusInfo()->getTitleHolders() as $title => $playerNames) {
+            $normalizedTitleHolders[$title]['characterKeys'] = $playerNames;
+        }
+
+        return $normalizedTitleHolders;
+    }
+
     private function getNormalizedRandomFunFacts(ClosedDaedalus $daedalus): array
     {
         $normalizedFunFacts = [];
@@ -171,17 +196,10 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
             );
 
             $displayedCharacter = (string) $this->randomService->getRandomElement($funFacts[$name]);
-            $characterName = $this->translationService->translate(
-                key: "{$displayedCharacter}.name",
-                parameters: [],
-                domain: 'characters',
-                language: $daedalus->getLanguage()
-            );
             $normalizedFunFacts[] = [
                 'title' => $translatedName,
                 'description' => $translatedDescription,
-                'characterLogName' => $displayedCharacter,
-                'characterName' => $characterName,
+                'characterKey' => $displayedCharacter,
             ];
             unset($funFacts[$name]);
         }

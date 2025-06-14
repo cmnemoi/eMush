@@ -646,8 +646,10 @@
 			"report": "Reportar",
 			"loadMoreMessages": "Cargar más mensajes",
 			"markChannelAsRead": "Marcar canal como leído",
-			"exportChannelAsPDF": "🖨️",
-			"exportChannelAsPDFDescription": "También se copiará la conversación al portapapeles.",
+			"exportChannelAsClipboard": "Presse-papier 📋",
+			"exportChannelAsClipboardDescription": "copie la discussion dans le presse-papier.",
+			"exportChannelAsPDF": "Fichier PDF 🖨️",
+			"exportChannelAsPDFDescription": "Créé un fichier PDF contenant la discussion.",
 			"unbookmark": "Plus favori",
 			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
 		},

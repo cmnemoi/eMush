@@ -62,9 +62,9 @@
       </segment>
     </unit>
     <unit id="commander">
-      <segment state="initial">
+      <segment state="translated">
         <source>commander</source>
-        <target>commander</target>
+        <target>Les Commandants</target>
       </segment>
     </unit>
     <unit id="neron_manager">

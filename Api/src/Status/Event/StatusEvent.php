@@ -4,6 +4,7 @@ namespace Mush\Status\Event;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
@@ -170,8 +171,9 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection
     {
         return match ($targetSetting) {
-            TriumphTarget::EVENT_SUBJECT => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getPlayerStatusHolder())),
             TriumphTarget::AUTHOR => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getStatusTargetOrThrow())),
+            TriumphTarget::COMMANDER => $scopeTargets->filter(static fn (Player $player) => $player->hasTitle(TitleEnum::COMMANDER)),
+            TriumphTarget::EVENT_SUBJECT => $scopeTargets->filter(fn (Player $player) => $player->equals($this->getPlayerStatusHolder())),
             default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
     }

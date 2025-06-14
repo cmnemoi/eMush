@@ -12,12 +12,16 @@ use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Repository\InMemoryGameEquipmentRepository;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Event\StatusEvent;
 use Mush\Status\Factory\StatusFactory;
+use Mush\Status\Service\FakeStatusService;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\unit\Triumph\TestDoubles\Repository\InMemoryTriumphConfigRepository;
 use Mush\Triumph\ConfigData\TriumphConfigData;
@@ -46,10 +50,10 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
+        $this->cycleService = $this->createStub(CycleServiceInterface::class);
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
         $this->gameEquipmentRepository = new InMemoryGameEquipmentRepository();
-        $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->statusService = new FakeStatusService();
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
         $this->service = new ChangeTriumphFromEventService(
             cycleService: $this->cycleService,
@@ -225,6 +229,54 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
         $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
         self::assertCount(1, $closedPlayer->getTriumphGains());
         self::assertTrue($closedPlayer->getTriumphGains()->first()->equals(TriumphEnum::CYCLE_HUMAN, 1, false));
+    }
+
+    public function testShouldApplyRegressiveFactor(): void
+    {
+        // Given
+        $this->givenTriumphConfigExists(TriumphEnum::FAST_FORWARD);
+        $jinSu = $this->givenCommanderJinSu();
+        $this->givenJinSuEarnedHisPersonalGloryXTimes($jinSu, 6);
+        $event = $this->givenDaedalusInOrbitEvent();
+
+        // When
+        $this->whenChangingTriumphForEvent($event);
+
+        // Then
+        $this->thenPlayerShouldHaveTriumph($jinSu, 0);
+    }
+
+    private function givenCommanderJinSu(): Player
+    {
+        $player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::JIN_SU, $this->daedalus);
+        $player->addTitle(TitleEnum::COMMANDER);
+
+        return $player;
+    }
+
+    private function givenJinSuEarnedHisPersonalGloryXTimes(Player $player, int $times): Player
+    {
+        $chargeStatus = StatusFactory::createChargeStatusFromStatusName(
+            name: PlayerStatusEnum::PERSONAL_TRIUMPH_REGRESSION,
+            holder: $player,
+            charge: $times,
+        );
+        $this->statusService->persist($chargeStatus);
+
+        return $player;
+    }
+
+    private function givenDaedalusInOrbitEvent(): StatusEvent
+    {
+        $event = new StatusEvent(
+            status: StatusFactory::createStatusByNameForHolder(DaedalusStatusEnum::IN_ORBIT, $this->daedalus),
+            holder: $this->daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $event->setEventName(StatusEvent::STATUS_APPLIED);
+
+        return $event;
     }
 
     private function givenAHumanPlayer(): Player

@@ -128,6 +128,9 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         // then Jin Su is not commander, but Gioele is commander
         $I->assertEmpty($jinSu->getTitles());
         $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
+
+        // then title holders list should show only Gioele ever being a commander
+        $I->assertEquals($this->daedalus->getDaedalusInfo()->getTitleHolders(TitleEnum::COMMANDER), ['gioele']);
     }
 
     public function shouldGiveBackTitleToExInactivePlayers(FunctionalTester $I): void
@@ -144,6 +147,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
         // given Gioele is commander
         $gioele->addTitle(TitleEnum::COMMANDER);
+        $this->daedalus->getDaedalusInfo()->addTitleHolder(TitleEnum::COMMANDER, $gioele->getLogName());
         $I->haveInRepository($gioele);
 
         // when cycle change event is triggered
@@ -152,6 +156,9 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         // then Jin Su is commander, but Gioele is not commander anymore
         $I->assertTrue($jinSu->hasTitle(TitleEnum::COMMANDER));
         $I->assertEmpty($gioele->getTitles());
+
+        // then title holders list should show Gioele being the first commander then Jin Su
+        $I->assertEquals($this->daedalus->getDaedalusInfo()->getTitleHolders(TitleEnum::COMMANDER), ['gioele', 'jin_su']);
     }
 
     public function shouldNotGiveTitlesToHighlyInactivePlayers(FunctionalTester $I): void
@@ -180,6 +187,9 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         // then Jin Su is not commander, but Gioele is commander
         $I->assertEmpty($jinSu->getTitles());
         $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
+
+        // then title holders list should show only Gioele
+        $I->assertEquals($this->daedalus->getDaedalusInfo()->getTitleHolders(TitleEnum::COMMANDER), ['gioele']);
     }
 
     public function shouldRemoveTitlesFromInactivePlayers(FunctionalTester $I): void
@@ -196,6 +206,7 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
         // given Jin Su is commander
         $jinSu->addTitle(TitleEnum::COMMANDER);
+        $this->daedalus->getDaedalusInfo()->addTitleHolder(TitleEnum::COMMANDER, $jinSu->getLogName());
         $I->haveInRepository($jinSu);
 
         // given Jin Su is inactive
@@ -212,6 +223,80 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
 
         // then Jin Su is not commander anymore
         $I->assertFalse($jinSu->hasTitle(TitleEnum::COMMANDER));
+
+        // then title holders list should show Jin Su being the first commander then Gioele
+        $I->assertEquals($this->daedalus->getDaedalusInfo()->getTitleHolders(TitleEnum::COMMANDER), ['jin_su', 'gioele']);
+    }
+
+    public function shouldRecordTitleHolders(FunctionalTester $I): void
+    {
+        // given daedalus is in game so titles can be assigned
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::CURRENT);
+
+        // given those players in the daedalus
+        /** @var Player $jinSu */
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        /** @var Player $janice */
+        $janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
+
+        /** @var Player $eleesha */
+        $eleesha = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ELEESHA);
+
+        // when cycle change event is triggered
+        $this->whenANewCyclePasses();
+
+        // then titles should be assigned
+        $I->assertTrue($jinSu->hasTitle(TitleEnum::COMMANDER));
+        $I->assertTrue($janice->hasTitle(TitleEnum::NERON_MANAGER));
+        $I->assertTrue($eleesha->hasTitle(TitleEnum::COM_MANAGER));
+
+        // when Jin Su and Janice go inactive
+        (new \ReflectionProperty($jinSu, 'lastActionDate'))->setValue($jinSu, new \DateTime('-1 days'));
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $jinSu,
+            tags: [],
+            time: new \DateTime()
+        );
+        (new \ReflectionProperty($janice, 'lastActionDate'))->setValue($janice, new \DateTime('-1 days'));
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $janice,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when cycle change event is triggered
+        $this->whenANewCyclePasses();
+
+        // then Kuan Ti is new commander
+        $I->assertTrue($this->kuanTi->hasTitle(TitleEnum::COMMANDER));
+
+        // then Eleesha is new NERON admin
+        $I->assertTrue($eleesha->hasTitle(TitleEnum::NERON_MANAGER));
+
+        // when Jin Su stops being inactive
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::INACTIVE,
+            holder: $jinSu,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when cycle change event is triggered
+        $this->whenANewCyclePasses();
+
+        // then Jin Su is back at being the commander
+        $I->assertTrue($jinSu->hasTitle(TitleEnum::COMMANDER));
+        $I->assertFalse($this->kuanTi->hasTitle(TitleEnum::COMMANDER));
+
+        // then titleHolderList has correct values
+        $I->assertEquals($this->daedalus->getDaedalusInfo()->getTitleHolders(), [
+            TitleEnum::COMMANDER => ['jin_su', 'kuan_ti'],
+            TitleEnum::NERON_MANAGER => ['janice', 'eleesha'],
+            TitleEnum::COM_MANAGER => ['eleesha'],
+        ]);
     }
 
     public function shouldImproveDaedalusShieldByFiveIfPlasmaShieldProjectIsActive(FunctionalTester $I): void

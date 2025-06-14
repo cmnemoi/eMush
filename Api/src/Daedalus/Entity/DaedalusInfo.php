@@ -53,6 +53,9 @@ class DaedalusInfo
     private DaedalusProjectsStatistics $daedalusProjectsStatistics;
 
     #[ORM\Column(type: 'array', nullable: false, options : ['default' => 'a:0:{}'])]
+    private array $titleHolders = [];
+
+    #[ORM\Column(type: 'array', nullable: false, options : ['default' => 'a:0:{}'])]
     private array $funFacts = [];
 
     public function __construct(Daedalus $daedalus, GameConfig $gameConfig, LocalizationConfig $localizationConfig)
@@ -217,6 +220,26 @@ class DaedalusInfo
     public function getDaedalusProjectsStatistics(): DaedalusProjectsStatistics
     {
         return $this->daedalusProjectsStatistics;
+    }
+
+    public function getTitleHolders(?string $title = null): array
+    {
+        if (!$title) {
+            return $this->titleHolders;
+        }
+
+        return $this->titleHolders[$title];
+    }
+
+    public function addTitleHolder(string $title, string $characterName): static
+    {
+        if (!isset($this->titleHolders[$title])) {
+            $this->titleHolders[$title] = [$characterName];
+        } elseif (!\in_array($characterName, $this->titleHolders[$title], true)) {
+            $this->titleHolders[$title][] = $characterName;
+        }
+
+        return $this;
     }
 
     public function getFunFacts(): array

@@ -536,6 +536,7 @@ class DaedalusService implements DaedalusServiceInterface
     private function assignTitleToPlayer(Player $player, string $title, \DateTime $date): void
     {
         $player->addTitle($title);
+        $player->getDaedalusInfo()->addTitleHolder($title, $player->getLogName());
         $this->dispatchTitleEvent($player, $title, $date, PlayerEvent::TITLE_ATTRIBUTED);
     }
 

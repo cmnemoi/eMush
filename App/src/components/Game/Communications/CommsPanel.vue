@@ -30,7 +30,14 @@
         <button class="action-button" @click="markAsRead()" v-if="currentChannel.isNotTipsChannel()">
             {{ $t('game.communications.markChannelAsRead') }}
         </button>
-        <Tippy tag="button" class="action-button" @click="exportChannel()">
+        <Tippy tag="button" class="action-button" @click="exportChannelasClipboard()">
+            📋
+            <template #content>
+                <h1 v-html="$t('game.communications.exportChannelAsClipboard')"/>
+                <p v-html="$t('game.communications.exportChannelAsClipboardDescription')"/>
+            </template>
+        </Tippy>
+        <Tippy tag="button" class="action-button" @click="exportChannelasPDF()">
             🖨️
             <template #content>
                 <h1 v-html="$t('game.communications.exportChannelAsPDF')"/>
@@ -55,7 +62,7 @@ import { ChannelType } from "@/enums/communication.enum";
 import { Component, defineComponent } from "vue";
 import { GameCalendar } from "@/entities/GameCalendar";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { exportChannelToPDF } from "@/services/export-channel-to-pdf.service";
+import { exportChannelToPDF, exportChannelToClipboard } from "@/services/export-channel-to-pdf.service";
 import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
@@ -140,7 +147,16 @@ export default defineComponent ({
                 await this.markCurrentChannelAsRead(this.currentChannel);
             }
         },
-        async exportChannel() : Promise<void> {
+        async exportChannelasClipboard() : Promise<void> {
+            const chatbox = document.querySelector('.chatbox') as HTMLElement;
+            if (!chatbox) {
+                console.error('Chatbox not found');
+                return;
+            }
+
+            await exportChannelToClipboard(chatbox);
+        },
+        async exportChannelasPDF() : Promise<void> {
             const chatbox = document.querySelector('.chatbox') as HTMLElement;
             if (!chatbox) {
                 console.error('Chatbox not found');

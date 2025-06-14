@@ -361,7 +361,7 @@
                         </Tippy>
                     </p>
                     <ul>
-                        <li><img class="body" :src="getImgUrl(`char/body/${funFact.characterLogName}.png`)" :alt="funFact.characterName"> {{ funFact.characterName }}</li>
+                        <CharacterSignature :character-key="funFact.characterKey" />
                     </ul>
                 </div>
             </div>
@@ -391,6 +391,7 @@ import { formatText } from "@/utils/formatText";
 import TriumphGainsPopup from "@/components/Ranking/TriumphGainsPopup.vue";
 import { toArray } from "@/utils/toArray";
 import DaedalusProjectCard from "@/components/Game/DaedalusProjectCard.vue";
+import CharacterSignature from "@/components/Game/CharacterSignature.vue";
 
 interface ClosedDaedalusState {
     closedDaedalus: ClosedDaedalus|null
@@ -408,7 +409,7 @@ interface ClosedDaedalusState {
 
 export default defineComponent ({
     name: 'TheEnd',
-    components: { ReportPopup, ModerationActionPopup, TriumphGainsPopup, DaedalusProjectCard },
+    components: { ReportPopup, ModerationActionPopup, TriumphGainsPopup, DaedalusProjectCard, CharacterSignature },
     computed: {
         ...mapGetters({
             isModerator: 'auth/isModerator'

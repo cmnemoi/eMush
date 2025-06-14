@@ -572,23 +572,23 @@
       </segment>
     </unit>
     <unit id="new_planet">
-      <segment id="new_planet.name" state="initial">
+      <segment id="new_planet.name" state="translated">
         <source>new_planet.name</source>
-        <target>new_planet.name</target>
+        <target> New planet</target>
       </segment>
-      <segment id="new_planet.log" state="initial">
+      <segment id="new_planet.log" state="translated">
         <source>new_planet.log</source>
-        <target>new_planet.log</target>
+        <target>You have earned {quantity} :triumph: by entering orbit around a new planet.</target>
       </segment>
     </unit>
     <unit id="planet_finder">
-      <segment id="planet_finder.name" state="initial">
+      <segment id="planet_finder.name" state="translated">
         <source>planet_finder.name</source>
-        <target>planet_finder.name</target>
+        <target> Exoresearcher</target>
       </segment>
-      <segment id="planet_finder.log" state="initial">
+      <segment id="planet_finder.log" state="translated">
         <source>planet_finder.log</source>
-        <target>planet_finder.log</target>
+        <target>You have earned {quantity} :triumph: by entering orbit around a new planet as Frieda!</target>
       </segment>
       <segment id="planet_finder.personal_description" state="initial">
         <source>planet_finder.personal_description</source>

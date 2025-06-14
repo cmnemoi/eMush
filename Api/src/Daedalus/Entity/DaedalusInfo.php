@@ -52,6 +52,9 @@ class DaedalusInfo
     #[ORM\Embedded(class: DaedalusProjectsStatistics::class)]
     private DaedalusProjectsStatistics $daedalusProjectsStatistics;
 
+    #[ORM\Column(type: 'array', nullable: false, options : ['default' => 'a:0:{}'])]
+    private array $funFacts = [];
+
     public function __construct(Daedalus $daedalus, GameConfig $gameConfig, LocalizationConfig $localizationConfig)
     {
         $this->daedalus = $daedalus;
@@ -214,5 +217,17 @@ class DaedalusInfo
     public function getDaedalusProjectsStatistics(): DaedalusProjectsStatistics
     {
         return $this->daedalusProjectsStatistics;
+    }
+
+    public function getFunFacts(): array
+    {
+        return $this->funFacts;
+    }
+
+    public function setFunFacts(array $funFacts): static
+    {
+        $this->funFacts = $funFacts;
+
+        return $this;
     }
 }

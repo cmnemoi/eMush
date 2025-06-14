@@ -58,6 +58,7 @@ class DaedalusService implements DaedalusServiceInterface
     private TitlePriorityRepositoryInterface $titlePriorityRepository;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
+    private FunFactsServiceInterface $funFactsService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -70,7 +71,8 @@ class DaedalusService implements DaedalusServiceInterface
         DaedalusRepository $daedalusRepository,
         TitlePriorityRepositoryInterface $titlePriorityRepository,
         PlayerServiceInterface $playerService,
-        StatusServiceInterface $statusService
+        StatusServiceInterface $statusService,
+        FunFactsServiceInterface $funFactsService,
     ) {
         $this->entityManager = $entityManager;
         $this->eventService = $eventService;
@@ -83,6 +85,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->titlePriorityRepository = $titlePriorityRepository;
         $this->playerService = $playerService;
         $this->statusService = $statusService;
+        $this->funFactsService = $funFactsService;
     }
 
     /**
@@ -254,6 +257,9 @@ class DaedalusService implements DaedalusServiceInterface
             $this->entityManager->persist($closedPlayer);
             $this->entityManager->flush();
         }
+
+        $this->funFactsService->generateForDaedalusInfo($daedalusInfo);
+        $this->persistDaedalusInfo($daedalusInfo);
 
         $this->entityManager->persist($closedDaedalus);
         $this->entityManager->flush();

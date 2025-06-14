@@ -4,6 +4,7 @@ namespace Mush\Daedalus\Normalizer;
 
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Game\Service\CycleServiceInterface;
+use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Project\Enum\ProjectType;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -16,13 +17,16 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
     private const string ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
     private CycleServiceInterface $cycleService;
+    private RandomServiceInterface $randomService;
     private TranslationServiceInterface $translationService;
 
     public function __construct(
         CycleServiceInterface $cycleService,
+        RandomServiceInterface $randomService,
         TranslationServiceInterface $translationService
     ) {
         $this->cycleService = $cycleService;
+        $this->randomService = $randomService;
         $this->translationService = $translationService;
     }
 
@@ -67,6 +71,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         );
         $normalizedDaedalus['statistics'] = $this->getNormalizedStatistics($daedalus);
         $normalizedDaedalus['projects'] = $this->getNormalizedProjects($daedalus);
+        $normalizedDaedalus['funFacts'] = $this->getNormalizedRandomFunFacts($daedalus);
 
         return $normalizedDaedalus;
     }
@@ -139,5 +144,48 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $normalizedProjects;
+    }
+
+    private function getNormalizedRandomFunFacts(ClosedDaedalus $daedalus): array
+    {
+        $normalizedFunFacts = [];
+
+        $funFacts = $daedalus->getDaedalusInfo()->getFunFacts();
+
+        for ($i = 0; $i < 5; ++$i) {
+            if (\count($funFacts) === 0) {
+                break;
+            }
+            $name = array_rand($funFacts);
+            $translatedName = $this->translationService->translate(
+                key: "{$name}.name",
+                parameters: [],
+                domain: 'fun_facts',
+                language: $daedalus->getLanguage()
+            );
+            $translatedDescription = $this->translationService->translate(
+                key: "{$name}.description",
+                parameters: [],
+                domain: 'fun_facts',
+                language: $daedalus->getLanguage()
+            );
+
+            $displayedCharacter = (string) $this->randomService->getRandomElement($funFacts[$name]);
+            $characterName = $this->translationService->translate(
+                key: "{$displayedCharacter}.name",
+                parameters: [],
+                domain: 'characters',
+                language: $daedalus->getLanguage()
+            );
+            $normalizedFunFacts[] = [
+                'title' => $translatedName,
+                'description' => $translatedDescription,
+                'characterLogName' => $displayedCharacter,
+                'characterName' => $characterName,
+            ];
+            unset($funFacts[$name]);
+        }
+
+        return $normalizedFunFacts;
     }
 }

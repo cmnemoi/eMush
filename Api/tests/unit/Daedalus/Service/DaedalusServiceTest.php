@@ -18,6 +18,7 @@ use Mush\Daedalus\Repository\DaedalusInfoRepository;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Repository\TitlePriorityRepositoryInterface;
 use Mush\Daedalus\Service\DaedalusService;
+use Mush\Daedalus\Service\FunFactsServiceInterface;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
@@ -80,6 +81,9 @@ final class DaedalusServiceTest extends TestCase
     /** @var Mockery\Mock|StatusServiceInterface */
     private StatusServiceInterface $statusService;
 
+    /** @var FunFactsServiceInterface|Mockery\Mock */
+    private FunFactsServiceInterface $funFactsService;
+
     private DaedalusService $service;
 
     /**
@@ -97,6 +101,7 @@ final class DaedalusServiceTest extends TestCase
         $this->daedalusRepository = \Mockery::mock(DaedalusRepository::class);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
+        $this->funFactsService = \Mockery::mock(FunFactsServiceInterface::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -110,6 +115,7 @@ final class DaedalusServiceTest extends TestCase
             $this->createStub(TitlePriorityRepositoryInterface::class),
             $this->playerService,
             $this->statusService,
+            $this->funFactsService
         );
     }
 

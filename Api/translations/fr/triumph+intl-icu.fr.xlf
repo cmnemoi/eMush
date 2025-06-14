@@ -656,9 +656,9 @@
       </segment>
     </unit>
     <unit id="eden_pregnant">
-      <segment id="eden_pregnant.name" state="initial">
+      <segment id="eden_pregnant.name" state="translated">
         <source>eden_pregnant.name</source>
-        <target>eden_pregnant.name</target>
+        <target>Futur Edeniste</target>
       </segment>
       <segment id="eden_pregnant.log" state="translated">
         <source>eden_pregnant.log</source>
@@ -716,19 +716,19 @@
       </segment>
     </unit>
     <unit id="cm_all_mush_humanicide">
-      <segment id="cm_all_mush_humanicide.name" state="initial">
+      <segment id="cm_all_mush_humanicide.name" state="translated">
         <source>cm_all_mush_humanicide.name</source>
-        <target>cm_all_mush_humanicide.name</target>
+        <target>Humanicide</target>
       </segment>
-      <segment id="cm_all_mush_humanicide.log" state="initial">
+      <segment id="cm_all_mush_humanicide.log" state="translated">
         <source>cm_all_mush_humanicide.log</source>
-        <target>cm_all_mush_humanicide.log</target>
+        <target>Humanicide</target>
       </segment>
     </unit>
     <unit id="cm_all_new_mush">
-      <segment id="cm_all_new_mush.name" state="initial">
+      <segment id="cm_all_new_mush.name" state="translated">
         <source>cm_all_new_mush.name</source>
-        <target>cm_all_new_mush.name</target>
+        <target>Champignac</target>
       </segment>
       <segment id="cm_all_new_mush.log" state="initial">
         <source>cm_all_new_mush.log</source>
@@ -736,9 +736,9 @@
       </segment>
     </unit>
     <unit id="cm_daedalus_explode">
-      <segment id="cm_daedalus_explode.name" state="initial">
+      <segment id="cm_daedalus_explode.name" state="translated">
         <source>cm_daedalus_explode.name</source>
-        <target>cm_daedalus_explode.name</target>
+        <target>Dernier brasier</target>
       </segment>
       <segment id="cm_daedalus_explode.log" state="initial">
         <source>cm_daedalus_explode.log</source>
@@ -746,9 +746,9 @@
       </segment>
     </unit>
     <unit id="cm_extinguish">
-      <segment id="cm_extinguish.name" state="initial">
+      <segment id="cm_extinguish.name" state="translated">
         <source>cm_extinguish.name</source>
-        <target>cm_extinguish.name</target>
+        <target>Chuck Norris du feu</target>
       </segment>
       <segment id="cm_extinguish.log" state="initial">
         <source>cm_extinguish.log</source>
@@ -756,9 +756,9 @@
       </segment>
     </unit>
     <unit id="cm_mush_vaccinated">
-      <segment id="cm_mush_vaccinated.name" state="initial">
+      <segment id="cm_mush_vaccinated.name" state="translated">
         <source>cm_mush_vaccinated.name</source>
-        <target>cm_mush_vaccinated.name</target>
+        <target>Pasteurisé</target>
       </segment>
       <segment id="cm_mush_vaccinated.log" state="initial">
         <source>cm_mush_vaccinated.log</source>
@@ -766,9 +766,9 @@
       </segment>
     </unit>
     <unit id="cm_pilgred">
-      <segment id="cm_pilgred.name" state="initial">
+      <segment id="cm_pilgred.name" state="translated">
         <source>cm_pilgred.name</source>
-        <target>cm_pilgred.name</target>
+        <target>Pilgredissime</target>
       </segment>
       <segment id="cm_pilgred.log" state="initial">
         <source>cm_pilgred.log</source>
@@ -776,9 +776,9 @@
       </segment>
     </unit>
     <unit id="cm_repair_object">
-      <segment id="cm_repair_object.name" state="initial">
+      <segment id="cm_repair_object.name" state="translated">
         <source>cm_repair_object.name</source>
-        <target>cm_repair_object.name</target>
+        <target>Serrurier</target>
       </segment>
       <segment id="cm_repair_object.log" state="initial">
         <source>cm_repair_object.log</source>
@@ -786,9 +786,9 @@
       </segment>
     </unit>
     <unit id="cm_repair_hull">
-      <segment id="cm_repair_hull.name" state="initial">
+      <segment id="cm_repair_hull.name" state="translated">
         <source>cm_repair_hull.name</source>
-        <target>cm_repair_hull.name</target>
+        <target>Forgeron</target>
       </segment>
       <segment id="cm_repair_hull.log" state="initial">
         <source>cm_repair_hull.log</source>
@@ -796,9 +796,9 @@
       </segment>
     </unit>
     <unit id="cm_sabotage">
-      <segment id="cm_sabotage.name" state="initial">
+      <segment id="cm_sabotage.name" state="translated">
         <source>cm_sabotage.name</source>
-        <target>cm_sabotage.name</target>
+        <target>Champignon-Lige</target>
       </segment>
       <segment id="cm_sabotage.log" state="initial">
         <source>cm_sabotage.log</source>
@@ -806,9 +806,9 @@
       </segment>
     </unit>
     <unit id="cm_use_extinguisher">
-      <segment id="cm_use_extinguisher.name" state="initial">
+      <segment id="cm_use_extinguisher.name" state="translated">
         <source>cm_use_extinguisher.name</source>
-        <target>cm_use_extinguisher.name</target>
+        <target>Soldat du feu</target>
       </segment>
       <segment id="cm_use_extinguisher.log" state="initial">
         <source>cm_use_extinguisher.log</source>

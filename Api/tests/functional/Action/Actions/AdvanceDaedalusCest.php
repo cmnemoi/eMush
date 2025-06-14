@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Game\Enum\CharacterEnum;
+use Mush\Game\Enum\TitleEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Tests\AbstractMoveDaedalusActionCest;
 use Mush\Tests\FunctionalTester;
@@ -177,5 +178,55 @@ final class AdvanceDaedalusCest extends AbstractMoveDaedalusActionCest
         // then all planets are deleted
         $remainingPlanets = $this->planetService->findAllByDaedalus($this->daedalus);
         $I->assertEmpty($remainingPlanets);
+    }
+
+    public function shouldNotGiveGloryToCommanderJinSuIfNotTowardsPlanet(FunctionalTester $I): void
+    {
+        // given jin su
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        // given JS is commander
+        $jinSu->addTitle(TitleEnum::COMMANDER);
+
+        // when player advances daedalus
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then JS should not get glory
+        $I->assertEquals(0, $jinSu->getTriumph());
+    }
+
+    public function shouldGiveGloryToCommanderJinSuIfTowardsPlanet(FunctionalTester $I): void
+    {
+        // given jin su
+        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
+
+        // given JS is commander
+        $jinSu->addTitle(TitleEnum::COMMANDER);
+
+        // given player found a planet
+        $planet = $this->planetService->createPlanet($this->player);
+        $I->haveInRepository($planet);
+
+        // given Daedalus coordinates matches the planet coordinates
+        $this->daedalus->setCombustionChamberFuel($planet->getDistance());
+        $this->daedalus->setOrientation($planet->getOrientation());
+
+        // when player advances daedalus
+        $this->moveDaedalusAction->loadParameters(
+            actionConfig: $this->moveDaedalusActionConfig,
+            actionProvider: $this->commandTerminal,
+            player: $this->player,
+            target: $this->commandTerminal
+        );
+        $this->moveDaedalusAction->execute();
+
+        // then JS should get 8 glory (5 from New Planet + 3 from Fast Forward)
+        $I->assertEquals(8, $jinSu->getTriumph());
     }
 }

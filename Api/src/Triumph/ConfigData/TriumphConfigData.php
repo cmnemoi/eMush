@@ -761,7 +761,10 @@ abstract class TriumphConfigData
             new TriumphConfigDto(
                 key: TriumphEnum::FAST_FORWARD->toConfigKey('default'),
                 name: TriumphEnum::FAST_FORWARD,
-                targetedEvent: DaedalusEvent::TRAVEL_LAUNCHED,
+                targetedEvent: StatusEvent::STATUS_APPLIED,
+                tagConstraints: [
+                    DaedalusStatusEnum::IN_ORBIT => TriumphSourceEventInterface::ALL_TAGS,
+                ],
                 scope: TriumphScope::PERSONAL_JIN_SU,
                 targetSetting: TriumphTarget::COMMANDER,
                 quantity: 3,

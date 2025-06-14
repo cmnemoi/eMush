@@ -355,6 +355,7 @@
                         <Tippy>
                             {{ funFact.title }}
                             <template #content>
+                                <h1>{{ funFact.title }}</h1>
                                 <p>{{ funFact.description }}</p>
                             </template>
                         </Tippy>

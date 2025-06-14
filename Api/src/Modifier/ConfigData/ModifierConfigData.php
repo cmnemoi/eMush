@@ -3564,6 +3564,25 @@ abstract class ModifierConfigData
             'tagConstraints' => [
                 ActionEnum::TAKE_CAT->value => ModifierRequirementEnum::ANY_TAGS,
                 ActionEnum::PET_CAT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::CURE_CAT->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
+        [
+            'name' => 'cat_owner_modifier_for_player_set_curing_schrodinger_to_100',
+            'modifierName' => ModifierNameEnum::CAT_OWNER_MODIFIER . 'cat_trust_you',
+            'targetEvent' => ActionVariableEvent::ROLL_ACTION_PERCENTAGE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 100,
+            'targetVariable' => ActionVariableEnum::PERCENTAGE_SUCCESS,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [
+            ],
+            'tagConstraints' => [
+                ActionEnum::CURE_CAT->value => ModifierRequirementEnum::ANY_TAGS,
             ],
         ],
         [

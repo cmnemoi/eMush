@@ -75,6 +75,7 @@ enum ActionEnum: string
     case TAKE_CAT = 'take_cat';
     case PET_CAT = 'pet_cat';
     case SHOOT_CAT = 'shoot_cat';
+    case CURE_CAT = 'cure_cat';
     case OPEN_CONTAINER = 'open_container';
     case PLAY_WITH_DOG = 'play_with_dog';
 

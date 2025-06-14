@@ -478,39 +478,39 @@
         <source>star_map_1.name</source>
         <target>Vers le Nouvel Eden</target>
       </segment>
-      <segment id="star_map_1.log" state="initial">
+      <segment id="star_map_1.log" state="translated">
         <source>star_map_1.log</source>
-        <target>star_map_1.log</target>
+        <target>Vous avez gagné {quantity} :triumph:. L'expédition a ramené un morceau de carte stellaire. Peut-être qu'elle pourra nous mener au Nouvel Eden !</target>
       </segment>
     </unit>
     <unit id="star_map_n">
-      <segment id="star_map_n.name" state="initial">
+      <segment id="star_map_n.name" state="translated">
         <source>star_map_n.name</source>
-        <target>star_map_n.name</target>
+        <target>Un pas de plus</target>
       </segment>
-      <segment id="star_map_n.log" state="initial">
+      <segment id="star_map_n.log" state="translated">
         <source>star_map_n.log</source>
-        <target>star_map_n.log</target>
+        <target>Vous avez gagné {quantity} :triumph: car vous avez ramené un autre morceau de carte stellaire.</target>
       </segment>
     </unit>
     <unit id="daedalus_defender">
-      <segment id="daedalus_defender.name" state="initial">
+      <segment id="daedalus_defender.name" state="translated">
         <source>daedalus_defender.name</source>
-        <target>daedalus_defender.name</target>
+        <target>Défenseur du Daedalus</target>
       </segment>
-      <segment id="daedalus_defender.log" state="initial">
+      <segment id="daedalus_defender.log" state="translated">
         <source>daedalus_defender.log</source>
-        <target>daedalus_defender.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en abattant un Hunter.</target>
       </segment>
     </unit>
     <unit id="hunter_nemesis">
-      <segment id="hunter_nemesis.name" state="initial">
+      <segment id="hunter_nemesis.name" state="translated">
         <source>hunter_nemesis.name</source>
-        <target>hunter_nemesis.name</target>
+        <target>Némésis volant</target>
       </segment>
-      <segment id="hunter_nemesis.log" state="initial">
+      <segment id="hunter_nemesis.log" state="translated">
         <source>hunter_nemesis.log</source>
-        <target>hunter_nemesis.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en abattant un Hunter en tant que Roland !</target>
       </segment>
       <segment id="hunter_nemesis.personal_description" state="translated">
         <source>hunter_nemesis.personal_description</source>

@@ -576,9 +576,9 @@
         <source>new_planet.name</source>
         <target>Nouvelle planète</target>
       </segment>
-      <segment id="new_planet.log" state="initial">
+      <segment id="new_planet.log" state="translated">
         <source>new_planet.log</source>
-        <target>new_planet.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en entrant en orbite d'une nouvelle planète.</target>
       </segment>
     </unit>
     <unit id="planet_finder">
@@ -596,63 +596,63 @@
       </segment>
     </unit>
     <unit id="eden_cat">
-      <segment id="eden_cat.name" state="initial">
+      <segment id="eden_cat.name" state="translated">
         <source>eden_cat.name</source>
-        <target>eden_cat.name</target>
+        <target>Paradis des chats</target>
       </segment>
-      <segment id="eden_cat.log" state="initial">
+      <segment id="eden_cat.log" state="translated">
         <source>eden_cat.log</source>
-        <target>eden_cat.log</target>
+        <target>Vous avez gagné {quantity} :triumph: car Schrödinger vous a accompagné sur Eden.</target>
       </segment>
     </unit>
     <unit id="eden_no_cat">
-      <segment id="eden_no_cat.name" state="initial">
+      <segment id="eden_no_cat.name" state="translated">
         <source>eden_no_cat.name</source>
-        <target>eden_no_cat.name</target>
+        <target>Les chats se cachent pour mourir...</target>
       </segment>
-      <segment id="eden_no_cat.log" state="initial">
+      <segment id="eden_no_cat.log" state="translated">
         <source>eden_no_cat.log</source>
-        <target>eden_no_cat.log</target>
+        <target>Vous avez perdu {quantity} :triumph: car Schrödinger ne vous a pas accompagné sur Eden...</target>
       </segment>
     </unit>
     <unit id="eden_mush_cat">
-      <segment id="eden_mush_cat.name" state="initial">
+      <segment id="eden_mush_cat.name" state="translated">
         <source>eden_mush_cat.name</source>
-        <target>eden_mush_cat.name</target>
+        <target>Chatastrophe</target>
       </segment>
-      <segment id="eden_mush_cat.log" state="initial">
+      <segment id="eden_mush_cat.log" state="translated">
         <source>eden_mush_cat.log</source>
-        <target>eden_mush_cat.log</target>
+        <target>Vous avez perdu {quantity} :triumph: car Schrödinger est devenu Mush et vous a accompagné sur Eden...</target>
       </segment>
     </unit>
     <unit id="eden_computed">
-      <segment id="eden_computed.name" state="initial">
+      <segment id="eden_computed.name" state="translated">
         <source>eden_computed.name</source>
-        <target>eden_computed.name</target>
+        <target>Cartographe</target>
       </segment>
-      <segment id="eden_computed.log" state="initial">
+      <segment id="eden_computed.log" state="translated">
         <source>eden_computed.log</source>
-        <target>eden_computed.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en achevant le calcul des coordonnées d'Eden !</target>
       </segment>
     </unit>
     <unit id="andie_fate">
-      <segment id="andie_fate.name" state="initial">
+      <segment id="andie_fate.name" state="translated">
         <source>andie_fate.name</source>
-        <target>andie_fate.name</target>
+        <target>Destin d'Andie</target>
       </segment>
-      <segment id="andie_fate.log" state="initial">
+      <segment id="andie_fate.log" state="translated">
         <source>andie_fate.log</source>
-        <target>andie_fate.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en tant qu'Andie car le Daedalus a effectué un échange avec des marchands !</target>
       </segment>
     </unit>
     <unit id="pregnant_in_eden">
-      <segment id="eden_mush_cat.name" state="initial">
-        <source>eden_mush_cat.name</source>
-        <target>eden_mush_cat.name</target>
+      <segment id="eden_mush_cat.name" state="translated">
+        <source>pregnant_in_eden.name</source>
+        <target>Passage de flambeau</target>
       </segment>
-      <segment id="eden_mush_cat.log" state="initial">
-        <source>eden_mush_cat.log</source>
-        <target>eden_mush_cat.log</target>
+      <segment id="eden_mush_cat.log" state="translated">
+        <source>pregnant_in_eden.log</source>
+        <target>Vous avez gagné {quantity} :triumph: pour chaque équipière enceinte qui part pour Eden.</target>
       </segment>
     </unit>
     <unit id="eden_pregnant">
@@ -660,55 +660,55 @@
         <source>eden_pregnant.name</source>
         <target>eden_pregnant.name</target>
       </segment>
-      <segment id="eden_pregnant.log" state="initial">
+      <segment id="eden_pregnant.log" state="translated">
         <source>eden_pregnant.log</source>
-        <target>eden_pregnant.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en apportant un heureux évènement sur Eden.</target>
       </segment>
     </unit>
     <unit id="eden_sexy">
-      <segment id="eden_sexy.name" state="initial">
+      <segment id="eden_sexy.name" state="translated">
         <source>eden_sexy.name</source>
-        <target>eden_sexy.name</target>
+        <target>Pluralisme</target>
       </segment>
-      <segment id="eden_sexy.log" state="initial">
+      <segment id="eden_sexy.log" state="translated">
         <source>eden_sexy.log</source>
-        <target>eden_sexy.log</target>
+        <target>Vous avez gagné {quantity} :triumph: car les deux sexes sont représentés sur Eden.</target>
       </segment>
     </unit>
     <unit id="eden_microbes">
-      <segment id="eden_microbes.name" state="initial">
+      <segment id="eden_microbes.name" state="translated">
         <source>eden_microbes.name</source>
-        <target>eden_microbes.name</target>
+        <target>Pollution microbienne</target>
       </segment>
-      <segment id="eden_microbes.log" state="initial">
+      <segment id="eden_microbes.log" state="translated">
         <source>eden_microbes.log</source>
-        <target>eden_microbes.log</target>
+        <target>Vous avez perdu {quantity} :triumph: car le Daedalus a introduit des maladies sur Eden.</target>
       </segment>
     </unit>
     <unit id="eden_alien_plant">
-      <segment id="eden_alien_plant.name" state="initial">
+      <segment id="eden_alien_plant.name" state="translated">
         <source>eden_alien_plant.name</source>
-        <target>eden_alien_plant.name</target>
+        <target>Biodiversité</target>
       </segment>
-      <segment id="eden_alien_plant.log" state="initial">
+      <segment id="eden_alien_plant.log" state="translated">
         <source>eden_alien_plant.log</source>
-        <target>eden_alien_plant.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en introduisant des plantes sur Eden.</target>
       </segment>
     </unit>
     <unit id="eden_alien_plant_plus">
-      <segment id="eden_alien_plant_plus.name" state="initial">
+      <segment id="eden_alien_plant_plus.name" state="translated">
         <source>eden_alien_plant_plus.name</source>
-        <target>eden_alien_plant_plus.name</target>
+        <target>Écocitoyen</target>
       </segment>
-      <segment id="eden_alien_plant_plus.log" state="initial">
+      <segment id="eden_alien_plant_plus.log" state="translated">
         <source>eden_alien_plant_plus.log</source>
-        <target>eden_alien_plant_plus.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en introduisant des plantes sur Eden en tant que Ian !</target>
       </segment>
     </unit>
     <unit id="cm_alien_down">
-      <segment id="cm_alien_down.name" state="initial">
+      <segment id="cm_alien_down.name" state="translated">
         <source>cm_alien_down.name</source>
-        <target>cm_alien_down.name</target>
+        <target>Contact !!!</target>
       </segment>
       <segment id="cm_alien_down.log" state="initial">
         <source>cm_alien_down.log</source>

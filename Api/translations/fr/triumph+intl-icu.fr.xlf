@@ -572,9 +572,9 @@
       </segment>
     </unit>
     <unit id="new_planet">
-      <segment id="new_planet.name" state="initial">
+      <segment id="new_planet.name" state="translated">
         <source>new_planet.name</source>
-        <target>new_planet.name</target>
+        <target>Nouvelle planète</target>
       </segment>
       <segment id="new_planet.log" state="initial">
         <source>new_planet.log</source>
@@ -582,13 +582,13 @@
       </segment>
     </unit>
     <unit id="planet_finder">
-      <segment id="planet_finder.name" state="initial">
+      <segment id="planet_finder.name" state="translated">
         <source>planet_finder.name</source>
-        <target>planet_finder.name</target>
+        <target>Exo chercheuse</target>
       </segment>
-      <segment id="planet_finder.log" state="initial">
+      <segment id="planet_finder.log" state="translated">
         <source>planet_finder.log</source>
-        <target>planet_finder.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en entrant en orbite d'une nouvelle planète en tant que Frieda !</target>
       </segment>
       <segment id="planet_finder.personal_description" state="translated">
         <source>planet_finder.personal_description</source>

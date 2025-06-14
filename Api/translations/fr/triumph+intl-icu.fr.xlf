@@ -518,53 +518,53 @@
       </segment>
     </unit>
     <unit id="lander">
-      <segment id="lander.name" state="initial">
+      <segment id="lander.name" state="translated">
         <source>lander.name</source>
-        <target>lander.name</target>
+        <target>Pionnier</target>
       </segment>
-      <segment id="lander.log" state="initial">
+      <segment id="lander.log" state="translated">
         <source>lander.log</source>
-        <target>lander.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en étant le premier à fouler le sol d'Eden.</target>
       </segment>
     </unit>
     <unit id="tr_anathem">
-      <segment id="tr_anathem.name" state="initial">
+      <segment id="tr_anathem.name" state="translated">
         <source>tr_anathem.name</source>
-        <target>tr_anathem.name</target>
+        <target>Persécuteur</target>
       </segment>
-      <segment id="tr_anathem.log" state="initial">
+      <segment id="tr_anathem.log" state="translated">
         <source>tr_anathem.log</source>
-        <target>tr_anathem.log</target>
+        <target>Le Paria est crevé. Hop, {quantity} :triumph:.</target>
       </segment>
     </unit>
     <unit id="tr_anathem_loss">
-      <segment id="tr_anathem_loss.name" state="initial">
+      <segment id="tr_anathem_loss.name" state="translated">
         <source>tr_anathem_loss.name</source>
-        <target>tr_anathem_loss.name</target>
+        <target>Persécuteur</target>
       </segment>
-      <segment id="tr_anathem_loss.log" state="initial">
+      <segment id="tr_anathem_loss.log" state="translated">
         <source>tr_anathem_loss.log</source>
-        <target>tr_anathem_loss.log</target>
+        <target>Le Paria est crevé. Hop, {quantity} :triumph:.</target>
       </segment>
     </unit>
     <unit id="fast_forward">
-      <segment id="fast_forward.name" state="initial">
+      <segment id="fast_forward.name" state="translated">
         <source>fast_forward.name</source>
-        <target>fast_forward.name</target>
+        <target>Avance rapide</target>
       </segment>
-      <segment id="fast_forward.log" state="initial">
+      <segment id="fast_forward.log" state="translated">
         <source>fast_forward.log</source>
-        <target>fast_forward.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en lançant un voyage vers une planète en tant que Jin Su!</target>
       </segment>
     </unit>
     <unit id="planet_searcher">
-      <segment id="planet_searcher.name" state="initial">
+      <segment id="planet_searcher.name" state="translated">
         <source>planet_searcher.name</source>
-        <target>planet_searcher.name</target>
+        <target>Terra Incognita</target>
       </segment>
-      <segment id="planet_searcher.log" state="initial">
+      <segment id="planet_searcher.log" state="translated">
         <source>planet_searcher.log</source>
-        <target>planet_searcher.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en découvrant une nouvelle planète en tant que Frieda!</target>
       </segment>
       <segment id="planet_searcher.personal_description" state="translated">
         <source>planet_searcher.personal_description</source>

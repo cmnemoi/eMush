@@ -36,119 +36,119 @@
         <source>best_technician.name</source>
         <target>Technicien omnipotent</target>
       </segment>
-      <segment id="best_technician.description" state="initial">
+      <segment id="best_technician.description" state="translated">
         <source>best_technician.description</source>
-        <target>best_technician.description</target>
+        <target>Ce gars-là a compris que les objets cassés, eh ben ils marchent pas, donc faut les réparer !</target>
       </segment>
     </unit>
     <unit id="unluckier_technician">
-      <segment id="unluckier_technician.name" state="initial">
+      <segment id="unluckier_technician.name" state="translated">
         <source>unluckier_technician.name</source>
-        <target>unluckier_technician.name</target>
+        <target>Deux-mains-gauches</target>
       </segment>
-      <segment id="unluckier_technician.description" state="initial">
+      <segment id="unluckier_technician.description" state="translated">
         <source>unluckier_technician.description</source>
-        <target>unluckier_technician.description</target>
+        <target>Lui, il ne faut pas lui laisser la clef à molette. Il ne sait visiblement rien faire avec...</target>
       </segment>
     </unit>
     <unit id="sol_collabs">
-      <segment id="sol_collabs.name" state="initial">
+      <segment id="sol_collabs.name" state="translated">
         <source>sol_collabs.name</source>
-        <target>sol_collabs.name</target>
+        <target>Assistant radio de service</target>
       </segment>
-      <segment id="sol_collabs.description" state="initial">
+      <segment id="sol_collabs.description" state="translated">
         <source>sol_collabs.description</source>
-        <target>sol_collabs.description</target>
+        <target>Voilà quelqu'un qui a compris l'utilité d'établir la liaison radio du terminal de communication.</target>
       </segment>
     </unit>
     <unit id="best_caresser">
-      <segment id="best_caresser.name" state="initial">
+      <segment id="best_caresser.name" state="translated">
         <source>best_caresser.name</source>
-        <target>best_caresser.name</target>
+        <target>Accro aux poils de chat</target>
       </segment>
-      <segment id="best_caresser.description" state="initial">
+      <segment id="best_caresser.description" state="translated">
         <source>best_caresser.description</source>
-        <target>best_caresser.description</target>
+        <target>C'était sympa de câliner le chat, mais c'est normalement pas l'objet principal du voyage...</target>
       </segment>
     </unit>
     <unit id="best_hunter_killer">
-      <segment id="best_hunter_killer.name" state="initial">
+      <segment id="best_hunter_killer.name" state="translated">
         <source>best_hunter_killer.name</source>
-        <target>best_hunter_killer.name</target>
+        <target>Pilote classe Battlestar</target>
       </segment>
-      <segment id="best_hunter_killer.description" state="initial">
+      <segment id="best_hunter_killer.description" state="translated">
         <source>best_hunter_killer.description</source>
-        <target>best_hunter_killer.description</target>
+        <target>Digne incarnation de Starbuck l'héroïne, fléau destructeur de vaisselle spatiale ennemie !</target>
       </segment>
     </unit>
     <unit id="best_lost">
-      <segment id="best_lost.name" state="initial">
+      <segment id="best_lost.name" state="translated">
         <source>best_lost.name</source>
-        <target>best_lost.name</target>
+        <target>« J'aurais pas dû venir. »</target>
       </segment>
-      <segment id="best_lost.description" state="initial">
+      <segment id="best_lost.description" state="translated">
         <source>best_lost.description</source>
-        <target>best_lost.description</target>
+        <target>Il est venu, il s'est perdu, il a attendu… loooooongtemps... et il aurait pu y rester.</target>
       </segment>
     </unit>
     <unit id="best_killer">
-      <segment id="best_killer.name" state="initial">
+      <segment id="best_killer.name" state="translated">
         <source>best_killer.name</source>
-        <target>best_killer.name</target>
+        <target>Assassin compulsif</target>
       </segment>
-      <segment id="best_killer.description" state="initial">
+      <segment id="best_killer.description" state="translated">
         <source>best_killer.description</source>
-        <target>best_killer.description</target>
+        <target>S'il avait pu manger ses coéquipiers, il l'aurait peut-être fait. À la croque-au-sel.</target>
       </segment>
     </unit>
     <unit id="most_talkative">
-      <segment id="most_talkative.name" state="initial">
+      <segment id="most_talkative.name" state="translated">
         <source>most_talkative.name</source>
-        <target>most_talkative.name</target>
+        <target>Compagnon loquace</target>
       </segment>
-      <segment id="most_talkative.description" state="initial">
+      <segment id="most_talkative.description" state="translated">
         <source>most_talkative.description</source>
-        <target>most_talkative.description</target>
+        <target>La petite voix qu'on entend de jour comme de nuit dans le talkie-walkie walkie. Adieu solitude !</target>
       </segment>
     </unit>
     <unit id="less_talkative">
-      <segment id="less_talkative.name" state="initial">
+      <segment id="less_talkative.name" state="translated">
         <source>less_talkative.name</source>
-        <target>less_talkative.name</target>
+        <target>En mode silence-radio</target>
       </segment>
-      <segment id="less_talkative.description" state="initial">
+      <segment id="less_talkative.description" state="translated">
         <source>less_talkative.description</source>
-        <target>less_talkative.description</target>
+        <target>Celui-là n'a visiblement jamais trouvé le bouton du talkie-walkie...</target>
       </segment>
     </unit>
     <unit id="less_active">
-      <segment id="less_active.name" state="initial">
+      <segment id="less_active.name" state="translated">
         <source>less_active.name</source>
-        <target>less_active.name</target>
+        <target>Glandeur invertébré</target>
       </segment>
-      <segment id="less_active.description" state="initial">
+      <segment id="less_active.description" state="translated">
         <source>less_active.description</source>
-        <target>less_active.description</target>
+        <target>Ne s'est pas trop foulé, même si c'est la fin du monde. Non, pour lui, ce sont les autres qui triment.</target>
       </segment>
     </unit>
     <unit id="most_active">
-      <segment id="most_active.name" state="initial">
+      <segment id="most_active.name" state="translated">
         <source>most_active.name</source>
-        <target>most_active.name</target>
+        <target>Increvable hyperactif</target>
       </segment>
-      <segment id="most_active.description" state="initial">
+      <segment id="most_active.description" state="translated">
         <source>most_active.description</source>
-        <target>most_active.description</target>
+        <target>Il ne s’arrête jamais et sincèrement, on se demande ce qu'il prend pour tenir le coup...</target>
       </segment>
     </unit>
     <unit id="best_eater">
-      <segment id="best_eater.name" state="initial">
+      <segment id="best_eater.name" state="translated">
         <source>best_eater.name</source>
-        <target>best_eater.name</target>
+        <target>Quand l'appétit va...</target>
       </segment>
-      <segment id="best_eater.description" state="initial">
+      <segment id="best_eater.description" state="translated">
         <source>best_eater.description</source>
-        <target>best_eater.description</target>
+        <target>Passe son temps à grailler tout ce qui lui passe sous le nez, et racle aussi le fond des étagères.</target>
       </segment>
     </unit>
     <unit id="best_action_waster">

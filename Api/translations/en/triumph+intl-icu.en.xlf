@@ -656,9 +656,9 @@
       </segment>
     </unit>
     <unit id="eden_pregnant">
-      <segment id="eden_pregnant.name" state="initial">
+      <segment id="eden_pregnant.name" state="translated">
         <source>eden_pregnant.name</source>
-        <target>eden_pregnant.name</target>
+        <target>Future Edenist</target>
       </segment>
       <segment id="eden_pregnant.log" state="translated">
         <source>eden_pregnant.log</source>
@@ -796,9 +796,9 @@
       </segment>
     </unit>
     <unit id="cm_sabotage">
-      <segment id="cm_sabotage.name" state="initial">
+      <segment id="cm_sabotage.name" state="translated">
         <source>cm_sabotage.name</source>
-        <target>cm_sabotage.name</target>
+        <target/>
       </segment>
       <segment id="cm_sabotage.log" state="initial">
         <source>cm_sabotage.log</source>

@@ -21,6 +21,11 @@ type ClosedDaedalusProjects = {
     };
 }
 
+type TitleHolder = {
+    title: string;
+    characterKeys: string[];
+}
+
 type FunFact = {
     title: string;
     description: string;
@@ -36,6 +41,7 @@ export class ClosedDaedalus {
     public players: ClosedPlayer[]|null;
     public statistics!: DaedalusStatistics;
     public projects!: ClosedDaedalusProjects;
+    public titleHolders!: TitleHolder[];
     public funFacts!: FunFact[];
 
     constructor() {
@@ -45,6 +51,7 @@ export class ClosedDaedalus {
         this.endDay = null;
         this.endCycle = null;
         this.players = [];
+        this.titleHolders = [];
         this.funFacts = [];
     }
     load(object :any): ClosedDaedalus {
@@ -64,6 +71,7 @@ export class ClosedDaedalus {
                 });
                 this.players = players;
             }
+            this.titleHolders = object.titleHolders;
             this.funFacts = object.funFacts;
         }
         return this;
@@ -79,6 +87,7 @@ export class ClosedDaedalus {
             'players': players,
             'statistics': this.statistics,
             'projects': this.projects,
+            'titleHolders': this.titleHolders,
             'funFacts': this.funFacts
         };
 

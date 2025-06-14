@@ -151,18 +151,21 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
     {
         $normalizedTitleHolders = [];
 
-        foreach ($daedalus->getDaedalusInfo()->getTitleHolders() as $title => $playerNames) {
+        foreach ($daedalus->getDaedalusInfo()->getGameConfig()->getTitleConfigs() as $titleConfig) {
             $translatedTitle = $this->translationService->translate(
-                key: $title,
+                key: $titleConfig->getName(),
                 parameters: [],
                 domain: 'the_end',
                 language: $daedalus->getLanguage()
             );
-
-            $normalizedTitleHolders[$title] = [
+            $normalizedTitleHolders[$titleConfig->getName()] = [
                 'title' => $translatedTitle,
-                'characterKeys' => $playerNames,
+                'characterKeys' => [],
             ];
+        }
+
+        foreach ($daedalus->getDaedalusInfo()->getTitleHolders() as $title => $playerNames) {
+            $normalizedTitleHolders[$title]['characterKeys'] = $playerNames;
         }
 
         return $normalizedTitleHolders;

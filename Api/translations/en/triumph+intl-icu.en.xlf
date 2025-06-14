@@ -768,7 +768,7 @@
     <unit id="cm_pilgred">
       <segment id="cm_pilgred.name" state="translated">
         <source>cm_pilgred.name</source>
-        <target>Pilgrediscent </target>
+        <target>Pilgredicent </target>
       </segment>
       <segment id="cm_pilgred.log" state="initial">
         <source>cm_pilgred.log</source>
@@ -810,9 +810,9 @@
         <source>cm_use_extinguisher.name</source>
         <target>Inferno soldier</target>
       </segment>
-      <segment id="cm_use_extinguisher.log" state="initial">
+      <segment id="cm_use_extinguisher.log" state="translated">
         <source>cm_use_extinguisher.log</source>
-        <target>cm_use_extinguisher.log</target>
+        <target>You have earned {quantity} :triumph: by putting out a fire with the extinguisher. </target>
       </segment>
     </unit>
     <unit id="naturalist">

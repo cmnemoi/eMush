@@ -647,12 +647,12 @@
     </unit>
     <unit id="pregnant_in_eden">
       <segment id="eden_mush_cat.name" state="initial">
-        <source>eden_mush_cat.name</source>
-        <target>eden_mush_cat.name</target>
+        <source>pregnant_in_eden.name</source>
+        <target>pregnant_in_eden.name</target>
       </segment>
       <segment id="eden_mush_cat.log" state="initial">
-        <source>eden_mush_cat.log</source>
-        <target>eden_mush_cat.log</target>
+        <source>pregnant_in_eden.log</source>
+        <target>pregnant_in_eden.log</target>
       </segment>
     </unit>
     <unit id="eden_pregnant">

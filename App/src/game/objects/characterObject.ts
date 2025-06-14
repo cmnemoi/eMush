@@ -7,6 +7,7 @@ import InteractObject from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 import Tileset = Phaser.Tilemaps.Tileset;
+import { CharacterEnum } from "@/enums/character";
 
 export default class CharacterObject extends InteractObject {
     public player : Player;
@@ -119,10 +120,12 @@ export default class CharacterObject extends InteractObject {
 
     createAnimations(): void
     {
+        const characterBody = this.player.hasStatusByKey('berzerk') ? CharacterEnum.MUSH : this.player.character.key;
+
         this.anims.create({
             key: 'move_right',
             frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
+                prefix: characterBody,
                 start: 5,
                 end: 10
             }),
@@ -132,7 +135,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'move_left',
             frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
+                prefix: characterBody,
                 start: 11,
                 end: 16
             }),
@@ -143,7 +146,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
+                prefix: characterBody,
                 start: 1,
                 end: 1
             }),
@@ -152,7 +155,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
+                prefix: characterBody,
                 start: 2,
                 end: 2
             }),
@@ -162,7 +165,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'sit_front',
             frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
+                prefix: characterBody,
                 start: 3,
                 end: 3
             }),
@@ -171,7 +174,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'sit_back',
             frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
+                prefix: characterBody,
                 start: 4,
                 end: 4
             }),
@@ -180,7 +183,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'lie_down',
             frames: this.anims.generateFrameNames('character', {
-                prefix: this.player.character.key,
+                prefix: characterBody,
                 start: 18,
                 end: 18
             }),

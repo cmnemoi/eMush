@@ -61,5 +61,23 @@
         <target>pilgredProjects</target>
       </segment>
     </unit>
+    <unit id="commander">
+      <segment state="initial">
+        <source>commander</source>
+        <target>commander</target>
+      </segment>
+    </unit>
+    <unit id="neron_manager">
+      <segment state="initial">
+        <source>neron_manager</source>
+        <target>neron_manager</target>
+      </segment>
+    </unit>
+    <unit id="com_manager">
+      <segment state="initial">
+        <source>com_manager</source>
+        <target>com_manager</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

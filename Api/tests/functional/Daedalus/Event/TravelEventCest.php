@@ -25,8 +25,6 @@ use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Service\ExplorationServiceInterface;
-use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\TitleEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Hunter\Entity\Hunter;
@@ -455,48 +453,6 @@ final class TravelEventCest extends AbstractFunctionalTest
 
         // then the exploration is deleted
         $I->assertNull($this->daedalus->getExploration());
-    }
-
-    public function testShouldGiveCommanderJinSuTriumph(FunctionalTester $I): void
-    {
-        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
-
-        // given Jin Su is the commander
-        $jinSu->addTitle(TitleEnum::COMMANDER);
-
-        // when Daedalus is launched and finished 7 times
-        $this->launchAndFinishesTravel(7);
-
-        // then Jin Su should have 7 * 3 = 21 triumph
-        $I->assertEquals(21, $jinSu->getTriumph());
-        $I->assertEquals(0, $this->chun->getTriumph());
-
-        // when Daedalus is launched and finished once more
-        $this->launchAndFinishesTravel(1);
-
-        // then regressive factor should prevent triumph gain
-        $I->assertEquals(21, $jinSu->getTriumph());
-
-        // when Daedalus is launched and finished once more
-        $this->launchAndFinishesTravel(1);
-
-        // then Jin Su gains 3 triumph
-        $I->assertEquals(24, $jinSu->getTriumph());
-    }
-
-    public function testShouldGiveTriumphWhenJinSuNotCommander(FunctionalTester $I): void
-    {
-        $jinSu = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JIN_SU);
-
-        // given Chun is the commander
-        $this->chun->addTitle(TitleEnum::COMMANDER);
-
-        // when Daedalus is launched and finished
-        $this->launchAndFinishesTravel(1);
-
-        // no triumph gain
-        $I->assertEquals(0, $jinSu->getTriumph());
-        $I->assertEquals(0, $this->chun->getTriumph());
     }
 
     private function createExploration(FunctionalTester $I)

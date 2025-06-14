@@ -2,39 +2,39 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="fun_facts.ext">
     <unit id="best_cook">
-      <segment id="best_cook.name" state="initial">
+      <segment id="best_cook.name" state="translated">
         <source>best_cook.name</source>
-        <target>best_cook.name</target>
+        <target>Simmer evening and morning</target>
       </segment>
-      <segment id="best_cook.description" state="initial">
+      <segment id="best_cook.description" state="translated">
         <source>best_cook.description</source>
-        <target>best_cook.description</target>
+        <target>"When I've got nothing else to do, well... I cook! What, there's too much?! Who's not finishing their plate?!!"</target>
       </segment>
     </unit>
     <unit id="best_planet_scanner">
-      <segment id="best_planet_scanner.name" state="initial">
+      <segment id="best_planet_scanner.name" state="translated">
         <source>best_planet_scanner.name</source>
-        <target>best_planet_scanner.name</target>
+        <target>Genius astrophysicist</target>
       </segment>
-      <segment id="best_planet_scanner.description" state="initial">
+      <segment id="best_planet_scanner.description" state="translated">
         <source>best_planet_scanner.description</source>
-        <target>best_planet_scanner.description</target>
+        <target>This one loves discovering planets and scanning them, scanning them, until there’s nothing left to scan!</target>
       </segment>
     </unit>
     <unit id="earliest_death">
-      <segment id="earliest_death.name" state="initial">
+      <segment id="earliest_death.name" state="translated">
         <source>earliest_death.name</source>
-        <target>earliest_death.name</target>
+        <target>Unfinished sketch</target>
       </segment>
-      <segment id="earliest_death.description" state="initial">
+      <segment id="earliest_death.description" state="translated">
         <source>earliest_death.description</source>
-        <target>earliest_death.description</target>
+        <target>Maybe someone who could have made history — but they died before they even got started.</target>
       </segment>
     </unit>
     <unit id="best_technician">
-      <segment id="best_technician.name" state="initial">
+      <segment id="best_technician.name" state="translated">
         <source>best_technician.name</source>
-        <target>best_technician.name</target>
+        <target>Omnipotent technician</target>
       </segment>
       <segment id="best_technician.description" state="initial">
         <source>best_technician.description</source>

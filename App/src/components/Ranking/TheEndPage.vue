@@ -325,30 +325,18 @@
                     />
                 </div>
             </div>
-            <!--
             <div class="roles">
-                <div>
-                    <p>Les Commandants</p>
+                <div v-for="(titleHolder) in closedDaedalus.titleHolders" :key="titleHolder.title">
+                    <p>{{ titleHolder.title }}</p>
                     <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
+                        <CharacterSignature
+                            v-for="characterKey in titleHolder.characterKeys"
+                            :key="characterKey"
+                            :character-key="characterKey"
+                        />
                     </ul>
                 </div>
-                <div>
-                    <p>Les Responsables des Communications</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
-                    </ul>
-                </div>
-                <div>
-                    <p>L'Administrateur NERON</p>
-                    <ul>
-                        <li><img :src="getImgUrl('char/body/jin_su.png')" alt="Jin Su"> Jin Su</li>
-                        <li><img :src="getImgUrl('char/body/frieda.png')" alt="Frieda"> Frieda</li>
-                    </ul>
-                </div>
-            </div> -->
+            </div>
             <div class="honors" v-if="funFacts?.length > 0">
                 <div v-for="(funFact, name) in closedDaedalus.funFacts" :key="name">
                     <p>

@@ -44,21 +44,39 @@
       </segment>
     </unit>
     <unit id="neronProjects">
-      <segment state="initial">
+      <segment state="translated">
         <source>neronProjects</source>
-        <target>neronProjects</target>
+        <target>NERON projects</target>
       </segment>
     </unit>
     <unit id="researchProjects">
-      <segment state="initial">
+      <segment state="translated">
         <source>researchProjects</source>
-        <target>researchProjects</target>
+        <target>Research</target>
       </segment>
     </unit>
     <unit id="pilgredProjects">
-      <segment state="initial">
+      <segment state="translated">
         <source>pilgredProjects</source>
-        <target>pilgredProjects</target>
+        <target>PILGRED</target>
+      </segment>
+    </unit>
+    <unit id="commander">
+      <segment state="translated">
+        <source>commander</source>
+        <target>Commanders</target>
+      </segment>
+    </unit>
+    <unit id="neron_manager">
+      <segment state="translated">
+        <source>neron_manager</source>
+        <target>NERON Administrators</target>
+      </segment>
+    </unit>
+    <unit id="com_manager">
+      <segment state="translated">
+        <source>com_manager</source>
+        <target>Communication Officers</target>
       </segment>
     </unit>
   </file>

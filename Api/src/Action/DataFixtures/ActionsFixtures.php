@@ -111,6 +111,7 @@ class ActionsFixtures extends Fixture
     public const string CHANGE_NERON_CPU_PRIORITY = 'change_neron_cpu_priority';
     public const string TAKE_CAT = 'take_cat';
     public const string PET_CAT = 'pet_cat';
+    public const string CURE_CAT = 'cure_cat';
     public const string SHOOT_CAT = 'shoot_cat';
     public const string OPEN_CONTAINER_COST_0 = 'open_container_cost_0';
 
@@ -1085,6 +1086,9 @@ class ActionsFixtures extends Fixture
         $petCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::PET_CAT));
         $manager->persist($petCat);
 
+        $cureCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CURE_CAT));
+        $manager->persist($cureCat);
+
         $shootCat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::SHOOT_CAT));
         $manager->persist($shootCat);
 
@@ -1288,6 +1292,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::UPGRADE_DRONE_TO_SENSOR->value, $upgradeDroneToSensor);
         $this->addReference(ActionEnum::TAKE_CAT->value, $takeCat);
         $this->addReference(ActionEnum::PET_CAT->value, $petCat);
+        $this->addReference(ActionEnum::CURE_CAT->value, $cureCat);
         $this->addReference(ActionEnum::SHOOT_CAT->value, $shootCat);
         $this->addReference(ActionEnum::TORTURE->value, $torture);
         $this->addReference(ActionEnum::DAUNT->value, $daunt);

@@ -478,35 +478,35 @@
         <source>star_map_1.name</source>
         <target>Towards New Eden</target>
       </segment>
-      <segment id="star_map_1.log" state="initial">
+      <segment id="star_map_1.log" state="translated">
         <source>star_map_1.log</source>
-        <target>star_map_1.log</target>
+        <target>You have earned {quantity} :triumph:. The expedition has found a piece of starmap. Maybe it'll be able to lead us to New Eden!</target>
       </segment>
     </unit>
     <unit id="star_map_n">
-      <segment id="star_map_n.name" state="initial">
+      <segment id="star_map_n.name" state="translated">
         <source>star_map_n.name</source>
-        <target>star_map_n.name</target>
+        <target>One step closer</target>
       </segment>
-      <segment id="star_map_n.log" state="initial">
+      <segment id="star_map_n.log" state="translated">
         <source>star_map_n.log</source>
-        <target>star_map_n.log</target>
+        <target>You have earned {quantity} :triumph: for bringing back another piece of the star map.</target>
       </segment>
     </unit>
     <unit id="daedalus_defender">
-      <segment id="daedalus_defender.name" state="initial">
+      <segment id="daedalus_defender.name" state="translated">
         <source>daedalus_defender.name</source>
-        <target>daedalus_defender.name</target>
+        <target> Defender of the Daedalus</target>
       </segment>
-      <segment id="daedalus_defender.log" state="initial">
+      <segment id="daedalus_defender.log" state="translated">
         <source>daedalus_defender.log</source>
-        <target>daedalus_defender.log</target>
+        <target>You have earned {quantity} :triumph: by killing a Hunter.</target>
       </segment>
     </unit>
     <unit id="hunter_nemesis">
-      <segment id="hunter_nemesis.name" state="initial">
+      <segment id="hunter_nemesis.name" state="translated">
         <source>hunter_nemesis.name</source>
-        <target>hunter_nemesis.name</target>
+        <target> Flying Nemesis</target>
       </segment>
       <segment id="hunter_nemesis.log" state="initial">
         <source>hunter_nemesis.log</source>

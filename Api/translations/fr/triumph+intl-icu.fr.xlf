@@ -710,9 +710,9 @@
         <source>cm_alien_down.name</source>
         <target>Contact !!!</target>
       </segment>
-      <segment id="cm_alien_down.log" state="initial">
+      <segment id="cm_alien_down.log" state="translated">
         <source>cm_alien_down.log</source>
-        <target>cm_alien_down.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en ayant vaincu un alien en expédition.</target>
       </segment>
     </unit>
     <unit id="cm_all_mush_humanicide">
@@ -770,9 +770,9 @@
         <source>cm_pilgred.name</source>
         <target>Pilgredissime</target>
       </segment>
-      <segment id="cm_pilgred.log" state="initial">
+      <segment id="cm_pilgred.log" state="translated">
         <source>cm_pilgred.log</source>
-        <target>cm_pilgred.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en accomplissant la réparation du PILGRED ! </target>
       </segment>
     </unit>
     <unit id="cm_repair_object">
@@ -810,9 +810,9 @@
         <source>cm_use_extinguisher.name</source>
         <target>Soldat du feu</target>
       </segment>
-      <segment id="cm_use_extinguisher.log" state="initial">
+      <segment id="cm_use_extinguisher.log" state="translated">
         <source>cm_use_extinguisher.log</source>
-        <target>cm_use_extinguisher.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en utilisant l'extincteur. </target>
       </segment>
     </unit>
     <unit id="naturalist">

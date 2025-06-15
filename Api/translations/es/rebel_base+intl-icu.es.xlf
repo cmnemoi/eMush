@@ -2,13 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="rebel_base.ext">
     <unit id="wolf">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>wolf.name</source>
-        <target>wolf.name</target>
+        <target>Wolf</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>wolf.hoverName</source>
-        <target>wolf.hoverName</target>
+        <target>Mensaje de los Niños Perdidos de Wolf</target>
       </segment>
       <segment id="description" state="initial">
         <source>wolf.description</source>

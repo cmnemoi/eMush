@@ -348,7 +348,8 @@ class ClosedPlayer implements SanctionEvidenceInterface
             return $this;
         }
 
-        $this->playerHighlights[] = $playerHighlight->toArray();
+        // add at the begining of the array
+        array_unshift($this->playerHighlights, $playerHighlight->toArray());
 
         return $this;
     }

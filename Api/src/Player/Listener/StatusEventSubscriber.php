@@ -11,6 +11,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogService;
@@ -50,17 +51,14 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     {
         $statusName = $event->getStatusName();
 
-        switch ($statusName) {
-            case PlayerStatusEnum::LOST:
-                $this->giveMoraleToReturnedPlayer($event);
+        match ($statusName) {
+            PlayerStatusEnum::LOST => $this->giveMoraleToReturnedPlayer($event),
+            PlayerStatusEnum::MUSH => $this->handleMushStatusRemoved($event),
+            default => null,
+        };
 
-                break;
-
-            case PlayerStatusEnum::MUSH:
-                $this->handleMushStatusRemoved($event);
-
-                break;
-        }
+        $author = $event->getAuthorOrThrow();
+        $author->addPlayerHighlight(PlayerHighlight::fromEvent($event));
     }
 
     private function sendSoiledNotification(StatusEvent $event): void

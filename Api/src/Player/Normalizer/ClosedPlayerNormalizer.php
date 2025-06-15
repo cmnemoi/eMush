@@ -112,7 +112,7 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
             }
 
             // Skip if the player highlight has not been translated (e.g. failed actions)
-            if ($normalizedPlayerHighlight === $playerHighlight->toLogKey()) {
+            if ($normalizedPlayerHighlight === $playerHighlight->toTranslationKey()) {
                 continue;
             }
 

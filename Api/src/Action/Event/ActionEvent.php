@@ -282,8 +282,16 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
 
     public function getHighlightTarget(): PlayerHighlightTargetInterface
     {
-        /** @var PlayerHighlightTargetInterface $target */
-        return $this->getActionTargetOrThrow();
+        $target = $this->getActionTargetOrThrow();
+
+        if (!$target instanceof PlayerHighlightTargetInterface) {
+            throw new \LogicException(\sprintf(
+                'Action target %s does not implement PlayerHighlightTargetInterface',
+                \get_class($target)
+            ));
+        }
+
+        return $target;
     }
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection

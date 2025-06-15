@@ -113,6 +113,10 @@ final class MessageService implements MessageServiceInterface
             return false;
         }
 
+        if ($channel->isMushChannel() && $player->isMush()) {
+            return true;
+        }
+
         $dummyMessage = new Message();
         $dummyMessage->setMessage('')->setAuthor($player->getPlayerInfo())->setChannel($channel);
         $messageEvent = new MessageEvent(

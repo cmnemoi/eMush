@@ -76,6 +76,11 @@ class AbstractGameEvent extends Event
         return $author !== null ? $author : throw new \LogicException('This event does not have an author');
     }
 
+    public function hasAuthor(): bool
+    {
+        return $this->author !== null;
+    }
+
     public function getTime(): \DateTime
     {
         return $this->time;

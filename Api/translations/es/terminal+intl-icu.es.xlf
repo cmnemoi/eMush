@@ -34,15 +34,15 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
       </segment>
       <segment id="difficulty_normal" state="translated">
         <source>command_terminal.difficulty_normal</source>
-        <target>Estamos viajando en el **Espacio cercano**</target>
+        <target>Estamos viajando a través del **Espacio cercano**.</target>
       </segment>
       <segment id="difficulty_hard" state="translated">
         <source>command_terminal.difficulty_hard</source>
-        <target>Estamos viajando a través del **Espacio profundo**</target>
+        <target>Estamos viajando a través del **Espacio profundo**.</target>
       </segment>
       <segment id="difficulty_very_hard" state="translated">
         <source>command_terminal.difficulty_very_hard</source>
-        <target>Estamos viajando a través del **Espacio infinito**</target>
+        <target>Estamos viajando a través del **Espacio infinito**.</target>
       </segment>
       <segment id="advance_daedalus_status_ok" state="translated">
         <source>command_terminal.advance_daedalus_status_ok</source>
@@ -114,10 +114,8 @@ Para salir de la órbita, el Comandante a cargo debe ejecutar la acción desde l
       </segment>
       <segment id="tips" state="translated">
         <source>research_laboratory.tips</source>
-        <target>La ciencia es un arma clave contra los Mush. Tienes 2 maneras de colaborar con ella: Manipular objetos en el laboratorio para desbloquear nuevas investigaciones o hacer avanzar las que están en marcha usando Puntos de Acción.
-
-Puedes manipular un objeto de tu inventario o que se encuentre en la sala.
-
+        <target>La ciencia es un arma clave contra los Mush. Tienes 2 maneras de colaborar con ella: Traer objetos al laboratorio para desbloquear nuevas investigaciones, o avanzar las que están en marcha usando Puntos de Acción.//
+Algunos objetos desbloquearán las investigaciones apropiadas al estar en la estantería, mientras que otros deben ser portados para poder ver sus investigaciones.//
 Una sola persona podrá difícilmente completar una investigación, incluso si tiene las habilidades requeridas. Si haces avanzar una investigación varias veces consecutivas, la eficacia de la acción disminuirá. ¡La clave es trabajar alternadamente en equipo!</target>
       </segment>
       <segment id="chun_present" state="translated">
@@ -142,7 +140,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
     <unit id="exploration">
       <segment id="tips" state="translated">
         <source>exploration.tips</source>
-        <target>{isExplorationFinished, select, other {{quantity, plural, one {La exploración se realiza automáticamente. Cada minuto se desarrolla una nueva etapa. Una vez que vayas, no podrás regresar.} other {La exploración se realiza automáticamente. Cada # minuto se produce una nueva estapa. Una vez que bayas, no hay vuelta atrás.} }} true {Esta expedición ya ha terminado. Puedes revisar aquí los diferentes eventos que encontraron los miembros de la tripulación.}}</target>
+        <target>{isExplorationFinished, select, other {{quantity, plural, one {La exploración se realiza automáticamente. Cada minuto se desarrolla una nueva etapa. Una vez que vayas, no podrás regresar.} other {La exploración se realiza automáticamente. Cada # minutos se produce una nueva estapa. Una vez que bayas, no hay vuelta atrás.} }} true {Esta expedición ya ha terminado. Puedes revisar aquí los diferentes eventos que encontraron los miembros de la tripulación.}}</target>
       </segment>
       <segment id="recolted_infos" state="translated">
         <source>exploration.recolted_infos</source>
@@ -158,7 +156,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="finished" state="translated">
         <source>exploration.finished</source>
-        <target>Finalizada</target>
+        <target>Finalizada.</target>
       </segment>
     </unit>
     <unit id="closed_exploration">

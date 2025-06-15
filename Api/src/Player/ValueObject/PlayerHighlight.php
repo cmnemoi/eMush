@@ -11,7 +11,7 @@ final class PlayerHighlight
 {
     public function __construct(
         private string $name,
-        private string $actionResult,
+        private string $result,
         private array $target = [],
     ) {}
 
@@ -19,7 +19,7 @@ final class PlayerHighlight
     {
         $highlight = new self(
             name: $event->getActionName()->toString(),
-            actionResult: $event->getActionResultOrThrow()->getName(),
+            result: $event->getActionResultOrThrow()->getName(),
         );
 
         $actionTarget = $event->getActionTarget();
@@ -34,7 +34,7 @@ final class PlayerHighlight
     {
         return new self(
             name: $array['name'],
-            actionResult: $array['actionResult'],
+            result: $array['result'],
             target: $array['target'],
         );
     }
@@ -53,13 +53,13 @@ final class PlayerHighlight
     {
         return [
             'name' => $this->name,
-            'actionResult' => $this->actionResult,
+            'result' => $this->result,
             'target' => $this->target,
         ];
     }
 
     private function isSuccessHighlight(): bool
     {
-        return $this->actionResult === ActionOutputEnum::SUCCESS;
+        return $this->result === ActionOutputEnum::SUCCESS;
     }
 }

@@ -26,14 +26,14 @@ final class PlayerHighlightNormalizerCest extends AbstractFunctionalTest
         $this->normalizer = $I->grabService(PlayerHighlightNormalizer::class);
     }
 
-    public function shouldNormalizeActionHighlight(FunctionalTester $I): void
+    public function shouldNormalizePlayerHighlight(FunctionalTester $I): void
     {
-        $actionHighlight = new PlayerHighlight(
+        $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SCAN->toString(),
-            actionResult: (new Success())->getName(),
+            result: (new Success())->getName(),
         );
 
-        $normalized = $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
+        $normalized = $this->normalizer->normalize($playerHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
 
         $I->assertEquals('Vous avez découvert une nouvelle planète !', $normalized);
     }

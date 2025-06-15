@@ -15,7 +15,7 @@
         </div>
         <div class="logs" v-if="activeTab === 'action'">
             <div>
-                <p v-for="highlight in displayedActionHighlights" :key="highlight">
+                <p v-for="highlight in displayedPlayerHighlights" :key="highlight">
                     <span v-html="formatText(highlight)" />
                 </p>
             </div>
@@ -27,19 +27,19 @@
 import { ref, computed } from 'vue';
 import { getImgUrl } from '@/utils/getImgUrl';
 import { formatText } from '@/utils/formatText';
-const props = defineProps<{ triumphGains: string[], actionHighlights: string[] }>();
+const props = defineProps<{ triumphGains: string[], playerHighlights: string[] }>();
 
 // refs
 const showAllTriumphGains = ref(false);
-const showAllActionHighlights = ref(false);
+const showAllPlayerHighlights = ref(false);
 const activeTab = ref('triumph');
 
 // computed
 const displayedTriumphGains = computed(() =>
     showAllTriumphGains.value ? props.triumphGains : props.triumphGains.slice(0, displayLimit)
 );
-const displayedActionHighlights = computed(() =>
-    showAllActionHighlights.value ? props.actionHighlights : props.actionHighlights.slice(0, displayLimit)
+const displayedPlayerHighlights = computed(() =>
+    showAllPlayerHighlights.value ? props.playerHighlights : props.playerHighlights.slice(0, displayLimit)
 );
 const shouldShowReadMore = computed(() =>
     !showAllTriumphGains.value && props.triumphGains.length > displayLimit
@@ -48,10 +48,10 @@ const shouldShowReadLess = computed(() =>
     showAllTriumphGains.value && props.triumphGains.length > displayLimit
 );
 const shouldShowReadMoreAction = computed(() =>
-    !showAllActionHighlights.value && props.actionHighlights.length > displayLimit
+    !showAllPlayerHighlights.value && props.playerHighlights.length > displayLimit
 );
 const shouldShowReadLessAction = computed(() =>
-    showAllActionHighlights.value && props.actionHighlights.length > displayLimit
+    showAllPlayerHighlights.value && props.playerHighlights.length > displayLimit
 );
 
 // methods

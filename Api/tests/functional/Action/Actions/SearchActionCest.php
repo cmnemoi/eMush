@@ -391,7 +391,8 @@ final class SearchActionCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveHighlight([
             'name' => EquipmentStatusEnum::HIDDEN,
             'result' => PlayerHighlight::SUCCESS,
-            'target' => ['target_echolocator' => 'echolocator'],
+            'author' => ['character' => 'chun'],
+            'target' => ['target_item' => 'echolocator'],
         ], $I);
     }
 
@@ -427,7 +428,7 @@ final class SearchActionCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveHighlight(array $highlight, FunctionalTester $I): void
     {
         $playerHighlights = $this->player->getPlayerInfo()->getPlayerHighlights();
-        $playerHighlight = current($playerHighlights);
+        $playerHighlight = $playerHighlights[array_key_last($playerHighlights)];
 
         $I->assertEquals(
             expected: $highlight,

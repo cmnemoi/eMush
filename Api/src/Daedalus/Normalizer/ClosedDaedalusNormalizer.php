@@ -69,6 +69,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
             end: $daedalus->getFinishedAtOrThrow(),
             daedalusInfo: $daedalus->getDaedalusInfo()
         );
+        $normalizedDaedalus['daysSurvived'] = (int) ($normalizedDaedalus['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
         $normalizedDaedalus['statistics'] = $this->getNormalizedStatistics($daedalus);
         $normalizedDaedalus['projects'] = $this->getNormalizedProjects($daedalus);
         $normalizedDaedalus['titleHolders'] = $this->getNormalizedTitleHolders($daedalus);

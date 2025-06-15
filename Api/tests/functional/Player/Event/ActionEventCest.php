@@ -77,8 +77,9 @@ final class ActionEventCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 [
-                    'name' => ActionEnum::GEN_METAL->toString(),
-                    'actionResult' => 'success',
+                    'name' => 'gen_metal',
+                    'result' => 'success',
+                    'author' => ['character' => 'chun'],
                     'target' => [],
                 ],
             ],

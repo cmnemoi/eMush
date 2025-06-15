@@ -41,7 +41,7 @@ class PlayerStatistics
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $timesHacked = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
-    private int $linkFixed = 0;
+    private int $commsAdvanced = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
     private int $sleepInterupted = 0;
     #[ORM\Column(type: 'integer', nullable: false, options : ['default' => 0])]
@@ -222,16 +222,16 @@ class PlayerStatistics
         return $this;
     }
 
-    public function getLinkFixed(): int
+    public function getCommsAdvanced(): int
     {
-        return $this->linkFixed;
+        return $this->commsAdvanced;
     }
 
-    public function incrementLinkFixed(): static
+    public function incrementCommsAdvanced(): static
     {
-        ++$this->linkFixed;
+        ++$this->commsAdvanced;
 
-        return $this->incrementLinkImproved();
+        return $this;
     }
 
     public function getSleepInterupted(): int
@@ -435,7 +435,7 @@ class PlayerStatistics
             FunFactEnum::BEST_ACTION_WASTER, FunFactEnum::WORST_ACTION_WASTER => $this->getActionPointsWasted(),
             FunFactEnum::BEST_SLEEPER => $this->getSleptCycles(),
             FunFactEnum::BEST_HACKER => $this->getTimesHacked(),
-            FunFactEnum::BEST_COM_TECHNICIAN => $this->getLinkFixed(),
+            FunFactEnum::BEST_COM_TECHNICIAN => $this->getCommsAdvanced(),
             FunFactEnum::BEST_SANDMAN => $this->getSleepInterupted(),
             FunFactEnum::BEST_TERRORIST => $this->getMutateDamageDealt(),
             FunFactEnum::BEST_WOUNDED => $this->getInjuryCount(),

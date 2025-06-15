@@ -8,6 +8,8 @@ use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 
 interface PlayerHighlightSourceEventInterface
 {
+    public function getAuthorOrThrow(): PlayerHighlightTargetInterface;
+
     public function getHighlightName(): string;
 
     public function getHighlightResult(): string;

@@ -13,25 +13,20 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlayerSubscriber implements EventSubscriberInterface
 {
-    private PlayerServiceInterface $playerService;
-    private EventServiceInterface $eventService;
-    private RandomServiceInterface $randomService;
-
     public function __construct(
-        PlayerServiceInterface $playerService,
-        EventServiceInterface $eventService,
-        RandomServiceInterface $randomService,
-    ) {
-        $this->playerService = $playerService;
-        $this->eventService = $eventService;
-        $this->randomService = $randomService;
-    }
+        private EventServiceInterface $eventService,
+        private PlayerRepositoryInterface $playerRepository,
+        private PlayerServiceInterface $playerService,
+        private RandomServiceInterface $randomService,
+    ) {}
 
     public static function getSubscribedEvents()
     {
@@ -125,6 +120,13 @@ final class PlayerSubscriber implements EventSubscriberInterface
             $player->flagAsAlphaMush();
         }
         $this->playerService->persistPlayerInfo($playerInfo);
+
+        $player->addPlayerHighlight(PlayerHighlight::fromEventForTarget($event));
+        $this->playerRepository->save($player);
+
+        $author = $event->getAuthorOrThrow();
+        $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
+        $this->playerRepository->save($author);
     }
 
     private function removeMoraleToOtherPlayers(Player $player): void

@@ -36,6 +36,9 @@ enum TriumphScope: string
 
     case NONE = '';
 
+    // deprecated
+    case ALL_ACTIVE_HUMANS = 'all_active_humans';
+
     public function toString(): string
     {
         return $this->value;

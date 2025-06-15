@@ -13,6 +13,9 @@ enum TriumphTarget: string
     case PARTICIPANT = 'participant';
     case NONE = '';
 
+    // deprecated
+    case STATUS_HOLDER = 'status_holder';
+
     public function toString(): string
     {
         return $this->value;

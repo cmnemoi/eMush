@@ -2,133 +2,133 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="xyloph_entry.ext">
     <unit id="unknown">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>unknown.name</source>
-        <target>unknown.name</target>
+        <target>???</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>unknown.description</source>
-        <target>unknown.description</target>
+        <target>???</target>
       </segment>
     </unit>
     <unit id="disk">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>disk.name</source>
-        <target>disk.name</target>
+        <target>Genoma</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>disk.description</source>
-        <target>disk.description</target>
+        <target>Este disco contiene información crucial sobre el genoma Mush recopilada por Ian Soulton justo antes de embarcarse en el Daedalus.//**Proporciona el diskette que contiene información clave del genoma Mush.**</target>
       </segment>
     </unit>
     <unit id="magnetite">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>magnetite.name</source>
-        <target>magnetite.name</target>
+        <target>Fallo en señal inalámbrica...</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>magnetite.description</source>
-        <target>magnetite.description</target>
+        <target>La señal es de mala calidad... muy mala, seguramente por la nube de magnetita que atraviesas en este momento.//**Provoca una pérdida de conexión y una bajada de señal considerable.**</target>
       </segment>
     </unit>
     <unit id="nothing">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>nothing.name</source>
-        <target>nothing.name</target>
+        <target>Dato corrupto</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>nothing.description</source>
-        <target>nothing.description</target>
+        <target>No sirven para nada... El dato ha sido infectado por un virus rizomal.//**No hace nada.**</target>
       </segment>
     </unit>
     <unit id="snow">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>snow.name</source>
-        <target>snow.name</target>
+        <target>Mala señal</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>snow.description</source>
-        <target>snow.description</target>
+        <target>Tu pantalla se cubre de lluvia y zumbidos, te hace doler la cabeza, detienes tu intento...//**Provoca una pérdida de conexión.**</target>
       </segment>
     </unit>
     <unit id="version">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>version.name</source>
-        <target>version.name</target>
+        <target>Acceso a la base de datos perdida de NERON</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>version.description</source>
-        <target>version.description</target>
+        <target>Una parte de los trabajos de investigación de Janice en Xyloph-17 son integrados a la memoria de NERON.//**Hace avanzar en 25% el nivel de actualización de NERON.**</target>
       </segment>
     </unit>
     <unit id="ghost_sample">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ghost_sample.name</source>
-        <target>ghost_sample.name</target>
+        <target>¡Contacto con Nils Carlsson!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ghost_sample.description</source>
-        <target>ghost_sample.description</target>
+        <target>Has establecido contacto con Nils Carlsson, su ayuda en las investigaciones de laboratorio será valiosa.//**La comunicación con Nils remplaza una **Muestra de raíz*** en el módulo de investigación.**</target>
       </segment>
     </unit>
     <unit id="ghost_chun">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>ghost_chun.name</source>
-        <target>ghost_chun.name</target>
+        <target>Codex del genoma de Zhong Chun</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ghost_chun.description</source>
-        <target>ghost_chun.description</target>
+        <target>Zhong Chun es el único ser humano resistente a la infección Mush, el análisis de su genoma es la clave para la elaboración de una vacuna anti-Mush y de muchos otros avances científicos.//**Añade una imagen a la interfaz del laboratorio que simula la presencia de Zhong Chun.//</target>
       </segment>
     </unit>
     <unit id="kivanc">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>kivanc.name</source>
-        <target>kivanc.name</target>
+        <target>¡Contacto restablecido con Kivanç Terzi!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>kivanc.description</source>
-        <target>kivanc.description</target>
+        <target>Estás en contacto con Kivanç Terzi, uno de los líderes de la rebelión en el sistema Sol, su ayuda será valiosa para descifrar los mensajes de las bases rebeldes.//**Te da 100% de bonus para descifrar los mensajes de las bases rebeldes.**</target>
       </segment>
     </unit>
     <unit id="cook">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cook.name</source>
-        <target>cook.name</target>
+        <target>Recetas Gourmet edición 2830</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cook.description</source>
-        <target>cook.description</target>
+        <target>Encuentras un archivo que contiene recetas. Muchas recetas. Muchas, muchas, muuuuuchas recetas.//**Proporciona un Librotrón para convertirse en Chef.**</target>
       </segment>
     </unit>
     <unit id="mage_books">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mage_books.name</source>
-        <target>mage_books.name</target>
+        <target>Manuales escolares</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mage_books.description</source>
-        <target>mage_books.description</target>
+        <target>¡Has encontrado un paquete de archivos en el centro de formación de Xyloph! Este tesoro de inteligencia te ayudará a instruir a tus tontos compañeros...//**La Tabuladora proporciona 2 ***Librotrones*** aleatorios.**</target>
       </segment>
     </unit>
     <unit id="list">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>list.name</source>
-        <target>list.name</target>
+        <target>El Análisis perdido de Finola.</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>list.description</source>
-        <target>list.description</target>
+        <target>El Análisis anti-Mush de Finola se realizó durante el despegue del Daedalus. Los resultados fueron enviados a la tabuladora, ¡al leerlos, conocerás el estado de infección de la tripulación al inicio de la misión!//**La tabuladora proporciona una lista del nivel de infección de la tripulación.**</target>
       </segment>
     </unit>
     <unit id="blueprints">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>blueprints.name</source>
-        <target>blueprints.name</target>
+        <target>Manual del taller</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>blueprints.description</source>
-        <target>blueprints.description</target>
+        <target>Varios planos para fabricar herramientas básicas del Daedalus, desarmando dos o tres cosas tendrás los materiales necesarios para construirlos.//**La tabuladora proporciona 3 ***Planos*** aleatorios.**</target>
       </segment>
     </unit>
   </file>

@@ -245,7 +245,6 @@ abstract class StatusConfigData
             'autoRemove' => null,
             'modifierConfigs' => [
                 ModifierNameEnum::PLAYER_PLUS_1_DAMAGE_ON_HIT,
-                'mute_prevent_messages',
             ],
             'actionConfigs' => [],
         ],

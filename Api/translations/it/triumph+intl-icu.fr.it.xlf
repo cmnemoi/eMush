@@ -30,6 +30,10 @@
         <source>chun_lives.log</source>
         <target>chun_lives.log</target>
       </segment>
+      <segment id="chun_lives.personal_description" state="initial">
+        <source>chun_lives.personal_description</source>
+        <target>chun_lives.personal_description</target>
+      </segment>
     </unit>
     <unit id="return_to_sol">
       <segment id="return_to_sol.name" state="initial">
@@ -90,6 +94,10 @@
         <source>explorator.log</source>
         <target>explorator.log</target>
       </segment>
+      <segment id="explorator.personal_description" state="initial">
+        <source>explorator.personal_description</source>
+        <target>explorator.personal_description</target>
+      </segment>
     </unit>
     <unit id="sol_contact">
       <segment id="sol_contact.name" state="initial">
@@ -140,6 +148,10 @@
         <source>mush_specialist.log</source>
         <target>mush_specialist.log</target>
       </segment>
+      <segment id="mush_specialist.personal_description" state="initial">
+        <source>mush_specialist.personal_description</source>
+        <target>mush_specialist.personal_description</target>
+      </segment>
     </unit>
     <unit id="precious_body">
       <segment id="precious_body.name" state="initial">
@@ -149,6 +161,10 @@
       <segment id="precious_body.log" state="initial">
         <source>precious_body.log</source>
         <target>precious_body.log</target>
+      </segment>
+      <segment id="precious_body.personal_description" state="initial">
+        <source>precious_body.personal_description</source>
+        <target>precious_body.personal_description</target>
       </segment>
     </unit>
     <unit id="magellan_ark">
@@ -160,6 +176,10 @@
         <source>magellan_ark.log</source>
         <target>magellan_ark.log</target>
       </segment>
+      <segment id="magellan_ark.personal_description" state="initial">
+        <source>magellan_ark.personal_description</source>
+        <target>magellan_ark.personal_description</target>
+      </segment>
     </unit>
     <unit id="pilgred_mother">
       <segment id="pilgred_mother.name" state="initial">
@@ -170,6 +190,10 @@
         <source>pilgred_mother</source>
         <target>pilgred_mother</target>
       </segment>
+      <segment id="pilgred_mother.personal_description" state="initial">
+        <source>pilgred_mother.personal_description</source>
+        <target>pilgred_mother.personal_description</target>
+      </segment>
     </unit>
     <unit id="ambitious">
       <segment id="ambitious.name" state="initial">
@@ -179,6 +203,10 @@
       <segment id="ambitious.log" state="initial">
         <source>ambitious.log</source>
         <target>ambitious.log</target>
+      </segment>
+      <segment id="ambitious.personal_description" state="initial">
+        <source>ambitious.personal_description</source>
+        <target>ambitious.personal_description</target>
       </segment>
     </unit>
     <unit id="kube_solved">
@@ -230,6 +258,10 @@
         <source>mush_fear.log</source>
         <target>mush_fear.log</target>
       </segment>
+      <segment id="mush_fear.personal_description" state="initial">
+        <source>mush_fear.personal_description</source>
+        <target>mush_fear.personal_description</target>
+      </segment>
     </unit>
     <unit id="mushicide">
       <segment id="mushicide.name" state="initial">
@@ -259,6 +291,10 @@
       <segment id="psychopat.log" state="initial">
         <source>psychopat.log</source>
         <target>psychopat.log</target>
+      </segment>
+      <segment id="psychopat.personal_description" state="initial">
+        <source>psychopat.personal_description</source>
+        <target>psychopat.personal_description</target>
       </segment>
     </unit>
     <unit id="alien_science">
@@ -330,6 +366,10 @@
         <source>savior.log</source>
         <target>savior.log</target>
       </segment>
+      <segment id="savior.personal_description" state="initial">
+        <source>savior.personal_description</source>
+        <target>savior.personal_description</target>
+      </segment>
     </unit>
     <unit id="remedy">
       <segment id="remedy.name" state="initial">
@@ -340,6 +380,10 @@
         <source>remedy.log</source>
         <target>remedy.log</target>
       </segment>
+      <segment id="remedy.personal_description" state="initial">
+        <source>remedy.personal_description</source>
+        <target>remedy.personal_description</target>
+      </segment>
     </unit>
     <unit id="eden_at_least">
       <segment id="eden_at_least.name" state="initial">
@@ -349,6 +393,436 @@
       <segment id="eden_at_least.log" state="initial">
         <source>eden_at_least.log</source>
         <target>eden_at_least.log</target>
+      </segment>
+    </unit>
+    <unit id="new_mush">
+      <segment id="new_mush.name" state="initial">
+        <source>new_mush.name</source>
+        <target>new_mush.name</target>
+      </segment>
+      <segment id="new_mush.log" state="initial">
+        <source>new_mush.log</source>
+        <target>new_mush.log</target>
+      </segment>
+    </unit>
+    <unit id="infect">
+      <segment id="infect.name" state="initial">
+        <source>infect.name</source>
+        <target>infect.name</target>
+      </segment>
+      <segment id="infect.log" state="initial">
+        <source>infect.log</source>
+        <target>infect.log</target>
+      </segment>
+    </unit>
+    <unit id="nice_surgery">
+      <segment id="nice_surgery.name" state="initial">
+        <source>nice_surgery.name</source>
+        <target>nice_surgery.name</target>
+      </segment>
+      <segment id="nice_surgery.log" state="initial">
+        <source>nice_surgery.log</source>
+        <target>nice_surgery.log</target>
+      </segment>
+    </unit>
+    <unit id="robotic_graal">
+      <segment id="robotic_graal.name" state="initial">
+        <source>robotic_graal.name</source>
+        <target>robotic_graal.name</target>
+      </segment>
+      <segment id="robotic_graal.log" state="initial">
+        <source>robotic_graal.log</source>
+        <target>robotic_graal.log</target>
+      </segment>
+      <segment id="robotic_graal.personal_description" state="initial">
+        <source>robotic_graal.personal_description</source>
+        <target>robotic_graal.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="rebel_wolf">
+      <segment id="rebel_wolf.name" state="initial">
+        <source>rebel_wolf.name</source>
+        <target>rebel_wolf.name</target>
+      </segment>
+      <segment id="rebel_wolf.log" state="initial">
+        <source>rebel_wolf.log</source>
+        <target>rebel_wolf.log</target>
+      </segment>
+    </unit>
+    <unit id="rebel_contact">
+      <segment id="rebel_contact.name" state="initial">
+        <source>rebel_contact.name</source>
+        <target>rebel_contact.name</target>
+      </segment>
+      <segment id="rebel_contact.log" state="initial">
+        <source>rebel_contact.log</source>
+        <target>rebel_contact.log</target>
+      </segment>
+    </unit>
+    <unit id="looking_for_kivanc">
+      <segment id="looking_for_kivanc.name" state="initial">
+        <source>looking_for_kivanc.name</source>
+        <target>looking_for_kivanc.name</target>
+      </segment>
+      <segment id="looking_for_kivanc.log" state="initial">
+        <source>looking_for_kivanc.log</source>
+        <target>looking_for_kivanc.log</target>
+      </segment>
+      <segment id="looking_for_kivanc.personal_description" state="initial">
+        <source>looking_for_kivanc.personal_description</source>
+        <target>looking_for_kivanc.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="star_map_1">
+      <segment id="star_map_1.name" state="initial">
+        <source>star_map_1.name</source>
+        <target>star_map_1.name</target>
+      </segment>
+      <segment id="star_map_1.log" state="initial">
+        <source>star_map_1.log</source>
+        <target>star_map_1.log</target>
+      </segment>
+    </unit>
+    <unit id="star_map_n">
+      <segment id="star_map_n.name" state="initial">
+        <source>star_map_n.name</source>
+        <target>star_map_n.name</target>
+      </segment>
+      <segment id="star_map_n.log" state="initial">
+        <source>star_map_n.log</source>
+        <target>star_map_n.log</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_defender">
+      <segment id="daedalus_defender.name" state="initial">
+        <source>daedalus_defender.name</source>
+        <target>daedalus_defender.name</target>
+      </segment>
+      <segment id="daedalus_defender.log" state="initial">
+        <source>daedalus_defender.log</source>
+        <target>daedalus_defender.log</target>
+      </segment>
+    </unit>
+    <unit id="hunter_nemesis">
+      <segment id="hunter_nemesis.name" state="initial">
+        <source>hunter_nemesis.name</source>
+        <target>hunter_nemesis.name</target>
+      </segment>
+      <segment id="hunter_nemesis.log" state="initial">
+        <source>hunter_nemesis.log</source>
+        <target>hunter_nemesis.log</target>
+      </segment>
+      <segment id="hunter_nemesis.personal_description" state="initial">
+        <source>hunter_nemesis.personal_description</source>
+        <target>hunter_nemesis.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="lander">
+      <segment id="lander.name" state="initial">
+        <source>lander.name</source>
+        <target>lander.name</target>
+      </segment>
+      <segment id="lander.log" state="initial">
+        <source>lander.log</source>
+        <target>lander.log</target>
+      </segment>
+    </unit>
+    <unit id="tr_anathem">
+      <segment id="tr_anathem.name" state="initial">
+        <source>tr_anathem.name</source>
+        <target>tr_anathem.name</target>
+      </segment>
+      <segment id="tr_anathem.log" state="initial">
+        <source>tr_anathem.log</source>
+        <target>tr_anathem.log</target>
+      </segment>
+    </unit>
+    <unit id="tr_anathem_loss">
+      <segment id="tr_anathem_loss.name" state="initial">
+        <source>tr_anathem_loss.name</source>
+        <target>tr_anathem_loss.name</target>
+      </segment>
+      <segment id="tr_anathem_loss.log" state="initial">
+        <source>tr_anathem_loss.log</source>
+        <target>tr_anathem_loss.log</target>
+      </segment>
+    </unit>
+    <unit id="fast_forward">
+      <segment id="fast_forward.name" state="initial">
+        <source>fast_forward.name</source>
+        <target>fast_forward.name</target>
+      </segment>
+      <segment id="fast_forward.log" state="initial">
+        <source>fast_forward.log</source>
+        <target>fast_forward.log</target>
+      </segment>
+    </unit>
+    <unit id="planet_searcher">
+      <segment id="planet_searcher.name" state="initial">
+        <source>planet_searcher.name</source>
+        <target>planet_searcher.name</target>
+      </segment>
+      <segment id="planet_searcher.log" state="initial">
+        <source>planet_searcher.log</source>
+        <target>planet_searcher.log</target>
+      </segment>
+      <segment id="planet_searcher.personal_description" state="initial">
+        <source>planet_searcher.personal_description</source>
+        <target>planet_searcher.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="new_planet">
+      <segment id="new_planet.name" state="initial">
+        <source>new_planet.name</source>
+        <target>new_planet.name</target>
+      </segment>
+      <segment id="new_planet.log" state="initial">
+        <source>new_planet.log</source>
+        <target>new_planet.log</target>
+      </segment>
+    </unit>
+    <unit id="planet_finder">
+      <segment id="planet_finder.name" state="initial">
+        <source>planet_finder.name</source>
+        <target>planet_finder.name</target>
+      </segment>
+      <segment id="planet_finder.log" state="initial">
+        <source>planet_finder.log</source>
+        <target>planet_finder.log</target>
+      </segment>
+      <segment id="planet_finder.personal_description" state="initial">
+        <source>planet_finder.personal_description</source>
+        <target>planet_finder.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="eden_cat">
+      <segment id="eden_cat.name" state="initial">
+        <source>eden_cat.name</source>
+        <target>eden_cat.name</target>
+      </segment>
+      <segment id="eden_cat.log" state="initial">
+        <source>eden_cat.log</source>
+        <target>eden_cat.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_no_cat">
+      <segment id="eden_no_cat.name" state="initial">
+        <source>eden_no_cat.name</source>
+        <target>eden_no_cat.name</target>
+      </segment>
+      <segment id="eden_no_cat.log" state="initial">
+        <source>eden_no_cat.log</source>
+        <target>eden_no_cat.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_cat">
+      <segment id="eden_mush_cat.name" state="initial">
+        <source>eden_mush_cat.name</source>
+        <target>eden_mush_cat.name</target>
+      </segment>
+      <segment id="eden_mush_cat.log" state="initial">
+        <source>eden_mush_cat.log</source>
+        <target>eden_mush_cat.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_computed">
+      <segment id="eden_computed.name" state="initial">
+        <source>eden_computed.name</source>
+        <target>eden_computed.name</target>
+      </segment>
+      <segment id="eden_computed.log" state="initial">
+        <source>eden_computed.log</source>
+        <target>eden_computed.log</target>
+      </segment>
+    </unit>
+    <unit id="andie_fate">
+      <segment id="andie_fate.name" state="initial">
+        <source>andie_fate.name</source>
+        <target>andie_fate.name</target>
+      </segment>
+      <segment id="andie_fate.log" state="initial">
+        <source>andie_fate.log</source>
+        <target>andie_fate.log</target>
+      </segment>
+    </unit>
+    <unit id="pregnant_in_eden">
+      <segment id="eden_mush_cat.name" state="initial">
+        <source>pregnant_in_eden.name</source>
+        <target>pregnant_in_eden.name</target>
+      </segment>
+      <segment id="eden_mush_cat.log" state="initial">
+        <source>pregnant_in_eden.log</source>
+        <target>pregnant_in_eden.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_pregnant">
+      <segment id="eden_pregnant.name" state="initial">
+        <source>eden_pregnant.name</source>
+        <target>eden_pregnant.name</target>
+      </segment>
+      <segment id="eden_pregnant.log" state="initial">
+        <source>eden_pregnant.log</source>
+        <target>eden_pregnant.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_sexy">
+      <segment id="eden_sexy.name" state="initial">
+        <source>eden_sexy.name</source>
+        <target>eden_sexy.name</target>
+      </segment>
+      <segment id="eden_sexy.log" state="initial">
+        <source>eden_sexy.log</source>
+        <target>eden_sexy.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_microbes">
+      <segment id="eden_microbes.name" state="initial">
+        <source>eden_microbes.name</source>
+        <target>eden_microbes.name</target>
+      </segment>
+      <segment id="eden_microbes.log" state="initial">
+        <source>eden_microbes.log</source>
+        <target>eden_microbes.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_alien_plant">
+      <segment id="eden_alien_plant.name" state="initial">
+        <source>eden_alien_plant.name</source>
+        <target>eden_alien_plant.name</target>
+      </segment>
+      <segment id="eden_alien_plant.log" state="initial">
+        <source>eden_alien_plant.log</source>
+        <target>eden_alien_plant.log</target>
+      </segment>
+    </unit>
+    <unit id="eden_alien_plant_plus">
+      <segment id="eden_alien_plant_plus.name" state="initial">
+        <source>eden_alien_plant_plus.name</source>
+        <target>eden_alien_plant_plus.name</target>
+      </segment>
+      <segment id="eden_alien_plant_plus.log" state="initial">
+        <source>eden_alien_plant_plus.log</source>
+        <target>eden_alien_plant_plus.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_alien_down">
+      <segment id="cm_alien_down.name" state="initial">
+        <source>cm_alien_down.name</source>
+        <target>cm_alien_down.name</target>
+      </segment>
+      <segment id="cm_alien_down.log" state="initial">
+        <source>cm_alien_down.log</source>
+        <target>cm_alien_down.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_all_mush_humanicide">
+      <segment id="cm_all_mush_humanicide.name" state="initial">
+        <source>cm_all_mush_humanicide.name</source>
+        <target>cm_all_mush_humanicide.name</target>
+      </segment>
+      <segment id="cm_all_mush_humanicide.log" state="initial">
+        <source>cm_all_mush_humanicide.log</source>
+        <target>cm_all_mush_humanicide.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_all_new_mush">
+      <segment id="cm_all_new_mush.name" state="initial">
+        <source>cm_all_new_mush.name</source>
+        <target>cm_all_new_mush.name</target>
+      </segment>
+      <segment id="cm_all_new_mush.log" state="initial">
+        <source>cm_all_new_mush.log</source>
+        <target>cm_all_new_mush.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_daedalus_explode">
+      <segment id="cm_daedalus_explode.name" state="initial">
+        <source>cm_daedalus_explode.name</source>
+        <target>cm_daedalus_explode.name</target>
+      </segment>
+      <segment id="cm_daedalus_explode.log" state="initial">
+        <source>cm_daedalus_explode.log</source>
+        <target>cm_daedalus_explode.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_extinguish">
+      <segment id="cm_extinguish.name" state="initial">
+        <source>cm_extinguish.name</source>
+        <target>cm_extinguish.name</target>
+      </segment>
+      <segment id="cm_extinguish.log" state="initial">
+        <source>cm_extinguish.log</source>
+        <target>cm_extinguish.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_mush_vaccinated">
+      <segment id="cm_mush_vaccinated.name" state="initial">
+        <source>cm_mush_vaccinated.name</source>
+        <target>cm_mush_vaccinated.name</target>
+      </segment>
+      <segment id="cm_mush_vaccinated.log" state="initial">
+        <source>cm_mush_vaccinated.log</source>
+        <target>cm_mush_vaccinated.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_pilgred">
+      <segment id="cm_pilgred.name" state="initial">
+        <source>cm_pilgred.name</source>
+        <target>cm_pilgred.name</target>
+      </segment>
+      <segment id="cm_pilgred.log" state="initial">
+        <source>cm_pilgred.log</source>
+        <target>cm_pilgred.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_repair_object">
+      <segment id="cm_repair_object.name" state="initial">
+        <source>cm_repair_object.name</source>
+        <target>cm_repair_object.name</target>
+      </segment>
+      <segment id="cm_repair_object.log" state="initial">
+        <source>cm_repair_object.log</source>
+        <target>cm_repair_object.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_repair_hull">
+      <segment id="cm_repair_hull.name" state="initial">
+        <source>cm_repair_hull.name</source>
+        <target>cm_repair_hull.name</target>
+      </segment>
+      <segment id="cm_repair_hull.log" state="initial">
+        <source>cm_repair_hull.log</source>
+        <target>cm_repair_hull.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_sabotage">
+      <segment id="cm_sabotage.name" state="initial">
+        <source>cm_sabotage.name</source>
+        <target>cm_sabotage.name</target>
+      </segment>
+      <segment id="cm_sabotage.log" state="initial">
+        <source>cm_sabotage.log</source>
+        <target>cm_sabotage.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_use_extinguisher">
+      <segment id="cm_use_extinguisher.name" state="initial">
+        <source>cm_use_extinguisher.name</source>
+        <target>cm_use_extinguisher.name</target>
+      </segment>
+      <segment id="cm_use_extinguisher.log" state="initial">
+        <source>cm_use_extinguisher.log</source>
+        <target>cm_use_extinguisher.log</target>
+      </segment>
+    </unit>
+    <unit id="naturalist">
+      <segment id="naturalist.name" state="initial">
+        <source>naturalist.name</source>
+        <target>naturalist.name</target>
+      </segment>
+      <segment id="naturalist.log" state="initial">
+        <source>naturalist.log</source>
+        <target>naturalist.log</target>
       </segment>
     </unit>
   </file>

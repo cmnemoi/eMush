@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="fun_facts.ext">
+    <unit id="best_cook">
+      <segment id="best_cook.name" state="initial">
+        <source>best_cook.name</source>
+        <target>best_cook.name</target>
+      </segment>
+      <segment id="best_cook.description" state="initial">
+        <source>best_cook.description</source>
+        <target>best_cook.description</target>
+      </segment>
+    </unit>
+    <unit id="best_planet_scanner">
+      <segment id="best_planet_scanner.name" state="initial">
+        <source>best_planet_scanner.name</source>
+        <target>best_planet_scanner.name</target>
+      </segment>
+      <segment id="best_planet_scanner.description" state="initial">
+        <source>best_planet_scanner.description</source>
+        <target>best_planet_scanner.description</target>
+      </segment>
+    </unit>
+    <unit id="earliest_death">
+      <segment id="earliest_death.name" state="initial">
+        <source>earliest_death.name</source>
+        <target>earliest_death.name</target>
+      </segment>
+      <segment id="earliest_death.description" state="initial">
+        <source>earliest_death.description</source>
+        <target>earliest_death.description</target>
+      </segment>
+    </unit>
+    <unit id="best_technician">
+      <segment id="best_technician.name" state="initial">
+        <source>best_technician.name</source>
+        <target>best_technician.name</target>
+      </segment>
+      <segment id="best_technician.description" state="initial">
+        <source>best_technician.description</source>
+        <target>best_technician.description</target>
+      </segment>
+    </unit>
+    <unit id="unluckier_technician">
+      <segment id="unluckier_technician.name" state="initial">
+        <source>unluckier_technician.name</source>
+        <target>unluckier_technician.name</target>
+      </segment>
+      <segment id="unluckier_technician.description" state="initial">
+        <source>unluckier_technician.description</source>
+        <target>unluckier_technician.description</target>
+      </segment>
+    </unit>
+    <unit id="sol_collabs">
+      <segment id="sol_collabs.name" state="initial">
+        <source>sol_collabs.name</source>
+        <target>sol_collabs.name</target>
+      </segment>
+      <segment id="sol_collabs.description" state="initial">
+        <source>sol_collabs.description</source>
+        <target>sol_collabs.description</target>
+      </segment>
+    </unit>
+    <unit id="best_caresser">
+      <segment id="best_caresser.name" state="initial">
+        <source>best_caresser.name</source>
+        <target>best_caresser.name</target>
+      </segment>
+      <segment id="best_caresser.description" state="initial">
+        <source>best_caresser.description</source>
+        <target>best_caresser.description</target>
+      </segment>
+    </unit>
+    <unit id="best_hunter_killer">
+      <segment id="best_hunter_killer.name" state="initial">
+        <source>best_hunter_killer.name</source>
+        <target>best_hunter_killer.name</target>
+      </segment>
+      <segment id="best_hunter_killer.description" state="initial">
+        <source>best_hunter_killer.description</source>
+        <target>best_hunter_killer.description</target>
+      </segment>
+    </unit>
+    <unit id="best_lost">
+      <segment id="best_lost.name" state="initial">
+        <source>best_lost.name</source>
+        <target>best_lost.name</target>
+      </segment>
+      <segment id="best_lost.description" state="initial">
+        <source>best_lost.description</source>
+        <target>best_lost.description</target>
+      </segment>
+    </unit>
+    <unit id="best_killer">
+      <segment id="best_killer.name" state="initial">
+        <source>best_killer.name</source>
+        <target>best_killer.name</target>
+      </segment>
+      <segment id="best_killer.description" state="initial">
+        <source>best_killer.description</source>
+        <target>best_killer.description</target>
+      </segment>
+    </unit>
+    <unit id="most_talkative">
+      <segment id="most_talkative.name" state="initial">
+        <source>most_talkative.name</source>
+        <target>most_talkative.name</target>
+      </segment>
+      <segment id="most_talkative.description" state="initial">
+        <source>most_talkative.description</source>
+        <target>most_talkative.description</target>
+      </segment>
+    </unit>
+    <unit id="less_talkative">
+      <segment id="less_talkative.name" state="initial">
+        <source>less_talkative.name</source>
+        <target>less_talkative.name</target>
+      </segment>
+      <segment id="less_talkative.description" state="initial">
+        <source>less_talkative.description</source>
+        <target>less_talkative.description</target>
+      </segment>
+    </unit>
+    <unit id="less_active">
+      <segment id="less_active.name" state="initial">
+        <source>less_active.name</source>
+        <target>less_active.name</target>
+      </segment>
+      <segment id="less_active.description" state="initial">
+        <source>less_active.description</source>
+        <target>less_active.description</target>
+      </segment>
+    </unit>
+    <unit id="most_active">
+      <segment id="most_active.name" state="initial">
+        <source>most_active.name</source>
+        <target>most_active.name</target>
+      </segment>
+      <segment id="most_active.description" state="initial">
+        <source>most_active.description</source>
+        <target>most_active.description</target>
+      </segment>
+    </unit>
+    <unit id="best_eater">
+      <segment id="best_eater.name" state="initial">
+        <source>best_eater.name</source>
+        <target>best_eater.name</target>
+      </segment>
+      <segment id="best_eater.description" state="initial">
+        <source>best_eater.description</source>
+        <target>best_eater.description</target>
+      </segment>
+    </unit>
+    <unit id="best_action_waster">
+      <segment id="best_action_waster.name" state="initial">
+        <source>best_action_waster.name</source>
+        <target>best_action_waster.name</target>
+      </segment>
+      <segment id="best_action_waster.description" state="initial">
+        <source>best_action_waster.description</source>
+        <target>best_action_waster.description</target>
+      </segment>
+    </unit>
+    <unit id="worst_action_waster">
+      <segment id="worst_action_waster.name" state="initial">
+        <source>worst_action_waster.name</source>
+        <target>worst_action_waster.name</target>
+      </segment>
+      <segment id="worst_action_waster.description" state="initial">
+        <source>worst_action_waster.description</source>
+        <target>worst_action_waster.description</target>
+      </segment>
+    </unit>
+    <unit id="best_sleeper">
+      <segment id="best_sleeper.name" state="initial">
+        <source>best_sleeper.name</source>
+        <target>best_sleeper.name</target>
+      </segment>
+      <segment id="best_sleeper.description" state="initial">
+        <source>best_sleeper.description</source>
+        <target>best_sleeper.description</target>
+      </segment>
+    </unit>
+    <unit id="dead_during_sleep">
+      <segment id="dead_during_sleep.name" state="initial">
+        <source>dead_during_sleep.name</source>
+        <target>dead_during_sleep.name</target>
+      </segment>
+      <segment id="dead_during_sleep.description" state="initial">
+        <source>dead_during_sleep.description</source>
+        <target>dead_during_sleep.description</target>
+      </segment>
+    </unit>
+    <unit id="best_hacker">
+      <segment id="best_hacker.name" state="initial">
+        <source>best_hacker.name</source>
+        <target>best_hacker.name</target>
+      </segment>
+      <segment id="best_hacker.description" state="initial">
+        <source>best_hacker.description</source>
+        <target>best_hacker.description</target>
+      </segment>
+    </unit>
+    <unit id="best_com_technician">
+      <segment id="best_com_technician.name" state="initial">
+        <source>best_com_technician.name</source>
+        <target>best_com_technician.name</target>
+      </segment>
+      <segment id="best_com_technician.description" state="initial">
+        <source>best_com_technician.description</source>
+        <target>best_com_technician.description</target>
+      </segment>
+    </unit>
+    <unit id="best_sandman">
+      <segment id="best_sandman.name" state="initial">
+        <source>best_sandman.name</source>
+        <target>best_sandman.name</target>
+      </segment>
+      <segment id="best_sandman.description" state="initial">
+        <source>best_sandman.description</source>
+        <target>best_sandman.description</target>
+      </segment>
+    </unit>
+    <unit id="best_terrorist">
+      <segment id="best_terrorist.name" state="initial">
+        <source>best_terrorist.name</source>
+        <target>best_terrorist.name</target>
+      </segment>
+      <segment id="best_terrorist.description" state="initial">
+        <source>best_terrorist.description</source>
+        <target>best_terrorist.description</target>
+      </segment>
+    </unit>
+    <unit id="best_wounded">
+      <segment id="best_wounded.name" state="initial">
+        <source>best_wounded.name</source>
+        <target>best_wounded.name</target>
+      </segment>
+      <segment id="best_wounded.description" state="initial">
+        <source>best_wounded.description</source>
+        <target>best_wounded.description</target>
+      </segment>
+    </unit>
+    <unit id="best_diseased">
+      <segment id="best_diseased.name" state="initial">
+        <source>best_diseased.name</source>
+        <target>best_diseased.name</target>
+      </segment>
+      <segment id="best_diseased.description" state="initial">
+        <source>best_diseased.description</source>
+        <target>best_diseased.description</target>
+      </segment>
+    </unit>
+    <unit id="drug_addict">
+      <segment id="drug_addict.name" state="initial">
+        <source>drug_addict.name</source>
+        <target>drug_addict.name</target>
+      </segment>
+      <segment id="drug_addict.description" state="initial">
+        <source>drug_addict.description</source>
+        <target>drug_addict.description</target>
+      </segment>
+    </unit>
+    <unit id="knife_evader">
+      <segment id="knife_evader.name" state="initial">
+        <source>knife_evader.name</source>
+        <target>knife_evader.name</target>
+      </segment>
+      <segment id="knife_evader.description" state="initial">
+        <source>knife_evader.description</source>
+        <target>knife_evader.description</target>
+      </segment>
+    </unit>
+    <unit id="best_agro">
+      <segment id="best_agro.name" state="initial">
+        <source>best_agro.name</source>
+        <target>best_agro.name</target>
+      </segment>
+      <segment id="best_agro.description" state="initial">
+        <source>best_agro.description</source>
+        <target>best_agro.description</target>
+      </segment>
+    </unit>
+    <unit id="worst_agro">
+      <segment id="worst_agro.name" state="initial">
+        <source>worst_agro.name</source>
+        <target>worst_agro.name</target>
+      </segment>
+      <segment id="worst_agro.description" state="initial">
+        <source>worst_agro.description</source>
+        <target>worst_agro.description</target>
+      </segment>
+    </unit>
+    <unit id="lesser_drugged">
+      <segment id="lesser_drugged.name" state="initial">
+        <source>lesser_drugged.name</source>
+        <target>lesser_drugged.name</target>
+      </segment>
+      <segment id="lesser_drugged.description" state="initial">
+        <source>lesser_drugged.description</source>
+        <target>lesser_drugged.description</target>
+      </segment>
+    </unit>
+    <unit id="kube_addict">
+      <segment id="kube_addict.name" state="initial">
+        <source>kube_addict.name</source>
+        <target>kube_addict.name</target>
+      </segment>
+      <segment id="kube_addict.description" state="initial">
+        <source>kube_addict.description</source>
+        <target>kube_addict.description</target>
+      </segment>
+    </unit>
+    <unit id="best_alien_traitor">
+      <segment id="best_alien_traitor.name" state="initial">
+        <source>best_alien_traitor.name</source>
+        <target>best_alien_traitor.name</target>
+      </segment>
+      <segment id="best_alien_traitor.description" state="initial">
+        <source>best_alien_traitor.description</source>
+        <target>best_alien_traitor.description</target>
+      </segment>
+    </unit>
+    <unit id="stealthiest">
+      <segment id="stealthiest.name" state="initial">
+        <source>stealthiest.name</source>
+        <target>stealthiest.name</target>
+      </segment>
+      <segment id="stealthiest.description" state="initial">
+        <source>stealthiest.description</source>
+        <target>stealthiest.description</target>
+      </segment>
+    </unit>
+    <unit id="unstealthiest">
+      <segment id="unstealthiest.name" state="initial">
+        <source>unstealthiest.name</source>
+        <target>unstealthiest.name</target>
+      </segment>
+      <segment id="unstealthiest.description" state="initial">
+        <source>unstealthiest.description</source>
+        <target>unstealthiest.description</target>
+      </segment>
+    </unit>
+    <unit id="unstealthiest_and_killed">
+      <segment id="unstealthiest_and_killed.name" state="initial">
+        <source>unstealthiest_and_killed.name</source>
+        <target>unstealthiest_and_killed.name</target>
+      </segment>
+      <segment id="unstealthiest_and_killed.description" state="initial">
+        <source>unstealthiest_and_killed.description</source>
+        <target>unstealthiest_and_killed.description</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

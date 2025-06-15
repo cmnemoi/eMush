@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="the_end.ext">
     <unit id="statistics">
       <segment state="translated">
         <source>statistics</source>
-        <target>Statistiques :</target>
+        <target>Statistics:</target>
       </segment>
     </unit>
     <unit id="shipsDestroyed">
       <segment state="translated">
         <source>shipsDestroyed</source>
-        <target>Vaisseaux détruits</target>
+        <target>Hunters defeated</target>
       </segment>
     </unit>
     <unit id="planetsFound">
       <segment state="translated">
         <source>planetsFound</source>
-        <target>Planètes trouvées</target>
+        <target>Planets found</target>
       </segment>
     </unit>
     <unit id="explorationsStarted">
@@ -28,31 +28,31 @@
     <unit id="rebelBasesContacted">
       <segment state="translated">
         <source>rebelBasesContacted</source>
-        <target>Bases rebelles contactées</target>
+        <target>Rebel bases contacted</target>
       </segment>
     </unit>
     <unit id="sporesCreated">
       <segment state="translated">
         <source>sporesCreated</source>
-        <target>Spores générés</target>
+        <target>Spores generated</target>
       </segment>
     </unit>
     <unit id="mushAmount">
       <segment state="translated">
         <source>mushAmount</source>
-        <target>Nombre de Mush</target>
+        <target>Number of Mush</target>
       </segment>
     </unit>
     <unit id="neronProjects">
       <segment state="translated">
         <source>neronProjects</source>
-        <target>Projets NERON</target>
+        <target>NERON projects</target>
       </segment>
     </unit>
     <unit id="researchProjects">
       <segment state="translated">
         <source>researchProjects</source>
-        <target>Recherches</target>
+        <target>Research</target>
       </segment>
     </unit>
     <unit id="pilgredProjects">
@@ -64,19 +64,19 @@
     <unit id="commander">
       <segment state="translated">
         <source>commander</source>
-        <target>Les Commandants</target>
+        <target>Commanders</target>
       </segment>
     </unit>
     <unit id="neron_manager">
       <segment state="translated">
         <source>neron_manager</source>
-        <target>Les Administrateurs NERON</target>
+        <target>NERON Administrators</target>
       </segment>
     </unit>
     <unit id="com_manager">
       <segment state="translated">
         <source>com_manager</source>
-        <target>Les Responsables des Communications</target>
+        <target>Communication Officers</target>
       </segment>
     </unit>
   </file>

@@ -70,7 +70,7 @@
     <unit id="xyloph_decoded_blueprints">
       <segment id="xyloph_decoded_blueprints" state="translated">
         <source>xyloph_decoded_blueprints</source>
-        <target>Accès à la base de donnée de Xyloph autorisée. Voici plusieurs plans d'outils de bases du Daedalus en démontant un ou deux trucs, on devrait disposer des matériaux nécessaires pour les construire.</target>
+        <target>Accès à la base de donnée de Xyloph autorisée. Voici plusieurs plans d'outils de bases du Daedalus. En démontant un ou deux trucs, on devrait disposer des matériaux nécessaires pour les construire.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_tabulatrix_broken">

@@ -1536,7 +1536,7 @@ Dispositivo para apagar incendios.</target>
       </segment>
       <segment id="description" state="translated">
         <source>hacker_kit.description</source>
-        <target>Te permite desbloquear el acceso a un módulo protegido como el Terminal de Comando o el Bios de NERON.</target>
+        <target>Te permite desbloquear el acceso a un módulo protegido como el Terminal de Comando o el Bios de NERON. // :point: Este objeto es tan importante que NERON **jamás** dejará a nadie despegar con él.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>hacker_kit.examine</source>
@@ -2556,25 +2556,27 @@ El arquetipo de lo que nunca está donde debe estar.</target>
         <source>fuel_capsule.short_name</source>
         <target>Cápsula de combustible</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>fuel_capsule.plural_name</source>
-        <target>fuel_capsule.plural_name</target>
+        <target>Cápsulas de combustible</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>fuel_capsule.gender</source>
-        <target>fuel_capsule.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>fuel_capsule.first_letter</source>
-        <target>fuel_capsule.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fuel_capsule.description</source>
-        <target>fuel_capsule.description</target>
+        <target>Permite desplazar el combustible desde el tanque hacia los motores. //Contiene una unidad de combustible.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>fuel_capsule.examine</source>
-        <target>fuel_capsule.examine</target>
+        <target>Permite desplazar el combustible desde el tanque hacia los motores.
+Contiene una unidad de combustible.
+Carga carburante para llevarlo al módulo de combustión.</target>
       </segment>
     </unit>
     <unit id="hydropot">
@@ -2586,25 +2588,26 @@ El arquetipo de lo que nunca está donde debe estar.</target>
         <source>hydropot.short_name</source>
         <target>Hydromaceta</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>hydropot.plural_name</source>
-        <target>hydropot.plural_name</target>
+        <target>Hydromacetas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>hydropot.gender</source>
-        <target>hydropot.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>hydropot.first_letter</source>
-        <target>hydropot.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hydropot.description</source>
-        <target>hydropot.description</target>
+        <target>Sirve para **sembrar un fruto** y desarrollar el jardín.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>hydropot.examine</source>
-        <target>hydropot.examine</target>
+        <target>Sirve para **sembrar un fruto** y desarrollar el jardín.
+Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="lunchbox">
@@ -2616,25 +2619,34 @@ El arquetipo de lo que nunca está donde debe estar.</target>
         <source>lunchbox.short_name</source>
         <target>Canasta de comida</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>lunchbox.plural_name</source>
-        <target>lunchbox.plural_name</target>
+        <target>Loncheras</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>lunchbox.gender</source>
-        <target>lunchbox.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>lunchbox.first_letter</source>
-        <target>lunchbox.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lunchbox.description</source>
-        <target>lunchbox.description</target>
+        <target>¡Oh, comida! Delicias para compartir.
+Contiene {quantity, plural,
+one {1 x **Ración estándar**}
+other {# **Raciones estándar**}
+}.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>lunchbox.examine</source>
-        <target>lunchbox.examine</target>
+        <target>¡Oh, comida! Delicias para compartir.
+Contiene {quantity, plural,
+one {1 x **Ración estándar**}
+other {# **Raciones estándar**}
+}.
+El equivalente galáctico de una sopa caliente cuando el vacío absoluto te rodea.</target>
       </segment>
     </unit>
     <unit id="oxygen_capsule">
@@ -2646,25 +2658,26 @@ El arquetipo de lo que nunca está donde debe estar.</target>
         <source>oxygen_capsule.short_name</source>
         <target>Cápsula de oxígeno</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>oxygen_capsule.plural_name</source>
-        <target>oxygen_capsule.plural_name</target>
+        <target>Cápsulas de oxígeno</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>oxygen_capsule.gender</source>
-        <target>oxygen_capsule.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>oxygen_capsule.first_letter</source>
-        <target>oxygen_capsule.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>oxygen_capsule.description</source>
-        <target>oxygen_capsule.description</target>
+        <target>Contiene una unidad estándar de oxígeno. Puede ser puesta en el circuito a través de los tanques de los almacenes.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>oxygen_capsule.examine</source>
-        <target>oxygen_capsule.examine</target>
+        <target>Contiene una unidad estándar de oxígeno. Puede ser puesta en el circuito a través de los tanques de los almacenes.
+Permite transportar el oxígeno en forma líquida. Su película de protección es casi irrompible.</target>
       </segment>
     </unit>
     <unit id="space_capsule">
@@ -2726,29 +2739,38 @@ Lo único que te hacer sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="coffee_thermos">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>coffee_thermos.name</source>
-        <target>coffee_thermos.name</target>
+        <target>Termo con café</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>coffee_thermos.short_name</source>
-        <target>coffee_thermos.short_name</target>
+        <target>Termo con café</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>coffee_thermos.gender</source>
-        <target>coffee_thermos.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>coffee_thermos.first_letter</source>
-        <target>coffee_thermos.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>coffee_thermos.description</source>
-        <target>coffee_thermos.description</target>
+        <target>Nada mejor que un café caliente.
+Contíene {quantity, plural,
+one {1 **Café**}
+other {# **Cafés**}
+}.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>coffee_thermos.examine</source>
-        <target>coffee_thermos.examine</target>
+        <target>Nada mejor que un café caliente.
+Contíene {quantity, plural,
+one {1 **Café**}
+other {# **Cafés**}
+}.//
+El símbolo del espíritu solidario en tiempos de crisis. No contiene sopa ni nada por el estilo.</target>
       </segment>
     </unit>
     <unit id="banana_tree">
@@ -3457,25 +3479,25 @@ Sirve para colocar una planta en el jardín.</target>
         <source>standard_ration.short_name</source>
         <target>Ración estándar</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>standard_ration.plural_name</source>
-        <target>standard_ration.plural_name</target>
+        <target>Raciones estándar</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>standard_ration.gender</source>
-        <target>standard_ration.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>standard_ration.first_letter</source>
-        <target>standard_ration.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>standard_ration.description</source>
-        <target>standard_ration.description</target>
+        <target>Una porción de melaza proteinada y envasada en un recipiente de larga conservación. Estas raciones fueron elaboradas para ser digeridas fácilmente pero también pueden ser inyectadas por intravenosa.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>standard_ration.examine</source>
-        <target>standard_ration.examine</target>
+        <target>Una porción de melaza proteinada y envasada en un recipiente de larga conservación. Estas raciones fueron elaboradas para ser digeridas fácilmente pero también pueden ser inyectadas por intravenosa.</target>
       </segment>
     </unit>
     <unit id="supervitamin_bar">
@@ -3713,59 +3735,59 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
       </segment>
     </unit>
     <unit id="anniversary_gift">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>anniversary_gift.name</source>
-        <target>anniversary_gift.name</target>
+        <target>Regalo de Aniversario</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>anniversary_gift.short_name</source>
-        <target>anniversary_gift.short_name</target>
+        <target>Regalo</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>anniversary_gift.plural_name</source>
-        <target>anniversary_gift.plural_name</target>
+        <target>Regalos de Aniversario</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>anniversary_gift.gender</source>
-        <target>anniversary_gift.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>anniversary_gift.first_letter</source>
-        <target>anniversary_gift.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>anniversary_gift.description</source>
-        <target>anniversary_gift.description</target>
+        <target>Contiene algo que puede resultar muy útil... o no.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>anniversary_gift.examine</source>
-        <target>anniversary_gift.examine</target>
+        <target>¿Un año más sobreviviendo en el gélido espacio exterior? Es de celebrar. // Contiene algo que puede resultar muy útil... o no. // Está prohibido abrir regalos ajenos. ¡Estas cosas son personales!</target>
       </segment>
     </unit>
     <unit id="pavlov">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pavlov.name</source>
-        <target>pavlov.name</target>
+        <target>Pavlov</target>
       </segment>
-      <segment id="pavlov" state="initial">
+      <segment id="pavlov" state="translated">
         <source>pavlov.short_name</source>
-        <target>pavlov.short_name</target>
+        <target>Pavlov</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>pavlov.gender</source>
-        <target>pavlov.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>pavlov.first_letter</source>
-        <target>pavlov.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pavlov.description</source>
-        <target>pavlov.description</target>
+        <target>Pavlov es el perro más feliz que jamás conociste.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>pavlov.examine</source>
-        <target>pavlov.examine</target>
+        <target>Pavlov es el perro más feliz que jamás conociste. Le encanta jugar, siempre tiene energía, y nunca deja de ladrar; suele pasear por toda la nave. Es el perro de @#p↻▦∆ĝ.</target>
       </segment>
     </unit>
   </file>

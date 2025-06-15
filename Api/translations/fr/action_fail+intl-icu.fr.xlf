@@ -8,7 +8,7 @@
       </segment>
     </unit>
     <unit id="insufficient_action_point">
-      <segment id="description" state="translated">
+      <segment id="description" state="final">
         <source>insufficient_action_point.description</source>
         <target>Vous n'avez pas assez de :pa: (Point d'Action) pour réaliser cette action.
                         **Mangez** ou **attendez quelques cycles**.</target>

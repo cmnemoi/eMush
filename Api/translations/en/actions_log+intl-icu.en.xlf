@@ -118,7 +118,11 @@
       <segment id="flirt_success" state="translated">
         <source>flirt_success</source>
         <target>{character_gender, select,
-    male {**{character}** seems interested in **{target_character}**. The way he looks at her leaves nobody in any doubt of his intentions.}
+    male {**{character}** seems interested in **{target_character}**. The way he looks at {target_character_gender, select, 
+          female {her} 
+          male {him}
+          other {them}
+} leaves nobody in any doubt of his intentions.}
     female {**{character}** seems interested in **{target_character}**, the fluttering of their eyelashes is a good indicator of their most intimate thoughts.}
     other {invalid gender input}
 }</target>

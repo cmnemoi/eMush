@@ -1086,7 +1086,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>commander.description</source>
-        <target>Decide la dirección del Daedalus. También es el único en poder iniciar una secuencia de viaje.</target>
+        <target>Decide la dirección del Daedalus. También es el único en poder iniciar una secuencia de viaje. // Cada día, puede **enviar una misión** a un tripulante, quien recibirá 3 :pa: si la acepta.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>commander.examine</source>
@@ -1100,7 +1100,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>communications_officer.description</source>
-        <target>El Oficial de Comunicaciones puede iniciar la toma de contacto cuando la comunicación con el Sistema Solar esté restablecida.</target>
+        <target>{character_gender, select,
+            male {El}
+            female {La}
+            other {El}
+            } Oficial de Comunicaciones puede iniciar la toma de contacto cuando la comunicación con el Sistema Solar esté restablecida. // Puede creer **Anuncios Generales**, que serán compartidos con toda la tripulación. // También puede **acceder a canales de comunicación sin equipar un Walkie-Talkie**.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>communications_officer.examine</source>
@@ -1110,11 +1114,19 @@
     <unit id="neron_administrator">
       <segment id="name" state="translated">
         <source>neron_administrator.name</source>
-        <target>Administrador de NERON</target>
+        <target>{character_gender, select,
+            male {Administrador de NERON}
+            female {Administradora de NERON}
+            other {Administrador de NERON}
+            }</target>
       </segment>
       <segment id="description" state="translated">
         <source>neron_administrator.description</source>
-        <target>El Administrador de NERON puede acceder al módulo BIOS de NERON. También tiene acceso privilegiado a las herramientas de gestión diarias.</target>
+        <target>{character_gender, select,
+            male {El Administrador}
+            female {La Administradora}
+            other {El Administrador}
+            } de NERON puede acceder al módulo BIOS de NERON. También tiene acceso privilegiado a las herramientas de gestión diarias. // También puede **hablar como NERON en canales públicos** escribiendo */neron* al comienzo de su mensaje.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>neron_administrator.examine</source>
@@ -1166,7 +1178,11 @@
     <unit id="burdened">
       <segment id="name" state="translated">
         <source>burdened.name</source>
-        <target>Sobrecargado</target>
+        <target>{character_gender, select,
+            male {Sobrecargado}
+            female {Sobrecargada}
+            other {Sobrecargado}
+            }</target>
       </segment>
       <segment id="description" state="translated">
         <source>burdened.description</source>
@@ -1194,11 +1210,19 @@
     <unit id="dirty">
       <segment id="name" state="translated">
         <source>dirty.name</source>
-        <target>Sucio</target>
+        <target>{character_gender, select,
+            male {Sucio}
+            female {Sucia}
+            other {Sucio}
+            }</target>
       </segment>
       <segment id="description" state="translated">
         <source>dirty.description</source>
-        <target>Estás sucio y apestas... Una visita rápida a la ducha no te vendría mal. Aprovecha esta oportunidad para ponerte un poco de desodorante.</target>
+        <target>Estás {character_gender, select,
+            male {sucio}
+            female {sucia}
+            other {sucio}
+            } y apestas... Una visita rápida a la ducha no te vendría mal. Aprovecha esta oportunidad para ponerte un poco de desodorante.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>dirty.examine</source>
@@ -1208,7 +1232,11 @@
     <unit id="disabled">
       <segment id="name" state="translated">
         <source>disabled.name</source>
-        <target>Lisiado</target>
+        <target>{character_gender, select,
+            male {Lisiado}
+            female {Lisiada}
+            other {Lisiado}
+            }</target>
       </segment>
       <segment id="description" state="translated">
         <source>disabled.description</source>
@@ -1250,7 +1278,11 @@
     <unit id="focused">
       <segment id="name" state="translated">
         <source>focused.name</source>
-        <target>Concentrado</target>
+        <target>{character_gender, select,
+            male {Concentrado}
+            female {Concentrada}
+            other {Concentrado}
+            }</target>
       </segment>
       <segment id="description" state="translated">
         <source>focused.description</source>
@@ -1278,7 +1310,11 @@
     <unit id="gagged">
       <segment id="name" state="translated">
         <source>gagged.name</source>
-        <target>Amordazado</target>
+        <target>{character_gender, select,
+            male {Amordazado}
+            female {Amordazada}
+            other {Amordazado}
+            }</target>
       </segment>
       <segment id="description" state="translated">
         <source>gagged.description</source>
@@ -1304,9 +1340,9 @@
       </segment>
     </unit>
     <unit id="guardian">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>guardian.name</source>
-        <target>guardian.name</target>
+        <target>Guardián</target>
       </segment>
       <segment id="description" state="translated">
         <source>guardian.description</source>
@@ -1320,11 +1356,19 @@
     <unit id="highly_inactive">
       <segment id="name" state="translated">
         <source>highly_inactive.name</source>
-        <target>Gran inactivo</target>
+        <target>{character_gender, select,
+            male {Gran inactivo}
+            female {Gran inactiva}
+            other {Gran inactiva}
+            }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>highly_inactive.description</source>
-        <target>highly_inactive.description</target>
+        <target>Eres {character_gender, select,
+            male {un gran inactivo}
+            female {una gran inactiva}
+            other {un gran inactivo}
+            }, no te has conectado hace más de 48h, tu tripulación se verá perjudicada y podrían tomar una decisión radical.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>highly_inactive.examine</source>
@@ -1332,13 +1376,17 @@
       </segment>
     </unit>
     <unit id="hyperactive">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>hyperactive.name</source>
-        <target>hyperactive.name</target>
+        <target>{character_gender, select,
+            male {Hiperactivo}
+            female {Hiperactiva}
+            other {Hiperactivo}
+            }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>hyperactive.description</source>
-        <target>hyperactive.description</target>
+        <target>Ganas un punto de movimiento :pm: extra en cada cambio de ciclo ciclo. // No ganas ningún punto de acción :pa: adicional al recostarte.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>hyperactive.examine</source>
@@ -1346,13 +1394,21 @@
       </segment>
     </unit>
     <unit id="immunized">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>immunized.name</source>
-        <target>immunized.name</target>
+        <target>{character_gender, select,
+            male {Inmunizado}
+            female {Inmunizada}
+            other {Inmunizado}
+            }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>immunized.description</source>
-        <target>immunized.description</target>
+        <target>{character_gender, select,
+            male {El inmunizado no puede ser contagiado}
+            female {La inmunizada no puede ser contagiada}
+            other {El Inmunizado no puede ser contagiado}
+            } por el Mush. Es muy práctico cuando no se sabe en quién confiar...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>immunized.examine</source>
@@ -1360,13 +1416,21 @@
       </segment>
     </unit>
     <unit id="inactive">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>inactive.name</source>
-        <target>inactive.name</target>
+        <target>{character_gender, select,
+            male {Inactivo}
+            female {Inactiva}
+            other {Inactivo}
+            }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>inactive.description</source>
-        <target>inactive.description</target>
+        <target>No te has conectado en las últimas 24 horas, eres {character_gender, select,
+            male {considerado como inactivo}
+            female {considerada como inactiva}
+            other {considerado como inactivo}
+            }y te vuelves un blanco fácil. No queremos imaginar lo que pasará...</target>
       </segment>
       <segment id="effect" state="initial">
         <source>inactive.examine</source>
@@ -1388,13 +1452,21 @@
       </segment>
     </unit>
     <unit id="lying_down">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>lying_down.name</source>
-        <target>lying_down.name</target>
+        <target>{character_gender, select,
+            male {Recostado}
+            female {Recostada}
+            other {Recostado}
+            }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lying_down.description</source>
-        <target>lying_down.description</target>
+        <target>Estás {character_gender, select,
+            male {recostado}
+            female {recostada}
+            other {recostado}
+            }.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>lying_down.examine</source>
@@ -1420,9 +1492,9 @@
         <source>mush.name</source>
         <target>Mush</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mush.description</source>
-        <target>mush.description</target>
+        <target>Ahora eres un Mush.// :point: **No ganas energía comiendo**, pero **nunca tienes hambre**.// :point: Tus puntos de ánimo :pmo: siempre están **al máximo**.// :point: Puedes leer las **propiedades de los consumibles**. // **No puedes enfermarte**.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>mush.examine</source>
@@ -1430,27 +1502,29 @@
       </segment>
     </unit>
     <unit id="pariah">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pariah.name</source>
-        <target>pariah.name</target>
+        <target>Paria</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pariah.description</source>
-        <target>pariah.description</target>
+        <target>Alguien te ha lanzado un conjuro. Llevas un peso sobre los hombros. Te señalan con el dedo, te espían, no dejan de mirarte. Eres un chivo expiatorio. La víctima. //
+Tus acciones **Furtivas** se vuelven **Discretas**. //
+Todas tus acciones se vuelven más difíciles.</target>
       </segment>
-      <segment id="effect" state="initial">
+      <segment id="effect" state="translated">
         <source>pariah.examine</source>
-        <target>pariah.examine</target>
+        <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="pacifist">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pacifist.name</source>
-        <target>pacifist.name</target>
+        <target>Pacifista</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pacifist.description</source>
-        <target>pacifist.description</target>
+        <target>En la sala donde estás, se necesitarán 2 :pa: adicionales para realizar acciones **agresivas**.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>pacifist.examine</source>
@@ -1472,13 +1546,13 @@
       </segment>
     </unit>
     <unit id="spores">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>spores.name</source>
-        <target>spores.name</target>
+        <target>Esporas</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>spores.description</source>
-        <target>spores.description</target>
+        <target>Une espora sirve para contagiar a un tripulante.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>spores.examine</source>
@@ -1486,13 +1560,17 @@
       </segment>
     </unit>
     <unit id="starving">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>starving.name</source>
-        <target>starving.name</target>
+        <target>{character_gender, select,
+            male {Hambriento}
+            female {Hambrienta}
+            other {Hambriento}
+            }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>starving.description</source>
-        <target>starving.description</target>
+        <target>Llevas un buen tiempo sin probar bocado. Cada ciclo sin comer te vale 1 :hp:.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>starving.examine</source>
@@ -1500,9 +1578,13 @@
       </segment>
     </unit>
     <unit id="starving_warning">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>starving_warning.name</source>
-        <target>starving_warning.name</target>
+        <target>{character_gender, select,
+            male {Hambriento}
+            female {Hambrienta}
+            other {Hambriento}
+            }</target>
       </segment>
       <segment id="description" state="initial">
         <source>starving_warning.description</source>
@@ -1510,13 +1592,17 @@
       </segment>
     </unit>
     <unit id="stuck_in_the_ship">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>stuck_in_the_ship.name</source>
-        <target>stuck_in_the_ship.name</target>
+        <target>{character_gender, select,
+            male {Bloqueado}
+            female {Bloqueada}
+            other {Bloqueado}
+            } en la nave</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>stuck_in_the_ship.description</source>
-        <target>stuck_in_the_ship.description</target>
+        <target>No tienes el equipo necesario para explorar este planeta. No te es posible salir de la nave.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>stuck_in_the_ship.examine</source>
@@ -1548,9 +1634,9 @@
       </segment>
     </unit>
     <unit id="fire.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>fire.name</source>
-        <target>fire.name</target>
+        <target>Incendio en curso</target>
       </segment>
     </unit>
     <unit id="fire.description">
@@ -1560,13 +1646,13 @@
       </segment>
     </unit>
     <unit id="genius_idea">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>genius_idea.name</source>
-        <target>genius_idea.name</target>
+        <target>Golpe de suerte</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>genius_idea.description</source>
-        <target>genius_idea.description</target>
+        <target>Tu próxima reparación, proyecto o investigación es un éxito inmediato.</target>
       </segment>
     </unit>
     <unit id="cat_infected">
@@ -1580,13 +1666,21 @@
       </segment>
     </unit>
     <unit id="antique_perfume_immunized">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>antique_perfume_immunized.name</source>
-        <target>antique_perfume_immunized.name</target>
+        <target>{character_gender, select,
+            male {Inmunizado}
+            female {Inmunizada}
+            other {Inmunizado}
+            }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>antique_perfume_immunized.description</source>
-        <target>antique_perfume_immunized.description</target>
+        <target>{character_gender, select,
+            male {El inmunizado no puede ser contagiado}
+            female {La inmunizada no puede ser contagiada}
+            other {El Inmunizado no puede ser contagiado}
+            } por el Mush. Es muy práctico cuando no se sabe en quién confiar...</target>
       </segment>
     </unit>
     <unit id="beginner">
@@ -1600,27 +1694,27 @@
       </segment>
     </unit>
     <unit id="turbo_drone_upgrade">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>turbo_drone_upgrade.description</source>
-        <target>turbo_drone_upgrade.description</target>
+        <target>:point: Turbo: 80% de probabilidades de actuar una segunda vez en cada ciclo.</target>
       </segment>
     </unit>
     <unit id="pilot_drone_upgrade">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pilot_drone_upgrade.description</source>
-        <target>pilot_drone_upgrade.description</target>
+        <target>:point: Piloto: Puede tomar un Patrullero e intentar destruir todos los Hunters antes de desplazarse. Tiene un bonus de 20% de puntería respecto a los humanos.</target>
       </segment>
     </unit>
     <unit id="sensor_drone_upgrade">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sensor_drone_upgrade.description</source>
-        <target>sensor_drone_upgrade.description</target>
+        <target>:point: Sensor: Se desplaza inteligentemente hacia el incendio equipo o patrullero más cercano en lugar de desplazarse aleatoriamente.</target>
       </segment>
     </unit>
     <unit id="firefighter_drone_upgrade">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>firefighter_drone_upgrade.description</source>
-        <target>firefighter_drone_upgrade.description</target>
+        <target>:point: Bombero : Intenta apagar los incendios en la sala antes de desplazarse. También se protege del fuego.</target>
       </segment>
     </unit>
   </file>

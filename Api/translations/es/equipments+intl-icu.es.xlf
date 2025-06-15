@@ -16,11 +16,11 @@
       </segment>
       <segment id="genre" state="translated">
         <source>antenna.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>antenna.first_letter</source>
-        <target>Vowel</target>
+        <target>vowel</target>
       </segment>
       <segment id="examine" state="translated">
         <source>antenna.examine</source>
@@ -30,29 +30,31 @@ Lo último en comunicaciones, su potencia permite intercambiar mensajes con el o
       </segment>
     </unit>
     <unit id="radar_trans_void_antenna">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>radar_trans_void_antenna.name</source>
-        <target>radar_trans_void_antenna.name</target>
+        <target>Antena</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>radar_trans_void_antenna.short_name</source>
-        <target>radar_trans_void_antenna.short_name</target>
+        <target>Antena</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>radar_trans_void_antenna.plural_name</source>
-        <target>radar_trans_void_antenna.plural_name</target>
+        <target>Antenas</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>radar_trans_void_antenna.gender</source>
-        <target>radar_trans_void_antenna.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>radar_trans_void_antenna.first_letter</source>
-        <target>radar_trans_void_antenna.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>radar_trans_void_antenna.examine</source>
-        <target>radar_trans_void_antenna.examine</target>
+        <target>Mejora enormemente el rendimiento del Centro de Comunicación.
+Reduce en 1 el costo de las acciones de comunicación.
+Lo último en comunicaciones, su potencia permite intercambiar mensajes con el otro lado de la galaxia.</target>
       </segment>
     </unit>
     <unit id="astro_terminal">
@@ -70,11 +72,11 @@ Lo último en comunicaciones, su potencia permite intercambiar mensajes con el o
       </segment>
       <segment id="genre" state="translated">
         <source>astro_terminal.gender</source>
-        <target>Female</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>astro_terminal.first_letter</source>
-        <target>Vowel</target>
+        <target>vowel</target>
       </segment>
       <segment id="examine" state="translated">
         <source>astro_terminal.examine</source>
@@ -97,11 +99,11 @@ Escanea el espacio en busca de nuevos planetas. Sus datos están reservados a lo
       </segment>
       <segment id="genre" state="translated">
         <source>auxiliary_terminal.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>auxiliary_terminal.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>auxiliary_terminal.examine</source>
@@ -124,11 +126,11 @@ Modificar sus programas permite mejorar a NERON.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>bed.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>bed.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bed.examine</source>
@@ -151,11 +153,11 @@ Modificar sus programas permite mejorar a NERON.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>medlab_bed.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>medlab_bed.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>medlab_bed.examine</source>
@@ -178,11 +180,11 @@ Modificar sus programas permite mejorar a NERON.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>bios_terminal.gender</source>
-        <target>Female</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>bios_terminal.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>bios_terminal.examine</source>
@@ -205,11 +207,11 @@ Tras varias sesiones con psicoanalistas, se creó una interfaz a la que solo uno
       </segment>
       <segment id="genre" state="translated">
         <source>calculator.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>calculator.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>calculator.examine</source>
@@ -233,11 +235,11 @@ Tras varias sesiones con psicoanalistas, se creó una interfaz a la que solo uno
       </segment>
       <segment id="genre" state="translated">
         <source>coffee_machine.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>coffee_machine.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>coffee_machine.examine</source>
@@ -260,11 +262,11 @@ Una mágica manera de sentirte mejor.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>combustion_chamber.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>combustion_chamber.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>combustion_chamber.examine</source>
@@ -287,15 +289,15 @@ Reserva de combustible para un motor diésel. Una tecnología sublime con un fin
       </segment>
       <segment id="genre" state="translated">
         <source>command_terminal.gender</source>
-        <target>Female</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>command_terminal.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>command_terminal.examine</source>
-        <target>La Terminal de Comando lo utiliza únicamente el comandante. Acceso prohibido. // 
+        <target>El Terminal de Comando lo utiliza únicamente el comandante. Acceso prohibido. // 
 Permite al Comandante mover el Daedalus. // El módulo de pilotaje cuenta con numerosas herramientas que facilitan la gestión diaria del Daedalus.</target>
       </segment>
     </unit>
@@ -314,11 +316,11 @@ Permite al Comandante mover el Daedalus. // El módulo de pilotaje cuenta con nu
       </segment>
       <segment id="genre" state="translated">
         <source>communication_center.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>communication_center.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>communication_center.examine</source>
@@ -341,11 +343,11 @@ Reúne los datos de los diferentes radares y establece comunicaciones con unidad
       </segment>
       <segment id="genre" state="translated">
         <source>cryo_module.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>cryo_module.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>cryo_module.examine</source>
@@ -368,11 +370,11 @@ El módulo de criogenización te contuvo durante tu largo sueño. Depende de ti 
       </segment>
       <segment id="genre" state="translated">
         <source>door.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>door.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>door.examine</source>
@@ -395,11 +397,11 @@ Sea lo que sea de lo que estén hechas, sin importar su densidad o condición, u
       </segment>
       <segment id="genre" state="translated">
         <source>dynarcade.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>dynarcade.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>dynarcade.examine</source>
@@ -449,11 +451,11 @@ Hay tecnologías que se resisten a morir. Cada reactor consume 2 unidades de com
       </segment>
       <segment id="genre" state="translated">
         <source>fuel_tank.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>fuel_tank.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>fuel_tank.examine</source>
@@ -476,11 +478,11 @@ Reserva de combustible del Daedalus. Precaución: NO FUMAR.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>gravity_simulator.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>gravity_simulator.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>gravity_simulator.examine</source>
@@ -503,11 +505,11 @@ Reserva de combustible del Daedalus. Precaución: NO FUMAR.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>kitchen.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>kitchen.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>kitchen.examine</source>
@@ -530,11 +532,11 @@ Aquí las artes culinarias y marciales podrían encontrarse.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>reactor_lateral.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>reactor_lateral.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>reactor_lateral.examine</source>
@@ -614,11 +616,11 @@ También sirve para hacer barbacoas.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>mycoscan.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>mycoscan.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>mycoscan.examine</source>
@@ -640,11 +642,11 @@ También sirve para hacer barbacoas.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>narcotic_distiller.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>narcotic_distiller.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>narcotic_distiller.examine</source>
@@ -667,11 +669,11 @@ Distribuidor de alegría creado por el doctor Albus Haxley.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>neron_core.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>neron_core.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>neron_core.examine</source>
@@ -694,11 +696,11 @@ Modificar sus programas permite mejorar a NERON.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>oxygen_tank.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>oxygen_tank.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>oxygen_tank.examine</source>
@@ -721,11 +723,11 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="genre" state="translated">
         <source>pasiphae.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>pasiphae.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>pasiphae.examine</source>
@@ -753,11 +755,11 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="genre" state="translated">
         <source>patrol_ship_alpha_2_wallis.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_2_wallis.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_alpha_2_wallis.examine</source>
@@ -821,11 +823,11 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="genre" state="translated">
         <source>patrol_ship_alpha_jujube.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_jujube.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_alpha_jujube.examine</source>
@@ -855,11 +857,11 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="genre" state="translated">
         <source>patrol_ship_alpha_longane.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_longane.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_alpha_longane.examine</source>
@@ -897,7 +899,7 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_bravo_planton.examine</source>
-        <target>Patrullero Espacial Wallis
+        <target>Patrullero Espacial Platón
         //
         Con cómodos asientos de cuero y 5 velocidades.
         //
@@ -931,7 +933,7 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_bravo_socrate.examine</source>
-        <target>Patrullero Espacial Wallis
+        <target>Patrullero Espacial Sócrates
         //
         Con cómodos asientos de cuero y 5 velocidades.
         //
@@ -957,15 +959,15 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="genre" state="translated">
         <source>patrol_ship_alpha_tamarin.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>patrol_ship_alpha_tamarin.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>patrol_ship_alpha_tamarin.examine</source>
-        <target>Patrullero Espacial Wallis
+        <target>Patrullero Espacial Tamarindo
         //
         Con cómodos asientos de cuero y 5 velocidades.
         //
@@ -987,15 +989,15 @@ Reserva de oxígeno del Daedalus, manipular con precaución. NO VACIARLO.</targe
       </segment>
       <segment id="plural_name" state="translated">
         <source>pilgred.plural_name</source>
-        <target>Pilgreds</target>
+        <target>PILGREDS</target>
       </segment>
       <segment id="genre" state="translated">
         <source>pilgred.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>pilgred.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>pilgred.examine</source>
@@ -1018,11 +1020,11 @@ Rompe los límites del tiempo y el espacio con toda seguridad.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>planet_scanner.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>planet_scanner.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>planet_scanner.examine</source>
@@ -1076,11 +1078,11 @@ Una música suena cuando lo enciendes. Los ingenieros responsables de este objet
       </segment>
       <segment id="genre" state="translated">
         <source>research_laboratory.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>research_laboratory.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>research_laboratory.examine</source>
@@ -1103,11 +1105,11 @@ Laboratorio ultramoderno. La ciencia también es un arma.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>shower.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>shower.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>shower.examine</source>
@@ -1126,15 +1128,15 @@ Mente limpia en cuerpo limpio.</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>swedish_sofa.plural_name</source>
-        <target>Sofas</target>
+        <target>Sofás</target>
       </segment>
       <segment id="genre" state="translated">
         <source>swedish_sofa.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>swedish_sofa.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>swedish_sofa.examine</source>
@@ -1157,11 +1159,11 @@ Lo único que te hace sentir como en casa...</target>
       </segment>
       <segment id="genre" state="translated">
         <source>surgery_plot.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>surgery_plot.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>surgery_plot.examine</source>
@@ -1184,11 +1186,11 @@ Es bueno saber dónde se encuentra en caso de urgencias.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>thalasso.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>thalasso.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>thalasso.examine</source>
@@ -1211,11 +1213,11 @@ Mente limpia en cuerpo limpio.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>turret_command.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>turret_command.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>turret_command.examine</source>
@@ -1238,11 +1240,11 @@ Cañones Bidulotron 3000. Un arma eficaz contra los Hunters.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>icarus.gender</source>
-        <target>Male</target>
+        <target>male</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>icarus.first_letter</source>
-        <target>Vowel</target>
+        <target>vowel</target>
       </segment>
       <segment id="examine" state="translated">
         <source>icarus.examine</source>
@@ -1265,11 +1267,11 @@ La nave de exploración por excelencia... hace muuuuchos siglos.</target>
       </segment>
       <segment id="genre" state="translated">
         <source>jukebox.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>jukebox.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jukebox.examine</source>
@@ -1292,24 +1294,28 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
       </segment>
       <segment id="genre" state="translated">
         <source>camera_equipment.gender</source>
-        <target>Female</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>camera_equipment.first_letter</source>
-        <target>Consonant</target>
+        <target>consonant</target>
       </segment>
       <segment id="examine" state="translated">
         <source>camera_equipment.examine</source>
         <target>Es un dispositivo de vigilancia muy útil para --espiar-- ver lo que hacen tus compañeros.
-En su presencia, las acciones discretas y furtivas efectuadas son reveladas.
-Cuando hay una en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.</target>
+En su presencia, las acciones **discretas** y **furtivas** efectuadas son reveladas.
+Cuando hay una instalada en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.</target>
       </segment>
     </unit>
     <unit id="patrol_ship.examine">
       <segment state="translated">
         <source>patrol_ship.examine</source>
-        <target>"Centraliza los comandos del Patrullero.
-Puesto de pilotaje del Patrullero."</target>
+        <target>Centraliza los comandos del Patrullero. //
+Puesto de pilotaje del Patrullero. //
+Cargas del aparato: {charges}. 
+//
+Blindaje del aparato: {armor}.  //
+No es tan nuevo pero cumple su función.</target>
       </segment>
     </unit>
     <unit id="patrol_ship.name">

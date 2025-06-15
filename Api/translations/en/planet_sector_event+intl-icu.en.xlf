@@ -544,7 +544,7 @@
         <target>{character_gender, select,
         male {In spite of tireless searching, you have found no trace of {character}. However, he's got to be somewhere around here!}
         female {In spite of tireless searching, you have found no trace of {character}. However, she's got to be somewhere around here!}
-        other {In spite of tireless searching, you have found no trace of {character}. However, they've got to be somewhere around here!}}</target>
+        other {In spite of tireless searching, you have found no trace of {character}. However, they got to be somewhere around here! }}</target>
       </segment>
     </unit>
     <unit id="item_lost">

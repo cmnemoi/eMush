@@ -366,8 +366,7 @@ Disponible solo durante el alpha.
       </segment>
       <segment id="description" state="translated">
         <source>retrieve_oxygen.description</source>
-        <target>Fantástico, el sistema Oxy Rev te permite sacar oxígeno de los tanques. Recuerda cerrar bien las válvulas y lavarte bien las manos.
-Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas presentes* en la sala, incluso de *tu bando*.</target>
+        <target>Fantástico, el sistema Oxy Rev te permite sacar oxígeno de los tanques. Recuerda cerrar bien las válvulas y lavarte bien las manos.</target>
       </segment>
     </unit>
     <unit id="insert_fuel">
@@ -383,7 +382,7 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
     <unit id="retrieve_fuel">
       <segment id="name" state="translated">
         <source>retrieve_fuel.name</source>
-        <target>retrieve_fuel</target>
+        <target>Sacar cápsula de combustible</target>
       </segment>
       <segment id="description" state="translated">
         <source>retrieve_fuel.description</source>
@@ -742,7 +741,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
         <source>auto_destroy.description</source>
         <target>Esta nave está llena de anomalías genéticas: una solución drástica es requerida.
 //
-**Advertencia**, esta acción destruirá la nave **inmediatamente**!</target>
+**Advertencia**, ¡esta acción destruirá la nave **inmediatamente**!</target>
       </segment>
     </unit>
     <unit id="kill_player">
@@ -756,7 +755,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
 //
 Ya sea por una mutación genética incomprensible o por pura locura homicida, una cosa es segura: este jugador es muy peligroso como para dejarlo libre.
 //
-**Advertencia**, esta acción matará a este jugador **inmediatamente**!</target>
+**Advertencia**, ¡esta acción matará a este jugador **inmediatamente**!</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>kill_player.confirmation</source>
@@ -790,7 +789,7 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
       </segment>
       <segment id="description" state="translated">
         <source>secret.description</source>
-        <target>Esta acción es **Secreta**. Será revelada por las cámaras y tus compañeros, incluso los de tu bando.</target>
+        <target>Esta acción es *Discreta*. Será revelada solo por las *Cámaras* y las *personas presentes* en la sala, incluso de *tu bando*.</target>
       </segment>
     </unit>
     <unit id="play_arcade">
@@ -824,7 +823,7 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
       </segment>
       <segment id="description" state="translated">
         <source>shoot_hunter_turret.description</source>
-        <target>Dispara una carga de Teslatron a una nave enemiga.</target>
+        <target>Dispara una carga de Teslatron a una nave enemiga. El resultado es mejor con misiles.</target>
       </segment>
     </unit>
     <unit id="shoot_random_hunter">
@@ -1098,7 +1097,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
     <unit id="return_to_sol">
       <segment id="name" state="translated">
         <source>return_to_sol.name</source>
-        <target>Volver al Sistema Solar</target>
+        <target>Volver a Sol</target>
       </segment>
       <segment id="description" state="translated">
         <source>return_to_sol.description</source>
@@ -1126,8 +1125,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
       <segment id="description" state="translated">
         <source>trap_closet.description</source>
-        <target>Coloca una trampa en la estantería para infectar a alguien.
-Esta acción es **Discreta**. Será vista solo por las **Cámaras** y las **personas presentes** en la sala, incluso de *tu bando*.</target>
+        <target>Coloca una trampa en la estantería para infectar a alguien.</target>
       </segment>
     </unit>
     <unit id="chitchat">
@@ -1137,7 +1135,7 @@ Esta acción es **Discreta**. Será vista solo por las **Cámaras** y las **pers
       </segment>
       <segment id="description" state="translated">
         <source>chitchat.description</source>
-        <target>Revela alguna de tus últimas acciones a un jugador confidente.</target>
+        <target>Revela algunas de tus últimas acciones a un jugador confidente.</target>
       </segment>
     </unit>
     <unit id="graft">
@@ -1175,8 +1173,7 @@ Esta acción es **Discreta**. Será vista solo por las **Cámaras** y las **pers
       </segment>
       <segment id="description" state="translated">
         <source>put_through_door.description</source>
-        <target>Expulsa a este tripulante fuera de la sala//:point: Cuesta 1 :pa: menos en inactivos.
-Esta acción es **Agresiva**. Puede tener restricciones.</target>
+        <target>Expulsa a este tripulante fuera de la sala//:point: Cuesta 1 :pa: menos en inactivos.</target>
       </segment>
     </unit>
     <unit id="become_genius">
@@ -1224,8 +1221,7 @@ Esta acción es **Agresiva**. Puede tener restricciones.</target>
       </segment>
       <segment id="description" state="translated">
         <source>guard.description</source>
-        <target>Obliga a los tripulantes que entran a la sala a volver por donde vinieron. La acción termina cuando te desplazas.
-Esta acción es **Agresiva**. Puede tener restricciones.</target>
+        <target>Obliga a los tripulantes que entran a la sala a volver por donde vinieron. La acción termina cuando te desplazas.</target>
       </segment>
       <segment id="confirmation" state="initial">
         <source>guard.confirmation</source>
@@ -1282,19 +1278,18 @@ Esta lista contiene actualmente **{numberOfNames}** nombres.</target>
       </segment>
       <segment id="description" state="translated">
         <source>depress.description</source>
-        <target>Hace perder 2 :pmo: a tu objetivo.
-Esta acción es **Furtiva**. Será revelada por las **Cámaras**.
-Esta acción es **Agresiva**. Puede tener restricciones.</target>
+        <target>Hace perder 2 :pmo: a tu objetivo.</target>
       </segment>
     </unit>
     <unit id="delog">
       <segment id="name" state="translated">
         <source>delog.name</source>
-        <target>Borrar registro</target>
+        <target>Borrar el registro</target>
       </segment>
       <segment id="description" state="translated">
         <source>delog.description</source>
-        <target>Los registros de esta sala se eliminarán y no se reanudarán hasta el próximo ciclo.</target>
+        <target>Los registros de esta sala serán borrados y serán recuperados en el próximo ciclo.
+*Disponible 1 vez por día*</target>
       </segment>
     </unit>
     <unit id="run_home">
@@ -1333,8 +1328,7 @@ Esta acción es **Agresiva**. Puede tener restricciones.</target>
       <segment id="description" state="translated">
         <source>anathema.description</source>
         <target>Permite lanzar un conjuro que da el estado de Paria.//El Paria sufre una penalidad importante y si muere y es Mush, te hará ganar :triumph:. Si es humano, perderás :triumph:.
-Si el Mush eres tú, esta acción no afectará tú :triumph:.
-Esta acción es *Agresiva*. Puede tener restricciones.</target>
+Si el Mush eres tú, esta acción no afectará tú :triumph_mush:.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>anathema.confirmation</source>
@@ -1358,8 +1352,7 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
       <segment id="description" state="translated">
         <source>slime_trap.description</source>
-        <target>Permite provocar el estado de suciedad en los próximos ciclos.
-Esta acción es *Furtiva*. Será revelada por las *Cámaras*.</target>
+        <target>Permite provocar el estado de suciedad en los próximos ciclos.</target>
       </segment>
     </unit>
     <unit id="slime_object">
@@ -1369,19 +1362,17 @@ Esta acción es *Furtiva*. Será revelada por las *Cámaras*.</target>
       </segment>
       <segment id="description" state="translated">
         <source>slime_object.description</source>
-        <target>El objeto seleccionado dejará de funcionar dentro de 1 o {outputQuantity} ciclos.
-Esta acción es *Furtiva*. Será revelada por las *Cámaras*.</target>
+        <target>El objeto seleccionado dejará de funcionar dentro de 1 a {outputQuantity} ciclos.</target>
       </segment>
     </unit>
     <unit id="mass_ggeddon">
       <segment id="name" state="translated">
         <source>mass_ggeddon.name</source>
-        <target>Enmohecer en masa</target>
+        <target>Alta Suciedad</target>
       </segment>
       <segment id="description" state="translated">
         <source>mass_ggeddon.description</source>
-        <target>Aplica una pérdida de 2 :pa: y el estado sucio a toda la tripulación.
-Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas presentes* en la sala, incluso de *tu bando*.</target>
+        <target>Aplica una pérdida de 2 :pa: y el estado sucio a toda la tripulación.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>mass_ggeddon.confirmation</source>
@@ -1407,8 +1398,7 @@ Esta acción es *Discreta*. Será vista solo por las *Cámaras* y las *personas 
     <unit id="throw_grenade.description">
       <segment state="translated">
         <source>throw_grenade.description</source>
-        <target>Permite lanzar una granada en la sala. Con eso puedes estar seguro del resultado.
-Esta acción es *Agresiva*. Puede tener restricciones.</target>
+        <target>Permite lanzar una granada en la sala. Con eso puedes estar seguro del resultado.</target>
       </segment>
     </unit>
     <unit id="throw_grenade.confirmation">
@@ -1418,43 +1408,49 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_turbo">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>upgrade_drone_to_turbo.name</source>
-        <target>upgrade_drone_to_turbo.name</target>
+        <target>Mejorar: Turbo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>upgrade_drone_to_turbo.description</source>
-        <target>upgrade_drone_to_turbo.description</target>
+        <target>Permite agregar a este dron: //
+80% de probabilidades de actuar una segunda vez en cada ciclo. //
+¡El dron puede ser perfeccionado!</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_firefighter">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>upgrade_drone_to_firefighter.name</source>
-        <target>upgrade_drone_to_firefighter.name</target>
+        <target>Mejorar: Bombero</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>upgrade_drone_to_firefighter.description</source>
-        <target>upgrade_drone_to_firefighter.description</target>
+        <target>Permite agregar a este dron: //
+Intenta apagar los incendios en la sala antes de desplazarse. También se protege del fuego. // ¡El dron puede ser perfeccionado!</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_pilot">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>upgrade_drone_to_pilot.name</source>
-        <target>upgrade_drone_to_pilot.name</target>
+        <target>Mejorar: Piloto</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>upgrade_drone_to_pilot.description</source>
-        <target>upgrade_drone_to_pilot.description</target>
+        <target>Permite agregar a este dron: //
+Puede tomar un Patrullero e intentar destruir todos los Hunters antes de desplazarse. Tiene un bonus de 20% de puntería respecto a los humanos. //
+¡El dron puede ser perfeccionado!</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_sensor">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>upgrade_drone_to_sensor.name</source>
-        <target>upgrade_drone_to_sensor.name</target>
+        <target>Mejorar: Sensor</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>upgrade_drone_to_sensor.description</source>
-        <target>upgrade_drone_to_sensor.description</target>
+        <target>Permite agregar a este dron: //
+Se desplaza inteligentemente hacia el incendio equipo o patrullero más cercano en lugar de desplazarse aleatoriamente. // ¡El dron puede ser perfeccionado!</target>
       </segment>
     </unit>
     <unit id="take_cat">
@@ -1468,29 +1464,31 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="pet_cat">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pet_cat.name</source>
-        <target>pet_cat.name</target>
+        <target>Acariciar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pet_cat.description</source>
-        <target>pet_cat.description</target>
+        <target>Permite acariciar tiernamente a Schrödinger.
+Da un poco de alegría la primera vez...</target>
       </segment>
     </unit>
     <unit id="convert_cat">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>convert_cat.name</source>
-        <target>convert_cat.name</target>
+        <target>Caricia infecciosa</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>convert_cat.description</source>
-        <target>convert_cat.description</target>
+        <target>Permite acariciar "tiernamente" a Schrödinger y convertirlo en un agente Mush.
+</target>
       </segment>
     </unit>
     <unit id="torture">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>torture.name</source>
-        <target>torture.name</target>
+        <target>Torturar</target>
       </segment>
       <segment id="description" state="initial">
         <source>torture.description</source>
@@ -1498,19 +1496,19 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="cure">
-      <segment id="cure" state="initial">
+      <segment id="cure" state="translated">
         <source>cure.name</source>
-        <target>cure.name</target>
+        <target>Vacunar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cure.description</source>
-        <target>cure.description</target>
+        <target>La vacuna anti-mush inyecta una poderosa sustancia que anula todos los efectos del Mush en un organismo.</target>
       </segment>
     </unit>
     <unit id="daunt">
-      <segment id="daunt" state="initial">
+      <segment id="daunt" state="translated">
         <source>daunt.name</source>
-        <target>daunt.name</target>
+        <target>Intimidar</target>
       </segment>
       <segment id="description" state="initial">
         <source>daunt.description</source>
@@ -1518,9 +1516,9 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="gen_metal">
-      <segment id="gen_metal" state="initial">
+      <segment id="gen_metal" state="translated">
         <source>gen_metal.name</source>
-        <target>gen_metal.name</target>
+        <target>Rebuscar</target>
       </segment>
       <segment id="description" state="initial">
         <source>gen_metal.description</source>
@@ -1528,49 +1526,49 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="door_sabotage">
-      <segment id="door_sabotage" state="initial">
+      <segment id="door_sabotage" state="translated">
         <source>door_sabotage.name</source>
-        <target>door_sabotage.name</target>
+        <target>Sabotear: Puerta</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>door_sabotage.description</source>
-        <target>door_sabotage.description</target>
+        <target>Sabotea una puerta al azar en la sala. Esta acción es *diaria*.</target>
       </segment>
     </unit>
     <unit id="give_nightmare">
-      <segment id="give_nightmare" state="initial">
+      <segment id="give_nightmare" state="translated">
         <source>give_nightmare.name</source>
-        <target>give_nightmare.name</target>
+        <target>Crear pesadilla</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>give_nightmare.description</source>
-        <target>give_nightmare.description</target>
+        <target>Provoca terrores nocturnos a un tripulante recostado para privarle de sus bonus de descanso.</target>
       </segment>
     </unit>
     <unit id="neron_depress">
-      <segment id="neron_depress" state="initial">
+      <segment id="neron_depress" state="translated">
         <source>neron_depress.name</source>
-        <target>neron_depress.name</target>
+        <target>Depresión de NERON</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>neron_depress.description</source>
-        <target>neron_depress.description</target>
+        <target>Prova una depresión a NERON para alterar el próximo ciclo.</target>
       </segment>
     </unit>
     <unit id="participate_research">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>participate_research.name</source>
-        <target>participate_research.name</target>
+        <target>Colaborar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>participate_research.description</source>
-        <target>participate_research.description</target>
+        <target>Avanzar la investigación.</target>
       </segment>
     </unit>
     <unit id="compute_eden">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>compute_eden.name</source>
-        <target>compute_eden.name</target>
+        <target>Calcular</target>
       </segment>
       <segment id="description" state="initial">
         <source>compute_eden.description</source>
@@ -1578,151 +1576,154 @@ Esta acción es *Agresiva*. Puede tener restricciones.</target>
       </segment>
     </unit>
     <unit id="travel_to_eden">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>travel_to_eden.name</source>
-        <target>travel_to_eden.name</target>
+        <target>Viajar al Edén</target>
       </segment>
       <segment id="description" state="initial">
         <source>travel_to_eden.description</source>
         <target>travel_to_eden.description</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>travel_to_eden.confirmation</source>
-        <target>travel_to_eden.confirmation</target>
+        <target>Esta acción es irreversible. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="shoot_cat">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>shoot_cat.name</source>
-        <target>shoot_cat.name</target>
+        <target>Disparar: {equipment}</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>shoot_cat.description</source>
-        <target>shoot_cat.description</target>
+        <target>Dispara sobre alguien para herir o matar. ¡Cuidado, juego de manos, es de villanos!</target>
       </segment>
     </unit>
     <unit id="open_container">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>open_container.name</source>
-        <target>open_container.name</target>
+        <target>Utilizar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>open_container.description</source>
-        <target>open_container.description</target>
+        <target>Utilizar este objeto.</target>
       </segment>
     </unit>
     <unit id="com_manager_announcement">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>com_manager_announcement.name</source>
-        <target>com_manager_announcement.name</target>
+        <target>Anuncio General</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>com_manager_announcement.description</source>
-        <target>com_manager_announcement.description</target>
+        <target>Como *Oficial de Comunicaciones* puedes hacer un *anuncio general*.//
+Todos tus camaradas serán *notificados* y el anuncio permanecerá en :tip:  *Consejos*.</target>
       </segment>
     </unit>
     <unit id="establish_link_with_sol">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>establish_link_with_sol.name</source>
-        <target>establish_link_with_sol.name</target>
+        <target>Contactar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>establish_link_with_sol.description</source>
-        <target>establish_link_with_sol.description</target>
+        <target>Esta acción tratará de *establecer contacto* con el Sistema Solar.</target>
       </segment>
     </unit>
     <unit id="upgrade_neron">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>upgrade_neron.name</source>
-        <target>upgrade_neron.name</target>
+        <target>Actualizar NERON</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>upgrade_neron.description</source>
-        <target>upgrade_neron.description</target>
+        <target>Actualizando el programa de NERON se desbloquean ciertas capacidades heredadas de Magallanes.//
+**Al completarse, se completa un proyecto.**</target>
       </segment>
     </unit>
     <unit id="decode_rebel_signal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>decode_rebel_signal.name</source>
-        <target>decode_rebel_signal.name</target>
+        <target>Descifrar señal rebelde</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>decode_rebel_signal.description</source>
-        <target>decode_rebel_signal.description</target>
+        <target>**Cada señal descifrada te dará una nueva ventaja.**</target>
       </segment>
     </unit>
     <unit id="contact_xyloph">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>contact_xyloph.name</source>
-        <target>contact_xyloph.name</target>
+        <target>Contactar con Xyloph</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>contact_xyloph.description</source>
-        <target>contact_xyloph.description</target>
+        <target>Permite comunicarse con la base del Daedalus en Xyloph...//
+**Cada contacto te dará una ventaja (planos para el taller, información sobre Mush, etc.).**</target>
       </segment>
     </unit>
     <unit id="trigger_all_rebel_contacts">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>trigger_all_rebel_contacts.name</source>
-        <target>trigger_all_rebel_contacts.name</target>
+        <target>Provocar todas las bases rebeldes</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>trigger_all_rebel_contacts.description</source>
-        <target>trigger_all_rebel_contacts.description</target>
+        <target>Provoca todas las bases rebeldes para que intenten contactarse con el Daedalus.</target>
       </segment>
     </unit>
     <unit id="play_with_dog">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>play_with_dog.name</source>
-        <target>play_with_dog.name</target>
+        <target>Jugar con</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>play_with_dog.description</source>
-        <target>play_with_dog.description</target>
+        <target>¡Al fin! ¡Es hora de jugar!</target>
       </segment>
     </unit>
     <unit id="accept_trade">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>accept_trade.name</source>
-        <target>accept_trade.name</target>
+        <target>Validar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>accept_trade.description</source>
-        <target>accept_trade.description</target>
+        <target>Validas este intercambio comercial... Las consecuencias pueden ser graves.</target>
       </segment>
     </unit>
     <unit id="refuse_trade">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>refuse_trade.name</source>
-        <target>refuse_trade.name</target>
+        <target>Rechazar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>refuse_trade.description</source>
-        <target>refuse_trade.description</target>
+        <target>Rechazas este intercambio comercial... Las consecuencias pueden ser graves.</target>
       </segment>
     </unit>
     <unit id="create_trade">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>create_trade.name</source>
-        <target>create_trade.name</target>
+        <target>Invocar: Mercader</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>create_trade.description</source>
-        <target>create_trade.description</target>
+        <target>Te permite invocar un mercader (Solo para usuarios con una acreditación de nivel 4).</target>
       </segment>
     </unit>
     <unit id="go_berserk">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>go_berserk.name</source>
-        <target>go_berserk.name</target>
+        <target>Mutar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>go_berserk.description</source>
-        <target>go_berserk.description</target>
+        <target>Permite mutar al nivel avanzado Mush. La mutación te curará parcialmente y tus ataques tendrán un bonus. Los humanos que entren en la sala solo podrán huir o pelear. Tú solo podrás desplazarte o golpear. ¿Para qué más?</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>go_berserk.confirmation</source>
-        <target>go_berserk.confirmation</target>
+        <target>Esta acción es irreversible y te revelará ante todo el mundo. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
   </file>

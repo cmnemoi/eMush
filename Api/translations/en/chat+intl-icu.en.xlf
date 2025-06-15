@@ -22,7 +22,7 @@
       <segment id="teamObjectives.elements" state="translated">
         <source>tips.teamObjectives.elements</source>
         <target>{team, select,
-        mush {**Eliminate all humans** by cooperating with other Mushs.//**Contaminate humans** to turn them into Mushs.//**Manipulate humans** to make them do things that put them at a disadvantage.//**Sabotage human actions** at the right moments, to prevent them from repairing the PILGRED and returning to Sol.}
+        mush {**Eliminate all humans** by cooperating with other Mushs.//**Contaminate humans** to turn them into Mushs.//**Sabotage human actions** at the right moments, to prevent them from repairing the PILGRED, make the anti-Mush serum or returning to Sol.}
         other {**Eliminate the Mushs on board**.//**Make the anti-Mush serum**.//**Repair the PILGRED** to return to Sol, or find a new Eden.}}</target>
       </segment>
       <segment id="teamObjectives.mushTutorialTitle" state="translated">

@@ -646,8 +646,10 @@
 			"report": "Reportar",
 			"loadMoreMessages": "Cargar más mensajes",
 			"markChannelAsRead": "Marcar canal como leído",
-			"exportChannelAsPDF": "🖨️",
-			"exportChannelAsPDFDescription": "También se copiará la conversación al portapapeles.",
+			"exportChannelAsClipboard": "Presse-papier 📋",
+			"exportChannelAsClipboardDescription": "copie la discussion dans le presse-papier.",
+			"exportChannelAsPDF": "Fichier PDF 🖨️",
+			"exportChannelAsPDFDescription": "Créé un fichier PDF contenant la discussion.",
 			"unbookmark": "Plus favori",
 			"unbookmarkDescription": "Retirer ce fil de discussion de vos favoris."
 		},
@@ -915,8 +917,10 @@
 		"communication": {
 			"title": "Comunicado",
 			"introText": "Les règles concernant la communication s’appliquent à tous les espaces permettant au joueur de s’exprimer par messages : canal général, canaux privés, canal Mush, missions, annonces générales, messages de fin de jeu. Ces messages peuvent tous faire l’objet d’une modération a posteriori à la discrétion des administrateurs et modérateurs du jeu selon les lignes directrices qui suivent.",
+			"mandatoryCommunication": "<strong>Communication</strong> : La communication est un pilier fondamental du jeu. Afin d'atteindre l'objectif de votre camp, il est indispensable de partager des informations avec vos coéquipiers afin de vous organiser et de vous concerter.",
 			"courtesy": "<strong>Courtoisie</strong> : La communication étant le pilier majeur du jeu, les joueurs bénéficient d’une grande tolérance quant aux propos tenus et il n’est pas l’objectif de faire ici une liste exhaustive des propos interdits. Cependant, afin de garantir une atmosphère de jeu saine et inclusive pour tous les joueurs, toute forme de propos vulgaires, d’intolérance, de haine, de discrimination, d’harcèlement, ou de violence, est strictement interdite.",
-			"spokenLanguage": "<strong>Langue parlée</strong> : Le joueur doit pouvoir communiquer facilement dans la langue du serveur."
+			"spokenLanguage": "<strong>Langue parlée</strong> : Le joueur doit pouvoir communiquer facilement dans la langue du serveur.",
+			"flood": "<strong>Flood</strong> : Le joueur ne doit pas abuser des systèmes mis à sa disposition pour communiquer. En particulier, le flood est interdit et il est souhaitable de porter une attention particulière à l’orthographe et à la syntaxe. Toute publicité pour un site ou service externe à Eternaltwin est interdite."
 		},
 		"behaviour": {
 			"title": "Comportamiento",

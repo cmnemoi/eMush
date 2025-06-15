@@ -60,7 +60,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>gravity_reboot.description</source>
-        <target>Le Simulateur de gravité est en train de redémarrer. Chaque gain de Points de mouvement est réduit de 1 :pm: !</target>
+        <target>Le simulateur de gravité est en train de redémarrer. Chaque gain de points de mouvement est réduit de 1 :pm: !</target>
       </segment>
     </unit>
     <unit id="low_oxygen">

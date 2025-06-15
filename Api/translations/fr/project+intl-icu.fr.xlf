@@ -322,7 +322,7 @@
       </segment>
       <segment id="icarus_antigrav_propeller.lore" state="translated">
         <source>icarus_antigrav_propeller.lore</source>
-        <target>Grâce à ces propulseurs anti-gravité, les manoeuvres de décollage et d'atterissage de l'Icarus deviennent un jeu d'enfant. L'entrée dans l'atmosphère devient d'une simplicité incroyable. Bref l'Icarus, un vaisseau qu'il est bien à faire voler !</target>
+        <target>Grâce à ces propulseurs anti-gravité, les manœuvres de décollage et d'atterrissage de l'Icarus deviennent un jeu d'enfant. L'entrée dans l'atmosphère devient d'une simplicité incroyable. Bref l'Icarus, un vaisseau qu'il est bien à faire voler !</target>
       </segment>
     </unit>
     <unit id="fission_coffee_roaster">
@@ -1056,7 +1056,7 @@
       </segment>
       <segment id="patuline_scrambler.description" state="translated">
         <source>patuline_scrambler.description</source>
-        <target>Les infectés ne peuvent plus communiquer sur le canal Mush.</target>
+        <target>Les messages sur le canal Mush sont brouillés.</target>
       </segment>
       <segment id="patuline_scrambler.lore" state="translated">
         <source>patuline_scrambler.lore</source>

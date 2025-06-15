@@ -30,6 +30,10 @@
         <source>chun_lives.log</source>
         <target>You have earned {quantity} :triumph: for surviving another day as Chun!</target>
       </segment>
+      <segment id="chun_lives.personal_description" state="translated">
+        <source>chun_lives.personal_description</source>
+        <target>Chun earns {quantity} :triumph: for each day survived.</target>
+      </segment>
     </unit>
     <unit id="return_to_sol">
       <segment id="return_to_sol.name" state="translated">
@@ -90,6 +94,10 @@
         <source>explorator.log</source>
         <target>You have earned {quantity} :triumph: for participating in an expedition as Hua!</target>
       </segment>
+      <segment id="explorator.personal_description" state="translated">
+        <source>explorator.personal_description</source>
+        <target>Hua earns {quantity} :triumph: each time she explores a planet. </target>
+      </segment>
     </unit>
     <unit id="sol_contact">
       <segment id="sol_contact.name" state="translated">
@@ -140,6 +148,10 @@
         <source>mush_specialist.log</source>
         <target>You have earned {quantity} :triumph: as a research project against the Mush has been completed in your presence as Finola!</target>
       </segment>
+      <segment id="mush_specialist.personal_description" state="translated">
+        <source>mush_specialist.personal_description</source>
+        <target>Finola earns {quantity} :triumph:  for every completed piece of Mush research.</target>
+      </segment>
     </unit>
     <unit id="precious_body">
       <segment id="precious_body.name" state="translated">
@@ -149,6 +161,10 @@
       <segment id="precious_body.log" state="translated">
         <source>precious_body.log</source>
         <target>You have earned {quantity} :triumph: as a research requiring your presence as Chun has been completed!</target>
+      </segment>
+      <segment id="precious_body.personal_description" state="translated">
+        <source>precious_body.personal_description</source>
+        <target>Chun earns {quantity} :triumph: for every time a piece of research requiring her presence is completed.</target>
       </segment>
     </unit>
     <unit id="magellan_ark">
@@ -160,6 +176,10 @@
         <source>magellan_ark.log</source>
         <target>You have earned {quantity} :triumph: as a NERON project has been completed in your presence as Kuan Ti!</target>
       </segment>
+      <segment id="magellan_ark.personal_description" state="translated">
+        <source>magellan_ark.personal_description</source>
+        <target>Kuan Ti earns {quantity} :triumph: for every NERON project taken to completion.</target>
+      </segment>
     </unit>
     <unit id="pilgred_mother">
       <segment id="pilgred_mother.name" state="translated">
@@ -170,6 +190,10 @@
         <source>pilgred_mother</source>
         <target>You have earned {quantity} :triumph: as Raluca because PILGRED made significant progress!</target>
       </segment>
+      <segment id="pilgred_mother.personal_description" state="translated">
+        <source>pilgred_mother.personal_description</source>
+        <target>Raluca earns {quantity} :triumph: for every 20% of the PILGRED repairs successfully completed.</target>
+      </segment>
     </unit>
     <unit id="ambitious">
       <segment id="ambitious.name" state="translated">
@@ -179,6 +203,10 @@
       <segment id="ambitious.log" state="translated">
         <source>ambitious.log</source>
         <target>You have earned {quantity} :triumph: for earning a title as Stephen!</target>
+      </segment>
+      <segment id="ambitious.personal_description" state="translated">
+        <source>ambitious.personal_description</source>
+        <target>Stephen earns {quantity} :triumph: for every title received.</target>
       </segment>
     </unit>
     <unit id="kube_solved">
@@ -208,7 +236,7 @@
       </segment>
       <segment id="super_nova.log" state="translated">
         <source>super_nova.log</source>
-        <target>You won {quantity} :triumph: because you scattered by a stellar explosion.</target>
+        <target>You won {quantity} :triumph: because you have been scattered by a stellar explosion.</target>
       </segment>
     </unit>
     <unit id="chun_dead">
@@ -218,17 +246,21 @@
       </segment>
       <segment id="chun_dead.log" state="translated">
         <source>chun_dead.log</source>
-        <target>You have earned {quantity} :triumph: as :chun: the Mankind's only hope has left this world.</target>
+        <target>You have earned {quantity} :triumph_mush: as :chun: the Mankind's only hope has left this world.</target>
       </segment>
     </unit>
     <unit id="mush_fear">
       <segment id="mush_fear.name" state="translated">
         <source>mush_fear.name</source>
-        <target> Fear of the Mush</target>
+        <target>Fear of the Mush</target>
       </segment>
       <segment id="mush_fear.log" state="translated">
         <source>mush_fear.log</source>
         <target>You have earned {quantity} :triumph: because a Mush has been eliminated in your presence as Gioele!</target>
+      </segment>
+      <segment id="mush_fear.personal_description" state="translated">
+        <source>mush_fear.personal_description</source>
+        <target>Gioele earns {quantity} :triumph: every time a Mush is killed.</target>
       </segment>
     </unit>
     <unit id="mushicide">
@@ -259,6 +291,10 @@
       <segment id="psychopat.log" state="translated">
         <source>psychopat.log</source>
         <target>You have earned {quantity} :triumph: by delivering the fatal blow to a crewmate as Chao.</target>
+      </segment>
+      <segment id="psychopat.personal_description" state="translated">
+        <source>psychopat.personal_description</source>
+        <target>Chao earns {quantity} :triumph: for each fatal blow dealt.</target>
       </segment>
     </unit>
     <unit id="alien_science">
@@ -330,6 +366,10 @@
         <source>savior.log</source>
         <target>You have won {quantity} :triumph: by reaching Eden as Jin Su!</target>
       </segment>
+      <segment id="savior.personal_description" state="translated">
+        <source>savior.personal_description</source>
+        <target>Jin Su earns {quantity} :triumph: upon reaching Eden.</target>
+      </segment>
     </unit>
     <unit id="remedy">
       <segment id="remedy.name" state="translated">
@@ -339,6 +379,10 @@
       <segment id="remedy.log" state="translated">
         <source>remedy.log</source>
         <target>You have won {quantity} :triumph: by reaching Eden as Chun!</target>
+      </segment>
+      <segment id="remedy.personal_description" state="translated">
+        <source>remedy.personal_description</source>
+        <target>Chun earns {quantity} :triumph: upon reaching Eden.</target>
       </segment>
     </unit>
     <unit id="eden_at_least">
@@ -351,24 +395,434 @@
         <target>You have earned {quantity} :triumph: by reaching Eden!</target>
       </segment>
     </unit>
-    <unit id="pretty_cook">
-      <segment id="pretty_cook.name" state="initial">
-        <source>pretty_cook.name</source>
-        <target>pretty_cook.name</target>
+    <unit id="new_mush">
+      <segment id="new_mush.name" state="translated">
+        <source>new_mush.name</source>
+        <target> And Another!</target>
       </segment>
-      <segment id="pretty_cook.log" state="initial">
-        <source>pretty_cook.log</source>
-        <target>pretty_cook.log</target>
+      <segment id="new_mush.log" state="translated">
+        <source>new_mush.log</source>
+        <target>You have earned {quantity} :triumph_mush: by implanting the ultimate parasite in a human!</target>
       </segment>
     </unit>
-    <unit id="alien_friend">
-      <segment id="alien_friend.name" state="initial">
-        <source>alien_friend.name</source>
-        <target>alien_friend.name</target>
+    <unit id="infect">
+      <segment id="infect.name" state="translated">
+        <source>infect.name</source>
+        <target>Contaminated</target>
       </segment>
-      <segment id="alien_friend.log" state="initial">
-        <source>alien_friend.log</source>
-        <target>alien_friend.log</target>
+      <segment id="infect.log" state="translated">
+        <source>infect.log</source>
+        <target>You have earned {quantity} :triumph_mush: by infecting a human.</target>
+      </segment>
+    </unit>
+    <unit id="nice_surgery">
+      <segment id="nice_surgery.name" state="translated">
+        <source>nice_surgery.name</source>
+        <target> Intricate surgery</target>
+      </segment>
+      <segment id="nice_surgery.log" state="translated">
+        <source>nice_surgery.log</source>
+        <target>You have earned {quantity} :triumph: by performing an exceptional surgery!</target>
+      </segment>
+    </unit>
+    <unit id="robotic_graal">
+      <segment id="robotic_graal.name" state="translated">
+        <source>robotic_graal.name</source>
+        <target> Robotic grail</target>
+      </segment>
+      <segment id="robotic_graal.log" state="translated">
+        <source>robotic_graal.log</source>
+        <target>You have earned {quantity} :triumph_mush: by upgrading a drone as Terrence!</target>
+      </segment>
+      <segment id="robotic_graal.personal_description" state="translated">
+        <source>robotic_graal.personal_description</source>
+        <target>Terrence earns {quantity} :triumph: each time he upgrades a drone.</target>
+      </segment>
+    </unit>
+    <unit id="rebel_wolf">
+      <segment id="rebel_wolf.name" state="translated">
+        <source>rebel_wolf.name</source>
+        <target> Were-Rebel</target>
+      </segment>
+      <segment id="rebel_wolf.log" state="translated">
+        <source>rebel_wolf.log</source>
+        <target>You have earned {quantity} :triumph: because the Daedalus has contacted the Lost Children of Wolf.</target>
+      </segment>
+    </unit>
+    <unit id="rebel_contact">
+      <segment id="rebel_contact.name" state="translated">
+        <source>rebel_contact.name</source>
+        <target> Rebel Networks</target>
+      </segment>
+      <segment id="rebel_contact.log" state="translated">
+        <source>rebel_contact.log</source>
+        <target>You have earned {quantity} :triumph: as Eleesha because the Daedalus has contacted a rebel base!</target>
+      </segment>
+    </unit>
+    <unit id="looking_for_kivanc">
+      <segment id="looking_for_kivanc.name" state="translated">
+        <source>looking_for_kivanc.name</source>
+        <target> Kivanç, My Love</target>
+      </segment>
+      <segment id="looking_for_kivanc.log" state="translated">
+        <source>looking_for_kivanc.log</source>
+        <target>You have earned {quantity} :triumph: for contacting Kivanç as Paola!</target>
+      </segment>
+      <segment id="looking_for_kivanc.personal_description" state="translated">
+        <source>looking_for_kivanc.personal_description</source>
+        <target>Paola earns {quantity} :triumph: when contact with Kivanç is restored at the Communication Center.</target>
+      </segment>
+    </unit>
+    <unit id="star_map_1">
+      <segment id="star_map_1.name" state="translated">
+        <source>star_map_1.name</source>
+        <target>Towards New Eden</target>
+      </segment>
+      <segment id="star_map_1.log" state="translated">
+        <source>star_map_1.log</source>
+        <target>You have earned {quantity} :triumph:. The expedition has found a piece of starmap. Maybe it'll be able to lead us to New Eden!</target>
+      </segment>
+    </unit>
+    <unit id="star_map_n">
+      <segment id="star_map_n.name" state="translated">
+        <source>star_map_n.name</source>
+        <target>One step closer</target>
+      </segment>
+      <segment id="star_map_n.log" state="translated">
+        <source>star_map_n.log</source>
+        <target>You have earned {quantity} :triumph: for bringing back another piece of the star map.</target>
+      </segment>
+    </unit>
+    <unit id="daedalus_defender">
+      <segment id="daedalus_defender.name" state="translated">
+        <source>daedalus_defender.name</source>
+        <target> Defender of the Daedalus</target>
+      </segment>
+      <segment id="daedalus_defender.log" state="translated">
+        <source>daedalus_defender.log</source>
+        <target>You have earned {quantity} :triumph: by killing a Hunter.</target>
+      </segment>
+    </unit>
+    <unit id="hunter_nemesis">
+      <segment id="hunter_nemesis.name" state="translated">
+        <source>hunter_nemesis.name</source>
+        <target>Flying Nemesis</target>
+      </segment>
+      <segment id="hunter_nemesis.log" state="translated">
+        <source>hunter_nemesis.log</source>
+        <target>You have earned {quantity} :triumph: by killing a Hunter as Roland!</target>
+      </segment>
+      <segment id="hunter_nemesis.personal_description" state="translated">
+        <source>hunter_nemesis.personal_description</source>
+        <target>Roland earns {quantity} :triumph: for every hunter he destroys. Once you have earned more than {regressiveFactor}, this will happen less frequently.</target>
+      </segment>
+    </unit>
+    <unit id="lander">
+      <segment id="lander.name" state="translated">
+        <source>lander.name</source>
+        <target>Pioneer</target>
+      </segment>
+      <segment id="lander.log" state="translated">
+        <source>lander.log</source>
+        <target>You have earned {quantity} :triumph: by being the first to set foot on Eden.</target>
+      </segment>
+    </unit>
+    <unit id="tr_anathem">
+      <segment id="tr_anathem.name" state="translated">
+        <source>tr_anathem.name</source>
+        <target>Victimizer</target>
+      </segment>
+      <segment id="tr_anathem.log" state="translated">
+        <source>tr_anathem.log</source>
+        <target>The Pariah is dead. Here’s {quantity} :triumph:.</target>
+      </segment>
+    </unit>
+    <unit id="tr_anathem_loss">
+      <segment id="tr_anathem_loss.name" state="translated">
+        <source>tr_anathem_loss.name</source>
+        <target>Victimizer</target>
+      </segment>
+      <segment id="tr_anathem_loss.log" state="translated">
+        <source>tr_anathem_loss.log</source>
+        <target>The Pariah is dead. Here’s -{quantity} :triumph:.</target>
+      </segment>
+    </unit>
+    <unit id="fast_forward">
+      <segment id="fast_forward.name" state="translated">
+        <source>fast_forward.name</source>
+        <target>Fast-forward</target>
+      </segment>
+      <segment id="fast_forward.log" state="translated">
+        <source>fast_forward.log</source>
+        <target>You have earned {quantity} :triumph: by starting a journey to a planet as Jin Su!</target>
+      </segment>
+    </unit>
+    <unit id="planet_searcher">
+      <segment id="planet_searcher.name" state="translated">
+        <source>planet_searcher.name</source>
+        <target>Terra Incognita</target>
+      </segment>
+      <segment id="planet_searcher.log" state="translated">
+        <source>planet_searcher.log</source>
+        <target>You have earned {quantity} :triumph: by discovering a new planet as Frieda!</target>
+      </segment>
+      <segment id="planet_searcher.personal_description" state="translated">
+        <source>planet_searcher.personal_description</source>
+        <target>Frieda earns {quantity} :triumph: for every planet you discover using the Astro Terminal. Once you have earned more than {regressiveFactor}, this will happen less frequently.</target>
+      </segment>
+    </unit>
+    <unit id="new_planet">
+      <segment id="new_planet.name" state="translated">
+        <source>new_planet.name</source>
+        <target> New planet</target>
+      </segment>
+      <segment id="new_planet.log" state="translated">
+        <source>new_planet.log</source>
+        <target>You have earned {quantity} :triumph: by entering orbit around a new planet.</target>
+      </segment>
+    </unit>
+    <unit id="planet_finder">
+      <segment id="planet_finder.name" state="translated">
+        <source>planet_finder.name</source>
+        <target> Exoresearcher</target>
+      </segment>
+      <segment id="planet_finder.log" state="translated">
+        <source>planet_finder.log</source>
+        <target>You have earned {quantity} :triumph: by entering orbit around a new planet as Frieda!</target>
+      </segment>
+      <segment id="planet_finder.personal_description" state="translated">
+        <source>planet_finder.personal_description</source>
+        <target>Frieda earns {quantity} :triumph: for every time you arrive in the orbit of a new planet.</target>
+      </segment>
+    </unit>
+    <unit id="eden_cat">
+      <segment id="eden_cat.name" state="translated">
+        <source>eden_cat.name</source>
+        <target>Cat paradise </target>
+      </segment>
+      <segment id="eden_cat.log" state="translated">
+        <source>eden_cat.log</source>
+        <target>You have earned {quantity} :triumph: because Schrödinger accompanied you to Eden.</target>
+      </segment>
+    </unit>
+    <unit id="eden_no_cat">
+      <segment id="eden_no_cat.name" state="translated">
+        <source>eden_no_cat.name</source>
+        <target>Cats hide to die </target>
+      </segment>
+      <segment id="eden_no_cat.log" state="translated">
+        <source>eden_no_cat.log</source>
+        <target>You have lost {quantity} :triumph: because Schrödinger did not accompany you to Eden...</target>
+      </segment>
+    </unit>
+    <unit id="eden_mush_cat">
+      <segment id="eden_mush_cat.name" state="translated">
+        <source>eden_mush_cat.name</source>
+        <target>Cat-astrophe</target>
+      </segment>
+      <segment id="eden_mush_cat.log" state="translated">
+        <source>eden_mush_cat.log</source>
+        <target>You have lost {quantity} :triumph: because Schrödinger became Mush and accompanied you to Eden...</target>
+      </segment>
+    </unit>
+    <unit id="eden_computed">
+      <segment id="eden_computed.name" state="translated">
+        <source>eden_computed.name</source>
+        <target>Cartographer</target>
+      </segment>
+      <segment id="eden_computed.log" state="translated">
+        <source>eden_computed.log</source>
+        <target>You have earned {quantity} :triumph: by completing the calculation of Eden's coordinates!</target>
+      </segment>
+    </unit>
+    <unit id="andie_fate">
+      <segment id="andie_fate.name" state="translated">
+        <source>andie_fate.name</source>
+        <target>Andie's fate </target>
+      </segment>
+      <segment id="andie_fate.log" state="translated">
+        <source>andie_fate.log</source>
+        <target>You have earned {quantity} :triumph: as Andie because the Daedalus made an exchange with merchants!</target>
+      </segment>
+    </unit>
+    <unit id="pregnant_in_eden">
+      <segment id="eden_mush_cat.name" state="final">
+        <source>pregnant_in_eden.name</source>
+        <target>The Passing of the Torch</target>
+      </segment>
+      <segment id="eden_mush_cat.log" state="translated">
+        <source>pregnant_in_eden.log</source>
+        <target>You have earned {quantity} :triumph: for each pregnant crew member who leaves for Eden.</target>
+      </segment>
+    </unit>
+    <unit id="eden_pregnant">
+      <segment id="eden_pregnant.name" state="translated">
+        <source>eden_pregnant.name</source>
+        <target>Future Edenist</target>
+      </segment>
+      <segment id="eden_pregnant.log" state="translated">
+        <source>eden_pregnant.log</source>
+        <target>You have earned {quantity} :triumph: by bringing a happy event to Eden.</target>
+      </segment>
+    </unit>
+    <unit id="eden_sexy">
+      <segment id="eden_sexy.name" state="translated">
+        <source>eden_sexy.name</source>
+        <target>Pluralism</target>
+      </segment>
+      <segment id="eden_sexy.log" state="translated">
+        <source>eden_sexy.log</source>
+        <target>You have earned {quantity} :triumph: because both sexes are represented on Eden.</target>
+      </segment>
+    </unit>
+    <unit id="eden_microbes">
+      <segment id="eden_microbes.name" state="translated">
+        <source>eden_microbes.name</source>
+        <target> Microbe pollution</target>
+      </segment>
+      <segment id="eden_microbes.log" state="translated">
+        <source>eden_microbes.log</source>
+        <target>You have lost {quantity} :triumph: because the Daedalus introduced diseases on Eden.</target>
+      </segment>
+    </unit>
+    <unit id="eden_alien_plant">
+      <segment id="eden_alien_plant.name" state="translated">
+        <source>eden_alien_plant.name</source>
+        <target>Biodiversity</target>
+      </segment>
+      <segment id="eden_alien_plant.log" state="translated">
+        <source>eden_alien_plant.log</source>
+        <target>You have earned {quantity} :triumph: by introducing plants to Eden.</target>
+      </segment>
+    </unit>
+    <unit id="eden_alien_plant_plus">
+      <segment id="eden_alien_plant_plus.name" state="translated">
+        <source>eden_alien_plant_plus.name</source>
+        <target>Ecocitizen</target>
+      </segment>
+      <segment id="eden_alien_plant_plus.log" state="translated">
+        <source>eden_alien_plant_plus.log</source>
+        <target>You have earned {quantity} :triumph: by introducing plants to Eden as Ian!</target>
+      </segment>
+    </unit>
+    <unit id="cm_alien_down">
+      <segment id="cm_alien_down.name" state="translated">
+        <source>cm_alien_down.name</source>
+        <target>Contact!!!</target>
+      </segment>
+      <segment id="cm_alien_down.log" state="initial">
+        <source>cm_alien_down.log</source>
+        <target>cm_alien_down.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_all_mush_humanicide">
+      <segment id="cm_all_mush_humanicide.name" state="translated">
+        <source>cm_all_mush_humanicide.name</source>
+        <target>Humanocide</target>
+      </segment>
+      <segment id="cm_all_mush_humanicide.log" state="translated">
+        <source>cm_all_mush_humanicide.log</source>
+        <target>Humanocide</target>
+      </segment>
+    </unit>
+    <unit id="cm_all_new_mush">
+      <segment id="cm_all_new_mush.name" state="translated">
+        <source>cm_all_new_mush.name</source>
+        <target>Mushmaniac</target>
+      </segment>
+      <segment id="cm_all_new_mush.log" state="initial">
+        <source>cm_all_new_mush.log</source>
+        <target>cm_all_new_mush.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_daedalus_explode">
+      <segment id="cm_daedalus_explode.name" state="translated">
+        <source>cm_daedalus_explode.name</source>
+        <target>Last blaze</target>
+      </segment>
+      <segment id="cm_daedalus_explode.log" state="initial">
+        <source>cm_daedalus_explode.log</source>
+        <target>cm_daedalus_explode.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_extinguish">
+      <segment id="cm_extinguish.name" state="translated">
+        <source>cm_extinguish.name</source>
+        <target>Chuck Norris of inferno</target>
+      </segment>
+      <segment id="cm_extinguish.log" state="initial">
+        <source>cm_extinguish.log</source>
+        <target>cm_extinguish.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_mush_vaccinated">
+      <segment id="cm_mush_vaccinated.name" state="translated">
+        <source>cm_mush_vaccinated.name</source>
+        <target>Pasteurized</target>
+      </segment>
+      <segment id="cm_mush_vaccinated.log" state="initial">
+        <source>cm_mush_vaccinated.log</source>
+        <target>cm_mush_vaccinated.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_pilgred">
+      <segment id="cm_pilgred.name" state="translated">
+        <source>cm_pilgred.name</source>
+        <target>Pilgredicent </target>
+      </segment>
+      <segment id="cm_pilgred.log" state="initial">
+        <source>cm_pilgred.log</source>
+        <target>cm_pilgred.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_repair_object">
+      <segment id="cm_repair_object.name" state="translated">
+        <source>cm_repair_object.name</source>
+        <target>Locksmith</target>
+      </segment>
+      <segment id="cm_repair_object.log" state="initial">
+        <source>cm_repair_object.log</source>
+        <target>cm_repair_object.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_repair_hull">
+      <segment id="cm_repair_hull.name" state="translated">
+        <source>cm_repair_hull.name</source>
+        <target>Blacksmith</target>
+      </segment>
+      <segment id="cm_repair_hull.log" state="initial">
+        <source>cm_repair_hull.log</source>
+        <target>cm_repair_hull.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_sabotage">
+      <segment id="cm_sabotage.name" state="translated">
+        <source>cm_sabotage.name</source>
+        <target/>
+      </segment>
+      <segment id="cm_sabotage.log" state="initial">
+        <source>cm_sabotage.log</source>
+        <target>cm_sabotage.log</target>
+      </segment>
+    </unit>
+    <unit id="cm_use_extinguisher">
+      <segment id="cm_use_extinguisher.name" state="translated">
+        <source>cm_use_extinguisher.name</source>
+        <target>Inferno soldier</target>
+      </segment>
+      <segment id="cm_use_extinguisher.log" state="translated">
+        <source>cm_use_extinguisher.log</source>
+        <target>You have earned {quantity} :triumph: by putting out a fire with the extinguisher. </target>
+      </segment>
+    </unit>
+    <unit id="naturalist">
+      <segment id="naturalist.name" state="translated">
+        <source>naturalist.name</source>
+        <target>Naturalist</target>
+      </segment>
+      <segment id="naturalist.log" state="translated">
+        <source>naturalist.log</source>
+        <target>You have earned {quantity} :triumph: for planting an alien fruit as Ian!</target>
       </segment>
     </unit>
   </file>

@@ -160,7 +160,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                     'characterKeys' => ['kuan_ti'],
                 ],
                 [
-                    'title' => 'L\'Administrateur NERON',
+                    'title' => 'Les Administrateurs NERON',
                     'characterKeys' => ['kuan_ti'],
                 ],
                 [
@@ -192,12 +192,12 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                 ],
                 [
                     'title' => 'En mode silence-radio',
-                    'description' => 'Celui-là n\'a visiblement jamais trouvé le bouton du talkie-walkie walkie...',
+                    'description' => 'Celui-là n\'a visiblement jamais trouvé le bouton du talkie-walkie...',
                     'characterKey' => 'chun',
                 ],
                 [
                     'title' => 'Glandeur invertébré',
-                    'description' => 'Ne s\'est pas trop foulé, même si c\'est la fin du monde. Non, pour lui, c\'est les autres qui triment.',
+                    'description' => 'Ne s\'est pas trop foulé, même si c\'est la fin du monde. Non, pour lui, ce sont les autres qui triment.',
                     'characterKey' => 'chun',
                 ],
                 [

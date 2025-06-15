@@ -4,7 +4,8 @@
     <unit id="efficiency">
       <segment id="efficiency" state="translated">
         <source>efficiency</source>
-        <target>Efficiency: {min_efficiency}-{max_efficiency}%</target>
+        <target>Efficiency: {min_efficiency}-{max_efficiency}%
+</target>
       </segment>
     </unit>
     <unit id="efficiencyTooltipHeader">
@@ -1056,7 +1057,7 @@
       </segment>
       <segment id="patuline_scrambler.description" state="translated">
         <source>patuline_scrambler.description</source>
-        <target>The infected can no longer communicate on the Mush channel.</target>
+        <target>Messages on the Mush channel are now unreadable.</target>
       </segment>
       <segment id="patuline_scrambler.lore" state="translated">
         <source>patuline_scrambler.lore</source>

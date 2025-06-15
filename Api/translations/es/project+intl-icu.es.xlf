@@ -2,27 +2,27 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="project.ext">
     <unit id="efficiency">
-      <segment id="efficiency" state="initial">
+      <segment id="efficiency" state="translated">
         <source>efficiency</source>
-        <target>efficiency</target>
+        <target>Eficacia: {min_efficiency}% - {max_efficiency}%</target>
       </segment>
     </unit>
     <unit id="efficiencyTooltipHeader">
-      <segment id="efficiencyTooltipHeader" state="initial">
+      <segment id="efficiencyTooltipHeader" state="translated">
         <source>efficiency.tooltip.header</source>
-        <target>efficiency.tooltip.header</target>
+        <target>Eficacia</target>
       </segment>
     </unit>
     <unit id="efficiencyTooltipText">
-      <segment id="efficiencyTooltipText" state="initial">
+      <segment id="efficiencyTooltipText" state="translated">
         <source>efficiency.tooltip.text</source>
-        <target>efficiency.tooltip.text</target>
+        <target>Para mantener una eficacia óptima, se recomienda alternar el trabajo con otro colega.</target>
       </segment>
     </unit>
     <unit id="auto_watering">
-      <segment id="auto_watering.type" state="initial">
+      <segment id="auto_watering.type" state="translated">
         <source>auto_watering.type</source>
-        <target>auto_watering.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="auto_watering.name" state="translated">
         <source>auto_watering.name</source>
@@ -38,9 +38,9 @@
       </segment>
     </unit>
     <unit id="dismantling">
-      <segment id="dismantling.type" state="initial">
+      <segment id="dismantling.type" state="translated">
         <source>dismantling.type</source>
-        <target>dismantling.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="dismantling.name" state="translated">
         <source>dismantling.name</source>
@@ -56,9 +56,9 @@
       </segment>
     </unit>
     <unit id="door_sensor">
-      <segment id="door_sensor.type" state="initial">
+      <segment id="door_sensor.type" state="translated">
         <source>door_sensor.type</source>
-        <target>door_sensor.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="door_sensor.name" state="translated">
         <source>door_sensor.name</source>
@@ -66,7 +66,7 @@
       </segment>
       <segment id="door_sensor.description" state="translated">
         <source>door_sensor.description</source>
-        <target>Las puertas bloqueadas son reportados en tus módulos personales.</target>
+        <target>Las puertas bloqueadas son reportadas en los módulos personales.</target>
       </segment>
       <segment id="door_sensor.lore" state="translated">
         <source>door_sensor.lore</source>
@@ -74,67 +74,67 @@
       </segment>
     </unit>
     <unit id="equipment_sensor">
-      <segment id="equipment_sensor.type" state="initial">
+      <segment id="equipment_sensor.type" state="translated">
         <source>equipment_sensor.type</source>
-        <target>equipment_sensor.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="equipment_sensor.name" state="initial">
+      <segment id="equipment_sensor.name" state="translated">
         <source>equipment_sensor.name</source>
-        <target>equipment_sensor.name</target>
+        <target>Detector de fallos</target>
       </segment>
-      <segment id="equipment_sensor.description" state="initial">
+      <segment id="equipment_sensor.description" state="translated">
         <source>equipment_sensor.description</source>
-        <target>equipment_sensor.description</target>
+        <target>Los equipos afectados son reportados en los módulos personales.</target>
       </segment>
-      <segment id="equipment_sensor.lore" state="initial">
+      <segment id="equipment_sensor.lore" state="translated">
         <source>equipment_sensor.lore</source>
-        <target>equipment_sensor.lore</target>
+        <target>Una pequeña sesión de desfragmentación basta para que NERON se alegre y conceda un mayor ancho de banda a los módulos personales.</target>
       </segment>
     </unit>
     <unit id="fire_sensor">
-      <segment id="fire_sensor.type" state="initial">
+      <segment id="fire_sensor.type" state="translated">
         <source>fire_sensor.type</source>
-        <target>fire_sensor.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="fire_sensor.name" state="initial">
+      <segment id="fire_sensor.name" state="translated">
         <source>fire_sensor.name</source>
-        <target>fire_sensor.name</target>
+        <target>Detectores de incendios</target>
       </segment>
-      <segment id="fire_sensor.description" state="initial">
+      <segment id="fire_sensor.description" state="translated">
         <source>fire_sensor.description</source>
-        <target>fire_sensor.description</target>
+        <target>Los incendios son reportados en los módulos personales.</target>
       </segment>
-      <segment id="fire_sensor.lore" state="initial">
+      <segment id="fire_sensor.lore" state="translated">
         <source>fire_sensor.lore</source>
-        <target>fire_sensor.lore</target>
+        <target>Nos costó mucho convencer a NERON que el fuego era dañino para él, pero insiste en darte más CPU... Aunque al final se quedó bastante contrariado.</target>
       </segment>
     </unit>
     <unit id="heat_lamp">
-      <segment id="heat_lamp.type" state="initial">
+      <segment id="heat_lamp.type" state="translated">
         <source>heat_lamp.type</source>
-        <target>heat_lamp.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="heat_lamp.name" state="initial">
+      <segment id="heat_lamp.name" state="translated">
         <source>heat_lamp.name</source>
-        <target>heat_lamp.name</target>
+        <target>Lámparas de calor</target>
       </segment>
-      <segment id="heat_lamp.description" state="initial">
+      <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
-        <target>heat_lamp.description</target>
+        <target>Las plantas adultas tienen un 50% de probabilidades de producir un fruto adicional en el jardín.</target>
       </segment>
-      <segment id="heat_lamp.lore" state="initial">
+      <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
-        <target>heat_lamp.lore</target>
+        <target>Con nuestras bombillas "luz de primavera" estas lámparas harán maravillas en las plantas. Su brillo imita muy bien a nuestro sol.</target>
       </segment>
     </unit>
     <unit id="parasite_elim">
-      <segment id="parasite_elim.type" state="initial">
+      <segment id="parasite_elim.type" state="translated">
         <source>parasite_elim.type</source>
-        <target>parasite_elim.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="parasite_elim.name" state="initial">
+      <segment id="parasite_elim.name" state="translated">
         <source>parasite_elim.name</source>
-        <target>parasite_elim.name</target>
+        <target>Nano-Escarabajos</target>
       </segment>
       <segment id="parasite_elim.description" state="initial">
         <source>parasite_elim.description</source>
@@ -146,9 +146,9 @@
       </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="pilgred.type" state="initial">
+      <segment id="pilgred.type" state="translated">
         <source>pilgred.type</source>
-        <target>pilgred.type</target>
+        <target>PILGRED</target>
       </segment>
       <segment id="pilgred.name" state="initial">
         <source>pilgred.name</source>
@@ -164,9 +164,9 @@
       </segment>
     </unit>
     <unit id="plasma_shield">
-      <segment id="plasma_shield.type" state="initial">
+      <segment id="plasma_shield.type" state="translated">
         <source>plasma_shield.type</source>
-        <target>plasma_shield.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="plasma_shield.name" state="initial">
         <source>plasma_shield.name</source>
@@ -182,9 +182,9 @@
       </segment>
     </unit>
     <unit id="trail_reducer">
-      <segment id="trail_reducer.type" state="initial">
+      <segment id="trail_reducer.type" state="translated">
         <source>trail_reducer.type</source>
-        <target>trail_reducer.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="trail_reducer.name" state="initial">
         <source>trail_reducer.name</source>
@@ -200,9 +200,9 @@
       </segment>
     </unit>
     <unit id="chipset_acceleration">
-      <segment id="chipset_acceleration.type" state="initial">
+      <segment id="chipset_acceleration.type" state="translated">
         <source>chipset_acceleration.type</source>
-        <target>chipset_acceleration.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="chipset_acceleration.name" state="initial">
         <source>chipset_acceleration.name</source>
@@ -218,9 +218,9 @@
       </segment>
     </unit>
     <unit id="extra_hydroponpots">
-      <segment id="extra_hydroponpots.type" state="initial">
+      <segment id="extra_hydroponpots.type" state="translated">
         <source>extra_hydroponpots.type</source>
-        <target>extra_hydroponpots.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="extra_hydroponpots.name" state="initial">
         <source>extra_hydroponpots.name</source>
@@ -236,9 +236,9 @@
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
-      <segment id="auxiliary_terminal.type" state="initial">
+      <segment id="auxiliary_terminal.type" state="translated">
         <source>auxiliary_terminal.type</source>
-        <target>auxiliary_terminal.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="auxiliary_terminal.name" state="initial">
         <source>auxiliary_terminal.name</source>
@@ -254,9 +254,9 @@
       </segment>
     </unit>
     <unit id="thalasso">
-      <segment id="thalasso.type" state="initial">
+      <segment id="thalasso.type" state="translated">
         <source>thalasso.type</source>
-        <target>thalasso.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="thalasso.name" state="initial">
         <source>thalasso.name</source>
@@ -272,9 +272,9 @@
       </segment>
     </unit>
     <unit id="bric_broc">
-      <segment id="bric_broc.type" state="initial">
+      <segment id="bric_broc.type" state="translated">
         <source>bric_broc.type</source>
-        <target>bric_broc.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="bric_broc.name" state="initial">
         <source>bric_broc.name</source>
@@ -290,9 +290,9 @@
       </segment>
     </unit>
     <unit id="magnetic_net">
-      <segment id="magnetic_net.type" state="initial">
+      <segment id="magnetic_net.type" state="translated">
         <source>magnetic_net.type</source>
-        <target>magnetic_net.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="magnetic_net.name" state="initial">
         <source>magnetic_net.name</source>
@@ -308,9 +308,9 @@
       </segment>
     </unit>
     <unit id="icarus_antigrav_propeller">
-      <segment id="icarus_antigrav_propeller.type" state="initial">
+      <segment id="icarus_antigrav_propeller.type" state="translated">
         <source>icarus_antigrav_propeller.type</source>
-        <target>icarus_antigrav_propeller.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="icarus_antigrav_propeller.name" state="initial">
         <source>icarus_antigrav_propeller.name</source>
@@ -326,9 +326,9 @@
       </segment>
     </unit>
     <unit id="fission_coffee_roaster">
-      <segment id="fission_coffee_roaster.type" state="initial">
+      <segment id="fission_coffee_roaster.type" state="translated">
         <source>fission_coffee_roaster.type</source>
-        <target>fission_coffee_roaster.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="fission_coffee_roaster.name" state="initial">
         <source>fission_coffee_roaster.name</source>
@@ -344,9 +344,9 @@
       </segment>
     </unit>
     <unit id="armour_corridor">
-      <segment id="armour_corridor.type" state="initial">
+      <segment id="armour_corridor.type" state="translated">
         <source>armour_corridor.type</source>
-        <target>armour_corridor.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="armour_corridor.name" state="initial">
         <source>armour_corridor.name</source>
@@ -362,9 +362,9 @@
       </segment>
     </unit>
     <unit id="call_of_dirty">
-      <segment id="call_of_dirty.type" state="initial">
+      <segment id="call_of_dirty.type" state="translated">
         <source>call_of_dirty.type</source>
-        <target>call_of_dirty.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="call_of_dirty.name" state="initial">
         <source>call_of_dirty.name</source>
@@ -380,9 +380,9 @@
       </segment>
     </unit>
     <unit id="extra_drone">
-      <segment id="extra_drone.type" state="initial">
+      <segment id="extra_drone.type" state="translated">
         <source>extra_drone.type</source>
-        <target>extra_drone.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="extra_drone.name" state="initial">
         <source>extra_drone.name</source>
@@ -398,9 +398,9 @@
       </segment>
     </unit>
     <unit id="patrolship_blaster_gun">
-      <segment id="patrolship_blaster_gun.type" state="initial">
+      <segment id="patrolship_blaster_gun.type" state="translated">
         <source>patrolship_blaster_gun.type</source>
-        <target>patrolship_blaster_gun.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="patrolship_blaster_gun.name" state="initial">
         <source>patrolship_blaster_gun.name</source>
@@ -416,9 +416,9 @@
       </segment>
     </unit>
     <unit id="bay_door_xxl">
-      <segment id="bay_door_xxl.type" state="initial">
+      <segment id="bay_door_xxl.type" state="translated">
         <source>bay_door_xxl.type</source>
-        <target>bay_door_xxl.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="bay_door_xxl.name" state="initial">
         <source>bay_door_xxl.name</source>
@@ -434,9 +434,9 @@
       </segment>
     </unit>
     <unit id="trash_load">
-      <segment id="trash_load.type" state="initial">
+      <segment id="trash_load.type" state="translated">
         <source>trash_load.type</source>
-        <target>trash_load.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="trash_load.name" state="initial">
         <source>trash_load.name</source>
@@ -452,9 +452,9 @@
       </segment>
     </unit>
     <unit id="food_retailer">
-      <segment id="food_retailer.type" state="initial">
+      <segment id="food_retailer.type" state="translated">
         <source>food_retailer.type</source>
-        <target>food_retailer.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="food_retailer.name" state="initial">
         <source>food_retailer.name</source>
@@ -470,9 +470,9 @@
       </segment>
     </unit>
     <unit id="auto_return_icarus">
-      <segment id="auto_return_icarus.type" state="initial">
+      <segment id="auto_return_icarus.type" state="translated">
         <source>auto_return_icarus.type</source>
-        <target>auto_return_icarus.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="auto_return_icarus.name" state="initial">
         <source>auto_return_icarus.name</source>
@@ -488,9 +488,9 @@
       </segment>
     </unit>
     <unit id="radar_trans_void">
-      <segment id="radar_trans_void.type" state="initial">
+      <segment id="radar_trans_void.type" state="translated">
         <source>radar_trans_void.type</source>
-        <target>radar_trans_void.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="radar_trans_void.name" state="initial">
         <source>radar_trans_void.name</source>
@@ -506,9 +506,9 @@
       </segment>
     </unit>
     <unit id="neron_targeting_assist">
-      <segment id="neron_targeting_assist.type" state="initial">
+      <segment id="neron_targeting_assist.type" state="translated">
         <source>neron_targeting_assist.type</source>
-        <target>neron_targeting_assist.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="neron_targeting_assist.name" state="initial">
         <source>neron_targeting_assist.name</source>
@@ -524,9 +524,9 @@
       </segment>
     </unit>
     <unit id="whos_who">
-      <segment id="whos_who.type" state="initial">
+      <segment id="whos_who.type" state="translated">
         <source>whos_who.type</source>
-        <target>whos_who.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="whos_who.name" state="initial">
         <source>whos_who.name</source>
@@ -542,9 +542,9 @@
       </segment>
     </unit>
     <unit id="hydroponic_incubator">
-      <segment id="hydroponic_incubator.type" state="initial">
+      <segment id="hydroponic_incubator.type" state="translated">
         <source>hydroponic_incubator.type</source>
-        <target>hydroponic_incubator.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="hydroponic_incubator.name" state="initial">
         <source>hydroponic_incubator.name</source>
@@ -560,9 +560,9 @@
       </segment>
     </unit>
     <unit id="icarus_lavatory">
-      <segment id="icarus_lavatory.type" state="initial">
+      <segment id="icarus_lavatory.type" state="translated">
         <source>icarus_lavatory.type</source>
-        <target>icarus_lavatory.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="icarus_lavatory.name" state="initial">
         <source>icarus_lavatory.name</source>
@@ -578,9 +578,9 @@
       </segment>
     </unit>
     <unit id="icarus_larger_bay">
-      <segment id="icarus_larger_bay.type" state="initial">
+      <segment id="icarus_larger_bay.type" state="translated">
         <source>icarus_larger_bay.type</source>
-        <target>icarus_larger_bay.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="icarus_larger_bay.name" state="initial">
         <source>icarus_larger_bay.name</source>
@@ -596,9 +596,9 @@
       </segment>
     </unit>
     <unit id="patrol_ship_launcher">
-      <segment id="patrol_ship_launcher.type" state="initial">
+      <segment id="patrol_ship_launcher.type" state="translated">
         <source>patrol_ship_launcher.type</source>
-        <target>patrol_ship_launcher.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="patrol_ship_launcher.name" state="initial">
         <source>patrol_ship_launcher.name</source>
@@ -614,9 +614,9 @@
       </segment>
     </unit>
     <unit id="neron_project_thread">
-      <segment id="neron_project_thread.type" state="initial">
+      <segment id="neron_project_thread.type" state="translated">
         <source>neron_project_thread.type</source>
-        <target>neron_project_thread.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="neron_project_thread.name" state="initial">
         <source>neron_project_thread.name</source>
@@ -632,9 +632,9 @@
       </segment>
     </unit>
     <unit id="turret_extra_fire_rate">
-      <segment id="turret_extra_fire_rate.type" state="initial">
+      <segment id="turret_extra_fire_rate.type" state="translated">
         <source>turret_extra_fire_rate.type</source>
-        <target>turret_extra_fire_rate.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="turret_extra_fire_rate.name" state="initial">
         <source>turret_extra_fire_rate.name</source>
@@ -650,9 +650,9 @@
       </segment>
     </unit>
     <unit id="quantum_sensors">
-      <segment id="quantum_sensors.type" state="initial">
+      <segment id="quantum_sensors.type" state="translated">
         <source>quantum_sensors.type</source>
-        <target>quantum_sensors.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="quantum_sensors.name" state="initial">
         <source>quantum_sensors.name</source>
@@ -668,9 +668,9 @@
       </segment>
     </unit>
     <unit id="patrolship_extra_ammo">
-      <segment id="patrolship_extra_ammo.type" state="initial">
+      <segment id="patrolship_extra_ammo.type" state="translated">
         <source>patrolship_extra_ammo.type</source>
-        <target>patrolship_extra_ammo.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="patrolship_extra_ammo.name" state="initial">
         <source>patrolship_extra_ammo.name</source>
@@ -686,9 +686,9 @@
       </segment>
     </unit>
     <unit id="noise_reducer">
-      <segment id="noise_reducer.type" state="initial">
+      <segment id="noise_reducer.type" state="translated">
         <source>noise_reducer.type</source>
-        <target>noise_reducer.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="noise_reducer.name" state="initial">
         <source>noise_reducer.name</source>
@@ -704,9 +704,9 @@
       </segment>
     </unit>
     <unit id="apero_kitchen">
-      <segment id="apero_kitchen.type" state="initial">
+      <segment id="apero_kitchen.type" state="translated">
         <source>apero_kitchen.type</source>
-        <target>apero_kitchen.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="apero_kitchen.name" state="initial">
         <source>apero_kitchen.name</source>
@@ -722,9 +722,9 @@
       </segment>
     </unit>
     <unit id="floor_heating">
-      <segment id="floor_heating.type" state="initial">
+      <segment id="floor_heating.type" state="translated">
         <source>floor_heating.type</source>
-        <target>floor_heating.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="floor_heating.name" state="initial">
         <source>floor_heating.name</source>
@@ -740,9 +740,9 @@
       </segment>
     </unit>
     <unit id="oxy_more">
-      <segment id="oxy_more.type" state="initial">
+      <segment id="oxy_more.type" state="translated">
         <source>oxy_more.type</source>
-        <target>oxy_more.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="oxy_more.name" state="initial">
         <source>oxy_more.name</source>
@@ -758,9 +758,9 @@
       </segment>
     </unit>
     <unit id="beat_box">
-      <segment id="beat_box.type" state="initial">
+      <segment id="beat_box.type" state="translated">
         <source>beat_box.type</source>
-        <target>beat_box.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="beat_box.name" state="initial">
         <source>beat_box.name</source>
@@ -776,9 +776,9 @@
       </segment>
     </unit>
     <unit id="anabolics">
-      <segment id="anabolics.type" state="initial">
+      <segment id="anabolics.type" state="translated">
         <source>anabolics.type</source>
-        <target>anabolics.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="anabolics.name" state="initial">
         <source>anabolics.name</source>
@@ -794,9 +794,9 @@
       </segment>
     </unit>
     <unit id="antispore_gas">
-      <segment id="antispore_gas.type" state="initial">
+      <segment id="antispore_gas.type" state="translated">
         <source>antispore_gas.type</source>
-        <target>antispore_gas.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="antispore_gas.name" state="initial">
         <source>antispore_gas.name</source>
@@ -812,9 +812,9 @@
       </segment>
     </unit>
     <unit id="constipaspore_serum">
-      <segment id="constipaspore_serum.type" state="initial">
+      <segment id="constipaspore_serum.type" state="translated">
         <source>constipaspore_serum.type</source>
-        <target>constipaspore_serum.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="constipaspore_serum.name" state="initial">
         <source>constipaspore_serum.name</source>
@@ -830,9 +830,9 @@
       </segment>
     </unit>
     <unit id="create_mycoscan">
-      <segment id="create_mycoscan.type" state="initial">
+      <segment id="create_mycoscan.type" state="translated">
         <source>create_mycoscan.type</source>
-        <target>create_mycoscan.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="create_mycoscan.name" state="initial">
         <source>create_mycoscan.name</source>
@@ -848,9 +848,9 @@
       </segment>
     </unit>
     <unit id="meridon_scrambler">
-      <segment id="meridon_scrambler.type" state="initial">
+      <segment id="meridon_scrambler.type" state="translated">
         <source>meridon_scrambler.type</source>
-        <target>meridon_scrambler.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="meridon_scrambler.name" state="initial">
         <source>meridon_scrambler.name</source>
@@ -866,9 +866,9 @@
       </segment>
     </unit>
     <unit id="mush_hunter_zc16h">
-      <segment id="mush_hunter_zc16h.type" state="initial">
+      <segment id="mush_hunter_zc16h.type" state="translated">
         <source>mush_hunter_zc16h.type</source>
-        <target>mush_hunter_zc16h.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="mush_hunter_zc16h.name" state="initial">
         <source>mush_hunter_zc16h.name</source>
@@ -884,9 +884,9 @@
       </segment>
     </unit>
     <unit id="mushicide_soap">
-      <segment id="mushicide_soap.type" state="initial">
+      <segment id="mushicide_soap.type" state="translated">
         <source>mushicide_soap.type</source>
-        <target>mushicide_soap.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="mushicide_soap.name" state="initial">
         <source>mushicide_soap.name</source>
@@ -902,9 +902,9 @@
       </segment>
     </unit>
     <unit id="mush_language">
-      <segment id="mush_language.type" state="initial">
+      <segment id="mush_language.type" state="translated">
         <source>mush_language.type</source>
-        <target>mush_language.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="mush_language.name" state="initial">
         <source>mush_language.name</source>
@@ -920,9 +920,9 @@
       </segment>
     </unit>
     <unit id="mushovore_bacteria">
-      <segment id="mushovore_bacteria.type" state="initial">
+      <segment id="mushovore_bacteria.type" state="translated">
         <source>mushovore_bacteria.type</source>
-        <target>mushovore_bacteria.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="mushovore_bacteria.name" state="initial">
         <source>mushovore_bacteria.name</source>
@@ -938,9 +938,9 @@
       </segment>
     </unit>
     <unit id="mush_races">
-      <segment id="mush_races.type" state="initial">
+      <segment id="mush_races.type" state="translated">
         <source>mush_races.type</source>
-        <target>mush_races.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="mush_races.name" state="initial">
         <source>mush_races.name</source>
@@ -956,9 +956,9 @@
       </segment>
     </unit>
     <unit id="mush_reproductive_system">
-      <segment id="mush_reproductive_system.type" state="initial">
+      <segment id="mush_reproductive_system.type" state="translated">
         <source>mush_reproductive_system.type</source>
-        <target>mush_reproductive_system.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="mush_reproductive_system.name" state="initial">
         <source>mush_reproductive_system.name</source>
@@ -974,9 +974,9 @@
       </segment>
     </unit>
     <unit id="mycoalarm">
-      <segment id="mycoalarm.type" state="initial">
+      <segment id="mycoalarm.type" state="translated">
         <source>mycoalarm.type</source>
-        <target>mycoalarm.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="mycoalarm.name" state="initial">
         <source>mycoalarm.name</source>
@@ -992,9 +992,9 @@
       </segment>
     </unit>
     <unit id="narcotics_distiller">
-      <segment id="narcotics_distiller.type" state="initial">
+      <segment id="narcotics_distiller.type" state="translated">
         <source>narcotics_distiller.type</source>
-        <target>narcotics_distiller.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="narcotics_distiller.name" state="initial">
         <source>narcotics_distiller.name</source>
@@ -1010,9 +1010,9 @@
       </segment>
     </unit>
     <unit id="natamy_rifle">
-      <segment id="natamy_rifle.type" state="initial">
+      <segment id="natamy_rifle.type" state="translated">
         <source>natamy_rifle.type</source>
-        <target>natamy_rifle.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="natamy_rifle.name" state="initial">
         <source>natamy_rifle.name</source>
@@ -1028,9 +1028,9 @@
       </segment>
     </unit>
     <unit id="ncc_contact_lenses">
-      <segment id="ncc_contact_lenses.type" state="initial">
+      <segment id="ncc_contact_lenses.type" state="translated">
         <source>ncc_contact_lenses.type</source>
-        <target>ncc_contact_lenses.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="ncc_contact_lenses.name" state="initial">
         <source>ncc_contact_lenses.name</source>
@@ -1046,9 +1046,9 @@
       </segment>
     </unit>
     <unit id="patuline_scrambler">
-      <segment id="patuline_scrambler.type" state="initial">
+      <segment id="patuline_scrambler.type" state="translated">
         <source>patuline_scrambler.type</source>
-        <target>patuline_scrambler.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="patuline_scrambler.name" state="initial">
         <source>patuline_scrambler.name</source>
@@ -1064,9 +1064,9 @@
       </segment>
     </unit>
     <unit id="perpetual_hydration">
-      <segment id="perpetual_hydration.type" state="initial">
+      <segment id="perpetual_hydration.type" state="translated">
         <source>perpetual_hydration.type</source>
-        <target>perpetual_hydration.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="perpetual_hydration.name" state="initial">
         <source>perpetual_hydration.name</source>
@@ -1082,9 +1082,9 @@
       </segment>
     </unit>
     <unit id="pheromodem">
-      <segment id="pheromodem.type" state="initial">
+      <segment id="pheromodem.type" state="translated">
         <source>pheromodem.type</source>
-        <target>pheromodem.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="pheromodem.name" state="initial">
         <source>pheromodem.name</source>
@@ -1100,9 +1100,9 @@
       </segment>
     </unit>
     <unit id="retro_fungal_serum">
-      <segment id="retro_fungal_serum.type" state="initial">
+      <segment id="retro_fungal_serum.type" state="translated">
         <source>retro_fungal_serum.type</source>
-        <target>retro_fungal_serum.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="retro_fungal_serum.name" state="initial">
         <source>retro_fungal_serum.name</source>
@@ -1118,9 +1118,9 @@
       </segment>
     </unit>
     <unit id="spore_sucker">
-      <segment id="spore_sucker.type" state="initial">
+      <segment id="spore_sucker.type" state="translated">
         <source>spore_sucker.type</source>
-        <target>spore_sucker.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="spore_sucker.name" state="initial">
         <source>spore_sucker.name</source>
@@ -1136,9 +1136,9 @@
       </segment>
     </unit>
     <unit id="super_calculator">
-      <segment id="super_calculator.type" state="initial">
+      <segment id="super_calculator.type" state="translated">
         <source>super_calculator.type</source>
-        <target>super_calculator.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="super_calculator.name" state="initial">
         <source>super_calculator.name</source>
@@ -1154,9 +1154,9 @@
       </segment>
     </unit>
     <unit id="tesla_sup2x">
-      <segment id="tesla_sup2x.type" state="initial">
+      <segment id="tesla_sup2x.type" state="translated">
         <source>tesla_sup2x.type</source>
-        <target>tesla_sup2x.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="tesla_sup2x.name" state="initial">
         <source>tesla_sup2x.name</source>
@@ -1172,9 +1172,9 @@
       </segment>
     </unit>
     <unit id="ultra_healing_pomade">
-      <segment id="ultra_healing_pomade.type" state="initial">
+      <segment id="ultra_healing_pomade.type" state="translated">
         <source>ultra_healing_pomade.type</source>
-        <target>ultra_healing_pomade.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="ultra_healing_pomade.name" state="initial">
         <source>ultra_healing_pomade.name</source>
@@ -1190,9 +1190,9 @@
       </segment>
     </unit>
     <unit id="guarana_cappuccino">
-      <segment id="guarana_cappuccino.type" state="initial">
+      <segment id="guarana_cappuccino.type" state="translated">
         <source>guarana_cappuccino.type</source>
-        <target>guarana_cappuccino.type</target>
+        <target>Invest.</target>
       </segment>
       <segment id="guarana_cappuccino.name" state="initial">
         <source>guarana_cappuccino.name</source>

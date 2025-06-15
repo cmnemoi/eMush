@@ -483,5 +483,11 @@
         <target>Vous vous êtes transformé en horrible monstre furieux !</target>
       </segment>
     </unit>
+    <unit id="hidden">
+      <segment id="highlight" state="translated">
+        <source>hidden.highlight</source>
+        <target>Vous avez trouvé {equipment_gender, select, male {un} other {une}} **{equipment}** caché !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -144,6 +144,9 @@ class PlayerInfo
         return $this->isAlive() === false;
     }
 
+    /**
+     * @return PlayerHighlight[]
+     */
     public function getPlayerHighlights(): array
     {
         return $this->closedPlayer->getPlayerHighlights();

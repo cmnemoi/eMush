@@ -334,6 +334,9 @@ class ClosedPlayer implements SanctionEvidenceInterface
         );
     }
 
+    /**
+     * @return PlayerHighlight[]
+     */
     public function getPlayerHighlights(): array
     {
         return array_map(static fn (array $highlight) => PlayerHighlight::fromArray($highlight), $this->playerHighlights);

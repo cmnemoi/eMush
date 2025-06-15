@@ -128,11 +128,11 @@ final class PlayerSubscriber implements EventSubscriberInterface
         }
         $this->playerService->persistPlayerInfo($playerInfo);
 
+        $this->createAuthorAndTargetHighlights($event);
+
         if ($event->doesNotHaveTag(ActionEnum::EXCHANGE_BODY->toString())) {
             $this->sendNewMushNotification($player);
         }
-
-        $this->createAuthorAndTargetHighlights($event);
     }
 
     private function removeMoraleToOtherPlayers(Player $player): void

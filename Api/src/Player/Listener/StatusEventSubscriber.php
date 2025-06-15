@@ -57,8 +57,11 @@ final class StatusEventSubscriber implements EventSubscriberInterface
             default => null,
         };
 
-        $author = $event->getAuthorOrThrow();
-        $author->addPlayerHighlight(PlayerHighlight::fromEvent($event));
+        if ($event->hasAuthor()) {
+            $author = $event->getAuthorOrThrow();
+            $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
+            $this->playerRepository->save($author);
+        }
     }
 
     private function sendSoiledNotification(StatusEvent $event): void

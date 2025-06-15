@@ -4,17 +4,17 @@
     <unit id="build">
       <segment id="highlight" state="translated">
         <source>build.highlight</source>
-        <target>Vous avez assemblé {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
+        <target>Vous avez assemblé {target_equipment_gender, select,
+                male {un **{target_equipment}**}
+                female {une **{target_equipment}**}
+                other {un **{target_equipment}**}
                 }.</target>
       </segment>
     </unit>
     <unit id="do_the_thing">
       <segment id="highlight" state="translated">
         <source>do_the_thing.highlight</source>
-        <target>Vous avez passé la nuit avec **{character}**.</target>
+        <target>Vous avez passé la nuit avec **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="eat_spore">
@@ -32,19 +32,19 @@
     <unit id="flirt">
       <segment id="highlight" state="translated">
         <source>flirt.highlight</source>
-        <target>Vous avez fleureté avec **{character}**.</target>
+        <target>Vous avez fleureté avec **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="hit">
       <segment id="highlight" state="translated">
         <source>hit.highlight</source>
-        <target>Vous avez frappé **{character}**.</target>
+        <target>Vous avez frappé **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="infect">
       <segment id="highlight" state="translated">
         <source>infect.highlight</source>
-        <target>Vous avez poinçonné **{character}**.</target>
+        <target>Vous avez poinçonné **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="shred">
@@ -56,10 +56,10 @@
     <unit id="sabotage">
       <segment id="highlight" state="translated">
         <source>sabotage.highlight</source>
-        <target>Vous avez saboté {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
+        <target>Vous avez saboté {target_equipment_gender, select,
+                male {un **{target_equipment}**}
+                female {une **{target_equipment}**}
+                other {un **{target_equipment}**}
                 }</target>
       </segment>
     </unit>
@@ -84,7 +84,7 @@
     <unit id="heal">
       <segment id="highlight" state="translated">
         <source>heal.highlight</source>
-        <target>Vous avez soigné **{character}**.</target>
+        <target>Vous avez soigné **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="self_heal">
@@ -96,7 +96,7 @@
     <unit id="comfort">
       <segment id="highlight" state="translated">
         <source>comfort.highlight</source>
-        <target>Vous avez réconforté **{character}**.</target>
+        <target>Vous avez réconforté **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="spread_fire">
@@ -132,13 +132,13 @@
     <unit id="make_sick">
       <segment id="highlight" state="translated">
         <source>make_sick.highlight</source>
-        <target>Vous avez donné une *maladie* à **{character}**.</target>
+        <target>Vous avez donné une *maladie* à **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="surgery">
       <segment id="highlight" state="translated">
         <source>surgery.highlight</source>
-        <target>Vous avez effectué une chirurgie sur **{character}**.</target>
+        <target>Vous avez effectué une chirurgie sur **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="screw_talkie">
@@ -150,21 +150,21 @@
     <unit id="attack">
       <segment id="highlight" state="translated">
         <source>attack.highlight</source>
-        <target>Vous avez agressé **{character}**.</target>
+        <target>Vous avez agressé **{target_character}**.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>attack.highlight_fail</source>
-        <target>Vous avez tenté d'agresser **{character}** sans succès...</target>
+        <target>Vous avez tenté d'agresser **{target_character}** sans succès...</target>
       </segment>
     </unit>
     <unit id="shoot">
       <segment id="highlight" state="translated">
         <source>shoot.highlight</source>
-        <target>Vous avez tiré sur **{character}**.</target>
+        <target>Vous avez tiré sur **{target_character}**.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>shoot.highlight_fail</source>
-        <target>Vous avez tenté de tirer sur **{character}** sans succès...</target>
+        <target>Vous avez tenté de tirer sur **{target_character}** sans succès...</target>
       </segment>
     </unit>
     <unit id="play_arcade">
@@ -180,11 +180,11 @@
     <unit id="hack">
       <segment id="highlight" state="translated">
         <source>hack.highlight</source>
-        <target>Vous avez pris le contrôle {equipment_gender, select,
-                male {du **{equipment}**}
-                female {de la **{equipment}**}
-                other {du **{equipment}**}
-                }</target>
+        <target>Vous avez pris le contrôle {target_equipment_gender, select,
+                male {du **{target_equipment}**}
+                female {de la **{target_equipment}**}
+                other {du **{target_equipment}**}
+                }.</target>
       </segment>
     </unit>
     <unit id="advance_daedalus">
@@ -232,7 +232,7 @@
     <unit id="chitchat">
       <segment id="highlight" state="translated">
         <source>chitchat.highlight</source>
-        <target>Vous vous êtes confié à **{character}**.</target>
+        <target>Vous vous êtes confié à **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="graft">
@@ -244,7 +244,7 @@
     <unit id="put_through_door">
       <segment id="highlight" state="translated">
         <source>put_through_door.highlight</source>
-        <target>Vous avez flanqué **{character}** à la porte.</target>
+        <target>Vous avez flanqué **{target_character}** à la porte.</target>
       </segment>
     </unit>
     <unit id="become_genius">
@@ -262,7 +262,7 @@
     <unit id="exchange_body">
       <segment id="highlight" state="translated">
         <source>exchange_body.highlight</source>
-        <target>Vous avez échangé votre corps avec **{character}** !</target>
+        <target>Vous avez échangé votre corps avec **{target_character}** !</target>
       </segment>
     </unit>
     <unit id="commander_order">
@@ -280,7 +280,7 @@
     <unit id="depress">
       <segment id="highlight" state="translated">
         <source>depress.highlight</source>
-        <target>Vous avez mis le moral de **{character}** en berne.</target>
+        <target>Vous avez mis le moral de **{target_character}** en berne.</target>
       </segment>
     </unit>
     <unit id="delog">
@@ -304,7 +304,7 @@
     <unit id="anathema">
       <segment id="highlight" state="translated">
         <source>anathema.highlight</source>
-        <target>Vous avez jeté l'anathème sur **{character}**.</target>
+        <target>Vous avez jeté l'anathème sur **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="mix_ration_spore">
@@ -316,16 +316,16 @@
     <unit id="slime_trap">
       <segment id="highlight" state="translated">
         <source>slime_trap.highlight</source>
-        <target>Vous avez empégué **{character}**.</target>
+        <target>Vous avez empégué **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="slime_object">
       <segment id="highlight" state="translated">
         <source>slime_object.highlight</source>
-        <target>Vous avez englué {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
+        <target>Vous avez englué {target_equipment_gender, select,
+                male {un **{target_equipment}**}
+                female {une **{target_equipment}**}
+                other {un **{target_equipment}**}
                 }</target>
       </segment>
     </unit>
@@ -338,10 +338,10 @@
     <unit id="reinforce">
       <segment id="highlight" state="translated">
         <source>reinforce.highlight</source>
-        <target>Vous avez blindé {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
+        <target>Vous avez blindé {target_equipment_gender, select,
+                male {un **{target_equipment}**}
+                female {une **{target_equipment}**}
+                other {un **{target_equipment}**}
                 }</target>
       </segment>
     </unit>
@@ -390,19 +390,19 @@
     <unit id="torture">
       <segment id="highlight" state="translated">
         <source>torture.highlight</source>
-        <target>Vous avez torturé **{character}**.</target>
+        <target>Vous avez torturé **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="cure">
       <segment id="highlight" state="translated">
         <source>cure.highlight</source>
-        <target>Vous avez vacciné **{character}** contre le Mush.</target>
+        <target>Vous avez vacciné **{target_character}** contre le Mush.</target>
       </segment>
     </unit>
     <unit id="daunt">
       <segment id="highlight" state="translated">
         <source>daunt.highlight</source>
-        <target>Vous avez terrorisé **{character}**.</target>
+        <target>Vous avez terrorisé **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="gen_metal">
@@ -420,7 +420,7 @@
     <unit id="give_nightmare">
       <segment id="highlight" state="translated">
         <source>give_nightmare.highlight</source>
-        <target>Vous avez fait venir le Marchand de Terreur pour **{character}**.</target>
+        <target>Vous avez fait venir le Marchand de Terreur pour **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="neron_depress">
@@ -444,18 +444,18 @@
     <unit id="shoot_cat">
       <segment id="highlight" state="translated">
         <source>shoot_cat.highlight</source>
-        <target>Vous avez ouvert le feu sur {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
+        <target>Vous avez ouvert le feu sur {target_equipment_gender, select,
+                male {un **{target_equipment}**}
+                female {une **{target_equipment}**}
+                other {un **{target_equipment}**}
                 }.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>shoot_cat.highlight_fail</source>
-        <target>Vous avez tenté de tirer sur {equipment_gender, select,
-                male {un **{equipment}**}
-                female {une **{equipment}**}
-                other {un **{equipment}**}
+        <target>Vous avez tenté de tirer sur {target_equipment_gender, select,
+                male {un **{target_equipment}**}
+                female {une **{target_equipment}**}
+                other {un **{target_equipment}**}
                 } sans succès...</target>
       </segment>
     </unit>
@@ -486,7 +486,19 @@
     <unit id="hidden">
       <segment id="highlight" state="translated">
         <source>hidden.highlight</source>
-        <target>Vous avez trouvé {equipment_gender, select, male {un} other {une}} **{equipment}** caché !</target>
+        <target>Vous avez trouvé {target_equipment_gender, select, male {un} other {une}} **{target_equipment}** caché !</target>
+      </segment>
+    </unit>
+    <unit id="conversion.player">
+      <segment id="highlight" state="translated">
+        <source>conversion.player.highlight</source>
+        <target>Vous avez empétré **{target_character}** dans vos rhizomes, {target_character_gender, select, male {il} other {elle}} fait désormais parti du Mush !</target>
+      </segment>
+    </unit>
+    <unit id="conversion.player_target">
+      <segment id="highlight" state="translated">
+        <source>conversion.player_target.highlight</source>
+        <target>Vous faites parti du Mush grâce à **{character}** !</target>
       </segment>
     </unit>
   </file>

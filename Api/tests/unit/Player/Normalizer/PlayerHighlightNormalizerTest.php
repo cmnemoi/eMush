@@ -38,6 +38,7 @@ final class PlayerHighlightNormalizerTest extends TestCase
         // Given
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SCAN->toString(),
+            author: [],
             result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn('Vous avez découvert une nouvelle planète !');
@@ -55,13 +56,14 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::HIT->toString(),
-            target: [$chun->getLogKey() => $chun->getLogName()],
+            author: [],
+            target: ['target_' . $chun->getLogKey() => $chun->getLogName()],
             result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
             'Vous avez frappé **Chun**.',
             'hit.highlight',
-            ['character' => 'chun']
+            ['target_character' => 'chun']
         );
 
         // When
@@ -77,13 +79,14 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $biosTerminal = GameEquipmentFactory::createEquipmentByName(EquipmentEnum::BIOS_TERMINAL);
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SABOTAGE->toString(),
-            target: [$biosTerminal->getLogKey() => $biosTerminal->getLogName()],
+            author: [],
+            target: ['target_' . $biosTerminal->getLogKey() => $biosTerminal->getLogName()],
             result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
             'Vous avez saboté un **Terminal BIOS**.',
             'sabotage.highlight',
-            ['equipment' => 'bios_terminal']
+            ['target_equipment' => 'bios_terminal']
         );
 
         // When
@@ -99,13 +102,14 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $laboratory = Place::createRoomByName(RoomEnum::LABORATORY);
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SPREAD_FIRE->toString(),
-            target: [$laboratory->getLogKey() => $laboratory->getLogName()],
+            author: [],
+            target: ['target_' . $laboratory->getLogKey() => $laboratory->getLogName()],
             result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
             'Vous avez mis le feu au **Laboratoire**.',
             'spread_fire.highlight',
-            ['place' => 'laboratory']
+            ['target_place' => 'laboratory']
         );
 
         // When
@@ -121,13 +125,14 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::ATTACK->toString(),
-            target: [$chun->getLogKey() => $chun->getLogName()],
+            author: [],
+            target: ['target_' . $chun->getLogKey() => $chun->getLogName()],
             result: (new Fail())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
             'Vous avez tenté d\'agresser **Chun** sans succès...',
             'attack.highlight_fail',
-            ['character' => 'chun']
+            ['target_character' => 'chun']
         );
 
         // When

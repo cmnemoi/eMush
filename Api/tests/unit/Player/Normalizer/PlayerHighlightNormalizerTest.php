@@ -33,30 +33,30 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $this->normalizer = new PlayerHighlightNormalizer($this->translationService);
     }
 
-    public function testShouldNormalizeSimpleActionHighlight(): void
+    public function testShouldNormalizeSimplePlayerHighlight(): void
     {
         // Given
-        $actionHighlight = new PlayerHighlight(
+        $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SCAN->toString(),
-            actionResult: (new Success())->getName(),
+            result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn('Vous avez découvert une nouvelle planète !');
 
         // When
-        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
+        $normalized = $this->whenNormalizingPlayerHighlight($playerHighlight);
 
         // Then
         $this->thenShouldReturnTranslatedHighlight('Vous avez découvert une nouvelle planète !', $normalized);
     }
 
-    public function testShouldNormalizeActionHighlightWithPlayerTarget(): void
+    public function testShouldNormalizePlayerHighlightWithPlayerTarget(): void
     {
         // Given
         $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
-        $actionHighlight = new PlayerHighlight(
+        $playerHighlight = new PlayerHighlight(
             name: ActionEnum::HIT->toString(),
             target: [$chun->getLogKey() => $chun->getLogName()],
-            actionResult: (new Success())->getName(),
+            result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
             'Vous avez frappé **Chun**.',
@@ -65,20 +65,20 @@ final class PlayerHighlightNormalizerTest extends TestCase
         );
 
         // When
-        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
+        $normalized = $this->whenNormalizingPlayerHighlight($playerHighlight);
 
         // Then
         $this->thenShouldReturnTranslatedHighlight('Vous avez frappé **Chun**.', $normalized);
     }
 
-    public function testShouldNormalizeActionHighlightWithEquipmentTarget(): void
+    public function testShouldNormalizePlayerHighlightWithEquipmentTarget(): void
     {
         // Given
         $biosTerminal = GameEquipmentFactory::createEquipmentByName(EquipmentEnum::BIOS_TERMINAL);
-        $actionHighlight = new PlayerHighlight(
+        $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SABOTAGE->toString(),
             target: [$biosTerminal->getLogKey() => $biosTerminal->getLogName()],
-            actionResult: (new Success())->getName(),
+            result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
             'Vous avez saboté un **Terminal BIOS**.',
@@ -87,20 +87,20 @@ final class PlayerHighlightNormalizerTest extends TestCase
         );
 
         // When
-        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
+        $normalized = $this->whenNormalizingPlayerHighlight($playerHighlight);
 
         // Then
         $this->thenShouldReturnTranslatedHighlight('Vous avez saboté un **Terminal BIOS**.', $normalized);
     }
 
-    public function testShouldNormalizeActionHighlightWithPlaceTarget(): void
+    public function testShouldNormalizePlayerHighlightWithPlaceTarget(): void
     {
         // Given
         $laboratory = Place::createRoomByName(RoomEnum::LABORATORY);
-        $actionHighlight = new PlayerHighlight(
+        $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SPREAD_FIRE->toString(),
             target: [$laboratory->getLogKey() => $laboratory->getLogName()],
-            actionResult: (new Success())->getName(),
+            result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
             'Vous avez mis le feu au **Laboratoire**.',
@@ -109,20 +109,20 @@ final class PlayerHighlightNormalizerTest extends TestCase
         );
 
         // When
-        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
+        $normalized = $this->whenNormalizingPlayerHighlight($playerHighlight);
 
         // Then
         $this->thenShouldReturnTranslatedHighlight('Vous avez mis le feu au **Laboratoire**.', $normalized);
     }
 
-    public function testShouldNormalizeFailedActionHighlight(): void
+    public function testShouldNormalizeFailedPlayerHighlight(): void
     {
         // Given
         $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
-        $actionHighlight = new PlayerHighlight(
+        $playerHighlight = new PlayerHighlight(
             name: ActionEnum::ATTACK->toString(),
             target: [$chun->getLogKey() => $chun->getLogName()],
-            actionResult: (new Fail())->getName(),
+            result: (new Fail())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
             'Vous avez tenté d\'agresser **Chun** sans succès...',
@@ -131,7 +131,7 @@ final class PlayerHighlightNormalizerTest extends TestCase
         );
 
         // When
-        $normalized = $this->whenNormalizingActionHighlight($actionHighlight);
+        $normalized = $this->whenNormalizingPlayerHighlight($playerHighlight);
 
         // Then
         $this->thenShouldReturnTranslatedHighlight('Vous avez tenté d\'agresser **Chun** sans succès...', $normalized);
@@ -146,9 +146,9 @@ final class PlayerHighlightNormalizerTest extends TestCase
             ->once();
     }
 
-    private function whenNormalizingActionHighlight(PlayerHighlight $actionHighlight): string
+    private function whenNormalizingPlayerHighlight(PlayerHighlight $playerHighlight): string
     {
-        return $this->normalizer->normalize($actionHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
+        return $this->normalizer->normalize($playerHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);
     }
 
     private function thenShouldReturnTranslatedHighlight(string $expected, string $actual): void

@@ -90,7 +90,7 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
             'endCause' => $this->normalizeEndReason($endCause, $language),
             'isMush' => $player->isMush(),
             'triumphGains' => $this->normalizer->normalize($deadPlayerInfo->getTriumphGains(), $format, $context),
-            'actionHighlights' => $this->getNormalizedActionHighlights($player, $format, $context),
+            'playerHighlights' => $this->getNormalizedPlayerHighlights($player, $format, $context),
         ];
 
         $playerData['players'] = $this->getOtherPlayers($player, $language);
@@ -168,27 +168,27 @@ class DeadPlayerNormalizer implements NormalizerInterface, NormalizerAwareInterf
         ];
     }
 
-    private function getNormalizedActionHighlights(Player $player, ?string $format, array $context): array
+    private function getNormalizedPlayerHighlights(Player $player, ?string $format, array $context): array
     {
-        $actionHighlights = $player->getPlayerInfo()->getActionHighlights();
-        $normalizedActionHighlights = [];
+        $playerHighlights = $player->getPlayerInfo()->getPlayerHighlights();
+        $normalizedPlayerHighlights = [];
 
-        foreach ($actionHighlights as $actionHighlight) {
-            $normalizedActionHighlight = $this->normalizer->normalize($actionHighlight, $format, $context);
+        foreach ($playerHighlights as $playerHighlight) {
+            $normalizedPlayerHighlight = $this->normalizer->normalize($playerHighlight, $format, $context);
 
-            // Skip if the action highlight is already in the list (e.g. Upgrade drone which are different actions for each upgrade)
-            if (\in_array($normalizedActionHighlight, $normalizedActionHighlights, true)) {
+            // Skip if the player highlight is already in the list (e.g. Upgrade drone which are different actions for each upgrade)
+            if (\in_array($normalizedPlayerHighlight, $normalizedPlayerHighlights, true)) {
                 continue;
             }
 
-            // Skip if the action highlight has not been translated (e.g. failed actions)
-            if ($normalizedActionHighlight === $actionHighlight->toLogKey()) {
+            // Skip if the player highlight has not been translated (e.g. failed actions)
+            if ($normalizedPlayerHighlight === $playerHighlight->toLogKey()) {
                 continue;
             }
 
-            $normalizedActionHighlights[] = $normalizedActionHighlight;
+            $normalizedPlayerHighlights[] = $normalizedPlayerHighlight;
         }
 
-        return $normalizedActionHighlights;
+        return $normalizedPlayerHighlights;
     }
 }

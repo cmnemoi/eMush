@@ -29,7 +29,7 @@ final class ActionEventCest extends AbstractFunctionalTest
         $this->genMetalActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::GEN_METAL]);
     }
 
-    public function shouldRecordActionHighlightForPlayer(FunctionalTester $I): void
+    public function shouldRecordPlayerHighlightForPlayer(FunctionalTester $I): void
     {
         // Given
         $actionEvent = $this->givenActionEvent();
@@ -38,10 +38,10 @@ final class ActionEventCest extends AbstractFunctionalTest
         $this->whenActionEventIsCalled($actionEvent);
 
         // Then
-        $this->thenActionHighlightShouldBeRecorded($I);
+        $this->thenPlayerHighlightShouldBeRecorded($I);
     }
 
-    public function shouldNotRecordSameActionHighlightTwice(FunctionalTester $I): void
+    public function shouldNotRecordSamePlayerHighlightTwice(FunctionalTester $I): void
     {
         // Given
         $actionEvent = $this->givenActionEvent();
@@ -51,7 +51,7 @@ final class ActionEventCest extends AbstractFunctionalTest
         $this->whenActionEventIsCalled($actionEvent);
 
         // Then
-        $this->thenActionHighlightShouldBeRecorded($I);
+        $this->thenPlayerHighlightShouldBeRecorded($I);
     }
 
     private function givenActionEvent(): ActionEvent
@@ -72,17 +72,17 @@ final class ActionEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($actionEvent, ActionEvent::POST_ACTION);
     }
 
-    private function thenActionHighlightShouldBeRecorded(FunctionalTester $I): void
+    private function thenPlayerHighlightShouldBeRecorded(FunctionalTester $I): void
     {
         $I->assertEquals(
             expected: [
                 [
-                    'actionName' => ActionEnum::GEN_METAL,
+                    'name' => ActionEnum::GEN_METAL->toString(),
                     'actionResult' => 'success',
                     'target' => [],
                 ],
             ],
-            actual: array_map(static fn (PlayerHighlight $actionHighlight) => $actionHighlight->toArray(), $this->player->getPlayerInfo()->getActionHighlights()),
+            actual: array_map(static fn (PlayerHighlight $playerHighlight) => $playerHighlight->toArray(), $this->player->getPlayerInfo()->getPlayerHighlights()),
         );
     }
 }

@@ -77,8 +77,8 @@ export class ClosedPlayer {
                     this.triumphGains.push(triumphGainObject);
                 });
             }
-            if (object.actionHighlights) {
-                toArray(object.actionHighlights).forEach((highlightObject: string) => {
+            if (object.playerHighlights) {
+                toArray(object.playerHighlights).forEach((highlightObject: string) => {
                     this.highlights.push(highlightObject);
                 });
             }

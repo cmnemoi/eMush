@@ -4,27 +4,29 @@ declare(strict_types=1);
 
 namespace Mush\Player\ValueObject;
 
-use Mush\Action\Event\ActionEvent;
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Player\Event\PlayerHighlightSourceEventInterface;
 
 final class PlayerHighlight
 {
+    public const string SUCCESS = 'success';
+
     public function __construct(
         private string $name,
         private string $result,
         private array $target = [],
     ) {}
 
-    public static function fromActionEvent(ActionEvent $event): self
+    public static function fromEvent(PlayerHighlightSourceEventInterface $event): self
     {
         $highlight = new self(
-            name: $event->getActionName()->toString(),
-            result: $event->getActionResultOrThrow()->getName(),
+            name: $event->getHighlightName(),
+            result: $event->getHighlightResult(),
         );
 
-        $actionTarget = $event->getActionTarget();
-        if ($actionTarget !== null) {
-            $highlight->target = [$actionTarget->getLogKey() => $actionTarget->getLogName()];
+        if ($event->hasHighlightTarget()) {
+            $highlightTarget = $event->getHighlightTarget();
+            $highlight->target = [$highlightTarget->getLogKey() => $highlightTarget->getLogName()];
         }
 
         return $highlight;

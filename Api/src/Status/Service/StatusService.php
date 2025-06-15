@@ -13,6 +13,7 @@ use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -70,7 +71,8 @@ class StatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        string $visibility = VisibilityEnum::HIDDEN
+        string $visibility = VisibilityEnum::HIDDEN,
+        ?Player $author = null,
     ): void {
         $status = $holder->getStatusByName($statusName);
         if ($status === null) {
@@ -84,7 +86,9 @@ class StatusService implements StatusServiceInterface
             $time,
             $status->getTarget()
         );
-        $statusEvent->setVisibility($visibility);
+        $statusEvent
+            ->setVisibility($visibility)
+            ->setAuthor($author);
         $events = $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_REMOVED);
 
         // If the event has been prevented, do not delete the event
@@ -101,7 +105,9 @@ class StatusService implements StatusServiceInterface
             $time,
             $status->getTarget()
         );
-        $statusEvent->setVisibility($visibility);
+        $statusEvent
+            ->setVisibility($visibility)
+            ->setAuthor($author);
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_DELETED);
     }
 

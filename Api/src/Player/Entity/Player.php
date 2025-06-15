@@ -55,6 +55,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\PlayerRepository;
 use Mush\Player\ValueObject\PlayerHighlight;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
@@ -80,7 +81,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
+class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;

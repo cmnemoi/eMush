@@ -17,6 +17,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -25,12 +27,14 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
@@ -45,6 +49,8 @@ final class SearchActionCest extends AbstractFunctionalTest
     private Hide $hideAction;
 
     private AddSkillToPlayerService $addSkillToPlayer;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
@@ -55,6 +61,8 @@ final class SearchActionCest extends AbstractFunctionalTest
         $this->hideAction = $I->grabService(Hide::class);
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testSearch(FunctionalTester $I)
@@ -371,6 +379,22 @@ final class SearchActionCest extends AbstractFunctionalTest
         $this->thenActionShouldCostZeroActionPoints($I);
     }
 
+    public function shouldRecordPlayerHighlightForPlayer(FunctionalTester $I): void
+    {
+        // Given
+        $item = $this->givenHiddenEcholocator();
+
+        // When
+        $this->whenPlayerSearches();
+
+        // Then
+        $this->thenPlayerShouldHaveHighlight([
+            'name' => EquipmentStatusEnum::HIDDEN,
+            'result' => PlayerHighlight::SUCCESS,
+            'target' => [$item->getLogKey() => $item->getLogName()],
+        ], $I);
+    }
+
     private function givenPlayerIsObservant(): void
     {
         $this->addSkillToPlayer->execute(SkillEnum::OBSERVANT, $this->player);
@@ -388,5 +412,45 @@ final class SearchActionCest extends AbstractFunctionalTest
     private function thenActionShouldCostZeroActionPoints(FunctionalTester $I): void
     {
         $I->assertEquals(0, $this->searchAction->getActionPointCost());
+    }
+
+    private function whenPlayerSearches(): void
+    {
+        $this->searchAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->player,
+            player: $this->player
+        );
+        $this->searchAction->execute();
+    }
+
+    private function thenPlayerShouldHaveHighlight(array $highlight, FunctionalTester $I): void
+    {
+        $playerHighlights = $this->player->getPlayerInfo()->getPlayerHighlights();
+        $playerHighlight = current($playerHighlights);
+
+        $I->assertEquals(
+            expected: $highlight,
+            actual: $playerHighlight->toArray(),
+        );
+    }
+
+    private function givenHiddenEcholocator(): GameItem
+    {
+        $item = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::ECHOLOCATOR,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::HIDDEN,
+            holder: $item,
+            tags: [],
+            time: new \DateTime(),
+            target: $this->player,
+        );
+
+        return $item;
     }
 }

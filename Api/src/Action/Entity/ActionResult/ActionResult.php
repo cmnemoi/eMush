@@ -108,6 +108,11 @@ abstract class ActionResult
         return $this->equipment;
     }
 
+    public function getEquipmentOrThrow(): GameEquipment
+    {
+        return $this->equipment ?? throw new \RuntimeException('Equipment is not set');
+    }
+
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;

@@ -68,7 +68,7 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         $actionName = $event->getActionName();
 
         $author->addActionToHistory($actionName);
-        $author->addPlayerHighlight(PlayerHighlight::fromActionEvent($event));
+        $author->addPlayerHighlight(PlayerHighlight::fromEvent($event));
 
         $this->playerRepository->save($author);
     }

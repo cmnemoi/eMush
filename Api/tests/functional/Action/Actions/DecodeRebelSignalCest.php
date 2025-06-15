@@ -314,6 +314,20 @@ final class DecodeRebelSignalCest extends AbstractFunctionalTest
         $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getRebelBasesContacted(), 'rebelBasesContacted should be 1.');
     }
 
+    public function shouldImproveCommsAdvancedStatistic(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsFocusedOnCommsCenter();
+        $this->givenPlayerIsCommsManager();
+        $this->givenLinkWithSolIsEstablished();
+        $this->givenRebelBaseIsContacting(RebelBaseEnum::WOLF, $I);
+
+        $this->whenPlayerDecodesRebelSignal(RebelBaseEnum::WOLF);
+
+        // then comms advanced statistic should be incremented to 1
+        $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getCommsAdvanced());
+        $I->assertEquals(0, $this->player->getPlayerInfo()->getStatistics()->getLinkImproved());
+    }
+
     private function givenCommsCenterInRoom(): void
     {
         $this->commsCenter = $this->gameEquipmentService->createGameEquipmentFromName(

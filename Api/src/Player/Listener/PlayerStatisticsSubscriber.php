@@ -266,12 +266,13 @@ class PlayerStatisticsSubscriber implements EventSubscriberInterface
         $stat = $event->getAuthor()->getPlayerInfo()->getStatistics();
 
         match ($event->getActionName()) {
+            ActionEnum::ACCEPT_TRADE, ActionEnum::CONTACT_XYLOPH, ActionEnum::DECODE_REBEL_SIGNAL, ActionEnum::REFUSE_TRADE, ActionEnum::UPGRADE_NERON => $stat->incrementCommsAdvanced(),
             ActionEnum::ATTACK => $event->getActionResultOrThrow()->isASuccess() ?: $event->getPlayerActionTargetOrThrow()->getPlayerInfo()->getStatistics()->incrementKnifeDodged(),
             ActionEnum::CONSUME => $stat->incrementTimesEaten(),
             ActionEnum::CONSUME_DRUG => $stat->incrementDrugsTaken(),
             ActionEnum::CONVERT_CAT, ActionEnum::PET_CAT => $stat->incrementTimesCaressed(),
             ActionEnum::COOK, ActionEnum::EXPRESS_COOK => $stat->incrementTimesCooked(),
-            ActionEnum::ESTABLISH_LINK_WITH_SOL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementLinkFixed() : $stat->incrementLinkImproved(),
+            ActionEnum::ESTABLISH_LINK_WITH_SOL => $stat->incrementLinkImproved()->incrementCommsAdvanced(),
             ActionEnum::HACK => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTimesHacked() : null,
             ActionEnum::RENOVATE, ActionEnum::REPAIR, ActionEnum::STRENGTHEN_HULL => $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementTechSuccesses() : $stat->incrementTechFails(),
             ActionEnum::SABOTAGE => $event->getAuthor()->hasStatus(PlayerStatusEnum::BERZERK) && $event->getActionResultOrThrow()->isASuccess() ? $stat->incrementMutateDamageDealt(1) : null,

@@ -299,6 +299,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->whenChunEstablishesLinkWithSol();
 
         $this->thenChunShouldHaveLinkImprovedStatistic(1, $I);
+        $this->thenChunShouldHaveCommsAdvancedStatistic(1, $I);
     }
 
     public function shouldImproveStatisticOnSuccess(FunctionalTester $I): void
@@ -308,7 +309,7 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $this->whenChunEstablishesLinkWithSol();
 
         $this->thenChunShouldHaveLinkImprovedStatistic(1, $I);
-        $this->thenChunShouldHaveLinkFixedStatistic(1, $I);
+        $this->thenChunShouldHaveCommsAdvancedStatistic(1, $I);
     }
 
     private function givenSpatialWaveRadarProjectIsFinished(FunctionalTester $I): void
@@ -583,8 +584,8 @@ final class EstablishLinkWithSolCest extends AbstractFunctionalTest
         $I->assertEquals($quantity, $this->chun->getPlayerInfo()->getStatistics()->getLinkImproved());
     }
 
-    private function thenChunShouldHaveLinkFixedStatistic(int $quantity, FunctionalTester $I): void
+    private function thenChunShouldHaveCommsAdvancedStatistic(int $quantity, FunctionalTester $I): void
     {
-        $I->assertEquals($quantity, $this->chun->getPlayerInfo()->getStatistics()->getLinkFixed());
+        $I->assertEquals($quantity, $this->chun->getPlayerInfo()->getStatistics()->getCommsAdvanced());
     }
 }

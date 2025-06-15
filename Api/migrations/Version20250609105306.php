@@ -36,7 +36,7 @@ final class Version20250609105306 extends AbstractMigration
         $this->addSql('ALTER TABLE player_info ADD player_statistics_slept_cycles INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_died_during_sleep BOOLEAN DEFAULT false NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_times_hacked INT DEFAULT 0 NOT NULL');
-        $this->addSql('ALTER TABLE player_info ADD player_statistics_link_fixed INT DEFAULT 0 NOT NULL');
+        $this->addSql('ALTER TABLE player_info ADD player_statistics_comms_advanced INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_sleep_interupted INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_mutant_damage_dealt INT DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE player_info ADD player_statistics_injuries_contracted INT DEFAULT 0 NOT NULL');
@@ -69,7 +69,7 @@ final class Version20250609105306 extends AbstractMigration
         $this->addSql('ALTER TABLE player_info DROP player_statistics_slept_cycles');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_died_during_sleep');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_times_hacked');
-        $this->addSql('ALTER TABLE player_info DROP player_statistics_link_fixed');
+        $this->addSql('ALTER TABLE player_info DROP player_statistics_comms_advanced');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_sleep_interupted');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_mutant_damage_dealt');
         $this->addSql('ALTER TABLE player_info DROP player_statistics_injuries_contracted');

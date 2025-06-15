@@ -1,7 +1,19 @@
 <template>
     <div class="history-logs">
-        <span class="tab"> {{ $t('deathpage.highlights') }} </span>
-        <span class="tab active"> {{ $t('deathpage.triumphHistory') }} </span>
+        <span
+            class="tab"
+            :class="{ active: activeTab === 'action' }"
+            @click="activeTab = 'action'"
+        >
+            {{ $t('deathpage.highlights') }}
+        </span>
+        <span
+            class="tab"
+            :class="{ active: activeTab === 'triumph' }"
+            @click="activeTab = 'triumph'"
+        >
+            {{ $t('deathpage.triumphHistory') }}
+        </span>
         <div class="logs" v-if="activeTab === 'triumph'">
             <div>
                 <p v-for="gain in displayedTriumphGains" :key="gain">
@@ -16,8 +28,12 @@
         <div class="logs" v-if="activeTab === 'action'">
             <div>
                 <p v-for="highlight in displayedPlayerHighlights" :key="highlight">
-                    <span v-html="formatText(highlight)" />
+                    <img :src="getImgUrl('ui_icons/point.png')" alt="dot"> <span v-html="formatText(highlight)" />
                 </p>
+            </div>
+            <div class="logs-actions">
+                <a v-if="shouldShowReadMoreAction" class="read-more-link" @click="toggleDisplayLimit">{{ $t('deathpage.readMore') }}</a>
+                <a v-if="shouldShowReadLessAction" class="read-more-link" @click="toggleDisplayLimit">{{ $t('deathpage.readLess') }}</a>
             </div>
         </div>
     </div>
@@ -57,6 +73,7 @@ const shouldShowReadLessAction = computed(() =>
 // methods
 const toggleDisplayLimit = () => {
     showAllTriumphGains.value = !showAllTriumphGains.value;
+    showAllPlayerHighlights.value = !showAllPlayerHighlights.value;
 };
 
 // data

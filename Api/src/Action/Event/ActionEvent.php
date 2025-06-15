@@ -255,16 +255,6 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         return $this->getAuthor()->getDaedalus();
     }
 
-    protected function addEventTags(): void
-    {
-        if ($this->actionConfig->getActionName() === ActionEnum::FLIRT) {
-            $target = $this->getPlayerActionTargetOrThrow();
-            if ($target->hasFlirtedWith($this->getAuthor())) {
-                $this->addTag(self::LOVE_BACK);
-            }
-        }
-    }
-
     public function hasHighlightTarget(): bool
     {
         return $this->actionTarget instanceof PlayerHighlightTargetInterface;
@@ -292,6 +282,16 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         }
 
         return $target;
+    }
+
+    protected function addEventTags(): void
+    {
+        if ($this->actionConfig->getActionName() === ActionEnum::FLIRT) {
+            $target = $this->getPlayerActionTargetOrThrow();
+            if ($target->hasFlirtedWith($this->getAuthor())) {
+                $this->addTag(self::LOVE_BACK);
+            }
+        }
     }
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection

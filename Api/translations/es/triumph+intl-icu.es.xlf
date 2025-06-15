@@ -2,9 +2,9 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="triumph.ext">
     <unit id="cycle_human">
-      <segment id="cycle_human.name" state="initial">
+      <segment id="cycle_human.name" state="translated">
         <source>cycle_human.name</source>
-        <target>cycle_human.name</target>
+        <target>Ciclo Humano</target>
       </segment>
       <segment id="cycle_human.log" state="initial">
         <source>cycle_human.log</source>
@@ -12,9 +12,9 @@
       </segment>
     </unit>
     <unit id="cycle_mush">
-      <segment id="cycle_mush.name" state="initial">
+      <segment id="cycle_mush.name" state="translated">
         <source>cycle_mush.name</source>
-        <target>cycle_mush.name</target>
+        <target>Ciclo Mush</target>
       </segment>
       <segment id="cycle_mush.log" state="initial">
         <source>cycle_mush.log</source>
@@ -22,17 +22,17 @@
       </segment>
     </unit>
     <unit id="chun_lives">
-      <segment id="chun_lives.name" state="initial">
+      <segment id="chun_lives.name" state="translated">
         <source>chun_lives.name</source>
-        <target>chun_lives.name</target>
+        <target>¡Chun vive!</target>
       </segment>
       <segment id="chun_lives.log" state="initial">
         <source>chun_lives.log</source>
         <target>chun_lives.log</target>
       </segment>
-      <segment id="chun_lives.personal_description" state="initial">
+      <segment id="chun_lives.personal_description" state="translated">
         <source>chun_lives.personal_description</source>
-        <target>chun_lives.personal_description</target>
+        <target>Chun gana {quantity} :triumph: por cada día sobrevivido.</target>
       </segment>
     </unit>
     <unit id="return_to_sol">
@@ -66,9 +66,9 @@
       </segment>
     </unit>
     <unit id="mush_initial_bonus">
-      <segment id="mush_initial_bonus.name" state="initial">
+      <segment id="mush_initial_bonus.name" state="translated">
         <source>mush_initial_bonus.name</source>
-        <target>mush_initial_bonus.name</target>
+        <target>Mushificado</target>
       </segment>
       <segment id="mush_initial_bonus.log" state="initial">
         <source>mush_initial_bonus.log</source>
@@ -76,9 +76,9 @@
       </segment>
     </unit>
     <unit id="expedition">
-      <segment id="expedition.name" state="initial">
+      <segment id="expedition.name" state="translated">
         <source>expedition.name</source>
-        <target>expedition.name</target>
+        <target>Expedición</target>
       </segment>
       <segment id="expedition.log" state="initial">
         <source>expedition.log</source>
@@ -94,15 +94,15 @@
         <source>explorator.log</source>
         <target>explorator.log</target>
       </segment>
-      <segment id="explorator.personal_description" state="initial">
+      <segment id="explorator.personal_description" state="translated">
         <source>explorator.personal_description</source>
-        <target>explorator.personal_description</target>
+        <target>Hua gana {quantity} :triumph: cada vez que participa en una exploración planetaria.</target>
       </segment>
     </unit>
     <unit id="sol_contact">
-      <segment id="sol_contact.name" state="initial">
+      <segment id="sol_contact.name" state="translated">
         <source>sol_contact.name</source>
-        <target>sol_contact.name</target>
+        <target>Contacto con Sol</target>
       </segment>
       <segment id="sol_contact.log" state="initial">
         <source>sol_contact.log</source>
@@ -120,9 +120,9 @@
       </segment>
     </unit>
     <unit id="research_standard">
-      <segment id="research_standard.name" state="initial">
+      <segment id="research_standard.name" state="translated">
         <source>research_standard.name</source>
-        <target>research_standard.name</target>
+        <target>Investigación</target>
       </segment>
       <segment id="research_standard.log" state="initial">
         <source>research_standard.log</source>
@@ -130,9 +130,9 @@
       </segment>
     </unit>
     <unit id="research_brillant">
-      <segment id="research_brillant.name" state="initial">
+      <segment id="research_brillant.name" state="translated">
         <source>research_brillant.name</source>
-        <target>research_brillant.name</target>
+        <target>Investigación Mayor</target>
       </segment>
       <segment id="research_brillant.log" state="initial">
         <source>research_brillant.log</source>
@@ -148,9 +148,9 @@
         <source>mush_specialist.log</source>
         <target>mush_specialist.log</target>
       </segment>
-      <segment id="mush_specialist.personal_description" state="initial">
+      <segment id="mush_specialist.personal_description" state="translated">
         <source>mush_specialist.personal_description</source>
-        <target>mush_specialist.personal_description</target>
+        <target>Finola gana {quantity} :triumph: por cada investigación del Mush completada.</target>
       </segment>
     </unit>
     <unit id="precious_body">
@@ -162,57 +162,57 @@
         <source>precious_body.log</source>
         <target>precious_body.log</target>
       </segment>
-      <segment id="precious_body.personal_description" state="initial">
+      <segment id="precious_body.personal_description" state="translated">
         <source>precious_body.personal_description</source>
-        <target>precious_body.personal_description</target>
+        <target>Chun gana {quantity} :triumph: cada vez que una investigación que requiere de su presencia es completada.</target>
       </segment>
     </unit>
     <unit id="magellan_ark">
-      <segment id="magellan_ark.name" state="initial">
+      <segment id="magellan_ark.name" state="translated">
         <source>magellan_ark.name</source>
-        <target>magellan_ark.name</target>
+        <target>Arca de Magallanes</target>
       </segment>
       <segment id="magellan_ark.log" state="initial">
         <source>magellan_ark.log</source>
         <target>magellan_ark.log</target>
       </segment>
-      <segment id="magellan_ark.personal_description" state="initial">
+      <segment id="magellan_ark.personal_description" state="translated">
         <source>magellan_ark.personal_description</source>
-        <target>magellan_ark.personal_description</target>
+        <target>Kuan Ti gana {quantity} :triumph: por cada proyecto NERON completado.</target>
       </segment>
     </unit>
     <unit id="pilgred_mother">
-      <segment id="pilgred_mother.name" state="initial">
+      <segment id="pilgred_mother.name" state="translated">
         <source>pilgred_mother.name</source>
-        <target>pilgred_mother.name</target>
+        <target>Madre</target>
       </segment>
       <segment id="pilgred_mother.log" state="initial">
         <source>pilgred_mother</source>
         <target>pilgred_mother</target>
       </segment>
-      <segment id="pilgred_mother.personal_description" state="initial">
+      <segment id="pilgred_mother.personal_description" state="translated">
         <source>pilgred_mother.personal_description</source>
-        <target>pilgred_mother.personal_description</target>
+        <target>Raluca gana {quantity} :triumph: por cada 20% de reparación de PILGRED completada.</target>
       </segment>
     </unit>
     <unit id="ambitious">
-      <segment id="ambitious.name" state="initial">
+      <segment id="ambitious.name" state="translated">
         <source>ambitious.name</source>
-        <target>ambitious.name</target>
+        <target>Ambicioso</target>
       </segment>
       <segment id="ambitious.log" state="initial">
         <source>ambitious.log</source>
         <target>ambitious.log</target>
       </segment>
-      <segment id="ambitious.personal_description" state="initial">
+      <segment id="ambitious.personal_description" state="translated">
         <source>ambitious.personal_description</source>
-        <target>ambitious.personal_description</target>
+        <target>Stephen gana {quantity} :triumph: la primera vez que recibe un título.</target>
       </segment>
     </unit>
     <unit id="kube_solved">
-      <segment id="kube_solved.name" state="initial">
+      <segment id="kube_solved.name" state="translated">
         <source>kube_solved.name</source>
-        <target>kube_solved.name</target>
+        <target>Kuboide</target>
       </segment>
       <segment id="kube_solved.log" state="initial">
         <source>kube_solved.log</source>
@@ -220,9 +220,9 @@
       </segment>
     </unit>
     <unit id="mush_victory">
-      <segment id="mush_victory.name" state="initial">
+      <segment id="mush_victory.name" state="translated">
         <source>mush_victory.name</source>
-        <target>mush_victory.name</target>
+        <target>Victoria Mush</target>
       </segment>
       <segment id="mush_victory.log" state="initial">
         <source>mush_victory.log</source>
@@ -230,9 +230,9 @@
       </segment>
     </unit>
     <unit id="super_nova">
-      <segment id="super_nova.name" state="initial">
+      <segment id="super_nova.name" state="translated">
         <source>super_nova.name</source>
-        <target>super_nova.name</target>
+        <target>Supernova</target>
       </segment>
       <segment id="super_nova.log" state="initial">
         <source>super_nova.log</source>
@@ -258,15 +258,15 @@
         <source>mush_fear.log</source>
         <target>mush_fear.log</target>
       </segment>
-      <segment id="mush_fear.personal_description" state="initial">
+      <segment id="mush_fear.personal_description" state="translated">
         <source>mush_fear.personal_description</source>
-        <target>mush_fear.personal_description</target>
+        <target>Gioele gana {quantity} :triumph: cada vez que un Mush es asesinado.</target>
       </segment>
     </unit>
     <unit id="mushicide">
-      <segment id="mushicide.name" state="initial">
+      <segment id="mushicide.name" state="translated">
         <source>mushicide.name</source>
-        <target>mushicide.name</target>
+        <target>Mushicidio</target>
       </segment>
       <segment id="mush_fear.log" state="initial">
         <source>mushicide.log</source>
@@ -274,9 +274,9 @@
       </segment>
     </unit>
     <unit id="humanocide">
-      <segment id="humanocide.name" state="initial">
+      <segment id="humanocide.name" state="translated">
         <source>humanocide.name</source>
-        <target>humanocide.name</target>
+        <target>Humanocidio</target>
       </segment>
       <segment id="humanocide.log" state="initial">
         <source>humanocide.log</source>
@@ -292,9 +292,9 @@
         <source>psychopat.log</source>
         <target>psychopat.log</target>
       </segment>
-      <segment id="psychopat.personal_description" state="initial">
+      <segment id="psychopat.personal_description" state="translated">
         <source>psychopat.personal_description</source>
-        <target>psychopat.personal_description</target>
+        <target>Chao gana {quantity} :triumph: cada vez que propine un golpe mortal.</target>
       </segment>
     </unit>
     <unit id="alien_science">
@@ -328,9 +328,9 @@
       </segment>
     </unit>
     <unit id="eden_one_man">
-      <segment id="eden_one_man.name" state="initial">
+      <segment id="eden_one_man.name" state="translated">
         <source>eden_one_man.name</source>
-        <target>eden_one_man.name</target>
+        <target>Uno para todos</target>
       </segment>
       <segment id="eden_one_man.log" state="initial">
         <source>eden_one_man.log</source>
@@ -366,9 +366,9 @@
         <source>savior.log</source>
         <target>savior.log</target>
       </segment>
-      <segment id="savior.personal_description" state="initial">
+      <segment id="savior.personal_description" state="translated">
         <source>savior.personal_description</source>
-        <target>savior.personal_description</target>
+        <target>Jin Su gana {quantity} :triumph: al llegar al Edén.</target>
       </segment>
     </unit>
     <unit id="remedy">
@@ -380,9 +380,9 @@
         <source>remedy.log</source>
         <target>remedy.log</target>
       </segment>
-      <segment id="remedy.personal_description" state="initial">
+      <segment id="remedy.personal_description" state="translated">
         <source>remedy.personal_description</source>
-        <target>remedy.personal_description</target>
+        <target>Chun gana {quantity} :triumph: al llegar al Edén.</target>
       </segment>
     </unit>
     <unit id="eden_at_least">
@@ -434,9 +434,9 @@
         <source>robotic_graal.log</source>
         <target>robotic_graal.log</target>
       </segment>
-      <segment id="robotic_graal.personal_description" state="initial">
+      <segment id="robotic_graal.personal_description" state="translated">
         <source>robotic_graal.personal_description</source>
-        <target>robotic_graal.personal_description</target>
+        <target>Terrence gana {quantity} :triumph: cada vez que mejora un dron.</target>
       </segment>
     </unit>
     <unit id="rebel_wolf">
@@ -468,9 +468,9 @@
         <source>looking_for_kivanc.log</source>
         <target>looking_for_kivanc.log</target>
       </segment>
-      <segment id="looking_for_kivanc.personal_description" state="initial">
+      <segment id="looking_for_kivanc.personal_description" state="translated">
         <source>looking_for_kivanc.personal_description</source>
-        <target>looking_for_kivanc.personal_description</target>
+        <target>Paola gana {quantity} :triumph: cuando el contacto con Kivanç es restablecido en el Centro de Comunicaciones.</target>
       </segment>
     </unit>
     <unit id="star_map_1">
@@ -512,9 +512,9 @@
         <source>hunter_nemesis.log</source>
         <target>hunter_nemesis.log</target>
       </segment>
-      <segment id="hunter_nemesis.personal_description" state="initial">
+      <segment id="hunter_nemesis.personal_description" state="translated">
         <source>hunter_nemesis.personal_description</source>
-        <target>hunter_nemesis.personal_description</target>
+        <target>Roland gana {quantity} :triumph: por cada hunter que derribe. Después de ganar más de {regressiveFactor}, esto será menos frecuente.</target>
       </segment>
     </unit>
     <unit id="lander">
@@ -566,9 +566,9 @@
         <source>planet_searcher.log</source>
         <target>planet_searcher.log</target>
       </segment>
-      <segment id="planet_searcher.personal_description" state="initial">
+      <segment id="planet_searcher.personal_description" state="translated">
         <source>planet_searcher.personal_description</source>
-        <target>planet_searcher.personal_description</target>
+        <target>Frieda gana {quantity} :triumph: por cada planeta que descubra utilizando el Terminal Astro. Después de ganar más de {regressiveFactor}, esto será menos frecuente.</target>
       </segment>
     </unit>
     <unit id="new_planet">
@@ -590,9 +590,9 @@
         <source>planet_finder.log</source>
         <target>planet_finder.log</target>
       </segment>
-      <segment id="planet_finder.personal_description" state="initial">
+      <segment id="planet_finder.personal_description" state="translated">
         <source>planet_finder.personal_description</source>
-        <target>planet_finder.personal_description</target>
+        <target>Frieda gana {quantity} :triumph: cada vez que llega a la órbita de un nuevo planeta.</target>
       </segment>
     </unit>
     <unit id="eden_cat">

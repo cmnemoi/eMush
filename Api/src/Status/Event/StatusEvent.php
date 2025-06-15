@@ -68,11 +68,19 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
 
     public function getHighlightTarget(): PlayerHighlightTargetInterface
     {
-        /** @var PlayerHighlightTargetInterface $target */
-        return match ($this->status->getName()) {
+        $holder = match ($this->status->getName()) {
             EquipmentStatusEnum::HIDDEN => $this->holder,
             default => throw new \LogicException("Unknown highlight target for status {$this->status->getName()}"),
         };
+
+        if (!$holder instanceof PlayerHighlightTargetInterface) {
+            throw new \LogicException(\sprintf(
+                'Status holder %s does not implement PlayerHighlightTargetInterface',
+                \get_class($holder)
+            ));
+        }
+
+        return $holder;
     }
 
     public function hasHighlightTarget(): bool

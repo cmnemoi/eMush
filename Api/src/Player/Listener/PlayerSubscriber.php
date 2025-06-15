@@ -121,6 +121,10 @@ final class PlayerSubscriber implements EventSubscriberInterface
         }
         $this->playerService->persistPlayerInfo($playerInfo);
 
+        if (!$event->hasAuthor()) {
+            return;
+        }
+
         $player->addPlayerHighlight(PlayerHighlight::fromEventForTarget($event));
         $this->playerRepository->save($player);
 

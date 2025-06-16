@@ -280,7 +280,7 @@
       </segment>
       <segment id="humanocide.log" state="translated">
         <source>humanocide.log</source>
-        <target>You have earned {quantity} :triumph: by delivering the fatal blow to a human.</target>
+        <target>You have earned {quantity} :triumph_mush: by delivering the fatal blow to a human.</target>
       </segment>
     </unit>
     <unit id="psychopat">
@@ -432,7 +432,7 @@
       </segment>
       <segment id="robotic_graal.log" state="translated">
         <source>robotic_graal.log</source>
-        <target>You have earned {quantity} :triumph_mush: by upgrading a drone as Terrence!</target>
+        <target>You have earned {quantity} :triumph: by upgrading a drone as Terrence!</target>
       </segment>
       <segment id="robotic_graal.personal_description" state="translated">
         <source>robotic_graal.personal_description</source>
@@ -796,7 +796,7 @@
       </segment>
     </unit>
     <unit id="cm_sabotage">
-      <segment id="cm_sabotage.name" state="translated">
+      <segment id="cm_sabotage.name" state="initial">
         <source>cm_sabotage.name</source>
         <target/>
       </segment>

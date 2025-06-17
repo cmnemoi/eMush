@@ -24,6 +24,7 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerActivityLevelEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 class StatusFixtures extends Fixture implements DependentFixtureInterface
@@ -667,6 +668,26 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($first);
 
+        $awakePlayer = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerActivityLevelEnum::AWAKE->value . '_default')
+        );
+        $manager->persist($awakePlayer);
+
+        $idlePlayer = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerActivityLevelEnum::IDLE->value . '_default')
+        );
+        $manager->persist($idlePlayer);
+
+        $deadPlayer = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerActivityLevelEnum::DEAD->value . '_default')
+        );
+        $manager->persist($deadPlayer);
+
+        $cryogenizedPlayer = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerActivityLevelEnum::CRYOGENIZED->value . '_default')
+        );
+        $manager->persist($cryogenizedPlayer);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -748,7 +769,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasGainedComManagerTitle)
             ->addStatusConfig($pointlessPlayer)
             ->addStatusConfig($firstStarmapFragment)
-            ->addStatusConfig($first);
+            ->addStatusConfig($first)
+            ->addStatusConfig($awakePlayer)
+            ->addStatusConfig($idlePlayer)
+            ->addStatusConfig($deadPlayer)
+            ->addStatusConfig($cryogenizedPlayer);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -824,6 +849,10 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::POINTLESS_PLAYER, $pointlessPlayer);
         $this->addReference(DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT, $firstStarmapFragment);
         $this->addReference(PlayerStatusEnum::FIRST, $first);
+        $this->addReference(PlayerActivityLevelEnum::AWAKE->value, $awakePlayer);
+        $this->addReference(PlayerActivityLevelEnum::IDLE->value, $idlePlayer);
+        $this->addReference(PlayerActivityLevelEnum::DEAD->value, $deadPlayer);
+        $this->addReference(PlayerActivityLevelEnum::CRYOGENIZED->value, $cryogenizedPlayer);
 
         $manager->flush();
     }

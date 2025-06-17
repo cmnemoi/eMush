@@ -11,6 +11,7 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerActivityLevelEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
 
@@ -2000,6 +2001,38 @@ abstract class StatusConfigData
         [
             'name' => PlayerStatusEnum::FIRST . '_default',
             'statusName' => PlayerStatusEnum::FIRST,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerActivityLevelEnum::AWAKE->value . '_default',
+            'statusName' => PlayerActivityLevelEnum::AWAKE->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerActivityLevelEnum::IDLE->value . '_default',
+            'statusName' => PlayerActivityLevelEnum::IDLE->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerActivityLevelEnum::DEAD->value . '_default',
+            'statusName' => PlayerActivityLevelEnum::DEAD->value,
+            'visibility' => VisibilityEnum::HIDDEN,
+            'type' => 'status_config',
+            'modifierConfigs' => [],
+            'actionConfigs' => [],
+        ],
+        [
+            'name' => PlayerActivityLevelEnum::CRYOGENIZED->value . '_default',
+            'statusName' => PlayerActivityLevelEnum::CRYOGENIZED->value,
             'visibility' => VisibilityEnum::HIDDEN,
             'type' => 'status_config',
             'modifierConfigs' => [],

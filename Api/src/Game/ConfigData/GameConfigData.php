@@ -17,6 +17,7 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\HunterStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
+use Mush\Status\Enum\PlayerActivityLevelEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Triumph\ConfigData\TriumphConfigData;
@@ -535,6 +536,10 @@ class GameConfigData
                     DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT . '_default',
                     PlayerStatusEnum::PERSONAL_TRIUMPH_REGRESSION . '_default',
                     PlayerStatusEnum::FIRST . '_default',
+                    PlayerActivityLevelEnum::AWAKE->value . '_default',
+                    PlayerActivityLevelEnum::IDLE->value . '_default',
+                    PlayerActivityLevelEnum::DEAD->value . '_default',
+                    PlayerActivityLevelEnum::CRYOGENIZED->value . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [

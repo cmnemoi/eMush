@@ -112,7 +112,7 @@ final class CureCat extends AttemptAction
             equipment: $this->gameItemTarget(),
             newHolder: $this->player->getPlace(),
             author: $this->player,
-            visibility: VisibilityEnum::HIDDEN,
+            visibility: VisibilityEnum::PUBLIC,
             tags: $tags,
             time: new \DateTime(),
         );

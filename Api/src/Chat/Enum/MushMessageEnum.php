@@ -26,5 +26,6 @@ class MushMessageEnum
         ActionEnum::CONSUME_DRUG->value => self::INFECT_TRAPPED_RATION,
         ActionEnum::TAKE_CAT->value => self::INFECT_CAT,
         ActionEnum::PET_CAT->value => self::INFECT_CAT,
+        ActionEnum::CURE_CAT->value => self::INFECT_CAT,
     ];
 }

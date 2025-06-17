@@ -1194,12 +1194,7 @@
     <unit id="cure_cat_fail">
       <segment id="cure_cat_fail" state="translated">
         <source>cure_cat_fail</source>
-        <target>{character_gender, select,
-        male {**{character}** se débat avec  **{target_equipment}** avant que celui-ci ne s'échappe de ses bras. Il le poursuit dans la pièce en jurant, sans le moindre succès, avant que la créature ne finisse par se glisser sous un meuble.}
-        female {**{character}** se débat avec  **{target_equipment}** avant que celui-ci ne s'échappe de ses bras. Elle le poursuit dans la pièce en jurant, sans le moindre succès, avant que la créature ne finisse par se glisser sous un meuble.}
-        other {invalid gender input}
-        }
-        </target>
+        <target>**{character}** se débat avec  **{target_equipment}** avant que celui-ci ne s'échappe de ses bras. {character_gender, select, male {Il} female {Elle} other {invalid gender input}} le poursuit dans la pièce en jurant, sans le moindre succès, avant que la créature ne finisse par se glisser sous un meuble.</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">

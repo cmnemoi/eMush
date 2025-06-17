@@ -1623,5 +1623,29 @@
         <target>:point: Firefighter : Tries to extinguish the fire in the room before moving. Is also immune to fire damage.</target>
       </segment>
     </unit>
+    <unit id="awake">
+      <segment id="name" state="translated">
+        <source>awake.name</source>
+        <target>Awake</target>
+      </segment>
+    </unit>
+    <unit id="idle">
+      <segment id="name" state="translated">
+        <source>idle.name</source>
+        <target>Idle</target>
+      </segment>
+    </unit>
+    <unit id="dead">
+      <segment id="name" state="translated">
+        <source>dead.name</source>
+        <target>Dead</target>
+      </segment>
+    </unit>
+    <unit id="cryogenized">
+      <segment id="name" state="translated">
+        <source>cryogenized.name</source>
+        <target>Cryogenized</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

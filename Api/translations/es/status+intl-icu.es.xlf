@@ -1717,5 +1717,38 @@ Todas tus acciones se vuelven más difíciles.</target>
         <target>:point: Bombero : Intenta apagar los incendios en la sala antes de desplazarse. También se protege del fuego.</target>
       </segment>
     </unit>
+    <unit id="awake">
+      <segment id="name" state="translated">
+        <source>awake.name</source>
+        <target>{character_gender, select,
+            female {Despierta}
+            other {Despierto}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="idle">
+      <segment id="name" state="translated">
+        <source>idle.name</source>
+        <target>{character_gender, select,
+            female {Inactiva}
+            other {Inactivo}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="dead">
+      <segment id="name" state="translated">
+        <source>dead.name</source>
+        <target>{character_gender, select,
+            female {Muerta}
+            other {Muerto}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="cryogenized">
+      <segment id="name" state="translated">
+        <source>cryogenized.name</source>
+        <target>Criogenizado(a)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

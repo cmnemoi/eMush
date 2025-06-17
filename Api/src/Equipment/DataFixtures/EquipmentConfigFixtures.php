@@ -743,6 +743,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setActionConfigs([$examineAction])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($cryoModule);
+        $manager->persist($cryoModuleMechanic);
 
         /** @var ActionConfig $checkSporeLevelAction */
         $checkSporeLevelAction = $this->getReference(ActionsFixtures::CHECK_SPORE_LEVEL);

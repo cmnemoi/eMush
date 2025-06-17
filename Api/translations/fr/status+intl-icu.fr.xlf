@@ -1631,5 +1631,29 @@
         <target>:point: Pompier : Tente d'éteindre les incendies dans la pièce avant de se déplacer. Deviens également ignifuge.</target>
       </segment>
     </unit>
+    <unit id="awake">
+      <segment id="name" state="initial">
+        <source>awake.name</source>
+        <target>awake.name</target>
+      </segment>
+    </unit>
+    <unit id="idle">
+      <segment id="name" state="initial">
+        <source>idle.name</source>
+        <target>idle.name</target>
+      </segment>
+    </unit>
+    <unit id="dead">
+      <segment id="name" state="initial">
+        <source>dead.name</source>
+        <target>dead.name</target>
+      </segment>
+    </unit>
+    <unit id="cryogenized">
+      <segment id="name" state="initial">
+        <source>cryogenized.name</source>
+        <target>cryogenized.name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

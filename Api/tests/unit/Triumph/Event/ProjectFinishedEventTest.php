@@ -281,6 +281,17 @@ final class ProjectFinishedEventTest extends TestCase
         self::assertEquals(0, $kuanTi->getTriumph());
     }
 
+    public function testShouldGivePerpetualHydrationTriumphToAllHumans(): void
+    {
+        $daedalus = $this->givenDaedalus();
+        $player = $this->givenPlayerWithDaedalus($daedalus);
+        $player2 = $this->givenPlayerWithDaedalus($daedalus);
+        $this->givenPerpetualHydrationTriumphConfig();
+        $event = $this->givenProjectFinishedEvent(ProjectName::PERPETUAL_HYDRATION, $daedalus);
+        $this->whenChangeTriumphFromEventIsExecutedFor($event);
+        $this->thenPlayersShouldHaveTriumph([$player, $player2], 3);
+    }
+
     public static function provideShouldGiveResearchSmallTriumphToAllHumansCases(): iterable
     {
         return [
@@ -416,6 +427,15 @@ final class ProjectFinishedEventTest extends TestCase
         $this->triumphConfigRepository->save(
             TriumphConfig::fromDto(
                 TriumphConfigData::getByName(TriumphEnum::MAGELLAN_ARK)
+            )
+        );
+    }
+
+    private function givenPerpetualHydrationTriumphConfig(): void
+    {
+        $this->triumphConfigRepository->save(
+            TriumphConfig::fromDto(
+                TriumphConfigData::getByName(TriumphEnum::PERPETUAL_HYDRATION)
             )
         );
     }

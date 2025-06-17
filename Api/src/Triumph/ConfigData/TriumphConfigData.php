@@ -1054,6 +1054,16 @@ abstract class TriumphConfigData
                 targetSetting: TriumphTarget::AUTHOR,
                 quantity: 0,
             ),
+            new TriumphConfigDto(
+                key: TriumphEnum::PERPETUAL_HYDRATION->toConfigKey('default'),
+                name: TriumphEnum::PERPETUAL_HYDRATION,
+                targetedEvent: ProjectEvent::PROJECT_FINISHED,
+                tagConstraints: [
+                    ProjectName::PERPETUAL_HYDRATION->toString() => TriumphSourceEventInterface::ALL_TAGS,
+                ],
+                scope: TriumphScope::ALL_ALIVE_HUMANS,
+                quantity: 3,
+            ),
         ];
     }
 

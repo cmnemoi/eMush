@@ -825,5 +825,15 @@
         <target>Vous avez gagné {quantity} :triumph: car vous avez planté un fruit alien en tant que Ian !</target>
       </segment>
     </unit>
+    <unit id="perpetual_hydration">
+      <segment id="perpetual_hydration.name" state="initial">
+        <source>perpetual_hydration.name</source>
+        <target>perpetual_hydration.name</target>
+      </segment>
+      <segment id="perpetual_hydration.log" state="initial">
+        <source>perpetual_hydration.log</source>
+        <target>perpetual_hydration.log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

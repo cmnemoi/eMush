@@ -281,7 +281,7 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function handleCatNoises(ActionEvent $event): void
     {
-        if ($this->shotAtCatAndFailed($event)) {
+        if ($this->shotAtCatAndFailed($event) || $this->cureCatAndFailed($event)) {
             $this->createCatHissLog($event);
 
             return;
@@ -306,6 +306,11 @@ final class ActionSubscriber implements EventSubscriberInterface
     private function shotAtCatAndSucceeded(ActionEvent $event): bool
     {
         return $event->getActionConfig()->getActionName() === ActionEnum::SHOOT_CAT && $event->getActionResultOrThrow()->isASuccess();
+    }
+
+    private function cureCatAndFailed(ActionEvent $event): bool
+    {
+        return $event->getActionConfig()->getActionName() === ActionEnum::CURE_CAT && $event->getActionResultOrThrow()->isAFail();
     }
 
     private function schrodingerInRoomOrPlayerInventory(ActionEvent $event): bool

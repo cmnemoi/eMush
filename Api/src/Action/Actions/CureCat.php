@@ -6,9 +6,11 @@ namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasEquipment;
+use Mush\Action\Validator\PlaceType;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ReachEnum;
@@ -61,6 +63,7 @@ final class CureCat extends AttemptAction
             'target' => HasEquipment::PLAYER,
             'groups' => ['visibility'],
         ]));
+        $metadata->addConstraint(new PlaceType(['groups' => ['execute'], 'type' => 'room', 'message' => ActionImpossibleCauseEnum::NO_SHELVING_UNIT]));
     }
 
     public function support(?LogParameterInterface $target, array $parameters): bool

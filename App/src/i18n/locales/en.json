@@ -112,7 +112,20 @@
 		},
 		"historyAndTriumph": "History and Glory",
 		"historyAndTriumphDescription": "Click here the history and the glory of **{character}**.",
-		"triumph": "Glory"
+		"triumph": "Glory",
+		"statistics": "Statistics:",
+		"shipsDestroyed": "Hunters defeated",
+		"planetsFound": "Planets found",
+		"explorationsStarted": "Explorations",
+		"rebelBasesContacted": "Rebel bases contacted",
+		"sporesCreated": "Spores generated",
+		"mushAmount": "Number of Mush",
+		"neronProjects": "NERON projects",
+		"researchProjects": "Research",
+		"pilgredProjects": "PILGRED",
+		"commander": "Commanders",
+		"neron_manager": "NERON Administrators",
+		"com_manager": "Communication Officers"
 	},
 	"userBanner": {
 		"userShips": "File"

@@ -112,7 +112,20 @@
 		},
 		"historyAndTriumph": "Historique et Triomphe",
 		"historyAndTriumphDescription": "Cliquez ici pour connaître l'historique et le triomphe de **{character}**.",
-		"triumph": "Triomphe"
+		"triumph": "Triomphe",
+		"statistics": "Statistiques :",
+		"shipsDestroyed": "Vaisseaux détruits",
+		"planetsFound": "Planètes trouvées",
+		"explorationsStarted": "Explorations",
+		"rebelBasesContacted": "Bases rebelles contactées",
+		"sporesCreated": "Spores générés",
+		"mushAmount": "Nombre de Mush",
+		"neronProjects": "Projets NERON",
+		"researchProjects": "Recherches",
+		"pilgredProjects": "PILGRED",
+		"commander": "Les Commandants",
+		"neron_manager": "Les Administrateurs NERON",
+		"com_manager": "Les Responsables des Communications"
 	},
 	"userBanner": {
 		"userShips": "Fiche"

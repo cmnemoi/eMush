@@ -295,13 +295,13 @@
             </div>
         </div>
 
-        <h2>{{ closedDaedalus.statistics.title }}</h2>
+        <h2>{{ $t('theEnd.statistics') }}</h2>
         <div class="ship">
             <table class="stats-table">
                 <thead>
                     <tr>
                         <th v-for="statistic in closedDaedalus.statistics.lines" :key="statistic.name">
-                            {{ statistic.name }}
+                            {{ $t('theEnd.' + statistic.name) }}
                         </th>
                     </tr>
                 </thead>
@@ -316,7 +316,7 @@
 
             <div class="progress">
                 <div v-for="projectType in projectTypes" :key="projectType">
-                    <p>{{ closedDaedalus.projects[projectType].title }}</p>
+                    <p>{{ $t('theEnd.' + closedDaedalus.projects[projectType].title) }}</p>
                     <DaedalusProjectCard
                         v-for="projectLine in closedDaedalus.projects[projectType].lines"
                         :key="projectLine.key"
@@ -327,7 +327,7 @@
             </div>
             <div class="roles">
                 <div v-for="(titleHolder) in closedDaedalus.titleHolders" :key="titleHolder.title">
-                    <p>{{ titleHolder.title }}</p>
+                    <p>{{ $t('theEnd.' + titleHolder.title) }}</p>
                     <ul>
                         <CharacterSignature
                             v-for="characterKey in titleHolder.characterKeys"

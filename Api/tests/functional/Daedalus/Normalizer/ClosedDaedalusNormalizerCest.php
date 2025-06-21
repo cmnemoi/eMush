@@ -45,27 +45,27 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: [
                 [
-                    'name' => 'Planètes trouvées',
+                    'name' => 'planetsFound',
                     'value' => 1,
                 ],
                 [
-                    'name' => 'Explorations',
+                    'name' => 'explorationsStarted',
                     'value' => 2,
                 ],
                 [
-                    'name' => 'Vaisseaux détruits',
+                    'name' => 'shipsDestroyed',
                     'value' => 5,
                 ],
                 [
-                    'name' => 'Spores générés',
+                    'name' => 'sporesCreated',
                     'value' => 4,
                 ],
                 [
-                    'name' => 'Nombre de Mush',
+                    'name' => 'mushAmount',
                     'value' => 2,
                 ],
                 [
-                    'name' => 'Bases rebelles contactées',
+                    'name' => 'rebelBasesContacted',
                     'value' => 1,
                 ],
             ],
@@ -156,15 +156,15 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
         $I->assertEqualsCanonicalizing(
             expected: [
                 [
-                    'title' => 'Les Commandants',
+                    'title' => 'commander',
                     'characterKeys' => ['kuan_ti'],
                 ],
                 [
-                    'title' => 'Les Administrateurs NERON',
+                    'title' => 'neron_manager',
                     'characterKeys' => ['kuan_ti'],
                 ],
                 [
-                    'title' => 'Les Responsables des Communications',
+                    'title' => 'com_manager',
                     'characterKeys' => ['kuan_ti', 'chun'],
                 ],
             ],

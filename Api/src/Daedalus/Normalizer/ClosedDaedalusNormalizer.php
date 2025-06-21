@@ -80,20 +80,10 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
     private function getNormalizedStatistics(ClosedDaedalus $daedalus): array
     {
         $normalizedStatistics = [];
-        $normalizedStatistics['title'] = $this->translationService->translate(
-            key: 'statistics',
-            parameters: [],
-            domain: 'the_end',
-            language: $daedalus->getLanguage()
-        );
+        $normalizedStatistics['title'] = 'statistics';
         foreach ($daedalus->getDaedalusInfo()->getDaedalusStatistics()->toArray() as $statistic) {
             $normalizedStatistics['lines'][] = [
-                'name' => $this->translationService->translate(
-                    key: $statistic->name,
-                    parameters: [],
-                    domain: 'the_end',
-                    language: $daedalus->getLanguage()
-                ),
+                'name' => $statistic->name,
                 'value' => $statistic->value,
             ];
         }
@@ -106,15 +96,8 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $normalizedProjects = [];
 
         foreach ($daedalus->getDaedalusInfo()->getDaedalusProjectsStatistics()->toArray() as $categoryBaseName => $category) {
-            $categoryName = $this->translationService->translate(
-                key: $categoryBaseName,
-                parameters: [],
-                domain: 'the_end',
-                language: $daedalus->getLanguage()
-            );
-
             $normalizedProjects[$categoryBaseName] = [
-                'title' => $categoryName,
+                'title' => $categoryBaseName,
                 'lines' => [],
             ];
 
@@ -152,14 +135,8 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $normalizedTitleHolders = [];
 
         foreach ($daedalus->getDaedalusInfo()->getGameConfig()->getTitleConfigs() as $titleConfig) {
-            $translatedTitle = $this->translationService->translate(
-                key: $titleConfig->getName(),
-                parameters: [],
-                domain: 'the_end',
-                language: $daedalus->getLanguage()
-            );
             $normalizedTitleHolders[$titleConfig->getName()] = [
-                'title' => $translatedTitle,
+                'title' => $titleConfig->getName(),
                 'characterKeys' => [],
             ];
         }

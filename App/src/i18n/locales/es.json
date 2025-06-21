@@ -112,7 +112,14 @@
 		},
 		"historyAndTriumph": "Historique et Triomphe",
 		"historyAndTriumphDescription": "Cliquez ici pour connaître l'historique et le triomphe de **{character}**.",
-		"triumph": "Triomphe"
+		"triumph": "Triomphe",
+		"statistics": "Estadísticas",
+		"shipsDestroyed": "Hunters derribados",
+		"planetsFound": "Planetas encontrados",
+		"explorationsStarted": "Expediciones",
+		"rebelBasesContacted": "Bases rebeldes contactadas",
+		"sporesCreated": "Esporas generadas",
+		"mushAmount": "Número de Mush"
 	},
 	"userBanner": {
 		"userShips": "Ficha"

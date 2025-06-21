@@ -125,7 +125,149 @@
 		"pilgredProjects": "PILGRED",
 		"commander": "Commanders",
 		"neron_manager": "NERON Administrators",
-		"com_manager": "Communication Officers"
+		"com_manager": "Communication Officers",
+		"funFact": {
+			"best_cook": {
+				"name": "Simmer evening and morning",
+				"description": "When I've got nothing else to do, well... I cook! What, there's too much?! Who's not finishing their plate?!!"
+			},
+			"best_planet_scanner": {
+				"name": "Genius astrophysicist",
+				"description": "This one loves discovering planets and scanning them, scanning them, until there’s nothing left to scan!"
+			},
+			"earliest_death": {
+				"name": "Unfinished sketch",
+				"description": "Maybe someone who could have made history — but they died before they even got started."
+			},
+			"best_technician": {
+				"name": "Omnipotent technician",
+				"description": "This one understood that broken things, well, they don't work, so you have to fix them!"
+			},
+			"unluckier_technician": {
+				"name": "Two Left Hands",
+				"description": "You best not leave them the adjustable wrench. They clearly have no idea what to do with it..."
+			},
+			"sol_collabs": {
+				"name": "Radio Service assistant",
+				"description": "Here's someone who understood the usefulness of establishing the radio link from the communication terminal."
+			},
+			"best_caresser": {
+				"name": "Cat hair addict",
+				"description": "It was nice to cuddle the cat, but that's not supposed to be the main objective of the trip..."
+			},
+			"best_hunter_killer": {
+				"name": "Battlestar-class pilot",
+				"description": "Worthy incarnation of Starbuck the heroine, devastating destroyer of enemy space dishes!"
+			},
+			"best_lost": {
+				"name": "« I shouldn't have come. »",
+				"description": "They came, they got lost, they waited... for a long time... and they should have stayed lost."
+			},
+			"best_killer": {
+				"name": "Compulsive assassin",
+				"description": "If they could have eaten his teammates, they might have done it. With salt on the side."
+			},
+			"most_talkative": {
+				"name": "Talkative companion",
+				"description": "The little voice heard day and night on the walkie-talkie. Goodbye loneliness!"
+			},
+			"less_talkative": {
+				"name": "Radio silence mode",
+				"description": "This one clearly never found the walkie-talkie button..."
+			},
+			"less_active": {
+				"name": "Lazybones",
+				"description": "Didn't bother much, even if it's the end of the world. No, for them, it's the others who work hard."
+			},
+			"most_active": {
+				"name": "Tireless hyperactive",
+				"description": "They never stops and honestly, we wonder what they take to keep going..."
+			},
+			"best_eater": {
+				"name": "Once your appetite goes...",
+				"description": "Spent all their time hoovering everything in sight, and raking around the back of the shelving units."
+			},
+			"best_action_waster": {
+				"name": "Energy Dissipator",
+				"description": "My motto? Waste loads of action points, and enjoy the sunshine!"
+			},
+			"worst_action_waster": {
+				"name": "Super Optimizer",
+				"description": "They never wasted action points. That's because this guy actually understood the point of the game."
+			},
+			"best_sleeper": {
+				"name": "Lazy Sleeper",
+				"description": "They spent the most time in bed. But only sleeping. Ahh..."
+			},
+			"dead_during_sleep": {
+				"name": "Rest In Peace",
+				"description": "Fire, asphyxiation, famine, betrayal, blind violence...? No, they died in his sleep."
+			},
+			"best_hacker": {
+				"name": "Anonymous Hacker",
+				"description": "Looking for pompous titles? There's no shortage! Some of them come with terminal access."
+			},
+			"best_com_technician": {
+				"name": "Dedicated Comm. Manager",
+				"description": "Spent a lot of time and effort tinkering with the radio. You thanked them, at least?"
+			},
+			"best_sandman": {
+				"name": "Walking nightmare",
+				"description": "Played too much Croquemonster and took pleasure in ruining their comrades' sleep."
+			},
+			"best_terrorist": {
+				"name": "Brute Force Mutant",
+				"description": "Terrifyingly brutal and tireless mutant terrorist capable of hitting you with a proper zinger!"
+			},
+			"best_wounded": {
+				"name": "Unlucky and Helpless",
+				"description": "Service wounded who only encounters unfair misfortunes... maybe shouldn't have gone unarmed?"
+			},
+			"best_diseased": {
+				"name": "Frail sickly",
+				"description": "Incurable patient catching all the nasties going around. So don't expect too much from them."
+			},
+			"drug_addict": {
+				"name": "It's... just... recreational...",
+				"description": "Heavy user of sketchy substances making them see laughing deer and sacred octopuses."
+			},
+			"knife_evader": {
+				"name": "Half Ninja Half Eel",
+				"description": "Dodges blades like no one else, and no one can take them down. They are the ninja-eel."
+			},
+			"best_agro": {
+				"name": "Dangerous maniac",
+				"description": "Super aggressive, attacks everything that moves. The terror of backyard chickens."
+			},
+			"worst_agro": {
+				"name": "Violence is Evil",
+				"description": "Unconditional pacifist who seldom causes harm to anyone. There are plenty others to deal with that."
+			},
+			"lesser_drugged": {
+				"name": "Astonishing Purity",
+				"description": "Drugs are bad, don't touch them kids. You don't touch them either, or I'll take you down."
+			},
+			"kube_addict": {
+				"name": "Pointless player",
+				"description": "Addicted to Mad'Kube, the most pointless thing in the game (apart from you). Wouldn't you rather go for a shot on Galaxy 55?..."
+			},
+			"best_alien_traitor": {
+				"name": "Expedition Traitor",
+				"description": "THE teammate no one should have ever brought to that cursed planet..."
+			},
+			"stealthiest": {
+				"name": "Masked Sneak",
+				"description": "The stealthy masked mushroom who committed the most sneaky actions in secret!"
+			},
+			"unstealthiest": {
+				"name": "Discovered Mushroom",
+				"description": "A not-so-discreet mushroom caught in the act. So what?"
+			},
+			"unstealthiest_and_killed": {
+				"name": "Decapitated Mushroom",
+				"description": "Stealth, but why bother? ...Well, to avoid ending up as scrambled forest eggs..."
+			}
+		}
 	},
 	"userBanner": {
 		"userShips": "File"

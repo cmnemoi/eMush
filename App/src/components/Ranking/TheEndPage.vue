@@ -341,10 +341,10 @@
                 <div v-for="(funFact, name) in closedDaedalus.funFacts" :key="name">
                     <p>
                         <Tippy>
-                            {{ funFact.title }}
+                            {{ $t('theEnd.funFact.' + funFact.key + '.name') }}
                             <template #content>
-                                <h1>{{ funFact.title }}</h1>
-                                <p>{{ funFact.description }}</p>
+                                <h1>{{ $t('theEnd.funFact.' + funFact.key + '.name') }}</h1>
+                                <p>{{ $t('theEnd.funFact.' + funFact.key + '.description') }}</p>
                             </template>
                         </Tippy>
                     </p>

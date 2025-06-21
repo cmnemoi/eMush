@@ -186,28 +186,23 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
         $I->assertEqualsCanonicalizing(
             expected: [
                 [
-                    'title' => 'Pureté stupéfiante',
-                    'description' => 'La drogue c\'est mal, n\'y touchez pas les enfants. N\'y touchez pas vous non plus, ou je vous fume.',
+                    'key' => 'lesser_drugged',
                     'characterKey' => 'chun',
                 ],
                 [
-                    'title' => 'En mode silence-radio',
-                    'description' => 'Celui-là n\'a visiblement jamais trouvé le bouton du talkie-walkie...',
+                    'key' => 'less_active',
                     'characterKey' => 'chun',
                 ],
                 [
-                    'title' => 'Glandeur invertébré',
-                    'description' => 'Ne s\'est pas trop foulé, même si c\'est la fin du monde. Non, pour lui, ce sont les autres qui triment.',
+                    'key' => 'worst_action_waster',
                     'characterKey' => 'chun',
                 ],
                 [
-                    'title' => 'SuperOptimisator',
-                    'description' => 'Il n\'a presque jamais gaspillé de point d\'action. Parce que lui, il a compris le but du jeu.',
+                    'key' => 'less_talkative',
                     'characterKey' => 'chun',
                 ],
                 [
-                    'title' => 'La violence c\'est le mal',
-                    'description' => 'Pacifiste inconditionnel qui ne fait presque de mal à personne. Ce sont les autres qui s\'en occupent.',
+                    'key' => 'worst_agro',
                     'characterKey' => 'chun',
                 ],
             ],

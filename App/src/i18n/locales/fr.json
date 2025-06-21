@@ -125,7 +125,149 @@
 		"pilgredProjects": "PILGRED",
 		"commander": "Les Commandants",
 		"neron_manager": "Les Administrateurs NERON",
-		"com_manager": "Les Responsables des Communications"
+		"com_manager": "Les Responsables des Communications",
+		"funFact": {
+			"best_cook": {
+				"name": "Mitonne soir et matin",
+				"description": "« Quand j'ai rien d'autre à faire, eh ben... J'cuisine ! Quoi, y'en a trop ?! Qui finit pas son assiette ?!! »"
+			},
+			"best_planet_scanner": {
+				"name": "Astrophysicien de génie",
+				"description": "Celui-là aime découvrir des planètes et les scanner, les scanner, jusqu'à ce qu'il n'y ait plus rien à scanner !"
+			},
+			"earliest_death": {
+				"name": "Ébauche inachevée",
+				"description": "C'est peut-être quelqu'un qui aurait pu marquer l'Histoire, sauf qu'il est mort avant d'avoir commencé."
+			},
+			"best_technician": {
+				"name": "Technicien omnipotent",
+				"description": "A compris que les objets cassés, eh ben ils marchent pas, donc faut les réparer !"
+			},
+			"unluckier_technician": {
+				"name": "Deux-mains-gauches",
+				"description": "Lui, il ne faut pas lui laisser la clef à molette. Il ne sait visiblement rien faire avec..."
+			},
+			"sol_collabs": {
+				"name": "Assistant radio de service",
+				"description": "Voilà quelqu'un qui a compris l'utilité d'établir la liaison radio du terminal de communication."
+			},
+			"best_caresser": {
+				"name": "Accro aux poils de chat",
+				"description": "C'était sympa de câliner le chat, mais c'est normalement pas l'objet principal du voyage..."
+			},
+			"best_hunter_killer": {
+				"name": "Pilote classe Battlestar",
+				"description": "Digne incarnation de Starbuck l'héroïne, fléau destructeur de vaisselle spatiale ennemie !"
+			},
+			"best_lost": {
+				"name": "« J'aurais pas dû venir. »",
+				"description": "Il est venu, il s'est perdu, il a attendu… loooooongtemps... et il aurait pu y rester."
+			},
+			"best_killer": {
+				"name": "Assassin compulsif",
+				"description": "S'il avait pu manger ses coéquipiers, il l'aurait peut-être fait. À la croque-au-sel."
+			},
+			"most_talkative": {
+				"name": "Compagnon loquace",
+				"description": "La petite voix qu'on entend de jour comme de nuit dans le talkie-walkie walkie. Adieu solitude !"
+			},
+			"less_talkative": {
+				"name": "En mode silence-radio",
+				"description": "Celui-là n'a visiblement jamais trouvé le bouton du talkie-walkie..."
+			},
+			"less_active": {
+				"name": "Glandeur invertébré",
+				"description": "Ne s'est pas trop foulé, même si c'est la fin du monde. Non, pour lui, ce sont les autres qui triment."
+			},
+			"most_active": {
+				"name": "Increvable hyperactif",
+				"description": "Il ne s’arrête jamais et sincèrement, on se demande ce qu'il prend pour tenir le coup..."
+			},
+			"best_eater": {
+				"name": "Quand l'appétit va...",
+				"description": "Passe son temps à grailler tout ce qui lui passe sous le nez, et racle aussi le fond des étagères."
+			},
+			"best_action_waster": {
+				"name": "Dilapidateur d'énergie",
+				"description": "« Mon crédo ? Gâcher beaucoup de points d'action, et profiter du soleil ! »"
+			},
+			"worst_action_waster": {
+				"name": "SuperOptimisator",
+				"description": "Il n'a presque jamais gaspillé de point d'action. Parce que lui, il a compris le but du jeu."
+			},
+			"best_sleeper": {
+				"name": "Dormeur indolent",
+				"description": "C'est lui qui a passé le plus de temps au lit. Mais seulement pour dormir. Ahlala..."
+			},
+			"dead_during_sleep": {
+				"name": "Rest In Peace",
+				"description": "Incendie, asphyxie, famine, traîtrise, violence aveugle... ? Non, lui, il est mort dans son sommeil."
+			},
+			"best_hacker": {
+				"name": "Bidouilleur Anonymous",
+				"description": "À défaut d'avoir des titres pompeux, il a de la ressource ! Et l'accès aux terminaux qui vont bien."
+			},
+			"best_com_technician": {
+				"name": "Resp. Comm. dévoué",
+				"description": "A passé beaucoup de temps et d'efforts à bidouiller la radio. Vous l'avez remercié, au moins ?"
+			},
+			"best_sandman": {
+				"name": "Cauchemar ambulant",
+				"description": "A trop joué à Croquemonster et s'est fait une joie de pourrir le sommeil de ses petits camarades."
+			},
+			"best_terrorist": {
+				"name": "Mutant Force Brute",
+				"description": "Terrifiant mutant terroriste brutal et increvable capable de vous mettre une zouille sans nom !"
+			},
+			"best_wounded": {
+				"name": "Malchanceux démuni",
+				"description": "Blessé de service à qui il n'arrive que des malheurs trop injustes… fallait peut-être pas y aller à poil ?"
+			},
+			"best_diseased": {
+				"name": "Faiblard souffreteux",
+				"description": "Malade incurable qui choppe toutes les saletés qui passent. Alors il ne faut pas trop lui en demander."
+			},
+			"drug_addict": {
+				"name": "« c'est... juste... récréatif... »",
+				"description": "Grand utilisateur de produit pas nets qui font voir des bambis hilares et des poulpes sacrés."
+			},
+			"knife_evader": {
+				"name": "Mi ninja mi anguille",
+				"description": "Il esquive les lames comme personne, et personne ne peut le fumer. C'est l'homme ninja-anguille."
+			},
+			"best_agro": {
+				"name": "Dingue dangereux",
+				"description": "Super agressif, attaque tout ce qui bouge. La terreur des poules de basse-cour. "
+			},
+			"worst_agro": {
+				"name": "La violence c'est le mal",
+				"description": "Pacifiste inconditionnel qui ne fait presque de mal à personne. Ce sont les autres qui s'en occupent."
+			},
+			"lesser_drugged": {
+				"name": "Pureté stupéfiante",
+				"description": "La drogue c'est mal, n'y touchez pas les enfants. N'y touchez pas vous non plus, ou je vous fume."
+			},
+			"kube_addict": {
+				"name": "Joueur useless",
+				"description": "Addict du mad'Kube, le truc qui sert à rien. Vous n'iriez pas plutôt faire un tour sur Galaxy 55 ?..."
+			},
+			"best_alien_traitor": {
+				"name": "Traître en expédition",
+				"description": "LE coéquipier que personne n'aurait jamais dû emmener sur cette maudite planète..."
+			},
+			"stealthiest": {
+				"name": "Fourbasse masquée",
+				"description": "C'est le champignon furtif masqué ayant commis le plus d'actions fourbes en douce !"
+			},
+			"unstealthiest": {
+				"name": "Champignon découvert",
+				"description": "Un champignon pas discret qui s'est fait gauler en pleine action. Et bah alors ?"
+			},
+			"unstealthiest_and_killed": {
+				"name": "Champignon décapité",
+				"description": "« La discrétion, mais pourquoi faire ? » …Eh bien, pour ne pas finir en omelette des bois..."
+			}
+		}
 	},
 	"userBanner": {
 		"userShips": "Fiche"

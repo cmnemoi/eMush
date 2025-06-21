@@ -27,8 +27,7 @@ type TitleHolder = {
 }
 
 type FunFact = {
-    title: string;
-    description: string;
+    key: string;
     characterKey: string;
 }
 

@@ -128,7 +128,7 @@ final class RoomLogService implements RoomLogServiceInterface
             ->setCycle($place->getDaedalus()->getCycle())
             ->setDay($place->getDaedalus()->getDay());
 
-        $visibility = $this->getVisibility($roomLog);
+        $visibility = $this->getVisibility($roomLog, $place);
         $roomLog->setVisibility($visibility);
 
         return $this->persist($roomLog);
@@ -213,19 +213,17 @@ final class RoomLogService implements RoomLogServiceInterface
         return new RoomLogCollection($logs);
     }
 
-    private function getVisibility(RoomLog $roomLog): string
+    private function getVisibility(RoomLog $roomLog, Place $place): string
     {
         $player = $roomLog->getPlayerInfo()?->getPlayer();
         $visibility = $roomLog->getBaseVisibility();
 
-        if ($player === null) {
-            return $visibility;
-        }
-
-        $place = $player->getPlace();
-
         if ($place->hasStatus(PlaceStatusEnum::DELOGGED->toString())) {
             return VisibilityEnum::HIDDEN;
+        }
+
+        if ($player === null) {
+            return $visibility;
         }
 
         if ($roomLog->shouldBeSecretForPlayer()) {

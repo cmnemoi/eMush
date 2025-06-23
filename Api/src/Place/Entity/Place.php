@@ -272,7 +272,7 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     public function getBreakableWorkingEquipments(): Collection
     {
         return $this
-            ->getEquipments()
+            ->getDoorsAndEquipments()
             ->filter(static fn (GameEquipment $equipment) => ($equipment->canBeDamaged() && !$equipment->isBroken()));
     }
 
@@ -429,7 +429,15 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
         $brokenEquipments = $this->getEquipments()->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->isBroken())->toArray();
         $brokenDoors = $this->getDoors()->filter(static fn (Door $door) => $door->isBroken())->toArray();
 
-        return new ArrayCollection(array_merge($brokenEquipments, $brokenDoors));
+        return new ArrayCollection(elements: array_unique(array: array_merge($brokenEquipments, $brokenDoors), flags: SORT_REGULAR));
+    }
+
+    /**
+     * @return Collection<array-key, GameEquipment>
+     */
+    public function getDoorsAndEquipments(): Collection
+    {
+        return new ArrayCollection(elements: array_unique(array: array_merge($this->equipments->toArray(), $this->doors->toArray()), flags: SORT_REGULAR));
     }
 
     /**

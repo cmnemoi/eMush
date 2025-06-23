@@ -72,8 +72,10 @@ final class DelogCest extends AbstractFunctionalTest
         $this->givenPlayerUseDelogAction();
 
         $roomLog = $this->whenALogIsCreatedInTheRoom();
+        $roomLogNoPlayer = $this->whenALogWhitoutPlayerIsCreatedInTheRoom();
 
         $this->thenLogShouldBeHidden($roomLog, $I);
+        $this->thenLogShouldBeHidden($roomLogNoPlayer, $I);
     }
 
     public function delogShouldLastOneCycle(FunctionalTester $I): void
@@ -228,6 +230,16 @@ final class DelogCest extends AbstractFunctionalTest
             visibility: VisibilityEnum::PUBLIC,
             type: 'event_log',
             player: $this->player,
+        );
+    }
+
+    private function whenALogWhitoutPlayerIsCreatedInTheRoom(): RoomLog
+    {
+        return $this->roomLogService->createLog(
+            logKey: 'rubbish',
+            place: $this->player->getPlace(),
+            visibility: VisibilityEnum::PUBLIC,
+            type: 'event_log',
         );
     }
 

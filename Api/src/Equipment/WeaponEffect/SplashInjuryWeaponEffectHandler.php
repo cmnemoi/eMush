@@ -33,6 +33,10 @@ final readonly class SplashInjuryWeaponEffectHandler extends AbstractWeaponEffec
         $place = $effect->getAttacker()->getPlace();
         $targets = $place->getAlivePlayersExcept($effect->getAttacker());
 
+        if ($targets->isEmpty()) {
+            return;
+        }
+
         for ($i = 0; $i < $effect->getQuantity(); ++$i) {
             /** @var Player $target */
             $target = $this->randomService->getRandomElement($targets->toArray());

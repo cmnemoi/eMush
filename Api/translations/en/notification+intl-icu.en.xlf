@@ -81,5 +81,17 @@
         <target>{message}////{character} / Jour {day} - Cycle {cycle} // You may read this again anytime in the :tip: Tips channel.</target>
       </segment>
     </unit>
+    <unit id="clumsiness">
+      <segment state="translated">
+        <source>clumsiness.description</source>
+        <target>That wasn't supposed to happen. In the heat of the action you hurt yourself...</target>
+      </segment>
+    </unit>
+    <unit id="soiled">
+      <segment state="translated">
+        <source>soiled.description</source>
+        <target>Disgusting... You're filthy. (Not like that. Although...)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

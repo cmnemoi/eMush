@@ -11,6 +11,7 @@ use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -21,6 +22,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
     public function __construct(
         private D100RollServiceInterface $d100Roll,
         private EventServiceInterface $eventService,
+        private readonly UpdatePlayerNotificationService $updatePlayerNotification,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -66,6 +68,11 @@ class ActionVariableSubscriber implements EventSubscriberInterface
             $event->getTime()
         );
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+        $this->updatePlayerNotification->execute(
+            player: $author,
+            message: EndCauseEnum::CLUMSINESS,
+        );
     }
 
     private function haveCatInfectPlayer(ActionVariableEvent $event): void

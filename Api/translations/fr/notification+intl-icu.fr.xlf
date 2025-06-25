@@ -81,5 +81,21 @@
         <target>{message}////{character} / Jour {day} - Cycle {cycle} // Vous pouvez relire ce message à tout moment dans l'onglet :tip: Conseils.</target>
       </segment>
     </unit>
+    <unit id="clumsiness">
+      <segment state="translated">
+        <source>clumsiness.description</source>
+        <target>Ça ne devait pas se passer comme cela. Lors de votre action, vous vous êtes fait mal...</target>
+      </segment>
+    </unit>
+    <unit id="soiled">
+      <segment state="translated">
+        <source>soiled.description</source>
+        <target>{character_gender, select,
+                    male {C'est dégoûtant... Vous vous êtes sali.}
+                    female {C'est dégoûtant... Vous vous êtes salie.}
+                    other {invalid gender input}
+                }</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

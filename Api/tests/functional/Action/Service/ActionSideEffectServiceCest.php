@@ -52,6 +52,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $this->searchAction->execute();
 
         $I->assertTrue($this->player1->hasStatus(PlayerStatusEnum::DIRTY));
+        $I->assertTrue($this->player1->hasNotification());
     }
 
     public function testDirtyPreventedByApron(FunctionalTester $I)
@@ -142,6 +143,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
         $this->searchAction->execute();
 
         $I->assertEquals($initHealthPoints - 2, $this->player1->getHealthPoint());
+        $I->assertTrue($this->player1->hasNotification());
     }
 
     public function testClumsinessPrevented(FunctionalTester $I)

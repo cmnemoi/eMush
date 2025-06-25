@@ -14,6 +14,7 @@ use Mush\Game\Exception\GameException;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Repository\SkillConfigRepositoryInterface;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -32,6 +33,7 @@ final class Learn extends AbstractAction
         private AddSkillToPlayerService $addSkillToPlayer,
         private DeletePlayerSkillService $deletePlayerSkill,
         private StatusServiceInterface $statusService,
+        private readonly SkillConfigRepositoryInterface $skillConfigRepository,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -91,10 +93,12 @@ final class Learn extends AbstractAction
     private function addLearnedSkillToPlayer(): void
     {
         $this->addSkillToPlayer->execute(skill: $this->skillToLearn(), player: $this->player);
+        $this->player->addToAvailableHumanSkills($this->skillConfigRepository->findOneByNameAndDaedalusOrThrow($this->skillToLearn(), $this->player->getDaedalus()));
     }
 
     private function deleteApprenticeSkillFromPlayer(): void
     {
+        $this->player->removeFromAvailableHumanSkills($this->player->getSkillByNameOrThrow(SkillEnum::APPRENTICE)->getConfig());
         $this->deletePlayerSkill->execute(skillName: SkillEnum::APPRENTICE, player: $this->player);
     }
 

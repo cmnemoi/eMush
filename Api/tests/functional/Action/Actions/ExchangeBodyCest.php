@@ -208,22 +208,22 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldHaveNotification($I);
     }
 
-    public function shouldDeleteHasUsedMageBookStatusOnPlayer(FunctionalTester $I): void
+    public function shouldNotDeleteHasUsedMageBookStatusOnPlayer(FunctionalTester $I): void
     {
         $this->givenSourcePlayerHasUsedMageBook();
 
         $this->whenSourceExchangesBodyWithTarget();
 
-        $this->thenSourcePlayerShouldNotHaveUsedMageBookStatus($I);
+        $this->thenSourcePlayerShouldHaveUsedMageBookStatus($I);
     }
 
-    public function shouldDeleteHasUsedMageBookStatusOnTarget(FunctionalTester $I): void
+    public function shouldNotDeleteHasUsedMageBookStatusOnTarget(FunctionalTester $I): void
     {
         $this->givenTargetPlayerHasUsedMageBook();
 
         $this->whenSourceExchangesBodyWithTarget();
 
-        $this->thenTargetPlayerShouldNotHaveUsedMageBookStatus($I);
+        $this->thenTargetPlayerShouldHaveUsedMageBookStatus($I);
     }
 
     public function shouldMakeMycoAlarmRing(FunctionalTester $I): void
@@ -496,14 +496,14 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         );
     }
 
-    private function thenSourcePlayerShouldNotHaveUsedMageBookStatus(FunctionalTester $I): void
+    private function thenSourcePlayerShouldHaveUsedMageBookStatus(FunctionalTester $I): void
     {
-        $I->assertFalse($this->source->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
+        $I->assertTrue($this->source->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
     }
 
-    private function thenTargetPlayerShouldNotHaveUsedMageBookStatus(FunctionalTester $I): void
+    private function thenTargetPlayerShouldHaveUsedMageBookStatus(FunctionalTester $I): void
     {
-        $I->assertFalse($this->target->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
+        $I->assertTrue($this->target->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
     }
 
     private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void

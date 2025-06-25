@@ -24,6 +24,7 @@ export type PlayerNotification = {
     title?: string;
     subTitle?: string;
     description: string;
+    stamp?: string;
 };
 
 export class Player {

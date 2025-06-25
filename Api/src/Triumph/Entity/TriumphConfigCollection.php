@@ -14,7 +14,7 @@ final class TriumphConfigCollection extends ArrayCollection
 {
     public function getByNameOrThrow(TriumphEnum $name): TriumphConfig
     {
-        $triumph = $this->getByName($name);
+        $triumph = $this->getByNameOrNull($name);
 
         if ($triumph === null) {
             throw new \RuntimeException("Triumph config {$name->value} not found");
@@ -23,7 +23,7 @@ final class TriumphConfigCollection extends ArrayCollection
         return $triumph;
     }
 
-    private function getByName(TriumphEnum $name): ?TriumphConfig
+    public function getByNameOrNull(TriumphEnum $name): ?TriumphConfig
     {
         $triumph = $this
             ->filter(static fn (TriumphConfig $triumphConfig) => $triumphConfig->getName() === $name)

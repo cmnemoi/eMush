@@ -1,8 +1,11 @@
 <template>
     <PopUp :is-open="popUp.isOpen" @close="closeAction">
         <h1 class="title" v-html="formatText(popUp.title)" v-if="popUp.title" />
-        <h3 class="sub-title" v-html="formatText(popUp.subTitle)" v-if="popUp.subTitle" />
-        <p class="message" v-html="formatText(popUp.description)" />
+        <h3 class="sub-title" v-html="formatText(popUp.subTitle)" v-if="popUp.subTitle" /> 
+        <p class="message">
+            <img :src="getImgUrl('mush_stamp.png')" v-if="popUp.isStamped">
+            <span v-html="formatText(popUp.description)" />
+        </p>
         <div class="actions">
             <button class="action-button" @click="closeAction">{{ $t('game.popUp.ok') }}</button>
         </div>
@@ -12,6 +15,7 @@
 <script lang="ts">
 import PopUp from "@/components/Utils/PopUp.vue";
 import { formatText } from "@/utils/formatText";
+import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 
@@ -25,6 +29,7 @@ export default defineComponent ({
     },
     methods: {
         formatText,
+        getImgUrl,
         ...mapActions({
             closePopUp: 'popup/closePlayerNotificationPopUp',
             deleteNotification: 'player/deleteNotification'
@@ -52,6 +57,7 @@ export default defineComponent ({
 }
 
 .message {
+    font-family: "Days One", "Segoe UI", "Lucida Grande", "Trebuchet MS", Arial, "lucida sans unicode", sans-serif;
     max-height: 300px;
     overflow-y: auto;
     padding-right: 10px;
@@ -60,5 +66,15 @@ export default defineComponent ({
     :deep(a) {
         color: $green;
     }
+
+    :deep(strong), :deep(em) {
+        color: #00b5e4;
+    }
+}
+
+img {
+    float: left;
+    margin: 0 auto 0 0;
+    padding: 0 10px 5px 0;
 }
 </style>

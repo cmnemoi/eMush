@@ -66,7 +66,9 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     private function sendSoiledNotification(StatusEvent $event): void
     {
         // do not send notification on super dirty event
-        if ($event->hasTag(ActionTypeEnum::ACTION_SUPER_DIRTY->toString()) {
+        if ($event->hasTag(ActionTypeEnum::ACTION_SUPER_DIRTY->toString())) {
+            return;
+        }
 
         $dirtyPlayer = $event->getPlayerStatusHolder();
 

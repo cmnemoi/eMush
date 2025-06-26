@@ -1,7 +1,7 @@
 <template>
     <PopUp :is-open="popUp.isOpen" @close="closeAction">
         <h1 class="title" v-html="formatText(popUp.title)" v-if="popUp.title" />
-        <h3 class="sub-title" v-html="formatText(popUp.subTitle)" v-if="popUp.subTitle" /> 
+        <h3 class="sub-title" v-html="formatText(popUp.subTitle)" v-if="popUp.subTitle" />
         <p class="message">
             <img :src="getImgUrl('mush_stamp.png')" v-if="popUp.isStamped">
             <span v-html="formatText(popUp.description)" />

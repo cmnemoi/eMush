@@ -14,7 +14,7 @@ class PlayerNotification
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
     private int $id;
 
-    #[ORM\OneToOne(targetEntity: Player::class, inversedBy: 'notification')]
+    #[ORM\ManyToOne(targetEntity: Player::class, inversedBy: 'notifications')]
     private Player $player;
 
     #[ORM\Column(type: 'string', length: 255, nullable: false, options: ['default' => ''])]
@@ -29,7 +29,7 @@ class PlayerNotification
         $this->message = $message;
         $this->parameters = $parameters;
 
-        $this->player->updateNotification($this);
+        $this->player->addNotification($this);
     }
 
     public function getId(): int

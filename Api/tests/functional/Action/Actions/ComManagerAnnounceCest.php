@@ -98,7 +98,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: PlayerNotificationEnum::ANNOUNCEMENT_CREATED->toString(),
-            actual: $this->chun->getNotificationOrThrow()->getMessage(),
+            actual: $this->chun->getFirstNotificationOrThrow()->getMessage(),
         );
         $I->assertEquals(
             expected: [
@@ -107,7 +107,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
                 'day' => 1,
                 'cycle' => 1,
             ],
-            actual: $this->chun->getNotificationOrThrow()->getParameters(),
+            actual: $this->chun->getFirstNotificationOrThrow()->getParameters(),
         );
     }
 
@@ -115,7 +115,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: PlayerNotificationEnum::ANNOUNCEMENT_RECEIVED->toString(),
-            actual: $this->kuanTi->getNotificationOrThrow()->getMessage(),
+            actual: $this->kuanTi->getFirstNotificationOrThrow()->getMessage(),
         );
         $I->assertEquals(
             expected: [
@@ -124,7 +124,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
                 'day' => 1,
                 'cycle' => 1,
             ],
-            actual: $this->kuanTi->getNotificationOrThrow()->getParameters(),
+            actual: $this->kuanTi->getFirstNotificationOrThrow()->getParameters(),
         );
     }
 }

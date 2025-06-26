@@ -14,6 +14,7 @@
 
 <script lang="ts">
 import PopUp from "@/components/Utils/PopUp.vue";
+import { Player } from "@/entities/Player";
 import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
@@ -24,7 +25,8 @@ export default defineComponent ({
     components: { PopUp },
     computed: {
         ...mapGetters({
-            popUp: 'popup/playerNotificationPopUp'
+            popUp: 'popup/playerNotificationPopUp',
+            player: 'player/player'
         })
     },
     methods: {
@@ -32,10 +34,14 @@ export default defineComponent ({
         getImgUrl,
         ...mapActions({
             closePopUp: 'popup/closePlayerNotificationPopUp',
-            deleteNotification: 'player/deleteNotification'
+            deleteNotification: 'player/deleteNotification',
+            loadPlayer: 'player/loadPlayer',
+            openNextNotificationPopUp: 'popup/openPlayerNotificationPopUp'
         }),
         async closeAction() {
             await Promise.all([this.closePopUp(), this.deleteNotification()]);
+            await this.loadPlayer({ playerId: this.player.id });
+            await this.openNextNotificationPopUp({ player: this.player });
         }
     }
 });

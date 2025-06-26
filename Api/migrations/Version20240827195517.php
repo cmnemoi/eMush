@@ -29,7 +29,7 @@ final class Version20240827195517 extends AbstractMigration
         $this->addSql('DROP INDEX idx_3f6926e899e6f5df');
         $this->addSql('ALTER TABLE player_notification ADD parameters TEXT DEFAULT \'{a:0:{}}\' NOT NULL');
         $this->addSql('COMMENT ON COLUMN player_notification.parameters IS \'(DC2Type:array)\'');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_3F6926E899E6F5DF ON player_notification (player_id)');
+        $this->addSql('CREATE INDEX IDX_3F6926E899E6F5DF ON player_notification (player_id)');
     }
 
     public function down(Schema $schema): void
@@ -39,7 +39,7 @@ final class Version20240827195517 extends AbstractMigration
         $this->addSql('ALTER TABLE commander_mission DROP CONSTRAINT FK_41B16E2F3349A583');
         $this->addSql('ALTER TABLE commander_mission DROP CONSTRAINT FK_41B16E2F5A373861');
         $this->addSql('DROP TABLE commander_mission');
-        $this->addSql('DROP INDEX UNIQ_3F6926E899E6F5DF');
+        $this->addSql('DROP INDEX IDX_3F6926E899E6F5DF');
         $this->addSql('ALTER TABLE player_notification DROP parameters');
         $this->addSql('CREATE INDEX idx_3f6926e899e6f5df ON player_notification (player_id)');
     }

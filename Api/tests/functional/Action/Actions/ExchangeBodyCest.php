@@ -15,6 +15,7 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
 use Mush\RoomLog\Entity\RoomLog;
@@ -192,6 +193,8 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
 
     public function shouldCreateNotificationForSourcePlayer(FunctionalTester $I): void
     {
+        $this->givenSourcePlayerHasClosedNewMushNotification();
+
         $this->whenSourceExchangesBodyWithTarget();
 
         $this->thenSourcePlayerShouldHaveNotification($I);
@@ -366,6 +369,11 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->target->setTriumph($quantity);
     }
 
+    private function givenSourcePlayerHasClosedNewMushNotification(): void
+    {
+        $this->source->deleteNotificationByMessage(PlayerNotificationEnum::WELCOME_MUSH->toString());
+    }
+
     private function whenSourceTriesToExchangeBodyWithTarget(): void
     {
         $this->exchangeBody->loadParameters(
@@ -467,7 +475,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: \sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value),
-            actual: $this->source->getNotificationOrThrow()->getMessage(),
+            actual: $this->source->getFirstNotificationOrThrow()->getMessage(),
         );
     }
 
@@ -475,7 +483,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: \sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value),
-            actual: $this->target->getNotificationOrThrow()->getMessage(),
+            actual: $this->target->getFirstNotificationOrThrow()->getMessage(),
         );
     }
 

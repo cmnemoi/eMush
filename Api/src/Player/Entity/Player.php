@@ -142,8 +142,12 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $actionHistory = [];
 
+    // deprecated
     #[ORM\OneToOne(mappedBy: 'player', targetEntity: PlayerNotification::class)]
     private ?PlayerNotification $notification = null;
+
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: PlayerNotification::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $notifications;
 
     #[ORM\OneToMany(mappedBy: 'subordinate', targetEntity: CommanderMission::class, orphanRemoval: true)]
     #[OrderBy(['createdAt' => Order::Descending->value])]
@@ -160,6 +164,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
         $this->lastActionDate = new \DateTime();
+        $this->notifications = new ArrayCollection();
         $this->receivedMissions = new ArrayCollection();
     }
 
@@ -1160,24 +1165,41 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function hasNotification(): bool
     {
-        return $this->notification !== null;
+        return $this->notifications->count() > 0;
     }
 
-    public function getNotificationOrThrow(): PlayerNotification
+    public function hasNotificationByMessage(string $message): bool
     {
-        return $this->notification ?? throw new \RuntimeException('The player does not have a notification');
+        return $this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message)->count() > 0;
     }
 
-    public function updateNotification(PlayerNotification $notification): self
+    public function getFirstNotificationOrThrow(): PlayerNotification
     {
-        $this->notification = $notification;
+        return $this->notifications->first() ?: throw new \RuntimeException('The player does not have a notification');
+    }
+
+    public function getNotificationByMessageOrThrow(string $message): PlayerNotification
+    {
+        return $this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message)->first() ?: throw new \RuntimeException("The player does not have a notification with message: {$message}");
+    }
+
+    public function addNotification(PlayerNotification $notification): self
+    {
+        $this->notifications->add($notification);
 
         return $this;
     }
 
     public function deleteNotification(): self
     {
-        $this->notification = null;
+        $this->notifications->removeElement($this->notifications->first());
+
+        return $this;
+    }
+
+    public function deleteNotificationByMessage(string $message): self
+    {
+        $this->notifications->removeElement($this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message)->first());
 
         return $this;
     }

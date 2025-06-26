@@ -14,8 +14,8 @@ final class UpdatePlayerNotificationService
 
     public function execute(Player $player, string $message, array $parameters = []): void
     {
-        if ($player->hasNotification()) {
-            $this->playerNotificationRepository->delete($player->getNotificationOrThrow());
+        if ($player->hasNotificationByMessage($message)) {
+            $this->playerNotificationRepository->delete($player->getNotificationByMessageOrThrow($message));
         }
 
         $this->playerNotificationRepository->save(new PlayerNotification($player, $message, $parameters));

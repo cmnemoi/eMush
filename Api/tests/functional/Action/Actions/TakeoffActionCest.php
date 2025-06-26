@@ -638,7 +638,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     private function thenChunShouldReceiveANotification(FunctionalTester $I): void
     {
         $I->assertEquals(
-            expected: $this->chun->getNotificationOrThrow()->getMessage(),
+            expected: $this->chun->getFirstNotificationOrThrow()->getMessage(),
             actual: PlayerNotificationEnum::DROPPED_CRITICAL_ITEM->toString(),
         );
     }

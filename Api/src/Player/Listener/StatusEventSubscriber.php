@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\Player\Service\UpdatePlayerNotificationService;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogService;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -24,14 +27,23 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         private DeletePlayerSkillService $deletePlayerSkill,
         private EventServiceInterface $eventService,
         private PlayerRepositoryInterface $playerRepository,
-        private RoomLogService $roomLogService
+        private RoomLogService $roomLogService,
+        private readonly UpdatePlayerNotificationService $updatePlayerNotification,
     ) {}
 
     public static function getSubscribedEvents(): array
     {
         return [
+            StatusEvent::STATUS_APPLIED => 'onStatusApplied',
             StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
         ];
+    }
+
+    public function onStatusApplied(StatusEvent $event): void
+    {
+        if ($event->getStatusName() === PlayerStatusEnum::DIRTY) {
+            $this->sendSoiledNotification($event);
+        }
     }
 
     public function onStatusRemoved(StatusEvent $event): void
@@ -49,6 +61,22 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
                 break;
         }
+    }
+
+    private function sendSoiledNotification(StatusEvent $event): void
+    {
+        // do not send notification on super dirty event
+        if ($event->hasTag(ActionTypeEnum::ACTION_SUPER_DIRTY->toString())) {
+            return;
+        }
+
+        $dirtyPlayer = $event->getPlayerStatusHolder();
+
+        $this->updatePlayerNotification->execute(
+            player: $dirtyPlayer,
+            message: StatusEventLogEnum::SOILED,
+            parameters: [$dirtyPlayer->getLogKey() => $dirtyPlayer->getLogName()]
+        );
     }
 
     private function giveMoraleToReturnedPlayer(StatusEvent $event): void

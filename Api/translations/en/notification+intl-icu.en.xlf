@@ -81,5 +81,27 @@
         <target>{message}////{character} / Jour {day} - Cycle {cycle} // You may read this again anytime in the :tip: Tips channel.</target>
       </segment>
     </unit>
+    <unit id="clumsiness">
+      <segment state="translated">
+        <source>clumsiness.description</source>
+        <target>That wasn't supposed to happen. In the heat of the action you hurt yourself...</target>
+      </segment>
+    </unit>
+    <unit id="soiled">
+      <segment state="translated">
+        <source>soiled.description</source>
+        <target>Disgusting... You're filthy. (Not like that. Although...)</target>
+      </segment>
+    </unit>
+    <unit id="welcome_mush">
+      <segment state="translated">
+        <source>welcome_mush.title</source>
+        <target>Welcome to the cause, dearest MUSH</target>
+      </segment>
+      <segment state="translated">
+        <source>welcome_mush.description</source>
+        <target>Something has... changed. You feel different.////A calming serenity has overtaken you. You want to *share it* with your crewmates...////Comrade, **you are an agent of Mush**!////You can successfully complete your mission in two ways: by converting everyone to Mush, or by destroying the ship!////You'll begin your mission with **earned {quantity}** :triumph_mush:</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

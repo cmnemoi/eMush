@@ -139,6 +139,19 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->extractSporeAction->getActionPointCost());
     }
 
+    public function shouldNotGiveNotificationWhenGettingDirty(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasNoNotifications();
+
+        $this->givenKuanTiIsNotDirty($I);
+
+        $this->whenKuanTiExtractsSpore();
+
+        $this->thenKuanTiShouldBeDirty($I);
+
+        $this->thenKuanTiHasNoNotifications($I);
+    }
+
     private function givenAntisporeGasIsCompleted(FunctionalTester $I): void
     {
         $this->finishProject(
@@ -159,20 +172,6 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         $this->extractSporeAction->execute();
     }
 
-    private function whenKuanTiTriesToExtractSpore(): void
-    {
-        $this->extractSporeAction->loadParameters(
-            actionConfig: $this->extractSporeActionConfig,
-            actionProvider: $this->kuanTi,
-            player: $this->kuanTi
-        );
-    }
-
-    private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
-    {
-        $I->assertEquals($message, $this->extractSporeAction->cannotExecuteReason());
-    }
-
     private function givenActionCostActionPoints(int $actionPoints, FunctionalTester $I): void
     {
         $this->extractSporeActionConfig->setActionCost($actionPoints);
@@ -187,8 +186,48 @@ final class ExtractSporeCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenKuanTiHasNoNotifications(): void
+    {
+        $this->kuanTi->deleteNotification();
+    }
+
+    private function givenKuanTiIsNotDirty(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::DIRTY));
+    }
+
+    private function whenKuanTiTriesToExtractSpore(): void
+    {
+        $this->extractSporeAction->loadParameters(
+            actionConfig: $this->extractSporeActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi
+        );
+    }
+
+    private function whenKuanTiExtractsSpore(): void
+    {
+        $this->whenKuanTiTriesToExtractSpore();
+        $this->extractSporeAction->execute();
+    }
+
+    private function thenActionShouldNotBeExecutableWithMessage(FunctionalTester $I, string $message): void
+    {
+        $I->assertEquals($message, $this->extractSporeAction->cannotExecuteReason());
+    }
+
     private function thenActionShouldCostActionPoints(int $actionPoints, FunctionalTester $I): void
     {
         $I->assertEquals($actionPoints, $this->extractSporeAction->getActionPointCost());
+    }
+
+    private function thenKuanTiShouldBeDirty(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->kuanTi->hasStatus(PlayerStatusEnum::DIRTY));
+    }
+
+    private function thenKuanTiHasNoNotifications(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->kuanTi->hasNotification());
     }
 }

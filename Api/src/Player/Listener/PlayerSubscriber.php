@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
@@ -10,27 +11,37 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Triumph\Enum\TriumphEnum;
+use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlayerSubscriber implements EventSubscriberInterface
 {
-    private PlayerServiceInterface $playerService;
+    private ChangeTriumphFromEventService $changeTriumphFromEventService;
     private EventServiceInterface $eventService;
+    private PlayerServiceInterface $playerService;
     private RandomServiceInterface $randomService;
+    private UpdatePlayerNotificationService $updatePlayerNotification;
 
     public function __construct(
-        PlayerServiceInterface $playerService,
+        ChangeTriumphFromEventService $changeTriumphFromEventService,
         EventServiceInterface $eventService,
+        PlayerServiceInterface $playerService,
         RandomServiceInterface $randomService,
+        UpdatePlayerNotificationService $updatePlayerNotification,
     ) {
-        $this->playerService = $playerService;
+        $this->changeTriumphFromEventService = $changeTriumphFromEventService;
         $this->eventService = $eventService;
+        $this->playerService = $playerService;
         $this->randomService = $randomService;
+        $this->updatePlayerNotification = $updatePlayerNotification;
     }
 
     public static function getSubscribedEvents()
@@ -125,6 +136,10 @@ final class PlayerSubscriber implements EventSubscriberInterface
             $player->flagAsAlphaMush();
         }
         $this->playerService->persistPlayerInfo($playerInfo);
+
+        if ($event->doesNotHaveTag(ActionEnum::EXCHANGE_BODY->toString())) {
+            $this->sendNewMushNotification($player);
+        }
     }
 
     private function removeMoraleToOtherPlayers(Player $player): void
@@ -144,5 +159,18 @@ final class PlayerSubscriber implements EventSubscriberInterface
             );
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
+    }
+
+    private function sendNewMushNotification(Player $newMush): void
+    {
+        $lateMushTriumphConfig = $newMush->getDaedalus()->getGameConfig()->getTriumphConfig()->getByNameOrNull(TriumphEnum::CYCLE_MUSH_LATE);
+        $lateMushTriumphPerCycle = $lateMushTriumphConfig ? $lateMushTriumphConfig->getQuantity() : 0;
+        $triumphQuantity = $this->changeTriumphFromEventService->computeNewMushTriumph($newMush->getDaedalus(), $lateMushTriumphPerCycle);
+
+        $this->updatePlayerNotification->execute(
+            player: $newMush,
+            message: PlayerNotificationEnum::WELCOME_MUSH->toString(),
+            parameters: ['quantity' => $triumphQuantity, 'stamp' => 'true']
+        );
     }
 }

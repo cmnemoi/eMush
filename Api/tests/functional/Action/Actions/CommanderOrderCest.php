@@ -184,7 +184,7 @@ final class CommanderOrderCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: PlayerNotificationEnum::MISSION_SENT->toString(),
-            actual: $this->chun->getNotificationOrThrow()->getMessage(),
+            actual: $this->chun->getFirstNotificationOrThrow()->getMessage(),
         );
     }
 
@@ -192,7 +192,7 @@ final class CommanderOrderCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: PlayerNotificationEnum::MISSION_RECEIVED->toString(),
-            actual: $this->kuanTi->getNotificationOrThrow()->getMessage(),
+            actual: $this->kuanTi->getFirstNotificationOrThrow()->getMessage(),
         );
     }
 

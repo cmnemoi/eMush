@@ -179,7 +179,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'isMush' => $player->isMush(),
         ]);
         if ($player->hasNotification()) {
-            $playerData['notification'] = $this->normalizer->normalize($player->getNotificationOrThrow(), $format, $context);
+            $playerData['notification'] = $this->normalizer->normalize($player->getFirstNotificationOrThrow(), $format, $context);
         }
 
         return $playerData;

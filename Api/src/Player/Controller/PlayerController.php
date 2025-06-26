@@ -401,7 +401,7 @@ class PlayerController extends AbstractGameController
         $this->denyAccessUnlessGranted(PlayerVoter::PLAYER_VIEW, $player);
         $this->denyAccessUnlessGranted(UserVoter::HAS_ACCEPTED_RULES, message: 'You have to accept the rules to play the game.');
 
-        $this->deletePlayerNotification->execute($player->getNotificationOrThrow());
+        $this->deletePlayerNotification->execute($player->getFirstNotificationOrThrow());
 
         return $this->view(['detail' => 'Notification deleted successfully'], Response::HTTP_OK);
     }

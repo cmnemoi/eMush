@@ -1727,23 +1727,13 @@ Todos tus camaradas serán *notificados* y el anuncio permanecerá en :tip:  *Co
       </segment>
     </unit>
     <unit id="check_roster">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>check_roster.name</source>
-        <target>check_roster.name</target>
+        <target>Pasar revista</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>check_roster.description</source>
-        <target>check_roster.description</target>
-      </segment>
-    </unit>
-    <unit id="check_roster">
-      <segment id="name" state="initial">
-        <source>check_roster.name</source>
-        <target>check_roster.name</target>
-      </segment>
-      <segment id="description" state="initial">
-        <source>check_roster.description</source>
-        <target>check_roster.description</target>
+        <target>Te permite saber quién está a bordo.</target>
       </segment>
     </unit>
   </file>

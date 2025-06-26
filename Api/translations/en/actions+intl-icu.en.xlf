@@ -1722,13 +1722,13 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
     </unit>
     <unit id="check_roster">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>check_roster.name</source>
-        <target>check_roster.name</target>
+        <target>Check Roster</target>
       </segment>
       <segment id="description" state="initial">
         <source>check_roster.description</source>
-        <target>check_roster.description</target>
+        <target>Allows you to check who is onboard.</target>
       </segment>
     </unit>
   </file>

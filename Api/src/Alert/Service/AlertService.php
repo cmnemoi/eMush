@@ -226,6 +226,9 @@ class AlertService implements AlertServiceInterface
         $this->deleteAlertElement($reportedEquipment);
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function getAlertEquipmentElement(Alert $alert, GameEquipment $equipment): AlertElement
     {
         if ($equipment instanceof GameItem) {
@@ -238,7 +241,10 @@ class AlertService implements AlertServiceInterface
             throw $exception;
         }
 
-        $filteredList = $alert->getAlertElements()->filter(static fn (AlertElement $element) => $element->getEquipment()?->equals($equipment));
+        $filteredList = $alert
+            ->getAlertElements()
+            ->filter(static fn (AlertElement $element) => $element->getEquipment()?->equals($equipment));
+
         $alertEquipment = $filteredList->first();
 
         if (!$alertEquipment) {
@@ -292,6 +298,9 @@ class AlertService implements AlertServiceInterface
         $this->deleteAlertElement($reportedFire);
     }
 
+    /**
+     * @psalm-suppress InvalidArgument
+     */
     public function getAlertFireElement(Alert $alert, Place $place): AlertElement
     {
         $filteredList = $alert->getAlertElements()->filter(

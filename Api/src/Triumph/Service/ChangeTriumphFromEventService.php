@@ -47,6 +47,17 @@ final class ChangeTriumphFromEventService
         }
     }
 
+    public function computeNewMushTriumph(Daedalus $daedalus, int $triumphChangePerCycle): int
+    {
+        $mushInitialBonus = $daedalus->getGameConfig()->getTriumphConfig()->getByNameOrNull(TriumphEnum::MUSH_INITIAL_BONUS);
+        $startingTriumph = $mushInitialBonus ? $mushInitialBonus->getQuantity() : 0;
+        $filledAt = $daedalus->getFilledAt() ?? new \DateTime();
+        $nextCycleAt = $this->cycleService->getDateStartNextCycle($daedalus);
+        $cyclesLasted = $this->cycleService->getNumberOfCycleElapsed($filledAt, $nextCycleAt, $daedalus->getDaedalusInfo());
+
+        return max($startingTriumph + $cyclesLasted * $triumphChangePerCycle, 0);
+    }
+
     private function addTriumphToPlayer(TriumphConfig $triumphConfig, Player $player): void
     {
         if ($this->isPreventedByRegression($triumphConfig, $player)) {
@@ -93,16 +104,6 @@ final class ChangeTriumphFromEventService
     {
         $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
         $closedPlayer->recordTriumphGain($triumphConfig->getLogName(), $quantity);
-    }
-
-    private function computeNewMushTriumph(Daedalus $daedalus, int $triumphChangePerCycle): int
-    {
-        $startingTriumph = $daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::MUSH_INITIAL_BONUS)->getQuantity();
-        $filledAt = $daedalus->getFilledAt() ?? new \DateTime();
-        $nextCycleAt = $this->cycleService->getDateStartNextCycle($daedalus);
-        $cyclesLasted = $this->cycleService->getNumberOfCycleElapsed($filledAt, $nextCycleAt, $daedalus->getDaedalusInfo());
-
-        return max($startingTriumph + $cyclesLasted * $triumphChangePerCycle, 0);
     }
 
     private function isPreventedByRegression(TriumphConfig $triumphConfig, Player $player): bool

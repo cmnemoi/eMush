@@ -97,5 +97,15 @@
                 }</target>
       </segment>
     </unit>
+    <unit id="welcome_mush">
+      <segment state="initial">
+        <source>welcome_mush.title</source>
+        <target>welcome_mush.title</target>
+      </segment>
+      <segment state="initial">
+        <source>welcome_mush.description</source>
+        <target>welcome_mush.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

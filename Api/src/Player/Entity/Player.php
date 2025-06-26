@@ -142,10 +142,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $actionHistory = [];
 
-    // deprecated
-    #[ORM\OneToOne(mappedBy: 'player', targetEntity: PlayerNotification::class)]
-    private ?PlayerNotification $notification = null;
-
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: PlayerNotification::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $notifications;
 

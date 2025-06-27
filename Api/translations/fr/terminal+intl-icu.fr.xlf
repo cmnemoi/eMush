@@ -260,6 +260,22 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>Non</target>
       </segment>
+      <segment id="death_announcements_name" state="final">
+        <source>bios_terminal.death_announcements_name</source>
+        <target>Signaler les décès</target>
+      </segment>
+      <segment id="death_announcements_description" state="translated">
+        <source>bios_terminal.death_announcements_description</source>
+        <target>Active la possibilité pour NERON de signaler les décès avec une annonce.</target>
+      </segment>
+      <segment id="death_announcements_toggle_active" state="translated">
+        <source>bios_terminal.death_announcements_toggle_active</source>
+        <target>Oui</target>
+      </segment>
+      <segment id="death_announcements_toggle_inactive" state="translated">
+        <source>bios_terminal.death_announcements_toggle_inactive</source>
+        <target>Non</target>
+      </segment>
       <segment id="vocoded_announcements_name" state="translated">
         <source>bios_terminal.vocoded_announcements_name</source>
         <target>Annonces vocodées</target>

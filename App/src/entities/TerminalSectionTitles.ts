@@ -23,6 +23,8 @@ export class TerminalSectionTitles {
     public xylophDb: string|null = null;
     public vocodedAnnouncementName: string|null = null;
     public vocodedAnnouncementDescription: string|null = null;
+    public deathAnnouncementName: string|null = null;
+    public deathAnnouncementDescription: string|null = null;
 
     public load(object: any): TerminalSectionTitles {
         if (object) {
@@ -50,6 +52,8 @@ export class TerminalSectionTitles {
             this.xylophDb = object['xyloph_db'];
             this.vocodedAnnouncementName = object['vocoded_announcements_name'];
             this.vocodedAnnouncementDescription = object['vocoded_announcements_description'];
+            this.deathAnnouncementName = object['death_announcements_name'];
+            this.deathAnnouncementDescription = object['death_announcements_description'];
         }
         return this;
     }

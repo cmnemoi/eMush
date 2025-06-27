@@ -48,6 +48,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $time = $event->getTime();
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
+        $neron = $player->getDaedalus()->getNeron();
 
         $channels = $this->channelService->getPlayerChannels($player, true);
         foreach ($channels as $channel) {
@@ -61,7 +62,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($endCause === null) {
             throw new \LogicException('Player should die with a reason');
         }
-        if (EndCauseEnum::isDeathEndCause($endCause)) {
+        if (EndCauseEnum::isDeathEndCause($endCause) && $neron->areDeathAnnouncementsActive()) {
             $this->neronMessageService->createPlayerDeathMessage($player, $endCause, $time);
         }
     }

@@ -189,6 +189,7 @@ enum ActionEnum: string
     case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
     case TOGGLE_NERON_INHIBITION = 'toggle_neron_inhibition';
     case TOGGLE_VOCODED_ANNOUNCEMENTS = 'toggle_vocoded_announcements';
+    case TOGGLE_DEATH_ANNOUNCEMENTS = 'toggle_death_announcements';
     case DECODE_REBEL_SIGNAL = 'decode_rebel_signal';
     case PARTICIPATE_RESEARCH = 'participate_research';
     case COMPUTE_EDEN = 'compute_eden';

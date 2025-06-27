@@ -598,6 +598,9 @@ abstract class ActionLogEnum
         ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
         ],
+        ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value => [
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
         ActionEnum::UPGRADE_DRONE_TO_SENSOR->value => [
             ActionOutputEnum::SUCCESS => self::UPGRADE_DRONE_TO_SENSOR_SUCCESS,
         ],

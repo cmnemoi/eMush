@@ -39,6 +39,9 @@ class Neron
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $vocodedAnnouncements = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
+    private bool $deathAnnouncements = true;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -128,5 +131,15 @@ class Neron
     public function shouldRefuseVocodedAnnouncementsForPlayer(Player $player): bool
     {
         return $player->doesNotHaveTitle(TitleEnum::NERON_MANAGER) || $this->vocodedAnnouncements === false;
+    }
+
+    public function areDeathAnnouncementsActive(): bool
+    {
+        return $this->deathAnnouncements;
+    }
+
+    public function toggleDeathAnnouncements(): void
+    {
+        $this->deathAnnouncements = !$this->deathAnnouncements;
     }
 }

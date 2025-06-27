@@ -336,6 +336,8 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'isNeronInhibited' => $neron->isInhibited(),
             'areVocodedAnnouncementsActive' => $neron->areVocodedAnnouncementsActive(),
             'vocodedAnnouncementsToggles' => $this->getTranslatedVocodedAnnouncementsToggles($terminal),
+            'areDeathAnnouncementsActive' => $neron->areDeathAnnouncementsActive(),
+            'deathAnnouncementsToggles' => $this->getTranslatedDeathAnnouncementsToggles($terminal),
         ];
         if ($daedalus->hasFinishedProject(ProjectName::PLASMA_SHIELD)) {
             $infos['plasmaShieldToggles'] = $this->getTranslatedPlasmaShieldToggles($terminal);
@@ -679,5 +681,23 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $vocodedAnnouncementsToggles;
+    }
+
+    private function getTranslatedDeathAnnouncementsToggles(GameEquipment $terminal): array
+    {
+        $deathAnnouncementsToggles = [];
+        foreach (['active', 'inactive'] as $toggle) {
+            $deathAnnouncementsToggles[] = [
+                'key' => $toggle,
+                'name' => $this->translationService->translate(
+                    key: $terminal->getName() . '.death_announcements_toggle_' . $toggle,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                ),
+            ];
+        }
+
+        return $deathAnnouncementsToggles;
     }
 }

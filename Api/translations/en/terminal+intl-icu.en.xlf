@@ -275,6 +275,22 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>No</target>
       </segment>
+      <segment id="death_announcements_name" state="final">
+        <source>bios_terminal.death_announcements_name</source>
+        <target>Report Deaths</target>
+      </segment>
+      <segment id="death_announcements_description" state="translated">
+        <source>bios_terminal.death_announcements_description</source>
+        <target>Allows NERON to make announcements reporting crew deaths.</target>
+      </segment>
+      <segment id="death_announcements_toggle_active" state="translated">
+        <source>bios_terminal.death_announcements_toggle_active</source>
+        <target>Yes</target>
+      </segment>
+      <segment id="death_announcements_toggle_inactive" state="translated">
+        <source>bios_terminal.death_announcements_toggle_inactive</source>
+        <target>No</target>
+      </segment>
       <segment id="vocoded_announcements_name" state="translated">
         <source>bios_terminal.vocoded_announcements_name</source>
         <target>Vocoder Announcements</target>

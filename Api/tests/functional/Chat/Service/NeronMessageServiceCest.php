@@ -2,68 +2,48 @@
 
 namespace Mush\Tests\functional\Chat\Service;
 
-use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Message;
-use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\NeronMessageService;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Entity\Neron;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
-class NeronMessageServiceCest
+/**
+ * @internal
+ */
+final class NeronMessageServiceCest extends AbstractFunctionalTest
 {
     private NeronMessageService $neronMessageService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
         $this->neronMessageService = $I->grabService(NeronMessageService::class);
     }
 
     public function testCreateNewFireMessage(FunctionalTester $I)
     {
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
+        $neron = $this->daedalus->getNeron();
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
+        // given i'm at the beginning of a cycle
         $time = new \DateTime();
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => $time]);
+        // when i create a new fire message
+        $this->neronMessageService->createNewFireMessage($this->daedalus, $time);
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo
-            ->setNeron($neron);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        $this->neronMessageService->createNewFireMessage($daedalus, $time);
-
+        // then i should see a cycle failure msg, a fire msg and the first should be the parent of the later
         $message = $I->grabEntityFromRepository(Message::class, [
-            'neron' => $neron,
             'message' => NeronMessageEnum::CYCLE_FAILURES,
-            'channel' => $channel,
             'parent' => null,
+            'neron' => $neron,
+            'channel' => $this->publicChannel,
             'createdAt' => $time,
         ]);
 
         $answer = $I->grabEntityFromRepository(Message::class, [
-            'neron' => $neron,
             'message' => NeronMessageEnum::NEW_FIRE,
-            'channel' => $channel,
+            'neron' => $neron,
+            'channel' => $this->publicChannel,
             'createdAt' => $time,
         ]);
 
@@ -71,37 +51,43 @@ class NeronMessageServiceCest
         $I->assertInstanceOf(Message::class, $answer);
         $I->assertEquals($answer->getParent(), $message);
 
+        // given i'm one hour later
         $time2 = $time->add(new \DateInterval('PT1H'));
-        $this->neronMessageService->createNewFireMessage($daedalus, $time2);
 
+        // when i create a new fire message
+        $this->neronMessageService->createNewFireMessage($this->daedalus, $time2);
+
+        // then i should see a new fire msg and the cycle failure msg above should be it's parent.
         $answer2 = $I->grabEntityFromRepository(Message::class, [
-            'neron' => $neron,
             'message' => NeronMessageEnum::NEW_FIRE,
-            'channel' => $channel,
+            'neron' => $neron,
+            'channel' => $this->publicChannel,
             'createdAt' => $time2,
         ]);
 
         $I->assertInstanceOf(Message::class, $answer2);
         $I->assertEquals($answer2->getParent(), $message);
 
-        // new cycle
+        // given i'm a cycle later
         $time3 = $time2->add(new \DateInterval('PT3H'));
-        $daedalus->setCycleStartedAt($time3)->setCycle($daedalus->getCycle() + 1);
+        $this->daedalus->setCycleStartedAt($time3)->setCycle($this->daedalus->getCycle() + 1);
 
-        $this->neronMessageService->createNewFireMessage($daedalus, $time3);
+        // when i create a new fire message
+        $this->neronMessageService->createNewFireMessage($this->daedalus, $time3);
 
+        // then i should see a new cycle failure msg, a new fire msg and the first should be the parent of the later
         $message3 = $I->grabEntityFromRepository(Message::class, [
-            'neron' => $neron,
             'message' => NeronMessageEnum::CYCLE_FAILURES,
-            'channel' => $channel,
             'parent' => null,
+            'neron' => $neron,
+            'channel' => $this->publicChannel,
             'createdAt' => $time3,
         ]);
 
         $answer3 = $I->grabEntityFromRepository(Message::class, [
-            'neron' => $neron,
             'message' => NeronMessageEnum::NEW_FIRE,
-            'channel' => $channel,
+            'neron' => $neron,
+            'channel' => $this->publicChannel,
             'createdAt' => $time3,
         ]);
 

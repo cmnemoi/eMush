@@ -3,112 +3,83 @@
 namespace Mush\Tests\functional\Chat\Listener;
 
 use Mush\Chat\Entity\Channel;
-use Mush\Chat\Entity\ChannelPlayer;
-use Mush\Chat\Enum\ChannelScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\NeronMessageEnum;
+use Mush\Chat\Services\ChannelServiceInterface;
 use Mush\Daedalus\Entity\Neron;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\GameStatusEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
-final class PlayerDeathCest
+/**
+ * @internal
+ */
+final class PlayerDeathCest extends AbstractFunctionalTest
 {
     private PlayerServiceInterface $playerService;
+    private ChannelServiceInterface $channelService;
 
     public function _before(FunctionalTester $I): void
     {
+        parent::_before($I);
+
+        $this->channelService = $I->grabService(ChannelServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $neron = $this->daedalus->getNeron();
+        // given a private channel is created
+        $privateChannel = $this->channelService->createPrivateChannel($this->player);
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, [
-            'cycle' => 5,
-            'day' => 10,
-            'filledAt' => new \DateTime(),
-            'cycleStartedAt' => new \DateTime(),
-        ]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo->setNeron($neron)->setGameStatus(GameStatusEnum::CURRENT);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['name' => 'test']);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $player->setPlayerVariables($characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $privateChannel = new Channel();
-        $privateChannel
-            ->setScope(ChannelScopeEnum::PRIVATE)
-            ->setDaedalus($daedalusInfo);
-        $I->haveInRepository($privateChannel);
-
-        $privateChannelParticipant = new ChannelPlayer();
-        $privateChannelParticipant->setParticipant($playerInfo)->setChannel($privateChannel);
-        $I->haveInRepository($privateChannelParticipant);
-
-        $privateChannel->addParticipant($privateChannelParticipant);
-        $I->refreshEntities($privateChannel);
-
-        $publicChannel = new Channel();
-        $publicChannel
-            ->setScope(ChannelScopeEnum::PUBLIC)
-            ->setDaedalus($daedalusInfo);
-        $I->haveInRepository($publicChannel);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setScope(ChannelScopeEnum::MUSH)
-            ->setDaedalus($daedalusInfo);
-        $I->haveInRepository($mushChannel);
-
-        $I->refreshEntities($publicChannel);
-
+        // when a player is killed
         $this->playerService->killPlayer(
-            player: $player,
-            endReason: EndCauseEnum::BLED,
+            player: $this->player,
+            endReason: EndCauseEnum::ROCKETED,
             time: new \DateTime(),
         );
 
-        $I->assertCount(1, $publicChannel->getMessages());
-        $I->assertCount(1, $privateChannel->getMessages());
+        // then i should see player death message from neron in the public channel
+        $message1 = $I->grabEntityFromRepository(Message::class, [
+            'message' => NeronMessageEnum::PLAYER_DEATH,
+            'neron' => $neron,
+            'channel' => $this->publicChannel,
+        ]);
+        $I->assertInstanceOf(Message::class, $message1);
 
+        // then i should see player leave because of death from the system in the private channel
+        $message2 = $I->grabEntityFromRepository(Message::class, [
+            'message' => NeronMessageEnum::PLAYER_LEAVE_CHAT_DEATH,
+            'channel' => $privateChannel,
+        ]);
+        $I->assertInstanceOf(Message::class, $message2);
+
+        // then there should be no player in the private channel
         $I->assertCount(0, $privateChannel->getParticipants());
+    }
+
+    public function testNeronShouldNotAnnounceDeathIfBIOSOptionIsOff(FunctionalTester $I)
+    {
+        $neron = $this->daedalus->getNeron();
+
+        // given death announcements are toggled off
+        $this->daedalus->getNeron()->toggleDeathAnnouncements();
+
+        // when a player is killed
+        $this->playerService->killPlayer(
+            player: $this->player,
+            endReason: EndCauseEnum::ROCKETED,
+            time: new \DateTime(),
+        );
+
+        // then i should not see a player death message from neron in the public channel
+        $I->cantSeeInRepository(Message::class, [
+            'message' => NeronMessageEnum::PLAYER_DEATH,
+            'neron' => $neron,
+            'channel' => $this->publicChannel,
+        ]);
     }
 }

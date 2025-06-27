@@ -27,6 +27,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Skill\Dto\ChooseSkillDto;
@@ -220,6 +221,31 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         // then the scrap metal is moved to the start place too
         $I->assertTrue($explorationStartPlace->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
+    }
+
+    public function testCloseExplorationNotifyExplorators(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->explorationService->createExploration(
+            players: new PlayerCollection([$this->player1, $this->player2]),
+            explorationShip: $this->icarus,
+            numberOfSectorsToVisit: $this->planet->getSize(),
+            reasons: ['test'],
+        );
+
+        // then the explorators have no notification
+        $I->assertFalse($this->player1->hasNotification());
+        $I->assertFalse($this->player2->hasNotification());
+
+        // when closeExploration is called
+        $this->explorationService->closeExploration(
+            exploration: $exploration,
+            reasons: ['test'],
+        );
+
+        // then the explorators should be given exploration finished notification
+        $I->assertTrue($this->player1->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED->toString()));
+        $I->assertTrue($this->player2->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED->toString()));
     }
 
     public function testDispatchExplorationEventDispatchesExplorationEvent(FunctionalTester $I): void

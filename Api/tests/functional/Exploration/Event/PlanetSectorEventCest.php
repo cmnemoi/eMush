@@ -31,6 +31,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
@@ -1383,6 +1384,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then the exploration should be finished
         $I->assertTrue($closedExploration->isExplorationFinished());
+
+        // then notifications should be sent to non-lost explorers
+        $I->assertTrue($this->chun->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
+        $I->assertTrue($this->kuanTi->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
+        $I->assertTrue($this->derek->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
+        $I->assertFalse($this->janice->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
     }
 
     public function testPlayerLostEvent(FunctionalTester $I): void

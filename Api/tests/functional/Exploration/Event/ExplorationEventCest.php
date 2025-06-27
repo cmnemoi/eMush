@@ -16,6 +16,7 @@ use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractExplorationTester;
@@ -366,5 +367,31 @@ final class ExplorationEventCest extends AbstractExplorationTester
 
         // then Kuan Ti has lost cycles 2 (starting expedition and new cycle)
         $I->assertEquals(2, $this->kuanTi->getPlayerInfo()->getStatistics()->getLostCycles());
+    }
+
+    public function testExpeditionStartedNoSpacesuitNotification(FunctionalTester $I): void
+    {
+        // given Chun has a spacesuit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: GearItemEnum::SPACESUIT,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given I have a planet to explore
+        $planet = $this->createPlanet(
+            sectors: [
+                PlanetSectorEnum::DESERT,
+            ],
+            functionalTester: $I,
+        );
+
+        // when exploration starts
+        $this->createExploration($planet, $this->players);
+
+        // then only Kuan Ti gets notification
+        $I->assertTrue($this->kuanTi->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_STARTED_NO_SPACESUIT->toString()));
+        $I->assertFalse($this->chun->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_STARTED_NO_SPACESUIT->toString()));
     }
 }

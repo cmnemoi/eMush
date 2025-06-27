@@ -61,6 +61,76 @@
         <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
       </segment>
     </unit>
+    <unit id="exploration_closed_everyone_dead">
+      <segment state="translated">
+        <source>exploration_closed_everyone_dead.subTitle</source>
+        <target>L'expédition s'est terminée plus tôt que prévu : tous les explorateurs sont morts !</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_everyone_dead.description</source>
+        <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_no_spacesuit">
+      <segment state="translated">
+        <source>exploration_closed_no_spacesuit.subTitle</source>
+        <target>L'exploration est revenue plus tôt que prévu : personne n'avait de combinaison !</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_no_spacesuit.description</source>
+        <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_mankarog">
+      <segment state="translated">
+        <source>exploration_closed_return_event_mankarog.subTitle</source>
+        <target>L'expédition observe à l'horizon un Mankarog passer derrière une montagne… Il vaut mieux changer de cap dès maintenant avant d'avoir des ennuis.</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_return_event_mankarog.description</source>
+        <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_seismic_activity">
+      <segment state="translated">
+        <source>exploration_closed_return_event_seismic_activity.subTitle</source>
+        <target>Une violente secousse paralyse l'expédition… Puis de nouveau le silence… Mieux vaut revenir au Daedalus vite fait !</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_return_event_seismic_activity.description</source>
+        <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_volcanic_activity">
+      <segment state="translated">
+        <source>exploration_closed_return_event_volcanic_activity.subTitle</source>
+        <target>Après un grondement sourd, un volcan non loin d'ici commence à rejeter une épaisse fumée noire, vous rejoignez le Daedalus à toute vitesse !</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_return_event_volcanic_activity.description</source>
+        <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed">
+      <segment state="initial">
+        <source>exploration_closed.subTitle</source>
+        <target>exploration_closed.subTitle</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed.description</source>
+        <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_started_no_spacesuit">
+      <segment state="initial">
+        <source>exploration_started_no_spacesuit.subTitle</source>
+        <target>exploration_started_no_spacesuit.subTitle</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_started_no_spacesuit.description</source>
+        <target>Vous pouvez consulter {exploration_link} pour découvrir ce qui s'est passé...</target>
+      </segment>
+    </unit>
     <unit id="announcement_received">
       <segment state="translated">
         <source>announcement_received.title</source>

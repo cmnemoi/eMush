@@ -103,6 +103,12 @@ final class RunHomeCest extends AbstractExplorationTester
                 ]
             );
         }
+        $I->dontSeeInRepository(
+            entity: PlayerNotification::class,
+            params: [
+                'message' => PlayerNotificationEnum::EXPLORATION_CLOSED->toString(),
+            ]
+        );
     }
 
     private function thenActionShouldNotBeVisible(FunctionalTester $I): void

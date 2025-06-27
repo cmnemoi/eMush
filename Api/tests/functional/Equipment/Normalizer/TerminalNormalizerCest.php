@@ -352,6 +352,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'neron_inhibition_description' => 'Active l\'inhibiteur de comportements de NERON. L\'inhibiteur permet de changer un certain nombre de comportements de NERON concernant l\'agressivité.',
                 'vocoded_announcements_name' => 'Annonces vocodées',
                 'vocoded_announcements_description' => 'Active la possibilité pour NERON de porter les messages de l\'Administrateur NERON.',
+                'death_announcements_name' => 'Signaler les décès',
+                'death_announcements_description' => 'Active la possibilité pour NERON de signaler les décès avec une annonce.',
             ],
             actual: $normalizedTerminal['sectionTitles']
         );
@@ -397,6 +399,11 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'vocodedAnnouncementsToggles' => [
                     ['key' => 'active', 'name' => 'Autorisées'],
                     ['key' => 'inactive', 'name' => 'Pas autorisées'],
+                ],
+                'areDeathAnnouncementsActive' => true,
+                'deathAnnouncementsToggles' => [
+                    ['key' => 'active', 'name' => 'Oui'],
+                    ['key' => 'inactive', 'name' => 'Non'],
                 ],
             ],
             actual: $normalizedTerminal['infos']

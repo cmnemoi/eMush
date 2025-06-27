@@ -1495,6 +1495,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de câliner amoureusement Schrödinger. Apporte un peu de joie la première fois...</target>
       </segment>
     </unit>
+    <unit id="cure_cat">
+      <segment id="name" state="translated">
+        <source>cure_cat.name</source>
+        <target>Vacciner</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cure_cat.description</source>
+        <target>Le vaccin anti-Mush injecte un retro-fongique puissant qui annule tout les effets du Mush sur un sujet infecté. Ce sujet-là feule, griffe et vous fait comprendre par tous les moyens à sa disposition qu'il ne veut pas que cette aiguille s'approche de lui.</target>
+      </segment>
+    </unit>
     <unit id="convert_cat">
       <segment id="name" state="translated">
         <source>convert_cat.name</source>

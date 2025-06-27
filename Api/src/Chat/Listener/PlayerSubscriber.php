@@ -83,7 +83,9 @@ class PlayerSubscriber implements EventSubscriberInterface
             return;
         }
         if ($key === MushMessageEnum::INFECT_CAT) {
-            $mush = $player->getEquipmentByNameOrThrow(ItemEnum::SCHRODINGER)->getStatusByNameOrThrow(EquipmentStatusEnum::CAT_INFECTED)->getPlayerTargetOrThrow();
+            $catHolder = $player->hasEquipmentByName(ItemEnum::SCHRODINGER) ? $player : $player->getPlace();
+            $mush = $catHolder->getEquipmentByNameOrThrow(ItemEnum::SCHRODINGER)->getStatusByNameOrThrow(EquipmentStatusEnum::CAT_INFECTED)->getPlayerTargetOrThrow();
+
             $params['item'] = ItemEnum::SCHRODINGER;
             $params[$mush->getLogKey()] = $mush->getLogName();
         }

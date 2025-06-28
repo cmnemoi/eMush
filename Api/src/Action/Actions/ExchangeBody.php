@@ -135,6 +135,7 @@ final class ExchangeBody extends AbstractAction
             $this->getTags(),
             new \DateTime(),
         );
+        $event->setAuthor($this->player);
         $this->eventService->callEvent($event, PlayerEvent::CONVERSION_PLAYER);
     }
 

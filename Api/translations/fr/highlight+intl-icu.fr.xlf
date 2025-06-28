@@ -483,18 +483,6 @@
         <target>Vous vous êtes transformé en horrible monstre furieux !</target>
       </segment>
     </unit>
-    <unit id="exchange_body">
-      <segment id="highlight" state="initial">
-        <source>exchange_body.highlight</source>
-        <target>exchange_body.highlight</target>
-      </segment>
-    </unit>
-    <unit id="exchange_body_target">
-      <segment id="highlight" state="initial">
-        <source>exchange_body_target.highlight</source>
-        <target>exchange_body_target.highlight</target>
-      </segment>
-    </unit>
     <unit id="hidden">
       <segment id="highlight" state="translated">
         <source>hidden.highlight</source>
@@ -511,6 +499,18 @@
       <segment id="highlight" state="translated">
         <source>conversion.player_target.highlight</source>
         <target>Vous faites parti du Mush grâce à **{character}** !</target>
+      </segment>
+    </unit>
+    <unit id="conversion.player">
+      <segment id="highlight" state="initial">
+        <source>conversion.player.highlight_transfer</source>
+        <target>conversion.player.highlight_transfer</target>
+      </segment>
+    </unit>
+    <unit id="conversion.player_target">
+      <segment id="highlight" state="initial">
+        <source>conversion.player_target.highlight_transfer</source>
+        <target>conversion.player_target.highlight_transfer</target>
       </segment>
     </unit>
   </file>

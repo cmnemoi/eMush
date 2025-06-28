@@ -76,8 +76,5 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         if (!$target instanceof Player) {
             return;
         }
-
-        $target->addPlayerHighlight(PlayerHighlight::fromEventForTarget($event));
-        $this->playerRepository->save($target);
     }
 }

@@ -531,11 +531,11 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: [
-                'name' => 'exchange_body',
-                'result' => PlayerHighlight::SUCCESS,
+                'name' => 'conversion.player',
+                'result' => PlayerHighlight::TRANSFER,
                 'parameters' => ['target_' . $this->target->getLogKey() => $this->target->getLogName()],
             ],
-            actual: $this->source->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
+            actual: $this->source->getPlayerInfo()->getPlayerHighlights()[1]->toArray(), // first highlight comes from exchange_body action
         );
     }
 
@@ -543,8 +543,8 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: [
-                'name' => 'exchange_body_target',
-                'result' => PlayerHighlight::SUCCESS,
+                'name' => 'conversion.player_target',
+                'result' => PlayerHighlight::TRANSFER,
                 'parameters' => [$this->source->getLogKey() => $this->source->getLogName()],
             ],
             actual: $this->target->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),

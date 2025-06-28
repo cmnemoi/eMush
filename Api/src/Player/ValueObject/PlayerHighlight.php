@@ -10,6 +10,7 @@ use Mush\Player\Event\PlayerHighlightSourceEventInterface;
 final class PlayerHighlight
 {
     public const string SUCCESS = 'success';
+    public const string TRANSFER = 'transfer';
 
     public function __construct(
         private string $name,
@@ -53,7 +54,7 @@ final class PlayerHighlight
 
     public function toTranslationKey(): string
     {
-        return $this->isSuccessHighlight() ? "{$this->name}.highlight" : "{$this->name}.highlight_fail";
+        return $this->isSuccessHighlight() ? "{$this->name}.highlight" : "{$this->name}.highlight_{$this->result}";
     }
 
     public function toTranslationParameters(): array

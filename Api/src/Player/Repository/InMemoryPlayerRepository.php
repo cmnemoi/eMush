@@ -6,6 +6,7 @@ namespace Mush\Player\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
+use Mush\User\Entity\User;
 
 final class InMemoryPlayerRepository implements PlayerRepositoryInterface
 {
@@ -79,6 +80,21 @@ final class InMemoryPlayerRepository implements PlayerRepositoryInterface
     {
         foreach ($this->players as $player) {
             if ($player->getName() === $name) {
+                return $player;
+            }
+        }
+
+        return null;
+    }
+
+    public function findOneByUserAndDaedalus(User $user, Daedalus $daedalus): ?Player
+    {
+        /** @var Player $player */
+        foreach ($this->players as $player) {
+            if (
+                $player->getPlayerInfo()->getUser()->getId() === $user->getId()
+                && $player->getDaedalus()->equals($daedalus)
+            ) {
                 return $player;
             }
         }

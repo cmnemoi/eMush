@@ -19,6 +19,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerHighlightSourceEventInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Entity\Skill;
@@ -282,6 +283,17 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         }
 
         return $target;
+    }
+
+    public function recordHighlights(): void
+    {
+        $author = $this->getAuthor();
+        $parametersForAuthor = $this->hasHighlightTarget() ? ['target_' . $this->getHighlightTarget()->getLogKey() => $this->getHighlightTarget()->getLogName()] : [];
+        $author->addPlayerHighlight(new PlayerHighlight(
+            name: $this->getHighlightName(),
+            result: $this->getHighlightResult(),
+            parameters: $parametersForAuthor
+        ));
     }
 
     protected function addEventTags(): void

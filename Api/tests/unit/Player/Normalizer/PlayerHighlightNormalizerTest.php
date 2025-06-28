@@ -38,7 +38,7 @@ final class PlayerHighlightNormalizerTest extends TestCase
         // Given
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SCAN->toString(),
-            author: [],
+            parameters: [],
             result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn('Vous avez découvert une nouvelle planète !');
@@ -56,8 +56,7 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::HIT->toString(),
-            author: [],
-            target: ['target_' . $chun->getLogKey() => $chun->getLogName()],
+            parameters: ['target_' . $chun->getLogKey() => $chun->getLogName()],
             result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
@@ -79,8 +78,7 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $biosTerminal = GameEquipmentFactory::createEquipmentByName(EquipmentEnum::BIOS_TERMINAL);
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SABOTAGE->toString(),
-            author: [],
-            target: ['target_' . $biosTerminal->getLogKey() => $biosTerminal->getLogName()],
+            parameters: ['target_' . $biosTerminal->getLogKey() => $biosTerminal->getLogName()],
             result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
@@ -102,8 +100,7 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $laboratory = Place::createRoomByName(RoomEnum::LABORATORY);
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SPREAD_FIRE->toString(),
-            author: [],
-            target: ['target_' . $laboratory->getLogKey() => $laboratory->getLogName()],
+            parameters: ['target_' . $laboratory->getLogKey() => $laboratory->getLogName()],
             result: (new Success())->getName(),
         );
         $this->givenTranslationServiceWillReturn(
@@ -125,8 +122,7 @@ final class PlayerHighlightNormalizerTest extends TestCase
         $chun = PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::ATTACK->toString(),
-            author: [],
-            target: ['target_' . $chun->getLogKey() => $chun->getLogName()],
+            parameters: ['target_' . $chun->getLogKey() => $chun->getLogName()],
             result: (new Fail())->getName(),
         );
         $this->givenTranslationServiceWillReturn(

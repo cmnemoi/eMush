@@ -17,4 +17,6 @@ interface PlayerHighlightSourceEventInterface
     public function getHighlightTarget(): PlayerHighlightTargetInterface;
 
     public function hasHighlightTarget(): bool;
+
+    public function recordHighlights(): void;
 }

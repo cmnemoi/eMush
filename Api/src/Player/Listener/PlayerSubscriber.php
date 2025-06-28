@@ -15,7 +15,6 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -125,12 +124,9 @@ final class PlayerSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $player->addPlayerHighlight(PlayerHighlight::fromEventForTarget($event));
+        $event->recordHighlights();
         $this->playerRepository->save($player);
-
-        $author = $event->getAuthorOrThrow();
-        $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
-        $this->playerRepository->save($author);
+        $this->playerRepository->save($event->getAuthorOrThrow());
     }
 
     private function removeMoraleToOtherPlayers(Player $player): void

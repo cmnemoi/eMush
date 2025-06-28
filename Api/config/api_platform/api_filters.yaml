@@ -91,7 +91,7 @@ services:
     closedPlayer.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
         arguments:
-            $properties: { dayDeath: DESC, cycleDeath: DESC }
+            $properties: { dayDeath: DESC, triumph: DESC }
             $orderParameterName: order
         tags: [ 'api_platform.filter' ]
         autowire: false

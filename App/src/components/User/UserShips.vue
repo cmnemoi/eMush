@@ -65,12 +65,12 @@ export default defineComponent({
                     image: 'characterBody'
                 },
                 {
-                    key: 'timeSurvived',
+                    key: 'dayDeath',
                     name: 'userShips.timeSurvived',
                     sortable: true
                 },
                 {
-                    key: 'score',
+                    key: 'triumph',
                     name: 'userShips.triumph',
                     sortable: true,
                     image: 'triumphIcon'
@@ -147,7 +147,7 @@ export default defineComponent({
                         closedPlayer.endCause = this.$t('userShips.endCause.' + closedPlayer.endCause);
                         closedPlayer.character = this.getCharacterNameFromKey(closedPlayer.characterKey);
                         closedPlayer.characterBody = this.getCharacterBodyFromKey(closedPlayer.characterKey);
-                        closedPlayer.timeSurvived = this.getDaysCyclesStringFromCyclesSurvived(closedPlayer.cyclesSurvived);
+                        closedPlayer.dayDeath = this.getDaysCyclesStringFromCyclesSurvived(closedPlayer.cyclesSurvived);
                         closedPlayer.score = closedPlayer.triumph ?? closedPlayer.cyclesSurvived;
                         closedPlayer.triumphIcon = closedPlayer.isMush ? this.getImgUrl('ui_icons/player_variables/triumph_mush.png') : this.getImgUrl('ui_icons/player_variables/triumph.png');
                     }
@@ -197,7 +197,7 @@ export default defineComponent({
             const days = Math.floor(cyclesSurvived / 8);
             const cycles = cyclesSurvived % 8;
             const dayCycleString = [];
-        
+
             if (days > 0) {
                 dayCycleString.push(`${days} ${days === 1 ? this.$t('userShips.day') : this.$t('userShips.days')}`);
             }

@@ -26,7 +26,7 @@ class DaedalusConfigData
             'dailySporeNb' => 4,
             'nbMush' => 2,
             'cyclePerGameDay' => 8,
-            'cycleLength' => 180,
+            'cycleLength' => 1,
             'randomItemPlaces' => 'default',
             'startingApprentrons' => [
                 'apprentron_technician' => 14,

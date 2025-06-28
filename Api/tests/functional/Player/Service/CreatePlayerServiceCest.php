@@ -30,6 +30,7 @@ use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
+use Mush\User\Factory\UserFactory;
 
 class CreatePlayerServiceCest
 {
@@ -128,12 +129,15 @@ class CreatePlayerServiceCest
         $gameConfig->setCharactersConfig($charactersConfig);
         $daedalus->setAvailableCharacters($charactersConfig);
         $daedalusInfo->setGameConfig($gameConfig);
+        $I->haveInRepository($daedalus);
 
         $playerGioele = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::GIOELE);
 
         $I->assertEquals($gioeleCharacterConfig, $playerGioele->getPlayerInfo()->getCharacterConfig());
         $I->assertEquals($gioeleCharacterConfig->getInitActionPoint(), $playerGioele->getActionPoint());
 
+        $user = UserFactory::createUser();
+        $I->haveInRepository($user);
         $playerFinola = $this->playerService->createPlayer($daedalus, $user, CharacterEnum::FINOLA);
 
         $I->assertEquals($finolaCharacterConfig, $playerFinola->getPlayerInfo()->getCharacterConfig());

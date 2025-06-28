@@ -501,5 +501,17 @@
         <target>Vous faites parti du Mush grâce à **{character}** !</target>
       </segment>
     </unit>
+    <unit id="conversion.player">
+      <segment id="highlight" state="initial">
+        <source>conversion.player.highlight_transfer</source>
+        <target>conversion.player.highlight_transfer</target>
+      </segment>
+    </unit>
+    <unit id="conversion.player_target">
+      <segment id="highlight" state="initial">
+        <source>conversion.player_target.highlight_transfer</source>
+        <target>conversion.player_target.highlight_transfer</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

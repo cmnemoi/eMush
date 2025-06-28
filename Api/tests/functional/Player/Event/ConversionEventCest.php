@@ -32,8 +32,7 @@ final class ConversionEventCest extends AbstractFunctionalTest
             expectedHighlight: [
                 'name' => 'conversion.player_target',
                 'result' => PlayerHighlight::SUCCESS,
-                'author' => [$this->kuanTi->getLogKey() => $this->kuanTi->getLogName()],
-                'target' => ['target_' . $this->player->getLogKey() => $this->player->getLogName()],
+                'parameters' => [$this->kuanTi->getLogKey() => $this->kuanTi->getLogName()],
             ],
             actualHighlight: $this->player->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
             I: $I,
@@ -48,8 +47,7 @@ final class ConversionEventCest extends AbstractFunctionalTest
             expectedHighlight: [
                 'name' => 'conversion.player',
                 'result' => PlayerHighlight::SUCCESS,
-                'author' => [$this->kuanTi->getLogKey() => $this->kuanTi->getLogName()],
-                'target' => ['target_' . $this->player->getLogKey() => $this->player->getLogName()],
+                'parameters' => ['target_' . $this->player->getLogKey() => $this->player->getLogName()],
             ],
             actualHighlight: $this->kuanTi->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
             I: $I,

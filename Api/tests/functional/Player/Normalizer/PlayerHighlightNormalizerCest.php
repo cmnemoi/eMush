@@ -31,7 +31,7 @@ final class PlayerHighlightNormalizerCest extends AbstractFunctionalTest
         $playerHighlight = new PlayerHighlight(
             name: ActionEnum::SCAN->toString(),
             result: (new Success())->getName(),
-            author: [],
+            parameters: [],
         );
 
         $normalized = $this->normalizer->normalize($playerHighlight, format: null, context: ['language' => LanguageEnum::FRENCH]);

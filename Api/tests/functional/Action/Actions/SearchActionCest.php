@@ -391,8 +391,7 @@ final class SearchActionCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveHighlight([
             'name' => EquipmentStatusEnum::HIDDEN,
             'result' => PlayerHighlight::SUCCESS,
-            'author' => ['character' => 'chun'],
-            'target' => ['target_item' => 'echolocator'],
+            'parameters' => ['target_item' => 'echolocator'],
         ], $I);
     }
 

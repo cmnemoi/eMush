@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Event;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Game\Enum\TitleEnum;
@@ -43,7 +44,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
 
     public function getHighlightResult(): string
     {
-        return PlayerHighlight::SUCCESS;
+        return $this->hasTag(ActionEnum::EXCHANGE_BODY->toString()) ? PlayerHighlight::TRANSFER : PlayerHighlight::SUCCESS;
     }
 
     public function getHighlightTarget(): PlayerHighlightTargetInterface

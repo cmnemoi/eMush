@@ -10,12 +10,12 @@ use Mush\Player\Event\PlayerHighlightSourceEventInterface;
 final class PlayerHighlight
 {
     public const string SUCCESS = 'success';
+    public const string TRANSFER = 'transfer';
 
     public function __construct(
         private string $name,
         private string $result,
-        private array $author,
-        private array $target = [],
+        private array $parameters
     ) {}
 
     public static function fromEventForAuthor(PlayerHighlightSourceEventInterface $event): self
@@ -23,12 +23,12 @@ final class PlayerHighlight
         $highlight = new self(
             name: $event->getHighlightName(),
             result: $event->getHighlightResult(),
-            author: [$event->getAuthorOrThrow()->getLogKey() => $event->getAuthorOrThrow()->getLogName()]
+            parameters: []
         );
 
         if ($event->hasHighlightTarget()) {
             $highlightTarget = $event->getHighlightTarget();
-            $highlight->target = ['target_' . $highlightTarget->getLogKey() => $highlightTarget->getLogName()];
+            $highlight->parameters = ['target_' . $highlightTarget->getLogKey() => $highlightTarget->getLogName()];
         }
 
         return $highlight;
@@ -39,8 +39,7 @@ final class PlayerHighlight
         return new self(
             name: \sprintf('%s_target', $event->getHighlightName()),
             result: $event->getHighlightResult(),
-            author: [$event->getAuthorOrThrow()->getLogKey() => $event->getAuthorOrThrow()->getLogName()],
-            target: ['target_' . $event->getHighlightTarget()->getLogKey() => $event->getHighlightTarget()->getLogName()],
+            parameters: [$event->getAuthorOrThrow()->getLogKey() => $event->getAuthorOrThrow()->getLogName()],
         );
     }
 
@@ -49,19 +48,18 @@ final class PlayerHighlight
         return new self(
             name: $array['name'],
             result: $array['result'],
-            author: $array['author'],
-            target: $array['target'],
+            parameters: $array['parameters'],
         );
     }
 
     public function toTranslationKey(): string
     {
-        return $this->isSuccessHighlight() ? "{$this->name}.highlight" : "{$this->name}.highlight_fail";
+        return $this->isSuccessHighlight() ? "{$this->name}.highlight" : "{$this->name}.highlight_{$this->result}";
     }
 
     public function toTranslationParameters(): array
     {
-        return array_merge($this->author, $this->target);
+        return $this->parameters;
     }
 
     public function toArray(): array
@@ -69,8 +67,7 @@ final class PlayerHighlight
         return [
             'name' => $this->name,
             'result' => $this->result,
-            'author' => $this->author,
-            'target' => $this->target,
+            'parameters' => $this->parameters,
         ];
     }
 

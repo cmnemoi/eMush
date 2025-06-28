@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
+use Doctrine\ORM\NoResultException;
 use Mush\Action\Actions\RunHome;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -95,13 +96,19 @@ final class RunHomeCest extends AbstractExplorationTester
     private function thenNotificationShouldBeSentToAllExplorators(FunctionalTester $I): void
     {
         foreach ($this->players as $player) {
-            $I->seeInRepository(
-                entity: PlayerNotification::class,
-                params: [
-                    'player' => $player,
-                    'message' => PlayerNotificationEnum::EXPLORATION_CLOSED_BY_U_TURN->toString(),
-                ]
-            );
+            try {
+                $notification = $I->grabEntityFromRepository(
+                    entity: PlayerNotification::class,
+                    params: [
+                        'player' => $player,
+                        'message' => PlayerNotificationEnum::EXPLORATION_CLOSED_BY_U_TURN->toString(),
+                    ]
+                );
+            } catch (NoResultException $e) {
+                $I->fail("Player {$player->getName()} has not received \"exploration closed by U turn\" notification.");
+            }
+            $I->assertTrue(isset($notification->getParameters()[$this->chun->getLogKey()]));
+            $I->assertEquals($this->chun->getLogName(), $notification->getParameters()[$this->chun->getLogKey()]);
         }
         $I->dontSeeInRepository(
             entity: PlayerNotification::class,

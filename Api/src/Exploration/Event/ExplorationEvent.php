@@ -32,9 +32,11 @@ class ExplorationEvent extends AbstractGameEvent implements TriumphSourceEventIn
         Exploration $exploration,
         array $tags,
         \DateTime $time,
+        ?Player $author = null
     ) {
         parent::__construct($tags, $time);
         $this->exploration = $exploration;
+        $this->author = $author;
     }
 
     public function getExploration(): Exploration

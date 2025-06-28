@@ -81,19 +81,18 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             default => PlayerNotificationEnum::EXPLORATION_CLOSED,
         };
 
-        // Notification is sent from RunHome action
-        if ($notification === PlayerNotificationEnum::EXPLORATION_CLOSED_BY_U_TURN) {
-            return;
+        $author = $event->getAuthor();
+        $explorationLink = $this->translatedExplorationLink($event->getExploration()->getClosedExploration());
+        $parameters = ['exploration_link' => $explorationLink];
+        if ($author instanceof Player) {
+            $parameters[$author->getLogKey()] = $author->getLogName();
         }
 
-        $explorationLink = $this->translatedExplorationLink($event->getExploration()->getClosedExploration());
         foreach ($event->getExploration()->getNotLostExplorators() as $explorator) {
             $this->updatePlayerNotification->execute(
                 player: $explorator,
                 message: $notification->toString(),
-                parameters: [
-                    'exploration_link' => $explorationLink,
-                ]
+                parameters: $parameters
             );
         }
     }

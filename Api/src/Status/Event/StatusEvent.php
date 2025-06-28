@@ -200,17 +200,6 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
         return $this->daedalus;
     }
 
-    public function recordHighlights(): void
-    {
-        $author = $this->getAuthorOrThrow();
-        $parameters = $this->hasHighlightTarget() ? ['target_' . $this->getHighlightTarget()->getLogKey() => $this->getHighlightTarget()->getLogName()] : [];
-        $author->addPlayerHighlight(new PlayerHighlight(
-            name: $this->getHighlightName(),
-            result: $this->getHighlightResult(),
-            parameters: $parameters
-        ));
-    }
-
     protected function addEventTags(): void
     {
         if ($this->holder instanceof Player && $this->holder->isMush()) {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Player\ValueObject;
 
 use Mush\Game\Enum\ActionOutputEnum;
+use Mush\Player\Event\PlayerHighlightSourceEventInterface;
 
 final class PlayerHighlight
 {
@@ -15,6 +16,31 @@ final class PlayerHighlight
         private string $result,
         private array $parameters
     ) {}
+
+    public static function fromEventForAuthor(PlayerHighlightSourceEventInterface $event): self
+    {
+        $highlight = new self(
+            name: $event->getHighlightName(),
+            result: $event->getHighlightResult(),
+            parameters: []
+        );
+
+        if ($event->hasHighlightTarget()) {
+            $highlightTarget = $event->getHighlightTarget();
+            $highlight->parameters = ['target_' . $highlightTarget->getLogKey() => $highlightTarget->getLogName()];
+        }
+
+        return $highlight;
+    }
+
+    public static function fromEventForTarget(PlayerHighlightSourceEventInterface $event): self
+    {
+        return new self(
+            name: \sprintf('%s_target', $event->getHighlightName()),
+            result: $event->getHighlightResult(),
+            parameters: [$event->getAuthorOrThrow()->getLogKey() => $event->getAuthorOrThrow()->getLogName()],
+        );
+    }
 
     public static function fromArray(array $array): self
     {

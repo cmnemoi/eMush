@@ -10,6 +10,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\RoomLog\Service\RoomLogService;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -45,8 +46,9 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         };
 
         if ($event->hasAuthor()) {
-            $event->recordHighlights();
-            $this->playerRepository->save($event->getAuthorOrThrow());
+            $author = $event->getAuthorOrThrow();
+            $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
+            $this->playerRepository->save($author);
         }
     }
 

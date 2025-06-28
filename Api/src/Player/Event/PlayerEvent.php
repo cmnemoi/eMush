@@ -119,25 +119,6 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
         return $title;
     }
 
-    public function recordHighlights(): void
-    {
-        $author = $this->getAuthorOrThrow();
-        $parametersForAuthor = $this->hasHighlightTarget() ? ['target_' . $this->getHighlightTarget()->getLogKey() => $this->getHighlightTarget()->getLogName()] : [];
-        $author->addPlayerHighlight(new PlayerHighlight(
-            name: $this->getHighlightName(),
-            result: $this->getHighlightResult(),
-            parameters: $parametersForAuthor
-        ));
-
-        $target = $this->getPlayer();
-        $parametersForTarget = [$author->getLogKey() => $author->getLogName()];
-        $target->addPlayerHighlight(new PlayerHighlight(
-            name: \sprintf('%s_target', $this->getHighlightName()),
-            result: $this->getHighlightResult(),
-            parameters: $parametersForTarget
-        ));
-    }
-
     protected function addEventTags(): void
     {
         if ($this->player->isMush()) {

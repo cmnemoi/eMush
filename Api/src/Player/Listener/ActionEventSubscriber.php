@@ -71,5 +71,13 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
 
         $this->playerRepository->save($author);
+
+        $target = $event->getActionTarget();
+        if (!$target instanceof Player) {
+            return;
+        }
+
+        $target->addPlayerHighlight(PlayerHighlight::fromEventForTarget($event));
+        $this->playerRepository->save($target);
     }
 }

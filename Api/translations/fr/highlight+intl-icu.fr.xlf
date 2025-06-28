@@ -483,6 +483,18 @@
         <target>Vous vous êtes transformé en horrible monstre furieux !</target>
       </segment>
     </unit>
+    <unit id="exchange_body">
+      <segment id="highlight" state="initial">
+        <source>exchange_body.highlight</source>
+        <target>exchange_body.highlight</target>
+      </segment>
+    </unit>
+    <unit id="exchange_body_target">
+      <segment id="highlight" state="initial">
+        <source>exchange_body_target.highlight</source>
+        <target>exchange_body_target.highlight</target>
+      </segment>
+    </unit>
     <unit id="hidden">
       <segment id="highlight" state="translated">
         <source>hidden.highlight</source>

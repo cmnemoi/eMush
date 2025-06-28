@@ -78,7 +78,7 @@ final class ExplorationService implements ExplorationServiceInterface
         return $exploration;
     }
 
-    public function closeExploration(Exploration $exploration, array $reasons): void
+    public function closeExploration(Exploration $exploration, array $reasons, ?Player $author = null): void
     {
         $closedExploration = $exploration->getClosedExploration();
 
@@ -86,6 +86,7 @@ final class ExplorationService implements ExplorationServiceInterface
             exploration: $exploration,
             tags: $reasons,
             time: new \DateTime(),
+            author: $author
         );
         $explorationEvent->addTag(ExplorationEvent::EXPLORATION_FINISHED);
 

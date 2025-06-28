@@ -65,14 +65,15 @@ export default defineComponent({
                     image: 'characterBody'
                 },
                 {
-                    key: 'dayDeath',
-                    name: 'userShips.daysSurvived',
+                    key: 'timeSurvived',
+                    name: 'userShips.timeSurvived',
                     sortable: true
                 },
                 {
-                    key: 'cyclesSurvived',
-                    name: 'userShips.cyclesSurvived',
-                    sortable: false
+                    key: 'score',
+                    name: 'userShips.triumph',
+                    sortable: true,
+                    image: 'triumphIcon'
                 },
                 {
                     key: 'endCause',
@@ -146,7 +147,9 @@ export default defineComponent({
                         closedPlayer.endCause = this.$t('userShips.endCause.' + closedPlayer.endCause);
                         closedPlayer.character = this.getCharacterNameFromKey(closedPlayer.characterKey);
                         closedPlayer.characterBody = this.getCharacterBodyFromKey(closedPlayer.characterKey);
-                        closedPlayer.dayDeath = closedPlayer.daysSurvived; // hack to use API Platform filters...
+                        closedPlayer.timeSurvived = this.getDaysCyclesStringFromCyclesSurvived(closedPlayer.cyclesSurvived);
+                        closedPlayer.score = closedPlayer.triumph ?? closedPlayer.cyclesSurvived;
+                        closedPlayer.triumphIcon = closedPlayer.isMush ? this.getImgUrl('ui_icons/player_variables/triumph_mush.png') : this.getImgUrl('ui_icons/player_variables/triumph.png');
                     }
                     return result.data;
                 })
@@ -189,6 +192,20 @@ export default defineComponent({
         },
         getCharacterBodyFromKey(characterKey: string) {
             return characterEnum[characterKey].body;
+        },
+        getDaysCyclesStringFromCyclesSurvived(cyclesSurvived: integer) {
+            const days = Math.floor(cyclesSurvived / 8);
+            const cycles = cyclesSurvived % 8;
+            const dayCycleString = [];
+        
+            if (days > 0) {
+                dayCycleString.push(`${days} ${days === 1 ? this.$t('userShips.day') : this.$t('userShips.days')}`);
+            }
+            if (cycles > 0 || days === 0) {
+                dayCycleString.push(`${cycles} ${cycles === 1 ? this.$t('userShips.cycle') : this.$t('userShips.cycles')}`);
+            }
+
+            return dayCycleString.join(' ');
         },
         resetOrder() {
             this.sortField = 'id';

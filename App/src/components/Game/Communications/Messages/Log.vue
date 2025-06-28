@@ -205,6 +205,35 @@ export default defineComponent ({
     font-size: 0.92em;
 }
 
+.table-container {
+  overflow-x: auto;
+}
+
+.table-log {
+  width: 100%;
+  border-collapse: collapse; 
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.table-log th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #333;
+}
+
+.table-log td {
+  border-bottom: 1px dotted #3874C6 ;
+  border-right: 1px dotted #3874C6;
+  padding: 5px;
+  background-color: #1D3F6D;
+  color: #FFFFFF;
+  font-size: 9pt;
+}
+
 .room { font-variant: small-caps; }
 
 </style>

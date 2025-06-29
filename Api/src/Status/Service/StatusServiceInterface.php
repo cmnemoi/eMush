@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Player\Entity\Player;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -28,7 +29,8 @@ interface StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        string $visibility = VisibilityEnum::HIDDEN
+        string $visibility = VisibilityEnum::HIDDEN,
+        ?Player $author = null,
     ): void;
 
     public function createStatusFromConfig(

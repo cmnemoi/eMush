@@ -18,6 +18,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
@@ -263,6 +264,14 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->whenSourceExchangesBodyWithTarget();
 
         $this->thenMushDaedalusStatisticShouldBe($initialMushStatistic, $I);
+    }
+
+    public function shouldRecordPlayerHighlights(FunctionalTester $I): void
+    {
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenSourcePlayerShouldHaveHighlightTransferAuthorHighlight($I);
+        $this->thenTargetPlayerShouldHaveHighlightTransferTargetHighlight($I);
     }
 
     private function givenTargetPlayerHasShooterSkill(FunctionalTester $I): void
@@ -524,5 +533,29 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function thenMushDaedalusStatisticShouldBe(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount());
+    }
+
+    private function thenSourcePlayerShouldHaveHighlightTransferAuthorHighlight(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: [
+                'name' => 'conversion.player',
+                'result' => PlayerHighlight::TRANSFER,
+                'parameters' => ['target_' . $this->target->getLogKey() => $this->target->getLogName()],
+            ],
+            actual: $this->source->getPlayerInfo()->getPlayerHighlights()[1]->toArray(), // first highlight comes from exchange_body action
+        );
+    }
+
+    private function thenTargetPlayerShouldHaveHighlightTransferTargetHighlight(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: [
+                'name' => 'conversion.player_target',
+                'result' => PlayerHighlight::TRANSFER,
+                'parameters' => [$this->source->getLogKey() => $this->source->getLogName()],
+            ],
+            actual: $this->target->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
+        );
     }
 }

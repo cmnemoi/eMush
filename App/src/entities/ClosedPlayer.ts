@@ -24,6 +24,7 @@ export class ClosedPlayer {
     public messageHasBeenModerated: boolean = false;
     public hasBadEndCause!: boolean;
     public triumphGains: string[] = [];
+    public highlights: string[] = [];
 
     constructor() {
         this.iri = null;
@@ -74,6 +75,11 @@ export class ClosedPlayer {
             if (object.triumphGains) {
                 toArray(object.triumphGains).forEach((triumphGainObject: string) => {
                     this.triumphGains.push(triumphGainObject);
+                });
+            }
+            if (object.playerHighlights) {
+                toArray(object.playerHighlights).forEach((highlightObject: string) => {
+                    this.highlights.push(highlightObject);
                 });
             }
         }

@@ -15,8 +15,10 @@ use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Player\Service\UpdatePlayerNotificationService;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
@@ -24,25 +26,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class PlayerSubscriber implements EventSubscriberInterface
 {
-    private ChangeTriumphFromEventService $changeTriumphFromEventService;
-    private EventServiceInterface $eventService;
-    private PlayerServiceInterface $playerService;
-    private RandomServiceInterface $randomService;
-    private UpdatePlayerNotificationService $updatePlayerNotification;
-
     public function __construct(
-        ChangeTriumphFromEventService $changeTriumphFromEventService,
-        EventServiceInterface $eventService,
-        PlayerServiceInterface $playerService,
-        RandomServiceInterface $randomService,
-        UpdatePlayerNotificationService $updatePlayerNotification,
-    ) {
-        $this->changeTriumphFromEventService = $changeTriumphFromEventService;
-        $this->eventService = $eventService;
-        $this->playerService = $playerService;
-        $this->randomService = $randomService;
-        $this->updatePlayerNotification = $updatePlayerNotification;
-    }
+        private ChangeTriumphFromEventService $changeTriumphFromEventService,
+        private EventServiceInterface $eventService,
+        private PlayerRepositoryInterface $playerRepository,
+        private PlayerServiceInterface $playerService,
+        private RandomServiceInterface $randomService,
+        private UpdatePlayerNotificationService $updatePlayerNotification,
+    ) {}
 
     public static function getSubscribedEvents()
     {
@@ -137,6 +128,10 @@ final class PlayerSubscriber implements EventSubscriberInterface
         }
         $this->playerService->persistPlayerInfo($playerInfo);
 
+        if ($event->hasAuthor()) {
+            $this->createAuthorAndTargetHighlights($event);
+        }
+
         if ($event->doesNotHaveTag(ActionEnum::EXCHANGE_BODY->toString())) {
             $this->sendNewMushNotification($player);
         }
@@ -172,5 +167,16 @@ final class PlayerSubscriber implements EventSubscriberInterface
             message: PlayerNotificationEnum::WELCOME_MUSH->toString(),
             parameters: ['quantity' => $triumphQuantity, 'stamp' => 'true']
         );
+    }
+
+    private function createAuthorAndTargetHighlights(PlayerEvent $event): void
+    {
+        $author = $event->getAuthorOrThrow();
+        $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
+        $this->playerRepository->save($author);
+
+        $target = $event->getPlayer();
+        $target->addPlayerHighlight(PlayerHighlight::fromEventForTarget($event));
+        $this->playerRepository->save($target);
     }
 }

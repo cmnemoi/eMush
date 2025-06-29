@@ -12,6 +12,7 @@ export class DeadPlayerInfo {
     public endCauseDescription!: string;
     public likes: integer;
     public triumphGains: string[] = [];
+    public playerHighlights: string[] = [];
     public players: Array<DeadPlayerInfo>;
 
     constructor() {
@@ -53,6 +54,8 @@ export class DeadPlayerInfo {
                     this.triumphGains.push(triumphGainObject);
                 });
             }
+
+            this.playerHighlights = object.playerHighlights;
         }
         return this;
     }

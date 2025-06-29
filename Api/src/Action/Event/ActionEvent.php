@@ -18,6 +18,8 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerHighlightSourceEventInterface;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
@@ -27,7 +29,7 @@ use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterface
+class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterface, PlayerHighlightSourceEventInterface
 {
     use TriumphSourceEventTrait;
 
@@ -253,6 +255,35 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         return $this->getAuthor()->getDaedalus();
     }
 
+    public function hasHighlightTarget(): bool
+    {
+        return $this->actionTarget instanceof PlayerHighlightTargetInterface;
+    }
+
+    public function getHighlightName(): string
+    {
+        return $this->getActionName()->toString();
+    }
+
+    public function getHighlightResult(): string
+    {
+        return $this->getActionResultOrThrow()->getName();
+    }
+
+    public function getHighlightTarget(): PlayerHighlightTargetInterface
+    {
+        $target = $this->getActionTargetOrThrow();
+
+        if (!$target instanceof PlayerHighlightTargetInterface) {
+            throw new \LogicException(\sprintf(
+                'Action target %s does not implement PlayerHighlightTargetInterface',
+                \get_class($target)
+            ));
+        }
+
+        return $target;
+    }
+
     protected function addEventTags(): void
     {
         if ($this->actionConfig->getActionName() === ActionEnum::FLIRT) {
@@ -270,5 +301,12 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
             TriumphTarget::PARTICIPANT => $scopeTargets->filter(fn (Player $player) => $player === $this->getAuthor() || $player === $this->getPlayerActionTarget()),
             default => throw new \LogicException("Triumph target {$targetSetting->toString()} is not supported"),
         };
+    }
+
+    private function getActionTargetOrThrow(): LogParameterInterface
+    {
+        $actionTarget = $this->getActionTarget();
+
+        return $actionTarget instanceof LogParameterInterface ? $actionTarget : throw new \LogicException('Action target is not a LogParameterInterface');
     }
 }

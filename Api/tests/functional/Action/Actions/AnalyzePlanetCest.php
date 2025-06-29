@@ -21,8 +21,6 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Enum\ProjectName;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
@@ -332,10 +330,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 
     private function givenPlayerIsAnITExpert(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->player));
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I, $this->player);
     }
 
     private function givenPlayerHasFourSkillPoints(FunctionalTester $I): void
@@ -350,10 +345,7 @@ final class AnalyzePlanetCest extends AbstractFunctionalTest
 
     private function givenPlayerIsAnAstrophysicist(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::ASTROPHYSICIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::ASTROPHYSICIST, $this->player));
+        $this->addSkillToPlayer(SkillEnum::ASTROPHYSICIST, $I, $this->player);
     }
 
     private function givenPlanetWithExactlyTwoUnrevealedZones(FunctionalTester $I): void

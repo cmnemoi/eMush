@@ -29,8 +29,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -347,10 +345,7 @@ final class HealCest extends AbstractFunctionalTest
 
     private function givenPlayerIsANurse(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::NURSE]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::NURSE, $this->player));
+        $this->addSkillToPlayer(SkillEnum::NURSE, $I, $this->player);
     }
 
     private function givenPlayerHasTwoNursePoints(FunctionalTester $I): void
@@ -365,10 +360,7 @@ final class HealCest extends AbstractFunctionalTest
 
     private function givenChunIsAMycologist(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::MYCOLOGIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::MYCOLOGIST, $this->player));
+        $this->addSkillToPlayer(SkillEnum::MYCOLOGIST, $I, $this->chun);
     }
 
     private function givenKuanTiHasASpore(): void

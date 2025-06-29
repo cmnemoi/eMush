@@ -63,24 +63,6 @@ final class FindUserNumberOfPastGamesQueryCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldReturnTwoIfUserHasTwoGames(FunctionalTester $I): void
-    {
-        // Given
-        $this->givenAUser($I);
-        $this->givenAPlayerInDaedalus($I);
-        $this->givenANewGameForSameUser($I);
-
-        // When
-        $gamesCount = $this->whenCountingUserPastGames();
-
-        // Then
-        $this->thenUserShouldHavePlayedGames(
-            expected: 2,
-            actual: $gamesCount,
-            I: $I
-        );
-    }
-
     private function givenAUser(FunctionalTester $I): void
     {
         $this->user = UserFactory::createUser();

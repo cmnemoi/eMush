@@ -126,13 +126,20 @@ final class PlayerService implements PlayerServiceInterface
 
     public function createPlayer(Daedalus $daedalus, User $user, string $character): Player
     {
-        $this->playerRepository->startTransaction();
-
         try {
-            $time = new \DateTime();
+            $this->playerRepository->startTransaction();
+
+            // Lock Daedalus to prevent concurrent player creation
+            $daedalus = $this->daedalusRepository->lockAndRefresh($daedalus);
+
+            // Check if player already exists
+            $existingPlayer = $this->playerRepository->findOneByUserAndDaedalus($user, $daedalus);
+            if ($existingPlayer) {
+                throw new \RuntimeException('Player already exists');
+            }
 
             $player = $this->buildPlayer($daedalus, $user, $character);
-            $this->dispatchNewPlayerEvent($player, $time);
+            $this->dispatchNewPlayerEvent($player, new \DateTime());
 
             $this->playerRepository->save($player);
             $this->playerRepository->commitTransaction();
@@ -236,9 +243,8 @@ final class PlayerService implements PlayerServiceInterface
 
     public function killPlayer(Player $player, string $endReason, \DateTime $time = new \DateTime(), ?Player $author = null): Player
     {
-        $this->playerRepository->startTransaction();
-
         try {
+            $this->playerRepository->startTransaction();
             $this->playerRepository->lockAndRefresh($player, LockMode::PESSIMISTIC_WRITE);
 
             if ($player->isDead()) {

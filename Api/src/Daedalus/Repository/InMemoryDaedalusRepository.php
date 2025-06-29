@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Daedalus\Repository;
 
+use Doctrine\DBAL\LockMode;
 use Mush\Daedalus\Entity\Daedalus;
 
 final class InMemoryDaedalusRepository implements DaedalusRepositoryInterface
@@ -24,6 +25,12 @@ final class InMemoryDaedalusRepository implements DaedalusRepositoryInterface
         }
 
         throw new \RuntimeException("Daedalus with id {$id} not found");
+    }
+
+    public function lockAndRefresh(Daedalus $daedalus, int $mode = LockMode::PESSIMISTIC_WRITE): Daedalus
+    {
+        // no locking in memory
+        return $daedalus;
     }
 
     public function save(Daedalus $daedalus): void

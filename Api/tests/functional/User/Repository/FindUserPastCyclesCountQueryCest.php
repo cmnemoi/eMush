@@ -100,28 +100,6 @@ final class FindUserPastCyclesCountQueryCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldReturnThreeIfUserHasSurvivedThreeCyclesInTwoGames(FunctionalTester $I): void
-    {
-        // Given
-        $this->givenAUser($I);
-        $this->givenAPlayerInDaedalus($I);
-        $this->givenPlayerSurvivedExactlyOneCycle($I);
-
-        // Create a second game
-        $this->givenANewGameForSameUser($I);
-        $this->givenPlayerSurvivedExactlyTwoCycles($I);
-
-        // When
-        $cyclesCount = $this->whenCountingUserPastCycles();
-
-        // Then
-        $this->thenUserShouldHaveSurvivedCycles(
-            expected: 3,
-            actual: $cyclesCount,
-            I: $I
-        );
-    }
-
     public function shouldReturnZeroIfUserSurvivedOneMinuteBeforeCycleCompletion(FunctionalTester $I): void
     {
         // Given

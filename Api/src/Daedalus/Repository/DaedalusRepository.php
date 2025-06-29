@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\Collection\DaedalusCollection;
 use Mush\Daedalus\Entity\Daedalus;
@@ -75,6 +76,14 @@ class DaedalusRepository extends ServiceEntityRepository implements DaedalusRepo
             ->setParameter('gameStatus', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY]);
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function lockAndRefresh(Daedalus $daedalus, int $mode = LockMode::PESSIMISTIC_WRITE): Daedalus
+    {
+        $this->getEntityManager()->lock($daedalus, $mode);
+        $this->getEntityManager()->refresh($daedalus);
+
+        return $daedalus;
     }
 
     public function save(Daedalus $daedalus): void

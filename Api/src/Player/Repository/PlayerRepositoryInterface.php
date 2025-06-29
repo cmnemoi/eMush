@@ -6,6 +6,7 @@ namespace Mush\Player\Repository;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Player;
+use Mush\User\Entity\User;
 
 interface PlayerRepositoryInterface
 {
@@ -26,4 +27,6 @@ interface PlayerRepositoryInterface
     public function findById(int $id): ?Player;
 
     public function findOneByNameAndDaedalus(string $name, Daedalus $daedalus): ?Player;
+
+    public function findOneByUserAndDaedalus(User $user, Daedalus $daedalus): ?Player;
 }

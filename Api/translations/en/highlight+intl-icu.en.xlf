@@ -497,5 +497,11 @@
         <target>You have completed the research into **{target_project}**!</target>
       </segment>
     </unit>
+    <unit id="death.player">
+      <segment id="highlight" state="translated">
+        <source>death.player.highlight</source>
+        <target>You have assassinated **{character}** !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

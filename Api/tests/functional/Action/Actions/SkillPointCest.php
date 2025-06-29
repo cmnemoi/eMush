@@ -15,7 +15,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
@@ -87,7 +86,7 @@ final class SkillPointCest extends AbstractFunctionalTest
         /** @var Hunter $hunter */
         $hunter = $this->daedalus->getHuntersAroundDaedalus()->first();
 
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHOOTER, $this->chao));
+        $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->chao);
 
         $shooterSkill = $this->chao->getSkillByNameOrThrow(SkillEnum::SHOOTER);
         $I->assertEquals(

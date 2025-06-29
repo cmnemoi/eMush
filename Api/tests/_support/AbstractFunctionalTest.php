@@ -212,7 +212,6 @@ class AbstractFunctionalTest
         $player->setDaedalus($daedalus);
         $player->setPlace($daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $player->setPlayerVariables($characterConfig);
-        $player->setAvailableHumanSkills($characterConfig->getSkillConfigs());
 
         $I->haveInRepository($player);
 

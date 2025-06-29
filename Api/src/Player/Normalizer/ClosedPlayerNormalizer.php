@@ -68,12 +68,13 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
             /** @var \DateTime $finishedAt */
             $finishedAt = $closedPlayer->getFinishedAt();
 
-            $data['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(
+            $cyclesSurvived = $this->cycleService->getNumberOfCycleElapsed(
                 start: $createdAt,
                 end: $finishedAt,
                 daedalusInfo: $closedPlayer->getClosedDaedalus()->getDaedalusInfo()
             );
-            $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['daysSurvived'] = (int) ($cyclesSurvived / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['cyclesSurvived'] = $cyclesSurvived % $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
             $data['triumph'] = $closedPlayer->getTriumph();
             $data['triumphGains'] = $this->normalizer->normalize($closedPlayer->getTriumphGains(), $format, $context);
             $data['playerHighlights'] = $this->getNormalizedPlayerHighlights($closedPlayer, $format, $context);

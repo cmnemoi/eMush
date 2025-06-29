@@ -147,7 +147,7 @@ export default defineComponent({
                         closedPlayer.endCause = this.$t('userShips.endCause.' + closedPlayer.endCause);
                         closedPlayer.character = this.getCharacterNameFromKey(closedPlayer.characterKey);
                         closedPlayer.characterBody = this.getCharacterBodyFromKey(closedPlayer.characterKey);
-                        closedPlayer.dayDeath = this.getDaysCyclesStringFromCyclesSurvived(closedPlayer.cyclesSurvived);
+                        closedPlayer.dayDeath = this.getDaysCyclesString(closedPlayer.daysSurvived, closedPlayer.cyclesSurvived);
                         closedPlayer.score = closedPlayer.triumph ?? closedPlayer.cyclesSurvived;
                         closedPlayer.triumphIcon = closedPlayer.isMush ? this.getImgUrl('ui_icons/player_variables/triumph_mush.png') : this.getImgUrl('ui_icons/player_variables/triumph.png');
                     }
@@ -193,11 +193,8 @@ export default defineComponent({
         getCharacterBodyFromKey(characterKey: string) {
             return characterEnum[characterKey].body;
         },
-        getDaysCyclesStringFromCyclesSurvived(cyclesSurvived: integer) {
-            const days = Math.floor(cyclesSurvived / 8);
-            const cycles = cyclesSurvived % 8;
+        getDaysCyclesString(days: integer, cycles: integer) {
             const dayCycleString = [];
-
             if (days > 0) {
                 dayCycleString.push(`${days} ${days === 1 ? this.$t('userShips.day') : this.$t('userShips.days')}`);
             }

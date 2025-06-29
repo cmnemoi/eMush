@@ -19,7 +19,7 @@
                 <tr v-for="row in rowData" :key='row.id' @click="onRowClick(row)">
                     <td v-for="field in headers" :key='field.key'>
                         <slot v-if="field.slot" :name="`row-${field.key}`" v-bind="row" />
-                        <span v-else-if="field.key === 'score'">
+                        <span v-else-if="field.image === 'triumphIcon'">
                             {{ $t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])) }}
                             <img
                                 :src="row[field.image]"

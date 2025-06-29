@@ -83,9 +83,10 @@ class AttemptActionChangeCest
             'place' => $room,
         ]);
 
-        $this->player->setPlayerVariables($characterConfig);
         $this->player
-            ->setActionPoint(10);
+            ->setPlayerVariables($characterConfig)
+            ->setActionPoint(10)
+            ->setAvailableHumanSkills($characterConfig->getSkillConfigs());
         $I->flushToDatabase($this->player);
 
         /** @var User $user */

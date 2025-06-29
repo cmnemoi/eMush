@@ -21,7 +21,6 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -53,7 +52,7 @@ final class ChitchatCest extends AbstractFunctionalTest
         $this->diseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(skill: SkillEnum::CONFIDENT, player: $this->andie));
+        $this->addSkillToPlayer(SkillEnum::CONFIDENT, $I, $this->andie);
     }
 
     public function shouldNotBeVisibleIfPlayerAndConfidentAreNotInSamePlace(FunctionalTester $I): void

@@ -108,8 +108,12 @@ class AutomaticGetUpCest
 
         /** @var Player $player */
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-        $player->setActionPoint(2)->setHealthPoint(6);
+        $player
+            ->setPlayerVariables($characterConfig)
+            ->setActionPoint(2)
+            ->setHealthPoint(6)
+            ->setAvailableHumanSkills($characterConfig->getSkillConfigs());
+
         $I->flushToDatabase($player);
 
         /** @var User $user */

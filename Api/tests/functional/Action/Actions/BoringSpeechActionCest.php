@@ -88,8 +88,11 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
         $speaker = $I->have(Player::class, ['daedalus' => $daedalus,
             'place' => $room,
         ]);
-        $speaker->setPlayerVariables($speakerConfig);
-        $speaker->setActionPoint(10)->setMovementPoint(6);
+        $speaker
+            ->setPlayerVariables($speakerConfig)
+            ->setActionPoint(10)
+            ->setMovementPoint(6)
+            ->setAvailableHumanSkills($speakerConfig->getSkillConfigs());
         $I->flushToDatabase($speaker);
 
         /** @var User $user */

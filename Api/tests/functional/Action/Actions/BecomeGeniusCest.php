@@ -8,8 +8,6 @@ use Mush\Action\Actions\BecomeGenius;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -57,10 +55,7 @@ final class BecomeGeniusCest extends AbstractFunctionalTest
 
     private function givenPlayerIsGenius(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->addSkillConfig(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::GENIUS])
-        );
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::GENIUS, $this->player));
+        $this->addSkillToPlayer(SkillEnum::GENIUS, $I, $this->player);
     }
 
     private function givenPlayerExecutesBecomeGeniusAction(): void

@@ -82,7 +82,8 @@ final class MotivationalSpeechActionCest extends AbstractFunctionalTest
         $speaker->setPlayerVariables($speakerConfig);
         $speaker
             ->setActionPoint(10)
-            ->setMoralPoint(6);
+            ->setMoralPoint(6)
+            ->setAvailableHumanSkills($speakerConfig->getSkillConfigs());
 
         /** @var User $user */
         $user = $I->have(User::class);

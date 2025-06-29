@@ -22,8 +22,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -370,7 +368,7 @@ final class ParticipateCest extends AbstractFunctionalTest
         $project->propose();
 
         // given KT is a Conceptor
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::CONCEPTOR, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::CONCEPTOR, $I, $this->kuanTi);
 
         $conceptorSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::CONCEPTOR);
 
@@ -485,30 +483,19 @@ final class ParticipateCest extends AbstractFunctionalTest
 
     private function givenKuanTiIsAnITExpert(FunctionalTester $I): void
     {
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I, $this->kuanTi);
     }
 
     private function givenKuanTiIsAnITExpertConceptor(FunctionalTester $I): void
     {
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::CONCEPTOR]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->kuanTi));
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::CONCEPTOR, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I, $this->kuanTi);
+        $this->addSkillToPlayer(SkillEnum::CONCEPTOR, $I, $this->kuanTi);
     }
 
     private function givenKuanTiIsAPolymathItExpert(FunctionalTester $I): void
     {
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::IT_EXPERT]),
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::POLYMATH]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::IT_EXPERT, $this->kuanTi));
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::POLYMATH, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::IT_EXPERT, $I, $this->kuanTi);
+        $this->addSkillToPlayer(SkillEnum::POLYMATH, $I, $this->kuanTi);
     }
 
     private function givenKuanTiHasTenActionPoints(): void
@@ -541,10 +528,7 @@ final class ParticipateCest extends AbstractFunctionalTest
 
     private function givenChunIsNeronOnlyFriend(FunctionalTester $I): void
     {
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::NERON_ONLY_FRIEND]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::NERON_ONLY_FRIEND, $this->chun));
+        $this->addSkillToPlayer(SkillEnum::NERON_ONLY_FRIEND, $I, $this->chun);
     }
 
     private function whenKuanTriesToParticipateInProject(): void

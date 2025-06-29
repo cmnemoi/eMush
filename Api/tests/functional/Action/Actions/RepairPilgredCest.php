@@ -20,8 +20,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -293,10 +291,7 @@ final class RepairPilgredCest extends AbstractFunctionalTest
 
     private function givenPlayerIsAPhysicist(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PHYSICIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PHYSICIST, $this->player));
+        $this->addSkillToPlayer(SkillEnum::PHYSICIST, $I, $this->player);
     }
 
     private function givenPlayerHasTenActionPoints(): void

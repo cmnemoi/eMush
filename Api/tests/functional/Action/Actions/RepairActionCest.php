@@ -14,7 +14,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -109,7 +108,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
         // given Kuan Ti is a technician
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // given repair action has a 25% success rate
         $this->repairActionConfig->setSuccessRate(25);
@@ -132,7 +131,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
         // given Kuan Ti is a technician
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // given Kuan Ti has two Technician points
         $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
@@ -157,7 +156,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $mycoscan = $this->prepareBrokenEquipmentInRoom();
 
         // given Kuan Ti is a technician
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // given Kuan Ti has two Technician points
         $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);

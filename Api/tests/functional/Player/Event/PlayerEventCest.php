@@ -200,28 +200,28 @@ final class PlayerEventCest
         /** @var CharacterConfig $characterConfig */
         $characterConfig2 = $I->have(CharacterConfig::class, ['name' => 'finola_test']);
 
-        /** @var Player $2 */
-        $player2 = $I->have(Player::class, [
+        /** @var Player $killer */
+        $killer = $I->have(Player::class, [
             'daedalus' => $daedalus,
             'place' => $room2,
         ]);
-        $playerInfo2 = new PlayerInfo($player2, $user2, $characterConfig2);
-        $player2->setPlayerVariables($characterConfig2);
+        $killerInfo = new PlayerInfo($killer, $user2, $characterConfig2);
+        $killer->setPlayerVariables($characterConfig2);
 
-        $I->haveInRepository($playerInfo2);
-        $player2->setPlayerInfo($playerInfo2);
-        $I->refreshEntities($player2);
+        $I->haveInRepository($killerInfo);
+        $killer->setPlayerInfo($killerInfo);
+        $I->refreshEntities($killer);
 
         $this->playerService->killPlayer(
             player: $player,
             endReason: EndCauseEnum::ASSASSINATED,
             time: new \DateTime(),
-            author: $player2
+            author: $killer
         );
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $closedPlayer = $playerInfo->getClosedPlayer();
-        $closedPlayer2 = $playerInfo2->getClosedPlayer();
+        $closedKiller = $killerInfo->getClosedPlayer();
 
         $I->assertEquals($closedPlayer->getEndCause(), EndCauseEnum::ASSASSINATED);
         $I->assertEquals($closedPlayer->getMessage(), null);
@@ -244,7 +244,7 @@ final class PlayerEventCest
                 'result' => PlayerHighlight::SUCCESS,
                 'parameters' => ['target_' . $player->getLogKey() => $player->getLogName()],
             ],
-            expected: $closedPlayer2->getPlayerHighlights()[0]->toArray()
+            expected: $closedKiller->getPlayerHighlights()[0]->toArray()
         );
     }
 

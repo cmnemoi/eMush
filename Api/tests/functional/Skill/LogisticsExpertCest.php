@@ -10,7 +10,6 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
@@ -40,7 +39,7 @@ final class LogisticsExpertCest extends AbstractFunctionalTest
     {
         // given paola is a logistic expert
         $paola = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::PAOLA);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::LOGISTICS_EXPERT, $paola));
+        $this->addSkillToPlayer(SkillEnum::LOGISTICS_EXPERT, $I, $paola);
 
         // given all players in the room have 10 action points
         $this->player1->setActionPoint(10);
@@ -71,8 +70,8 @@ final class LogisticsExpertCest extends AbstractFunctionalTest
     public function multipleLogisticsExpertShouldGiveActionPointToMultiplePlayers(FunctionalTester $I): void
     {
         // given Chun and KT are logistic experts
-        $this->addSkillToPlayerService->execute(SkillEnum::LOGISTICS_EXPERT, $this->chun);
-        $this->addSkillToPlayerService->execute(SkillEnum::LOGISTICS_EXPERT, $this->kuanTi);
+        $this->addSkillToPlayer(SkillEnum::LOGISTICS_EXPERT, $I, $this->chun);
+        $this->addSkillToPlayer(SkillEnum::LOGISTICS_EXPERT, $I, $this->kuanTi);
 
         // given KT and Chun has 10 AP
         $this->chun->setActionPoint(10);

@@ -17,8 +17,8 @@ use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Player\Service\PlayerServiceInterface;
-use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Player\Service\UpdatePlayerNotificationService;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
@@ -128,7 +128,9 @@ final class PlayerSubscriber implements EventSubscriberInterface
         }
         $this->playerService->persistPlayerInfo($playerInfo);
 
-        $this->createAuthorAndTargetHighlights($event);
+        if ($event->hasAuthor()) {
+            $this->createAuthorAndTargetHighlights($event);
+        }
 
         if ($event->doesNotHaveTag(ActionEnum::EXCHANGE_BODY->toString())) {
             $this->sendNewMushNotification($player);
@@ -168,7 +170,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
     }
 
     private function createAuthorAndTargetHighlights(PlayerEvent $event): void
-    {   
+    {
         $author = $event->getAuthorOrThrow();
         $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
         $this->playerRepository->save($author);

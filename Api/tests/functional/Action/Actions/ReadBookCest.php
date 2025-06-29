@@ -13,6 +13,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -79,8 +80,6 @@ final class ReadBookCest extends AbstractFunctionalTest
 
     public function shouldBeExecutableOncePerPlayer(FunctionalTester $I): void
     {
-        $this->givenPlayerHasASprinterMageBook();
-
         $this->givenPlayerReadsBook();
 
         $this->givenPlayerHasATechnicianMageBook();
@@ -96,8 +95,6 @@ final class ReadBookCest extends AbstractFunctionalTest
     public function shouldNotBeExecutableIfPlayerAlreadyHasMageBookSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::SPRINTER, $I);
-
-        $this->givenPlayerHasASprinterMageBook();
 
         $this->whenPlayerTriesToReadBook();
 
@@ -119,6 +116,13 @@ final class ReadBookCest extends AbstractFunctionalTest
             message: ActionImpossibleCauseEnum::MAGE_BOOK_ALREADY_HAVE_SKILL,
             I: $I,
         );
+    }
+
+    public function shouldAddLearnedSkillToAvailableSkillsList(FunctionalTester $I): void
+    {
+        $this->givenPlayerReadsBook();
+
+        $this->thenPlayerHasSprinterInSkillList($I);
     }
 
     private function givenPlayerHasASprinterMageBook(): void
@@ -191,5 +195,10 @@ final class ReadBookCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
     {
         $I->assertEquals($message, $this->readBook->cannotExecuteReason());
+    }
+
+    private function thenPlayerHasSprinterInSkillList(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->getAvailableHumanSkills()->contains($I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SPRINTER])));
     }
 }

@@ -64,6 +64,14 @@ final class CureActionCest extends AbstractFunctionalTest
         $this->kuanTiShouldNotHaveAnySkills($I);
     }
 
+    public function shouldNotRemoveSkillsToTargetIfTargetHuman(FunctionalTester $I): void
+    {
+        $this->givenChunHasSerumInInventory();
+        $this->givenKuanTiHasHumanSkills($I);
+        $this->whenIInoculateKuanTi();
+        $this->kuanTiShouldHaveSkills($I);
+    }
+
     public function targetShouldSeePrivateLog(FunctionalTester $I): void
     {
         $this->givenChunHasSerumInInventory();
@@ -152,6 +160,11 @@ final class CureActionCest extends AbstractFunctionalTest
     private function kuanTiShouldNotHaveAnySkills(FunctionalTester $I)
     {
         $I->assertEmpty($this->kuanTi->getSkills()->toArray());
+    }
+
+    private function kuanTiShouldHaveSkills(FunctionalTester $I)
+    {
+        $I->assertNotEmpty($this->kuanTi->getSkills()->toArray());
     }
 
     private function kuanTiShouldSeeTheLog(FunctionalTester $I)

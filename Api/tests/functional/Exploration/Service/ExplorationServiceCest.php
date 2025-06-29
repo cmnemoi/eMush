@@ -30,7 +30,6 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
@@ -408,7 +407,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     {
         // given terrence is a pilot
         $terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $terrence));
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I, $terrence);
 
         // given an exploration is created
         $exploration = $this->explorationService->createExploration(
@@ -710,7 +709,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     {
         $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
         $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto($scenario[0], $roland));
+        $this->addSkillToPlayer($scenario[0], $I, $roland);
 
         // given an exploration is created
         $exploration = $this->createExploration(

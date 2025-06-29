@@ -179,6 +179,9 @@ final class PlayerEventCest
         /** @var Place $room */
         $room = $I->have(Place::class, ['daedalus' => $daedalus]);
 
+        /** @var Place $room2 */
+        $room2 = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'bridge']);
+
         /** @var CharacterConfig $characterConfig */
         $characterConfig = $I->have(CharacterConfig::class);
 
@@ -200,7 +203,7 @@ final class PlayerEventCest
         /** @var Player $2 */
         $player2 = $I->have(Player::class, [
             'daedalus' => $daedalus,
-            'place' => $room,
+            'place' => $room2,
         ]);
         $playerInfo2 = new PlayerInfo($player2, $user2, $characterConfig2);
         $player2->setPlayerVariables($characterConfig2);

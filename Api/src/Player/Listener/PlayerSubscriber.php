@@ -57,7 +57,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($event->hasAuthor()) {
+        if ($event->hasAuthor() && $event->hasAnyTag([EndCauseEnum::ASSASSINATED, EndCauseEnum::BEHEADED, EndCauseEnum::BLED, EndCauseEnum::INJURY, EndCauseEnum::ROCKETED])) {
             $this->createAuthorAndTargetHighlights($event);
         }
 
@@ -132,7 +132,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
         }
         $this->playerService->persistPlayerInfo($playerInfo);
 
-        if ($event->hasAuthor() && $event->hasAnyTag([EndCauseEnum::ASSASSINATED, EndCauseEnum::BEHEADED, EndCauseEnum::BLED, EndCauseEnum::INJURY, EndCauseEnum::ROCKETED])) {
+        if ($event->hasAuthor()) {
             $this->createAuthorAndTargetHighlights($event);
         }
 

@@ -946,6 +946,20 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>**{character}** gave **{target_equipment}** a big cuddle, much to his displeasure, but in any case it always makes people feel better.</target>
       </segment>
     </unit>
+    <unit id="cure_cat_success">
+      <segment id="cure_cat_success" state="translated">
+        <source>cure_cat_success</source>
+        <target>{character, select,
+        Raluca {**{character}** knows perfectly how to tame the bad temper of **{target_equipment}**. She places it delicately on a piece of furniture, caresses it a lot, gives a scratch or two behind his ear and suddenly, a sudden sting in the butt ! The cat escapes not without glancing at the one who was still holding the syringe in her hand.}  other {**{character}** holds tightly  **{target_equipment}** to prevent it from escaping. The creature struggles as it can, but it is too late : the yellow fluid and viscous has been injected ! As soon as the pressure on its body releases, it breaks free to hide in the room, hissing.}
+        }</target>
+      </segment>
+    </unit>
+    <unit id="cure_cat_fail">
+      <segment id="cure_cat_fail" state="translated">
+        <source>cure_cat_fail</source>
+        <target>**{character}** struggles with **{target_equipment}**  before it escapes from their arms. {character_gender, select, male {He} female {She} other {They}} chases it around the room while swearing, without any success, before the creature finally slips under a piece of furniture. </target>
+      </segment>
+    </unit>
     <unit id="shoot_cat_success">
       <segment id="shoot_cat_success" state="translated">
         <source>shoot_cat_success</source>

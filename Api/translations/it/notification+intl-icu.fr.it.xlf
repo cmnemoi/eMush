@@ -61,6 +61,76 @@
         <target>exploration_closed_by_u_turn.description</target>
       </segment>
     </unit>
+    <unit id="exploration_closed_everyone_dead">
+      <segment state="initial">
+        <source>exploration_closed_everyone_dead.subTitle</source>
+        <target>exploration_closed_everyone_dead.subTitle</target>
+      </segment>
+      <segment state="initial">
+        <source>exploration_closed_everyone_dead.description</source>
+        <target>exploration_closed_everyone_dead.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_no_spacesuit">
+      <segment state="initial">
+        <source>exploration_closed_no_spacesuit.subTitle</source>
+        <target>exploration_closed_no_spacesuit.subTitle</target>
+      </segment>
+      <segment state="initial">
+        <source>exploration_closed_no_spacesuit.description</source>
+        <target>exploration_closed_no_spacesuit.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_mankarog">
+      <segment state="initial">
+        <source>exploration_closed_return_event_mankarog.subTitle</source>
+        <target>exploration_closed_return_event_mankarog.subTitle</target>
+      </segment>
+      <segment state="initial">
+        <source>exploration_closed_return_event_mankarog.description</source>
+        <target>exploration_closed_return_event_mankarog.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_seismic_activity">
+      <segment state="initial">
+        <source>exploration_closed_return_event_seismic_activity.subTitle</source>
+        <target>exploration_closed_return_event_seismic_activity.subTitle</target>
+      </segment>
+      <segment state="initial">
+        <source>exploration_closed_return_event_seismic_activity.description</source>
+        <target>exploration_closed_return_event_seismic_activity.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_volcanic_activity">
+      <segment state="initial">
+        <source>exploration_closed_return_event_volcanic_activity.subTitle</source>
+        <target>exploration_closed_return_event_volcanic_activity.subTitle</target>
+      </segment>
+      <segment state="initial">
+        <source>exploration_closed_return_event_volcanic_activity.description</source>
+        <target>exploration_closed_return_event_volcanic_activity.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed">
+      <segment state="initial">
+        <source>exploration_closed.subTitle</source>
+        <target>exploration_closed.subTitle</target>
+      </segment>
+      <segment state="initial">
+        <source>exploration_closed.description</source>
+        <target>exploration_closed.description</target>
+      </segment>
+    </unit>
+    <unit id="exploration_started_no_spacesuit">
+      <segment state="initial">
+        <source>exploration_started_no_spacesuit.subTitle</source>
+        <target>exploration_started_no_spacesuit.subTitle</target>
+      </segment>
+      <segment state="initial">
+        <source>exploration_started_no_spacesuit.description</source>
+        <target>exploration_started_no_spacesuit.description</target>
+      </segment>
+    </unit>
     <unit id="announcement_received">
       <segment state="initial">
         <source>announcement_received.title</source>
@@ -79,6 +149,28 @@
       <segment state="initial">
         <source>announcement_created.description</source>
         <target>announcement_created.description</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness">
+      <segment state="initial">
+        <source>clumsiness.description</source>
+        <target>clumsiness.description</target>
+      </segment>
+    </unit>
+    <unit id="soiled">
+      <segment state="initial">
+        <source>soiled.description</source>
+        <target>soiled.description</target>
+      </segment>
+    </unit>
+    <unit id="welcome_mush">
+      <segment state="initial">
+        <source>welcome_mush.title</source>
+        <target>welcome_mush.title</target>
+      </segment>
+      <segment state="initial">
+        <source>welcome_mush.description</source>
+        <target>welcome_mush.description</target>
       </segment>
     </unit>
   </file>

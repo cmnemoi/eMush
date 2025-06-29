@@ -132,6 +132,7 @@ enum TriumphEnum: string
         return \in_array($this, [
             self::CHUN_DEAD,
             self::CYCLE_MUSH,
+            self::EDEN_ALIEN_PLANT,
             self::EDEN_MUSH_INVASION,
             self::HUMANOCIDE,
             self::INFECT,

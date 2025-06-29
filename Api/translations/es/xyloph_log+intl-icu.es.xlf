@@ -2,87 +2,87 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="xyloph_log.ext">
     <unit id="xyloph_decoded_nothing">
-      <segment id="xyloph_decoded_nothing" state="initial">
+      <segment id="xyloph_decoded_nothing" state="translated">
         <source>xyloph_decoded_nothing</source>
-        <target>xyloph_decoded_nothing</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. No sirven para nada... El dato ha sido infectado por un virus rizomal.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_magnetite">
-      <segment id="xyloph_decoded_magnetite" state="initial">
+      <segment id="xyloph_decoded_magnetite" state="translated">
         <source>xyloph_decoded_magnetite</source>
-        <target>xyloph_decoded_magnetite</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. La señal es de mala calidad... muy mala, seguramente por la nube de magnetita que atraviesas en este momento.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_snow">
-      <segment id="xyloph_decoded_snow" state="initial">
+      <segment id="xyloph_decoded_snow" state="translated">
         <source>xyloph_decoded_snow</source>
-        <target>xyloph_decoded_snow</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. Tu pantalla se cubre de lluvia y zumbidos, te hace doler la cabeza, detienes tu intento...</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_disk">
-      <segment id="xyloph_decoded_disk" state="initial">
+      <segment id="xyloph_decoded_disk" state="translated">
         <source>xyloph_decoded_disk</source>
-        <target>xyloph_decoded_disk</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. Este disco contiene información crucial sobre el genoma Mush recopilada por Ian Soulton justo antes de embarcarse en el Daedalus.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_version">
-      <segment id="xyloph_decoded_version" state="initial">
+      <segment id="xyloph_decoded_version" state="translated">
         <source>xyloph_decoded_version</source>
-        <target>xyloph_decoded_version</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. Una parte de los trabajos de investigación de Janice en Xyloph-17 son integrados a la memoria de Neron.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_ghost_sample">
-      <segment id="xyloph_decoded_ghost_sample" state="initial">
+      <segment id="xyloph_decoded_ghost_sample" state="translated">
         <source>xyloph_decoded_ghost_sample</source>
-        <target>xyloph_decoded_ghost_sample</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. Has establecido contacto con Nils Carlsson, su ayuda en las investigaciones de laboratorio será valiosa.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_ghost_chun">
-      <segment id="xyloph_decoded_ghost_chun" state="initial">
+      <segment id="xyloph_decoded_ghost_chun" state="translated">
         <source>xyloph_decoded_ghost_chun</source>
-        <target>xyloph_decoded_ghost_chun</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. Zong Chun es el único ser humano resistente a la infección Mush, el análisis de su genoma es la clave para la elaboración de una vacuna anti-mush y de muchos otros avances científicos.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_kivanc">
-      <segment id="xyloph_decoded_kivanc" state="initial">
+      <segment id="xyloph_decoded_kivanc" state="translated">
         <source>xyloph_decoded_kivanc</source>
-        <target>xyloph_decoded_kivanc</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. Estás en contacto con Kivanç Terzi, uno de los líderes de la rebelión en el sistema Sol, su ayuda será valiosa para descifrar los mensajes de las bases rebeldes.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_cook">
-      <segment id="xyloph_decoded_cook" state="initial">
+      <segment id="xyloph_decoded_cook" state="translated">
         <source>xyloph_decoded_cook</source>
-        <target>xyloph_decoded_cook</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. Encuentras un archivo que contiene recetas. Muchas recetas. Muchas, muchas, muuuuuchas recetas.</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_mage_books">
-      <segment id="xyloph_decoded_mage_books" state="initial">
+      <segment id="xyloph_decoded_mage_books" state="translated">
         <source>xyloph_decoded_mage_books</source>
-        <target>xyloph_decoded_mage_books</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. ¡Has encontrado un paquete de archivos en el centro de formación de Xyloph! Este tesoro de inteligencia te ayudará a instruir a tus tontos compañeros...</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_list">
-      <segment id="xyloph_decoded_list" state="initial">
+      <segment id="xyloph_decoded_list" state="translated">
         <source>xyloph_decoded_list</source>
-        <target>xyloph_decoded_list</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. El análisis anti-mush de Finola se realizó durante el despegue del Daedalus. Los resultados fueron enviados a la tabuladora, ¡al leerlos, conocerás el estado de infección de la tripulación al inicio de la misión!</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_blueprints">
-      <segment id="xyloph_decoded_blueprints" state="initial">
+      <segment id="xyloph_decoded_blueprints" state="translated">
         <source>xyloph_decoded_blueprints</source>
-        <target>xyloph_decoded_blueprints</target>
+        <target>Acceso a la base de datos de Xyloph autorizada. ¡Has encontrado un paquete de archivos en el centro de formación de Xyloph! Este tesoro de inteligencia te ayudará a instruir a tus tontos compañeros...</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_tabulatrix_broken">
-      <segment id="xyloph_decoded_tabulatrix_broken" state="initial">
+      <segment id="xyloph_decoded_tabulatrix_broken" state="translated">
         <source>xyloph_decoded_tabulatrix_broken</source>
-        <target>xyloph_decoded_tabulatrix_broken</target>
+        <target>Es imposible perforar el documento si la tabuladora no está operativa...</target>
       </segment>
     </unit>
     <unit id="xyloph_decoded_tabulatrix_none">
-      <segment id="xyloph_decoded_tabulatrix_none" state="initial">
+      <segment id="xyloph_decoded_tabulatrix_none" state="translated">
         <source>xyloph_decoded_tabulatrix_none</source>
-        <target>xyloph_decoded_tabulatrix_none</target>
+        <target>El documento no puede ser recuperado sin una tabuladora.</target>
       </segment>
     </unit>
   </file>

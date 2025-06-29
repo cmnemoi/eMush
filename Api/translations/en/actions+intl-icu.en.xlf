@@ -1154,7 +1154,7 @@ Or you simply need some fresh air.... or not.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>graft.confirmation</source>
-        <target>This action requires optimal hygiene conditions to be carried out. Would you like to continue?</target>
+        <target>This action requires optimal hygiene conditions for both the plant and you to be carried out. Would you like to continue?</target>
       </segment>
     </unit>
     <unit id="learn">
@@ -1470,6 +1470,16 @@ Or you simply need some fresh air.... or not.</target>
       <segment id="description" state="translated">
         <source>pet_cat.description</source>
         <target>Allows you to cuddle with Schrödinger lovingly. Brings a bit of joy the first time...</target>
+      </segment>
+    </unit>
+    <unit id="cure_cat">
+      <segment id="name" state="translated">
+        <source>cure_cat.name</source>
+        <target>Innoculate</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cure_cat.description</source>
+        <target>The anti-Mush vaccine injects a powerful retro-fungal compound which removes all Mush symptoms in the target.//This subject fires, claws and uses every means at his disposal to make you understand that he doesn't want that needle anywhere near him.</target>
       </segment>
     </unit>
     <unit id="convert_cat">

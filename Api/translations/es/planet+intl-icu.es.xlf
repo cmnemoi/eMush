@@ -6,9 +6,9 @@
         <source>landing.name</source>
         <target>Aterrizaje</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>landing.description</source>
-        <target>landing.description</target>
+        <target>NA</target>
       </segment>
     </unit>
     <unit id="forest">
@@ -116,9 +116,9 @@
         <source>mankarog.name</source>
         <target>Mankarog</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mankarog.description</source>
-        <target>mankarog.description</target>
+        <target>Cosa enorme que se come a los jugadores uno a uno.</target>
       </segment>
     </unit>
     <unit id="hydrocarbon">
@@ -196,9 +196,9 @@
         <source>ruins.name</source>
         <target>Ruina</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ruins.description</source>
-        <target>ruins.description</target>
+        <target>Presencia de ruinas de una antigua civilización.</target>
       </segment>
     </unit>
     <unit id="wreck">
@@ -228,7 +228,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>lost.description</source>
-        <target>Presencia de miembros de la tripulación del Daedalus</target>
+        <target>Presencia de miembros de la tripulación del Daedalus.</target>
       </segment>
     </unit>
     <unit id="cristal_field">

@@ -4,11 +4,11 @@
     <unit id="build">
       <segment id="build" state="translated">
         <source>build.name</source>
-        <target>Fabricar</target>
+        <target>Armar</target>
       </segment>
       <segment id="description" state="translated">
         <source>build.description</source>
-        <target>Utiliza objetos existentes para construir algo nuevo.</target>
+        <target>Arma un objeto usando varios componentes.</target>
       </segment>
     </unit>
     <unit id="coffee">
@@ -18,13 +18,13 @@
       </segment>
       <segment id="description" state="translated">
         <source>coffee.description</source>
-        <target>¡Un buen café y estará listo para la acción!</target>
+        <target>¡Un buen café y estarás listo para la acción!</target>
       </segment>
     </unit>
     <unit id="dispense">
       <segment id="dispense" state="translated">
         <source>dispense.name</source>
-        <target>Dispensar</target>
+        <target>Destilar</target>
       </segment>
       <segment id="description" state="translated">
         <source>dispense.description</source>
@@ -48,7 +48,7 @@
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
         <source>check_spore_level.name</source>
-        <target>Verificar nivel de infección</target>
+        <target>Verificar</target>
       </segment>
       <segment id="description" state="translated">
         <source>check_spore_level.description</source>
@@ -58,7 +58,7 @@
     <unit id="consume">
       <segment id="consume" state="translated">
         <source>consume.name</source>
-        <target>Comer</target>
+        <target>Consumir</target>
       </segment>
       <segment id="description" state="translated">
         <source>consume.description</source>
@@ -68,7 +68,7 @@
     <unit id="consume_drug">
       <segment id="consume_drug" state="translated">
         <source>consume_drug.name</source>
-        <target>Comer</target>
+        <target>Consumir</target>
       </segment>
       <segment id="description" state="translated">
         <source>consume_drug.description</source>
@@ -82,7 +82,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>eat_spore.description</source>
-        <target>Comer una espora te hará recuperar 4 :pa: y 4 :hp:.</target>
+        <target>Comer una espora te hará recuperar **4** :pa: y **4** :hp:.</target>
       </segment>
     </unit>
     <unit id="cook">
@@ -136,7 +136,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>extract_spore.description</source>
-        <target>Extírpate una espora para poder infectar a un compañero (pero antes de eso, ten cuidado con las cámaras)</target>
+        <target>Extírpate una espora para poder infectar a un compañero (no debe haber nadie más en la sala).//La tripulación **Mush** aun puede crear **{quantity_remaining} esporas** hoy.</target>
       </segment>
     </unit>
     <unit id="flirt">
@@ -146,7 +146,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>flirt.description</source>
-        <target>Permite flirtear con alguien, esta acción te permitirá hacerlo con esa persona. Esta acción es **irreversible**.</target>
+        <target>Coquetear con alguien le permitirá *hacerlo* contigo. Esta acción es **irreversible**.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>flirt.confirmation</source>
@@ -180,7 +180,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>hit.description</source>
-        <target>Comienza una conversación de manera violenta.</target>
+        <target>Iniciar una charla poco cordial.</target>
       </segment>
     </unit>
     <unit id="hyperfreeze">
@@ -196,13 +196,11 @@
     <unit id="infect">
       <segment id="infect" state="translated">
         <source>infect.name</source>
-        <target>Infectar</target>
+        <target>Picar</target>
       </segment>
       <segment id="description" state="translated">
         <source>infect.description</source>
-        <target>Picar a una persona con una espora causará una *Infección*. Para hacer esto, debes tener las esporas contigo. Al cabo de tres infecciones, el personaje habrá terminado su proceso de mushificación.
-Esta acción es *Furtiva*. Será revelada por las *Cámaras*.
-Esta acción es *Agresiva*. Puede tener restricciones.</target>
+        <target>Picar a una persona con una espora causará una *Infección*. Para hacer esto, debes tener las esporas contigo. Al cabo de tres infecciones, el personaje habrá terminado su proceso de mushificación.</target>
       </segment>
     </unit>
     <unit id="lie_down">
@@ -292,7 +290,7 @@ Disponible solo durante el alpha.
     <unit id="shred">
       <segment id="shred" state="translated">
         <source>shred.name</source>
-        <target>Despedazar</target>
+        <target>Romper</target>
       </segment>
       <segment id="description" state="translated">
         <source>shred.description</source>
@@ -376,7 +374,7 @@ Disponible solo durante el alpha.
       </segment>
       <segment id="description" state="translated">
         <source>insert_fuel.description</source>
-        <target>Inyecta combustible en la Cámara de Combustión del motor</target>
+        <target>Inyecta combustible en el tanque.</target>
       </segment>
     </unit>
     <unit id="retrieve_fuel">
@@ -439,7 +437,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
       </segment>
       <segment id="description" state="translated">
         <source>heal.description</source>
-        <target>Te devuelve puntos de vida (:hp:). Si estás enfermo, le quita un punto de enfermedad a uno de tus males.</target>
+        <target>Le devuelve puntos de vida (:hp:) al objetivo. Si está enfermo, le quita un punto de enfermedad a uno de sus males.</target>
       </segment>
     </unit>
     <unit id="self_heal">
@@ -797,13 +795,13 @@ Ya sea por una mutación genética incomprensible o por pura locura homicida, un
         <source>play_arcade.name</source>
         <target>¡Jugar una partida!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>play_arcade.description</source>
-        <target>play_arcade.description</target>
+        <target>Relájate un poco destruyendo algunos PewPewz espaciales. Es muy bueno... pero, la dificultad es... ¡letal!</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>play_arcade.confirmation</source>
-        <target>play_arcade.confirmation</target>
+        <target>Con sus jotas mortales y sus insoportables bolas de vacío, el Dynarcade es solo para los más duros. ¿Continuar?</target>
       </segment>
     </unit>
     <unit id="shoot_hunter">
@@ -909,7 +907,7 @@ El resultado es mejor con misiles.</target>
         <source>renovate.description</source>
         <target>Renovar un patrullero puede definir una batalla próxima.
 //
-Requiere una *Pieza metálica*</target>
+Requiere una *Pieza metálica*.</target>
       </segment>
     </unit>
     <unit id="auto_eject">
@@ -925,7 +923,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>auto_eject.confirmation</source>
-        <target>La auto-eyección es arriesgada. Es más, tu patrullero quedará destruido. ¿Todavía quieres hacerlo?</target>
+        <target>La auto-eyección tiene riesgos. Además, tu monoplaza será destruida. ¿Estás seguro de hacerlo?</target>
       </segment>
     </unit>
     <unit id="insert_fuel_chamber">
@@ -1077,7 +1075,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
       <segment id="description" state="translated">
         <source>takeoff_to_planet_patrol_ship.description</source>
-        <target>Puedes aterrizar en un planeta con un patrullero... *Con los riesgos que eso pueda representar*</target>
+        <target>Puedes aterrizar en un planeta con un patrullero... *Con los riesgos que eso pueda representar*.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>takeoff_to_planet_patrol_ship.confirmation</source>
@@ -1149,7 +1147,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>graft.confirmation</source>
-        <target>Esta acción requiere condiciones de higiene óptimas. ¿Quieres continuar de todas maneras?</target>
+        <target>Esta acción requiere condiciones de higiene óptimas tanto de la planta como tuyas. ¿Quieres continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="learn">
@@ -1197,7 +1195,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>premonition.confirmation</source>
-        <target>¡Atención! Esta acción te costará 1 Punto de Ánimo, ¿deseas continuar?</target>
+        <target>Esta acción te costará 1 Punto de Ánimo, ¿deseas continuar?</target>
       </segment>
     </unit>
     <unit id="ceasefire">
@@ -1223,9 +1221,9 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
         <source>guard.description</source>
         <target>Obliga a los tripulantes que entran a la sala a volver por donde vinieron. La acción termina cuando te desplazas.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>guard.confirmation</source>
-        <target>guard.confirmation</target>
+        <target>Esta acción puede ser muy mal percibida. ¿Deseas continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="exchange_body">
@@ -1303,21 +1301,21 @@ Esta lista contiene actualmente **{numberOfNames}** nombres.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>run_home.confirmation</source>
-        <target>Esta acción interrumpirá la expedición para todo el equipo. ¿Continuar?</target>
+        <target>Esta acción interrumpirá la expedición para todo el equipo. ¿Deseas Continuar?</target>
       </segment>
     </unit>
     <unit id="putsch">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>putsch.name</source>
-        <target>putsch.name</target>
+        <target>¡Golpe!</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>putsch.description</source>
-        <target>putsch.description</target>
+        <target>**Único**: NERON te considerará el Comandante Supremo a partir del siguiente ciclo.</target>
       </segment>
-      <segment id="confirmation" state="initial">
+      <segment id="confirmation" state="translated">
         <source>putsch.confirmation</source>
-        <target>putsch.confirmation</target>
+        <target>Esta acción puede ser muy mal percibida. ¿Deseas continuar de todas maneras?</target>
       </segment>
     </unit>
     <unit id="anathema">
@@ -1372,7 +1370,7 @@ Si el Mush eres tú, esta acción no afectará tú :triumph_mush:.</target>
       </segment>
       <segment id="description" state="translated">
         <source>mass_ggeddon.description</source>
-        <target>Aplica una pérdida de 2 :pa: y el estado sucio a toda la tripulación.</target>
+        <target>**Único**: Aplica una pérdida de 2 :pa: y el estado sucio a toda la tripulación.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>mass_ggeddon.confirmation</source>
@@ -1386,7 +1384,7 @@ Si el Mush eres tú, esta acción no afectará tú :triumph_mush:.</target>
       </segment>
       <segment id="description" state="translated">
         <source>reinforce.description</source>
-        <target>Permite proteger un objeto desarmable para que ya no lo sea. Protege también contra los sabotajes.//Consume 1 **Pieza metálica**.</target>
+        <target>Permite blindar un objeto desarmable para que ya no lo sea. Protege también contra los sabotajes.//Consume 1 **Pieza metálica**.</target>
       </segment>
     </unit>
     <unit id="throw_grenade.name">
@@ -1454,13 +1452,13 @@ Se desplaza inteligentemente hacia el incendio equipo o patrullero más cercano 
       </segment>
     </unit>
     <unit id="take_cat">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>take_cat.name</source>
-        <target>take_cat.name</target>
+        <target>Tomar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>take_cat.description</source>
-        <target>take_cat.description</target>
+        <target>Levanta este gatote y colócalo en tu inventario. ¡Ten cuidado, rasguña!</target>
       </segment>
     </unit>
     <unit id="pet_cat">
@@ -1474,6 +1472,16 @@ Se desplaza inteligentemente hacia el incendio equipo o patrullero más cercano 
 Da un poco de alegría la primera vez...</target>
       </segment>
     </unit>
+    <unit id="cure_cat">
+      <segment id="name" state="initial">
+        <source>cure_cat.name</source>
+        <target>cure_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cure_cat.description</source>
+        <target>cure_cat.description</target>
+      </segment>
+    </unit>
     <unit id="convert_cat">
       <segment id="name" state="translated">
         <source>convert_cat.name</source>
@@ -1481,8 +1489,7 @@ Da un poco de alegría la primera vez...</target>
       </segment>
       <segment id="description" state="translated">
         <source>convert_cat.description</source>
-        <target>Permite acariciar "tiernamente" a Schrödinger y convertirlo en un agente Mush.
-</target>
+        <target>Permite acariciar "tiernamente" a Schrödinger y convertirlo en un agente Mush.</target>
       </segment>
     </unit>
     <unit id="torture">
@@ -1490,9 +1497,9 @@ Da un poco de alegría la primera vez...</target>
         <source>torture.name</source>
         <target>Torturar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>torture.description</source>
-        <target>torture.description</target>
+        <target>Tortura a un compañero para sacarle la verdad. Perderá 1 :hp: y revelará 1 acción por cada :hp: que le falte.</target>
       </segment>
     </unit>
     <unit id="cure">
@@ -1510,9 +1517,9 @@ Da un poco de alegría la primera vez...</target>
         <source>daunt.name</source>
         <target>Intimidar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>daunt.description</source>
-        <target>daunt.description</target>
+        <target>**Diario**. Puedes intimidar a un tripulante para imponerle tus ideas.//:point: Hace que tu objetivo pierda **2** :pa: y **4** :pm:.</target>
       </segment>
     </unit>
     <unit id="gen_metal">
@@ -1520,9 +1527,9 @@ Da un poco de alegría la primera vez...</target>
         <source>gen_metal.name</source>
         <target>Rebuscar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gen_metal.description</source>
-        <target>gen_metal.description</target>
+        <target>Te permite rebuscar en los almacenes por piezas, u otras cosas **realmente** útiles.</target>
       </segment>
     </unit>
     <unit id="door_sabotage">
@@ -1532,7 +1539,7 @@ Da un poco de alegría la primera vez...</target>
       </segment>
       <segment id="description" state="translated">
         <source>door_sabotage.description</source>
-        <target>Sabotea una puerta al azar en la sala. Esta acción es *diaria*.</target>
+        <target>**Diario**: Puedes sabotear una puerta al azar en la sala.</target>
       </segment>
     </unit>
     <unit id="give_nightmare">
@@ -1570,9 +1577,9 @@ Da un poco de alegría la primera vez...</target>
         <source>compute_eden.name</source>
         <target>Calcular</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>compute_eden.description</source>
-        <target>compute_eden.description</target>
+        <target>Extraer datos de las Cristalitas puede decirte mucho sobre los Edenistas.</target>
       </segment>
     </unit>
     <unit id="travel_to_eden">
@@ -1580,9 +1587,9 @@ Da un poco de alegría la primera vez...</target>
         <source>travel_to_eden.name</source>
         <target>Viajar al Edén</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>travel_to_eden.description</source>
-        <target>travel_to_eden.description</target>
+        <target>Una nueva esperanza, un nuevo Edén. Y la promesa de un nuevo comienzo.</target>
       </segment>
       <segment id="confirmation" state="translated">
         <source>travel_to_eden.confirmation</source>
@@ -1617,7 +1624,7 @@ Da un poco de alegría la primera vez...</target>
       <segment id="description" state="translated">
         <source>com_manager_announcement.description</source>
         <target>Como *Oficial de Comunicaciones* puedes hacer un *anuncio general*.//
-Todos tus camaradas serán *notificados* y el anuncio permanecerá en :tip:  *Consejos*.</target>
+Todos tus camaradas serán *notificados* y el anuncio permanecerá en la pestaña :tip:  *Consejos*.</target>
       </segment>
     </unit>
     <unit id="establish_link_with_sol">

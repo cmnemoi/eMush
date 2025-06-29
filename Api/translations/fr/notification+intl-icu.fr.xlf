@@ -112,9 +112,9 @@
       </segment>
     </unit>
     <unit id="exploration_closed">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed.subTitle</source>
-        <target>exploration_closed.subTitle</target>
+        <target>Bon retour !</target>
       </segment>
       <segment state="translated">
         <source>exploration_closed.description</source>
@@ -122,9 +122,9 @@
       </segment>
     </unit>
     <unit id="exploration_started_no_spacesuit">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_started_no_spacesuit.subTitle</source>
-        <target>exploration_started_no_spacesuit.subTitle</target>
+        <target>Vous êtes pris dans une machine qui vous a emmené en expédition qui n'avait pas une atmosphère riche en oxygène, et vous n'avez pas de combinaison. Vous devez attendre que vos collègues terminent leur exploration.</target>
       </segment>
       <segment state="translated">
         <source>exploration_started_no_spacesuit.description</source>
@@ -168,13 +168,13 @@
       </segment>
     </unit>
     <unit id="welcome_mush">
-      <segment state="initial">
+      <segment state="translated">
         <source>welcome_mush.title</source>
-        <target>welcome_mush.title</target>
+        <target>Bienvenue parmi la cause, très cher MUSH</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>welcome_mush.description</source>
-        <target>welcome_mush.description</target>
+        <target>Quelque chose a... changé. Vous vous sentez différent.//// Une sérénité calme vous absorbe. Vous voulez *le partager* à vos camarades...////Camarade, **vous êtes un agent du Mush** !////Vous pouvez compléter votre mission avec succès par deux manières : en convertissant tout l'équipage au Mush, ou en détruisant le vaisseau !////Vous commencez votre mission avec **earned {quantity}** :triumph_mush:.</target>
       </segment>
     </unit>
   </file>

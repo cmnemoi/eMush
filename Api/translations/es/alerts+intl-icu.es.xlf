@@ -8,11 +8,11 @@
       </segment>
       <segment id="description" state="translated">
         <source>broken_doors.description</source>
-        <target>¡Avisa un técnico o ponte a repararla!</target>
+        <target>¡Avisa a un técnico o ponte a repararla!</target>
       </segment>
       <segment id="report" state="translated">
         <source>broken_doors.report</source>
-        <target>**{character}** ha señalado una puerta averiada {loc_prep} **{place}**.</target>
+        <target>**{character}** ha señalado {quantity, plural, one {**#** puerta averiada} other {**#** puertas averiadas}} {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="fires">
@@ -40,7 +40,7 @@
       </segment>
       <segment id="report" state="translated">
         <source>broken_equipments.report</source>
-        <target>**{character}** ha señalado {quantity, plural, one {**#** equipo averiado} other {**#** equipos averiados}} de equipo {loc_prep} **{place}**</target>
+        <target>**{character}** ha señalado {quantity, plural, one {**#** equipo averiado} other {**#** equipos averiados}} {loc_prep} **{place}**.</target>
       </segment>
     </unit>
     <unit id="no_gravity">
@@ -50,7 +50,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>no_gravity.description</source>
-        <target>El simulador de gravedad no se ha iniciado. ¡La tripulación tendrá **1 :pm: menos** en el cambio de ciclo!
+        <target>El simulador de gravedad no se ha iniciado. ¡Cada ganancia de Puntos de Movimiento se ve **reducida en 1** :pm:!
 Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</target>
       </segment>
     </unit>
@@ -61,7 +61,7 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
       <segment id="description" state="translated">
         <source>gravity_reboot.description</source>
-        <target>El simulador se está reiniciando. Cada ganancia de puntos de movimiento es reducida en 1 :pm:</target>
+        <target>El simulador se está reiniciando. Cada ganancia de Puntos de Movimiento se ve **reducida en 1** :pm:.</target>
       </segment>
     </unit>
     <unit id="low_oxygen">
@@ -81,7 +81,7 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
       <segment id="description" state="translated">
         <source>outcast.description</source>
-        <target>{character} es un paria, consulta con la tripulación para saber que se debería hacer.</target>
+        <target>{character} es {character_gender, select, female {una} other {un}} paria, consulta con la tripulación para saber qué se debería hacer.</target>
       </segment>
     </unit>
     <unit id="lost_crewmate">
@@ -111,17 +111,17 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
       <segment id="description" state="translated">
         <source>hunger.description</source>
-        <target>La tripulación está severamente **hambrienta**. Deben de buscar algo que comer.</target>
+        <target>La tripulación está severamente **hambrienta**. Hay que buscar algo para comer.</target>
       </segment>
     </unit>
     <unit id="communication_down">
       <segment id="name" state="translated">
         <source>communication_down.name</source>
-        <target>Sin contacto</target>
+        <target>Sin comunicación</target>
       </segment>
       <segment id="description" state="translated">
         <source>communication_down.description</source>
-        <target>¡El Daedalus no tiene contacto con Sol! Mantener el contacto con Sol es importante para el estado de ánimo del grupo.</target>
+        <target>¡El Daedalus no tiene contacto con Sol!//Mantener la comunicación con nuestro mundo es importante para nuestro estado de ánimo y supervivencia.</target>
       </segment>
     </unit>
     <unit id="hunter">
@@ -131,7 +131,7 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
       <segment id="description" state="translated">
         <source>hunter.description</source>
-        <target>¡Avisa a los demás o defiende la nave por tu cuenta!</target>
+        <target>¡Avisa a los demás o defiende tú mismo la nave!</target>
       </segment>
     </unit>
     <unit id="no_alert">
@@ -151,13 +151,13 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
     </unit>
     <unit id="communications_down">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>communications_down.name</source>
-        <target>communications_down.name</target>
+        <target>Sin comunicación</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>communications_down.description</source>
-        <target>communications_down.description</target>
+        <target>¡**No hay contacto** con Sol!//Mantener la comunicación con nuestro mundo es importante para nuestro estado de ánimo y supervivencia.</target>
       </segment>
     </unit>
   </file>

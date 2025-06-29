@@ -751,6 +751,18 @@
         <target>pet_cat</target>
       </segment>
     </unit>
+    <unit id="cure_cat_success">
+      <segment id="cure_cat_success" state="initial">
+        <source>cure_cat_success</source>
+        <target>cure_cat_success</target>
+      </segment>
+    </unit>
+    <unit id="cure_cat_fail">
+      <segment id="cure_cat_fail" state="initial">
+        <source>cure_cat_fail</source>
+        <target>cure_cat_fail</target>
+      </segment>
+    </unit>
     <unit id="shoot_cat_success">
       <segment id="shoot_cat_success" state="initial">
         <source>shoot_cat_success</source>

@@ -8,47 +8,47 @@
       </segment>
       <segment id="action_point" state="translated">
         <source>action_point</source>
-        <target>{quantity} Puntos de acción</target>
+        <target>:pa:</target>
       </segment>
       <segment id="movement_point" state="translated">
         <source>movement_point</source>
-        <target>{quantity} Puntos de movimiento</target>
+        <target>:pm:</target>
       </segment>
       <segment id="health_point" state="translated">
         <source>health_point</source>
-        <target>{quantity} Puntos de vida</target>
+        <target>:hp:</target>
       </segment>
       <segment id="moral_point" state="translated">
         <source>moral_point</source>
-        <target>{quantity} Puntos de moral</target>
+        <target>:pmo:</target>
       </segment>
-      <segment id="ration_data" state="initial">
+      <segment id="ration_data" state="translated">
         <source>ration_data</source>
-        <target>ration_data</target>
+        <target>Datos de los efectos:</target>
       </segment>
-      <segment id="delayed_disease_info_with_range" state="initial">
+      <segment id="delayed_disease_info_with_range" state="translated">
         <source>delayed_disease_info_with_range</source>
-        <target>delayed_disease_info_with_range</target>
+        <target>{ quantity } % de probabilidades de causar la enfermedad { diseaseName } entre {start} y {end} ciclos.</target>
       </segment>
-      <segment id="delayed_disease_info" state="initial">
+      <segment id="delayed_disease_info" state="translated">
         <source>delayed_disease_info</source>
-        <target>delayed_disease_info</target>
+        <target>{ quantity } % de probabilidades de causar la enfermedad { diseaseName } en {start} ciclos.</target>
       </segment>
-      <segment id="disease_info" state="initial">
+      <segment id="disease_info" state="translated">
         <source>disease_info</source>
-        <target>disease_info</target>
+        <target>{ quantity } % de probabilidades de causar la enfermedad { diseaseName }.</target>
       </segment>
-      <segment id="delayed_cure_info_with_range" state="initial">
+      <segment id="delayed_cure_info_with_range" state="translated">
         <source>delayed_cure_info_with_range</source>
-        <target>delayed_cure_info_with_range</target>
+        <target>Cura la enfermedad {diseaseName} entre {start} y {end} ciclos.</target>
       </segment>
-      <segment id="delayed_cure_info" state="initial">
+      <segment id="delayed_cure_info" state="translated">
         <source>delayed_cure_info</source>
-        <target>delayed_cure_info</target>
+        <target>Cura la enfermedad {diseaseName} en {start} ciclos.</target>
       </segment>
-      <segment id="cure_info" state="initial">
+      <segment id="cure_info" state="translated">
         <source>cure_info</source>
-        <target>cure_info</target>
+        <target>Cura la enfermedad {diseaseName}.</target>
       </segment>
     </unit>
     <unit id="orientation">
@@ -70,57 +70,59 @@
       </segment>
     </unit>
     <unit id="here">
-      <segment id="here" state="initial">
+      <segment id="here" state="translated">
         <source>here</source>
-        <target>here</target>
+        <target>aquí</target>
       </segment>
     </unit>
     <unit id="estimated_duration">
-      <segment id="estimated_duration" state="initial">
+      <segment id="estimated_duration" state="translated">
         <source>estimated_duration</source>
-        <target>estimated_duration</target>
+        <target>{isExplorationFinished, select,
+        true {La expedición ya terminó.}
+        other {Retorno estimado en {duration} min.}}</target>
       </segment>
     </unit>
     <unit id="exploration_pop_up">
-      <segment id="planet" state="initial">
+      <segment id="planet" state="translated">
         <source>exploration_pop_up.title</source>
-        <target>exploration_pop_up.title</target>
+        <target>Exploración en curso</target>
       </segment>
-      <segment id="planet" state="initial">
+      <segment id="planet" state="translated">
         <source>exploration_pop_up.planet</source>
-        <target>exploration_pop_up.planet</target>
+        <target>**Planeta:** {planetName}</target>
       </segment>
-      <segment id="explorators" state="initial">
+      <segment id="explorators" state="translated">
         <source>exploration_pop_up.explorators</source>
-        <target>exploration_pop_up.explorators</target>
+        <target>**Equipo:** {explorators}</target>
       </segment>
-      <segment id="estimated_duration" state="initial">
+      <segment id="estimated_duration" state="translated">
         <source>exploration_pop_up.estimated_duration</source>
-        <target>exploration_pop_up.estimated_duration</target>
+        <target>**Retorno estimado:** {estimatedDuration} minutos</target>
       </segment>
     </unit>
     <unit id="plant_effects">
-      <segment id="plant_data" state="initial">
+      <segment id="plant_data" state="translated">
         <source>plant_data</source>
-        <target>plant_data</target>
+        <target>Datos de la planta:</target>
       </segment>
-      <segment id="fruit_productivity" state="initial">
+      <segment id="fruit_productivity" state="translated">
         <source>fruit_productivity</source>
-        <target>fruit_productivity</target>
+        <target>Producción de frutas: {quantity} / día</target>
       </segment>
-      <segment id="o2_productivity" state="initial">
+      <segment id="o2_productivity" state="translated">
         <source>o2_productivity</source>
-        <target>o2_productivity</target>
+        <target>Producción de O2: {quantity} / día</target>
       </segment>
-      <segment id="maturity_info" state="initial">
+      <segment id="maturity_info" state="translated">
         <source>maturity_info</source>
-        <target>maturity_info</target>
+        <target>Esta planta madurará en {quantity} cycles</target>
       </segment>
     </unit>
     <unit id="exploration_archive">
-      <segment id="exploration_archive" state="initial">
+      <segment id="exploration_archive" state="translated">
         <source>exploration_archive</source>
-        <target>exploration_archive</target>
+        <target>archivo de la expedición</target>
       </segment>
     </unit>
   </file>

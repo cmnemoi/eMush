@@ -532,9 +532,9 @@
       </segment>
     </unit>
     <unit id="edited_by_neron">
-      <segment id="edited_by_neron" state="initial">
+      <segment id="edited_by_neron" state="translated">
         <source>edited_by_neron</source>
-        <target>edited_by_neron</target>
+        <target>Activación del protocolo A-True. Bloqueo de frecuencias indeseadas habilitado.</target>
       </segment>
     </unit>
     <unit id="anniversary_begin">
@@ -556,9 +556,9 @@
       </segment>
     </unit>
     <unit id="command_refused">
-      <segment id="command_refused" state="initial">
+      <segment id="command_refused" state="translated">
         <source>command_refused</source>
-        <target>command_refused</target>
+        <target>No pasa nada, la solicitud ha sido rechazada por NERON.</target>
       </segment>
     </unit>
   </file>

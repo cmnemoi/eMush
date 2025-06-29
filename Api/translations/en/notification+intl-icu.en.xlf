@@ -170,7 +170,7 @@
       </segment>
       <segment state="translated">
         <source>welcome_mush.description</source>
-        <target>Something has... changed. You feel different.////A calming serenity has overtaken you. You want to *share it* with your crewmates...////Comrade, **you are an agent of Mush**!////You can successfully complete your mission in two ways: by converting everyone to Mush, or by destroying the ship!////You'll begin your mission with **earned {quantity}** :triumph_mush:</target>
+        <target>Something has... changed. You feel different.////A calming serenity has overtaken you. You want to *share it* with your crewmates...////Comrade, **you are an agent of Mush**!////You can successfully complete your mission in two ways: by converting everyone to Mush, or by destroying the ship!////You'll begin your mission with **earned {quantity}** :triumph_mush:.</target>
       </segment>
     </unit>
   </file>

@@ -530,9 +530,9 @@
         <source>anemole.short_name</source>
         <target>Anémola</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>anemole.gender</source>
-        <target>anemole.gender</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>anemole.first_letter</source>
@@ -582,9 +582,9 @@
         <source>caleboot.short_name</source>
         <target>Calebota</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>caleboot.gender</source>
-        <target>caleboot.gender</target>
+        <target>female</target>
       </segment>
       <segment id="first_letter" state="translated">
         <source>caleboot.first_letter</source>
@@ -1392,15 +1392,15 @@ Aunque es usado en algunos planetas como llamado de apareamiento, su mensaje de 
     <unit id="alien_holographic_tv">
       <segment id="name" state="translated">
         <source>alien_holographic_tv.name</source>
-        <target>TV holográfica alienígena</target>
+        <target>TV Holográfica Alien</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>alien_holographic_tv.short_name</source>
-        <target>TV holográfica alienígena</target>
+        <target>TV Holográfica Alien</target>
       </segment>
       <segment id="plural_name" state="translated">
         <source>alien_holographic_tv.plural_name</source>
-        <target>TVs holográficas alienígenas</target>
+        <target>TVs Holográficas Aliens</target>
       </segment>
       <segment id="genre" state="translated">
         <source>alien_holographic_tv.gender</source>
@@ -1795,7 +1795,7 @@ Un tubo ancho. ¿Para qué?...</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>schrodinger.short_name</source>
-        <target>Schrödinger</target>
+        <target>Gato Schrödinger</target>
       </segment>
       <segment id="genre" state="translated">
         <source>schrodinger.gender</source>
@@ -1840,20 +1840,19 @@ El gato de Raluca.</target>
         <source>support_drone.description</source>
         <target>Quizás tu mejor aliado en el Daedalus. Podrá cumplir diversas tareas en tu lugar.
 //
-El dron realiza acciones similares a las del equipo.
+:point: El dron realiza acciones similares a las del equipo.
 //
-Intenta reparar los equipos averiados de la sala antes de desplazarse.</target>
+:point: Intenta reparar los equipos averiados de la sala antes de desplazarse.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>support_drone.examine</source>
         <target>Quizás tu mejor aliado en el Daedalus. Podrá cumplir diversas tareas en tu lugar.
 //
 El dron realiza acciones similares a las del equipo.
-//
+{drone_upgrades}//
 Intenta reparar los equipos averiados de la sala antes de desplazarse.
 //
-Usado para operaciones de mantenimiento, casi pueden reemplazar a un ser humano, casi.
-{drone_upgrades}</target>
+Usado para operaciones de mantenimiento, casi pueden reemplazar a un ser humano, casi.</target>
       </segment>
     </unit>
     <unit id="jar_of_alien_oil">
@@ -2079,13 +2078,13 @@ Neutraliza la contaminación Mush encapsulando la espora en un quiste lejos del 
         <source>magellan_liquid_map.description</source>
         <target>Un mapa revolucionario que te puede dar información de los planetas.
 //
-Mientras esté en el Puente, el Mapa líquido te revela una o dos zonas de planetas recién detectados.</target>
+Mientras esté en el **Puente de mando**, el Mapa líquido te revela una o dos zonas de planetas recién detectados.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>magellan_liquid_map.examine</source>
         <target>Un mapa revolucionario que te puede dar información de los planetas.
 //
-Mientras esté en el Puente, el Mapa Líquido te revela una o dos zonas de planetas detectados.
+Mientras esté en el **Puente de mando**, el Mapa Líquido te revela una o dos zonas de planetas detectados.
 //
 Tienes la impresión de que esto te quiere hablar... ¿Estás seguro?</target>
       </segment>
@@ -2789,9 +2788,12 @@ El símbolo del espíritu solidario en tiempos de crisis. No contiene sopa ni na
         <source>banana_tree.gender</source>
         <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>banana_tree.first_letter</source>
-        <target>banana_tree.first_letter</target>
+        <target>{age, select,
+      young {consonant}
+      other {vowel}
+}</target>
       </segment>
       <segment id="description" state="translated">
         <source>banana_tree.description</source>

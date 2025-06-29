@@ -30,7 +30,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>andie.description</source>
-        <target>Lamesuelas de la Federación</target>
+        <target>Lame-suelas de la Federación, al servicio del Daedalus.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>andie.employment</source>
@@ -78,7 +78,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chao.description</source>
-        <target>Jefe de seguridad del Daedalus</target>
+        <target>Jefe de seguridad del Daedalus.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>chao.employment</source>
@@ -127,7 +127,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chun.description</source>
-        <target>Última esperanza de la humanidad</target>
+        <target>Última esperanza para la humanidad.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>chun.employment</source>
@@ -182,7 +182,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>derek.description</source>
-        <target>Un verdadero héroe a pesar de todo.</target>
+        <target>Un verdadero héroe y mujeriego galáctico, a pesar de todo.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>derek.employment</source>
@@ -289,7 +289,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>finola.description</source>
-        <target>Bióloga de renombre internacional y pionera del estudio Mush</target>
+        <target>Bióloga de renombre internacional y pionera del estudio Mush.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>finola.employment</source>
@@ -340,7 +340,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>frieda.description</source>
-        <target>Astrofísica milenaria</target>
+        <target>Experta milenaria en astrofísica.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>frieda.employment</source>
@@ -366,7 +366,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>frieda.tips</source>
-        <target>**Escanea y analiza planetas** usando la terminal Astro en el Puente para buscar destinos de expedición, usando tu habilidad de Astrofísico.//**Elimina hunters** conlos patrulleros ubicados en las plataformas para proteger la nave.//**Despega expediciones** a planetas con el Icaus, en la Plataforma Icarus, para recolectar recursos.</target>
+        <target>**Escanea y analiza planetas** usando la terminal Astro en el Puente de mando para buscar destinos de expedición, usando tu habilidad de Astrofísico.//**Elimina hunters** conlos patrulleros ubicados en las plataformas para proteger la nave.//**Despega expediciones** a planetas con el Icaus, en la Plataforma Icarus, para recolectar recursos.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>frieda.tutorial</source>
@@ -392,7 +392,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>gioele.description</source>
-        <target>Navegante filántropo.</target>
+        <target>Magnate, filántropo y cafeinómano del Daedalus.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>gioele.employment</source>
@@ -416,7 +416,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>gioele.tips</source>
-        <target>**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Escanea planetas** usando la Terminal Astro en el Puente para organizar expediciones.//**Elimina Mush confirmados** usando tu habilidad Robusto.</target>
+        <target>**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Escanea planetas** usando la Terminal Astro en el Puente de mando para organizar expediciones.//**Elimina Mush confirmados** usando tu habilidad Robusto.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>gioele.tutorial</source>
@@ -442,7 +442,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>hua.description</source>
-        <target>Exploradora de lo extremo.</target>
+        <target>Exploradora de lo extremo. Experta en aterrizajes peligrosos.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>hua.employment</source>
@@ -490,9 +490,9 @@
         <source>ian.age</source>
         <target>42 años</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>ian.description</source>
-        <target>ian.description</target>
+        <target>Científico botánico obsesivo.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>ian.employment</source>
@@ -544,7 +544,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>jin_su.description</source>
-        <target>Comandante supremo del Daedalus</target>
+        <target>Reconocido navegante y Comandante supremo del Daedalus.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>jin_su.employment</source>
@@ -586,7 +586,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>kuan_ti.description</source>
-        <target>Gran arquitecto del Daedalus.</target>
+        <target>Gran arquitecto del Daedalus. Hombre clave en la misión.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>kuan_ti.employment</source>
@@ -670,7 +670,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>raluca.description</source>
-        <target>Genio de la física cuántica y amante de los gatos.</target>
+        <target>Genio de la física cuántica y amante de los felinos.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>raluca.employment</source>
@@ -712,7 +712,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>roland.description</source>
-        <target>Comediante y piloto en sus ratos libres.</target>
+        <target>Humorista y piloto de combate en sus ratos libres.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>roland.employment</source>
@@ -754,7 +754,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>stephen.description</source>
-        <target>El cocinero más peligroso de la galaxia.</target>
+        <target>Multioficios y cocinero en el Daedalus. El cocinero más peligroso de la galaxia.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>stephen.employment</source>
@@ -796,7 +796,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>terrence.description</source>
-        <target>Tecnófilo desahuciado motorizado.</target>
+        <target>Técnico en armamento, con una revancha por cobrarse.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>terrence.employment</source>

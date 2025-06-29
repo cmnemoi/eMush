@@ -1194,9 +1194,12 @@
       </segment>
     </unit>
     <unit id="demoralized">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>demoralized.name</source>
-        <target>demoralized.name</target>
+        <target>{character_gender, select
+  female {Desmoralizada}
+  other {Desmoralizado}
+}</target>
       </segment>
       <segment id="description" state="initial">
         <source>demoralized.description</source>
@@ -1248,13 +1251,13 @@
       </segment>
     </unit>
     <unit id="eureka_moment">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>eureka_moment.name</source>
-        <target>eureka_moment.name</target>
+        <target>Golpe de Suerte</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>eureka_moment.description</source>
-        <target>eureka_moment.description</target>
+        <target>Tu próxima reparación, proyecto o investigación es un éxito inmediato.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>eureka_moment.examine</source>
@@ -1438,9 +1441,12 @@
       </segment>
     </unit>
     <unit id="lost">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>lost.name</source>
-        <target>lost.name</target>
+        <target>{character_gender, select
+  female {Perdida}
+  other {Perdido}
+}</target>
       </segment>
       <segment id="description" state="initial">
         <source>lost.description</source>
@@ -1474,9 +1480,9 @@
       </segment>
     </unit>
     <unit id="multi_teamster">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>multi_teamster.name</source>
-        <target>multi_teamster.name</target>
+        <target>Multi-equipos</target>
       </segment>
       <segment id="description" state="initial">
         <source>multi_teamster.description</source>
@@ -1532,9 +1538,9 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
     </unit>
     <unit id="pregnant">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>pregnant.name</source>
-        <target>pregnant.name</target>
+        <target>Encinta</target>
       </segment>
       <segment id="description" state="initial">
         <source>pregnant.description</source>
@@ -1610,9 +1616,9 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
     </unit>
     <unit id="suicidal">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>suicidal.name</source>
-        <target>suicidal.name</target>
+        <target>Suicida</target>
       </segment>
       <segment id="description" state="initial">
         <source>suicidal.description</source>
@@ -1640,9 +1646,9 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
     </unit>
     <unit id="fire.description">
-      <segment state="initial">
+      <segment state="translated">
         <source>fire.description</source>
-        <target>fire.description</target>
+        <target>¡Esta sala está en llamas!</target>
       </segment>
     </unit>
     <unit id="genius_idea">
@@ -1656,9 +1662,9 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
     </unit>
     <unit id="cat_infected">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cat_infected.name</source>
-        <target>cat_infected.name</target>
+        <target>Infectado</target>
       </segment>
       <segment id="description" state="initial">
         <source>cat_infected.description</source>
@@ -1684,13 +1690,13 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
     </unit>
     <unit id="beginner">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>beginner.name</source>
-        <target>beginner.name</target>
+        <target>Nuevo recluta</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>beginner.description</source>
-        <target>beginner.description</target>
+        <target>Recién graduado de la Academia, este nuevo recluta necesitará ayuda para familiarizarse con las particularidades de la vida a bordo del Daedalus. Además, es menos probable que haya sido contaminado por el Mush antes de abordar, gracias al régimen estricto de higiene de la Academia.</target>
       </segment>
     </unit>
     <unit id="turbo_drone_upgrade">

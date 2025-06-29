@@ -1441,6 +1441,16 @@
         <target>pet_cat.description</target>
       </segment>
     </unit>
+    <unit id="cure_cat">
+      <segment id="name" state="initial">
+        <source>cure_cat.name</source>
+        <target>cure_cat.name</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>cure_cat.description</source>
+        <target>cure_cat.description</target>
+      </segment>
+    </unit>
     <unit id="convert_cat">
       <segment id="name" state="initial">
         <source>convert_cat.name</source>

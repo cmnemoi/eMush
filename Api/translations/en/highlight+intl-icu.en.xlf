@@ -1,516 +1,488 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="highlight.ext">
     <unit id="build">
       <segment id="highlight" state="translated">
         <source>build.highlight</source>
-        <target>Vous avez assemblé {target_equipment_gender, select,
-                male {un **{target_equipment}**}
-                female {une **{target_equipment}**}
-                other {un **{target_equipment}**}
-                }.</target>
+        <target>You have assembled {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="do_the_thing">
       <segment id="highlight" state="translated">
         <source>do_the_thing.highlight</source>
-        <target>Vous avez passé la nuit avec **{target_character}**.</target>
+        <target>You have spent the night with **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="eat_spore">
-      <segment id="highlight" state="translated">
+      <segment id="highlight" state="final">
         <source>eat_spore.highlight</source>
-        <target>Miam un spore shomp shomp et ça repart !</target>
+        <target>Yum! A spore! Nom nom nom! Let's do this!</target>
       </segment>
     </unit>
     <unit id="extract_spore">
       <segment id="highlight" state="translated">
         <source>extract_spore.highlight</source>
-        <target>Vous avez créé un **spore**.</target>
+        <target>You have created a **spore**.</target>
       </segment>
     </unit>
     <unit id="flirt">
       <segment id="highlight" state="translated">
         <source>flirt.highlight</source>
-        <target>Vous avez fleureté avec **{target_character}**.</target>
+        <target>You have flirted with **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="hit">
       <segment id="highlight" state="translated">
         <source>hit.highlight</source>
-        <target>Vous avez frappé **{target_character}**.</target>
+        <target>You have hit **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="infect">
       <segment id="highlight" state="translated">
         <source>infect.highlight</source>
-        <target>Vous avez poinçonné **{target_character}**.</target>
+        <target>You have spiked **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="shred">
       <segment id="highlight" state="translated">
         <source>shred.highlight</source>
-        <target>Vous avez déchiré des informations importantes... Ou presque.</target>
+        <target>You have torn out important information... Or almost.</target>
       </segment>
     </unit>
     <unit id="sabotage">
-      <segment id="highlight" state="translated">
+      <segment id="highlight" state="final">
         <source>sabotage.highlight</source>
-        <target>Vous avez saboté {target_equipment_gender, select,
-                male {un **{target_equipment}**}
-                female {une **{target_equipment}**}
-                other {un **{target_equipment}**}
-                }</target>
+        <target>You have sabotaged {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="take_shower">
       <segment id="highlight" state="translated">
         <source>take_shower.highlight</source>
-        <target>Vous avez pris une douche bien méritée !</target>
+        <target>You took a well-deserved shower !</target>
       </segment>
     </unit>
     <unit id="wash_in_sink">
       <segment id="highlight" state="translated">
         <source>wash_in_sink.highlight</source>
-        <target>Vous avez pris une douche bien méritée !</target>
+        <target>You took a well-deserved shower !</target>
       </segment>
     </unit>
     <unit id="extinguish">
       <segment id="highlight" state="translated">
         <source>extinguish.highlight</source>
-        <target>Vous avez éteint un incendie !</target>
+        <target>You have extinguished a fire.</target>
       </segment>
     </unit>
     <unit id="heal">
       <segment id="highlight" state="translated">
         <source>heal.highlight</source>
-        <target>Vous avez soigné **{target_character}**.</target>
+        <target>You healed **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="self_heal">
       <segment id="highlight" state="translated">
         <source>self_heal.highlight</source>
-        <target>Vous vous êtes soigné.</target>
+        <target>You healed yourself.</target>
       </segment>
     </unit>
     <unit id="comfort">
       <segment id="highlight" state="translated">
         <source>comfort.highlight</source>
-        <target>Vous avez réconforté **{target_character}**.</target>
+        <target>You comforted **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="spread_fire">
       <segment id="highlight" state="translated">
         <source>spread_fire.highlight</source>
-        <target>Vous avez mis le feu.</target>
+        <target>You have set fire.</target>
       </segment>
     </unit>
     <unit id="remove_spore">
       <segment id="highlight" state="translated">
         <source>remove_spore.highlight</source>
-        <target>Vous vous êtes retiré un spore.</target>
+        <target>You removed a spore from yourself.</target>
       </segment>
     </unit>
     <unit id="extinguish_manually">
       <segment id="highlight" state="translated">
         <source>extinguish_manually.highlight</source>
-        <target>Vous avez éteint un incendie avec les moyens du bord !</target>
+        <target>You have extinguished a fire with improvised means!</target>
       </segment>
     </unit>
     <unit id="motivational_speech">
       <segment id="highlight" state="translated">
         <source>motivational_speech.highlight</source>
-        <target>Vous avez donné un discours enflammé !</target>
+        <target>You have given a motivational speech!</target>
       </segment>
     </unit>
     <unit id="boring_speech">
       <segment id="highlight" state="translated">
         <source>boring_speech.highlight</source>
-        <target>Vous avez donné un discours passionant (ou pas...) !</target>
+        <target>You have given an inspiring speech (or not...)!</target>
       </segment>
     </unit>
     <unit id="make_sick">
       <segment id="highlight" state="translated">
         <source>make_sick.highlight</source>
-        <target>Vous avez donné une *maladie* à **{target_character}**.</target>
+        <target>You have given an illness to **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="surgery">
       <segment id="highlight" state="translated">
         <source>surgery.highlight</source>
-        <target>Vous avez effectué une chirurgie sur **{target_character}**.</target>
+        <target>You have performed surgery on **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="screw_talkie">
       <segment id="highlight" state="translated">
         <source>screw_talkie.highlight</source>
-        <target>Vous vous êtes emparé d'un talkie-walkie !</target>
+        <target>You have taken control of a **Walkie-Talkie**.</target>
       </segment>
     </unit>
     <unit id="attack">
       <segment id="highlight" state="translated">
         <source>attack.highlight</source>
-        <target>Vous avez agressé **{target_character}**.</target>
+        <target>You attacked **{target_character}**.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>attack.highlight_fail</source>
-        <target>Vous avez tenté d'agresser **{target_character}** sans succès...</target>
+        <target>You tried to attack **{target_character}** but failed...</target>
       </segment>
     </unit>
     <unit id="shoot">
       <segment id="highlight" state="translated">
         <source>shoot.highlight</source>
-        <target>Vous avez tiré sur **{target_character}**.</target>
+        <target>You opened fire on **{target_character}**.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>shoot.highlight_fail</source>
-        <target>Vous avez tenté de tirer sur **{target_character}** sans succès...</target>
+        <target>You tried to shoot at **{target_character}** but failed...</target>
       </segment>
     </unit>
     <unit id="play_arcade">
       <segment id="highlight" state="translated">
         <source>play_arcade.highlight</source>
-        <target>Vous avez pwné la Dynarcade.</target>
+        <target>You have pwned the Dynarcade!.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>play_arcade.highlight_fail</source>
-        <target>Vous avez perdu sur la Dynarcade !</target>
+        <target>You have lost on the Dynarcade!</target>
       </segment>
     </unit>
     <unit id="hack">
       <segment id="highlight" state="translated">
         <source>hack.highlight</source>
-        <target>Vous avez pris le contrôle {target_equipment_gender, select,
-                male {du **{target_equipment}**}
-                female {de la **{target_equipment}**}
-                other {du **{target_equipment}**}
-                }.</target>
+        <target>You have taken control of the **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="advance_daedalus">
       <segment id="highlight" state="translated">
         <source>advance_daedalus.highlight</source>
-        <target>Vous avez fait voyager le Daedalus.</target>
+        <target>You manoeuvred the Daedalus.</target>
       </segment>
     </unit>
     <unit id="scan">
       <segment id="highlight" state="translated">
         <source>scan.highlight</source>
-        <target>Vous avez découvert une nouvelle planète !</target>
+        <target>You have discovered a new planet.</target>
       </segment>
     </unit>
     <unit id="turn_daedalus_left">
       <segment id="highlight" state="translated">
         <source>turn_daedalus_left.highlight</source>
-        <target>Vous avez changé l'orientation du Daedalus.</target>
+        <target>You changed the heading of the Daedalus.</target>
       </segment>
     </unit>
     <unit id="turn_daedalus_right">
       <segment id="highlight" state="translated">
         <source>turn_daedalus_right.highlight</source>
-        <target>Vous avez changé l'orientation du Daedalus.</target>
+        <target>You changed the heading of the Daedalus.</target>
       </segment>
     </unit>
     <unit id="takeoff_to_planet">
       <segment id="highlight" state="translated">
         <source>takeoff_to_planet.highlight</source>
-        <target>Vous avez fait décoller l'Icarus.</target>
+        <target>You have taken off in the Icarus.</target>
       </segment>
     </unit>
     <unit id="return_to_sol">
       <segment id="highlight" state="translated">
         <source>return_to_sol.highlight</source>
-        <target>Vous avez fait voyager le Daedalus vers Sol.</target>
+        <target>You manoeuvred the Daedalus.</target>
       </segment>
     </unit>
     <unit id="trap_closet">
       <segment id="highlight" state="translated">
         <source>trap_closet.highlight</source>
-        <target>Vous avez piégé une pièce. On devrait toujours se méfier des étagères.</target>
+        <target>You have booby-trapped a shelving unit. Shelving units should never be trusted.</target>
       </segment>
     </unit>
     <unit id="chitchat">
       <segment id="highlight" state="translated">
         <source>chitchat.highlight</source>
-        <target>Vous vous êtes confié à **{target_character}**.</target>
+        <target>You accompanied **{target_character}** in their journey to find peace!</target>
       </segment>
     </unit>
     <unit id="graft">
       <segment id="highlight" state="translated">
         <source>graft.highlight</source>
-        <target>Vous avez fait une greffe !</target>
+        <target>You've created a hybrid!</target>
       </segment>
     </unit>
     <unit id="put_through_door">
       <segment id="highlight" state="translated">
         <source>put_through_door.highlight</source>
-        <target>Vous avez flanqué **{target_character}** à la porte.</target>
+        <target>You got **{target_character}** through a door.</target>
       </segment>
     </unit>
     <unit id="become_genius">
       <segment id="highlight" state="translated">
         <source>become_genius.highlight</source>
-        <target>Vous avez eu une idée de génie !</target>
+        <target>You've had a brilliant idea!</target>
       </segment>
     </unit>
     <unit id="ceasefire">
       <segment id="highlight" state="translated">
         <source>ceasefire.highlight</source>
-        <target>Lassé de cette enfer, vous avez déclaré un cessez-le-feu !</target>
+        <target>Fed up with the constant fighting, you have declared a ceasefire.</target>
       </segment>
     </unit>
     <unit id="exchange_body">
       <segment id="highlight" state="translated">
         <source>exchange_body.highlight</source>
-        <target>Vous avez échangé votre corps avec **{target_character}** !</target>
+        <target>You switched bodies with **{target_character}**!</target>
       </segment>
     </unit>
     <unit id="commander_order">
       <segment id="highlight" state="translated">
         <source>commander_order.highlight</source>
-        <target>Vous avez donné un ordre.</target>
+        <target>You have given an order.</target>
       </segment>
     </unit>
     <unit id="print_ze_list">
       <segment id="highlight" state="translated">
         <source>print_ze_list.highlight</source>
-        <target>Vous avez imprimé LA liste.</target>
+        <target>You have printed THE list!</target>
       </segment>
     </unit>
     <unit id="depress">
       <segment id="highlight" state="translated">
         <source>depress.highlight</source>
-        <target>Vous avez mis le moral de **{target_character}** en berne.</target>
+        <target>You have lowered **{target_character}**'s morale.</target>
       </segment>
     </unit>
     <unit id="delog">
       <segment id="highlight" state="translated">
         <source>delog.highlight</source>
-        <target>Vous avez effacé la mémoire de NERON.</target>
+        <target>You have erased NERON memory.</target>
       </segment>
     </unit>
     <unit id="run_home">
       <segment id="highlight" state="translated">
         <source>run_home.highlight</source>
-        <target>Vous avez décidé que cette expédition était trop risquée.</target>
+        <target>You have left your host **{target_character}** for this body!</target>
       </segment>
     </unit>
     <unit id="putsch">
       <segment id="highlight" state="translated">
         <source>putsch.highlight</source>
-        <target>Vous vous êtes autoproclamé Chef !</target>
+        <target>You proclaimed yourselves Chief.</target>
       </segment>
     </unit>
     <unit id="anathema">
       <segment id="highlight" state="translated">
         <source>anathema.highlight</source>
-        <target>Vous avez jeté l'anathème sur **{target_character}**.</target>
+        <target>You have wasted **{target_character}**!</target>
       </segment>
     </unit>
     <unit id="mix_ration_spore">
       <segment id="highlight" state="translated">
         <source>mix_ration_spore.highlight</source>
-        <target>Vous avez préparé un petit encas fongique.</target>
+        <target>You've prepared a little fungal recipe.</target>
       </segment>
     </unit>
     <unit id="slime_trap">
       <segment id="highlight" state="translated">
         <source>slime_trap.highlight</source>
-        <target>Vous avez empégué **{target_character}**.</target>
+        <target>You have slimed **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="slime_object">
       <segment id="highlight" state="translated">
         <source>slime_object.highlight</source>
-        <target>Vous avez englué {target_equipment_gender, select,
-                male {un **{target_equipment}**}
-                female {une **{target_equipment}**}
-                other {un **{target_equipment}**}
-                }</target>
+        <target>You have slimed {target_equipment_first_letter, select, vowel {an} other {a}} **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="mass_ggeddon">
       <segment id="highlight" state="translated">
         <source>mass_ggeddon.highlight</source>
-        <target>Vous avez provoqué une moisification massive !</target>
+        <target>You have triggered a massive mould outbreak!</target>
       </segment>
     </unit>
     <unit id="reinforce">
       <segment id="highlight" state="translated">
         <source>reinforce.highlight</source>
-        <target>Vous avez blindé {target_equipment_gender, select,
-                male {un **{target_equipment}**}
-                female {une **{target_equipment}**}
-                other {un **{target_equipment}**}
-                }</target>
+        <target>You have reinforced the **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="throw_grenade.highlight">
       <segment id="highlight" state="translated">
         <source>throw_grenade.highlight</source>
-        <target>Vous avez fait irruption et lancé une **Grenade**.</target>
+        <target>You lost your cool and threw a **Grenade**.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_turbo">
       <segment id="highlight" state="translated">
         <source>upgrade_drone_to_turbo.highlight</source>
-        <target>Vous avez amélioré un drone.</target>
+        <target>You have upgraded **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_firefighter">
       <segment id="highlight" state="translated">
         <source>upgrade_drone_to_firefighter.highlight</source>
-        <target>Vous avez amélioré un drone.</target>
+        <target>You have upgraded **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_pilot">
       <segment id="highlight" state="translated">
         <source>upgrade_drone_to_pilot.highlight</source>
-        <target>Vous avez amélioré un drone.</target>
+        <target>You have upgraded **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="upgrade_drone_to_sensor">
       <segment id="highlight" state="translated">
         <source>upgrade_drone_to_sensor.highlight</source>
-        <target>Vous avez amélioré un drone en Senseur.</target>
+        <target>You have upgraded **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="pet_cat">
       <segment id="highlight" state="translated">
         <source>pet_cat.highlight</source>
-        <target>Vous avez fait un cââââââââliiiiiin à **Schrödinger**.</target>
+        <target>You gave Schrödinger a biiig huuuuuggg.</target>
       </segment>
     </unit>
     <unit id="convert_cat">
       <segment id="highlight" state="translated">
         <source>convert_cat.highlight</source>
-        <target>Vous avez fait voyager **Schrödinger** vers le Mush.</target>
+        <target>You sent Schrödinger on a trip towards Mush.</target>
       </segment>
     </unit>
     <unit id="torture">
       <segment id="highlight" state="translated">
         <source>torture.highlight</source>
-        <target>Vous avez torturé **{target_character}**.</target>
+        <target>You tortured **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="cure">
       <segment id="highlight" state="translated">
         <source>cure.highlight</source>
-        <target>Vous avez vacciné **{target_character}** contre le Mush.</target>
+        <target>You have vaccinated **{target_character}** against the Mush.</target>
       </segment>
     </unit>
     <unit id="daunt">
       <segment id="highlight" state="translated">
         <source>daunt.highlight</source>
-        <target>Vous avez terrorisé **{target_character}**.</target>
+        <target>You have lowered **{target_character}**'s morale.</target>
       </segment>
     </unit>
     <unit id="gen_metal">
       <segment id="highlight" state="translated">
         <source>gen_metal.highlight</source>
-        <target>Vous avez fouiné un peu partout.</target>
+        <target>You've searched high and low...</target>
       </segment>
     </unit>
     <unit id="door_sabotage">
       <segment id="highlight" state="translated">
         <source>door_sabotage.highlight</source>
-        <target>Vous avez saboté une porte.</target>
+        <target>You have sabotaged a door</target>
       </segment>
     </unit>
     <unit id="give_nightmare">
       <segment id="highlight" state="translated">
         <source>give_nightmare.highlight</source>
-        <target>Vous avez fait venir le Marchand de Terreur pour **{target_character}**.</target>
+        <target>You have given an illness to **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="neron_depress">
       <segment id="highlight" state="translated">
         <source>neron_depress.highlight</source>
-        <target>Vous avez déprimé NERON.</target>
+        <target>You have depressed NERON.</target>
       </segment>
     </unit>
     <unit id="compute_eden">
       <segment id="highlight" state="translated">
         <source>compute_eden.highlight</source>
-        <target>Vous avez calculé le trajet vers Eden.</target>
+        <target>You have computed the journey to Eden.</target>
       </segment>
     </unit>
     <unit id="travel_to_eden">
       <segment id="highlight" state="translated">
         <source>travel_to_eden.highlight</source>
-        <target>Vous avez fait voyager le Daedalus vers Eden.</target>
+        <target>You manoeuvred the Daedalus.</target>
       </segment>
     </unit>
     <unit id="shoot_cat">
       <segment id="highlight" state="translated">
         <source>shoot_cat.highlight</source>
-        <target>Vous avez ouvert le feu sur {target_equipment_gender, select,
-                male {un **{target_equipment}**}
-                female {une **{target_equipment}**}
-                other {un **{target_equipment}**}
-                }.</target>
+        <target>You opened fire on Schrödinger.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>shoot_cat.highlight_fail</source>
-        <target>Vous avez tenté de tirer sur {target_equipment_gender, select,
-                male {un **{target_equipment}**}
-                female {une **{target_equipment}**}
-                other {un **{target_equipment}**}
-                } sans succès...</target>
+        <target>You tried to shoot at Schrödinger but failed...</target>
       </segment>
     </unit>
     <unit id="upgrade_neron">
       <segment id="highlight" state="translated">
         <source>upgrade_neron.highlight</source>
-        <target>Vous avez augmenté le numéro de version NERON.</target>
+        <target>You have updated NERON's version number.</target>
       </segment>
     </unit>
     <unit id="contact_xyloph">
       <segment id="highlight" state="translated">
         <source>contact_xyloph.highlight</source>
-        <target>Vous avez effectué une transmission avec Xyloph !</target>
+        <target>You successfully transmitted communications to Xyloph!</target>
       </segment>
     </unit>
     <unit id="accept_trade">
       <segment id="highlight" state="translated">
         <source>accept_trade.highlight</source>
-        <target>Vous avez validé un accord commercial.</target>
+        <target>You finalized a deal.</target>
       </segment>
     </unit>
     <unit id="go_berserk">
       <segment id="highlight" state="translated">
         <source>go_berserk.highlight</source>
-        <target>Vous vous êtes transformé en horrible monstre furieux !</target>
+        <target>You have been transformed into a horrible angry monster!</target>
       </segment>
     </unit>
     <unit id="hidden">
       <segment id="highlight" state="translated">
         <source>hidden.highlight</source>
-        <target>Vous avez trouvé {target_equipment_gender, select, male {un} other {une}} **{target_equipment}** caché !</target>
+        <target>You have found a hidden **{target_equipment}**!</target>
       </segment>
     </unit>
     <unit id="conversion.player">
       <segment id="highlight" state="translated">
         <source>conversion.player.highlight</source>
-        <target>Vous avez empétré **{target_character}** dans vos rhizomes, {target_character_gender, select, male {il} other {elle}} fait désormais parti du Mush !</target>
+        <target>You have entangled **{target_character}** in your rhizomes, {target_character_gender, select, male {he} other {she}} is now Mush!</target>
       </segment>
     </unit>
     <unit id="conversion.player_target">
       <segment id="highlight" state="translated">
         <source>conversion.player_target.highlight</source>
-        <target>Vous faites parti du Mush grâce à **{character}** !</target>
+        <target>You have completed your journey to Mush thanks to **{character}**!</target>
       </segment>
     </unit>
     <unit id="conversion.player.highlight_transfer">
       <segment state="translated">
         <source>conversion.player.highlight_transfer</source>
-        <target>Vous avez échangé votre corps avec **{target_character}** !</target>
+        <target>You switched bodies with **{target_character}**!</target>
       </segment>
     </unit>
     <unit id="conversion.player_target.highlight_transfer">
       <segment state="translated">
         <source>conversion.player_target.highlight_transfer</source>
-        <target>Vous avez quitté votre hôte **{character}** pour ce corps !</target>
+        <target>You have left your host **{character}** for this body!</target>
       </segment>
     </unit>
   </file>

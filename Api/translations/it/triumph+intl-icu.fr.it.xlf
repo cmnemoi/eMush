@@ -765,16 +765,6 @@
         <target>cm_mush_vaccinated.log</target>
       </segment>
     </unit>
-    <unit id="cm_pilgred">
-      <segment id="cm_pilgred.name" state="initial">
-        <source>cm_pilgred.name</source>
-        <target>cm_pilgred.name</target>
-      </segment>
-      <segment id="cm_pilgred.log" state="initial">
-        <source>cm_pilgred.log</source>
-        <target>cm_pilgred.log</target>
-      </segment>
-    </unit>
     <unit id="cm_repair_object">
       <segment id="cm_repair_object.name" state="initial">
         <source>cm_repair_object.name</source>
@@ -823,6 +813,82 @@
       <segment id="naturalist.log" state="initial">
         <source>naturalist.log</source>
         <target>naturalist.log</target>
+      </segment>
+    </unit>
+    <unit id="perpetual_hydration">
+      <segment id="perpetual_hydration.name" state="initial">
+        <source>perpetual_hydration.name</source>
+        <target>perpetual_hydration.name</target>
+      </segment>
+      <segment id="perpetual_hydration.log" state="initial">
+        <source>perpetual_hydration.log</source>
+        <target>perpetual_hydration.log</target>
+      </segment>
+    </unit>
+    <unit id="alien_friend.name">
+      <segment state="initial">
+        <source>alien_friend.name</source>
+        <target>alien_friend.name</target>
+      </segment>
+    </unit>
+    <unit id="alien_friend.log">
+      <segment state="initial">
+        <source>alien_friend.log</source>
+        <target>alien_friend.log</target>
+      </segment>
+    </unit>
+    <unit id="alien_friend.personal_description">
+      <segment state="initial">
+        <source>alien_friend.personal_description</source>
+        <target>alien_friend.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="naturalist.name">
+      <segment state="initial">
+        <source>naturalist.name</source>
+        <target>naturalist.name</target>
+      </segment>
+    </unit>
+    <unit id="naturalist.log">
+      <segment state="initial">
+        <source>naturalist.log</source>
+        <target>naturalist.log</target>
+      </segment>
+    </unit>
+    <unit id="pretty_cook.name">
+      <segment state="initial">
+        <source>pretty_cook.name</source>
+        <target>pretty_cook.name</target>
+      </segment>
+    </unit>
+    <unit id="pretty_cook.personal_description">
+      <segment state="initial">
+        <source>pretty_cook.personal_description</source>
+        <target>pretty_cook.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="pretty_cook.log">
+      <segment state="initial">
+        <source>pretty_cook.log</source>
+        <target>pretty_cook.log</target>
+      </segment>
+    </unit>
+    <unit id="fast_forward.name">
+      <segment state="initial">
+        <source>fast_forward.name</source>
+        <target>fast_forward.name</target>
+      </segment>
+    </unit>
+    <unit id="fast_forward.log">
+      <segment state="initial">
+        <source>fast_forward.log</source>
+        <target>fast_forward.log</target>
+      </segment>
+    </unit>
+    <unit id="fast_forward.personal_description">
+      <segment state="initial">
+        <source>fast_forward.personal_description</source>
+        <target>fast_forward.personal_description</target>
       </segment>
     </unit>
   </file>

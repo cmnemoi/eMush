@@ -132,7 +132,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
         }
         $this->playerService->persistPlayerInfo($playerInfo);
 
-        if ($event->hasAuthor()) {
+        if ($event->hasAuthor() && $event->hasAnyTag([EndCauseEnum::ASSASSINATED, EndCauseEnum::BEHEADED, EndCauseEnum::BLED, EndCauseEnum::INJURY, EndCauseEnum::ROCKETED])) {
             $this->createAuthorAndTargetHighlights($event);
         }
 

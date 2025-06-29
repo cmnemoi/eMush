@@ -148,7 +148,7 @@ export default defineComponent({
                         closedPlayer.character = this.getCharacterNameFromKey(closedPlayer.characterKey);
                         closedPlayer.characterBody = this.getCharacterBodyFromKey(closedPlayer.characterKey);
                         closedPlayer.dayDeath = this.getDaysCyclesString(closedPlayer.daysSurvived, closedPlayer.cyclesSurvived);
-                        closedPlayer.score = closedPlayer.triumph ?? closedPlayer.cyclesSurvived;
+                        closedPlayer.triumph = closedPlayer.score;
                         closedPlayer.triumphIcon = closedPlayer.isMush ? this.getImgUrl('ui_icons/player_variables/triumph_mush.png') : this.getImgUrl('ui_icons/player_variables/triumph.png');
                     }
                     return result.data;

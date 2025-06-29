@@ -525,5 +525,11 @@
         <target>project.finished_research.highlight</target>
       </segment>
     </unit>
+    <unit id="death.player">
+      <segment id="highlight" state="initial">
+        <source>death.player.highlight</source>
+        <target>death.player.highlight</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

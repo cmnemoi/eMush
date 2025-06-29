@@ -57,6 +57,10 @@ final class PlayerSubscriber implements EventSubscriberInterface
             return;
         }
 
+        if ($event->hasAuthor()) {
+            $this->createAuthorAndTargetHighlights($event);
+        }
+
         $this->removeMoraleToOtherPlayers($player);
     }
 

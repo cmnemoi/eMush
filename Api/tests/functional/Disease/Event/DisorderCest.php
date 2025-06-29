@@ -42,12 +42,12 @@ final class DisorderCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun and KT has the shrink skill available
-        $this->chun->getCharacterConfig()->setSkillConfigs([
+        $this->chun->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHRINK]),
-        ]);
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+        );
+        $this->kuanTi->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHRINK]),
-        ]);
+        );
     }
 
     public function shouldHaveDiseasePointDecreasedWhenPlayerSleepsInAShrinkRoom(FunctionalTester $I): void

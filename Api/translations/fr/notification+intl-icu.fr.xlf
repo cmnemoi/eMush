@@ -174,7 +174,7 @@
       </segment>
       <segment state="translated">
         <source>welcome_mush.description</source>
-        <target>Quelque chose a... changé. Vous vous sentez différent.//// Une sérénité calme vous absorbe. Vous voulez *le partager* à vos camarades...////Camarade, **vous êtes un agent du Mush** !////Vous pouvez compléter votre mission avec succès par deux manières : en convertissant tout l'équipage au Mush, ou en détruisant le vaisseau !////Vous commencez votre mission avec **earned {quantity}** :triumph_mush:.</target>
+        <target>Quelque chose a... changé. Vous vous sentez différent.//// Une sérénité calme vous absorbe. Vous voulez *la partager* à vos camarades...////Camarade, **vous faites désormais partie du Mush** !////Vous pouvez compléter votre mission avec succès de deux manières : en convertissant tout l'équipage au Mush, ou en détruisant le vaisseau !////Vous commencez votre mission avec **{quantity}** :triumph_mush:.</target>
       </segment>
     </unit>
   </file>

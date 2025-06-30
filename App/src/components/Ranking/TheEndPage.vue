@@ -317,24 +317,26 @@
             <div class="progress">
                 <div v-for="projectType in projectTypes" :key="projectType">
                     <p>{{ closedDaedalus.projects[projectType].title }}</p>
-                    <DaedalusProjectCard
-                        v-for="projectLine in closedDaedalus.projects[projectType].lines"
-                        :key="projectLine.key"
-                        :project="projectLine"
-                        :display-project-type="false"
-                    />
+                    <div class="wrappedContent">
+                        <DaedalusProjectCard
+                            v-for="projectLine in closedDaedalus.projects[projectType].lines"
+                            :key="projectLine.key"
+                            :project="projectLine"
+                            :display-project-type="false"
+                        />
+                    </div>
                 </div>
             </div>
             <div class="roles">
                 <div v-for="(titleHolder) in closedDaedalus.titleHolders" :key="titleHolder.title">
                     <p>{{ titleHolder.title }}</p>
-                    <ul>
-                        <CharacterSignature
+                    <div class="wrappedContent">
+                        <ul><CharacterSignature
                             v-for="characterKey in titleHolder.characterKeys"
                             :key="characterKey"
                             :character-key="characterKey"
-                        />
-                    </ul>
+                        /></ul>
+                    </div> 
                 </div>
             </div>
             <div class="honors" v-if="funFacts?.length > 0">
@@ -875,7 +877,8 @@ h2 {
         &:not(:last-child) { border-bottom: 1px dotted #0f0f43; }
 
         p {
-            width: 25%;
+            width: 20%;
+            min-width: 20%;
             max-width: 156px;
             margin: auto 0;
             padding: .8em;
@@ -883,6 +886,12 @@ h2 {
             font-size: .9em;
             font-weight: bold;
             text-align: center;
+        }
+
+        .wrappedContent {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
         }
 
         li {

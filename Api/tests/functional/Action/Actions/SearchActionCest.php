@@ -427,7 +427,7 @@ final class SearchActionCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveHighlight(array $highlight, FunctionalTester $I): void
     {
         $playerHighlights = $this->player->getPlayerInfo()->getPlayerHighlights();
-        $playerHighlight = $playerHighlights[array_key_last($playerHighlights)];
+        $playerHighlight = $playerHighlights[0];
 
         $I->assertEquals(
             expected: $highlight,

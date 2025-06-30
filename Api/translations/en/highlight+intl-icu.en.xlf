@@ -491,5 +491,11 @@
         <target>You have assassinated **{target_equipment}** !</target>
       </segment>
     </unit>
+    <unit id="project.finished_research">
+      <segment id="highlight" state="translated">
+        <source>project.finished_research.highlight</source>
+        <target>You have completed the research into **{target_project}**!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

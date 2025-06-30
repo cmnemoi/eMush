@@ -8,12 +8,15 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
 use Mush\Game\Event\AbstractGameEvent;
 use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerHighlightSourceEventInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Entity\ProjectRequirement;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEventInterface
+final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEventInterface, PlayerHighlightSourceEventInterface
 {
     use TriumphSourceEventTrait;
 
@@ -90,5 +93,25 @@ final class ProjectEvent extends AbstractGameEvent implements TriumphSourceEvent
     public function shouldPrintResearchCompletedLog(): bool
     {
         return $this->project->isResearchProject() && $this->project->isFinished();
+    }
+
+    public function getHighlightName(): string
+    {
+        return $this->getEventName() . '_' . $this->getProject()->getType()->toString();
+    }
+
+    public function getHighlightResult(): string
+    {
+        return PlayerHighlight::SUCCESS;
+    }
+
+    public function getHighlightTarget(): PlayerHighlightTargetInterface
+    {
+        return $this->getProject();
+    }
+
+    public function hasHighlightTarget(): bool
+    {
+        return true;
     }
 }

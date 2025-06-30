@@ -17,6 +17,7 @@ use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
 use Mush\Equipment\Entity\Config\SpawnEquipmentConfig;
 use Mush\Modifier\Entity\ModifierProviderInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Exception\ProgressShouldBePositive;
@@ -26,7 +27,7 @@ use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
 
 #[ORM\Entity]
-class Project implements LogParameterInterface, ActionHolderInterface, ModifierProviderInterface
+class Project implements LogParameterInterface, ActionHolderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
 {
     public const int CPU_PRIORITY_BONUS = 1;
     public const int PARTICIPATION_MALUS = 2;

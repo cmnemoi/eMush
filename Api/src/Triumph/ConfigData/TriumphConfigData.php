@@ -553,6 +553,7 @@ abstract class TriumphConfigData
                     PlanetSectorEnum::PREDATOR => TriumphSourceEventInterface::ANY_TAG,
                     PlanetSectorEnum::RUMINANT => TriumphSourceEventInterface::ANY_TAG,
                     PlanetSectorEvent::PROVISION => TriumphSourceEventInterface::ANY_TAG,
+                    PlanetSectorEvent::FIGHT => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::PERSONAL_JANICE,
                 targetSetting: TriumphTarget::ACTIVE_EXPLORERS,

@@ -102,7 +102,7 @@
     <unit id="spread_fire">
       <segment id="highlight" state="translated">
         <source>spread_fire.highlight</source>
-        <target>Vous avez mis le feu.</target>
+        <target>Vous avez mis le feu au **{target_place}**.</target>
       </segment>
     </unit>
     <unit id="remove_spore">

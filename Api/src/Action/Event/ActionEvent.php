@@ -257,7 +257,7 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
 
     public function hasHighlightTarget(): bool
     {
-        return $this->actionTarget instanceof PlayerHighlightTargetInterface;
+        return $this->actionTarget instanceof PlayerHighlightTargetInterface || $this->getActionProvider() === $this->getAuthor();
     }
 
     public function getHighlightName(): string
@@ -272,7 +272,15 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
 
     public function getHighlightTarget(): PlayerHighlightTargetInterface
     {
-        $target = $this->getActionTargetOrThrow();
+        $target = $this->getActionTarget();
+
+        if (!$target) {
+            if ($this->getActionProvider() === $this->getAuthor()) {
+                $target = $this->getAuthor()->getPlace();
+            } else {
+                throw new \LogicException('Highlight target cannot be null');
+            }
+        }
 
         if (!$target instanceof PlayerHighlightTargetInterface) {
             throw new \LogicException(\sprintf(

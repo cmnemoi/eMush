@@ -252,9 +252,9 @@ final class ShootCatCest extends AbstractFunctionalTest
 
         $this->whenPlayerShoots();
 
-        $this->thenPlayerFirstHighlightIsSuccessfulShootCatAction($I);
+        $this->thenPlayerSecondToLastHighlightIsSuccessfulShootCatAction($I);
 
-        $this->thenPlayerSecondHighlightIsSchrodingerDestroyed($I);
+        $this->thenPlayerLastHighlightIsSchrodingerDestroyed($I);
     }
 
     private function givenCatIsInShelf(): void
@@ -380,7 +380,7 @@ final class ShootCatCest extends AbstractFunctionalTest
         $this->shootCat->execute();
     }
 
-    private function thenPlayerFirstHighlightIsSuccessfulShootCatAction(FunctionalTester $I): void
+    private function thenPlayerSecondToLastHighlightIsSuccessfulShootCatAction(FunctionalTester $I): void
     {
         $I->assertEquals(
             expected: [
@@ -388,11 +388,11 @@ final class ShootCatCest extends AbstractFunctionalTest
                 'result' => PlayerHighlight::SUCCESS,
                 'parameters' => ['target_' . $this->schrodinger->getLogKey() => $this->schrodinger->getLogName()],
             ],
-            actual: $this->player->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
+            actual: $this->player->getPlayerInfo()->getPlayerHighlights()[1]->toArray(),
         );
     }
 
-    private function thenPlayerSecondHighlightIsSchrodingerDestroyed(FunctionalTester $I): void
+    private function thenPlayerLastHighlightIsSchrodingerDestroyed(FunctionalTester $I): void
     {
         $I->assertEquals(
             expected: [
@@ -400,7 +400,7 @@ final class ShootCatCest extends AbstractFunctionalTest
                 'result' => PlayerHighlight::SUCCESS,
                 'parameters' => ['target_' . $this->schrodinger->getLogKey() => $this->schrodinger->getLogName()],
             ],
-            actual: $this->player->getPlayerInfo()->getPlayerHighlights()[1]->toArray(),
+            actual: $this->player->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
         );
     }
 }

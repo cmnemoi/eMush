@@ -543,7 +543,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
                 'result' => PlayerHighlight::TRANSFER,
                 'parameters' => ['target_' . $this->target->getLogKey() => $this->target->getLogName()],
             ],
-            actual: $this->source->getPlayerInfo()->getPlayerHighlights()[1]->toArray(), // first highlight comes from exchange_body action
+            actual: $this->source->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
         );
     }
 

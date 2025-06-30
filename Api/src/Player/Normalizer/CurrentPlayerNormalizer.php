@@ -349,9 +349,9 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         $personalTriumphs = $this->triumphConfigRepository->findAllPersonalTriumphsForPlayerExcept($player, except: TriumphEnum::personalEdenTriumphs());
 
-        return array_map(
+        return array_unique(array_map(
             fn ($triumph) => ':point: ' . $this->translationService->translate(
-                $triumph->getName()->toString() . '.personal_description',
+                $triumph->getLogName()->toString() . '.personal_description',
                 [
                     'quantity' => $triumph->getQuantity(),
                     'regressiveFactor' => $triumph->getRegressiveFactor(),
@@ -360,6 +360,6 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
                 $player->getLanguage()
             ),
             $personalTriumphs
-        );
+        ));
     }
 }

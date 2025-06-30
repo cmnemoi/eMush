@@ -7,6 +7,7 @@ namespace Mush\Triumph\Enum;
 enum TriumphEnum: string
 {
     case ALIEN_FRIEND = 'alien_friend';
+    case ALIEN_FRIEND_DURING_FIGHT = 'alien_friend_during_fight';
     case ALIEN_SCIENCE = 'alien_science';
     case ALL_PREGNANT = 'all_pregnant';
     case AMBITIOUS = 'ambitious';

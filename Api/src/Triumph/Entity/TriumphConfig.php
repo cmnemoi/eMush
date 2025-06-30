@@ -185,6 +185,7 @@ class TriumphConfig
             TriumphEnum::RESEARCH_SMALL_END => TriumphEnum::RESEARCH_SMALL,
             TriumphEnum::RESEARCH_STANDARD_END => TriumphEnum::RESEARCH_STANDARD,
             TriumphEnum::RESEARCH_BRILLANT_END => TriumphEnum::RESEARCH_BRILLANT,
+            TriumphEnum::ALIEN_FRIEND_DURING_FIGHT => TriumphEnum::ALIEN_FRIEND,
             default => $this->name,
         };
     }

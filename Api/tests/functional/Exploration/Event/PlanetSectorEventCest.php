@@ -830,6 +830,43 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(0, $this->chun->getTriumph());
     }
 
+    public function fightPreventedShouldNotGrantJaniceTriumph(FunctionalTester $I): void
+    {
+        // given Janice not lost
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Janice is diplomat
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->janice);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUINS], $I),
+            explorators: $this->players
+        );
+
+        // given sector has fight and nothing to report event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUINS,
+            events: [
+                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
+                PlanetSectorEvent::FIGHT_15 => PHP_INT_MAX - 1,
+            ]
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice gets no personal triumph
+        $I->assertEquals(0, $this->janice->getTriumph());
+    }
+
     public function testInsectsNotImproveJaniceTriumphWhenLost(FunctionalTester $I): void
     {
         // given an exploration is created

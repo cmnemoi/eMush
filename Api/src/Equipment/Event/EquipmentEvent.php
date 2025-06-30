@@ -7,13 +7,16 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerHighlightSourceEventInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterface, TriumphSourceEventInterface
+class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterface, TriumphSourceEventInterface, PlayerHighlightSourceEventInterface
 {
     use TriumphSourceEventTrait;
 
@@ -78,6 +81,26 @@ class EquipmentEvent extends EquipmentCycleEvent implements LoggableEventInterfa
         }
 
         return $logParameters;
+    }
+
+    public function getHighlightName(): string
+    {
+        return $this->getEventName() . '_' . $this->getGameEquipment()->getLogName();
+    }
+
+    public function getHighlightResult(): string
+    {
+        return PlayerHighlight::SUCCESS;
+    }
+
+    public function getHighlightTarget(): PlayerHighlightTargetInterface
+    {
+        return $this->getGameEquipment();
+    }
+
+    public function hasHighlightTarget(): bool
+    {
+        return true;
     }
 
     protected function getEventSpecificTargets(TriumphTarget $targetSetting, PlayerCollection $scopeTargets): PlayerCollection

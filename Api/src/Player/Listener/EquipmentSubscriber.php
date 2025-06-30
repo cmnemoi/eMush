@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Event\VariableEventInterface;
@@ -10,7 +11,9 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class EquipmentSubscriber implements EventSubscriberInterface
@@ -19,16 +22,11 @@ final class EquipmentSubscriber implements EventSubscriberInterface
     // cat owner lose morale
     public const float GLOBAL_MORALE_LOSS_SCHRODINGER_DEATH = -PHP_FLOAT_EPSILON;
 
-    private EventServiceInterface $eventService;
-    private PlayerServiceInterface $playerService;
-
     public function __construct(
-        EventServiceInterface $eventService,
-        PlayerServiceInterface $playerService
-    ) {
-        $this->eventService = $eventService;
-        $this->playerService = $playerService;
-    }
+        private EventServiceInterface $eventService,
+        private PlayerRepositoryInterface $playerRepository,
+        private PlayerServiceInterface $playerService
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -42,6 +40,8 @@ final class EquipmentSubscriber implements EventSubscriberInterface
         $this->ejectPlayersFromPatrolship($event);
 
         $this->handleSchrodingerDeathMoraleLoss($event);
+
+        $this->createShootCatAuthorHighlight($event);
     }
 
     private function ejectPlayersFromPatrolship(EquipmentEvent $event): void
@@ -88,5 +88,16 @@ final class EquipmentSubscriber implements EventSubscriberInterface
                 $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
             }
         }
+    }
+
+    private function createShootCatAuthorHighlight(EquipmentEvent $event): void
+    {
+        if ($event->doesNotHaveTag(ActionEnum::SHOOT_CAT->toString())) {
+            return;
+        }
+
+        $author = $event->getAuthorOrThrow();
+        $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
+        $this->playerRepository->save($author);
     }
 }

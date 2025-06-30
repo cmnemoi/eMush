@@ -23,6 +23,11 @@ final class ProjectSubscriber implements EventSubscriberInterface
     public function onProjectFinished(ProjectEvent $event): void
     {
         $player = $event->getAuthor();
+
+        if ($player->isNull()) {
+            return;
+        }
+
         $player->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
 
         $this->playerRepository->save($player);

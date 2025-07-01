@@ -337,7 +337,8 @@
 			"config": "Configuration du Daedalus",
 			"language": "Langue du Daedalus",
 			"maintenanceOn": "Mettre le jeu en maintenance",
-			"maintenanceOff": "Retirer le jeu de la maintenance"
+			"maintenanceOff": "Retirer le jeu de la maintenance",
+			"createAPlanet": "Créer une planète"
 		},
 		"save": "Sauvegarder",
 		"show": "Montrer",

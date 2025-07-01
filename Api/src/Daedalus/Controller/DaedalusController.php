@@ -8,6 +8,8 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
+use Mush\Exploration\Entity\Planet;
+use Mush\Exploration\Service\PlanetServiceInterface;
 use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -20,6 +22,8 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Normalizer\SelectableCharacterNormalizer;
 use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -52,6 +56,8 @@ class DaedalusController extends AbstractGameController
         private GameConfigServiceInterface $gameConfigService,
         private CycleServiceInterface $cycleService,
         private SelectableCharacterNormalizer $selectableCharacterNormalizer,
+        private PlanetServiceInterface $planetService,
+        private StatusServiceInterface $statusService,
     ) {
         parent::__construct($adminService);
     }
@@ -266,6 +272,53 @@ class DaedalusController extends AbstractGameController
                 new \DateTime()
             );
         }
+
+        return $this->view(null, 200);
+    }
+
+    /**
+     * Travel instantly to a newly created planet.
+     *
+     * @OA\Tag (name="Daedalus")
+     *
+     * @Security (name="Bearer")
+     *
+     * @Rest\Post(path="/create-planet/{id}", requirements={"id"="\d+"})
+     */
+    public function createPlanet(Request $request): View
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $this->denyUnlessUserAdmin($user);
+
+        $daedalusId = $request->get('id');
+
+        /** @var Daedalus $daedalus */
+        $daedalus = $this->daedalusService->findById($daedalusId);
+        if ($daedalus === null) {
+            return $this->view(['error' => 'Daedalus not found'], 404);
+        }
+        if ($daedalus->getDaedalusInfo()->isDaedalusFinished()) {
+            return $this->view(['error' => 'Daedalus is finished'], 400);
+        }
+        if ($daedalus->isDaedalusOrExplorationChangingCycle()) {
+            throw new HttpException(Response::HTTP_CONFLICT, 'Daedalus changing cycle');
+        }
+        $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
+
+        $this->planetService->delete($this->planetService->findAllByDaedalus($daedalus)->toArray());
+
+        $player = $daedalus->getPlayers()->getPlayerAlive()->first();
+        $planet = $this->planetService->createPlanet($player);
+
+        $this->planetService->revealPlanetSectors($planet, $planet->getSize());
+
+        $this->statusService->createStatusFromName(
+            statusName: DaedalusStatusEnum::IN_ORBIT,
+            holder: $daedalus,
+            tags: [],
+            time: new \DateTime(),
+        );
 
         return $this->view(null, 200);
     }

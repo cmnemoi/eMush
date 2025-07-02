@@ -8,6 +8,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\TranslationService;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use PHPUnit\Framework\TestCase;
@@ -141,6 +142,30 @@ final class TranslationServiceTest extends TestCase
             ->andReturn('translated message')
             ->once();
         $this->translationService->translate('key', ['target_equipment' => EquipmentEnum::ANTENNA], 'domain', LanguageEnum::FRENCH);
+    }
+
+    public function testShouldTranslatePlaceParametersCorrectly(): void
+    {
+        // Given a place parameter with loc_prep and name translations
+        $this->givenPlaceTranslationsExist();
+
+        // When translating a message with place parameter
+        $this->whenTranslatingWithPlaceParameter();
+
+        // Then both place name and locative preposition are generated
+        $this->thenPlaceParametersAreGenerated();
+    }
+
+    public function testShouldTranslateTargetPlaceParametersCorrectly(): void
+    {
+        // Given a target_place parameter with loc_prep and name translations
+        $this->givenTargetPlaceTranslationsExist();
+
+        // When translating a message with target_place parameter
+        $this->whenTranslatingWithTargetPlaceParameter();
+
+        // Then both target_place name and locative preposition are generated
+        $this->thenTargetPlaceParametersAreGenerated();
     }
 
     public function testGetTranslationParameters()
@@ -420,5 +445,86 @@ final class TranslationServiceTest extends TestCase
             'domain',
             LanguageEnum::FRENCH
         );
+    }
+
+    private function givenPlaceTranslationsExist(): void
+    {
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(RoomEnum::LABORATORY . '.loc_prep', ['place' => RoomEnum::LABORATORY], 'rooms', LanguageEnum::FRENCH)
+            ->andReturn('dans le')
+            ->once();
+
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(RoomEnum::LABORATORY . '.name', ['place' => RoomEnum::LABORATORY, 'place_loc_prep' => 'dans le'], 'rooms', LanguageEnum::FRENCH)
+            ->andReturn('Laboratoire')
+            ->once();
+    }
+
+    private function whenTranslatingWithPlaceParameter(): void
+    {
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(
+                'key',
+                [
+                    'place' => 'Laboratoire',
+                    'place_loc_prep' => 'dans le',
+                ],
+                'domain',
+                LanguageEnum::FRENCH
+            )
+            ->andReturn('translated message')
+            ->once();
+    }
+
+    private function thenPlaceParametersAreGenerated(): void
+    {
+        $result = $this->translationService->translate('key', ['place' => RoomEnum::LABORATORY], 'domain', LanguageEnum::FRENCH);
+        self::assertEquals('translated message', $result);
+    }
+
+    private function givenTargetPlaceTranslationsExist(): void
+    {
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(RoomEnum::ALPHA_DORM . '.loc_prep', ['target_place' => RoomEnum::ALPHA_DORM], 'rooms', LanguageEnum::FRENCH)
+            ->andReturn('dans le')
+            ->once();
+
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(RoomEnum::ALPHA_DORM . '.name', ['target_place' => RoomEnum::ALPHA_DORM, 'target_place_loc_prep' => 'dans le'], 'rooms', LanguageEnum::FRENCH)
+            ->andReturn('Dortoir Alpha')
+            ->once();
+    }
+
+    private function whenTranslatingWithTargetPlaceParameter(): void
+    {
+        $this->translator
+            ->shouldReceive('trans')
+            ->with(
+                'spread_fire.highlight',
+                [
+                    'target_place' => 'Dortoir Alpha',
+                    'target_place_loc_prep' => 'dans le',
+                ],
+                'highlight',
+                LanguageEnum::FRENCH
+            )
+            ->andReturn('Vous avez mis le feu dans le **Dortoir Alpha**.')
+            ->once();
+    }
+
+    private function thenTargetPlaceParametersAreGenerated(): void
+    {
+        $result = $this->translationService->translate(
+            'spread_fire.highlight',
+            ['target_place' => RoomEnum::ALPHA_DORM],
+            'highlight',
+            LanguageEnum::FRENCH
+        );
+        self::assertEquals('Vous avez mis le feu dans le **Dortoir Alpha**.', $result);
     }
 }

@@ -79,7 +79,7 @@ final class ActionEventCest extends AbstractFunctionalTest
                 [
                     'name' => 'gen_metal',
                     'result' => 'success',
-                    'parameters' => [],
+                    'parameters' => ['target_place' => 'laboratory'],
                 ],
             ],
             actual: array_map(static fn (PlayerHighlight $playerHighlight) => $playerHighlight->toArray(), $this->player->getPlayerInfo()->getPlayerHighlights()),

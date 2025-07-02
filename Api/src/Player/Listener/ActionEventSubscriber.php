@@ -60,6 +60,9 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
+
+        $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
+        $this->playerRepository->save($author);
     }
 
     public function onPostAction(ActionEvent $event): void
@@ -68,13 +71,7 @@ final class ActionEventSubscriber implements EventSubscriberInterface
         $actionName = $event->getActionName();
 
         $author->addActionToHistory($actionName);
-        $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
 
         $this->playerRepository->save($author);
-
-        $target = $event->getActionTarget();
-        if (!$target instanceof Player) {
-            return;
-        }
     }
 }

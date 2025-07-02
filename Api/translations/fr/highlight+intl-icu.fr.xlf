@@ -513,5 +513,11 @@
         <target>Vous avez quitté votre hôte **{character}** pour ce corps !</target>
       </segment>
     </unit>
+    <unit id="equipment.destroyed_schrodinger.highlight">
+      <segment state="initial">
+        <source>equipment.destroyed_schrodinger.highlight</source>
+        <target>equipment.destroyed_schrodinger.highlight</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

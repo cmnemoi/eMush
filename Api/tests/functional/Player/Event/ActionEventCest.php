@@ -35,7 +35,7 @@ final class ActionEventCest extends AbstractFunctionalTest
         $actionEvent = $this->givenActionEvent();
 
         // When
-        $this->whenActionEventIsCalled($actionEvent);
+        $this->whenResultActionEventIsCalled($actionEvent);
 
         // Then
         $this->thenPlayerHighlightShouldBeRecorded($I);
@@ -47,8 +47,8 @@ final class ActionEventCest extends AbstractFunctionalTest
         $actionEvent = $this->givenActionEvent();
 
         // When
-        $this->whenActionEventIsCalled($actionEvent);
-        $this->whenActionEventIsCalled($actionEvent);
+        $this->whenResultActionEventIsCalled($actionEvent);
+        $this->whenResultActionEventIsCalled($actionEvent);
 
         // Then
         $this->thenPlayerHighlightShouldBeRecorded($I);
@@ -67,9 +67,9 @@ final class ActionEventCest extends AbstractFunctionalTest
         return $actionEvent;
     }
 
-    private function whenActionEventIsCalled(ActionEvent $actionEvent): void
+    private function whenResultActionEventIsCalled(ActionEvent $actionEvent): void
     {
-        $this->eventService->callEvent($actionEvent, ActionEvent::POST_ACTION);
+        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
     }
 
     private function thenPlayerHighlightShouldBeRecorded(FunctionalTester $I): void

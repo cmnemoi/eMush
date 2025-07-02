@@ -94,7 +94,7 @@
     <unit id="spread_fire">
       <segment id="highlight" state="translated">
         <source>spread_fire.highlight</source>
-        <target>You have set fire.</target>
+        <target>You have set fire to the **{target_place}**.</target>
       </segment>
     </unit>
     <unit id="remove_spore">
@@ -424,11 +424,11 @@
     <unit id="shoot_cat">
       <segment id="highlight" state="translated">
         <source>shoot_cat.highlight</source>
-        <target>You opened fire on Schrödinger.</target>
+        <target>You opened fire on **{target_equipment}**.</target>
       </segment>
       <segment id="highlight_fail" state="translated">
         <source>shoot_cat.highlight_fail</source>
-        <target>You tried to shoot at Schrödinger but failed...</target>
+        <target>You tried to shoot at **{target_equipment}** but failed...</target>
       </segment>
     </unit>
     <unit id="upgrade_neron">
@@ -483,6 +483,12 @@
       <segment state="translated">
         <source>conversion.player_target.highlight_transfer</source>
         <target>You have left your host **{character}** for this body!</target>
+      </segment>
+    </unit>
+    <unit id="equipment.destroyed_schrodinger.highlight">
+      <segment state="translated">
+        <source>equipment.destroyed_schrodinger.highlight</source>
+        <target>You have assassinated **{target_equipment}** !</target>
       </segment>
     </unit>
   </file>

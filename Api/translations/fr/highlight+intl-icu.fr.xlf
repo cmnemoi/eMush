@@ -519,5 +519,11 @@
         <target>equipment.destroyed_schrodinger.highlight</target>
       </segment>
     </unit>
+    <unit id="project.finished_research">
+      <segment id="highlight" state="initial">
+        <source>project.finished_research.highlight</source>
+        <target>project.finished_research.highlight</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

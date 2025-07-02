@@ -9,5 +9,5 @@ use Mush\Exploration\Entity\Planet;
 
 interface CreateAPlanetInOrbitServiceInterface
 {
-    public function execute(Daedalus $daedalus, bool $revealAllSectors): Planet;
+    public function execute(Daedalus $daedalus, bool $revealAllSectors = false): Planet;
 }

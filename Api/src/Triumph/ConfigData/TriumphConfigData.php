@@ -31,6 +31,7 @@ use Mush\Project\Enum\ProjectRequirementName;
 use Mush\Project\Enum\ProjectType;
 use Mush\Project\Event\ProjectEvent;
 use Mush\RoomLog\Enum\LogEnum;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -551,8 +552,26 @@ abstract class TriumphConfigData
                     PlanetSectorEnum::MANKAROG => TriumphSourceEventInterface::ANY_TAG,
                     PlanetSectorEnum::PREDATOR => TriumphSourceEventInterface::ANY_TAG,
                     PlanetSectorEnum::RUMINANT => TriumphSourceEventInterface::ANY_TAG,
-                    PlanetSectorEvent::FIGHT => TriumphSourceEventInterface::ANY_TAG,
                     PlanetSectorEvent::PROVISION => TriumphSourceEventInterface::ANY_TAG,
+                ],
+                scope: TriumphScope::PERSONAL_JANICE,
+                targetSetting: TriumphTarget::ACTIVE_EXPLORERS,
+                quantity: 3,
+            ),
+            new TriumphConfigDto(
+                key: TriumphEnum::ALIEN_FRIEND_DURING_FIGHT->toConfigKey('default'),
+                name: TriumphEnum::ALIEN_FRIEND_DURING_FIGHT,
+                targetedEvent: PlanetSectorEvent::PLANET_SECTOR_EVENT,
+                tagConstraints: [
+                    PlanetSectorEvent::FIGHT => TriumphSourceEventInterface::ANY_TAG,
+                    PlanetSectorEnum::INSECT => TriumphSourceEventInterface::NONE_TAGS,
+                    PlanetSectorEnum::INTELLIGENT => TriumphSourceEventInterface::NONE_TAGS,
+                    PlanetSectorEnum::MANKAROG => TriumphSourceEventInterface::NONE_TAGS,
+                    PlanetSectorEnum::PREDATOR => TriumphSourceEventInterface::NONE_TAGS,
+                    PlanetSectorEnum::RUMINANT => TriumphSourceEventInterface::NONE_TAGS,
+                    PlanetSectorEvent::PROVISION => TriumphSourceEventInterface::NONE_TAGS,
+                    SkillEnum::DIPLOMAT->toString() => TriumphSourceEventInterface::NONE_TAGS,
+                    ItemEnum::WHITE_FLAG => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::PERSONAL_JANICE,
                 targetSetting: TriumphTarget::ACTIVE_EXPLORERS,

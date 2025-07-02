@@ -7,6 +7,7 @@ namespace Mush\Triumph\Enum;
 enum TriumphEnum: string
 {
     case ALIEN_FRIEND = 'alien_friend';
+    case ALIEN_FRIEND_DURING_FIGHT = 'alien_friend_during_fight';
     case ALIEN_SCIENCE = 'alien_science';
     case ALL_PREGNANT = 'all_pregnant';
     case AMBITIOUS = 'ambitious';
@@ -121,7 +122,7 @@ enum TriumphEnum: string
     public static function personalEdenTriumphs(): array
     {
         return [
-            self::EDEN_ALIEN_PLANT,
+            self::EDEN_ALIEN_PLANT_PLUS,
             self::REMEDY,
             self::SAVIOR,
         ];

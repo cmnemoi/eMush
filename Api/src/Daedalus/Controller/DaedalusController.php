@@ -8,8 +8,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Dto\DaedalusCreateRequest;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
 use Mush\Daedalus\Service\DaedalusWidgetServiceInterface;
-use Mush\Exploration\Entity\Planet;
-use Mush\Exploration\Service\PlanetServiceInterface;
+use Mush\Exploration\Service\CreateAPlanetInOrbitServiceInterface;
 use Mush\Game\Controller\AbstractGameController;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\GameConfigEnum;
@@ -22,8 +21,6 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Normalizer\SelectableCharacterNormalizer;
 use Mush\Player\Repository\PlayerInfoRepository;
-use Mush\Status\Enum\DaedalusStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -56,8 +53,7 @@ class DaedalusController extends AbstractGameController
         private GameConfigServiceInterface $gameConfigService,
         private CycleServiceInterface $cycleService,
         private SelectableCharacterNormalizer $selectableCharacterNormalizer,
-        private PlanetServiceInterface $planetService,
-        private StatusServiceInterface $statusService,
+        private CreateAPlanetInOrbitServiceInterface $createAPlanetInOrbitService,
     ) {
         parent::__construct($adminService);
     }
@@ -306,19 +302,7 @@ class DaedalusController extends AbstractGameController
         }
         $this->cycleService->handleDaedalusAndExplorationCycleChanges(new \DateTime(), $daedalus);
 
-        $this->planetService->delete($this->planetService->findAllByDaedalus($daedalus)->toArray());
-
-        $player = $daedalus->getPlayers()->getPlayerAlive()->first();
-        $planet = $this->planetService->createPlanet($player);
-
-        $this->planetService->revealPlanetSectors($planet, $planet->getSize());
-
-        $this->statusService->createStatusFromName(
-            statusName: DaedalusStatusEnum::IN_ORBIT,
-            holder: $daedalus,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->createAPlanetInOrbitService->execute(daedalus: $daedalus, revealAllSectors: true);
 
         return $this->view(null, 200);
     }

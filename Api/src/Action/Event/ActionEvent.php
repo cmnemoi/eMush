@@ -275,11 +275,10 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         $target = $this->getActionTarget();
 
         if (!$target) {
-            if ($this->getActionProvider() === $this->getAuthor()) {
-                $target = $this->getAuthor()->getPlace();
-            } else {
+            if ($this->getActionProvider() !== $this->getAuthor()) {
                 throw new \LogicException('Highlight target cannot be null');
             }
+            $target = $this->getAuthor()->getPlace();
         }
 
         if (!$target instanceof PlayerHighlightTargetInterface) {

@@ -197,6 +197,16 @@ class PlayerCollection extends ArrayCollection
         return $this->filter(static fn (Player $player) => $player->isMale());
     }
 
+    public function getFirstOrThrow(): Player
+    {
+        $player = $this->first();
+        if (!$player) {
+            throw new \RuntimeException('No player in Collection');
+        }
+
+        return $player;
+    }
+
     private function getPlayerWithStatus(string $status): ?Player
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;

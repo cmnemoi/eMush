@@ -18,6 +18,8 @@ const CLOSED_DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "clos
 const DESTROY_DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "daedaluses/destroy-daedalus");
 // @ts-ignore
 const DESTROY_ALL_DAEDALUS_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "daedaluses/destroy-all-daedaluses");
+// @ts-ignore
+const CREATE_PLANET_ENDPOINT = urlJoin(import.meta.env.VITE_APP_API_URL, "daedaluses/create-planet");
 
 const DaedalusService = {
     loadAlerts: async (daedalus: Daedalus): Promise<Alert[]> => {
@@ -73,6 +75,13 @@ const DaedalusService = {
     destroyAllDaedaluses: async (): Promise<any> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = ApiService.post(DESTROY_ALL_DAEDALUS_ENDPOINT);
+        await store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
+    createAPlanet: async (daedalusId: integer): Promise<any> => {
+        await store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = ApiService.post(CREATE_PLANET_ENDPOINT + '/' + daedalusId);
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
         return response;

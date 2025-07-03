@@ -83,6 +83,11 @@
                         @click="deleteDaedalusDuplicatedAlertElements(slotProps.id)">
                         {{ $t("admin.daedalus.deleteDuplicatedAlertElements") }}
                     </button>
+                    <button
+                        type="button"
+                        @click="createAPlanet(slotProps.id)">
+                        {{ $t("admin.daedalus.createAPlanet") }}
+                    </button>
                 </DropList>
             </template>
 
@@ -263,6 +268,11 @@ export default defineComponent({
         },
         unlockDaedalus(id: number) {
             AdminService.unlockDaedalus(id).then(() => {
+                this.loadData();
+            });
+        },
+        createAPlanet(id: number) {
+            DaedalusService.createAPlanet(id).then(() => {
                 this.loadData();
             });
         }

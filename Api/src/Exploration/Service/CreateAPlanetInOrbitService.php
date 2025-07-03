@@ -6,7 +6,6 @@ namespace Mush\Exploration\Service;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Exploration\Entity\Planet;
-use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -20,15 +19,11 @@ final class CreateAPlanetInOrbitService implements CreateAPlanetInOrbitServiceIn
     public function execute(Daedalus $daedalus, bool $revealAllSectors = false): Planet
     {
         $this->planetService->delete($this->planetService->findAllByDaedalus($daedalus)->toArray());
-        $player = $daedalus->getPlayers()->getPlayerAlive()->first();
-
-        if ($player instanceof Player === false) {
-            throw new \Exception('CreateAPlanetInOrbitService need a Deadalus with an alive Player');
-        }
+        $player = $daedalus->getPlayers()->getPlayerAlive()->getFirstOrThrow();
 
         $planet = $this->planetService->createPlanet($player);
 
-        if ($revealAllSectors === true) {
+        if ($revealAllSectors) {
             $this->planetService->revealPlanetSectors($planet, $planet->getSize());
         }
 

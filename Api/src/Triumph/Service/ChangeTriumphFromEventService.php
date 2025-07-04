@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Triumph\Service;
 
+use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Enum\MedicalConditionTypeEnum;
 use Mush\Equipment\Entity\GameEquipment;
@@ -56,6 +57,13 @@ final class ChangeTriumphFromEventService
         $cyclesLasted = $this->cycleService->getNumberOfCycleElapsed($filledAt, $nextCycleAt, $daedalus->getDaedalusInfo());
 
         return max($startingTriumph + $cyclesLasted * $triumphChangePerCycle, 0);
+    }
+
+    public function getProjectFinishedTriumph(string $projectName, ClosedDaedalus $daedalus): int
+    {
+        $triumphConfig = $daedalus->getDaedalusInfo()->getGameConfig()->getTriumphConfig()->getByProjectFinished($projectName);
+
+        return $triumphConfig ? $triumphConfig->getQuantity() : 0;
     }
 
     private function addTriumphToPlayer(TriumphConfig $triumphConfig, Player $player): void

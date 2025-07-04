@@ -12,6 +12,8 @@ use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Project\Enum\ProjectName;
+use Mush\Project\Event\ProjectEvent;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
@@ -37,7 +39,7 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
-    public function shouldPrintLogWhenTriumphIsChanged(FunctionalTester $I): void
+    public function shouldPrintLogWhenTriumphIsChangedWithPrivateVisibility(FunctionalTester $I): void
     {
         $event = new DaedalusCycleEvent(
             daedalus: $this->daedalus,
@@ -48,6 +50,14 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
 
         $this->changeTriumphFromEventService->execute($event);
 
+        $I->seeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => TriumphEnum::CYCLE_HUMAN->toLogKey(),
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: 'Vous avez gagné 1 :triumph: en survivant un cycle de plus.',
             actualRoomLogDto: new RoomLogDto(
@@ -57,6 +67,27 @@ final class ChangeTriumphFromEventServiceCest extends AbstractFunctionalTest
                 inPlayerRoom: true,
             ),
             I: $I,
+        );
+    }
+
+    public function shouldNotSeeLogWhenTriumphIsChangedWithHiddenVisibility(FunctionalTester $I): void
+    {
+        $event = new ProjectEvent(
+            project: $this->daedalus->getProjectByName(ProjectName::ANTISPORE_GAS),
+            author: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+        $event->setEventName(ProjectEvent::PROJECT_FINISHED);
+
+        $this->changeTriumphFromEventService->execute($event);
+
+        $I->dontSeeInRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => TriumphEnum::RESEARCH_SMALL->toLogKey(),
+                'visibility' => VisibilityEnum::PRIVATE,
+            ]
         );
     }
 

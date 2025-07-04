@@ -125,5 +125,11 @@
         <target>l'archive de l'expédition</target>
       </segment>
     </unit>
+    <unit id="project_grants_triumph">
+      <segment id="project_grants_triumph" state="translated">
+        <source>project_grants_triumph</source>
+        <target>Accorde {quantity} :triumph:</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

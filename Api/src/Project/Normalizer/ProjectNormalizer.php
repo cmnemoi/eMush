@@ -11,6 +11,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Project\Entity\Project;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -21,6 +22,7 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
     use NormalizerAwareTrait;
 
     public function __construct(
+        private readonly ChangeTriumphFromEventService $triumphFromEventService,
         private readonly GearToolServiceInterface $gearToolService,
         private readonly TranslationServiceInterface $translationService
     ) {}
@@ -68,12 +70,7 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                 domain: 'project',
                 language: $language
             ),
-            'description' => $this->translationService->translate(
-                key: "{$project->getName()}.description",
-                parameters: [],
-                domain: 'project',
-                language: $language
-            ),
+            'description' => $this->getDescriptionForProject($project, $language),
             'lore' => $this->translationService->translate(
                 key: "{$project->getName()}.lore",
                 parameters: [],
@@ -101,12 +98,7 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                 domain: 'project',
                 language: $language
             ),
-            'description' => $this->translationService->translate(
-                key: "{$project->getName()}.description",
-                parameters: [],
-                domain: 'project',
-                language: $language
-            ),
+            'description' => $this->getDescriptionForProject($project, $language),
             'lore' => $this->translationService->translate(
                 key: "{$project->getName()}.lore",
                 parameters: [],
@@ -161,5 +153,24 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
             ],
             $skills
         );
+    }
+
+    private function getDescriptionForProject(Project $project, string $language): string
+    {
+        $translatedProjectDescription = $this->translationService->translate(
+            key: "{$project->getName()}.description",
+            parameters: [],
+            domain: 'project',
+            language: $language
+        );
+        $triumphQuantity = $this->triumphFromEventService->getProjectFinishedTriumph($project->getName(), $project->getDaedalus()->getDaedalusInfo()->getClosedDaedalus());
+        $translatedTriumphGain = $triumphQuantity !== 0 ? $this->translationService->translate(
+            key: 'project_grants_triumph',
+            parameters: ['quantity' => $triumphQuantity],
+            domain: 'misc',
+            language: $language
+        ) : '';
+
+        return implode('//', array_filter([$translatedProjectDescription, $translatedTriumphGain]));
     }
 }

@@ -163,6 +163,9 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
             domain: 'project',
             language: $language
         );
+        if ($translatedProjectDescription === "{$project->getName()}.description") {
+            $translatedProjectDescription = '';
+        }
         $triumphQuantity = $this->triumphFromEventService->getProjectFinishedTriumph($project->getName(), $project->getDaedalus()->getDaedalusInfo()->getClosedDaedalus());
         $translatedTriumphGain = $triumphQuantity !== 0 ? $this->translationService->translate(
             key: 'project_grants_triumph',

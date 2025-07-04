@@ -209,6 +209,9 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
             domain: 'project',
             language: $daedalus->getLanguage()
         );
+        if ($translatedProjectDescription === "{$projectName}.description") {
+            $translatedProjectDescription = '';
+        }
         $triumphQuantity = $this->triumphFromEventService->getProjectFinishedTriumph($projectName, $daedalus);
         $translatedTriumphGain = $triumphQuantity !== 0 ? $this->translationService->translate(
             key: 'project_grants_triumph',

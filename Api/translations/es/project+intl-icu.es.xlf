@@ -874,10 +874,6 @@
         <source>mush_hunter_zc16h.name</source>
         <target>El Mush-Hunter : ZC16H</target>
       </segment>
-      <segment id="mush_hunter_zc16h.description" state="translated">
-        <source>mush_hunter_zc16h.description</source>
-        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
-      </segment>
       <segment id="mush_hunter_zc16h.lore" state="translated">
         <source>mush_hunter_zc16h.lore</source>
         <target>Parece que esta bacteria, extraída de un pelo de oreja de Chun, reacciona violentamente en contacto con los Mush. Digiere frenéticamente al hongo y se reproduce a velocidades impresionantes. ¡Esto podría producir un antídoto contra el Mush! El resultado de este estudio puede ser capital. La fama te espera.</target>
@@ -909,10 +905,6 @@
       <segment id="mush_language.name" state="translated">
         <source>mush_language.name</source>
         <target>Lenguaje Mush</target>
-      </segment>
-      <segment id="mush_language.description" state="translated">
-        <source>mush_language.description</source>
-        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
       </segment>
       <segment id="mush_language.lore" state="translated">
         <source>mush_language.lore</source>
@@ -946,10 +938,6 @@
         <source>mush_races.name</source>
         <target>Razas Mush</target>
       </segment>
-      <segment id="mush_races.description" state="translated">
-        <source>mush_races.description</source>
-        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
-      </segment>
       <segment id="mush_races.lore" state="translated">
         <source>mush_races.lore</source>
         <target>La autopsia del "Oráculo de Wupperthal", el eslabón perdido de los Mush, reveló la variedad de ramas evolutivas de su especie.</target>
@@ -963,10 +951,6 @@
       <segment id="mush_reproductive_system.name" state="translated">
         <source>mush_reproductive_system.name</source>
         <target>Sistema de reproducción Mush</target>
-      </segment>
-      <segment id="mush_reproductive_system.description" state="translated">
-        <source>mush_reproductive_system.description</source>
-        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
       </segment>
       <segment id="mush_reproductive_system.lore" state="translated">
         <source>mush_reproductive_system.lore</source>
@@ -1071,10 +1055,6 @@
       <segment id="perpetual_hydration.name" state="translated">
         <source>perpetual_hydration.name</source>
         <target>Hidratación perpetua</target>
-      </segment>
-      <segment id="perpetual_hydration.description" state="translated">
-        <source>perpetual_hydration.description</source>
-        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
       </segment>
       <segment id="perpetual_hydration.lore" state="translated">
         <source>perpetual_hydration.lore</source>

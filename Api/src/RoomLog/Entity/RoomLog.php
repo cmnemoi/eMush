@@ -214,14 +214,14 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         return $this;
     }
 
-    public function getTable(): array
+    public function getTableLog(): array
     {
-        return $this->table;
+        return $this->tableLog;
     }
 
-    public function setTable(array $newTable): static
+    public function setTableLog(array $newTableLog): static
     {
-        $this->table = $newTable;
+        $this->tableLog = $newTableLog;
 
         return $this;
     }

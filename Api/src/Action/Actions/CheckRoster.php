@@ -10,8 +10,14 @@ use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\RoomLog\Entity\RoomLogTableContent;
+use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerActivityLevelEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -25,6 +31,8 @@ class CheckRoster extends AbstractAction
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
         GameEquipmentServiceInterface $gameEquipmentService,
+        protected RoomLogServiceInterface $roomLogService,
+        protected TranslationServiceInterface $translationService,
     ) {
         parent::__construct($eventService, $actionService, $validator);
 
@@ -46,5 +54,98 @@ class CheckRoster extends AbstractAction
         return new Success();
     }
 
-    protected function applyEffect(ActionResult $result): void {}
+    protected function applyEffect(ActionResult $result): void
+    {
+        $this->createRosterTableLog();
+    }
+
+    
+    public function translatePlayerName(string $character, string $language): string
+    {
+        return $this->translationService->translate(
+            $character . '.name',
+            [],
+            'characters',
+            $language
+        );
+    }
+
+    public function translateActivityLevel(string $activity, string $language): string
+    {
+        return $this->translationService->translate(
+            $activity . '.name',
+            [],
+            'status',
+            $language
+        );
+    }
+
+    public function getPlayerActivityLevel(Player $player): string
+    {
+        if ($player->isDead()) {
+            return PlayerActivityLevelEnum::DEAD->value;
+        }
+        if ($player->isInactive()) {
+            return PlayerActivityLevelEnum::IDLE->value;
+        }
+        return PlayerActivityLevelEnum::AWAKE->value;
+    }
+
+    public function createCrewmemberRow(string $character, string $activity, string $language): array
+    {
+        if ($character === '???') {
+            $characterName = '*???*';
+        } else {
+            $characterName = '*' . $this->translatePlayerName($character, $language) . '*';
+        }
+
+        $characterActivity = '*' . $this->translateActivityLevel($activity, $language) . '*';
+
+        return [$characterName, $characterActivity];
+    }
+
+    public function createRosterTableLog(): void
+    {
+        $daedalus = $this->gameEquipmentTarget()->getDaedalus();
+        $language = $daedalus->getLanguage();
+        $playerCount = $daedalus->getDaedalusConfig()->getPlayerCount();
+        $players = $daedalus->getPlayers();
+        $currentlyJoinedPlayers = $players->count();
+        $tableContent = new RoomLogTableContent();
+
+        for ($character = 1; $character < $playerCount; $character++)
+        {
+            //First, let's create the rows for the players that have already joined the Daedalus, and update the counter after each
+            if ($character <= $currentlyJoinedPlayers) {
+                foreach($players as $player) {
+                    $playerName = $player->getName();
+                    $playerActivity = $this->getPlayerActivityLevel($player);
+
+                    $playerRow = $this->createCrewmemberRow($playerName, $playerActivity, $language);
+                    $tableContent->addOneEntry($playerRow);
+                    $character++;
+                }
+            }
+
+            //Then, let's create rows for the missing players, if any
+            if ($character < $playerCount) {
+                $ghostName = '???';
+                $ghostActivity = PlayerActivityLevelEnum::CRYOGENIZED->value;
+
+                $ghostRow = $this->createCrewmemberRow($ghostName, $ghostActivity, $language);
+                $tableContent->addOneEntry($ghostRow);
+            }
+        }
+
+        $this->roomLogService->createTableLog(
+            logKey: '',
+            place: $this->gameEquipmentTarget()->getPlace(),
+            visibility: VisibilityEnum::PRIVATE,
+            type: '',
+            player: $this->player,
+            parameters: [],
+            dateTime: new \DateTime(),
+            tableLog: $tableContent->toArray(),
+        );
+    }
 }

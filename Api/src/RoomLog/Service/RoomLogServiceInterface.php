@@ -22,6 +22,17 @@ interface RoomLogServiceInterface
         ?\DateTime $dateTime = null
     ): RoomLog;
 
+    public function createTableLog(
+        string $logKey,
+        Place $place,
+        string $visibility,
+        string $type,
+        ?Player $player = null,
+        array $parameters = [],
+        ?\DateTime $dateTime = null,
+        array $tableLog = []
+    ): RoomLog;
+
     public function createLogFromActionEvent(ActionEvent $event): ?RoomLog;
 
     public function persist(RoomLog $roomLog): RoomLog;

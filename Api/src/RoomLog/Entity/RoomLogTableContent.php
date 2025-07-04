@@ -42,12 +42,12 @@ class RoomLogTableContent
 
     public function toArray(): array
     {
-        $table = [];
-        $table[] = $this->getHeader();
+        $tableContent = [];
+        $tableContent[] = $this->getHeader();
         foreach ($this->getEntries() as $entry) {
-            $table[] = $entry;
+            $tableContent[] = $entry;
         }
 
-        return $table;
+        return $tableContent;
     }
 }

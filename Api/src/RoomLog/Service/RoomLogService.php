@@ -95,6 +95,36 @@ final class RoomLogService implements RoomLogServiceInterface
         );
     }
 
+    public function createTableLog(
+        string $logKey,
+        Place $place,
+        string $visibility,
+        string $type,
+        ?Player $player = null,
+        array $parameters = [],
+        ?\DateTime $dateTime = null,
+        array $tableLog = []
+    ): RoomLog {
+        $roomLog = new RoomLog();
+        $roomLog
+            ->setLog($logKey)
+            ->setParameters($parameters)
+            ->setType($type)
+            ->setDaedalusInfo($place->getDaedalus()->getDaedalusInfo())
+            ->setPlace($place->getName())
+            ->setPlayerInfo($player?->getPlayerInfo())
+            ->setBaseVisibility($visibility)
+            ->setCreatedAt($dateTime ?? new \DateTime('now'))
+            ->setCycle($place->getDaedalus()->getCycle())
+            ->setDay($place->getDaedalus()->getDay())
+            ->setTableLog($tableLog);
+
+        $visibility = $this->getVisibility($roomLog, $place);
+        $roomLog->setVisibility($visibility);
+
+        return $this->persist($roomLog);
+    }
+
     public function createLog(
         string $logKey,
         Place $place,

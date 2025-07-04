@@ -211,7 +211,7 @@ export default defineComponent ({
 
 .table-log {
   width: 100%;
-  border-collapse: collapse; 
+  border-collapse: collapse;
   margin: 20px 0;
   font-family: Arial, sans-serif;
   text-align: center;
@@ -219,13 +219,13 @@ export default defineComponent ({
   overflow: hidden;
 }
 
-.table-log th {
+.table-log th { //table header styling
   background-color: #f2f2f2;
   font-weight: bold;
   color: #333;
 }
 
-.table-log td {
+.table-log td { //table data styling
   border-bottom: 1px dotted #3874C6 ;
   border-right: 1px dotted #3874C6;
   padding: 5px;

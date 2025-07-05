@@ -661,6 +661,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
             return new SkillConfigCollection();
         }
 
+        // temporary fallback code to allow merging without supernova. Delete after all pre-update ships have ended.
+        if ($this->getAvailableHumanSkills()->isEmpty()) {
+            $this->setAvailableHumanSkills($this->getCharacterConfig()->getSkillConfigs());
+        }
+
         return $this->getAvailableHumanSkills()->getAllExceptThoseLearnedByPlayer($this);
     }
 

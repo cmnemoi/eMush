@@ -49,17 +49,6 @@ class CheckRoster extends AbstractAction
         return $target instanceof GameEquipment;
     }
 
-    protected function checkResult(): ActionResult
-    {
-        return new Success();
-    }
-
-    protected function applyEffect(ActionResult $result): void
-    {
-        $this->createRosterTableLog();
-    }
-
-    
     public function translatePlayerName(string $character, string $language): string
     {
         return $this->translationService->translate(
@@ -88,23 +77,24 @@ class CheckRoster extends AbstractAction
         if ($player->isInactive()) {
             return PlayerActivityLevelEnum::IDLE->value;
         }
+
         return PlayerActivityLevelEnum::AWAKE->value;
     }
 
     public function createCrewmemberRow(string $character, string $activity, string $language): array
     {
         if ($character === '???') {
-            $characterName = '*???*';
+            $characterName = $character;
         } else {
-            $characterName = '*' . $this->translatePlayerName($character, $language) . '*';
+            $characterName = $this->translatePlayerName($character, $language);
         }
 
-        $characterActivity = '*' . $this->translateActivityLevel($activity, $language) . '*';
+        $characterActivity = $this->translateActivityLevel($activity, $language);
 
         return [$characterName, $characterActivity];
     }
 
-    public function createRosterTableLog(): void
+    public function createRosterTable(): array
     {
         $daedalus = $this->gameEquipmentTarget()->getDaedalus();
         $language = $daedalus->getLanguage();
@@ -113,22 +103,21 @@ class CheckRoster extends AbstractAction
         $currentlyJoinedPlayers = $players->count();
         $tableContent = new RoomLogTableContent();
 
-        for ($character = 1; $character < $playerCount; $character++)
-        {
-            //First, let's create the rows for the players that have already joined the Daedalus, and update the counter after each
+        for ($character = 1; $character <= $playerCount; ++$character) {
+            // First, let's create the rows for the players that have already joined the Daedalus, and update the counter after each
             if ($character <= $currentlyJoinedPlayers) {
-                foreach($players as $player) {
+                foreach ($players as $player) {
                     $playerName = $player->getName();
                     $playerActivity = $this->getPlayerActivityLevel($player);
 
                     $playerRow = $this->createCrewmemberRow($playerName, $playerActivity, $language);
                     $tableContent->addOneEntry($playerRow);
-                    $character++;
+                    ++$character;
                 }
             }
 
-            //Then, let's create rows for the missing players, if any
-            if ($character < $playerCount) {
+            // Then, let's create rows for the missing players, if any
+            if ($character <= $playerCount) {
                 $ghostName = '???';
                 $ghostActivity = PlayerActivityLevelEnum::CRYOGENIZED->value;
 
@@ -136,6 +125,13 @@ class CheckRoster extends AbstractAction
                 $tableContent->addOneEntry($ghostRow);
             }
         }
+
+        return $tableContent->toArray();
+    }
+
+    public function createRosterLog(): void
+    {
+        $tableContent = $this->createRosterTable();
 
         $this->roomLogService->createTableLog(
             logKey: '',
@@ -145,7 +141,17 @@ class CheckRoster extends AbstractAction
             player: $this->player,
             parameters: [],
             dateTime: new \DateTime(),
-            tableLog: $tableContent->toArray(),
+            tableLog: $tableContent,
         );
+    }
+
+    protected function checkResult(): ActionResult
+    {
+        return new Success();
+    }
+
+    protected function applyEffect(ActionResult $result): void
+    {
+        $this->createRosterLog();
     }
 }

@@ -52,6 +52,7 @@ class RoomLogNormalizer implements NormalizerInterface
             'log' => $this->getTranslatedLog($roomLog, $currentPlayer),
             'visibility' => $roomLog->getVisibility(),
             'isUnread' => $roomLog->isUnreadBy($currentPlayer),
+            'tableLog' => $roomLog->getTableLog(),
         ];
 
         if (!$this->isPlayerPlaceDelogged($currentPlayer)) {

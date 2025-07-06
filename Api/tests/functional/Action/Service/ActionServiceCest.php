@@ -41,13 +41,13 @@ final class ActionServiceCest extends AbstractFunctionalTest
     {
         $this->player->setActionPoint(2);
 
-        $this->actionConfig->setActionCost(1);
+        $this->actionConfig->setActionCost(0);
 
         $this->whenPlayerWantsToSearch();
 
         $this->whenPlayerSearches();
 
-        $I->assertEquals(1, $this->player->getActionPoint());
+        $I->assertEquals(2, $this->player->getActionPoint());
     }
 
     private function whenPlayerWantsToSearch(): void

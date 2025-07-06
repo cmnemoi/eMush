@@ -11,6 +11,22 @@
         @mouseover="read(roomLog)"
     >
         <p class='text-log'>
+            <table class="table-log">
+                <thead>
+                    <tr>
+                        <th v-for="(column, index) in tableHeader" :key="index">
+                            {{ column }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(row, rowIndex) in tableEntries" :key="rowIndex">
+                        <td v-for="(cell, cellIndex) in row.entry" :key="cellIndex">
+                            {{ cell }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <span v-html="formatText(roomLog.message)"></span>
             <span class="room" v-if="roomLog?.place"> - {{ roomLog.place }}</span>
             <span class="timestamp">{{ roomLog?.date }}</span>
@@ -41,14 +57,25 @@ export default defineComponent ({
     components: { Tippy, ReportPopup },
     data() {
         return {
-            reportPopupVisible: false
+            reportPopupVisible: false,
+            tableData: this.roomLog.tableLog
         };
     },
     computed: {
         ...mapGetters({
             isReadingLog: "communication/readMessageMutex",
             roomLogChannel: 'communication/currentChannel'
-        })
+
+        }),
+        tableHeader() {
+            // Find the object with the "header" key and return its value
+            const header = this.tableData.find(item => item.header)?.header ?? [];
+            return header;
+        },
+        tableEntries() {
+            // Filter out objects that have the "entry" key
+            return this.tableData.filter(item => item.entry);
+        }
     },
     props: {
         roomLog: {

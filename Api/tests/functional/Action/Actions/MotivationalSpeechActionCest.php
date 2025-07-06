@@ -5,30 +5,15 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\MotivationalSpeech;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
 /**
  * @internal
@@ -52,83 +37,18 @@ final class MotivationalSpeechActionCest extends AbstractFunctionalTest
 
     public function testMotivationalSpeech(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        $this->givenChunIsLeader($I);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $this->givenKuanTiHasMoralePoints(1);
 
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
+        $this->whenChunGivesMotivationalSpeech();
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
-
-        /** @var CharacterConfig $speakerConfig */
-        $speakerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::JIN_SU]);
-
-        /** @var CharacterConfig $listenerConfig */
-        $listenerConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
-
-        /** @var Player $speaker */
-        $speaker = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $speaker->setPlayerVariables($speakerConfig);
-        $speaker
-            ->setActionPoint(10)
-            ->setMoralPoint(6)
-            ->setAvailableHumanSkills($speakerConfig->getSkillConfigs());
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $speakerInfo = new PlayerInfo($speaker, $user, $speakerConfig);
-        $I->haveInRepository($speakerInfo);
-        $speaker->setPlayerInfo($speakerInfo);
-        $I->haveInRepository($speaker);
-
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(skill: SkillEnum::LEADER, player: $speaker));
-
-        /** @var Player $listener */
-        $listener = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $room,
-            'characterConfig' => $listenerConfig,
-        ]);
-        $listener->setPlayerVariables($listenerConfig);
-        $listener
-            ->setActionPoint(10)
-            ->setMoralPoint(6);
-        $listenerInfo = new PlayerInfo($listener, $user, $listenerConfig);
-        $I->haveInRepository($listenerInfo);
-        $listener->setPlayerInfo($listenerInfo);
-        $I->refreshEntities($listener);
-
-        $this->motivationalSpeechAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $speaker,
-            player: $speaker
-        );
-
-        $I->assertTrue($this->motivationalSpeechAction->isVisible());
-        $I->assertNull($this->motivationalSpeechAction->cannotExecuteReason());
-
-        $this->motivationalSpeechAction->execute();
-
-        $I->assertEquals(8, $speaker->getActionPoint());
-        $I->assertEquals(6, $speaker->getMoralPoint());
-
-        $I->assertEquals(10, $listener->getActionPoint());
-        $I->assertEquals(8, $listener->getMoralPoint());
+        $this->thenKuanTiShouldHaveMoralePoints(3, $I);
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $speaker->getPlayerInfo()->getId(),
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::MOTIVATIONAL_SPEECH,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);

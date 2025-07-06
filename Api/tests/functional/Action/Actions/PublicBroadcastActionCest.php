@@ -5,129 +5,74 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\PublicBroadcast;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
-class PublicBroadcastActionCest
+/**
+ * @internal
+ */
+final class PublicBroadcastActionCest extends AbstractFunctionalTest
 {
     private PublicBroadcast $publicBroadcastAction;
-    private ActionConfig $action;
-    private StatusConfig $watchedPublicBroadcastStatus;
+    private ActionConfig $actionConfig;
+    private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
         $this->publicBroadcastAction = $I->grabService(PublicBroadcast::class);
-        $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::PUBLIC_BROADCAST]);
-        $this->watchedPublicBroadcastStatus = $I->grabEntityFromRepository(StatusConfig::class, ['statusName' => PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST]);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::PUBLIC_BROADCAST]);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $tv = $this->gameEquipmentService->createGameEquipmentFromName(
+            ToolItemEnum::ALIEN_HOLOGRAPHIC_TV,
+            $this->player->getPlace(),
+            [],
+            new \DateTime(),
+        );
+
+        $this->publicBroadcastAction->loadParameters(
+            $this->actionConfig,
+            $tv,
+            $this->player,
+            $tv
+        );
     }
 
     public function testPublicBroadcast(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
-
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::ALIEN_HOLOGRAPHIC_TV]);
-
-        $gameItem = new GameItem($room);
-        $gameItem
-            ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setEquipment($itemConfig);
-        $I->haveInRepository($gameItem);
-
-        /** @var CharacterConfig $player1Config */
-        $player1Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
-
-        /** @var CharacterConfig $player2Config */
-        $player2Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
-
-        /** @var Player $player1 */
-        $player1 = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player1->setPlayerVariables($player1Config);
-        $player1
-            ->setActionPoint(10)
-            ->setMoralPoint(6);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $player1Info = new PlayerInfo($player1, $user, $player1Config);
-        $I->haveInRepository($player1Info);
-        $player1->setPlayerInfo($player1Info);
-        $I->refreshEntities($player1);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player2->setPlayerVariables($player2Config);
-        $player2
-            ->setActionPoint(10)
-            ->setMoralPoint(6);
-        $player2Info = new PlayerInfo($player2, $user, $player2Config);
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $this->publicBroadcastAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $gameItem,
-            player: $player1,
-            target: $gameItem
-        );
+        // given both player have 1 moral
+        $this->player1->setMoralPoint(1);
+        $this->player2->setMoralPoint(1);
 
         $I->assertTrue($this->publicBroadcastAction->isVisible());
         $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());
 
+        // when they watch the TV
         $this->publicBroadcastAction->execute();
 
-        $I->assertEquals(8, $player1->getActionPoint());
-        $I->assertEquals(9, $player1->getMoralPoint());
+        // then they should have 4 morals
+        $I->assertEquals(4, $this->player1->getMoralPoint());
 
-        $I->assertEquals(10, $player2->getActionPoint());
-        $I->assertEquals(9, $player2->getMoralPoint());
+        $I->assertEquals(4, $this->player2->getMoralPoint());
 
+        // then they should see the log in the room
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player1->getPlayerInfo()->getId(),
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::PUBLIC_BROADCAST,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -135,93 +80,41 @@ class PublicBroadcastActionCest
 
     public function testPublicBroadcastAlreadyWatched(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
+        // given both player have 1 moral
+        $this->player1->setMoralPoint(1);
+        $this->player2->setMoralPoint(1);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
-
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::ALIEN_HOLOGRAPHIC_TV]);
-
-        $gameItem = new GameItem($room);
-        $gameItem
-            ->setName(ToolItemEnum::ALIEN_HOLOGRAPHIC_TV)
-            ->setEquipment($itemConfig);
-        $I->haveInRepository($gameItem);
-
-        /** @var CharacterConfig $player1Config */
-        $player1Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::CHUN]);
-
-        /** @var CharacterConfig $player2Config */
-        $player2Config = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::DEREK]);
-
-        /** @var Player $player1 */
-        $player1 = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player1->setPlayerVariables($player1Config);
-        $player1
-            ->setActionPoint(10)
-            ->setMoralPoint(6);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $player1Info = new PlayerInfo($player1, $user, $player1Config);
-        $I->haveInRepository($player1Info);
-        $player1->setPlayerInfo($player1Info);
-        $I->refreshEntities($player1);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player2->setPlayerVariables($player2Config);
-        $player2
-            ->setActionPoint(10)
-            ->setMoralPoint(6);
-        $player2Info = new PlayerInfo($player2, $user, $player2Config);
-        $I->haveInRepository($player2Info);
-        $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
-
-        $this->publicBroadcastAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $gameItem,
-            player: $player1,
-            target: $gameItem
-        );
+        $this->givenPlayerHasAlreadySeenThebroadcast($this->player1);
+        $this->givenPlayerHasAlreadySeenThebroadcast($this->player2);
 
         $I->assertTrue($this->publicBroadcastAction->isVisible());
         $I->assertNull($this->publicBroadcastAction->cannotExecuteReason());
 
+        // when they watch the TV
         $this->publicBroadcastAction->execute();
-        $this->publicBroadcastAction->execute();
 
-        $I->assertEquals(6, $player1->getActionPoint());
-        $I->assertEquals(9, $player1->getMoralPoint());
+        // then they should have 4 morals
+        $I->assertEquals(1, $this->player1->getMoralPoint());
 
-        $I->assertEquals(10, $player2->getActionPoint());
-        $I->assertEquals(9, $player2->getMoralPoint());
+        $I->assertEquals(1, $this->player2->getMoralPoint());
 
+        // then they should see the log in the room
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player1->getPlayerInfo()->getId(),
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player1->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::PUBLIC_BROADCAST,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
+    }
+
+    private function givenPlayerHasAlreadySeenThebroadcast(Player $player): void
+    {
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::WATCHED_PUBLIC_BROADCAST,
+            $player,
+            [],
+            new \DateTime(),
+        );
     }
 }

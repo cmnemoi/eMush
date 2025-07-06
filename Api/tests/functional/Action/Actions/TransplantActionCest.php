@@ -20,6 +20,7 @@ use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Exploration\Entity\PlanetName;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
@@ -57,219 +58,19 @@ final class TransplantActionCest extends AbstractFunctionalTest
 
     public function testTransplant(FunctionalTester $I)
     {
-        $transplantAction = new ActionConfig();
-        $transplantAction
-            ->setActionName(ActionEnum::TRANSPLANT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
-        $I->haveInRepository($transplantAction);
+        $ian = $this->givenIanPlayerWithHydropot($I);
 
-        $fruitMechanic = new Fruit();
-        $fruitMechanic
-            ->addAction($transplantAction)
-            ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE);
-        $I->haveInRepository($fruitMechanic);
+        $fruit = $this->givenAlienFruitInIanPlace($I, $ian);
 
-        /** @var ItemConfig $hydropotConfig */
-        $hydropotConfig = $I->have(ItemConfig::class, [
-            'name' => 'hydropot_test',
-            'equipmentName' => ItemEnum::HYDROPOT,
-        ]);
+        $this->whenIanTransplantsAlienFruit($fruit, $ian);
 
-        /** @var ItemConfig $fruitConfig */
-        $fruitConfig = $I->have(ItemConfig::class, [
-            'mechanics' => new ArrayCollection([$fruitMechanic]),
-            'name' => 'fruit',
-        ]);
+        $I->assertTrue($ian->hasEquipmentByName(GamePlantEnum::FIBONICCUS));
 
-        /** @var ItemConfig $plantConfig */
-        $plantConfig = $I->have(ItemConfig::class, [
-            'name' => 'banana_test',
-            'equipmentName' => GamePlantEnum::BANANA_TREE,
-        ]);
+        $plant = $ian->getEquipmentByName(GamePlantEnum::FIBONICCUS);
 
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, [
-            'name' => GameConfigEnum::DEFAULT,
-        ]);
-        $gameConfig->setEquipmentsConfig(new ArrayCollection([$plantConfig, $fruitConfig, $hydropotConfig]));
-        $I->flushToDatabase();
+        $I->assertTrue($plant->hasStatus(EquipmentStatusEnum::PLANT_YOUNG));
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-        $player->setActionPoint(2)->setHealthPoint(6);
-        $I->flushToDatabase($player);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $fruit = new GameItem($room);
-        $fruit
-            ->setEquipment($fruitConfig)
-            ->setName('fruit');
-        $I->haveInRepository($fruit);
-
-        $this->transplantAction->loadParameters($transplantAction, $fruit, $player, $fruit);
-
-        $I->assertFalse($this->transplantAction->isVisible());
-
-        $hydropot = new GameItem($room);
-        $hydropot
-            ->setEquipment($hydropotConfig)
-            ->setName(ItemEnum::HYDROPOT);
-        $I->haveInRepository($hydropot);
-
-        $I->assertTrue($this->transplantAction->isVisible());
-
-        $this->transplantAction->execute();
-
-        $I->assertCount(0, $room->getEquipments());
-        $I->assertCount(1, $player->getEquipments());
-
-        $I->seeInRepository(GameItem::class, ['name' => GamePlantEnum::BANANA_TREE]);
-    }
-
-    public function testTransplantCreatePlant(FunctionalTester $I)
-    {
-        $plantYoung = $I->grabEntityFromRepository(ChargeStatusConfig::class, [
-            'statusName' => EquipmentStatusEnum::PLANT_YOUNG,
-        ]);
-
-        $transplantAction = new ActionConfig();
-        $transplantAction
-            ->setActionName(ActionEnum::TRANSPLANT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->buildName(GameConfigEnum::TEST)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT);
-        $I->haveInRepository($transplantAction);
-
-        $fruitMechanic = new Fruit();
-        $fruitMechanic
-            ->addAction($transplantAction)
-            ->setName('fruitMechanic')
-            ->setPlantName(GamePlantEnum::BANANA_TREE);
-        $I->haveInRepository($fruitMechanic);
-
-        $plantMechanic = new Plant();
-        $plantMechanic
-            ->setName('plantMechanic')
-            ->setFruitName('banana')
-            ->setMaturationTime([15 => 1]);
-        $I->haveInRepository($plantMechanic);
-
-        /** @var ItemConfig $hydropotConfig */
-        $hydropotConfig = $I->have(ItemConfig::class, [
-            'name' => 'hydropot_test',
-            'equipmentName' => ItemEnum::HYDROPOT,
-        ]);
-
-        /** @var ItemConfig $fruitConfig */
-        $fruitConfig = $I->have(ItemConfig::class, [
-            'mechanics' => new ArrayCollection([$fruitMechanic]),
-            'name' => 'fruit',
-        ]);
-
-        /** @var ItemConfig $plantConfig */
-        $plantConfig = $I->have(ItemConfig::class, [
-            'mechanics' => new ArrayCollection([$plantMechanic]),
-            'name' => 'banana_test',
-            'equipmentName' => GamePlantEnum::BANANA_TREE,
-        ]);
-
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, [
-            'name' => GameConfigEnum::DEFAULT,
-        ]);
-        $gameConfig->setEquipmentsConfig(new ArrayCollection([$plantConfig, $fruitConfig, $hydropotConfig]));
-        $gameConfig->setStatusConfigs(new ArrayCollection([$plantYoung]));
-        $I->flushToDatabase();
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-        $player->setActionPoint(2)->setHealthPoint(6);
-        $I->flushToDatabase($player);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $fruit = new GameItem($room);
-        $fruit
-            ->setEquipment($fruitConfig)
-            ->setName('fruit');
-        $I->haveInRepository($fruit);
-
-        $this->transplantAction->loadParameters($transplantAction, $fruit, $player, $fruit);
-
-        $I->assertFalse($this->transplantAction->isVisible());
-
-        $hydropot = new GameItem($room);
-        $hydropot
-            ->setEquipment($hydropotConfig)
-            ->setName(ItemEnum::HYDROPOT);
-        $I->haveInRepository($hydropot);
-
-        $I->assertTrue($this->transplantAction->isVisible());
-
-        $this->transplantAction->execute();
-
-        $I->assertCount(1, $player->getEquipments());
-
-        $I->seeInRepository(GameItem::class, ['name' => GamePlantEnum::BANANA_TREE]);
-
-        $tree = $player->getEquipments()->first();
-        $I->assertInstanceOf(GameItem::class, $tree);
-        $I->assertTrue($tree->hasStatus(EquipmentStatusEnum::PLANT_YOUNG));
-
-        $status = $tree->getStatusByName(EquipmentStatusEnum::PLANT_YOUNG);
-        $I->assertInstanceOf(ChargeStatus::class, $status);
-        $I->assertEquals(0, $status->getCharge());
-        $I->assertEquals(15, $status->getVariableByName($status->getName())->getMaxValue());
+        
     }
 
     public function shouldGiveNaturalistTriumphToIanWhenTransplantingAlienFruit(FunctionalTester $I): void

@@ -2,141 +2,88 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\RemoveSpore;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
-use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\ItemConfig;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Enum\StatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
-class RemoveSporeActionCest
+/**
+ * @internal
+ */
+final class RemoveSporeActionCest extends AbstractFunctionalTest
 {
     private RemoveSpore $removeSpore;
 
+    private ActionConfig $actionConfig;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
+
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
         $this->removeSpore = $I->grabService(RemoveSpore::class);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::REMOVE_SPORE]);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function testRemoveSpore(FunctionalTester $I)
     {
-        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
+        // given the item is in the room
+        $extractor = $this->gameEquipmentService->createGameEquipmentFromName(
+            ToolItemEnum::SPORE_SUCKER,
+            $this->player->getPlace(),
+            [],
+            new \DateTime(),
+        );
 
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig]));
-        $I->flushToDatabase();
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(2)
+        // given the player have those values
+        $this->player
             ->setHealthPoint(9)
             ->setSpores(1);
 
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::REMOVE_SPORE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($action);
-
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class);
-
-        $itemConfig
-            ->setEquipmentName(ToolItemEnum::SPORE_SUCKER)
-            ->setActionConfigs(new ArrayCollection([$action]));
-
-        $gameItem = new GameItem($room);
-        $gameItem
-            ->setName(ToolItemEnum::SPORE_SUCKER)
-            ->setEquipment($itemConfig)
-            ->setHolder($room);
-        $I->haveInRepository($gameItem);
-
+        // when the player try to remove a spore
         $this->removeSpore->loadParameters(
-            actionConfig: $action,
-            actionProvider: $gameItem,
-            player: $player,
-            target: $gameItem
+            actionConfig: $this->actionConfig,
+            actionProvider: $extractor,
+            player: $this->player,
+            target: $extractor
         );
-
-        $I->assertTrue($this->removeSpore->isVisible());
-
         $this->removeSpore->execute();
 
-        $I->assertEquals(1, $player->getActionPoint());
-        $I->assertEquals(6, $player->getHealthPoint());
-        $I->assertEquals(0, $player->getSpores());
+        // then they should have no spore and less HP
+        $I->assertEquals(6, $this->player->getHealthPoint());
+        $I->assertEquals(0, $this->player->getSpores());
 
+        // then they should see the success log
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo(),
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_SUCCESS,
         ]);
 
-        // Check that we get a fail if we execute when there are no spores
+        // when the player try to remove a spore
         $this->removeSpore->execute();
 
-        $I->assertEquals(0, $player->getActionPoint());
-        $I->assertEquals(3, $player->getHealthPoint());
+        // then they should have no spore and less HP
+        $I->assertEquals(3, $this->player->getHealthPoint());
+        $I->assertEquals(0, $this->player->getSpores());
 
+        // then they should see the success log
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo(),
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::REMOVE_SPORE_FAIL,
         ]);

@@ -16,6 +16,7 @@ use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Equipment\Entity\Config\ItemConfig;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -46,7 +47,6 @@ final class SearchActionCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private Search $searchAction;
-    private Hide $hideAction;
 
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -58,7 +58,6 @@ final class SearchActionCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
         $this->searchAction = $I->grabService(Search::class);
-        $this->hideAction = $I->grabService(Hide::class);
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
@@ -67,307 +66,40 @@ final class SearchActionCest extends AbstractFunctionalTest
 
     public function testSearch(FunctionalTester $I)
     {
-        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
+        $item = $this->givenHiddenEcholocator();
 
-        $hiddenConfig = new StatusConfig();
-        $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($hiddenConfig);
+        $this->whenPlayerWantsToSearch();
 
-        $searchAction = new ActionConfig();
-        $searchAction
-            ->setActionName(ActionEnum::SEARCH)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($searchAction);
+        $this->whenPlayerSearches();
 
-        $hideAction = new ActionConfig();
-        $hideAction
-            ->setActionName(ActionEnum::HIDE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($searchAction);
-
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $hiddenConfig]));
-        $I->flushToDatabase();
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actionConfigs' => new ArrayCollection([$searchAction])]);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(2)
-            ->setHealthPoint(6);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(16);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var ItemConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, [
-            'actionConfigs' => new ArrayCollection([$searchAction]),
-        ]);
-
-        $gameEquipment1 = new GameItem($room);
-        $gameEquipment1
-            ->setEquipment($equipmentConfig)
-            ->setName('equipment1');
-        $I->haveInRepository($gameEquipment1);
-
-        // first search an room without any hidden equipment
-        $this->searchAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $player,
-            player: $player
-        );
-        $result = $this->searchAction->execute();
-        $I->assertInstanceOf(Fail::class, $result);
-
-        // Now hide an equipment
-        $this->hideAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $gameEquipment1,
-            player: $player,
-            target: $gameEquipment1
-        );
-        $this->hideAction->execute();
-        $I->assertCount(1, $room->getEquipments());
-
-        $hiddenStatus = $gameEquipment1->getStatuses()->first();
-
-        $I->assertNotNull($hiddenStatus);
-        $I->assertEquals($hiddenStatus->getName(), EquipmentStatusEnum::HIDDEN);
-        $I->assertEquals($hiddenStatus->getOwner(), $gameEquipment1);
-        $I->assertEquals($hiddenStatus->getTarget(), $player);
-
-        // Now search again
-        $this->searchAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $player,
-            player: $player
-        );
-        $result = $this->searchAction->execute();
-        $I->assertInstanceOf(Success::class, $result);
-
-        $I->assertEmpty($gameEquipment1->getStatuses());
+        $this->thenItemShouldNotBeHidden($item, $I);
     }
 
     public function testSearchSeveralHidenEquipments(FunctionalTester $I)
     {
-        $attemptConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['statusName' => StatusEnum::ATTEMPT]);
+        $item1 = $this->givenHiddenEcholocator();
+        $item2 = $this->givenHiddenEcholocator();
+        $item3 = $this->givenHiddenEcholocator();
 
-        $hiddenConfig = new StatusConfig();
-        $hiddenConfig->setStatusName(EquipmentStatusEnum::HIDDEN)->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($hiddenConfig);
+        $this->whenPlayerWantsToSearch();
 
-        $searchAction = new ActionConfig();
-        $searchAction
-            ->setActionName(ActionEnum::SEARCH)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($searchAction);
+        $this->whenPlayerSearches();
 
-        $hideAction = new ActionConfig();
-        $hideAction
-            ->setActionName(ActionEnum::HIDE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setActionCost(1)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($searchAction);
+        $this->thenItemShouldNotBeHidden($item3, $I);
+        $this->thenItemShouldBeHidden($item2, $I);
+        $this->thenItemShouldBeHidden($item1, $I);
 
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $gameConfig
-            ->setStatusConfigs(new ArrayCollection([$attemptConfig, $hiddenConfig]));
-        $I->flushToDatabase();
+        $this->whenPlayerSearches();
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $this->thenItemShouldNotBeHidden($item3, $I);
+        $this->thenItemShouldNotBeHidden($item2, $I);
+        $this->thenItemShouldBeHidden($item1, $I);
 
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $this->whenPlayerSearches();
 
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, ['actionConfigs' => new ArrayCollection([$searchAction])]);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(2)
-            ->setHealthPoint(6);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(16);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        /** @var Player $player2 */
-        $player2 = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player2->setPlayerVariables($characterConfig);
-        $player2
-            ->setActionPoint(16);
-        $playerInfo2 = new PlayerInfo($player2, $user, $characterConfig);
-        $I->haveInRepository($playerInfo2);
-        $player2->setPlayerInfo($playerInfo2);
-        $I->refreshEntities($player2);
-
-        /** @var ItemConfig $equipmentConfig */
-        $equipmentConfig = $I->have(ItemConfig::class, [
-            'actionConfigs' => new ArrayCollection([$searchAction]),
-        ]);
-
-        $gameEquipment1 = new GameItem($room);
-        $gameEquipment1
-            ->setEquipment($equipmentConfig)
-            ->setName('equipment1');
-        $I->haveInRepository($gameEquipment1);
-        $gameEquipment2 = new GameItem($room);
-        $gameEquipment2
-            ->setEquipment($equipmentConfig)
-            ->setName('equipment2');
-        $I->haveInRepository($gameEquipment2);
-        $gameEquipment3 = new GameItem($room);
-        $gameEquipment3
-            ->setEquipment($equipmentConfig)
-            ->setName('equipment3');
-        $I->haveInRepository($gameEquipment3);
-
-        // Now hide equipments
-        $this->hideAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $gameEquipment1,
-            player: $player,
-            target: $gameEquipment1
-        );
-        $this->hideAction->execute();
-        $this->hideAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $gameEquipment1,
-            player: $player,
-            target: $gameEquipment3
-        );
-        $this->hideAction->execute();
-        $this->hideAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $gameEquipment1,
-            player: $player,
-            target: $gameEquipment2
-        );
-        $this->hideAction->execute();
-
-        $I->assertCount(3, $room->getEquipments());
-        $I->assertCount(1, $gameEquipment1->getStatuses());
-        $I->assertCount(1, $gameEquipment2->getStatuses());
-        $I->assertCount(1, $gameEquipment3->getStatuses());
-
-        // Now search
-        $this->searchAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $player,
-            player: $player
-        );
-        $result = $this->searchAction->execute();
-        $I->assertCount(1, $gameEquipment1->getStatuses());
-        $I->assertCount(0, $gameEquipment2->getStatuses());
-        $I->assertCount(1, $gameEquipment3->getStatuses());
-
-        // One more time
-        $this->searchAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $player,
-            player: $player
-        );
-        $result = $this->searchAction->execute();
-        $I->assertCount(1, $gameEquipment1->getStatuses());
-        $I->assertCount(0, $gameEquipment2->getStatuses());
-        $I->assertCount(0, $gameEquipment3->getStatuses());
-
-        // Third time
-        $this->searchAction->loadParameters(
-            actionConfig: $searchAction,
-            actionProvider: $player,
-            player: $player
-        );
-        $result = $this->searchAction->execute();
-        $I->assertCount(0, $gameEquipment1->getStatuses());
-        $I->assertCount(0, $gameEquipment2->getStatuses());
-        $I->assertCount(0, $gameEquipment3->getStatuses());
+        $this->thenItemShouldNotBeHidden($item3, $I);
+        $this->thenItemShouldNotBeHidden($item2, $I);
+        $this->thenItemShouldNotBeHidden($item1, $I);
     }
 
     public function observantShouldSearchForZeroActionPoints(FunctionalTester $I): void
@@ -452,5 +184,14 @@ final class SearchActionCest extends AbstractFunctionalTest
         );
 
         return $item;
+    }
+
+    private function thenItemShouldBeHidden(GameEquipment $item, FunctionalTester $I): void
+    {
+        $I->assertTrue($item->hasStatus(EquipmentStatusEnum::HIDDEN));
+    }
+    private function thenItemShouldNotBeHidden(GameEquipment $item, FunctionalTester $I): void
+    {
+        $I->assertFalse($item->hasStatus(EquipmentStatusEnum::HIDDEN));
     }
 }

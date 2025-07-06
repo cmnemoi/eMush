@@ -33,7 +33,6 @@ final class HealCest extends AbstractFunctionalTest
     private Heal $healAction;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private StatusServiceInterface $statusService;
 
     private GameEquipmentServiceInterface $gameEquipmentService;

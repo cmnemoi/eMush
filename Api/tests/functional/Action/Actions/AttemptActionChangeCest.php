@@ -2,46 +2,26 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Disassemble;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
-use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
-use Mush\Equipment\Enum\BreakableTypeEnum;
 use Mush\Equipment\Enum\ItemEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
-use Mush\Skill\Dto\ChooseSkillDto;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\Attempt;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\StatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
-use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Status\Service\StatusServiceInterface;
 
-class AttemptActionChangeCest extends AbstractFunctionalTest
+/**
+ * @internal
+ */
+final class AttemptActionChangeCest extends AbstractFunctionalTest
 {
     private Repair $repairAction;
     private Disassemble $disassembleAction;
@@ -66,16 +46,14 @@ class AttemptActionChangeCest extends AbstractFunctionalTest
         $this->repairConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'repair_percent_25']);
         $this->disassembleConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'disassemble_percent_25_cost_3']);
 
-
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->player);
 
-        $this->gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::MYCO_ALARM,$this->player,[], new \DateTime());
+        $this->gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(ItemEnum::MYCO_ALARM, $this->player, [], new \DateTime());
 
         $this->statusService->createStatusFromName(EquipmentStatusEnum::BROKEN, $this->gameEquipment, [], new \DateTime());
 
         $this->repairConfig->setSuccessRate(0);
         $this->disassembleConfig->setSuccessRate(0);
-
     }
 
     public function testChangeAttemptAction(FunctionalTester $I)
@@ -171,7 +149,6 @@ class AttemptActionChangeCest extends AbstractFunctionalTest
             $this->gameEquipment,
             $this->player,
             $this->gameEquipment
-
         );
     }
 
@@ -182,7 +159,6 @@ class AttemptActionChangeCest extends AbstractFunctionalTest
             $this->gameEquipment,
             $this->player,
             $this->gameEquipment
-
         );
     }
 }

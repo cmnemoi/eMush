@@ -2,41 +2,17 @@
 
 namespace Mush\Tests\functional\Action\Service;
 
+use Mush\Action\Actions\Search;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
-use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Action\Event\ActionVariableEvent;
-use Mush\Action\Service\ActionService;
-use Mush\Action\Service\ActionServiceInterface;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
-use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierPriorityEnum;
-use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\RoomLog\Entity\RoomLog;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
-use Mush\Action\Actions\Search;
 
-class ActionServiceCest extends AbstractFunctionalTest
-{   
+/**
+ * @internal
+ */
+final class ActionServiceCest extends AbstractFunctionalTest
+{
     private ActionConfig $actionConfig;
     private Search $searchAction;
 
@@ -59,7 +35,6 @@ class ActionServiceCest extends AbstractFunctionalTest
         $this->whenPlayerSearches();
 
         $I->assertEquals(1, $this->player->getActionPoint());
-
     }
 
     public function testApplyCostToPlayerFreeAction(FunctionalTester $I)
@@ -74,7 +49,6 @@ class ActionServiceCest extends AbstractFunctionalTest
 
         $I->assertEquals(1, $this->player->getActionPoint());
     }
-
 
     private function whenPlayerWantsToSearch(): void
     {
@@ -94,5 +68,4 @@ class ActionServiceCest extends AbstractFunctionalTest
         );
         $this->searchAction->execute();
     }
-
 }

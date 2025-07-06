@@ -9,8 +9,6 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
@@ -61,10 +59,7 @@ final class OptimistCest extends AbstractFunctionalTest
 
     private function givenPlayerIsOptimist(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->addSkillConfig(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::OPTIMIST])
-        );
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::OPTIMIST, $this->player));
+        $this->addSkillToPlayer(SkillEnum::OPTIMIST, $I, $this->player);
     }
 
     private function givenPlayerHasMoralePoints(int $moralePoints): void

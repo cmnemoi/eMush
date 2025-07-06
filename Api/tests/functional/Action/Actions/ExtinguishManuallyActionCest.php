@@ -99,7 +99,8 @@ class ExtinguishManuallyActionCest
         $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
         $player->setPlayerVariables($characterConfig);
         $player
-            ->setActionPoint(10);
+            ->setActionPoint(10)
+            ->setAvailableHumanSkills($characterConfig->getSkillConfigs());
 
         /** @var User $user */
         $user = $I->have(User::class);

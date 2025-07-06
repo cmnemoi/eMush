@@ -96,7 +96,7 @@ final class LearnCest extends AbstractFunctionalTest
         $this->thenChunShouldNotHaveApprenticeSkill($I);
     }
 
-    public function shouldMakeApprenticeSkillUnavailbleAfterLearning(FunctionalTester $I): void
+    public function shouldMakeApprenticeSkillUnavailableAfterLearning(FunctionalTester $I): void
     {
         $this->givenKuanTiHasTechnicianSkill($I);
 
@@ -105,9 +105,18 @@ final class LearnCest extends AbstractFunctionalTest
         $this->thenApprenticeSkillIsUnavailableForChun($I);
     }
 
+    public function shouldAddLearnedSkillToAvailableSkills(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasTechnicianSkill($I);
+
+        $this->whenChunLearnsSkill(SkillEnum::TECHNICIAN);
+
+        $this->thenTechnicianSkillIsAvailableForChun($I);
+    }
+
     private function givenChunHasSkill(SkillEnum $skill, FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->addSkillConfig(
+        $this->player->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
         );
         $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $this->chun));
@@ -115,7 +124,7 @@ final class LearnCest extends AbstractFunctionalTest
 
     private function givenKuanTiHasTechnicianSkill(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->addSkillConfig(
+        $this->kuanTi->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::TECHNICIAN]),
         );
         $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
@@ -162,6 +171,7 @@ final class LearnCest extends AbstractFunctionalTest
     private function thenChunShouldNotHaveApprenticeSkill(FunctionalTester $I): void
     {
         $I->assertFalse($this->chun->hasSkill(SkillEnum::APPRENTICE));
+        $I->assertFalse($this->chun->getAvailableHumanSkills()->contains($I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::APPRENTICE])));
     }
 
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void
@@ -172,5 +182,10 @@ final class LearnCest extends AbstractFunctionalTest
     private function thenApprenticeSkillIsUnavailableForChun(FunctionalTester $I): void
     {
         $I->assertTrue($this->chun->cannotTakeSkill(SkillEnum::APPRENTICE));
+    }
+
+    private function thenTechnicianSkillIsAvailableForChun(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->chun->getAvailableHumanSkills()->contains($I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::TECHNICIAN])));
     }
 }

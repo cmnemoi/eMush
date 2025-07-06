@@ -36,8 +36,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
@@ -647,7 +645,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         // given Chun is a diplomat
-        $this->givenPlayerHasSkill($this->chun, SkillEnum::DIPLOMAT, $I);
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->chun);
 
         // when I try to dispatch fight event
         $this->explorationService->dispatchExplorationEvent($exploration);
@@ -1860,10 +1858,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     private function givenChunIsASurvivalist(FunctionalTester $I): void
     {
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->chun));
+        $this->addSkillToPlayer(SkillEnum::SURVIVALIST, $I, $this->chun);
     }
 
     private function givenAnExplorationIsCreatedOnSectorForPlayers(string $sectorName, array $players, FunctionalTester $I): Exploration
@@ -1966,11 +1961,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     private function givenPlayerHasSkill(Player $player, SkillEnum $skill, FunctionalTester $I): void
     {
-        $player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
-        ]);
-
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $player));
+        $this->addSkillToPlayer($skill, $I, $player);
     }
 
     private function dispatchPlanetSectorEvent(PlanetSectorEventConfig $eventConfig, PlanetSectorEvent $event): void

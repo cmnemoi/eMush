@@ -20,8 +20,6 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -222,10 +220,7 @@ final class GuardCest extends AbstractFunctionalTest
 
     private function givenKuanTiIsSneak(FunctionalTester $I): void
     {
-        $this->kuanTi->getCharacterConfig()->addSkillConfig(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SNEAK])
-        );
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SNEAK, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::SNEAK, $I, $this->kuanTi);
     }
 
     private function givenChunMovesTo(string $room): void

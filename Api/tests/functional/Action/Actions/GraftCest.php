@@ -15,8 +15,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -242,18 +240,12 @@ final class GraftCest extends AbstractFunctionalTest
 
     private function givenChunIsABotanist(FunctionalTester $I): void
     {
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->chun));
+        $this->addSkillToPlayer(SkillEnum::BOTANIST, $I, $this->chun);
     }
 
     private function givenKuanTiIsABotanist(FunctionalTester $I): void
     {
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::BOTANIST, $I, $this->kuanTi);
     }
 
     private function givenAnAnemoleInKuanTiRoom(): void

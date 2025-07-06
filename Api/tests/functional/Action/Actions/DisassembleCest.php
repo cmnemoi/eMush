@@ -13,11 +13,9 @@ use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -81,7 +79,7 @@ final class DisassembleCest extends AbstractFunctionalTest
         );
 
         // given KT has the technician skill
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // when KT tries to disassemble the shower
         $this->disassembleAction->loadParameters(
@@ -99,11 +97,11 @@ final class DisassembleCest extends AbstractFunctionalTest
     {
         $this->givenPlayerHasABlaster();
 
-        $this->givenPlayerIsMush();
+        $this->givenPlayerIsTechnician($I);
 
         $this->givenBlasterIsReinforced();
 
-        $this->whenPlayerTriesToSabotageBlaster();
+        $this->whenPlayerTriesToDisassembleBlaster();
 
         $this->thenActionShouldNotBeExecutableWithMessage(
             message: ActionImpossibleCauseEnum::DISMANTLE_REINFORCED,
@@ -121,14 +119,9 @@ final class DisassembleCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenPlayerIsMush(): void
+    private function givenPlayerIsTechnician(FunctionalTester $I): void
     {
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::MUSH,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime(),
-        );
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->player);
     }
 
     private function givenBlasterIsReinforced(): void
@@ -141,7 +134,7 @@ final class DisassembleCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenPlayerTriesToSabotageBlaster(): void
+    private function whenPlayerTriesToDisassembleBlaster(): void
     {
         $this->disassembleAction->loadParameters(
             actionConfig: $this->actionConfig,

@@ -25,9 +25,16 @@ final class ChooseSkillUseCaseCest extends AbstractFunctionalTest
 
     public function shouldAddSkillToPlayer(FunctionalTester $I): void
     {
+        $this->givenChunHasHerSkills();
+
         $this->whenChunChoosesSkill(SkillEnum::MANKIND_ONLY_HOPE);
 
         $this->thenChunHasSkill(SkillEnum::MANKIND_ONLY_HOPE, $I);
+    }
+
+    private function givenChunHasHerSkills(): void
+    {
+        $this->chun->setAvailableHumanSkills($this->chun->getCharacterConfig()->getSkillConfigs());
     }
 
     private function whenChunChoosesSkill(SkillEnum $skill): void

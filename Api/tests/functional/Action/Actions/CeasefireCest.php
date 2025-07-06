@@ -21,8 +21,6 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlaceStatusEnum;
@@ -178,18 +176,12 @@ final class CeasefireCest extends AbstractFunctionalTest
 
     private function givenChunIsADiplomat(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::DIPLOMAT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::DIPLOMAT, $this->player));
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->chun);
     }
 
     private function givenKuanTiIsADiplomat(FunctionalTester $I): void
     {
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::DIPLOMAT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::DIPLOMAT, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->kuanTi);
     }
 
     private function givenChunCeasefires(): void

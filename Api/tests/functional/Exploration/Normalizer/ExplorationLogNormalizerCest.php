@@ -16,8 +16,6 @@ use Mush\Exploration\Event\PlanetSectorEvent;
 use Mush\Exploration\Normalizer\ExplorationLogNormalizer;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -47,10 +45,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
     public function testNormalizeLandingNothingToReportEventWithPilot(FunctionalTester $I): void
     {
         // given explorator is a pilot
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->player));
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->player);
 
         // given exploration is created
         $this->exploration = $this->createExploration(
@@ -171,16 +166,10 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
 
         // given Chun is a survivalist
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->player));
+        $this->addSkillToPlayer(SkillEnum::SURVIVALIST, $I, $this->chun);
 
         // given Kuan Ti is a survivalist
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::SURVIVALIST, $I, $this->kuanTi);
 
         // given exploration is created
         $this->exploration = $this->createExploration(
@@ -828,10 +817,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
 
         // given Chun is a botanist
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->chun));
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::BOTANIST, $I);
 
         // given exploration is created
         $this->exploration = $this->createExploration(
@@ -880,10 +866,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
 
         // given Chun is a polyvalent
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::POLYVALENT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::POLYVALENT, $this->chun));
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::POLYVALENT, $I);
 
         // given exploration is created
         $this->exploration = $this->createExploration(
@@ -932,16 +915,10 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
 
         // given Chun is a botanist
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->chun));
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::BOTANIST, $I);
 
         // given Chun is a polyvalent
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::POLYVALENT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::POLYVALENT, $this->chun));
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::POLYVALENT, $I);
 
         // given exploration is created
         $this->exploration = $this->createExploration(
@@ -1035,14 +1012,8 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
 
         // given Chun and Kuan Ti are survivalists
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->chun));
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->kuanTi));
+        $this->givenPlayerHasSkill($this->chun, SkillEnum::SURVIVALIST, $I);
+        $this->givenPlayerHasSkill($this->kuanTi, SkillEnum::SURVIVALIST, $I);
 
         // given exploration is created
         $this->exploration = $this->createExploration(
@@ -1543,10 +1514,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
         );
 
         // given player is a survivalist
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->player));
+        $this->givenPlayerHasSkill($this->player, SkillEnum::SURVIVALIST, $I);
 
         // given exploration is created
         $this->exploration = $this->createExploration(
@@ -1632,9 +1600,6 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
 
     private function givenPlayerHasSkill(Player $player, SkillEnum $skill, FunctionalTester $I): void
     {
-        $skillConfig = $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]);
-        $player->getCharacterConfig()->addSkillConfig($skillConfig);
-
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $player));
+        $this->addSkillToPlayer($skill, $I, $player);
     }
 }

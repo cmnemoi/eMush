@@ -9,8 +9,6 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -71,10 +69,7 @@ final class WaterPlantCest extends AbstractFunctionalTest
 
     private function givenPlayerIsABotanist(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::BOTANIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::BOTANIST, $this->player));
+        $this->addSkillToPlayer(SkillEnum::BOTANIST, $I, $this->player);
     }
 
     private function givenPlayerHasThirstyPlant(): void

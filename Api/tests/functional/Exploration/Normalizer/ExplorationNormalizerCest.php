@@ -11,8 +11,6 @@ use Mush\Exploration\Enum\PlanetSectorEnum;
 use Mush\Exploration\Normalizer\ExplorationNormalizer;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -43,10 +41,7 @@ final class ExplorationNormalizerCest extends AbstractExplorationTester
         $this->explorationNormalizer->setNormalizer($this->normalizer);
 
         // given Chun is a pilot so landing is always successful
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->chun);
 
         // given a planet
         $this->planet = $this->createPlanet(

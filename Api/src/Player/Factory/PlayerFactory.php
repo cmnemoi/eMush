@@ -53,6 +53,7 @@ final class PlayerFactory
 
         $player = new Player();
         $playerInfo = new PlayerInfo($player, $user, $characterConfig);
+        $player->setAvailableHumanSkills($characterConfig->getSkillConfigs());
         $playerInfo->setGameStatus(GameStatusEnum::CURRENT);
 
         (new \ReflectionClass($playerInfo))->getProperty('id')->setValue($playerInfo, random_int(1, PHP_INT_MAX));

@@ -63,6 +63,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillCollection;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -121,6 +122,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: Skill::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $skills;
+
+    #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
+    private Collection $availableSkills;
 
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private PlayerVariables $playerVariables;
@@ -625,15 +629,44 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->hasSkill($skillName) === false;
     }
 
+    public function setAvailableHumanSkills(SkillConfigCollection $skillsConfig): static
+    {
+        $this->availableSkills = $skillsConfig;
+
+        return $this;
+    }
+
+    public function removeFromAvailableHumanSkills(SkillConfig $skill): static
+    {
+        $this->availableSkills->removeElement($skill);
+
+        return $this;
+    }
+
+    public function addToAvailableHumanSkills(SkillConfig $skill): static
+    {
+        $this->availableSkills->add($skill);
+
+        return $this;
+    }
+
+    public function getAvailableHumanSkills(): SkillConfigCollection
+    {
+        return new SkillConfigCollection($this->availableSkills->toArray());
+    }
+
     public function getSelectableHumanSkills(): SkillConfigCollection
     {
         if ($this->hasFilledTheirHumanSkillSlots()) {
             return new SkillConfigCollection();
         }
 
-        $selectableSkills = $this->getHumanSkillConfigs()->getAllExceptThoseLearnedByPlayer($this);
+        // temporary fallback code to allow merging without supernova. Delete after all pre-update ships have ended.
+        if ($this->getAvailableHumanSkills()->isEmpty()) {
+            $this->setAvailableHumanSkills($this->getCharacterConfig()->getSkillConfigs());
+        }
 
-        return $this->hasStatus(PlayerStatusEnum::HAS_LEARNED_SKILL) ? $selectableSkills->getAllExcept(SkillEnum::APPRENTICE) : $selectableSkills;
+        return $this->getAvailableHumanSkills()->getAllExceptThoseLearnedByPlayer($this);
     }
 
     public function getSelectableMushSkills(): SkillConfigCollection
@@ -1448,11 +1481,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         }
 
         return $efficiency;
-    }
-
-    private function getHumanSkillConfigs(): SkillConfigCollection
-    {
-        return $this->getCharacterConfig()->getSkillConfigs();
     }
 
     private function getSkillByNameOrNull(SkillEnum $name): ?Skill

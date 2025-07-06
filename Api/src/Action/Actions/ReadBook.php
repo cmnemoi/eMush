@@ -26,6 +26,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Skill\Repository\SkillConfigRepositoryInterface;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -43,6 +44,7 @@ final class ReadBook extends AbstractAction
         private AddSkillToPlayerService $addSkillToPlayer,
         private RoomLogServiceInterface $roomLogService,
         private StatusServiceInterface $statusService,
+        private readonly SkillConfigRepositoryInterface $skillConfigRepository,
     ) {
         parent::__construct($eventService, $actionService, $validator);
     }
@@ -111,7 +113,11 @@ final class ReadBook extends AbstractAction
 
     private function addSkillToPlayer(): void
     {
-        $this->addSkillToPlayer->execute($this->bookMechanic()->getSkill(), $this->player);
+        $skill = $this->bookMechanic()->getSkill();
+        $skillConfig = $this->skillConfigRepository->findOneByNameAndDaedalusOrThrow($skill, $this->player->getDaedalus());
+
+        $this->addSkillToPlayer->execute($skill, $this->player);
+        $this->player->addToAvailableHumanSkills($skillConfig);
     }
 
     private function createLearnedSkillLog(): void

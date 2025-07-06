@@ -7,8 +7,6 @@ namespace Mush\tests\functional\Equipment\Normalizer;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Normalizer\EquipmentNormalizer;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
@@ -126,10 +124,7 @@ final class DrugCest extends AbstractFunctionalTest
 
     private function givenPlayerIsANurse(FunctionalTester $I): void
     {
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::NURSE]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::NURSE, $this->chun));
+        $this->addSkillToPlayer(SkillEnum::NURSE, $I);
     }
 
     private function givenPlayerIsABiologist(FunctionalTester $I): void

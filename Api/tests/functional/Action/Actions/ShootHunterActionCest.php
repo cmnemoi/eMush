@@ -26,8 +26,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
@@ -381,10 +379,7 @@ final class ShootHunterActionCest extends AbstractFunctionalTest
 
     private function givenPlayerIsAGunner(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->addSkillConfig(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::GUNNER])
-        );
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::GUNNER, $this->player));
+        $this->addSkillToPlayer(SkillEnum::GUNNER, $I, $this->player);
     }
 
     private function givenActionSuccessRateIs(int $successRate): void

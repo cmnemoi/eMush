@@ -25,7 +25,6 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
 {
     private Disassemble $disassembleAction;
     private ActionConfig $actionConfig;
-    private ChooseSkillUseCase $chooseSkillUseCase;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusService $statusService;
@@ -42,7 +41,6 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
 
         $this->disassembleAction = $I->grabService(Disassemble::class);
 
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
     }
 
     public function testAutomaticGetUp(FunctionalTester $I)
@@ -64,7 +62,7 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
         );
 
         // given player has the technician skill
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // when player disassemble the shower
         $this->disassembleAction->loadParameters(

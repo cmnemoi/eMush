@@ -215,7 +215,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         );
         $this->consumeAction->execute();
 
-        // then Kuan Ti should have 6 (base) + 1 (alien fruit) + 1 (frugivore bonus) action points
+        // then Kuan Ti should have 6 (base) + 1 (banana) + 1 (frugivore bonus) action points
         $I->assertEquals(6 + 1 + 1, $this->kuanTi->getActionPoint());
     }
 

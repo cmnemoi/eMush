@@ -206,7 +206,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         // given Kuan Ti has 6 action points
         $this->kuanTi->setActionPoint(6);
 
-        // when Kuan Ti consumes the alien fruits
+        // when Kuan Ti consumes the banana
         $this->consumeAction->loadParameters(
             actionConfig: $this->consumeConfig,
             actionProvider: $banana,

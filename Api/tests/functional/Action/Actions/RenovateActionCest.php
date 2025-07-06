@@ -36,7 +36,6 @@ final class RenovateActionCest extends AbstractFunctionalTest
     private ActionConfig $action;
     private Place $alphaBay2;
 
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 

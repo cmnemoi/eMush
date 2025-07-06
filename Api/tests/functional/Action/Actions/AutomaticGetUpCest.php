@@ -10,9 +10,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
@@ -40,7 +38,6 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusService::class);
 
         $this->disassembleAction = $I->grabService(Disassemble::class);
-
     }
 
     public function testAutomaticGetUp(FunctionalTester $I)

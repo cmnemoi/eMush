@@ -23,7 +23,6 @@ final class BoringSpeechActionCest extends AbstractFunctionalTest
 {
     private ActionConfig $boringSpeechActionConfig;
     private BoringSpeech $boringSpeechAction;
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private PlayerServiceInterface $playerService;
 
     public function _before(FunctionalTester $I)

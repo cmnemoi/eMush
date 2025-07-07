@@ -2,292 +2,70 @@
 
 namespace Mush\Tests\functional\Action\Service;
 
+use Mush\Action\Actions\Search;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
-use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Action\Event\ActionVariableEvent;
-use Mush\Action\Service\ActionService;
-use Mush\Action\Service\ActionServiceInterface;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
-use Mush\Game\Enum\VisibilityEnum;
-use Mush\Modifier\Entity\Config\VariableEventModifierConfig;
-use Mush\Modifier\Entity\GameModifier;
-use Mush\Modifier\Enum\ModifierHolderClassEnum;
-use Mush\Modifier\Enum\ModifierPriorityEnum;
-use Mush\Modifier\Enum\ModifierRequirementEnum;
-use Mush\Modifier\Enum\VariableModifierModeEnum;
-use Mush\Place\Entity\Place;
-use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
-use Mush\Player\Enum\PlayerVariableEnum;
-use Mush\RoomLog\Entity\RoomLog;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
-class ActionServiceCest
+/**
+ * @internal
+ */
+final class ActionServiceCest extends AbstractFunctionalTest
 {
-    private ActionServiceInterface $actionService;
+    private ActionConfig $actionConfig;
+    private Search $searchAction;
 
     public function _before(FunctionalTester $I)
     {
-        $this->actionService = $I->grabService(ActionService::class);
+        parent::_before($I);
+
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
+        $this->searchAction = $I->grabService(Search::class);
     }
 
     public function testApplyCostToPlayer(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $this->player->setActionPoint(2);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $this->actionConfig->setActionCost(1);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
+        $this->whenPlayerWantsToSearch();
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $this->whenPlayerSearches();
 
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(10);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::ANATHEMA)
-            ->setActionCost(6);
-
-        $this->actionService->applyCostToPlayer(
-            player: $player,
-            actionConfig: $action,
-            actionProvider: $player,
-            actionTarget: null,
-            actionResult: new Success(),
-            tags: $action->getActionTags()
-        );
-
-        $I->assertEquals(4, $player->getActionPoint());
-
-        $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalus->getDaedalusInfo(),
-            'playerInfo' => $player->getPlayerInfo(),
-            'visibility' => VisibilityEnum::HIDDEN,
-        ]);
+        $I->assertEquals(1, $this->player->getActionPoint());
     }
 
     public function testApplyCostToPlayerFreeAction(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        $this->player->setActionPoint(2);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $this->actionConfig->setActionCost(0);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
+        $this->whenPlayerWantsToSearch();
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
+        $this->whenPlayerSearches();
 
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(10);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::ANATHEMA)
-            ->setActionCost(0);
-
-        $this->actionService->applyCostToPlayer(
-            player: $player,
-            actionConfig: $action,
-            actionProvider: $player,
-            actionTarget: null,
-            actionResult: new Success(),
-            tags: $action->getActionTags()
-        );
-
-        $I->assertEquals(10, $player->getActionPoint());
+        $I->assertEquals(2, $this->player->getActionPoint());
     }
 
-    public function testApplyCostToPlayerWithMovementPointConversion(FunctionalTester $I)
+    private function whenPlayerWantsToSearch(): void
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $convertActionEntity = new ActionConfig();
-        $convertActionEntity
-            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->buildName(GameConfigEnum::TEST);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
-        $I->haveInRepository($convertActionEntity);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(0);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $action = new ActionConfig();
-        $action->setActionName(ActionEnum::BUILD);
-        $action->setMovementCost(1);
-
-        $this->actionService->applyCostToPlayer(
-            player: $player,
-            actionConfig: $action,
-            actionProvider: $player,
-            actionTarget: null,
-            actionResult: new Success(),
-            tags: $action->getActionTags()
+        $this->searchAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->player,
+            player: $this->player
         );
-
-        $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(2, $player->getMovementPoint());
     }
 
-    public function testApplyCostToPlayerWithMovementPointConversionAndModifier(FunctionalTester $I)
+    private function whenPlayerSearches(): void
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-
-        $convertActionEntity = new ActionConfig();
-        $convertActionEntity
-            ->setActionName(ActionEnum::CONVERT_ACTION_TO_MOVEMENT)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->buildName(GameConfigEnum::TEST);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => 1, 'min_value' => 0, 'max_value' => null], PlayerVariableEnum::ACTION_POINT);
-        $convertActionEntity->getGameVariables()->setValuesByName(['value' => -3, 'min_value' => null, 'max_value' => 0], PlayerVariableEnum::MOVEMENT_POINT);
-        $I->haveInRepository($convertActionEntity);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['name' => RoomEnum::LABORATORY, 'daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'place' => $room,
-            'daedalus' => $daedalus,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
-            ->setActionPoint(10)
-            ->setMovementPoint(0);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $modifierConfig = new VariableEventModifierConfig('movementConversionModifier_test');
-        $modifierConfig
-            ->setTargetVariable(PlayerVariableEnum::MOVEMENT_POINT)
-            ->setDelta(1)
-            ->setTargetEvent(ActionVariableEvent::APPLY_COST)
-            ->setPriority(ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE)
-            ->setTagConstraints([ActionEnum::CONVERT_ACTION_TO_MOVEMENT->value => ModifierRequirementEnum::ALL_TAGS])
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setMode(VariableModifierModeEnum::ADDITIVE);
-        $I->haveInRepository($modifierConfig);
-
-        $disabledModifier = new GameModifier($player, $modifierConfig);
-        $disabledModifier->setModifierProvider($player);
-
-        $I->haveInRepository($disabledModifier);
-
-        $action = new ActionConfig();
-        $action->setActionName(ActionEnum::BUILD);
-        $action->setMovementCost(1);
-
-        $this->actionService->applyCostToPlayer(
-            player: $player,
-            actionConfig: $action,
-            actionProvider: $player,
-            actionTarget: null,
-            actionResult: new Success(),
-            tags: $action->getActionTags()
+        $this->searchAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->player,
+            player: $this->player
         );
-
-        $I->assertEquals(9, $player->getActionPoint());
-        $I->assertEquals(1, $player->getMovementPoint());
+        $this->searchAction->execute();
     }
 }

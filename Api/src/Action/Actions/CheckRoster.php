@@ -99,7 +99,7 @@ class CheckRoster extends AbstractAction
         $daedalus = $this->gameEquipmentTarget()->getDaedalus();
         $language = $daedalus->getLanguage();
         $playerCount = $daedalus->getDaedalusConfig()->getPlayerCount();
-        $players = $daedalus->getPlayers();
+        $players = $daedalus->getPlayers()->getSortedBy('createdAt');
         $currentlyJoinedPlayers = $players->count();
         $tableContent = new RoomLogTableContent();
 

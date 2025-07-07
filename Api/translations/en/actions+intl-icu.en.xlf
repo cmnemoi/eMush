@@ -1726,7 +1726,7 @@ Or you simply need some fresh air.... or not.</target>
         <source>check_roster.name</source>
         <target>Check Roster</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>check_roster.description</source>
         <target>Allows you to check who is onboard.</target>
       </segment>

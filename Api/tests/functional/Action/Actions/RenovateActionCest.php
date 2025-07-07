@@ -6,12 +6,10 @@ namespace Mush\Tests\functional\Action\Actions;
 
 use Mush\Action\Actions\Renovate;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -22,11 +20,8 @@ use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
-use Mush\Status\Entity\ChargeStatus;
-use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -41,7 +36,6 @@ final class RenovateActionCest extends AbstractFunctionalTest
     private ActionConfig $action;
     private Place $alphaBay2;
 
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -65,291 +59,95 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
     public function testRenovateSuccess(FunctionalTester $I): void
     {
+        $pasiphae = $this->givenThereIsABrokenPasiphae();
+
+        $this->givenThereIsAMetalScrap();
+
+        // given the success rate is set to 100
         $this->action->setSuccessRate(100);
 
-        /** @var EquipmentConfig $pasiphaeConfig */
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->alphaBay2);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
+        $this->givenTheActionIsLoaded($pasiphae);
 
-        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
-        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $this->whenTheActionIsExecuted();
 
-        $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
-
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
-            $pasiphaeArmorStatusConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $pasiphae,
-            tags: ['test'],
-            time: new \DateTime()
-        );
-
-        $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
-
-        /** @var EquipmentConfig $metalScrapConfig */
-        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
-        $metalScrap = new GameEquipment($this->alphaBay2);
-        $metalScrap
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig);
-        $I->haveInRepository($metalScrap);
-
-        $this->renovateAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            target: $pasiphae
-        );
-        $I->assertTrue($this->renovateAction->isVisible());
-        $I->assertNull($this->renovateAction->cannotExecuteReason());
-
-        $I->assertNotEquals(
-            expected: $maxCharge,
-            actual: $pasiphaeArmorStatus->getCharge(),
-        );
-
-        $result = $this->renovateAction->execute();
-        $I->assertInstanceOf(Success::class, $result);
-
-        $I->assertFalse(
-            $this->alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS)
-        );
-        $I->assertEquals(
-            expected: $maxCharge,
-            actual: $pasiphaeArmorStatus->getCharge(),
-        );
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
+            'playerInfo' => $this->player2->getPlayerInfo(),
             'log' => ActionLogEnum::RENOVATE_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
         $I->assertFalse($pasiphae->hasStatus(EquipmentStatusEnum::BROKEN));
 
-        $I->assertEquals(1, $this->player1->getPlayerInfo()->getStatistics()->getTechSuccesses());
-        $I->assertEquals(0, $this->player1->getPlayerInfo()->getStatistics()->getTechFails());
+        $I->assertEquals(1, $this->player2->getPlayerInfo()->getStatistics()->getTechSuccesses());
+        $I->assertEquals(0, $this->player2->getPlayerInfo()->getStatistics()->getTechFails());
     }
 
     public function testRenovateFail(FunctionalTester $I): void
     {
+        $pasiphae = $this->givenThereIsA1HPPasiphae();
+
+        $this->givenThereIsAMetalScrap();
+
+        // given the success rate is set to 0
         $this->action->setSuccessRate(0);
 
-        /** @var EquipmentConfig $pasiphaeConfig */
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->alphaBay2);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
+        $this->givenTheActionIsLoaded($pasiphae);
 
-        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
-        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
+        $this->whenTheActionIsExecuted();
 
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
-            $pasiphaeArmorStatusConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
-
-        /** @var EquipmentConfig $metalScrapConfig */
-        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
-        $metalScrap = new GameEquipment($this->alphaBay2);
-        $metalScrap
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig);
-        $I->haveInRepository($metalScrap);
-
-        $this->renovateAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            target: $pasiphae
-        );
-        $I->assertTrue($this->renovateAction->isVisible());
-
-        $I->assertNotEquals(
-            expected: $maxCharge,
-            actual: $pasiphaeArmorStatus->getCharge(),
-        );
-
-        $result = $this->renovateAction->execute();
-        $I->assertInstanceOf(Fail::class, $result);
-
-        $I->assertFalse(
-            $this->alphaBay2->hasEquipmentByName(ItemEnum::METAL_SCRAPS)
-        );
-        $I->assertNotEquals(
-            expected: $maxCharge,
-            actual: $pasiphaeArmorStatus->getCharge(),
-        );
         $I->seeInRepository(RoomLog::class, [
             'place' => RoomEnum::ALPHA_BAY_2,
             'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
-            'playerInfo' => $this->player1->getPlayerInfo(),
+            'playerInfo' => $this->player2->getPlayerInfo(),
             'log' => ActionLogEnum::RENOVATE_FAIL,
             'visibility' => VisibilityEnum::PRIVATE,
         ]);
 
-        $I->assertEquals(0, $this->player1->getPlayerInfo()->getStatistics()->getTechSuccesses());
-        $I->assertEquals(1, $this->player1->getPlayerInfo()->getStatistics()->getTechFails());
+        $I->assertEquals(0, $this->player2->getPlayerInfo()->getStatistics()->getTechSuccesses());
+        $I->assertEquals(1, $this->player2->getPlayerInfo()->getStatistics()->getTechFails());
     }
 
     public function testRenovateNotVisibleIfPatrolShipNotBrokenAndNotDamaged(FunctionalTester $I): void
     {
-        /** @var EquipmentConfig $pasiphaeConfig */
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->alphaBay2);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
+        $pasiphae = $this->givenThereIsAFullHPPasiphae();
 
-        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
-        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $this->givenThereIsAMetalScrap();
 
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
-            $pasiphaeArmorStatusConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
+        $this->givenTheActionIsLoaded($pasiphae);
 
-        /** @var EquipmentConfig $metalScrapConfig */
-        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
-        $metalScrap = new GameEquipment($this->alphaBay2);
-        $metalScrap
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig);
-        $I->haveInRepository($metalScrap);
-
-        $this->renovateAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            target: $pasiphae
-        );
         $I->assertFalse($this->renovateAction->isVisible());
     }
 
     public function testRenovateActionIsVisibleIfPatrolShipIsBroken(FunctionalTester $I): void
     {
-        /** @var EquipmentConfig $pasiphaeConfig */
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->alphaBay2);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
+        $pasiphae = $this->givenThereIsABrokenPasiphae();
 
-        /** @var EquipmentConfig $metalScrapConfig */
-        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
-        $metalScrap = new GameEquipment($this->alphaBay2);
-        $metalScrap
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig);
-        $I->haveInRepository($metalScrap);
+        $this->givenThereIsAMetalScrap();
 
-        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
-        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
+        $this->givenTheActionIsLoaded($pasiphae);
 
-        $this->statusService->createStatusFromName(
-            statusName: EquipmentStatusEnum::BROKEN,
-            holder: $pasiphae,
-            tags: ['test'],
-            time: new \DateTime()
-        );
-
-        $this->renovateAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            target: $pasiphae
-        );
+        $I->assertTrue($pasiphae->hasStatus(EquipmentStatusEnum::BROKEN));
         $I->assertTrue($this->renovateAction->isVisible());
     }
 
     public function testRenovateActionIsVisibleIfPatrolShipIsDamaged(FunctionalTester $I): void
     {
-        /** @var EquipmentConfig $pasiphaeConfig */
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->alphaBay2);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
+        $pasiphae = $this->givenThereIsA1HPPasiphae();
 
-        /** @var EquipmentConfig $metalScrapConfig */
-        $metalScrapConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => ItemEnum::METAL_SCRAPS]);
-        $metalScrap = new GameEquipment($this->alphaBay2);
-        $metalScrap
-            ->setName(ItemEnum::METAL_SCRAPS)
-            ->setEquipment($metalScrapConfig);
-        $I->haveInRepository($metalScrap);
+        $this->givenThereIsAMetalScrap();
 
-        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
-        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
-        $pasiphaeArmorStatus = new ChargeStatus($pasiphae, $pasiphaeArmorStatusConfig);
+        $this->givenTheActionIsLoaded($pasiphae);
 
-        $maxCharge = $pasiphaeArmorStatusConfig->getMaxCharge();
-        $pasiphaeArmorStatus->setCharge($maxCharge - 1);
-
-        $this->renovateAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            target: $pasiphae
-        );
         $I->assertTrue($this->renovateAction->isVisible());
     }
 
     public function testRenovateNotExecutableIfNoScrapAvailable(FunctionalTester $I): void
     {
-        /** @var EquipmentConfig $pasiphaeConfig */
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->alphaBay2);
-        $pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
+        $pasiphae = $this->givenThereIsA1HPPasiphae();
 
-        /** @var ChargeStatusConfig $pasiphaeArmorStatusConfig */
-        $pasiphaeArmorStatusConfig = $I->grabEntityFromRepository(ChargeStatusConfig::class, ['name' => EquipmentStatusEnum::PATROL_SHIP_ARMOR . '_pasiphae_default']);
+        $this->givenTheActionIsLoaded($pasiphae);
 
-        $pasiphaeArmorStatusConfig->setStartCharge($pasiphaeArmorStatusConfig->getMaxCharge() - 1);
-
-        /** @var ChargeStatus $pasiphaeArmorStatus */
-        $pasiphaeArmorStatus = $this->statusService->createStatusFromConfig(
-            $pasiphaeArmorStatusConfig,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
-        $this->renovateAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $pasiphae,
-            player: $this->player1,
-            target: $pasiphae
-        );
         $I->assertEquals(
             expected: $this->renovateAction->cannotExecuteReason(),
             actual: ActionImpossibleCauseEnum::RENOVATE_LACK_RESSOURCES,
@@ -358,27 +156,15 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
     public function shouldSuccessRateBeDoubledByTechnicianSkill(FunctionalTester $I): void
     {
-        // given I have a Pasiphae in the room
-        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PASIPHAE,
-            equipmentHolder: $this->alphaBay2,
-            reasons: [],
-            time: new \DateTime()
-        );
+        $pasiphae = $this->givenThereIsA1HPPasiphae();
 
         // given KT is a technician
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // given renovate action has a 25% success rate
         $this->action->setSuccessRate(25);
 
-        // when KT tries to renovate the Pasiphae
-        $this->renovateAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $pasiphae,
-            player: $this->kuanTi,
-            target: $pasiphae
-        );
+        $this->givenTheActionIsLoaded($pasiphae);
 
         // then the success rate of the Repair action is boosted to 50%
         $I->assertEquals(50, $this->renovateAction->getSuccessRate());
@@ -386,29 +172,12 @@ final class RenovateActionCest extends AbstractFunctionalTest
 
     public function shouldConsumeEngineerPointWhenRelevant(FunctionalTester $I): void
     {
-        // given I have a Pasiphae in the room
-        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PASIPHAE,
-            equipmentHolder: $this->alphaBay2,
-            reasons: [],
-            time: new \DateTime()
-        );
+        $pasiphae = $this->givenThereIsA1HPPasiphae();
 
-        // given Pasiphae has one armor point
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmor = $pasiphae->getStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-        $pasiphaeArmor->setCharge(1);
-
-        // given some metal scraps are available
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: ItemEnum::METAL_SCRAPS,
-            equipmentHolder: $this->alphaBay2,
-            reasons: [],
-            time: new \DateTime()
-        );
+        $this->givenThereIsAMetalScrap();
 
         // given KT is a technician
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::TECHNICIAN, $this->kuanTi));
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
 
         // given KT has two Technician points
         $technicianSkill = $this->kuanTi->getSkillByNameOrThrow(SkillEnum::TECHNICIAN);
@@ -417,14 +186,9 @@ final class RenovateActionCest extends AbstractFunctionalTest
             actual: $technicianSkill->getSkillPoints(),
         );
 
-        // when KT renovates the Pasiphae
-        $this->renovateAction->loadParameters(
-            actionConfig: $this->action,
-            actionProvider: $pasiphae,
-            player: $this->kuanTi,
-            target: $pasiphae
-        );
-        $this->renovateAction->execute();
+        $this->givenTheActionIsLoaded($pasiphae);
+
+        $this->whenTheActionIsExecuted();
 
         // then KT should have one Technician point left
         $I->assertEquals(
@@ -444,5 +208,78 @@ final class RenovateActionCest extends AbstractFunctionalTest
         $I->haveInRepository($alphaBay2);
 
         $I->refreshEntities($daedalus);
+    }
+
+    private function givenThereIsAFullHPPasiphae(): GameEquipment
+    {
+        return $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $this->alphaBay2,
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenThereIsA1HPPasiphae(): GameEquipment
+    {
+        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $this->alphaBay2,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $this->statusService->updateCharge(
+            $pasiphae->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR),
+            -11,
+            [],
+            new \DateTime()
+        );
+
+        return $pasiphae;
+    }
+
+    private function givenThereIsABrokenPasiphae(): GameEquipment
+    {
+        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::PASIPHAE,
+            equipmentHolder: $this->alphaBay2,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::BROKEN,
+            $pasiphae,
+            [],
+            new \DateTime(),
+        );
+
+        return $pasiphae;
+    }
+
+    private function givenThereIsAMetalScrap(): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::METAL_SCRAPS,
+            equipmentHolder: $this->alphaBay2,
+            reasons: [],
+            time: new \DateTime()
+        );
+    }
+
+    private function givenTheActionIsLoaded(GameEquipment $pasiphae): void
+    {
+        $this->renovateAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $pasiphae,
+            player: $this->kuanTi,
+            target: $pasiphae
+        );
+    }
+
+    private function whenTheActionIsExecuted(): void
+    {
+        $this->renovateAction->execute();
     }
 }

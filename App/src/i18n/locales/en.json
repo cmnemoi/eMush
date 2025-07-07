@@ -122,6 +122,12 @@
 		"character": "Character",
 		"daysSurvived": "Days survived",
 		"cyclesSurvived": "Survived cycles",
+		"timeSurvived": "Time survived",
+		"day": "day",
+		"days": "days",
+		"cycle": "cycle",
+		"cycles": "cycles",
+		"triumph": "Glory",
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Honours List",
 		"endCauses": "End cause",
@@ -331,7 +337,8 @@
 			"config": "Configuration of the daedalus",
 			"language": "Daedalus language",
 			"maintenanceOn": "Put the game into maintenance",
-			"maintenanceOff": "Remove game from maintenance"
+			"maintenanceOff": "Remove game from maintenance",
+			"createAPlanet" : "Create a planet"
 		},
 		"save": "Save",
 		"show": "Show",

@@ -27,6 +27,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Repository\PlaceRepository;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Enum\SkillEnum;
@@ -41,7 +42,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
-class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface
+class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;

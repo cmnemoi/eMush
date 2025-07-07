@@ -298,9 +298,13 @@ class ToolConfigFixtures extends Fixture implements DependentFixtureInterface
         /** @var ActionConfig $serumAction */
         $serumAction = $this->getReference(ActionsFixtures::INJECT_SERUM);
 
+        /** @var ActionConfig $serumCureCatAction */
+        $serumCureCatAction = $this->getReference(ActionsFixtures::CURE_CAT);
+
         $retroFungalSerumMechanic = new Tool();
         $retroFungalSerumMechanic
             ->addAction($serumAction)
+            ->addAction($serumCureCatAction)
             ->buildName(EquipmentMechanicEnum::TOOL . '_' . ToolItemEnum::RETRO_FUNGAL_SERUM, GameConfigEnum::DEFAULT);
 
         $retroFungalSerum = ItemConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(ToolItemEnum::RETRO_FUNGAL_SERUM));

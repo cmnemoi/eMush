@@ -6,9 +6,11 @@
         <source>asteroid.name</source>
         <target>Asteroide</target>
       </segment>
-      <segment id="asteroid_description" state="initial">
+      <segment id="asteroid_description" state="translated">
         <source>asteroid.description</source>
-        <target>asteroid.description</target>
+        <target>Una roca gigante que se aproxima peligrosamente al Daedalus.//
+No persigue.//
+En {charges} {charges, select, 1 {ciclo} other {ciclos}}, va a impactar el Daedalus causando {health} puntos de daño al casco.</target>
       </segment>
     </unit>
     <unit id="dice">
@@ -16,9 +18,11 @@
         <source>dice.name</source>
         <target>D1000</target>
       </segment>
-      <segment id="dice_description" state="initial">
+      <segment id="dice_description" state="translated">
         <source>dice.description</source>
-        <target>dice.description</target>
+        <target>Un gran cubo que dispara muy, muy fuerte.//
+Ataca tres veces por ciclo.//
+No persigue.</target>
       </segment>
     </unit>
     <unit id="hunter">
@@ -26,9 +30,9 @@
         <source>hunter.name</source>
         <target>Hunter</target>
       </segment>
-      <segment id="hunter_description" state="initial">
+      <segment id="hunter_description" state="translated">
         <source>hunter.description</source>
-        <target>hunter.description</target>
+        <target>Hunter estándar de la FDS</target>
       </segment>
     </unit>
     <unit id="spider">
@@ -36,9 +40,9 @@
         <source>spider.name</source>
         <target>Arack</target>
       </segment>
-      <segment id="spider_description" state="initial">
+      <segment id="spider_description" state="translated">
         <source>spider.description</source>
-        <target>spider.description</target>
+        <target>Impide el desplazamiento a corta distancia del Daedalus.</target>
       </segment>
     </unit>
     <unit id="trax">
@@ -46,19 +50,20 @@
         <source>trax.name</source>
         <target>Trax</target>
       </segment>
-      <segment id="trax_description" state="initial">
+      <segment id="trax_description" state="translated">
         <source>trax.description</source>
-        <target>trax.description</target>
+        <target>Interceptor de élite.//
+No se puede huir de él.</target>
       </segment>
     </unit>
     <unit id="transport">
-      <segment id="transport_name" state="initial">
+      <segment id="transport_name" state="translated">
         <source>transport.name</source>
-        <target>transport.name</target>
+        <target>Transport</target>
       </segment>
-      <segment id="transport_description" state="initial">
+      <segment id="transport_description" state="translated">
         <source>transport.description</source>
-        <target>transport.description</target>
+        <target>Un transport perdido. Podría ser interesante.</target>
       </segment>
     </unit>
   </file>

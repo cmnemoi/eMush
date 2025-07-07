@@ -278,7 +278,7 @@
       </segment>
       <segment id="best_agro.description" state="translated">
         <source>best_agro.description</source>
-        <target>Super agressif, attaque tout ce qui bouge. La terreur des poules de basse-cour. </target>
+        <target>Super agressif, attaque tout ce qui bouge. La terreur des poules de basse-cour.</target>
       </segment>
     </unit>
     <unit id="worst_agro">

@@ -8,11 +8,11 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>sol_return.short_name</source>
-        <target>¡El Daedalus regresó al Sistema Solar!</target>
+        <target>¡El Daedalus regresó a Sol!</target>
       </segment>
       <segment id="category" state="translated">
         <source>sol_return.category</source>
-        <target>Has regresado al Sistema Solar... ¡Pero el resto es otra historia!</target>
+        <target>Has regresado a Sol... ¡Pero el resto es otra historia!</target>
       </segment>
       <segment id="description" state="translated">
         <source>sol_return.description</source>
@@ -44,7 +44,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>daedalus_destroyed.short_name</source>
-        <target>¡Tu cadáver flota alrededor de los restos pulverizados del Daedalus!</target>
+        <target>¡Tu cadáver flota junto a los restos del Daedalus!</target>
       </segment>
       <segment id="category" state="translated">
         <source>daedalus_destroyed.category</source>
@@ -188,7 +188,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>allergy.short_name</source>
-        <target>Abrazo con un alérgeno</target>
+        <target>¡Tonteaste con el alérgeno equivocado!</target>
       </segment>
       <segment id="category" state="translated">
         <source>allergy.category</source>
@@ -332,7 +332,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>clumsiness.short_name</source>
-        <target>Tan torpe que la cosa más simple acabó contigo</target>
+        <target>Muerto por una tontería.</target>
       </segment>
       <segment id="category" state="translated">
         <source>clumsiness.category</source>
@@ -368,7 +368,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>space_asphyxiated.short_name</source>
-        <target>¡Abandonado muerto en el espacio exterior!</target>
+        <target>¡Muerto abandonado en el espacio exterior!</target>
       </segment>
       <segment id="category" state="translated">
         <source>space_asphyxiated.category</source>
@@ -376,7 +376,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>space_asphyxiated.description</source>
-        <target>Por alguna coincidencia desconocida, te hallaste en el espacio sin forma alguna de poder respirar. La próxima vez sal cubierto. Que pena.</target>
+        <target>Por alguna coincidencia desconocida, te hallaste en el espacio sin forma alguna de poder respirar. La próxima vez sal cubierto. Qué pena.</target>
       </segment>
     </unit>
     <unit id="beheaded">
@@ -386,7 +386,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>beheaded.short_name</source>
-        <target>¡Decapitado por un cobarde!</target>
+        <target>¡Decapitado por molesto!</target>
       </segment>
       <segment id="category" state="translated">
         <source>beheaded.category</source>
@@ -436,7 +436,7 @@
     <unit id="black_bite">
       <segment id="name" state="translated">
         <source>black_bite.name</source>
-        <target>Mordedura negra</target>
+        <target>Mordida negra</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>black_bite.short_name</source>
@@ -448,7 +448,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>black_bite.description</source>
-        <target>Has sucumbido a la enfermedad Mordedura Negra</target>
+        <target>Has sucumbido a la enfermedad Mordida Negra</target>
       </segment>
     </unit>
     <unit id="metal_plate">
@@ -458,7 +458,7 @@
       </segment>
       <segment id="short_name" state="translated">
         <source>metal_plate.short_name</source>
-        <target>¡Otra víctima de esta chatarra voladora!</target>
+        <target>¡Una víctima más de esta nave!</target>
       </segment>
       <segment id="category" state="translated">
         <source>metal_plate.category</source>
@@ -508,7 +508,7 @@
     <unit id="infection">
       <segment id="name" state="translated">
         <source>infection.name</source>
-        <target>Septicemia</target>
+        <target>Infección generalizada</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>infection.short_name</source>
@@ -604,9 +604,9 @@
         <source>still_living.short_name</source>
         <target>Este jugador aún vive</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>still_living.description</source>
-        <target>still_living.description</target>
+        <target>Este jugador sigue vivo.</target>
       </segment>
     </unit>
   </file>

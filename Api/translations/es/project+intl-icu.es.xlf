@@ -2,27 +2,27 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="project.ext">
     <unit id="efficiency">
-      <segment id="efficiency" state="initial">
+      <segment id="efficiency" state="translated">
         <source>efficiency</source>
-        <target>efficiency</target>
+        <target>Eficacia: {min_efficiency}% - {max_efficiency}%</target>
       </segment>
     </unit>
     <unit id="efficiencyTooltipHeader">
-      <segment id="efficiencyTooltipHeader" state="initial">
+      <segment id="efficiencyTooltipHeader" state="translated">
         <source>efficiency.tooltip.header</source>
-        <target>efficiency.tooltip.header</target>
+        <target>Eficacia</target>
       </segment>
     </unit>
     <unit id="efficiencyTooltipText">
-      <segment id="efficiencyTooltipText" state="initial">
+      <segment id="efficiencyTooltipText" state="translated">
         <source>efficiency.tooltip.text</source>
-        <target>efficiency.tooltip.text</target>
+        <target>Para mantener una eficacia óptima, se recomienda alternar el trabajo con otro colega.</target>
       </segment>
     </unit>
     <unit id="auto_watering">
-      <segment id="auto_watering.type" state="initial">
+      <segment id="auto_watering.type" state="translated">
         <source>auto_watering.type</source>
-        <target>auto_watering.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="auto_watering.name" state="translated">
         <source>auto_watering.name</source>
@@ -38,9 +38,9 @@
       </segment>
     </unit>
     <unit id="dismantling">
-      <segment id="dismantling.type" state="initial">
+      <segment id="dismantling.type" state="translated">
         <source>dismantling.type</source>
-        <target>dismantling.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="dismantling.name" state="translated">
         <source>dismantling.name</source>
@@ -56,9 +56,9 @@
       </segment>
     </unit>
     <unit id="door_sensor">
-      <segment id="door_sensor.type" state="initial">
+      <segment id="door_sensor.type" state="translated">
         <source>door_sensor.type</source>
-        <target>door_sensor.type</target>
+        <target>Proyecto</target>
       </segment>
       <segment id="door_sensor.name" state="translated">
         <source>door_sensor.name</source>
@@ -66,7 +66,7 @@
       </segment>
       <segment id="door_sensor.description" state="translated">
         <source>door_sensor.description</source>
-        <target>Las puertas bloqueadas son reportados en tus módulos personales.</target>
+        <target>Las puertas bloqueadas son reportadas en los módulos personales.</target>
       </segment>
       <segment id="door_sensor.lore" state="translated">
         <source>door_sensor.lore</source>
@@ -74,1137 +74,1137 @@
       </segment>
     </unit>
     <unit id="equipment_sensor">
-      <segment id="equipment_sensor.type" state="initial">
+      <segment id="equipment_sensor.type" state="translated">
         <source>equipment_sensor.type</source>
-        <target>equipment_sensor.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="equipment_sensor.name" state="initial">
+      <segment id="equipment_sensor.name" state="translated">
         <source>equipment_sensor.name</source>
-        <target>equipment_sensor.name</target>
+        <target>Detector de fallos</target>
       </segment>
-      <segment id="equipment_sensor.description" state="initial">
+      <segment id="equipment_sensor.description" state="translated">
         <source>equipment_sensor.description</source>
-        <target>equipment_sensor.description</target>
+        <target>Los equipos afectados son reportados en los módulos personales.</target>
       </segment>
-      <segment id="equipment_sensor.lore" state="initial">
+      <segment id="equipment_sensor.lore" state="translated">
         <source>equipment_sensor.lore</source>
-        <target>equipment_sensor.lore</target>
+        <target>Una pequeña sesión de desfragmentación basta para que NERON se alegre y conceda un mayor ancho de banda a los módulos personales.</target>
       </segment>
     </unit>
     <unit id="fire_sensor">
-      <segment id="fire_sensor.type" state="initial">
+      <segment id="fire_sensor.type" state="translated">
         <source>fire_sensor.type</source>
-        <target>fire_sensor.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="fire_sensor.name" state="initial">
+      <segment id="fire_sensor.name" state="translated">
         <source>fire_sensor.name</source>
-        <target>fire_sensor.name</target>
+        <target>Detectores de incendios</target>
       </segment>
-      <segment id="fire_sensor.description" state="initial">
+      <segment id="fire_sensor.description" state="translated">
         <source>fire_sensor.description</source>
-        <target>fire_sensor.description</target>
+        <target>Los incendios son reportados en los módulos personales.</target>
       </segment>
-      <segment id="fire_sensor.lore" state="initial">
+      <segment id="fire_sensor.lore" state="translated">
         <source>fire_sensor.lore</source>
-        <target>fire_sensor.lore</target>
+        <target>Nos costó mucho convencer a NERON que el fuego era dañino para él, pero insiste en darte más CPU... Aunque al final se quedó bastante contrariado.</target>
       </segment>
     </unit>
     <unit id="heat_lamp">
-      <segment id="heat_lamp.type" state="initial">
+      <segment id="heat_lamp.type" state="translated">
         <source>heat_lamp.type</source>
-        <target>heat_lamp.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="heat_lamp.name" state="initial">
+      <segment id="heat_lamp.name" state="translated">
         <source>heat_lamp.name</source>
-        <target>heat_lamp.name</target>
+        <target>Lámparas de calor</target>
       </segment>
-      <segment id="heat_lamp.description" state="initial">
+      <segment id="heat_lamp.description" state="translated">
         <source>heat_lamp.description</source>
-        <target>heat_lamp.description</target>
+        <target>Las plantas adultas tienen un 50% de probabilidades de producir un fruto adicional en el jardín.</target>
       </segment>
-      <segment id="heat_lamp.lore" state="initial">
+      <segment id="heat_lamp.lore" state="translated">
         <source>heat_lamp.lore</source>
-        <target>heat_lamp.lore</target>
+        <target>Con nuestras bombillas "luz de primavera" estas lámparas harán maravillas en las plantas. Su brillo imita muy bien a nuestro sol.</target>
       </segment>
     </unit>
     <unit id="parasite_elim">
-      <segment id="parasite_elim.type" state="initial">
+      <segment id="parasite_elim.type" state="translated">
         <source>parasite_elim.type</source>
-        <target>parasite_elim.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="parasite_elim.name" state="initial">
+      <segment id="parasite_elim.name" state="translated">
         <source>parasite_elim.name</source>
-        <target>parasite_elim.name</target>
+        <target>Nano-Escarabajos</target>
       </segment>
-      <segment id="parasite_elim.description" state="initial">
+      <segment id="parasite_elim.description" state="translated">
         <source>parasite_elim.description</source>
-        <target>parasite_elim.description</target>
+        <target>Las Jóvenes plantas en el jardín alcanzan la adultez en 4 ciclos menos.</target>
       </segment>
-      <segment id="parasite_elim.lore" state="initial">
+      <segment id="parasite_elim.lore" state="translated">
         <source>parasite_elim.lore</source>
-        <target>parasite_elim.lore</target>
+        <target>¡Nano-escarabajos! ¿Por qué no se nos ocurrió antes?</target>
       </segment>
     </unit>
     <unit id="pilgred">
-      <segment id="pilgred.type" state="initial">
+      <segment id="pilgred.type" state="translated">
         <source>pilgred.type</source>
-        <target>pilgred.type</target>
+        <target>PILGRED</target>
       </segment>
-      <segment id="pilgred.name" state="initial">
+      <segment id="pilgred.name" state="translated">
         <source>pilgred.name</source>
-        <target>pilgred.name</target>
+        <target>PILGRED</target>
       </segment>
-      <segment id="pilgred.description" state="initial">
+      <segment id="pilgred.description" state="translated">
         <source>pilgred.description</source>
-        <target>pilgred.description</target>
+        <target>Reparar PILGRED te permitirá abrir nuevas rutas especiales, una de ellas hacia la Tierra. Además, la cafetera se regenerará el cuádruple de rápido.</target>
       </segment>
-      <segment id="pilgred.lore" state="initial">
+      <segment id="pilgred.lore" state="translated">
         <source>pilgred.lore</source>
-        <target>pilgred.lore</target>
+        <target/>
       </segment>
     </unit>
     <unit id="plasma_shield">
-      <segment id="plasma_shield.type" state="initial">
+      <segment id="plasma_shield.type" state="translated">
         <source>plasma_shield.type</source>
-        <target>plasma_shield.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="plasma_shield.name" state="initial">
+      <segment id="plasma_shield.name" state="translated">
         <source>plasma_shield.name</source>
-        <target>plasma_shield.name</target>
+        <target>Escudo plasma</target>
       </segment>
-      <segment id="plasma_shield.description" state="initial">
+      <segment id="plasma_shield.description" state="translated">
         <source>plasma_shield.description</source>
-        <target>plasma_shield.description</target>
+        <target>El casco del Daedalus estará protegido por un escudo regenerado automáticamente.</target>
       </segment>
-      <segment id="plasma_shield.lore" state="initial">
+      <segment id="plasma_shield.lore" state="translated">
         <source>plasma_shield.lore</source>
-        <target>plasma_shield.lore</target>
+        <target>Ese maldito escudo de plasma sería muy útil si descargas de nuevo el programa y reiniciando el tabulador de partículas.</target>
       </segment>
     </unit>
     <unit id="trail_reducer">
-      <segment id="trail_reducer.type" state="initial">
+      <segment id="trail_reducer.type" state="translated">
         <source>trail_reducer.type</source>
-        <target>trail_reducer.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="trail_reducer.name" state="initial">
+      <segment id="trail_reducer.name" state="translated">
         <source>trail_reducer.name</source>
-        <target>trail_reducer.name</target>
+        <target>Reductor de estela</target>
       </segment>
-      <segment id="trail_reducer.description" state="initial">
+      <segment id="trail_reducer.description" state="translated">
         <source>trail_reducer.description</source>
-        <target>trail_reducer.description</target>
+        <target>La cantidad de atacantes que te persigue después de un viaje se reduce en 25%(Baja de un 50%).</target>
       </segment>
-      <segment id="trail_reducer.lore" state="initial">
+      <segment id="trail_reducer.lore" state="translated">
         <source>trail_reducer.lore</source>
-        <target>trail_reducer.lore</target>
+        <target>¡Para evitar que el Daedalus sea detectado podríamos colocar un silenciador en los motores!</target>
       </segment>
     </unit>
     <unit id="chipset_acceleration">
-      <segment id="chipset_acceleration.type" state="initial">
+      <segment id="chipset_acceleration.type" state="translated">
         <source>chipset_acceleration.type</source>
-        <target>chipset_acceleration.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="chipset_acceleration.name" state="initial">
+      <segment id="chipset_acceleration.name" state="translated">
         <source>chipset_acceleration.name</source>
-        <target>chipset_acceleration.name</target>
+        <target>Aceleración del procesador</target>
       </segment>
-      <segment id="chipset_acceleration.description" state="initial">
+      <segment id="chipset_acceleration.description" state="translated">
         <source>chipset_acceleration.description</source>
-        <target>chipset_acceleration.description</target>
+        <target>La acción de buscar un planeta vale 1 :pa: menos.</target>
       </segment>
-      <segment id="chipset_acceleration.lore" state="initial">
+      <segment id="chipset_acceleration.lore" state="translated">
         <source>chipset_acceleration.lore</source>
-        <target>chipset_acceleration.lore</target>
+        <target>NERON es un poco maniático con sus sistemas, pero a veces le da por echar chispas solo por diversión.</target>
       </segment>
     </unit>
     <unit id="extra_hydroponpots">
-      <segment id="extra_hydroponpots.type" state="initial">
+      <segment id="extra_hydroponpots.type" state="translated">
         <source>extra_hydroponpots.type</source>
-        <target>extra_hydroponpots.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="extra_hydroponpots.name" state="initial">
+      <segment id="extra_hydroponpots.name" state="translated">
         <source>extra_hydroponpots.name</source>
-        <target>extra_hydroponpots.name</target>
+        <target>Hidromacetas adicionales</target>
       </segment>
-      <segment id="extra_hydroponpots.description" state="initial">
+      <segment id="extra_hydroponpots.description" state="translated">
         <source>extra_hydroponpots.description</source>
-        <target>extra_hydroponpots.description</target>
+        <target>Añade 3 macetas para hacer crecer nuevas plantas.</target>
       </segment>
-      <segment id="extra_hydroponpots.lore" state="initial">
+      <segment id="extra_hydroponpots.lore" state="translated">
         <source>extra_hydroponpots.lore</source>
-        <target>extra_hydroponpots.lore</target>
+        <target>NERON ha encontrado los planos de las macetas hidropónicas del jardín. Con algunos materiales de la incubadora podría crear 3 macetas más.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
-      <segment id="auxiliary_terminal.type" state="initial">
+      <segment id="auxiliary_terminal.type" state="translated">
         <source>auxiliary_terminal.type</source>
-        <target>auxiliary_terminal.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="auxiliary_terminal.name" state="initial">
+      <segment id="auxiliary_terminal.name" state="translated">
         <source>auxiliary_terminal.name</source>
-        <target>auxiliary_terminal.name</target>
+        <target>Terminales auxiliares</target>
       </segment>
-      <segment id="auxiliary_terminal.description" state="initial">
+      <segment id="auxiliary_terminal.description" state="translated">
         <source>auxiliary_terminal.description</source>
-        <target>auxiliary_terminal.description</target>
+        <target>El núcleo de NERON está ahora accesible en la enfermería y en la sala de motores.</target>
       </segment>
-      <segment id="auxiliary_terminal.lore" state="initial">
+      <segment id="auxiliary_terminal.lore" state="translated">
         <source>auxiliary_terminal.lore</source>
-        <target>auxiliary_terminal.lore</target>
+        <target>Modificando los enchufes de 100V usados para las afeitadoras se pueden abrir accesos SCCS hacia NERON.</target>
       </segment>
     </unit>
     <unit id="thalasso">
-      <segment id="thalasso.type" state="initial">
+      <segment id="thalasso.type" state="translated">
         <source>thalasso.type</source>
-        <target>thalasso.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="thalasso.name" state="initial">
+      <segment id="thalasso.name" state="translated">
         <source>thalasso.name</source>
-        <target>thalasso.name</target>
+        <target>Baño turco</target>
       </segment>
-      <segment id="thalasso.description" state="initial">
+      <segment id="thalasso.description" state="translated">
         <source>thalasso.description</source>
-        <target>thalasso.description</target>
+        <target>Si no eres un Mush, cada ducha tiene 25% de probabilidades de darte +1 :hp: O +1 :pmo: O +2 :pm:.</target>
       </segment>
-      <segment id="thalasso.lore" state="initial">
+      <segment id="thalasso.lore" state="translated">
         <source>thalasso.lore</source>
-        <target>thalasso.lore</target>
+        <target>¿Tu artrosis te hace sufrir? SNC puede ayudarte.</target>
       </segment>
     </unit>
     <unit id="bric_broc">
-      <segment id="bric_broc.type" state="initial">
+      <segment id="bric_broc.type" state="translated">
         <source>bric_broc.type</source>
-        <target>bric_broc.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="bric_broc.name" state="initial">
+      <segment id="bric_broc.name" state="translated">
         <source>bric_broc.name</source>
-        <target>bric_broc.name</target>
+        <target>Arreglos generales</target>
       </segment>
-      <segment id="bric_broc.description" state="initial">
+      <segment id="bric_broc.description" state="translated">
         <source>bric_broc.description</source>
-        <target>bric_broc.description</target>
+        <target>En cada ciclo, el Daedalus tiene 15% de probabilidades de no partirse en pedazos... lo que previene daños inesperados.</target>
       </segment>
-      <segment id="bric_broc.lore" state="initial">
+      <segment id="bric_broc.lore" state="translated">
         <source>bric_broc.lore</source>
-        <target>bric_broc.lore</target>
+        <target>¿Alguien ha pensado en AJUSTAR los tornillos del casco de la nave?</target>
       </segment>
     </unit>
     <unit id="magnetic_net">
-      <segment id="magnetic_net.type" state="initial">
+      <segment id="magnetic_net.type" state="translated">
         <source>magnetic_net.type</source>
-        <target>magnetic_net.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="magnetic_net.name" state="initial">
+      <segment id="magnetic_net.name" state="translated">
         <source>magnetic_net.name</source>
-        <target>magnetic_net.name</target>
+        <target>Red magnética</target>
       </segment>
-      <segment id="magnetic_net.description" state="initial">
+      <segment id="magnetic_net.description" state="translated">
         <source>magnetic_net.description</source>
-        <target>magnetic_net.description</target>
+        <target>Cuando el Daedalus se desplaza, los patrulleros que le rodean son aterrizados automáticamente en sus bahías.</target>
       </segment>
-      <segment id="magnetic_net.lore" state="initial">
+      <segment id="magnetic_net.lore" state="translated">
         <source>magnetic_net.lore</source>
-        <target>magnetic_net.lore</target>
+        <target>Una de las principales aportaciones del Magallanes es su sistema que le permitía arrastrar a su flota. Logras depurar los últimos paquetes de código del programa de pilotaje magnético. Con eso bastará.</target>
       </segment>
     </unit>
     <unit id="icarus_antigrav_propeller">
-      <segment id="icarus_antigrav_propeller.type" state="initial">
+      <segment id="icarus_antigrav_propeller.type" state="translated">
         <source>icarus_antigrav_propeller.type</source>
-        <target>icarus_antigrav_propeller.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="icarus_antigrav_propeller.name" state="initial">
+      <segment id="icarus_antigrav_propeller.name" state="translated">
         <source>icarus_antigrav_propeller.name</source>
-        <target>icarus_antigrav_propeller.name</target>
+        <target>Propulsores antigravedad</target>
       </segment>
-      <segment id="icarus_antigrav_propeller.description" state="initial">
+      <segment id="icarus_antigrav_propeller.description" state="translated">
         <source>icarus_antigrav_propeller.description</source>
-        <target>icarus_antigrav_propeller.description</target>
+        <target>Aumenta tus probabilidades de éxito al aterrizar en planetas sin un Piloto.</target>
       </segment>
-      <segment id="icarus_antigrav_propeller.lore" state="initial">
+      <segment id="icarus_antigrav_propeller.lore" state="translated">
         <source>icarus_antigrav_propeller.lore</source>
-        <target>icarus_antigrav_propeller.lore</target>
+        <target>Gracias a sus propulsores antigravedad, las maniobras de despegue y aterrizaje del Icarus son pan comido. El ingreso en la atmósfera se vuelven facilísimas. ¡Vuele cómodo, vuele en el Icarus!</target>
       </segment>
     </unit>
     <unit id="fission_coffee_roaster">
-      <segment id="fission_coffee_roaster.type" state="initial">
+      <segment id="fission_coffee_roaster.type" state="translated">
         <source>fission_coffee_roaster.type</source>
-        <target>fission_coffee_roaster.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="fission_coffee_roaster.name" state="initial">
+      <segment id="fission_coffee_roaster.name" state="translated">
         <source>fission_coffee_roaster.name</source>
-        <target>fission_coffee_roaster.name</target>
+        <target>Torrefactora a fisión</target>
       </segment>
-      <segment id="fission_coffee_roaster.description" state="initial">
+      <segment id="fission_coffee_roaster.description" state="translated">
         <source>fission_coffee_roaster.description</source>
-        <target>fission_coffee_roaster.description</target>
+        <target>La Cafetera se regenera el doble de rápido.</target>
       </segment>
-      <segment id="fission_coffee_roaster.lore" state="initial">
+      <segment id="fission_coffee_roaster.lore" state="translated">
         <source>fission_coffee_roaster.lore</source>
-        <target>fission_coffee_roaster.lore</target>
+        <target>¡Yeehaa! Conectando un simple acelerador de partículas portátil al conducto de salida de la torrefactora, es posible obtener un café en menos de 12 horas.</target>
       </segment>
     </unit>
     <unit id="armour_corridor">
-      <segment id="armour_corridor.type" state="initial">
+      <segment id="armour_corridor.type" state="translated">
         <source>armour_corridor.type</source>
-        <target>armour_corridor.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="armour_corridor.name" state="initial">
+      <segment id="armour_corridor.name" state="translated">
         <source>armour_corridor.name</source>
-        <target>armour_corridor.name</target>
+        <target>Paredes blindadas</target>
       </segment>
-      <segment id="armour_corridor.description" state="initial">
+      <segment id="armour_corridor.description" state="translated">
         <source>armour_corridor.description</source>
-        <target>armour_corridor.description</target>
+        <target>Cada impacto sufrido por el casco del Daedalus se reduce en 1 punto.</target>
       </segment>
-      <segment id="armour_corridor.lore" state="initial">
+      <segment id="armour_corridor.lore" state="translated">
         <source>armour_corridor.lore</source>
-        <target>armour_corridor.lore</target>
+        <target>¡Eureka! En el Magallanes, las fibras ópticas que recorrían los muros eran compactadas a tal punto que se descubrió que también podrían servir como blindaje. ¡Poniendo todavía más cables, puedes crear una pseudo-armadura!</target>
       </segment>
     </unit>
     <unit id="call_of_dirty">
-      <segment id="call_of_dirty.type" state="initial">
+      <segment id="call_of_dirty.type" state="translated">
         <source>call_of_dirty.type</source>
-        <target>call_of_dirty.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="call_of_dirty.name" state="initial">
+      <segment id="call_of_dirty.name" state="translated">
         <source>call_of_dirty.name</source>
-        <target>call_of_dirty.name</target>
+        <target>Dynarcade</target>
       </segment>
-      <segment id="call_of_dirty.description" state="initial">
+      <segment id="call_of_dirty.description" state="translated">
         <source>call_of_dirty.description</source>
-        <target>call_of_dirty.description</target>
+        <target>Pone un Dynarcade en la Plataforma Alpha 2. Muy bueno para desahogarse un rato. Ganar te restaura ánimo.</target>
       </segment>
-      <segment id="call_of_dirty.lore" state="initial">
+      <segment id="call_of_dirty.lore" state="translated">
         <source>call_of_dirty.lore</source>
-        <target>call_of_dirty.lore</target>
+        <target>Dynarcade es una vieja máquina de entrenamiento militar que puede convertirse en una máquina de videojuegos.</target>
       </segment>
     </unit>
     <unit id="extra_drone">
-      <segment id="extra_drone.type" state="initial">
+      <segment id="extra_drone.type" state="translated">
         <source>extra_drone.type</source>
-        <target>extra_drone.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="extra_drone.name" state="initial">
+      <segment id="extra_drone.name" state="translated">
         <source>extra_drone.name</source>
-        <target>extra_drone.name</target>
+        <target>Dron adicional</target>
       </segment>
-      <segment id="extra_drone.description" state="initial">
+      <segment id="extra_drone.description" state="translated">
         <source>extra_drone.description</source>
-        <target>extra_drone.description</target>
+        <target>Añade un Dron para proteger al Daedalus desde el Nexus.</target>
       </segment>
-      <segment id="extra_drone.lore" state="initial">
+      <segment id="extra_drone.lore" state="translated">
         <source>extra_drone.lore</source>
-        <target>extra_drone.lore</target>
+        <target>Recuperando los datos de los drones de Terrence, es posible pedirle a NERON que te haga una copia.</target>
       </segment>
     </unit>
     <unit id="patrolship_blaster_gun">
-      <segment id="patrolship_blaster_gun.type" state="initial">
+      <segment id="patrolship_blaster_gun.type" state="translated">
         <source>patrolship_blaster_gun.type</source>
-        <target>patrolship_blaster_gun.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="patrolship_blaster_gun.name" state="initial">
+      <segment id="patrolship_blaster_gun.name" state="translated">
         <source>patrolship_blaster_gun.name</source>
-        <target>patrolship_blaster_gun.name</target>
+        <target>Cañón Blaster</target>
       </segment>
-      <segment id="patrolship_blaster_gun.description" state="initial">
+      <segment id="patrolship_blaster_gun.description" state="translated">
         <source>patrolship_blaster_gun.description</source>
-        <target>patrolship_blaster_gun.description</target>
+        <target>Aumenta en 1 punto la potencia de fuego de los patrulleros.</target>
       </segment>
-      <segment id="patrolship_blaster_gun.lore" state="initial">
+      <segment id="patrolship_blaster_gun.lore" state="translated">
         <source>patrolship_blaster_gun.lore</source>
-        <target>patrolship_blaster_gun.lore</target>
+        <target>Un cañón de 40mm está bien. Un Blaster de 80, ¡es mejor!</target>
       </segment>
     </unit>
     <unit id="bay_door_xxl">
-      <segment id="bay_door_xxl.type" state="initial">
+      <segment id="bay_door_xxl.type" state="translated">
         <source>bay_door_xxl.type</source>
-        <target>bay_door_xxl.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="bay_door_xxl.name" state="initial">
+      <segment id="bay_door_xxl.name" state="translated">
         <source>bay_door_xxl.name</source>
-        <target>bay_door_xxl.name</target>
+        <target>Portal de despegue extra largo</target>
       </segment>
-      <segment id="bay_door_xxl.description" state="initial">
+      <segment id="bay_door_xxl.description" state="translated">
         <source>bay_door_xxl.description</source>
-        <target>bay_door_xxl.description</target>
+        <target>Las maniobras de despegue y aterrizaje son más simples para no-pilotos.</target>
       </segment>
-      <segment id="bay_door_xxl.lore" state="initial">
+      <segment id="bay_door_xxl.lore" state="translated">
         <source>bay_door_xxl.lore</source>
-        <target>bay_door_xxl.lore</target>
+        <target>Tras cálculos exhaustivos, los ingenieros de la Federación publicaron un informe de la relación que existe entre el tamaño de las puertas de las plataformas y la facilidad para despegar. Increíble.</target>
       </segment>
     </unit>
     <unit id="trash_load">
-      <segment id="trash_load.type" state="initial">
+      <segment id="trash_load.type" state="translated">
         <source>trash_load.type</source>
-        <target>trash_load.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="trash_load.name" state="initial">
+      <segment id="trash_load.name" state="translated">
         <source>trash_load.name</source>
-        <target>trash_load.name</target>
+        <target>Montón de chatarra</target>
       </segment>
-      <segment id="trash_load.description" state="initial">
+      <segment id="trash_load.description" state="translated">
         <source>trash_load.description</source>
-        <target>trash_load.description</target>
+        <target>Genera 4 piezas metálicas y 4 piezas plásticas en la Sala de motores.</target>
       </segment>
-      <segment id="trash_load.lore" state="initial">
+      <segment id="trash_load.lore" state="translated">
         <source>trash_load.lore</source>
-        <target>trash_load.lore</target>
+        <target>¡Reciclar cosas está de moda!</target>
       </segment>
     </unit>
     <unit id="food_retailer">
-      <segment id="food_retailer.type" state="initial">
+      <segment id="food_retailer.type" state="translated">
         <source>food_retailer.type</source>
-        <target>food_retailer.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="food_retailer.name" state="initial">
+      <segment id="food_retailer.name" state="translated">
         <source>food_retailer.name</source>
-        <target>food_retailer.name</target>
+        <target>Tubo distribuidor</target>
       </segment>
-      <segment id="food_retailer.description" state="initial">
+      <segment id="food_retailer.description" state="translated">
         <source>food_retailer.description</source>
-        <target>food_retailer.description</target>
+        <target>Los alimentos del jardín son enviados directamente al comedor a través de un tubo aspirante.</target>
       </segment>
-      <segment id="food_retailer.lore" state="initial">
+      <segment id="food_retailer.lore" state="translated">
         <source>food_retailer.lore</source>
-        <target>food_retailer.lore</target>
+        <target>Un tubo puede ser tan inspirador (o aspirador)...//Si sirve para enviar mensajes,//¡también servirá para enviar comida!</target>
       </segment>
     </unit>
     <unit id="auto_return_icarus">
-      <segment id="auto_return_icarus.type" state="initial">
+      <segment id="auto_return_icarus.type" state="translated">
         <source>auto_return_icarus.type</source>
-        <target>auto_return_icarus.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="auto_return_icarus.name" state="initial">
+      <segment id="auto_return_icarus.name" state="translated">
         <source>auto_return_icarus.name</source>
-        <target>auto_return_icarus.name</target>
+        <target>Retorno automático</target>
       </segment>
-      <segment id="auto_return_icarus.description" state="initial">
+      <segment id="auto_return_icarus.description" state="translated">
         <source>auto_return_icarus.description</source>
-        <target>auto_return_icarus.description</target>
+        <target>El Icarus vuelve automáticamente al Daedalus en caso de perder a todo el grupo de expedición.</target>
       </segment>
-      <segment id="auto_return_icarus.lore" state="initial">
+      <segment id="auto_return_icarus.lore" state="translated">
         <source>auto_return_icarus.lore</source>
-        <target>auto_return_icarus.lore</target>
+        <target>Al explorar el código fuente de NERON, descubres que podrías dotar al Icarus de una pseudo-conciencia. Decides quitar el motor de emociones para conservar el de supervivencia. Con eso, el Icarus volverá si la expedición fracasa.</target>
       </segment>
     </unit>
     <unit id="radar_trans_void">
-      <segment id="radar_trans_void.type" state="initial">
+      <segment id="radar_trans_void.type" state="translated">
         <source>radar_trans_void.type</source>
-        <target>radar_trans_void.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="radar_trans_void.name" state="initial">
+      <segment id="radar_trans_void.name" state="translated">
         <source>radar_trans_void.name</source>
-        <target>radar_trans_void.name</target>
+        <target>Radar de ondas espaciales</target>
       </segment>
-      <segment id="radar_trans_void.description" state="initial">
+      <segment id="radar_trans_void.description" state="translated">
         <source>radar_trans_void.description</source>
-        <target>radar_trans_void.description</target>
+        <target>La antena estelar duplica desde ahora tus avances al intentar contactar con Sol.</target>
       </segment>
-      <segment id="radar_trans_void.lore" state="initial">
+      <segment id="radar_trans_void.lore" state="translated">
         <source>radar_trans_void.lore</source>
-        <target>radar_trans_void.lore</target>
+        <target>Qué no harías por una mirada de la experta en comunicaciones...//Aumentando la prioridad del CPU le harás la vida más fácil.</target>
       </segment>
     </unit>
     <unit id="neron_targeting_assist">
-      <segment id="neron_targeting_assist.type" state="initial">
+      <segment id="neron_targeting_assist.type" state="translated">
         <source>neron_targeting_assist.type</source>
-        <target>neron_targeting_assist.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="neron_targeting_assist.name" state="initial">
+      <segment id="neron_targeting_assist.name" state="translated">
         <source>neron_targeting_assist.name</source>
-        <target>neron_targeting_assist.name</target>
+        <target>Puntería heurística</target>
       </segment>
-      <segment id="neron_targeting_assist.description" state="initial">
+      <segment id="neron_targeting_assist.description" state="translated">
         <source>neron_targeting_assist.description</source>
-        <target>neron_targeting_assist.description</target>
+        <target>Aumenta en 25% la puntería en vuelo y en cañón.</target>
       </segment>
-      <segment id="neron_targeting_assist.lore" state="initial">
+      <segment id="neron_targeting_assist.lore" state="translated">
         <source>neron_targeting_assist.lore</source>
-        <target>neron_targeting_assist.lore</target>
+        <target>A NERON a veces le falla el ojo. ¡Un parche de su algoritmo y listo!</target>
       </segment>
     </unit>
     <unit id="whos_who">
-      <segment id="whos_who.type" state="initial">
+      <segment id="whos_who.type" state="translated">
         <source>whos_who.type</source>
-        <target>whos_who.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="whos_who.name" state="initial">
+      <segment id="whos_who.name" state="translated">
         <source>whos_who.name</source>
-        <target>whos_who.name</target>
+        <target>Protocolo ACTOPI</target>
       </segment>
-      <segment id="whos_who.description" state="initial">
+      <segment id="whos_who.description" state="translated">
         <source>whos_who.description</source>
-        <target>whos_who.description</target>
+        <target>Muestra la identidad de los compañeros en el minimapa.</target>
       </segment>
-      <segment id="whos_who.lore" state="initial">
+      <segment id="whos_who.lore" state="translated">
         <source>whos_who.lore</source>
-        <target>whos_who.lore</target>
+        <target>Muestra un punto de color único que indica quién es quién en el Tracker. Ideal para seguir los movimientos de todos.</target>
       </segment>
     </unit>
     <unit id="hydroponic_incubator">
-      <segment id="hydroponic_incubator.type" state="initial">
+      <segment id="hydroponic_incubator.type" state="translated">
         <source>hydroponic_incubator.type</source>
-        <target>hydroponic_incubator.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="hydroponic_incubator.name" state="initial">
+      <segment id="hydroponic_incubator.name" state="translated">
         <source>hydroponic_incubator.name</source>
-        <target>hydroponic_incubator.name</target>
+        <target>Incubadora hidropónica</target>
       </segment>
-      <segment id="hydroponic_incubator.description" state="initial">
+      <segment id="hydroponic_incubator.description" state="translated">
         <source>hydroponic_incubator.description</source>
-        <target>hydroponic_incubator.description</target>
+        <target>En el jardín, los pequeños brotes crecen 2 veces más rápido.</target>
       </segment>
-      <segment id="hydroponic_incubator.lore" state="initial">
+      <segment id="hydroponic_incubator.lore" state="translated">
         <source>hydroponic_incubator.lore</source>
-        <target>hydroponic_incubator.lore</target>
+        <target>Con esto se puede crear una atmósfera de nitrógeno que acelerará el crecimiento de los pequeños brotes sin afectar a las plantas adultas.</target>
       </segment>
     </unit>
     <unit id="icarus_lavatory">
-      <segment id="icarus_lavatory.type" state="initial">
+      <segment id="icarus_lavatory.type" state="translated">
         <source>icarus_lavatory.type</source>
-        <target>icarus_lavatory.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="icarus_lavatory.name" state="initial">
+      <segment id="icarus_lavatory.name" state="translated">
         <source>icarus_lavatory.name</source>
-        <target>icarus_lavatory.name</target>
+        <target>Lavabo oportuno</target>
       </segment>
-      <segment id="icarus_lavatory.description" state="initial">
+      <segment id="icarus_lavatory.description" state="translated">
         <source>icarus_lavatory.description</source>
-        <target>icarus_lavatory.description</target>
+        <target>Impide ensuciarse al regresar de una expedición.</target>
       </segment>
-      <segment id="icarus_lavatory.lore" state="initial">
+      <segment id="icarus_lavatory.lore" state="translated">
         <source>icarus_lavatory.lore</source>
-        <target>icarus_lavatory.lore</target>
+        <target>¡Qué magnífico lavabo inoxidable! Ya no tienes excusa para no lavarte las manos entre cada misión.</target>
       </segment>
     </unit>
     <unit id="icarus_larger_bay">
-      <segment id="icarus_larger_bay.type" state="initial">
+      <segment id="icarus_larger_bay.type" state="translated">
         <source>icarus_larger_bay.type</source>
-        <target>icarus_larger_bay.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="icarus_larger_bay.name" state="initial">
+      <segment id="icarus_larger_bay.name" state="translated">
         <source>icarus_larger_bay.name</source>
-        <target>icarus_larger_bay.name</target>
+        <target>Aumento de espacio</target>
       </segment>
-      <segment id="icarus_larger_bay.description" state="initial">
+      <segment id="icarus_larger_bay.description" state="translated">
         <source>icarus_larger_bay.description</source>
-        <target>icarus_larger_bay.description</target>
+        <target>El Icarus puede transportar 2 personas suplementarias.</target>
       </segment>
-      <segment id="icarus_larger_bay.lore" state="initial">
+      <segment id="icarus_larger_bay.lore" state="translated">
         <source>icarus_larger_bay.lore</source>
-        <target>icarus_larger_bay.lore</target>
+        <target>Quitando un motor auxiliar que nadie sabe para qué sirve, podemos instalar 2 asientos adicionales.</target>
       </segment>
     </unit>
     <unit id="patrol_ship_launcher">
-      <segment id="patrol_ship_launcher.type" state="initial">
+      <segment id="patrol_ship_launcher.type" state="translated">
         <source>patrol_ship_launcher.type</source>
-        <target>patrol_ship_launcher.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="patrol_ship_launcher.name" state="initial">
+      <segment id="patrol_ship_launcher.name" state="translated">
         <source>patrol_ship_launcher.name</source>
-        <target>patrol_ship_launcher.name</target>
+        <target>Propulsor de despegue</target>
       </segment>
-      <segment id="patrol_ship_launcher.description" state="initial">
+      <segment id="patrol_ship_launcher.description" state="translated">
         <source>patrol_ship_launcher.description</source>
-        <target>patrol_ship_launcher.description</target>
+        <target>Las maniobras de despegue en Patrulleros y Pasiphae te cuestan 1 :pa: menos.</target>
       </segment>
-      <segment id="patrol_ship_launcher.lore" state="initial">
+      <segment id="patrol_ship_launcher.lore" state="translated">
         <source>patrol_ship_launcher.lore</source>
-        <target>patrol_ship_launcher.lore</target>
+        <target>¡NERON descubrió un sistema de neuro-motores que aceleran muchísimo las maniobras de despegue!</target>
       </segment>
     </unit>
     <unit id="neron_project_thread">
-      <segment id="neron_project_thread.type" state="initial">
+      <segment id="neron_project_thread.type" state="translated">
         <source>neron_project_thread.type</source>
-        <target>neron_project_thread.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="neron_project_thread.name" state="initial">
+      <segment id="neron_project_thread.name" state="translated">
         <source>neron_project_thread.name</source>
-        <target>neron_project_thread.name</target>
+        <target>Participación de NERON</target>
       </segment>
-      <segment id="neron_project_thread.description" state="initial">
+      <segment id="neron_project_thread.description" state="translated">
         <source>neron_project_thread.description</source>
-        <target>neron_project_thread.description</target>
+        <target>Si un proyecto está avanzado más de 0%, es avanzado automáticamente en 5% en cada ciclo.</target>
       </segment>
-      <segment id="neron_project_thread.lore" state="initial">
+      <segment id="neron_project_thread.lore" state="translated">
         <source>neron_project_thread.lore</source>
-        <target>neron_project_thread.lore</target>
+        <target>A veces es necesario pegarle un buen grito a NERON para que sea más productivo, sobre todo para trabajar en él mismo.//Instalas un despertador que insulta a su memoria viva automáticamente cada hora.</target>
       </segment>
     </unit>
     <unit id="turret_extra_fire_rate">
-      <segment id="turret_extra_fire_rate.type" state="initial">
+      <segment id="turret_extra_fire_rate.type" state="translated">
         <source>turret_extra_fire_rate.type</source>
-        <target>turret_extra_fire_rate.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="turret_extra_fire_rate.name" state="initial">
+      <segment id="turret_extra_fire_rate.name" state="translated">
         <source>turret_extra_fire_rate.name</source>
-        <target>turret_extra_fire_rate.name</target>
+        <target>Interruptor invertido</target>
       </segment>
-      <segment id="turret_extra_fire_rate.description" state="initial">
+      <segment id="turret_extra_fire_rate.description" state="translated">
         <source>turret_extra_fire_rate.description</source>
-        <target>turret_extra_fire_rate.description</target>
+        <target>Los cañones se recargan el doble de rápido.</target>
       </segment>
-      <segment id="turret_extra_fire_rate.lore" state="initial">
+      <segment id="turret_extra_fire_rate.lore" state="translated">
         <source>turret_extra_fire_rate.lore</source>
-        <target>turret_extra_fire_rate.lore</target>
+        <target>Invirtiendo la polaridad de los Tesla de los cañones, ¡es posible duplicar su ritmo!</target>
       </segment>
     </unit>
     <unit id="quantum_sensors">
-      <segment id="quantum_sensors.type" state="initial">
+      <segment id="quantum_sensors.type" state="translated">
         <source>quantum_sensors.type</source>
-        <target>quantum_sensors.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="quantum_sensors.name" state="initial">
+      <segment id="quantum_sensors.name" state="translated">
         <source>quantum_sensors.name</source>
-        <target>quantum_sensors.name</target>
+        <target>Detector de ondas de probabilidad</target>
       </segment>
-      <segment id="quantum_sensors.description" state="initial">
+      <segment id="quantum_sensors.description" state="translated">
         <source>quantum_sensors.description</source>
-        <target>quantum_sensors.description</target>
+        <target>El escáner de planetas revela una sección más por Análisis.</target>
       </segment>
-      <segment id="quantum_sensors.lore" state="initial">
+      <segment id="quantum_sensors.lore" state="translated">
         <source>quantum_sensors.lore</source>
-        <target>quantum_sensors.lore</target>
+        <target>Los InfraSensores también cuentan con un sensor de presencia de materia oscura que mejoraría mucho su rendimiento.</target>
       </segment>
     </unit>
     <unit id="patrolship_extra_ammo">
-      <segment id="patrolship_extra_ammo.type" state="initial">
+      <segment id="patrolship_extra_ammo.type" state="translated">
         <source>patrolship_extra_ammo.type</source>
-        <target>patrolship_extra_ammo.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="patrolship_extra_ammo.name" state="initial">
+      <segment id="patrolship_extra_ammo.name" state="translated">
         <source>patrolship_extra_ammo.name</source>
-        <target>patrolship_extra_ammo.name</target>
+        <target>Tanque de Teslatron</target>
       </segment>
-      <segment id="patrolship_extra_ammo.description" state="initial">
+      <segment id="patrolship_extra_ammo.description" state="translated">
         <source>patrolship_extra_ammo.description</source>
-        <target>patrolship_extra_ammo.description</target>
+        <target>Los patrulleros cuentan con 6 cargas adicionales.</target>
       </segment>
-      <segment id="patrolship_extra_ammo.lore" state="initial">
+      <segment id="patrolship_extra_ammo.lore" state="translated">
         <source>patrolship_extra_ammo.lore</source>
-        <target>patrolship_extra_ammo.lore</target>
+        <target>Agregando un pistón de compresión, se puede duplicar la capacidad de almacenamiento en los tanques de Teslatron de los patrulleros.</target>
       </segment>
     </unit>
     <unit id="noise_reducer">
-      <segment id="noise_reducer.type" state="initial">
+      <segment id="noise_reducer.type" state="translated">
         <source>noise_reducer.type</source>
-        <target>noise_reducer.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="noise_reducer.name" state="initial">
+      <segment id="noise_reducer.name" state="translated">
         <source>noise_reducer.name</source>
-        <target>noise_reducer.name</target>
+        <target>Aislamiento sonoro</target>
       </segment>
-      <segment id="noise_reducer.description" state="initial">
+      <segment id="noise_reducer.description" state="translated">
         <source>noise_reducer.description</source>
-        <target>noise_reducer.description</target>
+        <target>Aumenta en 2 la cantidad de :pa: máximos de cada tripulante.</target>
       </segment>
-      <segment id="noise_reducer.lore" state="initial">
+      <segment id="noise_reducer.lore" state="translated">
         <source>noise_reducer.lore</source>
-        <target>noise_reducer.lore</target>
+        <target>¿El ruido infernal de los motores te impide ser feliz? Hay una solución para eso.</target>
       </segment>
     </unit>
     <unit id="apero_kitchen">
-      <segment id="apero_kitchen.type" state="initial">
+      <segment id="apero_kitchen.type" state="translated">
         <source>apero_kitchen.type</source>
-        <target>apero_kitchen.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="apero_kitchen.name" state="initial">
+      <segment id="apero_kitchen.name" state="translated">
         <source>apero_kitchen.name</source>
-        <target>apero_kitchen.name</target>
+        <target>Aperco-cocina SNC</target>
       </segment>
-      <segment id="apero_kitchen.description" state="initial">
+      <segment id="apero_kitchen.description" state="translated">
         <source>apero_kitchen.description</source>
-        <target>apero_kitchen.description</target>
+        <target>Mejora la cocina del **Comedor**.</target>
       </segment>
-      <segment id="apero_kitchen.lore" state="initial">
+      <segment id="apero_kitchen.lore" state="translated">
         <source>apero_kitchen.lore</source>
-        <target>apero_kitchen.lore</target>
+        <target>El fabricante SNC creó este aparato para hacer tu viaje más ameno.</target>
       </segment>
     </unit>
     <unit id="floor_heating">
-      <segment id="floor_heating.type" state="initial">
+      <segment id="floor_heating.type" state="translated">
         <source>floor_heating.type</source>
-        <target>floor_heating.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="floor_heating.name" state="initial">
+      <segment id="floor_heating.name" state="translated">
         <source>floor_heating.name</source>
-        <target>floor_heating.name</target>
+        <target>Calefacción en el suelo</target>
       </segment>
-      <segment id="floor_heating.description" state="initial">
+      <segment id="floor_heating.description" state="translated">
         <source>floor_heating.description</source>
-        <target>floor_heating.description</target>
+        <target>Reduce en 50% los accidentes al realizar ciertas acciones.</target>
       </segment>
-      <segment id="floor_heating.lore" state="initial">
+      <segment id="floor_heating.lore" state="translated">
         <source>floor_heating.lore</source>
-        <target>floor_heating.lore</target>
+        <target>Elimina la humedad en el suelo provocada por la condensación, así te tropezarás menos.</target>
       </segment>
     </unit>
     <unit id="oxy_more">
-      <segment id="oxy_more.type" state="initial">
+      <segment id="oxy_more.type" state="translated">
         <source>oxy_more.type</source>
-        <target>oxy_more.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="oxy_more.name" state="initial">
+      <segment id="oxy_more.name" state="translated">
         <source>oxy_more.name</source>
-        <target>oxy_more.name</target>
+        <target>Conductos oxigenados</target>
       </segment>
-      <segment id="oxy_more.description" state="initial">
+      <segment id="oxy_more.description" state="translated">
         <source>oxy_more.description</source>
-        <target>oxy_more.description</target>
+        <target>En cada ciclo, el Daedalus tiene 20% de probabilidades de ahorrar el oxígeno consumido por la tripulación.</target>
       </segment>
-      <segment id="oxy_more.lore" state="initial">
+      <segment id="oxy_more.lore" state="translated">
         <source>oxy_more.lore</source>
-        <target>oxy_more.lore</target>
+        <target>Ya que las algas que crecen en los conductos de ventilación nos dan más aire. ¿También podríamos plantar tabaco, no?</target>
       </segment>
     </unit>
     <unit id="beat_box">
-      <segment id="beat_box.type" state="initial">
+      <segment id="beat_box.type" state="translated">
         <source>beat_box.type</source>
-        <target>beat_box.type</target>
+        <target>Proyecto</target>
       </segment>
-      <segment id="beat_box.name" state="initial">
+      <segment id="beat_box.name" state="translated">
         <source>beat_box.name</source>
-        <target>beat_box.name</target>
+        <target>Rockola</target>
       </segment>
-      <segment id="beat_box.description" state="initial">
+      <segment id="beat_box.description" state="translated">
         <source>beat_box.description</source>
-        <target>beat_box.description</target>
+        <target>Genera un plano de Rockola disponible en el Nexus. La Rockola te permite relajarte un poco escuchando música.</target>
       </segment>
-      <segment id="beat_box.lore" state="initial">
+      <segment id="beat_box.lore" state="translated">
         <source>beat_box.lore</source>
-        <target>beat_box.lore</target>
+        <target>En cada ciclo, la Rockola reproduce una canción diferente. Cada personaje puede ganar 2 :pmo: cuando suena su canción favorita.</target>
       </segment>
     </unit>
     <unit id="anabolics">
-      <segment id="anabolics.type" state="initial">
+      <segment id="anabolics.type" state="translated">
         <source>anabolics.type</source>
-        <target>anabolics.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="anabolics.name" state="initial">
+      <segment id="anabolics.name" state="translated">
         <source>anabolics.name</source>
-        <target>anabolics.name</target>
+        <target>Anabólicos</target>
       </segment>
-      <segment id="anabolics.description" state="initial">
+      <segment id="anabolics.description" state="translated">
         <source>anabolics.description</source>
-        <target>anabolics.description</target>
+        <target>Genera 4 **Anabólicos**, que pueden consumirse para obtener 8 :pm:.</target>
       </segment>
-      <segment id="anabolics.lore" state="initial">
+      <segment id="anabolics.lore" state="translated">
         <source>anabolics.lore</source>
-        <target>anabolics.lore</target>
+        <target>La molécula de Grempf estimula la producción de hormonas andrógenas como la testosterona. Funciona en los seres humanos, los animales ¡y hasta en las plantas!</target>
       </segment>
     </unit>
     <unit id="antispore_gas">
-      <segment id="antispore_gas.type" state="initial">
+      <segment id="antispore_gas.type" state="translated">
         <source>antispore_gas.type</source>
-        <target>antispore_gas.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="antispore_gas.name" state="initial">
+      <segment id="antispore_gas.name" state="translated">
         <source>antispore_gas.name</source>
-        <target>antispore_gas.name</target>
+        <target>Gas antiespora</target>
       </segment>
-      <segment id="antispore_gas.description" state="initial">
+      <segment id="antispore_gas.description" state="translated">
         <source>antispore_gas.description</source>
-        <target>antispore_gas.description</target>
+        <target>El máximo de esporas diarias de los Mush se reduce en 2.</target>
       </segment>
-      <segment id="antispore_gas.lore" state="initial">
+      <segment id="antispore_gas.lore" state="translated">
         <source>antispore_gas.lore</source>
-        <target>antispore_gas.lore</target>
+        <target>Mientras hacíamos una sopa, vimos como el gas de las cebollas desatoraba los conductos de ventilación de la nave, matando a los hongos alojados ahí. ¿Por qué no utilizar la misma técnica para luchar contra el mal? Además todo el Daedalus huele a vainilla.</target>
       </segment>
     </unit>
     <unit id="constipaspore_serum">
-      <segment id="constipaspore_serum.type" state="initial">
+      <segment id="constipaspore_serum.type" state="translated">
         <source>constipaspore_serum.type</source>
-        <target>constipaspore_serum.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="constipaspore_serum.name" state="initial">
+      <segment id="constipaspore_serum.name" state="translated">
         <source>constipaspore_serum.name</source>
-        <target>constipaspore_serum.name</target>
+        <target>Emulsión de Nomaspora</target>
       </segment>
-      <segment id="constipaspore_serum.description" state="initial">
+      <segment id="constipaspore_serum.description" state="translated">
         <source>constipaspore_serum.description</source>
-        <target>constipaspore_serum.description</target>
+        <target>Aumenta en 2 :pa: el costo de creación de esporas.</target>
       </segment>
-      <segment id="constipaspore_serum.lore" state="initial">
+      <segment id="constipaspore_serum.lore" state="translated">
         <source>constipaspore_serum.lore</source>
-        <target>constipaspore_serum.lore</target>
+        <target>Mientras se estudiaba las células de algunos infectados, se logró detectar un fallo que al ser explotado retardaba la reproducción de sus virulentas esporas.</target>
       </segment>
     </unit>
     <unit id="create_mycoscan">
-      <segment id="create_mycoscan.type" state="initial">
+      <segment id="create_mycoscan.type" state="translated">
         <source>create_mycoscan.type</source>
-        <target>create_mycoscan.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="create_mycoscan.name" state="initial">
+      <segment id="create_mycoscan.name" state="translated">
         <source>create_mycoscan.name</source>
-        <target>create_mycoscan.name</target>
+        <target>Creación del Mycoscan</target>
       </segment>
-      <segment id="create_mycoscan.description" state="initial">
+      <segment id="create_mycoscan.description" state="translated">
         <source>create_mycoscan.description</source>
-        <target>create_mycoscan.description</target>
+        <target>Permite la detección de esporas en un tripulante sano.</target>
       </segment>
-      <segment id="create_mycoscan.lore" state="initial">
+      <segment id="create_mycoscan.lore" state="translated">
         <source>create_mycoscan.lore</source>
-        <target>create_mycoscan.lore</target>
+        <target>El artículo de Finola Keegan "La espora de la vida" marcó un hito en la Mushología. Los diversos estudios basados en sus descubrimientos favorecieron la invención de esta maravilla.</target>
       </segment>
     </unit>
     <unit id="meridon_scrambler">
-      <segment id="meridon_scrambler.type" state="initial">
+      <segment id="meridon_scrambler.type" state="translated">
         <source>meridon_scrambler.type</source>
-        <target>meridon_scrambler.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="meridon_scrambler.name" state="initial">
+      <segment id="meridon_scrambler.name" state="translated">
         <source>meridon_scrambler.name</source>
-        <target>meridon_scrambler.name</target>
+        <target>Lopezitina</target>
       </segment>
-      <segment id="meridon_scrambler.description" state="initial">
+      <segment id="meridon_scrambler.description" state="translated">
         <source>meridon_scrambler.description</source>
-        <target>meridon_scrambler.description</target>
+        <target>Los Hunters tienen 20% de probabilidades de apuntar a uno de los suyos en cada tiro.</target>
       </segment>
-      <segment id="meridon_scrambler.lore" state="initial">
+      <segment id="meridon_scrambler.lore" state="translated">
         <source>meridon_scrambler.lore</source>
-        <target>meridon_scrambler.lore</target>
+        <target>En su Cartagena natal, los doctores Carlos y Pedro López completaron la fórmula de esta sustancia que al entrar en contacto con los lóbulos parietales de los Hunters, provocan una especie de aturdimiento bastante gracioso.</target>
       </segment>
     </unit>
     <unit id="mush_hunter_zc16h">
-      <segment id="mush_hunter_zc16h.type" state="initial">
+      <segment id="mush_hunter_zc16h.type" state="translated">
         <source>mush_hunter_zc16h.type</source>
-        <target>mush_hunter_zc16h.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="mush_hunter_zc16h.name" state="initial">
+      <segment id="mush_hunter_zc16h.name" state="translated">
         <source>mush_hunter_zc16h.name</source>
-        <target>mush_hunter_zc16h.name</target>
+        <target>El Mush-Hunter : ZC16H</target>
       </segment>
-      <segment id="mush_hunter_zc16h.description" state="initial">
+      <segment id="mush_hunter_zc16h.description" state="translated">
         <source>mush_hunter_zc16h.description</source>
-        <target>mush_hunter_zc16h.description</target>
+        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
       </segment>
-      <segment id="mush_hunter_zc16h.lore" state="initial">
+      <segment id="mush_hunter_zc16h.lore" state="translated">
         <source>mush_hunter_zc16h.lore</source>
-        <target>mush_hunter_zc16h.lore</target>
+        <target>Parece que esta bacteria, extraída de un pelo de oreja de Chun, reacciona violentamente en contacto con los Mush. Digiere frenéticamente al hongo y se reproduce a velocidades impresionantes. ¡Esto podría producir un antídoto contra el Mush! El resultado de este estudio puede ser capital. La fama te espera.</target>
       </segment>
     </unit>
     <unit id="mushicide_soap">
-      <segment id="mushicide_soap.type" state="initial">
+      <segment id="mushicide_soap.type" state="translated">
         <source>mushicide_soap.type</source>
-        <target>mushicide_soap.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="mushicide_soap.name" state="initial">
+      <segment id="mushicide_soap.name" state="translated">
         <source>mushicide_soap.name</source>
-        <target>mushicide_soap.name</target>
+        <target>Jabón Mushicida</target>
       </segment>
-      <segment id="mushicide_soap.description" state="initial">
+      <segment id="mushicide_soap.description" state="translated">
         <source>mushicide_soap.description</source>
-        <target>mushicide_soap.description</target>
+        <target>Cada vez que te duches, destruirás una espora que lleves encima.</target>
       </segment>
-      <segment id="mushicide_soap.lore" state="initial">
+      <segment id="mushicide_soap.lore" state="translated">
         <source>mushicide_soap.lore</source>
-        <target>mushicide_soap.lore</target>
+        <target>Observando la poca actividad de las esporas en el cuerpo de Chun, notamos que el proceso de desintegración era mayor en las zonas adiposas del sujeto. Con una liposucción, elaboramos un jabón antifúngico eficaz. Chun estará feliz con su nueva silueta.</target>
       </segment>
     </unit>
     <unit id="mush_language">
-      <segment id="mush_language.type" state="initial">
+      <segment id="mush_language.type" state="translated">
         <source>mush_language.type</source>
-        <target>mush_language.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="mush_language.name" state="initial">
+      <segment id="mush_language.name" state="translated">
         <source>mush_language.name</source>
-        <target>mush_language.name</target>
+        <target>Lenguaje Mush</target>
       </segment>
-      <segment id="mush_language.description" state="initial">
+      <segment id="mush_language.description" state="translated">
         <source>mush_language.description</source>
-        <target>mush_language.description</target>
+        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
       </segment>
-      <segment id="mush_language.lore" state="initial">
+      <segment id="mush_language.lore" state="translated">
         <source>mush_language.lore</source>
-        <target>mush_language.lore</target>
+        <target>Una formidable tesis sobre las comunicaciones Mush nos hizo conocer la complejidad de las interacciones de esos parásitos.</target>
       </segment>
     </unit>
     <unit id="mushovore_bacteria">
-      <segment id="mushovore_bacteria.type" state="initial">
+      <segment id="mushovore_bacteria.type" state="translated">
         <source>mushovore_bacteria.type</source>
-        <target>mushovore_bacteria.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="mushovore_bacteria.name" state="initial">
+      <segment id="mushovore_bacteria.name" state="translated">
         <source>mushovore_bacteria.name</source>
-        <target>mushovore_bacteria.name</target>
+        <target>Bacteria Mushívora</target>
       </segment>
-      <segment id="mushovore_bacteria.description" state="initial">
+      <segment id="mushovore_bacteria.description" state="translated">
         <source>mushovore_bacteria.description</source>
-        <target>mushovore_bacteria.description</target>
+        <target>Los humanos pueden soportar hasta 3 esporas antes de convertirse en Mush.</target>
       </segment>
-      <segment id="mushovore_bacteria.lore" state="initial">
+      <segment id="mushovore_bacteria.lore" state="translated">
         <source>mushovore_bacteria.lore</source>
-        <target>mushovore_bacteria.lore</target>
+        <target>Encontramos la bacteria causante de una disfunción pancreática en Chun. Parece que esa bacteria es capaz de devorar al Mush. Por desgracia, su acción es muy lenta para detener la epidemia, pero retrasaría su propagación.</target>
       </segment>
     </unit>
     <unit id="mush_races">
-      <segment id="mush_races.type" state="initial">
+      <segment id="mush_races.type" state="translated">
         <source>mush_races.type</source>
-        <target>mush_races.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="mush_races.name" state="initial">
+      <segment id="mush_races.name" state="translated">
         <source>mush_races.name</source>
-        <target>mush_races.name</target>
+        <target>Razas Mush</target>
       </segment>
-      <segment id="mush_races.description" state="initial">
+      <segment id="mush_races.description" state="translated">
         <source>mush_races.description</source>
-        <target>mush_races.description</target>
+        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
       </segment>
-      <segment id="mush_races.lore" state="initial">
+      <segment id="mush_races.lore" state="translated">
         <source>mush_races.lore</source>
-        <target>mush_races.lore</target>
+        <target>La autopsia del "Oráculo de Wupperthal", el eslabón perdido de los Mush, reveló la variedad de ramas evolutivas de su especie.</target>
       </segment>
     </unit>
     <unit id="mush_reproductive_system">
-      <segment id="mush_reproductive_system.type" state="initial">
+      <segment id="mush_reproductive_system.type" state="translated">
         <source>mush_reproductive_system.type</source>
-        <target>mush_reproductive_system.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="mush_reproductive_system.name" state="initial">
+      <segment id="mush_reproductive_system.name" state="translated">
         <source>mush_reproductive_system.name</source>
-        <target>mush_reproductive_system.name</target>
+        <target>Sistema de reproducción Mush</target>
       </segment>
-      <segment id="mush_reproductive_system.description" state="initial">
+      <segment id="mush_reproductive_system.description" state="translated">
         <source>mush_reproductive_system.description</source>
-        <target>mush_reproductive_system.description</target>
+        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
       </segment>
-      <segment id="mush_reproductive_system.lore" state="initial">
+      <segment id="mush_reproductive_system.lore" state="translated">
         <source>mush_reproductive_system.lore</source>
-        <target>mush_reproductive_system.lore</target>
+        <target>Un fascinante estudio sobre la partenogénesis de las setas en ambientes anaeróbicos revelaron los secretos de la reproducción Mush. Sin duda, esto te llenará de fama.</target>
       </segment>
     </unit>
     <unit id="mycoalarm">
-      <segment id="mycoalarm.type" state="initial">
+      <segment id="mycoalarm.type" state="translated">
         <source>mycoalarm.type</source>
-        <target>mycoalarm.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="mycoalarm.name" state="initial">
+      <segment id="mycoalarm.name" state="translated">
         <source>mycoalarm.name</source>
-        <target>mycoalarm.name</target>
+        <target>MycoAlarma</target>
       </segment>
-      <segment id="mycoalarm.description" state="initial">
+      <segment id="mycoalarm.description" state="translated">
         <source>mycoalarm.description</source>
-        <target>mycoalarm.description</target>
+        <target>Genera 5 **MycoAlarmas**.</target>
       </segment>
-      <segment id="mycoalarm.lore" state="initial">
+      <segment id="mycoalarm.lore" state="translated">
         <source>mycoalarm.lore</source>
-        <target>mycoalarm.lore</target>
+        <target>Las toxinas, las esporas, el olor, entre otras cosas, ayudan a detectar a un Mush. Basándose en el coeficiente de oscilación de la feromona Alpha y su tasa de expansión, fue posible crear una alarma en miniatura que indica la presencia de una espora en una sala controlada.</target>
       </segment>
     </unit>
     <unit id="narcotics_distiller">
-      <segment id="narcotics_distiller.type" state="initial">
+      <segment id="narcotics_distiller.type" state="translated">
         <source>narcotics_distiller.type</source>
-        <target>narcotics_distiller.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="narcotics_distiller.name" state="initial">
+      <segment id="narcotics_distiller.name" state="translated">
         <source>narcotics_distiller.name</source>
-        <target>narcotics_distiller.name</target>
+        <target>Destilador de fármacos</target>
       </segment>
-      <segment id="narcotics_distiller.description" state="initial">
+      <segment id="narcotics_distiller.description" state="translated">
         <source>narcotics_distiller.description</source>
-        <target>narcotics_distiller.description</target>
+        <target>Crea un Destilador en la enfermería que puede ser usado una vez al día para crear un medicamento.</target>
       </segment>
-      <segment id="narcotics_distiller.lore" state="initial">
+      <segment id="narcotics_distiller.lore" state="translated">
         <source>narcotics_distiller.lore</source>
-        <target>narcotics_distiller.lore</target>
+        <target>Las sobrecargas de energía del reactor PILGRED (también llamado « El Cacharro ») son inyectadas a un sintetizador capaz de crear moléculas medicinales como la Yanoteduelina. Con eso, ¡adiós a los malestares galácticos!</target>
       </segment>
     </unit>
     <unit id="natamy_rifle">
-      <segment id="natamy_rifle.type" state="initial">
+      <segment id="natamy_rifle.type" state="translated">
         <source>natamy_rifle.type</source>
-        <target>natamy_rifle.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="natamy_rifle.name" state="initial">
+      <segment id="natamy_rifle.name" state="translated">
         <source>natamy_rifle.name</source>
-        <target>natamy_rifle.name</target>
+        <target>Fusil Natamy</target>
       </segment>
-      <segment id="natamy_rifle.description" state="initial">
+      <segment id="natamy_rifle.description" state="translated">
         <source>natamy_rifle.description</source>
-        <target>natamy_rifle.description</target>
+        <target>Transforma un **Blaster** en un **Fusil Natamy**.</target>
       </segment>
-      <segment id="natamy_rifle.lore" state="initial">
+      <segment id="natamy_rifle.lore" state="translated">
         <source>natamy_rifle.lore</source>
-        <target>natamy_rifle.lore</target>
+        <target>El resultado de un accidente, puede ser un gran descubrimiento.</target>
       </segment>
     </unit>
     <unit id="ncc_contact_lenses">
-      <segment id="ncc_contact_lenses.type" state="initial">
+      <segment id="ncc_contact_lenses.type" state="translated">
         <source>ncc_contact_lenses.type</source>
-        <target>ncc_contact_lenses.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="ncc_contact_lenses.name" state="initial">
+      <segment id="ncc_contact_lenses.name" state="translated">
         <source>ncc_contact_lenses.name</source>
-        <target>ncc_contact_lenses.name</target>
+        <target>Lentillas NCC</target>
       </segment>
-      <segment id="ncc_contact_lenses.description" state="initial">
+      <segment id="ncc_contact_lenses.description" state="translated">
         <source>ncc_contact_lenses.description</source>
-        <target>ncc_contact_lenses.description</target>
+        <target>Genera 2 **pares de lentillas NCC**.</target>
       </segment>
-      <segment id="ncc_contact_lenses.lore" state="initial">
+      <segment id="ncc_contact_lenses.lore" state="translated">
         <source>ncc_contact_lenses.lore</source>
-        <target>ncc_contact_lenses.lore</target>
+        <target>Los gatos en el espacio desarrollaron una visión perfecta en toda la gama de condiciones de luz. Esto agradará mucho a la tripulación.</target>
       </segment>
     </unit>
     <unit id="patuline_scrambler">
-      <segment id="patuline_scrambler.type" state="initial">
+      <segment id="patuline_scrambler.type" state="translated">
         <source>patuline_scrambler.type</source>
-        <target>patuline_scrambler.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="patuline_scrambler.name" state="initial">
+      <segment id="patuline_scrambler.name" state="translated">
         <source>patuline_scrambler.name</source>
-        <target>patuline_scrambler.name</target>
+        <target>Emisor de interferencias</target>
       </segment>
-      <segment id="patuline_scrambler.description" state="initial">
+      <segment id="patuline_scrambler.description" state="translated">
         <source>patuline_scrambler.description</source>
-        <target>patuline_scrambler.description</target>
+        <target>Los mensajes en el canal Mush ahora son ilegibles.</target>
       </segment>
-      <segment id="patuline_scrambler.lore" state="initial">
+      <segment id="patuline_scrambler.lore" state="translated">
         <source>patuline_scrambler.lore</source>
-        <target>patuline_scrambler.lore</target>
+        <target>Los experimentos del Dr. Dolopine en el año 2070 fueron claves en el desarrollo de esta rara sustancia para la cual se necesitó nada menos que una tonelada de patas de grillos bordelianos.</target>
       </segment>
     </unit>
     <unit id="perpetual_hydration">
-      <segment id="perpetual_hydration.type" state="initial">
+      <segment id="perpetual_hydration.type" state="translated">
         <source>perpetual_hydration.type</source>
-        <target>perpetual_hydration.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="perpetual_hydration.name" state="initial">
+      <segment id="perpetual_hydration.name" state="translated">
         <source>perpetual_hydration.name</source>
-        <target>perpetual_hydration.name</target>
+        <target>Hidratación perpetua</target>
       </segment>
-      <segment id="perpetual_hydration.description" state="initial">
+      <segment id="perpetual_hydration.description" state="translated">
         <source>perpetual_hydration.description</source>
-        <target>perpetual_hydration.description</target>
+        <target>Los resultados de este estudio podrían ser cruciales y hacer famosa a toda la tripulación.</target>
       </segment>
-      <segment id="perpetual_hydration.lore" state="initial">
+      <segment id="perpetual_hydration.lore" state="translated">
         <source>perpetual_hydration.lore</source>
-        <target>perpetual_hydration.lore</target>
+        <target>Al colocar un pétalo húmedo de Hydram detrás de las orejas se produce un goteo constante de H2O. Su único inconveniente es que su autonomía es de 36 435 200 años, nada más.</target>
       </segment>
     </unit>
     <unit id="pheromodem">
-      <segment id="pheromodem.type" state="initial">
+      <segment id="pheromodem.type" state="translated">
         <source>pheromodem.type</source>
-        <target>pheromodem.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="pheromodem.name" state="initial">
+      <segment id="pheromodem.name" state="translated">
         <source>pheromodem.name</source>
-        <target>pheromodem.name</target>
+        <target>Feromódem</target>
       </segment>
-      <segment id="pheromodem.description" state="initial">
+      <segment id="pheromodem.description" state="translated">
         <source>pheromodem.description</source>
-        <target>pheromodem.description</target>
+        <target>Hace que el iTrackie pueda ingresar al canal Mush.</target>
       </segment>
-      <segment id="pheromodem.lore" state="initial">
+      <segment id="pheromodem.lore" state="translated">
         <source>pheromodem.lore</source>
-        <target>pheromodem.lore</target>
+        <target>Este es uno de los experimentos más destacados del laboratorio de Finola. Comparando las frecuencias usadas por los hongos, logró determinar con exactitud las que son utilizadas por los Mush. Agregando un Feromódem a los trackers, ¡los walkie-talkies serán cosa del pasado!</target>
       </segment>
     </unit>
     <unit id="retro_fungal_serum">
-      <segment id="retro_fungal_serum.type" state="initial">
+      <segment id="retro_fungal_serum.type" state="translated">
         <source>retro_fungal_serum.type</source>
-        <target>retro_fungal_serum.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="retro_fungal_serum.name" state="initial">
+      <segment id="retro_fungal_serum.name" state="translated">
         <source>retro_fungal_serum.name</source>
-        <target>retro_fungal_serum.name</target>
+        <target>Antídoto Retrofúngico</target>
       </segment>
-      <segment id="retro_fungal_serum.description" state="initial">
+      <segment id="retro_fungal_serum.description" state="translated">
         <source>retro_fungal_serum.description</source>
-        <target>retro_fungal_serum.description</target>
+        <target>Genera un **Antídoto Anti-Mush**.</target>
       </segment>
-      <segment id="retro_fungal_serum.lore" state="initial">
+      <segment id="retro_fungal_serum.lore" state="translated">
         <source>retro_fungal_serum.lore</source>
-        <target>retro_fungal_serum.lore</target>
+        <target>Los estudios demostraron que las emanaciones de los quásares podrían ser "la solución final" para detener la invasión de los Mush. Estos resultados pueden convertir al equipo en una leyenda universal. Los resultados de este estudio son críticos y harán famosa a toda la tripulación.</target>
       </segment>
     </unit>
     <unit id="spore_sucker">
-      <segment id="spore_sucker.type" state="initial">
+      <segment id="spore_sucker.type" state="translated">
         <source>spore_sucker.type</source>
-        <target>spore_sucker.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="spore_sucker.name" state="initial">
+      <segment id="spore_sucker.name" state="translated">
         <source>spore_sucker.name</source>
-        <target>spore_sucker.name</target>
+        <target>Extractor de Esporas</target>
       </segment>
-      <segment id="spore_sucker.description" state="initial">
+      <segment id="spore_sucker.description" state="translated">
         <source>spore_sucker.description</source>
-        <target>spore_sucker.description</target>
+        <target>Genera un **Extractor de esporas**.</target>
       </segment>
-      <segment id="spore_sucker.lore" state="initial">
+      <segment id="spore_sucker.lore" state="translated">
         <source>spore_sucker.lore</source>
-        <target>spore_sucker.lore</target>
+        <target>No te fíes de su aspecto intimidante, el extractor de esporas, con un mínimo de dolor, te quitará esas malignas glándulas fúngicas.</target>
       </segment>
     </unit>
     <unit id="super_calculator">
-      <segment id="super_calculator.type" state="initial">
+      <segment id="super_calculator.type" state="translated">
         <source>super_calculator.type</source>
-        <target>super_calculator.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="super_calculator.name" state="initial">
+      <segment id="super_calculator.name" state="translated">
         <source>super_calculator.name</source>
-        <target>super_calculator.name</target>
+        <target>Super calculadora</target>
       </segment>
-      <segment id="super_calculator.description" state="initial">
+      <segment id="super_calculator.description" state="translated">
         <source>super_calculator.description</source>
-        <target>super_calculator.description</target>
+        <target>Genera un equipo en el Nexus para extraer datos de las cristalitas.</target>
       </segment>
-      <segment id="super_calculator.lore" state="initial">
+      <segment id="super_calculator.lore" state="translated">
         <source>super_calculator.lore</source>
-        <target>super_calculator.lore</target>
+        <target>Aunque suene raro, NERON no es muy bueno con los cálculos... Analizando la estructura molecular de las cristalitas, crees que podrás crear una maquinilla capaz de procesar los datos que contienen.</target>
       </segment>
     </unit>
     <unit id="tesla_sup2x">
-      <segment id="tesla_sup2x.type" state="initial">
+      <segment id="tesla_sup2x.type" state="translated">
         <source>tesla_sup2x.type</source>
-        <target>tesla_sup2x.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="tesla_sup2x.name" state="initial">
+      <segment id="tesla_sup2x.name" state="translated">
         <source>tesla_sup2x.name</source>
-        <target>tesla_sup2x.name</target>
+        <target>Tesla SUP2X</target>
       </segment>
-      <segment id="tesla_sup2x.description" state="initial">
+      <segment id="tesla_sup2x.description" state="translated">
         <source>tesla_sup2x.description</source>
-        <target>tesla_sup2x.description</target>
+        <target>Duplica la cantidad máxima de las cargas en los cañones del Daedalus.</target>
       </segment>
-      <segment id="tesla_sup2x.lore" state="initial">
+      <segment id="tesla_sup2x.lore" state="translated">
         <source>tesla_sup2x.lore</source>
-        <target>tesla_sup2x.lore</target>
+        <target>Simplemente introduciendo un palo de escoba en el motor de fusión, hemos podido duplicar la concentración de energía. ¡Eso nos da un 100% de energía adicional en los cañones!</target>
       </segment>
     </unit>
     <unit id="ultra_healing_pomade">
-      <segment id="ultra_healing_pomade.type" state="initial">
+      <segment id="ultra_healing_pomade.type" state="translated">
         <source>ultra_healing_pomade.type</source>
-        <target>ultra_healing_pomade.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="ultra_healing_pomade.name" state="initial">
+      <segment id="ultra_healing_pomade.name" state="translated">
         <source>ultra_healing_pomade.name</source>
-        <target>ultra_healing_pomade.name</target>
+        <target>Pomada ultra-cicatrizante</target>
       </segment>
-      <segment id="ultra_healing_pomade.description" state="initial">
+      <segment id="ultra_healing_pomade.description" state="translated">
         <source>ultra_healing_pomade.description</source>
-        <target>ultra_healing_pomade.description</target>
+        <target>Las acciones de curación regeneran 1 :hp: adicional.</target>
       </segment>
-      <segment id="ultra_healing_pomade.lore" state="initial">
+      <segment id="ultra_healing_pomade.lore" state="translated">
         <source>ultra_healing_pomade.lore</source>
-        <target>ultra_healing_pomade.lore</target>
+        <target>Algunos trucos básicos de química orgánica te permiten crear un medikit muy superior a los de la FDS.</target>
       </segment>
     </unit>
     <unit id="guarana_cappuccino">
-      <segment id="guarana_cappuccino.type" state="initial">
+      <segment id="guarana_cappuccino.type" state="translated">
         <source>guarana_cappuccino.type</source>
-        <target>guarana_cappuccino.type</target>
+        <target>Invest.</target>
       </segment>
-      <segment id="guarana_cappuccino.name" state="initial">
+      <segment id="guarana_cappuccino.name" state="translated">
         <source>guarana_cappuccino.name</source>
-        <target>guarana_cappuccino.name</target>
+        <target>Capuchino de guaraná</target>
       </segment>
-      <segment id="guarana_cappuccino.description" state="initial">
+      <segment id="guarana_cappuccino.description" state="translated">
         <source>guarana_cappuccino.description</source>
-        <target>guarana_cappuccino.description</target>
+        <target>Cada **Café** otorga 1 :pa: adicional al beberse.</target>
       </segment>
-      <segment id="guarana_cappuccino.lore" state="initial">
+      <segment id="guarana_cappuccino.lore" state="translated">
         <source>guarana_cappuccino.lore</source>
-        <target>guarana_cappuccino.lore</target>
+        <target>La dosis de cafeína incluida en el café de nuestra cafetera es demasiado alta para considerar aumentarla... Sin embargo, añadiendo extractos de guaraná en forma de emulsión cremosa sobre cada expreso, debería ser posible potenciar un poco las propiedades energizantes de nuestra bebida favorita.</target>
       </segment>
     </unit>
   </file>

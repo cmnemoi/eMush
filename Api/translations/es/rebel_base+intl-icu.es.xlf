@@ -2,13 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="rebel_base.ext">
     <unit id="wolf">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>wolf.name</source>
-        <target>wolf.name</target>
+        <target>Wolf</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>wolf.hoverName</source>
-        <target>wolf.hoverName</target>
+        <target>Mensaje de los Niños Perdidos de Wolf</target>
       </segment>
       <segment id="description" state="initial">
         <source>wolf.description</source>
@@ -16,101 +16,101 @@
       </segment>
     </unit>
     <unit id="sirius">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>sirius.name</source>
-        <target>sirius.name</target>
+        <target>Sirius</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>sirius.hoverName</source>
-        <target>sirius.hoverName</target>
+        <target>Mensaje de los Magos Negros de Sirius</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>sirius.description</source>
-        <target>sirius.description</target>
+        <target>Gracias por todas las informaciones que nos habéis brindado sobre el Mush. Para recompensaros, os transferimos los planos de la molécula de Shkunz. Aplicándola en dosis pequeñas en vuestras raciones de alimentos, mejoraréis el rendimiento de los tripulantes.//**Las Raciones dan 1 :pa: adicional.**</target>
       </segment>
     </unit>
     <unit id="centauri">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>centauri.name</source>
-        <target>centauri.name</target>
+        <target>Centauri</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>centauri.hoverName</source>
-        <target>centauri.hoverName</target>
+        <target>Mensaje de los Amantes de Centauri</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>centauri.description</source>
-        <target>centauri.description</target>
+        <target>Saludos, aliados en la guerra anti-mush. Estamos acorralados por los invasores. Para facilitar vuestras exploraciones os transferimos los planos del PL80-Blaster, un poderoso cañón de plasma que debe ser usado con mucha cautela. ¡Hasta la victoria, siempre!//**Cada Blaster gana un punto de poder adicional en una expedición.**</target>
       </segment>
     </unit>
     <unit id="kaladaan">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>kaladaan.name</source>
-        <target>kaladaan.name</target>
+        <target>Kaladaan</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>kaladaan.hoverName</source>
-        <target>kaladaan.hoverName</target>
+        <target>Mensaje de los Fundadores de Kaladaan</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>kaladaan.description</source>
-        <target>kaladaan.description</target>
+        <target>¡Saludos de Kaladaan! Agradecemos a todos los tripulantes del Daedalus por haber devuelto la esperanza a los pueblos de Sol. Nosotros hemos seguido unidos y organizados, hasta lograr infiltrarnos en las cúpulas políticas de Mush. ¡Ánimos muchachos, la Federación será derrocada!//**+ 6 :pmo: a toda la tripulación.**</target>
       </segment>
     </unit>
     <unit id="luyten_ceti">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>luyten_ceti.name</source>
-        <target>luyten_ceti.name</target>
+        <target>Luyten-Ceti</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>luyten_ceti.hoverName</source>
-        <target>luyten_ceti.hoverName</target>
+        <target>Mensaje de las Sombras de Luyten-Ceti</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>luyten_ceti.description</source>
-        <target>luyten_ceti.description</target>
+        <target>Nuestro sistema está aún bajo el control de Mush. Debemos trabajar con la mayor discreción y para ello hemos desarrollado sondas microscópicas que colocamos en nuestros cerebros. Os transferimos sus planos de fabricación. Las sombras de Luyten-Ceti os desea larga vida y éxito en esta misión.//**Los tripulantes reciben el estado Pensalink que les permite comunicarse a distancia sin usar el Walkie-Talkie ni el iTrackie.**</target>
       </segment>
     </unit>
     <unit id="cygni">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cygni.name</source>
-        <target>cygni.name</target>
+        <target>Cygni</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>cygni.hoverName</source>
-        <target>cygni.hoverName</target>
+        <target>Mensaje de las Auroras de Cygni</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cygni.description</source>
-        <target>cygni.description</target>
+        <target>Saludamos a la tripulación del Daedalus. Cygni fue explorado durante vuestro viaje. La Federación no sabe que la mayoría de nuestra información viene de la humanidad. Hemos logrado engañar a los Mush enviando señales falsas gracias a un Pheromódem mejorado. Gracias a esto, ahora nos preparamos para un contraataque. Los planos de nuestro misil SP2SP-230 han sido transferidos a NERON.//**Los daños provocados por los Patrulleros aumentan en 1 punto.**//**+ 3 :pmo: a toda la tripulación.**</target>
       </segment>
     </unit>
     <unit id="unknown">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>unknown.name</source>
-        <target>unknown.name</target>
+        <target>???</target>
       </segment>
-      <segment id="hoverName" state="initial">
+      <segment id="hoverName" state="translated">
         <source>unknown.hoverName</source>
-        <target>unknown.hoverName</target>
+        <target>???</target>
       </segment>
     </unit>
     <unit id="lost">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lost.description</source>
-        <target>lost.description</target>
+        <target>Esta base rebelde ha lanzado una señal pero nadie pudo descifrarla. Las informaciones y ayudas que traía se perdieron para siempre.</target>
       </segment>
     </unit>
     <unit id="not_contacting">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>not_contacting.description</source>
-        <target>not_contacting.description</target>
+        <target>Esta base rebelde parece inactiva ahora. En un momento del viaje, enviará una señal cifrada. Trata de captarla y descifrarla a tiempo para recibir sus beneficios.</target>
       </segment>
     </unit>
     <unit id="contacting">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>contacting.description</source>
-        <target>contacting.description</target>
+        <target>Esta base rebelde ha lanzado una señal. Descifrándola, obtendrás informaciones valiosas y hasta ventajas para toda la tripulación. Si no la atiendes a tiempo, la señal se perderá para siempre.</target>
       </segment>
     </unit>
   </file>

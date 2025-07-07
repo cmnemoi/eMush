@@ -342,9 +342,9 @@
       </segment>
     </unit>
     <unit id="vertigo">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>vertigo.name</source>
-        <target>vertigo.name</target>
+        <target>Vértigo</target>
       </segment>
       <segment id="description" state="initial">
         <source>vertigo.description</source>
@@ -362,9 +362,9 @@
       </segment>
     </unit>
     <unit id="burns_50_of_body">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>burns_50_of_body.name</source>
-        <target>burns_50_of_body.name</target>
+        <target>Quemadura de 3er grado en el 50% de tu cuerpo</target>
       </segment>
       <segment id="description" state="translated">
         <source>burns_50_of_body.description</source>
@@ -372,9 +372,9 @@
       </segment>
     </unit>
     <unit id="burns_90_of_body">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>burns_90_of_body.name</source>
-        <target>burns_90_of_body.name</target>
+        <target>Quemadura de 3er grado en el 90% de tu cuerpo</target>
       </segment>
       <segment id="description" state="translated">
         <source>burns_90_of_body.description</source>
@@ -428,7 +428,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>broken_shoulder.description</source>
-        <target>Tu hombro está roto y dislocado. Imposible transportar objetos pesados...</target>
+        <target>Tu hombro está roto y dislocado. Es imposible transportar objetos pesados...</target>
       </segment>
     </unit>
     <unit id="bruised_shoulder">
@@ -448,7 +448,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>burnt_arms.description</source>
-        <target>Tus brazos se han quemado tanto que tomar el más pequeño objeto es tortura.</target>
+        <target>Tus brazos se han quemado tanto que tomar el más pequeño objeto es una tortura.</target>
       </segment>
     </unit>
     <unit id="burnt_hand">
@@ -474,7 +474,7 @@
     <unit id="busted_arm_joint">
       <segment id="name" state="translated">
         <source>busted_arm_joint.name</source>
-        <target>Articulatión rota de brazo fuerte</target>
+        <target>Articulación de brazo dominante rota</target>
       </segment>
       <segment id="description" state="translated">
         <source>busted_arm_joint.description</source>
@@ -528,7 +528,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>dysfunctional_liver.description</source>
-        <target>Aún puedes vivir con tu hígado destruido pero ¿Por cuánto tiempo y en que condiciones?</target>
+        <target>Aún puedes vivir con tu hígado destruido pero, ¿Por cuánto tiempo y en qué condiciones?</target>
       </segment>
     </unit>
     <unit id="haemorrhage">
@@ -648,7 +648,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>mashed_legs.description</source>
-        <target>Ya no tienes movilidad en las piernas, que pena, eran bastante útiles.</target>
+        <target>Ya no tienes movilidad en las piernas, qué pena, eran bastante útiles.</target>
       </segment>
     </unit>
     <unit id="torn_tongue">

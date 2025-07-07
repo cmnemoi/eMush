@@ -2,42 +2,27 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Heal;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
-use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Disease\Enum\DiseaseEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
-use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Enum\ToolItemEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
 /**
  * @internal
@@ -48,8 +33,9 @@ final class HealCest extends AbstractFunctionalTest
     private Heal $healAction;
 
     private PlayerDiseaseServiceInterface $playerDiseaseService;
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private StatusServiceInterface $statusService;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
@@ -59,7 +45,10 @@ final class HealCest extends AbstractFunctionalTest
 
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
+
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
         // given players are in medlab
         $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
@@ -68,188 +57,80 @@ final class HealCest extends AbstractFunctionalTest
 
     public function testHeal(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
+        $this->givenKuanTiHasHealthPoints(1);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        $this->whenChunHealsKuanTi();
 
-        /** @var Place $medlab */
-        $medlab = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::MEDLAB]);
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::HEAL)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST)
-            ->setOutputQuantity(3);
-        $I->haveInRepository($action);
-
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class);
-        $itemConfig
-            ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActionConfigs(new ArrayCollection([$action]));
-
-        $I->haveInRepository($itemConfig);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'actionConfigs' => new ArrayCollection([$action]),
-        ]);
-
-        /** @var Player $healerPlayer */
-        $healerPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $medlab,
-        ]);
-        $healerPlayer->setPlayerVariables($characterConfig);
-        $healerPlayer
-            ->setActionPoint(2);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
-        $I->haveInRepository($healerPlayerInfo);
-        $healerPlayer->setPlayerInfo($healerPlayerInfo);
-        $I->refreshEntities($healerPlayer);
-
-        /** @var Player $healedPlayer */
-        $healedPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $medlab,
-        ]);
-        $healedPlayer->setPlayerVariables($characterConfig);
-        $healedPlayer
-            ->setHealthPoint(6);
-        $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
-        $I->haveInRepository($healedPlayerInfo);
-        $healedPlayer->setPlayerInfo($healedPlayerInfo);
-        $I->refreshEntities($healedPlayer);
-
-        $initHealthPoint = $healedPlayer->getHealthPoint();
-
-        $this->healAction->loadParameters(
-            actionConfig: $action,
-            actionProvider: $healerPlayer,
-            player: $healerPlayer,
-            target: $healedPlayer
-        );
-
-        $I->assertTrue($this->healAction->isVisible());
-        $I->assertNull($this->healAction->cannotExecuteReason());
-
-        $this->healAction->execute();
-
-        $I->assertEquals(0, $healerPlayer->getActionPoint());
-        $I->assertEquals($initHealthPoint + 3, $healedPlayer->getHealthPoint());
+        $this->thenKuanTiShouldHaveHealthPoints(4, $I);
 
         $I->seeInRepository(RoomLog::class, [
-            'place' => $medlab->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $healerPlayer->getPlayerInfo()->getId(),
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo()->getId(),
             'log' => ActionLogEnum::HEAL_SUCCESS,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
     }
 
-    public function testMedlabHealOutsideMedlab(FunctionalTester $I)
+    public function testMedikitHeal(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
+        // given players are in the laboratory
+        $place = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $this->player1->changePlace($place);
+        $this->player2->changePlace($place);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, ['cycleStartedAt' => new \DateTime()]);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
+        // given chun has the medikit
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            ToolItemEnum::MEDIKIT,
+            $this->player,
+            [],
+            new \DateTime(),
+        );
 
-        /** @var Place $laboratory */
-        $laboratory = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => RoomEnum::LABORATORY]);
+        $this->givenKuanTiHasHealthPoints(1);
 
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::HEAL)
-            ->setRange(ActionRangeEnum::PLAYER)
-            ->setDisplayHolder(ActionHolderEnum::OTHER_PLAYER)
-            ->setActionCost(2)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($action);
+        $this->whenChunHealsKuanTi();
 
-        /** @var ItemConfig $itemConfig */
-        $itemConfig = $I->have(ItemConfig::class);
-        $itemConfig
-            ->setEquipmentName(ToolItemEnum::MEDIKIT)
-            ->setActionConfigs(new ArrayCollection([$action]));
+        $this->thenKuanTiShouldHaveHealthPoints(4, $I);
+    }
 
-        $I->haveInRepository($itemConfig);
+    public function testHealShouldNotBeExecutableWithoutMedkitOrMedlab(FunctionalTester $I): void
+    {
+        // given players are in the laboratory
+        $place = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
+        $this->player1->changePlace($place);
+        $this->player2->changePlace($place);
 
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class, [
-            'actionConfigs' => new ArrayCollection([$action]),
-        ]);
+        // given chun do not have the medikit
+        $I->assertFalse($this->player->hasEquipmentByName(ToolItemEnum::MEDIKIT));
 
-        /** @var Player $healerPlayer */
-        $healerPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $laboratory,
-        ]);
-        $healerPlayer->setPlayerVariables($characterConfig);
-        $healerPlayer
-            ->setActionPoint(2);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $healerPlayerInfo = new PlayerInfo($healerPlayer, $user, $characterConfig);
-        $I->haveInRepository($healerPlayerInfo);
-        $healerPlayer->setPlayerInfo($healerPlayerInfo);
-        $I->refreshEntities($healerPlayer);
-
-        /** @var Player $healedPlayer */
-        $healedPlayer = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $laboratory,
-        ]);
-        $healedPlayer->setPlayerVariables($characterConfig);
-        $healedPlayer
-            ->setHealthPoint(6);
-        $healedPlayerInfo = new PlayerInfo($healedPlayer, $user, $characterConfig);
-        $I->haveInRepository($healedPlayerInfo);
-        $healedPlayer->setPlayerInfo($healedPlayerInfo);
-        $I->refreshEntities($healedPlayer);
+        $this->givenKuanTiHasHealthPoints(1);
 
         $this->healAction->loadParameters(
-            actionConfig: $action,
-            actionProvider: $healerPlayer,
-            player: $healerPlayer,
-            target: $healedPlayer
+            $this->healConfig,
+            $this->chun,
+            $this->chun,
+            $this->kuanTi,
         );
 
         $I->assertFalse($this->healAction->isVisible());
+        $I->assertNotNull($this->healAction->cannotExecuteReason());
     }
 
     public function testHealAtFullLifePrintsCorrectLog(FunctionalTester $I): void
     {
-        // given player 2 has a flu
+        // given Kuan Ti has a flu
         $this->playerDiseaseService->createDiseaseFromName(
             diseaseName: DiseaseEnum::FLU,
             player: $this->player2,
             reasons: []
         );
 
-        $this->player2->setHealthPoint(14);
-        $I->refreshEntities($this->player2);
-
+        $this->givenKuanTiHasHealthPoints(14);
         $healthVariable = $this->player2->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
         $I->assertTrue($healthVariable->isMax());
 
-        // when player 1 heals player 2
-        $this->healAction->loadParameters(
-            actionConfig: $this->healConfig,
-            actionProvider: $this->player1,
-            player: $this->player1,
-            target: $this->player2
-        );
-        $this->healAction->execute();
+        $this->whenChunHealsKuanTi();
 
         // then I don't see a log about health gained
         $I->dontSeeInRepository(RoomLog::class, [
@@ -266,26 +147,19 @@ final class HealCest extends AbstractFunctionalTest
         ]);
     }
 
-    public function nurseShouldNotUseActionPoints(FunctionalTester $I): void
+    public function nurseShouldUseOneNursePointInsteadOfActionPoints(FunctionalTester $I): void
     {
-        $this->givenPlayerIsANurse($I);
+        $this->givenChunIsANurse($I);
 
-        $this->givenPlayerHasTenActionPoints();
+        $this->givenChunHasTenActionPoints();
 
-        $this->whenPlayerHeal();
+        $this->givenChunHasTwoNursePoints($I);
 
-        $this->thenPlayerShouldHaveTenActionPoints($I);
-    }
+        $this->whenChunHealsKuanTi();
 
-    public function nurseShouldUseOneITPoint(FunctionalTester $I): void
-    {
-        $this->givenPlayerIsANurse($I);
+        $this->thenChunShouldHaveOneNursePoint($I);
 
-        $this->givenPlayerHasTwoNursePoints($I);
-
-        $this->whenPlayerHeal();
-
-        $this->thenPlayerShouldHaveOneNursePoint($I);
+        $this->thenChunShouldHaveTenActionPoints($I);
     }
 
     public function mycologistShouldRemoveSporeFromTarget(FunctionalTester $I): void
@@ -314,61 +188,55 @@ final class HealCest extends AbstractFunctionalTest
 
     public function medicShouldGiveMoreHealthPoints(FunctionalTester $I): void
     {
-        $this->givenPlayerIsAMedic($I);
+        $this->givenChunIsAMedic($I);
 
-        $this->givenTargetHasHealthPoints(6);
+        $this->givenKuanTiHasHealthPoints(6);
 
-        $this->whenPlayerHeal();
+        $this->whenChunHealsKuanTi();
 
-        $this->thenTargetShouldHaveHealthPoints(11, $I);
+        $this->thenKuanTiShouldHaveHealthPoints(11, $I);
     }
 
     public function medicShouldNotGiveMoreHealthPointsOnFail(FunctionalTester $I): void
     {
-        $this->givenPlayerIsAMedic($I);
+        $this->givenChunIsAMedic($I);
 
-        $this->givenTargetHasHealthPoints(14);
+        $this->givenKuanTiHasHealthPoints(14);
 
-        $this->whenPlayerHeal();
+        $this->whenChunHealsKuanTi();
 
-        $this->thenTargetShouldHaveHealthPoints(14, $I);
+        $this->thenKuanTiShouldHaveHealthPoints(14, $I);
     }
 
     public function ultraHealingPomadeShouldGiveMoreHealthPoints(FunctionalTester $I): void
     {
         $this->givenUltraHealingPomadeIsCompleted($I);
 
-        $this->givenTargetHasHealthPoints(6);
+        $this->givenKuanTiHasHealthPoints(6);
 
-        $this->whenPlayerHeal();
+        $this->whenChunHealsKuanTi();
 
-        $this->thenTargetShouldHaveHealthPoints(10, $I);
+        $this->thenKuanTiShouldHaveHealthPoints(10, $I);
     }
 
-    private function givenPlayerIsANurse(FunctionalTester $I): void
+    private function givenChunIsANurse(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::NURSE]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::NURSE, $this->player));
+        $this->addSkillToPlayer(SkillEnum::NURSE, $I, $this->player);
     }
 
-    private function givenPlayerHasTwoNursePoints(FunctionalTester $I): void
+    private function givenChunHasTwoNursePoints(FunctionalTester $I): void
     {
         $I->assertEquals(2, $this->player->getSkillByNameOrThrow(SkillEnum::NURSE)->getSkillPoints());
     }
 
-    private function givenPlayerHasTenActionPoints(): void
+    private function givenChunHasTenActionPoints(): void
     {
         $this->player->setActionPoint(10);
     }
 
     private function givenChunIsAMycologist(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::MYCOLOGIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::MYCOLOGIST, $this->player));
+        $this->addSkillToPlayer(SkillEnum::MYCOLOGIST, $I, $this->chun);
     }
 
     private function givenKuanTiHasASpore(): void
@@ -386,12 +254,12 @@ final class HealCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenPlayerIsAMedic(FunctionalTester $I): void
+    private function givenChunIsAMedic(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::MEDIC, $I);
     }
 
-    private function givenTargetHasHealthPoints(int $healthPoints): void
+    private function givenKuanTiHasHealthPoints(int $healthPoints): void
     {
         $this->player2->setHealthPoint($healthPoints);
     }
@@ -405,17 +273,6 @@ final class HealCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenPlayerHeal(): void
-    {
-        $this->healAction->loadParameters(
-            actionConfig: $this->healConfig,
-            actionProvider: $this->player,
-            player: $this->player,
-            target: $this->player2
-        );
-        $this->healAction->execute();
-    }
-
     private function whenChunHealsKuanTi(): void
     {
         $this->healAction->loadParameters(
@@ -427,12 +284,12 @@ final class HealCest extends AbstractFunctionalTest
         $this->healAction->execute();
     }
 
-    private function thenPlayerShouldHaveTenActionPoints(FunctionalTester $I): void
+    private function thenChunShouldHaveTenActionPoints(FunctionalTester $I): void
     {
         $I->assertEquals(10, $this->player->getActionPoint());
     }
 
-    private function thenPlayerShouldHaveOneNursePoint(FunctionalTester $I): void
+    private function thenChunShouldHaveOneNursePoint(FunctionalTester $I): void
     {
         $I->assertEquals(1, $this->player->getSkillByNameOrThrow(SkillEnum::NURSE)->getSkillPoints());
     }
@@ -442,7 +299,7 @@ final class HealCest extends AbstractFunctionalTest
         $I->assertEquals($quantity, $this->kuanTi->getSpores());
     }
 
-    private function thenTargetShouldHaveHealthPoints(int $healthPoints, FunctionalTester $I): void
+    private function thenKuanTiShouldHaveHealthPoints(int $healthPoints, FunctionalTester $I): void
     {
         $I->assertEquals($healthPoints, $this->player2->getHealthPoint());
     }

@@ -33,7 +33,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
@@ -89,7 +88,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->pasiphae);
 
         // given Terrence is a pilot so they can take off
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->terrence));
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->terrence);
 
         $this->action = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKEOFF]);
         $this->takeoffAction = $I->grabService(Takeoff::class);
@@ -638,7 +637,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     private function thenChunShouldReceiveANotification(FunctionalTester $I): void
     {
         $I->assertEquals(
-            expected: $this->chun->getNotificationOrThrow()->getMessage(),
+            expected: $this->chun->getFirstNotificationOrThrow()->getMessage(),
             actual: PlayerNotificationEnum::DROPPED_CRITICAL_ITEM->toString(),
         );
     }

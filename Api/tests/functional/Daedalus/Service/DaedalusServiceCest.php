@@ -27,6 +27,8 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerNotification;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -184,6 +186,15 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'visibility' => VisibilityEnum::PRIVATE,
                 'log' => LogEnum::ALL_EXPLORATORS_DEAD,
+            ]
+        );
+
+        // then I should see a notification explaining that all explorators are dead
+        $I->seeInRepository(
+            entity: PlayerNotification::class,
+            params: [
+                'player' => $this->player,
+                'message' => PlayerNotificationEnum::EXPLORATION_CLOSED_EVERYONE_DEAD->toString(),
             ]
         );
     }

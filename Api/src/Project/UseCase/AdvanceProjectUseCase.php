@@ -18,6 +18,8 @@ final class AdvanceProjectUseCase
 
     public function execute(Player $player, Project $project): void
     {
+        $project = $this->projectRepository->lockAndRefresh($project);
+
         $efficiency = $player->getEfficiencyForProject($project);
         $progress = $this->getRandomIntegerService->execute($efficiency->min, $efficiency->max);
 

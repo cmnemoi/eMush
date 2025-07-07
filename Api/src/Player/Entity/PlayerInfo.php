@@ -8,6 +8,7 @@ use Mush\Daedalus\Entity\PlayerStatistics;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\PlayerInfoRepository;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\User\Entity\User;
 
 #[ORM\Entity(repositoryClass: PlayerInfoRepository::class)]
@@ -141,5 +142,20 @@ class PlayerInfo
     public function isDead(): bool
     {
         return $this->isAlive() === false;
+    }
+
+    /**
+     * @return PlayerHighlight[]
+     */
+    public function getPlayerHighlights(): array
+    {
+        return $this->closedPlayer->getPlayerHighlights();
+    }
+
+    public function addPlayerHighlight(PlayerHighlight $playerHighlight): static
+    {
+        $this->closedPlayer->addPlayerHighlight($playerHighlight);
+
+        return $this;
     }
 }

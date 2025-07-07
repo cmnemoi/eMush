@@ -10,6 +10,7 @@ use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\MetaGame\Entity\SanctionEvidenceInterface;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\ValueObject\TriumphGain;
 use Mush\User\Entity\User;
@@ -65,6 +66,9 @@ class ClosedPlayer implements SanctionEvidenceInterface
 
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $triumphGains = [];
+
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $playerHighlights = [];
 
     public function getId(): int
     {
@@ -328,5 +332,25 @@ class ClosedPlayer implements SanctionEvidenceInterface
         return new ArrayCollection(
             array_map(static fn (array $gain) => TriumphGain::fromArray($gain), $this->triumphGains)
         );
+    }
+
+    /**
+     * @return PlayerHighlight[]
+     */
+    public function getPlayerHighlights(): array
+    {
+        return array_map(static fn (array $highlight) => PlayerHighlight::fromArray($highlight), $this->playerHighlights);
+    }
+
+    public function addPlayerHighlight(PlayerHighlight $playerHighlight): static
+    {
+        if (\in_array($playerHighlight->toArray(), $this->playerHighlights, true)) {
+            return $this;
+        }
+
+        // add at the begining of the array
+        array_unshift($this->playerHighlights, $playerHighlight->toArray());
+
+        return $this;
     }
 }

@@ -15,7 +15,6 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Place\Enum\RoomEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -200,7 +199,7 @@ final class AccessTerminalActionCest extends AbstractFunctionalTest
         $reflection->getProperty('crewLock')->setValue($neron, NeronCrewLockEnum::PROJECTS);
 
         // given player2 is a conceptor
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::CONCEPTOR, $this->player2));
+        $this->addSkillToPlayer(SkillEnum::CONCEPTOR, $I, $this->player2);
 
         // when player2 access NERON's core
         $this->accessTerminal->loadParameters(

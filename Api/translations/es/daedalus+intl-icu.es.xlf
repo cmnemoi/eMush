@@ -45,11 +45,11 @@ other {El escudo plasma esta absorbiendo el fuego enemigo en lugar del blindaje 
     <unit id="crewPlayer">
       <segment id="name" state="translated">
         <source>crewPlayer.name</source>
-        <target>Compañeros</target>
+        <target>Camaradas</target>
       </segment>
       <segment id="description" state="translated">
         <source>crewPlayer.description</source>
-        <target>{playerAlive, plural, one {# compañero activo} other {# compañeros activos}}, dont {mushAlive, plural, one {# Mush} other {# Mushs}}. {playerDead, plural, one {# compañeros muertos}}. dont {mushDead, plural, one {# Mush} other {# Mushs}}. {cryogenizedPlayers, plural, one {# criogenizado} other {# criogenizados}}.</target>
+        <target>Tripulantes activos: {playerAlive, plural, one {#} other {#}}. Entre ellos, {mushAlive, plural, one {# Mush} other {# Mush}}.//Fallecidos: {playerDead, plural, one {#}}. de los cuales {mushDead, plural, one {# era Mush} other {# eran Mush}}.//Criogenizados: {cryogenizedPlayers, plural, one {#} other {#}}.</target>
       </segment>
     </unit>
     <unit id="currentCycle">
@@ -59,8 +59,8 @@ other {El escudo plasma esta absorbiendo el fuego enemigo en lugar del blindaje 
       </segment>
       <segment id="description" state="translated">
         <source>currentCycle.description</source>
-        <target>Los días del juego corresponden a los días de la vida real.
-Un **ciclo dura 3 horas**. ¡En cada Ciclo acumulas más :pm::pa:, indispensables para realizar acciones!</target>
+        <target>Tu reloj irrompible te indica el tiempo necesario hasta el siguiente **Ciclo**.
+// ¡En cada Ciclo acumulas más :pm::pa:, indispensables para realizar acciones!</target>
       </segment>
     </unit>
     <unit id="triumph">
@@ -76,7 +76,7 @@ Un **ciclo dura 3 horas**. ¡En cada Ciclo acumulas más :pm::pa:, indispensable
     <unit id="calendar.name">
       <segment state="translated">
         <source>calendar.name</source>
-        <target>Tiempo del juego</target>
+        <target>Tiempo de juego</target>
       </segment>
     </unit>
     <unit id="calendar.description">

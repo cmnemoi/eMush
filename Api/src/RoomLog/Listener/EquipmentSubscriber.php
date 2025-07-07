@@ -53,6 +53,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         EventEnum::PRINT_DOCUMENT => LogEnum::TABULATRIX_PRINTS,
         ProjectName::FOOD_RETAILER->value => LogEnum::FRUIT_TRANSPORTED,
         Takeoff::DROP_CRITICAL_ITEM => LogEnum::DROP_SUCCESS,
+        ActionEnum::CURE_CAT->value => LogEnum::DROP_SUCCESS,
     ];
     private RoomLogServiceInterface $roomLogService;
 

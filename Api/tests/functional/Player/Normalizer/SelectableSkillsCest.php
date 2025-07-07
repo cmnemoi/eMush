@@ -112,16 +112,15 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
 
     private function givenPlayerHasHumanSkillAvailable(SkillEnum $skill, FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([
+        $this->player->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
-        ]);
+        );
     }
 
     private function givenPlayerHasHumanSkillsAvailable(array $skills, FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->setSkillConfigs([]);
         foreach ($skills as $skill) {
-            $this->player->getCharacterConfig()->addSkillConfig(
+            $this->player->addToAvailableHumanSkills(
                 $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
             );
         }

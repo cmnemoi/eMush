@@ -14,9 +14,13 @@ use Mush\Alert\Service\AlertService;
 use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
+use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -275,10 +279,9 @@ final class AlertServiceTest extends TestCase
 
     public function testRepairEquipment()
     {
-        $daedalus = new Daedalus();
-        $room = new Place();
-        $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment($room);
+        $daedalus = DaedalusFactory::createDaedalus();
+        $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $gameEquipment = GameEquipmentFactory::createEquipmentByNameForHolder(EquipmentEnum::REACTOR_LATERAL, $room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -307,10 +310,9 @@ final class AlertServiceTest extends TestCase
 
     public function testRepairAllEquipment()
     {
-        $daedalus = new Daedalus();
-        $room = new Place();
-        $room->setDaedalus($daedalus);
-        $gameEquipment = new GameEquipment($room);
+        $daedalus = DaedalusFactory::createDaedalus();
+        $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
+        $gameEquipment = GameEquipmentFactory::createEquipmentByNameForHolder(EquipmentEnum::REACTOR_LATERAL, $room);
 
         $equipmentElement1 = new AlertElement();
         $equipmentElement1->setEquipment($gameEquipment);
@@ -355,9 +357,8 @@ final class AlertServiceTest extends TestCase
 
     public function testStopFireEquipment()
     {
-        $daedalus = new Daedalus();
-        $room = new Place();
-        $room->setDaedalus($daedalus);
+        $daedalus = DaedalusFactory::createDaedalus();
+        $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
         $alertElement1 = new AlertElement();
         $alertElement1->setPlace($room);
@@ -386,9 +387,8 @@ final class AlertServiceTest extends TestCase
 
     public function testStopAllFire()
     {
-        $daedalus = new Daedalus();
-        $room = new Place();
-        $room->setDaedalus($daedalus);
+        $daedalus = DaedalusFactory::createDaedalus();
+        $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
 
         $alertElement1 = new AlertElement();
         $alertElement1->setPlace($room);
@@ -556,8 +556,8 @@ final class AlertServiceTest extends TestCase
 
     public function testFireNorReported()
     {
-        $daedalus = new Daedalus();
-        $room = new Place();
+        $daedalus = DaedalusFactory::createDaedalus();
+        $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
         $player = new Player();
 
         $player
@@ -585,8 +585,8 @@ final class AlertServiceTest extends TestCase
 
     public function testNotValidFire()
     {
-        $daedalus = new Daedalus();
-        $room = new Place();
+        $daedalus = DaedalusFactory::createDaedalus();
+        $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
         $player = new Player();
 
         $player
@@ -618,7 +618,7 @@ final class AlertServiceTest extends TestCase
     public function testValidEquipment()
     {
         $daedalus = new Daedalus();
-        $room = new Place();
+        $room = Place::createRoomByNameInDaedalus(RoomEnum::ALPHA_BAY, $daedalus);
         $player = new Player();
 
         $player
@@ -626,7 +626,7 @@ final class AlertServiceTest extends TestCase
             ->setPlace($room);
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment($room);
+        $gameEquipment = GameEquipmentFactory::createEquipmentByNameForHolder(EquipmentEnum::REACTOR_LATERAL, $room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
@@ -647,8 +647,8 @@ final class AlertServiceTest extends TestCase
 
     public function testNotValidEquipment()
     {
-        $daedalus = new Daedalus();
-        $room = new Place();
+        $daedalus = DaedalusFactory::createDaedalus();
+        $room = $daedalus->getPlaceByName(RoomEnum::LABORATORY);
         $player = new Player();
 
         $player
@@ -659,7 +659,7 @@ final class AlertServiceTest extends TestCase
 
         $room->setDaedalus($daedalus);
 
-        $gameEquipment = new GameEquipment($room);
+        $gameEquipment = GameEquipmentFactory::createEquipmentByNameForHolder(EquipmentEnum::REACTOR_LATERAL, $room);
         $brokenConfig = new StatusConfig();
         $brokenConfig->setStatusName(EquipmentStatusEnum::BROKEN);
         $status = new Status($gameEquipment, $brokenConfig);
@@ -676,5 +676,43 @@ final class AlertServiceTest extends TestCase
             ->once();
 
         self::assertTrue($this->alertService->isEquipmentReported($gameEquipment));
+    }
+
+    public function testDoNotCreateDuplicateFireAlertElement()
+    {
+        // GIVEN two distinct PHP objects representing the same Room (same id)
+        $daedalus = new Daedalus();
+
+        $place1 = new Place();
+        $place1->setDaedalus($daedalus);
+        $place2 = new Place();
+        $place2->setDaedalus($daedalus);
+
+        // Force identical database identifier to simulate re-hydration across requests
+        $reflection = new \ReflectionProperty(Place::class, 'id');
+        $reflection->setAccessible(true);
+        $reflection->setValue($place1, 1);
+        $reflection->setValue($place2, 1);
+
+        // Existing alert element for the first instance of the room
+        $alertElement = new AlertElement();
+        $alertElement->setPlace($place1);
+
+        $alert = new Alert();
+        $alert
+            ->setDaedalus($daedalus)
+            ->setName(AlertEnum::FIRES)
+            ->addAlertElement($alertElement);
+
+        // No persistence should occur because the alert element already exists
+        $this->entityManager->shouldReceive('persist')->never();
+        $this->entityManager->shouldReceive('flush')->never();
+
+        // WHEN retrieving the alert element with a different PHP object but same id
+        $returnedElement = $this->alertService->getAlertFireElement($alert, $place2);
+
+        // THEN the service must return the already existing element and not create a duplicate
+        self::assertSame($alertElement, $returnedElement);
+        self::assertCount(1, $alert->getAlertElements());
     }
 }

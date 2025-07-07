@@ -68,14 +68,17 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
             /** @var \DateTime $finishedAt */
             $finishedAt = $closedPlayer->getFinishedAt();
 
-            $data['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(
+            $cyclesSurvived = $this->cycleService->getNumberOfCycleElapsed(
                 start: $createdAt,
                 end: $finishedAt,
                 daedalusInfo: $closedPlayer->getClosedDaedalus()->getDaedalusInfo()
             );
-            $data['daysSurvived'] = (int) ($data['cyclesSurvived'] / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['daysSurvived'] = (int) ($cyclesSurvived / $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay());
+            $data['cyclesSurvived'] = $cyclesSurvived % $daedalus->getDaedalusInfo()->getGameConfig()->getDaedalusConfig()->getCyclePerGameDay();
+            $data['score'] = $closedPlayer->getTriumph() ?? $cyclesSurvived;
             $data['triumph'] = $closedPlayer->getTriumph();
             $data['triumphGains'] = $this->normalizer->normalize($closedPlayer->getTriumphGains(), $format, $context);
+            $data['playerHighlights'] = $this->getNormalizedPlayerHighlights($closedPlayer, $format, $context);
 
             // Tell moderators if closed player end message is hidden
             /** @var ?User $user */
@@ -95,5 +98,29 @@ class ClosedPlayerNormalizer implements NormalizerInterface, NormalizerAwareInte
         }
 
         return $data;
+    }
+
+    private function getNormalizedPlayerHighlights(ClosedPlayer $closedPlayer, ?string $format, array $context): array
+    {
+        $playerHighlights = $closedPlayer->getPlayerHighlights();
+        $normalizedPlayerHighlights = [];
+
+        foreach ($playerHighlights as $playerHighlight) {
+            $normalizedPlayerHighlight = $this->normalizer->normalize($playerHighlight, $format, $context);
+
+            // Skip if the player highlight is already in the list (e.g. Upgrade drone which are different actions for each upgrade)
+            if (\in_array($normalizedPlayerHighlight, $normalizedPlayerHighlights, true)) {
+                continue;
+            }
+
+            // Skip if the player highlight has not been translated (e.g. failed actions)
+            if ($normalizedPlayerHighlight === $playerHighlight->toTranslationKey()) {
+                continue;
+            }
+
+            $normalizedPlayerHighlights[] = $normalizedPlayerHighlight;
+        }
+
+        return $normalizedPlayerHighlights;
     }
 }

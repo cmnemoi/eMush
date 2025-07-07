@@ -1642,6 +1642,7 @@ abstract class StatusConfigData
             'type' => 'status_config',
             'modifierConfigs' => [
                 'cat_owner_modifier_for_player_set_schrodinger_cant_hurt',
+                'cat_owner_modifier_for_player_set_curing_schrodinger_to_100',
                 'cat_owner_modifier_-4morale_on_cat_death',
             ],
             'actionConfigs' => [],

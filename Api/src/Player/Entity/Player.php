@@ -54,6 +54,8 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\PlayerRepository;
+use Mush\Player\ValueObject\PlayerHighlight;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\Project\Entity\Project;
 use Mush\Project\Enum\ProjectName;
 use Mush\Project\ValueObject\PlayerEfficiency;
@@ -61,6 +63,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Entity\SkillCollection;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -79,7 +82,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface
+class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;
@@ -120,6 +123,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[ORM\OneToMany(mappedBy: 'player', targetEntity: Skill::class, cascade: ['ALL'], orphanRemoval: true)]
     private Collection $skills;
 
+    #[ORM\ManyToMany(targetEntity: SkillConfig::class)]
+    private Collection $availableSkills;
+
     #[ORM\OneToOne(targetEntity: GameVariableCollection::class, cascade: ['ALL'])]
     private PlayerVariables $playerVariables;
 
@@ -142,8 +148,8 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $actionHistory = [];
 
-    #[ORM\OneToOne(mappedBy: 'player', targetEntity: PlayerNotification::class)]
-    private ?PlayerNotification $notification = null;
+    #[ORM\OneToMany(mappedBy: 'player', targetEntity: PlayerNotification::class, cascade: ['ALL'], orphanRemoval: true)]
+    private Collection $notifications;
 
     #[ORM\OneToMany(mappedBy: 'subordinate', targetEntity: CommanderMission::class, orphanRemoval: true)]
     #[OrderBy(['createdAt' => Order::Descending->value])]
@@ -160,6 +166,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
         $this->lastActionDate = new \DateTime();
+        $this->notifications = new ArrayCollection();
         $this->receivedMissions = new ArrayCollection();
     }
 
@@ -622,15 +629,44 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->hasSkill($skillName) === false;
     }
 
+    public function setAvailableHumanSkills(SkillConfigCollection $skillsConfig): static
+    {
+        $this->availableSkills = $skillsConfig;
+
+        return $this;
+    }
+
+    public function removeFromAvailableHumanSkills(SkillConfig $skill): static
+    {
+        $this->availableSkills->removeElement($skill);
+
+        return $this;
+    }
+
+    public function addToAvailableHumanSkills(SkillConfig $skill): static
+    {
+        $this->availableSkills->add($skill);
+
+        return $this;
+    }
+
+    public function getAvailableHumanSkills(): SkillConfigCollection
+    {
+        return new SkillConfigCollection($this->availableSkills->toArray());
+    }
+
     public function getSelectableHumanSkills(): SkillConfigCollection
     {
         if ($this->hasFilledTheirHumanSkillSlots()) {
             return new SkillConfigCollection();
         }
 
-        $selectableSkills = $this->getHumanSkillConfigs()->getAllExceptThoseLearnedByPlayer($this);
+        // temporary fallback code to allow merging without supernova. Delete after all pre-update ships have ended.
+        if ($this->getAvailableHumanSkills()->isEmpty()) {
+            $this->setAvailableHumanSkills($this->getCharacterConfig()->getSkillConfigs());
+        }
 
-        return $this->hasStatus(PlayerStatusEnum::HAS_LEARNED_SKILL) ? $selectableSkills->getAllExcept(SkillEnum::APPRENTICE) : $selectableSkills;
+        return $this->getAvailableHumanSkills()->getAllExceptThoseLearnedByPlayer($this);
     }
 
     public function getSelectableMushSkills(): SkillConfigCollection
@@ -1160,24 +1196,41 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function hasNotification(): bool
     {
-        return $this->notification !== null;
+        return $this->notifications->count() > 0;
     }
 
-    public function getNotificationOrThrow(): PlayerNotification
+    public function hasNotificationByMessage(string $message): bool
     {
-        return $this->notification ?? throw new \RuntimeException('The player does not have a notification');
+        return $this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message)->count() > 0;
     }
 
-    public function updateNotification(PlayerNotification $notification): self
+    public function getFirstNotificationOrThrow(): PlayerNotification
     {
-        $this->notification = $notification;
+        return $this->notifications->first() ?: throw new \RuntimeException('The player does not have a notification');
+    }
+
+    public function getNotificationByMessageOrThrow(string $message): PlayerNotification
+    {
+        return $this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message)->first() ?: throw new \RuntimeException("The player does not have a notification with message: {$message}");
+    }
+
+    public function addNotification(PlayerNotification $notification): self
+    {
+        $this->notifications->add($notification);
 
         return $this;
     }
 
     public function deleteNotification(): self
     {
-        $this->notification = null;
+        $this->notifications->removeElement($this->notifications->first());
+
+        return $this;
+    }
+
+    public function deleteNotificationByMessage(string $message): self
+    {
+        $this->notifications->removeElement($this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message)->first());
 
         return $this;
     }
@@ -1348,6 +1401,13 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === $skillName);
     }
 
+    public function addPlayerHighlight(PlayerHighlight $playerHighlight): static
+    {
+        $this->playerInfo->addPlayerHighlight($playerHighlight);
+
+        return $this;
+    }
+
     private function hasPheromodemConnectedTracker(): bool
     {
         $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);
@@ -1421,11 +1481,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         }
 
         return $efficiency;
-    }
-
-    private function getHumanSkillConfigs(): SkillConfigCollection
-    {
-        return $this->getCharacterConfig()->getSkillConfigs();
     }
 
     private function getSkillByNameOrNull(SkillEnum $name): ?Skill

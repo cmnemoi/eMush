@@ -275,13 +275,29 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>No</target>
       </segment>
+      <segment id="death_announcements_name" state="translated">
+        <source>bios_terminal.death_announcements_name</source>
+        <target>Report deaths</target>
+      </segment>
+      <segment id="death_announcements_description" state="translated">
+        <source>bios_terminal.death_announcements_description</source>
+        <target>Enables NERON to report deaths with an announcement.</target>
+      </segment>
+      <segment id="death_announcements_toggle_active" state="translated">
+        <source>bios_terminal.death_announcements_toggle_active</source>
+        <target>Yes</target>
+      </segment>
+      <segment id="death_announcements_toggle_inactive" state="translated">
+        <source>bios_terminal.death_announcements_toggle_inactive</source>
+        <target>No</target>
+      </segment>
       <segment id="vocoded_announcements_name" state="translated">
         <source>bios_terminal.vocoded_announcements_name</source>
-        <target>Vocoder Announcements</target>
+        <target>Vocoder announcements</target>
       </segment>
       <segment id="vocoded_announcements_description" state="translated">
         <source>bios_terminal.vocoded_announcements_description</source>
-        <target>Enables NERON to carry NERON Administrator messages.</target>
+        <target>Enables NERON to carry messages from the NERON Administrator.</target>
       </segment>
       <segment id="vocoded_announcements_toggle_active" state="translated">
         <source>bios_terminal.vocoded_announcements_toggle_active</source>

@@ -31,12 +31,11 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
@@ -646,7 +645,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
 
         // given Chun is a diplomat
-        $this->givenPlayerHasSkill($this->chun, SkillEnum::DIPLOMAT, $I);
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->chun);
 
         // when I try to dispatch fight event
         $this->explorationService->dispatchExplorationEvent($exploration);
@@ -827,6 +826,77 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         // then Janice gets 3 personal triumph for encountering a life form
         $I->assertEquals(3, $this->janice->getTriumph());
         $I->assertEquals(0, $this->chun->getTriumph());
+    }
+
+    public function testInsectsFromPreventedFightImproveJaniceTriumphOnce(FunctionalTester $I): void
+    {
+        // given Janice not lost
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INSECT], $I),
+            explorators: $this->players
+        );
+
+        // given sector has fight and provision event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INSECT,
+            events: [
+                PlanetSectorEvent::PROVISION_1 => 1,
+                PlanetSectorEvent::FIGHT_15 => PHP_INT_MAX - 1,
+            ]
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice gets 3 personal triumph for encountering a life form
+        $I->assertEquals(3, $this->janice->getTriumph());
+    }
+
+    public function fightPreventedShouldNotGrantJaniceTriumph(FunctionalTester $I): void
+    {
+        // given Janice not lost
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Janice is diplomat
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->janice);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::RUINS], $I),
+            explorators: $this->players
+        );
+
+        // given sector has fight and nothing to report event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::RUINS,
+            events: [
+                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
+                PlanetSectorEvent::FIGHT_15 => PHP_INT_MAX - 1,
+            ]
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice gets no personal triumph
+        $I->assertEquals(0, $this->janice->getTriumph());
     }
 
     public function testInsectsNotImproveJaniceTriumphWhenLost(FunctionalTester $I): void
@@ -1383,6 +1453,12 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
         // then the exploration should be finished
         $I->assertTrue($closedExploration->isExplorationFinished());
+
+        // then notifications should be sent to non-lost explorers
+        $I->assertTrue($this->chun->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
+        $I->assertTrue($this->kuanTi->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
+        $I->assertTrue($this->derek->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
+        $I->assertFalse($this->janice->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
     }
 
     public function testPlayerLostEvent(FunctionalTester $I): void
@@ -1782,10 +1858,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     private function givenChunIsASurvivalist(FunctionalTester $I): void
     {
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SURVIVALIST]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SURVIVALIST, $this->chun));
+        $this->addSkillToPlayer(SkillEnum::SURVIVALIST, $I, $this->chun);
     }
 
     private function givenAnExplorationIsCreatedOnSectorForPlayers(string $sectorName, array $players, FunctionalTester $I): Exploration
@@ -1888,11 +1961,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
 
     private function givenPlayerHasSkill(Player $player, SkillEnum $skill, FunctionalTester $I): void
     {
-        $player->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
-        ]);
-
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto($skill, $player));
+        $this->addSkillToPlayer($skill, $I, $player);
     }
 
     private function dispatchPlanetSectorEvent(PlanetSectorEventConfig $eventConfig, PlanetSectorEvent $event): void

@@ -75,6 +75,8 @@ class EquipmentEnum
             'neron_inhibition_description',
             'vocoded_announcements_name',
             'vocoded_announcements_description',
+            'death_announcements_name',
+            'death_announcements_description',
         ],
         self::CALCULATOR => [
             'to_a_new_eden_title',

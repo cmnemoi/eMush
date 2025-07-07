@@ -11,6 +11,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -59,6 +60,9 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
             $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
         }
+
+        $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
+        $this->playerRepository->save($author);
     }
 
     public function onPostAction(ActionEvent $event): void

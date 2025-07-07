@@ -2,15 +2,21 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="weapon_event.ext">
     <unit id="blaster_successful_shot">
-      <segment id="blaster_successful_shot" state="initial">
+      <segment id="blaster_successful_shot" state="translated">
         <source>blaster_successful_shot</source>
-        <target>blaster_successful_shot</target>
+        <target>{version, select,
+    1 {**{character}** desenfunda y dispara sobre **{target_character}**.}
+    2 {Sin más ni más, **{character}** saca su arma y dispara sobre **{target_character}**, una, dos, tres veces...}
+    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae {target_character_gender, select, female {abatida} other {abatido} en pocos segundos.}
+    4 {**{character}** gira súbitamente y dispara sobre **{target_character}**.}
+    other {**{target_character}** recibe un tiro certero de **{character}**.}
+}</target>
       </segment>
     </unit>
     <unit id="blaster_failed_shot">
-      <segment id="blaster_failed_shot" state="initial">
+      <segment id="blaster_failed_shot" state="translated">
         <source>blaster_failed_shot</source>
-        <target>blaster_failed_shot</target>
+        <target>**{character}** ha disparado sobre **{target_character}**, pero no fue capaz de apuntar bien...</target>
       </segment>
     </unit>
     <unit id="blaster_target_headshot">
@@ -50,9 +56,9 @@
       </segment>
     </unit>
     <unit id="blaster_break_weapon">
-      <segment id="blaster_break_weapon" state="initial">
+      <segment id="blaster_break_weapon" state="translated">
         <source>blaster_break_weapon</source>
-        <target>blaster_break_weapon</target>
+        <target>Clic...clic... **{character}** ha perdido su oportunidad...</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_drop_weapon">
@@ -164,15 +170,20 @@
       </segment>
     </unit>
     <unit id="knife_successful_hit_10_minor_haemorrhage">
-      <segment id="knife_successful_hit_10_minor_haemorrhage" state="initial">
+      <segment id="knife_successful_hit_10_minor_haemorrhage" state="translated">
         <source>knife_successful_hit_10_minor_haemorrhage</source>
-        <target>knife_successful_hit_10_minor_haemorrhage</target>
+        <target>{version, select,
+  1 {Con mucha destreza, el cuchillo de **{character}**, hace un gran tajo a **{target_character}**...}
+  2 {Sin poder esquivar, **{target_character}** cae {target_character_gender, select, female {ensangrentada} other {ensangrentado}}...}
+  3 {El rostro de **{target_character}** se tuerce cuando **{character}** le retira el cuchillo que acaba de clavarle.}
+  other {Los duelos de arma blanca raramente terminan bien, **{character}** atraviesa con su arma a **{target_character}**...}
+}</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_random_injury">
-      <segment id="knife_plus_2_damage_random_injury" state="initial">
+      <segment id="knife_plus_2_damage_random_injury" state="translated">
         <source>knife_plus_2_damage_random_injury</source>
-        <target>knife_plus_2_damage_random_injury</target>
+        <target>Resultado de un buen entrenamiento o buena suerte, **{character}** perfora, sin dificultad, la defensa de **{character}**.</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_50_critical_haemorrhage">
@@ -182,9 +193,9 @@
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_50_critical_haemorrhage_random_injury">
-      <segment id="knife_plus_2_damage_50_critical_haemorrhage_random_injury" state="initial">
+      <segment id="knife_plus_2_damage_50_critical_haemorrhage_random_injury" state="translated">
         <source>knife_plus_2_damage_50_critical_haemorrhage_random_injury</source>
-        <target>knife_plus_2_damage_50_critical_haemorrhage_random_injury</target>
+        <target>**{character}** rebana una buena parte de **{target_character}**, es repugnante...</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint">
@@ -194,9 +205,9 @@
       </segment>
     </unit>
     <unit id="knife_instagib_bled">
-      <segment id="knife_instagib_bled" state="initial">
+      <segment id="knife_instagib_bled" state="translated">
         <source>knife_instagib_bled</source>
-        <target>knife_instagib_bled</target>
+        <target>**{character}** clava su cuchillo en una articulación de **{target_character}** para dejarle sin esperanzas...</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_punctured_lung">
@@ -206,9 +217,9 @@
       </segment>
     </unit>
     <unit id="knife_failed_hit">
-      <segment id="knife_failed_hit" state="initial">
+      <segment id="knife_failed_hit" state="translated">
         <source>knife_failed_hit</source>
-        <target>knife_failed_hit</target>
+        <target>**{character}** saca su cuchillo y ataca a **{target_character}** pero falla.</target>
       </segment>
     </unit>
     <unit id="knife_break_weapon">
@@ -218,15 +229,15 @@
       </segment>
     </unit>
     <unit id="knife_break_weapon_shooter_torn_tongue">
-      <segment id="knife_break_weapon_shooter_torn_tongue" state="initial">
+      <segment id="knife_break_weapon_shooter_torn_tongue" state="translated">
         <source>knife_break_weapon_shooter_torn_tongue</source>
-        <target>knife_break_weapon_shooter_torn_tongue</target>
+        <target>**{character}** falla en su ataque y no solo se da contra la pared sino que se muerde la lengua y rompe su arma...</target>
       </segment>
     </unit>
     <unit id="knife_shooter_bruised_shoulder">
-      <segment id="knife_shooter_bruised_shoulder" state="initial">
+      <segment id="knife_shooter_bruised_shoulder" state="translated">
         <source>knife_shooter_bruised_shoulder</source>
-        <target>knife_shooter_bruised_shoulder</target>
+        <target>Mientras hacía un salto impresionante, **{character}** se rompe un músculo dorsal. Eso debió doler.</target>
       </segment>
     </unit>
     <unit id="knife_shooter_drop_weapon">
@@ -242,9 +253,9 @@
       </segment>
     </unit>
     <unit id="old_faithful_successful_shot">
-      <segment id="old_faithful_successful_shot" state="initial">
+      <segment id="old_faithful_successful_shot" state="translated">
         <source>old_faithful_successful_shot</source>
-        <target>old_faithful_successful_shot</target>
+        <target>¡**{character}* acaba de dispararle a **{target_character}**!</target>
       </segment>
     </unit>
     <unit id="old_faithful_headshot">
@@ -410,9 +421,14 @@
       </segment>
     </unit>
     <unit id="bare_hands_successful_hit">
-      <segment id="bare_hands_successful_hit" state="initial">
+      <segment id="bare_hands_successful_hit" state="translated">
         <source>bare_hands_successful_hit</source>
-        <target>bare_hands_successful_hit</target>
+        <target>{version, select,
+  1 {**{character}** le da un espectacular puñetazo a **{target_character}**...}
+  2 {**{character}** le da un derechazo a **{target_character}**...}
+  3 {**{character}** le mete un tremendo puñetazo a **{target_character}**...}
+  other {**{character}** le da un tremendo gancho de derecha a **{target_character}**...}
+}</target>
       </segment>
     </unit>
     <unit id="bare_hands_target_burst_nose_10_percent">
@@ -422,21 +438,21 @@
       </segment>
     </unit>
     <unit id="bare_hands_plus_1_damage">
-      <segment id="bare_hands_plus_1_damage" state="initial">
+      <segment id="bare_hands_plus_1_damage" state="translated">
         <source>bare_hands_plus_1_damage</source>
-        <target>bare_hands_plus_1_damage</target>
+        <target>**{character}** le da un formidable cabezazo a **{target_character}** y le provoca un gran chorro de sangre...</target>
       </segment>
     </unit>
     <unit id="bare_hands_failed_hit">
-      <segment id="bare_hands_failed_hit" state="initial">
+      <segment id="bare_hands_failed_hit" state="translated">
         <source>bare_hands_failed_hit</source>
-        <target>bare_hands_failed_hit</target>
+        <target>**{character}** falla su ataque a **{target_character}**. </target>
       </segment>
     </unit>
     <unit id="bare_hands_fumble">
-      <segment id="bare_hands_fumble" state="initial">
+      <segment id="bare_hands_fumble" state="translated">
         <source>bare_hands_fumble</source>
-        <target>bare_hands_fumble</target>
+        <target>**{character}** intenta golpear a **{target_character}**, pero su puño acaba impactando la pared... Ayayayayy... </target>
       </segment>
     </unit>
     <unit id="grenade_successful_throw_splash_damage_all">
@@ -458,9 +474,13 @@
       </segment>
     </unit>
     <unit id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash">
-      <segment id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash" state="initial">
+      <segment id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash" state="translated">
         <source>rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash</source>
-        <target>rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash</target>
+        <target>{version, select, 
+    1 {Un cohete cae cerca de **{target_character}**, de quien no debe quedar casi nada...}
+    2 {**{target_character}** no tuvo tiempo de esquivar el cohete y lo recibe en plena cara.}
+    other {"invalid version number"}
+}</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_rocketted">
@@ -476,9 +496,9 @@
       </segment>
     </unit>
     <unit id="rocket_launcher_critical_3_random_wounds_2_items">
-      <segment id="rocket_launcher_critical_3_random_wounds_2_items" state="initial">
+      <segment id="rocket_launcher_critical_3_random_wounds_2_items" state="translated">
         <source>rocket_launcher_critical_3_random_wounds_2_items</source>
-        <target>rocket_launcher_critical_3_random_wounds_2_items</target>
+        <target>**{character}** dispara. Una estrella se desvanece, un cohete muere, **{target_character}** se pierde en una nube de humo y la muerte se acerca.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_6_items">

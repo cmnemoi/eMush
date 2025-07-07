@@ -173,6 +173,9 @@ final class PlayerSubscriber implements EventSubscriberInterface
     private function applyTraumaToDeathWitnesses(PlayerEvent $event): void
     {
         $playersInRoom = $event->getPlace()->getAlivePlayersExcept($event->getPlayer());
+        if ($event->hasAuthor()) {
+            $playersInRoom = $playersInRoom->getAllExcept($event->getAuthorOrThrow());
+        }
 
         /** @var Player $player */
         foreach ($playersInRoom as $player) {

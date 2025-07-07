@@ -8,8 +8,6 @@ use Mush\Action\Actions\Hit;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
@@ -48,10 +46,7 @@ final class DeterminedCest extends AbstractFunctionalTest
 
     private function givenPlayerIsDetermined(FunctionalTester $I): void
     {
-        $this->player->getCharacterConfig()->addSkillConfig(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::DETERMINED])
-        );
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::DETERMINED, $this->player));
+        $this->addSkillToPlayer(SkillEnum::DETERMINED, $I, $this->player);
     }
 
     private function givenActionHasSuccessRate(int $successRate): void

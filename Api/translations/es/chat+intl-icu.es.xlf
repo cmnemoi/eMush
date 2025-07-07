@@ -51,7 +51,7 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
       </segment>
       <segment id="externalResources.discord" state="translated">
         <source>tips.externalResources.discord</source>
-        <target>**Servidor de Discord de Eternaltwin**</target>
+        <target>**Servidor de Discord** de Eternaltwin</target>
       </segment>
       <segment id="externalResources.tutorials" state="translated">
         <source>tips.externalResources.tutorials</source>
@@ -89,17 +89,17 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>room_log.description</source>
-        <target>Aquí verás **lo que sucede en esta sala desde que llegaste**. Si hay una cámara, las acciones secretas y furtivas serán reveladas.</target>
+        <target>Aquí verás el historial de **lo que sucede en la sala que estás actualmente**. Si hay una cámara, las acciones discretas y furtivas serán reveladas.</target>
       </segment>
     </unit>
     <unit id="public">
       <segment id="name" state="translated">
         <source>public.name</source>
-        <target>Canal principal</target>
+        <target>Canal general</target>
       </segment>
       <segment id="description" state="translated">
         <source>public.description</source>
-        <target>El canal principal es indispensable para la organización del equipo. Para participar debes tener un :talkie.png: **walkie talkie**.</target>
+        <target>El canal general es indispensable para la organización del equipo. Para participar debes tener un :talkie: **walkie-talkie**.</target>
       </segment>
     </unit>
     <unit id="private">
@@ -109,7 +109,7 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>private.description</source>
-        <target>Tu walkie-talkie tiene un canal privado abierto. Haz clic aquí para iniciar una conversación con uno o varios tripulantes que tengan también un :talkie: **:walkie-talkie**.
+        <target>Los canales privados permiten hacer planes a escondidas de oídos indiscretos.
 **Ten en cuenta que los canales privados forman parte del juego y, por tanto, están sujetos a las mismas restricciones de confidencialidad que eMush.**</target>
       </segment>
     </unit>
@@ -147,7 +147,7 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
     <unit id="message_date">
       <segment id="message_date.less_minute" state="translated">
         <source>message_date.less_minute</source>
-        <target>justo ahora</target>
+        <target>hace un instante</target>
       </segment>
       <segment id="message_date.more_minute" state="translated">
         <source>message_date.more_minute</source>

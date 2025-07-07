@@ -12,15 +12,19 @@ use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
+use Mush\Player\Event\PlayerHighlightSourceEventInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, TriumphSourceEventInterface
+class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, TriumphSourceEventInterface, PlayerHighlightSourceEventInterface
 {
     use TriumphSourceEventTrait;
 
@@ -50,6 +54,41 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
         parent::__construct($tags, $time);
         $this->addTag($status->getName());
         $this->addTag($holder->getName());
+    }
+
+    public function getHighlightName(): string
+    {
+        return $this->status->getName();
+    }
+
+    public function getHighlightResult(): string
+    {
+        return PlayerHighlight::SUCCESS;
+    }
+
+    public function getHighlightTarget(): PlayerHighlightTargetInterface
+    {
+        $holder = match ($this->status->getName()) {
+            EquipmentStatusEnum::HIDDEN => $this->holder,
+            default => throw new \LogicException("Unknown highlight target for status {$this->status->getName()}"),
+        };
+
+        if (!$holder instanceof PlayerHighlightTargetInterface) {
+            throw new \LogicException(\sprintf(
+                'Status holder %s does not implement PlayerHighlightTargetInterface',
+                \get_class($holder)
+            ));
+        }
+
+        return $holder;
+    }
+
+    public function hasHighlightTarget(): bool
+    {
+        return match ($this->status->getName()) {
+            EquipmentStatusEnum::HIDDEN => true,
+            default => throw new \LogicException("Unknown highlight target for status {$this->status->getName()}"),
+        };
     }
 
     public function getStatus(): Status

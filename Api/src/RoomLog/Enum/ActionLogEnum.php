@@ -149,6 +149,8 @@ abstract class ActionLogEnum
     public const string UPGRADE_DRONE_TO_SENSOR_SUCCESS = 'upgrade_drone_to_sensor_success';
     public const string TAKE_CAT = 'take_cat';
     public const string PET_CAT = 'pet_cat';
+    public const string CURE_CAT_SUCCESS = 'cure_cat_success';
+    public const string CURE_CAT_FAIL = 'cure_cat_fail';
     public const string SHOOT_CAT_SUCCESS = 'shoot_cat_success';
     public const string SHOOT_CAT_FAIL = 'shoot_cat_fail';
     public const string SHOOT_CAT_CRITICAL_SUCCESS = 'shoot_cat_critical_success';
@@ -542,6 +544,10 @@ abstract class ActionLogEnum
         ActionEnum::PET_CAT->value => [
             ActionOutputEnum::SUCCESS => self::PET_CAT,
         ],
+        ActionEnum::CURE_CAT->value => [
+            ActionOutputEnum::SUCCESS => self::CURE_CAT_SUCCESS,
+            ActionOutputEnum::FAIL => self::CURE_CAT_FAIL,
+        ],
         ActionEnum::CONVERT_CAT->value => [
             ActionOutputEnum::SUCCESS => self::PET_CAT,
         ],
@@ -590,6 +596,9 @@ abstract class ActionLogEnum
             ActionOutputEnum::SUCCESS => self::PLAY_WITH_DOG,
         ],
         ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value => [
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
+        ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
         ],
         ActionEnum::UPGRADE_DRONE_TO_SENSOR->value => [

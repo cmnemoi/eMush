@@ -26,7 +26,7 @@ final class PlayerNotificationRepository extends ServiceEntityRepository impleme
 
     public function delete(PlayerNotification $playerNotification): void
     {
-        $playerNotification->getPlayer()->deleteNotification();
+        $playerNotification->getPlayer()->deleteNotificationByMessage($playerNotification->getMessage());
         $this->_em->remove($playerNotification);
         $this->_em->flush();
     }

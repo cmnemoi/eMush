@@ -15,8 +15,10 @@ use Mush\Game\Enum\EventEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Event\PlayerCycleEvent;
 use Mush\Player\Event\PlayerEvent;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
@@ -192,6 +194,8 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
 
     public function shouldCreateNotificationForSourcePlayer(FunctionalTester $I): void
     {
+        $this->givenSourcePlayerHasClosedNewMushNotification();
+
         $this->whenSourceExchangesBodyWithTarget();
 
         $this->thenSourcePlayerShouldHaveNotification($I);
@@ -204,22 +208,22 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldHaveNotification($I);
     }
 
-    public function shouldDeleteHasUsedMageBookStatusOnPlayer(FunctionalTester $I): void
+    public function shouldNotDeleteHasUsedMageBookStatusOnPlayer(FunctionalTester $I): void
     {
         $this->givenSourcePlayerHasUsedMageBook();
 
         $this->whenSourceExchangesBodyWithTarget();
 
-        $this->thenSourcePlayerShouldNotHaveUsedMageBookStatus($I);
+        $this->thenSourcePlayerShouldHaveUsedMageBookStatus($I);
     }
 
-    public function shouldDeleteHasUsedMageBookStatusOnTarget(FunctionalTester $I): void
+    public function shouldNotDeleteHasUsedMageBookStatusOnTarget(FunctionalTester $I): void
     {
         $this->givenTargetPlayerHasUsedMageBook();
 
         $this->whenSourceExchangesBodyWithTarget();
 
-        $this->thenTargetPlayerShouldNotHaveUsedMageBookStatus($I);
+        $this->thenTargetPlayerShouldHaveUsedMageBookStatus($I);
     }
 
     public function shouldMakeMycoAlarmRing(FunctionalTester $I): void
@@ -260,6 +264,14 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->whenSourceExchangesBodyWithTarget();
 
         $this->thenMushDaedalusStatisticShouldBe($initialMushStatistic, $I);
+    }
+
+    public function shouldRecordPlayerHighlights(FunctionalTester $I): void
+    {
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenSourcePlayerShouldHaveHighlightTransferAuthorHighlight($I);
+        $this->thenTargetPlayerShouldHaveHighlightTransferTargetHighlight($I);
     }
 
     private function givenTargetPlayerHasShooterSkill(FunctionalTester $I): void
@@ -366,6 +378,11 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->target->setTriumph($quantity);
     }
 
+    private function givenSourcePlayerHasClosedNewMushNotification(): void
+    {
+        $this->source->deleteNotificationByMessage(PlayerNotificationEnum::WELCOME_MUSH->toString());
+    }
+
     private function whenSourceTriesToExchangeBodyWithTarget(): void
     {
         $this->exchangeBody->loadParameters(
@@ -467,7 +484,7 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: \sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value),
-            actual: $this->source->getNotificationOrThrow()->getMessage(),
+            actual: $this->source->getFirstNotificationOrThrow()->getMessage(),
         );
     }
 
@@ -475,18 +492,18 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     {
         $I->assertEquals(
             expected: \sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value),
-            actual: $this->target->getNotificationOrThrow()->getMessage(),
+            actual: $this->target->getFirstNotificationOrThrow()->getMessage(),
         );
     }
 
-    private function thenSourcePlayerShouldNotHaveUsedMageBookStatus(FunctionalTester $I): void
+    private function thenSourcePlayerShouldHaveUsedMageBookStatus(FunctionalTester $I): void
     {
-        $I->assertFalse($this->source->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
+        $I->assertTrue($this->source->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
     }
 
-    private function thenTargetPlayerShouldNotHaveUsedMageBookStatus(FunctionalTester $I): void
+    private function thenTargetPlayerShouldHaveUsedMageBookStatus(FunctionalTester $I): void
     {
-        $I->assertFalse($this->target->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
+        $I->assertTrue($this->target->hasStatus(PlayerStatusEnum::HAS_READ_MAGE_BOOK));
     }
 
     private function thenMycoAlarmPrintsPublicLog(FunctionalTester $I): void
@@ -516,5 +533,29 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function thenMushDaedalusStatisticShouldBe(int $quantity, FunctionalTester $I): void
     {
         $I->assertEquals($quantity, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount());
+    }
+
+    private function thenSourcePlayerShouldHaveHighlightTransferAuthorHighlight(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: [
+                'name' => 'conversion.player',
+                'result' => PlayerHighlight::TRANSFER,
+                'parameters' => ['target_' . $this->target->getLogKey() => $this->target->getLogName()],
+            ],
+            actual: $this->source->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
+        );
+    }
+
+    private function thenTargetPlayerShouldHaveHighlightTransferTargetHighlight(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: [
+                'name' => 'conversion.player_target',
+                'result' => PlayerHighlight::TRANSFER,
+                'parameters' => [$this->source->getLogKey() => $this->source->getLogName()],
+            ],
+            actual: $this->target->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
+        );
     }
 }

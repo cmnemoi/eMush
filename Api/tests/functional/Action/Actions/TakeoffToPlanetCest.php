@@ -31,6 +31,8 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Entity\PlayerNotification;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -361,6 +363,24 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
                 'playerInfo' => $this->player->getPlayerInfo(),
                 'log' => LogEnum::ALL_EXPLORATORS_STUCKED,
                 'visibility' => VisibilityEnum::PRIVATE,
+            ]
+        );
+    }
+
+    public function testTakeOffToPlanetSucessWithoutSpaceSuitOnOxygenFreePlanetCreatesASpecificNotification(FunctionalTester $I): void
+    {
+        // given players do not have spacesuit in their inventory
+
+        // when player tries to takeoff to planet
+        $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
+        $this->takeoffToPlanetAction->execute();
+
+        // then a specific log is created
+        $I->seeInRepository(
+            entity: PlayerNotification::class,
+            params: [
+                'player' => $this->player,
+                'message' => PlayerNotificationEnum::EXPLORATION_CLOSED_NO_SPACESUIT->toString(),
             ]
         );
     }

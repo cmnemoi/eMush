@@ -14,6 +14,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Skill\Repository\SkillConfigRepositoryInterface;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Service\StatusServiceInterface;
 
@@ -44,6 +45,7 @@ final class ReadBookActionTest extends AbstractActionTest
             $this->createStub(AddSkillToPlayerService::class),
             $this->createStub(RoomLogServiceInterface::class),
             $this->createStub(StatusServiceInterface::class),
+            $this->createStub(SkillConfigRepositoryInterface::class),
         );
     }
 

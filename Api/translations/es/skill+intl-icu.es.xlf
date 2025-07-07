@@ -4,21 +4,35 @@
     <unit id="botanist">
       <segment id="botanist.name" state="translated">
         <source>botanist.name</source>
-        <target>Botánico</target>
+        <target>{character_gender, select,
+        female {Botánica}
+        other {Botánico}}</target>
       </segment>
       <segment id="botanist.description" state="translated">
         <source>botanist.description</source>
-        <target>El botánico sabe distinguir las propiedades de los vegetales. Es el más eficiente en el mantenimiento del jardín.</target>
+        <target>{character_gender, select,
+        female {La botánica sabe distinguir las propiedades de los vegetales. Es el más eficiente en el mantenimiento del jardín.}
+        other {El botánico sabe distinguir las propiedades de los vegetales. Es la más eficiente en el mantenimiento del jardín.}}//:point: Puedes leer las **propiedades de los frutos**.//
+:point: Puedes leer las **propiedades de las plantas**.//
+:point: Puedes realizar **injertos**.//
+:point: +2 :pa_garden: por día (puntos de acción **Jardinería**).//
+:point: Expedición: El evento **Cosecha** da un fruto adicional.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="firefighter">
       <segment id="firefighter.name" state="translated">
         <source>firefighter.name</source>
-        <target>Bombero</target>
+        <target>{character_gender, select,
+        female {Bombera}
+        other {Bombero}}</target>
       </segment>
       <segment id="firefighter.description" state="translated">
         <source>firefighter.description</source>
-        <target>El bombero sabe bien cómo usar un extintor, aunque a veces puede arreglárselas sin él.</target>
+        <target>{character_gender, select,
+        female {La bombera}
+        other {El bombero}} sabe bien cómo usar un extintor, aunque a veces puede arreglárselas sin él.//:point: Para ti, la acción **Apagar el fuego** es siempre exitosa.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.//:point: Permite **apagar el fuego con las manos**.</target>
       </segment>
     </unit>
     <unit id="pilot">
@@ -28,67 +42,107 @@
       </segment>
       <segment id="pilot.description" state="translated">
         <source>pilot.description</source>
-        <target>El piloto es un experto en maniobrar las naves Icarus, Pasiphae y Patrullero. Su dominio del espacio es impresionante.</target>
+        <target>{character_gender, select,
+        female {La piloto es una experta en maniobrar las naves Icarus, Pasiphae y Patrullero.}
+        other {El piloto es un experto en maniobrar las naves Icarus, Pasiphae y Patrullero.}} Su dominio del espacio es impresionante.//:point: **Probabilidad duplicada** al disparar desde patrulleros.//
+:point: **No falla nunca** los aterrizajes ni los despegues.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="radio_expert">
       <segment id="radio_expert.name" state="translated">
         <source>radio_expert.name</source>
-        <target>Experto en comunicaciones</target>
+        <target>{character_gender, select,
+        female {Experta en comunicaciones}
+        other {Experto en comunicaciones}}</target>
       </segment>
       <segment id="radio_expert.description" state="translated">
         <source>radio_expert.description</source>
-        <target>El experto en radio sabe decodificar las ondas espaciales para enviar mensajes hacia el otro lado del universo.</target>
+        <target>{character_gender, select,
+        female {La experta}
+        other {El experto}} en radio sabe decodificar las ondas espaciales para enviar mensajes hacia el otro lado del universo.//:point: **Doble eficacia** para establecer **contacto** con Sol.//
+:point: Mejora en 50% los intentos de **restablecer contacto** de otros tripulantes en la misma sala. //
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="robotics_expert">
       <segment id="robotics_expert.name" state="translated">
         <source>robotics_expert.name</source>
-        <target>Ing. Robótico</target>
+        <target>{character_gender, select,
+        female {Ing. Robótica}
+        other {Ing. Robótico}}</target>
       </segment>
       <segment id="robotics_expert.description" state="translated">
         <source>robotics_expert.description</source>
-        <target>El experto en robótica puede crear y controlar los drones como mejor le parezca.</target>
+        <target>{character_gender, select,
+        female {La experta}
+        other {El experto}} en robótica puede crear y controlar los drones como mejor le parezca.//:point: Comienza la partida con el **plano de un dron**.//
+:point: Puede **mejorar los drones**.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="physicist">
       <segment id="physicist.name" state="translated">
         <source>physicist.name</source>
-        <target>Físico</target>
+        <target>{character_gender, select,
+        female {Física}
+        other {Físico}}</target>
       </segment>
       <segment id="physicist.description" state="translated">
         <source>physicist.description</source>
-        <target>Conoce la mecánica que mueven al universo. Tiene notables ventajas en la reparación de PILGRED.</target>
+        <target>Conoce la mecánica que mueven al universo. Tiene notables ventajas en la reparación de PILGRED.//:point: Da 1 :pa_pilgred: (punto de acción para la **reparación de PILGRED**) cada día.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON** y **Reparar PILGRED**.</target>
       </segment>
     </unit>
     <unit id="technician">
       <segment id="technician.name" state="translated">
         <source>technician.name</source>
-        <target>Técnico</target>
+        <target>{character_gender, select,
+        female {Técnica}
+        other {Técnico}}</target>
       </segment>
       <segment id="technician.description" state="translated">
         <source>technician.description</source>
-        <target>El técnico está habilitado para reparar materiales, equipos y el casco del Daedalus.</target>
+        <target>{character_gender, select,
+        female {La técnica está habilitada para reparar materiales, equipos y el casco del Daedalus.}
+        other {El técnico está habilitado para reparar materiales, equipos y el casco del Daedalus.}}//
+:point: +1 :pa_eng: (punto de acción **Reparación**) por día.//
+:point: Puede **Desarmar** objetos.//
+:point: Puede **Blindar** objetos.//
+:point: Probabilidades de éxito duplicadas para las **Reparaciones**.//
+:point: Probabilidades de éxito duplicadas para las **Renovaciones**
+:point: Bonus para desarrollar ciertos **Proyectos NERON** y **Reparar PILGRED**.</target>
       </segment>
     </unit>
     <unit id="astrophysicist">
       <segment id="astrophysicist.name" state="translated">
         <source>astrophysicist.name</source>
-        <target>Astrofísico</target>
+        <target>{character_gender, select,
+        female {Astrofísica}
+        other {Astrofísico}}</target>
       </segment>
       <segment id="astrophysicist.description" state="translated">
         <source>astrophysicist.description</source>
-        <target>El astrofísico está habilitado para usar el scanner para detectar planetas o conocer su composición.</target>
+        <target>{character_gender, select,
+        female {La astrofísica está habilitada para usar el escáner para detectar planetas o conocer su composición.}
+        other {El astrofísico está habilitado para usar el escáner para detectar planetas o conocer su composición.}}//:point: La acción **Escanear** un planeta vale 1 :pa: menos. //
+:point: +1 sector descubierto en los **análisis** de superficie.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="computer">
       <segment id="it_expert.name" state="translated">
         <source>it_expert.name</source>
-        <target>Informático</target>
+        <target>{character_gender, select,
+        female {Informática}
+        other {Informático}}</target>
       </segment>
       <segment id="it_expert.description" state="translated">
         <source>it_expert.description</source>
-        <target>El informático encuentra su felicidad frente a una pantalla. Domina a la perfección los terminales del Nexus, de navegación y de comunicación.</target>
+        <target>{character_gender, select,
+        female {La informática}
+        other {El informático}} encuentra su felicidad frente a una pantalla. Domina a la perfección los terminales del Nexus, de navegación y de comunicación.//:point: +2 :pa_comp: por día (puntos de acción **Informática**).//:point: Probabilidades de éxito duplicadas al usar el **Kit de Hackeo**.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="conceptor">
@@ -98,47 +152,68 @@
       </segment>
       <segment id="conceptor.description" state="translated">
         <source>conceptor.description</source>
-        <target>El artífice cuenta con 2 acciones gratuitas para usar el núcleo de NERON.</target>
+        <target>{character_gender, select,
+        female {La artífice}
+        other {El artífice}} cuenta con 2 acciones gratuitas para usar el núcleo de NERON.//:point: +2 :pa_core: al día (puntos de acción en **Proyectos NERON**) .//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="creative">
       <segment id="creative.name" state="translated">
         <source>creative.name</source>
-        <target>Creativo</target>
+        <target>{character_gender, select,
+        female {Creativa}
+        other {Creativo}}</target>
       </segment>
       <segment id="creative.description" state="translated">
         <source>creative.description</source>
-        <target>Hay que saber darle la vuelta a los problemas.</target>
+        <target>Hay que saber darle la vuelta a los problemas.//:point: Cada uno de tus fracasos tiene 50% de probabilidades de reembolsarte **1** :pa:.//:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="shrink">
       <segment id="shrink.name" state="translated">
         <source>shrink.name</source>
-        <target>Psicólogo</target>
+        <target>{character_gender, select,
+        female {Psicóloga}
+        other {Psicólogo}}</target>
       </segment>
       <segment id="shrink.description" state="translated">
         <source>shrink.description</source>
-        <target>Se encarga del bienestar psicológico del equipo. Mantiene la moral alta y cuida los trastornos mentales.</target>
+        <target>Se encarga del bienestar psicológico del equipo. Mantiene la moral alta y cuida los trastornos mentales.//:point: En cada ciclo, **1 Punto de Ánimo (:pmo:) es regenerado** para cada personaje recostado en su sala.//
+:point: **Trata los transtornos psicológicos** de esos compañeros en cada ciclo.//
+:point: Da la acción **Reconfortar**, que mejora el ánimo.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="caffeine_junkie">
       <segment id="caffeine_junkie.name" state="translated">
         <source>caffeine_junkie.name</source>
-        <target>Cafeinómano</target>
+        <target>{character_gender, select,
+        female {Cafeinómana}
+        other {Cafeinómano}}</target>
       </segment>
       <segment id="caffeine_junkie.description" state="translated">
         <source>caffeine_junkie.description</source>
-        <target>El cafeinómano trabaja 2 veces mejor que sus compañeros mientras tenga acceso a la cafetera.</target>
+        <target>{character_gender, select,
+        female {La cafeinómana}
+        other {El cafeinómano}} trabaja 2 veces mejor que sus compañeros mientras tenga acceso a la cafetera.//:point: +2 :pa: cuando consume un **Café**.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="shooter">
       <segment id="name" state="translated">
         <source>shooter.name</source>
-        <target>Artillero</target>
+        <target>{character_gender, select,
+        female {Pistolera}
+        other {Pistolero}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>shooter.description</source>
-        <target>El artillero domina el uso de armas.</target>
+        <target>{character_gender, select,
+        female {La pistolera}
+        other {El pistolero}} domina el uso de las armas de fuego.//:point: +2 :pa_shoot: **Disparos gratis** al día.//:point: Expedición: +1 a la fuerza de tu equipo en caso de combate, si portas un arma de fuego.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.//
+:point: Aumenta la probabilidad de impacto crítico y reduce la probabilidad de falla crítica al con armas de fuego.</target>
       </segment>
     </unit>
     <unit id="chef">
@@ -148,37 +223,57 @@
       </segment>
       <segment id="chef.description" state="translated">
         <source>chef.description</source>
-        <target>El chef es un experto en la preparación de deliciosos platillos. También sabe muy bien (o casi) lo que se puede comer y lo que no.</target>
+        <target>{character_gender, select,
+        female {La chef es una experta en la preparación de deliciosos platillos.}
+        other {El chef es un experto en la preparación de deliciosos platillos.}} También sabe muy bien (o casi) lo que se puede comer y lo que no.//:point: Puede leer las **propiedades de los alimentos**.//
+:point: Puede leer las **propiedades de los frutos**.//
+:point: +4 :pa_cook: por día (puntos de acción **Cocinar**).//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="nurse">
       <segment id="nurse.name" state="translated">
         <source>nurse.name</source>
-        <target>Enfermero</target>
+        <target>{character_gender, select,
+        female {Enfermera}
+        other {Enfermero}}</target>
       </segment>
       <segment id="nurse.description" state="translated">
         <source>nurse.description</source>
-        <target>El enfermero siempre está listo para servir.</target>
+        <target>{character_gender, select,
+        female {La enfermera siempre está lista para servir.}
+        other {El enfermero siempre está listo para servir.}}//":point: +1 :pa_heal: cada día (punto de acción **Curar**).//
+:point: Puede leer las **propiedades de los medicamentos.**//:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="paranoid">
       <segment id="paranoid.name" state="translated">
         <source>paranoid.name</source>
-        <target>Paranoico</target>
+        <target>{character_gender, select,
+        female {Paranoica}
+        other {Paranoico}}</target>
       </segment>
       <segment id="paranoid.description" state="translated">
         <source>paranoid.description</source>
-        <target>El paranoico piensa que todos sus compañeros son potencialmente peligrosos, anda siempre vigilando sus espaldas con sus 2 cámaras extra.</target>
+        <target>{character_gender, select,
+        female {La paranoica}
+        other {El paranoico}} piensa que todos sus compañeros son potencialmente peligrosos, anda siempre vigilando sus espaldas con sus 2 cámaras extra.//:point: Comienza la partida con 2 **Cámaras** adicionales.//:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="biologist">
       <segment id="biologist.name" state="translated">
         <source>biologist.name</source>
-        <target>Biólogo</target>
+        <target>{character_gender, select,
+        female {Bióloga}
+        other {Biólogo}}</target>
       </segment>
       <segment id="biologist.description" state="translated">
         <source>biologist.description</source>
-        <target>El biólogo es muy eficaz en las investigaciones de laboratorio.</target>
+        <target>{character_gender, select,
+        female {La bióloga}
+        other {El biólogo}} es muy eficaz en las investigaciones de laboratorio.//:point: Puede leer las **propiedades de los medicamentos**.//
+:point: **+4% de bonus** en cada **Investigación** del Laboratorio.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="mankind_only_hope">
@@ -188,7 +283,7 @@
       </segment>
       <segment id="mankind_only_hope.description" state="translated">
         <source>mankind_only_hope.description</source>
-        <target>Su excepcional sistema inmunitario le convierte en la última esperanza para la especie humana. Mientras esté con vida, tendremos la oportunidad de vencer al Mush.</target>
+        <target>Su excepcional sistema inmunitario le convierte en la última esperanza para la especie humana. Mientras esté con vida, tendremos la oportunidad de vencer al Mush.//:point: La pérdida de ánimo diaria se reduce en 1 punto.</target>
       </segment>
     </unit>
     <unit id="leader">
@@ -198,17 +293,21 @@
       </segment>
       <segment id="leader.description" state="translated">
         <source>leader.description</source>
-        <target>Un líder carismático sabe dirigir al equipo y subirle el ánimo con sus discursos.</target>
+        <target>{character_gender, select,
+        female {Una líder carismática sabe dirigir al equipo y subirle el ánimo con sus discursos.}
+        other {Un líder carismático sabe dirigir al equipo y subirle el ánimo con sus discursos.}}//:point: Por **2** :pa:, puedes dar un **Discurso apasionado** que permite aumentar el ánimo (:pmo:) de los tripulantes en el lugar.//</target>
       </segment>
     </unit>
     <unit id="motivator">
       <segment id="motivator.name" state="translated">
         <source>motivator.name</source>
-        <target>Motivador</target>
+        <target>{character_gender, select,
+        female {Motivadora}
+        other {Motivador}}</target>
       </segment>
       <segment id="motivator.description" state="translated">
         <source>motivator.description</source>
-        <target>Nadie se resiste a tus palabras.</target>
+        <target>Nadie se resiste a tus palabras.//:point: Diario: Por **2** :pa: puedes dar un **emotivo discurso** que dará 3 :pm: a cada persona en la sala.</target>
       </segment>
     </unit>
     <unit id="confident">
@@ -218,7 +317,7 @@
       </segment>
       <segment id="confident.description" state="translated">
         <source>confident.description</source>
-        <target>Tanta es la confianza que inspiras, que la gente no deja de contarte sus secretos.</target>
+        <target>Tanta es la confianza que inspiras, que la gente no deja de contarte sus secretos.//:point: Los demás tripulantes pueden confiarse a ti una vez al día por **1** :pa: para recuperar **2** :pmo:. Al hacerlo, te revelan sus últimas X acciones, donde X es la cantidad de :pmo: que tengas.//</target>
       </segment>
     </unit>
     <unit id="survivalist">
@@ -228,17 +327,26 @@
       </segment>
       <segment id="survivalist.description" state="translated">
         <source>survivalist.description</source>
-        <target>El experto en supervivencia es perfecto para las misiones de exploración. Se defiende bien ante los ataques extraterrestres y tendrá más probabilidades de éxito.</target>
+        <target>{character_gender, select,
+        female {La experta}
+        other {El experto}} en supervivencia es perfecto para las misiones de exploración. Se defiende bien ante los ataques extraterrestres y tendrá más probabilidades de éxito.//:point: Expedición: Cada daño **personal** se **reduce en 1 punto**.//
+:point: Expedición: El evento **Provisión** da 1 bistec adicional.//
+:point: Expedición: Es el último en morir en caso de evento fatal.</target>
       </segment>
     </unit>
     <unit id="diplomat">
       <segment id="diplomat.name" state="translated">
         <source>diplomat.name</source>
-        <target>Diplomático</target>
+        <target>{character_gender, select,
+        female {Diplomática}
+        other {Diplomático}}</target>
       </segment>
       <segment id="diplomat.description" state="translated">
         <source>diplomat.description</source>
-        <target>Un buen diplomático sabe como establecer buenas relaciones con los extraterrestres.</target>
+        <target>{character_gender, select,
+        female {Una buena diplomática sabre cómo establecer buenas relaciones con los extraterrestres.}
+        other {Un buen diplomático sabe cómo establecer buenas relacions con los extraterrestres.}}//:point: Expedición: Elimina las probabilidades de eventos de **Combate** en los encuentros extraterrestres.//
+:point: **Único**: Puedes declarar un Cese al fuego. El cese al fuego dura **3** ciclos, contando el ciclo en que se declare.//:point: Mientras estés en el **Puente de mando**, abres nuevas oportunidades de intercambio con los mercaderes.</target>
       </segment>
     </unit>
     <unit id="anonymush">
@@ -248,7 +356,7 @@
       </segment>
       <segment id="anonymush.description" state="translated">
         <source>anonymush.description</source>
-        <target>Tus mycotoxinas son indetectables en la atmósfera. ¡Eres discreto como todo buen predador!</target>
+        <target>Tus mycotoxinas son indetectables en la atmósfera. ¡Eres discreto como todo buen predador!//:point: Apareces como humano en la barra de tripulantes... hasta que mueras.</target>
       </segment>
     </unit>
     <unit id="determined">
@@ -258,7 +366,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Cuando ha comenzado una tarea, nada perturba a este personaje perseverante.</target>
+        <target>Cuando ha comenzado una tarea, nada perturba a este personaje perseverante.//:point: Al **fallar** en una acción, el % de probabilidades de éxito **aumenta más rápido**.</target>
       </segment>
     </unit>
     <unit id="optimist">
@@ -268,17 +376,21 @@
       </segment>
       <segment id="optimist.description" state="translated">
         <source>optimist.description</source>
-        <target>El fin de la humanidad... ¡Hay cosas peores!</target>
+        <target>El fin de la humanidad... ¡Hay cosas peores!//:point: {character_gender, select,
+        female {La}
+        other {El}} optimista pierde **1 :pmo: menos cada día**.</target>
       </segment>
     </unit>
     <unit id="gunner">
-      <segment id="gunner.name" state="initial">
+      <segment id="gunner.name" state="translated">
         <source>gunner.name</source>
-        <target>gunner.name</target>
+        <target>{character_gender, select,
+        female {Artillera}
+        other {Artillero}}</target>
       </segment>
-      <segment id="gunner.description" state="initial">
+      <segment id="gunner.description" state="translated">
         <source>gunner.description</source>
-        <target>gunner.description</target>
+        <target>Al menos alguien les enseñará cómo se hace.//:point: **Duplica el daño** de tus disparos desde los cañones.//:point: **Duplica la probabilidad de éxito** al disparar desde los cañones.</target>
       </segment>
     </unit>
     <unit id="apprentice">
@@ -288,17 +400,20 @@
       </segment>
       <segment id="apprentice.description" state="translated">
         <source>apprentice.description</source>
-        <target>Observando atentamente a sus maestros, el aprendiz puede reproducir sus técnicas y gestos.</target>
+        <target>Observando atentamente a sus maestros, el aprendiz puede reproducir sus técnicas y gestos.//:point: **Único**: Desbloquea la acción Entrenamiento, que te permite copiar la competencia de un jugador presente en la sala por 1 :pa:.</target>
       </segment>
     </unit>
     <unit id="solid">
       <segment id="solid.name" state="translated">
         <source>solid.name</source>
-        <target>Robusto</target>
+        <target>{character_gender, select,
+        female {Robusta}
+        other {Robusto}}</target>
       </segment>
       <segment id="solid.description" state="translated">
         <source>solid.description</source>
-        <target>No sufres al transportar objetos pesados. Muy bueno también para los combates cuerpo a cuerpo.</target>
+        <target>No sufres al transportar objetos pesados. Muy bueno también para los combates cuerpo a cuerpo.//:point: Tus ataques cuerpo a cuerpo causan **1 punto de daño adicional**.//
+:point: **No eres penalizado** al llevar objetos pesados.//:point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.</target>
       </segment>
     </unit>
     <unit id="genius">
@@ -308,7 +423,9 @@
       </segment>
       <segment id="genius.description" state="translated">
         <source>genius.description</source>
-        <target>Cuando está iluminado por el hada de la sabiduría, el genio puede encontrar la solución a cualquier problema en el Daedalus.</target>
+        <target>{character_gender, select,
+        female {Cuando está iluminada por el hada de la sabiduría, la genio puede encontrar la solución a cualquier problema en el Daedalus.}
+        other {Cuando está iluminado por el hada de la sabiduría, el genio puede encontrar la solución a cualquier problema en el Daedalus.}}//:point: **Único**: Puedes tener un **Golpe de Suerte**, que le otorgará **100% en su próxima Investigación, Proyecto, o Reparación**.</target>
       </segment>
     </unit>
     <unit id="presentiment">
@@ -318,17 +435,19 @@
       </segment>
       <segment id="presentiment.description" state="translated">
         <source>presentiment.description</source>
-        <target>Tu intuición no se equivoca nunca, puedes ver la última acción de un compañero como flashback luminoso. Es práctico pero hace doler la cabeza.</target>
+        <target>Tu intuición no se equivoca nunca, puedes ver la última acción de un compañero como flashback luminoso. Es práctico pero hace doler la cabeza.//:point: Puedes **ver la última acción** de otro tripulante. Esta acción te hace perder 1 :pmo:.</target>
       </segment>
     </unit>
     <unit id="neron_only_friend">
       <segment id="neron_only_friend.name" state="translated">
         <source>neron_only_friend.name</source>
-        <target>Único amigo de NERON</target>
+        <target>{character_gender, select,
+        female {Única amiga de NERON}
+        other {Único amigo de NERON}}</target>
       </segment>
       <segment id="neron_only_friend.description" state="translated">
         <source>neron_only_friend.description</source>
-        <target>Cuando estás en la nave, NERON se estabiliza, sus rutinas no presentan errores y su rendimiento mejora enormemente.</target>
+        <target>Cuando estás en la nave, NERON se estabiliza, sus rutinas no presentan errores y su rendimiento mejora enormemente.//:point: La eficacia de **cada proyecto del NEXUS** es **maximizada** para todos.</target>
       </segment>
     </unit>
     <unit id="mycelium_spirit">
@@ -338,7 +457,7 @@
       </segment>
       <segment id="mycelium_spirit.description" state="translated">
         <source>mycelium_spirit.description</source>
-        <target>Tu misión es sagrada. El Mush te ha elegido como su propagador de genes favorito.</target>
+        <target>Tu misión es sagrada. El Mush te ha elegido como su propagador de genes favorito.//:point: Mientras estés con vida, los Mush pueden **producir 1 Espora más al día**.</target>
       </segment>
     </unit>
     <unit id="fertile">
@@ -348,7 +467,7 @@
       </segment>
       <segment id="fertile.description" state="translated">
         <source>fertile.description</source>
-        <target>Tu producción de esporas es extraordinaria. ¡Vivan las esporas!</target>
+        <target>Tu producción de esporas es extraordinaria. ¡Vivan las esporas!//:point: **Diario**: Puedes generar una espora **gratuitamente**.</target>
       </segment>
     </unit>
     <unit id="splashproof">
@@ -358,7 +477,7 @@
       </segment>
       <segment id="splashproof.description" state="translated">
         <source>splashproof.description</source>
-        <target>La investigación sobre el Mush ha dado como resultado un nuevo mucus, ideal para marcar la diferencia.</target>
+        <target>La investigación sobre el Mush ha dado como resultado un nuevo mucus, ideal para marcar la diferencia.//:point: **Ducharte** no te hace perder **ningún** :hp:.</target>
       </segment>
     </unit>
     <unit id="infector">
@@ -368,17 +487,22 @@
       </segment>
       <segment id="infector.description" state="translated">
         <source>infector.description</source>
-        <target>Pica, pica y repica.</target>
+        <target>Pica, pica y repica.//:point: Diario: Te pemite **picar** una segunda vez.</target>
       </segment>
     </unit>
     <unit id="sneak">
       <segment id="sneak.name" state="translated">
         <source>sneak.name</source>
-        <target>Huidizo</target>
+        <target>{character_gender, select,
+        female {Huidiza}
+        other {Huidizo}}</target>
       </segment>
       <segment id="sneak.description" state="translated">
         <source>sneak.description</source>
-        <target>Eres asustadizo por naturaleza y sabes escapar a todo intento de contacto físico.</target>
+        <target>{character_gender, select,
+        female {Eres asustadiza}
+        other {Eres asustadizo}} por naturaleza y sabes escapar a todo intento de contacto físico.//:point: Los ataques cuerpo a cuerpo **contra ti** reciben un **25% de penalidad**.//
+:point: Puedes desplazarte sin importar los **Guardianes** presentes en la sala.</target>
       </segment>
     </unit>
     <unit id="logistics_expert">
@@ -388,7 +512,7 @@
       </segment>
       <segment id="logistics_expert.description" state="translated">
         <source>logistics_expert.description</source>
-        <target>Quieres optimizar al máximo las posibilidades de cada uno de tus compañeros en el Daedalus.</target>
+        <target>Quieres optimizar al máximo las posibilidades de cada uno de tus compañeros en el Daedalus.//:point: En cada ciclo, **1 :pa: es distribuido a un compañero al azar** en la sala.</target>
       </segment>
     </unit>
     <unit id="transfer">
@@ -398,7 +522,7 @@
       </segment>
       <segment id="transfer.description" state="translated">
         <source>transfer.description</source>
-        <target>El Mush te ha transferido el genotipo de una de las armas estratégicas más letales. Úsala con prudencia.</target>
+        <target>El Mush te ha transferido el genotipo de una de las armas estratégicas más letales. Úsala con prudencia.//:point: **Único**: Puedes **trasferirte al cuerpo de otro ser humano** que haya sido **infectado al menos una vez**. A su vez, este se hallará en tu cuerpo... y podría alertar a los demás.</target>
       </segment>
     </unit>
     <unit id="phagocyte">
@@ -408,17 +532,21 @@
       </segment>
       <segment id="phagocyte.description" state="translated">
         <source>phagocyte.description</source>
-        <target>En caso de problemas, tienes "la" solución.</target>
+        <target>En caso de problemas, tienes "la" solución.//:point: Por **0** :pa:, puedes devorar una **Espora** que te dará **4** :pa: y **4** :hp:.</target>
       </segment>
     </unit>
     <unit id="wrestler">
       <segment id="wrestler.name" state="translated">
         <source>wrestler.name</source>
-        <target>Luchador</target>
+        <target>{character_gender, select,
+        female {Luchadora}
+        other {Luchador}}</target>
       </segment>
       <segment id="wrestler.description" state="translated">
         <source>wrestler.description</source>
-        <target>Los músculos del luchador hacen temblar los huesos de todos sus adversarios.</target>
+        <target>{character_gender, select,
+        female {Los músculos de la luchadora hacen temblar los huesos de todos sus adversarios.}
+        other {Los músculos del luchador hacen temblar los huesos de todos sus adversarios.}}//:point: Tus ataques cuerpo a cuerpo causan **2 puntos de daño adicionales si no has mutado.**// :point: Puedes **expulsar** de la sala a un tripulante por 2 :pa:.</target>
       </segment>
     </unit>
     <unit id="sprinter">
@@ -428,27 +556,31 @@
       </segment>
       <segment id="sprinter.description" state="translated">
         <source>sprinter.description</source>
-        <target>¡El velocista inicia siempre con el pie derecho! Goza de Puntos de Movimiento adicionales.</target>
+        <target>¡{character_gender, select,
+        female {La velocista}
+        other {El velocista}} inicia siempre con buen pie! Goza de Puntos de Movimiento adicionales.//:point: Ganas 2 :pm: adicionales en cada conversión de :pa: a :pm: (No acumulable con el **Patinete**).//:point: Expedición: Permite explorar 1 zona adicional.</target>
       </segment>
     </unit>
     <unit id="devotion">
       <segment id="devotion.name" state="translated">
         <source>devotion.name</source>
-        <target>Voluntarioso</target>
+        <target>{character_gender, select,
+        female {Voluntariosa}
+        other {Voluntarioso}}</target>
       </segment>
       <segment id="devotion.description" state="translated">
         <source>devotion.description</source>
-        <target>Es bueno saber que podemos contar contigo.</target>
+        <target>Es bueno saber que podemos contar contigo.//:point: Ganas **3** :pa: adicionales cuando aceptas una misión.</target>
       </segment>
     </unit>
     <unit id="radio_piracy">
       <segment id="radio_piracy.name" state="translated">
         <source>radio_piracy.name</source>
-        <target>Radio pirata</target>
+        <target>Pirata de radio</target>
       </segment>
       <segment id="radio_piracy.description" state="translated">
         <source>radio_piracy.description</source>
-        <target>Este medio de comunicación nunca pasará de moda.</target>
+        <target>Este medio de comunicación nunca pasará de moda.//:point: Por **3** :pa: puedes alterar las comunicaciones de un jugador que use un **Walkie-Talkie** o un **iTrackie**. Al **averiar** su **Walkie-Talkie**/**iTrackie** puedes escribir **en su lugar** hasta que vuelva a mandar un mensaje.</target>
       </segment>
     </unit>
     <unit id="trapper">
@@ -458,7 +590,7 @@
       </segment>
       <segment id="trapper.description" state="translated">
         <source>trapper.description</source>
-        <target>¡Sorpresa!</target>
+        <target>¡Sorpresa!//:point: Por **1** :pa:, puedes poner una trampa en una **Estantería** colocando una **Espora**. Si alguien la encuentra, será **Infectado**. Sin embargo, si es un Mush(incluyéndote) o un Inmunizado, la espora se pierde.</target>
       </segment>
     </unit>
     <unit id="tracker">
@@ -468,7 +600,10 @@
       </segment>
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
-        <target>El detective ve la procedencia y la dirección de cada tripulante. Puede imprimir un reporte en el tabulador, es decir, una lista de personas que revela si al menos una está infectada con el Mush.</target>
+        <target>{character_gender, select,
+        female {La}
+        other {El}} detective ve la procedencia y la dirección de cada tripulante. Puede imprimir un reporte en el tabulador, es decir, una lista de personas que revela si al menos una está infectada con el Mush.//:point: Acceso completo al **registro de desplazamiento**.//
+:point: Permite **imprimir la lista secreta** en la Tabuladora.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">
@@ -478,7 +613,7 @@
       </segment>
       <segment id="bacterophiliac.description" state="translated">
         <source>bacterophiliac.description</source>
-        <target>Es lo mejor que puedes hacer con tus bacterias.</target>
+        <target>Es lo mejor que puedes hacer con tus bacterias.//:point: Por 2 :pa: puedes causar una **enfermedad** a un compañero. Esta es una acción **furtiva**.</target>
       </segment>
     </unit>
     <unit id="pyromaniac">
@@ -488,7 +623,7 @@
       </segment>
       <segment id="pyromaniac.description" state="translated">
         <source>pyromaniac.description</source>
-        <target>El pirómano puede inyectar microesporas explosivas en un material inflamable para causar un incendio capaz de dañar la nave.</target>
+        <target>El pirómano puede inyectar microesporas explosivas en un material inflamable para causar un incendio capaz de dañar la nave.//:point: Por **4** :pa: puedes provocar un Incendio en una sala.</target>
       </segment>
     </unit>
     <unit id="observant">
@@ -498,7 +633,8 @@
       </segment>
       <segment id="observant.description" state="translated">
         <source>observant.description</source>
-        <target>Usas 1 PA menos para encontrar objetos escondidos. Tienes 25% de probabilidades de detectar una acción discreta en la sala donde te encuentras.</target>
+        <target>Tienes un talento para detectar lo que otros ignoran. Nada se te escapa, ni los juegos de manos, ni los escondites.//:point: La acción **Hurgar** te cuesta 1 :pa: menos.//
+:point: Tienes **25% de probabilidades de detectar las acciones discretas** en la sala actual.//:point: Tienes un **25% de probabilidades de revelar las acciones furtivas** realizadas en tu presencia.</target>
       </segment>
     </unit>
     <unit id="detached_crewmember">
@@ -508,7 +644,10 @@
       </segment>
       <segment id="detached_crewmember.description" state="translated">
         <source>detached_crewmember.description</source>
-        <target>El indolente es frío e indiferente. No le afecta ver morir a un camarada.</target>
+        <target>{character_gender, select,
+        female {La indolente es fría e indiferente.}
+        other {El indolente es frío e indiferente.}} No le afecta ver morir a un camarada.//:point: **No pierdes Puntos de Ánimo (:pmo:) cuando un compañero muere**.//
+:point: No tienes riesgo de transtornos psicológicos si es testigo de una muerte.</target>
       </segment>
     </unit>
     <unit id="expert">
@@ -518,7 +657,7 @@
       </segment>
       <segment id="expert.description" state="translated">
         <source>expert.description</source>
-        <target>Haciendo lo tuyo eres muy hábil, y no temes ensuciarte ni hacerte daño.</target>
+        <target>Haciendo lo tuyo eres muy hábil, y no temes ensuciarte ni hacerte daño.//:point: El **éxito de tus acciones aumenta en 20%**, pero las **heridas** y **suciedad** aumentan también.</target>
       </segment>
     </unit>
     <unit id="defacer">
@@ -528,7 +667,7 @@
       </segment>
       <segment id="defacer.description" state="translated">
         <source>defacer.description</source>
-        <target>¡Siglos de corrupción humana han sido perfeccionados en tus genes!</target>
+        <target>¡Siglos de corrupción humana han sido perfeccionados en tus genes!//:point: **Diario**: Por **2** :pa:, puedes borrar todos los registros de la sala. El registro será repuesto automáticamente el siguiente ciclo.</target>
       </segment>
     </unit>
     <unit id="u_turn">
@@ -536,49 +675,59 @@
         <source>u_turn.name</source>
         <target>u_turn.name</target>
       </segment>
-      <segment id="u_turn.description" state="initial">
+      <segment id="u_turn.description" state="translated">
         <source>u_turn.description</source>
-        <target>u_turn.description</target>
+        <target>Tienes que ser capaz de cambiar tus certezas.//:point: Expedición: Por **2** :pa:, puedes volver de urgencia al Daedalus.</target>
       </segment>
     </unit>
     <unit id="politician">
       <segment id="politician.name" state="translated">
         <source>politician.name</source>
-        <target>Político</target>
+        <target>{character_gender, select,
+        female {Política}
+        other {Político}}</target>
       </segment>
-      <segment id="politician.description" state="initial">
+      <segment id="politician.description" state="translated">
         <source>politician.description</source>
-        <target>politician.description</target>
+        <target>¡O están contigo o contra ti!//:point: **Único** : Por **3** :pa: puedes declarar un Golpe en el Nexus. Desde el próximo ciclo, NERON te considerará como el nuevo comandante Daedalus.</target>
       </segment>
     </unit>
     <unit id="victimizer">
       <segment id="victimizer.name" state="translated">
         <source>victimizer.name</source>
-        <target>Perseguidor</target>
+        <target>{character_gender, select,
+        female {Perseguidora}
+        other {Perseguidor}}</target>
       </segment>
       <segment id="victimizer.description" state="translated">
         <source>victimizer.description</source>
-        <target>Te dijimos que tus actos pueden tener repercusiones inesperadas.</target>
+        <target>Te dijimos que tus actos pueden tener repercusiones inesperadas./:point: Por **1** :pa:, puedes **Excomulgar** a un miembro del equipo.//:point: Este gana el estado ***Paria***//:point: Sus acciones tienen un 20% menos de éxito.//:point: Sus acciones **furtivas** se vuelven **discretas**.//:point: El estado **Paria** permanece mientras {character_gender, select, female {la perseguidora} other {el perseguidor}} esté vivo, o hasta que el paria muera o resulte inactivo.//:point: Si el **Paria** muere, y era mush, ganas 8 :triumph:; si era humano, pierdes 8 :triumph:.</target>
       </segment>
     </unit>
     <unit id="frugivore">
       <segment id="frugivore.name" state="translated">
         <source>frugivore.name</source>
-        <target>Frugívoro</target>
+        <target>{character_gender, select,
+        female {Frugívora}
+        other {Frugívoro}}</target>
       </segment>
-      <segment id="frugivore.description" state="initial">
+      <segment id="frugivore.description" state="translated">
         <source>frugivore.description</source>
-        <target>frugivore.description</target>
+        <target>Aterrorizas a las frutas, las adoras, son tu droga. Cuando observas un fruto, florece al instante...//:point: Ganas **1** :pa: adicional al consumir un plátano.//:point: Ganas **2** :pa: adicionales al consumir cualquier otra fruta.</target>
       </segment>
     </unit>
     <unit id="mycologist">
       <segment id="mycologist.name" state="translated">
         <source>mycologist.name</source>
-        <target>Micólogo</target>
+        <target>{character_gender, select,
+        female {Micóloga}
+        other {Micólogo}}</target>
       </segment>
       <segment id="mycologist.description" state="translated">
         <source>mycologist.description</source>
-        <target>El micólogo puede atender las infecciones en la **Enfermería** o usando un **Medikit**.</target>
+        <target>{character_gender, select,
+        female {La micóloga}
+        other {El micólogo}} puede atender las infecciones en la **Enfermería** o usando un **Medikit**.//:point: Tus **curas** eliminan automáticamente una espora.</target>
       </segment>
     </unit>
     <unit id="fungal_kitchen">
@@ -588,7 +737,7 @@
       </segment>
       <segment id="fungal_kitchen.description" state="translated">
         <source>fungal_kitchen.description</source>
-        <target>Un gran clásico en la gastronomía exótica en el Sistema Solar.</target>
+        <target>Un gran clásico en la gastronomía exótica en el Sistema Solar.//:point: Puedes crear una **Ración envenenada** mezclando una **Espora** con un **consumible** por **1** :pa:.</target>
       </segment>
     </unit>
     <unit id="hard_boiled">
@@ -608,7 +757,7 @@
       </segment>
       <segment id="saboteur.description" state="translated">
         <source>saboteur.description</source>
-        <target>Tu saliva contiene una sustancia capaz de hacer que cualquier cosa tenga un corto circuito...</target>
+        <target>Tu saliva contiene una sustancia capaz de hacer que cualquier cosa tenga un corto circuito...//:point: Las probabilidades de éxito de tus **Sabotajes** a los equipos **se duplican**.</target>
       </segment>
     </unit>
     <unit id="disheartening_contact">
@@ -618,7 +767,7 @@
       </segment>
       <segment id="disheartening_contact.description" state="translated">
         <source>disheartening_contact.description</source>
-        <target>Las feromónas Mush pueden ser tan atroces que pueden desestabilizar a cualquiera, y eso te puede ser útil...</target>
+        <target>Las feromónas Mush pueden ser tan atroces que pueden desestabilizar a cualquiera, y eso te puede ser útil...//:point: Por **2** :pa: puedes hacerle perder **2** :pmo: a un compañero.</target>
       </segment>
     </unit>
     <unit id="slimetrap">
@@ -628,7 +777,7 @@
       </segment>
       <segment id="slimetrap.description" state="translated">
         <source>slimetrap.description</source>
-        <target>Esos cochinos hongos se reproducen muy rápido, muy rápido, ¡Están por todas partes!</target>
+        <target>Esos cochinos hongos se reproducen muy rápido, muy rápido, ¡Están por todas partes!//:point: Por **1** :pa:, el jugador elegido estará sucio en 1 a 4 ciclos.</target>
       </segment>
     </unit>
     <unit id="green_jelly">
@@ -638,7 +787,7 @@
       </segment>
       <segment id="green_jelly.description" state="translated">
         <source>green_jelly.description</source>
-        <target>Mejor no mencionar cómo produces esa cosa verde y pegajosa...</target>
+        <target>Mejor no mencionar cómo produces esa cosa verde y pegajosa...//:point: Por **1** :pa:, puedes provocar la avería de un aparato electrónico dentro de algunos ciclos.//:point: La avería de este equipo **siempre** es anunciada por NERON.</target>
       </segment>
     </unit>
     <unit id="massive_mushification">
@@ -648,7 +797,7 @@
       </segment>
       <segment id="massive_mushification.description" state="translated">
         <source>massive_mushification.description</source>
-        <target>Ciertos peniceliums tienen una virulencia extrema. El efecto tiene corta duración pero es más eficaz.</target>
+        <target>Ciertos peniceliums tienen una virulencia extrema. El efecto tiene corta duración pero es más eficaz.//:point: **Único**: Por 2 :pa: y 2 esporas, puedes quitarle 2 :pa: a cada miembro de la tripulación y provocarles un estado de **suciedad**.</target>
       </segment>
     </unit>
     <unit id="bypass">
@@ -658,7 +807,7 @@
       </segment>
       <segment id="bypass.description" state="translated">
         <source>bypass.description</source>
-        <target>Los secretos del cógido de NERON pueden ser tan deleitosos...</target>
+        <target>Los secretos del código de NERON pueden ser tan deleitosos...//:point: Puedes acceder al **BIOS de NERON** incluso sin ser {character_gender, select, female {**Administradora**} other {**Administrador**}}.</target>
       </segment>
     </unit>
     <unit id="traitor">
@@ -668,7 +817,7 @@
       </segment>
       <segment id="traitor.description" state="translated">
         <source>traitor.description</source>
-        <target>Has desarrollado una habilidad fabulosa para atraer problemas. "Mira, un mankarog... ¿y si le hacemos cosquillas por aquí?"...</target>
+        <target>Has desarrollado una habilidad fabulosa para atraer problemas. *Mira, un mankarog... ¿y si le hacemos cosquillas por aquí?*...//:point: Expedición: **Duplicas** Las probabilidades de **eventos negativos**.</target>
       </segment>
     </unit>
     <unit id="cold_blooded">
@@ -678,17 +827,20 @@
       </segment>
       <segment id="cold_blooded.description" state="translated">
         <source>cold_blooded.description</source>
-        <target>En el espacio, todo puede suceder. Conservar la calma puede ayudar mucho.</target>
+        <target>En el espacio, todo puede suceder. Conservar la calma puede ayudar mucho.//:point: **Ganas 3 :pa:** cada vez que un camarada **muere**.</target>
       </segment>
     </unit>
     <unit id="green_thumb">
       <segment id="green_thumb.name" state="translated">
         <source>green_thumb.name</source>
-        <target>Amigo de las plantas</target>
+        <target>{character_gender, select,
+        female {Amiga}
+        other {Amigo}} de las plantas</target>
       </segment>
       <segment id="green_thumb.description" state="translated">
         <source>green_thumb.description</source>
-        <target>Las plantas crecen naturalmente gracias a tu presencia, basta con dirigirles tu mirada cautivadora para que produzcan bellos frutos.</target>
+        <target>Las plantas crecen naturalmente gracias a tu presencia, basta con dirigirles tu mirada cautivadora para que produzcan bellos frutos.//:point: Comienzas la partida con **2 hidromacetas** adicionales.//
+:point: Los **injertos** que realizas comienzan con un ciclo de maduración corto.</target>
       </segment>
     </unit>
     <unit id="polyvalent">
@@ -698,7 +850,14 @@
       </segment>
       <segment id="polyvalent.description" state="translated">
         <source>polyvalent.description</source>
-        <target>Así que eres multioficios, bien, ¡adelante!</target>
+        <target>Así que eres multioficios, bien, ¡adelante!//
+:point: Te consideras {character_gender, select, female {**Botánica**, **Diplomática** y **Bióloga**} other {**Botánico**, **Diplomático** y **Biólogo**}} pero no tienes ninguna de sus acciones o recursos.//
+:point: Puedes leer las **propiedades de los frutos, las plantas y los medicamentos**.//
+:point: Mientras estés en el **Puente de mando**, abres nuevas oportunidades de intercambio con los *mercaderes*.//
+:point: Expedición: El evento **Cosecha** da un fruto adicional.//
+:point: Expedición: Elimina las probabilidades de eventos de **Combate** en los encuentros extraterrestres.//
+:point: **+4% de bonus** en cada **Investigación** del Laboratorio.//
+:point: Bonus para desarrollar ciertos **Proyectos NERON**.</target>
       </segment>
     </unit>
     <unit id="strateguru">
@@ -708,7 +867,9 @@
       </segment>
       <segment id="strateguru.description" state="translated">
         <source>strateguru.description</source>
-        <target>Eres un experto en batallas espaciales, pero todos creen que estás loco.</target>
+        <target>{character_gender, select,
+        female {Eres una experta en batallas espaciales, pero todos creen que estás loca.}
+        other {Eres un experto en batallas espaciales, pero todos creen que estás loco.}}//:point: **50%** de probabilidades de reducir un **33%** de cada ola de hunters.</target>
       </segment>
     </unit>
     <unit id="opportunist">
@@ -718,27 +879,36 @@
       </segment>
       <segment id="opportunist.description" state="translated">
         <source>opportunist.description</source>
-        <target>El arribista no pierde ninguna oportunidad para subir en la jerarquía de la nave.</target>
+        <target>{character_gender, select,
+        female {La}
+        other {El}} arribista no pierde ninguna oportunidad para subir en la jerarquía de la nave.//:point: Ganas 5 :pa: cuando **ganas un título** por primera vez.</target>
       </segment>
     </unit>
     <unit id="crazy_eye">
-      <segment id="crazy_eye.name" state="initial">
+      <segment id="crazy_eye.name" state="translated">
         <source>crazy_eye.name</source>
-        <target>crazy_eye.name</target>
+        <target>Ojo Vivo</target>
       </segment>
       <segment id="crazy_eye.description" state="translated">
         <source>crazy_eye.description</source>
-        <target>No hay manera de sorprenderte, anticipas todos los movimientos de tus enemigos así como de tus supuestos aliados.</target>
+        <target>No hay manera de sorprenderte, anticipas todos los movimientos de tus enemigos así como de tus supuestos aliados.//:point: Todas las acciones agresivas hacia ti cuestan 2 :pa: adicionales.</target>
       </segment>
     </unit>
     <unit id="medic">
       <segment id="medic.name" state="translated">
         <source>medic.name</source>
-        <target>Médico</target>
+        <target>{character_gender, select,
+        female {Médica}
+        other {Médico}}</target>
       </segment>
       <segment id="medic.description" state="translated">
         <source>medic.description</source>
-        <target>El médico tiene los conocimientos necesarios para realizar curaciones rápidas y precisas. También puede realizar cirugías.</target>
+        <target>{character_gender, select,
+        female {Lá médica}
+        other {El médico}} tiene los conocimientos necesarios para realizar curaciones rápidas y precisas. También puede realizar cirugías.//:point: Tus **Curas** otorgan 2 :hp: adicionales.//
+:point: Puedes realizar **Operaciones**.//
+:point: Puedes leer las **propiedades de los medicamentos**.//
+:point: **+4% de bonus** en cada **Investigación** del Laboratorio.</target>
       </segment>
     </unit>
     <unit id="rebel">
@@ -748,7 +918,7 @@
       </segment>
       <segment id="rebel.description" state="translated">
         <source>rebel.description</source>
-        <target>Tus vínculos con la resistencia anti-mush te permiten comprender y decodificar las señales rebeldes más rápido que cualquier experto radio.</target>
+        <target>Tus vínculos con la resistencia anti-mush te permiten comprender y decodificar las señales rebeldes más rápido que cualquier otro experto en comunicaciones.//:point: **Duplica** tu progreso al **descifrar** las bases rebeldes.</target>
       </segment>
     </unit>
     <unit id="torturer">
@@ -758,27 +928,35 @@
       </segment>
       <segment id="torturer.description" state="translated">
         <source>torturer.description</source>
-        <target>El verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: \n"CONFIESA."</target>
+        <target>{character_gender, select,
+        female {La}
+        other {El}} verdugo conoce todos los circuitos nerviosos sensibles para hacer oír su mensaje: ***CONFIESA.***//:point: Otorga la acción **Torturar**.</target>
       </segment>
     </unit>
     <unit id="ocd">
-      <segment id="ocd.name" state="initial">
+      <segment id="ocd.name" state="translated">
         <source>ocd.name</source>
-        <target>ocd.name</target>
+        <target>{character_gender, select,
+        female {Meticulosa}
+        other {Meticuloso}}</target>
       </segment>
       <segment id="ocd.description" state="translated">
         <source>ocd.description</source>
-        <target>Tienes una manía con la limpieza y eso tiene su lado positivo.</target>
+        <target>Tienes una manía con la limpieza y eso tiene su lado positivo.//:point: **Nunca te ensuciarás accidentalmente** al realizar acciones en la nave.</target>
       </segment>
     </unit>
     <unit id="lethargy">
       <segment id="lethargy.name" state="translated">
         <source>lethargy.name</source>
-        <target>Aletargado</target>
+        <target>{character_gender, select,
+        female {Aletargada}
+        other {Aletargado}}</target>
       </segment>
       <segment id="lethargy.description" state="translated">
         <source>lethargy.description</source>
-        <target>Estás despierto solo 4h al día, pero en ese poco tiempo, ¡puedes hacer milagros!</target>
+        <target>{character_gender, select,
+        female {Estás despierta solo 4 horas al día, pero en ese poco tiempo, ¡puedes hacer milagros!//:point: Si permaneces recostada durante al menos **4 ciclos**, ganas **1** :pa: adicional cada ciclo.}
+        other {Estás despierto solo 4 horas al día, pero en ese poco tiempo, ¡puedes hacer milagros!//:point: Si permaneces recostado durante al menos **4 ciclos**, ganas **1** :pa: adicional cada ciclo.}}//:point: La capacidad máxima de tu barra de :pa: se **duplica**.</target>
       </segment>
     </unit>
     <unit id="panic">
@@ -808,7 +986,7 @@
       </segment>
       <segment id="antique_perfume.description" state="translated">
         <source>antique_perfume.description</source>
-        <target>¡Pero qué bien hueles hoy!</target>
+        <target>¡Pero qué bien hueles hoy!//:point: Cada vez que te **duches**, ganarás una inmunidad de **2** ciclos contra las **infecciones Mush**.</target>
       </segment>
     </unit>
     <unit id="self_sacrifice">
@@ -816,19 +994,19 @@
         <source>self_sacrifice.name</source>
         <target>Abnegación</target>
       </segment>
-      <segment id="self_sacrifice.description" state="initial">
+      <segment id="self_sacrifice.description" state="translated">
         <source>self_sacrifice.description</source>
-        <target>self_sacrifice.description</target>
+        <target>Algunas personas particularmente resilientes pueden soportar lo impensable. Pero esto tiene un costo.//:point: Si llegas a **0** :pmo:, no morirás, pero perderás **1** :hp: por cada ciclo.</target>
       </segment>
     </unit>
     <unit id="intimidating">
-      <segment id="intimidating.name" state="initial">
+      <segment id="intimidating.name" state="translated">
         <source>intimidating.name</source>
-        <target>intimidating.name</target>
+        <target>Intimidante</target>
       </segment>
-      <segment id="intimidating.description" state="initial">
+      <segment id="intimidating.description" state="translated">
         <source>intimidating.description</source>
-        <target>intimidating.description</target>
+        <target>A veces la presa solo escapa porque tiene la oportunidad.//:point: **Diario**: Por **1** :pa:, puedes intimidar a un tripulante. El tripulante perderá **2** :pa: y **4** :pm:.</target>
       </segment>
     </unit>
     <unit id="metalworker">
@@ -836,9 +1014,9 @@
         <source>metalworker.name</source>
         <target>Materialista</target>
       </segment>
-      <segment id="metalworker.description" state="initial">
+      <segment id="metalworker.description" state="translated">
         <source>metalworker.description</source>
-        <target>metalworker.description</target>
+        <target>¡Está bastante claro que eres una persona muy productiva!//:point: **Diario**: Si estás en un **almacén**, por **0** :pa:, tienes la oportunidad de encontrar piezas o algo mejor.</target>
       </segment>
     </unit>
     <unit id="doorman">
@@ -848,7 +1026,7 @@
       </segment>
       <segment id="doorman.description" state="translated">
         <source>doorman.description</source>
-        <target>Una puerta saboteada puede ser tan, pero tan desesperante...</target>
+        <target>Una puerta saboteada puede ser tan, pero tan desesperante...//:point: **Diario**: Puedes **Sabotear 1 Puerta** aleatoria gratuitamente.</target>
       </segment>
     </unit>
     <unit id="nimble_fingers">
@@ -858,17 +1036,17 @@
       </segment>
       <segment id="nimble_fingers.description" state="translated">
         <source>nimble_fingers.description</source>
-        <target>Con tus manos benditas puedes hacer cosas maravillosas, como manipular las cámaras...</target>
+        <target>Con tus manos benditas puedes hacer cosas maravillosas, como manipular las cámaras...//:point: Tus acciones **Instalar** y **Sacar** son **discretas** con las cámaras.</target>
       </segment>
     </unit>
     <unit id="polymath">
-      <segment id="polymath.name" state="initial">
+      <segment id="polymath.name" state="translated">
         <source>polymath.name</source>
-        <target>polymath.name</target>
+        <target>Erudito</target>
       </segment>
-      <segment id="polymath.description" state="initial">
+      <segment id="polymath.description" state="translated">
         <source>polymath.description</source>
-        <target>polymath.description</target>
+        <target>El conocimiento siempre está en movimiento, el estado ya no más.//:point: **+2** canales privados disponibles.//:point: **+1** :pa_comp: al día.//:point: **-10%** a todas tus acciones de azar.</target>
       </segment>
     </unit>
     <unit id="nightmarish">
@@ -878,7 +1056,7 @@
       </segment>
       <segment id="nightmarish.description" state="translated">
         <source>nightmarish.description</source>
-        <target>Las escamas del Mush pueden alterar las ondas cerebrales de los humanos. Sacudiéndolas un poco pueden hacer el descanso imposible.</target>
+        <target>Las escamas del Mush pueden alterar las ondas cerebrales de los humanos. Sacudiéndolas un poco pueden hacer el descanso imposible.//:point: Por **0** :pa:, puedes **provocar pesadillas** a un jugador recostado. Este jugador no recibirá su bonus del sueño.</target>
       </segment>
     </unit>
     <unit id="ninja">
@@ -888,7 +1066,7 @@
       </segment>
       <segment id="ninja.description" state="translated">
         <source>ninja.description</source>
-        <target>Tus desplazamientos son veloces y discretos.</target>
+        <target>Tus desplazamientos son veloces y discretos.//:point: Tus ataques **cuerpo a cuerpo** se convierten en acciones **anónimas**.</target>
       </segment>
     </unit>
     <unit id="neron_depression">
@@ -898,7 +1076,8 @@
       </segment>
       <segment id="neron_depression.description" state="translated">
         <source>neron_depression.description</source>
-        <target>Cuando NERON se siente mal, es todo el Daedalus el que vomita.</target>
+        <target>Cuando NERON se siente mal, es todo el Daedalus el que vomita.
+//:point: Por **3** :pa:, podrás marear a NERON en el próximo ciclo para modificar aleatoriamente sus ajustes.//:point: No funciona en el DMZ si está Activado.</target>
       </segment>
     </unit>
   </file>

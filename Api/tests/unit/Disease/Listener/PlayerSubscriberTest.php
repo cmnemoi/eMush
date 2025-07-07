@@ -6,6 +6,7 @@ namespace Mush\tests\unit\Player\Listener;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
+use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Listener\PlayerSubscriber;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -101,16 +102,16 @@ final class PlayerSubscriberTest extends TestCase
         $deadPlayer->shouldReceive('getPlace')->andReturn($place);
         $mushPlayer->shouldReceive('getPlace')->andReturn($place);
 
-        // given universe state should make that the mush player have a trauma
+        // given universe state should make that the mush player have author trauma, but witness trauma is never tested since author is excluded
         $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)->andReturn(true);
-        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_WITNESS_PROBABILTY)->andReturn(true);
+        // Author should NOT be tested for witness trauma since they are excluded from witnesses
 
         // when the dead player dies
         $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());
         $playerEvent->setAuthor($mushPlayer);
         $this->playerSubscriber->onDeathPlayer($playerEvent);
 
-        // then no trauma is created
+        // then no trauma is created because author is Mush
         $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
         $this->roomLogService->shouldNotHaveReceived('createLog');
     }
@@ -158,16 +159,16 @@ final class PlayerSubscriberTest extends TestCase
         // given some player who will die
         $deadPlayer = PlayerFactory::createPlayerWithDaedalus($daedalus);
 
-        // given universe state should make that detached crewmember player should have a trauma
+        // given universe state should make that detached crewmember player should have author trauma, but witness trauma is never tested since author is excluded
         $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)->andReturn(true);
-        $this->randomService->shouldReceive('isSuccessful')->once()->with(PlayerSubscriber::TRAUMA_WITNESS_PROBABILTY)->andReturn(true);
+        // Author should NOT be tested for witness trauma since they are excluded from witnesses
 
         // when the dead player dies
         $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());
         $playerEvent->setAuthor($player);
         $this->playerSubscriber->onDeathPlayer($playerEvent);
 
-        // then no trauma is created
+        // then no trauma is created because player has DETACHED_CREWMEMBER skill
         $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
         $this->roomLogService->shouldNotHaveReceived('createLog');
     }
@@ -229,5 +230,38 @@ final class PlayerSubscriberTest extends TestCase
         // then no trauma is created
         $this->diseaseCauseService->shouldNotHaveReceived('handleDiseaseForCause');
         $this->roomLogService->shouldNotHaveReceived('createLog');
+    }
+
+    public function testShouldNotApplyWitnessTraumaToAuthorInSameRoom(): void
+    {
+        $daedalus = DaedalusFactory::createDaedalus();
+
+        // given a human author player
+        $author = PlayerFactory::createPlayerWithDaedalus($daedalus);
+
+        // given a dead player in the same room
+        $deadPlayer = PlayerFactory::createPlayerWithDaedalus($daedalus);
+
+        // given universe state that makes author trauma successful but witness trauma never tested for author
+        $this->randomService->shouldReceive('isSuccessful')
+            ->with(PlayerSubscriber::TRAUMA_AUTHOR_PROBABILTY)
+            ->andReturn(true)
+            ->once();
+
+        // the author should NOT be tested for witness trauma since they are the author
+        $this->randomService->shouldReceive('isSuccessful')
+            ->with(PlayerSubscriber::TRAUMA_WITNESS_PROBABILTY)
+            ->never();
+
+        // when the dead player dies
+        $playerEvent = new PlayerEvent($deadPlayer, [], new \DateTime());
+        $playerEvent->setAuthor($author);
+        $this->playerSubscriber->onDeathPlayer($playerEvent);
+
+        // then only author trauma is applied (once)
+        $this->diseaseCauseService->shouldHaveReceived('handleDiseaseForCause')
+            ->with(DiseaseCauseEnum::TRAUMA, $author)
+            ->once();
+        $this->roomLogService->shouldHaveReceived('createLog')->once();
     }
 }

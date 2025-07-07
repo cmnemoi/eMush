@@ -150,6 +150,31 @@
                 <label :key="toggle.key">{{ toggle.name }}</label>
             </div>
         </section>
+        <section class="death-announcement-section">
+            <Tippy tag="h3">
+                <img :src="getImgUrl('notes.gif')" />
+                {{ terminal.sectionTitles?.deathAnnouncementName }}
+                <template #content>
+                    <h1 v-html="formatText(terminal.sectionTitles?.deathAnnouncementName)" />
+                    <p v-html="formatText(terminal.sectionTitles?.deathAnnouncementDescription)" />
+                </template>
+            </Tippy>
+            <div
+                class="radio-buttons-container"
+                v-for="toggle in terminal.infos?.deathAnnouncementsToggles"
+                :key="toggle.key"
+            >
+                <input
+                    type="radio"
+                    v-model="selectedDeathAnoouncementToggle"
+                    :value="toggle.key"
+                    :checked="selectedDeathAnoouncementToggle === toggle.key"
+                    :disabled="!toggleDeathAnnouncementAction.canExecute"
+                    @change="executeTargetAction(terminal, toggleDeathAnnouncementAction)"
+                >
+                <label :key="toggle.key">{{ toggle.name }}</label>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -183,6 +208,9 @@ export default defineComponent ({
         toggleVocodedAnnouncementAction(): Action {
             return this.terminal.getActionByKeyOrThrow(ActionEnum.TOGGLE_VOCODED_ANNOUNCEMENTS);
         },
+        toggleDeathAnnouncementAction() : Action {
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.TOGGLE_DEATH_ANNOUNCEMENTS);
+        },
         target(): Terminal {
             return this.terminal;
         }
@@ -213,7 +241,9 @@ export default defineComponent ({
             selectedPlasmaShieldToggle: '',
             selectedMagneticNetToggle: '',
             selectedNeronInhibitionToggle: '',
-            selectedVocodedAnnouncementToggle: ''
+            selectedVocodedAnnouncementToggle: '',
+            selectedDeathAnoouncementToggle: ''
+
         };
     },
     beforeMount() {
@@ -246,6 +276,12 @@ export default defineComponent ({
             throw new Error(`No areVocodedAnnouncementsActive found for terminal ${this.terminal?.key}`);
         }
         this.selectedVocodedAnnouncementToggle = areVocodedAnnouncementsActive ? 'active' : 'inactive';
+
+        const areDeathAnnouncementsActive = this.terminal.infos?.areDeathAnnouncementsActive;
+        if (areDeathAnnouncementsActive === null) {
+            throw new Error(`No areDeathAnnouncementsActive found for terminal ${this.terminal?.key}`);
+        }
+        this.selectedDeathAnoouncementToggle = areDeathAnnouncementsActive ? 'active' : 'inactive';
     }
 });
 </script>

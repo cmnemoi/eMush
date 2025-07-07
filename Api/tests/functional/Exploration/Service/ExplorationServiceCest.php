@@ -27,9 +27,9 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Project\Enum\ProjectName;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
@@ -222,6 +222,31 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $I->assertTrue($explorationStartPlace->hasEquipmentByName(ItemEnum::METAL_SCRAPS));
     }
 
+    public function testCloseExplorationNotifyExplorators(FunctionalTester $I): void
+    {
+        // given an exploration is created
+        $exploration = $this->explorationService->createExploration(
+            players: new PlayerCollection([$this->player1, $this->player2]),
+            explorationShip: $this->icarus,
+            numberOfSectorsToVisit: $this->planet->getSize(),
+            reasons: ['test'],
+        );
+
+        // then the explorators have no notification
+        $I->assertFalse($this->player1->hasNotification());
+        $I->assertFalse($this->player2->hasNotification());
+
+        // when closeExploration is called
+        $this->explorationService->closeExploration(
+            exploration: $exploration,
+            reasons: ['test'],
+        );
+
+        // then the explorators should be given exploration finished notification
+        $I->assertTrue($this->player1->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED->toString()));
+        $I->assertTrue($this->player2->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED->toString()));
+    }
+
     public function testDispatchExplorationEventDispatchesExplorationEvent(FunctionalTester $I): void
     {
         // given an exploration is created
@@ -382,7 +407,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     {
         // given terrence is a pilot
         $terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $terrence));
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I, $terrence);
 
         // given an exploration is created
         $exploration = $this->explorationService->createExploration(
@@ -684,7 +709,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     {
         $planet = $this->createPlanet([PlanetSectorEnum::DESERT], $I);
         $roland = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ROLAND);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto($scenario[0], $roland));
+        $this->addSkillToPlayer($scenario[0], $I, $roland);
 
         // given an exploration is created
         $exploration = $this->createExploration(

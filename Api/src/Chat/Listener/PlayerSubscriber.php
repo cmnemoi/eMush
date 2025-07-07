@@ -48,6 +48,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $player = $event->getPlayer();
         $time = $event->getTime();
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
+        $neron = $player->getDaedalus()->getNeron();
 
         $channels = $this->channelService->getPlayerChannels($player, true);
         foreach ($channels as $channel) {
@@ -61,7 +62,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         if ($endCause === null) {
             throw new \LogicException('Player should die with a reason');
         }
-        if (EndCauseEnum::isDeathEndCause($endCause)) {
+        if (EndCauseEnum::isDeathEndCause($endCause) && $neron->areDeathAnnouncementsActive()) {
             $this->neronMessageService->createPlayerDeathMessage($player, $endCause, $time);
         }
     }
@@ -83,7 +84,9 @@ class PlayerSubscriber implements EventSubscriberInterface
             return;
         }
         if ($key === MushMessageEnum::INFECT_CAT) {
-            $mush = $player->getEquipmentByNameOrThrow(ItemEnum::SCHRODINGER)->getStatusByNameOrThrow(EquipmentStatusEnum::CAT_INFECTED)->getPlayerTargetOrThrow();
+            $catHolder = $player->hasEquipmentByName(ItemEnum::SCHRODINGER) ? $player : $player->getPlace();
+            $mush = $catHolder->getEquipmentByNameOrThrow(ItemEnum::SCHRODINGER)->getStatusByNameOrThrow(EquipmentStatusEnum::CAT_INFECTED)->getPlayerTargetOrThrow();
+
             $params['item'] = ItemEnum::SCHRODINGER;
             $params[$mush->getLogKey()] = $mush->getLogName();
         }

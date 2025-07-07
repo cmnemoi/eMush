@@ -6,16 +6,18 @@ type BasicPopUp = {
     isOpen: boolean;
 }
 
-type TriumphGainsPopUpData = {
+type PlayerHistoryPopUpData = {
     isOpen: boolean;
     playerName: string | null;
     gains: string[] | null;
+    highlights: string[] | null;
 };
 
 type PlayerNotificationPopUp = {
     title?: string;
     subTitle?: string;
     description: string;
+    isStamped: boolean;
     isOpen: boolean;
 }
 
@@ -33,13 +35,15 @@ const state = {
         title: '',
         subTitle: '',
         description: '',
+        isStamped: false,
         isOpen: false
     },
-    triumphGainsPopUp: {
+    playerHistoryPopUp: {
         isOpen: false,
         playerName: null,
-        gains: null
-    } as TriumphGainsPopUpData
+        gains: null,
+        highlights: null
+    } as PlayerHistoryPopUpData
 };
 
 const getters: GetterTree<any, any> = {
@@ -55,8 +59,8 @@ const getters: GetterTree<any, any> = {
     playerNotificationPopUp: (state: any): PlayerNotificationPopUp => {
         return state.playerNotificationPopUp;
     },
-    triumphGainsPopUp: (state: any): TriumphGainsPopUpData => {
-        return state.triumphGainsPopUp;
+    playerHistoryPopUp: (state: any): PlayerHistoryPopUpData => {
+        return state.playerHistoryPopUp;
     }
 };
 
@@ -88,20 +92,23 @@ const mutations: MutationTree<any> = {
         state.playerNotificationPopUp.title = notification.title;
         state.playerNotificationPopUp.subTitle = notification.subTitle;
         state.playerNotificationPopUp.description = notification.description;
+        state.playerNotificationPopUp.isStamped = notification.isStamped;
         state.playerNotificationPopUp.isOpen = true;
     },
     closePlayerNotificationPopUp(state) {
         state.playerNotificationPopUp.isOpen = false;
     },
-    openTriumphGainsPopUp(state, payload: { playerName: string, gains: string[] }) {
-        state.triumphGainsPopUp.isOpen = true;
-        state.triumphGainsPopUp.playerName = payload.playerName;
-        state.triumphGainsPopUp.gains = payload.gains;
+    openPlayerHistoryPopUp(state, payload: { playerName: string, gains: string[], highlights: string[] }) {
+        state.playerHistoryPopUp.isOpen = true;
+        state.playerHistoryPopUp.playerName = payload.playerName;
+        state.playerHistoryPopUp.gains = payload.gains;
+        state.playerHistoryPopUp.highlights = payload.highlights;
     },
-    closeTriumphGainsPopUp(state) {
-        state.triumphGainsPopUp.isOpen = false;
-        state.triumphGainsPopUp.playerName = null;
-        state.triumphGainsPopUp.gains = null;
+    closePlayerHistoryPopUp(state) {
+        state.playerHistoryPopUp.isOpen = false;
+        state.playerHistoryPopUp.playerName = null;
+        state.playerHistoryPopUp.gains = null;
+        state.playerHistoryPopUp.highlights = null;
     }
 };
 
@@ -130,11 +137,11 @@ const actions: ActionTree<any, any> = {
     closePlayerNotificationPopUp({ commit }) {
         commit('closePlayerNotificationPopUp');
     },
-    openTriumphGainsPopUp({ commit }, payload: { playerName: string, gains: string[] }) {
-        commit('openTriumphGainsPopUp', payload);
+    openPlayerHistoryPopUp({ commit }, payload: { playerName: string, gains: string[], highlights: string[] }) {
+        commit('openPlayerHistoryPopUp', payload);
     },
-    closeTriumphGainsPopUp({ commit }) {
-        commit('closeTriumphGainsPopUp');
+    closePlayerHistoryPopUp({ commit }) {
+        commit('closePlayerHistoryPopUp');
     }
 };
 

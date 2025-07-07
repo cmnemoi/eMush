@@ -15,6 +15,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -245,6 +246,17 @@ final class ShootCatCest extends AbstractFunctionalTest
         $I->assertEquals(1, $this->player->getPlayerInfo()->getStatistics()->getAggressiveActionsDone());
     }
 
+    public function shouldCreatePlayerHighlightsOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenShotIsSuccessful($I);
+
+        $this->whenPlayerShoots();
+
+        $this->thenPlayerSecondToLastHighlightIsSuccessfulShootCatAction($I);
+
+        $this->thenPlayerLastHighlightIsSchrodingerDestroyed($I);
+    }
+
     private function givenCatIsInShelf(): void
     {
         $this->schrodinger = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -366,5 +378,29 @@ final class ShootCatCest extends AbstractFunctionalTest
             target: $this->schrodinger,
         );
         $this->shootCat->execute();
+    }
+
+    private function thenPlayerSecondToLastHighlightIsSuccessfulShootCatAction(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: [
+                'name' => 'shoot_cat',
+                'result' => PlayerHighlight::SUCCESS,
+                'parameters' => ['target_' . $this->schrodinger->getLogKey() => $this->schrodinger->getLogName()],
+            ],
+            actual: $this->player->getPlayerInfo()->getPlayerHighlights()[1]->toArray(),
+        );
+    }
+
+    private function thenPlayerLastHighlightIsSchrodingerDestroyed(FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: [
+                'name' => 'equipment.destroyed_schrodinger',
+                'result' => PlayerHighlight::SUCCESS,
+                'parameters' => ['target_' . $this->schrodinger->getLogKey() => $this->schrodinger->getLogName()],
+            ],
+            actual: $this->player->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
+        );
     }
 }

@@ -42,13 +42,13 @@
       </segment>
     </unit>
     <unit id="unluckier_technician">
-      <segment id="unluckier_technician.name" state="initial">
+      <segment id="unluckier_technician.name" state="translated">
         <source>unluckier_technician.name</source>
-        <target>unluckier_technician.name</target>
+        <target>Manos inútiles</target>
       </segment>
-      <segment id="unluckier_technician.description" state="initial">
+      <segment id="unluckier_technician.description" state="translated">
         <source>unluckier_technician.description</source>
-        <target>unluckier_technician.description</target>
+        <target>No sirve de nada darle una llave inglesa. No sabría que hacer con ella...</target>
       </segment>
     </unit>
     <unit id="sol_collabs">
@@ -72,23 +72,23 @@
       </segment>
     </unit>
     <unit id="best_hunter_killer">
-      <segment id="best_hunter_killer.name" state="initial">
+      <segment id="best_hunter_killer.name" state="translated">
         <source>best_hunter_killer.name</source>
-        <target>best_hunter_killer.name</target>
+        <target>Piloto Battlestar</target>
       </segment>
-      <segment id="best_hunter_killer.description" state="initial">
+      <segment id="best_hunter_killer.description" state="translated">
         <source>best_hunter_killer.description</source>
-        <target>best_hunter_killer.description</target>
+        <target>¡Digna encarnación de Starbuck en Battlestar Galactica!</target>
       </segment>
     </unit>
     <unit id="best_lost">
-      <segment id="best_lost.name" state="initial">
+      <segment id="best_lost.name" state="translated">
         <source>best_lost.name</source>
-        <target>best_lost.name</target>
+        <target>«No debí venir.»</target>
       </segment>
-      <segment id="best_lost.description" state="initial">
+      <segment id="best_lost.description" state="translated">
         <source>best_lost.description</source>
-        <target>best_lost.description</target>
+        <target>Vino, se perdió, esperó, y esperó muuuucho tiempo... y lo seguiría haciendo.</target>
       </segment>
     </unit>
     <unit id="best_killer">
@@ -142,43 +142,43 @@
       </segment>
     </unit>
     <unit id="best_eater">
-      <segment id="best_eater.name" state="initial">
+      <segment id="best_eater.name" state="translated">
         <source>best_eater.name</source>
-        <target>best_eater.name</target>
+        <target>¿Qué comemos hoy?</target>
       </segment>
-      <segment id="best_eater.description" state="initial">
+      <segment id="best_eater.description" state="translated">
         <source>best_eater.description</source>
-        <target>best_eater.description</target>
+        <target>Pasa su tiempo rumiando todo lo que tiene enfrente y no deja ni los huesos.</target>
       </segment>
     </unit>
     <unit id="best_action_waster">
-      <segment id="best_action_waster.name" state="initial">
+      <segment id="best_action_waster.name" state="translated">
         <source>best_action_waster.name</source>
-        <target>best_action_waster.name</target>
+        <target>Energía desperdiciada</target>
       </segment>
-      <segment id="best_action_waster.description" state="initial">
+      <segment id="best_action_waster.description" state="translated">
         <source>best_action_waster.description</source>
-        <target>best_action_waster.description</target>
+        <target>«Mi lema: Es mejor gastar sin pensar»</target>
       </segment>
     </unit>
     <unit id="worst_action_waster">
-      <segment id="worst_action_waster.name" state="initial">
+      <segment id="worst_action_waster.name" state="translated">
         <source>worst_action_waster.name</source>
-        <target>worst_action_waster.name</target>
+        <target>Super Optimizador</target>
       </segment>
-      <segment id="worst_action_waster.description" state="initial">
+      <segment id="worst_action_waster.description" state="translated">
         <source>worst_action_waster.description</source>
-        <target>worst_action_waster.description</target>
+        <target>Usa muy bien cada uno de sus puntos de acción. Ha entendido bien la clave del juego.</target>
       </segment>
     </unit>
     <unit id="best_sleeper">
-      <segment id="best_sleeper.name" state="initial">
+      <segment id="best_sleeper.name" state="translated">
         <source>best_sleeper.name</source>
-        <target>best_sleeper.name</target>
+        <target>Dormilón caradura</target>
       </segment>
-      <segment id="best_sleeper.description" state="initial">
+      <segment id="best_sleeper.description" state="translated">
         <source>best_sleeper.description</source>
-        <target>best_sleeper.description</target>
+        <target>Se ha pasado todo el juego en cama, babeando y roncando. Vaya desperdicio.</target>
       </segment>
     </unit>
     <unit id="dead_during_sleep">
@@ -192,13 +192,13 @@
       </segment>
     </unit>
     <unit id="best_hacker">
-      <segment id="best_hacker.name" state="initial">
+      <segment id="best_hacker.name" state="translated">
         <source>best_hacker.name</source>
-        <target>best_hacker.name</target>
+        <target>Trabajador del año</target>
       </segment>
-      <segment id="best_hacker.description" state="initial">
+      <segment id="best_hacker.description" state="translated">
         <source>best_hacker.description</source>
-        <target>best_hacker.description</target>
+        <target>No le importan los títulos pomposos, prefiere los recursos y los accesos a los terminales. Muy competente.</target>
       </segment>
     </unit>
     <unit id="best_com_technician">
@@ -222,13 +222,13 @@
       </segment>
     </unit>
     <unit id="best_terrorist">
-      <segment id="best_terrorist.name" state="initial">
+      <segment id="best_terrorist.name" state="translated">
         <source>best_terrorist.name</source>
-        <target>best_terrorist.name</target>
+        <target>Mutante Fuerza Bruta</target>
       </segment>
-      <segment id="best_terrorist.description" state="initial">
+      <segment id="best_terrorist.description" state="translated">
         <source>best_terrorist.description</source>
-        <target>best_terrorist.description</target>
+        <target>¡Terrible mutante terrorista sin nombre ni perdón!</target>
       </segment>
     </unit>
     <unit id="best_wounded">
@@ -282,13 +282,13 @@
       </segment>
     </unit>
     <unit id="worst_agro">
-      <segment id="worst_agro.name" state="initial">
+      <segment id="worst_agro.name" state="translated">
         <source>worst_agro.name</source>
-        <target>worst_agro.name</target>
+        <target>Pacifista</target>
       </segment>
-      <segment id="worst_agro.description" state="initial">
+      <segment id="worst_agro.description" state="translated">
         <source>worst_agro.description</source>
-        <target>worst_agro.description</target>
+        <target>No mata ni a una mosca. Los otros se ocupan de eso.</target>
       </segment>
     </unit>
     <unit id="lesser_drugged">
@@ -302,13 +302,13 @@
       </segment>
     </unit>
     <unit id="kube_addict">
-      <segment id="kube_addict.name" state="initial">
+      <segment id="kube_addict.name" state="translated">
         <source>kube_addict.name</source>
-        <target>kube_addict.name</target>
+        <target>Gamer al cubo</target>
       </segment>
-      <segment id="kube_addict.description" state="initial">
+      <segment id="kube_addict.description" state="translated">
         <source>kube_addict.description</source>
-        <target>kube_addict.description</target>
+        <target>Adicto al MAD Kube, esa cosa que te hace adormecer las piernas cuando estás en el WC...</target>
       </segment>
     </unit>
     <unit id="best_alien_traitor">

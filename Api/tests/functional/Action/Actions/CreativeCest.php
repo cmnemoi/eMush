@@ -9,8 +9,6 @@ use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\LogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
@@ -97,10 +95,7 @@ final class CreativeCest extends AbstractFunctionalTest
 
     private function givenChunIsCreative(FunctionalTester $I): void
     {
-        $this->chun->getCharacterConfig()->setSkillConfigs([
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::CREATIVE]),
-        ]);
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::CREATIVE, $this->chun));
+        $this->addSkillToPlayer(SkillEnum::CREATIVE, $I, $this->chun);
     }
 
     private function givenActionSuccessRateIs(int $rate): void

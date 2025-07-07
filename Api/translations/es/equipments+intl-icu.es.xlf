@@ -24,8 +24,8 @@
       </segment>
       <segment id="examine" state="translated">
         <source>antenna.examine</source>
-        <target>Mejora enormemente el rendimiento del Centro de Comunicación.
-Reduce en 1 el costo de las acciones de comunicación.
+        <target>Mejora mucho el rendimiento del Centro de Comunicación.//
+Reduce en 1 el costo de las acciones de comunicación.//
 Lo último en comunicaciones, su potencia permite intercambiar mensajes con el otro lado de la galaxia.</target>
       </segment>
     </unit>
@@ -52,8 +52,8 @@ Lo último en comunicaciones, su potencia permite intercambiar mensajes con el o
       </segment>
       <segment id="examine" state="translated">
         <source>radar_trans_void_antenna.examine</source>
-        <target>Mejora enormemente el rendimiento del Centro de Comunicación.
-Reduce en 1 el costo de las acciones de comunicación.
+        <target>Mejora enormemente el rendimiento del Centro de Comunicación.//
+Reduce en 1 el costo de las acciones de comunicación.//
 Lo último en comunicaciones, su potencia permite intercambiar mensajes con el otro lado de la galaxia.</target>
       </segment>
     </unit>
@@ -161,7 +161,7 @@ Modificar sus programas permite mejorar a NERON.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>medlab_bed.examine</source>
-        <target>Dormir en la cama te permite generar :pa: y también te podrás operar.
+        <target>Dormir en la cama te permite generar :pa: y también hacerte una autocirugía.
 ¡Que tengas lindos sueños!</target>
       </segment>
     </unit>
@@ -215,9 +215,8 @@ Tras varias sesiones con psicoanalistas, se creó una interfaz a la que solo uno
       </segment>
       <segment id="examine" state="translated">
         <source>calculator.examine</source>
-        <target>&lt;div&gt;Sirve para calcular cualquier cosa... Solo falta encontrar qué...
-&lt;ul&gt;&lt;li&gt;Permite calcular algo...&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
-&lt;div&gt;#NO_BG&lt;/div&gt;</target>
+        <target>Sirve para calcular cualquier cosa... Solo falta encontrar qué...//
+Permite calcular algo...</target>
       </segment>
     </unit>
     <unit id="coffee_machine">
@@ -432,7 +431,7 @@ Sea lo que sea de lo que estén hechas, sin importar su densidad o condición, u
       </segment>
       <segment id="examine" state="translated">
         <source>emergency_reactor.examine</source>
-        <target>Hace avanzar al Daedalus si falla el PILGRED.
+        <target>Hace avanzar al Daedalus si falla el PILGRED.//
 Hay tecnologías que se resisten a morir. Cada reactor consume 2 unidades de combustible por viaje.</target>
       </segment>
     </unit>
@@ -568,7 +567,7 @@ Además sirve para hacer barbacoas.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>reactor_lateral_alpha.examine</source>
-        <target>Localizado en la Sala de Motores, el reactor lateral permite girar al Daedalus en el sentido contrario de las manecillas del reloj ("hacia la izquierda").
+        <target>Localizado en la Sala de Motores, el reactor lateral permite girar al Daedalus en sentido antihorario ("hacia la izquierda").
 //
 También sirve para hacer barbacoas.</target>
       </segment>
@@ -596,7 +595,7 @@ También sirve para hacer barbacoas.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>reactor_lateral_bravo.examine</source>
-        <target>Localizado en la Sala de Motores, el reactor lateral permite girar el Daedalus en el sentido de las manecillas del reloj ("hacia la derecha").
+        <target>Localizado en la Sala de Motores, el reactor lateral permite girar el Daedalus en sentido horario ("hacia la derecha").
 //
 También sirve para hacer barbacoas.</target>
       </segment>
@@ -1028,8 +1027,8 @@ Rompe los límites del tiempo y el espacio con toda seguridad.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>planet_scanner.examine</source>
-        <target>Mejora mucho el rendimiento del Terminal Astro.
-+30% de probabilidades de encontrar un planeta.
+        <target>Mejora mucho el rendimiento del Terminal Astro.//
++30% de probabilidades de encontrar un planeta.//
 Para los nostálgicos, empieza cada escaneo con el sonido característico de los antiguos módems de Internet.</target>
       </segment>
     </unit>
@@ -1056,7 +1055,7 @@ Para los nostálgicos, empieza cada escaneo con el sonido característico de los
       </segment>
       <segment id="examine" state="translated">
         <source>quantum_sensors_planet_scanner.examine</source>
-        <target>Mejora enormemente el rendimiento de la Terminal Astro.
+        <target>Mejora enormemente el rendimiento del Terminal Astro.
 //
 +30% de probabilidad de encontrar un planeta.
 //
@@ -1086,7 +1085,7 @@ Una música suena cuando lo enciendes. Los ingenieros responsables de este objet
       </segment>
       <segment id="examine" state="translated">
         <source>research_laboratory.examine</source>
-        <target>Reúne las investigaciones científicas más destacadas sobre el Mush.
+        <target>Reúne las investigaciones científicas más destacadas sobre el Mush.//
 Laboratorio ultramoderno. La ciencia también es un arma.</target>
       </segment>
     </unit>

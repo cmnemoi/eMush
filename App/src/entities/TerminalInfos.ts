@@ -35,6 +35,8 @@ export class TerminalInfos {
     public seeTrades: string|null = null;
     public areVocodedAnnouncementsActive: boolean|null = null;
     public vocodedAnnouncementsToggles: {key: string, name: string}[]|null = null;
+    public areDeathAnnouncementsActive: boolean|null = null;
+    public deathAnnouncementsToggles: {key: string, name: string}[]|null = null;
 
     constructor() {
         this.requirements = [];
@@ -83,6 +85,8 @@ export class TerminalInfos {
             this.seeTrades = object.seeTrades;
             this.areVocodedAnnouncementsActive = object.areVocodedAnnouncementsActive;
             this.vocodedAnnouncementsToggles = object.vocodedAnnouncementsToggles;
+            this.areDeathAnnouncementsActive = object.areDeathAnnouncementsActive;
+            this.deathAnnouncementsToggles = object.deathAnnouncementsToggles;
         }
         return this;
     }

@@ -61,6 +61,76 @@
         <target>You may consult {exploration_link} to discover what happened...</target>
       </segment>
     </unit>
+    <unit id="exploration_closed_everyone_dead">
+      <segment state="translated">
+        <source>exploration_closed_everyone_dead.subTitle</source>
+        <target>The expedition ended sooner than expected: all the explorers are dead!</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_everyone_dead.description</source>
+        <target>You may consult {exploration_link} to discover what happened...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_no_spacesuit">
+      <segment state="translated">
+        <source>exploration_closed_no_spacesuit.subTitle</source>
+        <target>The exploration came back sooner than expected: nobody had a spacesuit!</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_no_spacesuit.description</source>
+        <target>You may consult {exploration_link} to discover what happened...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_mankarog">
+      <segment state="translated">
+        <source>exploration_closed_return_event_mankarog.subTitle</source>
+        <target>The expedition observes a Mankarog on the horizon passing behind a mountain... We should definitely change heading now to avoid any trouble.</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_return_event_mankarog.description</source>
+        <target>You may consult {exploration_link} to discover what happened...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_seismic_activity">
+      <segment state="translated">
+        <source>exploration_closed_return_event_seismic_activity.subTitle</source>
+        <target>A violent tremor paralyses the expedition... And then silence again... best return to the Daedalus quick smart!</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_return_event_seismic_activity.description</source>
+        <target>You may consult {exploration_link} to discover what happened...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed_return_event_volcanic_activity">
+      <segment state="translated">
+        <source>exploration_closed_return_event_volcanic_activity.subTitle</source>
+        <target>With a muted groan, a nearby volcano starts to belch thick black smoke, you book it back to the Daedalus as fast as you can!</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed_return_event_volcanic_activity.description</source>
+        <target>You may consult {exploration_link} to discover what happened...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_closed">
+      <segment state="translated">
+        <source>exploration_closed.subTitle</source>
+        <target>Welcome back!</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_closed.description</source>
+        <target>You may consult {exploration_link} to discover what happened...</target>
+      </segment>
+    </unit>
+    <unit id="exploration_started_no_spacesuit">
+      <segment state="translated">
+        <source>exploration_started_no_spacesuit.subTitle</source>
+        <target>You are stuck in the machine that took you on expedition doesn't have an oxygen-rich atmosphere and you have no spacesuit. You'll have to wait for your colleagues to finish their exploration.</target>
+      </segment>
+      <segment state="translated">
+        <source>exploration_started_no_spacesuit.description</source>
+        <target>You may consult {exploration_link} to discover what happened...</target>
+      </segment>
+    </unit>
     <unit id="announcement_received">
       <segment state="translated">
         <source>announcement_received.title</source>
@@ -79,6 +149,28 @@
       <segment state="translated">
         <source>announcement_created.description</source>
         <target>{message}////{character} / Jour {day} - Cycle {cycle} // You may read this again anytime in the :tip: Tips channel.</target>
+      </segment>
+    </unit>
+    <unit id="clumsiness">
+      <segment state="translated">
+        <source>clumsiness.description</source>
+        <target>That wasn't supposed to happen. In the heat of the action you hurt yourself...</target>
+      </segment>
+    </unit>
+    <unit id="soiled">
+      <segment state="translated">
+        <source>soiled.description</source>
+        <target>Disgusting... You're filthy. (Not like that. Although...)</target>
+      </segment>
+    </unit>
+    <unit id="welcome_mush">
+      <segment state="translated">
+        <source>welcome_mush.title</source>
+        <target>Welcome to the cause, dearest MUSH</target>
+      </segment>
+      <segment state="translated">
+        <source>welcome_mush.description</source>
+        <target>Something has... changed. You feel different.////A calming serenity has overtaken you. You want to *share it* with your crewmates...////Comrade, **you are an agent of Mush**!////You can successfully complete your mission in two ways: by converting everyone to Mush, or by destroying the ship!////You'll begin your mission with **earned {quantity}** :triumph_mush:.</target>
       </segment>
     </unit>
   </file>

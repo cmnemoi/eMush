@@ -252,6 +252,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $toggleVocodedAnnouncementsAction */
         $toggleVocodedAnnouncementsAction = $this->getReference(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value);
 
+        /** @var ActionConfig $toggleDeathAnnouncementsAction */
+        $toggleDeathAnnouncementsAction = $this->getReference(ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value);
+
         $biosTerminalTool = $this->createTool(
             [
                 $changeNeronCpuPriorityAction,

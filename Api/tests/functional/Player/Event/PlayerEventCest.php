@@ -2,123 +2,75 @@
 
 namespace Mush\Tests\functional\Player\Event;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Chat\Entity\Channel;
-use Mush\Chat\Enum\ChannelScopeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Daedalus\Entity\DaedalusStatistics;
-use Mush\Daedalus\Entity\Neron;
 use Mush\Disease\Entity\Config\DiseaseCauseConfig;
 use Mush\Disease\Entity\Config\DiseaseConfig;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Enum\DiseaseEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
 use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
-use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Triumph\ConfigData\TriumphConfigData;
 use Mush\Triumph\Entity\TriumphConfig;
 use Mush\Triumph\Enum\TriumphEnum;
-use Mush\User\Entity\User;
 
-final class PlayerEventCest
+/**
+ * @internal
+ */
+final class PlayerEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private PlayerServiceInterface $playerService;
+    private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I): void
     {
+        parent::_before($I);
+
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function testDispatchPlayerDeath(FunctionalTester $I)
     {
-        $statusConfig = new StatusConfig();
-        $statusConfig
-            ->setStatusName(PlayerStatusEnum::DEMORALIZED)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($statusConfig);
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::DEMORALIZED,
+            $this->player,
+            ['test'],
+            new \DateTime()
+        );
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
+        $this->daedalus->setDay(89);
+        $this->daedalus->setCycle(5);
+        $this->daedalus->setFilledAt(new \DateTime());
 
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$statusConfig])]);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, [
-            'cycle' => 5,
-            'day' => 89,
-            'filledAt' => new \DateTime(),
-        ]);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo->setNeron($neron);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $player->setPlayerVariables($characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $status = new Status($player, $statusConfig);
-        $I->haveInRepository($status);
+        $I->seeInRepository(Status::class);
 
         $this->playerService->killPlayer(
-            player: $player,
+            player: $this->player,
             endReason: EndCauseEnum::CLUMSINESS,
             time: new \DateTime(),
         );
+
+        $playerInfo = $this->player->getPlayerInfo();
+        $daedalusInfo = $this->daedalus->getDaedalusInfo();
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $closedPlayer = $playerInfo->getClosedPlayer();
@@ -132,85 +84,80 @@ final class PlayerEventCest
 
         $I->dontSeeInRepository(Status::class);
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
+            'place' => $this->player->getPlace()->getName(),
             'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'playerInfo' => $playerInfo->getId(),
             'log' => LogEnum::DEATH,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
     }
 
-    public function testDispatchPlayerDeathMush(FunctionalTester $I)
+    public function testDispatchPlayerKill(FunctionalTester $I)
     {
-        $mushConfig = new StatusConfig();
-        $mushConfig
-            ->setStatusName(PlayerStatusEnum::MUSH)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($mushConfig);
-
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, ['statusConfigs' => new ArrayCollection([$mushConfig])]);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        $neron = new Neron();
-        $neron->setIsInhibited(true);
-        $I->haveInRepository($neron);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class, [
-            'cycle' => 5,
-            'day' => 89,
-            'filledAt' => new \DateTime(),
-        ]);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $daedalusInfo->setNeron($neron);
-        $I->haveInRepository($daedalusInfo);
-
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::PUBLIC);
-        $I->haveInRepository($channel);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['characterName' => CharacterEnum::CHAO]);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-        $player->setPlayerVariables($characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $status = new Status($player, $mushConfig);
-        $I->haveInRepository($status);
+        $this->daedalus->setDay(89);
+        $this->daedalus->setCycle(5);
+        $this->daedalus->setFilledAt(new \DateTime());
 
         $this->playerService->killPlayer(
-            player: $player,
+            player: $this->player,
+            endReason: EndCauseEnum::ASSASSINATED,
+            time: new \DateTime(),
+            author: $this->player2
+        );
+
+        $playerInfo = $this->player->getPlayerInfo();
+        $daedalusInfo = $this->daedalus->getDaedalusInfo();
+
+        $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
+        $closedPlayer = $playerInfo->getClosedPlayer();
+        $closedKiller = $this->player2->getPlayerInfo()->getClosedPlayer();
+
+        $I->assertEquals($closedPlayer->getEndCause(), EndCauseEnum::ASSASSINATED);
+        $I->assertEquals($closedPlayer->getMessage(), null);
+        $I->assertEquals($closedPlayer->getCycleDeath(), 5);
+        $I->assertEquals($closedPlayer->getDayDeath(), 89);
+        $I->assertEquals($closedPlayer->getClosedDaedalus(), $daedalusInfo->getClosedDaedalus());
+        $I->assertFalse($closedPlayer->isMush());
+
+        $I->seeInRepository(RoomLog::class, [
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $daedalusInfo,
+            'playerInfo' => $playerInfo->getId(),
+            'log' => LogEnum::DEATH,
+            'visibility' => VisibilityEnum::PUBLIC,
+        ]);
+
+        $I->assertEquals(
+            actual: [
+                'name' => 'death.player',
+                'result' => PlayerHighlight::SUCCESS,
+                'parameters' => ['target_' . $this->player->getLogKey() => $this->player->getLogName()],
+            ],
+            expected: $closedKiller->getPlayerHighlights()[0]->toArray()
+        );
+    }
+
+    public function testDispatchPlayerDeathMush(FunctionalTester $I)
+    {
+        $this->statusService->createStatusFromName(
+            PlayerStatusEnum::MUSH,
+            $this->player,
+            ['test'],
+            new \DateTime()
+        );
+
+        $this->daedalus->setDay(89);
+        $this->daedalus->setCycle(5);
+        $this->daedalus->setFilledAt(new \DateTime());
+
+        $this->playerService->killPlayer(
+            player: $this->player,
             endReason: EndCauseEnum::CLUMSINESS,
             time: new \DateTime(),
         );
+
+        $playerInfo = $this->player->getPlayerInfo();
+        $daedalusInfo = $this->player->getDaedalusInfo();
 
         $I->assertEquals(GameStatusEnum::FINISHED, $playerInfo->getGameStatus());
         $closedPlayer = $playerInfo->getClosedPlayer();
@@ -224,9 +171,9 @@ final class PlayerEventCest
 
         $I->dontSeeInRepository(Status::class);
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
+            'place' => $this->player->getPlace()->getName(),
             'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo()->getId(),
+            'playerInfo' => $playerInfo->getId(),
             'log' => LogEnum::DEATH,
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
@@ -266,50 +213,12 @@ final class PlayerEventCest
         $mushStartConfig = TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::MUSH_INITIAL_BONUS));
         $I->haveInRepository($mushStartConfig);
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
-            'diseaseCauseConfig' => new ArrayCollection([$diseaseCause]),
-            'diseaseConfig' => new ArrayCollection([$diseaseConfig]),
-            'triumphConfig' => new ArrayCollection([$mushStartConfig]),
-        ]);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus, 'place' => $room]);
-        $player->setPlayerVariables($characterConfig);
-        $player->setSpores(0);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $playerInfo = $this->player->getPlayerInfo();
+        $daedalusInfo = $this->daedalus->getDaedalusInfo();
+        $room = $this->player->getPlace();
 
         $playerEvent = new PlayerVariableEvent(
-            $player,
+            $this->player,
             PlayerVariableEnum::SPORE,
             1,
             [ActionEnum::INFECT->value],
@@ -318,89 +227,40 @@ final class PlayerEventCest
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        $I->assertCount(0, $player->getStatuses());
-        $I->assertEquals(1, $player->getSpores());
-        $I->assertEquals($room, $player->getPlace());
+        $I->assertCount(0, $this->player->getStatuses());
+        $I->assertEquals(1, $this->player->getSpores());
+        $I->assertEquals($room, $this->player->getPlace());
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        $I->assertCount(0, $player->getStatuses());
-        $I->assertEquals(2, $player->getSpores());
-        $I->assertEquals($room, $player->getPlace());
+        $I->assertCount(0, $this->player->getStatuses());
+        $I->assertEquals(2, $this->player->getSpores());
+        $I->assertEquals($room, $this->player->getPlace());
 
         $this->eventService->callEvent($playerEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        $I->assertCount(1, $player->getStatuses());
-        $I->assertEquals(0, $player->getSpores());
-        $I->assertEquals($room, $player->getPlace());
+        $I->assertCount(1, $this->player->getStatuses());
+        $I->assertEquals(0, $this->player->getSpores());
+        $I->assertEquals($room, $this->player->getPlace());
     }
 
     public function testDispatchConversion(FunctionalTester $I)
     {
-        $mushStatusConfig = new ChargeStatusConfig();
-        $mushStatusConfig
-            ->setStatusName(PlayerStatusEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($mushStatusConfig);
+        $room = $this->player->getPlace();
 
-        $mushStartConfig = TriumphConfig::fromDto(TriumphConfigData::getByName(TriumphEnum::MUSH_INITIAL_BONUS));
-        $I->haveInRepository($mushStartConfig);
+        $this->player->setMoralPoint(8)->setSpores(3);
 
-        /** @var LocalizationConfig $localizationConfig */
-        $localizationConfig = $I->have(LocalizationConfig::class, ['name' => 'test']);
-
-        /** @var GameConfig $gameConfig */
-        $gameConfig = $I->have(GameConfig::class, [
-            'statusConfigs' => new ArrayCollection([$mushStatusConfig]),
-            'triumphConfig' => new ArrayCollection([$mushStartConfig]),
-        ]);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
-
-        $daedalus->getDaedalusInfo()->setDaedalusStatistics(new DaedalusStatistics(shipsDestroyed: 0));
-
-        $mushChannel = new Channel();
-        $mushChannel
-            ->setDaedalus($daedalusInfo)
-            ->setScope(ChannelScopeEnum::MUSH);
-        $I->haveInRepository($mushChannel);
-
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player->setMoralPoint(8)->setSpores(3);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $playerEvent = new PlayerEvent($player, [ActionEnum::INFECT->value], new \DateTime());
+        $playerEvent = new PlayerEvent($this->player, [ActionEnum::INFECT->value], new \DateTime());
 
         $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
 
-        $sporesVariable = $player->getVariableByName(PlayerVariableEnum::SPORE);
+        $sporesVariable = $this->player->getVariableByName(PlayerVariableEnum::SPORE);
 
-        $I->assertCount(1, $player->getStatuses());
+        $I->assertCount(1, $this->player->getStatuses());
         $I->assertEquals(0, $sporesVariable->getValue());
         $I->assertEquals(2, $sporesVariable->getMaxValue());
-        $I->assertEquals($room, $player->getPlace());
-        $I->assertEquals(12, $player->getMoralPoint());
-        $I->assertEquals(1, $daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount());
+        $I->assertEquals($room, $this->player->getPlace());
+        $I->assertEquals(14, $this->player->getMoralPoint());
+        $I->assertEquals(1, $this->daedalus->getDaedalusInfo()->getDaedalusStatistics()->getMushAmount());
     }
 }

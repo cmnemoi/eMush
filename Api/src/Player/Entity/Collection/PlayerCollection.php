@@ -206,6 +206,16 @@ class PlayerCollection extends ArrayCollection
         return new self($this->matching($criteria)->toArray());
     }
 
+    public function getFirstOrThrow(): Player
+    {
+        $player = $this->first();
+        if (!$player) {
+            throw new \RuntimeException('No player in Collection');
+        }
+
+        return $player;
+    }
+
     private function getPlayerWithStatus(string $status): ?Player
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;

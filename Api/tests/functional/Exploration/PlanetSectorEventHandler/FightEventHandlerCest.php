@@ -68,14 +68,18 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->players->add($this->janice);
 
         // given Chun and KT have pilot and shooter skills available
-        $this->chun->getCharacterConfig()->setSkillConfigs([
+        $this->chun->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+        );
+        $this->chun->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
-        ]);
-        $this->kuanTi->getCharacterConfig()->setSkillConfigs([
+        );
+        $this->kuanTi->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+        );
+        $this->kuanTi->addToAvailableHumanSkills(
             $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
-        ]);
+        );
 
         // given Chun, Kuan-Ti, and Janice have a spacesuit
         foreach ([$this->chun, $this->kuanTi, $this->janice] as $player) {

@@ -152,7 +152,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="lost" state="translated">
         <source>exploration.lost</source>
-        <target>Te has perdido en este planeta. Tu ánimo bajará rápidamente... Pide a la tripulación que venga por ti.</target>
+        <target>Al estar perdido en este planeta tu estado de ánimo va a bajar... Ruega porque alguien venga a rescatarte.</target>
       </segment>
       <segment id="finished" state="translated">
         <source>exploration.finished</source>
@@ -232,7 +232,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="plasma_shield.description" state="translated">
         <source>bios_terminal.plasma_shield_description</source>
-        <target>Activa el escudo plasma</target>
+        <target>Activa el escudo plasma.</target>
       </segment>
       <segment id="plasma_shield.toggle_activate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
@@ -248,7 +248,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
-        <target>Activa o desactiva la red magnética que permite traer de vuelta a los patrulleros al mover la nave... o abandonarlos.</target>
+        <target>Activa o desactiva la red magnética que permite traer de vuelta a los patrulleros al mover la nave... o abandonarlos a su suerte.</target>
       </segment>
       <segment id="magnetic_net.toggle_active" state="translated">
         <source>bios_terminal.magnetic_net_toggle_active</source>
@@ -268,11 +268,27 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="neron_inhibition.toggle_active" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_active</source>
-        <target>Si</target>
+        <target>Sí</target>
       </segment>
       <segment id="neron_inhibition.toggle_inactive" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
         <target>No</target>
+      </segment>
+      <segment id="death_announcements_name" state="initial">
+        <source>bios_terminal.death_announcements_name</source>
+        <target>bios_terminal.death_announcements_name</target>
+      </segment>
+      <segment id="death_announcements_description" state="initial">
+        <source>bios_terminal.death_announcements_description</source>
+        <target>bios_terminal.death_announcements_description</target>
+      </segment>
+      <segment id="death_announcements_toggle_active" state="initial">
+        <source>bios_terminal.death_announcements_toggle_active</source>
+        <target>bios_terminal.death_announcements_toggle_active</target>
+      </segment>
+      <segment id="death_announcements_toggle_inactive" state="initial">
+        <source>bios_terminal.death_announcements_toggle_inactive</source>
+        <target>bios_terminal.death_announcements_toggle_inactive</target>
       </segment>
       <segment id="vocoded_announcements_name" state="initial">
         <source>bios_terminal.vocoded_announcements_name</source>
@@ -299,19 +315,19 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       <segment id="tips" state="translated">
         <source>pilgred.tips</source>
         <target>La reparación del PILGRED requiere de grandes habilidades. Necesitarás mucha paciencia y esfuerzo.
-**Cuando esté reparado, volver al Sol será posible.** ¿Qué harías tú?</target>
+**Cuando esté reparado, volver a Sol será posible.** ¿Qué harías tú?</target>
       </segment>
-      <segment id="pilgred_finished_description" state="initial">
+      <segment id="pilgred_finished_description" state="translated">
         <source>pilgred.pilgred_finished_description</source>
-        <target>pilgred.pilgred_finished_description</target>
+        <target>PILGRED está operando completamente.</target>
       </segment>
-      <segment id="share_projects_button_name" state="initial">
+      <segment id="share_projects_button_name" state="translated">
         <source>pilgred.share_projects_button_name</source>
-        <target>pilgred.share_projects_button_name</target>
+        <target>Compartir</target>
       </segment>
-      <segment id="share_projects_button_description" state="initial">
+      <segment id="share_projects_button_description" state="translated">
         <source>pilgred.share_projects_button_description</source>
-        <target>pilgred.share_projects_button_description</target>
+        <target>Comparte el avance de las reparaciones del PILGRED con la tripulación.</target>
       </segment>
     </unit>
     <unit id="neron_core">
@@ -321,22 +337,19 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="tips" state="translated">
         <source>neron_core.tips</source>
-        <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.
-Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.
-Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto varias veces consecutivas, la eficacia de tu acción disminuirá. **¡La clave es trabajar alternadamente en equipo!**
-Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser terminado **anulará el avance en los otros**. ¡Habla con tus compañeros para determinar cual servirá mejor para la tripulación!</target>
+        <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.////Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.////Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto más de una vez, tu eficacia disminuirá. **¡La clave es trabajar alternadamente en equipo!**////Y eso no es todo: Si varios proyectos avanzan parelelamente, **cuando se completa un proyecto, los otros dos se descartan permanentemente**. ¡Habla con tus compañeros para determinar cual servirá mejor para la tripulación!</target>
       </segment>
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>neron_core.no_proposed_neron_projects_description</source>
         <target>Ya no hay más proyectos por completar.</target>
       </segment>
-      <segment id="share_projects_button_name" state="initial">
+      <segment id="share_projects_button_name" state="translated">
         <source>neron_core.share_projects_button_name</source>
-        <target>neron_core.share_projects_button_name</target>
+        <target>Compartir</target>
       </segment>
-      <segment id="share_projects_button_description" state="initial">
+      <segment id="share_projects_button_description" state="translated">
         <source>neron_core.share_projects_button_description</source>
-        <target>neron_core.share_projects_button_description</target>
+        <target>Comparte estos proyectos con la tripulación.</target>
       </segment>
     </unit>
     <unit id="auxiliary_terminal">
@@ -346,22 +359,19 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
       </segment>
       <segment id="tips" state="translated">
         <source>auxiliary_terminal.tips</source>
-        <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.
-Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.
-Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto varias veces consecutivas, la eficacia de tu acción disminuirá. **¡La clave es trabajar alternadamente en equipo!**
-Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser terminado **anulará el avance en los otros**. ¡Habla con tus compañeros para determinar cual servirá mejor para la tripulación!</target>
+        <target>Aquí podrás actualizar y desbloquear funciones avanzadas para toda la tripulación. Esas funciones para el Núcleo de *Neron* se obtienen al  **completar proyectos** que formaban parte del plan *Magallanes*.////Los proyectos avanzarán más rápido si tienes **las habilidades adecuadas**.////Una sola persona podrá difílcilmente completar un proyecto, incluso si tiene las habilidades requeridas. Si haces avanzar un proyecto más de una vez, tu eficacia disminuirá. **¡La clave es trabajar alternadamente en equipo!**////Y eso no es todo: Si varios proyectos avanzan parelelamente, **cuando se completa un proyecto, los otros dos se descartan permanentemente**. ¡Habla con tus compañeros para determinar cual servirá mejor para la tripulación!</target>
       </segment>
       <segment id="no_proposed_neron_projects_description" state="translated">
         <source>auxiliary_terminal.no_proposed_neron_projects_description</source>
         <target>Ya no hay más proyectos por completar.</target>
       </segment>
-      <segment id="share_projects_button_name" state="initial">
+      <segment id="share_projects_button_name" state="translated">
         <source>auxiliary_terminal.share_projects_button_name</source>
-        <target>auxiliary_terminal.share_projects_button_name</target>
+        <target>Compartir</target>
       </segment>
-      <segment id="share_projects_button_description" state="initial">
+      <segment id="share_projects_button_description" state="translated">
         <source>auxiliary_terminal.share_projects_button_description</source>
-        <target>auxiliary_terminal.share_projects_button_description</target>
+        <target>Comparte estos proyectos con la tripulación.</target>
       </segment>
     </unit>
     <unit id="calculator">
@@ -375,7 +385,7 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
       </segment>
       <segment id="to_a_new_eden_title" state="translated">
         <source>calculator.to_a_new_eden_title</source>
-        <target>Hacia un nuevo Eden</target>
+        <target>Hacia un nuevo Edén</target>
       </segment>
       <segment id="to_a_new_eden_description" state="translated">
         <source>calculator.to_a_new_eden_description</source>
@@ -387,65 +397,67 @@ Y eso no es todo: Si varios proyectos avanzan parelelamente, el primero en ser t
       </segment>
       <segment id="eden_computed" state="translated">
         <source>calculator.eden_computed</source>
-        <target>El cálculo de las coordenadas de Eden se ha completado con éxito. Las coordenadas se han enviado a NERON. Consulta a tu ***Comandante*** para obtener más información.</target>
+        <target>El cálculo de las coordenadas de Eden ha sido completado con éxito. Las coordenadas han sido transferidas a *NERON. Consulta a tu ***Comandante*** para obtener más información*.</target>
       </segment>
     </unit>
     <unit id="communication_center">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>communication_center.name</source>
-        <target>communication_center.name</target>
+        <target>Centro de comunicación</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>communication_center.tips</source>
-        <target>communication_center.tips</target>
+        <target>Toda comunicación empieza estableciendo contacto.//
+Esta acción puede ser realizada por cualquier tripulante. Establecer contacto sube el ánimo de todo el equipo y desbloquea nuevas acciones para el Responsable de Comunicaciones.//
+Si el contacto falla, por lo menos **mejorará la calidad de señal** y aumentará las probabilidades de éxito del próximo intento.</target>
       </segment>
-      <segment id="contact" state="initial">
+      <segment id="contact" state="translated">
         <source>communication_center.contact</source>
-        <target>communication_center.contact</target>
+        <target>Contactar</target>
       </segment>
-      <segment id="contact" state="initial">
+      <segment id="contact" state="translated">
         <source>communication_center.neron_version</source>
-        <target>communication_center.neron_version</target>
+        <target>NERON v{neronVersion}</target>
       </segment>
-      <segment id="contact" state="initial">
+      <segment id="contact" state="translated">
         <source>communication_center.neron_update_status</source>
-        <target>communication_center.neron_update_status</target>
+        <target>Nivel de actualización: {quantity}%</target>
       </segment>
-      <segment id="link_strength" state="initial">
+      <segment id="link_strength" state="translated">
         <source>communication_center.link_strength</source>
-        <target>communication_center.link_strength</target>
+        <target>Señal : {quantity}%</target>
       </segment>
-      <segment id="link_established" state="initial">
+      <segment id="link_established" state="translated">
         <source>communication_center.link_established</source>
-        <target>communication_center.link_established</target>
+        <target>¡Conexión establecida!</target>
       </segment>
-      <segment id="rebel_bases_network" state="initial">
+      <segment id="rebel_bases_network" state="translated">
         <source>communication_center.rebel_bases_network</source>
-        <target>communication_center.rebel_bases_network</target>
+        <target>Red de Bases Rebeldes</target>
       </segment>
-      <segment id="select_rebel_base_to_decode" state="initial">
+      <segment id="select_rebel_base_to_decode" state="translated">
         <source>communication_center.select_rebel_base_to_decode</source>
-        <target>communication_center.select_rebel_base_to_decode</target>
+        <target>Selecciona una Base Rebelde para descifrar su señal.</target>
       </segment>
-      <segment id="xyloph_db" state="initial">
+      <segment id="xyloph_db" state="translated">
         <source>communication_center.xyloph_db</source>
-        <target>communication_center.xyloph_db</target>
+        <target>BDD Xyloph</target>
       </segment>
-      <segment id="cannot_trade_under_attack" state="initial">
+      <segment id="cannot_trade_under_attack" state="translated">
         <source>communication_center.cannot_trade_under_attack</source>
-        <target>communication_center.cannot_trade_under_attack</target>
+        <target>Otra nave te amenaza, ¡no puedes hacer trueques!</target>
       </segment>
-      <segment id="never" state="initial">
+      <segment id="never" state="translated">
         <source>communication_center.never</source>
-        <target>communication_center.never</target>
+        <target>¡Jamás!</target>
       </segment>
-      <segment id="see_communications" state="initial">
+      <segment id="see_communications" state="translated">
         <source>communication_center.see_communications</source>
-        <target>communication_center.see_communications</target>
+        <target>Ver las comunicaciones</target>
       </segment>
-      <segment id="see_trades" state="initial">
+      <segment id="see_trades" state="translated">
         <source>communication_center.see_trades</source>
-        <target>communication_center.see_trades</target>
+        <target>Ver los intercambios</target>
       </segment>
     </unit>
   </file>

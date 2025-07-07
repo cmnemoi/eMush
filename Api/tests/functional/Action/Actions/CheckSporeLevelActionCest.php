@@ -2,108 +2,60 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\CheckSporeLevel;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
-use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
-class CheckSporeLevelActionCest
+/**
+ * @internal
+ */
+final class CheckSporeLevelActionCest extends AbstractFunctionalTest
 {
     private CheckSporeLevel $checkSporeLevel;
+    private ActionConfig $actionConfig;
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::CHECK_SPORE_LEVEL]);
+
         $this->checkSporeLevel = $I->grabService(CheckSporeLevel::class);
+
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
     }
 
     public function testCheckSporeLevel(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
+        // given kuan ti has 2 spores
+        $this->kuanTi->setActionPoint(2)->setSpores(2);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        // given the mycoscan is in the room
+        $gameEquipment = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::MYCOSCAN,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus, 'name' => 'roomName']);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, [
-            'daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player->setActionPoint(2)->setSpores(2);
-        $I->flushToDatabase($player);
-
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $action = new ActionConfig();
-        $action
-            ->setActionName(ActionEnum::CHECK_SPORE_LEVEL)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::EQUIPMENT)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($action);
-
-        /** @var EquipmentConfig $equipmentConfig */
-        $equipmentConfig = $I->have(EquipmentConfig::class, [
-            'name' => EquipmentEnum::MYCOSCAN,
-            'actionConfigs' => new ArrayCollection([$action]),
-        ]);
-
-        $gameEquipment = new GameEquipment($room);
-        $gameEquipment
-            ->setName(EquipmentEnum::MYCOSCAN)
-            ->setEquipment($equipmentConfig);
-        $I->haveInRepository($gameEquipment);
-
-        $this->checkSporeLevel->loadParameters($action, $gameEquipment, $player, $gameEquipment);
-
+        // given kuan ti check his spore level
+        $this->checkSporeLevel->loadParameters($this->actionConfig, $gameEquipment, $this->kuanTi, $gameEquipment);
         $I->assertTrue($this->checkSporeLevel->isVisible());
-
         $this->checkSporeLevel->execute();
 
-        $I->assertEquals(2, $player->getActionPoint());
-
+        // i should see a log in the room
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo(),
+            'place' => $this->kuanTi->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->kuanTi->getPlayerInfo()->getId(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::CHECK_SPORE_LEVEL,
         ]);

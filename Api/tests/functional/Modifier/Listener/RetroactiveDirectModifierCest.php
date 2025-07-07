@@ -19,6 +19,7 @@ use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\User\Factory\UserFactory;
 
 /**
  * @internal
@@ -87,7 +88,9 @@ final class RetroactiveDirectModifierCest extends AbstractFunctionalTest
         $I->assertEquals(0, $variable->getMinValue());
 
         // Given a new player that wake up in this Daedalus
-        $newPlayer = $this->playerService->createPlayer($this->daedalus, $this->player->getUser(), CharacterEnum::CHUN);
+        $user = UserFactory::createUser();
+        $I->haveInRepository($user);
+        $newPlayer = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::JIN_SU);
         $variable = $newPlayer->getVariableByName(PlayerVariableEnum::HEALTH_POINT);
 
         // Then this player should be affected by the modifier

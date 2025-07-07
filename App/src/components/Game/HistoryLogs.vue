@@ -1,8 +1,20 @@
 <template>
     <div class="history-logs">
-        <span class="tab"> {{ $t('deathpage.highlights') }} </span>
-        <span class="tab active"> {{ $t('deathpage.triumphHistory') }} </span>
-        <div class="logs">
+        <span
+            class="tab"
+            :class="{ active: activeTab === 'action' }"
+            @click="activeTab = 'action'"
+        >
+            {{ $t('deathpage.highlights') }}
+        </span>
+        <span
+            class="tab"
+            :class="{ active: activeTab === 'triumph' }"
+            @click="activeTab = 'triumph'"
+        >
+            {{ $t('deathpage.triumphHistory') }}
+        </span>
+        <div class="logs" v-if="activeTab === 'triumph'">
             <div>
                 <p v-for="gain in displayedTriumphGains" :key="gain">
                     <img :src="getImgUrl('ui_icons/point.png')" alt="dot"> <span v-html="formatText(gain)" />
@@ -13,6 +25,17 @@
                 <a v-if="shouldShowReadLess" class="read-more-link" @click="toggleDisplayLimit">{{ $t('deathpage.readLess') }}</a>
             </div>
         </div>
+        <div class="logs" v-if="activeTab === 'action'">
+            <div>
+                <p v-for="highlight in displayedPlayerHighlights" :key="highlight">
+                    <img :src="getImgUrl('ui_icons/point.png')" alt="dot"> <span v-html="formatText(highlight)" />
+                </p>
+            </div>
+            <div class="logs-actions">
+                <a v-if="shouldShowReadMoreAction" class="read-more-link" @click="toggleDisplayLimit">{{ $t('deathpage.readMore') }}</a>
+                <a v-if="shouldShowReadLessAction" class="read-more-link" @click="toggleDisplayLimit">{{ $t('deathpage.readLess') }}</a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -20,14 +43,19 @@
 import { ref, computed } from 'vue';
 import { getImgUrl } from '@/utils/getImgUrl';
 import { formatText } from '@/utils/formatText';
-const props = defineProps<{ triumphGains: string[] }>();
+const props = defineProps<{ triumphGains: string[], playerHighlights: string[] }>();
 
 // refs
 const showAllTriumphGains = ref(false);
+const showAllPlayerHighlights = ref(false);
+const activeTab = ref('triumph');
 
 // computed
 const displayedTriumphGains = computed(() =>
     showAllTriumphGains.value ? props.triumphGains : props.triumphGains.slice(0, displayLimit)
+);
+const displayedPlayerHighlights = computed(() =>
+    showAllPlayerHighlights.value ? props.playerHighlights : props.playerHighlights.slice(0, displayLimit)
 );
 const shouldShowReadMore = computed(() =>
     !showAllTriumphGains.value && props.triumphGains.length > displayLimit
@@ -35,10 +63,17 @@ const shouldShowReadMore = computed(() =>
 const shouldShowReadLess = computed(() =>
     showAllTriumphGains.value && props.triumphGains.length > displayLimit
 );
+const shouldShowReadMoreAction = computed(() =>
+    !showAllPlayerHighlights.value && props.playerHighlights.length > displayLimit
+);
+const shouldShowReadLessAction = computed(() =>
+    showAllPlayerHighlights.value && props.playerHighlights.length > displayLimit
+);
 
 // methods
 const toggleDisplayLimit = () => {
     showAllTriumphGains.value = !showAllTriumphGains.value;
+    showAllPlayerHighlights.value = !showAllPlayerHighlights.value;
 };
 
 // data

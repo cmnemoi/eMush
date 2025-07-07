@@ -722,7 +722,7 @@
       </segment>
       <segment id="cm_all_mush_humanicide.log" state="translated">
         <source>cm_all_mush_humanicide.log</source>
-        <target>Humanicide</target>
+        <target>La disparition d'un satané humain de plus vous fait gagner {quantity} :triumph_mush:.</target>
       </segment>
     </unit>
     <unit id="cm_all_new_mush">
@@ -730,9 +730,9 @@
         <source>cm_all_new_mush.name</source>
         <target>Champignac</target>
       </segment>
-      <segment id="cm_all_new_mush.log" state="initial">
+      <segment id="cm_all_new_mush.log" state="translated">
         <source>cm_all_new_mush.log</source>
-        <target>cm_all_new_mush.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en ayant converti un humain en Mush.</target>
       </segment>
     </unit>
     <unit id="cm_daedalus_explode">
@@ -740,9 +740,9 @@
         <source>cm_daedalus_explode.name</source>
         <target>Dernier brasier</target>
       </segment>
-      <segment id="cm_daedalus_explode.log" state="initial">
+      <segment id="cm_daedalus_explode.log" state="translated">
         <source>cm_daedalus_explode.log</source>
-        <target>cm_daedalus_explode.log</target>
+        <target>Vous avez gagné {quantity} car le Daedalus a été détruit ! </target>
       </segment>
     </unit>
     <unit id="cm_extinguish">
@@ -750,9 +750,9 @@
         <source>cm_extinguish.name</source>
         <target>Chuck Norris du feu</target>
       </segment>
-      <segment id="cm_extinguish.log" state="initial">
+      <segment id="cm_extinguish.log" state="translated">
         <source>cm_extinguish.log</source>
-        <target>cm_extinguish.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en éteignant un incendie à la force du poignet ! </target>
       </segment>
     </unit>
     <unit id="cm_mush_vaccinated">
@@ -760,19 +760,9 @@
         <source>cm_mush_vaccinated.name</source>
         <target>Pasteurisé</target>
       </segment>
-      <segment id="cm_mush_vaccinated.log" state="initial">
+      <segment id="cm_mush_vaccinated.log" state="translated">
         <source>cm_mush_vaccinated.log</source>
-        <target>cm_mush_vaccinated.log</target>
-      </segment>
-    </unit>
-    <unit id="cm_pilgred">
-      <segment id="cm_pilgred.name" state="translated">
-        <source>cm_pilgred.name</source>
-        <target>Pilgredissime</target>
-      </segment>
-      <segment id="cm_pilgred.log" state="translated">
-        <source>cm_pilgred.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en accomplissant la réparation du PILGRED ! </target>
+        <target>Vous avez gagné {quantity} :triumph: en vaccinant un Mush ! </target>
       </segment>
     </unit>
     <unit id="cm_repair_object">
@@ -780,9 +770,9 @@
         <source>cm_repair_object.name</source>
         <target>Serrurier</target>
       </segment>
-      <segment id="cm_repair_object.log" state="initial">
+      <segment id="cm_repair_object.log" state="translated">
         <source>cm_repair_object.log</source>
-        <target>cm_repair_object.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en réparant un objet. </target>
       </segment>
     </unit>
     <unit id="cm_repair_hull">
@@ -790,9 +780,9 @@
         <source>cm_repair_hull.name</source>
         <target>Forgeron</target>
       </segment>
-      <segment id="cm_repair_hull.log" state="initial">
+      <segment id="cm_repair_hull.log" state="translated">
         <source>cm_repair_hull.log</source>
-        <target>cm_repair_hull.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en renforçant la coque.</target>
       </segment>
     </unit>
     <unit id="cm_sabotage">
@@ -800,9 +790,9 @@
         <source>cm_sabotage.name</source>
         <target>Champignon-Lige</target>
       </segment>
-      <segment id="cm_sabotage.log" state="initial">
+      <segment id="cm_sabotage.log" state="translated">
         <source>cm_sabotage.log</source>
-        <target>cm_sabotage.log</target>
+        <target>Vous avez gagné {quantity} :triumph: en sabotant un équipement. </target>
       </segment>
     </unit>
     <unit id="cm_use_extinguisher">
@@ -812,7 +802,7 @@
       </segment>
       <segment id="cm_use_extinguisher.log" state="translated">
         <source>cm_use_extinguisher.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en utilisant l'extincteur. </target>
+        <target>Vous avez gagné {quantity} :triumph: en éteignant un incendie avec l'extincteur. </target>
       </segment>
     </unit>
     <unit id="naturalist">
@@ -823,6 +813,82 @@
       <segment id="naturalist.log" state="translated">
         <source>naturalist.log</source>
         <target>Vous avez gagné {quantity} :triumph: car vous avez planté un fruit alien en tant que Ian !</target>
+      </segment>
+    </unit>
+    <unit id="perpetual_hydration">
+      <segment id="perpetual_hydration.name" state="translated">
+        <source>perpetual_hydration.name</source>
+        <target>Recherche mineure</target>
+      </segment>
+      <segment id="perpetual_hydration.log" state="translated">
+        <source>perpetual_hydration.log</source>
+        <target>Vous avez gagné {quantity} :triumph: car une recherche a été réalisée.</target>
+      </segment>
+    </unit>
+    <unit id="alien_friend.name">
+      <segment state="translated">
+        <source>alien_friend.name</source>
+        <target>Ethnologue à mi-temps</target>
+      </segment>
+    </unit>
+    <unit id="alien_friend.log">
+      <segment state="translated">
+        <source>alien_friend.log</source>
+        <target>Vous avez gagné {quantity} :triumph: en entrant en contact avec une forme de vie extraterrestre en tant que Janice !</target>
+      </segment>
+    </unit>
+    <unit id="alien_friend.personal_description">
+      <segment state="translated">
+        <source>alien_friend.personal_description</source>
+        <target>Janice gagne {quantity} :triumph: à chaque fois qu'elle rencontre des extra-terrestres sensibles.</target>
+      </segment>
+    </unit>
+    <unit id="naturalist.name">
+      <segment state="translated">
+        <source>naturalist.name</source>
+        <target>Naturaliste</target>
+      </segment>
+    </unit>
+    <unit id="naturalist.log">
+      <segment state="translated">
+        <source>naturalist.log</source>
+        <target>Vous avez gagné {quantity} :triumph:  vous avez planté un fruit alien en tant que Ian !</target>
+      </segment>
+    </unit>
+    <unit id="pretty_cook.name">
+      <segment state="translated">
+        <source>pretty_cook.name</source>
+        <target>Cuistot de l'extrême</target>
+      </segment>
+    </unit>
+    <unit id="pretty_cook.personal_description">
+      <segment state="translated">
+        <source>pretty_cook.personal_description</source>
+        <target>Stephen gagne {quantity} :triumph: à chaque alien cuisiné.</target>
+      </segment>
+    </unit>
+    <unit id="pretty_cook.log">
+      <segment state="translated">
+        <source>pretty_cook.log</source>
+        <target>Vous avez gagné {quantity} :triumph: en participant à un combat en expédition en tant que Stephen ! </target>
+      </segment>
+    </unit>
+    <unit id="fast_forward.name">
+      <segment state="translated">
+        <source>fast_forward.name</source>
+        <target>Avance rapide</target>
+      </segment>
+    </unit>
+    <unit id="fast_forward.log">
+      <segment state="translated">
+        <source>fast_forward.log</source>
+        <target>Vous avez gagné {quantity} :triumph: en lançant un voyage vers une planète en tant que Jin Su!</target>
+      </segment>
+    </unit>
+    <unit id="fast_forward.personal_description">
+      <segment state="translated">
+        <source>fast_forward.personal_description</source>
+        <target>Jin Su gagne {quantity} :triumph: à chaque voyage interstellaire effectué sous son commandement. Passé {regressiveFactor} gains, ces gains seront de moins en moins fréquents.</target>
       </segment>
     </unit>
   </file>

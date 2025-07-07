@@ -1750,6 +1750,7 @@ class EquipmentConfigData
                 'hide',
                 'examine',
                 'cure',
+                'cure_cat',
             ],
             'mechanics' => [],
             'initStatuses' => [],

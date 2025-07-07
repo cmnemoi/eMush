@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Project\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,6 +41,14 @@ final class ProjectRepository extends ServiceEntityRepository implements Project
         $query->setParameter('name', $name);
 
         return $query->getOneOrNullResult();
+    }
+
+    public function lockAndRefresh(Project $project, int $mode = LockMode::PESSIMISTIC_WRITE): Project
+    {
+        $this->entityManager->lock($project, $mode);
+        $this->entityManager->refresh($project);
+
+        return $project;
     }
 
     public function save(Project $project): void

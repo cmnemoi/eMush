@@ -12,7 +12,6 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Player\Entity\Player;
-use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Tests\AbstractFunctionalTest;
@@ -42,7 +41,7 @@ final class ExtinguishCest extends AbstractFunctionalTest
 
     public function successRateShouldBe100PercentsForFirefighter(FunctionalTester $I): void
     {
-        $this->givenDerekIsFirefighter();
+        $this->givenDerekIsFirefighter($I);
 
         $this->givenDerekHasAnExtinguisher();
 
@@ -53,9 +52,9 @@ final class ExtinguishCest extends AbstractFunctionalTest
         $this->thenExtinguishActionConfigRateShouldRemainUnchanged($I);
     }
 
-    private function givenDerekIsFirefighter(): void
+    private function givenDerekIsFirefighter(FunctionalTester $I): void
     {
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::FIREFIGHTER, $this->derek));
+        $this->addSkillToPlayer(SkillEnum::FIREFIGHTER, $I, $this->derek);
     }
 
     private function givenDerekHasAnExtinguisher(): void

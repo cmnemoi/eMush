@@ -14,6 +14,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
+use Mush\Player\Entity\Player;
 use Mush\Status\ConfigData\StatusConfigData;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
@@ -59,7 +60,8 @@ final class FakeStatusService implements StatusServiceInterface
         StatusHolderInterface $holder,
         array $tags,
         \DateTime $time,
-        string $visibility = VisibilityEnum::HIDDEN
+        string $visibility = VisibilityEnum::HIDDEN,
+        ?Player $author = null,
     ): void {
         $status = $holder->getStatusByName($statusName);
         if ($status === null) {

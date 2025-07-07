@@ -9,6 +9,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\User\Entity\User;
 
 /**
  * @template-extends ServiceEntityRepository<Player>
@@ -79,5 +80,22 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
     public function findById(int $id): ?Player
     {
         return $this->find($id);
+    }
+
+    public function findOneByUserAndDaedalus(User $user, Daedalus $daedalus): ?Player
+    {
+        $qb = $this->createQueryBuilder('player');
+
+        $qb
+            ->innerJoin('player.playerInfo', 'playerInfo')
+            ->where($qb->expr()->eq('playerInfo.user', ':user'))
+            ->andWhere($qb->expr()->eq('player.daedalus', ':daedalus'))
+            ->setParameter('user', $user)
+            ->setParameter('daedalus', $daedalus)
+            ->setMaxResults(1);
+
+        $player = $qb->getQuery()->getOneOrNullResult();
+
+        return $player instanceof Player ? $player : null;
     }
 }

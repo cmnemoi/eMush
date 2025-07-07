@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Event;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusStatistics;
 use Mush\Game\Enum\TitleEnum;
@@ -10,12 +11,14 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
+use Mush\Player\ValueObject\PlayerHighlight;
+use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
 use Mush\RoomLog\Event\LoggableEventInterface;
 use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
 
-class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, TriumphSourceEventInterface
+class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, TriumphSourceEventInterface, PlayerHighlightSourceEventInterface
 {
     use TriumphSourceEventTrait;
 
@@ -33,6 +36,26 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
 
     protected string $visibility = VisibilityEnum::PRIVATE;
     protected ?CharacterConfig $characterConfig = null;
+
+    public function getHighlightName(): string
+    {
+        return $this->getEventName();
+    }
+
+    public function getHighlightResult(): string
+    {
+        return $this->hasTag(ActionEnum::EXCHANGE_BODY->toString()) ? PlayerHighlight::TRANSFER : PlayerHighlight::SUCCESS;
+    }
+
+    public function getHighlightTarget(): PlayerHighlightTargetInterface
+    {
+        return $this->getPlayer();
+    }
+
+    public function hasHighlightTarget(): bool
+    {
+        return true;
+    }
 
     public function getVisibility(): string
     {

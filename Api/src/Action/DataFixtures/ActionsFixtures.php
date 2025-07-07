@@ -1174,7 +1174,7 @@ class ActionsFixtures extends Fixture
             ->setInjuryRate(0)
             ->setSuccessRate(100);
         $manager->persist($checkRoster);
-        
+
         $toggleDeathAnnouncements = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS));
         $manager->persist($toggleDeathAnnouncements);
 

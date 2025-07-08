@@ -30,7 +30,7 @@ abstract class DifficultyConfigData
                 metalPlateRate: 5,
                 panicCrisisRate: 5,
                 firePlayerDamage: [2 => 1],
-                fireHullDamage: [2 => 1, 4 => 1],
+                fireHullDamage: [2 => 1, 3 => 1, 4 => 1],
                 electricArcPlayerDamage: [3 => 1],
                 tremorPlayerDamage: [1 => 1, 2 => 1, 3 => 1],
                 metalPlatePlayerDamage: [4 => 1, 5 => 1, 6 => 1],

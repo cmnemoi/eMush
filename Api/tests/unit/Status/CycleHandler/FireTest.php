@@ -125,7 +125,6 @@ final class FireTest extends TestCase
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->twice();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(2)->twice();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn([$room])->once();
         $this->daedalusService->shouldReceive('persist')->once();
 
         self::assertTrue($room->hasStatus(StatusEnum::FIRE));
@@ -232,7 +231,6 @@ final class FireTest extends TestCase
 
         $this->randomService->shouldReceive('isSuccessful')->andReturn(true)->atLeast()->once();
         $this->randomService->shouldReceive('getSingleRandomElementFromProbaCollection')->andReturn(2)->once();
-        $this->randomService->shouldReceive('getRandomElements')->andReturn($roomsInFire->toArray())->once();
         $this->randomService->shouldReceive('getRandomElement')->andReturn($roomsNotInFire?->first() ?: null)
             ->atMost()->times($numberOfFires === $roomNumbers ? 0 : 1);
         $this->gameEquipmentService->shouldReceive('handleBreakFire')->andReturns()->atLeast()->once();

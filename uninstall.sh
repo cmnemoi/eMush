@@ -4,7 +4,7 @@ set -e
 set -o pipefail
 
 POSTGRES_VERSION=14
-PHP_VERSION=8.4
+PHP_VERSION=8.4.10
 LOG_FILE="uninstall.log"
 
 # Function to check for sudo permissions

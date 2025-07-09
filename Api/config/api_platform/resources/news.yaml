@@ -1,6 +1,4 @@
 Mush\MetaGame\Entity\News:
-  shortName: 'News'
-  description: 'eMush News'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

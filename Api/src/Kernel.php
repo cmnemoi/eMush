@@ -42,6 +42,7 @@ class Kernel extends BaseKernel
         }
     }
 
+    #[\Override]
     protected function build(ContainerBuilder $container): void
     {
         parent::build($container);

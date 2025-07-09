@@ -17,7 +17,6 @@ services:
     container_name: mush-php
     environment:
       - PHP_IDE_CONFIG=serverName=mush
-      - PHP_CS_FIXER_IGNORE_ENV=1
     volumes:
       - ../Api:/www
     networks:

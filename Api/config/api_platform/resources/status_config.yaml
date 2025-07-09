@@ -1,6 +1,4 @@
 Mush\Status\Entity\Config\StatusConfig:
-  shortName: 'StatusConfig'
-  description: 'eMush StatusConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_MODERATOR")'

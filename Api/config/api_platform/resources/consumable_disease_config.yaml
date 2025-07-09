@@ -1,6 +1,4 @@
 Mush\Disease\Entity\Config\ConsumableDiseaseConfig:
-  shortName: 'ConsumableDiseaseConfig'
-  description: 'eMush Consumable Disease Config'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

@@ -1,6 +1,4 @@
 Mush\Exploration\Entity\ClosedExploration:
-  shortName: 'ClosedExploration'
-  description: 'eMush Closed Explorations'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

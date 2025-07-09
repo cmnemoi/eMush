@@ -1,6 +1,4 @@
 Mush\Chat\Entity\Channel:
-  shortName: 'Channel'
-  description: 'eMush Channels'
   attributes:
     paginationEnabled: false
     normalization_context:

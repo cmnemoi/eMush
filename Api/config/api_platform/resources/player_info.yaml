@@ -1,6 +1,4 @@
 Mush\Player\Entity\PlayerInfo:
-  shortName: 'PlayerInfo'
-  description: 'eMush PlayerInfo'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_MODERATOR")'

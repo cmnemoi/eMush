@@ -5,7 +5,7 @@ set -e
 NODE_VERSION=22
 NVM_VERSION=0.40.1
 POSTGRES_VERSION=14
-PHP_VERSION=8.3
+PHP_VERSION=
 
 # Function to log messages
 log_message() {

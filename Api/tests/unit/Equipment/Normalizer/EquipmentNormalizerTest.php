@@ -64,7 +64,7 @@ final class EquipmentNormalizerTest extends TestCase
         $this->normalizer = new EquipmentNormalizer(
             $this->consumableDiseaseService,
             $this->equipmentEffectService,
-            $this->createStub(RebelBaseRepositoryInterface::class),
+            self::createStub(RebelBaseRepositoryInterface::class),
             $this->translationService,
         );
     }
@@ -417,13 +417,23 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->translationService->shouldIgnoreMissing();
 
-        $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $this->normalizer->setNormalizer(self::createStub(NormalizerInterface::class));
         $normalizedDrone = $this->normalizer->normalize($drone, null, ['currentPlayer' => $player]);
 
         self::assertEquals(
             "Support drone description//{$upgrade}",
             $normalizedDrone['description']
         );
+    }
+
+    public static function provideShouldNormalizeDroneUpgradesCases(): iterable
+    {
+        return [
+            [EquipmentStatusEnum::TURBO_DRONE_UPGRADE],
+            [EquipmentStatusEnum::PILOT_DRONE_UPGRADE],
+            [EquipmentStatusEnum::SENSOR_DRONE_UPGRADE],
+            [EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE],
+        ];
     }
 
     public function testShouldNormalizeDroneWithNoUpgrades(): void
@@ -441,19 +451,9 @@ final class EquipmentNormalizerTest extends TestCase
 
         $this->translationService->shouldIgnoreMissing();
 
-        $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $this->normalizer->setNormalizer(self::createStub(NormalizerInterface::class));
         $normalizedDrone = $this->normalizer->normalize($drone, null, ['currentPlayer' => $player]);
 
         self::assertEquals('Support drone description', $normalizedDrone['description']);
-    }
-
-    public static function provideShouldNormalizeDroneUpgradesCases(): iterable
-    {
-        return [
-            [EquipmentStatusEnum::TURBO_DRONE_UPGRADE],
-            [EquipmentStatusEnum::PILOT_DRONE_UPGRADE],
-            [EquipmentStatusEnum::SENSOR_DRONE_UPGRADE],
-            [EquipmentStatusEnum::FIREFIGHTER_DRONE_UPGRADE],
-        ];
     }
 }

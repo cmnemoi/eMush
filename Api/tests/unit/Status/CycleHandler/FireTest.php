@@ -262,6 +262,34 @@ final class FireTest extends TestCase
     }
 
     /**
+     * [] = room
+     * | = door = room - 1.
+     *
+     * F.E:
+     * [ 🔥 ] | [] => will propagate
+     * [ 🔥 ] | [ 🔥 ] | [] => will propagate
+     * [ 🔥 ] | [ 🔥 ] | [ 🔥 ] | [ 🔥 ] => won't propagate
+     *
+     * @return iterable [number of rooms, number of door per room, number of fire, expected number of fires, number of dispatched events]
+     */
+    public static function provideFirePropagationCases(): iterable
+    {
+        yield [2, 1, 1, 2, 1];
+
+        yield [3, 1, 2, 3, 2];
+
+        yield [3, 1, 1, 2, 1];
+
+        yield [4, 2, 1, 2, 1];
+
+        yield [4, 2, 2, 3, 2];
+
+        yield [4, 2, 3, 4, 3];
+
+        yield [4, 2, 4, 4, 0];
+    }
+
+    /**
      * @covers \Mush\Status\CycleHandler\Fire::handleNewCycle
      *
      * @dataProvider provideFireDoesntGoSomewhereElseCases
@@ -299,34 +327,6 @@ final class FireTest extends TestCase
         $this->randomService->shouldReceive('isSuccessful')->never();
         $this->randomService->shouldReceive('getRandomElements')->never();
         $this->cycleHandler->handleNewCycle($status, $roomNotFireCapable, $date);
-    }
-
-    /**
-     * [] = room
-     * | = door = room - 1.
-     *
-     * F.E:
-     * [ 🔥 ] | [] => will propagate
-     * [ 🔥 ] | [ 🔥 ] | [] => will propagate
-     * [ 🔥 ] | [ 🔥 ] | [ 🔥 ] | [ 🔥 ] => won't propagate
-     *
-     * @return iterable [number of rooms, number of door per room, number of fire, expected number of fires, number of dispatched events]
-     */
-    public static function provideFirePropagationCases(): iterable
-    {
-        yield [2, 1, 1, 2, 1];
-
-        yield [3, 1, 2, 3, 2];
-
-        yield [3, 1, 1, 2, 1];
-
-        yield [4, 2, 1, 2, 1];
-
-        yield [4, 2, 2, 3, 2];
-
-        yield [4, 2, 3, 4, 3];
-
-        yield [4, 2, 4, 4, 0];
     }
 
     /**

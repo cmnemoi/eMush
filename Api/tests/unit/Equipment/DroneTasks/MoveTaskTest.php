@@ -53,7 +53,7 @@ final class MoveTaskTest extends TestCase
     protected function setUp(): void
     {
         /** @var EventService $eventService */
-        $eventService = $this->createStub(EventService::class);
+        $eventService = self::createStub(EventService::class);
         $this->gameEquipmentService = \Mockery::spy(GameEquipmentServiceInterface::class);
         $this->time = new \DateTime();
 

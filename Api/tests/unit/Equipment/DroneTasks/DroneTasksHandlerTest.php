@@ -222,7 +222,7 @@ final class DroneTasksHandlerTest extends TestCase
     private function createExtinguishFireTask(bool $isSuccessful): ExtinguishFireTask
     {
         return new ExtinguishFireTask(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             $this->statusService,
             new InMemoryActionConfigRepository(),
             new D100Roll(isSuccessful: $isSuccessful),
@@ -232,20 +232,20 @@ final class DroneTasksHandlerTest extends TestCase
     private function createRepairBrokenEquipmentTask(bool $isSuccessful): RepairBrokenEquipmentTask
     {
         return new RepairBrokenEquipmentTask(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             $this->statusService,
             new D100Roll(isSuccessful: $isSuccessful),
-            $this->createStub(RoomLogServiceInterface::class),
-            $this->createStub(TranslationServiceInterface::class),
+            self::createStub(RoomLogServiceInterface::class),
+            self::createStub(TranslationServiceInterface::class),
         );
     }
 
     private function createMoveTask($equipmentService = null): MoveTask
     {
         return new MoveTask(
-            eventService: $this->createStub(EventServiceInterface::class),
+            eventService: self::createStub(EventServiceInterface::class),
             statusService: $this->statusService,
-            gameEquipmentService: $equipmentService ?: $this->createStub(GameEquipmentServiceInterface::class),
+            gameEquipmentService: $equipmentService ?: self::createStub(GameEquipmentServiceInterface::class),
             getRandomElementsFromArray: new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
             findNextRoomTowardsCondition: new FindNextRoomTowardsConditionService()
         );
@@ -254,30 +254,30 @@ final class DroneTasksHandlerTest extends TestCase
     private function createTakeoffTask(): TakeoffTask
     {
         return new TakeoffTask(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             $this->statusService,
             new GetRandomElementsFromArray(new GetRandomInteger(result: 0)),
-            $this->createStub(GameEquipmentServiceInterface::class),
+            self::createStub(GameEquipmentServiceInterface::class),
         );
     }
 
     private function createShootHunterTask(bool $isSuccessful): ShootHunterTask
     {
         return new ShootHunterTask(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             $this->statusService,
             new D100Roll(isSuccessful: $isSuccessful),
-            $this->createStub(RandomServiceInterface::class),
+            self::createStub(RandomServiceInterface::class),
         );
     }
 
     private function createLandTask(): LandTask
     {
         return new LandTask(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             $this->statusService,
-            $this->createStub(PatrolShipManoeuvreServiceInterface::class),
-            $this->createStub(PlayerServiceInterface::class),
+            self::createStub(PatrolShipManoeuvreServiceInterface::class),
+            self::createStub(PlayerServiceInterface::class),
         );
     }
 }

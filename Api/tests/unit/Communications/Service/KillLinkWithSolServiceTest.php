@@ -72,7 +72,7 @@ final class KillLinkWithSolServiceTest extends TestCase
 
     private function whenISuccessfullyKillLinkWithSol(): void
     {
-        $eventService = $this->createStub(EventServiceInterface::class);
+        $eventService = self::createStub(EventServiceInterface::class);
         $killLinkWithSolService = new KillLinkWithSolService(
             new D100Roll(new RandomInteger()),
             $eventService,
@@ -96,7 +96,7 @@ final class KillLinkWithSolServiceTest extends TestCase
 
     private function whenIFailToKillLinkWithSol(): void
     {
-        $eventService = $this->createStub(EventServiceInterface::class);
+        $eventService = self::createStub(EventServiceInterface::class);
         $killLinkWithSolService = new KillLinkWithSolService(
             new D100Roll(new RandomInteger()),
             $eventService,

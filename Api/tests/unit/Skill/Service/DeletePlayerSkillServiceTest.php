@@ -47,7 +47,7 @@ final class DeletePlayerSkillServiceTest extends TestCase
         $this->player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
 
         $this->deletePlayerSkillService = new DeletePlayerSkillService(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             $this->modifierCreationService,
             $this->skillRepository,
             $this->statusService,

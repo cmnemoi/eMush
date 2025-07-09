@@ -40,8 +40,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
         $daedalus = $holder->getPlace()->getDaedalus();
 
         if (\in_array($equipmentName, [EquipmentEnum::SHOWER, EquipmentEnum::THALASSO], true)) {
-            $numberShowersLeft = ($this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count() +
-                $this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());
+            $numberShowersLeft = ($this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::THALASSO, $daedalus)->count()
+                + $this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::SHOWER, $daedalus)->count());
 
             $this->neronMessageService->createNeronMessage(
                 messageKey: $numberShowersLeft <= 1 ? NeronMessageEnum::NO_SHOWER : NeronMessageEnum::DISMANTLED_SHOWER,

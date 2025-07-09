@@ -123,7 +123,7 @@ final class MushTrapTest extends TestCase
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
 
-        $player = $this->createStub(Player::class);
+        $player = self::createStub(Player::class);
         $player->method('getDaedalus')->willReturn($daedalus);
         $player->method('getName')->willReturn(CharacterEnum::KUAN_TI);
         $player->method('hasOperationalEquipmentByName')->willReturn(true);

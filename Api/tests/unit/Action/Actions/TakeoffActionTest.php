@@ -46,11 +46,11 @@ final class TakeoffActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->createStub(PatrolShipManoeuvreServiceInterface::class),
+            self::createStub(PatrolShipManoeuvreServiceInterface::class),
             $this->playerService,
             $this->randomService,
             new UpdatePlayerNotificationService(
-                $this->createStub(PlayerNotificationRepositoryInterface::class),
+                self::createStub(PlayerNotificationRepositoryInterface::class),
             )
         );
     }

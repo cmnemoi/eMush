@@ -42,7 +42,7 @@ final class DaedalusWidgetServiceTest extends TestCase
 
         $this->service = new DaedalusWidgetService(
             $this->alertService,
-            $this->createStub(TranslationServiceInterface::class)
+            self::createStub(TranslationServiceInterface::class)
         );
     }
 

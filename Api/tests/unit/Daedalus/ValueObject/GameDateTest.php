@@ -22,28 +22,6 @@ final class GameDateTest extends TestCase
         self::assertTrue($previous->equals($expectedPreviousGameDate));
     }
 
-    /**
-     * @dataProvider provideLessThanOrEqualCases
-     */
-    public function testLessThanOrEqual(GameDate $currentGameDate, GameDate $otherGameDate, bool $expectedResult): void
-    {
-        self::assertEquals(
-            $expectedResult,
-            $currentGameDate->lessThanOrEqual($otherGameDate)
-        );
-    }
-
-    /**
-     * @dataProvider provideCyclesAgoCases
-     */
-    public function testCyclesAgo(GameDate $currentGameDate, int $delta, GameDate $expectedGameDate): void
-    {
-        self::assertEquals(
-            $expectedGameDate,
-            $currentGameDate->cyclesAgo($delta)
-        );
-    }
-
     public static function providePreviousCases(): iterable
     {
         $daedalus = DaedalusFactory::createDaedalus();
@@ -58,6 +36,17 @@ final class GameDateTest extends TestCase
                 new GameDate($daedalus, day: 1, cycle: 8),
             ],
         ];
+    }
+
+    /**
+     * @dataProvider provideLessThanOrEqualCases
+     */
+    public function testLessThanOrEqual(GameDate $currentGameDate, GameDate $otherGameDate, bool $expectedResult): void
+    {
+        self::assertEquals(
+            $expectedResult,
+            $currentGameDate->lessThanOrEqual($otherGameDate)
+        );
     }
 
     public static function provideLessThanOrEqualCases(): iterable
@@ -86,6 +75,17 @@ final class GameDateTest extends TestCase
                 true,
             ],
         ];
+    }
+
+    /**
+     * @dataProvider provideCyclesAgoCases
+     */
+    public function testCyclesAgo(GameDate $currentGameDate, int $delta, GameDate $expectedGameDate): void
+    {
+        self::assertEquals(
+            $expectedGameDate,
+            $currentGameDate->cyclesAgo($delta)
+        );
     }
 
     public static function provideCyclesAgoCases(): iterable

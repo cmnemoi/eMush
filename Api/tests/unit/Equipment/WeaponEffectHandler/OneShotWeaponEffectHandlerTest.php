@@ -33,12 +33,12 @@ final class OneShotWeaponEffectHandlerTest extends TestCase
     {
         $this->handler = new OneShotWeaponEffectHandler(
             new PlayerService(
-                closedPlayerRepository: $this->createStub(ClosedPlayerRepositoryInterface::class),
-                daedalusRepository: $this->createStub(DaedalusRepositoryInterface::class),
-                eventService: $this->createStub(EventServiceInterface::class),
+                closedPlayerRepository: self::createStub(ClosedPlayerRepositoryInterface::class),
+                daedalusRepository: self::createStub(DaedalusRepositoryInterface::class),
+                eventService: self::createStub(EventServiceInterface::class),
                 playerRepository: new InMemoryPlayerRepository(),
-                roomLogService: $this->createStub(RoomLogServiceInterface::class),
-                playerInfoRepository: $this->createStub(PlayerInfoRepositoryInterface::class),
+                roomLogService: self::createStub(RoomLogServiceInterface::class),
+                playerInfoRepository: self::createStub(PlayerInfoRepositoryInterface::class),
             )
         );
     }

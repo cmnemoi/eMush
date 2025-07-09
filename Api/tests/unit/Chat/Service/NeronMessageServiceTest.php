@@ -36,7 +36,7 @@ final class NeronMessageServiceTest extends TestCase
         $this->neronCrazyRoll = new FakeD100Roll();
         $this->getRandomInteger = new FakeGetRandomInteger(result: 0);
         $this->messageRepository = new InMemoryMessageRepository();
-        $this->translationService = $this->createStub(TranslationServiceInterface::class);
+        $this->translationService = self::createStub(TranslationServiceInterface::class);
 
         $this->service = new NeronMessageService(
             $this->channelRepository,

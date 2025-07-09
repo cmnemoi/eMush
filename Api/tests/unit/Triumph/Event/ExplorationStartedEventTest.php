@@ -45,10 +45,10 @@ final class ExplorationStartedEventTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->cycleService = $this->createStub(CycleServiceInterface::class);
-        $this->eventService = $this->createStub(EventServiceInterface::class);
+        $this->cycleService = self::createStub(CycleServiceInterface::class);
+        $this->eventService = self::createStub(EventServiceInterface::class);
         $this->gameEquipmentRepository = new InMemoryGameEquipmentRepository();
-        $this->statusService = $this->createStub(StatusServiceInterface::class);
+        $this->statusService = self::createStub(StatusServiceInterface::class);
         $this->triumphConfigRepository = new InMemoryTriumphConfigRepository();
 
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(

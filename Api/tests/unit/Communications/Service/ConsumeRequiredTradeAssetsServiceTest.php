@@ -77,6 +77,14 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
         $this->thenDaedalusShouldHaveVariable($variable, 5);
     }
 
+    public static function provideShouldRemoveExpectedAmountOfDaedalusVariableCases(): iterable
+    {
+        return [
+            '10 oxygen' => [DaedalusVariableEnum::OXYGEN, 10],
+            '10 fuel' => [DaedalusVariableEnum::FUEL, 10],
+        ];
+    }
+
     public function testShouldThrowIfNotEnoughDaedalusVariable(): void
     {
         // Given
@@ -197,14 +205,6 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
 
         // Then
         $this->thenItShouldThrowGameException($tradeOption);
-    }
-
-    public static function provideShouldRemoveExpectedAmountOfDaedalusVariableCases(): iterable
-    {
-        return [
-            '10 oxygen' => [DaedalusVariableEnum::OXYGEN, 10],
-            '10 fuel' => [DaedalusVariableEnum::FUEL, 10],
-        ];
     }
 
     private function givenDaedalusAndTrader(): void
@@ -426,42 +426,42 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
     private function createModifierCreationServiceStub(): ModifierCreationServiceInterface
     {
         // @var ModifierCreationServiceInterface
-        return $this->createStub(ModifierCreationServiceInterface::class);
+        return self::createStub(ModifierCreationServiceInterface::class);
     }
 
     private function createProjectRepositoryStub(): ProjectRepositoryInterface
     {
         // @var ProjectRepositoryInterface
-        return $this->createStub(ProjectRepositoryInterface::class);
+        return self::createStub(ProjectRepositoryInterface::class);
     }
 
     private function createClosedPlayerRepositoryStub(): ClosedPlayerRepositoryInterface
     {
         // @var ClosedPlayerRepositoryInterface
-        return $this->createStub(ClosedPlayerRepositoryInterface::class);
+        return self::createStub(ClosedPlayerRepositoryInterface::class);
     }
 
     private function createDaedalusRepositoryStub(): DaedalusRepositoryInterface
     {
         // @var DaedalusRepositoryInterface
-        return $this->createStub(DaedalusRepositoryInterface::class);
+        return self::createStub(DaedalusRepositoryInterface::class);
     }
 
     private function createPlayerRepositoryStub(): PlayerRepositoryInterface
     {
         // @var PlayerRepositoryInterface
-        return $this->createStub(PlayerRepositoryInterface::class);
+        return self::createStub(PlayerRepositoryInterface::class);
     }
 
     private function createRoomLogServiceStub(): RoomLogServiceInterface
     {
         // @var RoomLogServiceInterface
-        return $this->createStub(RoomLogServiceInterface::class);
+        return self::createStub(RoomLogServiceInterface::class);
     }
 
     private function createPlayerInfoRepositoryStub(): PlayerInfoRepositoryInterface
     {
         // @var PlayerInfoRepositoryInterface
-        return $this->createStub(PlayerInfoRepositoryInterface::class);
+        return self::createStub(PlayerInfoRepositoryInterface::class);
     }
 }

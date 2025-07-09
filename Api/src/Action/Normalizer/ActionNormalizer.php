@@ -193,8 +193,8 @@ class ActionNormalizer implements NormalizerInterface
             $description = $this->getTypesDescriptions($description, $actionConfig->getTypes(), $language);
             $normalizedAction['description'] = $description;
             $normalizedAction['canExecute'] = true;
-            $normalizedAction['confirmation'] =
-                \in_array(ActionTypeEnum::ACTION_CONFIRM->value, $actionConfig->getTypes(), true)
+            $normalizedAction['confirmation']
+                = \in_array(ActionTypeEnum::ACTION_CONFIRM->value, $actionConfig->getTypes(), true)
                     ? $this->translationService->translate(
                         "{$actionName}.confirmation",
                         $translationParameters,

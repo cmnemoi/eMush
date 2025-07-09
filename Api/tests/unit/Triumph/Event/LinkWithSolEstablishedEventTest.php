@@ -94,7 +94,7 @@ final class LinkWithSolEstablishedEventTest extends TestCase
 
     private function givenStatusService(): void
     {
-        $this->statusService = $this->createStub(StatusServiceInterface::class);
+        $this->statusService = self::createStub(StatusServiceInterface::class);
     }
 
     private function givenInMemoryGameEquipmentRepository(): void
@@ -104,12 +104,12 @@ final class LinkWithSolEstablishedEventTest extends TestCase
 
     private function givenEventService(): void
     {
-        $this->eventService = $this->createStub(EventServiceInterface::class);
+        $this->eventService = self::createStub(EventServiceInterface::class);
     }
 
     private function givenCycleService(): void
     {
-        $this->cycleService = $this->createStub(CycleServiceInterface::class);
+        $this->cycleService = self::createStub(CycleServiceInterface::class);
     }
 
     private function givenInMemoryTriumphConfigRepository(): void

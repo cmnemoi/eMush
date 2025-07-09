@@ -37,7 +37,7 @@ final class CreateTransportServiceTest extends TestCase
         $this->generateTrade = new GenerateFixedTradeService();
 
         $this->createTransportService = new CreateTransportTradeService(
-            eventService: $this->createStub(EventServiceInterface::class),
+            eventService: self::createStub(EventServiceInterface::class),
             generateTrade: $this->generateTrade,
             hunterRepository: $this->hunterRepository,
             tradeRepository: $this->tradeRepository,

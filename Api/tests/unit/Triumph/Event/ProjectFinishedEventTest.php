@@ -62,6 +62,21 @@ final class ProjectFinishedEventTest extends TestCase
         $this->thenPlayersShouldHaveTriumph([$player, $player2], 3);
     }
 
+    public static function provideShouldGiveResearchSmallTriumphToAllHumansCases(): iterable
+    {
+        return [
+            ProjectName::ANTISPORE_GAS->toString() => [ProjectName::ANTISPORE_GAS],
+            ProjectName::CONSTIPASPORE_SERUM->toString() => [ProjectName::CONSTIPASPORE_SERUM],
+            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
+            ProjectName::MERIDON_SCRAMBLER->toString() => [ProjectName::MERIDON_SCRAMBLER],
+            ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
+            ProjectName::MUSHOVORE_BACTERIA->toString() => [ProjectName::MUSHOVORE_BACTERIA],
+            ProjectName::MYCOALARM->toString() => [ProjectName::MYCOALARM],
+            ProjectName::PATULINE_SCRAMBLER->toString() => [ProjectName::PATULINE_SCRAMBLER],
+            ProjectName::PHEROMODEM->toString() => [ProjectName::PHEROMODEM],
+        ];
+    }
+
     public function testShouldNotGiveResearchSmallTriumphToMush(): void
     {
         $daedalus = $this->givenDaedalus();
@@ -101,6 +116,16 @@ final class ProjectFinishedEventTest extends TestCase
         $this->whenChangeTriumphFromEventIsExecutedFor($event);
 
         $this->thenPlayersShouldHaveTriumph([$player, $player2], 6);
+    }
+
+    public static function provideShouldGiveResearchTriumphToAllHumansCases(): iterable
+    {
+        return [
+            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
+            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
+            ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
+            ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => [ProjectName::MUSH_REPRODUCTIVE_SYSTEM],
+        ];
     }
 
     public function testShouldNotGiveResearchTriumphToMush(): void
@@ -181,6 +206,28 @@ final class ProjectFinishedEventTest extends TestCase
         self::assertEquals(3, $finola->getTriumph());
     }
 
+    public static function provideShouldGiveMushSpecialistTriumphToFinolaCases(): iterable
+    {
+        return [
+            ProjectName::ANTISPORE_GAS->toString() => [ProjectName::ANTISPORE_GAS],
+            ProjectName::CONSTIPASPORE_SERUM->toString() => [ProjectName::CONSTIPASPORE_SERUM],
+            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
+            ProjectName::MERIDON_SCRAMBLER->toString() => [ProjectName::MERIDON_SCRAMBLER],
+            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
+            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
+            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
+            ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
+            ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => [ProjectName::MUSH_REPRODUCTIVE_SYSTEM],
+            ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
+            ProjectName::MYCOALARM->toString() => [ProjectName::MYCOALARM],
+            ProjectName::NATAMY_RIFLE->toString() => [ProjectName::NATAMY_RIFLE],
+            ProjectName::PATULINE_SCRAMBLER->toString() => [ProjectName::PATULINE_SCRAMBLER],
+            ProjectName::PHEROMODEM->toString() => [ProjectName::PHEROMODEM],
+            ProjectName::RETRO_FUNGAL_SERUM->toString() => [ProjectName::RETRO_FUNGAL_SERUM],
+            ProjectName::SPORE_SUCKER->toString() => [ProjectName::SPORE_SUCKER],
+        ];
+    }
+
     public function testShouldNotGiveMushSpecialistTriumphToMushFinola(): void
     {
         $daedalus = $this->givenDaedalus();
@@ -231,6 +278,17 @@ final class ProjectFinishedEventTest extends TestCase
         $this->whenChangeTriumphFromEventIsExecutedFor($event);
 
         self::assertEquals(4, $chun->getTriumph());
+    }
+
+    public static function provideShouldGivePreciousBodyTriumphToChunCases(): iterable
+    {
+        return [
+            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
+            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
+            ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
+            ProjectName::MUSHOVORE_BACTERIA->toString() => [ProjectName::MUSHOVORE_BACTERIA],
+            ProjectName::RETRO_FUNGAL_SERUM->toString() => [ProjectName::RETRO_FUNGAL_SERUM],
+        ];
     }
 
     public function testShouldNotGivePreciousBodyTriumphToOtherCharacter(): void
@@ -292,64 +350,6 @@ final class ProjectFinishedEventTest extends TestCase
         $this->thenPlayersShouldHaveTriumph([$player, $player2], 3);
     }
 
-    public static function provideShouldGiveResearchSmallTriumphToAllHumansCases(): iterable
-    {
-        return [
-            ProjectName::ANTISPORE_GAS->toString() => [ProjectName::ANTISPORE_GAS],
-            ProjectName::CONSTIPASPORE_SERUM->toString() => [ProjectName::CONSTIPASPORE_SERUM],
-            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
-            ProjectName::MERIDON_SCRAMBLER->toString() => [ProjectName::MERIDON_SCRAMBLER],
-            ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
-            ProjectName::MUSHOVORE_BACTERIA->toString() => [ProjectName::MUSHOVORE_BACTERIA],
-            ProjectName::MYCOALARM->toString() => [ProjectName::MYCOALARM],
-            ProjectName::PATULINE_SCRAMBLER->toString() => [ProjectName::PATULINE_SCRAMBLER],
-            ProjectName::PHEROMODEM->toString() => [ProjectName::PHEROMODEM],
-        ];
-    }
-
-    public static function provideShouldGiveResearchTriumphToAllHumansCases(): iterable
-    {
-        return [
-            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
-            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
-            ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
-            ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => [ProjectName::MUSH_REPRODUCTIVE_SYSTEM],
-        ];
-    }
-
-    public static function provideShouldGiveMushSpecialistTriumphToFinolaCases(): iterable
-    {
-        return [
-            ProjectName::ANTISPORE_GAS->toString() => [ProjectName::ANTISPORE_GAS],
-            ProjectName::CONSTIPASPORE_SERUM->toString() => [ProjectName::CONSTIPASPORE_SERUM],
-            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
-            ProjectName::MERIDON_SCRAMBLER->toString() => [ProjectName::MERIDON_SCRAMBLER],
-            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
-            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
-            ProjectName::MUSH_LANGUAGE->toString() => [ProjectName::MUSH_LANGUAGE],
-            ProjectName::MUSH_RACES->toString() => [ProjectName::MUSH_RACES],
-            ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => [ProjectName::MUSH_REPRODUCTIVE_SYSTEM],
-            ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
-            ProjectName::MYCOALARM->toString() => [ProjectName::MYCOALARM],
-            ProjectName::NATAMY_RIFLE->toString() => [ProjectName::NATAMY_RIFLE],
-            ProjectName::PATULINE_SCRAMBLER->toString() => [ProjectName::PATULINE_SCRAMBLER],
-            ProjectName::PHEROMODEM->toString() => [ProjectName::PHEROMODEM],
-            ProjectName::RETRO_FUNGAL_SERUM->toString() => [ProjectName::RETRO_FUNGAL_SERUM],
-            ProjectName::SPORE_SUCKER->toString() => [ProjectName::SPORE_SUCKER],
-        ];
-    }
-
-    public static function provideShouldGivePreciousBodyTriumphToChunCases(): iterable
-    {
-        return [
-            ProjectName::CREATE_MYCOSCAN->toString() => [ProjectName::CREATE_MYCOSCAN],
-            ProjectName::MUSH_HUNTER_ZC16H->toString() => [ProjectName::MUSH_HUNTER_ZC16H],
-            ProjectName::MUSHICIDE_SOAP->toString() => [ProjectName::MUSHICIDE_SOAP],
-            ProjectName::MUSHOVORE_BACTERIA->toString() => [ProjectName::MUSHOVORE_BACTERIA],
-            ProjectName::RETRO_FUNGAL_SERUM->toString() => [ProjectName::RETRO_FUNGAL_SERUM],
-        ];
-    }
-
     private function givenChangeTriumphFromEventService(): void
     {
         $this->changeTriumphFromEventService = new ChangeTriumphFromEventService(
@@ -363,7 +363,7 @@ final class ProjectFinishedEventTest extends TestCase
 
     private function givenStatusService(): void
     {
-        $this->statusService = $this->createStub(StatusServiceInterface::class);
+        $this->statusService = self::createStub(StatusServiceInterface::class);
     }
 
     private function givenInMemoryGameEquipmentRepository(): void
@@ -373,12 +373,12 @@ final class ProjectFinishedEventTest extends TestCase
 
     private function givenEventService(): void
     {
-        $this->eventService = $this->createStub(EventServiceInterface::class);
+        $this->eventService = self::createStub(EventServiceInterface::class);
     }
 
     private function givenCycleService(): void
     {
-        $this->cycleService = $this->createStub(CycleServiceInterface::class);
+        $this->cycleService = self::createStub(CycleServiceInterface::class);
     }
 
     private function givenInMemoryTriumphConfigRepository(): void

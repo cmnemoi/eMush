@@ -52,11 +52,11 @@ final class PlayerSubscriberTest extends TestCase
     /** @before */
     public function before(): void
     {
-        $this->playerDiseaseService = $this->createStub(PlayerDiseaseServiceInterface::class);
+        $this->playerDiseaseService = self::createStub(PlayerDiseaseServiceInterface::class);
         $this->diseaseCauseService = \Mockery::spy(DiseaseCauseServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->roomLogService = \Mockery::spy(RoomLogServiceInterface::class);
-        $this->eventService = $this->createStub(EventServiceInterface::class);
+        $this->eventService = self::createStub(EventServiceInterface::class);
 
         $this->playerSubscriber = new PlayerSubscriber(
             $this->playerDiseaseService,

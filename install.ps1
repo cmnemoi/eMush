@@ -3,7 +3,7 @@
 # Define variables
 $NODE_VERSION = "22.16.0"
 $POSTGRES_VERSION = "17"
-$PHP_VERSION = "8.3.21"
+$PHP_VERSION = "8.4"
 $COMPOSER_VERSION = "6.3.0"
 $LOG_FILE = "install.log"
 

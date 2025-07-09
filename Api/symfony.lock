@@ -192,9 +192,6 @@
     "fakerphp/faker": {
         "version": "v1.13.0"
     },
-    "felixfbecker/advanced-json-rpc": {
-        "version": "v3.1.1"
-    },
     "felixfbecker/language-server-protocol": {
         "version": "v1.5.0"
     },
@@ -416,12 +413,6 @@
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
-    },
-    "sebastian/code-unit": {
-        "version": "1.0.7"
-    },
-    "sebastian/code-unit-reverse-lookup": {
-        "version": "2.0.3"
     },
     "sebastian/comparator": {
         "version": "4.0.5"

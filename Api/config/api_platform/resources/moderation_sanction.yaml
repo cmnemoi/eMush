@@ -1,6 +1,4 @@
 Mush\MetaGame\Entity\ModerationSanction:
-  shortName: 'moderationSanction'
-  description: 'sanction given by the moderation to users'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

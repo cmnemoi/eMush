@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Mechanics\Gear:
-  shortName: 'Gear'
-  description: 'eMush Gear'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

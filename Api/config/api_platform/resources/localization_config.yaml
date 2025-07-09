@@ -1,6 +1,4 @@
 Mush\Game\Entity\LocalizationConfig:
-  shortName: 'LocalizationConfig'
-  description: 'eMush Localization Config'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

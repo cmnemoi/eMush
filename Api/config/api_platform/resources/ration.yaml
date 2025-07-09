@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Mechanics\Ration:
-  shortName: 'Ration'
-  description: 'eMush Ration'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

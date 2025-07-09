@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Mechanics\PatrolShip:
-  shortName: 'PatrolShip'
-  description: 'eMush Patrol Ship'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_ADMIN")'

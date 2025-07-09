@@ -1,6 +1,4 @@
 Mush\Action\Entity\ActionConfig:
-  shortName: 'ActionConfig'
-  description: 'eMush Actions'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

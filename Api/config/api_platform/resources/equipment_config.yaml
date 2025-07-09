@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Config\EquipmentConfig:
-  shortName: 'EquipmentConfig'
-  description: 'eMush Equipment Config'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

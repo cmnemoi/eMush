@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Mechanics\Weapon:
-  shortName: 'Weapon'
-  description: 'eMush Weapon'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

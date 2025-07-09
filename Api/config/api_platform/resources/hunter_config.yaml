@@ -1,6 +1,4 @@
 Mush\Hunter\Entity\HunterConfig:
-  shortName: 'HunterConfig'
-  description: 'eMush HunterConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_ADMIN")'

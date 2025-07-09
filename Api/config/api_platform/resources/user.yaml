@@ -1,6 +1,4 @@
 Mush\User\Entity\User:
-  shortName: 'Users'
-  description: 'eMush Users'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

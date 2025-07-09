@@ -1,6 +1,4 @@
 Mush\Daedalus\Entity\RandomItemPlaces:
-  shortName: 'RandomItemPlaces'
-  description: 'eMush RandomItemPlaces'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

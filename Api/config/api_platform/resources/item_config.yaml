@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Config\ItemConfig:
-  shortName: 'ItemConfig'
-  description: 'eMush Item Config'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

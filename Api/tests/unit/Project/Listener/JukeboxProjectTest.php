@@ -153,7 +153,7 @@ final class JukeboxProjectTest extends TestCase
             new FakePlayerHealthVariableEventService(),
             new InMemoryGameEquipmentRepository(),
             new FakeGetRandomElementsFromArrayService(),
-            $this->createStub(RoomLogServiceInterface::class),
+            self::createStub(RoomLogServiceInterface::class),
         );
         $jukeboxCycleHandler->handleNewCycle($jukebox, new \DateTime());
     }

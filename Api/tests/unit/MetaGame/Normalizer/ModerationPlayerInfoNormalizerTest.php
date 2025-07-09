@@ -33,7 +33,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
     protected function setUp(): void
     {
         $this->playerInfoRepository = new InMemoryPlayerInfoRepository();
-        $this->translationService = $this->createStub(TranslationServiceInterface::class);
+        $this->translationService = self::createStub(TranslationServiceInterface::class);
     }
 
     /**
@@ -69,7 +69,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
             $this->getTokenStorageForUser($moderator),
             $this->translationService
         );
-        $normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $normalizer->setNormalizer(self::createStub(NormalizerInterface::class));
         $result = $normalizer->normalize($anotherPlayer->getPlayerInfo());
 
         // then the moderator should not be able to see the other player
@@ -98,7 +98,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
             $this->getTokenStorageForUser($moderator),
             $this->translationService
         );
-        $normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $normalizer->setNormalizer(self::createStub(NormalizerInterface::class));
 
         $result = $normalizer->normalize($anotherPlayer->getPlayerInfo());
 
@@ -122,7 +122,7 @@ final class ModerationPlayerInfoNormalizerTest extends TestCase
             $this->getTokenStorageForUser($moderator),
             $this->translationService
         );
-        $normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $normalizer->setNormalizer(self::createStub(NormalizerInterface::class));
         $result = $normalizer->normalize($player->getPlayerInfo());
 
         // then the moderator should be able to see the player

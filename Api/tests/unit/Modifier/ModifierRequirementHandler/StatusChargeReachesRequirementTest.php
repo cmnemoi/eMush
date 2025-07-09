@@ -69,7 +69,7 @@ final class StatusChargeReachesRequirementTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
 
-        $this->whenICheckTheRequirementFor($this->createStub(ModifierHolderInterface::class));
+        $this->whenICheckTheRequirementFor(self::createStub(ModifierHolderInterface::class));
     }
 
     private function givenModifierRequirementFor5CyclesLyingDownStatus(): ModifierActivationRequirement

@@ -38,7 +38,7 @@ final class DeadPlayerNormalizerTest extends TestCase
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new DeadPlayerNormalizer($this->translationService);
-        $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $this->normalizer->setNormalizer(self::createStub(NormalizerInterface::class));
     }
 
     /**

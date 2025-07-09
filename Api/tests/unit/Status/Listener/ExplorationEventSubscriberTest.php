@@ -80,7 +80,7 @@ final class ExplorationEventSubscriberTest extends TestCase
         // when I listen to the exploration finished event
         $explorationEventSubscriber = new ExplorationEventSubscriber(
             new FakeD100RollService(isSuccessful: true), // random roll for dirty status is successful
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             new FakeStatusService(),
         );
         $explorationEventSubscriber->onExplorationFinished($explorationEvent);

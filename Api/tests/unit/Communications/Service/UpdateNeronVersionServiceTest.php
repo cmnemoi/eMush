@@ -78,7 +78,7 @@ final class UpdateNeronVersionServiceTest extends TestCase
 
     private function givenMinorVersionIncrementIs(int $increment): void
     {
-        $eventService = $this->createStub(EventServiceInterface::class);
+        $eventService = self::createStub(EventServiceInterface::class);
         $this->updateNeronVersion = new UpdateNeronVersionService(
             $eventService,
             new FixedNeronMinorVersionIncrement($increment),

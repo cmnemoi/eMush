@@ -200,7 +200,7 @@ final class FinishDaedalusEventTest extends TestCase
     private function givenAStatusService(): void
     {
         /** @var StatusServiceInterface $statusService */
-        $statusService = $this->createStub(StatusServiceInterface::class);
+        $statusService = self::createStub(StatusServiceInterface::class);
         $this->statusService = $statusService;
     }
 
@@ -212,14 +212,14 @@ final class FinishDaedalusEventTest extends TestCase
     private function givenAnEventService(): void
     {
         /** @var EventServiceInterface $eventService */
-        $eventService = $this->createStub(EventServiceInterface::class);
+        $eventService = self::createStub(EventServiceInterface::class);
         $this->eventService = $eventService;
     }
 
     private function givenACycleService(): void
     {
         /** @var CycleServiceInterface $eventService */
-        $cycleService = $this->createStub(CycleServiceInterface::class);
+        $cycleService = self::createStub(CycleServiceInterface::class);
         $this->cycleService = $cycleService;
     }
 

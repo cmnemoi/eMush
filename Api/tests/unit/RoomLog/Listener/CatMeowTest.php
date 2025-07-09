@@ -52,7 +52,7 @@ final class CatMeowTest extends TestCase
         $this->catMeowRoll = new FakeD100Roll(isSuccessful: true);
         $this->playerRepository = new InMemoryPlayerRepository();
         $this->roomLogRepository = new InMemoryRoomLogRepository();
-        $translationService = $this->createStub(TranslationServiceInterface::class);
+        $translationService = self::createStub(TranslationServiceInterface::class);
 
         $this->roomLogService = new RoomLogService(
             new FakeD100Roll(),
@@ -95,6 +95,21 @@ final class CatMeowTest extends TestCase
         }
     }
 
+    /**
+     * Test cases for cat meowing behavior based on action visibility.
+     */
+    public static function provideCatShouldMeowBasedOnVisibilityCases(): iterable
+    {
+        return [
+            'PUBLIC visibility' => [VisibilityEnum::PUBLIC, true],
+            'PRIVATE visibility' => [VisibilityEnum::PRIVATE, false],
+            'SECRET visibility' => [VisibilityEnum::SECRET, false],
+            'HIDDEN visibility' => [VisibilityEnum::HIDDEN, false],
+            'REVEALED visibility' => [VisibilityEnum::REVEALED, true],
+            'COVERT visibility' => [VisibilityEnum::COVERT, false],
+        ];
+    }
+
     public function testCatShouldNotMeowWhenPlayerEntersDeloggedRoom(): void
     {
         $this->givenSchrodingerInPlayerInventory();
@@ -123,21 +138,6 @@ final class CatMeowTest extends TestCase
         $this->whenPlayerFailsToShootAtCat();
 
         $this->thenCatShouldNotHiss();
-    }
-
-    /**
-     * Test cases for cat meowing behavior based on action visibility.
-     */
-    public static function provideCatShouldMeowBasedOnVisibilityCases(): iterable
-    {
-        return [
-            'PUBLIC visibility' => [VisibilityEnum::PUBLIC, true],
-            'PRIVATE visibility' => [VisibilityEnum::PRIVATE, false],
-            'SECRET visibility' => [VisibilityEnum::SECRET, false],
-            'HIDDEN visibility' => [VisibilityEnum::HIDDEN, false],
-            'REVEALED visibility' => [VisibilityEnum::REVEALED, true],
-            'COVERT visibility' => [VisibilityEnum::COVERT, false],
-        ];
     }
 
     private function givenSchrodingerInPlayerInventory(): void

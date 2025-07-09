@@ -68,6 +68,25 @@ final class EquipmentCreatedEventTest extends TestCase
         $this->thenIanShouldHaveNaturalistTriumph($ian);
     }
 
+    public static function provideShouldGiveNaturalistTriumphToIanWhenCreatingAlienPlantCases(): iterable
+    {
+        return [
+            GamePlantEnum::ASPERAGUNK => [GamePlantEnum::ASPERAGUNK],
+            GamePlantEnum::BIFFLON => [GamePlantEnum::BIFFLON],
+            GamePlantEnum::BUMPJUMPKIN => [GamePlantEnum::BUMPJUMPKIN],
+            GamePlantEnum::BUTTALIEN => [GamePlantEnum::BUTTALIEN],
+            GamePlantEnum::CACTAX => [GamePlantEnum::CACTAX],
+            GamePlantEnum::CREEPIST => [GamePlantEnum::CREEPIST],
+            GamePlantEnum::FIBONICCUS => [GamePlantEnum::FIBONICCUS],
+            GamePlantEnum::GRAAPSHOOT => [GamePlantEnum::GRAAPSHOOT],
+            GamePlantEnum::MYCOPIA => [GamePlantEnum::MYCOPIA],
+            GamePlantEnum::PLATACIA => [GamePlantEnum::PLATACIA],
+            GamePlantEnum::PRECATUS => [GamePlantEnum::PRECATUS],
+            GamePlantEnum::PULMMINAGRO => [GamePlantEnum::PULMMINAGRO],
+            GamePlantEnum::TUBILISCUS => [GamePlantEnum::TUBILISCUS],
+        ];
+    }
+
     public function testShouldNotGiveNaturalistTriumphToIanWhenCreatingNonAlienPlant(): void
     {
         // Given
@@ -125,28 +144,9 @@ final class EquipmentCreatedEventTest extends TestCase
         $this->thenPlayerShouldNotHaveTriumph($ian);
     }
 
-    public static function provideShouldGiveNaturalistTriumphToIanWhenCreatingAlienPlantCases(): iterable
-    {
-        return [
-            GamePlantEnum::ASPERAGUNK => [GamePlantEnum::ASPERAGUNK],
-            GamePlantEnum::BIFFLON => [GamePlantEnum::BIFFLON],
-            GamePlantEnum::BUMPJUMPKIN => [GamePlantEnum::BUMPJUMPKIN],
-            GamePlantEnum::BUTTALIEN => [GamePlantEnum::BUTTALIEN],
-            GamePlantEnum::CACTAX => [GamePlantEnum::CACTAX],
-            GamePlantEnum::CREEPIST => [GamePlantEnum::CREEPIST],
-            GamePlantEnum::FIBONICCUS => [GamePlantEnum::FIBONICCUS],
-            GamePlantEnum::GRAAPSHOOT => [GamePlantEnum::GRAAPSHOOT],
-            GamePlantEnum::MYCOPIA => [GamePlantEnum::MYCOPIA],
-            GamePlantEnum::PLATACIA => [GamePlantEnum::PLATACIA],
-            GamePlantEnum::PRECATUS => [GamePlantEnum::PRECATUS],
-            GamePlantEnum::PULMMINAGRO => [GamePlantEnum::PULMMINAGRO],
-            GamePlantEnum::TUBILISCUS => [GamePlantEnum::TUBILISCUS],
-        ];
-    }
-
     private function givenStatusService(): void
     {
-        $this->statusService = $this->createStub(StatusServiceInterface::class);
+        $this->statusService = self::createStub(StatusServiceInterface::class);
     }
 
     private function givenInMemoryGameEquipmentRepository(): void
@@ -156,12 +156,12 @@ final class EquipmentCreatedEventTest extends TestCase
 
     private function givenEventService(): void
     {
-        $this->eventService = $this->createStub(EventServiceInterface::class);
+        $this->eventService = self::createStub(EventServiceInterface::class);
     }
 
     private function givenCycleService(): void
     {
-        $this->cycleService = $this->createStub(CycleServiceInterface::class);
+        $this->cycleService = self::createStub(CycleServiceInterface::class);
     }
 
     private function givenInMemoryTriumphConfigRepository(): void

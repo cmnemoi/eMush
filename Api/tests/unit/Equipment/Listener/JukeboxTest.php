@@ -115,7 +115,7 @@ final class JukeboxTest extends TestCase
             new FakePlayerMoralVariableEventService(moraleGain: 2),
             new InMemoryGameEquipmentRepository(),
             new FakeGetRandomElementsFromArrayService(),
-            $this->createStub(RoomLogServiceInterface::class),
+            self::createStub(RoomLogServiceInterface::class),
         );
         $jukeboxCycleHandler->handleNewCycle($jukebox, new \DateTime());
     }

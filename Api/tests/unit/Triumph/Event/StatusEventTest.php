@@ -69,6 +69,15 @@ final class StatusEventTest extends TestCase
         $this->thenStephenShouldHaveAmbitiousTriumph($stephen);
     }
 
+    public static function provideShouldGiveAmbitiousTriumphToStephenWhenGainingTitleCases(): iterable
+    {
+        return [
+            TitleEnum::COMMANDER => [PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE],
+            TitleEnum::COM_MANAGER => [PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE],
+            TitleEnum::NERON_MANAGER => [PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE],
+        ];
+    }
+
     public function testShouldNotGiveAmbitiousTriumphToOtherPlayersWhenGainingTitle(): void
     {
         // Given
@@ -139,15 +148,6 @@ final class StatusEventTest extends TestCase
         $this->thenPlayerShouldHaveTriumph($player1, 0);
     }
 
-    public static function provideShouldGiveAmbitiousTriumphToStephenWhenGainingTitleCases(): iterable
-    {
-        return [
-            TitleEnum::COMMANDER => [PlayerStatusEnum::HAS_GAINED_COMMANDER_TITLE],
-            TitleEnum::COM_MANAGER => [PlayerStatusEnum::HAS_GAINED_COM_MANAGER_TITLE],
-            TitleEnum::NERON_MANAGER => [PlayerStatusEnum::HAS_GAINED_NERON_MANAGER_TITLE],
-        ];
-    }
-
     // Given methods
     private function givenStephenPlayer()
     {
@@ -178,17 +178,17 @@ final class StatusEventTest extends TestCase
 
     private function givenStatusService(): void
     {
-        $this->statusService = $this->createStub(StatusServiceInterface::class);
+        $this->statusService = self::createStub(StatusServiceInterface::class);
     }
 
     private function givenEventService(): void
     {
-        $this->eventService = $this->createStub(EventServiceInterface::class);
+        $this->eventService = self::createStub(EventServiceInterface::class);
     }
 
     private function givenCycleService(): void
     {
-        $this->cycleService = $this->createStub(CycleServiceInterface::class);
+        $this->cycleService = self::createStub(CycleServiceInterface::class);
     }
 
     private function givenInMemoryTriumphConfigRepository(): void

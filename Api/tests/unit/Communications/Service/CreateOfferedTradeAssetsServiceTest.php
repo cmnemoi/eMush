@@ -70,7 +70,7 @@ final class CreateOfferedTradeAssetsServiceTest extends TestCase
             d100Roll: new FakeD100RollService(),
             getRandomInteger: new FakeGetRandomIntegerService(0),
             roomLogRepository: $this->roomLogRepository,
-            translationService: $this->createStub(TranslationServiceInterface::class),
+            translationService: self::createStub(TranslationServiceInterface::class),
         );
         $this->eventServiceSpy = \Mockery::spy(EventServiceInterface::class);
 
@@ -89,14 +89,14 @@ final class CreateOfferedTradeAssetsServiceTest extends TestCase
         $this->tradeOptionRepository = new InMemoryTradeOptionRepository();
 
         $this->gameEquipmentService = new GameEquipmentService(
-            entityManager: $this->createStub(EntityManagerInterface::class),
-            repository: $this->createStub(GameEquipmentRepositoryInterface::class),
-            damageEquipmentService: $this->createStub(DamageEquipmentServiceInterface::class),
+            entityManager: self::createStub(EntityManagerInterface::class),
+            repository: self::createStub(GameEquipmentRepositoryInterface::class),
+            damageEquipmentService: self::createStub(DamageEquipmentServiceInterface::class),
             equipmentService: new EquipmentService(),
-            randomService: $this->createStub(RandomServiceInterface::class),
-            eventService: $this->createStub(EventServiceInterface::class),
-            statusService: $this->createStub(StatusServiceInterface::class),
-            equipmentEffectService: $this->createStub(EquipmentEffectServiceInterface::class),
+            randomService: self::createStub(RandomServiceInterface::class),
+            eventService: self::createStub(EventServiceInterface::class),
+            statusService: self::createStub(StatusServiceInterface::class),
+            equipmentEffectService: self::createStub(EquipmentEffectServiceInterface::class),
         );
 
         $this->createOfferedTradeAssets = new CreateOfferedTradeAssetsService(

@@ -50,7 +50,7 @@ final class ChangeTriumphFromEventServiceTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->cycleService = $this->createStub(CycleServiceInterface::class);
+        $this->cycleService = self::createStub(CycleServiceInterface::class);
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
         $this->gameEquipmentRepository = new InMemoryGameEquipmentRepository();
         $this->statusService = new FakeStatusService();

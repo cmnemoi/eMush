@@ -94,9 +94,9 @@ final class AddSkillToPlayerServiceTest extends TestCase
     private function whenIAddSkillToPlayer(SkillEnum $skill): void
     {
         $service = new AddSkillToPlayerService(
-            $this->createStub(EventServiceInterface::class),
-            $this->createStub(GameEquipmentServiceInterface::class),
-            $this->createStub(ModifierCreationServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
+            self::createStub(GameEquipmentServiceInterface::class),
+            self::createStub(ModifierCreationServiceInterface::class),
             $this->playerRepository,
             $this->skillConfigRepository,
             new FakeStatusService(),

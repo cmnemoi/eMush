@@ -64,10 +64,10 @@ final class DaedalusCycleEventTest extends TestCase
     {
         $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
         $this->dispatchCycleIncidents = new DispatchCycleIncidentsService(
-            daedalusIncidentService: $this->createStub(DaedalusIncidentServiceInterface::class),
+            daedalusIncidentService: self::createStub(DaedalusIncidentServiceInterface::class),
             d100Roll: new FakeD100RollService(),
-            eventService: $this->createStub(EventServiceInterface::class),
-            gameEquipmentRepository: $this->createStub(GameEquipmentRepositoryInterface::class),
+            eventService: self::createStub(EventServiceInterface::class),
+            gameEquipmentRepository: self::createStub(GameEquipmentRepositoryInterface::class),
             probaCollectionRandomElement: new ProbaCollectionRandomElementService(new FakeGetRandomIntegerService(0)),
             randomFloat: new FakeRandomFloatService(),
         );

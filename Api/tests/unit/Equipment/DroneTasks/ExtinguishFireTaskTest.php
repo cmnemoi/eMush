@@ -102,7 +102,7 @@ final class ExtinguishFireTaskTest extends TestCase
     private function whenExtinguishTaskIsSuccessful(): ExtinguishFireTask
     {
         $task = new ExtinguishFireTask(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             new StatusService(),
             new InMemoryActionConfigRepository(),
             new D100Roll(isSuccessful: true),
@@ -115,7 +115,7 @@ final class ExtinguishFireTaskTest extends TestCase
     private function whenExtinguishTaskFails(): void
     {
         $task = new ExtinguishFireTask(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             new StatusService(),
             new InMemoryActionConfigRepository(),
             new D100Roll(isSuccessful: false),

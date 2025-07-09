@@ -304,9 +304,9 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             $upgrades = '';
 
             foreach ($equipment->getUpgrades() as $upgrade) {
-                $upgrades = $upgrades .
-                '//' .
-                $this->translationService->translate(
+                $upgrades = $upgrades
+                . '//'
+                . $this->translationService->translate(
                     $upgrade->getName() . '.description',
                     [],
                     'status',

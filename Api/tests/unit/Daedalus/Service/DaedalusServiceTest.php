@@ -112,7 +112,7 @@ final class DaedalusServiceTest extends TestCase
             $this->localizationConfigRepository,
             $this->daedalusInfoRepository,
             $this->daedalusRepository,
-            $this->createStub(TitlePriorityRepositoryInterface::class),
+            self::createStub(TitlePriorityRepositoryInterface::class),
             $this->playerService,
             $this->statusService,
             $this->funFactsService

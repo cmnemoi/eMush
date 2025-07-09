@@ -36,7 +36,7 @@ final class ModerationServiceTest extends TestCase
 
         $this->service = new ModerationService(
             $this->entityManager,
-            $this->createStub(PlayerServiceInterface::class),
+            self::createStub(PlayerServiceInterface::class),
             $this->translationService
         );
     }

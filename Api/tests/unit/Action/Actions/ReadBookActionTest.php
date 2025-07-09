@@ -42,10 +42,10 @@ final class ReadBookActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->createStub(AddSkillToPlayerService::class),
-            $this->createStub(RoomLogServiceInterface::class),
-            $this->createStub(StatusServiceInterface::class),
-            $this->createStub(SkillConfigRepositoryInterface::class),
+            self::createStub(AddSkillToPlayerService::class),
+            self::createStub(RoomLogServiceInterface::class),
+            self::createStub(StatusServiceInterface::class),
+            self::createStub(SkillConfigRepositoryInterface::class),
         );
     }
 

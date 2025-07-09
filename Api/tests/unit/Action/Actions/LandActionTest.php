@@ -45,7 +45,7 @@ final class LandActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->createStub(PatrolShipManoeuvreServiceInterface::class),
+            self::createStub(PatrolShipManoeuvreServiceInterface::class),
             $this->playerService,
             $this->randomService,
         );

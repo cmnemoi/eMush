@@ -63,8 +63,8 @@ final class DiseaseCauseServiceTest extends TestCase
         $this->probaCollectionRandomElement = new ProbaCollectionRandomElementService(new FakeGetRandomIntegerService(result: 0));
         $this->playerDiseaseRepository = new InMemoryPlayerDiseaseRepository();
 
-        $eventService = $this->createStub(EventServiceInterface::class);
-        $randomService = $this->createStub(RandomServiceInterface::class);
+        $eventService = self::createStub(EventServiceInterface::class);
+        $randomService = self::createStub(RandomServiceInterface::class);
 
         $this->playerDiseaseService = new PlayerDiseaseService(
             d100Roll: $this->d100Roll,

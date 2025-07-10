@@ -28,9 +28,9 @@ final class RetrieveFuelTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->createActionEntity(ActionEnum::RETRIEVE_FUEL, -1);
 
@@ -45,7 +45,7 @@ final class RetrieveFuelTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

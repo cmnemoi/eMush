@@ -27,7 +27,7 @@ final class CookableValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new CookableValidator();
         $this->constraint = new Cookable();
@@ -36,7 +36,7 @@ final class CookableValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

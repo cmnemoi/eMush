@@ -27,7 +27,7 @@ final class TranslationServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->translator = \Mockery::mock(TranslatorInterface::class);
 
@@ -39,7 +39,7 @@ final class TranslationServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

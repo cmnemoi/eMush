@@ -26,7 +26,7 @@ final class NumberPlayersInRoomValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new NumberPlayersAliveInRoomValidator();
         $this->constraint = new NumberPlayersAliveInRoom();
@@ -35,7 +35,7 @@ final class NumberPlayersInRoomValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

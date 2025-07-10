@@ -25,7 +25,7 @@ final class ShredableValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new ShredableValidator();
         $this->constraint = new Shredable();
@@ -34,7 +34,7 @@ final class ShredableValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -51,7 +51,7 @@ final class PlayerDiseaseServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
@@ -68,7 +68,7 @@ final class PlayerDiseaseServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
         $this->playerDiseaseRepository->clear();

@@ -17,7 +17,7 @@ final class FakeGetRandomElementsFromArrayServiceTest extends TestCase
     /**
      * @before
      */
-    public function _before(): void
+    protected function setUp(): void
     {
         $this->service = new FakeGetRandomElementsFromArrayService();
     }

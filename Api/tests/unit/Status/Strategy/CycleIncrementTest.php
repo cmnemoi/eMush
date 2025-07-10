@@ -31,7 +31,7 @@ final class CycleIncrementTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
@@ -41,7 +41,7 @@ final class CycleIncrementTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

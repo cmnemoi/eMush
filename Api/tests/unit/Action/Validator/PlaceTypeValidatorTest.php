@@ -23,7 +23,7 @@ final class PlaceTypeValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new PlaceTypeValidator();
         $this->constraint = new PlaceType();
@@ -32,7 +32,7 @@ final class PlaceTypeValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

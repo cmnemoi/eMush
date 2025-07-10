@@ -31,7 +31,7 @@ final class StartingDaedalusTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->gameConfigService = \Mockery::mock(GameConfigService::class);
         $this->validator = new StartingDaedalusValidator($this->gameConfigService);
@@ -40,7 +40,7 @@ final class StartingDaedalusTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

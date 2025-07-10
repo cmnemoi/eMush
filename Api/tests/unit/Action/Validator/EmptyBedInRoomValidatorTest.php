@@ -28,7 +28,7 @@ final class EmptyBedInRoomValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new EmptyOperationalBedInRoomValidator();
         $this->constraint = new EmptyOperationalBedInRoom();
@@ -37,7 +37,7 @@ final class EmptyBedInRoomValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

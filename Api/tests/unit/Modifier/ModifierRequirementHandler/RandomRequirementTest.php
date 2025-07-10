@@ -24,7 +24,7 @@ final class RandomRequirementTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
@@ -36,7 +36,7 @@ final class RandomRequirementTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

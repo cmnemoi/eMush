@@ -25,7 +25,7 @@ final class InventoryFullValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new InventoryFullValidator();
         $this->constraint = new InventoryFull();
@@ -34,7 +34,7 @@ final class InventoryFullValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

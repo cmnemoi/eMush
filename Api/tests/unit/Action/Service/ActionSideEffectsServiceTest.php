@@ -33,7 +33,7 @@ final class ActionSideEffectsServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->modifierService = \Mockery::mock(EventModifierServiceInterface::class);
@@ -46,7 +46,7 @@ final class ActionSideEffectsServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

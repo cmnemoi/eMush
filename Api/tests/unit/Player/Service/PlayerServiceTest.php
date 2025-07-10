@@ -57,7 +57,7 @@ final class PlayerServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->closedPlayerRepository = new InMemoryClosedPlayerRepository();
         $this->daedalusRepository = new InMemoryDaedalusRepository();
@@ -82,7 +82,7 @@ final class PlayerServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         $this->closedPlayerRepository->clear();
         $this->daedalusRepository->clear();

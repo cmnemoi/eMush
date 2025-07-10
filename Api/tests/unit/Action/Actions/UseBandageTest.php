@@ -19,9 +19,9 @@ final class UseBandageTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::USE_BANDAGE);
         $this->actionConfig->setOutputQuantity(2);
@@ -36,7 +36,7 @@ final class UseBandageTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

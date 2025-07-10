@@ -25,7 +25,7 @@ final class HasDiseasesValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new HasDiseasesValidator();
         $this->constraint = new HasDiseases();
@@ -34,7 +34,7 @@ final class HasDiseasesValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

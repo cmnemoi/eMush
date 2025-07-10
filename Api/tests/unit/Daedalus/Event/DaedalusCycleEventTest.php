@@ -60,7 +60,7 @@ final class DaedalusCycleEventTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
         $this->dispatchCycleIncidents = new DispatchCycleIncidentsService(
@@ -96,7 +96,7 @@ final class DaedalusCycleEventTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

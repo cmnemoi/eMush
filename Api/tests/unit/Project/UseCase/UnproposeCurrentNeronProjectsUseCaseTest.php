@@ -22,7 +22,7 @@ final class UnproposeCurrentNeronProjectsUseCaseTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->daedalus = DaedalusFactory::createDaedalus();
         $this->projectRepository = new InMemoryProjectRepository();
@@ -34,7 +34,7 @@ final class UnproposeCurrentNeronProjectsUseCaseTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         $this->projectRepository->clear();
     }

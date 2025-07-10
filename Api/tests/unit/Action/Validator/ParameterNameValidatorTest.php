@@ -24,7 +24,7 @@ final class ParameterNameValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new ParameterNameValidator();
         $this->constraint = new ParameterName();
@@ -33,7 +33,7 @@ final class ParameterNameValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

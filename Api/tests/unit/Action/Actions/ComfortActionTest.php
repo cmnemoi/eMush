@@ -24,9 +24,9 @@ final class ComfortActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::COMFORT);
         $this->actionConfig->setOutputQuantity(2);
@@ -43,7 +43,7 @@ final class ComfortActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

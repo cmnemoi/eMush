@@ -50,7 +50,7 @@ final class PlayerSubscriberTest extends TestCase
     private EventServiceInterface $eventService;
 
     /** @before */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->playerDiseaseService = self::createStub(PlayerDiseaseServiceInterface::class);
         $this->diseaseCauseService = \Mockery::spy(DiseaseCauseServiceInterface::class);
@@ -68,7 +68,7 @@ final class PlayerSubscriberTest extends TestCase
     }
 
     /** @after */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

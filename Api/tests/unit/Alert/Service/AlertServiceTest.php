@@ -47,7 +47,7 @@ final class AlertServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->alertElementRepository = \Mockery::mock(AlertElementRepository::class);
@@ -65,7 +65,7 @@ final class AlertServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

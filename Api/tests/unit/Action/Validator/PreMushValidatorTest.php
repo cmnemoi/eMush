@@ -26,7 +26,7 @@ final class PreMushValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new PreMushValidator();
         $this->constraint = new PreMush();
@@ -35,7 +35,7 @@ final class PreMushValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

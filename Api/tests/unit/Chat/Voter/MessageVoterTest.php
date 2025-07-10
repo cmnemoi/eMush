@@ -35,7 +35,7 @@ final class MessageVoterTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->channelService = \Mockery::mock(ChannelServiceInterface::class);
         $this->playerInfoRepository = \Mockery::mock(PlayerInfoRepositoryInterface::class);

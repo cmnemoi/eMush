@@ -40,7 +40,7 @@ final class ChannelVoterTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->channelService = \Mockery::mock(ChannelServiceInterface::class);
         $this->channelService->shouldIgnoreMissing();
@@ -54,7 +54,7 @@ final class ChannelVoterTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

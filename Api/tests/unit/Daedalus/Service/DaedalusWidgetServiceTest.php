@@ -36,7 +36,7 @@ final class DaedalusWidgetServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->alertService = \Mockery::mock(AlertServiceInterface::class);
 
@@ -49,7 +49,7 @@ final class DaedalusWidgetServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

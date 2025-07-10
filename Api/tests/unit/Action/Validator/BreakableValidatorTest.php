@@ -24,7 +24,7 @@ final class BreakableValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new BreakableValidator();
         $this->constraint = new Breakable();
@@ -33,7 +33,7 @@ final class BreakableValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

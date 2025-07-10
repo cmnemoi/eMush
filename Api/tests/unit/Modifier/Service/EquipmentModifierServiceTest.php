@@ -33,7 +33,7 @@ final class EquipmentModifierServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->modifierService = \Mockery::mock(ModifierCreationServiceInterface::class);
 
@@ -45,7 +45,7 @@ final class EquipmentModifierServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

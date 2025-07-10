@@ -25,7 +25,7 @@ final class PerishableValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new PerishableValidator();
         $this->constraint = new Perishable();
@@ -34,7 +34,7 @@ final class PerishableValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

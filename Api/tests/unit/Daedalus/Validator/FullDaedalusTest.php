@@ -25,7 +25,7 @@ final class FullDaedalusTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new FullDaedalusValidator();
     }
@@ -33,7 +33,7 @@ final class FullDaedalusTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

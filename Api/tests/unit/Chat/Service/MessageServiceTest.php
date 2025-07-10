@@ -40,7 +40,7 @@ final class MessageServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->messageRepository = new InMemoryMessageRepository();
@@ -54,7 +54,7 @@ final class MessageServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
         $this->messageRepository->clear();

@@ -39,7 +39,7 @@ final class AlertNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->translationService = \Mockery::mock(TranslationService::class);
 
@@ -49,7 +49,7 @@ final class AlertNormalizerTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

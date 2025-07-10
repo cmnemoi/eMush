@@ -26,7 +26,7 @@ final class AdvanceProjectUseCaseTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->advanceProjectUseCase = new AdvanceProjectUseCase(
             $this->projectRepository = new InMemoryProjectRepository(),

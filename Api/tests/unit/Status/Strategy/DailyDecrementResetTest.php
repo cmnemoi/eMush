@@ -26,7 +26,7 @@ final class DailyDecrementResetTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $player = PlayerFactory::createPlayerWithDaedalus(DaedalusFactory::createDaedalus());
         $this->statusService = new FakeStatusService();

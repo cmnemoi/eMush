@@ -2421,12 +2421,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_max_charges_+6',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_bravo_planton',
-            ],
-            'revertOnRemove' => true,
+            'modifierActivationRequirements' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_planton'],
+            'revertOnRemove' => true,
         ],
         [
             'name' => 'modifier_for_daedalus_+6_patrol_ship_bravo_socrate_max_charges',
@@ -2436,12 +2434,10 @@ abstract class ModifierConfigData
             'type' => 'direct_modifier',
             'triggeredEvent' => 'change.variable_patrol_ship_max_charges_+6',
             'visibility' => null,
-            'modifierActivationRequirements' => [
-                'holder_name_patrol_ship_bravo_socrate',
-            ],
-            'revertOnRemove' => true,
+            'modifierActivationRequirements' => [],
             'targetFilters' => [],
             'eventActivationRequirements' => ['holder_name_patrol_ship_bravo_socrate'],
+            'revertOnRemove' => true,
         ],
         [
             'name' => 'modifier_for_daedalus_+6_patrol_ship_bravo_epicure_max_charges',

@@ -1,23 +1,45 @@
-FROM --platform=linux/amd64 php:8.4-alpine 
+FROM php:8.4-fpm
 
 ARG HOST_IP=172.19.0.1
 
-# Install PHP extensions and setup
-RUN apk --no-cache --update add --virtual .build-deps gcc make g++ \
-    zlib-dev libmcrypt-dev libxml2-dev libzip-dev curl git zip \
-    unzip oniguruma-dev autoconf \
-    # Postgre PDO and PHP intl
-    postgresql-dev icu-dev && \
-    docker-php-ext-configure intl && \
-    docker-php-ext-install intl && \
-    docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
-    docker-php-ext-install pdo pdo_pgsql pgsql && \
-    docker-php-ext-install opcache && \
-    docker-php-ext-configure opcache --enable-opcache && \
-    # Composer
-    curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
-    mv composer.phar /usr/local/bin/composer && \
-    # Cleanup
-    rm -rf /var/cache/apk/*
+# Install system dependencies, PHP extensions, and clean up
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+    # Git and helpers
+    git \
+    curl \
+    zip \
+    unzip \
+    # Build dependencies for PHP extensions
+    build-essential \
+    # Dev packages for extensions
+    libpq-dev \
+    libicu-dev \
+    libzip-dev \
+    libxml2-dev \
+    libonig-dev \
+    ; \
+    # Install PHP extensions
+    docker-php-ext-install -j"$(nproc)" \
+    intl \
+    pdo_pgsql \
+    zip \
+    xml \
+    ; \
+    # Opcache is bundled, just need to enable it
+    docker-php-ext-enable opcache; \
+    # Clean up build dependencies
+    apt-get purge -y --auto-remove \
+    build-essential \
+    libpq-dev \
+    libicu-dev \
+    libzip-dev \
+    libxml2-dev \
+    libonig-dev \
+    ; \
+    # Clean up apt cache
+    rm -rf /var/lib/apt/lists/*
 
-CMD ["php-fpm"]
+# Install Composer using the official multi-stage build method
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer

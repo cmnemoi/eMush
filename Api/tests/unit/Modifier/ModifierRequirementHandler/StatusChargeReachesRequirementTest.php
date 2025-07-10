@@ -26,7 +26,7 @@ final class StatusChargeReachesRequirementTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->statusChargeReachesRequirement = new StatusChargeReachesRequirement();
         $this->player = PlayerFactory::createPlayer();

@@ -23,7 +23,7 @@ final class PlayerInRoomTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->service = new RequirementPlayerInRoom();
     }
@@ -31,7 +31,7 @@ final class PlayerInRoomTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

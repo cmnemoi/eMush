@@ -27,7 +27,7 @@ final class HasEquipmentValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new HasEquipmentValidator($this->createMock(GameEquipmentServiceInterface::class));
         $this->constraint = new HasEquipment();
@@ -36,7 +36,7 @@ final class HasEquipmentValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

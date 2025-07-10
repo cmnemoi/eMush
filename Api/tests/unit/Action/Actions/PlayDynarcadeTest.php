@@ -30,9 +30,9 @@ final class PlayDynarcadeTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::PLAY_ARCADE);
         $this->actionConfig->setOutputQuantity(2);
@@ -50,7 +50,7 @@ final class PlayDynarcadeTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

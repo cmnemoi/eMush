@@ -38,7 +38,7 @@ final class ParameterHasActionValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
 
@@ -49,7 +49,7 @@ final class ParameterHasActionValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

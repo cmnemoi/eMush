@@ -26,7 +26,7 @@ final class AreShowersDismantledValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new AreShowersDismantledValidator();
         $this->constraint = new AreShowersDismantled();
@@ -35,7 +35,7 @@ final class AreShowersDismantledValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

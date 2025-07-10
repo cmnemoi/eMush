@@ -55,7 +55,7 @@ final class EquipmentNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->translationService = \Mockery::mock(TranslationService::class);
         $this->consumableDiseaseService = \Mockery::mock(ConsumableDiseaseServiceInterface::class);
@@ -72,7 +72,7 @@ final class EquipmentNormalizerTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

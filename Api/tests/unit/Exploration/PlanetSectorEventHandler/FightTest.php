@@ -67,7 +67,7 @@ final class FightTest extends TestCase
     private TranslationServiceInterface $translationService;
 
     /** @before */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
         $this->entityManager = \Mockery::spy(EntityManagerInterface::class);
@@ -87,7 +87,7 @@ final class FightTest extends TestCase
     }
 
     /** @after */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

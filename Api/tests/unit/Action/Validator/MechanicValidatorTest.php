@@ -26,7 +26,7 @@ final class MechanicValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new MechanicValidator();
         $this->constraint = new Mechanic();
@@ -35,7 +35,7 @@ final class MechanicValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

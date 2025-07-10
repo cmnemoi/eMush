@@ -26,9 +26,9 @@ final class InsertOxygenTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::INSERT_OXYGEN);
 
@@ -42,7 +42,7 @@ final class InsertOxygenTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -56,7 +56,7 @@ final class ChannelServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->channelRepository = new InMemoryChannelRepository();
         $this->channelPlayerRepository = new InMemoryChannelPlayerRepository();
@@ -76,7 +76,7 @@ final class ChannelServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
 

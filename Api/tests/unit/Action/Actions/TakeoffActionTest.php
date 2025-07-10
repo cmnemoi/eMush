@@ -32,9 +32,9 @@ final class TakeoffActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::TAKEOFF, 2, 0);
         $this->actionConfig->setCriticalRate(20);
@@ -58,7 +58,7 @@ final class TakeoffActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

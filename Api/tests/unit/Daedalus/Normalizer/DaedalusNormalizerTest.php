@@ -46,7 +46,7 @@ final class DaedalusNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
@@ -61,7 +61,7 @@ final class DaedalusNormalizerTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

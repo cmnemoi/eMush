@@ -38,7 +38,7 @@ final class PlanetServiceTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->planetRepository = \Mockery::mock(PlanetRepository::class);
         $this->entityManager = \Mockery::mock(EntityManager::class);
@@ -63,7 +63,7 @@ final class PlanetServiceTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

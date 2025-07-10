@@ -32,7 +32,7 @@ final class ReachValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->validator = new ReachValidator($this->gameEquipmentService);
@@ -42,7 +42,7 @@ final class ReachValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

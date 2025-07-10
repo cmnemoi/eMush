@@ -28,7 +28,7 @@ final class PlantWaterableValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new PlantWaterableValidator();
         $this->constraint = new PlantWaterable();
@@ -37,7 +37,7 @@ final class PlantWaterableValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -42,7 +42,7 @@ final class DaedalusIncidentServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
@@ -61,7 +61,7 @@ final class DaedalusIncidentServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

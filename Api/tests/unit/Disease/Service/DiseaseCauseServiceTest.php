@@ -56,7 +56,7 @@ final class DiseaseCauseServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->consumableDiseaseService = \Mockery::mock(ConsumableDiseaseServiceInterface::class);
         $this->d100Roll = new FakeD100RollService();
@@ -84,7 +84,7 @@ final class DiseaseCauseServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         $this->playerDiseaseRepository->clear();
         \Mockery::close();

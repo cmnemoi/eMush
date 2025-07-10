@@ -56,7 +56,7 @@ final class FireTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
@@ -76,7 +76,7 @@ final class FireTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

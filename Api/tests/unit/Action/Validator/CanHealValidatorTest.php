@@ -30,7 +30,7 @@ final class CanHealValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new CanHealValidator();
         $this->constraint = new CanHeal();
@@ -39,7 +39,7 @@ final class CanHealValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -19,7 +19,7 @@ final class GetRandomElementsFromArrayServiceTest extends TestCase
     /**
      * @before
      */
-    public function _before(): void
+    protected function setUp(): void
     {
         $this->service = new GetRandomElementsFromArrayService(
             new FakeGetRandomIntegerService(0) // will always pick the first element from the not picked keys

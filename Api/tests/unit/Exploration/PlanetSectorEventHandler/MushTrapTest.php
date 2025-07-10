@@ -52,7 +52,7 @@ final class MushTrapTest extends TestCase
     private TranslationServiceInterface $translationService;
 
     /** @before */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->entityManager = \Mockery::spy(EntityManagerInterface::class);
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
@@ -68,7 +68,7 @@ final class MushTrapTest extends TestCase
     }
 
     /** @after */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -25,7 +25,7 @@ final class FromSameFamilyValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new ForbiddenLoveValidator();
         $this->constraint = new ForbiddenLove();
@@ -34,7 +34,7 @@ final class FromSameFamilyValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

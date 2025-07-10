@@ -39,7 +39,7 @@ final class ExplorationEventSubscriberTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
@@ -63,7 +63,7 @@ final class ExplorationEventSubscriberTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

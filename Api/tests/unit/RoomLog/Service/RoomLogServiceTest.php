@@ -56,7 +56,7 @@ final class RoomLogServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->d100Roll = new FakeD100Roll();
         $this->getRandomInteger = new FakeGetRandomInteger(result: 0);
@@ -74,7 +74,7 @@ final class RoomLogServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         $this->repository->clear();
     }

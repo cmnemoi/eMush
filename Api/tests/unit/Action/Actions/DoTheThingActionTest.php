@@ -39,9 +39,9 @@ final class DoTheThingActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::DO_THE_THING);
         $this->actionConfig->setOutputQuantity(2);
@@ -67,7 +67,7 @@ final class DoTheThingActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

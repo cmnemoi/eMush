@@ -28,7 +28,7 @@ final class MushCrewProportionRequirementTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->service = new MushCrewProportionRequirement();
 

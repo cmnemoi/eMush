@@ -44,7 +44,7 @@ final class DiseaseMessageServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->translationService = \Mockery::mock(TranslationService::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
@@ -58,7 +58,7 @@ final class DiseaseMessageServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

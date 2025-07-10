@@ -38,7 +38,7 @@ final class EventCreationServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->equipmentRepository = \Mockery::mock(GameEquipmentRepository::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
@@ -54,7 +54,7 @@ final class EventCreationServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

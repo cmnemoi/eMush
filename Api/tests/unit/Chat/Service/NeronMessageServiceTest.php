@@ -30,7 +30,7 @@ final class NeronMessageServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->channelRepository = new InMemoryChannelRepository();
         $this->neronCrazyRoll = new FakeD100Roll();
@@ -50,7 +50,7 @@ final class NeronMessageServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         $this->channelRepository->clear();
         $this->messageRepository->clear();

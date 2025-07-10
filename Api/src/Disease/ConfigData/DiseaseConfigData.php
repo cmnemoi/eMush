@@ -1021,6 +1021,12 @@ class DiseaseConfigData
 
     public static function getByName(string $name): array
     {
-        return current(array_filter(self::$dataArray, static fn ($data) => $data['diseaseName'] === $name));
+        $data = current(array_filter(self::$dataArray, static fn ($data) => $data['diseaseName'] === $name));
+
+        if (!$data) {
+            throw new \Exception(\sprintf('Disease config %s not found', $name));
+        }
+
+        return $data;
     }
 }

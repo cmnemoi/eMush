@@ -4077,6 +4077,12 @@ class EquipmentConfigData
 
     public static function getByEquipmentName(string $name): array
     {
-        return current(array_filter(self::$dataArray, static fn (array $data) => $data['equipmentName'] === $name));
+        $data = current(array_filter(self::$dataArray, static fn (array $data) => $data['equipmentName'] === $name));
+
+        if (!$data) {
+            throw new \Exception("Equipment {$name} not found");
+        }
+
+        return $data;
     }
 }

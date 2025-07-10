@@ -2005,6 +2005,12 @@ class MechanicsData
 
     public static function getByName(string $name): array
     {
-        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+        $data = current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+
+        if (!$data) {
+            throw new \Exception("Mechanic {$name} not found");
+        }
+
+        return $data;
     }
 }

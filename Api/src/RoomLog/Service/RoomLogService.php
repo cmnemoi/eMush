@@ -436,6 +436,11 @@ final class RoomLogService implements RoomLogServiceInterface
             $parameters['playerInfo'] = $parameters['playerInfo']->getId();
         }
 
-        return json_encode($parameters);
+        $data = json_encode($parameters);
+        if (!$data) {
+            throw new \Exception('Failed to encode parameters');
+        }
+
+        return $data;
     }
 }

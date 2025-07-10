@@ -1094,8 +1094,13 @@ abstract class TriumphConfigData
 
     public static function getByName(TriumphEnum $name): TriumphConfigDto
     {
-        return current(
+        $dto = current(
             array_filter(self::getAll(), static fn (TriumphConfigDto $dto) => $dto->name === $name)
         );
+        if (!$dto) {
+            throw new \Exception("Triumph {$name->toString()} not found");
+        }
+
+        return $dto;
     }
 }

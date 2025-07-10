@@ -63,7 +63,14 @@ final class XylophConfigDataLoader extends ConfigDataLoader
     private function getDtosFromJsonFile(string $fileName): array
     {
         $jsonFile = file_get_contents($fileName);
+        if (!$jsonFile) {
+            throw new \Exception("Failed to read JSON file {$fileName}");
+        }
+
         $data = json_decode($jsonFile, true);
+        if (!\is_array($data)) {
+            throw new \Exception("Failed to decode JSON file {$fileName}");
+        }
 
         return array_map(static fn (array $data) => XylophConfigDto::fromJson($data), $data);
     }

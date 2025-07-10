@@ -1800,20 +1800,21 @@ class EventConfigData
 
     public static function getWeaponEventConfigByName(string $name): WeaponEventConfigDto
     {
-        try {
-            return current(array_filter(self::weaponEventConfigData(), static fn (WeaponEventConfigDto $dto) => $dto->name === $name));
-        } catch (\Throwable $e) {
+        $dto = current(array_filter(self::weaponEventConfigData(), static fn (WeaponEventConfigDto $dto) => $dto->name === $name));
+        if (!$dto) {
             throw new \RuntimeException("WeaponEventConfig not found for name {$name}");
         }
+
+        return $dto;
     }
 
     public static function getWeaponEffectConfigDataByName(WeaponEffectEnum $name): WeaponEffectDto
     {
-        $result = current(array_filter(self::weaponEffectsConfigData(), static fn (WeaponEffectDto $dto) => $dto->name === $name->toString()));
-        if (!$result) {
+        $dto = current(array_filter(self::weaponEffectsConfigData(), static fn (WeaponEffectDto $dto) => $dto->name === $name->toString()));
+        if (!$dto) {
             throw new \RuntimeException("WeaponEffectConfig not found for name {$name->toString()}");
         }
 
-        return $result;
+        return $dto;
     }
 }

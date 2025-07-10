@@ -525,11 +525,16 @@ abstract class SkillConfigData
 
     public static function getByName(SkillEnum $name): SkillConfigDto
     {
-        return current(
+        $dto = current(
             array_filter(
                 self::getAll(),
                 static fn (SkillConfigDto $skillConfigDto) => $skillConfigDto->name === $name
             )
         );
+        if (!$dto) {
+            throw new \Exception("Skill {$name->toString()} not found");
+        }
+
+        return $dto;
     }
 }

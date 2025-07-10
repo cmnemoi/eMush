@@ -56,7 +56,7 @@ class GameVariableLevelValidator extends ConstraintValidator
         return $targetVariables->getVariableByName($variableName);
     }
 
-    private function checkVariableLevel(GameVariable $gameVariable, Constraint $constraint): bool
+    private function checkVariableLevel(GameVariable $gameVariable, GameVariableLevel $constraint): bool
     {
         switch ($constraint->checkMode) {
             case GameVariableLevel::IS_MAX:

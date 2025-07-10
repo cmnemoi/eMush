@@ -154,11 +154,16 @@ class ModifierActivationRequirementData
 
     public static function getByName(string $name): array
     {
-        return current(
+        $data = current(
             array_filter(
                 self::$dataArray,
                 static fn ($data) => $data['name'] === $name
             )
         );
+        if (!$data) {
+            throw new \Exception("Modifier activation requirement {$name} not found");
+        }
+
+        return $data;
     }
 }

@@ -89,6 +89,10 @@ abstract class TradeConfigData
             static fn (TradeConfigDto $tradeConfigDto) => $tradeConfigDto->name === $name
         ));
 
-        return $tradeConfigDto ?? throw new \Exception('Trade config not found');
+        if (!$tradeConfigDto) {
+            throw new \Exception(\sprintf('Trade config %s not found', $name->value));
+        }
+
+        return $tradeConfigDto;
     }
 }

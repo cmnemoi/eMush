@@ -14,7 +14,13 @@ final class NeedTitleValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
-        $this->validateTypes($value, $constraint);
+        if (!$value instanceof AbstractAction) {
+            throw new UnexpectedTypeException($value, AbstractAction::class);
+        }
+
+        if (!$constraint instanceof NeedTitle) {
+            throw new UnexpectedTypeException($constraint, NeedTitle::class);
+        }
 
         $player = $value->getPlayer();
         $daedalus = $player->getDaedalus();
@@ -39,16 +45,5 @@ final class NeedTitleValidator extends ConstraintValidator
         }
 
         return true;
-    }
-
-    private function validateTypes($value, Constraint $constraint): void
-    {
-        if (!$value instanceof AbstractAction) {
-            throw new UnexpectedTypeException($value, AbstractAction::class);
-        }
-
-        if (!$constraint instanceof NeedTitle) {
-            throw new UnexpectedTypeException($constraint, NeedTitle::class);
-        }
     }
 }

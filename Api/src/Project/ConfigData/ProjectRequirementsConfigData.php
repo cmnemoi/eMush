@@ -89,8 +89,13 @@ abstract class ProjectRequirementsConfigData
 
     public static function getByName(ProjectRequirementName $name): ProjectRequirementConfigDto
     {
-        return current(
+        $dto = current(
             array_filter(self::getAll(), static fn (ProjectRequirementConfigDto $dto) => $dto->name === $name)
         );
+        if (!$dto) {
+            throw new \Exception("Project requirement {$name->toString()} not found");
+        }
+
+        return $dto;
     }
 }

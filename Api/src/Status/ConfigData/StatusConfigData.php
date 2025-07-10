@@ -2010,11 +2010,21 @@ abstract class StatusConfigData
 
     public static function getByName(string $name): array
     {
-        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+        $data = current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+        if (!$data) {
+            throw new \Exception("Status {$name} not found");
+        }
+
+        return $data;
     }
 
     public static function getByStatusName(string $name): array
     {
-        return current(array_filter(self::$dataArray, static fn (array $data) => $data['statusName'] === $name));
+        $data = current(array_filter(self::$dataArray, static fn (array $data) => $data['statusName'] === $name));
+        if (!$data) {
+            throw new \Exception("Status {$name} not found");
+        }
+
+        return $data;
     }
 }

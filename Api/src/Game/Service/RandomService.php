@@ -110,7 +110,8 @@ class RandomService implements RandomServiceInterface
             return PlayerFactory::createNullPlayer();
         }
 
-        return current($this->getRandomElements($players->toArray()));
+        /** @var Player $player */
+        return $this->getRandomElement($players->toArray());
     }
 
     public function getRandomDisease(PlayerDiseaseCollection $collection): PlayerDisease
@@ -119,7 +120,8 @@ class RandomService implements RandomServiceInterface
             throw new \Exception('getRandomDisease: collection is empty');
         }
 
-        return current($this->getRandomElements($collection->toArray()));
+        /** @var PlayerDisease $disease */
+        return $this->getRandomElement($collection->toArray());
     }
 
     /**
@@ -156,7 +158,12 @@ class RandomService implements RandomServiceInterface
 
         $items = $place->getEquipments()->filter(static fn (GameEquipment $equipment) => $equipment instanceof GameItem);
 
-        return current($this->getRandomElements($items->toArray()));
+        $item = $this->getRandomElement($items->toArray());
+        if (!$item) {
+            throw new \Exception('getItemInRoom: item is null');
+        }
+
+        return $item;
     }
 
     public function getRandomElements(array $array, int $number = 1): array

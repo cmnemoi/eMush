@@ -320,6 +320,12 @@ class DiseaseCauseConfigData
 
     public static function getByName(string $name): array
     {
-        return current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+        $data = current(array_filter(self::$dataArray, static fn (array $data) => $data['name'] === $name));
+
+        if (!$data) {
+            throw new \Exception(\sprintf('Disease cause config %s not found', $name));
+        }
+
+        return $data;
     }
 }

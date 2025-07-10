@@ -45,7 +45,7 @@ final class OpenTelemetry
 
         $resource = ResourceInfoFactory::emptyResource()->merge(ResourceInfo::create(Attributes::create([
             ResourceAttributes::SERVICE_NAME => $apiConfig->appName,
-            ResourceAttributes::DEPLOYMENT_ENVIRONMENT => $apiConfig->appEnv,
+            ResourceAttributes::DEPLOYMENT_ENVIRONMENT_NAME => $apiConfig->appEnv,
         ])));
         $spanExporter = new SpanExporter(
             PsrTransportFactory::discover()
@@ -111,7 +111,14 @@ final class OpenTelemetry
 
         // replace id and uuid with templated values
         $templatedRequestUri = preg_replace($uuidRegex, '/:uuid', $request->getRequestUri());
+        if (!$templatedRequestUri) {
+            throw new \Exception('Failed to replace uuid in request uri');
+        }
+
         $templatedRequestUri = preg_replace($idRegex, '/:id', $templatedRequestUri);
+        if (!$templatedRequestUri) {
+            throw new \Exception('Failed to replace id in request uri');
+        }
 
         // remove query string
         return explode('?', $templatedRequestUri)[0];

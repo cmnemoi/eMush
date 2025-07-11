@@ -2,6 +2,7 @@
 
 namespace Mush\User\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,9 +22,11 @@ class User implements UserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
+    #[ApiProperty(identifier: false)]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true, nullable: false)]
+    #[ApiProperty(identifier: true)]
     private string $userId;
 
     #[ORM\Column(type: 'string', nullable: false)]

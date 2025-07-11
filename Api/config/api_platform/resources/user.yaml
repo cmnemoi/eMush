@@ -5,17 +5,11 @@ Mush\User\Entity\User:
       groups: [ 'user_read' ]
     denormalization_context:
       groups: [ 'user_write' ]
-  collectionOperations:
-    get:
+  operations:
+    ApiPlatform\Metadata\GetCollection:
       security: 'is_granted("ROLE_MODERATOR")'
       filters: ['user.search_filter', 'user.order_filter']
-  itemOperations:
-    get:
-      security: 'is_granted("ROLE_USER") or object == user'
-    patch:
+    ApiPlatform\Metadata\Patch:
       security: 'is_granted("ROLE_ADMIN") and is_granted("EDIT_USER_ROLE", object)'
-  properties:
-    id:
-      identifier: false
-    userId:
-      identifier: true
+    ApiPlatform\Metadata\Get:
+      security: 'is_granted("ROLE_USER") or object == user'

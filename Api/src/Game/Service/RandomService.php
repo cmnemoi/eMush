@@ -110,7 +110,7 @@ class RandomService implements RandomServiceInterface
             return PlayerFactory::createNullPlayer();
         }
 
-        /** @var Player $player */
+        // @var Player $player
         return $this->getRandomElement($players->toArray());
     }
 
@@ -120,7 +120,7 @@ class RandomService implements RandomServiceInterface
             throw new \Exception('getRandomDisease: collection is empty');
         }
 
-        /** @var PlayerDisease $disease */
+        // @var PlayerDisease $disease
         return $this->getRandomElement($collection->toArray());
     }
 

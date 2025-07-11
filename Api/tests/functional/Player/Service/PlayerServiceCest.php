@@ -175,8 +175,6 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $this->player1->setActionPoint(10);
         $this->player1->setMovementPoint(10);
 
-        $I->refreshEntities($this->player1);
-
         $this->playerService->handleNewCycle($this->player1, new \DateTime());
 
         $I->assertEquals(11, $this->player1->getActionPoint());

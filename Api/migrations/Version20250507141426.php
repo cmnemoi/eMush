@@ -50,7 +50,6 @@ final class Version20250507141426 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE place_config DROP patrol_ship_names');
         $this->addSql('ALTER TABLE game_equipment DROP docking_place');
         $this->addSql('ALTER TABLE game_equipment DROP patrol_ship_name');

@@ -2,13 +2,18 @@ Mush\RoomLog\Entity\RoomLog:
   attributes:
     paginationEnabled: false
     normalization_context:
-      groups: [ 'room_log_read', 'moderation_read' ]
+      groups:
+      - room_log_read
+      - moderation_read
     denormalization_context:
-      groups: [ 'room_log_write' ]
-  collectionOperations:
-    get:
-      security: 'is_granted("ROLE_MODERATOR")'
-      filters: [ 'room_log.search_filter', 'date.order_filter', 'default.date_filter' ]
-  itemOperations:
-    get:
-      security: 'is_granted("ROLE_MODERATOR")'
+      groups:
+      - room_log_write
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      security: is_granted("ROLE_MODERATOR")
+      filters:
+      - room_log.search_filter
+      - date.order_filter
+      - default.date_filter
+    ApiPlatform\Metadata\Get:
+      security: is_granted("ROLE_MODERATOR")

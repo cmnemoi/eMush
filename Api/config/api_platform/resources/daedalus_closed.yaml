@@ -2,21 +2,20 @@ Mush\Daedalus\Entity\ClosedDaedalus:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups: [ 'closed_daedalus_read' ]
-  collectionOperations:
-    get:
-      security: 'is_granted("ROLE_USER")'
-      filters: [
-        'default.search_filter',
-        'default.order_filter',
-        'closedDaedalus.order_filter',
-        'languageClosedDaedalus.search_filter'
-      ]
-  itemOperations:
-    get:
-      security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)'
+      groups:
+      - closed_daedalus_read
   properties:
     players:
       subresource:
         resourceClass: Mush\Player\Entity\ClosedPlayer
         collection: true
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      security: is_granted("ROLE_USER")
+      filters:
+      - default.search_filter
+      - default.order_filter
+      - closedDaedalus.order_filter
+      - languageClosedDaedalus.search_filter
+    ApiPlatform\Metadata\Get:
+      security: is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)

@@ -2,13 +2,18 @@ Mush\Chat\Entity\Message:
   attributes:
     paginationEnabled: false
     normalization_context:
-      groups: [ 'message_read', 'moderation_read' ]
+      groups:
+      - message_read
+      - moderation_read
     denormalization_context:
-      groups: [ 'message_write' ]
-  collectionOperations:
-    get:
-      security: 'is_granted("ROLE_MODERATOR")'
-      filters: [ 'message.search_filter', 'date.order_filter', 'default.date_filter' ]
-  itemOperations:
-    get:
-      security: 'is_granted("ROLE_MODERATOR")'
+      groups:
+      - message_write
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      security: is_granted("ROLE_MODERATOR")
+      filters:
+      - message.search_filter
+      - date.order_filter
+      - default.date_filter
+    ApiPlatform\Metadata\Get:
+      security: is_granted("ROLE_MODERATOR")

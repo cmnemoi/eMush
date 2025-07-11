@@ -79,6 +79,11 @@ class TriumphConfig
         return $this->name;
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getQuantity(): int
     {
         return $this->quantity;

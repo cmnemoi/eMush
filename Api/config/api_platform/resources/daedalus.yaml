@@ -2,15 +2,18 @@ Mush\Daedalus\Entity\Daedalus:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups: [ 'daedalus_read' ]
+      groups:
+      - daedalus_read
     denormalization_context:
-      groups: [ 'daedalus_write' ]
-  collectionOperations:
-    get:
-      filters: [ 'daedalus.search_filter', 'default.order_filter' ]
-      security: 'is_granted("ROLE_MODERATOR")'
-    post:
-      security: 'is_granted("ROLE_MODERATOR")'
-  itemOperations:
-    get:
-      security: 'is_granted("ROLE_MODERATOR")'
+      groups:
+      - daedalus_write
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      filters:
+      - daedalus.search_filter
+      - default.order_filter
+      security: is_granted("ROLE_MODERATOR")
+    ApiPlatform\Metadata\Post:
+      security: is_granted("ROLE_MODERATOR")
+    ApiPlatform\Metadata\Get:
+      security: is_granted("ROLE_MODERATOR")

@@ -2,16 +2,19 @@ Mush\Action\Entity\ActionConfig:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups: [ 'action_read' ]
+      groups:
+      - action_read
     denormalization_context:
-      groups: [ 'action_write' ]
-  collectionOperations:
-    get:
-      filters: [ 'default.search_filter', 'default.order_filter' ]
-      security: 'is_granted("ROLE_ADMIN")'
-    post:
-      security: 'is_granted("ROLE_ADMIN")'
-  itemOperations:
-    get: ~
-    put:
-      security: 'is_granted("ROLE_ADMIN")'
+      groups:
+      - action_write
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      filters:
+      - default.search_filter
+      - default.order_filter
+      security: is_granted("ROLE_ADMIN")
+    ApiPlatform\Metadata\Post:
+      security: is_granted("ROLE_ADMIN")
+    ApiPlatform\Metadata\Get: {}
+    ApiPlatform\Metadata\Put:
+      security: is_granted("ROLE_ADMIN")

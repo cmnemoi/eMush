@@ -1,28 +1,31 @@
 Mush\Status\Entity\Config\StatusConfig:
   attributes:
     pagination_items_per_page: 25
-    security: 'is_granted("ROLE_MODERATOR")'
+    security: is_granted("ROLE_MODERATOR")
     normalization_context:
-      groups: [ 'status_config_read' ]
+      groups:
+      - status_config_read
     denormalization_context:
-      groups: [ 'status_config_write' ]
-  collectionOperations:
-    get:
-      filters: [ 'default.search_filter', 'default.order_filter' ]
-      security: 'is_granted("ROLE_MODERATOR")'
-    post:
-      security: 'is_granted("ROLE_ADMIN")'
-  itemOperations:
-    get:
-      security: 'is_granted("ROLE_MODERATOR")'
-    put:
-      security: 'is_granted("ROLE_ADMIN")'
+      groups:
+      - status_config_write
   properties:
     modifierConfigs:
       subresource:
-        resourceClass: 'Mush\Modifier\Entity\ModifierConfig'
+        resourceClass: Mush\Modifier\Entity\ModifierConfig
         collection: true
     actionConfigs:
       subresource:
-        resourceClass: 'Mush\Action\Entity\ActionConfig'
+        resourceClass: Mush\Action\Entity\ActionConfig
         collection: true
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      filters:
+      - default.search_filter
+      - default.order_filter
+      security: is_granted("ROLE_MODERATOR")
+    ApiPlatform\Metadata\Post:
+      security: is_granted("ROLE_ADMIN")
+    ApiPlatform\Metadata\Get:
+      security: is_granted("ROLE_MODERATOR")
+    ApiPlatform\Metadata\Put:
+      security: is_granted("ROLE_ADMIN")

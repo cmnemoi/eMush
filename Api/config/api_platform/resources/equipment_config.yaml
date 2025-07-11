@@ -2,31 +2,33 @@ Mush\Equipment\Entity\Config\EquipmentConfig:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups: [ 'equipment_config_read' ]
+      groups:
+      - equipment_config_read
     denormalization_context:
-      groups: [ 'equipment_config_write' ]
-  collectionOperations:
-    get:
-      filters: [ 'default.search_filter', 'default.order_filter' ]
-      security: 'is_granted("ROLE_ADMIN")'
-    post:
-      security: 'is_granted("ROLE_ADMIN")'
-  itemOperations:
-    get:
-      security: 'is_granted("ROLE_ADMIN")'
-    put:
-      security: 'is_granted("ROLE_ADMIN")'
+      groups:
+      - equipment_config_write
   properties:
     mechanics:
       subresource:
-        resourceClass: 'Mush\Equipment\Entity\EquipmentMechanic'
+        resourceClass: Mush\Equipment\Entity\EquipmentMechanic
         collection: true
     actionConfigs:
       subresource:
-        resourceClass: 'Mush\Action\Entity\ActionConfig'
+        resourceClass: Mush\Action\Entity\ActionConfig
         collection: true
     initStatuses:
       subresource:
-        resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
+        resourceClass: Mush\Status\Entity\Config\StatusConfig
         collection: true
-
+  operations:
+    ApiPlatform\Metadata\GetCollection:
+      filters:
+      - default.search_filter
+      - default.order_filter
+      security: is_granted("ROLE_ADMIN")
+    ApiPlatform\Metadata\Post:
+      security: is_granted("ROLE_ADMIN")
+    ApiPlatform\Metadata\Get:
+      security: is_granted("ROLE_ADMIN")
+    ApiPlatform\Metadata\Put:
+      security: is_granted("ROLE_ADMIN")

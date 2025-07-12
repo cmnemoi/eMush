@@ -12,7 +12,6 @@
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
-            <file name="vendor/doctrine/orm/src/EntityRepository.php"/>
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>

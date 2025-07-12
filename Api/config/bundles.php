@@ -1,6 +1,6 @@
 <?php
 
-use ApiPlatform\Symfony\Bundle\ApiPlatformBundle;
+use ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
@@ -28,6 +28,6 @@ return [
     DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
     MonologBundle::class => ['all' => true],
     NelmioCorsBundle::class => ['all' => true],
-    ApiPlatformBundle::class => ['all' => true],
     SensioFrameworkExtraBundle::class => ['all' => true],
+    ApiPlatformBundle::class => ['all' => true],
 ];

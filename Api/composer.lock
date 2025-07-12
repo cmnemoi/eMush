@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a503f831ae14ed8b2d9c67a27e0bbf6f",
+    "content-hash": "f4be43fa572187caf256e2bb0584d58a",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -118,16 +118,16 @@
         },
         {
             "name": "cmnemoi/api-platform-core",
-            "version": "dev-main",
+            "version": "v2.7.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cmnemoi/api-platform-core.git",
-                "reference": "0011632148229fd31264cdb87af194d2a8c3d446"
+                "reference": "c66c17ddd965bd2abde673986b0b927cad10952b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cmnemoi/api-platform-core/zipball/0011632148229fd31264cdb87af194d2a8c3d446",
-                "reference": "0011632148229fd31264cdb87af194d2a8c3d446",
+                "url": "https://api.github.com/repos/cmnemoi/api-platform-core/zipball/c66c17ddd965bd2abde673986b0b927cad10952b",
+                "reference": "c66c17ddd965bd2abde673986b0b927cad10952b",
                 "shasum": ""
             },
             "require": {
@@ -232,7 +232,6 @@
                 "symfony/web-profiler-bundle": "To use the data collector.",
                 "webonyx/graphql-php": "To support GraphQL."
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "symfony": {
@@ -283,7 +282,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-07-12T09:57:40+00:00"
+            "time": "2025-07-12T17:55:07+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -16380,13 +16379,11 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cmnemoi/api-platform-core": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.3",
+        "php": "^8.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-intl": "*",

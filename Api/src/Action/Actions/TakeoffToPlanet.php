@@ -14,7 +14,6 @@ use Mush\Action\Validator\ExplorationAlreadyOngoing;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NeronCrewLock;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;

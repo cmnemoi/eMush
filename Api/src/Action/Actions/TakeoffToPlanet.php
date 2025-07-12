@@ -14,7 +14,6 @@ use Mush\Action\Validator\ExplorationAlreadyOngoing;
 use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NeronCrewLock;
 use Mush\Action\Validator\Reach;
-use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;
@@ -77,7 +76,7 @@ class TakeoffToPlanet extends AbstractAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof GameEquipment;
+        return $target instanceof SpaceShip;
     }
 
     protected function checkResult(): ActionResult

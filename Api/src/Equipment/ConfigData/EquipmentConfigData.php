@@ -2311,7 +2311,7 @@ class EquipmentConfigData
             'breakableType' => BreakableTypeEnum::NONE,
             'dismountedProducts' => [],
             'isPersonal' => false,
-            'type' => 'equipment_config',
+            'type' => 'patrol_ship',
             'isStackable' => null,
             'actions' => [
                 'examine',

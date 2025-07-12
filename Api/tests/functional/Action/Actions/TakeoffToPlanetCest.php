@@ -77,14 +77,12 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         $this->player1->changePlace($icarusBay);
         $this->player2->changePlace($icarusBay);
 
-        // given there is the Icarus ship in Icarus Bay
-        /** @var EquipmentConfig $icarusConfig */
-        $icarusConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::ICARUS]);
-        $this->icarus = new GameEquipment($icarusBay);
-        $this->icarus
-            ->setName(EquipmentEnum::ICARUS)
-            ->setEquipment($icarusConfig);
-        $I->haveInRepository($this->icarus);
+        $this->icarus = $this->gameEquipmentService->createGameEquipmentFromName(
+            EquipmentEnum::ICARUS,
+            $icarusBay,
+            [],
+            new \DateTime(),
+        );
 
         $this->createPlanetForTest($I);
 
@@ -187,11 +185,13 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // given a new player is in a patrol ship
         $patrolShipAlphaTamarinPlace = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
         $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
-        $patrolShip = new GameEquipment($patrolShipAlphaTamarinPlace);
-        $patrolShip
-            ->setName(EquipmentEnum::PATROL_SHIP)
-            ->setEquipment($patrolShipConfig);
-        $I->haveInRepository($patrolShip);
+        $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
+            EquipmentEnum::PATROL_SHIP,
+            $patrolShipAlphaTamarinPlace,
+            [],
+            new \DateTime(),
+        );
+        $patrolShip->setPatrolShipName(EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN);
 
         $newPlayer = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::DEREK);
         $newPlayer->changePlace($patrolShipAlphaTamarinPlace);

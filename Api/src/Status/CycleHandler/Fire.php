@@ -5,7 +5,6 @@ namespace Mush\Status\CycleHandler;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -55,47 +54,15 @@ final readonly class Fire extends AbstractStatusCycleHandler
             return;
         }
 
-        // Inactive Fires should not do anything.
-        if ($status->getCharge() > 0) {
-            $this->propagateFire($statusHolder, $dateTime);
-
-            // if Auto Watering project is finished and random draw is successful, the fire is extinguished.
-            if ($this->isFireKilledByProject($statusHolder, $dateTime)) {
-                return;
-            }
-
-            $this->fireDamage($statusHolder, $dateTime);
+        // if Auto Watering project is finished and random draw is successful, the fire is extinguished.
+        if ($this->isFireKilledByProject($statusHolder, $dateTime)) {
+            return;
         }
+
+        $this->fireDamage($statusHolder, $dateTime);
     }
 
     public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void {}
-
-    private function propagateFire(Place $room, \DateTime $date): void
-    {
-        $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
-
-        if ($this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())) {
-            // Get all available rooms
-            $adjacentRoomsNotOnFire = $room
-                 // get doors
-                ->getDoors()
-                 // remove doors who's room are already on fire
-                ->filter(fn (Door $door) => !$door->getOtherRoom($room)->hasStatus($this->name))
-                // get the rooms
-                ->map(static fn (Door $door) => $door->getOtherRoom($room));
-
-            if (!$adjacentRoomsNotOnFire->isEmpty()) {
-                $targetRoomToBurn = $this->randomService->getRandomElement($adjacentRoomsNotOnFire->toArray());
-
-                $this->statusService->createStatusFromName(
-                    $this->name,
-                    $targetRoomToBurn,
-                    [RoomEventEnum::PROPAGATING_FIRE],
-                    $date
-                );
-            }
-        }
-    }
 
     private function fireDamage(Place $room, \DateTime $date): void
     {

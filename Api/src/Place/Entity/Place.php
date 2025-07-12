@@ -22,6 +22,7 @@ use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierHolderTrait;
+use Mush\Place\Collection\PlaceCollection;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Place\Repository\PlaceRepository;
@@ -450,6 +451,11 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     public function getAdjacentRooms(): Collection
     {
         return $this->getDoors()->map(fn (Door $door) => $door->getOtherRoom($this));
+    }
+
+    public function getAdjacentRoomsAsPlaceCollection(): PlaceCollection
+    {
+        return new PlaceCollection($this->getDoors()->map(fn (Door $door) => $door->getOtherRoom($this))->toArray());
     }
 
     /**

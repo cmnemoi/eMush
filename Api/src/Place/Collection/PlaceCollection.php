@@ -17,6 +17,11 @@ final class PlaceCollection extends ArrayCollection
         return $this->filter(static fn (Place $place) => !$place->hasStatus($status));
     }
 
+    public function getAllWithStatus(string $status): self
+    {
+        return $this->filter(static fn (Place $place) => $place->hasStatus($status));
+    }
+
     public function getAllWithAlivePlayers(): self
     {
         return $this->filter(static fn (Place $place) => $place->getPlayers()->getPlayerAlive()->count() > 0);

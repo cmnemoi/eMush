@@ -2,111 +2,64 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Actions\Phagocyte;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Enum\ActionHolderEnum;
-use Mush\Action\Enum\ActionRangeEnum;
-use Mush\Daedalus\Entity\Daedalus;
-use Mush\Daedalus\Entity\DaedalusInfo;
-use Mush\Game\Entity\GameConfig;
-use Mush\Game\Entity\LocalizationConfig;
-use Mush\Game\Enum\ActionOutputEnum;
-use Mush\Game\Enum\GameConfigEnum;
-use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Entity\Place;
-use Mush\Player\Entity\Config\CharacterConfig;
-use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
-use Mush\Status\Entity\Config\StatusConfig;
-use Mush\Status\Entity\Status;
-use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
-use Mush\User\Entity\User;
 
-class PhagocyteActionCest
+/**
+ * @internal
+ */
+final class PhagocyteActionCest extends AbstractFunctionalTest
 {
     private Phagocyte $phagocyteAction;
+    private ActionConfig $actionConfig;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
         $this->phagocyteAction = $I->grabService(Phagocyte::class);
+        $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::PHAGOCYTE]);
     }
 
     public function testPhagocyteWithOneSpore(FunctionalTester $I)
     {
-        $gameConfig = $I->grabEntityFromRepository(GameConfig::class, ['name' => GameConfigEnum::DEFAULT]);
-        $I->flushToDatabase();
+        // given Chun is mush
+        $this->convertPlayerToMush($I, $this->player);
 
-        /** @var Daedalus $daedalus */
-        $daedalus = $I->have(Daedalus::class);
-        $localizationConfig = $I->grabEntityFromRepository(LocalizationConfig::class, ['name' => LanguageEnum::FRENCH]);
-        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-        $I->haveInRepository($daedalusInfo);
+        // given Chun has the skill phagocyte
+        $this->addSkillToPlayer(SkillEnum::PHAGOCYTE, $I, $this->player);
 
-        /** @var Place $room */
-        $room = $I->have(Place::class, ['daedalus' => $daedalus]);
-
-        $phagocyteActionEntity = new ActionConfig();
-        $phagocyteActionEntity
-            ->setActionName(ActionEnum::PHAGOCYTE)
-            ->setRange(ActionRangeEnum::SELF)
-            ->setDisplayHolder(ActionHolderEnum::PLAYER)
-            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($phagocyteActionEntity);
-
-        /** @var CharacterConfig $characterConfig */
-        $characterConfig = $I->have(CharacterConfig::class);
-        $characterConfig->setActionConfigs(new ArrayCollection([$phagocyteActionEntity]));
-
-        /** @var Player $player */
-        $player = $I->have(Player::class, ['daedalus' => $daedalus,
-            'place' => $room,
-        ]);
-        $player->setPlayerVariables($characterConfig);
-        $player
+        // given Chan has those values
+        $this->player
             ->setActionPoint(1)
             ->setHealthPoint(1)
             ->setSpores(1);
 
-        /** @var User $user */
-        $user = $I->have(User::class);
-        $playerInfo = new PlayerInfo($player, $user, $characterConfig);
-
-        $I->haveInRepository($playerInfo);
-        $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
-
-        $mushConfig = new StatusConfig();
-        $mushConfig
-            ->setStatusName(PlayerStatusEnum::MUSH)
-            ->setVisibility(VisibilityEnum::MUSH)
-            ->buildName(GameConfigEnum::TEST);
-        $I->haveInRepository($mushConfig);
-
-        $mushStatus = new Status($player, $mushConfig);
-        $I->haveInRepository($mushStatus);
-
+        // when Chun phagocyte
         $this->phagocyteAction->loadParameters(
-            actionConfig: $phagocyteActionEntity,
-            actionProvider: $player,
-            player: $player
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->player,
+            player: $this->player
         );
         $this->phagocyteAction->execute();
 
-        $I->assertEquals(0, $player->getSpores());
-        $I->assertEquals(5, $player->getActionPoint());
-        $I->assertEquals(5, $player->getHealthPoint());
+        // then Chun should have those values
+        $I->assertEquals(0, $this->player->getSpores());
+        $I->assertEquals(5, $this->player->getActionPoint());
+        $I->assertEquals(5, $this->player->getHealthPoint());
 
+        // then Chun should see a log
         $I->seeInRepository(RoomLog::class, [
-            'place' => $room->getName(),
-            'daedalusInfo' => $daedalusInfo,
-            'playerInfo' => $player->getPlayerInfo(),
+            'place' => $this->player->getPlace()->getName(),
+            'daedalusInfo' => $this->daedalus->getDaedalusInfo(),
+            'playerInfo' => $this->player->getPlayerInfo(),
             'visibility' => VisibilityEnum::PRIVATE,
             'log' => ActionLogEnum::PHAGOCYTE_SUCCESS,
         ]);

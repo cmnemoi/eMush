@@ -466,7 +466,7 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             ->setNumberOfExplorationSteps(9)
             ->setEquipmentName(EquipmentEnum::ICARUS)
             ->setBreakableType(BreakableTypeEnum::NONE)
-            ->setActionConfigs([$examineAction, $renovateAction, $takeoffAction, $landAction, $collectScrap, $takeoffToPlanetAction])
+            ->setActionConfigs([$examineAction, $takeoffToPlanetAction])
             ->setMechanics([])
             ->buildName(GameConfigEnum::DEFAULT);
         $manager->persist($icarus);

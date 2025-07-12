@@ -734,7 +734,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         // given there is a non-Icarus ship on the planet
         $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
+            equipmentName: EquipmentEnum::PATROL_SHIP,
             equipmentHolder: $this->daedalus->getPlanetPlace(),
             reasons: [],
             time: new \DateTime(),

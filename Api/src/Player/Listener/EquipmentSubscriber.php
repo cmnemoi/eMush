@@ -8,6 +8,7 @@ use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
@@ -49,6 +50,10 @@ final class EquipmentSubscriber implements EventSubscriberInterface
     {
         $equipment = $event->getGameEquipment();
         $equipmentPlace = $event->getPlace();
+
+        if ($equipmentPlace->getType() !== PlaceTypeEnum::PATROL_SHIP) {
+            return;
+        }
 
         if ($equipment instanceof SpaceShip) {
             foreach ($equipmentPlace->getPlayers() as $player) {

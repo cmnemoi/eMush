@@ -12,6 +12,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -51,10 +52,12 @@ final class LandActionCest extends AbstractFunctionalTest
         $this->player1->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PASIPHAE));
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PASIPHAE));
+        $this->pasiphae = new SpaceShip($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PASIPHAE));
         $this->pasiphae
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
             ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
+            ->setEquipment($pasiphaeConfig)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2);
         $I->haveInRepository($this->pasiphae);
 
         /** @var StatusServiceInterface $statusService */

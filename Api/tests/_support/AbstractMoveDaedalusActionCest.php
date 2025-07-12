@@ -12,7 +12,9 @@ use Mush\Alert\Service\AlertServiceInterface;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Config\SpaceShipConfig;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -171,8 +173,10 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
         // given player2 is in a patrol ship
         $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($pasiphaePlace);
+        $pasiphae = new SpaceShip($pasiphaePlace);
         $pasiphae
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
@@ -205,9 +209,11 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     {
         // given a patrol ship is in space battle
         $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($pasiphaePlace);
+        $pasiphaeConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new SpaceShip($pasiphaePlace);
         $pasiphae
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
@@ -232,8 +238,10 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     {
         // given a patrol ship is not in space battle, let's say on the bridge
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->bridge);
+        $pasiphae = new SpaceShip($this->bridge);
         $pasiphae
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
@@ -566,12 +574,15 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // given Pasiphae is in space battle
         $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-        $pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PASIPHAE,
-            equipmentHolder: $pasiphaePlace,
-            reasons: [],
-            time: new \DateTime(),
-        );
+
+        $pasiphaeConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new SpaceShip($pasiphaePlace);
+        $pasiphae
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig);
+        $I->haveInRepository($pasiphae);
 
         // when player moves daedalus
         $this->moveDaedalusAction->loadParameters(
@@ -599,10 +610,18 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
 
         // given Pasiphae is in space battle
         $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PASIPHAE,
-            equipmentHolder: $pasiphaePlace,
+        $alphaBay2 = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::ALPHA_BAY_2);
+
+        $pasiphaeConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = $this->gameEquipmentService->createGameEquipment(
+            equipmentConfig: $pasiphaeConfig,
+            holder: $alphaBay2,
             reasons: [],
+            time: new \DateTime(),
+        );
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $pasiphae,
+            newHolder: $pasiphaePlace,
             time: new \DateTime(),
         );
 
@@ -785,12 +804,14 @@ abstract class AbstractMoveDaedalusActionCest extends AbstractFunctionalTest
     private function givenPasiphaeIsInSpaceBattle(FunctionalTester $I): void
     {
         $pasiphaePlace = $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $this->daedalus);
-        $this->gameEquipmentService->createGameEquipmentFromName(
-            equipmentName: EquipmentEnum::PASIPHAE,
-            equipmentHolder: $pasiphaePlace,
-            reasons: [],
-            time: new \DateTime(),
-        );
+        $pasiphaeConfig = $I->grabEntityFromRepository(SpaceShipConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
+        $pasiphae = new SpaceShip($pasiphaePlace);
+        $pasiphae
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setName(EquipmentEnum::PASIPHAE)
+            ->setEquipment($pasiphaeConfig);
+        $I->haveInRepository($pasiphae);
     }
 
     private function givenKuanTiIsInPasiphae(): void

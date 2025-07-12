@@ -16,6 +16,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -34,7 +35,6 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -55,7 +55,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     private GameEquipment $pasiphae;
     private ChargeStatus $pasiphaeArmor;
 
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
 
@@ -66,15 +65,16 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->createExtraRooms($I, $this->daedalus);
 
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $this->pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $this->pasiphae
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($this->pasiphae);
@@ -116,8 +116,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->haveInRepository($this->action);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
@@ -183,8 +185,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
 
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
@@ -246,8 +250,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     {
         // given a pasiphae
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
@@ -285,8 +291,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     {
         // given a pasiphae
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);
@@ -325,8 +333,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     {
         // given a pasiphae
         $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new GameEquipment($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
+        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
         $pasiphae
+            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
+            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
             ->setName(EquipmentEnum::PASIPHAE)
             ->setEquipment($pasiphaeConfig);
         $I->haveInRepository($pasiphae);

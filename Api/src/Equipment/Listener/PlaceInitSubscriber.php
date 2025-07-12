@@ -2,6 +2,7 @@
 
 namespace Mush\Equipment\Listener;
 
+use Mush\Equipment\Entity\Config\SpaceShipConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentEventReason;
@@ -50,10 +51,24 @@ class PlaceInitSubscriber implements EventSubscriberInterface
             $gameItem = $this->gameEquipmentService->createGameEquipment($item, $place, $reasons, $time);
         }
 
+        $patrolShipNames = $placeConfig->getPatrolShipNames();
         foreach ($placeConfig->getEquipments() as $equipmentName) {
             $equipment = $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
 
-            $gameEquipment = $this->gameEquipmentService->createGameEquipment($equipment, $place, $reasons, $time);
+            if ($equipment instanceof SpaceShipConfig && $equipment->getEquipmentName() === EquipmentEnum::PATROL_SHIP) {
+                $patrolShipName = current($patrolShipNames);
+                next($patrolShipNames);
+            } else {
+                $patrolShipName = null;
+            }
+
+            $gameEquipment = $this->gameEquipmentService->createGameEquipment(
+                equipmentConfig: $equipment,
+                holder: $place,
+                reasons: $reasons,
+                time: $time,
+                patrolShipName: $patrolShipName
+            );
         }
 
         // initialize doors

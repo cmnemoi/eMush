@@ -15,16 +15,13 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Entity\Place;
-use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -36,23 +33,23 @@ final class GuardCest extends AbstractFunctionalTest
 {
     private ActionConfig $guardActionConfig;
     private Guard $guard;
-
     private ActionConfig $moveActionConfig;
     private Move $move;
 
-    private ChooseSkillUseCase $chooseSkillUseCase;
-
     private GameEquipment $pasiphae;
+
+    private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
+        $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+
         $this->guardActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::GUARD]);
         $this->guard = $I->grabService(Guard::class);
         $this->moveActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MOVE]);
         $this->move = $I->grabService(Move::class);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->givenLaboratoryIsLinkedToFrontCorridor($I);
         $this->givenLaboratoryIsLinkedToMedlab($I);
@@ -152,7 +149,7 @@ final class GuardCest extends AbstractFunctionalTest
 
     public function shouldNotUpdatePreviousRoomWhenEnteringPlaceNotInDaedalus(FunctionalTester $I): void
     {
-        $this->givenPatrolShipIn(RoomEnum::LABORATORY, $I);
+        $this->givenPatrolShipIn($this->kuanTi->getPlace(), $I);
 
         $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->kuanTi);
 
@@ -239,33 +236,22 @@ final class GuardCest extends AbstractFunctionalTest
         $this->move->execute();
     }
 
-    private function givenPatrolShipIn(string $room, FunctionalTester $I): void
+    private function givenPatrolShipIn(Place $room, FunctionalTester $I): void
     {
-        $statusService = $I->grabService(StatusServiceInterface::class);
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphaeRoomConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PASIPHAE]);
-
-        $pasiphaeRoom = new Place();
-        $pasiphaeRoom
-            ->setName(RoomEnum::PASIPHAE)
-            ->setType($pasiphaeRoomConfig->getType())
-            ->setDaedalus($this->daedalus);
-        $I->haveInRepository($pasiphaeRoom);
-
-        $this->pasiphae = new GameEquipment($this->daedalus->getPlaceByName($room));
-        $this->pasiphae
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $this->pasiphae->getPatrolShipMechanicOrThrow()->setDockingPlace($room);
-        $I->haveInRepository($this->pasiphae);
-
-        $pasiphaeArmor = $statusService->createStatusFromName(
-            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            $this->pasiphae,
+        $this->pasiphae = $this->gameEquipmentService->createGameEquipmentFromName(
+            EquipmentEnum::PASIPHAE,
+            $room,
             [],
-            new \DateTime()
+            new \DateTime(),
         );
-        $I->haveInRepository($pasiphaeArmor);
+
+        $this->createExtraPlace(
+            RoomEnum::PASIPHAE,
+            $I,
+            $this->daedalus
+        );
+
+        $this->pasiphae->setDockingPlace($room->getName());
     }
 
     private function whenChunTriesToGuardTheRoom(): void

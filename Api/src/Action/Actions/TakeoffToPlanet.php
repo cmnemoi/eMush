@@ -15,8 +15,7 @@ use Mush\Action\Validator\HasStatus;
 use Mush\Action\Validator\NeronCrewLock;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -88,7 +87,7 @@ class TakeoffToPlanet extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $explorationShip */
+        /** @var SpaceShip $explorationShip */
         $explorationShip = $this->target;
 
         // draw explorators from the players in exploration craft place to avoid all crewmates
@@ -103,19 +102,8 @@ class TakeoffToPlanet extends AbstractAction
         $this->explorationService->createExploration(
             players: new PlayerCollection($explorators),
             explorationShip: $explorationShip,
-            numberOfSectorsToVisit: $this->getPatrolShipMechanic($explorationShip)->getNumberOfExplorationSteps(),
+            numberOfSectorsToVisit: $explorationShip->getEquipment()->getNumberOfExplorationSteps(),
             reasons: $this->actionConfig->getActionTags(),
         );
-    }
-
-    private function getPatrolShipMechanic(GameEquipment $explorationShip): PatrolShip
-    {
-        $patrolShipMechanic = $explorationShip->getEquipment()->getMechanicByName(EquipmentMechanicEnum::PATROL_SHIP);
-
-        if (!$patrolShipMechanic instanceof PatrolShip) {
-            throw new \RuntimeException('Patrol ship mechanic not found');
-        }
-
-        return $patrolShipMechanic;
     }
 }

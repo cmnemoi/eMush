@@ -19,7 +19,6 @@ use Mush\Exploration\Service\ClosedExplorationServiceInterface;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -250,7 +249,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $daedalus = $player->getDaedalus();
         $patrolShips = $this->getPatrolShipsInBattle($daedalus);
-        $turrets = $this->gameEquipmentService->findEquipmentByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
+        $turrets = $this->gameEquipmentService->findEquipmentsByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
 
         $huntersToNormalize = $this->hunterNormalizerHelper->getHuntersToNormalize($daedalus);
         $normalizedHunters = [];
@@ -267,9 +266,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
     private function getPatrolShipsInBattle(Daedalus $daedalus): ArrayCollection
     {
-        $patrolShips = RoomEnum::getPatrolShips()
-            ->map(fn (string $patrolShip) => $this->gameEquipmentService->findEquipmentByNameAndDaedalus($patrolShip, $daedalus)->first())
-            ->filter(static fn ($patrolShip) => $patrolShip instanceof GameEquipment);
+        $patrolShips = $this->gameEquipmentService->findEquipmentsByNameAndDaedalus(EquipmentEnum::PATROL_SHIP, $daedalus);
         $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
         return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));

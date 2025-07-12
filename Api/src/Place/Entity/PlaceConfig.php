@@ -34,6 +34,9 @@ class PlaceConfig
     #[ORM\Column(type: 'array', nullable: false)]
     private array $equipments = [];
 
+    #[ORM\Column(type: 'array', nullable: false)]
+    private array $patrolShipNames = [];
+
     public function getId(): int
     {
         return $this->id;
@@ -114,6 +117,18 @@ class PlaceConfig
     public function setEquipments(array $equipments): static
     {
         $this->equipments = $equipments;
+
+        return $this;
+    }
+
+    public function getPatrolShipNames(): array
+    {
+        return $this->patrolShipNames;
+    }
+
+    public function setPatrolShipNames(array $patrolShipNames): static
+    {
+        $this->patrolShipNames = $patrolShipNames;
 
         return $this;
     }

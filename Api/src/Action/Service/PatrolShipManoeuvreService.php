@@ -7,8 +7,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\Mechanics\PatrolShip;
-use Mush\Equipment\Enum\EquipmentMechanicEnum;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -49,7 +48,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
     }
 
     public function handleLand(
-        GameEquipment $patrolShip,
+        SpaceShip $patrolShip,
         Player $pilot,
         ActionResult $actionResult,
         array $tags = [],
@@ -57,9 +56,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
     ): void {
         $daedalus = $patrolShip->getDaedalus();
 
-        /** @var PatrolShip $patrolShipMechanic */
-        $patrolShipMechanic = $patrolShip->getMechanicByNameOrThrow(EquipmentMechanicEnum::PATROL_SHIP);
-        $dockingPlaceName = $patrolShipMechanic->getDockingPlace();
+        $dockingPlaceName = $patrolShip->getDockingPlace();
 
         $this->gameEquipmentService->moveEquipmentTo(
             equipment: $patrolShip,
@@ -81,7 +78,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
     }
 
     public function handleTakeoff(
-        GameEquipment $patrolShip,
+        SpaceShip $patrolShip,
         Player $pilot,
         ActionResult $actionResult,
         array $tags = [],
@@ -91,7 +88,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
 
         $this->gameEquipmentService->moveEquipmentTo(
             equipment: $patrolShip,
-            newHolder: $daedalus->getPlaceByNameOrThrow($patrolShip->getName()),
+            newHolder: $daedalus->getPlaceByNameOrThrow($patrolShip->getPatrolShipName()),
             tags: $tags,
             time: $time
         );
@@ -101,15 +98,13 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         }
     }
 
-    private function moveScrapToPatrolShipDockingPlace(GameEquipment $patrolShip, array $tags, \DateTime $time, Player $pilot): void
+    private function moveScrapToPatrolShipDockingPlace(SpaceShip $patrolShip, array $tags, \DateTime $time, Player $pilot): void
     {
         $daedalus = $patrolShip->getDaedalus();
 
-        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
+        $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getDockingPlace());
 
-        $patrolShipDockingPlace = $daedalus->getPlaceByNameOrThrow($patrolShipMechanic->getDockingPlace());
-
-        $patrolShipPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getName());
+        $patrolShipPlace = $daedalus->getPlaceByNameOrThrow($patrolShip->getPatrolShipName());
         $patrolShipPlaceContent = $patrolShipPlace->getEquipments();
 
         // if no scrap in patrol ship, then there is nothing to move : abort
@@ -147,7 +142,7 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
     }
 
     private function handlePatrolShipManoeuvreDamage(
-        GameEquipment $patrolShip,
+        SpaceShip $patrolShip,
         Player $pilot,
         array $tags,
         \DateTime $time
@@ -157,11 +152,10 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         $this->inflictDamageToPlayer($pilot, $patrolShip, $tags, $time);
     }
 
-    private function inflictDamageToDaedalus(GameEquipment $patrolShip, array $tags, \DateTime $time): void
+    private function inflictDamageToDaedalus(SpaceShip $patrolShip, array $tags, \DateTime $time): void
     {
-        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
-            $patrolShipMechanic->getFailedManoeuvreDaedalusDamage()
+            $patrolShip->getEquipment()->getFailedManoeuvreDaedalusDamage()
         );
 
         $daedalusVariableModifierEvent = new DaedalusVariableEvent(
@@ -174,13 +168,12 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         $this->eventService->callEvent($daedalusVariableModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function inflictDamageToPatrolShip(GameEquipment $patrolShip, array $tags, \DateTime $time, Player $pilot): void
+    private function inflictDamageToPatrolShip(SpaceShip $patrolShip, array $tags, \DateTime $time, Player $pilot): void
     {
-        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
         $patrolShipArmor = $patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
-            $patrolShipMechanic->getFailedManoeuvrePatrolShipDamage()
+            $patrolShip->getEquipment()->getFailedManoeuvrePatrolShipDamage()
         );
 
         $this->statusService->updateCharge(
@@ -201,11 +194,10 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         );
     }
 
-    private function inflictDamageToPlayer(Player $player, GameEquipment $patrolShip, array $tags, \DateTime $time): void
+    private function inflictDamageToPlayer(Player $player, SpaceShip $patrolShip, array $tags, \DateTime $time): void
     {
-        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
         $damage = (int) $this->randomService->getSingleRandomElementFromProbaCollection(
-            $patrolShipMechanic->getFailedManoeuvrePlayerDamage()
+            $patrolShip->getEquipment()->getFailedManoeuvrePlayerDamage()
         );
 
         $playerModifierEvent = new PlayerVariableEvent(
@@ -222,13 +214,11 @@ final class PatrolShipManoeuvreService implements PatrolShipManoeuvreServiceInte
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function getPatrolDamageLogPlace(GameEquipment $patrolShip, array $tags): Place
+    private function getPatrolDamageLogPlace(SpaceShip $patrolShip, array $tags): Place
     {
         $daedalus = $patrolShip->getDaedalus();
 
-        $patrolShipMechanic = $patrolShip->getPatrolShipMechanicOrThrow();
-
-        $placeName = \in_array(ActionEnum::LAND->value, $tags, strict: true) ? $patrolShipMechanic->getDockingPlace() : $patrolShip->getName();
+        $placeName = \in_array(ActionEnum::LAND->value, $tags, strict: true) ? $patrolShip->getDockingPlace() : $patrolShip->getPatrolShipName();
 
         return $daedalus->getPlaceByNameOrThrow($placeName);
     }

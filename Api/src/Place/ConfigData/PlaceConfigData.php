@@ -26,7 +26,8 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['alpha_bay_alpha_dorm', 'alpha_bay_center_alpha_storage', 'alpha_bay_central_alpha_turret', 'alpha_bay_central_corridor', 'alpha_bay_alpha_bay_2'],
             'items' => [],
-            'equipments' => ['patrol_ship_alpha_longane', 'patrol_ship_alpha_jujube', 'patrol_ship_alpha_tamarin'],
+            'equipments' => ['patrol_ship', 'patrol_ship', 'patrol_ship'],
+            'patrolShipNames' => ['patrol_ship_alpha_longane', 'patrol_ship_alpha_jujube', 'patrol_ship_alpha_tamarin'],
         ],
         [
             'name' => 'bravo_bay_default',
@@ -34,7 +35,8 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['bravo_bay_bravo_dorm', 'bravo_bay_center_bravo_storage', 'bravo_bay_central_bravo_turret', 'bravo_bay_central_corridor', 'bravo_bay_rear_corridor'],
             'items' => [],
-            'equipments' => ['patrol_ship_bravo_socrate', 'patrol_ship_bravo_epicure', 'patrol_ship_bravo_planton'],
+            'equipments' => ['patrol_ship', 'patrol_ship', 'patrol_ship'],
+            'patrolShipNames' => ['patrol_ship_bravo_socrate', 'patrol_ship_bravo_epicure', 'patrol_ship_bravo_planton'],
         ],
         [
             'name' => 'alpha_bay_2_default',
@@ -42,7 +44,8 @@ class PlaceConfigData
             'type' => 'room',
             'doors' => ['alpha_bay_alpha_bay_2', 'engine_room_bay_alpha_2', 'rear_corridor_bay_alpha_2', 'rear_alpha_turret_bay_alpha_2'],
             'items' => [],
-            'equipments' => ['patrol_ship_alpha_2_wallis', 'pasiphae'],
+            'equipments' => ['patrol_ship', 'pasiphae'],
+            'patrolShipNames' => ['patrol_ship_alpha_2_wallis'],
         ],
         [
             'name' => 'nexus_default',

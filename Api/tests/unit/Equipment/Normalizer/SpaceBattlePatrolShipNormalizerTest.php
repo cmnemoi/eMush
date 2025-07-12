@@ -8,6 +8,7 @@ use Mockery;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Factory\DaedalusFactory;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Factory\GameEquipmentFactory;
 use Mush\Equipment\Normalizer\SpaceBattlePatrolShipNormalizer;
@@ -42,16 +43,16 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
 
     public function testSupportsNormalizationReturnsTrueForPatrolShip(): void
     {
-        $patrolShip = $this->createMock(GameEquipment::class);
-        $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
+        $patrolShip = $this->createMock(SpaceShip::class);
+        $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP);
 
         self::assertTrue($this->normalizer->supportsNormalization($patrolShip));
     }
 
     public function testSupportsNormalizationReturnsFalseForNonPatrolShip(): void
     {
-        $door = $this->createMock(GameEquipment::class);
-        $door->method('getName')->willReturn(EquipmentEnum::DOOR);
+        $door = $this->createMock(SpaceShip::class);
+        $door->method('getPatrolShipName')->willReturn(EquipmentEnum::DOOR);
 
         self::assertFalse($this->normalizer->supportsNormalization($door));
     }
@@ -59,7 +60,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
     public function testNormalizeReturnsExpectedArray(): void
     {
         $daedalus = $this->createMock(Daedalus::class);
-        $patrolShip = $this->createMock(GameEquipment::class);
+        $patrolShip = $this->createMock(SpaceShip::class);
         $patrolShipArmor = $this->createMock(ChargeStatus::class);
         $patrolShipCharges = $this->createMock(ChargeStatus::class);
         $patrolShipPilot = $this->createMock(Player::class);
@@ -69,7 +70,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
         $patrolShip->method('getId')->willReturn(1);
-        $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
+        $patrolShip->method('getPatrolShipName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
         $patrolShip->method('getChargeStatusByName')->willReturnMap([
             [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
             [EquipmentStatusEnum::ELECTRIC_CHARGES, $patrolShipCharges],
@@ -115,7 +116,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
     public function testNormalizeReturnsExpectedArrayForPasiphae(): void
     {
         $daedalus = $this->createMock(Daedalus::class);
-        $patrolShip = $this->createMock(GameEquipment::class);
+        $patrolShip = $this->createMock(SpaceShip::class);
         $patrolShipArmor = $this->createMock(ChargeStatus::class);
         $patrolShipCharges = $this->createMock(ChargeStatus::class);
         $patrolShipPilot = $this->createMock(Player::class);
@@ -125,7 +126,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
         $patrolShip->method('getId')->willReturn(1);
-        $patrolShip->method('getName')->willReturn(EquipmentEnum::PASIPHAE);
+        $patrolShip->method('getPatrolShipName')->willReturn(EquipmentEnum::PASIPHAE);
         $patrolShip->method('getChargeStatusByName')->willReturnMap([
             [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
         ]);
@@ -170,7 +171,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
     public function testNormalizeReturnsExpectedArrayWithDeadPilot(): void
     {
         $daedalus = $this->createMock(Daedalus::class);
-        $patrolShip = $this->createMock(GameEquipment::class);
+        $patrolShip = $this->createMock(SpaceShip::class);
         $patrolShipArmor = $this->createMock(ChargeStatus::class);
         $patrolShipCharges = $this->createMock(ChargeStatus::class);
         $place = $this->createMock(Place::class);
@@ -179,7 +180,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
         $patrolShip->method('getId')->willReturn(1);
-        $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
+        $patrolShip->method('getPatrolShipName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
         $patrolShip->method('getChargeStatusByName')->willReturnMap([
             [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
             [EquipmentStatusEnum::ELECTRIC_CHARGES, $patrolShipCharges],
@@ -223,7 +224,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
     public function testNormalizeWithBrokenPatrolShip(): void
     {
         $daedalus = $this->createMock(Daedalus::class);
-        $patrolShip = $this->createMock(GameEquipment::class);
+        $patrolShip = $this->createMock(SpaceShip::class);
         $patrolShipArmor = $this->createMock(ChargeStatus::class);
         $patrolShipCharges = $this->createMock(ChargeStatus::class);
         $patrolShipPilot = $this->createMock(Player::class);
@@ -233,7 +234,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $daedalus->method('getLanguage')->willReturn(LanguageEnum::FRENCH);
 
         $patrolShip->method('getId')->willReturn(1);
-        $patrolShip->method('getName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
+        $patrolShip->method('getPatrolShipName')->willReturn(EquipmentEnum::PATROL_SHIP_ALPHA_2_WALLIS);
         $patrolShip->method('getChargeStatusByName')->willReturnMap([
             [EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShipArmor],
             [EquipmentStatusEnum::ELECTRIC_CHARGES, $patrolShipCharges],
@@ -287,7 +288,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+                EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
                 [],
                 'equipment',
                 LanguageEnum::FRENCH
@@ -301,7 +302,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         // then I should get the expected result
         self::assertSame(expected: [
             'id' => $patrolShip->getId(),
-            'key' => EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+            'key' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
             'name' => 'Patrouilleur Jujube',
             'armor' => 10,
             'charges' => 1,
@@ -321,7 +322,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+                EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
                 [],
                 'equipment',
                 LanguageEnum::FRENCH
@@ -335,7 +336,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         // then I should get the expected result
         self::assertSame(expected: [
             'id' => $patrolShip->getId(),
-            'key' => EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+            'key' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
             'name' => 'Patrouilleur Jujube',
             'armor' => 10,
             'charges' => 1,
@@ -357,7 +358,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         $this->translationService
             ->shouldReceive('translate')
             ->with(
-                EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+                EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
                 [],
                 'equipment',
                 LanguageEnum::FRENCH
@@ -371,7 +372,7 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
         // then I should get the expected result
         self::assertSame(expected: [
             'id' => $patrolShip->getId(),
-            'key' => EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+            'key' => EquipmentEnum::PATROL_SHIP_ALPHA_TAMARIN,
             'name' => 'Patrouilleur Jujube',
             'armor' => 10,
             'charges' => 1,
@@ -384,8 +385,8 @@ final class SpaceBattlePatrolShipNormalizerTest extends TestCase
     private function givenAPatrolShipInBattle(): GameEquipment
     {
         $daedalus = DaedalusFactory::createDaedalus();
-        $patrolShipPlace = Place::createRoomByNameInDaedalus(RoomEnum::PATROL_SHIP_ALPHA_JUJUBE, $daedalus);
-        $patrolShip = GameEquipmentFactory::createEquipmentByNameForHolder(EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE, $patrolShipPlace);
+        $patrolShipPlace = Place::createRoomByNameInDaedalus(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $daedalus);
+        $patrolShip = GameEquipmentFactory::createPatrolShipByNameForHolder(EquipmentEnum::PATROL_SHIP, $patrolShipPlace);
         StatusFactory::createChargeStatusFromStatusName(EquipmentStatusEnum::PATROL_SHIP_ARMOR, $patrolShip);
         StatusFactory::createChargeStatusFromStatusName(EquipmentStatusEnum::ELECTRIC_CHARGES, $patrolShip);
 

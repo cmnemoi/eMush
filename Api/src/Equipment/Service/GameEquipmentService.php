@@ -14,7 +14,9 @@ use Mush\Equipment\Entity\EquipmentMechanic;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\Mechanics\Document;
 use Mush\Equipment\Entity\Mechanics\Plant;
+use Mush\Equipment\Entity\SpaceShip;
 use Mush\Equipment\Enum\DroneNicknameEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Equipment\Event\InteractWithEquipmentEvent;
 use Mush\Equipment\Event\MoveEquipmentEvent;
@@ -87,9 +89,19 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         return new ArrayCollection($this->repository->findByNameAndDaedalus($name, $daedalus));
     }
 
-    public function findEquipmentByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection
+    public function findEquipmentsByNameAndDaedalus(string $name, Daedalus $daedalus): ArrayCollection
     {
-        return new ArrayCollection($this->repository->findEquipmentByNameAndDaedalus($name, $daedalus));
+        return new ArrayCollection($this->repository->findEquipmentsByNameAndDaedalus($name, $daedalus));
+    }
+
+    public function findPatrolShipsByDaedalus(Daedalus $daedalus): ArrayCollection
+    {
+        $patrolShips = [];
+        foreach (EquipmentEnum::getPatrolShips() as $configName) {
+            $patrolShips = array_merge($patrolShips, $this->repository->findEquipmentsByNameAndDaedalus($configName, $daedalus));
+        }
+
+        return new ArrayCollection($patrolShips);
     }
 
     public function findByDaedalus(Daedalus $daedalus): ArrayCollection
@@ -153,9 +165,10 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
         array $reasons,
         \DateTime $time,
         string $visibility = VisibilityEnum::HIDDEN,
-        ?Player $author = null
+        ?Player $author = null,
+        ?string $patrolShipName = null
     ): GameEquipment {
-        $equipment = $this->getEquipmentFromConfig($equipmentConfig, $holder, $reasons);
+        $equipment = $this->getEquipmentFromConfig($equipmentConfig, $holder, $reasons, $patrolShipName);
 
         $event = new EquipmentEvent(
             $equipment,
@@ -278,7 +291,8 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
     private function getEquipmentFromConfig(
         EquipmentConfig $config,
         EquipmentHolderInterface $holder,
-        array $reasons
+        array $reasons,
+        ?string $patrolShipName = null
     ): GameEquipment {
         $gameEquipment = $config->createGameEquipment($holder);
 
@@ -291,6 +305,10 @@ final class GameEquipmentService implements GameEquipmentServiceInterface
 
         if ($gameEquipment instanceof Drone) {
             $this->initDrone($gameEquipment);
+        }
+
+        if ($gameEquipment instanceof SpaceShip && $patrolShipName !== null) {
+            $gameEquipment->setPatrolShipName($patrolShipName);
         }
 
         $this->persist($gameEquipment);

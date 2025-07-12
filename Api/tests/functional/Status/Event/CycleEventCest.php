@@ -24,6 +24,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Place\Listener\DaedalusCycleSubscriber;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -58,12 +59,14 @@ final class CycleEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $equipmentService;
     private StatusCycleSubscriber $cycleSubscriber;
+    private DaedalusCycleSubscriber $daedalusPlaceCycleSubscriber;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
+        $this->daedalusPlaceCycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
         $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -223,13 +226,12 @@ final class CycleEventCest extends AbstractFunctionalTest
         Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
 
         // when a new cycle passes
-        $cycleEvent = new StatusCycleEvent(
-            $fireStatus,
-            $this->chun->getPlace(),
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->daedalusPlaceCycleSubscriber->onNewCycle($cycleEvent);
 
         // then the fire should have propagated to the Front Corridor
         $I->assertTrue($frontCorridor->hasStatus(StatusEnum::FIRE));
@@ -254,13 +256,12 @@ final class CycleEventCest extends AbstractFunctionalTest
         Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
 
         // when a new cycle passes
-        $cycleEvent = new StatusCycleEvent(
-            $fireStatus,
-            $this->chun->getPlace(),
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->daedalusPlaceCycleSubscriber->onNewCycle($cycleEvent);
 
         // then propagated fire should be inactive
         $I->assertEquals(0, $frontCorridor->getChargeStatusByName(StatusEnum::FIRE)->getCharge());
@@ -305,13 +306,12 @@ final class CycleEventCest extends AbstractFunctionalTest
             $this->theTheNumberOfFireShouldBe($amount, $rooms, $I);
 
             // when a new cycle passes
-            $cycleEvent = new StatusCycleEvent(
-                $fireStatus,
-                $frontCorridor,
+            $cycleEvent = new DaedalusCycleEvent(
+                $this->daedalus,
                 [EventEnum::NEW_CYCLE],
                 new \DateTime()
             );
-            $this->cycleSubscriber->onNewCycle($cycleEvent);
+            $this->daedalusPlaceCycleSubscriber->onNewCycle($cycleEvent);
         }
     }
 

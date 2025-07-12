@@ -123,7 +123,6 @@ abstract class ModifierNameEnum
     public const string HYGIENIST_MUSH_INFECTIONS_MODIFIER = 'hygienist_mush_infections_modifier';
     public const string PLAYER_MINUS_10_PERCENTAGE_ON_ACTIONS = 'player_minus_10_percentage_on_actions';
     public const string POLYMATH_MODIFIER_ON_ACTIONS = 'polymath_modifier_on_actions';
-    public const string SKILL_POINT_POLYMATH_IT_POINTS = 'modifier_skill_point_polymath_it_points';
     public const string PLUS_2_MAX_PRIVATE_CHANNELS = 'plus_2_max_private_channels';
     public const string POLYMATH_MODIFIER_ON_MAX_PRIVATE_CHANNELS = 'polymath_modifier_on_max_private_channels';
     public const string FITFUL_SLEEP_MINUS_ONE_ACTION_POINT = 'fitful_sleep_for_player_-1actionPoint_on_new_cycle';

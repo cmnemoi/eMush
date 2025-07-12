@@ -308,6 +308,45 @@ class StatusService implements StatusServiceInterface
         return $chargeStatus;
     }
 
+    public function createOrExtendChargeStatusFromConfig(
+        ChargeStatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+        ?StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): ?ChargeStatus {
+        $chargeStatus = $this->getChargeStatusWithSameModifierConfigs($holder, $statusConfig);
+        if ($chargeStatus instanceof ChargeStatus) {
+            $chargeStatus = $this->updateCharge(
+                $chargeStatus,
+                $statusConfig->getMaxChargeOrThrow(),
+                $tags,
+                $time,
+                VariableEventInterface::CHANGE_VALUE_MAX
+            ) ?
+            $chargeStatus = $this->updateCharge(
+                $chargeStatus,
+                $statusConfig->getStartCharge(),
+                $tags,
+                $time,
+                VariableEventInterface::CHANGE_VARIABLE
+            ) : null;
+        } else {
+            /** @var ChargeStatus $chargeStatus */
+            $chargeStatus = $this->createStatusFromConfig(
+                $statusConfig,
+                $holder,
+                $tags,
+                $time,
+                $target,
+                $visibility
+            );
+        }
+
+        return $chargeStatus;
+    }
+
     public function deleteAllStatusesByName(string $name): void
     {
         $statusesToDelete = $this->statusRepository->findAllByName($name);
@@ -395,6 +434,7 @@ class StatusService implements StatusServiceInterface
         return $attempt;
     }
 
+<<<<<<< HEAD
     private function throwIfWrongBreakableType(StatusConfig $statusConfig, StatusHolderInterface $holder)
     {
         if ($statusConfig->getStatusName() !== EquipmentStatusEnum::BROKEN) {
@@ -404,6 +444,31 @@ class StatusService implements StatusServiceInterface
         if (!$holder instanceof GameEquipment || $holder->getEquipment()->getBreakableType() !== BreakableTypeEnum::BREAKABLE) {
             throw new \LogicException('trying to apply broken status to an entity that is not a breakable equipment');
         }
+=======
+    private function getChargeStatusWithSameModifierConfigs(StatusHolderInterface $holder, ChargeStatusConfig $statusConfig): ?ChargeStatus
+    {
+        // echo "\nChecking for existing status named: {$statusConfig->getName()}\n";
+        $modifierConfigs = $statusConfig->getModifierConfigs();
+        if ($modifierConfigs->isEmpty()) {
+            return null;
+        }
+        foreach ($modifierConfigs as $config) {
+            // echo "Searched modifier config: {$config->getName()}\n";
+        }
+        foreach ($holder->getStatuses() as $status) {
+            // echo "Found status: {$status->getName()}\n";
+            foreach ($status->getAllModifierConfigs() as $config) {
+                // echo "Found modifier config: {$config->getName()}\n";
+            }
+            if ($status instanceof ChargeStatus && $status->getAllModifierConfigs()->toArray() === $modifierConfigs->toArray()) {
+                // echo "Got existing status!\n";
+                return $status;
+            }
+        }
+
+        // echo "Did not get existing status.\n";
+        return null;
+>>>>>>> 26af7f380 (fix: IT points stack when picking a skill.)
     }
 
     private function delete(Status $status): void

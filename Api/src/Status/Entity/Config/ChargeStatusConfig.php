@@ -103,6 +103,11 @@ class ChargeStatusConfig extends StatusConfig
         return $this->maxCharge;
     }
 
+    public function getMaxChargeOrThrow(): int
+    {
+        return $this->maxCharge ?? throw new \RuntimeException("{$this->getName()} does not have set max charge.");
+    }
+
     /**
      * @return static
      */

@@ -207,6 +207,34 @@ final class FakeStatusService implements StatusServiceInterface
         return $chargeStatus;
     }
 
+    public function createOrExtendChargeStatusFromConfig(
+        ChargeStatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+        ?StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): ?ChargeStatus {
+        /** @var ?ChargeStatus $chargeStatus */
+        $chargeStatus = $this->statuses
+            ->filter(static fn (Status $chargeStatus) => $chargeStatus instanceof ChargeStatus)
+            ->filter(static fn (Status $chargeStatus) => $chargeStatus->getStatusConfig() === $statusConfig && $chargeStatus->getOwner()->equals($holder))
+            ->first() ?: null;
+
+        if ($chargeStatus === null) {
+            /** @var ChargeStatus $chargeStatus */
+            $chargeStatus = $this->createStatusFromConfig($statusConfig, $holder, $tags, $time, $target, $visibility);
+        } else {
+            /** @var ChargeStatus $chargeStatus */
+            $chargeStatus = $this->updateCharge($chargeStatus, $statusConfig->getMaxChargeOrThrow(), $tags, $time, VariableEventInterface::CHANGE_VALUE_MAX);
+            $chargeStatus = $this->updateCharge($chargeStatus, $statusConfig->getStartCharge(), $tags, $time);
+        }
+
+        $this->persist($chargeStatus);
+
+        return $chargeStatus;
+    }
+
     public function deleteAllStatusesByName(string $name): void
     {
         $this->statuses->filter(static fn (Status $status) => $status->getName() === $name)

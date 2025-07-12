@@ -80,7 +80,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
 
         // given a project of each category is finished
         $this->finishProject(
-            $this->daedalus->getProjectByName(ProjectName::ANABOLICS),
+            $this->daedalus->getProjectByName(ProjectName::ANTISPORE_GAS),
             $this->chun,
             $I
         );
@@ -117,10 +117,10 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
             expected: [
                 [
                     'type' => 'research',
-                    'key' => 'anabolics',
-                    'name' => 'Anabolisant',
-                    'description' => 'Génère 4 Anabolisants, qui peuvent être consommés pour donner 8 :pm: .',
-                    'lore' => 'La molécule de Grempf stimule la création d\'hormones androgènes telles que la testostérone. Cela fonctionne sur les êtres humains quel que soit leur sexe, les animaux et même les plantes. Vous avez déjà entendu parler de la mystérieuse transhumance des séquoias du parc de Yosemite ? Bah voilà.',
+                    'key' => 'antispore_gas',
+                    'name' => 'Gaz antispore',
+                    'description' => 'Le maximum de spores journalier des Mush est réduit de deux points.//Accorde 3 :triumph:',
+                    'lore' => 'En injectant des composants vanillés à haute pression dans le compresseur à oxygène, on s\'aperçoit que ça tue les champignons des conduites de ventilation. Pourquoi ne pas en diffuser partout ça nuira peut-être à notre parasite detesté et puis en plus le vaisseau sentira la vanille.',
                 ],
             ],
             actual: $normalizedDaedalus['projects']['researchProjects']['lines']

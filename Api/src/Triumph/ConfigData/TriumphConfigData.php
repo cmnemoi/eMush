@@ -40,6 +40,7 @@ use Mush\Triumph\Dto\TriumphConfigDto;
 use Mush\Triumph\Enum\TriumphEnum;
 use Mush\Triumph\Enum\TriumphScope;
 use Mush\Triumph\Enum\TriumphTarget;
+use Mush\Triumph\Enum\TriumphVisibility;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 
 abstract class TriumphConfigData
@@ -181,6 +182,7 @@ abstract class TriumphConfigData
                     ProjectName::MUSHICIDE_SOAP->toString() => TriumphSourceEventInterface::ANY_TAG,
                     ProjectName::CONSTIPASPORE_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
                 ],
+                visibility: TriumphVisibility::HIDDEN,
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 3,
             ),
@@ -194,6 +196,7 @@ abstract class TriumphConfigData
                     ProjectName::MUSH_RACES->toString() => TriumphSourceEventInterface::ANY_TAG,
                     ProjectName::MUSH_REPRODUCTIVE_SYSTEM->toString() => TriumphSourceEventInterface::ANY_TAG,
                 ],
+                visibility: TriumphVisibility::HIDDEN,
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 6,
             ),
@@ -204,6 +207,7 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     ProjectName::RETRO_FUNGAL_SERUM->toString() => TriumphSourceEventInterface::ANY_TAG,
                 ],
+                visibility: TriumphVisibility::HIDDEN,
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 16,
             ),
@@ -1021,6 +1025,7 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     ProjectName::PILGRED->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
+                visibility: TriumphVisibility::HIDDEN,
                 scope: TriumphScope::ALL_ALIVE_PLAYERS,
                 quantity: 0,
             ),
@@ -1080,6 +1085,7 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     ProjectName::PERPETUAL_HYDRATION->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
+                visibility: TriumphVisibility::HIDDEN,
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 3,
             ),

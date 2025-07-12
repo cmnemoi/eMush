@@ -874,10 +874,6 @@
         <source>mush_hunter_zc16h.name</source>
         <target>Le Mush-Hunter : ZC16H</target>
       </segment>
-      <segment id="mush_hunter_zc16h.description" state="translated">
-        <source>mush_hunter_zc16h.description</source>
-        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
-      </segment>
       <segment id="mush_hunter_zc16h.lore" state="translated">
         <source>mush_hunter_zc16h.lore</source>
         <target>Une partie de la mélanine secrétée par Chun semble être utilisée par son foie pour la sécrétion d'une bactérie tout a fait singulière. Nous l'avons nommé ZC16H. Il semblerait que cette bactérie réagisse violemment au contact d'une souche Mush. Elle digère littéralement le champignon et se reproduit à une vitesse astronomique. Il faut comprendre ce qui conditionne le traitement de la mélanine, ça pourrait créer un antidote contre l'infection Mush ! Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
@@ -909,10 +905,6 @@
       <segment id="mush_language.name" state="translated">
         <source>mush_language.name</source>
         <target>Langage Mush</target>
-      </segment>
-      <segment id="mush_language.description" state="translated">
-        <source>mush_language.description</source>
-        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
       </segment>
       <segment id="mush_language.lore" state="translated">
         <source>mush_language.lore</source>
@@ -946,10 +938,6 @@
         <source>mush_races.name</source>
         <target>Races Mush</target>
       </segment>
-      <segment id="mush_races.description" state="translated">
-        <source>mush_races.description</source>
-        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
-      </segment>
       <segment id="mush_races.lore" state="translated">
         <source>mush_races.lore</source>
         <target>Après l'autopsie de la variété d'axolot dite de "l'Oracle de Wupperthal", on a pu retrouver certaines convergences entre une des branches de cet invertébré et la sécrétion de la variété 764 de bacillus. On a ainsi pu démontrer que le Mush et leurs composants non-saprophytes avaient mené à une branche de champignons Procaryotes qui mutait plus vite. Si vite que la souche Mush que nous connaissons possède plusieurs sous-branches qui sont détaillées dans cet article passionnant.</target>
@@ -963,10 +951,6 @@
       <segment id="mush_reproductive_system.name" state="translated">
         <source>mush_reproductive_system.name</source>
         <target>Système de reproduction Mush</target>
-      </segment>
-      <segment id="mush_reproductive_system.description" state="translated">
-        <source>mush_reproductive_system.description</source>
-        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
       </segment>
       <segment id="mush_reproductive_system.lore" state="translated">
         <source>mush_reproductive_system.lore</source>
@@ -1071,10 +1055,6 @@
       <segment id="perpetual_hydration.name" state="translated">
         <source>perpetual_hydration.name</source>
         <target>Hydratation perpetuelle</target>
-      </segment>
-      <segment id="perpetual_hydration.description" state="translated">
-        <source>perpetual_hydration.description</source>
-        <target>Le résultat de cette étude exceptionnelle peut être capital. Il rendra tout l'équipage célèbre.</target>
       </segment>
       <segment id="perpetual_hydration.lore" state="translated">
         <source>perpetual_hydration.lore</source>

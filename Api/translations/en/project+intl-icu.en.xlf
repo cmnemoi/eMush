@@ -875,10 +875,6 @@
         <source>mush_hunter_zc16h.name</source>
         <target>Mush-Hunter : ZC16H</target>
       </segment>
-      <segment id="mush_hunter_zc16h.description" state="translated">
-        <source>mush_hunter_zc16h.description</source>
-        <target>The findings of this study could be critical and could make the whole team famous.</target>
-      </segment>
       <segment id="mush_hunter_zc16h.lore" state="translated">
         <source>mush_hunter_zc16h.lore</source>
         <target>Some of the melanine secreted by Chun seems to be used by her liver to secrete a completely unique bacteria which has been named ZC16H. It seems that this bacteria reacts violently when placed in contact with a Mush sample. It literally digests the fungus and then reproduces at an alarming rate. We must learn what affects the treatment of the melanine, and this could be the key to creating a Mush antidote! The findings of this study could be critical and could make the whole team famous.</target>
@@ -910,10 +906,6 @@
       <segment id="mush_language.name" state="translated">
         <source>mush_language.name</source>
         <target>Mush Language</target>
-      </segment>
-      <segment id="mush_language.description" state="translated">
-        <source>mush_language.description</source>
-        <target>The findings of this study could be critical and could make the whole team famous.</target>
       </segment>
       <segment id="mush_language.lore" state="translated">
         <source>mush_language.lore</source>
@@ -947,10 +939,6 @@
         <source>mush_races.name</source>
         <target>Mush Races</target>
       </segment>
-      <segment id="mush_races.description" state="translated">
-        <source>mush_races.description</source>
-        <target>The findings of this study could be critical and could make the whole team famous.</target>
-      </segment>
       <segment id="mush_races.lore" state="translated">
         <source>mush_races.lore</source>
         <target>Following the autopsy of a species of axolotl known as the "The Oracle of Wupperthal", certain similarities were found between one species of this vertebrate and the secretion of bacillus 764. It was shown that Mush and its non-saprophyte components led them to create a chain of Procaryotic fungi which mutated more quickly. This allowed us to see that the Mush strain that we know possesses several sub-chains which are detailed in this interesting article.</target>
@@ -964,10 +952,6 @@
       <segment id="mush_reproductive_system.name" state="translated">
         <source>mush_reproductive_system.name</source>
         <target>Mush Reproductive System</target>
-      </segment>
-      <segment id="mush_reproductive_system.description" state="translated">
-        <source>mush_reproductive_system.description</source>
-        <target>The findings of this study could be critical and could make the whole team famous.</target>
       </segment>
       <segment id="mush_reproductive_system.lore" state="translated">
         <source>mush_reproductive_system.lore</source>
@@ -1072,10 +1056,6 @@
       <segment id="perpetual_hydration.name" state="translated">
         <source>perpetual_hydration.name</source>
         <target>Perpetual Hydration</target>
-      </segment>
-      <segment id="perpetual_hydration.description" state="translated">
-        <source>perpetual_hydration.description</source>
-        <target>The findings of this study could be critical and could make the whole team famous.</target>
       </segment>
       <segment id="perpetual_hydration.lore" state="translated">
         <source>perpetual_hydration.lore</source>

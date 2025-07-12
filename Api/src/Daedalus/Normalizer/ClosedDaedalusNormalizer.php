@@ -7,6 +7,7 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Project\Enum\ProjectType;
+use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -16,19 +17,13 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
     use NormalizerAwareTrait;
 
     private const string ALREADY_CALLED = 'CLOSED_DAEDALUS_NORMALIZER_ALREADY_CALLED';
-    private CycleServiceInterface $cycleService;
-    private RandomServiceInterface $randomService;
-    private TranslationServiceInterface $translationService;
 
     public function __construct(
-        CycleServiceInterface $cycleService,
-        RandomServiceInterface $randomService,
-        TranslationServiceInterface $translationService
-    ) {
-        $this->cycleService = $cycleService;
-        $this->randomService = $randomService;
-        $this->translationService = $translationService;
-    }
+        private readonly ChangeTriumphFromEventService $triumphFromEventService,
+        private readonly CycleServiceInterface $cycleService,
+        private readonly RandomServiceInterface $randomService,
+        private readonly TranslationServiceInterface $translationService
+    ) {}
 
     public function getSupportedTypes(?string $format): array
     {
@@ -129,11 +124,9 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
                         domain: 'project',
                         language: $daedalus->getLanguage()
                     ),
-                    'description' => $this->translationService->translate(
-                        key: "{$projectBaseName}.description",
-                        parameters: [],
-                        domain: 'project',
-                        language: $daedalus->getLanguage()
+                    'description' => $this->getDescriptionForProjectName(
+                        projectName: $projectBaseName,
+                        daedalus: $daedalus
                     ),
                     'lore' => $this->translationService->translate(
                         key: "{$projectBaseName}.lore",
@@ -206,5 +199,27 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         }
 
         return $normalizedFunFacts;
+    }
+
+    private function getDescriptionForProjectName(string $projectName, ClosedDaedalus $daedalus): string
+    {
+        $translatedProjectDescription = $this->translationService->translate(
+            key: "{$projectName}.description",
+            parameters: [],
+            domain: 'project',
+            language: $daedalus->getLanguage()
+        );
+        if ($translatedProjectDescription === "{$projectName}.description") {
+            $translatedProjectDescription = '';
+        }
+        $triumphQuantity = $this->triumphFromEventService->getProjectFinishedTriumph($projectName, $daedalus);
+        $translatedTriumphGain = $triumphQuantity !== 0 ? $this->translationService->translate(
+            key: 'project_grants_triumph',
+            parameters: ['quantity' => $triumphQuantity],
+            domain: 'misc',
+            language: $daedalus->getLanguage()
+        ) : '';
+
+        return implode('//', array_filter([$translatedProjectDescription, $translatedTriumphGain]));
     }
 }

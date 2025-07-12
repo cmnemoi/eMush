@@ -46,24 +46,27 @@ class PlaceInitSubscriber implements EventSubscriberInterface
         $time = $event->getTime();
 
         foreach ($placeConfig->getItems() as $itemName) {
-            $item = $this->equipmentService->findByNameAndDaedalus($itemName, $daedalus);
-
-            $gameItem = $this->gameEquipmentService->createGameEquipment($item, $place, $reasons, $time);
+            $itemConfig = $this->equipmentService->findByNameAndDaedalus($itemName, $daedalus);
+            $this->gameEquipmentService->createGameEquipment($itemConfig, $place, $reasons, $time);
         }
 
         $patrolShipNames = $placeConfig->getPatrolShipNames();
         foreach ($placeConfig->getEquipments() as $equipmentName) {
-            $equipment = $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
+            $equipmentConfig = $this->equipmentService->findByNameAndDaedalus($equipmentName, $daedalus);
 
-            if ($equipment instanceof SpaceShipConfig && $equipment->getEquipmentName() === EquipmentEnum::PATROL_SHIP) {
+            if (
+                $equipmentConfig instanceof SpaceShipConfig
+                && $equipmentConfig->getEquipmentName() === EquipmentEnum::PATROL_SHIP
+            ) {
+                /** @var string $patrolShipName */
                 $patrolShipName = current($patrolShipNames);
                 next($patrolShipNames);
             } else {
                 $patrolShipName = null;
             }
 
-            $gameEquipment = $this->gameEquipmentService->createGameEquipment(
-                equipmentConfig: $equipment,
+            $this->gameEquipmentService->createGameEquipment(
+                equipmentConfig: $equipmentConfig,
                 holder: $place,
                 reasons: $reasons,
                 time: $time,

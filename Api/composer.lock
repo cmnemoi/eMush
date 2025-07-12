@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e070f120e41b23b9aa80546913438681",
+    "content-hash": "a503f831ae14ed8b2d9c67a27e0bbf6f",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -118,7 +118,7 @@
         },
         {
             "name": "cmnemoi/api-platform-core",
-            "version": "2.7.19",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cmnemoi/api-platform-core.git",
@@ -232,6 +232,7 @@
                 "symfony/web-profiler-bundle": "To use the data collector.",
                 "webonyx/graphql-php": "To support GraphQL."
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "symfony": {
@@ -274,7 +275,7 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/cmnemoi/api-platform-core/tree/2.7.19"
+                "source": "https://github.com/cmnemoi/api-platform-core/tree/v2.7.19"
             },
             "funding": [
                 {
@@ -16379,7 +16380,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "cmnemoi/api-platform-core": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

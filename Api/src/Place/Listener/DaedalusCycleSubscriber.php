@@ -77,24 +77,34 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
 
         /** @var Place $room */
         foreach ($this->randomService->getRandomElements($roomsOnFire->toArray(), $roomsOnFire->count()) as $room) {
-            if ($maxFireSpread >= 1) {
-                if ($this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())) {
-                    $adjacentRoomsNotOnFire = $room->getAdjacentRoomsAsPlaceCollection()->getAllWithoutStatus(StatusEnum::FIRE);
-                    if (!$adjacentRoomsNotOnFire->isEmpty()) {
-                        /** @var Place $spreadingRoom */
-                        $spreadingRoom = $this->randomService->getRandomElement($adjacentRoomsNotOnFire->toArray());
-
-                        $this->statusService->createStatusFromName(
-                            StatusEnum::FIRE,
-                            $spreadingRoom,
-                            [RoomEventEnum::PROPAGATING_FIRE],
-                            $event->getTime()
-                        );
-
-                        --$maxFireSpread;
-                    }
-                }
+            if ($maxFireSpread === 0) {
+                // maximum number of spreading fires reached
+                return;
             }
+            if (!$this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())) {
+                // fire failed to spread
+                return;
+            }
+            $adjacentRoomsNotOnFire = $room->getAdjacentRoomsAsPlaceCollection()->getAllWithoutStatus(StatusEnum::FIRE);
+            if ($adjacentRoomsNotOnFire->isEmpty()) {
+                // there is no free room to spread to
+                return;
+            }
+
+            // select a random available room to spread to...
+            /** @var Place $spreadingRoom */
+            $spreadingRoom = $this->randomService->getRandomElement($adjacentRoomsNotOnFire->toArray());
+
+            // create the fire...
+            $this->statusService->createStatusFromName(
+                StatusEnum::FIRE,
+                $spreadingRoom,
+                [RoomEventEnum::PROPAGATING_FIRE],
+                $event->getTime()
+            );
+
+            // and lower the number of available fire spreads left
+            --$maxFireSpread;
         }
     }
 }

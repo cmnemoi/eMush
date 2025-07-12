@@ -78,17 +78,17 @@ class DaedalusCycleSubscriber implements EventSubscriberInterface
         /** @var Place $room */
         foreach ($this->randomService->getRandomElements($roomsOnFire->toArray(), $roomsOnFire->count()) as $room) {
             if ($maxFireSpread === 0) {
-                // maximum number of spreading fires reached
+                // maximum number of spreading fires reached, stopping foreach
                 return;
             }
             if (!$this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())) {
-                // fire failed to spread
-                return;
+                // fire failed to spread, moving to next fire
+                continue;
             }
             $adjacentRoomsNotOnFire = $room->getAdjacentRoomsAsPlaceCollection()->getAllWithoutStatus(StatusEnum::FIRE);
             if ($adjacentRoomsNotOnFire->isEmpty()) {
-                // there is no free room to spread to
-                return;
+                // there is no free room to spread to, moving to next fire
+                continue;
             }
 
             // select a random available room to spread to...

@@ -24,6 +24,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
+use Mush\Place\Listener\DaedalusCycleSubscriber;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -58,12 +59,14 @@ final class CycleEventCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $equipmentService;
     private StatusCycleSubscriber $cycleSubscriber;
+    private DaedalusCycleSubscriber $daedalusPlaceCycleSubscriber;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
         $this->cycleSubscriber = $I->grabService(StatusCycleSubscriber::class);
+        $this->daedalusPlaceCycleSubscriber = $I->grabService(DaedalusCycleSubscriber::class);
         $this->equipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
@@ -223,13 +226,12 @@ final class CycleEventCest extends AbstractFunctionalTest
         Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
 
         // when a new cycle passes
-        $cycleEvent = new StatusCycleEvent(
-            $fireStatus,
-            $this->chun->getPlace(),
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->daedalusPlaceCycleSubscriber->onNewCycle($cycleEvent);
 
         // then the fire should have propagated to the Front Corridor
         $I->assertTrue($frontCorridor->hasStatus(StatusEnum::FIRE));
@@ -254,16 +256,63 @@ final class CycleEventCest extends AbstractFunctionalTest
         Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
 
         // when a new cycle passes
-        $cycleEvent = new StatusCycleEvent(
-            $fireStatus,
-            $this->chun->getPlace(),
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
             [EventEnum::NEW_CYCLE],
             new \DateTime()
         );
-        $this->cycleSubscriber->onNewCycle($cycleEvent);
+        $this->daedalusPlaceCycleSubscriber->onNewCycle($cycleEvent);
 
         // then propagated fire should be inactive
-        $I->assertEquals(0, $frontCorridor->getStatusByName(StatusEnum::FIRE)->getCharge());
+        $I->assertEquals(0, $frontCorridor->getChargeStatusByName(StatusEnum::FIRE)->getCharge());
+    }
+
+    public function testFireShouldOnlyPropagateOncePerCycle(FunctionalTester $I): void
+    {
+        // given fire has a 100% chance to propagate
+        $difficultyConfig = $this->daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setPropagatingFireRate(100);
+
+        // given Chun's room has a door to the Front Corridor
+        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+        Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
+
+        // given Front Corridor has a door to the Hydroponic Garden
+        $garden = $this->createExtraPlace(RoomEnum::HYDROPONIC_GARDEN, $I, $this->daedalus);
+        Door::createFromRooms($garden, $frontCorridor);
+
+        // given Front Corridor has a door to the Bridge
+        $bridge = $this->createExtraPlace(RoomEnum::BRIDGE, $I, $this->daedalus);
+        Door::createFromRooms($bridge, $frontCorridor);
+
+        // given Front Corridorhas a door to the Medlab
+        $medlab = $this->createExtraPlace(RoomEnum::MEDLAB, $I, $this->daedalus);
+        Door::createFromRooms($medlab, $frontCorridor);
+
+        $rooms = [$this->chun->getPlace(), $frontCorridor, $garden, $bridge, $medlab];
+
+        // given Front Corridor is on fire
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $frontCorridor,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // then the fire should spread to one room at a time
+        $maxAmount = 5;
+
+        for ($amount = 1; $amount <= $maxAmount; ++$amount) {
+            $this->theTheNumberOfFireShouldBe($amount, $rooms, $I);
+
+            // when a new cycle passes
+            $cycleEvent = new DaedalusCycleEvent(
+                $this->daedalus,
+                [EventEnum::NEW_CYCLE],
+                new \DateTime()
+            );
+            $this->daedalusPlaceCycleSubscriber->onNewCycle($cycleEvent);
+        }
     }
 
     public function testBrokenEquipmentDoNotGetElectricChargesUpdatesAtCycleChange(FunctionalTester $I): void
@@ -579,5 +628,12 @@ final class CycleEventCest extends AbstractFunctionalTest
     {
         $I->assertEquals($AP, $this->chun->getActionPoint());
         $I->assertEquals($MP, $this->chun->getMovementPoint());
+    }
+
+    private function theTheNumberOfFireShouldBe(int $amount, array $rooms, FunctionalTester $I): void
+    {
+        $roomsOnFire = array_filter($rooms, static fn ($room) => $room->hasStatus(StatusEnum::FIRE));
+
+        $I->assertCount($amount, $roomsOnFire, 'Fire should have spread ' . $amount . ' times but has spread ' . \count($roomsOnFire) . ' times instead.');
     }
 }

@@ -5,7 +5,6 @@ namespace Mush\Status\CycleHandler;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Event\DaedalusVariableEvent;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
-use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
@@ -56,76 +55,14 @@ final readonly class Fire extends AbstractStatusCycleHandler
         }
 
         // if Auto Watering project is finished and random draw is successful, the fire is extinguished.
-        $daedalus = $statusHolder->getDaedalus();
-        $autoWatering = $daedalus->getProjectByName(ProjectName::AUTO_WATERING);
-        if ($autoWatering->isFinished() && $this->randomService->isSuccessful($autoWatering->getActivationRate())) {
-            $this->statusService->removeStatus(
-                statusName: $this->name,
-                holder: $statusHolder,
-                tags: [StatusEnum::FIRE],
-                time: $dateTime
-            );
-            $this->statusService->createOrIncrementChargeStatus(
-                name: DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES,
-                holder: $daedalus,
-                time: $dateTime
-            );
-
+        if ($this->isFireKilledByProject($statusHolder, $dateTime)) {
             return;
         }
 
-        // Only active fires should propagate and damage.
-        if ($status->getCharge() === 0) {
-            return;
-        }
-
-        // The fire is then active. Damage existing room then propagate new fires.
         $this->fireDamage($statusHolder, $dateTime);
-        $this->propagateFire($statusHolder, $dateTime);
     }
 
     public function handleNewDay(Status $status, StatusHolderInterface $statusHolder, \DateTime $dateTime): void {}
-
-    private function propagateFire(Place $room, \DateTime $date): void
-    {
-        $allFires = $room->getDaedalus()->getRooms()->filter(fn (Place $place) => $place->hasStatus($this->name));
-        $difficultyConfig = $room->getDaedalus()->getGameConfig()->getDifficultyConfig();
-        // Get the lowest number between actual fires or the rate allowed by the difficulty.
-        $maxPropagation = min($difficultyConfig->getMaximumAllowedSpreadingFires(), $allFires->count());
-
-        /** @var Place $roomToPropagate */
-        foreach ($this->randomService->getRandomElements($allFires->toArray(), $maxPropagation) as $roomToPropagate) {
-            if (!$this->randomService->isSuccessful($difficultyConfig->getPropagatingFireRate())) {
-                // Next room.
-                continue;
-            }
-
-            // The random service has taken the lead, the fire will propagate but where? So:
-            // Get all adjacent rooms that are not on fire. Then:
-            $adjacentCleanRooms = $roomToPropagate
-                ->getDoors()
-                // The filter only remove the doors who have the other room not in fire.
-                ->filter(fn (Door $door) => !$door->getOtherRoom($roomToPropagate)->hasStatus($this->name))
-                // So I ask to have the other room in the array.
-                ->map(static fn (Door $door) => $door->getOtherRoom($roomToPropagate));
-
-            // No luck for this loop, check for another fire.
-            if ($adjacentCleanRooms->isEmpty()) {
-                continue;
-            }
-
-            /** @var Place $randomCleanRoom */
-            $randomCleanRoom = $this->randomService->getRandomElement($adjacentCleanRooms->toArray());
-
-            // Bring fire and destruction.
-            $this->statusService->createStatusFromName(
-                $this->name,
-                $randomCleanRoom,
-                [RoomEventEnum::PROPAGATING_FIRE],
-                $date
-            );
-        }
-    }
 
     private function fireDamage(Place $room, \DateTime $date): void
     {
@@ -162,5 +99,28 @@ final readonly class Fire extends AbstractStatusCycleHandler
             $this->eventService->callEvent($daedalusEvent, VariableEventInterface::CHANGE_VARIABLE);
             $this->daedalusService->persist($room->getDaedalus());
         }
+    }
+
+    private function isFireKilledByProject(StatusHolderInterface $statusHolder, \DateTime $dateTime): bool
+    {
+        $daedalus = $statusHolder->getDaedalus();
+        $autoWatering = $daedalus->getProjectByName(ProjectName::AUTO_WATERING);
+        if ($autoWatering->isFinished() && $this->randomService->isSuccessful($autoWatering->getActivationRate())) {
+            $this->statusService->removeStatus(
+                statusName: $this->name,
+                holder: $statusHolder,
+                tags: [StatusEnum::FIRE],
+                time: $dateTime
+            );
+            $this->statusService->createOrIncrementChargeStatus(
+                name: DaedalusStatusEnum::AUTO_WATERING_KILLED_FIRES,
+                holder: $daedalus,
+                time: $dateTime
+            );
+
+            return true;
+        }
+
+        return false;
     }
 }

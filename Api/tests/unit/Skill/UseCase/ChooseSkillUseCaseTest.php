@@ -156,9 +156,9 @@ final class ChooseSkillUseCaseTest extends TestCase
     {
         $useCase = new ChooseSkillUseCase(
             new AddSkillToPlayerService(
-                $this->createStub(EventServiceInterface::class),
-                $this->createStub(GameEquipmentServiceInterface::class),
-                $this->createStub(ModifierCreationServiceInterface::class),
+                self::createStub(EventServiceInterface::class),
+                self::createStub(GameEquipmentServiceInterface::class),
+                self::createStub(ModifierCreationServiceInterface::class),
                 $this->playerRepository,
                 $this->skillConfigRepository,
                 new FakeStatusService(),

@@ -30,9 +30,9 @@ final class OpenCapsuleActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
@@ -51,7 +51,7 @@ final class OpenCapsuleActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

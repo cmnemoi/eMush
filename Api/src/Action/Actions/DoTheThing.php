@@ -16,6 +16,7 @@ use Mush\Action\Validator\IsSameGender;
 use Mush\Action\Validator\NumberPlayersAliveInRoom;
 use Mush\Action\Validator\Reach;
 use Mush\Disease\Entity\Collection\PlayerDiseaseCollection;
+use Mush\Disease\Entity\PlayerDisease;
 use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -302,8 +303,8 @@ class DoTheThing extends AbstractAction
 
     private function transmitStd(PlayerDiseaseCollection $stds, Player $target): void
     {
-        $draw = $this->randomService->getRandomElements($stds->toArray(), 1);
-        $std = reset($draw)->getDiseaseConfig();
+        /** @var PlayerDisease $std */
+        $std = $this->randomService->getRandomElement($stds->toArray());
 
         $this->createDiseaseBySexLog($target, $std->getName());
 

@@ -91,6 +91,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setMoralPoint(5)
             ->setMovementPoint(5)
             ->setSatiety(-7);
+        $I->haveInRepository($this->kuanTi);
 
         $this->givenKuanTiHasANonStandardRation($I);
 

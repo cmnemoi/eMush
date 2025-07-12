@@ -21,7 +21,7 @@ final class FlirtedAlreadyValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new FlirtedAlreadyValidator();
         $this->constraint = new FlirtedAlready();
@@ -30,7 +30,7 @@ final class FlirtedAlreadyValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -128,7 +128,7 @@ final class DaedalusCycleEventSubscriberTest extends TestCase
             time: new \DateTime(),
         );
         $subscriber = new DaedalusCycleEventSubscriber(
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             $this->projectRepository,
         );
         $subscriber->onDaedalusNewCycle($event);

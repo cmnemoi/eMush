@@ -257,7 +257,7 @@ class DisorderConfigFixtures extends Fixture implements DependentFixtureInterfac
         $this->addReference(DisorderEnum::WEAPON_PHOBIA, $weaponPhobia);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             GameConfigFixtures::class,

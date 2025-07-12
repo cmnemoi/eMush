@@ -5,8 +5,10 @@ namespace Mush\Disease\SymptomHandler;
 use Mush\Action\Actions\Move;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Disease\Enum\SymptomEnum;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
@@ -49,12 +51,11 @@ class FearCats extends AbstractSymptomHandler
             return;
         }
 
-        // get random door
-        $selectedDoor = $this->randomService->getRandomElements($availableDoors, 1);
-        $randomDoor = reset($selectedDoor);
+        /** @var Door $randomDoor */
+        $randomDoor = $this->randomService->getRandomElement($availableDoors);
 
         /** @var ActionConfig $moveActionEntity */
-        $moveActionEntity = $randomDoor->getActions()->filter(static function (ActionConfig $action) {
+        $moveActionEntity = $randomDoor->getActions($player, ActionHolderEnum::EQUIPMENT)->filter(static function (ActionConfig $action) {
             return $action->getActionName() === ActionEnum::MOVE;
         })->first();
 

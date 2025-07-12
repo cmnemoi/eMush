@@ -67,7 +67,7 @@ final class FightTest extends TestCase
     private TranslationServiceInterface $translationService;
 
     /** @before */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
         $this->entityManager = \Mockery::spy(EntityManagerInterface::class);
@@ -87,7 +87,7 @@ final class FightTest extends TestCase
     }
 
     /** @after */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }
@@ -111,7 +111,7 @@ final class FightTest extends TestCase
             ->andReturn(true);
 
         // Then the disease cause service should be called to create a disease for the explorator
-        $disease = $this->createStub(PlayerDisease::class);
+        $disease = self::createStub(PlayerDisease::class);
         $disease->method('getName')->willReturn(DiseaseEnum::MIGRAINE);
 
         $this->diseaseCauseService->shouldReceive('handleDiseaseForCause')
@@ -163,7 +163,7 @@ final class FightTest extends TestCase
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
 
-        $player = $this->createStub(Player::class);
+        $player = self::createStub(Player::class);
         $player->method('getDaedalus')->willReturn($daedalus);
         $player->method('getName')->willReturn(CharacterEnum::CHUN);
         $player->method('hasOperationalEquipmentByName')->willReturn(true);

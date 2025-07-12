@@ -42,7 +42,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->consumableDiseaseRepository = \Mockery::mock(ConsumableDiseaseRepository::class);
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
@@ -58,7 +58,7 @@ final class ConsumableDiseaseServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

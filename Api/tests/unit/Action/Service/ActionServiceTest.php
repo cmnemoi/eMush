@@ -41,7 +41,7 @@ final class ActionServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->actionConfigRepository = \Mockery::mock(ActionConfigRepository::class);
@@ -58,7 +58,7 @@ final class ActionServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

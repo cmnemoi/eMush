@@ -56,12 +56,12 @@ final class RoomLogServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->d100Roll = new FakeD100Roll();
         $this->getRandomInteger = new FakeGetRandomInteger(result: 0);
         $this->repository = new InMemoryRoomLogRepository();
-        $this->translationService = $this->createStub(TranslationServiceInterface::class);
+        $this->translationService = self::createStub(TranslationServiceInterface::class);
 
         $this->service = new RoomLogService(
             $this->d100Roll,
@@ -74,7 +74,7 @@ final class RoomLogServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         $this->repository->clear();
     }
@@ -382,7 +382,7 @@ final class RoomLogServiceTest extends TestCase
 
         $actionEvent = new ActionEvent(
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
-            actionProvider: $this->createStub(ActionProviderInterface::class),
+            actionProvider: self::createStub(ActionProviderInterface::class),
             player: $player,
             tags: []
         );
@@ -415,7 +415,7 @@ final class RoomLogServiceTest extends TestCase
 
         $actionEvent = new ActionEvent(
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
-            actionProvider: $this->createStub(ActionProviderInterface::class),
+            actionProvider: self::createStub(ActionProviderInterface::class),
             player: $player,
             tags: []
         );
@@ -452,7 +452,7 @@ final class RoomLogServiceTest extends TestCase
 
         $actionEvent = new ActionEvent(
             actionConfig: ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::STRENGTHEN_HULL)),
-            actionProvider: $this->createStub(ActionProviderInterface::class),
+            actionProvider: self::createStub(ActionProviderInterface::class),
             player: $player,
             tags: [],
             actionTarget: $gameEquipment

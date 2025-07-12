@@ -25,9 +25,9 @@ final class WashInSinkActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
@@ -45,7 +45,7 @@ final class WashInSinkActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

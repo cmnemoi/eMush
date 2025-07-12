@@ -48,7 +48,7 @@ final class GameEquipmentServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->damageEquipmentService = \Mockery::mock(DamageEquipmentServiceInterface::class);
@@ -74,7 +74,7 @@ final class GameEquipmentServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

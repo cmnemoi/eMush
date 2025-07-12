@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Mechanics\Document:
-  shortName: 'Document'
-  description: 'eMush Document'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

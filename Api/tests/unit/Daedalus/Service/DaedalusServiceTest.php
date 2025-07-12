@@ -89,7 +89,7 @@ final class DaedalusServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
@@ -112,7 +112,7 @@ final class DaedalusServiceTest extends TestCase
             $this->localizationConfigRepository,
             $this->daedalusInfoRepository,
             $this->daedalusRepository,
-            $this->createStub(TitlePriorityRepositoryInterface::class),
+            self::createStub(TitlePriorityRepositoryInterface::class),
             $this->playerService,
             $this->statusService,
             $this->funFactsService
@@ -122,7 +122,7 @@ final class DaedalusServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

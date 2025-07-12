@@ -439,7 +439,7 @@ class DiseaseConfigFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(DiseaseEnum::ACID_REFLUX, $acidReflux);
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             GameConfigFixtures::class,

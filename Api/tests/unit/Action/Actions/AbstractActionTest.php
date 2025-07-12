@@ -38,7 +38,7 @@ abstract class AbstractActionTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->actionProvider = new Player();
         $this->action = new Action();
@@ -63,7 +63,7 @@ abstract class AbstractActionTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

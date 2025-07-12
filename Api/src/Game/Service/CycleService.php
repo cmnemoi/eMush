@@ -271,9 +271,9 @@ class CycleService implements CycleServiceInterface
     {
         $dateInterval = $dateEnd->diff($dateStart);
 
-        return (int) $dateInterval->format('%a') * 24 * 60 +
-                (int) $dateInterval->format('%H') * 60 +
-                (int) $dateInterval->format('%i');
+        return (int) $dateInterval->format('%a') * 24 * 60
+                + (int) $dateInterval->format('%H') * 60
+                + (int) $dateInterval->format('%i');
     }
 
     private function isDaedalusOrExplorationFinished(ClosedExploration $exploration): bool

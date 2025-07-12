@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\EquipmentMechanic:
-  shortName: 'Mechanics'
-  description: 'eMush Mechanics'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

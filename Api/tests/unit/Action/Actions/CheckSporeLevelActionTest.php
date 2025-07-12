@@ -20,9 +20,9 @@ final class CheckSporeLevelActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::CHECK_SPORE_LEVEL);
 
@@ -36,7 +36,7 @@ final class CheckSporeLevelActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

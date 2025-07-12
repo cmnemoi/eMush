@@ -1,6 +1,4 @@
 Mush\Game\Entity\VariableEventConfig:
-  shortName: 'VariableEventConfig'
-  description: 'eMush VariableEventConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'

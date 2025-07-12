@@ -337,9 +337,9 @@ final class RoomLogService implements RoomLogServiceInterface
         if ($drone->isUpgraded()) {
             $language = $drone->getDaedalus()->getLanguage();
             foreach ($drone->getUpgrades() as $upgrade) {
-                $upgrades = $upgrades .
-                '//' .
-                $this->translationService->translate(
+                $upgrades = $upgrades
+                . '//'
+                . $this->translationService->translate(
                     $upgrade->getName() . '.description',
                     [],
                     'status',
@@ -436,6 +436,11 @@ final class RoomLogService implements RoomLogServiceInterface
             $parameters['playerInfo'] = $parameters['playerInfo']->getId();
         }
 
-        return json_encode($parameters);
+        $data = json_encode($parameters);
+        if (!$data) {
+            throw new \Exception('Failed to encode parameters');
+        }
+
+        return $data;
     }
 }

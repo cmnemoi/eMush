@@ -33,7 +33,7 @@ final class EquipmentEffectServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->consumableEffectRepository = \Mockery::mock(ConsumableEffectRepository::class);
         $this->plantEffectRepository = \Mockery::mock(PlantEffectRepository::class);
@@ -49,7 +49,7 @@ final class EquipmentEffectServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

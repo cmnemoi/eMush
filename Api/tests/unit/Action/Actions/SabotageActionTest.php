@@ -33,9 +33,9 @@ final class SabotageActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
@@ -54,7 +54,7 @@ final class SabotageActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

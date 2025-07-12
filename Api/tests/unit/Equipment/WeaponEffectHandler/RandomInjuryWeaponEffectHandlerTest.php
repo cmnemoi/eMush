@@ -40,13 +40,13 @@ final class RandomInjuryWeaponEffectHandlerTest extends TestCase
         $this->daedalus = DaedalusFactory::createDaedalus();
 
         /** @var EventServiceInterface|Stub $eventService */
-        $eventService = $this->createStub(EventServiceInterface::class);
+        $eventService = self::createStub(EventServiceInterface::class);
 
         /** @var RandomServiceInterface|Stub $randomService */
-        $randomService = $this->createStub(RandomServiceInterface::class);
+        $randomService = self::createStub(RandomServiceInterface::class);
 
         /** @var ConsumableDiseaseServiceInterface|Stub $consumableDiseaseService */
-        $consumableDiseaseService = $this->createStub(ConsumableDiseaseServiceInterface::class);
+        $consumableDiseaseService = self::createStub(ConsumableDiseaseServiceInterface::class);
 
         $this->handler = new RandomInjuryWeaponEffectHandler(
             new DiseaseCauseService(

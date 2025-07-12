@@ -22,9 +22,9 @@ final class SelfHealTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::SELF_HEAL);
         $this->actionConfig->setOutputQuantity(3);
@@ -41,7 +41,7 @@ final class SelfHealTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

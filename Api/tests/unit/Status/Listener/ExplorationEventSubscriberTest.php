@@ -39,7 +39,7 @@ final class ExplorationEventSubscriberTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
@@ -63,7 +63,7 @@ final class ExplorationEventSubscriberTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }
@@ -80,7 +80,7 @@ final class ExplorationEventSubscriberTest extends TestCase
         // when I listen to the exploration finished event
         $explorationEventSubscriber = new ExplorationEventSubscriber(
             new FakeD100RollService(isSuccessful: true), // random roll for dirty status is successful
-            $this->createStub(EventServiceInterface::class),
+            self::createStub(EventServiceInterface::class),
             new FakeStatusService(),
         );
         $explorationEventSubscriber->onExplorationFinished($explorationEvent);

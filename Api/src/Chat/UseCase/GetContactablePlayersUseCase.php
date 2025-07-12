@@ -11,8 +11,8 @@ final class GetContactablePlayersUseCase
 {
     public function execute(Player $player): PlayerCollection
     {
-        return $player->hasMeansOfCommunication() ?
-            $player->getDaedalus()->getAlivePlayersWithMeansOfCommunication()->getAllExcept($player) :
-            $player->getAlivePlayersInRoomExceptSelf();
+        return $player->hasMeansOfCommunication()
+            ? $player->getDaedalus()->getAlivePlayersWithMeansOfCommunication()->getAllExcept($player)
+            : $player->getAlivePlayersInRoomExceptSelf();
     }
 }

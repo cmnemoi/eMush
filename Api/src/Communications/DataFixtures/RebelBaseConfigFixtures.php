@@ -88,7 +88,14 @@ final class RebelBaseConfigFixtures extends Fixture implements DependentFixtureI
     private function getRebelBaseConfigDtosFromFile(string $fileName): array
     {
         $jsonFile = file_get_contents($fileName);
+        if (!$jsonFile) {
+            throw new \Exception("Failed to read JSON file {$fileName}");
+        }
+
         $data = json_decode($jsonFile, true);
+        if (!\is_array($data)) {
+            throw new \Exception("Failed to decode JSON file {$fileName}");
+        }
 
         return array_map(static fn (array $data) => RebelBaseConfigDto::fromJson($data), $data);
     }

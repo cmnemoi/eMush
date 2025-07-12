@@ -31,9 +31,9 @@ final class ScrewTalkieActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::SCREW_TALKIE, 2);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
@@ -49,7 +49,7 @@ final class ScrewTalkieActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

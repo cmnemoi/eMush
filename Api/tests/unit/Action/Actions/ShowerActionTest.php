@@ -25,9 +25,9 @@ final class ShowerActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::TAKE_SHOWER, 2);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
@@ -45,7 +45,7 @@ final class ShowerActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

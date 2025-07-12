@@ -22,7 +22,7 @@ final class TriumphGainNormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->translationService = $this->createStub(TranslationServiceInterface::class);
+        $this->translationService = self::createStub(TranslationServiceInterface::class);
         $this->normalizer = new TriumphGainNormalizer($this->translationService);
     }
 

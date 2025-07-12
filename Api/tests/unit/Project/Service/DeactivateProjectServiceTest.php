@@ -26,7 +26,7 @@ final class DeactivateProjectServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->modifierDeletionService = $this->createStub(ModifierCreationServiceInterface::class);
+        $this->modifierDeletionService = self::createStub(ModifierCreationServiceInterface::class);
         $this->projectRepository = new InMemoryProjectRepository();
         $this->deactivateProjectService = new DeactivateProjectService(
             $this->modifierDeletionService,

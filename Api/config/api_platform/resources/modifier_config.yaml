@@ -1,6 +1,4 @@
 Mush\Modifier\Entity\Config\AbstractModifierConfig:
-  shortName: 'ModifierConfig'
-  description: 'eMush ModifierConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'

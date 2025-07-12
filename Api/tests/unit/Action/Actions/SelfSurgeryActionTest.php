@@ -49,17 +49,17 @@ final class SelfSurgeryActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::SELF_SURGERY);
         $this->randomService = \Mockery::mock(RandomServiceInterface::class);
 
         $playerDiseaseService = new PlayerDiseaseService(
-            d100Roll: $this->createStub(D100RollServiceInterface::class),
-            eventService: $this->createStub(EventServiceInterface::class),
-            randomService: $this->createStub(RandomServiceInterface::class),
+            d100Roll: self::createStub(D100RollServiceInterface::class),
+            eventService: self::createStub(EventServiceInterface::class),
+            randomService: self::createStub(RandomServiceInterface::class),
             playerDiseaseRepository: new InMemoryPlayerDiseaseRepository()
         );
         $probaCollectionRandomElementService = new ProbaCollectionRandomElementService(
@@ -67,8 +67,8 @@ final class SelfSurgeryActionTest extends AbstractActionTest
         );
 
         $this->diseaseCauseService = new DiseaseCauseService(
-            consumableDiseaseService: $this->createStub(ConsumableDiseaseServiceInterface::class),
-            d100Roll: $this->createStub(D100RollServiceInterface::class),
+            consumableDiseaseService: self::createStub(ConsumableDiseaseServiceInterface::class),
+            d100Roll: self::createStub(D100RollServiceInterface::class),
             probaCollectionRandomElement: $probaCollectionRandomElementService,
             playerDiseaseService: $playerDiseaseService,
         );
@@ -85,7 +85,7 @@ final class SelfSurgeryActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -2931,6 +2931,12 @@ class ActionData
 
     public static function getByName(ActionEnum $name): array
     {
-        return current(array_filter(self::$dataArray, static fn ($data) => $data['name'] === $name->value));
+        $data = current(array_filter(self::$dataArray, static fn ($data) => $data['name'] === $name->value));
+
+        if (!$data) {
+            throw new \Exception(\sprintf('Action %s not found', $name->value));
+        }
+
+        return $data;
     }
 }

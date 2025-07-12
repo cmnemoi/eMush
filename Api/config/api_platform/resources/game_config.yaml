@@ -1,6 +1,4 @@
 Mush\Game\Entity\GameConfig:
-  shortName: 'GameConfig'
-  description: 'eMush GameConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'

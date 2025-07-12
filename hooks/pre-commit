@@ -1,6 +1,6 @@
 #!/bin/sh
 
-EXPECTED_PHP_VERSION="8.3"
+EXPECTED_PHP_VERSION="8.4"
 
 check_local_commands() {
     if ! command -v php >/dev/null 2>&1; then

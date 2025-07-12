@@ -31,7 +31,7 @@ final class RationCycleHandlerTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
@@ -45,7 +45,7 @@ final class RationCycleHandlerTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -37,7 +37,7 @@ final class PlayerModifierSubscriberTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->playerVariableService = \Mockery::mock(PlayerVariableServiceInterface::class);
@@ -53,7 +53,7 @@ final class PlayerModifierSubscriberTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

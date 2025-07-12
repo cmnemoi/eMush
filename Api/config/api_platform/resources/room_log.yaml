@@ -1,6 +1,4 @@
 Mush\RoomLog\Entity\RoomLog:
-  shortName: 'RoomLog'
-  description: 'eMush RoomLogs'
   attributes:
     paginationEnabled: false
     normalization_context:

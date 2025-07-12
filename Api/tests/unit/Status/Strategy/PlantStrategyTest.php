@@ -36,7 +36,7 @@ final class PlantStrategyTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->youngStatus = $this->createYoungStatusForPlantInGarden();
         $this->daedalus = $this->youngStatus->getOwner()->getDaedalus();
@@ -53,7 +53,7 @@ final class PlantStrategyTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         $this->statusService->statuses->clear();
     }

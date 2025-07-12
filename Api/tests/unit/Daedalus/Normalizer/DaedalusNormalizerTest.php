@@ -46,7 +46,7 @@ final class DaedalusNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->cycleService = \Mockery::mock(CycleServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
@@ -61,7 +61,7 @@ final class DaedalusNormalizerTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }
@@ -108,12 +108,12 @@ final class DaedalusNormalizerTest extends TestCase
             ->setDay(4)
             ->setDaedalusVariables($daedalusConfig);
 
-        $explorator = $this->createStub(Player::class);
+        $explorator = self::createStub(Player::class);
         $explorator->method('getLogName')->willReturn('roland');
         $explorator->method('hasStatus')->willReturn(false);
         $explorator->method('getDaedalus')->willReturn($daedalus);
 
-        $exploration = $this->createStub(Exploration::class);
+        $exploration = self::createStub(Exploration::class);
         $exploration->method('getAliveExplorators')->willReturn(new PlayerCollection([$explorator]));
         $exploration->method('getCycle')->willReturn(1);
         $exploration->method('getCycleLength')->willReturn(10);

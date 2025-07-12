@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Mechanics\Blueprint:
-  shortName: 'Blueprint'
-  description: 'eMush Blueprint'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

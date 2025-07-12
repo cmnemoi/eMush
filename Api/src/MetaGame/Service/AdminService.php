@@ -27,6 +27,10 @@ final class AdminService implements AdminServiceInterface
     public function putGameInMaintenance(): void
     {
         $handle = fopen($this->maintenanceFile, 'w');
+        if (!$handle) {
+            throw new \Exception('Failed to open maintenance file');
+        }
+
         fclose($handle);
     }
 

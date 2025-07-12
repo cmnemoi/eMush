@@ -1,6 +1,4 @@
 Mush\Disease\Entity\Config\DiseaseCauseConfig:
-  shortName: 'DiseaseCauseConfig'
-  description: 'eMush Disease Cause Config'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

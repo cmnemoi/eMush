@@ -30,7 +30,7 @@ final class UniqueCharacterTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->daedalusService = \Mockery::mock(DaedalusServiceInterface::class);
         $this->validator = new UniqueCharacterValidator($this->daedalusService);
@@ -39,7 +39,7 @@ final class UniqueCharacterTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

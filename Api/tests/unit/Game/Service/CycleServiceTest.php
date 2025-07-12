@@ -39,7 +39,7 @@ final class CycleServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
@@ -64,7 +64,7 @@ final class CycleServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

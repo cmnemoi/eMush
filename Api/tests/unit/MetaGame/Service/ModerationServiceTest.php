@@ -29,14 +29,14 @@ final class ModerationServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->entityManager = \Mockery::mock(EntityManager::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->service = new ModerationService(
             $this->entityManager,
-            $this->createStub(PlayerServiceInterface::class),
+            self::createStub(PlayerServiceInterface::class),
             $this->translationService
         );
     }
@@ -44,7 +44,7 @@ final class ModerationServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

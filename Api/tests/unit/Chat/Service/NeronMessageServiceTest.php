@@ -30,13 +30,13 @@ final class NeronMessageServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->channelRepository = new InMemoryChannelRepository();
         $this->neronCrazyRoll = new FakeD100Roll();
         $this->getRandomInteger = new FakeGetRandomInteger(result: 0);
         $this->messageRepository = new InMemoryMessageRepository();
-        $this->translationService = $this->createStub(TranslationServiceInterface::class);
+        $this->translationService = self::createStub(TranslationServiceInterface::class);
 
         $this->service = new NeronMessageService(
             $this->channelRepository,
@@ -50,7 +50,7 @@ final class NeronMessageServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         $this->channelRepository->clear();
         $this->messageRepository->clear();

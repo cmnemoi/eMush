@@ -36,9 +36,9 @@ final class AnonymushTest extends TestCase
     protected function setUp(): void
     {
         $this->daedalusNormalizer = new DaedalusNormalizer(
-            $this->createStub(CycleServiceInterface::class),
-            $this->createStub(TranslationServiceInterface::class),
-            $this->createStub(PlanetServiceInterface::class),
+            self::createStub(CycleServiceInterface::class),
+            self::createStub(TranslationServiceInterface::class),
+            self::createStub(PlanetServiceInterface::class),
         );
 
         $this->givenAMushPlayer();

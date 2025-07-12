@@ -24,7 +24,7 @@ final class ProposeNewNeronProjectsUseCaseTest extends TestCase
     /**
      * @before
      */
-    public function _before(): void
+    protected function setUp(): void
     {
         $this->projectRepository = new InMemoryProjectRepository();
 
@@ -37,7 +37,7 @@ final class ProposeNewNeronProjectsUseCaseTest extends TestCase
     /**
      * @after
      */
-    public function _after(): void
+    protected function tearDown(): void
     {
         $this->projectRepository->clear();
     }

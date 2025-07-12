@@ -258,9 +258,15 @@ abstract class TradeAssetConfigData
 
     public static function getByName(string $name): TradeAssetConfigDto
     {
-        return current(array_filter(
+        $data = current(array_filter(
             self::getAll(),
             static fn (TradeAssetConfigDto $tradeAssetConfigDto) => $tradeAssetConfigDto->name === $name
         ));
+
+        if (!$data) {
+            throw new \Exception(\sprintf('Trade asset %s not found', $name));
+        }
+
+        return $data;
     }
 }

@@ -1,6 +1,4 @@
 Mush\Game\Entity\AbstractEventConfig:
-  shortName: 'EventConfig'
-  description: 'eMush AbstractEventConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'

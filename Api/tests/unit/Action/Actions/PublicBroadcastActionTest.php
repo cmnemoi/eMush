@@ -27,9 +27,9 @@ final class PublicBroadcastActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::PUBLIC_BROADCAST);
         $this->actionConfig->setOutputQuantity(3);
@@ -47,7 +47,7 @@ final class PublicBroadcastActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

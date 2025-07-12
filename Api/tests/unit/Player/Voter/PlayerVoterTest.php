@@ -23,7 +23,7 @@ final class PlayerVoterTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->voter = new PlayerVoter();
     }

@@ -1,6 +1,4 @@
 Mush\Modifier\Entity\Config\EventModifierConfig:
-  shortName: 'EventModifierConfig'
-  description: 'eMush EventModifierConfig'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_USER")'

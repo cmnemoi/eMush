@@ -1,6 +1,4 @@
 Mush\Daedalus\Entity\ClosedDaedalus:
-  shortName: 'ClosedDaedalus'
-  description: 'eMush Closed Daedalus'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

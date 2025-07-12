@@ -233,9 +233,15 @@ abstract class TradeOptionConfigData
 
     public static function getByName(string $name): TradeOptionConfigDto
     {
-        return current(array_filter(
+        $data = current(array_filter(
             self::getAll(),
             static fn (TradeOptionConfigDto $tradeOptionConfigDto) => $tradeOptionConfigDto->name === $name
         ));
+
+        if (!$data) {
+            throw new \Exception(\sprintf('Trade option %s not found', $name));
+        }
+
+        return $data;
     }
 }

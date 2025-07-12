@@ -35,7 +35,7 @@ final class ModifierRequirementServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->modifierRequirementHandlerService = \Mockery::mock(ModifierRequirementHandlerServiceInterface::class);
 
@@ -47,7 +47,7 @@ final class ModifierRequirementServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

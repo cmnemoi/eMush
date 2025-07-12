@@ -37,7 +37,7 @@ final class RoomLogNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->translationService = new TranslationService();
         $this->currentDate = new \DateTime('2024-12-28T10:56:24+01:00');

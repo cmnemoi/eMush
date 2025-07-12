@@ -147,7 +147,7 @@ final class AnathemaCest extends AbstractFunctionalTest
     {
         $this->givenChunUsesAnathemaOnKuanTi();
 
-        $this->givenChunHasTriumph(10);
+        $this->givenChunHasTriumph(10, $I);
 
         $this->whenChunDies();
 
@@ -169,7 +169,7 @@ final class AnathemaCest extends AbstractFunctionalTest
     {
         $this->givenChunUsesAnathemaOnKuanTi();
 
-        $this->givenChunHasTriumph(10);
+        $this->givenChunHasTriumph(10, $I);
 
         $this->whenKuanTiDies();
 
@@ -180,7 +180,7 @@ final class AnathemaCest extends AbstractFunctionalTest
     {
         $this->givenChunUsesAnathemaOnKuanTi();
 
-        $this->givenChunHasTriumph(10);
+        $this->givenChunHasTriumph(10, $I);
 
         $this->whenReturningToSol();
 
@@ -202,9 +202,10 @@ final class AnathemaCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->kuanTi);
     }
 
-    private function givenChunHasTriumph(int $quantity): void
+    private function givenChunHasTriumph(int $quantity, FunctionalTester $I): void
     {
         $this->chun->setTriumph($quantity);
+        $I->haveInRepository($this->chun);
     }
 
     private function whenKuanTiAttemptsAction(): void

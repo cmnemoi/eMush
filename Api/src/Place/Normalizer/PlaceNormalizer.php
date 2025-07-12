@@ -263,6 +263,9 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $oldestItemUpdatedDate = new \DateTime();
         foreach ($statusesPiles as $pileName => $statusesPile) {
             $item = current($statusesPile);
+            if (!$item) {
+                throw new \Exception('Item is null');
+            }
 
             // The updated time of the pile is when the oldest item was updated
             // so the pile always stays at the same place in the shelf until the last item of it is picked up

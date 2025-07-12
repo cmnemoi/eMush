@@ -98,6 +98,11 @@ class AbstractGameEvent extends Event
         return $this;
     }
 
+    public function getFirstTag(): string
+    {
+        return $this->tags[0];
+    }
+
     public function addTag(string $tag): self
     {
         if (!$this->hasTag($tag)) {

@@ -23,9 +23,9 @@ final class PhagocyteTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
 
@@ -40,7 +40,7 @@ final class PhagocyteTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -1,6 +1,7 @@
-
 #IDE
 .idea
+.vscode/
+.cursor/
 
 
 # Ignore MacOS files
@@ -11,6 +12,7 @@ Desktop.ini
 
 *.swp
 
+.php-cs-fixer.cache
 
 dist/
 node_modules
@@ -19,23 +21,18 @@ node_modules
 
 *.pem
 
-#Allow people to change the docker-compose.dev.yml
+#Allow people to change the compose.dev.yml
 docker/docker-compose.dev.yml
 
-.php_cs.cache
-
-.phpunit.result.cache
-.vscode/
 *.sql
-
-vendor/
-.psalm/
 
 TODO.md
 
 # .log files
 *.log
 
+# AI stuff
 .aider*
-
 .windsurfrules
+project-guidelines.md
+AGENT.md

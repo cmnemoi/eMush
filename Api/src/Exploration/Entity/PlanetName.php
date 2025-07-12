@@ -131,6 +131,12 @@ class PlanetName
 
     public function toString(): string
     {
-        return json_encode($this->toArray());
+        $data = json_encode($this->toArray());
+
+        if (!$data) {
+            throw new \Exception('Failed to encode planet name');
+        }
+
+        return $data;
     }
 }

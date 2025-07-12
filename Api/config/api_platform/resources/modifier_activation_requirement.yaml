@@ -1,6 +1,4 @@
 Mush\Modifier\Entity\Config\ModifierActivationRequirement:
-  shortName: 'ModifierActivationRequirement'
-  description: 'eMush modifierActivationRequirement'
   attributes:
     pagination_items_per_page: 25
     security: 'is_granted("ROLE_MODERATOR")'

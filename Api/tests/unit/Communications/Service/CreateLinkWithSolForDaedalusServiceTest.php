@@ -19,7 +19,7 @@ final class CreateLinkWithSolForDaedalusServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $eventService = $this->createStub(EventServiceInterface::class);
+        $eventService = self::createStub(EventServiceInterface::class);
         $this->linkWithSolRepository = new InMemoryLinkWithSolRepository();
         $this->createLinkWithSolForDaedalusService = new CreateLinkWithSolForDaedalusService(
             $eventService,

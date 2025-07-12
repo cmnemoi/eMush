@@ -31,9 +31,9 @@ final class LandActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::LAND, 2, 0);
         $this->actionConfig->setCriticalRate(20);
@@ -45,7 +45,7 @@ final class LandActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->createStub(PatrolShipManoeuvreServiceInterface::class),
+            self::createStub(PatrolShipManoeuvreServiceInterface::class),
             $this->playerService,
             $this->randomService,
         );
@@ -54,7 +54,7 @@ final class LandActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

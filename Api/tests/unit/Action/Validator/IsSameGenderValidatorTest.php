@@ -30,7 +30,7 @@ final class IsSameGenderValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new IsSameGenderValidator();
         $this->constraint = new IsSameGender();
@@ -39,7 +39,7 @@ final class IsSameGenderValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

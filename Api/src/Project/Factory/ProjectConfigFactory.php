@@ -98,9 +98,14 @@ final class ProjectConfigFactory
 
     private static function getConfigDataFromName(ProjectName $name): array
     {
-        return current(array_filter(
+        $data = current(array_filter(
             ProjectConfigData::getAll(),
             static fn ($config) => $config['name'] === $name
         ));
+        if (!$data) {
+            throw new \Exception("Project config {$name->toString()} not found");
+        }
+
+        return $data;
     }
 }

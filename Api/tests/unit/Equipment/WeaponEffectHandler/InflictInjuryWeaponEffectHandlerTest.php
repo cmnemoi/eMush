@@ -43,8 +43,8 @@ final class InflictInjuryWeaponEffectHandlerTest extends TestCase
         $this->d100Roll = new FakeD100RollService();
         $playerDiseaseService = new PlayerDiseaseService(
             d100Roll: new FakeD100RollService(),
-            eventService: $this->createStub(EventServiceInterface::class),
-            randomService: $this->createStub(RandomServiceInterface::class),
+            eventService: self::createStub(EventServiceInterface::class),
+            randomService: self::createStub(RandomServiceInterface::class),
             playerDiseaseRepository: new InMemoryPlayerDiseaseRepository(),
         );
 

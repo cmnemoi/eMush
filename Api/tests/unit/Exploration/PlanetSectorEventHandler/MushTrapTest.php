@@ -52,7 +52,7 @@ final class MushTrapTest extends TestCase
     private TranslationServiceInterface $translationService;
 
     /** @before */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->entityManager = \Mockery::spy(EntityManagerInterface::class);
         $this->eventService = \Mockery::spy(EventServiceInterface::class);
@@ -68,7 +68,7 @@ final class MushTrapTest extends TestCase
     }
 
     /** @after */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }
@@ -123,7 +123,7 @@ final class MushTrapTest extends TestCase
         $daedalus = new Daedalus();
         new DaedalusInfo($daedalus, new GameConfig(), new LocalizationConfig());
 
-        $player = $this->createStub(Player::class);
+        $player = self::createStub(Player::class);
         $player->method('getDaedalus')->willReturn($daedalus);
         $player->method('getName')->willReturn(CharacterEnum::KUAN_TI);
         $player->method('hasOperationalEquipmentByName')->willReturn(true);

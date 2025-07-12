@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Mechanics\Drug:
-  shortName: 'Drug'
-  description: 'eMush Drug'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

@@ -1,9 +1,9 @@
-FROM php:8.3-fpm
+FROM php:8.4-fpm
 
 ARG HOST_IP=host.docker.internal
 ARG UID=1000
 ARG GID=1000
-ARG PHP_VERSION=8.3
+ARG PHP_VERSION=8.4
 
 COPY php.ini /etc/php/${PHP_VERSION}/php.ini
 COPY php.ini /usr/local/etc/php/php.ini

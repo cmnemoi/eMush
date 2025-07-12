@@ -40,13 +40,13 @@ final class RepairBrokenEquipmentTaskTest extends TestCase
     protected function setUp(): void
     {
         /** @var EventService $stubEventService */
-        $stubEventService = $this->createStub(EventService::class);
+        $stubEventService = self::createStub(EventService::class);
 
         /** @var RoomLogServiceInterface $roomLogService */
-        $roomLogService = $this->createStub(RoomLogServiceInterface::class);
+        $roomLogService = self::createStub(RoomLogServiceInterface::class);
 
         /** @var TranslationServiceInterface $translationService */
-        $translationService = $this->createStub(TranslationServiceInterface::class);
+        $translationService = self::createStub(TranslationServiceInterface::class);
 
         $this->task = new RepairBrokenEquipmentTask(
             $stubEventService,

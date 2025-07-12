@@ -56,15 +56,15 @@ final class DiseaseCauseServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->consumableDiseaseService = \Mockery::mock(ConsumableDiseaseServiceInterface::class);
         $this->d100Roll = new FakeD100RollService();
         $this->probaCollectionRandomElement = new ProbaCollectionRandomElementService(new FakeGetRandomIntegerService(result: 0));
         $this->playerDiseaseRepository = new InMemoryPlayerDiseaseRepository();
 
-        $eventService = $this->createStub(EventServiceInterface::class);
-        $randomService = $this->createStub(RandomServiceInterface::class);
+        $eventService = self::createStub(EventServiceInterface::class);
+        $randomService = self::createStub(RandomServiceInterface::class);
 
         $this->playerDiseaseService = new PlayerDiseaseService(
             d100Roll: $this->d100Roll,
@@ -84,7 +84,7 @@ final class DiseaseCauseServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         $this->playerDiseaseRepository->clear();
         \Mockery::close();

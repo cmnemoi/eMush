@@ -48,7 +48,7 @@ final class EventServiceTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->eventDispatcherService = \Mockery::mock(EventDispatcherInterface::class);
         $this->eventModifierService = \Mockery::mock(EventModifierServiceInterface::class);
@@ -65,7 +65,7 @@ final class EventServiceTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

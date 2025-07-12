@@ -12,15 +12,21 @@
         <directory name="src"/>
         <ignoreFiles>
             <directory name="vendor"/>
-            <file name="vendor/doctrine/orm/src/EntityRepository.php"/>
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>
-        <InvalidDocblock>
-            <errorLevel type="suppress">
-                <file name="vendor/doctrine/orm/src/EntityRepository.php"/>
+        <MissingOverrideAttribute>
+            <errorLevel type="info">
+                <directory name="src/"/>
             </errorLevel>
-        </InvalidDocblock>
+        </MissingOverrideAttribute>
+        <InvalidOperand>
+            <errorLevel type="info">
+                <directory name="src/"/>
+            </errorLevel>
+        </InvalidOperand>
     </issueHandlers>
-    <plugins><pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/></plugins>
+    <plugins>
+        <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
+    </plugins>
 </psalm>

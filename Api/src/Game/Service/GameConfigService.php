@@ -26,6 +26,9 @@ class GameConfigService implements GameConfigServiceInterface
         return $gameConfig;
     }
 
+    /**
+     * @psalm-suppress UndefinedMagicMethod
+     */
     public function getConfigByName(string $name): GameConfig
     {
         return $this->repository->findOneByName($name);

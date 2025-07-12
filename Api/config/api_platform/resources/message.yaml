@@ -1,6 +1,4 @@
 Mush\Chat\Entity\Message:
-  shortName: 'Message'
-  description: 'eMush Messages'
   attributes:
     paginationEnabled: false
     normalization_context:

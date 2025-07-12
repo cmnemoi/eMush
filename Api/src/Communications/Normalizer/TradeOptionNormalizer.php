@@ -66,8 +66,8 @@ final class TradeOptionNormalizer implements NormalizerInterface
                 domain: 'trade',
                 language: $language,
             ),
-            'tradeConditionsAreNotMet' => !$this->areTradeOptionConditionsAreMet->execute($currentPlayer, $tradeOption->getId()) ?
-                $this->translationService->translate(
+            'tradeConditionsAreNotMet' => !$this->areTradeOptionConditionsAreMet->execute($currentPlayer, $tradeOption->getId())
+                ? $this->translationService->translate(
                     key: 'trade_conditions_not_met',
                     parameters: [],
                     domain: 'trade',

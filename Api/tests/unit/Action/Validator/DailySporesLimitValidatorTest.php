@@ -24,7 +24,7 @@ final class DailySporesLimitValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new DailySporesLimitValidator();
         $this->constraint = new DailySporesLimit();
@@ -33,7 +33,7 @@ final class DailySporesLimitValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

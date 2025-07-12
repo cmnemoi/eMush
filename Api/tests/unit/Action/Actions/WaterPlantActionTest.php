@@ -27,9 +27,9 @@ final class WaterPlantActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::WATER_PLANT, 1);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
@@ -45,7 +45,7 @@ final class WaterPlantActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -33,18 +33,18 @@ final class DeadPlayerNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->normalizer = new DeadPlayerNormalizer($this->translationService);
-        $this->normalizer->setNormalizer($this->createStub(NormalizerInterface::class));
+        $this->normalizer->setNormalizer(self::createStub(NormalizerInterface::class));
     }
 
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

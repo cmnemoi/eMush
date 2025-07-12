@@ -54,7 +54,7 @@ final class StatusServiceTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
@@ -70,7 +70,7 @@ final class StatusServiceTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -25,9 +25,9 @@ final class ConsumeActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::CONSUME);
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
@@ -42,7 +42,7 @@ final class ConsumeActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -50,7 +50,7 @@ final class ActionSubscriberTest extends TestCase
         $this->playerRepository = new InMemoryPlayerRepository();
         $this->roomLogRepository = new InMemoryRoomLogRepository();
         $this->roomLogServiceD100Roll = new FakeD100Roll();
-        $translationService = $this->createStub(TranslationServiceInterface::class);
+        $translationService = self::createStub(TranslationServiceInterface::class);
 
         $this->roomLogService = new RoomLogService(
             $this->roomLogServiceD100Roll,

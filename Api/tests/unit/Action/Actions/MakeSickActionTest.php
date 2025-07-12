@@ -22,9 +22,9 @@ final class MakeSickActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::MAKE_SICK);
         $this->diseaseCauseService = \Mockery::mock(DiseaseCauseServiceInterface::class);
@@ -40,7 +40,7 @@ final class MakeSickActionTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

@@ -37,7 +37,7 @@ final class HunterPoolEventSubscriberTest extends TestCase
     {
         $this->channelRepository = new InMemoryChannelRepository();
         $this->messageRepository = new InMemoryMessageRepository();
-        $translationService = $this->createStub(TranslationServiceInterface::class);
+        $translationService = self::createStub(TranslationServiceInterface::class);
         $this->neronMessageService = new NeronMessageService(
             channelRepository: $this->channelRepository,
             d100RollService: new FakeD100RollService(),

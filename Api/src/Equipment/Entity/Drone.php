@@ -113,7 +113,7 @@ class Drone extends GameItem
             return 100;
         }
 
-        return (int) min($baseSuccessRate * self::ATTEMPT_INCREASE ** $this->getFailedRepairAttempts(), 99);
+        return (int) min($baseSuccessRate * self::ATTEMPT_INCREASE ** (float) $this->getFailedRepairAttempts(), 99);
     }
 
     public function getExtinguishFireSuccessRate(ActionConfigRepositoryInterface $actionConfigRepository): int

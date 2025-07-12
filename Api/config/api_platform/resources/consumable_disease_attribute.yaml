@@ -1,6 +1,4 @@
 Mush\Disease\Entity\ConsumableDiseaseAttribute:
-  shortName: 'ConsumableDiseaseAttribute'
-  description: 'eMush Consumable Disease Attribute'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

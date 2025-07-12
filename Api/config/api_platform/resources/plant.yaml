@@ -1,6 +1,4 @@
 Mush\Equipment\Entity\Mechanics\Plant:
-  shortName: 'Plant'
-  description: 'eMush Plant'
   attributes:
     pagination_items_per_page: 25
     normalization_context:

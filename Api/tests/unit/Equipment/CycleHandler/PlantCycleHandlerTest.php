@@ -57,7 +57,7 @@ final class PlantCycleHandlerTest extends TestCase
     /**
      * @before
      */
-    public function before(): void
+    protected function setUp(): void
     {
         $this->eventService = \Mockery::mock(EventServiceInterface::class);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
@@ -81,7 +81,7 @@ final class PlantCycleHandlerTest extends TestCase
     /**
      * @after
      */
-    public function after(): void
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

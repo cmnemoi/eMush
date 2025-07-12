@@ -127,6 +127,8 @@ final class PrintZeList extends AbstractAction
     private function translatedList(): string
     {
         $selectedPlayers = $this->selectedPlayers();
+
+        /** @var Player $lastPlayer */
         $lastPlayer = array_pop($selectedPlayers);
 
         $translatedFirstPlayers = array_map(

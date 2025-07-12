@@ -2,7 +2,6 @@
 
 namespace Mush\Disease\SymptomHandler;
 
-use Mush\Action\Actions\Attack;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
@@ -34,36 +33,69 @@ class PsychoticAttack extends AbstractSymptomHandler
         array $tags,
         \DateTime $time
     ): void {
-        $attackEvent = $this->makePlayerRandomlyAttacking($player);
-        $shootEvent = $this->makePlayerRandomlyShooting($player);
+        $possibleEvents = [];
 
-        // check if those events are possible. If both, randomly pick one
-        if ($attackEvent === null && $shootEvent === null) {
+        if ($attackEvent = $this->createViolentActionEvent($player, ItemEnum::KNIFE, ActionEnum::ATTACK->value)) {
+            $possibleEvents[] = $attackEvent;
+        }
+
+        if ($shootEvent = $this->createViolentActionEvent($player, ItemEnum::BLASTER, ActionEnum::SHOOT->value)) {
+            $possibleEvents[] = $shootEvent;
+        }
+
+        if (\count($possibleEvents) === 0) {
             return;
         }
-        if (
-            $attackEvent !== null
-            && ($shootEvent === null || $this->randomService->isSuccessful(50))
-        ) {
-            $this->eventService->callEvent($attackEvent, $attackEvent->getEventName());
-        } else {
-            $this->eventService->callEvent($shootEvent, $shootEvent->getEventName());
+
+        $eventToTrigger = $possibleEvents[array_rand($possibleEvents)];
+
+        $this->eventService->callEvent($eventToTrigger, $eventToTrigger->getEventName());
+    }
+
+    private function createViolentActionEvent(Player $player, string $weaponName, string $actionName): ?ActionEvent
+    {
+        $victim = $this->drawRandomPlayerInRoom($player);
+        if ($victim === null) {
+            return null;
         }
+
+        $weapon = $this->getPlayerWeapon($player, $weaponName);
+        if ($weapon === null) {
+            return null;
+        }
+
+        /** @var ActionConfig $actionConfig */
+        $actionConfig = $weapon->getEquipment()->getActionConfigs()->filter(
+            static fn (ActionConfig $action) => $action->getActionName()->toString() === $actionName
+        )->first();
+
+        if (!$actionConfig instanceof ActionConfig) {
+            throw new \Exception("Player {$player->getName()} with weapon {$weaponName} should have a {$actionName} action");
+        }
+
+        $tags = $actionConfig->getActionTags();
+        $tags[] = $this->name;
+
+        $actionEvent = new ActionEvent(
+            actionConfig: $actionConfig,
+            actionProvider: $weapon,
+            player: $player,
+            tags: $tags,
+            actionTarget: $victim
+        );
+        $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
+
+        return $actionEvent;
     }
 
     private function drawRandomPlayerInRoom(Player $player): ?Player
     {
-        $otherPlayersInRoom = $player->getPlace()->getPlayers()->getPlayerAlive()->filter(static function (Player $p) use ($player) {
-            return $p !== $player;
-        })->toArray();
-
-        if (\count($otherPlayersInRoom) === 0) {
+        $otherPlayersInRoom = $player->getPlace()->getAlivePlayers()->getAllExcept($player);
+        if ($otherPlayersInRoom->isEmpty()) {
             return null;
         }
 
-        $draw = $this->randomService->getRandomElements($otherPlayersInRoom, 1);
-
-        return reset($draw);
+        return $this->randomService->getRandomPlayer($otherPlayersInRoom);
     }
 
     private function getPlayerWeapon(Player $player, string $weapon): ?GameEquipment
@@ -77,85 +109,5 @@ class PsychoticAttack extends AbstractSymptomHandler
         }
 
         return null;
-    }
-
-    /**
-     * This function takes a Player, draws a random player in its room and makes them attack the selected player.
-     * If the room is empty or if player doesn't have a knife, does nothing.
-     */
-    private function makePlayerRandomlyAttacking(Player $player): ?ActionEvent
-    {
-        $victim = $this->drawRandomPlayerInRoom($player);
-        if ($victim === null) {
-            return null;
-        }
-
-        $knife = $this->getPlayerWeapon($player, ItemEnum::KNIFE);
-        if ($knife === null) {
-            return null;
-        }
-
-        /** @var ActionConfig $attackActionEntity */
-        $attackActionEntity = $knife->getEquipment()->getActionConfigs()->filter(
-            static fn (ActionConfig $action) => $action->getActionName() === ActionEnum::ATTACK
-        )->first();
-
-        if (!$attackActionEntity instanceof ActionConfig) {
-            throw new \Exception('makePlayerRandomlyAttacking() : Player ' . $player->getName() . ' should have a Attack action');
-        }
-
-        $tags = $attackActionEntity->getActionTags();
-        $tags[] = $this->name;
-
-        $actionEvent = new ActionEvent(
-            actionConfig: $attackActionEntity,
-            actionProvider: $knife,
-            player: $player,
-            tags: $tags,
-            actionTarget: $victim
-        );
-        $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
-
-        return $actionEvent;
-    }
-
-    /**
-     * This function takes a Player, draws a random player in its room and makes them attack the selected player.
-     * If the room is empty or if player doesn't have a knife, does nothing.
-     */
-    private function makePlayerRandomlyShooting(Player $player): ?ActionEvent
-    {
-        $victim = $this->drawRandomPlayerInRoom($player);
-        if ($victim === null) {
-            return null;
-        }
-
-        $blaster = $this->getPlayerWeapon($player, ItemEnum::BLASTER);
-        if ($blaster === null) {
-            return null;
-        }
-
-        /** @var ActionConfig $shootActionEntity */
-        $shootActionEntity = $blaster->getEquipment()->getActionConfigs()->filter(
-            static fn (ActionConfig $action) => $action->getActionName() === ActionEnum::SHOOT
-        )->first();
-
-        if (!$shootActionEntity instanceof ActionConfig) {
-            throw new \Exception('makePlayerRandomlyShooting() : Player' . $player->getName() . 'should have a Shoot action');
-        }
-
-        $tags = $shootActionEntity->getActionTags();
-        $tags[] = $this->name;
-
-        $actionEvent = new ActionEvent(
-            actionConfig: $shootActionEntity,
-            actionProvider: $blaster,
-            player: $player,
-            tags: $tags,
-            actionTarget: $victim
-        );
-        $actionEvent->setEventName(ActionEvent::EXECUTE_ACTION);
-
-        return $actionEvent;
     }
 }

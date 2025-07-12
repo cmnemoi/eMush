@@ -30,9 +30,9 @@ final class ReadBookActionTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::READ_BOOK, 2);
 
@@ -42,17 +42,17 @@ final class ReadBookActionTest extends AbstractActionTest
             $this->eventService,
             $this->actionService,
             $this->validator,
-            $this->createStub(AddSkillToPlayerService::class),
-            $this->createStub(RoomLogServiceInterface::class),
-            $this->createStub(StatusServiceInterface::class),
-            $this->createStub(SkillConfigRepositoryInterface::class),
+            self::createStub(AddSkillToPlayerService::class),
+            self::createStub(RoomLogServiceInterface::class),
+            self::createStub(StatusServiceInterface::class),
+            self::createStub(SkillConfigRepositoryInterface::class),
         );
     }
 
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

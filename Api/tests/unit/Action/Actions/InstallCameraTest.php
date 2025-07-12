@@ -27,9 +27,9 @@ final class InstallCameraTest extends AbstractActionTest
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
-        parent::before();
+        parent::setUp();
 
         $this->createActionEntity(ActionEnum::INSTALL_CAMERA);
         $this->gameEquipmentService = \Mockery::mock(GameEquipmentServiceInterface::class);
@@ -45,7 +45,7 @@ final class InstallCameraTest extends AbstractActionTest
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

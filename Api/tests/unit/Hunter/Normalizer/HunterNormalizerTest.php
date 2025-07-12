@@ -43,7 +43,7 @@ final class HunterNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
         $this->tradeRepository = new InMemoryTradeRepository();
@@ -53,7 +53,7 @@ final class HunterNormalizerTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

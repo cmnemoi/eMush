@@ -30,7 +30,7 @@ final class ChargedValidatorTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->validator = new IsActionProviderOperationalValidator();
         $this->constraint = new IsActionProviderOperational();
@@ -39,7 +39,7 @@ final class ChargedValidatorTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

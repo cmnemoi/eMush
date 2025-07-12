@@ -74,6 +74,16 @@ final class RebelBaseConfigDataLoader extends ConfigDataLoader
      */
     private function getDtosFromJsonFile(string $fileName): array
     {
-        return array_map(static fn (array $data) => RebelBaseConfigDto::fromJson($data), json_decode(file_get_contents($fileName), true));
+        $data = file_get_contents($fileName);
+        if (!$data) {
+            throw new \Exception("Failed to read JSON file {$fileName}");
+        }
+
+        $data = json_decode($data, true);
+        if (!\is_array($data)) {
+            throw new \Exception("Failed to decode JSON file {$fileName}");
+        }
+
+        return array_map(static fn (array $data) => RebelBaseConfigDto::fromJson($data), $data);
     }
 }

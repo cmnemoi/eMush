@@ -34,7 +34,7 @@ final class OtherPlayerNormalizerTest extends TestCase
     /**
      * @before
      */
-    public function before()
+    protected function setUp(): void
     {
         $this->gearToolService = \Mockery::mock(GearToolServiceInterface::class);
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
@@ -46,7 +46,7 @@ final class OtherPlayerNormalizerTest extends TestCase
     /**
      * @after
      */
-    public function after()
+    protected function tearDown(): void
     {
         \Mockery::close();
     }

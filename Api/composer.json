@@ -8,7 +8,7 @@
         "ext-intl": "*",
         "ext-openssl": "*",
         "ext-protobuf": "*",
-        "api-platform/core": "3.0",
+        "cmnemoi/api-platform-core": "2.7.19",
         "composer/package-versions-deprecated": "^1.11.99.5",
         "doctrine/annotations": "^2.0.1",
         "doctrine/doctrine-bundle": "^2.12",

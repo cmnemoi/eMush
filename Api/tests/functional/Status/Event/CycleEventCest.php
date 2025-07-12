@@ -315,6 +315,65 @@ final class CycleEventCest extends AbstractFunctionalTest
         }
     }
 
+    public function testFireShouldOnlyPropagateUpToPropagationCapEachCycle(FunctionalTester $I): void
+    {
+        // given fire has a 100% chance to propagate
+        $difficultyConfig = $this->daedalus->getGameConfig()->getDifficultyConfig();
+        $difficultyConfig->setPropagatingFireRate(100);
+
+        // given fire spreading cap is 2
+        $difficultyConfig->setMaximumAllowedSpreadingFires(2);
+
+        // given three pairs of two rooms connected by doors
+        $frontCorridor = $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);
+        Door::createFromRooms($this->chun->getPlace(), $frontCorridor);
+
+        $rearCorridor = $this->createExtraPlace(RoomEnum::REAR_CORRIDOR, $I, $this->daedalus);
+        $rearStorage = $this->createExtraPlace(RoomEnum::REAR_ALPHA_STORAGE, $I, $this->daedalus);
+        Door::createFromRooms($rearStorage, $rearCorridor);
+
+        $alphaBay = $this->createExtraPlace(RoomEnum::ALPHA_BAY, $I, $this->daedalus);
+        $centerStorage = $this->createExtraPlace(RoomEnum::CENTER_ALPHA_STORAGE, $I, $this->daedalus);
+        Door::createFromRooms($alphaBay, $centerStorage);
+
+        $rooms = [$this->chun->getPlace(), $frontCorridor, $rearCorridor, $rearStorage, $alphaBay, $centerStorage];
+
+        // given Front Corridor is on fire
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $frontCorridor,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Rear Corridor is on fire
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $rearCorridor,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // given Alpha Bay is on fire
+        $fireStatus = $this->statusService->createStatusFromName(
+            statusName: StatusEnum::FIRE,
+            holder: $alphaBay,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when a new cycle passes
+        $cycleEvent = new DaedalusCycleEvent(
+            $this->daedalus,
+            [EventEnum::NEW_CYCLE],
+            new \DateTime()
+        );
+        $this->daedalusPlaceCycleSubscriber->onNewCycle($cycleEvent);
+
+        // Fire should've spread 2 times despite 3 opportunities
+        $this->theTheNumberOfFireShouldBe(5, $rooms, $I);
+    }
+
     public function testBrokenEquipmentDoNotGetElectricChargesUpdatesAtCycleChange(FunctionalTester $I): void
     {
         // given a patrol ship

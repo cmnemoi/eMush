@@ -77,7 +77,7 @@ class TakeoffToPlanet extends AbstractAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof GameEquipment;
+        return $target instanceof SpaceShip;
     }
 
     protected function checkResult(): ActionResult

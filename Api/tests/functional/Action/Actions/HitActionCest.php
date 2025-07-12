@@ -57,7 +57,7 @@ final class HitActionCest extends AbstractFunctionalTest
     {
         $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
         $this->action->setSuccessRate(101);
-        $I->refreshEntities($this->action);
+        $I->haveInRepository($this->action);
 
         $this->hitAction->loadParameters(
             actionConfig: $this->action,
@@ -79,7 +79,7 @@ final class HitActionCest extends AbstractFunctionalTest
     {
         $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_FAILED_HIT->toString());
         $this->action->setSuccessRate(0);
-        $I->refreshEntities($this->action);
+        $I->haveInRepository($this->action);
 
         $this->hitAction->loadParameters(
             actionConfig: $this->action,
@@ -101,7 +101,7 @@ final class HitActionCest extends AbstractFunctionalTest
     {
         $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
         $this->action->setSuccessRate(100);
-        $I->refreshEntities($this->action);
+        $I->haveInRepository($this->action);
 
         $this->hitAction->loadParameters(
             actionConfig: $this->action,
@@ -139,7 +139,7 @@ final class HitActionCest extends AbstractFunctionalTest
     {
         $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_TARGET_BURST_NOSE_TARGET_10_PERCENTS->toString());
         $this->action->setSuccessRate(100);
-        $I->refreshEntities($this->action);
+        $I->haveInRepository($this->action);
 
         $this->hitAction->loadParameters(
             actionConfig: $this->action,
@@ -157,7 +157,7 @@ final class HitActionCest extends AbstractFunctionalTest
         $modifier->setModifierProvider($this->player2);
 
         $I->haveInRepository($modifier);
-        $I->refreshEntities($this->player2);
+        $I->haveInRepository($this->player2);
 
         $this->whenChunHitsKuanTi();
 

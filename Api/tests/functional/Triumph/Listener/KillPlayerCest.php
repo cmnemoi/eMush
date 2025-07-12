@@ -29,6 +29,8 @@ final class KillPlayerCest extends AbstractFunctionalTest
     {
         $this->convertPlayerToMush($I, $this->kuanTi);
         $this->kuanTi->setTriumph(0);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // When Chun dies
         $this->playerService->killPlayer(
@@ -45,6 +47,8 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->kuanTi);
         $hua = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::HUA);
         $this->kuanTi->setTriumph(0);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($hua);
 
         // When Hua dies
         $this->playerService->killPlayer(
@@ -62,6 +66,8 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->kuanTi);
         $gioele->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($gioele);
+        $I->haveInRepository($this->chun);
 
         // When Mush dies
         $this->playerService->killPlayer(
@@ -80,6 +86,8 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
         $gioele->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($gioele);
+        $I->haveInRepository($this->chun);
 
         // When human dies
         $this->playerService->killPlayer(
@@ -100,6 +108,10 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->kuanTi);
         $this->convertPlayerToMush($I, $gioele);
         $gioele->setTriumph(0);
+        $I->haveInRepository($gioele);
+        $I->haveInRepository($hua);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // When human dies
         $this->playerService->killPlayer(
@@ -124,8 +136,11 @@ final class KillPlayerCest extends AbstractFunctionalTest
     {
         $gioele = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::GIOELE);
         $this->convertPlayerToMush($I, $gioele);
+
         $gioele->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($gioele);
+        $I->haveInRepository($this->chun);
 
         // When Gioele dies
         $this->playerService->killPlayer(
@@ -148,6 +163,9 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $roland->setTriumph(0);
         $this->kuanTi->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($roland);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // When Mush kills Chun (+7 triumph to Mush team)
         $this->playerService->killPlayer(
@@ -172,6 +190,9 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $roland);
         $roland->setTriumph(0);
         $this->kuanTi->setTriumph(0);
+        $I->haveInRepository($roland);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // When Mush kills Mush
         $this->playerService->killPlayer(
@@ -192,6 +213,9 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->kuanTi);
         $roland->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($roland);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // When Chun kills Mush
         $this->playerService->killPlayer(
@@ -231,6 +255,9 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $chao->setTriumph(0);
         $this->kuanTi->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($chao);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // When Chao kills human
         $this->playerService->killPlayer(
@@ -269,6 +296,9 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $chao->setTriumph(0);
         $this->kuanTi->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($chao);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // When Chao kills Mush
         $this->playerService->killPlayer(
@@ -302,6 +332,8 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $this->convertPlayerToMush($I, $this->kuanTi);
         $this->kuanTi->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // When Chun sells Mush
         $this->playerService->killPlayer(
@@ -321,6 +353,8 @@ final class KillPlayerCest extends AbstractFunctionalTest
     {
         $this->convertPlayerToMush($I, $this->kuanTi);
         $this->kuanTi->setTriumph(0);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // Given custom config rewards with 7 triumph
         $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_ALL_MUSH_HUMANICIDE)->setQuantity(7);
@@ -343,6 +377,9 @@ final class KillPlayerCest extends AbstractFunctionalTest
         $eleesha->setTriumph(0);
         $this->kuanTi->setTriumph(0);
         $this->chun->setTriumph(0);
+        $I->haveInRepository($eleesha);
+        $I->haveInRepository($this->kuanTi);
+        $I->haveInRepository($this->chun);
 
         // Given custom config rewards with 7 triumph
         $this->daedalus->getGameConfig()->getTriumphConfig()->getByNameOrThrow(TriumphEnum::CM_ALL_MUSH_HUMANICIDE)->setQuantity(7);

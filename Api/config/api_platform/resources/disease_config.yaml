@@ -2,25 +2,22 @@ Mush\Disease\Entity\Config\DiseaseConfig:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups:
-      - disease_config_read
+      groups: [ 'disease_config_read' ]
     denormalization_context:
-      groups:
-      - disease_config_write
+      groups: [ 'disease_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_ADMIN")'
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get: 
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
   properties:
     modifierConfigs:
       subresource:
-        resourceClass: Mush\Modifier\Entity\ModifierConfig
+        resourceClass: 'Mush\Modifier\Entity\ModifierConfig'
         collection: true
-  operations:
-    ApiPlatform\Metadata\GetCollection:
-      filters:
-      - default.search_filter
-      - default.order_filter
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Post:
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Get:
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Put:
-      security: is_granted("ROLE_ADMIN")

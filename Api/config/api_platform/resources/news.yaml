@@ -2,24 +2,18 @@ Mush\MetaGame\Entity\News:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups:
-      - news_read
+      groups: [ 'news_read' ]
     denormalization_context:
-      groups:
-      - news_write
-  operations:
-    ApiPlatform\Metadata\GetCollection:
-      filters:
-      - default.search_filter
-      - default.order_filter
-      - news.search_filter
-      - news.order_filter
-      - date.order_filter
-      security: null
-    ApiPlatform\Metadata\Post:
-      security: is_granted("ROLE_MODERATOR")
-    ApiPlatform\Metadata\Get:
+      groups: [ 'news_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter', 'news.search_filter', 'news.order_filter', 'date.order_filter' ]
+      security: ~
+    post:
+      security: 'is_granted("ROLE_MODERATOR")'
+  itemOperations:
+    get:
       get:
-        security: is_granted("ROLE_ADMIN") or is_granted("NEWS_IS_PUBLISHED", object)
-    ApiPlatform\Metadata\Put:
-      security: is_granted("ROLE_MODERATOR")
+        security: 'is_granted("ROLE_ADMIN") or is_granted("NEWS_IS_PUBLISHED", object)'
+    put:
+      security: 'is_granted("ROLE_MODERATOR")'

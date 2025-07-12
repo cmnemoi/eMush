@@ -2,15 +2,16 @@ Mush\Player\Entity\ClosedPlayer:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups:
-      - closed_player_read
-  operations:
-    ApiPlatform\Metadata\GetCollection:
-      security: is_granted("ROLE_USER")
-      filters:
-      - default.search_filter
-      - default.order_filter
-      - closedPlayer.order_filter
-      - closedPlayer.search_filter
-    ApiPlatform\Metadata\Get:
-      security: is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)
+      groups: [ 'closed_player_read' ]
+  collectionOperations:
+    get:
+      security: 'is_granted("ROLE_USER")'
+      filters: [
+        'default.search_filter',
+        'default.order_filter',
+        'closedPlayer.order_filter',
+        'closedPlayer.search_filter',
+      ]
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_USER") and is_granted("DAEDALUS_IS_FINISHED", object)'

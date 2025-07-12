@@ -2,20 +2,17 @@ Mush\Place\Entity\PlaceConfig:
   attributes:
     pagination_items_per_page: 25
     normalization_context:
-      groups:
-      - place_config_read
+      groups: [ 'place_config_read' ]
     denormalization_context:
-      groups:
-      - place_config_write
-  operations:
-    ApiPlatform\Metadata\GetCollection:
-      filters:
-      - default.search_filter
-      - default.order_filter
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Post:
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Get:
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Put:
-      security: is_granted("ROLE_ADMIN")
+      groups: [ 'place_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_ADMIN")'
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'

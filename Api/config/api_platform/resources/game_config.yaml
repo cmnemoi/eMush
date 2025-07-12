@@ -1,65 +1,62 @@
 Mush\Game\Entity\GameConfig:
   attributes:
     pagination_items_per_page: 25
-    security: is_granted("ROLE_USER")
+    security: 'is_granted("ROLE_USER")'
     normalization_context:
-      groups:
-      - game_config_read
+      groups: [ 'game_config_read' ]
     denormalization_context:
-      groups:
-      - game_config_write
+      groups: [ 'game_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_ADMIN")'
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_USER")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
   properties:
     daedalusConfig:
       subresource:
-        resourceClass: Mush\Daedalus\Entity\DaedalusConfig
+        resourceClass: 'Mush\Daedalus\Entity\DaedalusConfig'
     charactersConfig:
       subresource:
-        resourceClass: Mush\Player\Entity\Config\CharacterConfig
+        resourceClass: 'Mush\Player\Entity\Config\CharacterConfig'
         collection: true
     equipmentsConfig:
       subresource:
-        resourceClass: Mush\Equipment\Entity\Config\EquipmentConfig
+        resourceClass: 'Mush\Equipment\Entity\Config\EquipmentConfig'
         collection: true
     statusConfigs:
       subresource:
-        resourceClass: Mush\Status\Entity\Config\StatusConfig
+        resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
         collection: true
     triumphConfig:
       subresource:
-        resourceClass: Mush\Triumph\Entity\TriumphConfig
+        resourceClass: 'Mush\Triumph\Entity\TriumphConfig'
         collection: true
     diseaseCauseConfig:
       subresource:
-        resourceClass: Mush\Disease\Entity\DiseaseCauseConfig
+        resourceClass: 'Mush\Disease\Entity\DiseaseCauseConfig'
         collection: true
     diseaseConfig:
       subresource:
-        resourceClass: Mush\Disease\Entity\DiseaseConfig
+        resourceClass: 'Mush\Disease\Entity\DiseaseConfig'
         collection: true
     consumableDiseaseConfig:
       subresource:
-        resourceClass: Mush\Disease\Entity\ConsumableConfig
+        resourceClass: 'Mush\Disease\Entity\ConsumableConfig'
         collection: true
     difficultyConfig:
       subresource:
-        resourceClass: Mush\Game\Entity\DifficultyConfig
+        resourceClass: 'Mush\Game\Entity\DifficultyConfig'
     hunterConfigs:
       subresource:
-        resourceClass: Mush\Hunter\Entity\HunterConfig
+        resourceClass: 'Mush\Hunter\Entity\HunterConfig'
         collection: true
     titleConfigs:
       subresource:
-        resourceClass: Mush\Hunter\Entity\TitleConfig
+        resourceClass: 'Mush\Hunter\Entity\TitleConfig'
         collection: true
-  operations:
-    ApiPlatform\Metadata\GetCollection:
-      filters:
-      - default.search_filter
-      - default.order_filter
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Post:
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Get:
-      security: is_granted("ROLE_USER")
-    ApiPlatform\Metadata\Put:
-      security: is_granted("ROLE_ADMIN")

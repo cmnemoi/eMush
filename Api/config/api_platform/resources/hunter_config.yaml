@@ -1,27 +1,24 @@
 Mush\Hunter\Entity\HunterConfig:
   attributes:
     pagination_items_per_page: 25
-    security: is_granted("ROLE_ADMIN")
+    security: 'is_granted("ROLE_ADMIN")'
     normalization_context:
-      groups:
-      - hunter_config_read
+      groups: [ 'hunter_config_read' ]
     denormalization_context:
-      groups:
-      - hunter_config_write
+      groups: [ 'hunter_config_write' ]
+  collectionOperations:
+    get:
+      filters: [ 'default.search_filter', 'default.order_filter' ]
+      security: 'is_granted("ROLE_ADMIN")'
+    post:
+      security: 'is_granted("ROLE_ADMIN")'
+  itemOperations:
+    get: 
+      security: 'is_granted("ROLE_ADMIN")'
+    put:
+      security: 'is_granted("ROLE_ADMIN")'
   properties:
     initialStatuses:
       subresource:
-        resourceClass: Mush\Status\Entity\Config\StatusConfig
+        resourceClass: 'Mush\Status\Entity\Config\StatusConfig'
         collection: true
-  operations:
-    ApiPlatform\Metadata\GetCollection:
-      filters:
-      - default.search_filter
-      - default.order_filter
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Post:
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Get:
-      security: is_granted("ROLE_ADMIN")
-    ApiPlatform\Metadata\Put:
-      security: is_granted("ROLE_ADMIN")

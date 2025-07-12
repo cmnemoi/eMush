@@ -1,15 +1,16 @@
 Mush\Player\Entity\PlayerInfo:
   attributes:
     pagination_items_per_page: 25
-    security: is_granted("ROLE_MODERATOR")
+    security: 'is_granted("ROLE_MODERATOR")'
     normalization_context:
-      groups:
-      - player_info_read
-  operations:
-    ApiPlatform\Metadata\GetCollection:
-      filters:
-      - default.order_filter
-      - moderationPlayerInfo.search_filter
-      - moderationPlayerInfo.boolean_filter
-    ApiPlatform\Metadata\Get:
-      security: is_granted("ROLE_MODERATOR")
+      groups: [ 'player_info_read' ]
+  collectionOperations:
+    get:
+      filters: [ 
+        'default.order_filter' , 
+        'moderationPlayerInfo.search_filter' , 
+        'moderationPlayerInfo.boolean_filter',
+      ]
+  itemOperations:
+    get:
+      security: 'is_granted("ROLE_MODERATOR")'

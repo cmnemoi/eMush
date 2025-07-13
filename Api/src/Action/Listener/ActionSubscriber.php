@@ -105,8 +105,6 @@ final class ActionSubscriber implements EventSubscriberInterface
 
         $this->dischargeActionProviderStatus($event);
         $this->dischargeActionAuthorStatus($event);
-
-        $player->getDaedalus()->addDailyActionPointsSpent($actionConfig->getActionCost());
     }
 
     private function dischargeActionProviderStatus(ActionEvent $event): void

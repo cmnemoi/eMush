@@ -67,6 +67,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             ->setHealthPoint(5)
             ->setMoralPoint(5)
             ->setMovementPoint(5);
+        $I->haveInRepository($this->kuanTi);
 
         $this->givenKuanTiHasANonStandardRation($I);
 
@@ -259,7 +260,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     {
         $this->givenKuanTiHasAContaminatedRationWithSpores(7);
 
-        $this->givenContaminatorhasTriumph(0);
+        $this->givenContaminatorhasTriumph(0, $I);
 
         $this->whenKuanTiConsumesTheRation();
 
@@ -374,9 +375,10 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenContaminatorhasTriumph(int $quantity): void
+    private function givenContaminatorhasTriumph(int $quantity, FunctionalTester $I): void
     {
         $this->contaminator->setTriumph($quantity);
+        $I->haveInRepository($this->contaminator);
     }
 
     private function givenKuanTiHasKubinus(): void

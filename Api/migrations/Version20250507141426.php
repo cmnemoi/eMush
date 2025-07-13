@@ -43,7 +43,7 @@ final class Version20250507141426 extends AbstractMigration
         $this->addSql('ALTER TABLE equipment_mechanic DROP number_of_exploration_steps');
         $this->addSql('ALTER TABLE game_equipment ADD docking_place VARCHAR(255) DEFAULT \'\'');
         $this->addSql('ALTER TABLE game_equipment ADD patrol_ship_name VARCHAR(255) DEFAULT \'\'');
-        $this->addSql('ALTER TABLE place_config ADD patrol_ship_names TEXT NOT NULL');
+        $this->addSql('ALTER TABLE place_config ADD patrol_ship_names TEXT NOT NULL DEFAULT \'a:0:{}\'');
         $this->addSql('COMMENT ON COLUMN place_config.patrol_ship_names IS \'(DC2Type:array)\'');
     }
 

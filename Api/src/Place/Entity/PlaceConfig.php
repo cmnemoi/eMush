@@ -34,7 +34,7 @@ class PlaceConfig
     #[ORM\Column(type: 'array', nullable: false)]
     private array $equipments = [];
 
-    #[ORM\Column(type: 'array', nullable: false)]
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $patrolShipNames = [];
 
     public function getId(): int

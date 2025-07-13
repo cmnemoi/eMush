@@ -104,6 +104,26 @@ final class PlayDynarcadeCest extends AbstractFunctionalTest
         ]);
     }
 
+    public function testFailActionGrowthCoeff(FunctionalTester $I)
+    {
+        $this->givenThereIsADynarcadeInTheRoom();
+
+        $this->player
+            ->setActionPoint(3)
+            ->setHealthPoint(6)
+            ->setMoralPoint(7);
+
+        $this->actionConfig->setSuccessRate(0);
+        $this->whenThePlayActionIsLoaded();
+
+        $this->whenChunPlay();
+
+        $this->actionConfig->setSuccessRate(33);
+        $this->whenThePlayActionIsLoaded();
+
+        $I->assertEquals(49, $this->playDynarcadeAction->getSuccessRate());
+    }
+
     private function givenThereIsADynarcadeInTheRoom(): void
     {
         $this->dynarcade = $this->gameEquipmentService->createGameEquipmentFromName(

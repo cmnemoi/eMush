@@ -2,6 +2,7 @@
 
 namespace Mush\Modifier\Service;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
 use Mush\Action\Event\ActionVariableEvent;
 use Mush\Game\Entity\Collection\EventChain;
@@ -18,6 +19,8 @@ class EventModifierService implements EventModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
     private const ATTEMPT_INCREASE_FOR_DETERMINED = 1.3;
+    private const ATTEMPT_INCREASE_FOR_DYNARCADE = 1.5;
+    private const ATTEMPT_INCREASE_FOR_DYNARCADE_DETERMINED = 1.6;
 
     private ModifierHandlerServiceInterface $modifierHandlerService;
     private ModifierRequirementServiceInterface $modifierRequirementService;
@@ -116,6 +119,10 @@ class EventModifierService implements EventModifierServiceInterface
             }
 
             $attemptIncrease = $player->hasSkill(SkillEnum::DETERMINED) ? self::ATTEMPT_INCREASE_FOR_DETERMINED : self::ATTEMPT_INCREASE;
+
+            if ($event->getActionConfig()->getActionName() === ActionEnum::PLAY_ARCADE) {
+                $attemptIncrease = $player->hasSkill(SkillEnum::DETERMINED) ? self::ATTEMPT_INCREASE_FOR_DYNARCADE_DETERMINED : self::ATTEMPT_INCREASE_FOR_DYNARCADE;
+            }
 
             return $initialValue * $attemptIncrease ** $attemptNumber;
         }

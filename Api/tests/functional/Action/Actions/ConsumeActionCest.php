@@ -353,7 +353,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $I->haveInRepository($equipmentConfig);
 
         $this->daedalus->getGameConfig()->addEquipmentConfig($equipmentConfig);
-        $I->refreshEntities($this->daedalus->getGameConfig());
+        $I->haveInRepository($this->daedalus->getGameConfig());
 
         // create the ration and give it to kuan ti
         $gameItem = new GameItem($this->kuanTi);

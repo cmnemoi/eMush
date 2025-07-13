@@ -15,6 +15,9 @@ use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
+/**
+ * @internal
+ */
 final class ActionVariableEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
@@ -39,7 +42,6 @@ final class ActionVariableEventCest extends AbstractFunctionalTest
             tags: []
         );
 
-
         // When the event is dispatched
         $this->eventService->callEvent($actionVariableEvent, ActionVariableEvent::APPLY_COST);
 
@@ -47,12 +49,12 @@ final class ActionVariableEventCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: 1,
             actual: $this->daedalus->getDailyActionPointsSpent(),
-            message: "Daedalus should increment daily action points spent when player spends action points"
+            message: 'Daedalus should increment daily action points spent when player spends action points'
         );
     }
 
     /**
-     * Test that Daedalus daily action points spent counter does not increment when a player spends other point type
+     * Test that Daedalus daily action points spent counter does not increment when a player spends other point type.
      */
     #[DataProvider('otherPointTypesDataProvider')]
     public function testDaedalusDailyActionPointsNotIncrementedForOtherPointTypes(
@@ -79,7 +81,7 @@ final class ActionVariableEventCest extends AbstractFunctionalTest
 
     /**
      * Test that Daedalus daily action points spent counter is not incremented when the action cost is modified.
-     * 
+     *
      * This test simulates a player with the OBSERVANT skill performing a SEARCH action,
      * which should modify the action cost.
      */
@@ -95,7 +97,6 @@ final class ActionVariableEventCest extends AbstractFunctionalTest
             tags: [ActionEnum::SEARCH->toString()]
         );
 
-
         // When the event is dispatched
         $this->eventService->callEvent($actionVariableEvent, ActionVariableEvent::APPLY_COST);
 
@@ -104,8 +105,19 @@ final class ActionVariableEventCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: 0,
             actual: $this->daedalus->getDailyActionPointsSpent(),
-            message: "Daedalus should not increment daily action points spent when action cost is modified by skills"
+            message: 'Daedalus should not increment daily action points spent when action cost is modified by skills'
         );
+    }
+
+    /**
+     * Data provider for point types other than action points.
+     */
+    protected function otherPointTypesDataProvider(): array
+    {
+        return [
+            ['pointType' => PlayerVariableEnum::MOVEMENT_POINT],
+            ['pointType' => PlayerVariableEnum::MORAL_POINT],
+        ];
     }
 
     /**
@@ -122,16 +134,5 @@ final class ActionVariableEventCest extends AbstractFunctionalTest
             tags: $tags,
             actionTarget: null
         );
-    }
-
-    /**
-     * Data provider for point types other than action points.
-     */
-    protected function otherPointTypesDataProvider(): array
-    {
-        return [
-            ['pointType' => PlayerVariableEnum::MOVEMENT_POINT],
-            ['pointType' => PlayerVariableEnum::MORAL_POINT],
-        ];
     }
 }

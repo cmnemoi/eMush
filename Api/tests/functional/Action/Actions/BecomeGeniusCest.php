@@ -8,6 +8,7 @@ use Mush\Action\Actions\BecomeGenius;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
+use Mush\Skill\Entity\SkillConfig;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -53,9 +54,25 @@ final class BecomeGeniusCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldMakeGeniusSkillUnavailableAfterLearning(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasGeniusInKnownSkills($I);
+
+        $this->whenPlayerExecutesBecomeGeniusAction();
+
+        $this->thenGeniusSkillIsNoLongerKnown($I);
+    }
+
     private function givenPlayerIsGenius(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::GENIUS, $I, $this->player);
+    }
+
+    private function givenPlayerHasGeniusInKnownSkills(FunctionalTester $I): void
+    {
+        $this->player->addToAvailableHumanSkills(
+            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::GENIUS])
+        );
     }
 
     private function givenPlayerExecutesBecomeGeniusAction(): void
@@ -84,6 +101,15 @@ final class BecomeGeniusCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: $message,
             actual: $this->becomeGenius->cannotExecuteReason(),
+        );
+    }
+
+    private function thenGeniusSkillIsNoLongerKnown(FunctionalTester $I): void
+    {
+        $I->assertFalse(
+            $this->player->getAvailableHumanSkills()->contains(
+                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::GENIUS])
+            )
         );
     }
 }

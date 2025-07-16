@@ -12,6 +12,7 @@ use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
+use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -57,6 +58,7 @@ final class BecomeGenius extends AbstractAction
     {
         $this->createGeniusIdeaStatus();
         $this->createHasUsedGeniusStatus();
+        $this->removeGeniusSkillFromPlayerKnownSkills();
     }
 
     private function createGeniusIdeaStatus(): void
@@ -77,5 +79,10 @@ final class BecomeGenius extends AbstractAction
             tags: $this->getTags(),
             time: new \DateTime(),
         );
+    }
+
+    private function removeGeniusSkillFromPlayerKnownSkills(): void
+    {
+        $this->player->removeFromAvailableHumanSkills($this->player->getSkillByNameOrThrow(SkillEnum::GENIUS)->getConfig());
     }
 }

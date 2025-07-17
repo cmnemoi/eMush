@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"patuline_scrambler.png",
+ "imageheight":13,
+ "imagewidth":8,
+ "margin":0,
+ "name":"patuline_scrambler",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":13,
+ "tilewidth":8,
+ "type":"tileset",
+ "version":"1.10"
+}

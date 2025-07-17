@@ -4,12 +4,12 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 312, 309, 309, 309, 0, 0,
+            0, 0, 0, 287, 284, 284, 284, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 313, 0, 0, 0, 0, 0, 0, 0,
-            0, 310, 0, 0, 0, 0, 0, 0, 0,
-            0, 310, 0, 0, 0, 0, 0, 0, 0,
-            0, 310, 0, 0, 0, 0, 0, 0, 0,
+            0, 288, 0, 0, 0, 0, 0, 0, 0,
+            0, 285, 0, 0, 0, 0, 0, 0, 0,
+            0, 285, 0, 0, 0, 0, 0, 0, 0,
+            0, 285, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -42,11 +42,11 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 352, 0, 0, 0, 0, 0, 0,
-            0, 0, 322, 0, 0, 0, 0, 0, 0,
-            0, 0, 322, 0, 0, 0, 0, 0, 0,
-            0, 0, 322, 0, 0, 0, 0, 0, 0,
-            0, 0, 322, 0, 0, 0, 0, 0, 0,
+            0, 0, 327, 0, 0, 0, 0, 0, 0,
+            0, 0, 297, 0, 0, 0, 0, 0, 0,
+            0, 0, 297, 0, 0, 0, 0, 0, 0,
+            0, 0, 297, 0, 0, 0, 0, 0, 0,
+            0, 0, 297, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -73,7 +73,7 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 322, 322, 322, 322, 0, 0,
+            0, 0, 0, 297, 297, 297, 297, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -105,10 +105,10 @@
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 322, 322, 322, 322, 0, 0,
-            0, 0, 0, 322, 324, 323, 323, 0, 0,
-            0, 0, 0, 322, 323, 323, 323, 0, 0,
-            0, 0, 0, 322, 323, 323, 322, 0, 0,
+            0, 0, 0, 297, 297, 297, 297, 0, 0,
+            0, 0, 0, 297, 299, 298, 298, 0, 0,
+            0, 0, 0, 297, 298, 298, 298, 0, 0,
+            0, 0, 0, 297, 298, 298, 297, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -138,7 +138,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":2147483933,
+                 "gid":2147483927,
                  "height":46,
                  "id":32,
                  "name":"turret_alpha-back",
@@ -176,10 +176,10 @@
                  "y":3.75
                 }, 
                 {
-                 "gid":270,
+                 "gid":267,
                  "height":36,
                  "id":34,
-                 "name":"chair_turret-north",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -250,55 +250,7 @@
                  "y":6.5
                 }, 
                 {
-                 "gid":2147483914,
-                 "height":61,
-                 "id":26,
-                 "name":"alpha_turret-north",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":3
-                        }, 
-                        {
-                         "name":"flipX",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"turret_command"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":48
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":48
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":123,
-                 "x":12.75,
-                 "y":-1.75
-                }, 
-                {
-                 "gid":248,
+                 "gid":247,
                  "height":17,
                  "id":9,
                  "name":"camera",
@@ -417,10 +369,10 @@
                  "y":124
                 }, 
                 {
-                 "gid":244,
+                 "gid":243,
                  "height":40,
                  "id":30,
-                 "name":"shelf-model_1",
+                 "name":"shelf_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -445,7 +397,7 @@
                  "y":23.75
                 }, 
                 {
-                 "gid":264,
+                 "gid":263,
                  "height":15,
                  "id":31,
                  "name":"wall_box",
@@ -469,6 +421,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -478,10 +435,105 @@
                  "y":49
                 }, 
                 {
-                 "gid":2147483939,
+                 "gid":282,
+                 "height":31,
+                 "id":37,
+                 "name":"jukebox",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"jukebox"
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":20,
+                 "x":92.5514044177802,
+                 "y":22.5321788928279
+                }, 
+                {
+                 "gid":329,
+                 "height":38,
+                 "id":38,
+                 "name":"dismantled_wall",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":19,
+                 "x":85.25,
+                 "y":16.75
+                },
+            
+                {
+                 "gid":331,
+                 "height":13,
+                 "id":39,
+                 "name":"antispore_gas",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":49.5,
+                 "y":-4.5
+                }, 
+                {
+                 "gid":332,
                  "height":47,
-                 "id":35,
-                 "name":"sofa-east-part_1",
+                 "id":40,
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -555,13 +607,12 @@
                  "width":62,
                  "x":28,
                  "y":75
-                },
-            
+                }, 
                 {
-                 "gid":2147483944,
+                 "gid":333,
                  "height":47,
-                 "id":36,
-                 "name":"sofa-east-part_2",
+                 "id":41,
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -611,10 +662,10 @@
                  "y":75
                 }, 
                 {
-                 "gid":2147483955,
-                 "height":31,
-                 "id":37,
-                 "name":"jukebox-south",
+                 "gid":340,
+                 "height":61,
+                 "id":42,
+                 "name":"alpha_turret-north",
                  "properties":[
                         {
                          "name":"collides",
@@ -622,31 +673,41 @@
                          "value":true
                         }, 
                         {
-                         "name":"flipX",
+                         "name":"depth",
                          "type":"int",
-                         "value":5
+                         "value":3
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"gameEquipment",
                          "type":"string",
-                         "value":"jukebox"
+                         "value":"turret_command"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
                         }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":16
+                         "value":48
                         }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
-                         "value":16
+                         "value":48
                         }],
                  "rotation":0,
                  "type":"equipment",
                  "visible":true,
-                 "width":20,
-                 "x":92.5514044177802,
-                 "y":22.5321788928279
+                 "width":123,
+                 "x":11.75,
+                 "y":-2.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -655,10 +716,10 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":38,
+ "nextobjectid":43,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -1636,22 +1697,8 @@
          "tilewidth":48
         }, 
         {
-         "columns":1,
-         "firstgid":243,
-         "image":"tilesets\/structure.png",
-         "imageheight":106,
-         "imagewidth":175,
-         "margin":0,
-         "name":"structure",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":106,
-         "tilewidth":175
-        }, 
-        {
          "columns":4,
-         "firstgid":244,
+         "firstgid":243,
          "image":"tilesets\/shelf_object.png",
          "imageheight":40,
          "imagewidth":132,
@@ -1665,7 +1712,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":248,
+         "firstgid":247,
          "image":"tilesets\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1794,7 +1841,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":262,
+         "firstgid":261,
          "image":"tilesets\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1832,37 +1879,8 @@
          "tilewidth":14
         }, 
         {
-         "columns":1,
-         "firstgid":266,
-         "image":"tilesets\/alpha_turret_front.png",
-         "imageheight":61,
-         "imagewidth":123,
-         "margin":0,
-         "name":"alpha_turret_front",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":61,
-         "tilewidth":123
-        }, 
-        {
-         "columns":1,
-         "firstgid":267,
-         "image":"tilesets\/bravo_turret_front.png",
-         "imageheight":48,
-         "imagewidth":122,
-         "margin":0,
-         "name":"bravo_turret_front",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":48,
-         "tilewidth":122
-        },
-    
-        {
          "columns":7,
-         "firstgid":268,
+         "firstgid":265,
          "image":"tilesets\/chair_object.png",
          "imageheight":72,
          "imagewidth":238,
@@ -1875,22 +1893,8 @@
          "tilewidth":34
         }, 
         {
-         "columns":3,
-         "firstgid":282,
-         "image":"tilesets\/turret_tags.png",
-         "imageheight":10,
-         "imagewidth":54,
-         "margin":0,
-         "name":"turret_tags",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":3,
-         "tileheight":10,
-         "tilewidth":18
-        }, 
-        {
          "columns":1,
-         "firstgid":285,
+         "firstgid":279,
          "image":"tilesets\/turret_back_alpha.png",
          "imageheight":46,
          "imagewidth":71,
@@ -1904,7 +1908,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":286,
+         "firstgid":280,
          "image":"tilesets\/turret_ground.png",
          "imageheight":11,
          "imagewidth":32,
@@ -1915,38 +1919,25 @@
          "tilecount":1,
          "tileheight":11,
          "tilewidth":32
-        }, 
+        },
+    
         {
-         "columns":5,
-         "firstgid":287,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":1,
-         "firstgid":307,
+         "columns":2,
+         "firstgid":281,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":15,
-         "firstgid":308,
+         "firstgid":283,
          "grid":
             {
              "height":72,
@@ -1963,6 +1954,62 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":2,
+         "firstgid":328,
+         "image":"tilesets\/dismantled_wall.png",
+         "imageheight":38,
+         "imagewidth":38,
+         "margin":0,
+         "name":"dismantled_wall",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":38,
+         "tilewidth":19
+        }, 
+        {
+         "columns":2,
+         "firstgid":330,
+         "image":"tilesets\/antispore_gas.png",
+         "imageheight":13,
+         "imagewidth":20,
+         "margin":0,
+         "name":"antispore_gas",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":13,
+         "tilewidth":10
+        }, 
+        {
+         "columns":4,
+         "firstgid":332,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
+        }, 
+        {
+         "columns":1,
+         "firstgid":340,
+         "image":"tilesets\/alpha_turret-north.png",
+         "imageheight":64,
+         "imagewidth":126,
+         "margin":0,
+         "name":"alpha_turret-north",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":61,
+         "tilewidth":123
         }],
  "tilewidth":32,
  "type":"map",

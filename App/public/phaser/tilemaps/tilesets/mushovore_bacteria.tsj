@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"mushovore_bacteria.png",
+ "imageheight":1,
+ "imagewidth":2,
+ "margin":0,
+ "name":"mushovore_bacteria",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":1,
+ "tilewidth":2,
+ "type":"tileset",
+ "version":"1.10"
+}

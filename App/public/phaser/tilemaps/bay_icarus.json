@@ -4,8 +4,8 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 283, 281, 281, 281, 281, 281, 281, 281, 281, 281, 281, 281, 281, 0, 0, 0, 0, 0, 0,
-            0, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 264, 262, 262, 262, 262, 262, 262, 262, 262, 262, 262, 262, 262, 0, 0, 0, 0, 0, 0,
+            0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -218,17 +218,17 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 281, 281, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 262, 262, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 282, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 263, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -250,16 +250,16 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 294, 296, 298, 300, 294, 296, 298, 300, 294, 296, 298, 300, 304, 303, 294, 296, 0, 0,
-            0, 0, 302, 302, 302, 302, 302, 302, 302, 302, 302, 302, 302, 302, 308, 307, 302, 302, 0, 0,
-            0, 0, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 301, 0, 0,
-            0, 0, 293, 295, 293, 295, 295, 295, 295, 295, 295, 295, 295, 295, 295, 295, 293, 295, 0, 0,
-            0, 0, 294, 296, 295, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 294, 296, 0, 0,
-            0, 0, 293, 295, 295, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 293, 295, 0, 0,
-            0, 0, 298, 300, 294, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 298, 300, 0, 0,
-            0, 0, 297, 299, 293, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 297, 299, 0, 0,
-            0, 0, 294, 296, 294, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 294, 296, 0, 0,
-            0, 0, 293, 295, 293, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 290, 293, 295, 0, 0,
+            0, 0, 275, 277, 279, 281, 275, 277, 279, 281, 275, 277, 279, 281, 285, 284, 275, 277, 0, 0,
+            0, 0, 283, 283, 283, 283, 283, 283, 283, 283, 283, 283, 283, 283, 289, 288, 283, 283, 0, 0,
+            0, 0, 282, 282, 282, 282, 282, 282, 282, 282, 282, 282, 282, 282, 282, 282, 282, 282, 0, 0,
+            0, 0, 274, 276, 274, 276, 276, 276, 276, 276, 276, 276, 276, 276, 276, 276, 274, 276, 0, 0,
+            0, 0, 275, 277, 276, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 275, 277, 0, 0,
+            0, 0, 274, 276, 276, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 274, 276, 0, 0,
+            0, 0, 279, 281, 275, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 279, 281, 0, 0,
+            0, 0, 278, 280, 274, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 278, 280, 0, 0,
+            0, 0, 275, 277, 275, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 275, 277, 0, 0,
+            0, 0, 274, 276, 274, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 271, 274, 276, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -419,7 +419,7 @@
                  "gid":237,
                  "height":40,
                  "id":9,
-                 "name":"shelf-model_3",
+                 "name":"shelf_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -468,6 +468,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -642,131 +647,10 @@
                  "y":94.5
                 }, 
                 {
-                 "gid":253,
-                 "height":47,
-                 "id":22,
-                 "name":"sofa-south-part_1",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoShiftHitboxX",
-                         "type":"int",
-                         "value":-6
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":44
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"lie_down"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":2
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":-2
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":62,
-                 "x":54.4974068155216,
-                 "y":26.5
-                }, 
-                {
-                 "gid":258,
-                 "height":47,
-                 "id":23,
-                 "name":"sofa-south-part_2",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoShiftHitboxX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoShiftHitboxY",
-                         "type":"int",
-                         "value":-10
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":3
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":62,
-                 "x":54.4974068155216,
-                 "y":26.5
-                }, 
-                {
-                 "gid":269,
+                 "gid":249,
                  "height":31,
                  "id":24,
-                 "name":"jukebox-east",
+                 "name":"jukebox",
                  "properties":[
                         {
                          "name":"collides",
@@ -794,6 +678,137 @@
                  "width":20,
                  "x":22.9500043023394,
                  "y":171.670315426279
+                }, 
+                {
+                 "gid":300,
+                 "height":47,
+                 "id":28,
+                 "name":"sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":44
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-2
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":54.5,
+                 "y":26.5
+                }, 
+                {
+                 "gid":301,
+                 "height":47,
+                 "id":29,
+                 "name":"sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-10
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":54.5,
+                 "y":26.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -802,10 +817,10 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":25,
+ "nextobjectid":30,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -2048,36 +2063,22 @@
          "tilewidth":54
         }, 
         {
-         "columns":5,
+         "columns":2,
          "firstgid":249,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":1,
-         "firstgid":269,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":15,
-         "firstgid":270,
+         "firstgid":251,
          "grid":
             {
              "height":72,
@@ -2094,6 +2095,34 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":2,
+         "firstgid":296,
+         "image":"tilesets\/dismantled_wall.png",
+         "imageheight":38,
+         "imagewidth":38,
+         "margin":0,
+         "name":"dismantled_wall",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":38,
+         "tilewidth":19
+        }, 
+        {
+         "columns":4,
+         "firstgid":298,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

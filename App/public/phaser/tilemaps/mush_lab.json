@@ -4,17 +4,17 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 299, 297, 297, 297, 297, 297, 297, 297, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 298, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 280, 278, 278, 278, 278, 278, 278, 278, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 279, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -132,7 +132,7 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 297, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 278, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -164,16 +164,16 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 311, 311, 310, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 311, 311, 311, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 315, 311, 311, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 310, 310, 310, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 310, 310, 310, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 310, 310, 310, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 310, 310, 310, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 310, 310, 310, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 310, 310, 310, 0, 0,
-            0, 0, 310, 310, 310, 310, 310, 310, 310, 310, 310, 310, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 292, 292, 291, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 292, 292, 292, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 296, 292, 292, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 291, 291, 291, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 291, 291, 291, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 291, 291, 291, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 291, 291, 291, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 291, 291, 291, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 291, 291, 291, 0, 0,
+            0, 0, 291, 291, 291, 291, 291, 291, 291, 291, 291, 291, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -214,6 +214,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
                          "name":"gameEquipment",
                          "type":"string",
                          "value":"cryo_module"
@@ -252,6 +257,11 @@
                          "value":true
                         }, 
                         {
+                         "name":"depth",
+                         "type":"int",
+                         "value":7
+                        }, 
+                        {
                          "name":"isoSizeX",
                          "type":"int",
                          "value":16
@@ -278,6 +288,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
                         }, 
                         {
                          "name":"isoSizeX",
@@ -338,7 +353,7 @@
                  "gid":214,
                  "height":40,
                  "id":6,
-                 "name":"shelf-model_2",
+                 "name":"shelf_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -396,6 +411,34 @@
                  "y":19
                 }, 
                 {
+                 "gid":322,
+                 "height":38,
+                 "id":61,
+                 "name":"dismantled_wall",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":19,
+                 "x":17.75,
+                 "y":118.25
+                }, 
+                {
                  "gid":218,
                  "height":57,
                  "id":9,
@@ -438,6 +481,11 @@
                          "name":"collides",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":9
                         }, 
                         {
                          "name":"gameEquipment",
@@ -523,7 +571,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":10
                         }, 
                         {
                          "name":"isoSizeX",
@@ -539,14 +587,14 @@
                  "type":"decoration",
                  "visible":true,
                  "width":46,
-                 "x":3,
-                 "y":119
+                 "x":0,
+                 "y":128
                 }, 
                 {
                  "gid":253,
                  "height":36,
                  "id":15,
-                 "name":"chair_office-west",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -624,17 +672,22 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":4
+                         "value":5
                         }, 
                         {
                          "name":"isoSizeX",
                          "type":"int",
-                         "value":10
+                         "value":4
                         }, 
                         {
                          "name":"isoSizeY",
                          "type":"int",
-                         "value":4
+                         "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -644,132 +697,10 @@
                  "y":-7.5
                 }, 
                 {
-                 "gid":279,
-                 "height":47,
-                 "id":18,
-                 "name":"sofa-south-part_1",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoShiftHitboxX",
-                         "type":"int",
-                         "value":-6
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":44
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"lie_down"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":2
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":-2
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":62,
-                 "x":56.5,
-                 "y":88.5
-                }, 
-                {
-                 "gid":284,
-                 "height":47,
-                 "id":19,
-                 "name":"sofa-south-part_2",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoShiftHitboxX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoShiftHitboxY",
-                         "type":"int",
-                         "value":-10
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":3
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":62,
-                 "x":56.5,
-                 "y":88.5
-                },
-            
-                {
-                 "gid":2147483943,
+                 "gid":276,
                  "height":31,
                  "id":20,
-                 "name":"jukebox-south",
+                 "name":"jukebox",
                  "properties":[
                         {
                          "name":"collides",
@@ -802,6 +733,620 @@
                  "width":20,
                  "x":90.8105013619843,
                  "y":19.5381967874316
+                },
+            
+                {
+                 "gid":245,
+                 "height":28,
+                 "id":30,
+                 "name":"mural_shelf",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":40
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":46,
+                 "x":0,
+                 "y":86
+                }, 
+                {
+                 "gid":334,
+                 "height":9,
+                 "id":42,
+                 "name":"anabolics",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":7,
+                 "x":20.25,
+                 "y":108.75
+                }, 
+                {
+                 "gid":344,
+                 "height":5,
+                 "id":43,
+                 "name":"ncc_contact_lenses",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":7,
+                 "x":19.75,
+                 "y":151.25
+                }, 
+                {
+                 "gid":346,
+                 "height":12,
+                 "id":44,
+                 "name":"perpetual_hydration",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":14,
+                 "x":-3.5,
+                 "y":113.5
+                }, 
+                {
+                 "gid":335,
+                 "height":12,
+                 "id":46,
+                 "name":"constipaspore_serum",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":14
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-4,
+                 "y":90
+                }, 
+                {
+                 "gid":345,
+                 "height":13,
+                 "id":47,
+                 "name":"patuline_scrambler",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":8,
+                 "x":-5.5,
+                 "y":118.5
+                }, 
+                {
+                 "gid":339,
+                 "height":11,
+                 "id":48,
+                 "name":"mush_races",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":13
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":8,
+                 "x":-4.5,
+                 "y":121.5
+                }, 
+                {
+                 "gid":341,
+                 "height":12,
+                 "id":49,
+                 "name":"mush_reproductive_system",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":14
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-4.5,
+                 "y":124.5
+                }, 
+                {
+                 "gid":338,
+                 "height":11,
+                 "id":50,
+                 "name":"mush_language",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":15
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":8,
+                 "x":-4.5,
+                 "y":127.5
+                }, 
+                {
+                 "gid":336,
+                 "height":11,
+                 "id":51,
+                 "name":"meridon_scrambler",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":14,
+                 "x":-3,
+                 "y":134
+                }, 
+                {
+                 "gid":340,
+                 "height":15,
+                 "id":52,
+                 "name":"mush_hunter_zc16h",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":11
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":14,
+                 "x":-5,
+                 "y":68
+                }, 
+                {
+                 "gid":347,
+                 "height":13,
+                 "id":45,
+                 "name":"spore_sucker",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":6,
+                 "x":-6,
+                 "y":73
+                }, 
+                {
+                 "gid":343,
+                 "height":7,
+                 "id":53,
+                 "name":"natamy_rifle",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":13
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":13,
+                 "x":-0.75,
+                 "y":83.75
+                }, 
+                {
+                 "gid":337,
+                 "height":1,
+                 "id":54,
+                 "name":"mushovore_bacteria",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":2,
+                 "x":20,
+                 "y":115
+                },
+            
+                {
+                 "gid":348,
+                 "height":11,
+                 "id":55,
+                 "name":"retro_fungal_serum",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":17
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-3.5,
+                 "y":140.5
+                }, 
+                {
+                 "gid":342,
+                 "height":14,
+                 "id":58,
+                 "name":"mycoalarm",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":15
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-4.5,
+                 "y":96.5
+                }, 
+                {
+                 "gid":325,
+                 "height":13,
+                 "id":60,
+                 "name":"antispore_gas",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":65.5,
+                 "y":-4.5
+                }, 
+                {
+                 "gid":328,
+                 "height":47,
+                 "id":62,
+                 "name":"sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":44
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-2
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":56.5,
+                 "y":88.5
+                }, 
+                {
+                 "gid":329,
+                 "height":47,
+                 "id":63,
+                 "name":"sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-10
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":56.5,
+                 "y":88.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -810,10 +1355,10 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":21,
+ "nextobjectid":64,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -1860,11 +2405,11 @@
         {
          "columns":1,
          "firstgid":230,
-         "image":"tilesets\/laboratory_object.png",
+         "image":"tilesets\/laboratory.png",
          "imageheight":57,
          "imagewidth":79,
          "margin":0,
-         "name":"laboratory_object",
+         "name":"laboratory",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
@@ -2089,11 +2634,11 @@
         {
          "columns":10,
          "firstgid":265,
-         "image":"tilesets\/gravity_object.png",
+         "image":"tilesets\/gravity_simulator.png",
          "imageheight":46,
          "imagewidth":280,
          "margin":0,
-         "name":"gravity_object",
+         "name":"gravity_simulator",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":10,
@@ -2142,37 +2687,22 @@
          "tilewidth":28
         }, 
         {
-         "columns":5,
+         "columns":2,
          "firstgid":275,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":1,
-         "firstgid":295,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
-        },
-    
+        }, 
         {
          "columns":15,
-         "firstgid":296,
+         "firstgid":277,
          "grid":
             {
              "height":72,
@@ -2189,6 +2719,260 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        },
+    
+        {
+         "columns":2,
+         "firstgid":322,
+         "image":"tilesets\/dismantled_wall.png",
+         "imageheight":38,
+         "imagewidth":38,
+         "margin":0,
+         "name":"dismantled_wall",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":38,
+         "tilewidth":19
+        }, 
+        {
+         "columns":2,
+         "firstgid":324,
+         "image":"tilesets\/antispore_gas.png",
+         "imageheight":13,
+         "imagewidth":20,
+         "margin":0,
+         "name":"antispore_gas",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":13,
+         "tilewidth":10
+        }, 
+        {
+         "columns":4,
+         "firstgid":326,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
+        }, 
+        {
+         "columns":1,
+         "firstgid":334,
+         "image":"tilesets\/anabolics.png",
+         "imageheight":9,
+         "imagewidth":7,
+         "margin":0,
+         "name":"anabolics",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":9,
+         "tilewidth":7
+        }, 
+        {
+         "columns":1,
+         "firstgid":335,
+         "image":"tilesets\/constipaspore_serum.png",
+         "imageheight":12,
+         "imagewidth":10,
+         "margin":0,
+         "name":"constipaspore_serum",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":12,
+         "tilewidth":10
+        }, 
+        {
+         "columns":1,
+         "firstgid":336,
+         "image":"tilesets\/meridon_scrambler.png",
+         "imageheight":11,
+         "imagewidth":14,
+         "margin":0,
+         "name":"meridon_scrambler",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":11,
+         "tilewidth":14
+        }, 
+        {
+         "columns":1,
+         "firstgid":337,
+         "image":"tilesets\/mushovore_bacteria.png",
+         "imageheight":1,
+         "imagewidth":2,
+         "margin":0,
+         "name":"mushovore_bacteria",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":1,
+         "tilewidth":2
+        }, 
+        {
+         "columns":1,
+         "firstgid":338,
+         "image":"tilesets\/mush_language.png",
+         "imageheight":11,
+         "imagewidth":8,
+         "margin":0,
+         "name":"mush_language",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":11,
+         "tilewidth":8
+        }, 
+        {
+         "columns":1,
+         "firstgid":339,
+         "image":"tilesets\/mush_races.png",
+         "imageheight":11,
+         "imagewidth":8,
+         "margin":0,
+         "name":"mush_races",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":11,
+         "tilewidth":8
+        }, 
+        {
+         "columns":1,
+         "firstgid":340,
+         "image":"tilesets\/mush_hunter_zc16h.png",
+         "imageheight":15,
+         "imagewidth":14,
+         "margin":0,
+         "name":"mush_hunter_zc16h",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":15,
+         "tilewidth":14
+        }, 
+        {
+         "columns":1,
+         "firstgid":341,
+         "image":"tilesets\/mush_reproductive_system.png",
+         "imageheight":12,
+         "imagewidth":10,
+         "margin":0,
+         "name":"mush_reproductive_system",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":12,
+         "tilewidth":10
+        }, 
+        {
+         "columns":1,
+         "firstgid":342,
+         "image":"tilesets\/mycoalarm.png",
+         "imageheight":14,
+         "imagewidth":10,
+         "margin":0,
+         "name":"mycoalarm",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":14,
+         "tilewidth":10
+        }, 
+        {
+         "columns":1,
+         "firstgid":343,
+         "image":"tilesets\/natamy_rifle.png",
+         "imageheight":7,
+         "imagewidth":13,
+         "margin":0,
+         "name":"natamy_rifle",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":7,
+         "tilewidth":13
+        }, 
+        {
+         "columns":1,
+         "firstgid":344,
+         "image":"tilesets\/ncc_contact_lenses.png",
+         "imageheight":5,
+         "imagewidth":7,
+         "margin":0,
+         "name":"ncc_contact_lenses",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":5,
+         "tilewidth":7
+        },
+    
+        {
+         "columns":1,
+         "firstgid":345,
+         "image":"tilesets\/patuline_scrambler.png",
+         "imageheight":13,
+         "imagewidth":8,
+         "margin":0,
+         "name":"patuline_scrambler",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":13,
+         "tilewidth":8
+        }, 
+        {
+         "columns":1,
+         "firstgid":346,
+         "image":"tilesets\/perpetual_hydration.png",
+         "imageheight":12,
+         "imagewidth":14,
+         "margin":0,
+         "name":"perpetual_hydration",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":12,
+         "tilewidth":14
+        }, 
+        {
+         "columns":1,
+         "firstgid":347,
+         "image":"tilesets\/spore_sucker.png",
+         "imageheight":13,
+         "imagewidth":6,
+         "margin":0,
+         "name":"spore_sucker",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":13,
+         "tilewidth":6
+        }, 
+        {
+         "columns":1,
+         "firstgid":348,
+         "image":"tilesets\/retro_fungal_serum.png",
+         "imageheight":11,
+         "imagewidth":10,
+         "margin":0,
+         "name":"retro_fungal_serum",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":11,
+         "tilewidth":10
         }],
  "tilewidth":32,
  "type":"map",

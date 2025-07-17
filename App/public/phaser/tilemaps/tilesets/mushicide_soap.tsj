@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"mushicide_soap.png",
+ "imageheight":15,
+ "imagewidth":6,
+ "margin":0,
+ "name":"mushicide_soap",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":15,
+ "tilewidth":6,
+ "type":"tileset",
+ "version":"1.10"
+}

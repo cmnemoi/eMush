@@ -10,7 +10,7 @@
 			"scale": 1,
 			"frames": [
 				{
-					"filename": "shelf_big",
+					"filename": "shelf_big-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -31,7 +31,7 @@
 					}
 				},
 				{
-					"filename": "shelf_front-part_1",
+					"filename": "shelf_front-part_1-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -52,7 +52,7 @@
 					}
 				},
 				{
-					"filename": "shelf_front-part_2",
+					"filename": "shelf_front-part_2-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -73,7 +73,7 @@
 					}
 				},
 				{
-					"filename": "shelf_front-part_4",
+					"filename": "shelf_front-part_4-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -94,7 +94,7 @@
 					}
 				},
 				{
-					"filename": "shelf_front-part_3",
+					"filename": "shelf_front-part_3-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -115,7 +115,7 @@
 					}
 				},
 				{
-					"filename": "shelf_center_bravo-part_1",
+					"filename": "shelf_center_bravo-part_1-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -136,7 +136,7 @@
 					}
 				},
 				{
-					"filename": "shelf_center_alpha-part_1",
+					"filename": "shelf_center_alpha-part_1-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -157,7 +157,7 @@
 					}
 				},
 				{
-					"filename": "shelf_center_alpha-part_2",
+					"filename": "shelf_center_alpha-part_2-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1837,7 +1837,7 @@
 					}
 				},
 				{
-					"filename": "shelf_center_bravo-part_2",
+					"filename": "shelf_center_bravo-part_2-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -1879,7 +1879,7 @@
 					}
 				},
 				{
-					"filename": "shelf_center_bravo-part_3",
+					"filename": "shelf_center_bravo-part_3-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -3979,7 +3979,7 @@
 					}
 				},
 				{
-					"filename": "door-53",
+					"filename": "door-55",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -4021,7 +4021,7 @@
 					}
 				},
 				{
-					"filename": "door-55",
+					"filename": "door-53",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -4042,6 +4042,27 @@
 					}
 				},
 				{
+					"filename": "shelf_medium-1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 50,
+						"h": 48
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 0,
+						"w": 48,
+						"h": 48
+					},
+					"frame": {
+						"x": 708,
+						"y": 290,
+						"w": 48,
+						"h": 48
+					}
+				},
+				{
 					"filename": "hunter",
 					"rotated": false,
 					"trimmed": false,
@@ -4057,34 +4078,13 @@
 					},
 					"frame": {
 						"x": 708,
-						"y": 290,
+						"y": 338,
 						"w": 48,
 						"h": 26
 					}
 				},
 				{
-					"filename": "shelf_medium-model_3",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 50,
-						"h": 48
-					},
-					"spriteSourceSize": {
-						"x": 1,
-						"y": 0,
-						"w": 48,
-						"h": 48
-					},
-					"frame": {
-						"x": 708,
-						"y": 316,
-						"w": 48,
-						"h": 48
-					}
-				},
-				{
-					"filename": "shelf_medium-model_2",
+					"filename": "shelf_medium-2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -4105,7 +4105,7 @@
 					}
 				},
 				{
-					"filename": "shelf_medium-model_1",
+					"filename": "shelf_medium-0",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -4126,7 +4126,7 @@
 					}
 				},
 				{
-					"filename": "shelf-model_2",
+					"filename": "shelf_object-1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -4147,7 +4147,7 @@
 					}
 				},
 				{
-					"filename": "shelf-model_4",
+					"filename": "shelf_object-0",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -4168,7 +4168,7 @@
 					}
 				},
 				{
-					"filename": "shelf-model_1",
+					"filename": "shelf_object-3",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -4189,7 +4189,7 @@
 					}
 				},
 				{
-					"filename": "shelf-model_3",
+					"filename": "shelf_object-2",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
@@ -4252,7 +4252,7 @@
 					}
 				},
 				{
-					"filename": "flame-1",
+					"filename": "flame-4",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -4273,7 +4273,7 @@
 					}
 				},
 				{
-					"filename": "flame-0",
+					"filename": "flame-1",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -4294,7 +4294,7 @@
 					}
 				},
 				{
-					"filename": "flame-3",
+					"filename": "flame-5",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -4315,7 +4315,7 @@
 					}
 				},
 				{
-					"filename": "flame-4",
+					"filename": "flame-3",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -4336,7 +4336,7 @@
 					}
 				},
 				{
-					"filename": "flame-5",
+					"filename": "flame-0",
 					"rotated": false,
 					"trimmed": false,
 					"sourceSize": {
@@ -4812,8 +4812,8 @@
 						"h": 58
 					},
 					"frame": {
-						"x": 716,
-						"y": 174,
+						"x": 709,
+						"y": 232,
 						"w": 37,
 						"h": 58
 					}
@@ -4854,8 +4854,8 @@
 						"h": 58
 					},
 					"frame": {
-						"x": 709,
-						"y": 232,
+						"x": 716,
+						"y": 174,
 						"w": 37,
 						"h": 58
 					}

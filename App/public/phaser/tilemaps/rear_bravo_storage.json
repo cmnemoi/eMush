@@ -4,9 +4,9 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 266, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 265, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 265, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 242, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 241, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 241, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -73,8 +73,8 @@
                  "type":"door_ground",
                  "visible":true,
                  "width":64,
-                 "x":18,
-                 "y":78
+                 "x":16,
+                 "y":80
                 }, 
                 {
                  "gid":69,
@@ -127,12 +127,12 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 264, 264, 264, 264, 264, 264, 264, 264, 264, 264, 264, 0, 0,
+            0, 0, 240, 240, 240, 240, 240, 240, 240, 240, 240, 240, 240, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 265, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 241, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -154,11 +154,11 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 0, 0,
-            0, 0, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 0, 0,
-            0, 0, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 0, 0,
-            0, 0, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 278, 0, 0,
-            0, 0, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 277, 0, 0,
+            0, 0, 253, 253, 253, 253, 253, 253, 253, 253, 253, 253, 253, 0, 0,
+            0, 0, 253, 253, 253, 253, 253, 253, 253, 253, 253, 253, 253, 0, 0,
+            0, 0, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 0, 0,
+            0, 0, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 0, 0,
+            0, 0, 253, 253, 253, 253, 253, 253, 253, 253, 253, 253, 253, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -259,7 +259,7 @@
                  "y":77
                 }, 
                 {
-                 "gid":308,
+                 "gid":284,
                  "height":44,
                  "id":3,
                  "name":"fuel_tank-back",
@@ -292,7 +292,7 @@
                  "y":84
                 }, 
                 {
-                 "gid":221,
+                 "gid":216,
                  "height":15,
                  "id":7,
                  "name":"wall_box",
@@ -330,10 +330,10 @@
                  "y":65
                 }, 
                 {
-                 "gid":240,
+                 "gid":235,
                  "height":12,
                  "id":10,
-                 "name":"papers-3",
+                 "name":"papers",
                  "properties":[
                         {
                          "name":"collides",
@@ -363,10 +363,10 @@
                  "y":78
                 }, 
                 {
-                 "gid":241,
+                 "gid":236,
                  "height":12,
                  "id":11,
-                 "name":"papers-4",
+                 "name":"papers",
                  "properties":[
                         {
                          "name":"collides",
@@ -396,7 +396,7 @@
                  "y":69
                 }, 
                 {
-                 "gid":223,
+                 "gid":218,
                  "height":17,
                  "id":8,
                  "name":"camera",
@@ -414,7 +414,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":5
+                         "value":6
                         }, 
                         {
                          "name":"gameEquipment",
@@ -439,10 +439,10 @@
                  "y":16.75
                 }, 
                 {
-                 "gid":2147483900,
+                 "gid":297,
                  "height":47,
                  "id":14,
-                 "name":"sofa-north-part_2",
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -522,10 +522,10 @@
                  "y":90
                 }, 
                 {
-                 "gid":2147483905,
+                 "gid":296,
                  "height":47,
                  "id":15,
-                 "name":"sofa-north-part_2",
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -575,10 +575,10 @@
                  "y":90
                 }, 
                 {
-                 "gid":262,
+                 "gid":237,
                  "height":31,
                  "id":16,
-                 "name":"jukebox-east",
+                 "name":"jukebox",
                  "properties":[
                         {
                          "name":"collides",
@@ -606,6 +606,34 @@
                  "width":20,
                  "x":21.6705754022362,
                  "y":91.0568584674121
+                }, 
+                {
+                 "gid":290,
+                 "height":38,
+                 "id":17,
+                 "name":"dismantled_wall",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":19,
+                 "x":17.75,
+                 "y":38.25
                 }],
          "opacity":1,
          "properties":[
@@ -620,7 +648,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":17,
+ "nextobjectid":20,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"1.11.1-99-gec89c545",
@@ -1587,22 +1615,8 @@
          "tilewidth":192
         }, 
         {
-         "columns":5,
-         "firstgid":214,
-         "image":"tilesets\/papers.png",
-         "imageheight":12,
-         "imagewidth":80,
-         "margin":0,
-         "name":"papers",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":5,
-         "tileheight":12,
-         "tilewidth":16
-        }, 
-        {
          "columns":4,
-         "firstgid":219,
+         "firstgid":214,
          "image":"tilesets\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1641,7 +1655,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":223,
+         "firstgid":218,
          "image":"tilesets\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1769,7 +1783,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":237,
+         "firstgid":232,
          "image":"tilesets\/papers.png",
          "imageheight":12,
          "imagewidth":80,
@@ -1781,36 +1795,22 @@
          "tilewidth":16
         }, 
         {
-         "columns":5,
-         "firstgid":242,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":1,
-         "firstgid":262,
+         "columns":2,
+         "firstgid":237,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":15,
-         "firstgid":263,
+         "firstgid":239,
          "grid":
             {
              "height":72,
@@ -1830,7 +1830,7 @@
         }, 
         {
          "columns":6,
-         "firstgid":308,
+         "firstgid":284,
          "image":"tilesets\/fuel_tank-back.png",
          "imageheight":44,
          "imagewidth":264,
@@ -1870,6 +1870,34 @@
                  "id":0
                 }],
          "tilewidth":44
+        }, 
+        {
+         "columns":2,
+         "firstgid":290,
+         "image":"tilesets\/dismantled_wall.png",
+         "imageheight":38,
+         "imagewidth":38,
+         "margin":0,
+         "name":"dismantled_wall",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":38,
+         "tilewidth":19
+        }, 
+        {
+         "columns":4,
+         "firstgid":292,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

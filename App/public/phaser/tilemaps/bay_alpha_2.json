@@ -4,14 +4,14 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 322, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 321, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 321, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 321, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 321, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 321, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 321, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 321, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -142,7 +142,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 352, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 321, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -169,16 +169,16 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 367, 369, 367, 363, 363, 368, 367, 369, 367, 363, 363, 369, 367, 369, 369, 363, 363, 369, 367, 369, 0, 0,
-            0, 0, 366, 368, 366, 363, 363, 368, 366, 368, 367, 363, 363, 368, 366, 368, 368, 363, 363, 368, 366, 368, 0, 0,
-            0, 0, 367, 369, 367, 363, 363, 368, 367, 369, 367, 363, 363, 368, 367, 369, 368, 363, 363, 368, 367, 369, 0, 0,
-            0, 0, 366, 368, 366, 363, 363, 368, 366, 368, 367, 363, 363, 368, 366, 368, 368, 363, 363, 368, 366, 368, 0, 0,
-            0, 0, 367, 369, 367, 369, 368, 368, 367, 369, 367, 368, 368, 368, 371, 373, 368, 368, 368, 368, 367, 369, 0, 0,
-            0, 0, 366, 368, 366, 368, 370, 372, 366, 368, 366, 368, 366, 368, 370, 372, 366, 368, 366, 368, 366, 368, 0, 0,
-            0, 0, 367, 369, 367, 369, 367, 369, 367, 369, 367, 369, 367, 369, 367, 369, 367, 369, 367, 369, 367, 369, 0, 0,
-            0, 0, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 375, 0, 0,
-            0, 0, 374, 378, 379, 374, 374, 374, 374, 374, 374, 374, 374, 374, 374, 374, 374, 374, 374, 378, 379, 374, 0, 0,
-            0, 0, 370, 377, 376, 368, 366, 368, 366, 368, 366, 368, 366, 368, 370, 372, 366, 368, 366, 377, 376, 368, 0, 0,
+            0, 0, 336, 338, 336, 332, 332, 337, 336, 338, 336, 332, 332, 338, 336, 338, 338, 332, 332, 338, 336, 338, 0, 0,
+            0, 0, 335, 337, 335, 332, 332, 337, 335, 337, 336, 332, 332, 337, 335, 337, 337, 332, 332, 337, 335, 337, 0, 0,
+            0, 0, 336, 338, 336, 332, 332, 337, 336, 338, 336, 332, 332, 337, 336, 338, 337, 332, 332, 337, 336, 338, 0, 0,
+            0, 0, 335, 337, 335, 332, 332, 337, 335, 337, 336, 332, 332, 337, 335, 337, 337, 332, 332, 337, 335, 337, 0, 0,
+            0, 0, 336, 338, 336, 338, 337, 337, 336, 338, 336, 337, 337, 337, 340, 342, 337, 337, 337, 337, 336, 338, 0, 0,
+            0, 0, 335, 337, 335, 337, 339, 341, 335, 337, 335, 337, 335, 337, 339, 341, 335, 337, 335, 337, 335, 337, 0, 0,
+            0, 0, 336, 338, 336, 338, 336, 338, 336, 338, 336, 338, 336, 338, 336, 338, 336, 338, 336, 338, 336, 338, 0, 0,
+            0, 0, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 344, 0, 0,
+            0, 0, 343, 347, 348, 343, 343, 343, 343, 343, 343, 343, 343, 343, 343, 343, 343, 343, 343, 347, 348, 343, 0, 0,
+            0, 0, 339, 346, 345, 337, 335, 337, 335, 337, 335, 337, 335, 337, 339, 341, 335, 337, 335, 346, 345, 337, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -208,7 +208,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":271,
+                 "gid":272,
                  "height":106,
                  "id":16,
                  "name":"small_takeoff_platform",
@@ -244,7 +244,7 @@
                  "gid":247,
                  "height":27,
                  "id":8,
-                 "name":"bay_tag-alpha2-east",
+                 "name":"bay_tag",
                  "properties":[
                         {
                          "name":"collides",
@@ -287,7 +287,7 @@
                         {
                          "name":"gameEquipment",
                          "type":"string",
-                         "value":"swedish_sofa"
+                         "value":"camera_equipment"
                         }, 
                         {
                          "name":"isoSizeX",
@@ -307,68 +307,7 @@
                  "y":96.2
                 }, 
                 {
-                 "gid":267,
-                 "height":40,
-                 "id":10,
-                 "name":"shelf-model_3",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"shelf",
-                 "visible":true,
-                 "width":33,
-                 "x":25.25,
-                 "y":24.75
-                }, 
-                {
-                 "gid":270,
-                 "height":31,
-                 "id":11,
-                 "name":"jukebox-east",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"jukebox"
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":20,
-                 "x":26.5,
-                 "y":74.5
-                }, 
-                {
-                 "gid":271,
+                 "gid":272,
                  "height":106,
                  "id":12,
                  "name":"small_takeoff_platform",
@@ -401,7 +340,7 @@
                  "y":52.5
                 }, 
                 {
-                 "gid":271,
+                 "gid":272,
                  "height":106,
                  "id":14,
                  "name":"small_takeoff_platform",
@@ -457,7 +396,7 @@
                  "y":-2.48
                 }, 
                 {
-                 "gid":293,
+                 "gid":294,
                  "height":15,
                  "id":26,
                  "name":"wall_box",
@@ -481,6 +420,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -490,10 +434,10 @@
                  "y":26.03
                 }, 
                 {
-                 "gid":295,
+                 "gid":296,
                  "height":33,
                  "id":27,
-                 "name":"magnetic_net-alpha",
+                 "name":"magnetic_net",
                  "properties":[
                         {
                          "name":"collides",
@@ -504,6 +448,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -513,10 +462,38 @@
                  "y":40.5
                 }, 
                 {
-                 "gid":297,
+                 "gid":267,
+                 "height":40,
+                 "id":10,
+                 "name":"shelf_object",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"shelf",
+                 "visible":true,
+                 "width":33,
+                 "x":25.25,
+                 "y":24.75
+                }, 
+                {
+                 "gid":298,
                  "height":24,
                  "id":45,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -546,10 +523,10 @@
                  "y":41
                 }, 
                 {
-                 "gid":297,
+                 "gid":298,
                  "height":24,
                  "id":46,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -579,10 +556,10 @@
                  "y":73
                 }, 
                 {
-                 "gid":297,
+                 "gid":298,
                  "height":24,
                  "id":47,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -612,10 +589,10 @@
                  "y":105
                 }, 
                 {
-                 "gid":301,
+                 "gid":302,
                  "height":24,
                  "id":48,
-                 "name":"floor_lamp-2",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -645,10 +622,10 @@
                  "y":119
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":49,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -678,10 +655,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":50,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -711,10 +688,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":51,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -744,10 +721,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":52,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -777,10 +754,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":53,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -810,10 +787,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":54,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -843,10 +820,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":55,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -876,10 +853,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":56,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -909,10 +886,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":298,
+                 "gid":299,
                  "height":24,
                  "id":57,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -942,10 +919,10 @@
                  "y":120
                 }, 
                 {
-                 "gid":299,
+                 "gid":300,
                  "height":24,
                  "id":58,
-                 "name":"floor_lamp-4",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -973,13 +950,12 @@
                  "width":32,
                  "x":327,
                  "y":111
-                },
-            
+                }, 
                 {
-                 "gid":297,
+                 "gid":298,
                  "height":24,
                  "id":59,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1007,12 +983,13 @@
                  "width":32,
                  "x":334,
                  "y":104
-                }, 
+                },
+            
                 {
-                 "gid":297,
+                 "gid":298,
                  "height":24,
                  "id":60,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1042,10 +1019,43 @@
                  "y":72
                 }, 
                 {
-                 "gid":297,
+                 "gid":270,
+                 "height":31,
+                 "id":11,
+                 "name":"jukebox",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"jukebox"
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":20,
+                 "x":26.5,
+                 "y":74.5
+                }, 
+                {
+                 "gid":298,
                  "height":24,
                  "id":61,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1262,7 +1272,7 @@
                  "y":43.75
                 }, 
                 {
-                 "gid":281,
+                 "gid":282,
                  "height":78,
                  "id":20,
                  "name":"patrol_ship",
@@ -1295,7 +1305,7 @@
                  "y":47.25
                 }, 
                 {
-                 "gid":279,
+                 "gid":280,
                  "height":93,
                  "id":24,
                  "name":"pasiphae",
@@ -1328,7 +1338,7 @@
                  "y":38.5
                 }, 
                 {
-                 "gid":285,
+                 "gid":286,
                  "height":69,
                  "id":25,
                  "name":"yellow_lamp",
@@ -1366,10 +1376,10 @@
                  "y":62.5
                 }, 
                 {
-                 "gid":2147483955,
+                 "gid":363,
                  "height":47,
                  "id":63,
-                 "name":"sofa-east-part_1",
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -1444,10 +1454,10 @@
                  "y":107.5
                 }, 
                 {
-                 "gid":2147483960,
+                 "gid":364,
                  "height":47,
                  "id":64,
-                 "name":"sofa-east-part_2",
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -1495,6 +1505,202 @@
                  "width":62,
                  "x":27.5,
                  "y":107.5
+                }, 
+                {
+                 "gid":357,
+                 "height":12,
+                 "id":66,
+                 "name":"noise_reducer",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-4,
+                 "y":6
+                }, 
+                {
+                 "gid":357,
+                 "height":12,
+                 "id":67,
+                 "name":"noise_reducer",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-4,
+                 "y":54
+                }, 
+                {
+                 "gid":357,
+                 "height":12,
+                 "id":68,
+                 "name":"noise_reducer",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-4,
+                 "y":102
+                }, 
+                {
+                 "gid":357,
+                 "height":12,
+                 "id":69,
+                 "name":"noise_reducer",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-4,
+                 "y":150
+                }, 
+                {
+                 "gid":361,
+                 "height":13,
+                 "id":71,
+                 "name":"antispore_gas",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":-12.5,
+                 "y":75.5
+                }, 
+                {
+                 "gid":359,
+                 "height":38,
+                 "id":72,
+                 "name":"dismantled_wall",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":19,
+                 "x":11.75,
+                 "y":50.25
+                }, 
+                {
+                 "gid":281,
+                 "height":93,
+                 "id":74,
+                 "name":"repair_patrol",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":64
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":70
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":106,
+                 "x":82.25,
+                 "y":47.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1503,10 +1709,10 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":65,
+ "nextobjectid":75,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -2769,22 +2975,22 @@
          "tilewidth":77
         }, 
         {
-         "columns":1,
+         "columns":2,
          "firstgid":270,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":2,
-         "firstgid":271,
+         "firstgid":272,
          "image":"tilesets\/small_takeoff_platform.png",
          "imageheight":424,
          "imagewidth":388,
@@ -2847,7 +3053,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":279,
+         "firstgid":280,
          "image":"tilesets\/pasiphae.png",
          "imageheight":187,
          "imagewidth":106,
@@ -2861,7 +3067,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":281,
+         "firstgid":282,
          "image":"tilesets\/patrol_ship.png",
          "imageheight":312,
          "imagewidth":103,
@@ -2875,7 +3081,7 @@
         }, 
         {
          "columns":6,
-         "firstgid":285,
+         "firstgid":286,
          "image":"tilesets\/yellow_lamp.png",
          "imageheight":69,
          "imagewidth":324,
@@ -2918,7 +3124,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":291,
+         "firstgid":292,
          "image":"tilesets\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -2957,7 +3163,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":295,
+         "firstgid":296,
          "image":"tilesets\/magnetic_net.png",
          "imageheight":66,
          "imagewidth":48,
@@ -2971,7 +3177,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":297,
+         "firstgid":298,
          "image":"tilesets\/floor_lamp.png",
          "imageheight":144,
          "imagewidth":32,
@@ -2984,36 +3190,36 @@
          "tilewidth":32
         }, 
         {
-         "columns":5,
-         "firstgid":303,
+         "columns":1,
+         "firstgid":304,
          "image":"tilesets\/sofa_asset.png",
          "imageheight":188,
-         "imagewidth":310,
+         "imagewidth":62,
          "margin":0,
          "name":"sofa_asset",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":20,
+         "tilecount":4,
          "tileheight":47,
          "tilewidth":62
         }, 
         {
-         "columns":5,
-         "firstgid":323,
+         "columns":1,
+         "firstgid":308,
          "image":"tilesets\/sofa_asset.png",
          "imageheight":188,
-         "imagewidth":310,
+         "imagewidth":62,
          "margin":0,
          "name":"sofa_asset",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":20,
+         "tilecount":4,
          "tileheight":47,
          "tilewidth":62
         }, 
         {
          "columns":15,
-         "firstgid":343,
+         "firstgid":312,
          "grid":
             {
              "height":72,
@@ -3030,6 +3236,62 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":2,
+         "firstgid":357,
+         "image":"tilesets\/noise_reducer.png",
+         "imageheight":12,
+         "imagewidth":20,
+         "margin":0,
+         "name":"noise_reducer",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":12,
+         "tilewidth":10
+        }, 
+        {
+         "columns":2,
+         "firstgid":359,
+         "image":"tilesets\/dismantled_wall.png",
+         "imageheight":38,
+         "imagewidth":38,
+         "margin":0,
+         "name":"dismantled_wall",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":38,
+         "tilewidth":19
+        }, 
+        {
+         "columns":2,
+         "firstgid":361,
+         "image":"tilesets\/antispore_gas.png",
+         "imageheight":13,
+         "imagewidth":20,
+         "margin":0,
+         "name":"antispore_gas",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":13,
+         "tilewidth":10
+        }, 
+        {
+         "columns":4,
+         "firstgid":363,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

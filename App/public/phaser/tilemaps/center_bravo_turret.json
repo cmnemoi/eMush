@@ -4,12 +4,12 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 298, 0, 0, 0, 0, 0, 0,
-            0, 299, 0, 0, 0, 0, 0, 0, 0,
-            0, 299, 0, 0, 0, 0, 0, 0, 0,
-            0, 299, 0, 0, 0, 0, 0, 0, 0,
-            0, 299, 0, 0, 0, 0, 0, 0, 0,
-            0, 299, 0, 0, 0, 0, 0, 0, 0,
+            0, 260, 258, 0, 0, 0, 0, 0, 0,
+            0, 259, 0, 0, 0, 0, 0, 0, 0,
+            0, 259, 0, 0, 0, 0, 0, 0, 0,
+            0, 259, 0, 0, 0, 0, 0, 0, 0,
+            0, 259, 0, 0, 0, 0, 0, 0, 0,
+            0, 259, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -127,7 +127,7 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 298, 298, 0, 0,
+            0, 0, 0, 0, 0, 258, 258, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -154,11 +154,11 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 311, 312, 312, 311, 311, 0, 0,
-            0, 0, 311, 312, 312, 312, 312, 0, 0,
-            0, 0, 311, 316, 312, 312, 312, 0, 0,
-            0, 0, 311, 311, 311, 311, 311, 0, 0,
-            0, 0, 311, 311, 311, 311, 311, 0, 0,
+            0, 0, 271, 272, 272, 271, 271, 0, 0,
+            0, 0, 271, 272, 272, 272, 272, 0, 0,
+            0, 0, 271, 276, 272, 272, 272, 0, 0,
+            0, 0, 271, 271, 271, 271, 271, 0, 0,
+            0, 0, 271, 271, 271, 271, 271, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -214,7 +214,7 @@
                  "gid":216,
                  "height":40,
                  "id":5,
-                 "name":"shelf-model_3",
+                 "name":"shelf_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -306,6 +306,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -353,7 +358,7 @@
                  "y":61
                 }, 
                 {
-                 "gid":255,
+                 "gid":254,
                  "height":26,
                  "id":25,
                  "name":"turret_bravo-back",
@@ -386,10 +391,10 @@
                  "y":86.25
                 }, 
                 {
-                 "gid":238,
+                 "gid":237,
                  "height":36,
                  "id":23,
-                 "name":"chair_turret-south",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -460,7 +465,7 @@
                  "y":96.5
                 }, 
                 {
-                 "gid":237,
+                 "gid":236,
                  "height":48,
                  "id":21,
                  "name":"bravo_turret-south",
@@ -513,10 +518,10 @@
                  "y":118
                 }, 
                 {
-                 "gid":253,
+                 "gid":252,
                  "height":10,
                  "id":24,
-                 "name":"turret_tags_B2",
+                 "name":"turret_tags",
                  "properties":[
                         {
                          "name":"collides",
@@ -537,10 +542,48 @@
                 },
             
                 {
-                 "gid":2147483908,
+                 "gid":256,
+                 "height":31,
+                 "id":28,
+                 "name":"jukebox",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":20,
+                 "x":87.0537223888738,
+                 "y":20.176029451868
+                }, 
+                {
+                 "gid":302,
                  "height":47,
-                 "id":26,
-                 "name":"sofa-east-part_1",
+                 "id":29,
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -612,14 +655,14 @@
                  "type":"equipment",
                  "visible":true,
                  "width":62,
-                 "x":27.1731748726655,
-                 "y":41.7631578947368
+                 "x":27.5,
+                 "y":41.5
                 }, 
                 {
-                 "gid":2147483913,
+                 "gid":303,
                  "height":47,
-                 "id":27,
-                 "name":"sofa-east-part_2",
+                 "id":30,
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -665,46 +708,8 @@
                  "type":"equipment",
                  "visible":true,
                  "width":62,
-                 "x":27.1731748726655,
-                 "y":41.7631578947368
-                }, 
-                {
-                 "gid":2147483944,
-                 "height":31,
-                 "id":28,
-                 "name":"jukebox-south",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"flipX",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":20,
-                 "x":87.0537223888738,
-                 "y":20.176029451868
+                 "x":27.5,
+                 "y":41.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -713,10 +718,10 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":29,
+ "nextobjectid":31,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -1872,25 +1877,11 @@
         {
          "columns":1,
          "firstgid":236,
-         "image":"tilesets\/alpha_turret_front.png",
-         "imageheight":61,
-         "imagewidth":123,
-         "margin":0,
-         "name":"alpha_turret_front",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":61,
-         "tilewidth":123
-        }, 
-        {
-         "columns":1,
-         "firstgid":237,
-         "image":"tilesets\/bravo_turret_front.png",
+         "image":"tilesets\/bravo_turret-south.png",
          "imageheight":48,
          "imagewidth":122,
          "margin":0,
-         "name":"bravo_turret_front",
+         "name":"bravo_turret-south",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
@@ -1899,7 +1890,7 @@
         }, 
         {
          "columns":7,
-         "firstgid":238,
+         "firstgid":237,
          "image":"tilesets\/chair_object.png",
          "imageheight":72,
          "imagewidth":238,
@@ -1910,11 +1901,10 @@
          "tilecount":14,
          "tileheight":36,
          "tilewidth":34
-        },
-    
+        }, 
         {
          "columns":3,
-         "firstgid":252,
+         "firstgid":251,
          "image":"tilesets\/turret_tags.png",
          "imageheight":10,
          "imagewidth":54,
@@ -1925,10 +1915,11 @@
          "tilecount":3,
          "tileheight":10,
          "tilewidth":18
-        }, 
+        },
+    
         {
          "columns":1,
-         "firstgid":255,
+         "firstgid":254,
          "image":"tilesets\/turret_back_bravo.png",
          "imageheight":26,
          "imagewidth":69,
@@ -1941,50 +1932,22 @@
          "tilewidth":69
         }, 
         {
-         "columns":5,
-         "firstgid":256,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":5,
-         "firstgid":276,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":1,
-         "firstgid":296,
+         "columns":2,
+         "firstgid":255,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":15,
-         "firstgid":297,
+         "firstgid":257,
          "grid":
             {
              "height":72,
@@ -2001,6 +1964,20 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":4,
+         "firstgid":302,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

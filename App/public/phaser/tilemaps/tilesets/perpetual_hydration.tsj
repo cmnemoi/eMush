@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"perpetual_hydration.png",
+ "imageheight":12,
+ "imagewidth":14,
+ "margin":0,
+ "name":"perpetual_hydration",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":12,
+ "tilewidth":14,
+ "type":"tileset",
+ "version":"1.10"
+}

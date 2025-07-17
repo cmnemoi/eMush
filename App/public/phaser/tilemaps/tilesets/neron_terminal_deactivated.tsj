@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"neron_terminal_deactivated.png",
+ "imageheight":64,
+ "imagewidth":41,
+ "margin":0,
+ "name":"neron_terminal_deactivated",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":64,
+ "tilewidth":41,
+ "type":"tileset",
+ "version":"1.10"
+}

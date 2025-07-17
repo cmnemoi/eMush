@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"spore_sucker.png",
+ "imageheight":13,
+ "imagewidth":6,
+ "margin":0,
+ "name":"spore_sucker",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":13,
+ "tilewidth":6,
+ "type":"tileset",
+ "version":"1.10"
+}

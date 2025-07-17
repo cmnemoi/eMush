@@ -4,13 +4,13 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 273, 271, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 272, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 272, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 272, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 272, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 272, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 272, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 254, 252, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 253, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 253, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 253, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 253, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 253, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 253, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -141,7 +141,7 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 271, 271, 271, 271, 271, 271, 0, 0,
+            0, 0, 0, 0, 0, 252, 252, 252, 252, 252, 252, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -171,12 +171,12 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 284, 285, 285, 284, 284, 284, 284, 284, 284, 0, 0,
-            0, 0, 284, 285, 285, 285, 285, 285, 285, 285, 285, 0, 0,
-            0, 0, 284, 289, 285, 285, 285, 285, 285, 285, 285, 0, 0,
-            0, 0, 284, 284, 284, 284, 284, 284, 284, 284, 284, 0, 0,
-            0, 0, 284, 284, 284, 284, 284, 284, 284, 284, 284, 0, 0,
-            0, 0, 284, 284, 284, 284, 284, 284, 284, 284, 284, 0, 0,
+            0, 0, 265, 266, 266, 265, 265, 265, 265, 265, 265, 0, 0,
+            0, 0, 265, 266, 266, 266, 266, 266, 266, 266, 266, 0, 0,
+            0, 0, 265, 270, 266, 266, 266, 266, 266, 266, 266, 0, 0,
+            0, 0, 265, 265, 265, 265, 265, 265, 265, 265, 265, 0, 0,
+            0, 0, 265, 265, 265, 265, 265, 265, 265, 265, 265, 0, 0,
+            0, 0, 265, 265, 265, 265, 265, 265, 265, 265, 265, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -211,8 +211,8 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 284, 284, 284, 284, 284, 284, 0, 0,
-            0, 0, 0, 0, 0, 284, 284, 284, 284, 284, 284, 0, 0,
+            0, 0, 0, 0, 0, 265, 265, 265, 265, 265, 265, 0, 0,
+            0, 0, 0, 0, 0, 265, 265, 265, 265, 265, 265, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
@@ -245,7 +245,7 @@
                  "gid":237,
                  "height":40,
                  "id":9,
-                 "name":"shelf-model_3",
+                 "name":"shelf_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -418,8 +418,8 @@
                  "type":"decoration",
                  "visible":true,
                  "width":88,
-                 "x":28.03,
-                 "y":80.03
+                 "x":28,
+                 "y":80
                 }, 
                 {
                  "gid":245,
@@ -446,6 +446,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -458,7 +463,7 @@
                  "gid":242,
                  "height":9,
                  "id":6,
-                 "name":"slippers-green",
+                 "name":"slippers",
                  "properties":[
                         {
                          "name":"collides",
@@ -534,7 +539,7 @@
                  "gid":2,
                  "height":58,
                  "id":12,
-                 "name":"bed-pillow-east",
+                 "name":"bed",
                  "properties":[
                         {
                          "name":"collides",
@@ -597,7 +602,7 @@
                  "gid":3,
                  "height":58,
                  "id":13,
-                 "name":"bed-east",
+                 "name":"bed",
                  "properties":[
                         {
                          "name":"collides",
@@ -657,10 +662,76 @@
                  "y":101
                 }, 
                 {
+                 "gid":297,
+                 "height":38,
+                 "id":22,
+                 "name":"dismantled_wall",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":19,
+                 "x":70.25,
+                 "y":17.75
+                }, 
+                {
+                 "gid":33,
+                 "height":36,
+                 "id":14,
+                 "name":"door_ground",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"rear_corridor_alpha_dorm"
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":32
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":32
+                        }],
+                 "rotation":0,
+                 "type":"door_ground",
+                 "visible":true,
+                 "width":64,
+                 "x":189,
+                 "y":61
+                }, 
+                {
                  "gid":1,
                  "height":58,
                  "id":11,
-                 "name":"bed-blancket-east",
+                 "name":"bed",
                  "properties":[
                         {
                          "name":"collides",
@@ -718,172 +789,13 @@
                  "width":66,
                  "x":83.5,
                  "y":132.5
-                }, 
-                {
-                 "gid":33,
-                 "height":36,
-                 "id":14,
-                 "name":"door_ground",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"depth",
-                         "type":"int",
-                         "value":10
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"rear_corridor_alpha_dorm"
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":32
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":32
-                        }],
-                 "rotation":0,
-                 "type":"door_ground",
-                 "visible":true,
-                 "width":64,
-                 "x":189,
-                 "y":61
-                }, 
-                {
-                 "gid":250,
-                 "height":47,
-                 "id":16,
-                 "name":"sofa-south-part_1",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoShiftHitboxX",
-                         "type":"int",
-                         "value":-6
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":44
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"lie_down"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":2
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":-2
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":62,
-                 "x":116,
-                 "y":27
                 },
             
                 {
-                 "gid":255,
-                 "height":47,
-                 "id":17,
-                 "name":"sofa-south-part_2",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoShiftHitboxX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoShiftHitboxY",
-                         "type":"int",
-                         "value":-10
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":3
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":62,
-                 "x":116,
-                 "y":27
-                }, 
-                {
-                 "gid":2147483917,
+                 "gid":250,
                  "height":31,
                  "id":18,
-                 "name":"jukebox-south",
+                 "name":"jukebox",
                  "properties":[
                         {
                          "name":"collides",
@@ -916,6 +828,254 @@
                  "width":20,
                  "x":154.736220470142,
                  "y":21.5853812867911
+                }, 
+                {
+                 "gid":320,
+                 "height":15,
+                 "id":20,
+                 "name":"mushicide_soap",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":6,
+                 "x":28.5,
+                 "y":98.5
+                }, 
+                {
+                 "gid":299,
+                 "height":13,
+                 "id":24,
+                 "name":"antispore_gas",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"depth",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":10,
+                 "x":97.5,
+                 "y":-4.5
+                }, 
+                {
+                 "gid":301,
+                 "height":50,
+                 "id":25,
+                 "name":"bric_broc",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":6
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":12
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":20,
+                 "x":126.5,
+                 "y":11.5
+                }, 
+                {
+                 "gid":302,
+                 "height":32,
+                 "id":27,
+                 "name":"oxy_more",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"decoration",
+                 "visible":true,
+                 "width":41,
+                 "x":152.25,
+                 "y":103.75
+                }, 
+                {
+                 "gid":314,
+                 "height":47,
+                 "id":28,
+                 "name":"sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":44
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-2
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":102,
+                 "y":27
+                }, 
+                {
+                 "gid":315,
+                 "height":47,
+                 "id":29,
+                 "name":"sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-10
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":102,
+                 "y":27
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -924,10 +1084,10 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":19,
+ "nextobjectid":30,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -2084,11 +2244,11 @@
         {
          "columns":1,
          "firstgid":244,
-         "image":"tilesets\/washRoom1.png",
+         "image":"tilesets\/washroom-alpha.png",
          "imageheight":90,
          "imagewidth":88,
          "margin":0,
-         "name":"washRoom1",
+         "name":"washroom-alpha",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
@@ -2135,36 +2295,22 @@
          "tilewidth":14
         }, 
         {
-         "columns":5,
+         "columns":2,
          "firstgid":249,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":1,
-         "firstgid":269,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":15,
-         "firstgid":270,
+         "firstgid":251,
          "grid":
             {
              "height":72,
@@ -2181,6 +2327,140 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":2,
+         "firstgid":296,
+         "image":"tilesets\/dismantled_wall.png",
+         "imageheight":38,
+         "imagewidth":38,
+         "margin":0,
+         "name":"dismantled_wall",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":38,
+         "tilewidth":19
+        },
+    
+        {
+         "columns":2,
+         "firstgid":298,
+         "image":"tilesets\/antispore_gas.png",
+         "imageheight":13,
+         "imagewidth":20,
+         "margin":0,
+         "name":"antispore_gas",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":13,
+         "tilewidth":10
+        }, 
+        {
+         "columns":2,
+         "firstgid":300,
+         "image":"tilesets\/bric_broc.png",
+         "imageheight":50,
+         "imagewidth":40,
+         "margin":0,
+         "name":"bric_broc",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":50,
+         "tilewidth":20
+        }, 
+        {
+         "columns":10,
+         "firstgid":302,
+         "image":"..\/..\/..\/..\/..\/mush_sup\/new_projectModif\/oxy_more.png",
+         "imageheight":32,
+         "imagewidth":410,
+         "margin":0,
+         "name":"oxy_more",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":10,
+         "tileheight":32,
+         "tiles":[
+                {
+                 "animation":[
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":1
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":2
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":3
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":4
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":5
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":6
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":7
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":8
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":9
+                        }, 
+                        {
+                         "duration":100,
+                         "tileid":0
+                        }],
+                 "id":0
+                }],
+         "tilewidth":41
+        }, 
+        {
+         "columns":4,
+         "firstgid":312,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
+        }, 
+        {
+         "columns":1,
+         "firstgid":320,
+         "image":"tilesets\/mushicide_soap.png",
+         "imageheight":15,
+         "imagewidth":6,
+         "margin":0,
+         "name":"mushicide_soap",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":1,
+         "tileheight":15,
+         "tilewidth":6
         }],
  "tilewidth":32,
  "type":"map",

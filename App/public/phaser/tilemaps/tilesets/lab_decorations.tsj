@@ -1,0 +1,14 @@
+{ "columns":6,
+ "image":"lab_decorations.png",
+ "imageheight":45,
+ "imagewidth":90,
+ "margin":0,
+ "name":"lab_decorations",
+ "spacing":0,
+ "tilecount":18,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":15,
+ "tilewidth":15,
+ "type":"tileset",
+ "version":"1.10"
+}

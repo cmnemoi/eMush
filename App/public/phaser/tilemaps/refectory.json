@@ -4,11 +4,11 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 326, 324, 324, 324, 324, 324, 324, 324, 324, 324, 324, 0, 0,
-            0, 325, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 325, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 325, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 325, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 310, 308, 308, 308, 308, 308, 308, 308, 308, 308, 308, 0, 0,
+            0, 309, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 309, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 309, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 309, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -39,7 +39,7 @@
          "name":"doors",
          "objects":[
                 {
-                 "gid":65,
+                 "gid":64,
                  "height":36,
                  "id":1,
                  "name":"door_ground",
@@ -82,7 +82,7 @@
                  "y":110
                 }, 
                 {
-                 "gid":118,
+                 "gid":117,
                  "height":73,
                  "id":2,
                  "name":"door",
@@ -134,10 +134,10 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 325, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 325, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 325, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 325, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 309, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 309, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 309, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 309, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -159,16 +159,16 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
-            0, 0, 337, 337, 337, 337, 337, 337, 337, 337, 337, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
+            0, 0, 321, 321, 321, 321, 321, 321, 321, 321, 321, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -195,8 +195,8 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 337, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 337, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 321, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 321, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -239,8 +239,8 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 337, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 337, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 321, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 321, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -270,7 +270,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":264,
+                 "gid":263,
                  "height":15,
                  "id":3,
                  "name":"wall_box",
@@ -294,6 +294,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -303,7 +308,7 @@
                  "y":145
                 }, 
                 {
-                 "gid":4,
+                 "gid":3,
                  "height":81,
                  "id":4,
                  "name":"table",
@@ -341,10 +346,10 @@
                  "y":141.25
                 }, 
                 {
-                 "gid":268,
+                 "gid":267,
                  "height":40,
                  "id":6,
-                 "name":"shelf-model_3",
+                 "name":"shelf_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -369,7 +374,7 @@
                  "y":71.75
                 }, 
                 {
-                 "gid":3,
+                 "gid":2,
                  "height":41,
                  "id":7,
                  "name":"pneumatic_distributor_reception",
@@ -388,6 +393,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":16
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -430,7 +440,7 @@
                  "y":130.25
                 }, 
                 {
-                 "gid":270,
+                 "gid":269,
                  "height":17,
                  "id":12,
                  "name":"camera",
@@ -473,10 +483,10 @@
                  "y":47.75
                 }, 
                 {
-                 "gid":292,
+                 "gid":291,
                  "height":36,
                  "id":14,
-                 "name":"chair_refectory-east",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -531,10 +541,10 @@
                  "y":162
                 }, 
                 {
-                 "gid":292,
+                 "gid":291,
                  "height":36,
                  "id":15,
-                 "name":"chair_refectory-east",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -589,10 +599,10 @@
                  "y":146
                 }, 
                 {
-                 "gid":292,
+                 "gid":291,
                  "height":36,
                  "id":16,
-                 "name":"chair_refectory-east",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -647,10 +657,10 @@
                  "y":130
                 }, 
                 {
-                 "gid":292,
+                 "gid":291,
                  "height":36,
                  "id":17,
-                 "name":"chair_refectory-east",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -705,10 +715,10 @@
                  "y":114
                 }, 
                 {
-                 "gid":293,
+                 "gid":292,
                  "height":36,
                  "id":18,
-                 "name":"chair_refectory-west",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -763,10 +773,10 @@
                  "y":164.5
                 }, 
                 {
-                 "gid":293,
+                 "gid":292,
                  "height":36,
                  "id":19,
-                 "name":"chair_refectory-west",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -821,10 +831,10 @@
                  "y":148.5
                 }, 
                 {
-                 "gid":293,
+                 "gid":292,
                  "height":36,
                  "id":20,
-                 "name":"chair_refectory-west",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -879,10 +889,10 @@
                  "y":132.5
                 }, 
                 {
-                 "gid":293,
+                 "gid":292,
                  "height":36,
                  "id":21,
-                 "name":"chair_refectory-west",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -938,7 +948,7 @@
                 },
             
                 {
-                 "gid":298,
+                 "gid":297,
                  "height":111,
                  "id":22,
                  "name":"kitchen_part_1",
@@ -981,7 +991,7 @@
                  "y":11.25
                 }, 
                 {
-                 "gid":300,
+                 "gid":299,
                  "height":62,
                  "id":23,
                  "name":"kitchen_part_2",
@@ -1019,10 +1029,43 @@
                  "y":23
                 }, 
                 {
-                 "gid":2147483960,
+                 "gid":305,
+                 "height":31,
+                 "id":30,
+                 "name":"jukebox",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":16
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":20,
+                 "x":23.5421565584249,
+                 "y":74.8334337803687
+                }, 
+                {
+                 "gid":357,
                  "height":47,
-                 "id":24,
-                 "name":"sofa-north-part_1",
+                 "id":31,
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -1102,10 +1145,10 @@
                  "y":169.5
                 }, 
                 {
-                 "gid":2147483965,
+                 "gid":356,
                  "height":47,
-                 "id":25,
-                 "name":"sofa-north-part_2",
+                 "id":32,
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -1153,39 +1196,6 @@
                  "width":62,
                  "x":41.5,
                  "y":169.5
-                }, 
-                {
-                 "gid":322,
-                 "height":31,
-                 "id":30,
-                 "name":"jukebox",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":20,
-                 "x":23.5421565584249,
-                 "y":74.8334337803687
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1194,7 +1204,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":31,
+ "nextobjectid":33,
  "orientation":"isometric",
  "properties":[
         {
@@ -1227,27 +1237,27 @@
  "tileheight":16,
  "tilesets":[
         {
-         "columns":2,
+         "columns":1,
          "firstgid":1,
          "image":"tilesets\/coffee_machine.png",
          "imageheight":52,
-         "imagewidth":62,
+         "imagewidth":29,
          "margin":0,
          "name":"coffee_machine",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":2,
+         "tilecount":1,
          "tileheight":52,
-         "tilewidth":31
+         "tilewidth":29
         }, 
         {
          "columns":1,
-         "firstgid":3,
-         "image":"tilesets\/pneumatic_distributor_2.png",
+         "firstgid":2,
+         "image":"tilesets\/pneumatic_distributor_reception.png",
          "imageheight":41,
          "imagewidth":31,
          "margin":0,
-         "name":"pneumatic_distributor_2",
+         "name":"pneumatic_distributor_reception",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
@@ -1256,7 +1266,7 @@
         }, 
         {
          "columns":2,
-         "firstgid":4,
+         "firstgid":3,
          "image":"tilesets\/table.png",
          "imageheight":81,
          "imagewidth":250,
@@ -1270,7 +1280,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":6,
+         "firstgid":5,
          "grid":
             {
              "height":72,
@@ -1290,7 +1300,7 @@
         }, 
         {
          "columns":30,
-         "firstgid":20,
+         "firstgid":19,
          "grid":
             {
              "height":72,
@@ -1310,7 +1320,7 @@
         }, 
         {
          "columns":5,
-         "firstgid":50,
+         "firstgid":49,
          "grid":
             {
              "height":36,
@@ -1427,7 +1437,7 @@
         }, 
         {
          "columns":24,
-         "firstgid":70,
+         "firstgid":69,
          "grid":
             {
              "height":73,
@@ -2256,7 +2266,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":262,
+         "firstgid":261,
          "image":"tilesets\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -2295,7 +2305,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":266,
+         "firstgid":265,
          "image":"tilesets\/shelf_object.png",
          "imageheight":40,
          "imagewidth":132,
@@ -2309,7 +2319,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":270,
+         "firstgid":269,
          "image":"tilesets\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -2437,7 +2447,7 @@
         }, 
         {
          "columns":7,
-         "firstgid":284,
+         "firstgid":283,
          "image":"tilesets\/chair_object.png",
          "imageheight":72,
          "imagewidth":238,
@@ -2451,7 +2461,7 @@
         }, 
         {
          "columns":2,
-         "firstgid":298,
+         "firstgid":297,
          "image":"tilesets\/kitchen_1.png",
          "imageheight":111,
          "imagewidth":318,
@@ -2465,7 +2475,7 @@
         }, 
         {
          "columns":2,
-         "firstgid":300,
+         "firstgid":299,
          "image":"tilesets\/kitchen_2.png",
          "imageheight":62,
          "imagewidth":92,
@@ -2478,37 +2488,37 @@
          "tilewidth":46
         }, 
         {
-         "columns":5,
-         "firstgid":302,
+         "columns":1,
+         "firstgid":301,
          "image":"tilesets\/sofa_asset.png",
          "imageheight":188,
-         "imagewidth":310,
+         "imagewidth":62,
          "margin":0,
          "name":"sofa_asset",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":20,
+         "tilecount":4,
          "tileheight":47,
          "tilewidth":62
         },
     
         {
-         "columns":1,
-         "firstgid":322,
+         "columns":2,
+         "firstgid":305,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":15,
-         "firstgid":323,
+         "firstgid":307,
          "grid":
             {
              "height":72,
@@ -2525,6 +2535,20 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":4,
+         "firstgid":352,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

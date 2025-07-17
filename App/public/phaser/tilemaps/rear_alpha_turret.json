@@ -4,9 +4,9 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 302, 299, 299, 299, 0, 0,
+            0, 0, 0, 258, 255, 255, 255, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 303, 0, 0, 0, 0, 0, 0, 0,
+            0, 259, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -132,7 +132,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0,
+            0, 256, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -154,7 +154,7 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 342, 312, 312, 312, 312, 0, 0,
+            0, 0, 298, 268, 268, 268, 268, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -186,10 +186,10 @@
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 312, 0, 0, 0, 0, 0, 0,
-            0, 0, 313, 0, 0, 0, 0, 0, 0,
-            0, 0, 313, 0, 0, 0, 0, 0, 0,
-            0, 0, 312, 0, 0, 0, 0, 0, 0,
+            0, 0, 268, 0, 0, 0, 0, 0, 0,
+            0, 0, 269, 0, 0, 0, 0, 0, 0,
+            0, 0, 269, 0, 0, 0, 0, 0, 0,
+            0, 0, 268, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -217,10 +217,10 @@
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 312, 312, 312, 312, 0, 0,
-            0, 0, 0, 313, 315, 312, 312, 0, 0,
-            0, 0, 0, 313, 313, 312, 312, 0, 0,
-            0, 0, 0, 313, 313, 312, 312, 0, 0,
+            0, 0, 0, 268, 268, 268, 268, 0, 0,
+            0, 0, 0, 269, 271, 268, 268, 0, 0,
+            0, 0, 0, 269, 269, 268, 268, 0, 0,
+            0, 0, 0, 269, 269, 268, 268, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":9,
@@ -250,7 +250,7 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":218,
+                 "gid":217,
                  "height":17,
                  "id":9,
                  "name":"camera",
@@ -293,7 +293,7 @@
                  "y":61.25
                 }, 
                 {
-                 "gid":2147483903,
+                 "gid":2147483898,
                  "height":46,
                  "id":35,
                  "name":"turret_alpha-back",
@@ -331,10 +331,10 @@
                  "y":2.25
                 }, 
                 {
-                 "gid":240,
+                 "gid":238,
                  "height":36,
                  "id":37,
-                 "name":"chair_turret-north",
+                 "name":"chair_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -405,7 +405,7 @@
                  "y":5
                 }, 
                 {
-                 "gid":2147483884,
+                 "gid":235,
                  "height":61,
                  "id":26,
                  "name":"alpha_turret-north",
@@ -449,8 +449,8 @@
                  "type":"equipment",
                  "visible":true,
                  "width":123,
-                 "x":14.25,
-                 "y":-3.25
+                 "x":13.25,
+                 "y":-4.25
                 }, 
                 {
                  "gid":1,
@@ -491,10 +491,10 @@
                  "y":124
                 }, 
                 {
-                 "gid":214,
+                 "gid":213,
                  "height":40,
                  "id":30,
-                 "name":"shelf-model_1",
+                 "name":"shelf_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -519,7 +519,7 @@
                  "y":23.75
                 }, 
                 {
-                 "gid":232,
+                 "gid":231,
                  "height":15,
                  "id":32,
                  "name":"wall_box",
@@ -533,6 +533,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":10
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -542,10 +547,10 @@
                  "y":-7.5
                 }, 
                 {
-                 "gid":267,
+                 "gid":306,
                  "height":47,
                  "id":38,
-                 "name":"sofa-west_part_1",
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -621,10 +626,10 @@
                  "y":75
                 }, 
                 {
-                 "gid":272,
+                 "gid":305,
                  "height":47,
                  "id":39,
-                 "name":"sofa-west_part_2",
+                 "name":"sofa",
                  "properties":[
                         {
                          "name":"collides",
@@ -670,10 +675,10 @@
                 },
             
                 {
-                 "gid":2147483945,
+                 "gid":253,
                  "height":31,
                  "id":40,
-                 "name":"jukebox-south",
+                 "name":"jukebox",
                  "properties":[
                         {
                          "name":"collides",
@@ -717,7 +722,7 @@
  "nextobjectid":41,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -1675,22 +1680,8 @@
          "tilewidth":48
         }, 
         {
-         "columns":1,
-         "firstgid":213,
-         "image":"tilesets\/structure.png",
-         "imageheight":106,
-         "imagewidth":175,
-         "margin":0,
-         "name":"structure",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":106,
-         "tilewidth":175
-        }, 
-        {
          "columns":4,
-         "firstgid":214,
+         "firstgid":213,
          "image":"tilesets\/shelf_object.png",
          "imageheight":40,
          "imagewidth":132,
@@ -1704,7 +1695,7 @@
         }, 
         {
          "columns":14,
-         "firstgid":218,
+         "firstgid":217,
          "image":"tilesets\/camera_object.png",
          "imageheight":17,
          "imagewidth":350,
@@ -1833,7 +1824,7 @@
         }, 
         {
          "columns":4,
-         "firstgid":232,
+         "firstgid":231,
          "image":"tilesets\/wall_box.png",
          "imageheight":15,
          "imagewidth":56,
@@ -1872,12 +1863,12 @@
         }, 
         {
          "columns":1,
-         "firstgid":236,
-         "image":"tilesets\/alpha_turret_front.png",
-         "imageheight":61,
-         "imagewidth":123,
+         "firstgid":235,
+         "image":"tilesets\/alpha_turret-north.png",
+         "imageheight":64,
+         "imagewidth":126,
          "margin":0,
-         "name":"alpha_turret_front",
+         "name":"alpha_turret-north",
          "objectalignment":"center",
          "spacing":0,
          "tilecount":1,
@@ -1885,22 +1876,8 @@
          "tilewidth":123
         }, 
         {
-         "columns":1,
-         "firstgid":237,
-         "image":"tilesets\/bravo_turret_front.png",
-         "imageheight":48,
-         "imagewidth":122,
-         "margin":0,
-         "name":"bravo_turret_front",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":1,
-         "tileheight":48,
-         "tilewidth":122
-        }, 
-        {
          "columns":7,
-         "firstgid":238,
+         "firstgid":236,
          "image":"tilesets\/chair_object.png",
          "imageheight":72,
          "imagewidth":238,
@@ -1911,25 +1888,10 @@
          "tilecount":14,
          "tileheight":36,
          "tilewidth":34
-        },
-    
-        {
-         "columns":3,
-         "firstgid":252,
-         "image":"tilesets\/turret_tags.png",
-         "imageheight":10,
-         "imagewidth":54,
-         "margin":0,
-         "name":"turret_tags",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":3,
-         "tileheight":10,
-         "tilewidth":18
         }, 
         {
          "columns":1,
-         "firstgid":255,
+         "firstgid":250,
          "image":"tilesets\/turret_back_alpha.png",
          "imageheight":46,
          "imagewidth":71,
@@ -1943,7 +1905,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":256,
+         "firstgid":251,
          "image":"tilesets\/turret_ground.png",
          "imageheight":11,
          "imagewidth":32,
@@ -1954,52 +1916,25 @@
          "tilecount":1,
          "tileheight":11,
          "tilewidth":32
-        }, 
+        },
+    
         {
-         "columns":5,
-         "firstgid":257,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":5,
-         "firstgid":277,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":1,
-         "firstgid":297,
+         "columns":2,
+         "firstgid":252,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":15,
-         "firstgid":298,
+         "firstgid":254,
          "grid":
             {
              "height":72,
@@ -2016,6 +1951,20 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":4,
+         "firstgid":299,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

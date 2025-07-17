@@ -4,8 +4,8 @@
  "layers":[
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 301, 299, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 282, 280, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -35,17 +35,17 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 299, 299, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 280, 280, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 300, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 281, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -66,7 +66,7 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 299, 299, 299, 299, 299, 299, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 280, 280, 280, 280, 280, 280, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -452,7 +452,7 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 299, 299, 299, 299, 299, 299, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 280, 280, 280, 280, 280, 280, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -484,16 +484,16 @@
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 312, 322, 321, 314, 312, 322, 321, 314, 312, 314, 316, 318, 312, 322, 321, 314, 312, 314, 312, 314, 312, 0, 0,
-            0, 0, 320, 326, 325, 320, 320, 326, 325, 320, 320, 320, 320, 320, 320, 326, 325, 320, 320, 320, 320, 320, 320, 0, 0,
-            0, 0, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 319, 0, 0,
-            0, 0, 311, 313, 315, 317, 311, 313, 315, 317, 311, 313, 311, 313, 311, 313, 311, 313, 315, 317, 311, 313, 311, 0, 0,
-            0, 0, 312, 314, 312, 314, 312, 314, 312, 314, 312, 314, 312, 314, 316, 318, 312, 314, 312, 314, 312, 314, 312, 0, 0,
-            0, 0, 311, 313, 311, 313, 311, 313, 311, 313, 311, 313, 311, 313, 315, 317, 311, 313, 311, 313, 311, 313, 311, 0, 0,
-            0, 0, 316, 318, 312, 313, 313, 313, 312, 314, 312, 313, 313, 313, 312, 314, 312, 313, 313, 313, 312, 314, 312, 0, 0,
-            0, 0, 315, 317, 311, 308, 308, 313, 311, 313, 311, 308, 308, 313, 311, 313, 311, 308, 308, 313, 311, 313, 311, 0, 0,
-            0, 0, 312, 314, 312, 308, 308, 313, 312, 314, 312, 308, 308, 313, 312, 314, 312, 308, 308, 313, 312, 314, 312, 0, 0,
-            0, 0, 311, 313, 311, 308, 308, 313, 311, 313, 311, 308, 308, 313, 311, 313, 311, 308, 308, 313, 311, 313, 311, 0, 0,
+            0, 0, 293, 303, 302, 295, 293, 303, 302, 295, 293, 295, 297, 299, 293, 303, 302, 295, 293, 295, 293, 295, 293, 0, 0,
+            0, 0, 301, 307, 306, 301, 301, 307, 306, 301, 301, 301, 301, 301, 301, 307, 306, 301, 301, 301, 301, 301, 301, 0, 0,
+            0, 0, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 300, 0, 0,
+            0, 0, 292, 294, 296, 298, 292, 294, 296, 298, 292, 294, 292, 294, 292, 294, 292, 294, 296, 298, 292, 294, 292, 0, 0,
+            0, 0, 293, 295, 293, 295, 293, 295, 293, 295, 293, 295, 293, 295, 297, 299, 293, 295, 293, 295, 293, 295, 293, 0, 0,
+            0, 0, 292, 294, 292, 294, 292, 294, 292, 294, 292, 294, 292, 294, 296, 298, 292, 294, 292, 294, 292, 294, 292, 0, 0,
+            0, 0, 297, 299, 293, 294, 294, 294, 293, 295, 293, 294, 294, 294, 293, 295, 293, 294, 294, 294, 293, 295, 293, 0, 0,
+            0, 0, 296, 298, 292, 289, 289, 294, 292, 294, 292, 289, 289, 294, 292, 294, 292, 289, 289, 294, 292, 294, 292, 0, 0,
+            0, 0, 293, 295, 293, 289, 289, 294, 293, 295, 293, 289, 289, 294, 293, 295, 293, 289, 289, 294, 293, 295, 293, 0, 0,
+            0, 0, 292, 294, 292, 289, 289, 294, 292, 294, 292, 289, 289, 294, 292, 294, 292, 289, 289, 294, 292, 294, 292, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":14,
@@ -526,7 +526,7 @@
                  "gid":233,
                  "height":40,
                  "id":12,
-                 "name":"shelf-model_1",
+                 "name":"shelf_object",
                  "properties":[
                         {
                          "name":"collides",
@@ -575,6 +575,11 @@
                          "name":"isoSizeY",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -587,7 +592,7 @@
                  "gid":238,
                  "height":33,
                  "id":14,
-                 "name":"magnetic_net_bravo",
+                 "name":"magnetic_net",
                  "properties":[
                         {
                          "name":"collides",
@@ -598,6 +603,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -808,7 +818,7 @@
                  "gid":261,
                  "height":24,
                  "id":38,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -818,7 +828,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -831,7 +841,7 @@
                  "gid":261,
                  "height":24,
                  "id":39,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -841,7 +851,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -854,7 +864,7 @@
                  "gid":261,
                  "height":24,
                  "id":40,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -864,7 +874,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -877,7 +887,7 @@
                  "gid":264,
                  "height":24,
                  "id":41,
-                 "name":"floor_lamp-3",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -887,7 +897,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -900,7 +910,7 @@
                  "gid":262,
                  "height":24,
                  "id":42,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -910,7 +920,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -923,7 +933,7 @@
                  "gid":262,
                  "height":24,
                  "id":43,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -933,7 +943,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -946,7 +956,7 @@
                  "gid":262,
                  "height":24,
                  "id":44,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -956,7 +966,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -969,7 +979,7 @@
                  "gid":262,
                  "height":24,
                  "id":45,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -979,7 +989,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -992,7 +1002,7 @@
                  "gid":262,
                  "height":24,
                  "id":46,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1002,7 +1012,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1015,7 +1025,7 @@
                  "gid":262,
                  "height":24,
                  "id":47,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1025,7 +1035,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1038,7 +1048,7 @@
                  "gid":262,
                  "height":24,
                  "id":48,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1048,7 +1058,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1061,7 +1071,7 @@
                  "gid":262,
                  "height":24,
                  "id":49,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1071,7 +1081,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1084,7 +1094,7 @@
                  "gid":262,
                  "height":24,
                  "id":50,
-                 "name":"floor_lamp-1",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1094,7 +1104,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1107,7 +1117,7 @@
                  "gid":266,
                  "height":24,
                  "id":51,
-                 "name":"floor_lamp-5",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1117,7 +1127,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1130,7 +1140,7 @@
                  "gid":261,
                  "height":24,
                  "id":52,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1140,7 +1150,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1153,7 +1163,7 @@
                  "gid":261,
                  "height":24,
                  "id":53,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1163,7 +1173,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1177,7 +1187,7 @@
                  "gid":261,
                  "height":24,
                  "id":54,
-                 "name":"floor_lamp-0",
+                 "name":"floor_lamp",
                  "properties":[
                         {
                          "name":"collides",
@@ -1187,7 +1197,7 @@
                         {
                          "name":"depth",
                          "type":"int",
-                         "value":6
+                         "value":12
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1342,7 +1352,7 @@
                  "gid":214,
                  "height":27,
                  "id":10,
-                 "name":"bay_tag-bravo1-east",
+                 "name":"bay_tag",
                  "properties":[
                         {
                          "name":"collides",
@@ -1408,7 +1418,7 @@
                  "gid":216,
                  "height":27,
                  "id":13,
-                 "name":"bay_tag-bravo1-south",
+                 "name":"bay_tag",
                  "properties":[
                         {
                          "name":"collides",
@@ -1431,7 +1441,7 @@
                  "gid":238,
                  "height":33,
                  "id":15,
-                 "name":"magnetic_net_bravo",
+                 "name":"magnetic_net",
                  "properties":[
                         {
                          "name":"collides",
@@ -1442,6 +1452,11 @@
                          "name":"depth",
                          "type":"int",
                          "value":1
+                        }, 
+                        {
+                         "name":"skin",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"decoration",
@@ -1451,131 +1466,10 @@
                  "y":197
                 }, 
                 {
-                 "gid":271,
-                 "height":47,
-                 "id":62,
-                 "name":"sofa-south-part_1",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoShiftHitboxX",
-                         "type":"int",
-                         "value":-6
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":44
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }, 
-                        {
-                         "name":"sitAnimation",
-                         "type":"string",
-                         "value":"lie_down"
-                        }, 
-                        {
-                         "name":"sitAutoTrigger",
-                         "type":"bool",
-                         "value":false
-                        }, 
-                        {
-                         "name":"sitDepth",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
-                         "name":"sitFlip",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"sitX",
-                         "type":"float",
-                         "value":2
-                        }, 
-                        {
-                         "name":"sitY",
-                         "type":"float",
-                         "value":-2
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":62,
-                 "x":299,
-                 "y":26
-                }, 
-                {
-                 "gid":276,
-                 "height":47,
-                 "id":63,
-                 "name":"sofa-south-part_2",
-                 "properties":[
-                        {
-                         "name":"collides",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"gameEquipment",
-                         "type":"string",
-                         "value":"swedish_sofa"
-                        }, 
-                        {
-                         "name":"grouped",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"isoShiftHitboxX",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"isoShiftHitboxY",
-                         "type":"int",
-                         "value":-10
-                        }, 
-                        {
-                         "name":"isoSizeX",
-                         "type":"int",
-                         "value":3
-                        }, 
-                        {
-                         "name":"isoSizeY",
-                         "type":"int",
-                         "value":16
-                        }],
-                 "rotation":0,
-                 "type":"equipment",
-                 "visible":true,
-                 "width":62,
-                 "x":299,
-                 "y":26
-                }, 
-                {
-                 "gid":287,
+                 "gid":267,
                  "height":31,
                  "id":64,
-                 "name":"jukebox-east",
+                 "name":"jukebox",
                  "properties":[
                         {
                          "name":"collides",
@@ -1603,6 +1497,137 @@
                  "width":20,
                  "x":22.605790104616,
                  "y":155.198799189221
+                }, 
+                {
+                 "gid":316,
+                 "height":47,
+                 "id":65,
+                 "name":"sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":-6
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":44
+                        }, 
+                        {
+                         "name":"sitAnimation",
+                         "type":"string",
+                         "value":"lie_down"
+                        }, 
+                        {
+                         "name":"sitAutoTrigger",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitDepth",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sitFlip",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"sitX",
+                         "type":"float",
+                         "value":-2
+                        }, 
+                        {
+                         "name":"sitY",
+                         "type":"float",
+                         "value":2
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":299,
+                 "y":26
+                }, 
+                {
+                 "gid":317,
+                 "height":47,
+                 "id":66,
+                 "name":"sofa",
+                 "properties":[
+                        {
+                         "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"flipX",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"gameEquipment",
+                         "type":"string",
+                         "value":"swedish_sofa"
+                        }, 
+                        {
+                         "name":"grouped",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"isoShiftHitboxX",
+                         "type":"int",
+                         "value":-10
+                        }, 
+                        {
+                         "name":"isoShiftHitboxY",
+                         "type":"int",
+                         "value":8
+                        }, 
+                        {
+                         "name":"isoSizeX",
+                         "type":"int",
+                         "value":16
+                        }, 
+                        {
+                         "name":"isoSizeY",
+                         "type":"int",
+                         "value":3
+                        }],
+                 "rotation":0,
+                 "type":"equipment",
+                 "visible":true,
+                 "width":62,
+                 "x":299,
+                 "y":26
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1611,10 +1636,10 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":65,
+ "nextobjectid":67,
  "orientation":"isometric",
  "renderorder":"right-down",
- "tiledversion":"1.11.0",
+ "tiledversion":"1.11.1-99-gec89c545",
  "tileheight":16,
  "tilesets":[
         {
@@ -2729,7 +2754,7 @@
          "columns":2,
          "firstgid":239,
          "image":"tilesets\/small_takeoff_platform.png",
-         "imageheight":430,
+         "imageheight":424,
          "imagewidth":388,
          "margin":0,
          "name":"small_takeoff_platform",
@@ -2899,36 +2924,22 @@
          "tilewidth":32
         }, 
         {
-         "columns":5,
+         "columns":2,
          "firstgid":267,
-         "image":"tilesets\/sofa_asset.png",
-         "imageheight":188,
-         "imagewidth":310,
-         "margin":0,
-         "name":"sofa_asset",
-         "objectalignment":"center",
-         "spacing":0,
-         "tilecount":20,
-         "tileheight":47,
-         "tilewidth":62
-        }, 
-        {
-         "columns":1,
-         "firstgid":287,
          "image":"tilesets\/jukebox.png",
          "imageheight":31,
-         "imagewidth":20,
+         "imagewidth":40,
          "margin":0,
          "name":"jukebox",
          "objectalignment":"center",
          "spacing":0,
-         "tilecount":1,
+         "tilecount":2,
          "tileheight":31,
          "tilewidth":20
         }, 
         {
          "columns":15,
-         "firstgid":288,
+         "firstgid":269,
          "grid":
             {
              "height":72,
@@ -2945,6 +2956,20 @@
          "tilecount":45,
          "tileheight":72,
          "tilewidth":32
+        }, 
+        {
+         "columns":4,
+         "firstgid":314,
+         "image":"tilesets\/sofa.png",
+         "imageheight":94,
+         "imagewidth":248,
+         "margin":0,
+         "name":"sofa",
+         "objectalignment":"center",
+         "spacing":0,
+         "tilecount":8,
+         "tileheight":47,
+         "tilewidth":62
         }],
  "tilewidth":32,
  "type":"map",

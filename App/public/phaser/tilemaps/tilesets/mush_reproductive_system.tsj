@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"mush_reproductive_system.png",
+ "imageheight":12,
+ "imagewidth":10,
+ "margin":0,
+ "name":"mush_reproductive_system",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":12,
+ "tilewidth":10,
+ "type":"tileset",
+ "version":"1.10"
+}

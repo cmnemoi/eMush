@@ -1,0 +1,14 @@
+{ "columns":4,
+ "image":"sofa.png",
+ "imageheight":94,
+ "imagewidth":248,
+ "margin":0,
+ "name":"sofa",
+ "spacing":0,
+ "tilecount":8,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":47,
+ "tilewidth":62,
+ "type":"tileset",
+ "version":"1.10"
+}

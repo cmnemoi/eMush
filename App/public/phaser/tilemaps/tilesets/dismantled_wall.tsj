@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"retro_fungal_serum.png",
+ "imageheight":11,
+ "imagewidth":10,
+ "margin":0,
+ "name":"retro_fungal_serum",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":11,
+ "tilewidth":10,
+ "type":"tileset",
+ "version":"1.10"
+}

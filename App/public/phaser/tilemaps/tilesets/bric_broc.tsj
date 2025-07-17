@@ -1,0 +1,14 @@
+{ "columns":2,
+ "image":"bric_broc.png",
+ "imageheight":50,
+ "imagewidth":40,
+ "margin":0,
+ "name":"bric_broc",
+ "spacing":0,
+ "tilecount":2,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":50,
+ "tilewidth":20,
+ "type":"tileset",
+ "version":"1.10"
+}

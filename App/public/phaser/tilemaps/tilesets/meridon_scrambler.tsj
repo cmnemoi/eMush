@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"meridon_scrambler.png",
+ "imageheight":11,
+ "imagewidth":14,
+ "margin":0,
+ "name":"meridon_scrambler",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":11,
+ "tilewidth":14,
+ "type":"tileset",
+ "version":"1.10"
+}

@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"mush_races.png",
+ "imageheight":11,
+ "imagewidth":8,
+ "margin":0,
+ "name":"mush_races",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":11,
+ "tilewidth":8,
+ "type":"tileset",
+ "version":"1.10"
+}

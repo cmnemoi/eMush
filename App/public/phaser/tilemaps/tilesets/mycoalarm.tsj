@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"mycoalarm.png",
+ "imageheight":14,
+ "imagewidth":10,
+ "margin":0,
+ "name":"mycoalarm",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.11.1-99-gec89c545",
+ "tileheight":14,
+ "tilewidth":10,
+ "type":"tileset",
+ "version":"1.10"
+}

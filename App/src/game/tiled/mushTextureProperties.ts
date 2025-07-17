@@ -49,7 +49,7 @@ export default class mushTextureProperties {
 
         if (tiledData === undefined) {
             this.firstFrameKey = tiledObj.name;
-            this.frameKey = tiledObj.name;
+            this.frameKey = tiledObj.name + '-' + frameNumber.toString();
             this.isAnimated = false;
         } else {
             this.frameKey = tiledObj.name;

@@ -39,7 +39,7 @@ export class TerminalSectionTitles {
             this.cpuPriorityName = object['cpu_priority_name'];
             this.cpuPriorityDescription = object['cpu_priority_description'];
             this.foodDestructionOptionName = object['food_destruction_option_name'];
-            this.foodDestructionOptionDescription = object['food_destruction_option_description'];            
+            this.foodDestructionOptionDescription = object['food_destruction_option_description'];
             this.crewLockName = object['crew_lock_name'];
             this.crewLockDescription = object['crew_lock_description'];
             this.plasmaShieldName = object['plasma_shield_name'];

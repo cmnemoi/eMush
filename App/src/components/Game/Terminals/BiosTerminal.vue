@@ -175,7 +175,7 @@
                 <label :key="toggle.key">{{ toggle.name }}</label>
             </div>
         </section>
-                <section class="food-destruction-option-section">
+        <section class="food-destruction-option-section">
             <Tippy tag="h3">
                 <img :src="getImgUrl('notes.gif')" />
                 {{ terminal.sectionTitles?.foodDestructionOptionName }}

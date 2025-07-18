@@ -52,24 +52,22 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveSkillPointsOfAmount(4, SkillPointsEnum::IT_EXPERT_POINTS, $I);
     }
 
-    public function shouldPolymathITApplyITPointsOverPolymathPoints(FunctionalTester $I): void
+    public function shouldPolymathITApplyITPoints(FunctionalTester $I): void
     {
         $this->givenPlayerIsPolymath($I);
         $this->givenPlayerIsITExpert($I);
         $this->givenRoomHasNeronCoreAccessedByPlayer($I);
         $this->whenPlayerAdvancesProject($I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(2, SkillPointsEnum::POLYMATH_IT_POINTS, $I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::IT_EXPERT_POINTS, $I);
+        $this->thenPlayerShouldHaveITPointsOfAmount(5, $I);
     }
 
-    public function shouldITPolymathApplyITPointsOverPolymathPoints(FunctionalTester $I): void
+    public function shouldITPolymathApplyITPoints(FunctionalTester $I): void
     {
         $this->givenPlayerIsITExpert($I);
         $this->givenPlayerIsPolymath($I);
         $this->givenRoomHasNeronCoreAccessedByPlayer($I);
         $this->whenPlayerAdvancesProject($I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(2, SkillPointsEnum::POLYMATH_IT_POINTS, $I);
-        $this->thenPlayerShouldHaveSkillPointsOfAmount(3, SkillPointsEnum::IT_EXPERT_POINTS, $I);
+        $this->thenPlayerShouldHaveITPointsOfAmount(5, $I);
     }
 
     public function shouldPolymathDesignerApplyCorePointsOverPolymathPoints(FunctionalTester $I): void
@@ -151,6 +149,24 @@ final class SkillPointModifierPriorityCest extends AbstractFunctionalTest
             expected: $expectedQuantity,
             actual: $skillPointQuantity,
             message: "Expected {$expectedQuantity} {$skillPointStatus->getName()}, got {$skillPointQuantity}"
+        );
+    }
+
+    private function thenPlayerShouldHaveITPointsOfAmount(int $expectedQuantity, FunctionalTester $I)
+    {
+        $itExpertPoints = $this->player->getChargeStatusByName(SkillPointsEnum::IT_EXPERT_POINTS->toString())?->getCharge();
+        $polymathPoints = $this->player->getChargeStatusByName(SkillPointsEnum::POLYMATH_IT_POINTS->toString())?->getCharge();
+        $higherItPoints = max($itExpertPoints, $polymathPoints);
+        $sumItPoints = $itExpertPoints + $polymathPoints;
+        $I->assertEquals(
+            expected: $expectedQuantity,
+            actual: $higherItPoints,
+            message: "Expected {$expectedQuantity} IT points, got the max {$higherItPoints}"
+        );
+        $I->assertEquals(
+            expected: $expectedQuantity,
+            actual: $sumItPoints,
+            message: "Expected {$expectedQuantity} IT points, got the sum {$sumItPoints}"
         );
     }
 }

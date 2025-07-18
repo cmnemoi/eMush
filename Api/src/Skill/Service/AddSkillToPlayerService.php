@@ -80,7 +80,11 @@ class AddSkillToPlayerService
 
     private function createSkillPoints(Skill $skill): void
     {
-        $this->statusService->createStatusFromConfig(
+        if ($skill->getSkillPointConfig()->isNull()) {
+            return;
+        }
+
+        $this->statusService->createOrExtendChargeStatusFromConfig(
             statusConfig: $skill->getSkillPointConfig(),
             holder: $skill->getPlayer()
         );

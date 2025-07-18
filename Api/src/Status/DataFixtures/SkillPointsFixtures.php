@@ -118,14 +118,10 @@ final class SkillPointsFixtures extends Fixture implements DependentFixtureInter
         $chefPoints->setModifierConfigs([$chefPointsModifier]);
         $manager->persist($chefPoints);
 
-        $polymathItPointsModifier = VariableEventModifierConfig::fromConfigData(
-            ModifierConfigData::getByName('modifier_skill_point_polymath_it_points')
-        );
-        $manager->persist($polymathItPointsModifier);
-
         $polymathItPoints = ChargeStatusConfig::fromConfigData(
             StatusConfigData::getByName(SkillPointsEnum::POLYMATH_IT_POINTS->toString())
         );
+        $polymathItPoints->setModifierConfigs([$itExpertPointsModifier]);
         $manager->persist($polymathItPoints);
 
         $gameConfig = $this->getReference(GameConfigFixtures::DEFAULT_GAME_CONFIG);

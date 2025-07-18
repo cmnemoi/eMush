@@ -10,11 +10,11 @@ use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusService;
+use Mush\Status\Service\StatusServiceInterface;
 
 final class OpportunistHandler
 {
-    public function __construct(private EventServiceInterface $eventServiceInterface, private StatusService $statusService) {}
+    public function __construct(private EventServiceInterface $eventServiceInterface, private StatusServiceInterface $statusService) {}
 
     public function execute(Player $player, string $title): void
     {

@@ -14,6 +14,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Status\Criteria\StatusCriteria;
 use Mush\Status\Entity\Attempt;
 use Mush\Status\Entity\ChargeStatus;
@@ -109,6 +110,50 @@ class StatusService implements StatusServiceInterface
             ->setVisibility($visibility)
             ->setAuthor($author);
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_DELETED);
+    }
+
+    public function removeOrCutChargeStatus(
+        string $statusName,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): void {
+        $chargeStatusConfig = $holder->getDaedalus()->getGameConfig()->getStatusConfigs()
+            ->filter(static fn (StatusConfig $statusConfig) => $statusConfig->getStatusName() === $statusName
+            && $statusConfig instanceof ChargeStatusConfig)->first();
+
+        if (!$chargeStatusConfig instanceof ChargeStatusConfig) {
+            return;
+        }
+
+        $chargeStatus = $this->getChargeStatusWithSameDischargeStrategies($holder, $chargeStatusConfig);
+        if (!$chargeStatus instanceof ChargeStatus) {
+            return;
+        }
+
+        $maxChargeToCut = $chargeStatusConfig->getMaxChargeOrThrow();
+        $holderMaxCharge = $chargeStatus->getMaxChargeOrThrow();
+
+        if ($maxChargeToCut === $holderMaxCharge) {
+            $this->removeStatus(
+                $chargeStatus->getName(),
+                $holder,
+                $tags,
+                $time,
+                $visibility
+            );
+        } elseif ($maxChargeToCut < $holderMaxCharge) {
+            $this->updateCharge(
+                $chargeStatus,
+                -$maxChargeToCut,
+                $tags,
+                $time,
+                VariableEventInterface::CHANGE_VALUE_MAX
+            );
+        } else {
+            throw new \LogicException('Cannot remove more than max charges.');
+        }
     }
 
     public function getStatusConfigByNameAndDaedalus(string $name, Daedalus $daedalus): StatusConfig
@@ -268,7 +313,6 @@ class StatusService implements StatusServiceInterface
         string $visibility = VisibilityEnum::HIDDEN,
     ): ?ChargeStatus {
         $chargeVariable = $chargeStatus->getVariableByName($chargeStatus->getName());
-
         $statusEvent = new ChargeStatusEvent(
             $chargeStatus,
             $chargeStatus->getOwner(),
@@ -297,6 +341,46 @@ class StatusService implements StatusServiceInterface
             /** @var ChargeStatus $chargeStatus */
             $chargeStatus = $this->createStatusFromName(
                 $name,
+                $holder,
+                $tags,
+                $time,
+                $target,
+                $visibility
+            );
+        }
+
+        return $chargeStatus;
+    }
+
+    public function createOrExtendChargeStatusFromConfig(
+        ChargeStatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        array $tags = [],
+        \DateTime $time = new \DateTime(),
+        ?StatusHolderInterface $target = null,
+        string $visibility = VisibilityEnum::HIDDEN
+    ): ?ChargeStatus {
+        $chargeStatus = $this->getChargeStatusWithSameDischargeStrategies($holder, $statusConfig);
+        if ($chargeStatus instanceof ChargeStatus) {
+            $tags[] = StatusEventLogEnum::CHARGE_EXTENSION;
+            $chargeStatus = $this->updateCharge(
+                $chargeStatus,
+                $statusConfig->getMaxChargeOrThrow(),
+                $tags,
+                $time,
+                VariableEventInterface::CHANGE_VALUE_MAX
+            )
+            ? $chargeStatus = $this->updateCharge(
+                $chargeStatus,
+                $statusConfig->getStartCharge(),
+                $tags,
+                $time,
+                VariableEventInterface::CHANGE_VARIABLE
+            ) : null;
+        } else {
+            /** @var ChargeStatus $chargeStatus */
+            $chargeStatus = $this->createStatusFromConfig(
+                $statusConfig,
                 $holder,
                 $tags,
                 $time,
@@ -404,6 +488,22 @@ class StatusService implements StatusServiceInterface
         if (!$holder instanceof GameEquipment || $holder->getEquipment()->getBreakableType() !== BreakableTypeEnum::BREAKABLE) {
             throw new \LogicException('trying to apply broken status to an entity that is not a breakable equipment');
         }
+    }
+
+    private function getChargeStatusWithSameDischargeStrategies(StatusHolderInterface $holder, ChargeStatusConfig $statusConfig): ?ChargeStatus
+    {
+        $dischargeStrategies = $statusConfig->getDischargeStrategies();
+        if (!\count($dischargeStrategies)) {
+            return null;
+        }
+
+        foreach ($holder->getStatuses() as $status) {
+            if ($status instanceof ChargeStatus && $status->getDischargeStrategies() === $dischargeStrategies) {
+                return $status;
+            }
+        }
+
+        return null;
     }
 
     private function delete(Status $status): void

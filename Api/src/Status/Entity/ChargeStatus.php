@@ -95,7 +95,7 @@ class ChargeStatus extends Status implements GameVariableHolderInterface
 
     public function getThreshold(): ?int
     {
-        return $this->getStatusConfig()->getMaxCharge();
+        return $this->getVariableByName($this->getName())->getMaxValue();
     }
 
     public function isAutoRemove(): bool

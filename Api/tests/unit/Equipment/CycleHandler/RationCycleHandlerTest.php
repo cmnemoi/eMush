@@ -36,9 +36,6 @@ final class RationCycleHandlerTest extends TestCase
     private DeleteEquipmentServiceInterface|Mockery\Mock $deleteEquipmentService;
 
     private RationCycleHandler $rationCycleHandler;
-
-    private GameConfig $gameConfig;
-    private LocalizationConfig $localizationConfig;
     private Daedalus $daedalus;
 
     /**

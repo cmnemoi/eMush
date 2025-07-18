@@ -46,6 +46,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ActionEnum::ATTACK->value => LogEnum::EQUIPMENT_DESTROYED,
         ActionEnum::SHOOT->value => LogEnum::EQUIPMENT_DESTROYED,
         ActionEnum::THROW_GRENADE->value => LogEnum::EQUIPMENT_DESTROYED,
+        LogEnum::FOOD_DESTROYED_BY_NERON => LogEnum::FOOD_DESTROYED_BY_NERON,
     ];
 
     private const MOVE_EQUIPMENT_LOG_MAP = [
@@ -142,6 +143,8 @@ class EquipmentSubscriber implements EventSubscriberInterface
         if ($player && !isset($parameters[$player->getLogKey()])) {
             $parameters[$player->getLogKey()] = $player->getLogName();
         }
+
+        // $parameters['neronMood'] =$event->getDaedalus()->getNeron()->
 
         /** @var Place $logPlace */
         $logPlace = $event instanceof MoveEquipmentEvent ? $event->getNewHolder() : $event->getPlace();

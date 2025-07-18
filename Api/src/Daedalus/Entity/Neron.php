@@ -5,6 +5,7 @@ namespace Mush\Daedalus\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
+use Mush\Daedalus\Enum\NeronFoodDestructionEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Entity\Player;
 
@@ -41,6 +42,9 @@ class Neron
 
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => true])]
     private bool $deathAnnouncements = true;
+
+    #[ORM\Column(type: 'string', enumType: NeronFoodDestructionEnum::class, nullable: false, options: ['default' => NeronFoodDestructionEnum::UNSTABLE])]
+    private NeronFoodDestructionEnum $foodDestructionOption = NeronFoodDestructionEnum::UNSTABLE;
 
     public function getId(): ?int
     {
@@ -141,5 +145,15 @@ class Neron
     public function toggleDeathAnnouncements(): void
     {
         $this->deathAnnouncements = !$this->deathAnnouncements;
+    }
+
+    public function getFoodDestructionOption(): NeronFoodDestructionEnum
+    {
+        return $this->foodDestructionOption;
+    }
+
+    public function changeFoodDestructionOption(NeronFoodDestructionEnum $newFoodOption): void
+    {
+        $this->foodDestructionOption = $newFoodOption;
     }
 }

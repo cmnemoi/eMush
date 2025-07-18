@@ -476,6 +476,9 @@ abstract class ActionLogEnum
         ActionEnum::CHANGE_NERON_CREW_LOCK->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
         ],
+        ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value => [
+            ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
+        ],
         ActionEnum::TOGGLE_PLASMA_SHIELD->value => [
             ActionOutputEnum::SUCCESS => self::CHANGE_NERON_PARAMETER_SUCCESS,
         ],

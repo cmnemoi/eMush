@@ -17,6 +17,7 @@ use Mush\Communications\Repository\XylophRepositoryInterface;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
+use Mush\Daedalus\Enum\NeronFoodDestructionEnum;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -332,6 +333,8 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'currentCpuPriority' => $neron->getCpuPriority(),
             'crewLocks' => $this->getTranslatedAvailableCrewLocks($terminal),
             'currentCrewLock' => $neron->getCrewLock()->value,
+            'foodDestructionOptions' => $this->getTranslatedAvailableFoodDestructionOptions($terminal),
+            'currentFoodDestructionOption' => $neron->getFoodDestructionOption()->value,
             'neronInhibitionToggles' => $this->getTranslatedNeronInhibitionToggles($terminal),
             'isNeronInhibited' => $neron->isInhibited(),
             'areVocodedAnnouncementsActive' => $neron->areVocodedAnnouncementsActive(),
@@ -504,6 +507,24 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $availableCrewLocks;
+    }
+
+    private function getTranslatedAvailableFoodDestructionOptions(GameEquipment $terminal): array
+    {
+        $availableFoodDestructionOptions = [];
+        foreach (NeronFoodDestructionEnum::getValues() as $option) {
+            $availableFoodDestructionOptions[] = [
+                'key' => $option->value,
+                'name' => $this->translationService->translate(
+                    key: $terminal->getName() . '.food_destruction_option_' . $option->value,
+                    parameters: [],
+                    domain: 'terminal',
+                    language: $terminal->getDaedalus()->getLanguage()
+                ),
+            ];
+        }
+
+        return $availableFoodDestructionOptions;
     }
 
     private function getTranslatedPlasmaShieldToggles(GameEquipment $terminal): array

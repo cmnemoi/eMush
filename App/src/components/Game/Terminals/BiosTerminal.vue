@@ -175,6 +175,31 @@
                 <label :key="toggle.key">{{ toggle.name }}</label>
             </div>
         </section>
+                <section class="food-destruction-option-section">
+            <Tippy tag="h3">
+                <img :src="getImgUrl('notes.gif')" />
+                {{ terminal.sectionTitles?.foodDestructionOptionName }}
+                <template #content>
+                    <h1 v-html="formatText(terminal.sectionTitles?.foodDestructionOptionName)" />
+                    <p v-html="formatText(terminal.sectionTitles?.foodDestructionOptionDescription)" />
+                </template>
+            </Tippy>
+            <div
+                class="radio-buttons-container"
+                v-for="lock in terminal.infos?.availableFoodDestructionOptions"
+                :key="lock.key"
+            >
+                <input
+                    type="radio"
+                    v-model="selectedFoodDestructionOption"
+                    :value="lock.key"
+                    :checked="selectedFoodDestructionOption === lock.key"
+                    :disabled="!changeNeronFoodDestructionOptionAction.canExecute"
+                    @change="executeTargetAction(terminal, changeNeronFoodDestructionOptionAction, { foodDestructionOption: selectedFoodDestructionOption })"
+                >
+                <label :key="lock.key">{{ lock.name }}</label>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -195,6 +220,9 @@ export default defineComponent ({
         },
         changeNeronCrewLockAction(): Action {
             return this.terminal.getActionByKeyOrThrow(ActionEnum.CHANGE_NERON_CREW_LOCK);
+        },
+        changeNeronFoodDestructionOptionAction(): Action {
+            return this.terminal.getActionByKeyOrThrow(ActionEnum.CHANGE_NERON_FOOD_DESTRUCTION_OPTION);
         },
         togglePlasmaShieldAction(): Action | null {
             return this.terminal.getActionByKey(ActionEnum.TOGGLE_PLASMA_SHIELD);
@@ -238,6 +266,7 @@ export default defineComponent ({
             ActionEnum,
             selectedCpuPriority: '',
             selectedCrewLock: '',
+            selectedFoodDestructionOption: '',
             selectedPlasmaShieldToggle: '',
             selectedMagneticNetToggle: '',
             selectedNeronInhibitionToggle: '',
@@ -260,6 +289,10 @@ export default defineComponent ({
         const currentCrewLock = this.terminal.infos?.currentCrewLock;
         if (!currentCrewLock) throw new Error(`No currentCrewLock found for terminal ${this.terminal?.key}`);
         this.selectedCrewLock = currentCrewLock;
+
+        const currentFoodDestructionOption = this.terminal.infos?.currentFoodDestructionOption;
+        if (!currentFoodDestructionOption) throw new Error(`No currentFoodDestructionOption found for terminal ${this.terminal?.key}`);
+        this.selectedFoodDestructionOption = currentFoodDestructionOption;
 
         const isPlasmaShieldActive = this.terminal.infos?.isPlasmaShieldActive;
         if (isPlasmaShieldActive !== null) {

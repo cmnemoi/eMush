@@ -239,6 +239,9 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $changeNeronCrewLockAction */
         $changeNeronCrewLockAction = $this->getReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value);
 
+        /** @var ActionConfig $changeNeronFoodDestructionOption */
+        $changeNeronFoodDestructionOption = $this->getReference(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value);
+
         /** @var ActionConfig $togglePlasmaShieldAction */
         $togglePlasmaShieldAction = $this->getReference(ActionEnum::TOGGLE_PLASMA_SHIELD->value);
 
@@ -258,10 +261,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
             [
                 $changeNeronCpuPriorityAction,
                 $changeNeronCrewLockAction,
+                $changeNeronFoodDestructionOption,
                 $togglePlasmaShieldAction,
                 $toggleMagneticNetAction,
                 $toggleNeronInhibitionAction,
                 $toggleVocodedAnnouncementsAction,
+                $toggleDeathAnnouncementsAction,
                 $accessTerminalAction,
                 $exitTerminalAction,
             ],

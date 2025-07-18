@@ -212,6 +212,30 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>bios_terminal.crew_lock_research</source>
         <target>Recherche</target>
       </segment>
+      <segment id="food_destruction_option.name" state="final">
+        <source>bios_terminal.food_destruction_option_name</source>
+        <target>Destruction des Denrées</target>
+      </segment>
+      <segment id="food_destruction_option.description" state="translated">
+        <source>bios_terminal.food_destruction_option_description</source>
+        <target>Règle la destruction programmée des denrées périmées qui s'enclenche à chaque changement de jour.</target>
+      </segment>
+      <segment id="food_destruction_option.never" state="translated">
+        <source>bios_terminal.food_destruction_option_never</source>
+        <target>Jamais</target>
+      </segment>
+      <segment id="food_destruction_option.unstable" state="translated">
+        <source>bios_terminal.food_destruction_option_unstable</source>
+        <target>Instable</target>
+      </segment>
+      <segment id="food_destruction_option.hazardous" state="translated">
+        <source>bios_terminal.food_destruction_option_hazardous</source>
+        <target>Avariée</target>
+      </segment>
+      <segment id="food_destruction_option.decomposing" state="translated">
+        <source>bios_terminal.food_destruction_option_decomposing</source>
+        <target>Décomposition</target>
+      </segment>
       <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>
         <target>Bouclier Plasma</target>

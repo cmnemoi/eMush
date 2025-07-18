@@ -5,6 +5,7 @@ export enum ActionEnum {
     ANALYZE_PLANET = "analyze_planet",
     CHANGE_NERON_CPU_PRIORITY = "change_neron_cpu_priority",
     CHANGE_NERON_CREW_LOCK = "change_neron_crew_lock",
+    CHANGE_NERON_FOOD_DESTRUCTION_OPTION = "change_neron_food_destruction_option",
     COM_MANAGER_ANNOUNCEMENT = "com_manager_announcement",
     COMMANDER_ORDER = "commander_order",
     COMPUTE_EDEN = "compute_eden",

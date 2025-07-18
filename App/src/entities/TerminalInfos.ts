@@ -17,6 +17,8 @@ export class TerminalInfos {
     public noProposedNeronProjectsDescription: string|null = null;
     public availableCrewLocks: {key: string, name: string}[]|null = null;
     public currentCrewLock: string|null = null;
+    public availableFoodDestructionOptions: {key: string, name: string}[]|null = null;
+    public currentFoodDestructionOption: string|null = null;
     public plasmaShieldToggles: {key: string, name: string}[]|null = null;
     public isPlasmaShieldActive: boolean|null = null;
     public magneticNetToggles: {key: string, name: string}[]|null = null;
@@ -67,6 +69,8 @@ export class TerminalInfos {
             this.noProposedNeronProjectsDescription = object.noProposedNeronProjectsDescription;
             this.availableCrewLocks = object.crewLocks;
             this.currentCrewLock = object.currentCrewLock;
+            this.availableFoodDestructionOptions = object.foodDestructionOptions;
+            this.currentFoodDestructionOption = object.currentFoodDestructionOption;
             this.plasmaShieldToggles = object.plasmaShieldToggles;
             this.isPlasmaShieldActive = object.isPlasmaShieldActive;
             this.magneticNetToggles = object.magneticNetToggles;

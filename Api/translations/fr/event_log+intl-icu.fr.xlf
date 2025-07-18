@@ -1388,5 +1388,11 @@
                   }</target>
       </segment>
     </unit>
+      <unit id="food_destroyed_by_neron">
+      <segment state="translated">
+        <source>food_destroyed_by_neron</source>
+        <target>**{equipment}** a été {equipment_gender, select, female {détruite} other {détruit}} par Néron en accord avec sa programmation.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

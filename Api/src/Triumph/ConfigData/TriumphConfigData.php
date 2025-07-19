@@ -599,6 +599,7 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     PlayerStatusEnum::PREGNANT => TriumphSourceEventInterface::ALL_TAGS,
                 ],
+                visibility: TriumphVisibility::HIDDEN,
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 2,
             ),
@@ -686,6 +687,7 @@ abstract class TriumphConfigData
                 tagConstraints: [
                     RebelBaseEnum::WOLF->toString() => TriumphSourceEventInterface::ALL_TAGS,
                 ],
+                visibility: TriumphVisibility::HIDDEN,
                 scope: TriumphScope::ALL_ALIVE_HUMANS,
                 quantity: 8,
             ),

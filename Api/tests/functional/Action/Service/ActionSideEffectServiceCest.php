@@ -58,7 +58,7 @@ final class ActionSideEffectServiceCest extends AbstractFunctionalTest
     public function testDirtyPreventedByApron(FunctionalTester $I)
     {
         $this->action->setDirtyRate(100);
-        $I->flushToDatabase($this->action);
+        $I->haveInRepository($this->action);
 
         $apronConfig = $I->grabEntityFromRepository(ItemConfig::class, ['name' => GearItemEnum::STAINPROOF_APRON . '_' . GameConfigEnum::DEFAULT]);
         $apron = new GameItem($this->player1);

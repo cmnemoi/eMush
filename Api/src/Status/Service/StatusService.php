@@ -550,8 +550,6 @@ class StatusService implements StatusServiceInterface
 
         if ($this->eventService->computeEventModifications($statusEvent, StatusEvent::STATUS_APPLIED) === null) {
             $this->delete($status);
-
-            return;
         }
 
         $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);

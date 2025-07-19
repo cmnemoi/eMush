@@ -1272,8 +1272,8 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::REPAIR_PILGRED->value, $repairPilgred);
         $this->addReference(ActionEnum::RETURN_TO_SOL->value, $returnToSol);
         $this->addReference(ActionEnum::PARTICIPATE->value, $participate);
-        $this->addReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value, $changeNeronFoodDestructionOption);
-        $this->addReference(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value, $changeNeronCrewLock);
+        $this->addReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value, object: $changeNeronCrewLock);
+        $this->addReference(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value, $changeNeronFoodDestructionOption);
         $this->addReference(ActionEnum::TOGGLE_PLASMA_SHIELD->value, $togglePlasmaShield);
         $this->addReference(ActionEnum::TOGGLE_MAGNETIC_NET->value, $toggleMagneticNet);
         $this->addReference(ActionEnum::CHITCHAT->value, $chitchat);

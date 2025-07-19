@@ -144,8 +144,6 @@ class EquipmentSubscriber implements EventSubscriberInterface
             $parameters[$player->getLogKey()] = $player->getLogName();
         }
 
-        // $parameters['neronMood'] =$event->getDaedalus()->getNeron()->
-
         /** @var Place $logPlace */
         $logPlace = $event instanceof MoveEquipmentEvent ? $event->getNewHolder() : $event->getPlace();
         $this->roomLogService->createLog(

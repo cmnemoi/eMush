@@ -59,12 +59,18 @@ final class ChangeNeronFoodDestruction extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        $actionParameters = $this->getParameters();
-        $newfoodOption = ($actionParameters && \array_key_exists('foodDestructionOption', $actionParameters)) ? $actionParameters['foodDestructionOption'] : NeronFoodDestructionEnum::NEVER;
-
         $neron = $this->player->getDaedalus()->getNeron();
+        $newFoodOption = $this->getSelectedFoodDestructionOption();
 
-        $neron->changeFoodDestructionOption(NeronFoodDestructionEnum::fromValue($newfoodOption));
+        $neron->changeFoodDestructionOption($newFoodOption);
         $this->neronRepository->save($neron);
+    }
+
+    protected function getSelectedFoodDestructionOption(): NeronFoodDestructionEnum
+    {
+        $actionParameters = $this->getParameters();
+        $newFoodOption = ($actionParameters && \array_key_exists('foodDestructionOption', $actionParameters)) ? $actionParameters['foodDestructionOption'] : NeronFoodDestructionEnum::NEVER;
+
+        return NeronFoodDestructionEnum::fromValue($newFoodOption);
     }
 }

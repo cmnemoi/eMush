@@ -47,14 +47,13 @@ class RationCycleHandler extends AbstractCycleHandler
             return;
         }
 
-        // @TODO destroy perishable item according to NERON BIOS
-        $this->handleStatus($gameEquipment, $rationType);
+        $this->spoilFood($gameEquipment, $rationType);
         $this->gameEquipmentService->persist($gameEquipment);
 
-        $this->handleBios($gameEquipment);
+        $this->destroySpoiledFood($gameEquipment);
     }
 
-    private function handleStatus(GameEquipment $gameRation, Ration $ration): void
+    private function spoilFood(GameEquipment $gameRation, Ration $ration): void
     {
         // If ration is not perishable or frozen or decomposing or not in a room do nothing
         if (!$ration->getIsPerishable()
@@ -89,7 +88,7 @@ class RationCycleHandler extends AbstractCycleHandler
         $this->statusService->createStatusFromName($nextStatus, $gameRation, [EventEnum::NEW_DAY], new \DateTime());
     }
 
-    private function handleBios(GameEquipment $gameRation): void
+    private function destroySpoiledFood(GameEquipment $gameRation): void
     {
         $neron = $gameRation->getDaedalus()->getNeron();
 

@@ -1240,7 +1240,7 @@
     <unit id="food_destroyed_by_neron">
       <segment state="translated">
         <source>food_destroyed_by_neron</source>
-        <target>**{equipment}** was destroyed by Neron in accordance with its programming.</target>
+        <target>**{equipment}** was destroyed by N.E.R.O.N. in accordance with its programming.</target>
       </segment>
     </unit>
   </file>

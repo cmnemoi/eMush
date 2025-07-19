@@ -1970,7 +1970,7 @@ class ActionData
         [
             'name' => ActionEnum::CHANGE_NERON_CREW_LOCK->value,
             'action_name' => ActionEnum::CHANGE_NERON_CREW_LOCK,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],
@@ -1986,7 +1986,7 @@ class ActionData
         [
             'name' => ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value,
             'action_name' => ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_IMMUNE_TO_ACTION_POINT_MALUSES],
             'target' => ActionHolderEnum::TERMINAL,
             'scope' => ActionRangeEnum::ROOM,
             'visibilities' => ['success' => VisibilityEnum::PRIVATE, ActionOutputEnum::FAIL => VisibilityEnum::HIDDEN],

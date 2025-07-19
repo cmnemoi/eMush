@@ -3,6 +3,7 @@
 namespace Mush\Tests\functional\Equipment\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Daedalus\Enum\NeronFoodDestructionEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
@@ -27,6 +28,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\Game\Enum\EventEnum;
 
 /**
  * @internal
@@ -96,6 +98,7 @@ final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
 
     public function testSteakStayFresh(FunctionalTester $I): void
     {
+        $this->daedalus->getNeron()->changeFoodDestructionOption(NeronFoodDestructionEnum::NEVER);
         $alienSTeakConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GameRationEnum::ALIEN_STEAK]);
 
         /** @var GameEquipmentServiceInterface $equipmentService */
@@ -129,7 +132,7 @@ final class ExplorationRationStayFreshCest extends AbstractFunctionalTest
             reasons: ['test'],
         );
 
-        $daedalusNewCycle = new DaedalusCycleEvent($this->daedalus, [], new \DateTime());
+        $daedalusNewCycle = new DaedalusCycleEvent($this->daedalus, [EventEnum::NEW_CYCLE], new \DateTime());
 
         $this->eventService->callEvent($daedalusNewCycle, DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
 

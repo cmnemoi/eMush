@@ -101,6 +101,7 @@ abstract class LogEnum
     public const string NPC_EXITED_ROOM = 'npc_exited_room';
     public const string NPC_ENTERED_ROOM = 'npc_entered_room';
     public const string TRADE_ASSETS_CREATED = 'trade_assets_created';
+    public const string FOOD_DESTROYED_BY_NERON = 'food_destroyed_by_neron';
 
     public const string VALUE = 'value';
     public const array MODIFIER_LOG_ENUM = [

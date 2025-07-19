@@ -7,6 +7,8 @@ export class TerminalSectionTitles {
     public distance: string|null = null;
     public cpuPriorityName: string|null = null;
     public cpuPriorityDescription: string|null = null;
+    public foodDestructionOptionName: string|null = null;
+    public foodDestructionOptionDescription: string|null = null;
     public crewLockName: string|null = null;
     public crewLockDescription: string|null = null;
     public plasmaShieldName: string|null = null;
@@ -36,6 +38,8 @@ export class TerminalSectionTitles {
             this.distance = object['distance'];
             this.cpuPriorityName = object['cpu_priority_name'];
             this.cpuPriorityDescription = object['cpu_priority_description'];
+            this.foodDestructionOptionName = object['food_destruction_option_name'];
+            this.foodDestructionOptionDescription = object['food_destruction_option_description'];
             this.crewLockName = object['crew_lock_name'];
             this.crewLockDescription = object['crew_lock_description'];
             this.plasmaShieldName = object['plasma_shield_name'];

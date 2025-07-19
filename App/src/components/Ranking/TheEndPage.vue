@@ -336,7 +336,7 @@
                             :key="characterKey"
                             :character-key="characterKey"
                         /></ul>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="honors" v-if="funFacts?.length > 0">

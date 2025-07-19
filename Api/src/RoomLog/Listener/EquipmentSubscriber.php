@@ -46,6 +46,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ActionEnum::ATTACK->value => LogEnum::EQUIPMENT_DESTROYED,
         ActionEnum::SHOOT->value => LogEnum::EQUIPMENT_DESTROYED,
         ActionEnum::THROW_GRENADE->value => LogEnum::EQUIPMENT_DESTROYED,
+        LogEnum::FOOD_DESTROYED_BY_NERON => LogEnum::FOOD_DESTROYED_BY_NERON,
     ];
 
     private const MOVE_EQUIPMENT_LOG_MAP = [

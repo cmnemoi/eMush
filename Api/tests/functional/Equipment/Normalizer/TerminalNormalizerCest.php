@@ -331,6 +331,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 ActionEnum::EXIT_TERMINAL->value,
                 ActionEnum::CHANGE_NERON_CPU_PRIORITY->value,
                 ActionEnum::CHANGE_NERON_CREW_LOCK->value,
+                ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value,
+                ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value,
                 ActionEnum::TOGGLE_MAGNETIC_NET->value,
                 ActionEnum::TOGGLE_NERON_INHIBITION->value,
                 ActionEnum::TOGGLE_PLASMA_SHIELD->value,
@@ -354,6 +356,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'vocoded_announcements_description' => 'Active la possibilité pour NERON de porter les messages de l\'Administrateur NERON.',
                 'death_announcements_name' => 'Signaler les décès',
                 'death_announcements_description' => 'Active la possibilité pour NERON de signaler les décès avec une annonce.',
+                'food_destruction_option_name' => 'Destruction des Denrées',
+                'food_destruction_option_description' => 'Règle la destruction programmée des denrées périmées qui s\'enclenche à chaque changement de jour.',
             ],
             actual: $normalizedTerminal['sectionTitles']
         );
@@ -404,6 +408,13 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
                 'deathAnnouncementsToggles' => [
                     ['key' => 'active', 'name' => 'Oui'],
                     ['key' => 'inactive', 'name' => 'Non'],
+                ],
+                'currentFoodDestructionOption' => 'unstable',
+                'foodDestructionOptions' => [
+                    ['key' => 'unstable', 'name' => 'Instable'],
+                    ['key' => 'hazardous', 'name' => 'Avariée'],
+                    ['key' => 'decomposing', 'name' => 'Décomposition'],
+                    ['key' => 'never', 'name' => 'Jamais'],
                 ],
             ],
             actual: $normalizedTerminal['infos']

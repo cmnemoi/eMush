@@ -77,6 +77,8 @@ class EquipmentEnum
             'vocoded_announcements_description',
             'death_announcements_name',
             'death_announcements_description',
+            'food_destruction_option_name',
+            'food_destruction_option_description',
         ],
         self::CALCULATOR => [
             'to_a_new_eden_title',

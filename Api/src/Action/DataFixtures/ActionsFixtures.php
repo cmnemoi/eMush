@@ -983,6 +983,16 @@ class ActionsFixtures extends Fixture
             ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
         $manager->persist($changeNeronCrewLock);
 
+        $changeNeronFoodDestructionOption = new ActionConfig();
+        $changeNeronFoodDestructionOption
+            ->setName(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value)
+            ->setActionName(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION)
+            ->setRange(ActionRangeEnum::ROOM)
+            ->setDisplayHolder(ActionHolderEnum::TERMINAL)
+            ->setVisibility(ActionOutputEnum::SUCCESS, VisibilityEnum::PRIVATE)
+            ->setVisibility(ActionOutputEnum::FAIL, VisibilityEnum::HIDDEN);
+        $manager->persist($changeNeronFoodDestructionOption);
+
         $togglePlasmaShield = new ActionConfig();
         $togglePlasmaShield
             ->setName(ActionEnum::TOGGLE_PLASMA_SHIELD->value)
@@ -1262,7 +1272,8 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::REPAIR_PILGRED->value, $repairPilgred);
         $this->addReference(ActionEnum::RETURN_TO_SOL->value, $returnToSol);
         $this->addReference(ActionEnum::PARTICIPATE->value, $participate);
-        $this->addReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value, $changeNeronCrewLock);
+        $this->addReference(ActionEnum::CHANGE_NERON_CREW_LOCK->value, object: $changeNeronCrewLock);
+        $this->addReference(ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value, $changeNeronFoodDestructionOption);
         $this->addReference(ActionEnum::TOGGLE_PLASMA_SHIELD->value, $togglePlasmaShield);
         $this->addReference(ActionEnum::TOGGLE_MAGNETIC_NET->value, $toggleMagneticNet);
         $this->addReference(ActionEnum::CHITCHAT->value, $chitchat);

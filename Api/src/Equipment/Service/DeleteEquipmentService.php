@@ -8,6 +8,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Player\Entity\Player;
 
 final class DeleteEquipmentService implements DeleteEquipmentServiceInterface
 {
@@ -20,14 +21,21 @@ final class DeleteEquipmentService implements DeleteEquipmentServiceInterface
         \DateTime $time = new \DateTime(),
     ): void {
         $tags[] = $gameEquipment->getName();
+        $event = new EquipmentEvent(
+            equipment: $gameEquipment,
+            created: false,
+            visibility: $visibility,
+            tags: $tags,
+            time: $time,
+        );
+
+        $holder = $gameEquipment->getHolder();
+        if ($holder instanceof Player) {
+            $event->setAuthor($holder);
+        }
+
         $this->eventService->callEvent(
-            event: new EquipmentEvent(
-                equipment: $gameEquipment,
-                created: false,
-                visibility: $visibility,
-                tags: $tags,
-                time: $time,
-            ),
+            event: $event,
             name: EquipmentEvent::EQUIPMENT_DESTROYED,
         );
     }

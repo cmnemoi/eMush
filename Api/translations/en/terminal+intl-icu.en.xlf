@@ -227,6 +227,30 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
         <source>bios_terminal.crew_lock_research</source>
         <target>Research</target>
       </segment>
+      <segment id="food_destruction_option.name" state="final">
+        <source>bios_terminal.food_destruction_option_name</source>
+        <target>Foodstuff Destruction</target>
+      </segment>
+      <segment id="food_destruction_option.description" state="translated">
+        <source>bios_terminal.food_destruction_option_description</source>
+        <target>Controls the scheduled destruction of perished foodstuffs that activate at each change of day.</target>
+      </segment>
+      <segment id="food_destruction_option.never" state="translated">
+        <source>bios_terminal.food_destruction_option_never</source>
+        <target>Never</target>
+      </segment>
+      <segment id="food_destruction_option.unstable" state="translated">
+        <source>bios_terminal.food_destruction_option_unstable</source>
+        <target>Unstable</target>
+      </segment>
+      <segment id="food_destruction_option.hazardous" state="translated">
+        <source>bios_terminal.food_destruction_option_hazardous</source>
+        <target>Hazardous</target>
+      </segment>
+      <segment id="food_destruction_option.decomposing" state="translated">
+        <source>bios_terminal.food_destruction_option_decomposing</source>
+        <target>Decomposing</target>
+      </segment>
       <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>
         <target>Plasma Shield</target>

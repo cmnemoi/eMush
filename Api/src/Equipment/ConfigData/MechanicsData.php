@@ -1717,6 +1717,7 @@ class MechanicsData
                 ActionEnum::HACK->value,
                 ActionEnum::CHANGE_NERON_CPU_PRIORITY->value,
                 ActionEnum::CHANGE_NERON_CREW_LOCK->value,
+                ActionEnum::CHANGE_NERON_FOOD_DESTRUCTION_OPTION->value,
                 ActionEnum::TOGGLE_PLASMA_SHIELD->value,
                 ActionEnum::TOGGLE_MAGNETIC_NET->value,
                 ActionEnum::TOGGLE_NERON_INHIBITION->value,

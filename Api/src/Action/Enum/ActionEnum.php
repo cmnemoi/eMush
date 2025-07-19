@@ -185,6 +185,7 @@ enum ActionEnum: string
     case RETURN_TO_SOL = 'return_to_sol';
     case PARTICIPATE = 'participate';
     case CHANGE_NERON_CREW_LOCK = 'change_neron_crew_lock';
+    case CHANGE_NERON_FOOD_DESTRUCTION_OPTION = 'change_neron_food_destruction_option';
     case TOGGLE_PLASMA_SHIELD = 'toggle_plasma_shield';
     case TOGGLE_MAGNETIC_NET = 'toggle_magnetic_net';
     case TOGGLE_NERON_INHIBITION = 'toggle_neron_inhibition';

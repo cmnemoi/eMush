@@ -29,6 +29,9 @@ use Mush\Status\Entity\Config\StatusConfig;
     'attempt' => Attempt::class,
     'content_status' => ContentStatus::class,
 ])]
+#[ORM\UniqueConstraint(
+    columns: ['owner_id', 'target_id', 'status_config_id']
+)]
 class Status implements ActionProviderInterface, ModifierProviderInterface
 {
     use TimestampableEntity;

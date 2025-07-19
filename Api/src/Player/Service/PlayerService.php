@@ -135,7 +135,9 @@ final class PlayerService implements PlayerServiceInterface
             // Check if player already exists
             $existingPlayer = $this->playerRepository->findOneByUserAndDaedalus($user, $daedalus);
             if ($existingPlayer) {
-                throw new \RuntimeException('Player already exists');
+                $this->playerRepository->commitTransaction();
+
+                return $existingPlayer;
             }
 
             $player = $this->buildPlayer($daedalus, $user, $character);

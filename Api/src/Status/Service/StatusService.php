@@ -4,6 +4,7 @@ namespace Mush\Status\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
@@ -175,48 +176,17 @@ class StatusService implements StatusServiceInterface
         ?StatusHolderInterface $target = null,
         string $visibility = VisibilityEnum::HIDDEN
     ): Status {
-        if ($target !== null) {
-            $status = $holder->getStatusByNameAndTarget($statusConfig->getStatusName(), $target);
-        } else {
-            $status = $holder->getStatusByName($statusConfig->getStatusName());
-        }
-
-        if ($status !== null) {
-            return $status;
+        $existingStatus = $this->findExistingStatus($statusConfig, $holder, $target);
+        if ($existingStatus !== null) {
+            return $existingStatus;
         }
 
         $this->throwIfWrongBreakableType($statusConfig, $holder);
 
-        // Create the entity
-        if ($statusConfig->isNull()) {
-            $status = Status::createNull();
-        } elseif ($statusConfig instanceof ChargeStatusConfig) {
-            $status = new ChargeStatus($holder, $statusConfig);
-        } elseif ($statusConfig instanceof ContentStatusConfig) {
-            $status = new ContentStatus($holder, $statusConfig);
-        } else {
-            $status = new Status($holder, $statusConfig);
-        }
-        $status->setTarget($target);
+        $status = $this->createStatusEntity($statusConfig, $holder, $target);
+        $status = $this->persistStatusSafely($status, $statusConfig, $holder, $target);
 
-        $this->persist($status);
-
-        // Create and dispatch the event
-        $statusEvent = new StatusEvent(
-            $status,
-            $holder,
-            $tags,
-            $time,
-            $target
-        );
-        $statusEvent->setVisibility($visibility);
-
-        // Check if the event is prevented by a modifier
-        if ($this->eventService->computeEventModifications($statusEvent, StatusEvent::STATUS_APPLIED) === null) {
-            $this->delete($status);
-        }
-
-        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
+        $this->processStatusCreationEvent($status, $holder, $tags, $time, $target, $visibility);
 
         return $status;
     }
@@ -504,6 +474,87 @@ class StatusService implements StatusServiceInterface
         }
 
         return null;
+    }
+
+    private function findExistingStatus(
+        StatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        ?StatusHolderInterface $target
+    ): ?Status {
+        if ($target !== null) {
+            return $holder->getStatusByNameAndTarget($statusConfig->getStatusName(), $target);
+        }
+
+        return $holder->getStatusByName($statusConfig->getStatusName());
+    }
+
+    private function createStatusEntity(
+        StatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        ?StatusHolderInterface $target
+    ): Status {
+        if ($statusConfig->isNull()) {
+            $status = Status::createNull();
+        } elseif ($statusConfig instanceof ChargeStatusConfig) {
+            $status = new ChargeStatus($holder, $statusConfig);
+        } elseif ($statusConfig instanceof ContentStatusConfig) {
+            $status = new ContentStatus($holder, $statusConfig);
+        } else {
+            $status = new Status($holder, $statusConfig);
+        }
+
+        $status->setTarget($target);
+
+        return $status;
+    }
+
+    private function persistStatusSafely(
+        Status $status,
+        StatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        ?StatusHolderInterface $target
+    ): Status {
+        try {
+            $this->persist($status);
+
+            return $status;
+        } catch (UniqueConstraintViolationException $e) {
+            return $this->handleRaceCondition($statusConfig, $holder, $target);
+        }
+    }
+
+    private function handleRaceCondition(
+        StatusConfig $statusConfig,
+        StatusHolderInterface $holder,
+        ?StatusHolderInterface $target
+    ): Status {
+        $existingStatus = $this->findExistingStatus($statusConfig, $holder, $target);
+
+        if ($existingStatus !== null) {
+            return $existingStatus;
+        }
+
+        throw new \RuntimeException('Unique constraint violation occurred but could not find existing status');
+    }
+
+    private function processStatusCreationEvent(
+        Status $status,
+        StatusHolderInterface $holder,
+        array $tags,
+        \DateTime $time,
+        ?StatusHolderInterface $target,
+        string $visibility
+    ): void {
+        $statusEvent = new StatusEvent($status, $holder, $tags, $time, $target);
+        $statusEvent->setVisibility($visibility);
+
+        if ($this->eventService->computeEventModifications($statusEvent, StatusEvent::STATUS_APPLIED) === null) {
+            $this->delete($status);
+
+            return;
+        }
+
+        $this->eventService->callEvent($statusEvent, StatusEvent::STATUS_APPLIED);
     }
 
     private function delete(Status $status): void

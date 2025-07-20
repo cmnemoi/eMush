@@ -103,7 +103,7 @@ Event listeners and suscribers.
 
 Events are used to share information between modules. For example, when a project is finished, the event `PROJECT_FINISHED` is triggered from the `Project` module, so it can be handled by the `Chat` module to create a NERON announcement.
 
-Documentation : https://symfony.com/doc/6.2/components/event_dispatcher.html#introduction
+Documentation : https://symfony.com/doc/6.4/components/event_dispatcher.html#introduction
 
 #### Normalizer
 Normalize the data returned by the controller, basically it transforms an object into an array.
@@ -112,7 +112,7 @@ The normalization is where we decide which part of the object are retured or not
 
 For example, when a player is normalized, we don't return the satiety, as it is an hidden property for other players.
 
-Documentation : https://symfony.com/doc/6.2/serializer/custom_normalizer.html
+Documentation : https://symfony.com/doc/6.4/serializer/custom_normalizer.html
 
 #### Repository
 The interface between the database and the entities, they are tightly coupled to the ORM (doctrine).
@@ -124,10 +124,10 @@ Some modules have a `RepositoryInterface` with an `InMemoryRepository` implement
 #### Service
 There you will find the core game logic, you call the Repository to retrieve the data in database and apply the transformations you need.
 
-Some modules have `UseCase`s instead, for the same purposes. The difference is that a `UseCase` usually has only one public method, making them easier to unit test.
+Let's follow a Command pattern : one service = one action on the system to perform.
 
 #### Validator
-There you valid the criteria for the `Player` to do an `Action`.
+There you validate the criteria for the `Player` to do an `Action`.
 
 Example : Do not allow `Participate` to project action if the player is dirty.
 
@@ -170,6 +170,7 @@ Obvious example:
 - [Action](./src/Action/README.md): handles actions performed by the player
 - [Alert](./src/Alert/README.md): track Daedalus and crew critical points
 - [Chat](src/Chat/README.md): handle chat between players and NERON announcements
+- [Communications](./src/Communications/README.md) : handle communications center gameplay
 - [Daedalus](./src/Daedalus/README.md) : handles the Daedalus cycle of life
 - [Disease](./src/Disease/README.md) : handles diseases (physical diseases, troubles, injuries)
 - [Equipment](./src/Equipment/README.md) : handles equipment, items and doors
@@ -178,12 +179,12 @@ Obvious example:
 - [Hunter](./src/Hunter/README.md) : handles hunters, hostile NPCs which attacks Daedalus' hull
 - [MetaGame](./src/MetaGame/README.md) : handle Admin and Moderation actions
 - [Modifier](./src/Modifier/README.md) : handle modifiers. Modifiers change events, for example reducing the cost of a specific action or triggering an extra event.
-- [Place](./src/Place/README.md) : handles places, this is where equipment or players are located
-- [Player](./src/Player/README.md) : handles players
+- [Place](./src/Place/README.md) : handles places, this is where equipment and players are located
+- [Player](./src/Player/README.md) : handles players cycle of life
 - [Project](./src/Project/README.md) : handles PILGRED, NERON projects and researches gameplay
 - [RoomLog](./src/RoomLog/README.md) : handles room logs showing the action / events history of a room
-- [Skill](./src/Skill/README.md) : handles skills
-- [Status](./src/Status/README.md) : handles statuses (like hungry, suicidal, etc.)
+- [Skill](./src/Skill/README.md) : handles skills cycle of life
+- [Status](./src/Status/README.md) : handles statuses (like hungry, suicidal, broken etc.)
 - [User](./src/User/README.md) : handles users (mostly registering and login for now)
 
 
@@ -220,7 +221,7 @@ I highly suggest you use a GUI client like [DBeaver](https://dbeaver.io/) or [SQ
 ## Tests with Codeception
 The test folder is a mirror of the src directory.
 
-You can mock classes/services with [Mockery](https://github.com/mockery/mockery) but I **highly recommend to use real classes and services** as much as possible, with **Fake** or **InMemory** implementations (example : [Fake](./src/Game/Service/FakeGetRandomIntegerService.php), [InMemory](./src/Project/Repository/InMemoryProjectRepository.php) and [usage](./tests/unit/Project/UseCase/AdvanceProjectUseCaseTest.php)).
+You can mock classes/services with [Mockery](https://github.com/mockery/mockery) but this is **highly discouraged**. You should use real classes and services as much as possible, with **Fake** or **InMemory** implementations (example : [Fake](./src/Game/Service/FakeGetRandomIntegerService.php), [InMemory](./src/Project/Repository/InMemoryProjectRepository.php) and [usage](./tests/unit/Project/UseCase/AdvanceProjectUseCaseTest.php)).
 
 This will be easier to setup and way less prone to break the tests when we refactor the code.
 

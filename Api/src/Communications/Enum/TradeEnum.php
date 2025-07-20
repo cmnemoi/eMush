@@ -31,7 +31,7 @@ enum TradeEnum: string
             self::HUMAN_VS_OXY => 'transport_3',
             self::HUMAN_VS_TREE => 'transport_4',
             self::NULL => '',
-            default => '',
+            default => 'transport_1',
         };
     }
 

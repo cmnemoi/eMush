@@ -19,20 +19,27 @@ export default defineComponent ({
         };
     },
     async beforeMount(): Promise<void> {
-        if (typeof this.$route.query.code !== 'undefined') {
-            const logginSuccess = await this.login({ code: this.$route.query.code });
-            if (logginSuccess) {
-                this.loadGameMaintenanceStatus();
-                if (this.gameInMaintenance()) {
-                    router.push({ name: 'MaintenancePage' });
-                }
-                router.push({ name: 'GamePage' });
-            }
+        if (this.$route.query.code === undefined) {
+            return;
         }
 
-        if (typeof this.$route.query.error !== 'undefined' && this.$route.query.error !== null) {
+        if (this.$route.query.error) {
             this.errorMessage = this.$route.query.error.toString();
+            return;
         }
+
+        const loginSuccessful = await this.login({ code: this.$route.query.code });
+        if (!loginSuccessful) {
+            return;
+        }
+
+        this.loadGameMaintenanceStatus();
+        if (this.gameInMaintenance()) {
+            router.push({ name: 'MaintenancePage' });
+            return;
+        }
+
+        router.push({ name: 'GamePage' });
     },
     methods: {
         ...mapGetters({

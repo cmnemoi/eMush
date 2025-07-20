@@ -72,9 +72,14 @@ export default defineComponent ({
             'playerChanged'
         ]),
         ...mapGetters('player', ['commanderOrderPanelOpen']),
-        ...mapGetters('player', ['comManagerAnnouncementPanelOpen'])
+        ...mapGetters('player', ['comManagerAnnouncementPanelOpen']),
+        ...mapGetters('admin', ['gameInMaintenance'])
     },
     async beforeMount(): Promise<void> {
+        if (this.gameInMaintenance) {
+            return;
+        }
+
         if (!this.playerChanged && this.playerId) {
             await this.loadPlayer({ playerId: this.playerId });
         }

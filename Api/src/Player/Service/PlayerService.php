@@ -2,6 +2,7 @@
 
 namespace Mush\Player\Service;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\LockMode;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepositoryInterface;
@@ -135,14 +136,13 @@ final class PlayerService implements PlayerServiceInterface
             // Check if player already exists
             $existingPlayer = $this->playerRepository->findOneByUserAndDaedalus($user, $daedalus);
             if ($existingPlayer) {
-                throw new \RuntimeException('Player already exists');
+                $this->playerRepository->commitTransaction();
+
+                return $existingPlayer;
             }
 
             $player = $this->buildPlayer($daedalus, $user, $character);
-            $this->dispatchNewPlayerEvent($player, new \DateTime());
-
-            $this->playerRepository->save($player);
-            $this->playerRepository->commitTransaction();
+            $this->saveSafely($player);
         } catch (\Throwable $e) {
             $this->playerRepository->rollbackTransaction();
 
@@ -368,6 +368,17 @@ final class PlayerService implements PlayerServiceInterface
         $this->persist($player);
 
         return $player;
+    }
+
+    private function saveSafely(Player $player): void
+    {
+        try {
+            $this->playerRepository->save($player);
+            $this->dispatchNewPlayerEvent($player, new \DateTime());
+            $this->playerRepository->commitTransaction();
+        } catch (UniqueConstraintViolationException $e) {
+            throw new \RuntimeException('Unique constraint violation occurred but could not find existing player', 0, $e);
+        }
     }
 
     private function dispatchNewPlayerEvent(Player $player, \DateTime $time): void

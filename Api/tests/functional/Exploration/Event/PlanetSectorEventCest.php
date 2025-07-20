@@ -37,7 +37,6 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -49,7 +48,6 @@ use Mush\Triumph\Enum\TriumphEnum;
 
 final class PlanetSectorEventCest extends AbstractExplorationTester
 {
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
     private StatusServiceInterface $statusService;
@@ -59,11 +57,9 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         // given our explorators are Chun, Kuan-Ti, Derek, and Janice
         $this->chun = $this->player;
@@ -844,12 +840,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
-        // given sector has fight and provision event
+        // given sector only has fight event
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INSECT,
             events: [
-                PlanetSectorEvent::PROVISION_1 => 1,
-                PlanetSectorEvent::FIGHT_15 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::FIGHT_15 => 1,
             ]
         );
 
@@ -1962,17 +1957,5 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
     private function givenPlayerHasSkill(Player $player, SkillEnum $skill, FunctionalTester $I): void
     {
         $this->addSkillToPlayer($skill, $I, $player);
-    }
-
-    private function dispatchPlanetSectorEvent(PlanetSectorEventConfig $eventConfig, PlanetSectorEvent $event): void
-    {
-        $planetSectorEvent = new PlanetSectorEvent(
-            $event->getPlanetSector(),
-            $eventConfig,
-            $event->getTags(),
-            $event->getTime(),
-            $event->getVisibility()
-        );
-        $this->eventService->callEvent($planetSectorEvent, PlanetSectorEvent::PLANET_SECTOR_EVENT);
     }
 }

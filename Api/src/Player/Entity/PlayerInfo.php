@@ -12,6 +12,9 @@ use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\User\Entity\User;
 
 #[ORM\Entity(repositoryClass: PlayerInfoRepository::class)]
+#[ORM\UniqueConstraint(
+    columns: ['user_id', 'character_config_id', 'player_id']
+)]
 class PlayerInfo
 {
     use TimestampableEntity;

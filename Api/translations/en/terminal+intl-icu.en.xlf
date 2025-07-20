@@ -132,7 +132,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
       </segment>
       <segment id="tips" state="final">
         <source>block_of_post_it.tips</source>
-        <target/>
+        <target>&lt;target/&gt;</target>
       </segment>
     </unit>
     <unit id="exploration">

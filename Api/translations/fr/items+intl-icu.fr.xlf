@@ -1468,7 +1468,7 @@ L'extincteur est un dispositif de sécurité de taille standard désigné pour p
       </segment>
       <segment id="description" state="translated">
         <source>hacker_kit.description</source>
-        <target>Le bidouilleur vous permet de débloquer l'accès d'un module protégé tel que le Terminal de Commandement ou le Bios de NERON. // :point: Cet objet est d'une importance telle que NERON ne permettra **jamais** de s'envoler avec.</target>
+        <target>Le bidouilleur vous permet de débloquer l'accès d'un module protégé tel que le Terminal de Commandement ou le Bios de NERON. // :point: Cet objet est d'une importance telle que NERON ne permettra **jamais** de s'envoler en Patrouilleur avec.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>hacker_kit.examine</source>
@@ -2038,12 +2038,12 @@ Vous avez l'impression que cette chose essaie de vous parler. Vous devez sûreme
       </segment>
       <segment id="description" state="translated">
         <source>camera_item.description</source>
-        <target>La caméra est un outil de surveillance bien pratique pour --espionner-- surveiller votre prochain.
+        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.
 En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>camera.examine</source>
-        <target>La caméra est un outil de surveillance bien pratique pour --espionner-- surveiller votre prochain.
+        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.
 En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
 Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
       </segment>
@@ -3608,7 +3608,7 @@ Ces insupportables petits feuillets traînent partout... Et puis qui peut en avo
     <unit id="camera_item.examine">
       <segment state="translated">
         <source>camera_item.examine</source>
-        <target>La caméra est un outil de surveillance bien pratique pour --espionner-- surveiller votre prochain.
+        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.
 //
 En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
 //

@@ -334,7 +334,7 @@
       </segment>
       <segment id="eden_one_man.log" state="translated">
         <source>eden_one_man.log</source>
-        <target>Vous avez gagné {quantity} :triumph: car {quantity} {quantity, select 1 {équipier a} other {équipiers ont}} atteint Eden.</target>
+        <target>Vous avez gagné {quantity} :triumph: car {quantity} {quantity, select, 1 {équipier a} other {équipiers ont}} atteint Eden.</target>
       </segment>
     </unit>
     <unit id="eden_engineers">
@@ -742,7 +742,7 @@
       </segment>
       <segment id="cm_daedalus_explode.log" state="translated">
         <source>cm_daedalus_explode.log</source>
-        <target>Vous avez gagné {quantity} car le Daedalus a été détruit ! </target>
+        <target>Vous avez gagné {quantity} car le Daedalus a été détruit !</target>
       </segment>
     </unit>
     <unit id="cm_extinguish">
@@ -752,7 +752,7 @@
       </segment>
       <segment id="cm_extinguish.log" state="translated">
         <source>cm_extinguish.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en éteignant un incendie à la force du poignet ! </target>
+        <target>Vous avez gagné {quantity} :triumph: en éteignant un incendie à la force du poignet !</target>
       </segment>
     </unit>
     <unit id="cm_mush_vaccinated">
@@ -762,7 +762,7 @@
       </segment>
       <segment id="cm_mush_vaccinated.log" state="translated">
         <source>cm_mush_vaccinated.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en vaccinant un Mush ! </target>
+        <target>Vous avez gagné {quantity} :triumph: en vaccinant un Mush !</target>
       </segment>
     </unit>
     <unit id="cm_repair_object">
@@ -772,7 +772,7 @@
       </segment>
       <segment id="cm_repair_object.log" state="translated">
         <source>cm_repair_object.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en réparant un objet. </target>
+        <target>Vous avez gagné {quantity} :triumph: en réparant un objet.</target>
       </segment>
     </unit>
     <unit id="cm_repair_hull">
@@ -792,7 +792,7 @@
       </segment>
       <segment id="cm_sabotage.log" state="translated">
         <source>cm_sabotage.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en sabotant un équipement. </target>
+        <target>Vous avez gagné {quantity} :triumph: en sabotant un équipement.</target>
       </segment>
     </unit>
     <unit id="cm_use_extinguisher">
@@ -802,7 +802,7 @@
       </segment>
       <segment id="cm_use_extinguisher.log" state="translated">
         <source>cm_use_extinguisher.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en éteignant un incendie avec l'extincteur. </target>
+        <target>Vous avez gagné {quantity} :triumph: en éteignant un incendie avec l'extincteur.</target>
       </segment>
     </unit>
     <unit id="naturalist">
@@ -870,7 +870,7 @@
     <unit id="pretty_cook.log">
       <segment state="translated">
         <source>pretty_cook.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en participant à un combat en expédition en tant que Stephen ! </target>
+        <target>Vous avez gagné {quantity} :triumph: en participant à un combat en expédition en tant que Stephen !</target>
       </segment>
     </unit>
     <unit id="fast_forward.name">

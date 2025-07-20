@@ -874,9 +874,9 @@
         <source>mush_hunter_zc16h.name</source>
         <target>El Mush-Hunter : ZC16H</target>
       </segment>
-      <segment id="mush_hunter_zc16h.lore" state="translated">
+      <segment id="mush_hunter_zc16h.lore" state="initial">
         <source>mush_hunter_zc16h.lore</source>
-        <target>Parece que esta bacteria, extraída de un pelo de oreja de Chun, reacciona violentamente en contacto con los Mush. Digiere frenéticamente al hongo y se reproduce a velocidades impresionantes. ¡Esto podría producir un antídoto contra el Mush! El resultado de este estudio puede ser capital. La fama te espera.</target>
+        <target>mush_hunter_zc16h.lore</target>
       </segment>
     </unit>
     <unit id="mushicide_soap">
@@ -906,9 +906,9 @@
         <source>mush_language.name</source>
         <target>Lenguaje Mush</target>
       </segment>
-      <segment id="mush_language.lore" state="translated">
+      <segment id="mush_language.lore" state="initial">
         <source>mush_language.lore</source>
-        <target>Una formidable tesis sobre las comunicaciones Mush nos hizo conocer la complejidad de las interacciones de esos parásitos.</target>
+        <target>mush_language.lore</target>
       </segment>
     </unit>
     <unit id="mushovore_bacteria">
@@ -938,9 +938,9 @@
         <source>mush_races.name</source>
         <target>Razas Mush</target>
       </segment>
-      <segment id="mush_races.lore" state="translated">
+      <segment id="mush_races.lore" state="initial">
         <source>mush_races.lore</source>
-        <target>La autopsia del "Oráculo de Wupperthal", el eslabón perdido de los Mush, reveló la variedad de ramas evolutivas de su especie.</target>
+        <target>mush_races.lore</target>
       </segment>
     </unit>
     <unit id="mush_reproductive_system">
@@ -952,9 +952,9 @@
         <source>mush_reproductive_system.name</source>
         <target>Sistema de reproducción Mush</target>
       </segment>
-      <segment id="mush_reproductive_system.lore" state="translated">
+      <segment id="mush_reproductive_system.lore" state="initial">
         <source>mush_reproductive_system.lore</source>
-        <target>Un fascinante estudio sobre la partenogénesis de las setas en ambientes anaeróbicos revelaron los secretos de la reproducción Mush. Sin duda, esto te llenará de fama.</target>
+        <target>mush_reproductive_system.lore</target>
       </segment>
     </unit>
     <unit id="mycoalarm">
@@ -1056,9 +1056,9 @@
         <source>perpetual_hydration.name</source>
         <target>Hidratación perpetua</target>
       </segment>
-      <segment id="perpetual_hydration.lore" state="translated">
+      <segment id="perpetual_hydration.lore" state="initial">
         <source>perpetual_hydration.lore</source>
-        <target>Al colocar un pétalo húmedo de Hydram detrás de las orejas se produce un goteo constante de H2O. Su único inconveniente es que su autonomía es de 36 435 200 años, nada más.</target>
+        <target>perpetual_hydration.lore</target>
       </segment>
     </unit>
     <unit id="pheromodem">

@@ -734,7 +734,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="dog_is_seasick">
       <segment id="description" state="translated">
         <source>dog_is_seasick.description</source>
-        <target>Pavlov parece un poco maredo... Será mejor que esperes a que este trasto se detenga.</target>
+        <target>Pavlov parece un poco mareado... Será mejor que esperes a que este trasto se detenga.</target>
       </segment>
     </unit>
     <unit id="dog_is_worried">

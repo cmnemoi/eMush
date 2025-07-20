@@ -334,7 +334,7 @@
       </segment>
       <segment id="eden_one_man.log" state="translated">
         <source>eden_one_man.log</source>
-        <target>Has ganado {quantity} :triumph: porque {quantity} {quantity, select 1 {tripulante ha} other {tripulantes han} llegado al Edén.</target>
+        <target>Has ganado {quantity} :triumph: porque {quantity} {quantity, select, 1 {tripulante ha} other {tripulantes han} llegado al Edén.</target>
       </segment>
     </unit>
     <unit id="eden_engineers">

@@ -485,5 +485,23 @@
         <target>conversion.player_target.highlight_transfer</target>
       </segment>
     </unit>
+    <unit id="equipment.destroyed_schrodinger.highlight">
+      <segment state="initial">
+        <source>equipment.destroyed_schrodinger.highlight</source>
+        <target>equipment.destroyed_schrodinger.highlight</target>
+      </segment>
+    </unit>
+    <unit id="project.finished_research">
+      <segment id="highlight" state="initial">
+        <source>project.finished_research.highlight</source>
+        <target>project.finished_research.highlight</target>
+      </segment>
+    </unit>
+    <unit id="death.player">
+      <segment id="highlight" state="initial">
+        <source>death.player.highlight</source>
+        <target>death.player.highlight</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

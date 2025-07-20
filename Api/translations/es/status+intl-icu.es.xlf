@@ -1714,7 +1714,7 @@ Todas tus acciones se vuelven más difíciles.</target>
     <unit id="sensor_drone_upgrade">
       <segment id="description" state="translated">
         <source>sensor_drone_upgrade.description</source>
-        <target>:point: Sensor: Se desplaza inteligentemente hacia el incendio equipo o patrullero más cercano en lugar de desplazarse aleatoriamente.</target>
+        <target>:point: Sensor: Se desplaza inteligentemente hacia el incendio, equipo o patrullero más cercano en lugar de desplazarse aleatoriamente.</target>
       </segment>
     </unit>
     <unit id="firefighter_drone_upgrade">

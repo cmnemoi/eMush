@@ -488,7 +488,7 @@
     <unit id="equipment.destroyed_schrodinger.highlight">
       <segment state="translated">
         <source>equipment.destroyed_schrodinger.highlight</source>
-        <target>You have assassinated **{target_equipment}** !</target>
+        <target>You have assassinated **{target_equipment}**!</target>
       </segment>
     </unit>
     <unit id="project.finished_research">

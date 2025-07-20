@@ -226,53 +226,77 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>bios_terminal.crew_lock_research</source>
         <target>Investigación</target>
       </segment>
-      <segment id="plasma_shield.name" state="translated">
+      <segment id="food_destruction_option.name" state="initial">
+        <source>bios_terminal.food_destruction_option_name</source>
+        <target>bios_terminal.food_destruction_option_name</target>
+      </segment>
+      <segment id="food_destruction_option.description" state="initial">
+        <source>bios_terminal.food_destruction_option_description</source>
+        <target>bios_terminal.food_destruction_option_description</target>
+      </segment>
+      <segment id="food_destruction_option.never" state="initial">
+        <source>bios_terminal.food_destruction_option_never</source>
+        <target>bios_terminal.food_destruction_option_never</target>
+      </segment>
+      <segment id="food_destruction_option.unstable" state="initial">
+        <source>bios_terminal.food_destruction_option_unstable</source>
+        <target>bios_terminal.food_destruction_option_unstable</target>
+      </segment>
+      <segment id="food_destruction_option.hazardous" state="initial">
+        <source>bios_terminal.food_destruction_option_hazardous</source>
+        <target>bios_terminal.food_destruction_option_hazardous</target>
+      </segment>
+      <segment id="food_destruction_option.decomposing" state="initial">
+        <source>bios_terminal.food_destruction_option_decomposing</source>
+        <target>bios_terminal.food_destruction_option_decomposing</target>
+      </segment>
+      <segment id="plasma_shield.name" state="initial">
         <source>bios_terminal.plasma_shield_name</source>
-        <target>Escudo Plasma</target>
+        <target>bios_terminal.plasma_shield_name</target>
       </segment>
-      <segment id="plasma_shield.description" state="translated">
+      <segment id="plasma_shield.description" state="initial">
         <source>bios_terminal.plasma_shield_description</source>
-        <target>Activa el escudo plasma.</target>
+        <target>bios_terminal.plasma_shield_description</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="translated">
+      <segment id="plasma_shield.toggle_activate" state="initial">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
-        <target>Activar</target>
+        <target>bios_terminal.plasma_shield_toggle_activate</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="translated">
+      <segment id="plasma_shield.toggle_deactivate" state="initial">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
-        <target>Desactivar</target>
+        <target>bios_terminal.plasma_shield_toggle_deactivate</target>
       </segment>
-      <segment id="magnetic_net.name" state="translated">
+      <segment id="magnetic_net.name" state="initial">
         <source>bios_terminal.magnetic_net_name</source>
-        <target>Red magnética</target>
+        <target>bios_terminal.magnetic_net_name</target>
       </segment>
-      <segment id="magnetic_net.description" state="translated">
+      <segment id="magnetic_net.description" state="initial">
         <source>bios_terminal.magnetic_net_description</source>
-        <target>Activa o desactiva la red magnética que permite traer de vuelta a los patrulleros al mover la nave... o abandonarlos a su suerte.</target>
+        <target>bios_terminal.magnetic_net_description</target>
       </segment>
-      <segment id="magnetic_net.toggle_active" state="translated">
+      <segment id="magnetic_net.toggle_active" state="initial">
         <source>bios_terminal.magnetic_net_toggle_active</source>
-        <target>Activar</target>
+        <target>bios_terminal.magnetic_net_toggle_active</target>
       </segment>
-      <segment id="magnetic_net.toggle_inactive" state="translated">
+      <segment id="magnetic_net.toggle_inactive" state="initial">
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
-        <target>Desactivar</target>
+        <target>bios_terminal.magnetic_net_toggle_inactive</target>
       </segment>
-      <segment id="neron_inhibition.name" state="translated">
+      <segment id="neron_inhibition.name" state="initial">
         <source>bios_terminal.neron_inhibition_name</source>
-        <target>Bloqueo DMZ-CorePeace</target>
+        <target>bios_terminal.neron_inhibition_name</target>
       </segment>
-      <segment id="neron_inhibition.description" state="translated">
+      <segment id="neron_inhibition.description" state="initial">
         <source>bios_terminal.neron_inhibition_description</source>
-        <target>Activa el bloqueo del comportamiento de NERON. El bloqueo cambia un número de comportamientos agresivos de NERON.</target>
+        <target>bios_terminal.neron_inhibition_description</target>
       </segment>
-      <segment id="neron_inhibition.toggle_active" state="translated">
+      <segment id="neron_inhibition.toggle_active" state="initial">
         <source>bios_terminal.neron_inhibition_toggle_active</source>
-        <target>Sí</target>
+        <target>bios_terminal.neron_inhibition_toggle_active</target>
       </segment>
-      <segment id="neron_inhibition.toggle_inactive" state="translated">
+      <segment id="neron_inhibition.toggle_inactive" state="initial">
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
-        <target>No</target>
+        <target>bios_terminal.neron_inhibition_toggle_inactive</target>
       </segment>
       <segment id="death_announcements_name" state="initial">
         <source>bios_terminal.death_announcements_name</source>

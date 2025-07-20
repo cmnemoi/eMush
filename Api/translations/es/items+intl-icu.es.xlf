@@ -2112,13 +2112,13 @@ Tienes la impresión de que esto te quiere hablar... ¿Estás seguro?</target>
       </segment>
       <segment id="description" state="translated">
         <source>camera_item.description</source>
-        <target>Es un dispositivo de vigilancia muy útil para --espiar-- ver lo que hacen tus compañeros.
+        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.
 //
 En su presencia, las acciones *discretas* y *furtivas* efectuadas son reveladas.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>camera.examine</source>
-        <target>Es un dispositivo de vigilancia muy útil para --espiar-- ver lo que hacen tus compañeros.
+        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.
 //
 En su presencia, las acciones *discretas* y *furtivas* efectuadas son reveladas.
 //
@@ -3702,7 +3702,7 @@ Nadie pone en duda su utilidad. ¿Pero, en el espacio?</target>
     <unit id="camera_item.examine">
       <segment state="translated">
         <source>camera_item.examine</source>
-        <target>Es un dispositivo de vigilancia muy útil para --espiar-- ver lo que hacen tus compañeros.
+        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.
 //
 En su presencia, las acciones *discretas* y *furtivas* efectuadas son reveladas.
 //

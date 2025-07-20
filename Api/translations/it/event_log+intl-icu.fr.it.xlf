@@ -965,5 +965,11 @@
         <target>player_leave_chat_mutated</target>
       </segment>
     </unit>
+    <unit id="food_destroyed_by_neron">
+      <segment state="initial">
+        <source>food_destroyed_by_neron</source>
+        <target>food_destroyed_by_neron</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

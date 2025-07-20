@@ -911,7 +911,7 @@
       </segment>
       <segment id="metalworker.description" state="translated">
         <source>metalworker.description</source>
-        <target>Vous, on peut dire que vous êtes vraiment quelqu'un de productif !//:point: **Jounalier** : Si vous vous trouvez dans un **tockage**, pour **0** :pa:, vous avez une chance de trouver des débris voir mieux.</target>
+        <target>Vous, on peut dire que vous êtes vraiment quelqu'un de productif !//:point: **Journalier** : Si vous vous trouvez dans un **Stockage**, pour **0** :pa:, vous avez une chance de trouver des débris voire mieux.</target>
       </segment>
     </unit>
     <unit id="doorman">

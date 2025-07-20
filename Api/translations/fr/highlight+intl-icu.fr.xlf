@@ -514,15 +514,15 @@
       </segment>
     </unit>
     <unit id="equipment.destroyed_schrodinger.highlight">
-      <segment state="initial">
+      <segment state="translated">
         <source>equipment.destroyed_schrodinger.highlight</source>
-        <target>equipment.destroyed_schrodinger.highlight</target>
+        <target>Vous avez assassiné **{target_equipment}** !</target>
       </segment>
     </unit>
     <unit id="project.finished_research">
-      <segment id="highlight" state="initial">
+      <segment id="highlight" state="translated">
         <source>project.finished_research.highlight</source>
-        <target>project.finished_research.highlight</target>
+        <target>Vos travaux sur **{target_project}** ont abouti !</target>
       </segment>
     </unit>
     <unit id="death.player">

@@ -1249,7 +1249,7 @@ Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compa
       </segment>
       <segment id="examine" state="translated">
         <source>camera_equipment.examine</source>
-        <target>La caméra est un outil de surveillance bien pratique pour --espionner-- surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
+        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain. En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées. Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
       </segment>
     </unit>
     <unit id="patrol_ship.examine">

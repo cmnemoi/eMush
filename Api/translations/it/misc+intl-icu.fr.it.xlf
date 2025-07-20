@@ -123,5 +123,11 @@
         <target>exploration_archive</target>
       </segment>
     </unit>
+    <unit id="project_grants_triumph">
+      <segment id="project_grants_triumph" state="initial">
+        <source>project_grants_triumph</source>
+        <target>project_grants_triumph</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

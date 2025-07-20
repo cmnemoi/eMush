@@ -722,6 +722,10 @@
   11 {Tino}
   12 {Blitz}
   13 {Crank}
+  14 {Tina}
+  15 {Ershin}
+  16 {Bobo}
+  17 {Jack}
   25 {Vortex}
   other {Goku}
   } #{drone_serial_number}**</target>
@@ -1070,6 +1074,12 @@ other {invalid gender input}
       <segment state="translated">
         <source>player_leave_chat_mutated</source>
         <target>**{character}** ha mutado.</target>
+      </segment>
+    </unit>
+    <unit id="food_destroyed_by_neron">
+      <segment state="initial">
+        <source>food_destroyed_by_neron</source>
+        <target>food_destroyed_by_neron</target>
       </segment>
     </unit>
   </file>

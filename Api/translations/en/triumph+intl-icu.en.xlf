@@ -334,7 +334,7 @@
       </segment>
       <segment id="eden_one_man.log" state="translated">
         <source>eden_one_man.log</source>
-        <target>You have earned {quantity} :triumph: because {quantity} {quantity, select 1 {teammate has} other {teammates have}} reached Eden.</target>
+        <target>You have earned {quantity} :triumph: because {quantity} {quantity, select, 1 {teammate has} other {teammates have}} reached Eden.</target>
       </segment>
     </unit>
     <unit id="eden_engineers">

@@ -338,7 +338,7 @@
 			"language": "Daedalus language",
 			"maintenanceOn": "Put the game into maintenance",
 			"maintenanceOff": "Remove game from maintenance",
-			"createAPlanet" : "Create a planet"
+			"createAPlanet": "Create a planet"
 		},
 		"save": "Save",
 		"show": "Show",

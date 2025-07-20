@@ -874,10 +874,6 @@
         <source>mush_hunter_zc16h.name</source>
         <target>mush_hunter_zc16h.name</target>
       </segment>
-      <segment id="mush_hunter_zc16h.description" state="initial">
-        <source>mush_hunter_zc16h.description</source>
-        <target>mush_hunter_zc16h.description</target>
-      </segment>
       <segment id="mush_hunter_zc16h.lore" state="initial">
         <source>mush_hunter_zc16h.lore</source>
         <target>mush_hunter_zc16h.lore</target>
@@ -909,10 +905,6 @@
       <segment id="mush_language.name" state="initial">
         <source>mush_language.name</source>
         <target>mush_language.name</target>
-      </segment>
-      <segment id="mush_language.description" state="initial">
-        <source>mush_language.description</source>
-        <target>mush_language.description</target>
       </segment>
       <segment id="mush_language.lore" state="initial">
         <source>mush_language.lore</source>
@@ -946,10 +938,6 @@
         <source>mush_races.name</source>
         <target>mush_races.name</target>
       </segment>
-      <segment id="mush_races.description" state="initial">
-        <source>mush_races.description</source>
-        <target>mush_races.description</target>
-      </segment>
       <segment id="mush_races.lore" state="initial">
         <source>mush_races.lore</source>
         <target>mush_races.lore</target>
@@ -963,10 +951,6 @@
       <segment id="mush_reproductive_system.name" state="initial">
         <source>mush_reproductive_system.name</source>
         <target>mush_reproductive_system.name</target>
-      </segment>
-      <segment id="mush_reproductive_system.description" state="initial">
-        <source>mush_reproductive_system.description</source>
-        <target>mush_reproductive_system.description</target>
       </segment>
       <segment id="mush_reproductive_system.lore" state="initial">
         <source>mush_reproductive_system.lore</source>
@@ -1071,10 +1055,6 @@
       <segment id="perpetual_hydration.name" state="initial">
         <source>perpetual_hydration.name</source>
         <target>perpetual_hydration.name</target>
-      </segment>
-      <segment id="perpetual_hydration.description" state="initial">
-        <source>perpetual_hydration.description</source>
-        <target>perpetual_hydration.description</target>
       </segment>
       <segment id="perpetual_hydration.lore" state="initial">
         <source>perpetual_hydration.lore</source>

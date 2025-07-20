@@ -201,7 +201,7 @@ other {invalid gender input}
   2 {A pesar de tu esfuerzo, no lograste reparar {target_equipment_gender, select, female {el **{target_equipment}** other {la **{target_equipment}**}}.}
   3 {Reparar {target_equipment_gender, select, female {la **{equipment}**} other {el **{equipment}**}} resulta ser todo un desafío.}
   4 {Fallaste en la reparación {target_equipment_gender, select, female {de la **{target_equipment}**} other {del **{target_equipment}**}}.}
-  5 {Parece que reparar {target_equipment_gender, select female {la **{equipment}**} other {el **{equipment}**}} no es nada fácil.}
+  5 {Parece que reparar {target_equipment_gender, select, female {la **{equipment}**} other {el **{equipment}**}} no es nada fácil.}
 
   6 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** empieza a oler a rata quemada. Como {character_gender, select, female {reparadora eres buena antropóloga} other {reparador eres buen antropólogo}}.}
   7 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** empieza a oler a rata quemada. Casi lo logras}
@@ -243,7 +243,7 @@ other {invalid gender input}
   40 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. Hay días en que es mejor no salir de la cama.}
   41 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. Tal vez no has tomado un buen desayuno.}
   other {invalid version number}
-}</target>
+}:</target>
       </segment>
     </unit>
     <unit id="repair_success">

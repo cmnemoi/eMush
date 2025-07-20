@@ -202,6 +202,30 @@
         <source>bios_terminal.crew_lock_research</source>
         <target>bios_terminal.crew_lock_research</target>
       </segment>
+      <segment id="food_destruction_option.name" state="initial">
+        <source>bios_terminal.food_destruction_option_name</source>
+        <target>bios_terminal.food_destruction_option_name</target>
+      </segment>
+      <segment id="food_destruction_option.description" state="initial">
+        <source>bios_terminal.food_destruction_option_description</source>
+        <target>bios_terminal.food_destruction_option_description</target>
+      </segment>
+      <segment id="food_destruction_option.never" state="initial">
+        <source>bios_terminal.food_destruction_option_never</source>
+        <target>bios_terminal.food_destruction_option_never</target>
+      </segment>
+      <segment id="food_destruction_option.unstable" state="initial">
+        <source>bios_terminal.food_destruction_option_unstable</source>
+        <target>bios_terminal.food_destruction_option_unstable</target>
+      </segment>
+      <segment id="food_destruction_option.hazardous" state="initial">
+        <source>bios_terminal.food_destruction_option_hazardous</source>
+        <target>bios_terminal.food_destruction_option_hazardous</target>
+      </segment>
+      <segment id="food_destruction_option.decomposing" state="initial">
+        <source>bios_terminal.food_destruction_option_decomposing</source>
+        <target>bios_terminal.food_destruction_option_decomposing</target>
+      </segment>
       <segment id="plasma_shield.name" state="initial">
         <source>bios_terminal.plasma_shield_name</source>
         <target>bios_terminal.plasma_shield_name</target>

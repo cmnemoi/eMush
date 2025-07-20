@@ -229,14 +229,24 @@ class AdminController extends AbstractFOSRestController
         $this->denyAccessIfNotAdmin();
 
         $players = $this->playerService->findAll();
+
+        $nbPlayersToClose = \count($players);
+        $nbPlayersClosed = 0;
+
         foreach ($players as $player) {
             if ($player->isAlive()) {
                 return $this->view('Some players are still alive', Response::HTTP_BAD_REQUEST);
             }
-            $this->playerService->endPlayer($player, '', []);
+
+            try {
+                $this->playerService->endPlayer($player, '', []);
+                ++$nbPlayersClosed;
+            } catch (\Exception $e) {
+                continue;
+            }
         }
 
-        return $this->view('All players closed successfully', Response::HTTP_OK);
+        return $this->view("{$nbPlayersClosed} / {$nbPlayersToClose} players closed successfully", Response::HTTP_OK);
     }
 
     /**

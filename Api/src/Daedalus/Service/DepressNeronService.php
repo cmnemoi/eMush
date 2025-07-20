@@ -36,7 +36,7 @@ final class DepressNeronService implements DepressNeronServiceInterface
     private function toggleMagneticNet(Neron $neron): void
     {
         $daedalus = $neron->getDaedalusInfo()->getDaedalus();
-        if ($daedalus !== null && $daedalus->hasActiveProject(ProjectName::MAGNETIC_NET)) {
+        if ($daedalus?->hasActiveProject(ProjectName::MAGNETIC_NET)) {
             $neron->toggleMagneticNet();
         }
     }
@@ -44,7 +44,7 @@ final class DepressNeronService implements DepressNeronServiceInterface
     private function togglePlasmaShield(Neron $neron): void
     {
         $daedalus = $neron->getDaedalusInfo()->getDaedalus();
-        if ($daedalus !== null && $daedalus->hasActiveProject(ProjectName::PLASMA_SHIELD)) {
+        if ($daedalus?->hasActiveProject(ProjectName::MAGNETIC_NET)) {
             $neron->togglePlasmaShield();
         }
     }

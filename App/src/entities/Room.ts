@@ -53,6 +53,7 @@ export class Room {
     public doors: Array<Door>;
     public statuses: Array<Status>;
     public equipments: Array<Equipment>;
+    public entities: Array<Equipment>;
     public players: Array<Player>;
     public isOnFire: boolean;
     public type: string|null;
@@ -65,6 +66,7 @@ export class Room {
         this.items = [];
         this.doors = [];
         this.equipments = [];
+        this.entities = [];
         this.players = [];
         this.statuses = [];
         this.isOnFire = false;
@@ -94,6 +96,10 @@ export class Room {
             object.equipments.forEach((equipmentObject:any) => {
                 const equipment = (new Equipment()).load(equipmentObject);
                 this.equipments.push(equipment);
+            });
+            object.entities.forEach((equipmentObject:any) => {
+                const entity = (new Equipment()).load(equipmentObject);
+                this.entities.push(entity);
             });
             object.statuses.forEach((statusObject:any) => {
                 const status = (new Status()).load(statusObject);

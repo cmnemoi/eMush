@@ -7582,7 +7582,7 @@
         },
         "cat-3": {
             "frame": {
-                "x": 96,
+                "x": 95,
                 "y": 960,
                 "w": 32,
                 "h": 48
@@ -14679,6 +14679,46 @@
                 "w": 32,
                 "h": 48
             }
+        },
+        "drone-0": {
+          "frame": {
+            "x": 2,
+            "y": 2016,
+            "w": 22,
+            "h": 27
+          },
+          "rotated": false,
+          "trimmed": false,
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 22,
+            "h": 27
+          },
+          "sourceSize": {
+            "w": 22,
+            "h": 27
+          }
+        },
+        "drone_shadow-0": {
+          "frame": {
+            "x": 2,
+            "y": 2043,
+            "w": 22,
+            "h": 11
+          },
+          "rotated": false,
+          "trimmed": false,
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 22,
+            "h": 11
+          },
+          "sourceSize": {
+            "w": 22,
+            "h": 11
+          }
         }
     },
     "meta": {

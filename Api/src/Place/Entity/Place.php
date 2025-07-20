@@ -44,7 +44,7 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 
 #[ORM\Entity(repositoryClass: PlaceRepository::class)]
 #[ORM\Table(name: 'room')]
-class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface, SkinableEntityInterface
+class Place implements StatusHolderInterface, VisibleStatusHolderInterface, ModifierHolderInterface, EquipmentHolderInterface, LogParameterInterface, ActionProviderInterface, PlayerHighlightTargetInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;

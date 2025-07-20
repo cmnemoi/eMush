@@ -1,10 +1,10 @@
 import * as Phaser from "phaser";
 import DaedalusScene from "@/game/scenes/daedalusScene";
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
-import DecorationObject from "@/game/objects/decorationObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 import mushTextureProperties from "@/game/tiled/mushTextureProperties";
+import DecorationObject from "@/game/objects/decorationObject";
 
 export default class InteractObject extends DecorationObject {
     protected interactionInformation: InteractionInformation | null;

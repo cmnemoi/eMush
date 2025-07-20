@@ -4,6 +4,7 @@ namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Mechanics\Fruit;
+use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -140,8 +141,12 @@ class GameItem extends GameEquipment
         return $this->equipment->isPersonal();
     }
 
-    public function shouldBeNormalizedAsEquipment(): bool
+    public function getNormalizationClass(): string
     {
-        return \in_array($this->getName(), [ItemEnum::SUPPORT_DRONE], true);
+        if (\in_array($this->getName(), [ItemEnum::SCHRODINGER], true)) {
+            return EquipmentClassEnum::ENTITY;
+        }
+
+        return EquipmentClassEnum::GAME_ITEM;
     }
 }

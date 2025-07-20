@@ -3,12 +3,12 @@ import DaedalusScene from "@/game/scenes/daedalusScene";
 import { CartesianCoordinates, IsometricCoordinates } from "@/game/types";
 import { Player } from "@/entities/Player";
 import store from "@/store";
-import InteractObject from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import { NavMeshGrid } from "@/game/scenes/navigationGrid";
 import Tileset = Phaser.Tilemaps.Tileset;
 import { CharacterEnum } from "@/enums/character";
 import mushTextureProperties from "@/game/tiled/mushTextureProperties";
+import InteractObject from "@/game/objects/interactObject";
 
 export default class CharacterObject extends InteractObject {
     public player : Player;
@@ -122,7 +122,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'move_right',
             frames: this.anims.generateFrameNames('characters', {
-                prefix: characterBody,
+                prefix: characterBody + '-',
                 start: 4,
                 end: 9
             }),
@@ -132,7 +132,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'move_left',
             frames: this.anims.generateFrameNames('characters', {
-                prefix: characterBody,
+                prefix: characterBody+ '-',
                 start: 10,
                 end: 15
             }),
@@ -143,7 +143,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNames('characters', {
-                prefix: characterBody,
+                prefix: characterBody+ '-',
                 start: 0,
                 end: 0
             }),
@@ -152,7 +152,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNames('characters', {
-                prefix: characterBody,
+                prefix: characterBody+ '-',
                 start: 1,
                 end: 1
             }),
@@ -162,7 +162,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'sit_front',
             frames: this.anims.generateFrameNames('characters', {
-                prefix: characterBody,
+                prefix: characterBody+ '-',
                 start: 2,
                 end: 2
             }),
@@ -171,7 +171,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'sit_back',
             frames: this.anims.generateFrameNames('characters', {
-                prefix: characterBody,
+                prefix: characterBody+ '-',
                 start: 3,
                 end: 3
             }),
@@ -180,7 +180,7 @@ export default class CharacterObject extends InteractObject {
         this.anims.create({
             key: 'lie_down',
             frames: this.anims.generateFrameNames('characters', {
-                prefix: characterBody,
+                prefix: characterBody+ '-',
                 start: 17,
                 end: 17
             }),

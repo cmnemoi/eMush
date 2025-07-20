@@ -6,8 +6,6 @@ import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 
 export default class DecorationObject extends Phaser.GameObjects.Sprite {
-    protected name: string;
-    protected tiledFrame: number;
     public isoGeom: IsometricGeom;
     public isoHeight: number;
     public collides: boolean;

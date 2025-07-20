@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -76,29 +77,36 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $context
         );
 
-        // Split equipments between items and equipments
-        $partition = $room
-            ->getEquipments()
-            ->partition(
-                static fn ($_, GameEquipment $gameEquipment) => !$gameEquipment->shouldBeNormalizedAsItem()
-                || ($gameEquipment instanceof GameItem && $gameEquipment->shouldBeNormalizedAsEquipment())
-            );
+        $grouped = array_reduce(
+            $room->getEquipments()->toArray(),
+            static function (array $carry, GameEquipment $equipment): array {
+                $class = $equipment->getNormalizationClass();
+                $carry[$class][] = $equipment;
 
-        $equipments = $partition[0];
-        $items = $partition[1];
+                return $carry;
+            },
+            []
+        );
 
-        // do not normalize doors
-        $equipments = $equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
+        $items = new ArrayCollection($grouped[EquipmentClassEnum::GAME_ITEM] ?? []);
+        $equipments = new ArrayCollection($grouped[EquipmentClassEnum::GAME_EQUIPMENT] ?? []);
+        $entities = new ArrayCollection($grouped[EquipmentClassEnum::ENTITY] ?? []);
 
         $items = $this->putContaminatedItemsOnTop($items);
-
         $normalizedEquipments = $this->normalizeEquipments(
-            $currentPlayer,
-            $equipments,
-            $format,
-            $context
+            currentPlayer: $currentPlayer,
+            equipments: $equipments,
+            format: $format,
+            context: $context
         );
         $normalizedItems = $this->normalizeItems($items, $currentPlayer, $format, $context);
+
+        $normalizedEntities = $this->normalizeEquipments(
+            currentPlayer: $currentPlayer,
+            equipments: $entities,
+            format: $format,
+            context: $context
+        );
 
         $language = $room->getDaedalus()->getLanguage();
 
@@ -113,6 +121,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             'players' => !$currentPlayerIsFocused ? $players : [],
             'items' => !$currentPlayerIsFocused ? $normalizedItems : [],
             'equipments' => !$currentPlayerIsFocused ? $normalizedEquipments : [],
+            'entities' => !$currentPlayerIsFocused ? $normalizedEntities : [],
             'type' => $room->getType(),
             'skins' => $this->getProjectSkins($room),
         ];

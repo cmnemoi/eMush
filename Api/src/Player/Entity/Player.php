@@ -83,7 +83,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * @SuppressWarnings(PHPMD.ExcessiveClassLength)
  */
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface, SkinableEntityInterface
+class Player implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, EquipmentHolderInterface, GameVariableHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;

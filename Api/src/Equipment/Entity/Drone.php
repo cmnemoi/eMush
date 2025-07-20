@@ -14,6 +14,7 @@ use Mush\Equipment\DroneTasks\LandTask;
 use Mush\Equipment\DroneTasks\RepairBrokenEquipmentTask;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\DroneTasks\TakeoffTask;
+use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
@@ -224,6 +225,11 @@ class Drone extends GameItem
     public function huntersAreAttacking(): bool
     {
         return $this->getDaedalus()->getAttackingHunters()->count() > 0;
+    }
+
+    public function getNormalizationClass(): string
+    {
+        return EquipmentClassEnum::ENTITY;
     }
 
     private function cannotRepair(): bool

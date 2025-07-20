@@ -23,6 +23,7 @@ use Mush\Equipment\Entity\Mechanics\Gear;
 use Mush\Equipment\Entity\Mechanics\Plumbing;
 use Mush\Equipment\Entity\Mechanics\Tool;
 use Mush\Equipment\Entity\Mechanics\Weapon;
+use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
@@ -60,7 +61,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'drone' => Drone::class,
     'space_ship' => SpaceShip::class,
 ])]
-class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface, SkinableEntityInterface
+class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;
@@ -663,9 +664,13 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $this->getName() === GameRationEnum::STANDARD_RATION;
     }
 
-    public function shouldBeNormalizedAsItem(): bool
+    public function getNormalizationClass(): string
     {
-        return $this instanceof GameItem || \in_array($this->getName(), [EquipmentEnum::TABULATRIX], true);
+        if (\in_array($this->getName(), [EquipmentEnum::TABULATRIX], true)) {
+            return EquipmentClassEnum::GAME_ITEM;
+        }
+
+        return EquipmentClassEnum::GAME_EQUIPMENT;
     }
 
     public function isSchrodinger(): bool

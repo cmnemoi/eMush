@@ -19,7 +19,6 @@ use Mush\Exploration\Service\ClosedExplorationServiceInterface;
 use Mush\Exploration\Service\ExplorationServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Hunter\Service\HunterNormalizerHelperInterface;
-use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Service\PlayerServiceInterface;
@@ -177,7 +176,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
             'moralPoint' => $this->normalizePlayerGameVariable($player, PlayerVariableEnum::MORAL_POINT, $language),
             'skillPoints' => $this->getNormalizedSkillPoints($player, $language),
             'isMush' => $player->isMush(),
-            'skins' => $this->normalizeSkins($player)
+            'skins' => $this->normalizeSkins($player),
         ]);
         if ($player->hasNotification()) {
             $playerData['notification'] = $this->normalizer->normalize($player->getFirstNotificationOrThrow(), $format, $context);
@@ -366,14 +365,10 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     {
         $skins = [];
 
-        /** @var SkinSlot $slot */
-        foreach ($player->getSkinSlots() as $slot) {
-            if (($skin = $slot->getSkin()) !== null) {
-                $skins[] = [
-                    'skinSlotName' => $slot->getName(),
-                    'skinName' => $skin->getName(),
-                ];
-            }
+        if (($skin = $player->getSkin()) !== null) {
+            $skins[] = [
+                'skinName' => $skin->getName(),
+            ];
         }
 
         return $skins;

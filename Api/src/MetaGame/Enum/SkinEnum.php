@@ -92,6 +92,8 @@ class SkinEnum
     public const string ULTRA_HEALING_POMADE = 'ultra_healing_pomade';
     public const string MUSHICIDE_SOAP = 'mushicide_soap';
     public const string DISMANTLING = 'dismantling';
+    public const string REPAIR_PATROL_SHIP = 'repair_patrol_ship';
+    public const string OXYGENATED_DUCTS = 'oxygenated_ducts';
 
     // Room skins from player
     public const string ALPHA_POSTER = 'alpha_poster';
@@ -140,7 +142,6 @@ class SkinEnum
         return [
             self::ALL_ROOM => [
                 ProjectName::AUTO_WATERING->value => self::AUTO_WATERING,
-                ProjectName::NOISE_REDUCER->value => self::NOISE_REDUCER,
                 ProjectName::ANTISPORE_GAS->value => self::ANTISPORE_GAZ,
                 ProjectName::DISMANTLING->value => self::DISMANTLING,
             ],
@@ -151,19 +152,24 @@ class SkinEnum
                 ProjectName::MAGNETIC_NET->value => self::MAGNETIC_NET,
                 ProjectName::PATROL_SHIP_LAUNCHER->value => self::TAKEOFF_PLATFORM_PROPULSION,
                 ProjectName::BAY_DOOR_XXL->value => self::BAY_DOOR_EXTRALARGE,
+                ProjectName::NOISE_REDUCER->value => self::NOISE_REDUCER,
             ],
             RoomEnum::BRAVO_BAY => [
                 ProjectName::MAGNETIC_NET->value => self::MAGNETIC_NET,
                 ProjectName::PATROL_SHIP_LAUNCHER->value => self::TAKEOFF_PLATFORM_PROPULSION,
+                ProjectName::NOISE_REDUCER->value => self::NOISE_REDUCER,
             ],
             RoomEnum::ALPHA_BAY_2 => [
                 ProjectName::MAGNETIC_NET->value => self::MAGNETIC_NET,
                 ProjectName::PATROL_SHIP_LAUNCHER->value => self::TAKEOFF_PLATFORM_PROPULSION,
                 ProjectName::BAY_DOOR_XXL->value => self::BAY_DOOR_EXTRALARGE,
+                ProjectName::CALL_OF_DIRTY->value => self::REPAIR_PATROL_SHIP,
+                ProjectName::NOISE_REDUCER->value => self::NOISE_REDUCER,
             ],
             RoomEnum::ICARUS_BAY => [
                 ProjectName::ICARUS_LAVATORY->value => self::ICARUS_LAVATORY,
                 ProjectName::AUTO_RETURN_ICARUS->value => self::MAGNETIC_RETURN,
+                ProjectName::NOISE_REDUCER->value => self::NOISE_REDUCER,
             ],
             RoomEnum::LABORATORY => [
                 ProjectName::ANABOLICS->value => self::ANABOLICS,
@@ -178,7 +184,6 @@ class SkinEnum
                 ProjectName::NCC_CONTACT_LENSES->value => self::NCC_CONTACT_LENSES,
                 ProjectName::PATULINE_SCRAMBLER->value => self::PATULINE_SCRAMBLER,
                 ProjectName::PERPETUAL_HYDRATION->value => self::PERPETUAL_HYDRATION,
-                ProjectName::PHEROMODEM->value => self::PHEROMODEM,
                 ProjectName::SPORE_SUCKER->value => self::SPORE_SUCKER,
                 ProjectName::RETRO_FUNGAL_SERUM->value => self::RETRO_FUNGAL_SERUM,
             ],
@@ -200,6 +205,7 @@ class SkinEnum
             ],
             RoomEnum::ALPHA_DORM => [
                 ProjectName::MUSHICIDE_SOAP->value => self::MUSHICIDE_SOAP,
+                ProjectName::OXY_MORE->value => self::OXYGENATED_DUCTS,
             ],
             RoomEnum::BRAVO_DORM => [
                 ProjectName::MUSHICIDE_SOAP->value => self::MUSHICIDE_SOAP,

@@ -5,6 +5,8 @@ import { Equipment } from "@/entities/Equipment";
 import { InteractionInformation } from "@/game/objects/interactObject";
 import IsometricGeom from "@/game/scenes/isometricGeom";
 import EquipmentObject from "@/game/objects/equipmentObject";
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
+import DecorationObject from "@/game/objects/decorationObject";
 
 export default class DroneObject extends EquipmentObject {
     private static readonly BOBBING_BASELINE_OFFSET: number = 2;
@@ -16,6 +18,7 @@ export default class DroneObject extends EquipmentObject {
     private static readonly BOBBING_AMPLITUDE: number = 0.3;
     private static readonly BOBBING_SPEED: number = 3;
     private static readonly TILE_SIZE: number = 16;
+    private static readonly SHADOW_DISTANCE: number = 23;
 
     private initCoordinates: CartesianCoordinates;
     private nextMoveTimer: number = DroneObject.TICK_LENGTH * 1000; // ms
@@ -23,26 +26,43 @@ export default class DroneObject extends EquipmentObject {
     private gridX: number = 0;
     private gridY: number = 0;
     private isTweening: boolean = false;
+    private shadow: Phaser.GameObjects.Sprite;
 
     constructor(
         scene: DaedalusScene,
         cart_coords: CartesianCoordinates,
         iso_geom: IsometricGeom,
-        tileset: Phaser.Tilemaps.Tileset,
-        frame: number,
-        isFlipped: { x: boolean, y: boolean},
-        equipment: Equipment,
-        collides: boolean,
-        isAnimationYoyo: boolean,
-        group: Phaser.GameObjects.Group | null = null,
-        interactionInformation: InteractionInformation | null = null
+        equipment: Equipment
     )
     {
-        super(scene, cart_coords, iso_geom, tileset, frame, isFlipped, equipment, collides, isAnimationYoyo, group, interactionInformation);
+        const textureProperties = new mushTextureProperties();
+        textureProperties.setCharacterTexture('drone');
+
+        const droneSpriteCoords = new CartesianCoordinates(cart_coords.x, cart_coords.y - DroneObject.SHADOW_DISTANCE);
+
+        super(scene, 'drone', textureProperties, droneSpriteCoords, iso_geom, equipment, false);
+
+        this.shadow = new Phaser.GameObjects.Sprite(
+            scene,
+            cart_coords.x,
+            cart_coords.y,
+            'characters',
+            'drone_shadow-0'
+        );
+        scene.add.existing(this.shadow);
+
         this.initCoordinates = new CartesianCoordinates(this.x, this.y);
         // Initialize grid position from initial coordinates (assuming 1:1 grid)
-        this.gridX = Math.round(this.x / DroneObject.TILE_SIZE);
-        this.gridY = Math.round(this.y / DroneObject.TILE_SIZE);
+        this.gridX = Math.round(this.shadow.x / DroneObject.TILE_SIZE);
+        this.gridY = Math.round(this.shadow.y / DroneObject.TILE_SIZE);
+
+        //Set the initial sprite randomly
+        if (Math.random() > 0.5) {
+            this.flipX = true;
+            this.shadow.flipX = true;
+        }
+
+        this.checkPositionDepth();
     }
 
     update(time: number, delta: number):void
@@ -109,15 +129,23 @@ export default class DroneObject extends EquipmentObject {
         const targetX = target.x * DroneObject.TILE_SIZE;
         const targetY = target.y * DroneObject.TILE_SIZE;
         this.isTweening = true;
+
         (this.scene as Phaser.Scene).tweens.add({
             targets: this,
             x: targetX,
-            y: targetY,
+            y: targetY - DroneObject.SHADOW_DISTANCE,
             duration: DroneObject.TWEEN_DURATION_MS,
             ease: 'Linear',
             onComplete: () => {
                 this.onTweenComplete(target, time);
             }
+        });
+        (this.scene as Phaser.Scene).tweens.add({
+            targets: this.shadow,
+            x: targetX,
+            y: targetY,
+            duration: DroneObject.TWEEN_DURATION_MS,
+            ease: 'Linear'
         });
     }
 
@@ -128,5 +156,18 @@ export default class DroneObject extends EquipmentObject {
         this.initCoordinates.y = this.y - DroneObject.BOBBING_BASELINE_OFFSET;
         this.bobbingPhase = -performance.now() * DroneObject.BOBBING_TIME_SCALE * DroneObject.BOBBING_SPEED;
         this.isTweening = false;
+        this.checkPositionDepth();
+    }
+
+    checkPositionDepth(): void
+    {
+        const coord = new CartesianCoordinates(this.shadow.x, this.shadow.y);
+        const polygonDepth = (<DaedalusScene>this.scene).sceneGrid.getDepthOfPoint(coord.toIsometricCoordinates());
+
+        if (polygonDepth !== -1) {
+            const depth = polygonDepth + this.shadow.y;
+            this.setDepth(depth);
+            this.shadow.setDepth(depth);
+        }
     }
 }

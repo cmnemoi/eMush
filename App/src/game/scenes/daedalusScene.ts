@@ -24,6 +24,7 @@ import { Planet } from "@/entities/Planet";
 import PatrolShipObject from "@/game/objects/patrolShipObject";
 import DeathZone = Phaser.GameObjects.Particles.Zones.DeathZone;
 import DroneObject from '@/game/objects/droneObject';
+import mushTextureProperties from "@/game/tiled/mushTextureProperties";
 
 export default class DaedalusScene extends Phaser.Scene
 {
@@ -165,6 +166,7 @@ export default class DaedalusScene extends Phaser.Scene
         this.input.setGlobalTopOnly(true);
 
         this.createPlayers();
+        this.createEntities();
     }
 
     reloadScene(): void
@@ -212,6 +214,7 @@ export default class DaedalusScene extends Phaser.Scene
             this.room = newRoom;
             this.map = this.createRoom();
             this.createEquipments(this.map);
+            this.createEntities();
             this.updateStatuses();
             this.createPlayers();
         } else{
@@ -321,7 +324,7 @@ export default class DaedalusScene extends Phaser.Scene
         const room = this.player.room;
 
         if (room === null) { throw new Error("player room should be defined");}
-        const equipmentsToUpdate = room.equipments;
+        const equipmentsToUpdate = [...room.equipments, ...room.entities];
 
         const updatedEquipment = new Array<number>();
 
@@ -850,6 +853,48 @@ export default class DaedalusScene extends Phaser.Scene
                     new IsometricGeom(otherPlayerCoordinates.toIsometricCoordinates(), this.playerIsoSize),
                     roomPlayer
                 );
+            }
+        });
+    }
+
+    createEntities(): void
+    {
+        this.room.entities.forEach((entity: Equipment) => {
+            const entityCoordinates = this.navMeshGrid.getRandomPoint();
+
+            if (entity.key === 'support_drone') {
+                new DroneObject(
+                    this,
+                    entityCoordinates,
+                    new IsometricGeom(entityCoordinates.toIsometricCoordinates(), this.playerIsoSize),
+                    entity
+                );
+
+            } else if (entity.key === 'schrodinger') {
+                const textureProperties = new mushTextureProperties();
+                textureProperties.setCharacterTexture('cat');
+
+                const cat = new EquipmentObject(
+                    this,
+                    'schrodinger',
+                    textureProperties,
+                    entityCoordinates,
+                    new IsometricGeom(entityCoordinates.toIsometricCoordinates(), this.playerIsoSize),
+                    entity,
+                    false,
+                    null,
+                    null
+                );
+
+                //Set the initial sprite randomly
+                if (Math.random() > 0.5) {
+                    cat.flipX = true;
+                }
+                cat.setDepth(this.sceneGrid.getDepthOfPoint(entityCoordinates.toIsometricCoordinates())+ entityCoordinates.y);
+
+                // Randomly choose one of the 4 sprites
+                const random = Math.floor(Math.random()*4);
+                cat.setFrame('cat-' + random.toString())
             }
         });
     }

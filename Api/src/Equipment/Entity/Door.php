@@ -5,6 +5,7 @@ namespace Mush\Equipment\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Equipment\Enum\EquipmentClassEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\DoorEnum;
@@ -92,6 +93,11 @@ class Door extends GameEquipment
     public function isBreakable(): bool
     {
         return DoorEnum::isBreakable($this->getName());
+    }
+
+    public function getNormalizationClass(): string
+    {
+        return EquipmentClassEnum::DOOR;
     }
 
     private function buildName(): string

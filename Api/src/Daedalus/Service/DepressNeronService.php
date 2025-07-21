@@ -7,9 +7,11 @@ namespace Mush\Daedalus\Service;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\Enum\NeronCpuPriorityEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
+use Mush\Daedalus\Enum\NeronFoodDestructionEnum;
 use Mush\Daedalus\UseCase\ChangeNeronCrewLockUseCase;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 
 final class DepressNeronService implements DepressNeronServiceInterface
 {
@@ -24,6 +26,27 @@ final class DepressNeronService implements DepressNeronServiceInterface
         $this->changeNeronCpuPriority($neron, $author, $tags);
         $this->changeCrewLock($neron);
         $this->changeInhibition($neron);
+        $this->changeFoodDestructionOption($neron);
+        $neron->toggleVocodedAnnouncements();
+        $neron->toggleDeathAnnouncements();
+        $this->toggleMagneticNet($neron);
+        $this->togglePlasmaShield($neron);
+    }
+
+    private function toggleMagneticNet(Neron $neron): void
+    {
+        $daedalus = $neron->getDaedalusInfo()->getDaedalus();
+        if ($daedalus?->hasActiveProject(ProjectName::MAGNETIC_NET)) {
+            $neron->toggleMagneticNet();
+        }
+    }
+
+    private function togglePlasmaShield(Neron $neron): void
+    {
+        $daedalus = $neron->getDaedalusInfo()->getDaedalus();
+        if ($daedalus?->hasActiveProject(ProjectName::PLASMA_SHIELD)) {
+            $neron->togglePlasmaShield();
+        }
     }
 
     private function changeNeronCpuPriority(Neron $neron, ?Player $player, array $tags): void
@@ -39,6 +62,11 @@ final class DepressNeronService implements DepressNeronServiceInterface
     private function changeCrewLock(Neron $neron): void
     {
         $this->changeNeronCrewLock->execute($neron, $this->randomCrewLock($neron));
+    }
+
+    private function changeFoodDestructionOption(Neron $neron): void
+    {
+        $neron->changeFoodDestructionOption($this->randomFoodDestructionOption($neron));
     }
 
     private function changeInhibition(Neron $neron): void
@@ -64,5 +92,13 @@ final class DepressNeronService implements DepressNeronServiceInterface
         $candidateLocks = NeronCrewLockEnum::getAllExcept($currentLock);
 
         return $this->randomService->getRandomElement($candidateLocks);
+    }
+
+    private function randomFoodDestructionOption(Neron $neron): NeronFoodDestructionEnum
+    {
+        $currentOption = $neron->getFoodDestructionOption();
+        $candidateOptions = NeronFoodDestructionEnum::getAllExcept($currentOption);
+
+        return $this->randomService->getRandomElement($candidateOptions);
     }
 }

@@ -168,6 +168,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $this->lastActionDate = new \DateTime();
         $this->notifications = new ArrayCollection();
         $this->receivedMissions = new ArrayCollection();
+        $this->availableSkills = new SkillConfigCollection();
     }
 
     public static function createNull(): self

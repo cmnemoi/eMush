@@ -14,6 +14,7 @@ use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -42,11 +43,11 @@ final class DisorderCest extends AbstractFunctionalTest
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         // given Chun and KT has the shrink skill available
-        $this->chun->addToAvailableHumanSkills(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHRINK]),
+        $this->chun->setAvailableHumanSkills(
+            new SkillConfigCollection([$I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHRINK])]),
         );
-        $this->kuanTi->addToAvailableHumanSkills(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHRINK]),
+        $this->kuanTi->setAvailableHumanSkills(
+            new SkillConfigCollection([$I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHRINK])]),
         );
     }
 

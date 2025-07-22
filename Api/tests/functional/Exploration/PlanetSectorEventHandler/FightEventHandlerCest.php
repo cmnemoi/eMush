@@ -28,6 +28,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
 use Mush\Skill\Dto\ChooseSkillDto;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -68,17 +69,17 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->players->add($this->janice);
 
         // given Chun and KT have pilot and shooter skills available
-        $this->chun->addToAvailableHumanSkills(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+        $this->chun->setAvailableHumanSkills(
+            new SkillConfigCollection([
+                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
+            ]),
         );
-        $this->chun->addToAvailableHumanSkills(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
-        );
-        $this->kuanTi->addToAvailableHumanSkills(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
-        );
-        $this->kuanTi->addToAvailableHumanSkills(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
+        $this->kuanTi->setAvailableHumanSkills(
+            new SkillConfigCollection([
+                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
+                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
+            ])
         );
 
         // given Chun, Kuan-Ti, and Janice have a spacesuit

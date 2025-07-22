@@ -561,6 +561,7 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function addSkill(Skill $skill): static
     {
         $this->skills->add($skill);
+        $this->addToAvailableHumanSkills($skill->getConfig());
 
         return $this;
     }
@@ -641,15 +642,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function removeFromAvailableHumanSkills(SkillConfig $skill): static
     {
         $this->availableSkills->removeElement($skill);
-
-        return $this;
-    }
-
-    public function addToAvailableHumanSkills(SkillConfig $skill): static
-    {
-        if (!$this->availableSkills->contains($skill)) {
-            $this->availableSkills->add($skill);
-        }
 
         return $this;
     }
@@ -1544,5 +1536,14 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     private function hasSkillThroughPolyvalent(SkillEnum $skillName): bool
     {
         return $skillName->isPolyvalentSkill() && $this->getSkills()->exists(static fn ($_, Skill $skill) => $skill->getName() === SkillEnum::POLYVALENT);
+    }
+
+    private function addToAvailableHumanSkills(SkillConfig $skill): static
+    {
+        if (!$this->availableSkills->contains($skill)) {
+            $this->availableSkills->add($skill);
+        }
+
+        return $this;
     }
 }

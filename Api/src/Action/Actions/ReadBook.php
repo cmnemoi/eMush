@@ -114,10 +114,8 @@ final class ReadBook extends AbstractAction
     private function addSkillToPlayer(): void
     {
         $skill = $this->bookMechanic()->getSkill();
-        $skillConfig = $this->skillConfigRepository->findOneByNameAndDaedalusOrThrow($skill, $this->player->getDaedalus());
 
         $this->addSkillToPlayer->execute($skill, $this->player);
-        $this->player->addToAvailableHumanSkills($skillConfig);
     }
 
     private function createLearnedSkillLog(): void

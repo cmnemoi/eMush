@@ -92,11 +92,7 @@ final class Learn extends AbstractAction
 
     private function addLearnedSkillToPlayer(): void
     {
-        $skill = $this->skillToLearn();
-        $skillConfig = $this->skillConfigRepository->findOneByNameAndDaedalusOrThrow($skill, $this->player->getDaedalus());
-
-        $this->addSkillToPlayer->execute(skill: $skill, player: $this->player);
-        $this->player->addToAvailableHumanSkills($skillConfig);
+        $this->addSkillToPlayer->execute(skill: $this->skillToLearn(), player: $this->player);
     }
 
     private function deleteApprenticeSkillFromPlayer(): void

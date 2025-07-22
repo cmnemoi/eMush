@@ -6,6 +6,7 @@ namespace Mush\tests\functional\Player\Normalizer;
 
 use Mush\Player\Normalizer\CurrentPlayerNormalizer;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -112,18 +113,16 @@ final class SelectableSkillsCest extends AbstractFunctionalTest
 
     private function givenPlayerHasHumanSkillAvailable(SkillEnum $skill, FunctionalTester $I): void
     {
-        $this->player->addToAvailableHumanSkills(
-            $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
+        $this->player->setAvailableHumanSkills(
+            new SkillConfigCollection([$I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill])]),
         );
     }
 
     private function givenPlayerHasHumanSkillsAvailable(array $skills, FunctionalTester $I): void
     {
-        foreach ($skills as $skill) {
-            $this->player->addToAvailableHumanSkills(
-                $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]),
-            );
-        }
+        $this->player->setAvailableHumanSkills(
+            new SkillConfigCollection(array_map(static fn (SkillEnum $skill) => $I->grabEntityFromRepository(SkillConfig::class, ['name' => $skill]), $skills)),
+        );
     }
 
     private function givenPlayerHasMushSkillAvailable(SkillEnum $skill, FunctionalTester $I): void

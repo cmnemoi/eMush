@@ -14,6 +14,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Entity\SkillConfig;
+use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -120,9 +121,18 @@ final class ReadBookCest extends AbstractFunctionalTest
 
     public function shouldAddLearnedSkillToAvailableSkillsList(FunctionalTester $I): void
     {
-        $this->givenPlayerReadsBook();
+        $this->whenPlayerReadsBook();
 
         $this->thenPlayerHasSprinterInSkillList($I);
+    }
+
+    public function shouldLearnSkillEvenIfAlreadyInPlayerAvailableSkillsList(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasASprinterInTheirAvailableSkillsList($I);
+
+        $this->whenPlayerReadsBook();
+
+        $this->thenPlayerShouldHaveSprinterSkill($I);
     }
 
     private function givenPlayerHasASprinterMageBook(): void
@@ -164,6 +174,12 @@ final class ReadBookCest extends AbstractFunctionalTest
             reasons: [],
             time: new \DateTime(),
         );
+    }
+
+    private function givenPlayerHasASprinterInTheirAvailableSkillsList(FunctionalTester $I): void
+    {
+        $this->player->setAvailableHumanSkills(new SkillConfigCollection([$I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SPRINTER])]));
+        $I->haveInRepository($this->player);
     }
 
     private function whenPlayerReadsBook(): void

@@ -631,7 +631,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function setAvailableHumanSkills(SkillConfigCollection $skillsConfig): static
     {
-        $this->availableSkills = $skillsConfig;
+        foreach ($skillsConfig as $skillConfig) {
+            $this->addToAvailableHumanSkills($skillConfig);
+        }
 
         return $this;
     }
@@ -645,7 +647,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function addToAvailableHumanSkills(SkillConfig $skill): static
     {
-        $this->availableSkills->add($skill);
+        if (!$this->availableSkills->contains($skill)) {
+            $this->availableSkills->add($skill);
+        }
 
         return $this;
     }

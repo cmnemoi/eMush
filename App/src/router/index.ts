@@ -284,7 +284,10 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     // @ts-ignore
-    routes
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        return { top: 0 };
+    }
 });
 
 router.beforeEach((to, from, next) => {

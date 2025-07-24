@@ -105,10 +105,6 @@ final class TriumphSourceEventSubscriber implements EventSubscriberInterface
 
     public function onPlanetSectorEvent(PlanetSectorEvent $event): void
     {
-        echo "\nGot tags for planetSectorEvent:\n";
-        foreach ($event->getTags() as $tag) {
-            echo "Tag: {$tag}\n";
-        }
         $this->changeTriumphFromEventService->execute($event);
     }
 

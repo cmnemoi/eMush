@@ -824,6 +824,35 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(0, $this->chun->getTriumph());
     }
 
+    public function testInsectsImproveDiplomatJaniceTriumph(FunctionalTester $I): void
+    {
+        // given Janice not lost
+        $this->statusService->removeStatus(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->janice,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given Janice is diplomat
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->janice);
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INSECT], $I),
+            explorators: $this->players
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice gets 3 personal triumph for encountering a life form
+        $I->assertEquals(3, $this->janice->getTriumph());
+        $I->assertEquals(0, $this->chun->getTriumph());
+    }
+
     public function testInsectsFromPreventedFightImproveJaniceTriumphOnce(FunctionalTester $I): void
     {
         // given Janice not lost
@@ -833,6 +862,9 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             tags: [],
             time: new \DateTime(),
         );
+
+        // given Janice is diplomat
+        $this->addSkillToPlayer(SkillEnum::DIPLOMAT, $I, $this->janice);
 
         // given an exploration is created
         $exploration = $this->createExploration(
@@ -844,7 +876,9 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->setupPlanetSectorEvents(
             sectorName: PlanetSectorEnum::INSECT,
             events: [
-                PlanetSectorEvent::FIGHT_15 => 1,
+                PlanetSectorEvent::FIGHT_15 => PHP_INT_MAX - 2,
+                PlanetSectorEvent::PROVISION_1 => 1,
+                PlanetSectorEvent::ACCIDENT_3_5 => 1,
             ]
         );
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Chat\Repository;
 
 use Mush\Chat\Entity\Channel;
@@ -19,15 +21,21 @@ use Mush\Project\Enum\ProjectName;
 use Mush\Status\Entity\ChargeStatus;
 use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 
-final class ChannelRepositoryCest
+/**
+ * @internal
+ */
+final class ChannelRepositoryCest extends AbstractFunctionalTest
 {
     private ChannelRepository $channelRepository;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
+
         $this->channelRepository = $I->grabService(ChannelRepository::class);
     }
 
@@ -71,7 +79,7 @@ final class ChannelRepositoryCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $channels = $this->channelRepository->findByPlayer($playerInfo);
         $I->assertCount(1, $channels);
@@ -93,10 +101,23 @@ final class ChannelRepositoryCest
             ->setParticipant($playerInfo);
         $I->haveInRepository($channelPlayer);
 
+        $neronChannel = new Channel();
+        $neronChannel
+            ->setScope(ChannelScopeEnum::NERON)
+            ->setDaedalus($daedalusInfo);
+        $I->haveInRepository($neronChannel);
+
+        $neronChannelPlayer = new ChannelPlayer();
+        $neronChannelPlayer
+            ->setChannel($neronChannel)
+            ->setParticipant($playerInfo);
+        $I->haveInRepository($neronChannelPlayer);
+
         $channels = $this->channelRepository->findByPlayer($playerInfo);
-        $I->assertCount(2, $channels);
+        $I->assertCount(3, $channels);
         $I->assertContains($privateChannel, $channels);
         $I->assertContains($publicChannel, $channels);
+        $I->assertContains($neronChannel, $channels);
     }
 
     public function testFindPlayerChannelsPrivateOnly(FunctionalTester $I)
@@ -134,7 +155,7 @@ final class ChannelRepositoryCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         $I->assertTrue($player->isMush());
 
@@ -245,7 +266,7 @@ final class ChannelRepositoryCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
 
         /** @var Player $player2 */
         $player2 = $I->have(Player::class, ['daedalus' => $daedalus2]);
@@ -253,7 +274,7 @@ final class ChannelRepositoryCest
 
         $I->haveInRepository($player2Info);
         $player2->setPlayerInfo($player2Info);
-        $I->refreshEntities($player2);
+        $I->haveInRepository($player2);
 
         $channels = $this->channelRepository->findByPlayer($playerInfo);
         $I->assertCount(1, $channels);

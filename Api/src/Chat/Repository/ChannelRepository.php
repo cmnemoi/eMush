@@ -45,12 +45,24 @@ final class ChannelRepository extends ServiceEntityRepository implements Channel
                 SELECT channel.*
                 FROM communication_channel channel
                 WHERE channel.daedalus_info_id = :daedalusInfo AND channel.scope = 'mush'
+            ), neron_channel AS (
+                SELECT channel.*
+                FROM communication_channel channel
+                WHERE channel.daedalus_info_id = :daedalusInfo AND channel.scope = 'neron'
+                AND EXISTS (
+                    SELECT 1
+                    FROM communication_channel_player channel_participant
+                    WHERE channel_participant.channel_id = channel.id
+                    AND channel_participant.participant_id = :playerInfo
+                )
             )
 
 
             SELECT * FROM private_channels
             UNION ALL
             SELECT * FROM public_channel
+            UNION ALL
+            SELECT * FROM neron_channel
         EOD;
         $rawQuery .= $player->canAccessMushChannel() ? ' UNION ALL SELECT * FROM mush_channel;' : ';';
 

@@ -3,6 +3,7 @@
 namespace Mush\Chat\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Message;
@@ -98,6 +99,8 @@ final class MessageRepository extends ServiceEntityRepository implements Message
             }
             $entityManager->flush();
             $entityManager->commit();
+        } catch (UniqueConstraintViolationException $e) {
+            // ignore as this is probably due to a race condition
         } catch (\Throwable $e) {
             $entityManager->rollback();
             $entityManager->close();

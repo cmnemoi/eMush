@@ -148,6 +148,16 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
         <target>Votre sélection de sujets favoris.</target>
       </segment>
     </unit>
+    <unit id="neron">
+      <segment id="name" state="translated">
+        <source>neron.name</source>
+        <target>NERON</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>neron.description</source>
+        <target>Perdu ? Demandez des conseils de jeu à NERON.</target>
+      </segment>
+    </unit>
     <unit id="message_date">
       <segment id="message_date.less_minute" state="translated">
         <source>message_date.less_minute</source>

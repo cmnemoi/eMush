@@ -5,8 +5,8 @@
             <span>{{ calendar?.dayName }} {{ calendar?.day }} - <br />{{ calendar?.cycleName }} {{ calendar?.cycle }}</span>
             <span class="mobile">{{ calendar?.day }}-{{ calendar?.cycle }}</span>
             <template #content>
-                <h1 v-html="formatContent(calendar.name)" />
-                <p v-html="formatContent(calendar.description)" />
+                <h1 v-html="formatContent(calendar?.name || '')" />
+                <p v-html="formatContent(calendar?.description || '')" />
             </template>
         </Tippy>
         <ul class="tabs">
@@ -54,6 +54,7 @@ import FavouritesTab from "@/components/Game/Communications/FavouritesTab.vue";
 import DiscussionTab from "@/components/Game/Communications/DiscussionTab.vue";
 import PrivateTab from "@/components/Game/Communications/PrivateTab.vue";
 import MushTab from "@/components/Game/Communications/MushTab.vue";
+import NeronTab from "@/components/Game/Communications/NeronTab.vue";
 import Tab from "@/components/Game/Communications/Tab.vue";
 import { Room } from "@/entities/Room";
 import { mapActions, mapGetters } from "vuex";
@@ -64,9 +65,11 @@ import { GameCalendar } from "@/entities/GameCalendar";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { exportChannelToPDF, exportChannelToClipboard } from "@/services/export-channel-to-pdf.service";
 import { Tippy } from "vue-tippy";
+import { mixin } from "@/mixin/mixin";
 
 export default defineComponent ({
     name: "CommsPanel",
+    mixins: [mixin],
     components: {
         TipsTab,
         DiscussionTab,
@@ -74,6 +77,7 @@ export default defineComponent ({
         PrivateTab,
         RoomEventsTab,
         MushTab,
+        NeronTab,
         Tab,
         Tippy
     },
@@ -98,6 +102,8 @@ export default defineComponent ({
                     return RoomEventsTab;
                 case ChannelType.MUSH:
                     return MushTab;
+                case ChannelType.NERON:
+                    return NeronTab;
                 case ChannelType.PRIVATE:
                     return PrivateTab;
                 case ChannelType.FAVORITES:

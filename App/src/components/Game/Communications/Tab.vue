@@ -25,8 +25,10 @@
 import { ChannelType } from "@/enums/communication.enum";
 import { defineComponent } from "vue";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { mixin } from "@/mixin/mixin";
 
 export default defineComponent ({
+    mixins: [mixin],
     props: {
         type: String,
         selected: Boolean,
@@ -49,6 +51,8 @@ export default defineComponent ({
                 return getImgUrl('comms/fav.png');
             case ChannelType.MUSH:
                 return getImgUrl('comms/mush.png'); //TODO should return comms/pheromodem.png if player is human
+            case ChannelType.NERON:
+                return getImgUrl('ui_icons/action_points/pa_core.png');
             case ChannelType.PRIVATE:
                 return getImgUrl('comms/private.png');
             case ChannelType.PUBLIC:

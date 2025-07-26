@@ -365,13 +365,14 @@ const mutations: MutationTree<any> = {
 
 export function sortChannels(channels: Channel[]): Channel[] {
     const channelOrderValue = {
+        [ChannelType.NERON] : 1,
         [ChannelType.TIPS] : 0,
-        [ChannelType.MUSH] : 1,
-        [ChannelType.ROOM_LOG] : 2,
-        [ChannelType.PUBLIC] : 3,
-        [ChannelType.FAVORITES] : 4,
-        [ChannelType.PRIVATE] : 5,
-        [ChannelType.NEW_CHANNEL] : 6
+        [ChannelType.MUSH] : 2,
+        [ChannelType.ROOM_LOG] : 3,
+        [ChannelType.PUBLIC] : 4,
+        [ChannelType.FAVORITES] : 5,
+        [ChannelType.PRIVATE] : 6,
+        [ChannelType.NEW_CHANNEL] : 7
     };
 
     return channels.sort(function (a: Channel, b: Channel) : number {

@@ -2,6 +2,8 @@
 
 namespace Mush\Tests\functional\Player\Service;
 
+use Mush\Chat\Entity\Channel;
+use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Event\DaedalusCycleEvent;
 use Mush\Daedalus\Service\DaedalusService;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -297,5 +299,19 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
 
         $I->assertTrue($user->isInGame());
+    }
+
+    public function shouldAddPlayerToANeronChannel(FunctionalTester $I): void
+    {
+        $user = UserFactory::createUser();
+        $I->haveInRepository($user);
+
+        $player = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
+
+        $neronChannel = $I->grabEntityFromRepository(Channel::class, [
+            'daedalusInfo' => $player->getDaedalus()->getDaedalusInfo()->getId(),
+            'scope' => ChannelScopeEnum::NERON,
+        ]);
+        $I->assertTrue($neronChannel->isPlayerParticipant($player->getPlayerInfo()));
     }
 }

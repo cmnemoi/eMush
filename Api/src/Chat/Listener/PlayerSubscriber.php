@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Chat\Listener;
 
 use Mush\Action\Enum\ActionEnum;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Enum\MushMessageEnum;
 use Mush\Chat\Services\ChannelServiceInterface;
+use Mush\Chat\Services\CreateNeronChannelForPlayerService;
 use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\ItemEnum;
@@ -17,21 +20,14 @@ use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PlayerSubscriber implements EventSubscriberInterface
+final readonly class PlayerSubscriber implements EventSubscriberInterface
 {
-    private ChannelServiceInterface $channelService;
-    private NeronMessageServiceInterface $neronMessageService;
-    private MessageServiceInterface $messageService;
-
     public function __construct(
-        ChannelServiceInterface $channelService,
-        NeronMessageServiceInterface $neronMessageService,
-        MessageServiceInterface $messageService
-    ) {
-        $this->channelService = $channelService;
-        $this->neronMessageService = $neronMessageService;
-        $this->messageService = $messageService;
-    }
+        private ChannelServiceInterface $channelService,
+        private CreateNeronChannelForPlayerService $createNeronChannelForPlayer,
+        private NeronMessageServiceInterface $neronMessageService,
+        private MessageServiceInterface $messageService,
+    ) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -40,6 +36,7 @@ class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
             PlayerEvent::TITLE_ATTRIBUTED => 'onPlayerTitleAttributed',
+            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
         ];
     }
 
@@ -130,5 +127,10 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
 
         $this->neronMessageService->createTitleAttributionMessage($player, $title, $time);
+    }
+
+    public function onNewPlayer(PlayerEvent $event): void
+    {
+        $this->createNeronChannelForPlayer->execute($event->getPlayer());
     }
 }

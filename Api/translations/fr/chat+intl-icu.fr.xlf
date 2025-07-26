@@ -155,7 +155,7 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
       </segment>
       <segment id="description" state="translated">
         <source>neron.description</source>
-        <target>Vous êtes perdu ? Demandez des conseils de jeu à NERON.//Attention, NERON est une IA capricieuse et peut parfoisfaire des erreurs.</target>
+        <target>Vous êtes perdu ? Demandez de l'aide à NERON !//**Attention** : NERON est une IA capricieuse et peut faire des erreurs.</target>
       </segment>
     </unit>
     <unit id="message_date">

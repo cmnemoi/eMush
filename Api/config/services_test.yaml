@@ -1,3 +1,8 @@
 services:
     Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager:
         public: true
+
+    Mush\Chat\Gateway\NeronAnswerGatewayInterface:
+        class: Mush\Tests\unit\Chat\TestDoubles\FixedNeronAnswerGateway
+        arguments:
+            $answer: 'Hello, World!'

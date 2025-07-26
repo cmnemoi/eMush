@@ -20,7 +20,7 @@ final class CreateNeronAnswerToQuestionService
     {
         $answer = $this->neronAnswer->getFor($question);
 
-        $daedalus = $channel->getDaedalusInfo()->getDaedalus();
+        $daedalus = $channel->getDaedalusInfo()->getDaedalusOrThrow();
 
         $message = new Message();
         $message

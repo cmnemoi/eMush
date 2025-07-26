@@ -91,6 +91,15 @@ class DaedalusInfo
         return $this->daedalus;
     }
 
+    public function getDaedalusOrThrow(): Daedalus
+    {
+        if ($this->daedalus === null) {
+            throw new \RuntimeException('Daedalus not found from DaedalusInfo');
+        }
+
+        return $this->daedalus;
+    }
+
     public function getClosedDaedalus(): ClosedDaedalus
     {
         return $this->closedDaedalus;

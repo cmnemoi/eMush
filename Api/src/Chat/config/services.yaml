@@ -28,3 +28,8 @@ services:
   Mush\Chat\Repository\ChannelPlayerRepositoryInterface: '@Mush\Chat\Repository\ChannelPlayerRepository'
   Mush\Chat\Repository\ChannelRepositoryInterface: '@Mush\Chat\Repository\ChannelRepository'
   Mush\Chat\Repository\MessageRepositoryInterface: '@Mush\Chat\Repository\MessageRepository'
+  Mush\Chat\Gateway\NeronAnswerGatewayInterface: '@Mush\Chat\Gateway\NeronAnswerGateway'
+  Mush\Chat\Gateway\NeronAnswerGateway:
+    arguments:
+      $askNeronEndpoint: '%env(ASK_NERON_ENDPOINT)%'
+

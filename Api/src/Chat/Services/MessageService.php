@@ -202,6 +202,8 @@ final class MessageService implements MessageServiceInterface
             ->setAuthor($player->getPlayerInfo())
             ->setChannel($createMessage->getChannel())
             ->setParent($createMessage->getParent())
+            ->setCreatedAt(new \DateTime())
+            ->setUpdatedAt(new \DateTime())
             ->addReader($player)
             ->setCycle($player->getDaedalus()->getCycle())
             ->setDay($player->getDaedalus()->getDay());

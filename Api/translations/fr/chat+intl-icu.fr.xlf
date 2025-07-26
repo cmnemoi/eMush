@@ -151,11 +151,11 @@ Pour participer vous devez posséder un :talkie: talkie-walkie.</target>
     <unit id="neron">
       <segment id="name" state="translated">
         <source>neron.name</source>
-        <target>NERON</target>
+        <target>Ask NERON™</target>
       </segment>
       <segment id="description" state="translated">
         <source>neron.description</source>
-        <target>Perdu ? Demandez des conseils de jeu à NERON.</target>
+        <target>Vous êtes perdu ? Demandez des conseils de jeu à NERON.//Attention, NERON est une IA capricieuse et peut parfoisfaire des erreurs.</target>
       </segment>
     </unit>
     <unit id="message_date">

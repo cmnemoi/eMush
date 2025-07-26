@@ -7,7 +7,9 @@ namespace Mush\tests\functional\Chat\Service;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Dto\CreateMessage;
 use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Chat\Enum\NeronMessageEnum;
+use Mush\Chat\Services\CreateNeronChannelForPlayerService;
 use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Disease\Enum\InjuryEnum;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
@@ -20,6 +22,7 @@ use Mush\Tests\FunctionalTester;
  */
 final class MessageServiceCest extends AbstractFunctionalTest
 {
+    private CreateNeronChannelForPlayerService $createNeronChannelForPlayer;
     private MessageServiceInterface $messageService;
     private PlayerDiseaseServiceInterface $playerDiseaseService;
 
@@ -28,6 +31,7 @@ final class MessageServiceCest extends AbstractFunctionalTest
         parent::_before($I);
         $this->messageService = $I->grabService(MessageServiceInterface::class);
         $this->playerDiseaseService = $I->grabService(PlayerDiseaseServiceInterface::class);
+        $this->createNeronChannelForPlayer = $I->grabService(CreateNeronChannelForPlayerService::class);
     }
 
     public function shouldAllowMutePlayerToCreateMessageInMushChannel(FunctionalTester $I): void
@@ -66,6 +70,19 @@ final class MessageServiceCest extends AbstractFunctionalTest
         $this->whenPlayerCreatesVocodedAnnouncement($this->publicChannel, 'test');
 
         $this->thenMessageShouldBeRejected($I);
+    }
+
+    public function shouldGetNeronAnswerIfInNeronChannel(FunctionalTester $I): void
+    {
+        $this->createNeronChannelForPlayer->execute($this->player);
+        $neronChannel = $I->grabEntityFromRepository(Channel::class, [
+            'scope' => ChannelScopeEnum::NERON,
+            'daedalusInfo' => $this->player->getDaedalus()->getDaedalusInfo(),
+        ]);
+
+        $this->whenPlayerTalksInNeronChannel($neronChannel);
+
+        $this->thenIShouldSeeNeronAnswerInNeronChannel($neronChannel, $I);
     }
 
     private function givenPlayerHasTornTongue(): void
@@ -119,6 +136,19 @@ final class MessageServiceCest extends AbstractFunctionalTest
         );
     }
 
+    private function whenPlayerTalksInNeronChannel(Channel $neronChannel): void
+    {
+        $messageDto = new CreateMessage();
+        $messageDto->setChannel($neronChannel);
+        $messageDto->setMessage('test');
+        $messageDto->setPlayer($this->player);
+
+        $this->messageService->createPlayerMessage(
+            player: $this->player,
+            createMessage: $messageDto
+        );
+    }
+
     private function thenMessageShouldBeCreatedInMushChannel(FunctionalTester $I): void
     {
         $I->seeInRepository(Message::class, [
@@ -142,6 +172,14 @@ final class MessageServiceCest extends AbstractFunctionalTest
             'channel' => $this->publicChannel,
             'message' => NeronMessageEnum::COMMAND_REFUSED,
             'neron' => null,
+        ]);
+    }
+
+    private function thenIShouldSeeNeronAnswerInNeronChannel(Channel $neronChannel, FunctionalTester $I): void
+    {
+        $I->seeInRepository(Message::class, [
+            'channel' => $neronChannel,
+            'neron' => $this->player->getDaedalus()->getNeron(),
         ]);
     }
 }

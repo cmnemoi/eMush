@@ -304,7 +304,9 @@ final class ChannelService implements ChannelServiceInterface
      */
     private function readMessages(Collection $messages, Player $player): void
     {
-        $messages->map(fn (Message $message) => $this->readMessage($message, $player));
+        $messages->map(
+            static fn (Message $message) => $message->addReader($player)->cancelTimestampable()
+        );
         $this->messageRepository->saveAll($messages->toArray());
     }
 

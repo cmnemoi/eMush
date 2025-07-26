@@ -186,6 +186,11 @@ class Channel
         return ChannelScopeEnum::TIPS !== $this->scope;
     }
 
+    public function isNeronChannel(): bool
+    {
+        return ChannelScopeEnum::NERON === $this->getScope();
+    }
+
     private static function setupFakeIdForChannel(self $channel): void
     {
         (new \ReflectionClass($channel))->getProperty('id')->setValue($channel, random_int(1, PHP_INT_MAX));

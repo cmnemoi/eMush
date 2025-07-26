@@ -8,6 +8,8 @@ enum TriumphEnum: string
 {
     case ALIEN_FRIEND = 'alien_friend';
     case ALIEN_FRIEND_DURING_FIGHT = 'alien_friend_during_fight';
+    case ALIEN_FRIEND_FIGHT_PREVENTED = 'alien_friend_fight_prevented';
+    case ALIEN_FRIEND_PROVISION = 'alien_friend_during_provision';
     case ALIEN_SCIENCE = 'alien_science';
     case ALL_PREGNANT = 'all_pregnant';
     case AMBITIOUS = 'ambitious';

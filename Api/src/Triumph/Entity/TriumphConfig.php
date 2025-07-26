@@ -186,6 +186,8 @@ class TriumphConfig
             TriumphEnum::RESEARCH_STANDARD_END => TriumphEnum::RESEARCH_STANDARD,
             TriumphEnum::RESEARCH_BRILLANT_END => TriumphEnum::RESEARCH_BRILLANT,
             TriumphEnum::ALIEN_FRIEND_DURING_FIGHT => TriumphEnum::ALIEN_FRIEND,
+            TriumphEnum::ALIEN_FRIEND_FIGHT_PREVENTED => TriumphEnum::ALIEN_FRIEND,
+            TriumphEnum::ALIEN_FRIEND_PROVISION => TriumphEnum::ALIEN_FRIEND,
             default => $this->name,
         };
     }

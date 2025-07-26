@@ -252,7 +252,6 @@ async function loadAlertsForCurrentPlayer(dispatch: any, playerIsNull: boolean, 
 }
 
 async function loadAlertsIfNeeded(dispatch: any, player: Player | null, playerIsNull: boolean): Promise<void> {
-    console.log('loadAlertsIfNeeded - playerIsNull:', playerIsNull, 'player:', player);
     if (!playerIsNull) {
         return Promise.resolve();
     }

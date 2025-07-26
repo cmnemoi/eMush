@@ -735,6 +735,42 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertEquals(0, $stephen->getTriumph());
     }
 
+    public function testFightPreventedDoesNotImproveStephenTriumph(FunctionalTester $I): void
+    {
+        $stephen = $this->givenStephenWithSpacesuit($I);
+
+        // given white flag held by an expedition member
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: ItemEnum::WHITE_FLAG,
+            equipmentHolder: $this->chun,
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // given an exploration is created
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::INTELLIGENT], $I),
+            explorators: $this->players
+        );
+
+        // given sector only has fight and artefact event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::INTELLIGENT,
+            events: [
+                PlanetSectorEvent::FIGHT_8 => PHP_INT_MAX - 1,
+                PlanetSectorEvent::ARTEFACT => 1,
+            ]
+        );
+
+        $this->givenEveryoneHasZeroTriumph();
+
+        // when fight is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Stephen gets no triumph for fight prevented event
+        $I->assertEquals(0, $stephen->getTriumph());
+    }
+
     public function testFightImprovesCustomAlienDownTriumphWhenNoDamageDealt(FunctionalTester $I): void
     {
         $this->givenCustomAlienDownConfigRewardsWithTriumph(7);

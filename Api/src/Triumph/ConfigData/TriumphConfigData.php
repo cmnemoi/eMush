@@ -541,6 +541,8 @@ abstract class TriumphConfigData
                 targetedEvent: PlanetSectorEvent::PLANET_SECTOR_EVENT,
                 tagConstraints: [
                     PlanetSectorEvent::FIGHT => TriumphSourceEventInterface::ANY_TAG,
+                    SkillEnum::DIPLOMAT->toString() => TriumphSourceEventInterface::NONE_TAGS,
+                    ItemEnum::WHITE_FLAG => TriumphSourceEventInterface::NONE_TAGS,
                 ],
                 scope: TriumphScope::PERSONAL_STEPHEN,
                 targetSetting: TriumphTarget::ACTIVE_EXPLORERS,

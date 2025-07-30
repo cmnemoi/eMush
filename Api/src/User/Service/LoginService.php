@@ -109,6 +109,10 @@ class LoginService
             $user = $this->userService->createUser($userId, $username);
         }
 
+        if ($user->getUsername() !== $apiUser->getUser()->getDisplayName()->getCurrent()->getValue()->toString()) {
+            $user->setUsername($apiUser->getUser()->getDisplayName()->getCurrent()->getValue()->toString());
+        }
+
         $nonce = bin2hex(openssl_random_pseudo_bytes(10)); // 20 chars
 
         $expiryTime = time() + 60; // 1 minute expiration

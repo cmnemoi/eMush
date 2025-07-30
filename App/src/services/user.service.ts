@@ -97,7 +97,7 @@ const UserService = {
             const uri = urlJoin(userEndPoint, user.userId);
 
             await store.dispatch('gameConfig/setLoading', { loading: true });
-            const response = await ApiService.patch(uri, { roles: user.roles } )
+            const response = await ApiService.patch(uri, { username: user.username, roles: user.roles } )
                 .catch((e) => {
                     store.dispatch('gameConfig/setLoading', { loading: false });
                     throw e;

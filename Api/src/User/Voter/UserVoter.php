@@ -54,28 +54,16 @@ final class UserVoter extends Voter
             return false;
         }
 
-        switch ($attribute) {
-            case self::USER_IN_GAME:
-                return $user->isInGame();
-
-            case self::EDIT_USER_ROLE:
-                return $this->canEditUserRole($subject, $token);
-
-            case self::NOT_IN_GAME:
-                return !$user->isInGame();
-
-            case self::HAS_ACCEPTED_RULES:
-                return $user->hasAcceptedRules();
-
-            case self::IS_NOT_BANNED:
-                return !$user->isBanned();
-
-            case self::IS_CONNECTED:
-                return $user instanceof User;
-
-            case self::IS_REQUEST_USER:
-                return $user->getUserId() === $subject->getUserId();
-        }
+        return match ($attribute) {
+            self::USER_IN_GAME => $user->isInGame(),
+            self::EDIT_USER_ROLE => $this->canEditUserRole($subject, $token),
+            self::NOT_IN_GAME => !$user->isInGame(),
+            self::HAS_ACCEPTED_RULES => $user->hasAcceptedRules(),
+            self::IS_NOT_BANNED => !$user->isBanned(),
+            self::IS_CONNECTED => $user instanceof User,
+            self::IS_REQUEST_USER => $user->getUserId() === $subject->getUserId(),
+            default => throw new \LogicException('This code should not be reached!'),
+        };
 
         throw new \LogicException('This code should not be reached!');
     }

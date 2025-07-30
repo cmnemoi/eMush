@@ -5,7 +5,7 @@ Mush\User\Entity\User:
     userId:
       groups: [ 'player_info_read', 'user_read' ]
     username:
-      groups: [ 'player_info_read', 'user_read' ]
+      groups: [ 'player_info_read', 'user_read', 'user_write' ]
     currentGame:
       groups: [ 'user_read' ]
     roles:

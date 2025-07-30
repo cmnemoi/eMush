@@ -11,7 +11,7 @@
                 type="text"
             />
         </div>
-        <div class="select-default">
+        <div class="select-default" v-if="isAdmin">
             <label for="user_roles">{{ $t('admin.user.roles') }}</label>
             <select v-model="user.roles" :size="rolesOption.length" multiple>
                 <option v-for="option in rolesOption" :value="option.key" :key="option.key">
@@ -33,6 +33,7 @@ import { handleErrors } from "@/utils/apiValidationErrors";
 import ErrorList from "@/components/Utils/ErrorList.vue";
 import Input from "@/components/Utils/Input.vue";
 import UpdateConfigButtons from "@/components/Utils/UpdateConfigButtons.vue";
+import { mapGetters } from "vuex";
 
 interface UserDetailData {
     user: User | null,
@@ -74,6 +75,9 @@ export default defineComponent({
                 }
             ]
         };
+    },
+    computed: {
+        ...mapGetters('gameConfig', ['isAdmin'])
     },
     methods: {
         update(): void {

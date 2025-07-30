@@ -15,7 +15,7 @@ Mush\User\Entity\User:
     get:
       security: 'is_granted("ROLE_USER") or object == user'
     patch:
-      security: 'is_granted("ROLE_ADMIN") and is_granted("EDIT_USER_ROLE", object)'
+      security: 'is_granted("ROLE_MODERATOR") and is_granted("EDIT_USER_ROLE", object)'
   properties:
     id:
       identifier: false

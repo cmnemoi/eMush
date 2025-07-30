@@ -77,7 +77,7 @@ export default defineComponent({
         };
     },
     computed: {
-        ...mapGetters('gameConfig', ['isAdmin'])
+        ...mapGetters('auth', ['isAdmin'])
     },
     methods: {
         update(): void {

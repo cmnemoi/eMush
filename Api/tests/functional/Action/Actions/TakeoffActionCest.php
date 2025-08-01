@@ -12,7 +12,6 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
@@ -24,8 +23,6 @@ use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Place\Entity\Place;
-use Mush\Place\Entity\PlaceConfig;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
@@ -52,7 +49,7 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     private Takeoff $takeoffAction;
     private ActionConfig $action;
 
-    private GameEquipment $pasiphae;
+    private SpaceShip $pasiphae;
     private ChargeStatus $pasiphaeArmor;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
@@ -63,29 +60,15 @@ final class TakeoffActionCest extends AbstractFunctionalTest
     public function _before(FunctionalTester $I)
     {
         parent::_before($I);
-        $this->createExtraRooms($I, $this->daedalus);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
         $this->terrence = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::TERRENCE);
 
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $this->pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $this->pasiphae
-            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
-            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($this->pasiphae);
+        $this->pasiphae = $this->givenThereIsAPasipahe($I, $this->daedalus);
 
-        $this->pasiphaeArmor = $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            $this->pasiphae,
-            [],
-            new \DateTime()
-        );
-        $I->haveInRepository($this->pasiphae);
+        $this->pasiphaeArmor = $this->pasiphae->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
 
         // given Terrence is a pilot so they can take off
         $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->terrence);
@@ -94,9 +77,10 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->takeoffAction = $I->grabService(Takeoff::class);
     }
 
-    public function shouldNotBeExecutableIfPlayerIsNotAPilot(FunctionalTester $I): void
+    public function playerShouldNotBeAbleToTakeOffWithPasiphaeIfNotAPilot(FunctionalTester $I): void
     {
         // given KT is not a pilot (default)
+        // given crewlock is on pilot (default)
 
         // when KT tries to take off
         $this->takeoffAction->loadParameters(
@@ -110,33 +94,36 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $I->assertEquals(ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK, $this->takeoffAction->cannotExecuteReason());
     }
 
+    public function playerShouldNotBeAbleToTakeOffWithPatrolShipIfNotAPilot(FunctionalTester $I): void
+    {
+        // given KT is not a pilot (default)
+        // given crewlock is on pilot (default)
+
+        // given there is a patrol ship
+        $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(EquipmentEnum::PATROL_SHIP, $this->player->getPlace(), [], new \DateTime());
+
+        // when KT tries to take off
+        $this->takeoffAction->loadParameters(
+            actionConfig: $this->action,
+            actionProvider: $patrolShip,
+            player: $this->kuanTi,
+            target: $patrolShip
+        );
+
+        // then the action is not executable
+        $I->assertEquals(ActionImpossibleCauseEnum::TERMINAL_NERON_LOCK, $this->takeoffAction->cannotExecuteReason());
+    }
+
     public function testTakeoffCriticalSuccess(FunctionalTester $I)
     {
         $this->action->setCriticalRate(100);
         $I->haveInRepository($this->action);
 
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $pasiphae
-            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
-            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        $pasiphaeArmor = $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-        $I->haveInRepository($pasiphae);
-
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
-            actionProvider: $pasiphae,
+            actionProvider: $this->pasiphae,
             player: $this->terrence,
-            target: $pasiphae
+            target: $this->pasiphae
         );
         $I->assertTrue($this->takeoffAction->isVisible());
         $I->assertNull($this->takeoffAction->cannotExecuteReason());
@@ -165,8 +152,8 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             $this->terrence->getHealthPoint()
         );
         $I->assertEquals(
-            $pasiphaeArmor->getThreshold(),
-            $pasiphaeArmor->getCharge()
+            $this->pasiphaeArmor->getThreshold(),
+            $this->pasiphaeArmor->getCharge()
         );
         $I->dontSeeInRepository(RoomLog::class, [
             'place' => RoomEnum::PASIPHAE,
@@ -184,28 +171,11 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         $this->action->setCriticalRate(0);
         $this->setNeronCrewLock(NeronCrewLockEnum::NULL);
 
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $pasiphae
-            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
-            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        /** @var ChargeStatus $pasiphaeArmor */
-        $pasiphaeArmor = $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
-            actionProvider: $pasiphae,
+            actionProvider: $this->pasiphae,
             player: $this->chun,
-            target: $pasiphae
+            target: $this->pasiphae
         );
         $I->assertTrue($this->takeoffAction->isVisible());
         $I->assertNull($this->takeoffAction->cannotExecuteReason());
@@ -221,8 +191,8 @@ final class TakeoffActionCest extends AbstractFunctionalTest
             $this->chun->getHealthPoint()
         );
         $I->assertNotEquals(
-            $pasiphaeArmor->getThreshold(),
-            $pasiphaeArmor->getCharge()
+            $this->pasiphaeArmor->getThreshold(),
+            $this->pasiphaeArmor->getCharge()
         );
 
         $I->assertInstanceOf(Success::class, $result);
@@ -248,24 +218,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function testTakeOffNotExecutableIfDaedalusIsTraveling(FunctionalTester $I): void
     {
-        // given a pasiphae
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $pasiphae
-            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
-            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        $pasiphaeArmor = $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-        $I->haveInRepository($pasiphae);
-
         // given daedalus is traveling
         $this->statusService->createStatusFromName(
             DaedalusStatusEnum::TRAVELING,
@@ -277,9 +229,9 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // when player tries to take off
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
-            actionProvider: $pasiphae,
+            actionProvider: $this->pasiphae,
             player: $this->terrence,
-            target: $pasiphae
+            target: $this->pasiphae
         );
         $this->takeoffAction->execute();
 
@@ -289,24 +241,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function testTakeOffActionDropCriticalItems(FunctionalTester $I): void
     {
-        // given a pasiphae
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $pasiphae
-            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
-            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        $pasiphaeArmor = $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-        $I->haveInRepository($pasiphaeArmor);
-
         // given player has the extinguisher in their inventory
         $takeOffRoom = $this->player->getPlace();
         $extinguisherConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::EXTINGUISHER]);
@@ -319,9 +253,9 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // when player tries to take off
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
-            actionProvider: $pasiphae,
+            actionProvider: $this->pasiphae,
             player: $this->terrence,
-            target: $pasiphae
+            target: $this->pasiphae
         );
         $this->takeoffAction->execute();
 
@@ -331,24 +265,6 @@ final class TakeoffActionCest extends AbstractFunctionalTest
 
     public function testTakeOffActionDropCriticalItemsIfPlayerIsMush(FunctionalTester $I): void
     {
-        // given a pasiphae
-        $pasiphaeConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PASIPHAE]);
-        $pasiphae = new SpaceShip($this->daedalus->getPlaceByName(RoomEnum::LABORATORY));
-        $pasiphae
-            ->setPatrolShipName(EquipmentEnum::PASIPHAE)
-            ->setDockingPlace(RoomEnum::ALPHA_BAY_2)
-            ->setName(EquipmentEnum::PASIPHAE)
-            ->setEquipment($pasiphaeConfig);
-        $I->haveInRepository($pasiphae);
-
-        $pasiphaeArmor = $this->statusService->createStatusFromName(
-            EquipmentStatusEnum::PATROL_SHIP_ARMOR,
-            $pasiphae,
-            [],
-            new \DateTime()
-        );
-        $I->haveInRepository($pasiphaeArmor);
-
         // given player has the extinguisher and the hacker kit in their inventory
         $extinguisherConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => ToolItemEnum::EXTINGUISHER]);
         $extinguisher = new GameItem($this->terrence);
@@ -375,9 +291,9 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         // when player tries to take off
         $this->takeoffAction->loadParameters(
             actionConfig: $this->action,
-            actionProvider: $pasiphae,
+            actionProvider: $this->pasiphae,
             player: $this->terrence,
-            target: $pasiphae
+            target: $this->pasiphae
         );
         $this->takeoffAction->execute();
 
@@ -652,23 +568,16 @@ final class TakeoffActionCest extends AbstractFunctionalTest
         );
     }
 
-    private function createExtraRooms(FunctionalTester $I, Daedalus $daedalus): void
-    {
-        /** @var PlaceConfig $pasiphaeRoomConfig */
-        $pasiphaeRoomConfig = $I->grabEntityFromRepository(PlaceConfig::class, ['placeName' => RoomEnum::PASIPHAE]);
-        $pasiphaeRoom = new Place();
-        $pasiphaeRoom
-            ->setName(RoomEnum::PASIPHAE)
-            ->setType($pasiphaeRoomConfig->getType())
-            ->setDaedalus($daedalus);
-        $I->haveInRepository($pasiphaeRoom);
-
-        $I->haveInRepository($daedalus);
-    }
-
     private function setNeronCrewLock(NeronCrewLockEnum $crewLock): void
     {
         $neron = $this->daedalus->getNeron();
         (new \ReflectionProperty($neron, 'crewLock'))->setValue($neron, $crewLock);
+    }
+
+    private function givenThereIsAPasipahe(FunctionalTester $I, Daedalus $daedalus): SpaceShip
+    {
+        $this->createExtraPlace(RoomEnum::PASIPHAE, $I, $daedalus);
+
+        return $this->gameEquipmentService->createGameEquipmentFromName(EquipmentEnum::PASIPHAE, $this->player->getPlace(), [], new \DateTime());
     }
 }

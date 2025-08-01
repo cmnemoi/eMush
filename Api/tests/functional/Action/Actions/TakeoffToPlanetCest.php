@@ -11,10 +11,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Daedalus\Enum\NeronCrewLockEnum;
 use Mush\Daedalus\Event\DaedalusEvent;
-use Mush\Equipment\Entity\Config\EquipmentConfig;
-use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Equipment\Entity\GameEquipment;
-use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -163,20 +160,10 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         );
     }
 
-    public function testTakeoffToPlanetNotExectableIfAnExplorationIsOnGoing(FunctionalTester $I): void
+    public function testTakeoffToPlanetNotExecutableIfAnExplorationIsOnGoing(FunctionalTester $I): void
     {
-        // given players have spacesuit in their inventory to explore oxygen-free planets
-        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameItem($this->player1);
-        $spacesuit
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit);
-        $spacesuit2 = new GameItem($this->player2);
-        $spacesuit2
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit2);
+        $this->givenPlayerHasASpacesuit($this->player1);
+        $this->givenPlayerHasASpacesuit($this->player2);
 
         // given players are exploring the planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
@@ -184,7 +171,6 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
         // given a new player is in a patrol ship
         $patrolShipAlphaTamarinPlace = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
-        $patrolShipConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['equipmentName' => EquipmentEnum::PATROL_SHIP]);
         $patrolShip = $this->gameEquipmentService->createGameEquipmentFromName(
             EquipmentEnum::PATROL_SHIP,
             $patrolShipAlphaTamarinPlace,
@@ -208,18 +194,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
     public function testTakeoffToPlanetSuccessCreatesExplorationEntity(FunctionalTester $I): void
     {
-        // given players have spacesuit in their inventory to explore oxygen-free planets
-        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameItem($this->player1);
-        $spacesuit
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit);
-        $spacesuit2 = new GameItem($this->player2);
-        $spacesuit2
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit2);
+        $this->givenPlayerHasASpacesuit($this->player1);
+        $this->givenPlayerHasASpacesuit($this->player2);
 
         // given there is no exploration entity
         $I->dontSeeInRepository(Exploration::class, ['planet' => $this->planet]);
@@ -244,18 +220,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
             actual: $this->player2->getPlace(),
         );
 
-        // given players have spacesuit in their inventory to explore oxygen-free planets
-        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameItem($this->player1);
-        $spacesuit
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit);
-        $spacesuit2 = new GameItem($this->player2);
-        $spacesuit2
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit2);
+        $this->givenPlayerHasASpacesuit($this->player1);
+        $this->givenPlayerHasASpacesuit($this->player2);
 
         // when player tries to takeoff to planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
@@ -280,18 +246,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
             actual: $this->icarus->getPlace(),
         );
 
-        // given players have spacesuit in their inventory to explore oxygen-free planets
-        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameItem($this->player1);
-        $spacesuit
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit);
-        $spacesuit2 = new GameItem($this->player2);
-        $spacesuit2
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit2);
+        $this->givenPlayerHasASpacesuit($this->player1);
+        $this->givenPlayerHasASpacesuit($this->player2);
 
         // when player tries to takeoff to planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
@@ -306,18 +262,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
     public function testTakeOffToPlanetSuccessTriggersLandingEvent(FunctionalTester $I): void
     {
-        // given players have spacesuit in their inventory to explore oxygen-free planets
-        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameItem($this->player1);
-        $spacesuit
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit);
-        $spacesuit2 = new GameItem($this->player2);
-        $spacesuit2
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit2);
+        $this->givenPlayerHasASpacesuit($this->player1);
+        $this->givenPlayerHasASpacesuit($this->player2);
 
         // when player tries to takeoff to planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
@@ -370,6 +316,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
     public function testTakeOffToPlanetSucessWithoutSpaceSuitOnOxygenFreePlanetCreatesASpecificNotification(FunctionalTester $I): void
     {
         // given players do not have spacesuit in their inventory
+        $I->assertFalse($this->player1->hasEquipmentByName(GearItemEnum::SPACESUIT));
+        $I->assertFalse($this->player2->hasEquipmentByName(GearItemEnum::SPACESUIT));
 
         // when player tries to takeoff to planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
@@ -388,12 +336,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
     public function testTakeOffToPlanetSuccessCreatesStuckedInTheShipStatus(FunctionalTester $I): void
     {
         // given player 1 has a spacesuit in their inventory but player 2 does not
-        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameItem($this->player1);
-        $spacesuit
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit);
+        $this->givenPlayerHasASpacesuit($this->player1);
+        $I->assertFalse($this->player2->hasEquipmentByName(GearItemEnum::SPACESUIT));
 
         // when player tries to takeoff to planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player1, $this->icarus);
@@ -415,18 +359,8 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
 
     public function testTakeoffToPlanetSuccessCreatesAPublicLog(FunctionalTester $I): void
     {
-        // given players have spacesuit in their inventory to explore oxygen-free planets
-        $spacesuitConfig = $I->grabEntityFromRepository(ItemConfig::class, ['equipmentName' => GearItemEnum::SPACESUIT]);
-        $spacesuit = new GameItem($this->player1);
-        $spacesuit
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit);
-        $spacesuit2 = new GameItem($this->player2);
-        $spacesuit2
-            ->setName(GearItemEnum::SPACESUIT)
-            ->setEquipment($spacesuitConfig);
-        $I->haveInRepository($spacesuit2);
+        $this->givenPlayerHasASpacesuit($this->player1);
+        $this->givenPlayerHasASpacesuit($this->player2);
 
         // when player tries to takeoff to planet
         $this->takeoffToPlanetAction->loadParameters($this->takeoffToPlanetConfig, $this->icarus, $this->player, $this->icarus);
@@ -532,7 +466,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // given players have spacesuit in their inventory to explore oxygen-free planets
         $players = [$this->chun, $this->kuanTi, $janice, $raluca];
         foreach ($players as $player) {
-            $this->createSpacesuitForPlayer($player);
+            $this->givenPlayerHasASpacesuit($player);
         }
 
         // when Chun takes off to the planet
@@ -560,7 +494,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         // given players have spacesuit in their inventory to explore oxygen-free planets
         $players = [$this->chun, $this->kuanTi, $janice, $derek, $ian, $raluca];
         foreach ($players as $player) {
-            $this->createSpacesuitForPlayer($player);
+            $this->givenPlayerHasASpacesuit($player);
         }
 
         // given Large Bay upgrade project is completed
@@ -608,7 +542,7 @@ final class TakeoffToPlanetCest extends AbstractFunctionalTest
         );
     }
 
-    private function createSpacesuitForPlayer(Player $player): void
+    private function givenPlayerHasASpacesuit(Player $player): void
     {
         $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: GearItemEnum::SPACESUIT,

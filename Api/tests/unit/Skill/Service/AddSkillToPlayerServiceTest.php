@@ -41,6 +41,7 @@ final class AddSkillToPlayerServiceTest extends TestCase
         $this->skillConfigRepository = new InMemorySkillConfigRepository();
         $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::TECHNICIAN)));
         $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::SHOOTER)));
+        $this->skillConfigRepository->save(SkillConfig::createFromDto(SkillConfigData::getByName(SkillEnum::ANONYMUSH)));
 
         $this->player = PlayerFactory::createPlayerByNameAndDaedalus(CharacterEnum::ANDIE, DaedalusFactory::createDaedalus());
         $this->playerRepository->save($this->player);
@@ -61,6 +62,26 @@ final class AddSkillToPlayerServiceTest extends TestCase
         $this->whenIAddSkillToPlayer(SkillEnum::TECHNICIAN);
 
         $this->thenPlayerShouldHaveSkill(SkillEnum::TECHNICIAN);
+    }
+
+    public function testShouldAddHumanSkillToPlayerAvailableHumanSkills(): void
+    {
+        $this->whenIAddSkillToPlayer(SkillEnum::TECHNICIAN);
+
+        self::assertContains(
+            SkillEnum::TECHNICIAN,
+            $this->player->getAvailableHumanSkills()->map(static fn (SkillConfig $skillConfig) => $skillConfig->getName()),
+        );
+    }
+
+    public function testShouldNotAddMushSkillToPlayerAvailableHumanSkills(): void
+    {
+        $this->whenIAddSkillToPlayer(SkillEnum::ANONYMUSH);
+
+        self::assertNotContains(
+            SkillEnum::ANONYMUSH,
+            $this->player->getAvailableHumanSkills()->map(static fn (SkillConfig $skillConfig) => $skillConfig->getName()),
+        );
     }
 
     public function testShouldThrowIfSkillNotFound(): void

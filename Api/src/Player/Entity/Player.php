@@ -562,7 +562,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function addSkill(Skill $skill): static
     {
         $this->skills->add($skill);
-        $this->addToAvailableHumanSkills($skill->getConfig());
+        if ($skill->isHumanSkill()) {
+            $this->addToAvailableHumanSkills($skill->getConfig());
+        }
 
         return $this;
     }

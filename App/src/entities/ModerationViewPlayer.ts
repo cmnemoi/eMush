@@ -7,6 +7,7 @@ interface ShortUser {
     userId: string;
     username: string;
     isBanned: boolean;
+    isInGame: boolean;
 }
 
 export class ModerationViewPlayer {

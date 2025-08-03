@@ -89,6 +89,9 @@
             <button class="action-button router-button">
                 <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
             </button>
+            <button class="action-button router-button">
+                <router-link :to="{ name: 'ModerationShipView', params: { daedalusId : player.daedalusId } }">{{ $t('moderation.playerShipView') }}</router-link>
+            </button>
             <Tippy tag="button" class="action-button" @click="loadData()">
                 {{ $t('moderation.reloadData') }}
                 <template #content>
@@ -98,7 +101,7 @@
             </Tippy>
         </div>
 
-        <span>{{ player.character.characterValue }} - {{ $t('moderation.player.playedBy') }} {{ player.user.username }}  - {{ player.isMush ? $t('moderation.player.mush') : $t('moderation.player.human') }} - {{ player.isAlive ? $t('moderation.player.alive') : $t('moderation.player.dead') }} - {{ player.user.isBanned ? $t('moderation.player.banned') : $t('moderation.player.notBanned') }}</span>
+        <span>{{ player.character.characterValue }} - {{ $t('moderation.player.playedBy') }} {{ player.user.username }}  - {{ player.isMush ? $t('moderation.player.mush') : $t('moderation.player.human') }} - {{ player.isAlive ? $t('moderation.player.alive') : $t('moderation.player.dead') }} - {{ player.user.isBanned ? $t('moderation.player.banned') : $t('moderation.player.notBanned') }} - {{ player.user.isInGame ? $t('moderation.player.inGame') : $t('moderation.player.notInGame') }}</span>
         <div class="flex-row">
             <label>{{ $t('moderation.filters.day') }} :
                 <input
@@ -503,7 +506,7 @@ export default defineComponent({
             if (this.filters.logs.cycle === null) {
                 this.filters.logs.cycle = player.daedalusCycle;
             }
-            await ModerationService.getPlayerLogs(player.id, this.filters.logs.day, this.filters.logs.cycle, this.filters.logs.content, this.filters.logs.room)
+            await ModerationService.getLogs(this.filters.logs.day, this.filters.logs.cycle, player.id, this.filters.logs.content, this.filters.logs.room)
                 .then((response) => {
                     this.playerLogs = response.data;
                 })

@@ -31,12 +31,16 @@ class Channel
     #[ORM\OneToMany(mappedBy: 'channel', targetEntity: ChannelPlayer::class)]
     private Collection $participants;
 
+    #[ORM\OneToMany(mappedBy: 'channel', targetEntity: ChannelPlayer::class)]
+    private Collection $allTimeParticipants;
+
     #[ORM\OneToMany(mappedBy: 'channel', targetEntity: Message::class, cascade: ['remove'])]
     private Collection $messages;
 
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->allTimeParticipants = new ArrayCollection();
         $this->messages = new ArrayCollection();
     }
 
@@ -133,9 +137,15 @@ class Channel
         return $this->participants;
     }
 
+    public function getAllTimeParticipants(): Collection
+    {
+        return $this->allTimeParticipants;
+    }
+
     public function addParticipant(ChannelPlayer $channelPlayer): self
     {
         $this->participants->add($channelPlayer);
+        $this->addAllTimeParticipant($channelPlayer);
 
         return $this;
     }
@@ -184,6 +194,19 @@ class Channel
     public function isNotTipsChannel(): bool
     {
         return ChannelScopeEnum::TIPS !== $this->scope;
+    }
+
+    private function addAllTimeParticipant(ChannelPlayer $channelPlayer): self
+    {
+        /** @var ChannelPlayer $participant */
+        foreach ($this->allTimeParticipants as $participant) {
+            if ($channelPlayer->getParticipant()->getId() === $participant->getParticipant()->getId()) {
+                return $this;
+            }
+        }
+        $this->allTimeParticipants->add($channelPlayer);
+
+        return $this;
     }
 
     private static function setupFakeIdForChannel(self $channel): void

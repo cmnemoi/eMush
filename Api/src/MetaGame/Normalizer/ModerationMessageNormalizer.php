@@ -70,6 +70,16 @@ final readonly class ModerationMessageNormalizer implements NormalizerInterface
             );
         }
 
+        $translatedPirateAuthor = null;
+        if ($message->getPirateAuthor()) {
+            $translatedPirateAuthor = $this->translationService->translate(
+                $message->getPirateAuthor()?->getCharacterConfig()->getName(),
+                [],
+                'characters',
+                $language
+            );
+        }
+
         return [
             'id' => $message->getId(),
             'character' => [
@@ -79,11 +89,23 @@ final readonly class ModerationMessageNormalizer implements NormalizerInterface
                     [],
                     'characters',
                     $language
-                ) . ($message->getNeron() && $message->getAuthor() ? " ({$translatedAuthor})" : ''),
+                ) . $this->getMessageAuthor($message, $translatedAuthor, $translatedPirateAuthor),
             ],
             'message' => $translatedMessage !== $message->getMessage() ? $translatedMessage . " ({$message->getMessage()})" : $translatedMessage,
             'date' => $message->getCreatedAt()?->format('d/m/Y H:i'),
             'child' => $messageChildren,
         ];
+    }
+
+    private function getMessageAuthor(Message $message, ?string $translatedAuthor, ?string $translatedPirateAuthor): string
+    {
+        if ($translatedPirateAuthor) {
+            return " ({$translatedPirateAuthor})";
+        }
+        if ($message->getNeron() && $translatedAuthor) {
+            return " ({$translatedAuthor})";
+        }
+
+        return '';
     }
 }

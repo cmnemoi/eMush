@@ -106,7 +106,16 @@ final class ModerationPlayerInfoNormalizer implements NormalizerInterface, Norma
             'userId' => $player->getUser()->getUserId(),
             'username' => $player->getUser()->getUsername(),
             'isBanned' => $player->getUser()->isBanned(),
+            'isInGame' => $this->isUserInGame($player),
         ];
+    }
+
+    private function isUserInGame(PlayerInfo $player): bool
+    {
+        /** @var PlayerInfo $playerInfo */
+        $currentPlayer = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($player->getUser());
+
+        return $player->getUser()->isInGame() && $currentPlayer?->isAlive();
     }
 
     private function normalizePlayerCharacter(PlayerInfo $player, string $language): array

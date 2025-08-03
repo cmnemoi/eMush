@@ -28,7 +28,12 @@
                 {{ $t('moderation.sanction.author') }}
             </template>
             <template #row-authorName="report">
-                {{ report.authorName }}
+                <Tippy>
+                    {{ report.authorName }}
+                    <template #content>
+                        <h1 v-html="report.authorId" />
+                    </template>
+                </Tippy>
             </template>
 
             <template #header-username>
@@ -147,37 +152,44 @@ export default defineComponent({
                 {
                     key: 'id',
                     name: 'moderation.sanction.id',
-                    slot:true
+                    slot:true,
+                    sortable: false
                 },
                 {
                     key: 'daedalusId',
                     name: 'Daedalus',
-                    slot:true
+                    slot:true,
+                    sortable: false
                 },
                 {
                     key: 'authorName',
                     name: 'moderation.sanctionDetail.author',
-                    slot:true
+                    slot:true,
+                    sortable: true
                 },
                 {
                     key: 'username',
                     name: 'admin.user.username',
-                    slot:true
+                    slot:true,
+                    sortable: false
                 },
                 {
                     key: 'reason',
                     name: 'moderation.sanctionReason',
-                    slot: true
+                    slot: true,
+                    sortable: true
                 },
                 {
                     key: 'evidence',
                     name: 'moderation.sanctionDetail.evidence',
-                    slot: true
+                    slot: true,
+                    sortable: false
                 },
                 {
                     key: 'startDate',
                     name: 'moderation.sanctionDetail.date',
-                    slot: true
+                    slot: true,
+                    sortable: true
                 },
                 {
                     key: 'actions',

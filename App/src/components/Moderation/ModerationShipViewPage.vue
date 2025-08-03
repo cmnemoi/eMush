@@ -1,68 +1,11 @@
 <template>
     <div class="player_list_container">
-        <div class="player_filter_options">
-            <label>{{ $t('moderation.alivePlayersFilter') }}
-                <select v-model="playerStatusFilter" @change="updateFilter">
-                    <option
-                        v-for="option in playerStatusFilterOption"
-                        :value=option.value
-                        :key=option.key
-                    >
-                        {{ $t(option.key) }}
-                    </option>
-                </select>
-            </label>
-            <label>{{ $t('moderation.mushPlayersFilter') }}
-                <input
-                    type="checkbox"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    v-model="mushPlayersFilter"
-                    @change="updateFilter"
-                >
-            </label>
-            <label>{{ $t('moderation.searchByUsername')  }}
-                <input
-                    v-model="usernameFilter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
-                >
-            </label>
-            <label>{{ $t('moderation.searchByCharacter')  }}
-                <input
-                    v-model="characterFilter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
-                >
-            </label>
-            <label>{{ $t('moderation.searchByDaedalusId') }}
-                <input
-                    v-model="daedalusIdFilter"
-                    type="search"
-                    class=""
-                    placeholder=""
-                    aria-controls="example"
-                    @change="updateFilter"
-                >
-            </label>
-            <button @click="closeAllPlayers" v-if="isAdmin">{{ $t("admin.playerList.closeAllPlayers") }}</button>
-        </div>
         <Datatable
             :headers='fields'
             :uri="uri"
             :loading="loading"
             :row-data="rowData"
             :pagination="pagination"
-            :character-filter="characterFilter"
-            :daedalus-id-filter="daedalusIdFilter"
-            :username-filter="usernameFilter"
             @pagination-click="paginationClick"
             @sort-table="sortTable"
         >
@@ -74,15 +17,72 @@
                     <router-link :to="{ name: 'ModerationViewPlayerDetail', params: {'playerId': player.id} }">{{ $t("moderation.goToPlayerDetails") }}</router-link>
                     <router-link :to="{ name: 'ModerationViewPlayerUserPage', params: {'userId': player.user.userId} }">{{ $t("moderation.goToUserProfile") }}</router-link>
                     <router-link :to="{ name: 'SanctionListPage', params: { username: player.user.username, userId : player.user.userId } }">{{ $t('moderation.sanctionList') }}</router-link>
-                    <router-link :to="{ name: 'ModerationShipView', params: { daedalusId : player.daedalusId } }">{{ $t('moderation.playerShipView') }}</router-link>
                     <button class="action-button" @click="closePlayer(player.id)" v-if="isAdmin && player.gameStatus === $t('moderation.playerList.gameStatuses.finished')">{{ $t("admin.playerList.closePlayer") }}</button>
                 </DropList>
             </template>
         </Datatable>
     </div>
+
+    <div class="logsButtons">
+        <button class="action-button" @click="seeAllTransfertLogs()"> {{ $t('moderation.seeAllTransfers') }}</button>
+    </div>
+
+    <div class="flex-row">
+        <label>{{ $t('moderation.filters.day') }} :
+            <input
+                type="search"
+                v-model="filters.logs.day"
+                @change="loadLogs()"
+            >
+        </label>
+        <label>{{ $t('moderation.filters.cycle') }} :
+            <input
+                type="search"
+                v-model="filters.logs.cycle"
+                @change="loadLogs()"
+            >
+        </label>
+        <Tippy tag="label">{{ $t('moderation.filters.logContent') }} :
+            <input
+                type="search"
+                v-model="filters.logs.content"
+                @change="loadLogs()"
+            >
+            <template #content>
+                <h1>{{ $t("moderation.filters.logContent") }}</h1>
+                <p>{{ $t("moderation.filters.logContentDescription") }}</p>
+            </template>
+        </Tippy>
+        <Tippy tag="label">{{ $t('moderation.filters.room') }} :
+            <input
+                type="search"
+                v-model="filters.logs.room"
+                @change="loadLogs()"
+            >
+            <template #content>
+                <h1>{{ $t("moderation.filters.room") }}</h1>
+                <p>{{ $t("moderation.filters.roomDescription") }}</p>
+            </template>
+        </Tippy>
+    </div>
+    <div class="logs-container" ref="logsContainer">
+        <h2>{{ $t('moderation.logs') }}</h2>
+        <div class="logs" v-if="logs">
+            <section v-for="(cycleRoomLog, id) in logs.slice().reverse()" :key="id">
+                <div class="banner cycle-banner">
+                    <span>{{ $t('game.communications.day') }} {{ cycleRoomLog.day }} {{ $t('game.communications.cycle') }}  {{cycleRoomLog.cycle }}</span>
+                </div>
+                <div class="cycle-events">
+                    <Log v-for="(roomLog, id) in cycleRoomLog.roomLogs" :key="id" :room-log="roomLog" />
+                </div>
+            </section>
+        </div>
+        <span v-else>{{ $t('moderation.nothingToDisplay') }}</span>
+    </div>
 </template>
 
 <script lang="ts">
+import Log from "@/components/Game/Communications/Messages/Log.vue";
 import { defineComponent } from "vue";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import DropList from "@/components/Utils/DropList.vue";
@@ -94,25 +94,90 @@ import ModerationService from "@/services/moderation.service";
 import { mapGetters } from "vuex";
 import { characterEnum } from "@/enums/character";
 
+interface ModerationShipView {
+    filters: {
+        logs: {
+            content: string,
+            day: integer | null,
+            cycle: integer | null,
+            room: string,
+        },
+        generalChannel: {
+            author: string,
+            messageContent: string,
+            startDate: string,
+            endDate: string,
+        },
+        mushChannel: {
+            author: string,
+            messageContent: string,
+            startDate: string,
+            endDate: string,
+        },
+        privateChannel: {
+            author: string,
+            messageContent: string,
+            startDate: string,
+            endDate: string,
+        }
+    },
+    logs: any,
+    fields : any,
+    pagination: {
+        currentPage: number,
+        pageSize: number,
+        totalItem: number,
+        totalPage: number
+    },
+
+    rowData: any,
+    sortField: string,
+    sortDirection: string,
+    loading: boolean,
+
+}
+
 export default defineComponent({
-    name: "ModerationPlayerListPage",
+    name: "ModerationShipViewPage",
     components: {
         Datatable,
-        DropList
+        DropList,
+        Log
     },
     computed: {
         ...mapGetters({
             isAdmin: 'auth/isAdmin'
         })
     },
-    data() {
+    data() : ModerationShipView {
         return {
-            playerStatusFilterOption: [
-                { key: 'moderation.playerList.gameStatuses.in_game', value: 'in_game' },
-                { key: 'moderation.playerList.gameStatuses.finished', value: 'finished' },
-                { key: 'moderation.playerList.gameStatuses.closed', value: 'closed' },
-                { key: 'moderation.playerList.gameStatuses.all', value: '' }
-            ],
+            filters: {
+                logs: {
+                    content: "",
+                    day: 1,
+                    cycle: null,
+                    room: ""
+                },
+                generalChannel: {
+                    author: "",
+                    messageContent: "",
+                    startDate: "",
+                    endDate: new Date().toISOString()
+                },
+                mushChannel: {
+                    author: "",
+                    messageContent: "",
+                    startDate: "",
+                    endDate: new Date().toISOString()
+                },
+                privateChannel: {
+                    author: "",
+                    messageContent: "",
+                    startDate: "",
+                    endDate: new Date().toISOString()
+                }
+            },
+            logs: null,
             fields: [
                 {
                     key: 'id',
@@ -121,10 +186,6 @@ export default defineComponent({
                 {
                     key: 'gameStatus',
                     name: 'moderation.playerList.gameStatus'
-                },
-                {
-                    key: 'daedalusId',
-                    name: 'moderation.playerList.daedalusId'
                 },
                 {
                     key: 'characterName',
@@ -142,27 +203,18 @@ export default defineComponent({
                     sortable: false,
                     slot: true
                 }
+
             ],
             pagination: {
                 currentPage: 1,
-                pageSize: 10,
+                pageSize: 16,
                 totalItem: 1,
                 totalPage: 1
             },
             rowData: [],
             sortField: '',
             sortDirection: 'DESC',
-            loading: false,
-            characterFilter: '',
-            daedalusIdFilter: '',
-            mushPlayersFilter: false,
-            usernameFilter: '',
-            playerStatusFilter: 'in_game',
-            pageSizeOptions: [
-                { text: 5, value: 5 },
-                { text: 10, value: 10 },
-                { text: 20, value: 20 }
-            ]
+            loading: false
         };
     },
     methods: {
@@ -170,8 +222,8 @@ export default defineComponent({
             const dateObject = new Date(date);
             return format(dateObject, 'PPPPpp', { locale: fr });
         },
-        loadData() {
-            this.loading = true;
+
+        loadPlayersData() {
             const params: any = {
                 params: {},
                 paramsSerializer: qs.stringify
@@ -182,28 +234,8 @@ export default defineComponent({
             if (this.pagination.pageSize) {
                 params.params['itemsPerPage'] = this.pagination.pageSize;
             }
-            if (this.sortField) {
-                qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
-            }
-            if (this.characterFilter) {
-                params.params['characterConfig.characterName'] = this.characterFilter;
-            }
-            if (this.playerStatusFilter) {
-                params.params['closedPlayer.playerInfo.gameStatus'] = this.playerStatusFilter;
-            }
-            if (this.daedalusIdFilter) {
-                if (['in_game'].includes(params.params['closedPlayer.playerInfo.gameStatus'])) {
-                    params.params['player.daedalus.id'] = this.daedalusIdFilter;
-                } else {
-                    params.params['closedPlayer.closedDaedalus.id'] = this.daedalusIdFilter;
-                }
-            }
-            if (this.mushPlayersFilter) {
-                params.params['closedPlayer.isMush'] = this.mushPlayersFilter;
-            }
-            if (this.usernameFilter) {
-                params.params['user.username'] = this.usernameFilter;
-            }
+
+            params.params['player.daedalus.id'] = String(this.$route.params.daedalusId);
 
             ModerationService.getPlayerInfoList(params)
                 .then((result) => {
@@ -218,8 +250,29 @@ export default defineComponent({
                     this.rowData = remoteRowData['hydra:member'];
                     this.pagination.totalItem = remoteRowData['hydra:totalItems'];
                     this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
-                    this.loading = false;
+
                 });
+        },
+
+        async loadLogs() {
+            await ModerationService.getLogs(this.filters.logs.day, this.filters.logs.cycle, null, this.filters.logs.content, this.filters.logs.room)
+                .then((response) => {
+                    this.logs = response.data;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+
+
+        loadData() {
+            this.loading = true;
+
+            this.loadPlayersData();
+            this.loadLogs();
+
+            this.loading = false;
+
         },
         getCharacterNameFromKey(characterKey: string) {
             return characterEnum[characterKey].name;
@@ -271,6 +324,15 @@ export default defineComponent({
         updateFilter() {
             this.pagination.currentPage = 1;
             this.loadData();
+        },
+        seeAllTransfertLogs() {
+            this.filters.logs.day = null;
+            this.filters.logs.cycle = null;
+            this.filters.logs.content = 'exchange_body_success';
+            this.filters.logs.room = '';
+
+            this.updateFilter();
+
         }
     },
     beforeMount() {
@@ -280,6 +342,63 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+.logs-container, .messages-container {
+    position: relative;
+    // min-height: 436px;
+    height: 436px;
+    overflow: auto;
+    resize: vertical;
+    margin: 1em 0;
+    padding: 1.2em;
+    background: rgba(194, 243, 252, 1);
+    color: $deepBlue;
+
+    @extend %game-scrollbar;
+
+    h2 { margin-top: 0; }
+
+
+    /* Duplicated styles from TabContainer component */
+    :deep(.unit) {
+        padding: 5px 0;
+    }
+
+    :deep(.banner) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-height: 24px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        background: $lightCyan;
+
+        span {
+            flex: 1;
+            text-align: center;
+            font-size: .92em;
+        }
+
+        .expand {
+            align-self: center;
+            padding: 2px;
+        }
+
+        img { vertical-align: middle; }
+    }
+
+    :deep(.timestamp) {
+        text-align: end;
+        padding-top: 0.2em;
+        font-size: 0.85em;
+        letter-spacing: 0.03em;
+        font-style: italic;
+        font-variant: initial;
+        opacity: 0.65;
+        float: right;
+    }
+}
 
 .player_filter_options {
     display: flex;

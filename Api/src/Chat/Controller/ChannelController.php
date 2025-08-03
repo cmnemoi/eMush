@@ -402,9 +402,9 @@ class ChannelController extends AbstractGameController
      *                  description="The message"
      *              ),
      *              @OA\Property(
-     *                  type="integer",
-     *                  property="player",
-     *                  description="id of the player sending message"
+     *                  type="boolean",
+     *                  property="isPirated",
+     *                  description="If the message is written from a pirated channel or not"
      *              ),
      *              @OA\Property(
      *                  type="string",
@@ -456,13 +456,8 @@ class ChannelController extends AbstractGameController
         /** @var Player $currentPlayer */
         $currentPlayer = $currentPlayerInfo->getPlayer();
 
-        // in case of a pirated talkie, the message can be sent under the name of another player
-        $playerMessage = $messageCreate->getPlayer();
-        if (!$playerMessage) {
-            $playerMessage = $currentPlayer;
-        }
+        $this->messageService->createPlayerMessage($currentPlayer, $messageCreate);
 
-        $this->messageService->createPlayerMessage($playerMessage, $messageCreate);
         if ($channel->isFavorites()) {
             $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer);
         } else {

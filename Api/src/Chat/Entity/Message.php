@@ -26,6 +26,9 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
     private ?PlayerInfo $author = null;
 
+    #[ORM\ManyToOne(targetEntity: PlayerInfo::class)]
+    private ?PlayerInfo $pirateAuthor = null;
+
     #[ORM\ManyToOne(targetEntity: Neron::class)]
     private ?Neron $neron = null;
 
@@ -82,6 +85,18 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function setAuthor(?PlayerInfo $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getPirateAuthor(): ?PlayerInfo
+    {
+        return $this->pirateAuthor;
+    }
+
+    public function setPirateAuthor(?PlayerInfo $PirateAuthor): static
+    {
+        $this->pirateAuthor = $PirateAuthor;
 
         return $this;
     }

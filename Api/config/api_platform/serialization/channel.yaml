@@ -10,5 +10,7 @@ Mush\Chat\Entity\Channel:
       groups: [ 'channel_read', 'moderation_read'  ]
     participants:
       groups: [ 'channel_read', 'moderation_read'  ]
+    allTimeParticipants:
+      groups: [ 'channel_read', 'moderation_read'  ]
     messages:
       groups: [ 'channel_read', 'moderation_read'  ]

@@ -29,7 +29,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
     {
         $message = $request->request->get('message');
         $parent = $request->request->get('parent');
-        $playerId = $request->request->get('player');
+        $pirated = $request->request->get('isPirated');
         $timeLimit = (int) $request->request->get('timeLimit', self::TIME_LIMIT);
 
         $messageCreate = new CreateMessage();
@@ -41,19 +41,11 @@ class MessageCreateParamConverter implements ParamConverterInterface
             }
         }
 
-        $player = null;
-        if ($playerId) {
-            $player = $this->playerService->findById((int) $playerId);
-            if ($player === null) {
-                throw new NotFoundHttpException('Player not found');
-            }
-        }
-
         $messageCreate
             ->setParent($parentMessage)
             ->setMessage((string) $message)
-            ->setPlayer($player)
-            ->setTimeLimit(new \DateInterval(\sprintf('PT%dH', $timeLimit)));
+            ->setTimeLimit(new \DateInterval(\sprintf('PT%dH', $timeLimit)))
+            ->setPirated((bool) $pirated);
 
         $request->attributes->set($configuration->getName(), $messageCreate);
 

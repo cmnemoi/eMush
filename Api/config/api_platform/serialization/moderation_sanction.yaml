@@ -22,6 +22,8 @@ Mush\MetaGame\Entity\ModerationSanction:
       groups: [ 'moderation_sanction_read' ]
     authorName:
       groups: [ 'moderation_sanction_read' ]
+    authorId:
+      groups: [ 'moderation_sanction_read']
     playerId:
       groups: [ 'moderation_sanction_read' ]
     playerName:

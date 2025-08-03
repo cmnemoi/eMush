@@ -34,8 +34,13 @@ final class MessageService implements MessageServiceInterface
     {
         $messageContent = trim($createMessage->getMessage());
         $channel = $createMessage->getChannel();
+        $pirateVictim = $player->getPirateVictim();
 
-        $message = $this->initializeMessage($player, $createMessage);
+        if ($createMessage->isPirated() && $pirateVictim) {
+            $message = $this->initializePiratedMessage($player, $pirateVictim, $createMessage);
+        } else {
+            $message = $this->initializeMessage($player, $createMessage);
+        }
 
         if ($createMessage->isVocodedAnnouncement()) {
             $this->handleVocodedAnnouncement($message, $messageContent, $player);
@@ -205,6 +210,21 @@ final class MessageService implements MessageServiceInterface
             ->addReader($player)
             ->setCycle($player->getDaedalus()->getCycle())
             ->setDay($player->getDaedalus()->getDay());
+
+        return $message;
+    }
+
+    private function initializePiratedMessage(Player $player, Player $victim, CreateMessage $createMessage): Message
+    {
+        $message = new Message();
+        $message
+            ->setAuthor($victim->getPlayerInfo())
+            ->setPirateAuthor($player->getPlayerInfo())
+            ->setChannel($createMessage->getChannel())
+            ->setParent($createMessage->getParent())
+            ->addReader($victim)
+            ->setCycle($victim->getDaedalus()->getCycle())
+            ->setDay($victim->getDaedalus()->getDay());
 
         return $message;
     }

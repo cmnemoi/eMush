@@ -751,7 +751,9 @@
 			"banned": "Banned",
 			"notBanned": "Not banned",
 			"alive": "Alive",
-			"dead": "Death"
+			"dead": "Death",
+			"inGame": "In game",
+			"notInGame": "Not in game"
 		},
 		"theEndPage": {
 			"editMessage": "Edit",
@@ -876,6 +878,10 @@
 			"closeDescription": "Close complaint and mark as abusive"
 		},
 		"reportToAddress": "Complaints to be handled",
+		"shipList": "List of ships",
+		"shipView": "See details",
+		"playerShipView" : "See the ship",
+		"seeAllTransfers" : "See all transfers",
 		"reduce": "Reduce",
 		"showAll": "Show all sanctions",
 		"sanctionsFor": "{username}'s sanctions list",

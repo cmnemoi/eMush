@@ -30,6 +30,8 @@ import ClosedExpeditionPanel from "@/components/Game/ClosedExpeditionPanel.vue";
 import Rules from "@/components/Rules.vue";
 import AdminActionsPage from "@/components/Admin/Actions/AdminActionsPage.vue";
 import ModerationReportListPage from "@/components/Moderation/ModerationReportListPage.vue";
+import ModerationShipListPage from "@/components/Moderation/ModerationShipListPage.vue";
+import ModerationShipViewPage from "@/components/Moderation/ModerationShipViewPage.vue";
 
 const routes = [
     {
@@ -230,6 +232,17 @@ const routes = [
                 name: "ModerationReportList",
                 path: 'reports',
                 component: ModerationReportListPage
+            },
+            {
+                name: "ModerationShipList",
+                path: 'ships',
+                component: ModerationShipListPage
+
+            },
+            {
+                name: "ModerationShipView",
+                path: 'ships/:daedalusId',
+                component: ModerationShipViewPage
             },
             {
                 name: "ModerationViewPlayerDetail",

@@ -751,7 +751,9 @@
 			"banned": "Banni",
 			"notBanned": "Non banni",
 			"alive": "Vivant",
-			"dead": "Mort"
+			"dead": "Mort",
+			"inGame": "En jeu",
+			"notInGame": "Pas en jeu"
 		},
 		"theEndPage": {
 			"editMessage": "Éditer",
@@ -876,6 +878,10 @@
 			"closeDescription": "Fermer la plainte et marquer comme abusif"
 		},
 		"reportToAddress": "Plaintes à traiter",
+		"shipList": "Liste des vaisseaux",
+		"shipView": "Voir les détails",
+		"playerShipView" : "Voir le vaisseau",
+		"seeAllTransfers" : "Voir les transferts",
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",
 		"sanctionsFor": "Liste des sanctions de {username}",

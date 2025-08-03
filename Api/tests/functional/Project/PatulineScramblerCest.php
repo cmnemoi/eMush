@@ -85,7 +85,6 @@ final class PatulineScramblerCest extends AbstractFunctionalTest
         $messageDto->setChannel($this->mushChannel);
         $messageDto->setMessage('Hello, World!');
         $messageDto->setParent(null);
-        $messageDto->setPlayer($this->player);
 
         $this->message = $this->messageService->createPlayerMessage($this->player, $messageDto);
     }

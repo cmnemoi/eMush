@@ -125,7 +125,11 @@ final class PlayerFactory
     private static function setPlayerId(Player $player, int $id): void
     {
         (new \ReflectionClass($player))->getProperty('id')->setValue($player, $id);
-        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+
+        $playerInfo = $player->getPlayerInfo();
+        (new \ReflectionClass($playerInfo))->getProperty('id')->setValue($playerInfo, $id);
+
+        $closedPlayer = $playerInfo->getClosedPlayer();
         (new \ReflectionClass($closedPlayer))->getProperty('id')->setValue($closedPlayer, $id);
     }
 

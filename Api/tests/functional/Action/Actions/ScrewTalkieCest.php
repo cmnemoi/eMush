@@ -7,6 +7,9 @@ namespace Mush\Tests\functional\Action\Actions;
 use Mush\Action\Actions\ScrewTalkie;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Chat\Entity\Dto\CreateMessage;
+use Mush\Chat\Entity\Message;
+use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
@@ -24,6 +27,7 @@ final class ScrewTalkieCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private ScrewTalkie $screwTalkie;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private MessageServiceInterface $messageService;
 
     public function _before(FunctionalTester $I): void
     {
@@ -31,8 +35,61 @@ final class ScrewTalkieCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::SCREW_TALKIE]);
         $this->screwTalkie = $I->grabService(ScrewTalkie::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->messageService = $I->grabService(MessageServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::RADIO_PIRACY, $I);
+    }
+
+    public function shouldSpeakWithVictimNameWhenUsingAPiratedChannel(FunctionalTester $I): void
+    {
+        $this->givenChunHasTalkie();
+
+        $this->givenKuanTiHasTalkie();
+
+        $this->whenChunScrewsKuanTiTalkie();
+
+        // given a pirated message is obtained from the front
+        $messageDto = new CreateMessage();
+        $messageDto->setChannel($this->publicChannel);
+        $messageDto->setMessage('test');
+        $messageDto->setParent(null);
+        $messageDto->setPirated(true);
+
+        // when chun send a message
+        $this->messageService->createPlayerMessage($this->chun, $messageDto);
+
+        // then i should see a message with kuan ti name on it.
+        $I->seeInRepository(Message::class, [
+            'channel' => $this->publicChannel,
+            'message' => 'test',
+            'author' => $this->kuanTi,
+            'pirateAuthor' => $this->chun,
+        ]);
+    }
+
+    public function shouldSpeakWithOwnNameWhenUsingANotPiratedChannel(FunctionalTester $I): void
+    {
+        $this->givenChunHasTalkie();
+
+        $this->givenKuanTiHasTalkie();
+
+        $this->whenChunScrewsKuanTiTalkie();
+
+        // given a not pirated message is obtained from the front
+        $messageDto = new CreateMessage();
+        $messageDto->setChannel($this->publicChannel);
+        $messageDto->setMessage('test');
+        $messageDto->setParent(null);
+
+        // when chun send a message
+        $this->messageService->createPlayerMessage($this->chun, $messageDto);
+
+        // then i should see a message with kuan ti name on it.
+        $I->seeInRepository(Message::class, [
+            'channel' => $this->publicChannel,
+            'message' => 'test',
+            'author' => $this->chun,
+        ]);
     }
 
     public function shouldMakeMycoAlarmRing(FunctionalTester $I): void

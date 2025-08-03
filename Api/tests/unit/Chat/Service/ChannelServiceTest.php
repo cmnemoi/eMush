@@ -234,28 +234,22 @@ final class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $place = Place::createNull();
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
+        $player = PlayerFactory::createPlayer();
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+        $channelPlayer->setChannel($channel)->setParticipant($player->getPlayerInfo());
 
-        $player2 = new Player();
-        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2 = PlayerFactory::createPlayer();
         $item2 = new GameItem($player2);
         $item2->setName(ItemEnum::ITRACKIE);
         $player2->setPlace($place);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2->getPlayerInfo());
 
-        $player3 = new Player();
-        $player3Info = new PlayerInfo($player3, new User(), new CharacterConfig());
-        $item3 = new GameItem($player3);
-        $item3->setName(ItemEnum::ITRACKIE);
+        $player3 = PlayerFactory::createPlayer();
         $player3->setPlace(Place::createNull());
         $channelPlayer3 = new ChannelPlayer();
-        $channelPlayer3->setChannel($channel)->setParticipant($player3Info);
+        $channelPlayer3->setChannel($channel)->setParticipant($player3->getPlayerInfo());
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2)->addParticipant($channelPlayer3);
 
@@ -374,21 +368,18 @@ final class ChannelServiceTest extends TestCase
         $time = new \DateTime();
         $reason = ActionEnum::CONSUME->value;
 
-        $player = new Player();
-        $playerInfo = new PlayerInfo($player, new User(), new CharacterConfig());
-        $player->setPlayerInfo($playerInfo);
+        $player = PlayerFactory::createPlayer();
         $player->setPlace($place);
         $channelPlayer = new ChannelPlayer();
-        $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+        $channelPlayer->setChannel($channel)->setParticipant($player->getPlayerInfo());
         $this->channelPlayerRepository->save($channelPlayer);
 
-        $player2 = new Player();
-        $player2Info = new PlayerInfo($player2, new User(), new CharacterConfig());
+        $player2 = PlayerFactory::createPlayer();
         $item2 = new GameItem($player2);
         $item2->setName(ItemEnum::ITRACKIE);
         $player2->setPlace($place2);
         $channelPlayer2 = new ChannelPlayer();
-        $channelPlayer2->setChannel($channel)->setParticipant($player2Info);
+        $channelPlayer2->setChannel($channel)->setParticipant($player2->getPlayerInfo());
         $this->channelPlayerRepository->save($channelPlayer2);
 
         $channel->addParticipant($channelPlayer)->addParticipant($channelPlayer2);

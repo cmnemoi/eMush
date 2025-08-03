@@ -210,6 +210,11 @@ class ModerationSanction
         return $this->author->getUsername();
     }
 
+    public function getAuthorId(): string
+    {
+        return $this->author->getUserId();
+    }
+
     public function setEvidence(?SanctionEvidence $sanctionEvidence): static
     {
         $this->sanctionEvidence = $sanctionEvidence;

@@ -2,7 +2,9 @@
     <div class="sub-menu">
         <router-link :to="{ name: 'ModerationPlayerList' }">{{ $t('moderation.banner.players') }}</router-link>
         <router-link :to="{ name: 'ModerationUserList' }">{{ $t('moderation.banner.users') }}</router-link>
+        <router-link :to="{ name: 'ModerationShipList' }">{{ $t('moderation.shipList') }}</router-link>
         <router-link :to="{ name: 'ModerationReportList' }">{{ $t('moderation.reportToAddress') }}</router-link>
+
     </div>
 </template>
 

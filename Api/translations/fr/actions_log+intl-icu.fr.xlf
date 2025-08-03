@@ -1330,5 +1330,11 @@
         <target>**{character}** se recroqueville. Il semble souffrir, ses cris résonnent, il vomit une bile immonde qui fait fondre ses vêtements...Quelle horreur ! Il a complètement changé de forme !</target>
       </segment>
     </unit>
+    <unit id="exchange_body_success">
+      <segment id="exchange_body_success" state="translated">
+          <source>exchange_body_success</source>
+        <target>***Pour la Moderation Seulement*** : **{character}** se transfert dans **{target_character}**.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

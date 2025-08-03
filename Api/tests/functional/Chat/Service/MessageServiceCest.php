@@ -98,7 +98,6 @@ final class MessageServiceCest extends AbstractFunctionalTest
         $messageDto->setChannel($this->mushChannel);
         $messageDto->setMessage('test');
         $messageDto->setParent(null);
-        $messageDto->setPlayer($this->player);
 
         $this->messageService->createPlayerMessage(
             player: $this->player,
@@ -111,7 +110,6 @@ final class MessageServiceCest extends AbstractFunctionalTest
         $messageDto = new CreateMessage();
         $messageDto->setChannel($channel);
         $messageDto->setMessage('/neron ' . $message);
-        $messageDto->setPlayer($this->player);
 
         $this->messageService->createPlayerMessage(
             player: $this->player,

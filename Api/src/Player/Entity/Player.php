@@ -1400,6 +1400,17 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this;
     }
 
+    public function getPirateVictim(): ?self
+    {
+        $pirateStatus = $this->getStatusByName(PlayerStatusEnum::TALKIE_SCREWED);
+        $target = $pirateStatus?->getTarget();
+        if ($target instanceof self) {
+            return $target;
+        }
+
+        return null;
+    }
+
     private function hasPheromodemConnectedTracker(): bool
     {
         $hasTracker = $this->hasOperationalEquipmentByName(ItemEnum::ITRACKIE) || $this->hasOperationalEquipmentByName(ItemEnum::TRACKER);

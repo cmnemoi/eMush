@@ -103,7 +103,7 @@ const ModerationService = {
     },
     getPlayerPrivateChannels: async(player: ModerationViewPlayer): Promise<Channel[]> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?participants.participant.id=${player.id}&scope=private`).then((response) => {
+        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?allTimeParticipants.participant.id=${player.id}&scope=private`).then((response) => {
             return response.data['hydra:member'].map((channelData: any) => {
                 return (new Channel()).load(channelData);
             });
@@ -129,9 +129,10 @@ const ModerationService = {
 
         return response;
     },
-    getPlayerLogs: async(playerId: number, day: integer, cycle: integer | null, content?: string, place?: string): Promise<any> => {
+    getLogs: async(day: integer | null, cycle: integer | null, playerId: number | null, content?: string, place?: string): Promise<any> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const queryParameters = `pagination=false&playerInfo.id=${playerId}`
+        const queryParameters = `pagination=false`
+            + (playerId ? `&playerInfo.id=${playerId}` : '')
             + (day ? `&day=${day}` : '')
             + (cycle ? `&cycle=${cycle}` : '')
             + (content ? `&log=${content}` : '')

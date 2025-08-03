@@ -235,7 +235,7 @@ const CommunicationService = {
         const messagesData = await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/message', {
             'message': text,
             'parent': parentId,
-            'player': channel.piratedPlayer,
+            'isPirated': channel.piratedPlayer ? true : false,
             'timeLimit': 48
         });
 

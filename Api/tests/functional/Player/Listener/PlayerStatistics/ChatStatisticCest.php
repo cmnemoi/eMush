@@ -79,7 +79,6 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $messageDto->setChannel($this->publicChannel);
         $messageDto->setMessage($text);
         $messageDto->setParent(null);
-        $messageDto->setPlayer($this->chun);
 
         return $this->messageService->createPlayerMessage(
             player: $this->chun,
@@ -98,7 +97,6 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $messageDto->setChannel($this->publicChannel);
         $messageDto->setMessage($text);
         $messageDto->setParent($parent);
-        $messageDto->setPlayer($this->chun);
 
         $this->messageService->createPlayerMessage(
             player: $this->chun,
@@ -112,7 +110,6 @@ final class ChatStatisticCest extends AbstractFunctionalTest
         $messageDto->setChannel($privateChannel);
         $messageDto->setMessage($text);
         $messageDto->setParent(null);
-        $messageDto->setPlayer($this->chun);
 
         $this->messageService->createPlayerMessage(
             player: $this->chun,

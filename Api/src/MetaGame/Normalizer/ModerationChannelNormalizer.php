@@ -34,7 +34,9 @@ final readonly class ModerationChannelNormalizer implements NormalizerInterface
     {
         $language = $channel->getDaedalusInfo()->getLanguage();
         $participants = [];
+        $allTimeParticipants = [];
 
+        // normalize actual participants
         /** @var ChannelPlayer $participant */
         foreach ($channel->getParticipants() as $participant) {
             /** @var \DateTime $joinDate */
@@ -51,11 +53,29 @@ final readonly class ModerationChannelNormalizer implements NormalizerInterface
             ];
         }
 
+        // normalize all time participants
+        /** @var ChannelPlayer $participant */
+        foreach ($channel->getAllTimeParticipants() as $participant) {
+            /** @var \DateTime $joinDate */
+            $joinDate = $participant->getCreatedAt();
+            $player = $participant->getParticipant();
+            $character = $player->getName();
+            $allTimeParticipants[] = [
+                'id' => $player->getId(),
+                'character' => [
+                    'key' => $character,
+                    'value' => $this->translationService->translate($character . '.name', [], 'characters', $language),
+                ],
+                'joinedAt' => $joinDate->format(\DateTimeInterface::ATOM),
+            ];
+        }
+
         return [
             'id' => $channel->getId(),
             'scope' => $channel->getScope(),
             'name' => $this->translationService->translate($channel->getScope() . '.name', [], 'chat', $language),
             'participants' => $participants,
+            'allTimeParticipants' => $allTimeParticipants,
         ];
     }
 }

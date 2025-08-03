@@ -9,6 +9,7 @@ export class ModerationSanction {
     public message: string|null = null;
     public isActive!: boolean;
     public authorName!: string;
+    public authorId!: string;
     public isWarning!: boolean;
     public playerId!: number;
     public playerName!: string;
@@ -26,6 +27,7 @@ export class ModerationSanction {
             this.startDate = new Date(object.startDate);
             this.endDate = new Date(object.endDate);
             this.authorName = object.authorName;
+            this.authorId = object.authorId;
             this.playerId = object.playerId;
             this.playerName = object.playerName;
             this.userId = object.userId;

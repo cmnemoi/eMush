@@ -6,7 +6,6 @@ use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Validator\MaxNestedParent;
 use Mush\Chat\Validator\MessageParent;
-use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,7 +22,7 @@ class CreateMessage
 
     private Channel $channel;
 
-    private ?Player $player;
+    private bool $pirated = false;
 
     private \DateInterval $timeLimit;
 
@@ -70,18 +69,6 @@ class CreateMessage
         return $this;
     }
 
-    public function getPlayer(): ?Player
-    {
-        return $this->player;
-    }
-
-    public function setPlayer(?Player $player): self
-    {
-        $this->player = $player;
-
-        return $this;
-    }
-
     public function getTimeLimit(): \DateInterval
     {
         return $this->timeLimit;
@@ -97,5 +84,17 @@ class CreateMessage
     public function isVocodedAnnouncement(): bool
     {
         return str_starts_with($this->message, '/neron');
+    }
+
+    public function setPirated(bool $pirated): self
+    {
+        $this->pirated = $pirated;
+
+        return $this;
+    }
+
+    public function isPirated(): bool
+    {
+        return $this->pirated;
     }
 }

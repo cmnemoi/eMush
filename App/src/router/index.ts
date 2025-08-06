@@ -261,6 +261,11 @@ const routes = [
                 name: "SanctionListPage",
                 path: '/user/:username/:userId/moderationSanctions',
                 component: SanctionListPage
+            },
+            {
+                name: "ModerationUserDetail",
+                path: 'user/:userId',
+                component: UserDetailPage
             }
         ]
     },

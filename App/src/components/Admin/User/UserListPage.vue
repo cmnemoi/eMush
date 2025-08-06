@@ -55,7 +55,8 @@
                             <p>{{ $t('moderation.sanction.banDescription') }}</p>
                         </template>
                     </Tippy>
-                    <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isModerator">{{ $t('admin.edit') }}</router-link>
+                    <router-link :to="{ name: 'AdminUserDetail', params: { userId : user.userId } }" v-if="isAdmin">{{ $t('admin.edit') }}</router-link>
+                    <router-link :to="{ name: 'ModerationUserDetail', params: { userId : user.userId } }" v-if="isModerator && !isAdmin">{{ $t('admin.edit') }}</router-link>
                 </DropList>
             </template>
         </Datatable>

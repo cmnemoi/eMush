@@ -21,6 +21,7 @@
                 <li class="rule"> <span v-html="$t('rules.communication.courtesy')"></span></li>
                 <li class="rule"><img class="alpha" :src="getImgUrl('ui_icons/action_points/pa_core.png')"> <span v-html="$t('rules.communication.spokenLanguage')"></span></li>
                 <li class="rule"> <span v-html="$t('rules.communication.flood')"></span></li>
+                <li class="rule"> <span v-html="$t('rules.communication.metagaming')"></span></li>
             </ul>
         </div>
 

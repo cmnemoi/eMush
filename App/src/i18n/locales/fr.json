@@ -27,7 +27,20 @@
 		"emush": "eMush",
 		"eternaltwin": "eMush est un site web non-commercial géré par des bénévoles. Il fait partie du projet <a href=https://eternaltwin.org/>Eternaltwin</a> dont le but est de préserver les jeux de Motion Twin, c'est-à-dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>.",
 		"legal": "Mentions légales",
-		"report": "Signaler un comportement inapproprié"
+		"report": "Signaler un comportement inapproprié",
+		"otherGames": "Découvrez les autres jeux d'Eternaltwin",
+		"eternaltwinGames": {
+			"alphabounce": "Alphabounce",
+			"dinocard": "Dinocard",
+			"dinorpg": "DinoRPG",
+			"directquiz": "Directquiz",
+			"epopotamo": "ePopotamo",
+			"eternalfest": "Eternalfest",
+			"kingdom": "Eternal Kingdom",
+			"mybrute": "LaBrute",
+			"myhordes": "MyHordes",
+			"neoparc": "Neoparc"
+		}
 	},
 	"util": {
 		"prev": "Page précédente",
@@ -719,7 +732,7 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
-		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank'>Discord d'Eternaltwin</a>."
+		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord d'Eternaltwin</a>."
 	},
 	"metaSeo": {
 		"description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !",

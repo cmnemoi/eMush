@@ -81,7 +81,7 @@
                     :href="channel.tips.teamObjectives.tutorial.link"
                     class="link"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     v-html="formatText(channel.tips.teamObjectives.tutorial.title)"/>
             </div>
             <div class="tip focus">
@@ -93,7 +93,7 @@
                     :href="channel.tips.characterObjectives.tutorial.link"
                     class="link"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     v-html="formatText(channel.tips.characterObjectives.tutorial.title)"/>
             </div>
             <div class="tip">
@@ -105,7 +105,7 @@
                             v-if="element.link"
                             class="link"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             v-html="formatText(element.text)"/>
                         <p v-else v-html="formatText(element.text)"/>
                     </li>

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Functional\Action\Actions;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Action\Actions\ThrowGrenade;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -19,6 +21,7 @@ use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Entity\Place;
+use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\RoomLog\Entity\RoomLog;
@@ -190,6 +193,30 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveAggressiveActionsCount(1, $chao, $I);
     }
 
+    #[DataProvider('outsideDaedalusPlaceProvider')]
+    public function shouldNotBeExecutableOutsideTheDaedalus(FunctionalTester $I, Example $example): void
+    {
+        $this->givenKuanTiHasAGrenade();
+        $this->givenPlayersAreInPlace($example[0], $I);
+
+        $this->whenKuanTiTriesToThrowGrenade();
+
+        $this->thenActionIsNotExecutableWithMessage(
+            ActionImpossibleCauseEnum::NOT_A_ROOM,
+            $I
+        );
+    }
+
+    protected function outsideDaedalusPlaceProvider(): array
+    {
+        return [
+            [RoomEnum::SPACE],
+            [RoomEnum::PLANET_DEPTHS],
+            [RoomEnum::PLANET],
+            [RoomEnum::PASIPHAE],
+        ];
+    }
+
     private function givenAGrenadeHeldBy(Player $player): void
     {
         $this->grenade = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -292,6 +319,16 @@ final class ThrowGrenadeCest extends AbstractFunctionalTest
     {
         $this->chun->setHealthPoint(1);
         $this->kuanTi->setHealthPoint(1);
+    }
+
+    private function givenPlayersAreInPlace(string $placeName, FunctionalTester $I): void
+    {
+        if (!$place = $this->daedalus->getPlaceByName($placeName)) {
+            $place = $this->createExtraPlace($placeName, $I, $this->daedalus);
+        }
+
+        $this->kuanTi->changePlace($place);
+        $this->chun->changePlace($place);
     }
 
     private function whenGrenadeThrownBy(Player $player): void

@@ -4,10 +4,11 @@
   "license": "AGPL-3.0-or-later",
   "private": true,
   "scripts": {
+    "eternaltwin": "eternaltwin",
     "etwin": "eternaltwin"
   },
   "devDependencies": {
-    "@eternaltwin/cli": "^0.16.0"
+    "@eternaltwin/cli": "^0.16.4"
   },
   "workspaces": {
     "packages": [

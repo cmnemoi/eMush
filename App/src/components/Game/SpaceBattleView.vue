@@ -78,8 +78,9 @@
             :class="[{ 'highlight': isSelected(hunter) }, { 'hit': isHit(hunter) }, { 'kill': isKilled(hunter) }]"
             @mousedown.stop="toggleHunterSelection(hunter)"
             @animationend="resetHunterState()"
-            v-for="(hunter, key) in player?.spaceBattle?.hunters"
-            :key="key">
+            v-for="hunter in player?.spaceBattle?.hunters"
+            :key="hunter.id"
+        >
             <div class="ship-img-container">
                 <img
                     v-if="hunter.transportImage"

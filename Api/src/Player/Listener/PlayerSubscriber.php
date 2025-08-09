@@ -40,6 +40,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
         return [
             PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::METAL_PLATE => 'onMetalPlate',
+            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::PANIC_CRISIS => 'onPanicCrisis',
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
         ];
@@ -81,6 +82,14 @@ final class PlayerSubscriber implements EventSubscriberInterface
             $event->getTime()
         );
         $this->eventService->callEvent($playerModifierEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    public function onNewPlayer(PlayerEvent $event): void
+    {
+        $this->updatePlayerNotification->execute(
+            player: $event->getPlayer(),
+            message: PlayerNotificationEnum::WELCOME_ON_BOARD,
+        );
     }
 
     public function onPanicCrisis(PlayerEvent $event): void
@@ -168,8 +177,8 @@ final class PlayerSubscriber implements EventSubscriberInterface
 
         $this->updatePlayerNotification->execute(
             player: $newMush,
-            message: PlayerNotificationEnum::WELCOME_MUSH->toString(),
-            parameters: ['quantity' => $triumphQuantity, 'stamp' => 'true']
+            message: PlayerNotificationEnum::WELCOME_MUSH,
+            parameters: ['quantity' => $triumphQuantity]
         );
     }
 

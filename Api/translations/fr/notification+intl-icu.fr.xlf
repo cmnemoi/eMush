@@ -177,5 +177,21 @@
         <target>Quelque chose a... changé. Vous vous sentez différent.//// Une sérénité calme vous absorbe. Vous voulez *la partager* à vos camarades...////Camarade, **vous faites désormais partie du Mush** !////Vous pouvez compléter votre mission avec succès de deux manières : en convertissant tout l'équipage au Mush, ou en détruisant le vaisseau !////Vous commencez votre mission avec **{quantity}** :triumph_mush:.</target>
       </segment>
     </unit>
+    <unit id="welcome_on_board">
+      <segment state="translated">
+        <source>welcome_on_board.title</source>
+        <target>Bienvenue à bord</target>
+      </segment>
+      <segment state="translated">
+        <source>welcome_on_board.description</source>
+        <target>**NERON :** Alerte : destination erronée. Alerte : attaque Hunter en cours.//
+… Procédure de réveil d'urgence de l'équipage.//
+//
+Remuez les doigts. *Check.* Remuez les pieds. *Check.*//
+Humain en état fonctionnel.//
+//
+*L'intelligence artificielle du vaisseau vous souhaite un bon voy…* Suivant.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

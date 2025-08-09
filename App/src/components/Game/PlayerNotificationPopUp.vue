@@ -3,7 +3,7 @@
         <h1 class="title" v-html="formatText(popUp.title)" v-if="popUp.title" />
         <h3 class="sub-title" v-html="formatText(popUp.subTitle)" v-if="popUp.subTitle" />
         <p class="message">
-            <img :src="getImgUrl('mush_stamp.png')" v-if="popUp.isStamped">
+            <img :src="getImgUrl(popUp.image)" v-if="popUp.image">
             <span v-html="formatText(popUp.description)" />
         </p>
         <div class="actions">

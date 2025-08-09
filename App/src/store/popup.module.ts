@@ -17,7 +17,7 @@ type PlayerNotificationPopUp = {
     title?: string;
     subTitle?: string;
     description: string;
-    isStamped: boolean;
+    image: string;
     isOpen: boolean;
 }
 
@@ -35,7 +35,7 @@ const state = {
         title: '',
         subTitle: '',
         description: '',
-        isStamped: false,
+        image: '',
         isOpen: false
     },
     playerHistoryPopUp: {
@@ -92,7 +92,7 @@ const mutations: MutationTree<any> = {
         state.playerNotificationPopUp.title = notification.title;
         state.playerNotificationPopUp.subTitle = notification.subTitle;
         state.playerNotificationPopUp.description = notification.description;
-        state.playerNotificationPopUp.isStamped = notification.isStamped;
+        state.playerNotificationPopUp.image = notification.image;
         state.playerNotificationPopUp.isOpen = true;
     },
     closePlayerNotificationPopUp(state) {

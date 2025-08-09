@@ -243,8 +243,8 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         );
 
         // then the explorators should be given exploration finished notification
-        $I->assertTrue($this->player1->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED->toString()));
-        $I->assertTrue($this->player2->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED->toString()));
+        $I->assertTrue($this->player1->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED));
+        $I->assertTrue($this->player2->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED));
     }
 
     public function testDispatchExplorationEventDispatchesExplorationEvent(FunctionalTester $I): void

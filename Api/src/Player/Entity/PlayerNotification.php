@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Player\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Player\Enum\PlayerNotificationEnum;
 
 #[ORM\Entity]
 class PlayerNotification
@@ -23,10 +24,10 @@ class PlayerNotification
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $parameters = [];
 
-    public function __construct(Player $player, string $message, array $parameters = [])
+    public function __construct(Player $player, PlayerNotificationEnum $message, array $parameters = [])
     {
         $this->player = $player;
-        $this->message = $message;
+        $this->message = $message->toString();
         $this->parameters = $parameters;
 
         $this->player->addNotification($this);
@@ -50,6 +51,11 @@ class PlayerNotification
     public function getParameters(): array
     {
         return $this->parameters;
+    }
+
+    public function getImage(): string
+    {
+        return PlayerNotificationEnum::from($this->message)->getImage();
     }
 
     public function getLanguage(): string

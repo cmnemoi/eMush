@@ -131,7 +131,7 @@ final class Takeoff extends AbstractAction
     {
         $this->updatePlayerNotification->execute(
             player: $this->player,
-            message: PlayerNotificationEnum::DROPPED_CRITICAL_ITEM->toString(),
+            message: PlayerNotificationEnum::DROPPED_CRITICAL_ITEM,
         );
     }
 

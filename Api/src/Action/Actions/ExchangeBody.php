@@ -17,6 +17,7 @@ use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
@@ -161,12 +162,12 @@ final class ExchangeBody extends AbstractAction
 
     private function createTargetNotification(): void
     {
-        $this->updatePlayerNotification->execute($this->target(), \sprintf('%s_mush', ActionEnum::EXCHANGE_BODY->value));
+        $this->updatePlayerNotification->execute($this->target(), PlayerNotificationEnum::EXCHANGE_BODY_MUSH);
     }
 
     private function createPlayerNotification(): void
     {
-        $this->updatePlayerNotification->execute($this->player, \sprintf('%s_human', ActionEnum::EXCHANGE_BODY->value));
+        $this->updatePlayerNotification->execute($this->player, PlayerNotificationEnum::EXCHANGE_BODY_HUMAN);
     }
 
     private function target(): Player

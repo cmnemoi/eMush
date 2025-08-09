@@ -75,7 +75,7 @@ final class ComManagerAnnounce extends AbstractAction
     {
         $this->updatePlayerNotification->execute(
             player: $this->player,
-            message: PlayerNotificationEnum::ANNOUNCEMENT_CREATED->toString(),
+            message: PlayerNotificationEnum::ANNOUNCEMENT_CREATED,
             parameters: [
                 'message' => $this->announcement(),
                 $this->player->getLogKey() => $this->player->getLogName(),
@@ -91,7 +91,7 @@ final class ComManagerAnnounce extends AbstractAction
         foreach ($recipients as $player) {
             $this->updatePlayerNotification->execute(
                 player: $player,
-                message: PlayerNotificationEnum::ANNOUNCEMENT_RECEIVED->toString(),
+                message: PlayerNotificationEnum::ANNOUNCEMENT_RECEIVED,
                 parameters: [
                     'message' => $this->announcement(),
                     $this->player->getLogKey() => $this->player->getLogName(),

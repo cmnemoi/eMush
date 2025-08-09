@@ -8,12 +8,12 @@ use Mush\Action\Enum\ActionTypeEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\Player\ValueObject\PlayerHighlight;
-use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\RoomLog\Service\RoomLogService;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -75,7 +75,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
         $this->updatePlayerNotification->execute(
             player: $dirtyPlayer,
-            message: StatusEventLogEnum::SOILED,
+            message: PlayerNotificationEnum::SOILED,
             parameters: [$dirtyPlayer->getLogKey() => $dirtyPlayer->getLogName()]
         );
     }

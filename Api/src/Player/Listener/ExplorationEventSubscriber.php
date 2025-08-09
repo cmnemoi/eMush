@@ -45,7 +45,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
             if (!$exploration->getActiveExplorators()->exists(static fn ($_, Player $player) => $player === $explorator)) {
                 $this->updatePlayerNotification->execute(
                     player: $explorator,
-                    message: PlayerNotificationEnum::EXPLORATION_STARTED_NO_SPACESUIT->toString(),
+                    message: PlayerNotificationEnum::EXPLORATION_STARTED_NO_SPACESUIT,
                     parameters: [
                         'exploration_link' => $explorationLink,
                     ]
@@ -91,7 +91,7 @@ final class ExplorationEventSubscriber implements EventSubscriberInterface
         foreach ($event->getExploration()->getNotLostExplorators() as $explorator) {
             $this->updatePlayerNotification->execute(
                 player: $explorator,
-                message: $notification->toString(),
+                message: $notification,
                 parameters: $parameters
             );
         }

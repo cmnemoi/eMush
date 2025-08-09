@@ -391,7 +391,7 @@ final class ExplorationEventCest extends AbstractExplorationTester
         $this->createExploration($planet, $this->players);
 
         // then only Kuan Ti gets notification
-        $I->assertTrue($this->kuanTi->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_STARTED_NO_SPACESUIT->toString()));
-        $I->assertFalse($this->chun->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_STARTED_NO_SPACESUIT->toString()));
+        $I->assertTrue($this->kuanTi->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_STARTED_NO_SPACESUIT));
+        $I->assertFalse($this->chun->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_STARTED_NO_SPACESUIT));
     }
 }

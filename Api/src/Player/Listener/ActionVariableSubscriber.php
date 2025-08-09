@@ -9,6 +9,7 @@ use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\D100RollServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Player\Service\UpdatePlayerNotificationService;
@@ -71,7 +72,7 @@ class ActionVariableSubscriber implements EventSubscriberInterface
 
         $this->updatePlayerNotification->execute(
             player: $author,
-            message: EndCauseEnum::CLUMSINESS,
+            message: PlayerNotificationEnum::CLUMSINESS,
         );
     }
 

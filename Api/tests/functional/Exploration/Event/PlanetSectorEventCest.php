@@ -1515,10 +1515,10 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $I->assertTrue($closedExploration->isExplorationFinished());
 
         // then notifications should be sent to non-lost explorers
-        $I->assertTrue($this->chun->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
-        $I->assertTrue($this->kuanTi->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
-        $I->assertTrue($this->derek->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
-        $I->assertFalse($this->janice->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY->toString()));
+        $I->assertTrue($this->chun->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY));
+        $I->assertTrue($this->kuanTi->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY));
+        $I->assertTrue($this->derek->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY));
+        $I->assertFalse($this->janice->hasNotificationByMessage(PlayerNotificationEnum::EXPLORATION_CLOSED_RETURN_EVENT_VOLCANIC_ACTIVITY));
     }
 
     public function testPlayerLostEvent(FunctionalTester $I): void

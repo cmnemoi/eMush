@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\tests\unit\Player\UseCase;
 
 use Mush\Player\Entity\PlayerNotification;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\InMemoryPlayerNotificationRepository;
 use Mush\Player\UseCase\DeletePlayerNotificationUseCase;
@@ -39,7 +40,7 @@ final class DeletePlayerNotificationUseCaseTest extends TestCase
     {
         // given I have a player with a notification
         $player = PlayerFactory::createPlayer();
-        $playerNotification = new PlayerNotification($player, 'message');
+        $playerNotification = new PlayerNotification($player, PlayerNotificationEnum::NULL);
         $this->playerNotificationRepository->save($playerNotification);
 
         // when I delete the notification

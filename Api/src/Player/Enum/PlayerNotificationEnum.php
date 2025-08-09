@@ -19,12 +19,27 @@ enum PlayerNotificationEnum: string
     case MISSION_RECEIVED = 'mission_received';
     case MISSION_REJECTED = 'mission_rejected';
     case MISSION_SENT = 'mission_sent';
+    case WELCOME_ON_BOARD = 'welcome_on_board';
     case WELCOME_MUSH = 'welcome_mush';
     case ANNOUNCEMENT_RECEIVED = 'announcement_received';
     case ANNOUNCEMENT_CREATED = 'announcement_created';
+    case EXCHANGE_BODY_MUSH = 'exchange_body_mush';
+    case EXCHANGE_BODY_HUMAN = 'exchange_body_human';
+    case SOILED = 'soiled';
+    case CLUMSINESS = 'clumsiness';
+    case NULL = '';
 
     public function toString(): string
     {
         return $this->value;
+    }
+
+    public function getImage(): string
+    {
+        return match ($this) {
+            self::WELCOME_ON_BOARD => 'neron_eye.gif',
+            self::WELCOME_MUSH => 'mush_stamp.png',
+            default => '',
+        };
     }
 }

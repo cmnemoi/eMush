@@ -106,7 +106,7 @@ final class CommanderOrder extends AbstractAction
     {
         $this->updatePlayerNotification->execute(
             player: $this->player,
-            message: PlayerNotificationEnum::MISSION_SENT->toString(),
+            message: PlayerNotificationEnum::MISSION_SENT,
         );
     }
 
@@ -114,7 +114,7 @@ final class CommanderOrder extends AbstractAction
     {
         $this->updatePlayerNotification->execute(
             player: $this->subordinate(),
-            message: PlayerNotificationEnum::MISSION_RECEIVED->toString(),
+            message: PlayerNotificationEnum::MISSION_RECEIVED,
         );
     }
 

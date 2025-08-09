@@ -5,6 +5,7 @@ namespace Mush\Chat\Listener;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Enum\MushMessageEnum;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\ChannelServiceInterface;
 use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Chat\Services\NeronMessageServiceInterface;
@@ -36,9 +37,10 @@ class PlayerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::CONVERSION_PLAYER => 'onConversionPlayer',
+            PlayerEvent::DEATH_PLAYER => 'onDeathPlayer',
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
+            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
             PlayerEvent::TITLE_ATTRIBUTED => 'onPlayerTitleAttributed',
         ];
     }
@@ -130,5 +132,19 @@ class PlayerSubscriber implements EventSubscriberInterface
         }
 
         $this->neronMessageService->createTitleAttributionMessage($player, $title, $time);
+    }
+
+    public function onNewPlayer(PlayerEvent $event): void
+    {
+        if ($event->doesNotHaveTag(PlayerEvent::FIRST_PLAYER_ON_BOARD)) {
+            return;
+        }
+
+        $this->neronMessageService->createNeronMessage(
+            messageKey: NeronMessageEnum::RESTART_GRAVITY,
+            daedalus: $event->getDaedalus(),
+            parameters: [],
+            dateTime: $event->getTime(),
+        );
     }
 }

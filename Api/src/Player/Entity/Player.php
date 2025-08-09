@@ -51,6 +51,7 @@ use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
+use Mush\Player\Enum\PlayerNotificationEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Factory\PlayerFactory;
 use Mush\Player\Repository\PlayerRepository;
@@ -1193,9 +1194,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->notifications->count() > 0;
     }
 
-    public function hasNotificationByMessage(string $message): bool
+    public function hasNotificationByMessage(PlayerNotificationEnum $message): bool
     {
-        return $this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message)->count() > 0;
+        return $this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message->toString())->count() > 0;
     }
 
     public function getFirstNotificationOrThrow(): PlayerNotification
@@ -1203,9 +1204,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->notifications->first() ?: throw new \RuntimeException('The player does not have a notification');
     }
 
-    public function getNotificationByMessageOrThrow(string $message): PlayerNotification
+    public function getNotificationByMessageOrThrow(PlayerNotificationEnum $message): PlayerNotification
     {
-        return $this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message)->first() ?: throw new \RuntimeException("The player does not have a notification with message: {$message}");
+        return $this->notifications->filter(static fn (PlayerNotification $notification) => $notification->getMessage() === $message->toString())->first() ?: throw new \RuntimeException("The player does not have a notification with message: {$message->toString()}");
     }
 
     public function addNotification(PlayerNotification $notification): self

@@ -34,7 +34,7 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
             'title' => $this->translatedNotificationKey('title', $notification),
             'subTitle' => $this->translatedNotificationKey('subTitle', $notification),
             'description' => $this->translatedNotificationKey('description', $notification),
-            'isStamped' => $this->isStamped($notification),
+            'image' => $notification->getImage(),
         ];
     }
 
@@ -58,12 +58,5 @@ final class PlayerNotificationNormalizer implements NormalizerInterface
         );
 
         return $translation !== $key ? $translation : '';
-    }
-
-    private function isStamped(PlayerNotification $notification): bool
-    {
-        $parameters = $notification->getParameters();
-
-        return isset($parameters['stamp']) && $parameters['stamp'] === 'true';
     }
 }

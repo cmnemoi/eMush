@@ -33,6 +33,7 @@ class PlayerEvent extends PlayerCycleEvent implements LoggableEventInterface, Tr
     public const string DELETE_PLAYER = 'delete.player';
     public const string TITLE_ATTRIBUTED = 'title.attributed';
     public const string TITLE_REMOVED = 'title.removed';
+    public const string FIRST_PLAYER_ON_BOARD = 'first.player.on.board';
 
     protected string $visibility = VisibilityEnum::PRIVATE;
     protected ?CharacterConfig $characterConfig = null;

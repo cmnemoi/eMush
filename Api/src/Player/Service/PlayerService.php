@@ -392,6 +392,10 @@ final class PlayerService implements PlayerServiceInterface
             ->setCharacterConfig($player->getCharacterConfig())
             ->setVisibility(VisibilityEnum::PUBLIC);
 
+        if ($player->getDaedalus()->getPlayers()->count() === 1) {
+            $playerEvent->addTag(PlayerEvent::FIRST_PLAYER_ON_BOARD);
+        }
+
         $this->eventService->callEvent($playerEvent, PlayerEvent::NEW_PLAYER);
     }
 }

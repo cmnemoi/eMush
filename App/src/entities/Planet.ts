@@ -73,15 +73,15 @@ export class Planet {
     }
 
     private putUnknownSectorsAtEnd(sectorCountsText: string): string {
-        const unknownSectorsCountRegex = / \?\?\? \(x[1-9]{1,2}\),/;
-        const match = sectorCountsText.match(unknownSectorsCountRegex);
-        if (match) {
-            const unknownSectorsCountText = match[0];
-            sectorCountsText = sectorCountsText.replace(unknownSectorsCountRegex, '');
-            sectorCountsText += ', ' + unknownSectorsCountText.replace(/,/, '').trim();
-        }
+        if (!sectorCountsText) return sectorCountsText;
 
-        return sectorCountsText;
+        const sectorCounts = sectorCountsText.split(', ').filter((part) => part.length > 0);
+
+        const revealedSectors = sectorCounts.filter((item) => !item.includes('?'));
+        const unknownSectors = sectorCounts.filter((item) => item.includes('?'));
+
+        if (unknownSectors.length === 0) return sectorCountsText;
+
+        return [...revealedSectors, ...unknownSectors].join(', ');
     }
-
 }

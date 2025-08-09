@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Event;
 
+use Mush\Action\Actions\Move;
+use Mush\Action\Actions\ReadDocument;
+use Mush\Action\Actions\Search;
+use Mush\Action\Actions\Take;
+use Mush\Action\Entity\Action;
 use Mush\Action\Entity\ActionConfig;
-use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
-use Mush\Action\Event\ActionEvent;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\MushMessageEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
@@ -15,7 +18,6 @@ use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\CharacterEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -28,16 +30,36 @@ use Mush\Tests\FunctionalTester;
  */
 final class TrappedRoomTriggerCest extends AbstractFunctionalTest
 {
-    private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+
+    private ActionConfig $takeActionConfig;
+    private ActionConfig $readDocumentActionConfig;
+    private ActionConfig $searchActionConfig;
+    private ActionConfig $moveActionConfig;
+
+    private Take $take;
+    private ReadDocument $readDocument;
+    private Search $search;
+    private Move $move;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
-        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+
+        $this->takeActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]);
+        $this->readDocumentActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::READ_DOCUMENT]);
+        $this->searchActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]);
+        $this->moveActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]);
+
+        $this->take = $I->grabService(Take::class);
+        $this->readDocument = $I->grabService(ReadDocument::class);
+        $this->search = $I->grabService(Search::class);
+        $this->move = $I->grabService(Move::class);
+
+        $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
     }
 
     public function shouldRemoveTrappedStatusFromPlayerRoom(FunctionalTester $I): void
@@ -59,14 +81,13 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
 
         // when KT starts an action
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+        $this->take->loadParameters(
+            actionConfig: $this->takeActionConfig,
             actionProvider: $postIt,
             player: $this->kuanTi,
-            tags: []
+            target: $postIt,
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->take->execute();
 
         // then the trapped status should be removed from the room
         $I->assertFalse($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
@@ -91,14 +112,13 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
 
         // when KT starts an action
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+        $this->take->loadParameters(
+            actionConfig: $this->takeActionConfig,
             actionProvider: $postIt,
             player: $this->kuanTi,
-            tags: []
+            target: $postIt,
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->take->execute();
 
         // then KT should get a spore
         $I->assertEquals(
@@ -134,14 +154,13 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
 
         // when Chun starts an action
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+        $this->take->loadParameters(
+            actionConfig: $this->takeActionConfig,
             actionProvider: $postIt,
             player: $this->chun,
-            tags: []
+            target: $postIt,
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->take->execute();
 
         // then Chun should not get a spore
         $I->assertEquals(
@@ -177,14 +196,13 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
 
         // when KT starts an action
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+        $this->take->loadParameters(
+            actionConfig: $this->takeActionConfig,
             actionProvider: $postIt,
             player: $this->kuanTi,
-            tags: []
+            target: $postIt,
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->take->execute();
 
         // then KT should not get a spore
         $I->assertEquals(
@@ -212,14 +230,13 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
 
         // when KT starts an action
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+        $this->take->loadParameters(
+            actionConfig: $this->takeActionConfig,
             actionProvider: $postIt,
             player: $this->kuanTi,
-            tags: []
+            target: $postIt,
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->take->execute();
 
         // then a message should be printed in the mush channel
         $I->seeInRepository(
@@ -250,14 +267,13 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
 
         // when KT starts an action
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::TAKE]),
+        $this->take->loadParameters(
+            actionConfig: $this->takeActionConfig,
             actionProvider: $postIt,
             player: $this->kuanTi,
-            tags: []
+            target: $postIt,
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->take->execute();
 
         // then the message should have the right parameters
         $mushChannelMessage = $I->grabEntityFromRepository(
@@ -297,14 +313,13 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         );
 
         // when KT starts an action
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::READ_DOCUMENT]),
+        $this->readDocument->loadParameters(
+            actionConfig: $this->readDocumentActionConfig,
             actionProvider: $postIt,
             player: $this->kuanTi,
-            tags: []
+            target: $postIt,
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->readDocument->execute();
 
         // then room trap should not be triggered
         $I->assertTrue($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
@@ -326,14 +341,12 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
             time: new \DateTime(),
         );
 
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SEARCH]),
+        $this->search->loadParameters(
+            actionConfig: $this->searchActionConfig,
             actionProvider: $this->kuanTi,
             player: $this->kuanTi,
-            tags: []
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->search->execute();
 
         // then trap should be triggered
         $I->assertFalse($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
@@ -361,23 +374,61 @@ final class TrappedRoomTriggerCest extends AbstractFunctionalTest
         $I->haveInRepository($door);
 
         // when KT starts an action
-        $actionEvent = new ActionEvent(
-            actionConfig: $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::MOVE]),
+        $this->move->loadParameters(
+            actionConfig: $this->moveActionConfig,
             actionProvider: $door,
             player: $this->kuanTi,
-            tags: [],
-            actionTarget: $door
+            target: $door,
         );
-        $actionEvent->setActionResult(new Success());
-        $this->eventService->callEvent($actionEvent, ActionEvent::RESULT_ACTION);
+        $this->move->execute();
 
         // then trap should not be triggered
-        $I->assertTrue($this->kuanTi->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value));
+        $I->assertTrue($this->kuanTi->getPreviousRoom()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value), 'Room trap should not be triggered');
 
         // then KT should not get a spore
         $I->assertEquals(
             expected: 0,
             actual: $this->kuanTi->getSpores(),
+            message: 'KT should not get a spore',
         );
+    }
+
+    public function shouldNotTriggerRoomTrapWhenExitingTheRoomFromBed(FunctionalTester $I): void
+    {
+        // given KT's room has been trapped
+        $this->statusService->createStatusFromName(
+            statusName: PlaceStatusEnum::MUSH_TRAPPED->value,
+            holder: $this->kuanTi->getPlace(),
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given KT is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given a door in the room
+        $door = Door::createFromRooms($this->kuanTi->getPlace(), $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus));
+        $door->setEquipment($I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']));
+        $I->haveInRepository($door);
+
+        // when KT exits the room
+        $this->move->loadParameters(
+            actionConfig: $this->moveActionConfig,
+            actionProvider: $door,
+            player: $this->kuanTi,
+            target: $door,
+        );
+        $this->move->execute();
+
+        // then trap should not be triggered
+        $I->assertTrue($this->kuanTi->getPreviousRoom()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->value), 'Room trap should not be triggered');
+
+        // then KT should not get a spore
+        $I->assertEquals(0, $this->kuanTi->getSpores(), 'KT should not get a spore');
     }
 }

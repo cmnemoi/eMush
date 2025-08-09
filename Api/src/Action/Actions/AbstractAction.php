@@ -38,6 +38,7 @@ abstract class AbstractAction
     protected ?LogParameterInterface $target = null;
     protected ?array $parameters = [];
     protected ActionProviderInterface $actionProvider;
+    protected array $tags = [];
 
     protected ActionEnum $name;
 
@@ -60,7 +61,8 @@ abstract class AbstractAction
         ActionProviderInterface $actionProvider,
         Player $player,
         ?LogParameterInterface $target = null,
-        array $parameters = []
+        array $parameters = [],
+        array $tags = []
     ): void {
         if (!$this->support($target, $parameters)) {
             $parameters = [];
@@ -76,6 +78,7 @@ abstract class AbstractAction
         $this->player = $player;
         $this->target = $target;
         $this->parameters = $parameters;
+        $this->tags = array_merge($actionConfig->getActionTags(), $tags);
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -279,7 +282,7 @@ abstract class AbstractAction
 
     public function getTags(): array
     {
-        return $this->actionConfig->getActionTags();
+        return $this->tags;
     }
 
     public function hasTag(string $tag): bool

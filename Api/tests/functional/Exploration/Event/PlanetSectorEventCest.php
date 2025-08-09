@@ -753,7 +753,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             sectorName: PlanetSectorEnum::INTELLIGENT,
             events: [
                 PlanetSectorEvent::FIGHT_8 => PHP_INT_MAX - 1,
-                PlanetSectorEvent::ARTEFACT => 1,
+                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
             ]
         );
 
@@ -763,7 +763,7 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         $this->explorationService->dispatchExplorationEvent($exploration);
 
         // then Stephen gets no triumph for fight prevented event
-        $I->assertEquals(0, $stephen->getTriumph());
+        $I->assertEquals(0, $stephen->getTriumph(), 'Stephen should not get triumph when fight event is prevented');
     }
 
     public function testFightImprovesCustomAlienDownTriumphWhenNoDamageDealt(FunctionalTester $I): void

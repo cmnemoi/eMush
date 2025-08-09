@@ -37,6 +37,7 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
     public const string POST_ACTION = 'post.action';
     public const string RESULT_ACTION = 'result.action';
     public const string EXECUTE_ACTION = 'execute.action';
+    public const string FORCED_GET_UP = 'forced.get.up';
     private const OBSERVANT_REVEAL_CHANCE = 25;
 
     private ActionConfig $actionConfig;
@@ -185,7 +186,8 @@ class ActionEvent extends AbstractGameEvent implements TriumphSourceEventInterfa
         $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap = $this->actionProvider instanceof GameEquipment === false
             && $this->actionConfig->shouldTriggerRoomTrap();
 
-        return $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->toString())
+        return $this->doesNotHaveTag(self::FORCED_GET_UP)
+            && $this->getPlace()->hasStatus(PlaceStatusEnum::MUSH_TRAPPED->toString())
             && ($authorInteractsWithRoomEquipment || $actionDoesNotInteractWithAnEquipmentButShouldTriggerRoomTrap);
     }
 

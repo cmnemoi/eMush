@@ -82,4 +82,38 @@ final class AutomaticGetUpCest extends AbstractFunctionalTest
             'visibility' => VisibilityEnum::PUBLIC,
         ]);
     }
+
+    public function shouldNotBeRecordedInPlayerActionHistory(FunctionalTester $I): void
+    {
+        // given player is lying down
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->kuanTi,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given a shower is in player's room
+        $shower = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SHOWER,
+            equipmentHolder: $this->kuanTi->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+
+        // given player has the technician skill
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->kuanTi);
+
+        // when player disassemble the shower
+        $this->disassembleAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $shower,
+            player: $this->kuanTi,
+            target: $shower
+        );
+        $this->disassembleAction->execute();
+
+        // then player action history should not contain the Get Up action
+        $I->assertNotContains(ActionEnum::GET_UP, $this->kuanTi->getActionHistory());
+    }
 }

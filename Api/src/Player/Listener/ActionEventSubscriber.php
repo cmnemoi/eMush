@@ -67,6 +67,10 @@ final class ActionEventSubscriber implements EventSubscriberInterface
 
     public function onPostAction(ActionEvent $event): void
     {
+        if ($event->hasTag(ActionEvent::FORCED_GET_UP)) {
+            return;
+        }
+
         $author = $event->getAuthor();
         $actionName = $event->getActionName();
 

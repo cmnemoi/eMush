@@ -214,4 +214,27 @@ final class ForceGetUpCest extends AbstractFunctionalTest
         // then Chun should still have her Lying Down status
         $I->assertTrue($this->chun->hasStatus(PlayerStatusEnum::LYING_DOWN));
     }
+
+    public function shouldNotBeRecordedInPlayerActionHistory(FunctionalTester $I): void
+    {
+        // given Chun has the Lying Down status
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        // when KT hits Chun
+        $this->hitAction->loadParameters(
+            actionConfig: $this->hitActionConfig,
+            actionProvider: $this->kuanTi,
+            player: $this->kuanTi,
+            target: $this->chun
+        );
+        $this->hitAction->execute();
+
+        // then Chun action history should not contain the Get Up action
+        $I->assertNotContains(ActionEnum::GET_UP, $this->chun->getActionHistory());
+    }
 }

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Project;
 
-use Mush\Chat\Entity\Dto\CreateMessage;
+use Doctrine\Common\Collections\Collection;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Project\Enum\ProjectName;
-use Mush\Status\Enum\PlayerStatusEnum;
-use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 
@@ -19,33 +17,47 @@ use Mush\Tests\FunctionalTester;
 final class PatulineScramblerCest extends AbstractFunctionalTest
 {
     private MessageServiceInterface $messageService;
-    private StatusServiceInterface $statusService;
     private ?Message $message = null;
+    private Collection $fetchedMessages;
 
     public function _before(FunctionalTester $I): void
     {
         parent::_before($I);
 
         $this->messageService = $I->grabService(MessageServiceInterface::class);
-        $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
     public function shouldScrambleExistingMushChannelMessages(FunctionalTester $I): void
     {
         $this->givenAMessageInMushChannel($I);
 
-        $this->whenPatulineScramblerIsFinished($I);
+        $this->givenPatulineScramblerIsFinished($I);
 
-        $this->thenMessageShouldBeScrambled($I);
+        $this->whenIFetchMushChannelMessages();
+
+        $this->thenMessagesShouldBeScrambled($I);
     }
 
-    public function shouldScrambleNewMushChannelMessages(FunctionalTester $I): void
+    public function shouldNotScrambleSystemMessages(FunctionalTester $I): void
     {
-        $this->whenPatulineScramblerIsFinished($I);
+        $this->givenASystemMessageInMushChannel($I);
 
-        $this->whenICreateMessageInMushChannel();
+        $this->givenPatulineScramblerIsFinished($I);
 
-        $this->thenMessageShouldBeScrambled($I);
+        $this->whenIFetchMushChannelMessages();
+
+        $this->thenMessagesShouldNotBeScrambled($I);
+    }
+
+    private function givenASystemMessageInMushChannel(FunctionalTester $I): void
+    {
+        $this->message = new Message();
+        $this->message
+            ->setChannel($this->mushChannel)
+            ->setMessage('Hello, World!')
+            ->setDay(1)->setCycle(1);
+
+        $I->haveInRepository($this->message);
     }
 
     private function givenAMessageInMushChannel(FunctionalTester $I): void
@@ -60,17 +72,7 @@ final class PatulineScramblerCest extends AbstractFunctionalTest
         $I->haveInRepository($this->message);
     }
 
-    private function givenPlayerIsMush(): void
-    {
-        $this->statusService->createStatusFromName(
-            statusName: PlayerStatusEnum::MUSH,
-            holder: $this->player,
-            tags: [],
-            time: new \DateTime(),
-        );
-    }
-
-    private function whenPatulineScramblerIsFinished(FunctionalTester $I): void
+    private function givenPatulineScramblerIsFinished(FunctionalTester $I): void
     {
         $this->finishProject(
             project: $this->daedalus->getProjectByName(ProjectName::PATULINE_SCRAMBLER),
@@ -79,18 +81,26 @@ final class PatulineScramblerCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenICreateMessageInMushChannel(): void
+    private function whenIFetchMushChannelMessages(): void
     {
-        $messageDto = new CreateMessage();
-        $messageDto->setChannel($this->mushChannel);
-        $messageDto->setMessage('Hello, World!');
-        $messageDto->setParent(null);
-
-        $this->message = $this->messageService->createPlayerMessage($this->player, $messageDto);
+        $this->fetchedMessages = $this->messageService->getChannelMessages(
+            player: $this->player,
+            channel: $this->mushChannel,
+            timeLimit: new \DateInterval('P1Y')
+        );
     }
 
-    private function thenMessageShouldBeScrambled(FunctionalTester $I): void
+    private function thenMessagesShouldBeScrambled(FunctionalTester $I): void
     {
-        $I->assertNotEquals('Hello, World!', $this->message->getMessage());
+        foreach ($this->fetchedMessages as $message) {
+            $I->assertNotEquals('Hello, World!', $message->getMessage());
+        }
+    }
+
+    private function thenMessagesShouldNotBeScrambled(FunctionalTester $I): void
+    {
+        foreach ($this->fetchedMessages as $message) {
+            $I->assertEquals('Hello, World!', $message->getMessage());
+        }
     }
 }

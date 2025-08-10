@@ -3612,7 +3612,7 @@ abstract class ModifierConfigData
         [
             'name' => MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
             'modifierName' => MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
-            'targetEvent' => MessageEvent::NEW_MESSAGE,
+            'targetEvent' => MessageEvent::READ_MESSAGE,
             'strategy' => ModifierStrategyEnum::MESSAGE_MODIFIER,
             'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
             'type' => 'event_modifier',

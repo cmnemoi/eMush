@@ -99,8 +99,8 @@ final class MessageModifierService implements MessageModifierServiceInterface
 
     private function applyPatulineScramblerEffect(Message $message): Message
     {
-        // if message is not in Mush channel, do nothing
-        if ($message->isNotInMushChannel()) {
+        // if message is not in Mush channel or is a system message, do nothing
+        if ($message->isNotInMushChannel() || $message->isSystemMessage()) {
             return $message;
         }
 
@@ -108,7 +108,7 @@ final class MessageModifierService implements MessageModifierServiceInterface
         $randomString = $this->generateRandomString($this->randomService->random(1, 100));
 
         // replace the message with the random string
-        $message->setMessage(message: $randomString);
+        $message->setMessage($randomString);
 
         return $message;
     }

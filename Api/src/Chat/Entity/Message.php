@@ -305,4 +305,9 @@ class Message implements TimestampableCancelInterface, SanctionEvidenceInterface
     {
         return $this->getNeron() !== null || $this->getMessage() === NeronMessageEnum::COMMAND_REFUSED;
     }
+
+    public function isSystemMessage(): bool
+    {
+        return $this->author === null && $this->neron === null;
+    }
 }

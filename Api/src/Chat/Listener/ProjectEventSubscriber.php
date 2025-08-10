@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Chat\Listener;
 
-use Mush\Chat\Enum\MessageModificationEnum;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\ChannelServiceInterface;
 use Mush\Chat\Services\MessageModifierServiceInterface;
@@ -49,10 +48,6 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
             $this->createProjectFinishedNeronAnnouncement($event);
         }
 
-        if ($project->isPatulineScrambler()) {
-            $this->scrambleMushChannelMessages($event);
-        }
-
         if ($project->isPheromodem()) {
             $this->addHumanPlayersToMushChannel($event);
         }
@@ -72,26 +67,6 @@ final class ProjectEventSubscriber implements EventSubscriberInterface
             ],
             dateTime: $event->getTime(),
         );
-    }
-
-    private function scrambleMushChannelMessages(ProjectEvent $event): void
-    {
-        $daedalus = $event->getDaedalus();
-        $mushChannel = $this->channelService->getMushChannelOrThrow($daedalus);
-        $mushChannelMessages = $this->messageService->getChannelMessages(
-            player: null,
-            channel: $mushChannel,
-            timeLimit: new \DateInterval('P1Y')
-        );
-
-        foreach ($mushChannelMessages as $message) {
-            $message = $this->messageModifierService->applyModifierEffects(
-                message: $message,
-                player: null,
-                effectName: MessageModificationEnum::PATULINE_SCRAMBLER_MODIFICATION,
-            );
-            $this->messageService->save($message);
-        }
     }
 
     private function addHumanPlayersToMushChannel(ProjectEvent $event): void

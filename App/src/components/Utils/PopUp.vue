@@ -63,9 +63,10 @@ export default defineComponent ({
             border: 5px solid transparent;
             border-image: url('/src/assets/images/ToolTip-corners.gif') 50% round;
         };
+        overflow-y: auto;
     }
 
-    &::v-deep(h1) {
+    :deep(h1) {
         font-size: 1.5em;
         text-transform: uppercase;
         text-align: center;

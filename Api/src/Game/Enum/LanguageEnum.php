@@ -137,6 +137,39 @@ abstract class LanguageEnum
                 'word_plural_coprolalia',
             ],
         ],
+        self::SPANISH => [
+            self::EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural_name'],
+            self::TARGET_EQUIPMENT => ['short_name', 'gender', 'first_letter', 'plural_name'],
+            self::ROOMS => ['loc_prep', 'name'],
+            self::PLACE => ['loc_prep', 'name'],
+            'target_place' => ['loc_prep', 'name'],
+            self::CHARACTER => ['name'],
+            self::TARGET_CHARACTER => ['name'],
+            self::END_CAUSE => ['name'],
+            self::STATUS => ['name'],
+            self::DISEASE => ['name'],
+            self::HUNTER => ['name'],
+            self::ACTION => ['name'],
+            self::PROJECT => ['name'],
+            self::SKILL => ['name'],
+            LogDeclinationEnum::BALLS_COPROLALIA => ['balls_coprolalia'],
+            LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
+            LogDeclinationEnum::ADJECTIVE_COPROLALIA => [
+                'adjective_male_single_coprolalia',
+                'adjective_male_plural_coprolalia',
+                'adjective_female_single_coprolalia',
+                'adjective_female_plural_coprolalia',
+            ],
+            LogDeclinationEnum::ANIMAL_COPROLALIA => [
+                'animal_coprolalia',
+                'animal_plural_coprolalia',
+                'preposition_coprolalia',
+            ],
+            LogDeclinationEnum::WORD_COPROLALIA => [
+                'word_coprolalia',
+                'word_plural_coprolalia',
+            ],
+        ],
     ];
 
     public static function convertParameterKeyToTranslationKey(string $key): string
@@ -148,5 +181,14 @@ abstract class LanguageEnum
             self::TARGET_DRONE => self::TARGET_EQUIPMENT,
             default => $key,
         };
+    }
+
+    public static function getAll(): array
+    {
+        return [
+            self::FRENCH,
+            self::ENGLISH,
+            self::SPANISH,
+        ];
     }
 }

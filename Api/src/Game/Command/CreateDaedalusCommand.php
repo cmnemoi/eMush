@@ -55,18 +55,13 @@ class CreateDaedalusCommand extends Command
             return Command::SUCCESS;
         }
 
-        if ($this->service->existAvailableDaedalusInLanguage(LanguageEnum::FRENCH)) {
-            $io->info('A French Daedalus is already available.');
-        } else {
-            $this->createFrenchDaedalus();
-            $io->success('French Daedalus created.');
-        }
-
-        if ($this->service->existAvailableDaedalusInLanguage(LanguageEnum::ENGLISH)) {
-            $io->success('An English Daedalus is already available.');
-        } else {
-            $this->createEnglishDaedalus();
-            $io->success('English Daedalus created.');
+        foreach (LanguageEnum::getAll() as $language) {
+            if ($this->service->existAvailableDaedalusInLanguage($language)) {
+                $io->info(\sprintf('A %s Daedalus is already available.', $language));
+            } else {
+                $this->createDaedalusForLanguage($language);
+                $io->success(\sprintf('%s Daedalus created.', $language));
+            }
         }
 
         return Command::SUCCESS;
@@ -81,19 +76,9 @@ class CreateDaedalusCommand extends Command
         $this->service->createDaedalus($config, $name, $language);
     }
 
-    private function createEnglishDaedalus(): void
+    private function createDaedalusForLanguage(string $language): void
     {
         $name = Uuid::v4()->toRfc4122();
-        $language = LanguageEnum::ENGLISH;
-        $config = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
-
-        $this->service->createDaedalus($config, $name, $language);
-    }
-
-    private function createFrenchDaedalus(): void
-    {
-        $name = Uuid::v4()->toRfc4122();
-        $language = LanguageEnum::FRENCH;
         $config = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
 
         $this->service->createDaedalus($config, $name, $language);

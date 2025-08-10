@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Game\Command;
 
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Enum\LanguageEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\CharacterConfigRepository;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Service\LoginService;
-use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,11 +29,17 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
     description: 'Fill a new Daedalus',
     hidden: false
 )]
-class FillDaedalusCommand extends Command
+final class FillDaedalusCommand extends Command
 {
+    private const int DEFAULT_MEMBERS_TO_BOARD = 16;
+    private const int MIN_MEMBERS_TO_BOARD = 1;
+    private const int MAX_MEMBERS_TO_BOARD = 16;
     private const string OPTION_NUMBER = 'number';
-    private const string OPTION_DAEDALUS_ID = 'daedalus_id';
-    private const string OPTION_DAEDALUS_LOCALE = 'daedalus_locale';
+    private const string OPTION_DAEDALUS_ID = 'daedalus-id';
+    private const string OPTION_DAEDALUS_LOCALE = 'daedalus-locale';
+    private const string DEFAULT_PASSWORD_HEX = '31323334353637383931';
+    private const string OAUTH_SCOPE = 'base';
+    private const string STATE_REDIRECT = 'http://localhost:8081/token';
     private HttpClientInterface $httpClient;
     private CharacterConfigRepository $characterConfigRepository;
     private DaedalusRepository $daedalusRepository;
@@ -62,21 +70,11 @@ class FillDaedalusCommand extends Command
         $this->oAuthClientId = $_ENV['OAUTH_CLIENT_ID'];
     }
 
-    public function isntAvailable(string $name, Daedalus $daedalus): bool
-    {
-        $availableCharacters = [];
-        foreach ($this->daedalusService->findAvailableCharacterForDaedalus($daedalus) as $character) {
-            $availableCharacters[] = $character->getName();
-        }
-
-        return !\in_array($name, $availableCharacters, true);
-    }
-
     protected function configure(): void
     {
-        $this->addOption($this::OPTION_NUMBER, null, InputOption::VALUE_OPTIONAL, 'Number of member to board ?', 16);
-        $this->addOption($this::OPTION_DAEDALUS_ID, null, InputOption::VALUE_OPTIONAL, 'Daedalus id ?', null);
-        $this->addOption($this::OPTION_DAEDALUS_LOCALE, null, InputOption::VALUE_REQUIRED, 'Daedalus locale ?', 'fr');
+        $this->addOption(self::OPTION_NUMBER, null, InputOption::VALUE_OPTIONAL, 'Number of members to board', self::DEFAULT_MEMBERS_TO_BOARD);
+        $this->addOption(self::OPTION_DAEDALUS_ID, null, InputOption::VALUE_OPTIONAL, 'Daedalus id', null);
+        $this->addOption(self::OPTION_DAEDALUS_LOCALE, null, InputOption::VALUE_REQUIRED, 'Daedalus locale', 'fr');
     }
 
     /**
@@ -85,118 +83,242 @@ class FillDaedalusCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $numberOfMemberToBoard = $input->getOption($this::OPTION_NUMBER);
-        if ($numberOfMemberToBoard < 1 || $numberOfMemberToBoard > 16) {
-            $io->error($this::OPTION_NUMBER . ' should be between 1 and 16');
+        $io->title('Filling Daedalus...');
 
+        $membersToBoard = $this->getMembersToBoard($input, $io);
+        if ($membersToBoard === null) {
             return Command::INVALID;
         }
 
-        $locale = $input->getOption($this::OPTION_DAEDALUS_LOCALE);
-        $daedalusId = $input->getOption($this::OPTION_DAEDALUS_ID);
-
-        $io->info("{$numberOfMemberToBoard} character will be added to daedalus {$daedalusId}");
-
-        $io->title('Filling Daedalus...');
-
-        /** @var CharacterConfig[] $allCharacter */
-        $allCharacter = $this->characterConfigRepository->findAll();
-
-        $count = 0;
-
-        if ($daedalusId === null) {
-            if ($locale !== 'fr' && $locale !== 'en') {
-                $io->error("locale must be fr or en. Found : {$locale}");
-
-                return Command::FAILURE;
-            }
-            $daedalus = $this->daedalusService->findAvailableDaedalusInLanguage($locale);
-            if ($daedalus === null) {
-                $io->error("Can't find any available daedalus for {$locale}.");
-
-                return Command::FAILURE;
-            }
-            $daedalusId = $daedalus->getId();
-        } else {
-            $daedalus = $this->daedalusRepository->find($daedalusId);
-            if ($daedalus === null) {
-                $io->error("Can't fin daedalus with id {$daedalusId} !");
-
-                return Command::FAILURE;
-            }
+        $daedalus = $this->getDaedalusToFill($input, $io);
+        if ($daedalus === null) {
+            return Command::FAILURE;
         }
-        foreach ($allCharacter as $character) {
-            $name = $character->getName();
 
-            $io->info($name . ' on boarding ...');
+        /** @var CharacterConfig[] $characterConfigs */
+        $characterConfigs = $this->characterConfigRepository->findAll();
+        $boardedCount = $this->boardCharacters($characterConfigs, $daedalus, $membersToBoard, $io);
+        $io->info("{$boardedCount} member(s) joined the Daedalus.");
 
-            if ($this->isntAvailable($name, $daedalus)) {
-                $io->info("{$name} not available, skipping ...");
+        return Command::SUCCESS;
+    }
 
-                continue;
-            }
+    private function isCharacterAvailable(string $characterName, Daedalus $daedalus): bool
+    {
+        $availableCharacterNames = [];
+        foreach ($this->daedalusService->findAvailableCharacterForDaedalus($daedalus) as $characterConfig) {
+            $availableCharacterNames[] = $characterConfig->getName();
+        }
 
-            try {
-                $tryToLoginRequest = $this->httpClient->request(
-                    'PUT',
-                    "{$this->identityServerUri}/api/v1/auth/self",
-                    ['json' => ['login' => $name, 'password' => '31323334353637383931']]
-                );
-                $result = [];
-                parse_str($tryToLoginRequest->getHeaders()['set-cookie'][0], $result);
+        return \in_array($characterName, $availableCharacterNames, true);
+    }
 
-                /** @var string $allCharacter */
-                $sid = explode(';', $result['sid'])[0];
+    private function isInvalidMembersCount(int $count): bool
+    {
+        return $count < self::MIN_MEMBERS_TO_BOARD || $count > self::MAX_MEMBERS_TO_BOARD;
+    }
 
-                $client = HttpClient::create([
-                    'headers' => [
-                        'Cookie' => new Cookie('sid', $sid),
-                    ],
-                ]);
-                $getTokenETResponse = $client->request(
-                    'GET',
-                    "{$this->identityServerUri}/oauth/authorize?access_type=offline&response_type=code&redirect_uri={$this->oAuthCallback}&client_id={$this->oAuthClientId}&scope=base&state=http://localhost:8081/token",
-                    ['max_redirects' => 0]
-                );
-                $location = $getTokenETResponse->getHeaders(false)['location'];
-                $queryResult = [];
+    private function resolveDaedalus(?string $daedalusId, string $locale): Daedalus
+    {
+        if ($daedalusId === null) {
+            return $this->resolveDaedalusByLocale($locale);
+        }
 
-                $url = parse_url($location[0]);
-                if ($url === null) {
-                    $io->warning("{$name} cannot join Daedalus : Cannot retrieve url or redirect from ET response for authorization token. Skipping ...");
+        return $this->resolveDaedalusById($daedalusId);
+    }
 
-                    continue;
-                }
-                $query = $url['query'] ?? null;
-                if ($query === null) {
-                    $io->warning("{$name} cannot join Daedalus. : Cannot retrieve query part from url from ET response for authorization token. Skipping ...");
+    private function boardCharacters(array $characterConfigs, Daedalus $daedalus, int $limit, SymfonyStyle $io): int
+    {
+        $boardedCount = 0;
 
-                    continue;
-                }
-                parse_str($query, $queryResult);
-
-                $tokenET = $queryResult['code'];
-                $fistTokenApi = $this->loginService->verifyCode($tokenET);
-
-                $user = $this->loginService->login($fistTokenApi);
-
-                $player = $this->playerService->createPlayer($daedalus, $user, $name);
-                ++$count;
-                $io->info($name . ' joined Daedalus ' . $daedalusId . '!');
-            } catch (\Exception $e) {
-                $trace = $e->getTraceAsString();
-                $message = $e->getMessage();
-                $io->warning("{$name} cannot join Daedalus. Error while joining daedalus : {$message} -> {$trace}");
-
-                continue;
-            }
-
-            if ($count === $numberOfMemberToBoard) {
+        foreach ($characterConfigs as $characterConfig) {
+            $boardedCount += $this->handleCharacterBoarding($characterConfig, $daedalus, $io);
+            if ($this->shouldStopBoarding($boardedCount, $limit)) {
                 break;
             }
         }
-        $io->info("{$count} member joined the Daedalus.");
 
-        return Command::SUCCESS;
+        return $boardedCount;
+    }
+
+    private function onboardCharacter(string $characterName, Daedalus $daedalus, SymfonyStyle $io): void
+    {
+        $sessionId = $this->authenticateAndGetSessionId($characterName);
+        $authorizationCode = $this->fetchAuthorizationCode($sessionId);
+        $firstToken = $this->loginService->verifyCode($authorizationCode);
+        $user = $this->loginService->login($firstToken);
+        $this->playerService->createPlayer($daedalus, $user, $characterName);
+    }
+
+    private function authenticateAndGetSessionId(string $characterName): string
+    {
+        $response = $this->httpClient->request(
+            'PUT',
+            "{$this->identityServerUri}/api/v1/auth/self",
+            ['json' => ['login' => $characterName, 'password' => self::DEFAULT_PASSWORD_HEX]]
+        );
+
+        $headers = $response->getHeaders();
+        if (!isset($headers['set-cookie'][0])) {
+            throw new \RuntimeException('Missing set-cookie header on authentication response');
+        }
+
+        return $this->extractSessionIdFromSetCookie($headers['set-cookie'][0]);
+    }
+
+    private function extractSessionIdFromSetCookie(string $setCookieHeader): string
+    {
+        $parsed = [];
+        parse_str($setCookieHeader, $parsed);
+        if (!isset($parsed['sid'])) {
+            throw new \RuntimeException('No session id present in authentication cookie');
+        }
+
+        $sessionParts = explode(';', $parsed['sid']);
+        $sessionId = $sessionParts[0] ?? '';
+        if ($sessionId === '') {
+            throw new \RuntimeException('Empty session id extracted from authentication cookie');
+        }
+
+        return $sessionId;
+    }
+
+    private function fetchAuthorizationCode(string $sessionId): string
+    {
+        $client = HttpClient::create([
+            'headers' => [
+                'Cookie' => 'sid=' . $sessionId,
+            ],
+        ]);
+
+        $response = $client->request(
+            'GET',
+            $this->buildAuthorizeUrl(),
+            ['max_redirects' => 0]
+        );
+
+        $location = $this->getFirstRedirectLocation($response);
+
+        return $this->extractAuthorizationCodeFromRedirect($location);
+    }
+
+    private function buildAuthorizeUrl(): string
+    {
+        $params = http_build_query([
+            'access_type' => 'offline',
+            'response_type' => 'code',
+            'redirect_uri' => $this->oAuthCallback,
+            'client_id' => $this->oAuthClientId,
+            'scope' => self::OAUTH_SCOPE,
+            'state' => self::STATE_REDIRECT,
+        ]);
+
+        return $this->identityServerUri . '/oauth/authorize?' . $params;
+    }
+
+    private function getMembersToBoard(InputInterface $input, SymfonyStyle $io): ?int
+    {
+        $membersToBoard = (int) $input->getOption(self::OPTION_NUMBER);
+        if ($this->isInvalidMembersCount($membersToBoard)) {
+            $io->error(self::OPTION_NUMBER . ' should be between ' . self::MIN_MEMBERS_TO_BOARD . ' and ' . self::MAX_MEMBERS_TO_BOARD);
+
+            return null;
+        }
+
+        return $membersToBoard;
+    }
+
+    private function getDaedalusToFill(InputInterface $input, SymfonyStyle $io): ?Daedalus
+    {
+        $locale = (string) $input->getOption(self::OPTION_DAEDALUS_LOCALE);
+        $daedalusId = $input->getOption(self::OPTION_DAEDALUS_ID);
+        $io->info(((int) $input->getOption(self::OPTION_NUMBER)) . " characters will be added to daedalus {$daedalusId}");
+
+        try {
+            return $this->resolveDaedalus($daedalusId, $locale);
+        } catch (\Throwable $throwable) {
+            $io->error($throwable->getMessage());
+
+            return null;
+        }
+    }
+
+    private function resolveDaedalusByLocale(string $locale): Daedalus
+    {
+        if (!\in_array($locale, LanguageEnum::getAll(), true)) {
+            throw new \InvalidArgumentException('Locale must be one of: ' . implode(', ', LanguageEnum::getAll()) . ". Found: {$locale}");
+        }
+
+        $daedalus = $this->daedalusService->findAvailableDaedalusInLanguage($locale);
+        if ($daedalus === null) {
+            throw new \RuntimeException("Can't find any available daedalus for {$locale}.");
+        }
+
+        return $daedalus;
+    }
+
+    private function resolveDaedalusById(string $daedalusId): Daedalus
+    {
+        $daedalus = $this->daedalusRepository->find($daedalusId);
+        if ($daedalus === null) {
+            throw new \RuntimeException("Can't find daedalus with id {$daedalusId}.");
+        }
+
+        return $daedalus;
+    }
+
+    private function handleCharacterBoarding(CharacterConfig $characterConfig, Daedalus $daedalus, SymfonyStyle $io): int
+    {
+        $characterName = $characterConfig->getName();
+        $io->info($characterName . ' onboarding...');
+
+        if (!$this->isCharacterAvailable($characterName, $daedalus)) {
+            $io->info("{$characterName} not available, skipping...");
+
+            return 0;
+        }
+
+        try {
+            $this->onboardCharacter($characterName, $daedalus, $io);
+            $io->info($characterName . ' joined Daedalus ' . $daedalus->getId() . '!');
+
+            return 1;
+        } catch (\Throwable $throwable) {
+            $io->warning("{$characterName} cannot join Daedalus. Error: {$throwable->getMessage()}");
+
+            return 0;
+        }
+    }
+
+    private function shouldStopBoarding(int $boardedCount, int $limit): bool
+    {
+        return $boardedCount >= $limit;
+    }
+
+    private function getFirstRedirectLocation($response): string
+    {
+        $locations = $response->getHeaders(false)['location'] ?? null;
+        if ($locations === null || !isset($locations[0])) {
+            throw new \RuntimeException('Missing redirect location while fetching authorization code');
+        }
+
+        return $locations[0];
+    }
+
+    private function extractAuthorizationCodeFromRedirect(string $location): string
+    {
+        $url = parse_url($location);
+        $query = $url['query'] ?? null;
+        if ($query === null) {
+            throw new \RuntimeException('Missing query string in authorization redirect');
+        }
+
+        parse_str($query, $queryResult);
+        $authorizationCode = $queryResult['code'] ?? null;
+        if (!\is_string($authorizationCode) || $authorizationCode === '') {
+            throw new \RuntimeException('Missing authorization code in authorization redirect');
+        }
+
+        return $authorizationCode;
     }
 }

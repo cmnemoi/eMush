@@ -17,5 +17,10 @@ class LocalizationConfigData
             'timeZone' => 'UTC',
             'language' => LanguageEnum::ENGLISH,
         ],
+        [
+            'name' => LanguageEnum::SPANISH,
+            'timeZone' => 'Europe/Madrid',
+            'language' => LanguageEnum::SPANISH,
+        ],
     ];
 }

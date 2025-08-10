@@ -16,6 +16,14 @@
         <div class="content" v-if="localeIsEnglish()">
             <p v-html="formatNewsContent(news.englishContent)" />
         </div>
+        <div class="title" v-if="localeIsSpanish()" @click="$emit('click')">
+            <img class="news-cover" :src="getImgUrl('emush-cover.png')">
+            <h2>{{ news.spanishTitle }}</h2>
+            <p><img class="flag" :src="getImgUrl('lang_es.png')" alt="🇪🇸"> {{ $t('newsPage.publishedAt') }} {{ formatDate(news.publicationDate) }}</p>
+        </div>
+        <div class="content" v-if="localeIsSpanish()">
+            <p v-html="formatNewsContent(news.spanishContent)" />
+        </div>
     </article>
 </template>
 
@@ -42,6 +50,9 @@ export default defineComponent ({
         },
         localeIsEnglish() {
             return this.$i18n.locale.split('-')[0] === GameLocales.EN;
+        },
+        localeIsSpanish() {
+            return this.$i18n.locale.split('-')[0] === GameLocales.ES;
         },
         formatDate(date: Date | null) {
             return date ? date.toLocaleDateString(this.$i18n.locale) : '';

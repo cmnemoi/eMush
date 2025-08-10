@@ -9,6 +9,7 @@ import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { Player } from "@/entities/Player";
 import { ModerationSanction } from "@/entities/ModerationSanction";
 import { ContactablePlayer } from "@/entities/ContactablePlayer";
+import { ModerationChannel, ChannelScope, ModerationChannelParticipant } from "@/entities/ModerationChannel";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -17,8 +18,6 @@ const MESSAGES_ENDPOINT = urlJoin(API_URL, "messages");
 const MODERATION_ENDPOINT = urlJoin(API_URL, "moderation");
 const PLAYER_INFO_ENDPOINT = urlJoin(API_URL, "player_infos");
 const ROOM_LOG_ENDPOINT = urlJoin(API_URL, "room_logs");
-
-type ChannelScope = "public" | "mush" | "private";
 
 function toArray(data: any): any[] {
     return Array.isArray(data) ? data : Object.values(data);
@@ -90,22 +89,39 @@ const ModerationService = {
 
         return response;
     },
-    getPlayerDaedalusChannelByScope: async(player: ModerationViewPlayer, scope: ChannelScope): Promise<Channel> => {
+    getPlayerDaedalusChannelByScope: async(player: ModerationViewPlayer, scope: ChannelScope): Promise<ModerationChannel> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?daedalusInfo.id=${player.daedalusId}&scope=${scope}`).then((response) => {
             return response.data['hydra:member'].map((channelData: any) => {
-                return (new Channel()).load(channelData);
+                return {
+                    id: channelData.id,
+                    scope: channelData.scope,
+                    name: channelData.name,
+                    participants: channelData.participants,
+                    allTimeParticipants: channelData.allTimeParticipants
+                };
             });
         });
         await store.dispatch('gameConfig/setLoading', { loading: false });
 
-        return channels[0];
+        return channels[0] as ModerationChannel;
     },
-    getPlayerPrivateChannels: async(player: ModerationViewPlayer): Promise<Channel[]> => {
+    getPlayerPrivateChannels: async(player: ModerationViewPlayer): Promise<ModerationChannel[]> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?allTimeParticipants.participant.id=${player.id}&scope=private`).then((response) => {
+        // @TODO: find a way to filter by allTimeParticipants from backend... But from my experience, it's not possible with API Platform v2.7.
+        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?scope=private`).then((response) => {
             return response.data['hydra:member'].map((channelData: any) => {
-                return (new Channel()).load(channelData);
+                return {
+                    id: channelData.id,
+                    scope: channelData.scope,
+                    name: channelData.name,
+                    participants: channelData.participants,
+                    allTimeParticipants: channelData.allTimeParticipants
+                } as ModerationChannel;
+            }).filter((channel: ModerationChannel) => {
+                return channel.allTimeParticipants.some((participant: ModerationChannelParticipant) => {
+                    return participant.id === player.id;
+                });
             });
         });
 
@@ -129,14 +145,22 @@ const ModerationService = {
 
         return response;
     },
-    getLogs: async(day: integer | null, cycle: integer | null, playerId: number | null, content?: string, place?: string): Promise<any> => {
+    getLogs: async(
+        day: integer | null,
+        cycle: integer | null,
+        playerId: number | null,
+        content?: string,
+        place?: string,
+        daedalusId?: string
+    ): Promise<any> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const queryParameters = `pagination=false`
             + (playerId ? `&playerInfo.id=${playerId}` : '')
             + (day ? `&day=${day}` : '')
             + (cycle ? `&cycle=${cycle}` : '')
             + (content ? `&log=${content}` : '')
-            + (place ? `&place=${place}` : ''
+            + (place ? `&place=${place}` : '')
+            + (daedalusId ? `&daedalusInfo.id=${daedalusId}` : ''
             );
         const response = await ApiService.get(`${ROOM_LOG_ENDPOINT}?${queryParameters}`);
 

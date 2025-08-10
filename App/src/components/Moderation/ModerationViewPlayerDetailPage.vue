@@ -311,7 +311,6 @@ import { ModerationViewPlayer } from "@/entities/ModerationViewPlayer";
 import { defineComponent } from "vue";
 import ModerationService from "@/services/moderation.service";
 import { Message as MessageEntity } from "@/entities/Message";
-import { Channel } from "@/entities/Channel";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
@@ -320,9 +319,9 @@ import urlJoin from "url-join";
 import SanctionDetailPage from "@/components/Moderation/SanctionDetailPage.vue";
 import DropList from "@/components/Utils/DropList.vue";
 import { ModerationSanction } from "@/entities/ModerationSanction";
-import { useRouter } from "vue-router";
 import { ClosedPlayer } from "@/entities/ClosedPlayer";
 import router from "@/router";
+import { ModerationChannel } from "@/entities/ModerationChannel";
 
 interface PrivateChannel {
     id: number,
@@ -516,7 +515,7 @@ export default defineComponent({
         },
         async loadMushChannelMessages(player: ModerationViewPlayer) {
             this.mushChannelMessages = [];
-            const mushChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "mush").then((channel: Channel) => {
+            const mushChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "mush").then((channel: ModerationChannel) => {
                 return channel;
             }).catch((error) => {
                 console.error(error);
@@ -534,7 +533,7 @@ export default defineComponent({
         },
         async loadPrivateChannelsMessages(player: ModerationViewPlayer) {
             this.privateChannels = [];
-            await ModerationService.getPlayerPrivateChannels(player).then((channels: Channel[]) => {
+            await ModerationService.getPlayerPrivateChannels(player).then((channels: ModerationChannel[]) => {
                 channels.forEach((channel) => {
                     ModerationService.getChannelMessages(channel, this.filters.privateChannel)
                         .then((response) => {
@@ -550,7 +549,7 @@ export default defineComponent({
         },
         async loadPublicChannelMessages(player: ModerationViewPlayer) {
             this.publicChannelMessages = [];
-            const publicChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "public").then((channel: Channel) => {
+            const publicChannel = await ModerationService.getPlayerDaedalusChannelByScope(player, "public").then((channel: ModerationChannel) => {
                 return channel;
             }).catch((error) => {
                 console.error(error);

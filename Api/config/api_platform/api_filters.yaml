@@ -149,6 +149,7 @@ services:
         parent: 'api_platform.doctrine.orm.search_filter'
         arguments: [{ log: 'ipartial',
                       playerInfo.id: 'exact',
+                      daedalusInfo.id: 'exact',
                       day: 'exact',
                       cycle: 'exact',
                       visibility: 'exact',

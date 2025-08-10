@@ -255,7 +255,14 @@ export default defineComponent({
         },
 
         async loadLogs() {
-            await ModerationService.getLogs(this.filters.logs.day, this.filters.logs.cycle, null, this.filters.logs.content, this.filters.logs.room)
+            await ModerationService.getLogs(
+                this.filters.logs.day,
+                this.filters.logs.cycle,
+                null,
+                this.filters.logs.content,
+                this.filters.logs.room,
+                this.$route.params.daedalusId as string
+            )
                 .then((response) => {
                     this.logs = response.data;
                 })

@@ -60,7 +60,7 @@
                 male {un **{target_equipment}**}
                 female {une **{target_equipment}**}
                 other {un **{target_equipment}**}
-                }</target>
+                }.</target>
       </segment>
     </unit>
     <unit id="take_shower">
@@ -326,7 +326,7 @@
                 male {un **{target_equipment}**}
                 female {une **{target_equipment}**}
                 other {un **{target_equipment}**}
-                }</target>
+                }.</target>
       </segment>
     </unit>
     <unit id="mass_ggeddon">

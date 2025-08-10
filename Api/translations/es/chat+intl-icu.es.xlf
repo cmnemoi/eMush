@@ -19,7 +19,7 @@ other {Tus objetivos como :male_admin: humano}
       </segment>
       <segment id="teamObjectives.elements" state="translated">
         <source>tips.teamObjectives.elements</source>
-        <target>{team, slect,
+        <target>{team, select,
 mush {**Elimina a todos los humanos** en cooperación con otros Mush.//**Contamina a los humanos** convirtiéndolos en Mush.//**Manipula a los humanos** para que hagan cosas que los ponga en desventaja.//**Sabotea acciones humanas** en el momento adecuado, para prevenir la reparación del PILGRED y su retorno a Sol.}
 other {**Elimina a los Mush abordo**.//**Repara el PILGRED** para volver a Sol.//**Coopera con otros humanos** para sobrevivir usando tus habilidades. 👇}}</target>
       </segment>
@@ -151,15 +151,15 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
       </segment>
       <segment id="message_date.more_minute" state="translated">
         <source>message_date.more_minute</source>
-        <target>{quantity}minutos</target>
+        <target>{quantity}min</target>
       </segment>
       <segment id="message_date.more_hour" state="translated">
         <source>message_date.more_hour</source>
-        <target>~{quantity}hora(s)</target>
+        <target>~{quantity}h</target>
       </segment>
       <segment id="message_date.more_day" state="translated">
         <source>message_date.more_day</source>
-        <target>~{quantity}día(s)</target>
+        <target>~{quantity}d</target>
       </segment>
     </unit>
   </file>

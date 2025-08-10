@@ -1024,7 +1024,7 @@
       </segment>
     </unit>
     <unit id="confident_actions">
-      <segment id="confident_actions" state="translated">
+      <segment id="confident_actions" state="final">
         <source>confident_actions</source>
         <target>{quantity, select,
           0 {{character_gender, select, 
@@ -1127,13 +1127,12 @@
       </segment>
     </unit>
     <unit id="drop_success">
-      <segment id="drop_success" state="translated">
+      <segment id="drop_success" state="final">
         <source>drop_success</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a lâché un **{target_equipment}**.}
                         female {**{character}** a lâché une **{target_equipment}**.}
-                        name {**{character}** a lâché **{target_equipment}**.}
-                        other {**{character}** a lâché un **{target_equipment}**.}
+                        other {invalid gender input}
                 }</target>
       </segment>
     </unit>

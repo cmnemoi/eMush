@@ -30,7 +30,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>andie.description</source>
-        <target>Lame-suelas de la Federación, al servicio del Daedalus.</target>
+        <target>Lamesuelas de la Federación</target>
       </segment>
       <segment id="employment" state="translated">
         <source>andie.employment</source>
@@ -127,7 +127,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>chun.description</source>
-        <target>Última esperanza para la humanidad.</target>
+        <target>Última esperanza de la humanidad</target>
       </segment>
       <segment id="employment" state="translated">
         <source>chun.employment</source>
@@ -516,9 +516,9 @@
 - 3153: Ian moderniza el proyecto del jardín hidropónico del Daedalus. Gracias a la agrupación de 12 especies de plantas, consigue asegurar la renovación constante del oxígeno y el alimento de la embarcación.
 - 3170: Cuando Ian se despierta, la alarma de incendio indica daños en la sala del jardín. Cuando llega ya es demasiado tarde: sólo han sobrevivido tres plantas, lo que condena a la tripulación a una muerte segura.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>ian.tips</source>
-        <target>ian.tips</target>
+        <target>**Riega** las plantas sedientas y secas, y **trata** las plantas enfermas.//**Planta frutas** en hidroponía.//**Participa en investigaciones** en el Laboratorio para ralentizar a los hongos gracias a tu habilidad de Biólogo.</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>ian.tutorial</source>
@@ -550,17 +550,26 @@
         <source>jin_su.employment</source>
         <target>Explorador de lo desconocido</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>jin_su.abstract</source>
-        <target>jin_su.abstract</target>
+        <target>Jin Su comenzó a explorar a temprana edad, yendo en misiones de investigación en la Estrella Barnard. Rápidamente ascendió al rango de Comandante y se le encargó la dirección de importantes misiones en Ross 154 y Epsilon Indi. El descubrimiento de múltiples depósitos de Boxylium en Tau-ceti lo convirtió instantáneamente en una celebridad interplanetaria. En 3146, la Federación lo nombró Comandante Ejecutivo del Proyecto Magellan. Tras la invasión Mush de Sol, Jin Su elaboró los planos del Daedalus junto con Lai Kuan Ti y reunió una tripulación de élite para asegurar la supervivencia de la raza humana en otra galaxia.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>jin_su.biography</source>
-        <target>jin_su.biography</target>
+        <target>- 3070: Nace en la Tierra.
+- 3095: Jin-Su comienza sus clases de pilotaje en la ***Facultad de Ciencias Económicas y Espaciales*** en Ganymede. Rápidamente se convirtió en el mejor piloto de caza de su clase, lo que le permitió conseguir un puesto de analista en ***la estrella Barnard***.
+- 3097: Mientras sobrevolaba Barnard, una erupción impactó su nave de patrulla. El equipo perdió contacto con Jin-Su. La prensa terrestre cubrió la búsqueda de la caja negra de la nave, pero quedaron muy pocos rastros. Jin-Su restableció contacto con la estación 5 días después, justo cuando se comunicó a su familia la noticia de su fallecimiento. La prensa relató la increíble aventura de este joven piloto coreano, que logró sobrevivir 126 días orbitando una enana roja. Kim Jin-Su se convirtió en una celebridad instantánea.
+- 3103: Jin-Su es enviado en una misión de exploración al sistema ***Ross 154***. Es el primer hombre en pisar Merlín, que más tarde se convertiría en el lugar vacacional más popular de la galaxia.
+- 3116: El explorador ***GL Maubrick descubre su talento*** y decide incluirlo en la tripulación del Gonzak, en el primer vuelo tripulado con destino a Epsilon Indi. Jin-Su demostró ser un hombre clave en tiempos de gran crisis durante las expediciones. Cabe destacar que salvó al Capitán Maubrick de una muerte segura durante un vuelo sobre el satélite Thorum.
+- 3127: ***El Comandante Kim Jin-Su lideró la primera expedición a Tau-Ceti***. Se registraron más de 28 cuerpos celestes importantes, 22 de los cuales poseen capas de Boxylium bajo la superficie del planeta. Este fue un descubrimiento crucial no solo para la Federación, sino también para la humanidad. La humanidad ahora tiene los recursos suficientes para explorar la Vía Láctea en su totalidad, así como potencialmente otras galaxias.
+- 3146: ***GL Maubrick asume la presidencia de la Federación***. Inmediatamente nombra a Jin-Su consejero para el caso Escasez de Boxylium. Jin-Su lleva a cabo su investigación y contacta con la tripulación del ***Proyecto Magellan en Xyloph-17***. Allí conoce a Lai Kuan-Ti, quien le presenta la tecnología PILGRED de su colega Raluca Tomescu. Este es un descubrimiento crucial para la federación, ya que les permitirá acceder a más depósitos. ***Jin-Su convence a Maubrick para que financie la producción del Arca y lidere el proyecto***.
+- 3152: Kuan-Ti entrega a Jin-Su un historial médico que prueba que el ***Presidente Maubrick está infectado con Mush***. Jin Su decide acelerar la construcción y la partida del Arca para salvar al mayor número posible de humanos de la invasión de Mush. Tras consultar con Raluca, Jin-Su recibe la confirmación de que la preparación adecuada del reactor PILGRED no puede reducirse a menos de 12 años. Pide entonces a Kuan-Ti y Raluca que revisaran su plan con una nave más pequeña en mente, capaz de transportar una tripulación menor de unas veinte personas.
+- 3153: Tras la ***desaparición del sargento Derek Hogan***, Jin-Su logró disuadir a la SDF de iniciar una investigación. Se ganó la desconfianza de la administración, que deseaba adelantar la fecha del informe semestral sobre el informe Magellan. Jin-Su, quien no podía arriesgarse a una infección de Mush, se negó, solo para ser despedido.
+- 3154: Su sustituto, el ***Capitán Baranov, fue asesinado*** a su llegada a Xyloph-17. La Federación planeaba un contraataque inmediato, pero Jin-Su, con la ayuda de un soldado rebelde de la SDF, logra evacuar a 16 miembros de la tripulación. El esperado arranque del reactor PILGRED fue un éxito, y el Daedalus fue propulsado hacia la Nebulosa Magellan a más de mil millones de metros por segundo.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>jin_su.tips</source>
-        <target>jin_su.tips</target>
+        <target>**Elimina cazadores** con las naves de patrulla ubicadas en las bahías para proteger la nave.//**Recupera chatarra** de los cazadores eliminádolos con el Pasiphae (ubicado en la bahía Alpha 2) para reparar la armadura de la nave.//**Orienta y viaja con la nave** usando la terminal de comando en el puente para explorar planetas.//**Da discursos motivadores** a compañeros de equipo desmoralizados para levantarles la moral.</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>jin_su.tutorial</source>
@@ -592,17 +601,25 @@
         <source>kuan_ti.employment</source>
         <target>Artífice del Daedalus</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>kuan_ti.abstract</source>
-        <target>kuan_ti.abstract</target>
+        <target>Kuan Ti es uno de los dos diseñadores del Dédalo. No prestó atención alguna a la existencia de Mush en Tau-Ceti hasta que Eleesha William le informó del avanzado estado de propagación del micelio en el sistema solar. Kuan Ti, Raluca y Jin Su deciden adelantar de ocho años el lanzamiento del programa Magellan antes de que la Federación pueda cancelarlo.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>kuan_ti.biography</source>
-        <target>kuan_ti.biography</target>
+        <target>- 3117: Nace en la Tierra.
+- 3129: El joven Kuan-Ti devora obras de ciencia ficción, tanto clásicas como contemporáneas, y sueña con convertirse en el capitán de una gigantesca Arca Mundial que transportará a la raza humana por el espacio.
+- 3134: Tras terminar la secundaria, Kuan-Ti estudia ***termodinámica*** y ***astrofísica*** en la facultad de ciencias económicas y espaciales de Ganímedes. También realiza sus primeras maquetas de su ***Proyecto Gaia***.
+- 3137: Kuan-Ti gana un concurso privado organizado por el ***multimillonario Gioele Rinaldo***. El proyecto busca explorar la gran ***Nebulosa de Magellan***. A pesar de una evidente imposibilidad física (la nube se encuentra a 170.000 años luz de la Tierra), Kuan-Ti inspira a su público al presentar el Arca.
+- 3142: Primer contacto con la ***joven prodigio Raluca Tomescu***. A la tierna edad de 13 años, Raluca puede dibujar planos para un reactor capaz de traspasar los límites convencionales del espacio-tiempo. Si las pruebas son exitosas, Kuan-Ti podría propulsar su Arca hacia Magellan a una velocidad 700 veces superior a la de la luz. Esto les permitiría completar el viaje en unos ***razonables 250 años***.
+- 3146: El cambio de presidente es bastante positivo con respecto a la continuación del ***Proyecto Magellan***. ***GL Maubrick, el nuevo presidente***, asigna una cantidad considerable de créditos al proyecto, pero insiste en que lo dirija su amigo, el ***explorador Kim Jin-Su***. Estos créditos se utilizan principalmente para financiar la implementación de una nueva unidad computacional capaz de alimentar inteligentemente el reactor PILGRED.
+- 3152: Tras recibir la confirmación de que el gobierno se ha visto afectado por la infección Mush, Kuan-Ti sospecha que el proyecto Magellan está en peligro. Propone lanzar el Arca hacia ***Lalande21185*** al año siguiente para poder continuar las pruebas del reactor in situ. Kim Jin-Su y Raluca Tomescu se oponen a este fantástico proyecto y elaboran los planos para una nave de tamaño más razonable llamada Daedalus. Esta sera construida con con la ayuda de varios módulos del Magellan.
+- 3153: La tristeza y la desconfianza se apoderan del equipo gradualmente a medida que se difunden las malas noticias sobre la invasión Mush. Las pruebas del ***Profesor Carlsson*** no tranquilizan al equipo, que exige un medio para detectar la presencia de Mush antes del despegue de la nave. Kuan-Ti decide ***secuestrar a Finola Keegan***, quien, según su colega, el ***Profesor Ian Soulton***, es capaz de crear un escáner de Mush.
+- 3154: La partida del Dédalo debe precipitarse, ya que las tropas de las SDF toman el control de la plataforma orbital. El profesor Keegan, que aún se encuentra en criosueño, es admitido a bordo junto con los otros 14 miembros de la tripulación.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>kuan_ti.tips</source>
-        <target>kuan_ti.tips</target>
+        <target>**Participa en proyectos NERON** usando el núcleo  NERON en el Nexus para mejorar la nave.//**Participa en reparaciones del PILGRED** en la Sala de máquinas para regresar a Sol.//**Repara equipo vital** de la nave.//**Da discursos motivadores** a compañeros desmoralizados para levantarles la moral.</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>kuan_ti.tutorial</source>
@@ -634,17 +651,24 @@
         <source>paola.employment</source>
         <target>Oficial primero de Comunicaciones</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>paola.abstract</source>
-        <target>paola.abstract</target>
+        <target>Hija del armador Gioele Rinaldo, Paola vive con la constante esperanza de emprender una aventura que revolucionará su vida. Para denunciar el sistema poscolonial de la Federación, funda una emisora de radio pirata en su campus con su novio Kivanç Terzi. En una ocasión, la rebelde interceptó accidentalmente comunicaciones inquietantes que le informaban de una inminente invasión Mush. Huyendo para salvar su vida, se encuentra con su padre, quien le permite abordar el Daedalus, abandonando al hombre de sus sueños en la Tierra.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>paola.biography</source>
-        <target>paola.biography</target>
+        <target>- 3131: Nace en la Tierra, en Italia.
+- 3146: Primera expedición fuera de la Tierra: ***A los 15 años, Paola huye con una tropa de mercenarios espaciales***. Conoce una comunidad alteruniversalista de neohippies en Marte IV, lo que aumenta su sensibilidad hacia la difícil situación de los mineros en Tau-Ceti. Su padre finalmente lleva a Paula de vuelta a la Tierra a finales de año.
+- 3148: Paola es enviada a Roma a la ***Universidad de San Lorenzo para estudiar biología estructural***. A pesar de su baja asistencia, obtiene buenos resultados. En esa época, Paola funda su primera emisora de radio pirata, donde denuncia las políticas expansionistas de la federación. La guerra en Sol y la reducción constante de los presupuestos educativos siendo dos de sus temas favoritos. Corta definitivamente todo vínculo con su padre, quien, como director de una empresa que utiliza prisioneros para la extracción de minerales, está directamente involucrado en las cambiantes políticas colonialistas del ***presidente GL Maubrick***.
+- 3149: Paola conoce a ***Kivanç Terzi, un estudiante turco*** que la ayuda a instalar sus antenas. Tras perder dos transmisores destrozados por la policía local, ambos unen sus conocimientos para idear un revolucionario método de comunicación olfativa. Proyectando feromonas sintéticas a corta distancia, logran transmitir información sin emitir ondas detectables. Así logran reanudar sus transmisiones sin que la policía del campus pueda detenerlos.
+- 3150: Tras el ***levantamiento de Ross248***, el gobierno ignora las protestas y convierte a Mush en el chivo expiatorio de todas las injusticias. Paola, indignada por esta falsa incriminación, decide demostrar que los habitantes de Tau-Ceti y Ross248 no tuvieron nada que ver con los hongos-hombre sedientos de sangre descritos en los anuncios federales. Ese mismo año, Kivanç detecta una interferencia inusual en el canal de transmisión olfativa, pero no le presta atención.
+- 3151: Cuando la interferencia aumenta, Kivanç y Paola identifican intercambios en un idioma desconocido. Kinvanç intenta descifrar el idioma y logra descifrar los mensajes más recurrentes. Hablaban de la "purificación del sistema Solar", "la transferencia de sujetos violentos" e incluso "el banco de esporas". Finalmente, es arrestado al mes siguiente durante una inspección antifúngica realizada por la FDS.
+- 3152: Gioele contacta a su hija para advertirle del peligro inminente. ***La invasión de hongos descrita por el gobierno hace tres años es real***. Todo el sistema Solar está amenazado. Él le ofrece un lugar a bordo de su nave del Proyecto Ark-World, Daedalus, que debe salvar a la raza humana de una muerte segura. Paola acepta, pero primero quiere salvar a Kivanç, quien se encuentra retenido en un centro de detención en Francia. Le pide a su padre que lo traslade a Titán, a una de sus colonias mineras.
+- 3154: 48 horas antes de la operación para ayudar a Kivanç a escapar, un trágico accidente obliga a la tripulación del Daedalus a adelantar su partida. Paola debe decidir irse de Sol sin Kivanç, pero se compromete a volver a contactarlo sin importar la distancia que los separe.</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>paola.tips</source>
-        <target>paola.tips</target>
+        <target>**Responde a las solicitudes de contacto de las bases rebeldes de Sol, recupera la base de datos Xyloph y mejora el software de NERON** desde la terminal de comunicaciones en el Puente.//**Elimina cazadores** usando las torretas de la nave gracias a tu habilidad de Artillero.//**Participa en la investigación** en el Laboratorio para ralentizar a los Mushs gracias a tu habilidad de Biólogo.</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>paola.tutorial</source>
@@ -676,17 +700,28 @@
         <source>raluca.employment</source>
         <target>Física</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>raluca.abstract</source>
-        <target>raluca.abstract</target>
+        <target>Raluca, genio de la física, inventó el reactor de combustión reversible PILGRED cuando tan solo tenía 11 años. Junto con Lai Kuan Ti, diseñó casi todos los módulos de a bordo y es capaz de mejorarlos aún más. Autista, Raluca solo tolera la presencia de Schrödinger, su gato, al que logró subir a bordo a escondidas a pesar de las recomendaciones del médico. Sus disputas con NERON son legendarias.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>raluca.biography</source>
-        <target>raluca.biography</target>
+        <target>- 3129: Nació en los suburbios de Epífona, en Calisto.
+- 3140: Los excelentes resultados escolares de Raluca la impulsaron a la universidad y a estudiar ciencias económicas y espaciales en Ganímedes a los 11 años. Allí estudió dinámica de fluidos y luego mecánica cuántica. Tras una brillante tesis sobre la función de onda de los cypherils, Raluca fue a trabajar a los laboratorios de Cadaroc en Australia.
+- 3142: Conoce al inventor Lai Kuan-Ti, quien le mostró el proyecto del arca galáctica, Magellan, explicando como el trabajo de su tesis podría utilizarse para crear un motor revolucionario que les permitiría alcanzar nuevas galaxias. Raluca fingió indiferencia, pero la idea la inspiró. Sin embargo, aún tenía que terminar su trabajo en Cadaroc. - 3143: Raluca deja la Tierra para ***unirse a la tripulación del Magellan en la plataforma Xyloph-17***, en órbita alrededor de Júpiter. De inmediato se pone a trabajar en los planos del ***reactor PILGRED***, que la había atormentado durante meses.
+- 3145: La versión Alfa del reactor PILGRED es completada, pero el sistema de inyección de grafeno ha fallado. La supercalculadora del laboratorio es completamente incapaz de alterar y redirigir la difusión del magma en tiempo real.
+- 3146: Tras una importante inversión de la Federación, Lai Kuan-Ti equipa el laboratorio con una bahía de cálculo de 500 m³. Sus habilidades deberían permitir a Raluca iniciar un proceso de combustión experimental en su reactor en un año o dos.
+- 3148: ***Una explosión masiva destruye el prototipo alfa del reactor*** junto con parte del laboratorio. El incendio resultante salva milagrosamente la calculadora, que permanece intacta en medio de las ruinas carbonizadas. Tras una lectura minuciosa de los registros, la tripulación ***descubre que la culpa fue de la propia calculadora***. Esta calculadora se conoce como ***NERON***.
+- 3149: Tras múltiples simulaciones fallidas, los resultados indican que ***NERON parece cometer errores deliberados*** al realizar cálculos delicados. Como Raluca y Lai Kuan-Ti ya no tienen los medios para instalar una nueva calculadora, el proyecto parece haber llegado a un punto muerto.
+- 3150: ***Janice Kent*** se une al equipo. Según ella, NERON ha ***desarrollado una ciberpsique increíblemente compleja*** que parece situarla en la mitad de la adolescencia. Tras varias sesiones de desfragmentación psicoanalítica, mejora el rendimiento de la calculadora y la convence de repetir las pruebas.
+- 3152: Mientras Raluca completa la segunda iteración de su reactor, la tripulación se entera de que ***la invasión Mush ha llegado al sistema Sol***. Kuan-Ti quiere lanzar el arca en menos de un año, pero el reactor simplemente no está listo para soportar tal carga. Tras una larga conversación con ***Kim Jin-Su, director del proyecto***, Raluca propone una versión reducida de su motor, conocido como ***PILGRED V3***. Debería poder completar su construcción en menos de 3 años y debería ser capaz de propulsar una nave de clase 3, conocida como ***Daedalus***. Comienza la carrera contrarreloj.
+- 3153: Los planes para transformar los módulos de Magellan avanzan rápidamente y las pruebas iniciales del PILGRED V3 son alentadoras. Para superar la soledad de su investigación, Raluca adopta un gato al que llama ***Schrödinger***.
+- 3154: Una ruptura en las relaciones entre la ***Federación*** y Xyloph-17 obliga al equipo a partir de emergencia de Júpiter. El reactor PILGRED V3 se ***activa por primera vez en una situación real***. A pesar del riesgo inherente para la higiene, Raluca ***logra introducir a Schrödinger en su cápsula de criosueño***.
+- 3170: Raluca y Schrödinger despiertan en el vacío espacial conocido como Magellan. Según NERON, el reactor los impulsa en la dirección correcta. Sin embargo, ya no funciona y el Daedalus está siendo atacado...</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>raluca.tips</source>
-        <target>raluca.tips</target>
+        <target>**Participa en la reparación del PILGRED** en la Sala de Máquinas para regresar a Sol.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Repara equipo vital** de la nave.</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>raluca.tutorial</source>
@@ -718,17 +753,17 @@
         <source>roland.employment</source>
         <target>Piloto de élite</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>roland.abstract</source>
-        <target>roland.abstract</target>
+        <target>Tras un tumultuoso pero brillante ascenso en la Academia FDS para pilotos de élite, Roland Zuccali es detenido tras dar positivo por una infección de Mush. Manipulado por sus superiores a pesar de haber demostrado su inocencia, Roland pierde toda confianza en la FDS y finalmente deserta durante la Guerra Sucia contra los rebeldes. Se convierte entonces en el piloto del Daedalus.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>roland.biography</source>
         <target>roland.biography</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>roland.tips</source>
-        <target>roland.tips</target>
+        <target>**Elimina cazadores** con las naves de patrulla ubicadas en bahías para proteger la nave.//**Recupera chatarra** de los cazadores eliminados con el Pasiphae ubicado en la bahía Alpha 2 para reparar la armadura de la nave.//**Lanza expediciones** a planetas con el Icarus en la bahía del Icarus para recolectar recursos.</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>roland.tutorial</source>
@@ -760,17 +795,17 @@
         <source>stephen.employment</source>
         <target>Chef</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>stephen.abstract</source>
-        <target>stephen.abstract</target>
+        <target>Stephen fue maletero en un tren interplanetario, luego esclavo en una mina de cobalto mexicana, senador de la coalición Chile con Latte, mercenario espacial, recaudador de impuestos federales privado, blanqueador de dinero, secuestrador de niños, minero de Boxylium, cocinero militar de las Fuerzas de Autodefensa (SDF) y condenado a muerte. Su viaje lo lleva a Xyloph-17, donde es criogenizado accidentalmente y enviado a bordo del Daedalus.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>stephen.biography</source>
         <target>stephen.biography</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>stephen.tips</source>
-        <target>stephen.tips</target>
+        <target>**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Elimina Mush confirmados** usando tus habilidades Solid y Shooter.//**Copia una habilidad valiosa** usando Apprentice, dependiendo de las necesidades de la tripulación.</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>stephen.tutorial</source>
@@ -802,17 +837,17 @@
         <source>terrence.employment</source>
         <target>Ingeniero mecánico especializado en robótica</target>
       </segment>
-      <segment id="abstract" state="initial">
+      <segment id="abstract" state="translated">
         <source>terrence.abstract</source>
-        <target>terrence.abstract</target>
+        <target>Tras ser gravemente herido durante una incursión contra los rebeldes en Sol, Terrence pasa seis meses en coma. Regresa a la vida civil, destrozado y magullado, postrado en una silla de ruedas. Terrence decide entonces dedicar su vida a la ingeniería avanzada y a la creación de drones. Su sueño es desarrollar aviones de combate no tripulados y drones teledirigidos.</target>
       </segment>
       <segment id="biography" state="initial">
         <source>terrence.biography</source>
         <target>terrence.biography</target>
       </segment>
-      <segment id="tips" state="initial">
+      <segment id="tips" state="translated">
         <source>terrence.tips</source>
-        <target>terrence.tips</target>
+        <target>**Elimina cazadores** con las naves de patrulla ubicadas en bahías para proteger la nave.//**Recupera chatarra** de los cazadores eliminados con el Pasiphae ubicado en la bahía Alpha 2 para reparar la armadura de la nave.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.</target>
       </segment>
       <segment id="tutorial" state="initial">
         <source>terrence.tutorial</source>

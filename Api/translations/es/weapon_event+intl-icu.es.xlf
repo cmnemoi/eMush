@@ -20,39 +20,39 @@
       </segment>
     </unit>
     <unit id="blaster_target_headshot">
-      <segment id="blaster_target_headshot" state="initial">
+      <segment id="blaster_target_headshot" state="translated">
         <source>blaster_target_headshot</source>
-        <target>blaster_target_headshot</target>
+        <target>A veces, el tiempo parece ir más despacio. Algunos dirán que el tiempo cambió; que la duración dejó de importar, y que cada momento se sentía eterno. En ese estado de gracia, **{character}** dispara sin esfuerzo a **{target_character}** en la cabeza, quien colapsa.</target>
       </segment>
     </unit>
     <unit id="blaster_target_random_injury">
-      <segment id="blaster_target_random_injury" state="initial">
+      <segment id="blaster_target_random_injury" state="translated">
         <source>blaster_target_random_injury</source>
-        <target>blaster_target_random_injury</target>
+        <target>**{character}** toma su bláster y dispara una serie de tiros precisos a **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target">
-      <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="initial">
+      <segment id="blaster_shooter_plus_2_max_damage_20_random_injury_to_target" state="translated">
         <source>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</source>
-        <target>blaster_shooter_plus_2_max_damage_20_random_injury_to_target</target>
+        <target>Hay a penas un parpadeo entre el disparo de **{character}**’ y el impacto de la bala sobre **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_damaged_ears">
-      <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="initial">
+      <segment id="blaster_shooter_plus_1_damage_target_damaged_ears" state="translated">
         <source>blaster_shooter_plus_1_damage_target_damaged_ears</source>
-        <target>blaster_shooter_plus_1_damage_target_damaged_ears</target>
+        <target>Que resuene el rugido de los blásters: solo los supervivientes hablarán de ello. **{character}** está bien {character_gender, select, female {posicionada} other {posicionado}} para saberlo. **{target_character}** pierde el sentido de la audición. </target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma">
-      <segment id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma" state="initial">
+      <segment id="blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma" state="translated">
         <source>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</source>
-        <target>blaster_shooter_plus_2_damage_target_30_torn_tongue_target_30_burst_nose_target_30_open_air_brain_target_30_head_trauma</target>
+        <target>**{character}** se agacha, saca su arma y dispara rápidamente a **{target_character}**, ¡quien recibe una bala en la cabeza!</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_plus_1_damage_target_remove_2_ap">
-      <segment id="blaster_shooter_plus_1_damage_target_remove_2_ap" state="initial">
+      <segment id="blaster_shooter_plus_1_damage_target_remove_2_ap" state="translated">
         <source>blaster_shooter_plus_1_damage_target_remove_2_ap</source>
-        <target>blaster_shooter_plus_1_damage_target_remove_2_ap</target>
+        <target>Un disparo rápido de **{character}** hace que **{target_character}** pierda el equilibrio.</target>
       </segment>
     </unit>
     <unit id="blaster_break_weapon">
@@ -62,111 +62,122 @@
       </segment>
     </unit>
     <unit id="blaster_shooter_drop_weapon">
-      <segment id="blaster_shooter_drop_weapon" state="initial">
+      <segment id="blaster_shooter_drop_weapon" state="translated">
         <source>blaster_shooter_drop_weapon</source>
-        <target>blaster_shooter_drop_weapon</target>
+        <target>La violencia es el refugio de la incompetencia. **{character}** debería aberse abstenido. Ahora su arma está en el suelo, y **{target_character}** se lo agradece.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury">
-      <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="initial">
+      <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="translated">
         <source>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</source>
-        <target>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</target>
+        <target>**{character}** falla espectacularmente, accidentalmente usando el arma contra si {character_gender, select, female {misma} other {mismo}}.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_break_weapon">
-      <segment id="blaster_shooter_minus_1_ap_break_weapon" state="initial">
+      <segment id="blaster_shooter_minus_1_ap_break_weapon" state="translated">
         <source>blaster_shooter_minus_1_ap_break_weapon</source>
-        <target>blaster_shooter_minus_1_ap_break_weapon</target>
+        <target>¡**{character}** se tropieza sobre un pony imaginario y se cae!</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap">
-      <segment id="blaster_shooter_minus_1_ap" state="initial">
+      <segment id="blaster_shooter_minus_1_ap" state="translated">
         <source>blaster_shooter_minus_1_ap</source>
-        <target>blaster_shooter_minus_1_ap</target>
+        <target>Click... Click... el arma de **{character}** se atasca.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_successful_shot">
-      <segment id="natamy_rifle_successful_shot" state="initial">
+      <segment id="natamy_rifle_successful_shot" state="translated">
         <source>natamy_rifle_successful_shot</source>
-        <target>natamy_rifle_successful_shot</target>
+        <target>{version, select,
+            1 {**{character}** dispara a **{target_character}** !}
+            2 {**{character}** abre fuego sobre **{target_character}**.}
+            3 {**{character}** acribilla con balas a **{target_character}**.}
+            4 {**{character}** mete una bala en **{target_character}**...}
+            other {**{character}** dispara una ráfaga a **{target_character}**.}}</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_headshot">
-      <segment id="natamy_rifle_headshot" state="initial">
+      <segment id="natamy_rifle_headshot" state="translated">
         <source>natamy_rifle_headshot</source>
-        <target>natamy_rifle_headshot</target>
+        <target>**{character}** intenta disparar en la cabeza de **{target_character}** exitosamente.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
-      <segment id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+      <segment id="natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
-        <target>natamy_rifle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
+        <target>**{character}** toma su tiempo para apuntar a **{target_character}**. Aïe...</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_minus_1ap">
-      <segment id="natamy_rifle_target_minus_1ap" state="initial">
+      <segment id="natamy_rifle_target_minus_1ap" state="translated">
         <source>natamy_rifle_target_minus_1ap</source>
-        <target>natamy_rifle_target_minus_1ap</target>
+        <target>**{target_character}** esquiva milagrosamente los disparos de **{character}**.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_headshot_2">
-      <segment id="natamy_rifle_headshot_2" state="initial">
+      <segment id="natamy_rifle_headshot_2" state="translated">
         <source>natamy_rifle_headshot_2</source>
-        <target>natamy_rifle_headshot_2</target>
+        <target>**{character}** vacía su cargador sobre **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_mashed_foot">
-      <segment id="natamy_rifle_target_mashed_foot" state="initial">
+      <segment id="natamy_rifle_target_mashed_foot" state="translated">
         <source>natamy_rifle_target_mashed_foot</source>
-        <target>natamy_rifle_target_mashed_foot</target>
+        <target>La culata del rifle limita el movimiento de **{character}**. El pie de **{target_character}** ahora parece puré.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
-      <segment id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+      <segment id="natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="translated">
         <source>natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
-        <target>natamy_rifle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
+        <target>{version, select,
+            1 {La bala en el hombro de **{target_character}** va a dejar memorias dolorosas.}
+            other {la salva de **{character}** atravezó el hombro de **{target_character}**, atención a los rebotes...}}</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_break_weapon">
-      <segment id="natamy_rifle_break_weapon" state="initial">
+      <segment id="natamy_rifle_break_weapon" state="translated">
         <source>natamy_rifle_break_weapon</source>
-        <target>natamy_rifle_break_weapon</target>
+        <target>Click click click... El arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_burnt_hand">
-      <segment id="natamy_rifle_shooter_burnt_hand" state="initial">
+      <segment id="natamy_rifle_shooter_burnt_hand" state="translated">
         <source>natamy_rifle_shooter_burnt_hand</source>
-        <target>natamy_rifle_shooter_burnt_hand</target>
+        <target>Disparando a **{target_character}**, **{character}** se quema con su arma. Espectacular.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_broken_shoulder">
-      <segment id="natamy_rifle_shooter_broken_shoulder" state="initial">
+      <segment id="natamy_rifle_shooter_broken_shoulder" state="translated">
         <source>natamy_rifle_shooter_broken_shoulder</source>
-        <target>natamy_rifle_shooter_broken_shoulder</target>
+        <target>**{character}** debió haber anticipado el reculo del arma, fallando el tiro sobre **{target_character}** y lastimando su propio hombro. Bravo.</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_failed_shot">
-      <segment id="natamy_rifle_failed_shot" state="initial">
+      <segment id="natamy_rifle_failed_shot" state="translated">
         <source>natamy_rifle_failed_shot</source>
-        <target>natamy_rifle_failed_shot</target>
+        <target>{version, select,
+            1 {**{character}** intenta disparar a **{target_character}** pero un calambre se lo impide.}
+            2 {Un silbido resuena en las orejas de **{target_character}**...}
+            3 {Les balas de fogueo de **{character}** rebotan sobre **{target_character}**. Ups...}
+            other {**{character}** dispara a **{target_character}** pero lastimosamente no puede apuntar correctamente...}}</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_mashed_foot">
-      <segment id="natamy_rifle_shooter_mashed_foot" state="initial">
+      <segment id="natamy_rifle_shooter_mashed_foot" state="translated">
         <source>natamy_rifle_shooter_mashed_foot</source>
-        <target>natamy_rifle_shooter_mashed_foot</target>
+        <target>Un arma pesada que causa daños mayores al pie de **{character}**...</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_drop_weapon">
-      <segment id="natamy_rifle_drop_weapon" state="initial">
+      <segment id="natamy_rifle_drop_weapon" state="translated">
         <source>natamy_rifle_drop_weapon</source>
-        <target>natamy_rifle_drop_weapon</target>
+        <target>No hay palabras que puedan describir las increíbles acrobacias del arma de **{character}** al aterrizar en el suelo...</target>
       </segment>
     </unit>
     <unit id="natamy_rifle_shooter_plus_2_damage">
-      <segment id="natamy_rifle_shooter_plus_2_damage" state="initial">
+      <segment id="natamy_rifle_shooter_plus_2_damage" state="translated">
         <source>natamy_rifle_shooter_plus_2_damage</source>
-        <target>natamy_rifle_shooter_plus_2_damage</target>
+        <target>Con una mirada aguda y una determinación ardiente, **{character}** lanza un magnífico disparo directo al pecho de **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="knife_successful_hit_10_minor_haemorrhage">
@@ -187,9 +198,9 @@
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_50_critical_haemorrhage">
-      <segment id="knife_plus_2_damage_50_critical_haemorrhage" state="initial">
+      <segment id="knife_plus_2_damage_50_critical_haemorrhage" state="translated">
         <source>knife_plus_2_damage_50_critical_haemorrhage</source>
-        <target>knife_plus_2_damage_50_critical_haemorrhage</target>
+        <target>**{character}** apuñala a **{target_character}** con maestría.</target>
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_50_critical_haemorrhage_random_injury">
@@ -199,9 +210,9 @@
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint">
-      <segment id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint" state="initial">
+      <segment id="knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint" state="translated">
         <source>knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint</source>
-        <target>knife_plus_2_damage_60_critical_haemorrhage_busted_arm_joint</target>
+        <target>**{character}** hunde su arma en una de las articulaciones del brazo de **{target_character}**, que ahora cuelga tristemente...</target>
       </segment>
     </unit>
     <unit id="knife_instagib_bled">
@@ -211,9 +222,9 @@
       </segment>
     </unit>
     <unit id="knife_plus_2_damage_punctured_lung">
-      <segment id="knife_plus_2_damage_punctured_lung" state="initial">
+      <segment id="knife_plus_2_damage_punctured_lung" state="translated">
         <source>knife_plus_2_damage_punctured_lung</source>
-        <target>knife_plus_2_damage_punctured_lung</target>
+        <target>Tal vez una esquiva mal cronometrada, tal vez un movimiento equivocado, tal vez una pobre imitación de combate visto en un holodisco... **{target_character}** se empala fuertemente en la espada de **{character}**.</target>
       </segment>
     </unit>
     <unit id="knife_failed_hit">
@@ -223,9 +234,9 @@
       </segment>
     </unit>
     <unit id="knife_break_weapon">
-      <segment id="knife_break_weapon" state="initial">
+      <segment id="knife_break_weapon" state="translated">
         <source>knife_break_weapon</source>
-        <target>knife_break_weapon</target>
+        <target>Zip, el arma de **{character}** esquiva elegantemente a **{target_character}** solo para aplastarse en un muro insolente. La cuchilla se rompe.</target>
       </segment>
     </unit>
     <unit id="knife_break_weapon_shooter_torn_tongue">
@@ -241,15 +252,27 @@
       </segment>
     </unit>
     <unit id="knife_shooter_drop_weapon">
-      <segment id="knife_shooter_drop_weapon" state="initial">
+      <segment id="knife_shooter_drop_weapon" state="translated">
         <source>knife_shooter_drop_weapon</source>
-        <target>knife_shooter_drop_weapon</target>
+        <target>{version, select,  
+                  1 {Quien hubiera pensado que  **{target_character}** tenía tan buenos reflejos... **{character}** pierde su arma en el intercambio.}  
+                  2 {Al intenta atacar a **{target_character}**,  **{character}** se tropieza sobre una alfombra imaginaria y deja caer la cuchilla.}  
+                  other {Al intenta atacar a **{target_character}**,  **{character}** se tropieza sobre una alfombra imaginaria y deja caer la cuchilla.}  
+}</target>
       </segment>
     </unit>
     <unit id="knife_shooter_minus_2_ap">
-      <segment id="knife_shooter_minus_2_ap" state="initial">
+      <segment id="knife_shooter_minus_2_ap" state="translated">
         <source>knife_shooter_minus_2_ap</source>
-        <target>knife_shooter_minus_2_ap</target>
+        <target>**{target_character}** se gira hacia **{character}** quien {target_character_gender, select, 
+                female{la} 
+                male{le} 
+                other {le}
+                } amenaza con su cuchilla. Demasiado rápido, demasiado preciso, demasiado... **{character}** hace un esfuerzo sobre-humano pero termina {character_gender, select, 
+                female{abrumada y mareada} 
+                male{abrumado y mareado} 
+                other {abrumade y mareade}
+                } </target>
       </segment>
     </unit>
     <unit id="old_faithful_successful_shot">
@@ -259,165 +282,183 @@
       </segment>
     </unit>
     <unit id="old_faithful_headshot">
-      <segment id="old_faithful_headshot" state="initial">
+      <segment id="old_faithful_headshot" state="translated">
         <source>old_faithful_headshot</source>
-        <target>old_faithful_headshot</target>
+        <target>**{character}** dispara a la cabeza de **{target_character}** exitosamente.</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
-      <segment id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+      <segment id="old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
-        <target>old_faithful_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
+        <target>**{character}** toma su tiempo apuntando a **{target_character}**. Ouch...</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_minus_1ap">
-      <segment id="old_faithful_target_minus_1ap" state="initial">
+      <segment id="old_faithful_target_minus_1ap" state="translated">
         <source>old_faithful_target_minus_1ap</source>
-        <target>old_faithful_target_minus_1ap</target>
+        <target>**{target_character}** esquiva milagrosamente una ráfaga de **{character}**.</target>
       </segment>
     </unit>
     <unit id="old_faithful_headshot_2">
-      <segment id="old_faithful_headshot_2" state="initial">
+      <segment id="old_faithful_headshot_2" state="translated">
         <source>old_faithful_headshot_2</source>
-        <target>old_faithful_headshot_2</target>
+        <target>**{character}** vacía su cartucho sobre **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_mashed_foot">
-      <segment id="old_faithful_target_mashed_foot" state="initial">
+      <segment id="old_faithful_target_mashed_foot" state="translated">
         <source>old_faithful_target_mashed_foot</source>
-        <target>old_faithful_target_mashed_foot</target>
+        <target>La culata del rifle limita el movimiento de **{character}**. El pie de **{target_character}** ahora parece puré.</target>
       </segment>
     </unit>
     <unit id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
-      <segment id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+      <segment id="old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="translated">
         <source>old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
-        <target>old_faithful_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
+        <target>{version, select,
+            1 {La bala en el hombro de **{target_character}** dejará memorias dolorosas.}
+            other {la salva de **{character}** atravezó el hombro de **{target_character}**, atención a los rebotes...}}</target>
       </segment>
     </unit>
     <unit id="old_faithful_break_weapon">
-      <segment id="old_faithful_break_weapon" state="initial">
+      <segment id="old_faithful_break_weapon" state="translated">
         <source>old_faithful_break_weapon</source>
-        <target>old_faithful_break_weapon</target>
+        <target>Click... Click... el arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_burnt_hand">
-      <segment id="old_faithful_shooter_burnt_hand" state="initial">
+      <segment id="old_faithful_shooter_burnt_hand" state="translated">
         <source>old_faithful_shooter_burnt_hand</source>
-        <target>old_faithful_shooter_burnt_hand</target>
+        <target>Disparando a **{target_character}**, **{character}** se quema con su arma. Espectacular.</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_broken_shoulder">
-      <segment id="old_faithful_shooter_broken_shoulder" state="initial">
+      <segment id="old_faithful_shooter_broken_shoulder" state="translated">
         <source>old_faithful_shooter_broken_shoulder</source>
-        <target>old_faithful_shooter_broken_shoulder</target>
+        <target>**{character}** debió haber anticipado el reculo del arma, fallando el tiro sobre **{target_character}** y lastimando su propio hombro. Bravo.</target>
       </segment>
     </unit>
     <unit id="old_faithful_failed_shot">
-      <segment id="old_faithful_failed_shot" state="initial">
+      <segment id="old_faithful_failed_shot" state="translated">
         <source>old_faithful_failed_shot</source>
-        <target>old_faithful_failed_shot</target>
+        <target>{version, select,
+            1 {**{character}** intenta disparar a **{target_character}** pero un calambre se lo impide.}
+            2 {Un silbido resuena en las orejas de **{target_character}**...}
+            3 {Les balas de fogueo de **{character}** rebotan sobre **{target_character}**. Ups...}
+            other {**{character}** dispara a **{target_character}** pero lastimosamente no puede apuntar correctamente...}}</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_mashed_foot">
-      <segment id="old_faithful_shooter_mashed_foot" state="initial">
+      <segment id="old_faithful_shooter_mashed_foot" state="translated">
         <source>old_faithful_shooter_mashed_foot</source>
-        <target>old_faithful_shooter_mashed_foot</target>
+        <target>Un arma pesada que causa daños mayores al pie de **{character}**...</target>
       </segment>
     </unit>
     <unit id="old_faithful_drop_weapon">
-      <segment id="old_faithful_drop_weapon" state="initial">
+      <segment id="old_faithful_drop_weapon" state="translated">
         <source>old_faithful_drop_weapon</source>
-        <target>old_faithful_drop_weapon</target>
+        <target>No hay palabras que puedan describir las increíbles acrobacias del arma de **{character}** al aterrizar en el suelo...</target>
       </segment>
     </unit>
     <unit id="old_faithful_shooter_plus_2_damage">
-      <segment id="old_faithful_shooter_plus_2_damage" state="initial">
+      <segment id="old_faithful_shooter_plus_2_damage" state="translated">
         <source>old_faithful_shooter_plus_2_damage</source>
-        <target>old_faithful_shooter_plus_2_damage</target>
+        <target>Con una mirada aguda y una determinación ardiente, **{character}** lanza un magnífico disparo directo al pecho de **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_successful_shot">
-      <segment id="lizaro_jungle_successful_shot" state="initial">
+      <segment id="lizaro_jungle_successful_shot" state="translated">
         <source>lizaro_jungle_successful_shot</source>
-        <target>lizaro_jungle_successful_shot</target>
+        <target>{version, select,
+    1 {**{character}** desenfunda y dispara sobre **{target_character}**.}
+    2 {Sin más ni más, **{character}** saca su arma y dispara sobre **{target_character}**, una, dos, tres veces...}
+    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae {target_character_gender, select, female {abatida} other {abatido} en pocos segundos.}
+    4 {**{character}** gira súbitamente y dispara sobre **{target_character}**.}
+    other {**{target_character}** recibe un tiro certero de **{character}**.}
+}</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_headshot">
-      <segment id="lizaro_jungle_headshot" state="initial">
+      <segment id="lizaro_jungle_headshot" state="translated">
         <source>lizaro_jungle_headshot</source>
-        <target>lizaro_jungle_headshot</target>
+        <target>**{character}** dispara a la cabeza de **{target_character}** exitosamente.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury">
-      <segment id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="initial">
+      <segment id="lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury" state="translated">
         <source>lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</source>
-        <target>lizaro_jungle_shooter_plus_2_max_damage_shooter_minus_1_ap_target_critical_haemorrhage_40_percents_target_random_injury</target>
+        <target>**{character}** toma su tiempo para apuntar a **{target_character}**. Ouch...</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_target_minus_1ap">
-      <segment id="lizaro_jungle_target_minus_1ap" state="initial">
+      <segment id="lizaro_jungle_target_minus_1ap" state="translated">
         <source>lizaro_jungle_target_minus_1ap</source>
-        <target>lizaro_jungle_target_minus_1ap</target>
+        <target>**{target_character}** esquiva milagrosamente los disparos de **{character}**.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_headshot_2">
-      <segment id="lizaro_jungle_headshot_2" state="initial">
+      <segment id="lizaro_jungle_headshot_2" state="translated">
         <source>lizaro_jungle_headshot_2</source>
-        <target>lizaro_jungle_headshot_2</target>
+        <target>**{character}** vacía su cartucho sobre **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_target_mashed_foot">
-      <segment id="lizaro_jungle_target_mashed_foot" state="initial">
+      <segment id="lizaro_jungle_target_mashed_foot" state="translated">
         <source>lizaro_jungle_target_mashed_foot</source>
-        <target>lizaro_jungle_target_mashed_foot</target>
+        <target>La culata del rifle limita el movimiento de **{character}**. El pie de **{target_character}** ahora parece puré.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents">
-      <segment id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="initial">
+      <segment id="lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents" state="translated">
         <source>lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</source>
-        <target>lizaro_jungle_target_broken_shoulder_target_critical_haemorrhage_40_percents_target_haemorrhage_40_percents</target>
+        <target>{version, select,
+            1 {La bala en el hombro de **{target_character}** dejará memorias dolorosas.}
+            other {la salva de **{character}** atravezó el hombro de **{target_character}**, atención a los rebotes...}}</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_break_weapon">
-      <segment id="lizaro_jungle_break_weapon" state="initial">
+      <segment id="lizaro_jungle_break_weapon" state="translated">
         <source>lizaro_jungle_break_weapon</source>
-        <target>lizaro_jungle_break_weapon</target>
+        <target>Click click click... El arma de **{character}** se atasca. **{target_character}** debería agradecerle.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_burnt_hand">
-      <segment id="lizaro_jungle_shooter_burnt_hand" state="initial">
+      <segment id="lizaro_jungle_shooter_burnt_hand" state="translated">
         <source>lizaro_jungle_shooter_burnt_hand</source>
-        <target>lizaro_jungle_shooter_burnt_hand</target>
+        <target>Disparando a **{target_character}**, **{character}** se quema con su arma. Espectacular.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_broken_shoulder">
-      <segment id="lizaro_jungle_shooter_broken_shoulder" state="initial">
+      <segment id="lizaro_jungle_shooter_broken_shoulder" state="translated">
         <source>lizaro_jungle_shooter_broken_shoulder</source>
-        <target>lizaro_jungle_shooter_broken_shoulder</target>
+        <target>**{character}** debió haber anticipado el reculo del arma, fallando el tiro sobre **{target_character}** y lastimando su propio hombro. Bravo.</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_failed_shot">
-      <segment id="lizaro_jungle_failed_shot" state="initial">
+      <segment id="lizaro_jungle_failed_shot" state="translated">
         <source>lizaro_jungle_failed_shot</source>
-        <target>lizaro_jungle_failed_shot</target>
+        <target>{version, select,
+            1 {**{character}** intenta disparar a **{target_character}** pero un calambre se lo impide.}
+            2 {Un silbido resuena en las orejas de **{target_character}**...}
+            3 {Les balas de fogueo de **{character}** rebotan sobre **{target_character}**. Ups...}
+            other {**{character}** dispara a **{target_character}** pero lastimosamente no puede apuntar correctamente...}}</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_mashed_foot">
-      <segment id="lizaro_jungle_shooter_mashed_foot" state="initial">
+      <segment id="lizaro_jungle_shooter_mashed_foot" state="translated">
         <source>lizaro_jungle_shooter_mashed_foot</source>
-        <target>lizaro_jungle_shooter_mashed_foot</target>
+        <target>Un arma pesada que causa daños mayores al pie de **{character}**...</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_drop_weapon">
-      <segment id="lizaro_jungle_drop_weapon" state="initial">
+      <segment id="lizaro_jungle_drop_weapon" state="translated">
         <source>lizaro_jungle_drop_weapon</source>
-        <target>lizaro_jungle_drop_weapon</target>
+        <target>No hay palabras que puedan describir las increíbles acrobacias del arma de **{character}** al aterrizar en el suelo...</target>
       </segment>
     </unit>
     <unit id="lizaro_jungle_shooter_plus_2_damage">
-      <segment id="lizaro_jungle_shooter_plus_2_damage" state="initial">
+      <segment id="lizaro_jungle_shooter_plus_2_damage" state="translated">
         <source>lizaro_jungle_shooter_plus_2_damage</source>
-        <target>lizaro_jungle_shooter_plus_2_damage</target>
+        <target>Con una mirada aguda y una determinación ardiente, **{character}** lanza un magnífico disparo directo al pecho de **{target_character}**...</target>
       </segment>
     </unit>
     <unit id="bare_hands_successful_hit">
@@ -432,9 +473,9 @@
       </segment>
     </unit>
     <unit id="bare_hands_target_burst_nose_10_percent">
-      <segment id="bare_hands_target_burst_nose_10_percent" state="initial">
+      <segment id="bare_hands_target_burst_nose_10_percent" state="translated">
         <source>bare_hands_target_burst_nose_10_percent</source>
-        <target>bare_hands_target_burst_nose_10_percent</target>
+        <target>**{character}** lanza un formidable gancho de derecha a **{target_character}**... quien repinta la pared con su nariz...</target>
       </segment>
     </unit>
     <unit id="bare_hands_plus_1_damage">
@@ -456,21 +497,21 @@
       </segment>
     </unit>
     <unit id="grenade_successful_throw_splash_damage_all">
-      <segment id="grenade_successful_throw_splash_damage_all" state="initial">
+      <segment id="grenade_successful_throw_splash_damage_all" state="translated">
         <source>grenade_successful_throw_splash_damage_all</source>
-        <target>grenade_successful_throw_splash_damage_all</target>
+        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{personaje}** se pone a cubierto mientras los demás miran hacia abajo. ¡La explosión los manda a volar!</target>
       </segment>
     </unit>
     <unit id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds">
-      <segment id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds" state="initial">
+      <segment id="grenade_critical_throw_splash_damage_all_break_items_splash_wounds" state="translated">
         <source>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</source>
-        <target>grenade_critical_throw_splash_damage_all_break_items_splash_wounds</target>
+        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{personaje}** se pone a cubierto mientras los demás miran hacia abajo. ¡La explosión los manda a volar!</target>
       </segment>
     </unit>
     <unit id="grenade_failure_placeholder">
-      <segment id="grenade_failure_placeholder" state="initial">
+      <segment id="grenade_failure_placeholder" state="translated">
         <source>grenade_failure_placeholder</source>
-        <target>grenade_failure_placeholder</target>
+        <target>:grenade: Ploc...ploc...ploc...pschhhhh...**{personaje}** se pone a cubierto mientras los demás miran hacia abajo. Pero... Nada pasa... los administradores están impresionados, has conseguido lo imposible.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_successful_hit_2_random_wounds_4_items_6_splash">
@@ -484,15 +525,20 @@
       </segment>
     </unit>
     <unit id="rocket_launcher_rocketted">
-      <segment id="rocket_launcher_rocketted" state="initial">
+      <segment id="rocket_launcher_rocketted" state="translated">
         <source>rocket_launcher_rocketted</source>
-        <target>rocket_launcher_rocketted</target>
+        <target>{version, select,
+1 {**{target_character}** se gira y se encuentra cara a cara con **{character}**, quien ls apunta con un lanzacohetes. Un cohete vuela y explota a los pies de **{target_character}**, quien emprenden un vuelo inesperado... para luego aterrizar con un fuerte golpe...}
+2 {Desde tiempos inmemoriales, la humanidad ha estado explorando las posibilidades de las herramientas. Incluso podría decirse que las herramientas son lo que hace grande a la humanidad. Claramente, **{target_character}** no estaría de acuerdo. De hecho, una herramienta conocida como lanzacohetes acaba de propulsarlo al limbo.}
+3 {Un día, un gran cocinero, que también era emperador, apodado "el azote de los dioses"... ¿o era uno de sus lacayos...? En fin. Decidió que, para dedicar menos tiempo a preparar la comida para sus ejércitos, sus jinetes atarían la carne a sus monturas para ablandarla mientras viajaban. De esto nacería el steak tartar. Sin embargo, la apariencia ahora similar de **{target_character}** no debería ser apetitosa.}
+other {"invalid version number"}
+}</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items">
-      <segment id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items" state="initial">
+      <segment id="rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items" state="translated">
         <source>rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items</source>
-        <target>rocket_launcher_critical_minus_8_damage_2_random_wounds_2_backfire_wounds_2_items</target>
+        <target>**{character}** ajusta su disparo hacia **{target_character}**, pero sin darse cuenta se resbala y dispara su cohete. Falla su objetivo por poco y una potente explosión hace volar por los aires a **{character}** y a **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_critical_3_random_wounds_2_items">
@@ -502,27 +548,27 @@
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_6_items">
-      <segment id="rocket_launcher_fumble_6_items" state="initial">
+      <segment id="rocket_launcher_fumble_6_items" state="translated">
         <source>rocket_launcher_fumble_6_items</source>
-        <target>rocket_launcher_fumble_6_items</target>
+        <target>Una migraña sorpresa toma a **{character}** por sorpresa, haciendo que su disparo falle sin elegancia. **{target_character}** puede estar agradecido por eso.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_6_items_backfire_rocketted">
-      <segment id="rocket_launcher_fumble_6_items_backfire_rocketted" state="initial">
+      <segment id="rocket_launcher_fumble_6_items_backfire_rocketted" state="translated">
         <source>rocket_launcher_fumble_6_items_backfire_rocketted</source>
-        <target>rocket_launcher_fumble_6_items_backfire_rocketted</target>
+        <target>Por pura mala suerte, el manual del lanzacohetes tiene 2234 páginas. Para desgracia de **{character}**, que solo leyó 2233. En la última, se indicaba claramente que no se debía presionar el botón rojo.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_fumble_8_splash_50_percent_4_items">
-      <segment id="rocket_launcher_fumble_8_splash_50_percent_4_items" state="initial">
+      <segment id="rocket_launcher_fumble_8_splash_50_percent_4_items" state="translated">
         <source>rocket_launcher_fumble_8_splash_50_percent_4_items</source>
-        <target>rocket_launcher_fumble_8_splash_50_percent_4_items</target>
+        <target>Un viento solar interrumpe la conversación entre el lanzacohetes de **{character}** y **{target_character}**. El cohete gira sin control y cae en escombros.</target>
       </segment>
     </unit>
     <unit id="rocket_launcher_miss_10_items">
-      <segment id="rocket_launcher_miss_10_items" state="initial">
+      <segment id="rocket_launcher_miss_10_items" state="translated">
         <source>rocket_launcher_miss_10_items</source>
-        <target>rocket_launcher_miss_10_items</target>
+        <target>Por algún milagro, o quizás fue una feliz coincidencia... **{target_character}** esquiva el cohete de **{character}**, que se estrella contra el escenario...</target>
       </segment>
     </unit>
   </file>

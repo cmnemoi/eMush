@@ -80,7 +80,7 @@ Si el trabajo se ha hecho correctamente, el Daedalus se situará en la órbita d
         <source>astro_terminal.tips</source>
         <target>Para poder encontrar un planeta para explorar, primero debes **realizar un escaneo** para encontrar hasta un máximo de 2 planetas. Los resultados de los planetas encontrados son exclusivos para cada persona.
 ////
-Una vez encontrado y elegido un planeta, deberás comunicar a la tripulación la **orientación y el combustible necesario** para llegar allí. Esto permitirá al *Comandante** mover el Daedalus al planeta elegido.
+Una vez encontrado y elegido un planeta, deberás comunicar a la tripulación la **orientación y el combustible necesario** para llegar allí. Esto permitirá al *Comandante* mover el Daedalus al planeta elegido.
 ////
 Cuando el Daedalus ha llegado y está en órbita, es imposible buscar otros planetas. Por otro lado, puedes **analizar el planeta** en órbita para obtener GeoDatos adicionales si es que este no fue analizado por completo. Estos datos serán utilizados por el equipo de expedición, que podrá preparar la exploración con antelación.
 ////
@@ -226,109 +226,109 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
         <source>bios_terminal.crew_lock_research</source>
         <target>Investigación</target>
       </segment>
-      <segment id="food_destruction_option.name" state="initial">
+      <segment id="food_destruction_option.name" state="translated">
         <source>bios_terminal.food_destruction_option_name</source>
-        <target>bios_terminal.food_destruction_option_name</target>
+        <target>Destrucción de alimentos</target>
       </segment>
-      <segment id="food_destruction_option.description" state="initial">
+      <segment id="food_destruction_option.description" state="translated">
         <source>bios_terminal.food_destruction_option_description</source>
-        <target>bios_terminal.food_destruction_option_description</target>
+        <target>Controla la destrucción programada de la comida caducada que se activa cuando cambia el día.</target>
       </segment>
-      <segment id="food_destruction_option.never" state="initial">
+      <segment id="food_destruction_option.never" state="translated">
         <source>bios_terminal.food_destruction_option_never</source>
-        <target>bios_terminal.food_destruction_option_never</target>
+        <target>Nunca</target>
       </segment>
-      <segment id="food_destruction_option.unstable" state="initial">
+      <segment id="food_destruction_option.unstable" state="translated">
         <source>bios_terminal.food_destruction_option_unstable</source>
-        <target>bios_terminal.food_destruction_option_unstable</target>
+        <target>Inestable</target>
       </segment>
-      <segment id="food_destruction_option.hazardous" state="initial">
+      <segment id="food_destruction_option.hazardous" state="translated">
         <source>bios_terminal.food_destruction_option_hazardous</source>
-        <target>bios_terminal.food_destruction_option_hazardous</target>
+        <target>Averiada</target>
       </segment>
-      <segment id="food_destruction_option.decomposing" state="initial">
+      <segment id="food_destruction_option.decomposing" state="translated">
         <source>bios_terminal.food_destruction_option_decomposing</source>
-        <target>bios_terminal.food_destruction_option_decomposing</target>
+        <target>Descomposición</target>
       </segment>
-      <segment id="plasma_shield.name" state="initial">
+      <segment id="plasma_shield.name" state="translated">
         <source>bios_terminal.plasma_shield_name</source>
-        <target>bios_terminal.plasma_shield_name</target>
+        <target>Escudo de Plasma</target>
       </segment>
-      <segment id="plasma_shield.description" state="initial">
+      <segment id="plasma_shield.description" state="translated">
         <source>bios_terminal.plasma_shield_description</source>
-        <target>bios_terminal.plasma_shield_description</target>
+        <target>Activa el escudo de plasma.</target>
       </segment>
-      <segment id="plasma_shield.toggle_activate" state="initial">
+      <segment id="plasma_shield.toggle_activate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_activate</source>
-        <target>bios_terminal.plasma_shield_toggle_activate</target>
+        <target>Activar</target>
       </segment>
-      <segment id="plasma_shield.toggle_deactivate" state="initial">
+      <segment id="plasma_shield.toggle_deactivate" state="translated">
         <source>bios_terminal.plasma_shield_toggle_deactivate</source>
-        <target>bios_terminal.plasma_shield_toggle_deactivate</target>
+        <target>Desactivar</target>
       </segment>
-      <segment id="magnetic_net.name" state="initial">
+      <segment id="magnetic_net.name" state="translated">
         <source>bios_terminal.magnetic_net_name</source>
-        <target>bios_terminal.magnetic_net_name</target>
+        <target>Red magnética</target>
       </segment>
-      <segment id="magnetic_net.description" state="initial">
+      <segment id="magnetic_net.description" state="translated">
         <source>bios_terminal.magnetic_net_description</source>
-        <target>bios_terminal.magnetic_net_description</target>
+        <target>Activa o desactiva la red magnética que permite traer de vuelta a los patrulleros al mover la nave... o abandonarlos a su suerte.</target>
       </segment>
-      <segment id="magnetic_net.toggle_active" state="initial">
+      <segment id="magnetic_net.toggle_active" state="translated">
         <source>bios_terminal.magnetic_net_toggle_active</source>
-        <target>bios_terminal.magnetic_net_toggle_active</target>
+        <target>Activar</target>
       </segment>
-      <segment id="magnetic_net.toggle_inactive" state="initial">
+      <segment id="magnetic_net.toggle_inactive" state="translated">
         <source>bios_terminal.magnetic_net_toggle_inactive</source>
-        <target>bios_terminal.magnetic_net_toggle_inactive</target>
+        <target>Desactivar</target>
       </segment>
-      <segment id="neron_inhibition.name" state="initial">
+      <segment id="neron_inhibition.name" state="translated">
         <source>bios_terminal.neron_inhibition_name</source>
-        <target>bios_terminal.neron_inhibition_name</target>
+        <target>Bloquear DMZ-CorePeace</target>
       </segment>
-      <segment id="neron_inhibition.description" state="initial">
+      <segment id="neron_inhibition.description" state="translated">
         <source>bios_terminal.neron_inhibition_description</source>
-        <target>bios_terminal.neron_inhibition_description</target>
+        <target>Activa el inhibidor de comportamiento de NERON. El inhibidor cambia varios de los comportamientos agresivos de NERON.</target>
       </segment>
-      <segment id="neron_inhibition.toggle_active" state="initial">
+      <segment id="neron_inhibition.toggle_active" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_active</source>
-        <target>bios_terminal.neron_inhibition_toggle_active</target>
+        <target>Sí</target>
       </segment>
-      <segment id="neron_inhibition.toggle_inactive" state="initial">
+      <segment id="neron_inhibition.toggle_inactive" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_inactive</source>
-        <target>bios_terminal.neron_inhibition_toggle_inactive</target>
+        <target>No</target>
       </segment>
-      <segment id="death_announcements_name" state="initial">
+      <segment id="death_announcements_name" state="translated">
         <source>bios_terminal.death_announcements_name</source>
-        <target>bios_terminal.death_announcements_name</target>
+        <target>Reportar muertes</target>
       </segment>
-      <segment id="death_announcements_description" state="initial">
+      <segment id="death_announcements_description" state="translated">
         <source>bios_terminal.death_announcements_description</source>
-        <target>bios_terminal.death_announcements_description</target>
+        <target>Permite que NERON reporte las muertes con un anuncio general.</target>
       </segment>
-      <segment id="death_announcements_toggle_active" state="initial">
+      <segment id="death_announcements_toggle_active" state="translated">
         <source>bios_terminal.death_announcements_toggle_active</source>
-        <target>bios_terminal.death_announcements_toggle_active</target>
+        <target>Sí</target>
       </segment>
-      <segment id="death_announcements_toggle_inactive" state="initial">
+      <segment id="death_announcements_toggle_inactive" state="translated">
         <source>bios_terminal.death_announcements_toggle_inactive</source>
-        <target>bios_terminal.death_announcements_toggle_inactive</target>
+        <target>No</target>
       </segment>
-      <segment id="vocoded_announcements_name" state="initial">
+      <segment id="vocoded_announcements_name" state="translated">
         <source>bios_terminal.vocoded_announcements_name</source>
-        <target>bios_terminal.vocoded_announcements_name</target>
+        <target>Anuncios vocales</target>
       </segment>
-      <segment id="vocoded_announcements_description" state="initial">
+      <segment id="vocoded_announcements_description" state="translated">
         <source>bios_terminal.vocoded_announcements_description</source>
-        <target>bios_terminal.vocoded_announcements_description</target>
+        <target>Permite a NERON transmitir los mensajes del Administrador de NERON.</target>
       </segment>
-      <segment id="vocoded_announcements_toggle_active" state="initial">
+      <segment id="vocoded_announcements_toggle_active" state="translated">
         <source>bios_terminal.vocoded_announcements_toggle_active</source>
-        <target>bios_terminal.vocoded_announcements_toggle_active</target>
+        <target>Autorizar</target>
       </segment>
-      <segment id="vocoded_announcements_toggle_inactive" state="initial">
+      <segment id="vocoded_announcements_toggle_inactive" state="translated">
         <source>bios_terminal.vocoded_announcements_toggle_inactive</source>
-        <target>bios_terminal.vocoded_announcements_toggle_inactive</target>
+        <target>No autorizar</target>
       </segment>
     </unit>
     <unit id="pilgred">

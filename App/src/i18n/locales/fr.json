@@ -893,8 +893,8 @@
 		"reportToAddress": "Plaintes à traiter",
 		"shipList": "Liste des vaisseaux",
 		"shipView": "Voir les détails",
-		"playerShipView" : "Voir le vaisseau",
-		"seeAllTransfers" : "Voir les transferts",
+		"playerShipView": "Voir le vaisseau",
+		"seeAllTransfers": "Voir les transferts",
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",
 		"sanctionsFor": "Liste des sanctions de {username}",
@@ -938,7 +938,7 @@
 		"introduction": {
 			"textIntro": "eMush est un jeu communautaire présentant de nombreuses façons de communiquer et de se comporter. L’objectif de ce règlement est de permettre le bon déroulement des parties et d’assurer une expérience de jeu agréable pour tous les joueurs. Les règles énoncées ne se veulent pas exhaustives et sont amenées à évoluer au fur et à mesure du développement du jeu. Les joueurs seront informés lors de toute mise à jour par une notification sur le serveur Discord d’Eternaltwin.",
 			"alphaLeeway": "Les règles signalées par cette icône indiquent qu’une tolérance durant la période d’alpha ouverte s’applique (voir dernier paragraphe).",
-			"lastUpdated": "<em>Dernière mise à jour : 15 juin 2025</em>"
+			"lastUpdated": "<em>Dernière mise à jour : 10 août 2025</em>"
 		},
 		"communication": {
 			"title": "Communication",

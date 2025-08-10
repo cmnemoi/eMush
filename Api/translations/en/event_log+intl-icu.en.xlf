@@ -694,7 +694,7 @@
       </segment>
     </unit>
     <unit id="found_item_in_exploration">
-      <segment state="translated">
+      <segment state="final">
         <source>found_item_in_exploration</source>
         <target>{target_equipment_first_letter, select,
     consonant {**{character}** has found a **{target_equipment}**.}
@@ -727,7 +727,7 @@
       </segment>
     </unit>
     <unit id="lost_item_in_exploration">
-      <segment state="translated">
+      <segment state="final">
         <source>lost_item_in_exploration</source>
         <target>{target_equipment_first_letter, select,
           consonant {**{character}** lost a **{target_equipment}**.}
@@ -800,7 +800,7 @@
       </segment>
     </unit>
     <unit id="drone_repaired_equipment">
-      <segment id="drone_repaired_equipment" state="translated">
+      <segment id="drone_repaired_equipment" state="final">
         <source>drone_repaired_equipment</source>
         <target>{version, select,
     1 {Congratulations {drone}. The **{target_equipment}** works again.}

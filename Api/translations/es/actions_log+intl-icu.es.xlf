@@ -63,13 +63,12 @@ other {**{character}** ha devorado su ración. ¡Vaya apetito!}
       </segment>
     </unit>
     <unit id="disassemble_success">
-      <segment id="disassemble_success" state="translated">
+      <segment id="disassemble_success" state="final">
         <source>disassemble_success</source>
         <target>{target_equipment_gender, select,
-male {**{character}** ha desarmado un **{target_equipment}**.}
-female **{character}** ha desarmado una *{target_equipment}**.}
-other {invalid gender input}
-}</target>
+male {**{character}** ha desarmado un **{target_equipment}**}
+female {**{character}** ha desarmado una **{target_equipment}**}
+other {invalid gender input}}.</target>
       </segment>
     </unit>
     <unit id="do_the_thing_success">
@@ -95,14 +94,14 @@ other {invalid gender input}
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="translated">
+      <segment id="drop" state="final">
         <source>drop</source>
         <target>{target_equipment, select,
-     Schrödinger {**{character} ha soltado al {target_equipment}.} other { {target_equipment_gender, select,
-male {**{character}** ha dejado un **{target_equipment}**.}
-female {**{character}** ha dejado una **{target_equipment}**.}
-other {invalid gender input}
-} }</target>
+     Schrödinger {**{character} ha soltado al **{target_equipment}**}
+     other {{target_equipment_gender, select,
+male {**{character}** ha dejado un **{target_equipment}**}
+female {**{character}** ha dejado una **{target_equipment}**}
+other {invalid gender input}}}}.</target>
       </segment>
     </unit>
     <unit id="express_cook_success">
@@ -133,7 +132,7 @@ other {invalid gender input}
       </segment>
     </unit>
     <unit id="hide_success">
-      <segment id="hide_success" state="translated">
+      <segment id="hide_success" state="final">
         <source>hide_success</source>
         <target>{target_equipment_gender, select,
 male {**{character}** ha escondido un **{target_equipment}**.}
@@ -163,15 +162,13 @@ other {invalid gender input}
     <unit id="enter_room">
       <segment id="enter_room" state="translated">
         <source>enter_room</source>
-        <target>**{character}** ha entrado{is_tracker, select, true { {enter_loc_prep} {place}} other {}.}</target>
+        <target>**{character}** ha entrado{is_tracker, select, true { {enter_loc_prep} {place}} other {}}.</target>
       </segment>
     </unit>
     <unit id="exit_room">
       <segment id="exit_room" state="translated">
         <source>exit_room</source>
-        <target>**{character}** ha salido{is_tracker, select, true {
-{exit_loc_prep} {place}} other {}}.}
-}</target>
+        <target>**{character}** ha salido{is_tracker, select, true {{exit_loc_prep} {place}} other {}}.</target>
       </segment>
     </unit>
     <unit id="read_book">
@@ -247,7 +244,7 @@ other {invalid gender input}
       </segment>
     </unit>
     <unit id="repair_success">
-      <segment id="repair_success" state="translated">
+      <segment id="repair_success" state="final">
         <source>repair_success</source>
         <target>{version, select,
   1 {{target_equipment_gender, select, female {La} other {El}} **{target_equipment}** funciona de nuevo. Gracias, **{character}**.}
@@ -266,10 +263,9 @@ other {invalid gender input}
       <segment id="search_success" state="translated">
         <source>search_success</source>
         <target>{equipment_gender, select,
-male **{character}** ha descubierto un **{equipment}**.}
-female **{character}** ha descubierto una **{equipment}**.}
-other {invalid gender input}
-}</target>
+male {**{character}** ha descubierto un **{equipment}**}
+female {**{character}** ha descubierto una **{equipment}**}
+other {invalid gender input}}.</target>
       </segment>
     </unit>
     <unit id="search_fail">
@@ -317,10 +313,9 @@ other {"invalid version number"}
       <segment id="take" state="translated">
         <source>take</source>
         <target>{target_equipment_gender, select,
-male {**{character}** ha tomado un **{target_equipment}**.}
-female {**{character}** ha tomado una **{target_equipment}**.}
-other {invalid gender input}
-}</target>
+male {**{character}** ha tomado un **{target_equipment}**}
+female {**{character}** ha tomado una **{target_equipment}**}
+other {invalid gender input}}.</target>
       </segment>
     </unit>
     <unit id="treat_plant_success">
@@ -378,7 +373,8 @@ other {**{character}** ha insertado una {target_equipment}* en el *Tanque*.}}</t
         <source>sabotage_success</source>
         <target>:mush: {target_equipment_gender, select,
 male {Que extraño, **{character}** ha hecho que salga humo del **{target_equipment}**...}
-female {Que extraño, **{character}** ha hecho que salga humo de la **{target_equipment}**...}</target>
+female {Que extraño, **{character}** ha hecho que salga humo de la **{target_equipment}**...}
+other {Que extraño, **{character}** ha hecho que salga humo del **{target_equipment}**...}}</target>
       </segment>
     </unit>
     <unit id="sabotage_fail">
@@ -827,7 +823,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="slime_trap_success">
       <segment id="slime_trap_success" state="translated">
         <source>slime_trap_success</source>
-        <target>:mush: En un abrir y cerrar de ojos, **{character}** da una palmada afectuosa a **{target_character}** pero... ¡Un humo fétido sale de sus dedos! </target>
+        <target>:mush: En un abrir y cerrar de ojos, **{character}** da una palmada afectuosa a **{target_character}** pero... ¡Un humo fétido sale de sus dedos!</target>
       </segment>
     </unit>
     <unit id="slime_object_success">
@@ -897,15 +893,17 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       </segment>
     </unit>
     <unit id="cure_cat_success">
-      <segment id="cure_cat_success" state="initial">
+      <segment id="cure_cat_success" state="translated">
         <source>cure_cat_success</source>
-        <target>cure_cat_success</target>
+        <target>{character, select,
+        Raluca {**{character}** sabe perfectamente cómo domar el mal genio de **{target_equipment}**. Lo coloca delicadamente sobre un mueble, lo acaricia, le rasca un poco detrás de la oreja y, de repente, ¡pinchazo en el trasero! El gato escapa no sin lanzar une mirada acusadora a quien aún sostiene la jeringa en su mano}  other  {**{character}** sujeta con fuerza **{target_equipment}** para evitar que se escape. La criatura forcejea como puede, pero es demasiado tarde: ¡el fluido amarillo y viscoso ha sido inyectado! En cuanto cede la presión sobre su cuerpo, se libera para esconderse en la habitación, siseando}
+        }.</target>
       </segment>
     </unit>
     <unit id="cure_cat_fail">
-      <segment id="cure_cat_fail" state="initial">
+      <segment id="cure_cat_fail" state="translated">
         <source>cure_cat_fail</source>
-        <target>cure_cat_fail</target>
+        <target>**{character}** forcejea con **{target_equipment}**  antes de que se escape de sus brazos. {character_gender, select, male {El} female {Ella} other { Elle }} lo persigue por la habitación maldiciendo, sin éxito, hasta que la criatura termina por deslizarse debajo de un mueble.</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">
@@ -930,9 +928,12 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       </segment>
     </unit>
     <unit id="shoot_cat_critical_fail">
-      <segment id="shoot_cat_critical_fail" state="initial">
+      <segment id="shoot_cat_critical_fail" state="translated">
         <source>shoot_cat_critical_fail</source>
-        <target>shoot_cat_critical_fail</target>
+        <target>{version, select,
+    1 {El truco de magia de **{character}** ha salido mal, y sin querer se ha disparado a sí mismo}
+    other {El truco de magia de **{character}** ha salido mal, y sin querer se ha disparado a sí mismo}
+}.</target>
       </segment>
     </unit>
     <unit id="daunt_success">
@@ -942,9 +943,9 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       </segment>
     </unit>
     <unit id="gen_metal_fail">
-      <segment id="gen_metal_fail" state="initial">
+      <segment id="gen_metal_fail" state="translated">
         <source>gen_metal_fail</source>
-        <target>gen_metal_fail</target>
+        <target>Das la vuelta todas esas máquinas inútiles, poniéndoles patas arriba y al revés, pero en realidad no hay nada interesante aquí...</target>
       </segment>
     </unit>
     <unit id="door_sabotage_success">
@@ -989,7 +990,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
         <target>**{character}** se lanza impacientemente en su regalo y lo desenvuelve impacientemente... Oh, ¡{quantity, select,
   1 {{equipment_gender, select, female {Una} other {Un}} **{equipment}**}
   other {{quantity} **{equipment_plural_name}**}
-  }! Esperemos que esto sea lo que {character_gender, select, female {ella} other {él}} quería... </target>
+  }! Esperemos que esto sea lo que {character_gender, select, female {ella} other {él}} quería...</target>
       </segment>
     </unit>
     <unit id="establish_link_with_sol_fail">
@@ -1020,6 +1021,12 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
       <segment id="mutate_success" state="translated">
         <source>mutate_success</source>
         <target>:mush: **{character}** se acurruca. Parece sufrir, sus gritos resuenan, vomita una bilis inmunda que quema su ropa... ¡Qué horror! ¡Su forma ha cambiado completamente!</target>
+      </segment>
+    </unit>
+    <unit id="exchange_body_success">
+      <segment id="exchange_body_success" state="translated">
+        <source>exchange_body_success</source>
+        <target>***Solo para moderación***: **{character}** se transfiere a **{target_character}**.</target>
       </segment>
     </unit>
   </file>

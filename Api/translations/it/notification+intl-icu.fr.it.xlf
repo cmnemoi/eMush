@@ -173,5 +173,15 @@
         <target>welcome_mush.description</target>
       </segment>
     </unit>
+    <unit id="welcome_on_board">
+      <segment state="initial">
+        <source>welcome_on_board.title</source>
+        <target>welcome_on_board.title</target>
+      </segment>
+      <segment state="initial">
+        <source>welcome_on_board.description</source>
+        <target>welcome_on_board.description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

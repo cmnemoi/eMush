@@ -94,7 +94,7 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="translated">
+      <segment id="drop" state="final">
         <source>drop</source>
         <target>{target_equipment, select,
                         Schrödinger {**{character}** has dropped **{target_equipment}**.}
@@ -193,7 +193,7 @@
       </segment>
     </unit>
     <unit id="repair_fail">
-      <segment id="repair_fail" state="translated">
+      <segment id="repair_fail" state="final">
         <source>repair_fail</source>
         <target>{versionPart1, select,
     1 {}
@@ -648,7 +648,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="shoot_hunter_patrol_ship_success">
       <segment id="shoot_hunter_patrol_ship_success" state="translated">
         <source>shoot_hunter_patrol_ship_success</source>
-        <target>:hunter: Nearly there! **{character}** hit a Hunter.</target>
+        <target>:hunter: Nearly there! **{character}** hit a **{hunter}**.</target>
       </segment>
     </unit>
     <unit id="shoot_hunter_patrol_ship_fail">
@@ -950,14 +950,14 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="cure_cat_success" state="translated">
         <source>cure_cat_success</source>
         <target>{character, select,
-        Raluca {**{character}** knows perfectly how to tame the bad temper of **{target_equipment}**. She places it delicately on a piece of furniture, caresses it a lot, gives a scratch or two behind his ear and suddenly, a sudden sting in the butt ! The cat escapes not without glancing at the one who was still holding the syringe in her hand.}  other {**{character}** holds tightly  **{target_equipment}** to prevent it from escaping. The creature struggles as it can, but it is too late : the yellow fluid and viscous has been injected ! As soon as the pressure on its body releases, it breaks free to hide in the room, hissing.}
-        }</target>
+        Raluca {**{character}** knows perfectly how to tame the bad temper of **{target_equipment}**. She places it delicately on a piece of furniture, caresses it a lot, gives a scratch or two behind his ear and suddenly, a sudden sting in the butt ! The cat escapes not without glancing at the one who was still holding the syringe in her hand}  other {**{character}** holds tightly  **{target_equipment}** to prevent it from escaping. The creature struggles as it can, but it is too late : the yellow fluid and viscous has been injected ! As soon as the pressure on its body releases, it breaks free to hide in the room, hissing}
+        }.</target>
       </segment>
     </unit>
     <unit id="cure_cat_fail">
       <segment id="cure_cat_fail" state="translated">
         <source>cure_cat_fail</source>
-        <target>**{character}** struggles with **{target_equipment}**  before it escapes from their arms. {character_gender, select, male {He} female {She} other {They}} chases it around the room while swearing, without any success, before the creature finally slips under a piece of furniture. </target>
+        <target>**{character}** struggles with **{target_equipment}**  before it escapes from their arms. {character_gender, select, male {He} female {She} other {They}} chases it around the room while swearing, without any success, before the creature finally slips under a piece of furniture.</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">
@@ -985,9 +985,9 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
       <segment id="shoot_cat_critical_fail" state="translated">
         <source>shoot_cat_critical_fail</source>
         <target>{version, select,
-    1 {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
-    other {When firing at **{target_character}**, **{character}** got burnt with their weapon. Spectacular work.}
-}</target>
+    1 {**{character}**'s magic trick has definitely failed, and she accidentally turns her weapon against themselves}
+    other {**{character}**'s magic trick has definitely failed, and she accidentally turns her weapon against themselves}
+}.</target>
       </segment>
     </unit>
     <unit id="daunt_success">
@@ -1005,7 +1005,7 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     <unit id="door_sabotage_success">
       <segment id="door_sabotage_success" state="translated">
         <source>door_sabotage_success</source>
-        <target>Strange, **{character}** is busying around their **Door** which is giving off smoke...</target>
+        <target>:mush: Strange, **{character}** is busying around their **Door** which is giving off smoke...</target>
       </segment>
     </unit>
     <unit id="give_nightmare_success">
@@ -1087,8 +1087,8 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
     </unit>
     <unit id="exchange_body_success">
       <segment id="exchange_body_success" state="translated">
-          <source>exchange_body_success</source>
-        <target>***For Moderation Only*** : **{character}** exchange body with **{target_character}**.</target>
+        <source>exchange_body_success</source>
+        <target>***For Moderation Only*** : **{character}** exchanges body with **{target_character}**.</target>
       </segment>
     </unit>
   </file>

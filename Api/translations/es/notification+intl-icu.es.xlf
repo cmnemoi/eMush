@@ -62,73 +62,73 @@
       </segment>
     </unit>
     <unit id="exploration_closed_everyone_dead">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_everyone_dead.subTitle</source>
-        <target>exploration_closed_everyone_dead.subTitle</target>
+        <target>La expedición terminó antes de lo esperado: ¡Todos los exploradores murieron!</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_everyone_dead.description</source>
-        <target>exploration_closed_everyone_dead.description</target>
+        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_no_spacesuit">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_no_spacesuit.subTitle</source>
-        <target>exploration_closed_no_spacesuit.subTitle</target>
+        <target>La exploración regresó antes de lo esperado: ¡Nadie tenía su traje espacial!</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_no_spacesuit.description</source>
-        <target>exploration_closed_no_spacesuit.description</target>
+        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_return_event_mankarog">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_mankarog.subTitle</source>
-        <target>exploration_closed_return_event_mankarog.subTitle</target>
+        <target>La expedición observa en el horizonte un Mankarog pasando detrás de una montaña... Mejor cambiar de rumbo ahora para evitar cualquier problema.</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_mankarog.description</source>
-        <target>exploration_closed_return_event_mankarog.description</target>
+        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_return_event_seismic_activity">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_seismic_activity.subTitle</source>
-        <target>exploration_closed_return_event_seismic_activity.subTitle</target>
+        <target>Un temblor violento paraliza la expedición... y silencio de nuevo... ¡Mejor regresar al Deadolus rápido!</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_seismic_activity.description</source>
-        <target>exploration_closed_return_event_seismic_activity.description</target>
+        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_return_event_volcanic_activity">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_volcanic_activity.subTitle</source>
-        <target>exploration_closed_return_event_volcanic_activity.subTitle</target>
+        <target>Con un retumbar apagado, un volcán cercano comienza a arrojar humo negro y espeso. ¡Hay que regresar al Dédalo lo más rápido posible!</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed_return_event_volcanic_activity.description</source>
-        <target>exploration_closed_return_event_volcanic_activity.description</target>
+        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed.subTitle</source>
-        <target>exploration_closed.subTitle</target>
+        <target>¡Bienvenidos de regreso!</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_closed.description</source>
-        <target>exploration_closed.description</target>
+        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_started_no_spacesuit">
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_started_no_spacesuit.subTitle</source>
-        <target>exploration_started_no_spacesuit.subTitle</target>
+        <target>Estás atrapado en la máquina que te llevó en una expedición que no tiene ni una atmósfera rica en oxígeno ni un traje espacial. Tendrás que esperar a que tus compañeros terminen su exploración.</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>exploration_started_no_spacesuit.description</source>
-        <target>exploration_started_no_spacesuit.description</target>
+        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="announcement_received">
@@ -152,25 +152,41 @@
       </segment>
     </unit>
     <unit id="clumsiness">
-      <segment state="initial">
+      <segment state="translated">
         <source>clumsiness.description</source>
-        <target>clumsiness.description</target>
+        <target>Lo que sea que hiciste, lo hiciste muy mal. Terriblemente mal. Tan mal que acabaste lastimándote y no un poco. Que pena.</target>
       </segment>
     </unit>
     <unit id="soiled">
-      <segment state="initial">
+      <segment state="translated">
         <source>soiled.description</source>
-        <target>soiled.description</target>
+        <target>Qué asco... te ensuciaste.</target>
       </segment>
     </unit>
     <unit id="welcome_mush">
-      <segment state="initial">
+      <segment state="translated">
         <source>welcome_mush.title</source>
-        <target>welcome_mush.title</target>
+        <target>Bienvenido a la causa, querido MUSH</target>
       </segment>
-      <segment state="initial">
+      <segment state="translated">
         <source>welcome_mush.description</source>
-        <target>welcome_mush.description</target>
+        <target>Algo ha... cambiado. Te sientes diferente.////Una calma serenidad te ha invadido. Quieres *compartirla* con tus compañeros...////Camarada, ¡**eres un agente de Mush**!////Puedes completar tu misión con éxito de dos maneras: ¡convirtiendo a todos en Mush o destruyendo la nave!////Comenzarás tu misión con **{quantity}** :triumph_mush:.</target>
+      </segment>
+    </unit>
+    <unit id="welcome_on_board">
+      <segment state="translated">
+        <source>welcome_on_board.title</source>
+        <target>Bienvenido a bordo</target>
+      </segment>
+      <segment state="translated">
+        <source>welcome_on_board.description</source>
+        <target>**NERON:** Alerta: Destino erróneo. Alerta: Ataque de Hunter en curso... 
+Procedimiento de activación de emergencia de la tripulación iniciado.//
+//
+Mueve los dedos de las manos. *Comprobado.* Mueve los dedos de los pies. *Comprobado.*//
+Humano en estado funcional.//
+//
+*El sistema de Inteligencia Artificial de la nave le desea un buen viaje...* Siguiente.</target>
       </segment>
     </unit>
   </file>

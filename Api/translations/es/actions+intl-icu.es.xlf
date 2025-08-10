@@ -1473,13 +1473,13 @@ Da un poco de alegría la primera vez...</target>
       </segment>
     </unit>
     <unit id="cure_cat">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>cure_cat.name</source>
-        <target>cure_cat.name</target>
+        <target>Vacunar</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cure_cat.description</source>
-        <target>cure_cat.description</target>
+        <target>La vacuna anti-Mush inyecta un poderoso compuesto retrofúngico que elimina todos los síntomas de Mush en el objetivo.//El sujeto dispara, araña y utiliza todo su poder para hacerte entender que no quiere esa aguja cerca de él.</target>
       </segment>
     </unit>
     <unit id="convert_cat">

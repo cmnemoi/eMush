@@ -42,7 +42,7 @@ No persigue.</target>
       </segment>
       <segment id="spider_description" state="translated">
         <source>spider.description</source>
-        <target>Impide el desplazamiento a corta distancia del Daedalus.</target>
+        <target>Impide que el Daedalus viaje.</target>
       </segment>
     </unit>
     <unit id="trax">

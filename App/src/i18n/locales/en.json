@@ -27,7 +27,20 @@
 		"emush": "eMush",
 		"eternaltwin": "eMush is a non-commercial website operated by volunteers. It belongs to the <a href=https://eternaltwin.org/>Eternaltwin</a> project, whose purpose is to preserve Motion Twin's games. This means we want to ensure they remain available even if the official website closes. <strong>We are not related to Motion Twin</strong>.",
 		"legal": "Legal notice",
-		"report": "Report inappropriate behavior"
+		"report": "Report inappropriate behavior",
+		"otherGames": "Discover other Eternalltwin games",
+		"eternaltwinGames": {
+			"alphabounce": "Alphabounce",
+			"dinocard": "Dinocard",
+			"dinorpg": "DinoRPG",
+			"directquiz": "Directquiz",
+			"epopotamo": "ePopotamo",
+			"eternalfest": "Eternalfest",
+			"kingdom": "Eternal Kingdom",
+			"mybrute": "MyBrute",
+			"myhordes": "MyHordes",
+			"neoparc": "Neoparc"
+		}
 	},
 	"util": {
 		"prev": "Previous page",
@@ -719,7 +732,7 @@
 		"problem": "There was a problem processing your request.",
 		"reportToDevs": "Please report this error to the developers, with details of how it occurred.",
 		"title": "ERROR",
-		"You have been banned!": "As a result of your actions, you have been banned by a moderator.\nIf you think this is a mistake, please open a ticket on the <a href='https://discord.gg/Jb8Nwjck6r', target='_blank'>Eternaltwin Discord</a>."
+		"You have been banned!": "As a result of your actions, you have been banned by a moderator.\\nIf you think this is a mistake, please open a ticket on the <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Eternaltwin Discord</a>."
 	},
 	"metaSeo": {
 		"description": "eMush is a remake of Mush, the award-winning survival and investigation game from Motion Twin (Twinoid). Dive into a thrilling space opera that blends survival, social deduction and role-playing in a unique multiplayer experience!",
@@ -880,8 +893,8 @@
 		"reportToAddress": "Complaints to be handled",
 		"shipList": "List of ships",
 		"shipView": "See details",
-		"playerShipView" : "See the ship",
-		"seeAllTransfers" : "See all transfers",
+		"playerShipView": "See the ship",
+		"seeAllTransfers": "See all transfers",
 		"reduce": "Reduce",
 		"showAll": "Show all sanctions",
 		"sanctionsFor": "{username}'s sanctions list",
@@ -925,7 +938,7 @@
 		"introduction": {
 			"textIntro": "eMush is a community game offering numerous ways of communication and means of acting. The aim of these rules is to allow games to run smoothly and to ensure a pleasant game experience to all the players. The rules stated here are not meant to be exhaustive and are likely to evolve along with the development of the game. Players will be informed of each update via a notification on the Eternaltwin Discord server.",
 			"alphaLeeway": "The rules marked by this icon signal that a certain leeway is applied during the period of open alpha tests (see last paragraph).",
-			"lastUpdated": "<em>Last updated : June, 15th 2025</em>"
+			"lastUpdated": "<em>Last update: August 10, 2025</em>"
 		},
 		"communication": {
 			"title": "Communication",
@@ -933,7 +946,8 @@
 			"mandatoryCommunication": "<strong>Communication</strong>: Communication is a fundamental pillar of the game. To achieve your team’s objective, it is essential to share information with your teammates in order to organize and coordinate.",
 			"courtesy": "<strong>Courtesy</strong>: Communication being an essential part of the game, players are allowed a lot of leeway as to the words used, and the aim here is not to list the forbidden words exhaustively. However, in order to guarantee a sound and inclusive game atmosphere to all players, any form of explicit language, intolerance, hatred, discrimination, harassment, violence is strictly prohibited.",
 			"spokenLanguage": "<strong>Spoken language</strong>: The player must be able to communicate easily in the language of the server.",
-			"flood": "<strong>Flood</strong>: Players must not abuse the communication systems provided. In particular, flooding is prohibited, and special attention should be paid to spelling and syntax. Any advertising for a site or service external to Eternaltwin is forbidden."
+			"flood": "<strong>Flood</strong>: Players must not abuse the communication systems provided. In particular, flooding is prohibited, and special attention should be paid to spelling and syntax. Any advertising for a site or service external to Eternaltwin is forbidden.",
+			"metagaming": "<strong>Metagame</strong>: It is forbidden to share, outside the game, any information related to the confrontation between the Mush and the humans, such as information about one’s role—whatever it may be—or any other information that could concern the investigation. An exception is allowed for ships in which there is a consensus regarding the total elimination of the Mush side, whether real or not. This rule applies in particular to discussions that may take place on the official Eternaltwin Discord."
 		},
 		"behaviour": {
 			"title": "Behaviour",

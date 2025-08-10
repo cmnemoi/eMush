@@ -832,13 +832,15 @@ El último modelo de la marca GnilWor antes de quebrar.</target>
         <source>rolling_boulder.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>rolling_boulder.description</source>
-        <target>rolling_boulder.description</target>
+        <target>Es bastante inestable y hace mucho ruido al recorrer los pasillos, pero te permite ir de un extremo a otro del Daedalus sin cansarte.
+En cada ciclo par, ganas 1 :pm: extra durante la conversión :pa:-:pm:.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>rolling_boulder.examine</source>
-        <target>rolling_boulder.examine</target>
+        <target>Es bastante inestable y hace mucho ruido al recorrer los pasillos, pero te permite ir de un extremo a otro del Daedalus sin cansarte.
+En cada ciclo par, ganas 1 :pm: extra durante la conversión :pa:-:pm:.</target>
       </segment>
     </unit>
     <unit id="sniper_helmet">
@@ -1876,9 +1878,12 @@ Usado para operaciones de mantenimiento, casi pueden reemplazar a un ser humano,
         <source>jar_of_alien_oil.description</source>
         <target>jar_of_alien_oil.description</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>jar_of_alien_oil.examine</source>
-        <target>jar_of_alien_oil.examine</target>
+        <target>Este aceite mar-a-vi-lloso no se limita a curar tus enfermedades, ¡puede igualmente alimentar el reactor del Daedalus !
+Cura 100% cualquier enfermedad.
+Puede ser usado en un reservorio para ganar 5 unidades de combustible. 
+Ni realmente fluido, ni realmente sólido, su viscosidad es tan solo comparable a su olor.</target>
       </segment>
     </unit>
     <unit id="bandage">
@@ -1988,43 +1993,50 @@ Neutraliza la contaminación Mush encapsulando la espora en un quiste lejos del 
         <source>spore_sucker.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>spore_sucker.description</source>
-        <target>spore_sucker.description</target>
+        <target>El Extractor de Esporas eliminará cualquier espora que pueda haber empezado a contaminarte.
+¡Atención! ¡Esta acción te costará 3 :hp:!
+</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>spore_sucker.examine</source>
-        <target>spore_sucker.examine</target>
+        <target>El Extractor de Esporas eliminará cualquier espora que pueda haber empezado a contaminarte.
+¡Atención! ¡Esta acción te costará 3 :hp:!
+A pesar de su apariencia, prácticamente no causa daño.</target>
       </segment>
     </unit>
     <unit id="printed_circuit_jelly">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>printed_circuit_jelly.name</source>
-        <target>printed_circuit_jelly.name</target>
+        <target>Gelatina de circuitos impresos</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>printed_circuit_jelly.short_name</source>
-        <target>printed_circuit_jelly.short_name</target>
+        <target>Gelatina con circuitos impresos</target>
       </segment>
-      <segment id="plural_name" state="initial">
+      <segment id="plural_name" state="translated">
         <source>printed_circuit_jelly.plural_name</source>
-        <target>printed_circuit_jelly.plural_name</target>
+        <target>Gelatinas con circuitos impresos</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>printed_circuit_jelly.gender</source>
-        <target>printed_circuit_jelly.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>printed_circuit_jelly.first_letter</source>
-        <target>printed_circuit_jelly.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>printed_circuit_jelly.description</source>
-        <target>printed_circuit_jelly.description</target>
+        <target>Aplicada en el Nexus a las partes más íntimas de NERON, la gelatina permite realizar los cálculos de investigación de laboratorio un 15 % más rápido.
+Al encontrarse en el Nexo, la gelatina aumenta tus esfuerzos de investigación en un 3 %.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>printed_circuit_jelly.examine</source>
-        <target>printed_circuit_jelly.examine</target>
+        <target>Aplicada en el Nexus a las partes más íntimas de NERON, la gelatina permite realizar los cálculos de investigación de laboratorio un 15 % más rápido.
+Al encontrarse en el Nexo, la gelatina aumenta tus esfuerzos de investigación en un 3 %.
+Hubiéramos podido usar esto en la cocina pero el cocinero no quiere...</target>
       </segment>
     </unit>
     <unit id="invertebrate_shell">
@@ -2044,9 +2056,10 @@ Neutraliza la contaminación Mush encapsulando la espora en un quiste lejos del 
         <source>invertebrate_shell.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>invertebrate_shell.description</source>
-        <target>invertebrate_shell.description</target>
+        <target>¡Increíble! Este pacífico crustáceo alienígena tubular tiene exactamente el mismo diámetro que las carcasas Tesla de las torretas del Daedalus.
++100% de daño para la torreta donde se coloca. Si se destruye, provocará un incendio en la habitación.</target>
       </segment>
       <segment id="examine" state="initial">
         <source>invertebrate_shell.examine</source>
@@ -3105,77 +3118,84 @@ Sirve para colocar una planta en el jardín.</target>
         <source>fiboniccus.name</source>
         <target>fiboniccus.name</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>fiboniccus.short_name</source>
-        <target>fiboniccus.short_name</target>
+        <target>Fiboniccus</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>fiboniccus.gender</source>
-        <target>fiboniccus.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>fiboniccus.first_letter</source>
-        <target>fiboniccus.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fiboniccus.description</source>
-        <target>fiboniccus.description</target>
+        <target>El fiboniccus, ancestro lejano del ficus terrestre, ha sido poco conocido durante mucho tiempo. Y con razón: no crece en la Tierra...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>fiboniccus.examine</source>
-        <target>fiboniccus.examine</target>
+        <target>El fiboniccus, ancestro lejano del ficus terrestre, ha sido poco conocido durante mucho tiempo. Y con razón: no crece en la Tierra...</target>
       </segment>
     </unit>
     <unit id="mycopia">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>mycopia.name</source>
-        <target>mycopia.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Mycopia</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>mycopia.short_name</source>
-        <target>mycopia.short_name</target>
+        <target>Mycopia</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>mycopia.gender</source>
-        <target>mycopia.gender</target>
+        <target>male</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>mycopia.first_letter</source>
-        <target>mycopia.first_letter</target>
+        <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>mycopia.description</source>
-        <target>mycopia.description</target>
+        <target>La Mycopia tiene una forma intrigante. Algunas de sus características no son muy diferentes de las de un cierto hongo famoso...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>mycopia.examine</source>
-        <target>mycopia.examine</target>
+        <target>La Mycopia tiene una forma intrigante. Algunas de sus características no son muy diferentes a de las de un cierto hongo famoso...
+Si cuidas esta planta, te va a recompensar con oxígeno y deliciosos Caleboots</target>
       </segment>
     </unit>
     <unit id="asperagunk">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>asperagunk.name</source>
-        <target>asperagunk.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Asperagunk</target>
       </segment>
-      <segment id="short_name" state="initial">
+      <segment id="short_name" state="translated">
         <source>asperagunk.short_name</source>
-        <target>asperagunk.short_name</target>
+        <target>Asperagunk</target>
       </segment>
-      <segment id="genre" state="initial">
+      <segment id="genre" state="translated">
         <source>asperagunk.gender</source>
-        <target>asperagunk.gender</target>
+        <target>female</target>
       </segment>
-      <segment id="first_letter" state="initial">
+      <segment id="first_letter" state="translated">
         <source>asperagunk.first_letter</source>
-        <target>asperagunk.first_letter</target>
+        <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>asperagunk.description</source>
-        <target>asperagunk.description</target>
+        <target>El Asperagunk es bastante similar al espárrago terrestre, pero más grande. Permite albergar una planta de jardín hidropónico.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>asperagunk.examine</source>
-        <target>asperagunk.examine</target>
+        <target>El Asperagunk es bastante similar al espárrago terrestre, pero más grande. Permite albergar una planta de jardín hidropónico.</target>
       </segment>
     </unit>
     <unit id="filandra">
@@ -3277,13 +3297,13 @@ Sirve para colocar una planta en el jardín.</target>
         <source>lombrick_bar.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lombrick_bar.description</source>
-        <target>lombrick_bar.description</target>
+        <target>Una curiosa mezcla de orugas y otros gusanos, con forma de barra y envueltos en plástico retráctil. Gulp...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>lombrick_bar.examine</source>
-        <target>lombrick_bar.examine</target>
+        <target>Una curiosa mezcla de orugas y otros gusanos, con forma de barra y envueltos en plástico. Gulp...</target>
       </segment>
     </unit>
     <unit id="organic_waste">
@@ -3303,13 +3323,13 @@ Sirve para colocar una planta en el jardín.</target>
         <source>organic_waste.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>organic_waste.description</source>
-        <target>organic_waste.description</target>
+        <target>Esto es repugnante, huele como un xilófido muerto desde hace dos meses y enterrado en un tanque de queso cheddar en una tarde soleada.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>organic_waste.examine</source>
-        <target>organic_waste.examine</target>
+        <target>Esto es repugnante, huele como un xilófido muerto desde hace dos meses y enterrado en un tanque de queso cheddar en una tarde soleada.</target>
       </segment>
     </unit>
     <unit id="proactive_puffed_rice">
@@ -3463,9 +3483,9 @@ Sirve para colocar una planta en el jardín.</target>
         <source>space_potato.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>space_potato.description</source>
-        <target>space_potato.description</target>
+        <target>¡Papas fritas espaciales! Lo curioso es que a los chicos les encantan, pero las mujeres de la tripulación las han prohibido en el refectorio. Al parecer, huelen a medias sucias y son demasiado pesadas...</target>
       </segment>
       <segment id="examine" state="initial">
         <source>space_potato.examine</source>

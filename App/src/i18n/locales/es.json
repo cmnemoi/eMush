@@ -27,7 +27,20 @@
 		"emush": "eMush",
 		"eternaltwin": "eMush es un sitio web no comercial operado por aficionados. Pertenece al proyecto <a href=https://eternaltwin.org/>Eternaltwin</a> cuyo objetivo es archivar los juegos de Motion Twin. Esto significa que queremos asegurarnos de que permanezcan disponibles incluso si el sitio web oficial cierra. <strong>No estamos relacionados con Motion Twin</strong>.\n",
 		"legal": "Aviso legal",
-		"report": "Denunciar un comportamiento inapropiado"
+		"report": "Denunciar un comportamiento inapropiado",
+		"otherGames": "Descubre los otros juegos de Eternaltwin",
+		"eternaltwinGames": {
+			"alphabounce": "Alphabounce",
+			"dinocard": "Dinocard",
+			"dinorpg": "DinoRPG",
+			"directquiz": "Directquiz",
+			"epopotamo": "ePopotamo",
+			"eternalfest": "Eternalfest",
+			"kingdom": "Eternal Kingdom",
+			"mybrute": "ElBruto",
+			"myhordes": "MyHordes",
+			"neoparc": "Neoparc"
+		}
 	},
 	"util": {
 		"prev": "Pagina anterior",
@@ -122,12 +135,12 @@
 		"character": "Personaje",
 		"daysSurvived": "Días sobrevividos",
 		"cyclesSurvived": "Ciclos sobrevividos",
-		"timeSurvived": "Temps survécus",
-		"day": "jour",
-		"days": "jours",
-		"cycle": "cycle",
-		"cycles": "cycles",
-		"triumph": "Triomphe",
+		"timeSurvived": "Tiempo transcurrido",
+		"day": "Día",
+		"days": "Días",
+		"cycle": "Ciclo",
+		"cycles": "ciclos",
+		"triumph": "Gloria",
 		"linkToTheEnd": "Daedalus",
 		"goToTheEnd": "Clasificación",
 		"endCauses": "Causa de la muerte",
@@ -338,7 +351,7 @@
 			"language": "Lenguaje del Daedalus",
 			"maintenanceOn": "Poner el juego en mantenimiento",
 			"maintenanceOff": "Retirar el juego del mantenimiento",
-			"createAPlanet": "Créer une planète"
+			"createAPlanet": "Crear un planeta"
 		},
 		"save": "Guardar",
 		"show": "Mostrar",
@@ -719,7 +732,7 @@
 		"problem": "Hubo un problema procesando tu solicitud.",
 		"reportToDevs": "Por favor reporta este error a los desarrolladores, con detalles de cómo sucedió.",
 		"title": "ERROR",
-		"You have been banned!": "Como consecuencia de tus acciones, has sido baneado por un moderador. Si crees que se trata de un error, por favor abre un ticket en el <a href='https://discord.gg/Jb8Nwjck6r', target='_blank'>Discord de Eternaltwin</a>."
+		"You have been banned!": "A la luz de tus acciones, un moderador te ha baneado. Si crees que se trata de un error, por favor abre un ticket en el <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord de Eternaltwin</a>."
 	},
 	"metaSeo": {
 		"description": "eMush es una reimplementación de Mush, el juego galardonado de supervivencia e investigación de Motion Twin (Twinoid). ¡Sumérgete en una emocionante ópera espacial que combina supervivencia, deducción social y juego de rol en una experiencia de multijugador única!",
@@ -751,7 +764,9 @@
 			"banned": "Baneado",
 			"notBanned": "No baneado",
 			"alive": "Vivo",
-			"dead": "Muerto"
+			"dead": "Muerto",
+			"inGame": "En juego",
+			"notInGame": "No en juego"
 		},
 		"theEndPage": {
 			"editMessage": "Editar",
@@ -876,6 +891,10 @@
 			"closeDescription": "Cerrar denuncia y marcar como abusiva"
 		},
 		"reportToAddress": "Denuncias por resolver",
+		"shipList": "Lista de naves",
+		"shipView": "Ver detalles",
+		"playerShipView": "Ver la nave",
+		"seeAllTransfers": "Ver todas las transferencias",
 		"reduce": "Reducir",
 		"showAll": "Mostrar todas las sanciones",
 		"sanctionsFor": "Lista de sanciones de {username}",
@@ -919,7 +938,7 @@
 		"introduction": {
 			"textIntro": "eMush es un juego comunitario que ofrece múltiples formas de comunicarse y comportarse. El objetivo de este reglamento es garantizar el buen desarrollo de las partidas y asegurar una experiencia de juego agradable para todos los jugadores. Las normas aquí expuestas no son exhaustivas y pueden evolucionar a medida que avance el desarrollo del juego. Los jugadores serán informados de cualquier actualización mediante una notificación en el servidor de Discord de Eternaltwin.",
 			"alphaLeeway": "Las reglas marcadas por este icono indican que se permite cierta tolerancia durante el período de alpha abierta (ver último párrafo).",
-			"lastUpdated": "<em>Dernière mise à jour : 9 juin 2024</em>"
+			"lastUpdated": "<em>Última actualización: 10 de agosto de 2025</em>"
 		},
 		"communication": {
 			"title": "Comunicación",
@@ -927,7 +946,8 @@
 			"mandatoryCommunication": "<strong>Comunicación</strong>: La comunicación es un pilar fundamental del juego. Para intentar conseguir el objetivo de tu bando, es indispensable compartir información con tus compañeros de equipo para organizarse y coordinarse.",
 			"courtesy": "<strong>Cortesía</strong>: Ya que comunicación es el pilar principal del juego, los jugadores gozan de una gran tolerancia respecto a las palabras utilizadas, y nuestro propósito no es ofrecer una lista exhaustiva de palabras prohibidas. Sin embargo, a fin de garantizar un ambiente de juego sano e inclusivo para todos los jugadores, cualquier forma de lenguaje explícito, intolerante, de odio, discriminativo, o violento, está estríctamente prohibido.",
 			"spokenLanguage": "<strong>Lenguaje hablado</strong>: El jugador debe ser capaz de comunicarse fácilmente en el lenguaje del servidor.",
-			"flood": "<strong>Flooding</strong>: Los jugadores no deben abusar de los sistemas de comunicación disponibles. En particular, inundar el chat(flooding) está prohibido y se debe prestar particular atención a la ortografía y la sintaxis. Cualquier publicidad de un sitio o servicio externo a Eternaltwin está prohibido."
+			"flood": "<strong>Flooding</strong>: Los jugadores no deben abusar de los sistemas de comunicación disponibles. En particular, inundar el chat(flooding) está prohibido y se debe prestar particular atención a la ortografía y la sintaxis. Cualquier publicidad de un sitio o servicio externo a Eternaltwin está prohibido.",
+			"metagaming": "<strong>Metajuego</strong>: Está prohibido compartir, fuera del juego, cualquier información relacionada con la confrontación entre los Mush y los humanos, como información sobre el propio rol —sea cual sea— o cualquier otra información que pueda estar relacionada con la investigación. Se admite una excepción para las naves en las que exista un consenso sobre la eliminación total del bando Mush, sea real o no. Esta regla se aplica especialmente a las conversaciones que puedan tener lugar en el Discord oficial de Eternaltwin."
 		},
 		"behaviour": {
 			"title": "Comportamiento",

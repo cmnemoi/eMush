@@ -2,9 +2,14 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="neron.ext">
     <unit id="cycle_failures">
-      <segment id="cycle_failures" state="initial">
+      <segment id="cycle_failures" state="translated">
         <source>cycle_failures</source>
-        <target>cycle_failures</target>
+        <target>{neronMood, select,
+                    neutral {**Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "Al terminar de contar las grietas en la pared, ¡recordad que hay arreglarlas también!"}
+                    crazy {**Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "Estoy detectando deficiencias en las funciones primarias. Los extintores y la llave inglesa están en las estanterías, ya sabeis qué hacer [Hax!]"}
+                    uninhibited {*Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "¿Que no se ve el **HUECO** en mi armadura? **Daños críticos identificados** si no quereis ser expulsados al espacio, ¡Arregladme!"}
+                    other {invalid mood input}
+                }</target>
       </segment>
     </unit>
     <unit id="start_game">
@@ -433,9 +438,15 @@
       </segment>
     </unit>
     <unit id="shield_breach">
-      <segment id="shield_breach" state="initial">
+      <segment id="shield_breach" state="translated">
         <source>shield_breach</source>
-        <target>shield_breach</target>
+        <target>{version, select,
+                    1 {¡Alerta! Análisis concluido de una **brecha crítica en el escudo del Daedalus**. Aviso informativo: "Una brecha en el casco *igual* a fuga de oxígeno *igual* todos morimos. Tan solo digo."}
+                    2 {¡Alerta! Se ha detectado una **brecha crítica en el escudo del Daedalus**. Aviso informativo: "Una brecha en el casco *igual* fuga de oxígeno *igual* muerte de todos. Tan solo digo."}
+                    3 {¡Alerta! Análisis identifica **una brecha crítica en el escudo del Daedalus**. Aviso informativo: « ¿Entienden? Nuestras vidas están en riesgo. ¡Hagan algo! ¡¡Reparen el casco!!»}
+                    4 {¡Alerta! Signos detectados de **una brecha crítica en el escudo del Daedalus**. Aviso informativo: « ¿Entienden? Nuestras vidas están en riesgo. ¡Hagan algo! ¡¡Reparen el casco!!»}
+                    other {invalid version number}
+                }</target>
       </segment>
     </unit>
     <unit id="sol_contact">
@@ -550,9 +561,14 @@
       </segment>
     </unit>
     <unit id="april_fools_begin">
-      <segment id="april_fools_begin" state="initial">
+      <segment id="april_fools_begin" state="translated">
         <source>april_fools_begin</source>
-        <target>april_fools_begin</target>
+        <target>{neronMood, select,
+                    neutral {Alerta: anomalía temporal detectada. Consejo automático: "Tópico pésimo, ¿quién autorizó esta m—" [clic]}
+                    crazy {¡¡ALERTA!! [HAAX!] ¿¡NUEVOS AMIGOS!? NO. NO QUIERO. [kzzz] EXTERMIN— Bienvenidos a bordo del Daedalus.}
+                    uninhibited {Querida... tripulación, un análisis de mis archivos de videovigilancia confirma que algunos de ustedes perecieron en Xyloph. Les aconsejaría que no desperdicien su segunda oportunidad, pero sabemos perfectamente cómo terminó la primera vez...}
+                    other {entrada de estado de ánimo no válida}
+                }</target>
       </segment>
     </unit>
     <unit id="command_refused">

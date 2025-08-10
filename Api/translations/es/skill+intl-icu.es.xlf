@@ -671,9 +671,9 @@
       </segment>
     </unit>
     <unit id="u_turn">
-      <segment id="u_turn.name" state="initial">
+      <segment id="u_turn.name" state="translated">
         <source>u_turn.name</source>
-        <target>u_turn.name</target>
+        <target>Giro en U</target>
       </segment>
       <segment id="u_turn.description" state="translated">
         <source>u_turn.description</source>
@@ -964,9 +964,9 @@
         <source>panic.name</source>
         <target>Pánico</target>
       </segment>
-      <segment id="panic.description" state="initial">
+      <segment id="panic.description" state="translated">
         <source>panic.description</source>
-        <target>panic.description</target>
+        <target>Es cuando todo va mal que puedes sacar tu verdadero potencial: Gritar a todo pulmón y correr en todos los sentidos. // :point: Ganas **1** :pa: y **1** :pm: adicional cada ciclo donde **Mush controla más del 50%** de la tripulación.</target>
       </segment>
     </unit>
     <unit id="hygienist">
@@ -974,9 +974,9 @@
         <source>hygienist.name</source>
         <target>Impecable</target>
       </segment>
-      <segment id="hygienist.description" state="initial">
+      <segment id="hygienist.description" state="translated">
         <source>hygienist.description</source>
-        <target>hygienist.description</target>
+        <target>Puedes ser un bruto, pero sobre todo eres un purista de la limpieza. ¡No me toques, me vas a ensuciar! //:point: Tienes un **50%** de probabilidad de resistir los intentos de infección Mush. //:point: Tienes un **50%** de resistencia a las enfermedades físicas.</target>
       </segment>
     </unit>
     <unit id="antique_perfume">

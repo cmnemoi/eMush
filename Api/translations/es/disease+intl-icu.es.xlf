@@ -26,9 +26,9 @@
         <source>gastroenteritis.name</source>
         <target>Gastroenteritis</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>gastroenteritis.description</source>
-        <target>gastroenteritis.description</target>
+        <target>¿Realmente es necesario hacer un diagrama? Describir en detalle el olor o los espasmos estomacales?</target>
       </segment>
     </unit>
     <unit id="tapeworm">
@@ -266,9 +266,9 @@
         <source>chronic_migraine.name</source>
         <target>Migraña crónica</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chronic_migraine.description</source>
-        <target>chronic_migraine.description</target>
+        <target>De vez en cuando te ataca una migraña terrible y desagradable... y cuando te ataca, todo se pone patas arriba... mala suerte.</target>
       </segment>
     </unit>
     <unit id="chronic_vertigo">
@@ -276,9 +276,9 @@
         <source>chronic_vertigo.name</source>
         <target>Vértigo crónico</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>chronic_vertigo.description</source>
-        <target>chronic_vertigo.description</target>
+        <target>Tienes vértigo crónico que puede ser bastante incapacitante.</target>
       </segment>
     </unit>
     <unit id="coprolalia">
@@ -296,9 +296,9 @@
         <source>crabism.name</source>
         <target>crabism.name</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>crabism.description</source>
-        <target>crabism.description</target>
+        <target>De vez en cuando te pones a caminar de un lado a otro, o te tiras al suelo, sólo para regresar por breves periodos a la normalidad. </target>
       </segment>
     </unit>
     <unit id="depression">
@@ -312,23 +312,23 @@
       </segment>
     </unit>
     <unit id="paranoia">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>paranoia.name</source>
-        <target>paranoia.name</target>
+        <target>Paranoia</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>paranoia.description</source>
-        <target>paranoia.description</target>
+        <target>Temes por tu vida y potencialmente lo das a conocer.</target>
       </segment>
     </unit>
     <unit id="psychotic_episodes">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>psychotic_episodes.name</source>
-        <target>psychotic_episodes.name</target>
+        <target>Episodios Psicóticos</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>psychotic_episodes.description</source>
-        <target>psychotic_episodes.description</target>
+        <target>A menudo la ira te abruma y pierdes control. Se aconseja evitar toda forma de armas. </target>
       </segment>
     </unit>
     <unit id="spleen">
@@ -346,9 +346,9 @@
         <source>vertigo.name</source>
         <target>Vértigo</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>vertigo.description</source>
-        <target>vertigo.description</target>
+        <target>Sientes un vértigo temporal que te impide pilotar cualquier nave...</target>
       </segment>
     </unit>
     <unit id="weapon_phobia">
@@ -432,13 +432,13 @@
       </segment>
     </unit>
     <unit id="bruised_shoulder">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>bruised_shoulder.name</source>
-        <target>bruised_shoulder.name</target>
+        <target>Hombro lesionado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>bruised_shoulder.description</source>
-        <target>bruised_shoulder.description</target>
+        <target>Tu hombro ha sufrido contusiones importantes. Afortunadamente, son reversibles.</target>
       </segment>
     </unit>
     <unit id="burnt_arms">
@@ -462,13 +462,13 @@
       </segment>
     </unit>
     <unit id="burst_nose">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>burst_nose.name</source>
-        <target>burst_nose.name</target>
+        <target>Nariz rota</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>burst_nose.description</source>
-        <target>burst_nose.description</target>
+        <target>Tu nariz ya no está, ya no está en absoluto, y tienes una apariencia un poco aterradora...</target>
       </segment>
     </unit>
     <unit id="busted_arm_joint">
@@ -482,13 +482,13 @@
       </segment>
     </unit>
     <unit id="busted_shoulder">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>busted_shoulder.name</source>
-        <target>busted_shoulder.name</target>
+        <target>Hombro pulverizado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>busted_shoulder.description</source>
-        <target>busted_shoulder.description</target>
+        <target>El hombro ha sufrido lesiones mayores irreversibles. El brazo entero puede considerarse muerto.</target>
       </segment>
     </unit>
     <unit id="critical_haemorrhage">
@@ -502,23 +502,23 @@
       </segment>
     </unit>
     <unit id="damaged_ears">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>damaged_ears.name</source>
-        <target>damaged_ears.name</target>
+        <target>Oidos incapacitados</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>damaged_ears.description</source>
-        <target>damaged_ears.description</target>
+        <target>Tus oídos ya no son de ninguna utilidad.</target>
       </segment>
     </unit>
     <unit id="destroyed_ears">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>destroyed_ears.name</source>
-        <target>destroyed_ears.name</target>
+        <target>Oídos pulverizados.</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>destroyed_ears.description</source>
-        <target>destroyed_ears.description</target>
+        <target>Tus orejas han desaparecido. Tal vez si las buscas bien...</target>
       </segment>
     </unit>
     <unit id="dysfunctional_liver">
@@ -562,9 +562,9 @@
       </segment>
     </unit>
     <unit id="inner_ear_damaged">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>inner_ear_damaged.name</source>
-        <target>inner_ear_damaged.name</target>
+        <target>Oido interno lesionado</target>
       </segment>
       <segment id="description" state="translated">
         <source>inner_ear_damaged.description</source>
@@ -662,9 +662,9 @@
       </segment>
     </unit>
     <unit id="mashed_leg.description">
-      <segment state="initial">
+      <segment state="translated">
         <source>mashed_leg.description</source>
-        <target>mashed_leg.description</target>
+        <target>Ya no puedes usar tus piernas, qué lástima, eran bastante útiles.</target>
       </segment>
     </unit>
   </file>

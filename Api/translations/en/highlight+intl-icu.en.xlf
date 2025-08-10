@@ -394,7 +394,7 @@
     <unit id="door_sabotage">
       <segment id="highlight" state="translated">
         <source>door_sabotage.highlight</source>
-        <target>You have sabotaged a door</target>
+        <target>You have sabotaged a door.</target>
       </segment>
     </unit>
     <unit id="give_nightmare">

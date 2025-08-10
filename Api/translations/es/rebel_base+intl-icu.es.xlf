@@ -10,9 +10,10 @@
         <source>wolf.hoverName</source>
         <target>Mensaje de los Niños Perdidos de Wolf</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>wolf.description</source>
-        <target>wolf.description</target>
+        <target>Los Niños Perdidos de Wolf instalaron muchas antenas en la Tierra, además de una estación de radiodifusión en Mumbai. Podremos transmitir las noticias de su odisea por la radio terrestre. ¡Sois héroes!
+**Toda la tripulación gana 8:triumph:**</target>
       </segment>
     </unit>
     <unit id="sirius">

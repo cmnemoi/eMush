@@ -1201,9 +1201,9 @@
   other {Desmoralizado}
 }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>demoralized.description</source>
-        <target>demoralized.description</target>
+        <target>Debes recomponerte rápidamente, la moral está por los suelos y puede jugarte una mala pasada.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>demoralized.examine</source>
@@ -1329,9 +1329,9 @@
       </segment>
     </unit>
     <unit id="germaphobe">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>germaphobe.name</source>
-        <target>germaphobe.name</target>
+        <target>Germófobo</target>
       </segment>
       <segment id="description" state="translated">
         <source>germaphobe.description</source>
@@ -1448,9 +1448,9 @@
   other {Perdido}
 }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>lost.description</source>
-        <target>lost.description</target>
+        <target>Te perdiste el último vuelo de salida de este agujero y te arrepientes.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>lost.examine</source>
@@ -1484,9 +1484,9 @@
         <source>multi_teamster.name</source>
         <target>Multi-equipos</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>multi_teamster.description</source>
-        <target>multi_teamster.description</target>
+        <target>Los sensores han detectado que este tripulante tiene varias identidades paralelas. Por favor,  contactar con las Fuerzas de Autodefensa para resolver esta situación.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>multi_teamster.examine</source>
@@ -1542,9 +1542,9 @@ Todas tus acciones se vuelven más difíciles.</target>
         <source>pregnant.name</source>
         <target>Encinta</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>pregnant.description</source>
-        <target>pregnant.description</target>
+        <target>¡Estás esperando un evento feliz! Esto te da :triumph: extra, y si mueres, :pmo: del equipo estará fuertemente afectado.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>pregnant.examine</source>
@@ -1592,9 +1592,9 @@ Todas tus acciones se vuelven más difíciles.</target>
             other {Hambriento}
             }</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>starving_warning.description</source>
-        <target>starving_warning.description</target>
+        <target>Hace mucho que no has comido nada. Cada ciclo sin comer te costará 1 :hp:.</target>
       </segment>
     </unit>
     <unit id="stuck_in_the_ship">
@@ -1620,9 +1620,9 @@ Todas tus acciones se vuelven más difíciles.</target>
         <source>suicidal.name</source>
         <target>Suicida</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>suicidal.description</source>
-        <target>suicidal.description</target>
+        <target>Simplemente ver una cuchara de plástico te da ideas... Encuentra una forma de calmarte, ¡y rápido!</target>
       </segment>
       <segment id="effect" state="initial">
         <source>suicidal.examine</source>
@@ -1666,9 +1666,9 @@ Todas tus acciones se vuelven más difíciles.</target>
         <source>cat_infected.name</source>
         <target>Infectado</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>cat_infected.description</source>
-        <target>cat_infected.description</target>
+        <target>Tu misión es demasiado importante como para elegir a tus aliados.//Cada miembro de la tripulación **humano** que este gato ha **arañado**  verá su **nivel de contaminación aumentar de uno**.//*Puedes ver este mensaje porque eres parte de Mush.*</target>
       </segment>
     </unit>
     <unit id="antique_perfume_immunized">

@@ -2,43 +2,43 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="fun_facts.ext">
     <unit id="best_cook">
-      <segment id="best_cook.name" state="initial">
+      <segment id="best_cook.name" state="translated">
         <source>best_cook.name</source>
-        <target>best_cook.name</target>
+        <target>Cocine a fuego lento por la tarde y por la mañana.</target>
       </segment>
-      <segment id="best_cook.description" state="initial">
+      <segment id="best_cook.description" state="translated">
         <source>best_cook.description</source>
-        <target>best_cook.description</target>
+        <target>"Cuando no hay nada que hacer, pues... ¡Cocino! ¿Qué?¿Hice Demasiado? ¡¿Quién no terminó su plato?!"</target>
       </segment>
     </unit>
     <unit id="best_planet_scanner">
-      <segment id="best_planet_scanner.name" state="initial">
+      <segment id="best_planet_scanner.name" state="translated">
         <source>best_planet_scanner.name</source>
-        <target>best_planet_scanner.name</target>
+        <target>Genio de la astrofísica</target>
       </segment>
-      <segment id="best_planet_scanner.description" state="initial">
+      <segment id="best_planet_scanner.description" state="translated">
         <source>best_planet_scanner.description</source>
-        <target>best_planet_scanner.description</target>
+        <target>Este de aquí adora descubrir planetas y escanearlos, escanearlos hasta que ya no queda nada por escanear!</target>
       </segment>
     </unit>
     <unit id="earliest_death">
-      <segment id="earliest_death.name" state="initial">
+      <segment id="earliest_death.name" state="translated">
         <source>earliest_death.name</source>
-        <target>earliest_death.name</target>
+        <target>Sketch incompleto</target>
       </segment>
-      <segment id="earliest_death.description" state="initial">
+      <segment id="earliest_death.description" state="translated">
         <source>earliest_death.description</source>
-        <target>earliest_death.description</target>
+        <target>Tal vez era alguien que hubiera podido hacer historia... pero murió antes de siquiera empezar.</target>
       </segment>
     </unit>
     <unit id="best_technician">
-      <segment id="best_technician.name" state="initial">
+      <segment id="best_technician.name" state="translated">
         <source>best_technician.name</source>
-        <target>best_technician.name</target>
+        <target>Técnico omnipotente</target>
       </segment>
-      <segment id="best_technician.description" state="initial">
+      <segment id="best_technician.description" state="translated">
         <source>best_technician.description</source>
-        <target>best_technician.description</target>
+        <target>Entendió que las cosas rotas, pues, no funcionan y hay que repararlas!</target>
       </segment>
     </unit>
     <unit id="unluckier_technician">
@@ -52,23 +52,23 @@
       </segment>
     </unit>
     <unit id="sol_collabs">
-      <segment id="sol_collabs.name" state="initial">
+      <segment id="sol_collabs.name" state="translated">
         <source>sol_collabs.name</source>
-        <target>sol_collabs.name</target>
+        <target>Asistente radio de servicio</target>
       </segment>
-      <segment id="sol_collabs.description" state="initial">
+      <segment id="sol_collabs.description" state="translated">
         <source>sol_collabs.description</source>
-        <target>sol_collabs.description</target>
+        <target>Alguien que entendió la utilidad de establecer el enlace de radio desde el terminal de comunicación.</target>
       </segment>
     </unit>
     <unit id="best_caresser">
-      <segment id="best_caresser.name" state="initial">
+      <segment id="best_caresser.name" state="translated">
         <source>best_caresser.name</source>
-        <target>best_caresser.name</target>
+        <target>Adicto a pelos de gato</target>
       </segment>
-      <segment id="best_caresser.description" state="initial">
+      <segment id="best_caresser.description" state="translated">
         <source>best_caresser.description</source>
-        <target>best_caresser.description</target>
+        <target>Es simpático acariciar al gato, pero normalmente no es el objetivo principal de un viaje...</target>
       </segment>
     </unit>
     <unit id="best_hunter_killer">
@@ -92,53 +92,53 @@
       </segment>
     </unit>
     <unit id="best_killer">
-      <segment id="best_killer.name" state="initial">
+      <segment id="best_killer.name" state="translated">
         <source>best_killer.name</source>
-        <target>best_killer.name</target>
+        <target>Asesino compulsivo</target>
       </segment>
-      <segment id="best_killer.description" state="initial">
+      <segment id="best_killer.description" state="translated">
         <source>best_killer.description</source>
-        <target>best_killer.description</target>
+        <target>Si fuera posible comer a sus camaradas, lo hubiera hecho con todo y una pisca de sal.</target>
       </segment>
     </unit>
     <unit id="most_talkative">
-      <segment id="most_talkative.name" state="initial">
+      <segment id="most_talkative.name" state="translated">
         <source>most_talkative.name</source>
-        <target>most_talkative.name</target>
+        <target>Compa locuaz</target>
       </segment>
-      <segment id="most_talkative.description" state="initial">
+      <segment id="most_talkative.description" state="translated">
         <source>most_talkative.description</source>
-        <target>most_talkative.description</target>
+        <target>Le pequeña voz que se escucha dia y noche en el walkie-talkie. ¡Adiós soledad!</target>
       </segment>
     </unit>
     <unit id="less_talkative">
-      <segment id="less_talkative.name" state="initial">
+      <segment id="less_talkative.name" state="translated">
         <source>less_talkative.name</source>
-        <target>less_talkative.name</target>
+        <target>En modo silencio de radio</target>
       </segment>
-      <segment id="less_talkative.description" state="initial">
+      <segment id="less_talkative.description" state="translated">
         <source>less_talkative.description</source>
-        <target>less_talkative.description</target>
+        <target>Este claramente nunca encontró el botón del walkie-talkie...</target>
       </segment>
     </unit>
     <unit id="less_active">
-      <segment id="less_active.name" state="initial">
+      <segment id="less_active.name" state="translated">
         <source>less_active.name</source>
-        <target>less_active.name</target>
+        <target>Perezoso invertebrado</target>
       </segment>
-      <segment id="less_active.description" state="initial">
+      <segment id="less_active.description" state="translated">
         <source>less_active.description</source>
-        <target>less_active.description</target>
+        <target>No hizo mucho, ni aunque fuera el fin del mundo. No, son los otros quien deben trabajar duro.</target>
       </segment>
     </unit>
     <unit id="most_active">
-      <segment id="most_active.name" state="initial">
+      <segment id="most_active.name" state="translated">
         <source>most_active.name</source>
-        <target>most_active.name</target>
+        <target>Incansable hiperactivo</target>
       </segment>
-      <segment id="most_active.description" state="initial">
+      <segment id="most_active.description" state="translated">
         <source>most_active.description</source>
-        <target>most_active.description</target>
+        <target>Nunca para y honestamente, nos preguntamos que mismo toma para poder seguir...</target>
       </segment>
     </unit>
     <unit id="best_eater">
@@ -182,13 +182,13 @@
       </segment>
     </unit>
     <unit id="dead_during_sleep">
-      <segment id="dead_during_sleep.name" state="initial">
+      <segment id="dead_during_sleep.name" state="translated">
         <source>dead_during_sleep.name</source>
-        <target>dead_during_sleep.name</target>
+        <target>Rest In Peace</target>
       </segment>
-      <segment id="dead_during_sleep.description" state="initial">
+      <segment id="dead_during_sleep.description" state="translated">
         <source>dead_during_sleep.description</source>
-        <target>dead_during_sleep.description</target>
+        <target>¿Fuego, asfixia, famina, traición, violencia ciega...? No, murió mientras dormía.</target>
       </segment>
     </unit>
     <unit id="best_hacker">
@@ -202,23 +202,23 @@
       </segment>
     </unit>
     <unit id="best_com_technician">
-      <segment id="best_com_technician.name" state="initial">
+      <segment id="best_com_technician.name" state="translated">
         <source>best_com_technician.name</source>
-        <target>best_com_technician.name</target>
+        <target>Responsable Comm. Dedicada</target>
       </segment>
-      <segment id="best_com_technician.description" state="initial">
+      <segment id="best_com_technician.description" state="translated">
         <source>best_com_technician.description</source>
-        <target>best_com_technician.description</target>
+        <target>Pasó mucho tiempo retocando la radio. ¿Al menos le agradeciste?</target>
       </segment>
     </unit>
     <unit id="best_sandman">
-      <segment id="best_sandman.name" state="initial">
+      <segment id="best_sandman.name" state="translated">
         <source>best_sandman.name</source>
-        <target>best_sandman.name</target>
+        <target>Pesadilla andante</target>
       </segment>
-      <segment id="best_sandman.description" state="initial">
+      <segment id="best_sandman.description" state="translated">
         <source>best_sandman.description</source>
-        <target>best_sandman.description</target>
+        <target>Jugó demasiado Croquemonstruo y se divirtió arruinando los sueños de sus camaradas.</target>
       </segment>
     </unit>
     <unit id="best_terrorist">
@@ -232,53 +232,53 @@
       </segment>
     </unit>
     <unit id="best_wounded">
-      <segment id="best_wounded.name" state="initial">
+      <segment id="best_wounded.name" state="translated">
         <source>best_wounded.name</source>
-        <target>best_wounded.name</target>
+        <target>Desafortunadamente indefenso</target>
       </segment>
-      <segment id="best_wounded.description" state="initial">
+      <segment id="best_wounded.description" state="translated">
         <source>best_wounded.description</source>
-        <target>best_wounded.description</target>
+        <target>Un herido de servicio que solo se enfrenta a desgracias injustas... ¿tal vez no debería haber ido desarmado?</target>
       </segment>
     </unit>
     <unit id="best_diseased">
-      <segment id="best_diseased.name" state="initial">
+      <segment id="best_diseased.name" state="translated">
         <source>best_diseased.name</source>
-        <target>best_diseased.name</target>
+        <target>Frágil y enfermizo</target>
       </segment>
-      <segment id="best_diseased.description" state="initial">
+      <segment id="best_diseased.description" state="translated">
         <source>best_diseased.description</source>
-        <target>best_diseased.description</target>
+        <target>Paciente incurable que se contagió de todas las suciedades a su alrededor. No hay que pedirle demasiado.</target>
       </segment>
     </unit>
     <unit id="drug_addict">
-      <segment id="drug_addict.name" state="initial">
+      <segment id="drug_addict.name" state="translated">
         <source>drug_addict.name</source>
-        <target>drug_addict.name</target>
+        <target>"Sólo... es... recreacional..."</target>
       </segment>
-      <segment id="drug_addict.description" state="initial">
+      <segment id="drug_addict.description" state="translated">
         <source>drug_addict.description</source>
-        <target>drug_addict.description</target>
+        <target>Consumidor intensivo de sustancias sospechosas que le hacen ver ciervos sonrientes y pulpos sagrados.</target>
       </segment>
     </unit>
     <unit id="knife_evader">
-      <segment id="knife_evader.name" state="initial">
+      <segment id="knife_evader.name" state="translated">
         <source>knife_evader.name</source>
-        <target>knife_evader.name</target>
+        <target>Medio ninja medio anguila</target>
       </segment>
-      <segment id="knife_evader.description" state="initial">
+      <segment id="knife_evader.description" state="translated">
         <source>knife_evader.description</source>
-        <target>knife_evader.description</target>
+        <target>Evita cuchillos como nadie más, y nadie puede pararle. Es el ninja-anguila.</target>
       </segment>
     </unit>
     <unit id="best_agro">
-      <segment id="best_agro.name" state="initial">
+      <segment id="best_agro.name" state="translated">
         <source>best_agro.name</source>
-        <target>best_agro.name</target>
+        <target>Loco peligroso</target>
       </segment>
-      <segment id="best_agro.description" state="initial">
+      <segment id="best_agro.description" state="translated">
         <source>best_agro.description</source>
-        <target>best_agro.description</target>
+        <target>Super agresivo, ataca todo lo que se mueve. Es el terror de las gallinas del jardín.</target>
       </segment>
     </unit>
     <unit id="worst_agro">
@@ -292,13 +292,13 @@
       </segment>
     </unit>
     <unit id="lesser_drugged">
-      <segment id="lesser_drugged.name" state="initial">
+      <segment id="lesser_drugged.name" state="translated">
         <source>lesser_drugged.name</source>
-        <target>lesser_drugged.name</target>
+        <target>Pureza asombrosa</target>
       </segment>
-      <segment id="lesser_drugged.description" state="initial">
+      <segment id="lesser_drugged.description" state="translated">
         <source>lesser_drugged.description</source>
-        <target>lesser_drugged.description</target>
+        <target>Las drogas son malas, no las toquen niños. Tú tampoco las toques, o te funo.</target>
       </segment>
     </unit>
     <unit id="kube_addict">
@@ -312,43 +312,43 @@
       </segment>
     </unit>
     <unit id="best_alien_traitor">
-      <segment id="best_alien_traitor.name" state="initial">
+      <segment id="best_alien_traitor.name" state="translated">
         <source>best_alien_traitor.name</source>
-        <target>best_alien_traitor.name</target>
+        <target>Traidor en expedición</target>
       </segment>
-      <segment id="best_alien_traitor.description" state="initial">
+      <segment id="best_alien_traitor.description" state="translated">
         <source>best_alien_traitor.description</source>
-        <target>best_alien_traitor.description</target>
+        <target>EL camarada que nadie debió llevar a ese planeta maldito...</target>
       </segment>
     </unit>
     <unit id="stealthiest">
-      <segment id="stealthiest.name" state="initial">
+      <segment id="stealthiest.name" state="translated">
         <source>stealthiest.name</source>
-        <target>stealthiest.name</target>
+        <target>Furtivo enmascarado</target>
       </segment>
-      <segment id="stealthiest.description" state="initial">
+      <segment id="stealthiest.description" state="translated">
         <source>stealthiest.description</source>
-        <target>stealthiest.description</target>
+        <target>¡Es el champiñón enmascarado que cometió las acciones más traicioneras en secreto!</target>
       </segment>
     </unit>
     <unit id="unstealthiest">
-      <segment id="unstealthiest.name" state="initial">
+      <segment id="unstealthiest.name" state="translated">
         <source>unstealthiest.name</source>
-        <target>unstealthiest.name</target>
+        <target>Champiñón al descubierto</target>
       </segment>
-      <segment id="unstealthiest.description" state="initial">
+      <segment id="unstealthiest.description" state="translated">
         <source>unstealthiest.description</source>
-        <target>unstealthiest.description</target>
+        <target>Un champiñón no-tan-secreto encontrado manos en la masa, ¿Y qué?</target>
       </segment>
     </unit>
     <unit id="unstealthiest_and_killed">
-      <segment id="unstealthiest_and_killed.name" state="initial">
+      <segment id="unstealthiest_and_killed.name" state="translated">
         <source>unstealthiest_and_killed.name</source>
-        <target>unstealthiest_and_killed.name</target>
+        <target>Champiñón decapitado</target>
       </segment>
-      <segment id="unstealthiest_and_killed.description" state="initial">
+      <segment id="unstealthiest_and_killed.description" state="translated">
         <source>unstealthiest_and_killed.description</source>
-        <target>unstealthiest_and_killed.description</target>
+        <target>La discreción... ¿De qué sirve? Pues, para no terminar como un omellette de champiñón...</target>
       </segment>
     </unit>
   </file>

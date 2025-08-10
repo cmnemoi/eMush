@@ -270,9 +270,213 @@
       </segment>
     </unit>
     <unit id="planet_name">
-      <segment id="planet_name" state="initial">
+      <segment id="planet_name" state="translated">
         <source>planet_name</source>
-        <target>planet_name</target>
+        <target>{prefix, select,
+                1 {Primus }
+                2 {Secondus } 
+                3 {Tertius }
+                4 {Quartus }
+                5 {First }
+                6 {Second }
+                7 {II }
+                8 {III }
+                9 {IV }
+                10 {V }
+                11 {VI }
+                12 {VII }
+                13 {VIII }
+                14 {IX }
+                15 {X }
+                16 {Lumis }
+                17 {Alpha }
+                18 {Beta }
+                19 {Ceta }
+                20 {Delta }
+                21 {Epsilon }
+                22 {Gamma }
+                23 {Zeta }
+                24 {Eta }
+                25 {Sigma }
+                26 {Omicron }
+                27 {Upsilon }
+                28 {Lambda }
+                29 {Omega }
+                30 {Kappa }
+                31 {Iota }
+                32 {Theta }
+                33 {Tau }
+                34 {Psi }
+                other {}}{first_syllable, select,
+                1 {Fugu}
+                2 {Pilu}
+                3 {Mage}
+                4 {Frome}
+                5 {Grune}
+                6 {Brate}
+                7 {Milo}
+                8 {Komo}
+                9 {Date}
+                10 {Sigu}
+                11 {Crame}
+                12 {Fari}
+                13 {Mushe}
+                14 {Dago}
+                15 {Cari}
+                16 {Sopi}
+                17 {Nato}
+                18 {Sube}
+                19 {Ludi}
+                20 {Miche}
+                21 {Pample}
+                22 {Noce}
+                23 {Gouli}
+                24 {Kafto}
+                25 {Suppo}
+                26 {Bani}
+                27 {Grumo}
+                28 {Cele}
+                29 {Mura}
+                30 {Fanto}
+                31 {Epso}
+                32 {Uri}
+                33 {Yoga}
+                34 {Yami}
+                35 {Doro}
+                36 {Pila}
+                37 {Manche}
+                38 {Atlan}
+                39 {Biro}
+                40 {Popo}
+                41 {Papu}
+                42 {Pogo}
+                43 {Pyro}
+                44 {Pouli}
+                45 {Pale}
+                46 {Manti}
+                47 {Fulme}
+                other {}}{second_syllable, select,
+                1 {ba} 
+                2 {si}
+                3 {sho}
+                4 {go}
+                5 {ga}
+                6 {be}
+                7 {re}
+                8 {ra}
+                9 {mou}
+                10 {nou}
+                11 {bu}
+                12 {cha}
+                13 {bi}
+                14 {do}
+                15 {pu}
+                16 {pa}
+                17 {pe}
+                18 {lo}
+                19 {la}
+                20 {li}
+                21 {ja}
+                22 {je}
+                23 {va}
+                24 {vo}
+                25 {v}
+                other {}}{third_syllable, select,
+                1 {ba} 
+                2 {si}
+                3 {sho}
+                4 {go}
+                5 {ga}
+                6 {be}
+                7 {re}
+                8 {ra}
+                9 {mou}
+                10 {nou}
+                11 {bu}
+                12 {cha}
+                13 {bi}
+                14 {do}
+                15 {pu}
+                16 {pa}
+                17 {pe}
+                18 {lo}
+                19 {la}
+                20 {li}
+                21 {ja}
+                22 {je}
+                23 {va}
+                24 {vo}
+                25 {v}
+                other {}}{fourth_syllable, select,
+                1 {nys}
+                2 {nède}
+                3 {lune}
+                4 {gone}
+                5 {gon}
+                6 {bon}
+                7 {don}
+                8 {rys}
+                9 {ride}
+                10 {ïde}
+                11 {oïne}
+                12 {gonde}
+                13 {laise}
+                14 {ter}
+                15 {tune}
+                16 {cure}
+                17 {nous}
+                18 {node}
+                19 {lode}
+                20 {ide}
+                21 {leïde}
+                22 {ta}
+                23 {na}
+                24 {pia}
+                25 {nia}
+                26 {tia}
+                27 {bia}
+                28 {ba}
+                29 {ma}
+                30 {meha}
+                31 {los}
+                32 {bos}
+                33 {ros}
+                other {}}{fifth_syllable, select,
+                1 { Primus}
+                2 { Secondus} 
+                3 { Tertius}
+                4 { Quartus}
+                5 { First}
+                6 { Second}
+                7 { II}
+                8 { III}
+                9 { IV}
+                10 { V}
+                11 { VI}
+                12 { VII}
+                13 { VIII}
+                14 { IX}
+                15 { X}
+                16 { Lumis}
+                17 { Alpha}
+                18 { Beta}
+                19 { Ceta}
+                20 { Delta}
+                21 { Epsilon}
+                22 { Gamma}
+                23 { Zeta}
+                24 { Eta}
+                25 { Sigma}
+                26 { Omicron}
+                27 { Upsilon}
+                28 { Lambda}
+                29 { Omega}
+                30 { Kappa}
+                31 { Iota}
+                32 { Theta}
+                33 { Tau}
+                34 { Psi}
+                other {}}</target>
       </segment>
     </unit>
   </file>

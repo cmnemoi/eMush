@@ -27,9 +27,9 @@
         <source>nothing_to_report.cold_description</source>
         <target>Aparte del frío que os congela las manos y los pies, no hay nada en esta zona... Brrrr....</target>
       </segment>
-      <segment id="swamp_description" state="initial">
+      <segment id="swamp_description" state="translated">
         <source>nothing_to_report.swamp_description</source>
-        <target>nothing_to_report.swamp_description</target>
+        <target>Este pantano es increíblemente tranquilo... Nada notable en este paraje.</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>nothing_to_report.predator_description</source>
@@ -39,9 +39,9 @@
         <source>nothing_to_report.hot_description</source>
         <target>Nada que señalar en esta zona, salvo esos tres &amp;*#@µ% soles que están matando a nuestro equipo.</target>
       </segment>
-      <segment id="volcanic_activity_description" state="initial">
+      <segment id="volcanic_activity_description" state="translated">
         <source>nothing_to_report.volcanic_activity_description</source>
-        <target>nothing_to_report.volcanic_activity_description</target>
+        <target>Un gran volcán se yergue imponente en medio de la zona; a tu altitud actual, nubes de vapor salpican el paisaje. El olor a azufre te quema la nariz...</target>
       </segment>
       <segment id="desert_description" state="translated">
         <source>nothing_to_report.desert_description</source>
@@ -57,53 +57,53 @@
   other {El mar está tranquilo. Nada interesante por aquí...}
   }</target>
       </segment>
-      <segment id="oxygen_description" state="initial">
+      <segment id="oxygen_description" state="translated">
         <source>nothing_to_report.oxygen_description</source>
-        <target>nothing_to_report.oxygen_description</target>
+        <target>La bomba de oxigeno de {equipment} está atascada, no hay nada que hacer!</target>
       </segment>
-      <segment id="seismic_activity_description" state="initial">
+      <segment id="seismic_activity_description" state="translated">
         <source>nothing_to_report.seismic_activity_description</source>
-        <target>nothing_to_report.seismic_activity_description</target>
+        <target>El suelo de este planeta está lleno de grietas... Eso no es una buena señal...</target>
       </segment>
       <segment id="ruins_description" state="translated">
         <source>nothing_to_report.ruins_description</source>
         <target>Recorréis varias veces la ciudadela en ruinas sin encontrar nada interesante.</target>
       </segment>
-      <segment id="wreck_description" state="initial">
+      <segment id="wreck_description" state="translated">
         <source>nothing_to_report.wreck_description</source>
-        <target>nothing_to_report.wreck_description</target>
+        <target>Los restos de la nave están totalmente vacíos... ¡Que decepción!</target>
       </segment>
-      <segment id="forest_description" state="initial">
+      <segment id="forest_description" state="translated">
         <source>nothing_to_report.forest_description</source>
-        <target>nothing_to_report.forest_description</target>
+        <target>Un grito resuena. Un momento de pánico. Y después, nada...</target>
       </segment>
-      <segment id="cave_description" state="initial">
+      <segment id="cave_description" state="translated">
         <source>nothing_to_report.cave_description</source>
-        <target>nothing_to_report.cave_description</target>
+        <target>Un grito resuena. Un momento de pánico. Y después, nada...</target>
       </segment>
-      <segment id="ruminant_description" state="initial">
+      <segment id="ruminant_description" state="translated">
         <source>nothing_to_report.ruminant_description</source>
-        <target>nothing_to_report.ruminant_description</target>
+        <target>Un grito resuena. Un momento de pánico. Y después, nada...</target>
       </segment>
-      <segment id="intelligent_description" state="initial">
+      <segment id="intelligent_description" state="translated">
         <source>nothing_to_report.intelligent_description</source>
-        <target>nothing_to_report.intelligent_description</target>
+        <target>Un grito resuena. Un momento de pánico. Y después, nada...</target>
       </segment>
-      <segment id="insect_description" state="initial">
+      <segment id="insect_description" state="translated">
         <source>nothing_to_report.insect_description</source>
-        <target>nothing_to_report.insect_description</target>
+        <target>Un grito resuena. Un momento de pánico. Y después, nada...</target>
       </segment>
-      <segment id="mankarog_description" state="initial">
+      <segment id="mankarog_description" state="translated">
         <source>nothing_to_report.mankarog_description</source>
-        <target>nothing_to_report.mankarog_description</target>
+        <target>Un grito resuena. Un momento de pánico. Y después, nada...</target>
       </segment>
-      <segment id="cristal_field_description" state="initial">
+      <segment id="cristal_field_description" state="translated">
         <source>nothing_to_report.cristal_field_description</source>
-        <target>nothing_to_report.cristal_field_description</target>
+        <target>Un grito resuena. Un momento de pánico. Y después, nada...</target>
       </segment>
-      <segment id="mountain_description" state="initial">
+      <segment id="mountain_description" state="translated">
         <source>nothing_to_report.mountain_description</source>
-        <target>nothing_to_report.mountain_description</target>
+        <target>Un grito resuena. Un momento de pánico. Y después, nada...</target>
       </segment>
     </unit>
     <unit id="tired">
@@ -118,9 +118,9 @@
   other {Todos los miembros del equipo sufren # puntos de daño}
   }{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="landing_description" state="initial">
+      <segment id="landing_description" state="translated">
         <source>tired.landing_description</source>
-        <target>tired.landing_description</target>
+        <target>El aterrizaje es difícil, la nave gira y se desvía en todas direcciones, la tripulación se marea.</target>
       </segment>
       <segment id="cold_description" state="translated">
         <source>tired.cold_description</source>
@@ -130,13 +130,13 @@
         <source>tired.hot_description</source>
         <target>¡El calor se impone, los miembros del equipo sudan la gota gorda!</target>
       </segment>
-      <segment id="swamp_description" state="initial">
+      <segment id="swamp_description" state="translated">
         <source>tired.swamp_description</source>
-        <target>tired.swamp_description</target>
+        <target>Después de dos horas de marcha en el fango, ya no aguantas más. Ni hablemos de los parásitos. Y del calor. Y de la humedad. Y de los gritos...</target>
       </segment>
-      <segment id="mountain_description" state="initial">
+      <segment id="mountain_description" state="translated">
         <source>tired.mountain_description</source>
-        <target>tired.mountain_description</target>
+        <target>La expedición se transformó en una sesión de escalada, el equipo está exhausto.</target>
       </segment>
       <segment id="strong_wind_description" state="translated">
         <source>tired.strong_wind_description</source>
@@ -177,9 +177,9 @@
         <source>accident.cave_description</source>
         <target>Al saltar esquivando un escorpión alien, {character} se abre el cuero cabelludo con una estalactita.</target>
       </segment>
-      <segment id="seismic_activity_description" state="initial">
+      <segment id="seismic_activity_description" state="translated">
         <source>accident.seismic_activity_description</source>
-        <target>accident.seismic_activity_description</target>
+        <target>{character} cae en una grieta... ¡Ouch!</target>
       </segment>
       <segment id="ruins_description" state="translated">
         <source>accident.ruins_description</source>
@@ -189,13 +189,13 @@
         <source>accident.cold_description</source>
         <target>El brazo de {character} está congelado, ¡se ve muy mal y teméis que sea necesario amputarlo!</target>
       </segment>
-      <segment id="hot_description" state="initial">
+      <segment id="hot_description" state="translated">
         <source>accident.hot_description</source>
-        <target>accident.hot_description</target>
+        <target>{character} colapsa, victima de insolación.</target>
       </segment>
-      <segment id="landing_description" state="initial">
+      <segment id="landing_description" state="translated">
         <source>accident.landing_description</source>
-        <target>accident.landing_description</target>
+        <target>{equipment} tiene un aterrizaje catastrófico en {planet}, y durante la maniobra {character} se lastimó.</target>
       </segment>
     </unit>
     <unit id="disaster">
@@ -283,17 +283,17 @@
         <source>artefact.intelligent_description</source>
         <target>Detrás de un peñasco, encontráis una extraña criatura debilitada. Le dais un poco de agua para que se recupere. La criatura os entrega {target_equipment_gender, select, female {una} other {un}} {target_equipment} antes de seguir su camino.</target>
       </segment>
-      <segment id="cave_description" state="initial">
+      <segment id="cave_description" state="translated">
         <source>artefact.cave_description</source>
-        <target>artefact.cave_description</target>
+        <target>En el fondo de la cueva, encuentras una pequeña caja con un objeto bien extraño...</target>
       </segment>
-      <segment id="mankarog_description" state="initial">
+      <segment id="mankarog_description" state="translated">
         <source>artefact.mankarog_description</source>
-        <target>artefact.mankarog_description</target>
+        <target>Has descubierto la guarida de un Mankarog. Mientras buscas en su despensa, la cual es del tamaño de un edificio de ocho plantas, ¡encuentras un artefacto alienígena!</target>
       </segment>
-      <segment id="ruins_description" state="initial">
+      <segment id="ruins_description" state="translated">
         <source>artefact.ruins_description</source>
-        <target>artefact.ruins_description</target>
+        <target>En medio de las ruinas del edificio más alto de la ciudad, ¡encuentras un artefacto alienígena!</target>
       </segment>
       <segment id="wreck_description" state="translated">
         <source>artefact.wreck_description</source>
@@ -307,9 +307,9 @@
       </segment>
     </unit>
     <unit id="fight_prevented_by_item">
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>
-        <target>fight_prevented_by_item</target>
+        <target>Probabilidad de combate anulada por {equipment}</target>
       </segment>
     </unit>
     <unit id="skill_reduced_damage_for_player">
@@ -339,13 +339,13 @@
         <source>kill_random.description</source>
         <target>Un miembro del equipo ha muerto.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="seismic_activity_description" state="initial">
+      <segment id="seismic_activity_description" state="translated">
         <source>kill_random.seismic_activity_description</source>
-        <target>kill_random.seismic_activity_description</target>
+        <target>¡¡¡Se abre una grieta bajo los pies de la expedición!!! ¡{character} se desliza y desaparece con un grito de terror!</target>
       </segment>
-      <segment id="mankarog_description" state="initial">
+      <segment id="mankarog_description" state="translated">
         <source>kill_random.mankarog_description</source>
-        <target>kill_random.mankarog_description</target>
+        <target>Mientras subes una pequeña colina, te das cuenta de que en realidad es la nalga izquierda de un Mankarog... Cuando este gira su enorme mano para rascarse, aplasta a {character} en un instante.</target>
       </segment>
     </unit>
     <unit id="kill_all">
@@ -357,9 +357,9 @@
         <source>kill_all.description</source>
         <target>Todos los miembros del equipo han muerto.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="volcanic_activity_description" state="initial">
+      <segment id="volcanic_activity_description" state="translated">
         <source>kill_all.volcanic_activity_description</source>
-        <target>kill_all.volcanic_activity_description</target>
+        <target>Mientras la montaña más cercana de la expedición arroja un chorro de lava de 500 metros de altura, la tierra cede bajo los pies de la tripulación y los traga en un pozo de llamas.</target>
       </segment>
     </unit>
     <unit id="fight">
@@ -375,33 +375,33 @@
         <source>fight.intelligent_description</source>
         <target>Una ser extraño se acerca a vosotros y pega un fuerte grito agudo que os está rompiendo los tímpanos. Habrá que hacer algo...</target>
       </segment>
-      <segment id="ruminant_description" state="initial">
+      <segment id="ruminant_description" state="translated">
         <source>fight.ruminant_description</source>
-        <target>fight.ruminant_description</target>
+        <target>Mientras intentas sorprender a un Chab Chab desprevenido, rápidamente te encuentras rodeado por sus congéneres... ¡Vas a tener que luchar para salir de esta!</target>
       </segment>
       <segment id="predator_description" state="translated">
         <source>fight.predator_description</source>
         <target>Te sientes espado. Un Desollador hostil y hambriento te observa... ¡Tus compañeros comienzan a escapar, pero la criatura se lanza sobre ti!</target>
       </segment>
-      <segment id="insect_description" state="initial">
+      <segment id="insect_description" state="translated">
         <source>fight.insect_description</source>
-        <target>fight.insect_description</target>
+        <target>Caminando en el fondo de una grieta, ves a un scolopendro emerger... ¡Tendrás que defenderte!</target>
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>fight.mankarog_description</source>
         <target>Una gran sombra cubre repentinamente el sendero de la expedición... Y no es una nube...</target>
       </segment>
-      <segment id="ruins_description" state="initial">
+      <segment id="ruins_description" state="translated">
         <source>fight.ruins_description</source>
-        <target>fight.ruins_description</target>
+        <target>Mientras buscan la ciudad en ruinas, una sombra gigantesca aparece sobre la expedición... Y no es una nube...</target>
       </segment>
-      <segment id="wreck_description" state="initial">
+      <segment id="wreck_description" state="translated">
         <source>fight.wreck_description</source>
-        <target>fight.wreck_description</target>
+        <target>¡Parecería que el piloto de la nave sigue vivo! Y queda claro que no te considera su salvador...</target>
       </segment>
-      <segment id="cristal_field_description" state="initial">
+      <segment id="cristal_field_description" state="translated">
         <source>fight.cristal_field_description</source>
-        <target>fight.cristal_field_description</target>
+        <target>Los campos están desiertos... Un aullido siniestro te ensordece... No hay palabras para describir a esta criatura de un mundo sin luz ni calor. ¡A las armas!</target>
       </segment>
     </unit>
     <unit id="provision">
@@ -425,9 +425,9 @@
         <source>provision.ocean_description</source>
         <target>Usando una caña rudimentaria, ¡llegáis a cazar un Empilodón!</target>
       </segment>
-      <segment id="predator_description" state="initial">
+      <segment id="predator_description" state="translated">
         <source>provision.predator_description</source>
-        <target>provision.predator_description</target>
+        <target>Se encuentran con un desollador. La criatura está inmóvil, aparentemente dormida. Aprovechas para ajustar cuentas rápidamente con él: ¡las raciones de carne son tuyas!</target>
       </segment>
       <segment id="intelligent_description" state="translated">
         <source>provision.intelligent_description</source>
@@ -458,9 +458,9 @@
         <source>harvest.swamp_description</source>
         <target>Los pantanos están llenos de grandes raíces en las que crecen frutos extraños. Decidís llevarte algunos.</target>
       </segment>
-      <segment id="mountain_description" state="initial">
+      <segment id="mountain_description" state="translated">
         <source>harvest.mountain_description</source>
-        <target>harvest.mountain_description</target>
+        <target>En lo alto de una cima rocosa, ves un pequeño árbol con bayas inusuales. Decides llevarte algunas.</target>
       </segment>
       <segment id="fruit_trees_description" state="translated">
         <source>harvest.fruit_trees_description</source>
@@ -493,9 +493,9 @@
         <source>disease.swamp_description</source>
         <target>Después de una hora de caminar, estáis llenos de raras sanguijuelas enganchadas en tus pantorrillas. Ya deben haberos chupado medio litro de sangre.</target>
       </segment>
-      <segment id="insect_description" state="initial">
+      <segment id="insect_description" state="translated">
         <source>disease.insect_description</source>
-        <target>disease.insect_description</target>
+        <target>De repente, {character} empieza a gritar, y una enorme araña fluorescente se escapa de su traje. ¡Nadie quiere arañas correteando por su traje!</target>
       </segment>
     </unit>
     <unit id="starmap">
@@ -539,9 +539,9 @@
         <source>again.desert_description</source>
         <target>Esta exploración parece no llevaros a nada, no tenéis idea de vuestra posición y decidís dar media vuelta.</target>
       </segment>
-      <segment id="forest_description" state="initial">
+      <segment id="forest_description" state="translated">
         <source>again.forest_description</source>
-        <target>again.forest_description</target>
+        <target>El equipo se pierde deambulando por la jungla.</target>
       </segment>
       <segment id="cave_description" state="translated">
         <source>again.cave_description</source>
@@ -583,13 +583,13 @@
         <source>back.seismic_activity_description</source>
         <target>Un fuerte temblor paraliza la expedición... ¡Será mejor volver al Daedalus rápidamente!</target>
       </segment>
-      <segment id="volcanic_activity_description" state="initial">
+      <segment id="volcanic_activity_description" state="translated">
         <source>back.volcanic_activity_description</source>
-        <target>back.volcanic_activity_description</target>
+        <target>Con un rugido sordo, un volcán no muy lejano comienza a escupir un espeso humo negro. ¡El equipo regresa al Daedalus corriendo!</target>
       </segment>
-      <segment id="mankarog_description" state="initial">
+      <segment id="mankarog_description" state="translated">
         <source>back.mankarog_description</source>
-        <target>back.mankarog_description</target>
+        <target>El equipo observa en el horizonte a un Makarog pasando detrás de una montaña... Deberían cambiar rumbo para evitar cualquier problema.</target>
       </segment>
     </unit>
     <unit id="player_lost">
@@ -609,9 +609,9 @@
         <source>player_lost.forest_description</source>
         <target>La jungla es tan densa, que es difícil permanecer juntos. Al cabo de una hora caminando... no hay rastro de {Jin Su}</target>
       </segment>
-      <segment id="ocean_description" state="initial">
+      <segment id="ocean_description" state="translated">
         <source>player_lost.ocean_description</source>
-        <target>player_lost.ocean_description</target>
+        <target>Pesadilla... {character} cayó en el agua. Esto complica las cosas..</target>
       </segment>
       <segment id="cold_description" state="translated">
         <source>player_lost.cold_description</source>
@@ -644,9 +644,12 @@
         <source>kill_lost.description</source>
         <target>Un miembro perdido del equipo muere.{fight_prevented_by_item}{fight_prevented_by_skill}</target>
       </segment>
-      <segment id="lost_description" state="initial">
+      <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>
-        <target>kill_lost.lost_description</target>
+        <target>{character_gender, select,
+        male  {{personaje}  es encontrado debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Y ni rastro de respiración. Parece que el diagnóstico del laboratorio será "Fallecido"}
+        female {{personaje}  es encontrada debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Y ni rastro de respiración. Parece que el diagnóstico del laboratorio será "Fallecida"}
+        other {{personaje}  es encontrade debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Y ni rastro de respiración. Parece que el diagnóstico del laboratorio será "Falleció"}}</target>
       </segment>
     </unit>
   </file>

@@ -27,7 +27,20 @@
 		"emush": "eMush",
 		"eternaltwin": "eMush est un site web non-commercial géré par des bénévoles. Il fait partie du projet <a href=https://eternaltwin.org/>Eternaltwin</a> dont le but est de préserver les jeux de Motion Twin, c'est-à-dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>.",
 		"legal": "Mentions légales",
-		"report": "Signaler un comportement inapproprié"
+		"report": "Signaler un comportement inapproprié",
+		"otherGames": "Découvrez les autres jeux d'Eternaltwin",
+		"eternaltwinGames": {
+			"alphabounce": "Alphabounce",
+			"dinocard": "Dinocard",
+			"dinorpg": "DinoRPG",
+			"directquiz": "Directquiz",
+			"epopotamo": "ePopotamo",
+			"eternalfest": "Eternalfest",
+			"kingdom": "Eternal Kingdom",
+			"mybrute": "LaBrute",
+			"myhordes": "MyHordes",
+			"neoparc": "Neoparc"
+		}
 	},
 	"util": {
 		"prev": "Page précédente",
@@ -122,7 +135,7 @@
 		"character": "Personnage",
 		"daysSurvived": "Jours survécus",
 		"cyclesSurvived": "Cycles survécus",
-		"timeSurvived": "Temps survécus",
+		"timeSurvived": "Temps survécu",
 		"day": "jour",
 		"days": "jours",
 		"cycle": "cycle",
@@ -719,7 +732,7 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
-		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank'>Discord d'Eternaltwin</a>."
+		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord d'Eternaltwin</a>."
 	},
 	"metaSeo": {
 		"description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !",
@@ -751,7 +764,9 @@
 			"banned": "Banni",
 			"notBanned": "Non banni",
 			"alive": "Vivant",
-			"dead": "Mort"
+			"dead": "Mort",
+			"inGame": "En jeu",
+			"notInGame": "Pas en jeu"
 		},
 		"theEndPage": {
 			"editMessage": "Éditer",
@@ -876,6 +891,10 @@
 			"closeDescription": "Fermer la plainte et marquer comme abusif"
 		},
 		"reportToAddress": "Plaintes à traiter",
+		"shipList": "Liste des vaisseaux",
+		"shipView": "Voir les détails",
+		"playerShipView": "Voir le vaisseau",
+		"seeAllTransfers": "Voir les transferts",
 		"reduce": "Réduire",
 		"showAll": "Montrer toutes les sanctions",
 		"sanctionsFor": "Liste des sanctions de {username}",
@@ -927,7 +946,8 @@
 			"mandatoryCommunication": "<strong>Communication</strong> : La communication est un pilier fondamental du jeu. Afin d'atteindre l'objectif de votre camp, il est indispensable de partager des informations avec vos coéquipiers afin de vous organiser et de vous concerter.",
 			"courtesy": "<strong>Courtoisie</strong> : La communication étant le pilier majeur du jeu, les joueurs bénéficient d’une grande tolérance quant aux propos tenus et il n’est pas l’objectif de faire ici une liste exhaustive des propos interdits. Cependant, afin de garantir une atmosphère de jeu saine et inclusive pour tous les joueurs, toute forme de propos vulgaires, d’intolérance, de haine, de discrimination, d’harcèlement, ou de violence, est strictement interdite.",
 			"spokenLanguage": "<strong>Langue parlée</strong> : Le joueur doit pouvoir communiquer facilement dans la langue du serveur.",
-			"flood": "<strong>Flood</strong> : Le joueur ne doit pas abuser des systèmes mis à sa disposition pour communiquer. En particulier, le flood est interdit et il est souhaitable de porter une attention particulière à l’orthographe et à la syntaxe. Toute publicité pour un site ou service externe à Eternaltwin est interdite."
+			"flood": "<strong>Flood</strong> : Le joueur ne doit pas abuser des systèmes mis à sa disposition pour communiquer. En particulier, le flood est interdit et il est souhaitable de porter une attention particulière à l’orthographe et à la syntaxe. Toute publicité pour un site ou service externe à Eternaltwin est interdite.",
+			"metagaming": "<strong>Métajeu</strong> : Il est interdit de partager en dehors du jeu des informations relatives à la confrontation entre les Mushs et les humains telles que celles liées à son rôle - quel qu'il soit - ou toute autre information pouvant concerner l'enquête. Une tolérance est admise pour les vaisseaux dans lesquels l'élimination totale du camp Mush, réelle ou non, fait l'objet d'un consensus. Cette règle s'applique notamment aux échanges pouvant avoir lieu sur le Discord officiel Eternaltwin."
 		},
 		"behaviour": {
 			"title": "Comportement",

@@ -416,9 +416,9 @@
       </segment>
     </unit>
     <unit id="nice_surgery">
-      <segment id="nice_surgery.name" state="initial">
+      <segment id="nice_surgery.name" state="translated">
         <source>nice_surgery.name</source>
-        <target>nice_surgery.name</target>
+        <target>Carnicería fina</target>
       </segment>
       <segment id="nice_surgery.log" state="translated">
         <source>nice_surgery.log</source>
@@ -660,9 +660,9 @@
         <source>eden_pregnant.name</source>
         <target>Futuro Edenista</target>
       </segment>
-      <segment id="eden_pregnant.log" state="initial">
+      <segment id="eden_pregnant.log" state="translated">
         <source>eden_pregnant.log</source>
-        <target>eden_pregnant.log</target>
+        <target>Has ganado {quantity} :triumph: trayendo un feliz evento a Edén.</target>
       </segment>
     </unit>
     <unit id="eden_sexy">
@@ -730,25 +730,25 @@
         <source>cm_all_new_mush.name</source>
         <target>Gloria Mush</target>
       </segment>
-      <segment id="cm_all_new_mush.log" state="initial">
+      <segment id="cm_all_new_mush.log" state="translated">
         <source>cm_all_new_mush.log</source>
-        <target>cm_all_new_mush.log</target>
+        <target>Has ganado {quantity} :triumph: convirtiendo a un humano en un agente de Mush.</target>
       </segment>
     </unit>
     <unit id="cm_daedalus_explode">
-      <segment id="cm_daedalus_explode.name" state="initial">
+      <segment id="cm_daedalus_explode.name" state="translated">
         <source>cm_daedalus_explode.name</source>
-        <target>cm_daedalus_explode.name</target>
+        <target>Última brasa</target>
       </segment>
-      <segment id="cm_daedalus_explode.log" state="initial">
+      <segment id="cm_daedalus_explode.log" state="translated">
         <source>cm_daedalus_explode.log</source>
-        <target>cm_daedalus_explode.log</target>
+        <target>Has ganado {quantity} :triumph: porque el Daedalus fue destruido.</target>
       </segment>
     </unit>
     <unit id="cm_extinguish">
-      <segment id="cm_extinguish.name" state="initial">
+      <segment id="cm_extinguish.name" state="translated">
         <source>cm_extinguish.name</source>
-        <target>cm_extinguish.name</target>
+        <target>Chuck Norris de fuego</target>
       </segment>
       <segment id="cm_extinguish.log" state="translated">
         <source>cm_extinguish.log</source>
@@ -786,13 +786,13 @@
       </segment>
     </unit>
     <unit id="cm_sabotage">
-      <segment id="cm_sabotage.name" state="initial">
+      <segment id="cm_sabotage.name" state="translated">
         <source>cm_sabotage.name</source>
-        <target>cm_sabotage.name</target>
+        <target>Seta-botaje</target>
       </segment>
-      <segment id="cm_sabotage.log" state="initial">
+      <segment id="cm_sabotage.log" state="translated">
         <source>cm_sabotage.log</source>
-        <target>cm_sabotage.log</target>
+        <target>Has ganado {quantity} :triumph: saboteando el equipo.</target>
       </segment>
     </unit>
     <unit id="cm_use_extinguisher">
@@ -816,79 +816,80 @@
       </segment>
     </unit>
     <unit id="perpetual_hydration">
-      <segment id="perpetual_hydration.name" state="initial">
+      <segment id="perpetual_hydration.name" state="translated">
         <source>perpetual_hydration.name</source>
-        <target>perpetual_hydration.name</target>
+        <target>Investigación menor</target>
       </segment>
-      <segment id="perpetual_hydration.log" state="initial">
+      <segment id="perpetual_hydration.log" state="translated">
         <source>perpetual_hydration.log</source>
-        <target>perpetual_hydration.log</target>
+        <target>Has ganado {quantity} :triumph: puesto que una investigación menor ha sido completada.</target>
       </segment>
     </unit>
     <unit id="alien_friend.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>alien_friend.name</source>
-        <target>alien_friend.name</target>
+        <target>Etnólogo de medio tiempo</target>
       </segment>
     </unit>
     <unit id="alien_friend.log">
-      <segment state="initial">
+      <segment state="translated">
         <source>alien_friend.log</source>
-        <target>alien_friend.log</target>
+        <target>¡Has ganado {quantity} :triumph: al contactar una forma de vida extraterrestre siendo Janice !</target>
       </segment>
     </unit>
     <unit id="alien_friend.personal_description">
-      <segment state="initial">
+      <segment state="translated">
         <source>alien_friend.personal_description</source>
-        <target>alien_friend.personal_description</target>
+        <target>Janice gana {quantity} :triumph: cada vez que entra en contacto con una forma de vida extraterrestre.</target>
       </segment>
     </unit>
     <unit id="naturalist.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>naturalist.name</source>
-        <target>naturalist.name</target>
+        <target>Naturalista</target>
       </segment>
     </unit>
     <unit id="naturalist.log">
-      <segment state="initial">
+      <segment state="translated">
         <source>naturalist.log</source>
-        <target>naturalist.log</target>
+        <target>¡ Has ganado {quantity} :triumph: al plantar una fruta alienígena siendo Ian !</target>
       </segment>
     </unit>
     <unit id="pretty_cook.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>pretty_cook.name</source>
-        <target>pretty_cook.name</target>
+        <target>Cocinero al extremo</target>
       </segment>
     </unit>
     <unit id="pretty_cook.personal_description">
-      <segment state="initial">
+      <segment state="translated">
         <source>pretty_cook.personal_description</source>
-        <target>pretty_cook.personal_description</target>
+        <target>Stephen gana {quantity} :triumph: por cada alienígena cocinado.</target>
       </segment>
     </unit>
     <unit id="pretty_cook.log">
-      <segment state="initial">
+      <segment state="translated">
         <source>pretty_cook.log</source>
-        <target>pretty_cook.log</target>
+        <target>¡Has ganado {quantity} :triumph: al participar en un combate durante una expedición siendo Stephen !</target>
       </segment>
     </unit>
     <unit id="fast_forward.name">
-      <segment state="initial">
+      <segment state="translated">
         <source>fast_forward.name</source>
-        <target>fast_forward.name</target>
+        <target>Avance rápido</target>
       </segment>
     </unit>
     <unit id="fast_forward.log">
-      <segment state="initial">
+      <segment state="translated">
         <source>fast_forward.log</source>
-        <target>fast_forward.log</target>
+        <target>¡Has ganado {quantity} :triumph: por iniciar el viaje hacia un planeta como Jin Su!</target>
       </segment>
     </unit>
     <unit id="fast_forward.personal_description">
-      <segment state="initial">
+      <segment state="translated">
         <source>fast_forward.personal_description</source>
-        <target>fast_forward.personal_description</target>
+        <target>Jin Su gana {quantity} :triumph: por cada viaje interestelar realizado bajo su comando. 
+Una vez ganado más que {regressiveFactor}, pasará menos frecuentemente.</target>
       </segment>
     </unit>
   </file>

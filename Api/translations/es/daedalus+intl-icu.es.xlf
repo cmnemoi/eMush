@@ -49,7 +49,7 @@ other {El escudo plasma esta absorbiendo el fuego enemigo en lugar del blindaje 
       </segment>
       <segment id="description" state="translated">
         <source>crewPlayer.description</source>
-        <target>Tripulantes activos: {playerAlive, plural, one {#} other {#}}. Entre ellos, {mushAlive, plural, one {# Mush} other {# Mush}}.//Fallecidos: {playerDead, plural, one {#}}. de los cuales {mushDead, plural, one {# era Mush} other {# eran Mush}}.//Criogenizados: {cryogenizedPlayers, plural, one {#} other {#}}.</target>
+        <target>Tripulantes activos: {playerAlive, plural, one {#} other {#}}. Entre ellos, {mushAlive, plural, one {# Mush} other {# Mush}}.//Fallecidos: {playerDead, plural, one {#} other {#}}. de los cuales {mushDead, plural, one {# era Mush} other {# eran Mush}}.//Criogenizados: {cryogenizedPlayers, plural, one {#} other {#}}.</target>
       </segment>
     </unit>
     <unit id="currentCycle">

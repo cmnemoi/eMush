@@ -2,9 +2,19 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="es">
   <file id="disease_message.ext">
     <unit id="coprolalia">
-      <segment id="pre" state="initial">
+      <segment id="pre" state="translated">
         <source>pre_coprolalia</source>
-        <target>pre_coprolalia</target>
+        <target>{version, select,
+                        1 {Hola banda de {word, select,
+                        1 {of} 4 {of} 8 {of}
+                        19 {{animal, select, 3{of} 9{of} 11{of} other {of }}}
+                        21 {{animal, select, 3{of} 9{of} 11{of} other {of }}}
+                        other {of }
+                    }{word_plural_coprolalia}, }
+                    2 {Oigan{word_plural_coprolalia}, }
+                    3 {A ver {word_coprolalia}, }
+                    other {invalid version}
+                }</target>
       </segment>
       <segment id="post" state="initial">
         <source>post_coprolalia</source>
@@ -34,9 +44,17 @@
         <source>balls_coprolalia</source>
         <target>balls_coprolalia</target>
       </segment>
-      <segment id="adjective_male_single" state="initial">
+      <segment id="adjective_male_single" state="translated">
         <source>adjective_male_single_coprolalia</source>
-        <target>adjective_male_single_coprolalia</target>
+        <target>{adjective, select,
+                    1 {borracho}
+                    2 {coprófago}
+                    3 {suave}
+                    4 {arrugado}
+                    5 {drogado}
+                    6 {decapitado}
+                    other {invalid adjective}
+                }</target>
       </segment>
       <segment id="adjective_male_plural" state="initial">
         <source>adjective_male_plural_coprolalia</source>

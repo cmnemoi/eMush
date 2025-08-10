@@ -104,7 +104,7 @@
       </segment>
     </unit>
     <unit id="disassemble_success">
-      <segment id="disassemble_success" state="translated">
+      <segment id="disassemble_success" state="final">
         <source>disassemble_success</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a désassemblé un **{target_equipment}**.}
@@ -132,7 +132,7 @@
       </segment>
     </unit>
     <unit id="drop">
-      <segment id="drop" state="translated">
+      <segment id="drop" state="final">
         <source>drop</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a lâché un **{target_equipment}**.}
@@ -171,7 +171,7 @@
       </segment>
     </unit>
     <unit id="hide_success">
-      <segment id="hide_success" state="translated">
+      <segment id="hide_success" state="final">
         <source>hide_success</source>
         <target>{target_equipment_gender, select,
                         male {**{character}** a dissimulé un **{target_equipment}**.}
@@ -332,8 +332,8 @@
                     other {invalid version number}
                 } {versionPart2, select,
                     1 {Avec la fatigue, vous avez l'impression que l'objet vous a parlé et vous a dit "Autant embrasser un wookie"...}
-                    2 {Avec un petit peu de chance la prochaine sera la bonne.}
-                    3 {Ça ne peut-être que la faute du mush !}
+                    2 {Avec un petit peu de chance, la prochaine sera la bonne.}
+                    3 {Ça ne peut être que la faute du mush !}
                     4 {Ce vieux matos alien vous a encore lâché.}
                     5 {Cette pièce a vraiment une sale trogne...}
                     6 {Encore du matos alien moisi !}
@@ -341,12 +341,12 @@
                     8 {Faites-le ou ne le faites pas, mais n'essayez pas.}
                     9 {Finalement, les bâtons de la mort, c'était pas si mal...}
                     10 {Inspirez donc un peu.}
-                    11 {La chance n'a rien à voir là dedans... ou presque.}
+                    11 {La chance n'a rien à voir là-dedans... ou presque.}
                     12 {La solution n'arrivera pas toute seule.}
                     13 {Les réparations échouent.}
                     14 {Oubliez le reste et concentrez-vous.}
                     15 {Peut-être devriez vous renoncer.}
-                    16 {Peut-être devriez vous vous concentrer.}
+                    16 {Peut-être devriez-vous vous concentrer.}
                     17 {Peut-être pourriez vous tenter avec un outil plus approprié.}
                     18 {Peut-être que ce maudit papillon n'a pas battu des ailes.}
                     19 {Peut-être que le destin ne vous a pas souri aujourd'hui.}
@@ -355,10 +355,10 @@
                     22 {Prenez de la distance...}
                     23 {Prenez du recul...}
                     24 {Prenez votre pelle et votre seau, ça ira mieux.}
-                    25 {Qu'est ce qui a bien pu foirer…}
-                    26 {Qu'est ce qui a bien pu rater…}
-                    27 {Qu'est ce qui n'a pas fonctionné...}
-                    28 {Qu'est ce qui n'a pas marché...}
+                    25 {Qu'est-ce qui a bien pu foirer…}
+                    26 {Qu'est-ce qui a bien pu rater…}
+                    27 {Qu'est-ce qui n'a pas fonctionné...}
+                    28 {Qu'est-ce qui n'a pas marché...}
                     29 {Regardez les choses en face et changez de métier.}
                     30 {Tentez autre chose...}
                     31 {Un petit tour dans l'espace infini vous fera peut-être du bien.}
@@ -373,11 +373,11 @@
                     40 {Vous auriez mieux fait de rester sur Xyloph-17...}
                     41 {Vous aviez la bonne idée...}
                     42 {Vous devriez essayer avec un zygocompresseur.}
-                    43 {Vous devriez passez à autre chose.}
+                    43 {Vous devriez passer à autre chose.}
                     44 {Vous devriez vous asseoir et prendre une petite ration.}
                     45 {Vous devriez vous asseoir...}
                     46 {Vous n'étiez pas si loin pourtant...}
-                    47 {Vous saviez que vous n'auriez pas du rater le cours de couture...}
+                    47 {Vous saviez que vous n'auriez pas dû rater le cours de couture...}
                     48 {Vous y étiez presque...}
                     49 {L'inspiration arrive.}
                     50 {...et les réparations échouent.}
@@ -386,7 +386,7 @@
       </segment>
     </unit>
     <unit id="repair_success">
-      <segment id="repair_success" state="translated">
+      <segment id="repair_success" state="final">
         <source>repair_success</source>
         <target>{version, select,
                     1 {{target_equipment_first_letter, select,
@@ -1186,9 +1186,9 @@
       <segment id="cure_cat_success" state="translated">
         <source>cure_cat_success</source>
         <target>{character, select,
-        Raluca {**{character}** sait parfaitement comment dompter le mauvais caractère de **{target_equipment}**. Elle le pose délicatement sur un meuble, lui fait de nombreuses caresses pour le distraire, une petite grattouille derrière l'oreille et une soudaine piqûre dans le derrière ! Le chat s'enfuit non sans lancer un regard accusateur à celle qui tenait encore la seringue dans sa main.}
-        other {**{character}** sert fortement **{target_equipment}** pour l'empêcher de s'échapper. La créature se débat comme elle peut, mais il est rapidement trop tard : le liquide jaune et visqueux lui a été injecté ! Aussitôt que la pression sur son corps se relâche, elle se libère pour se cacher dans la pièce en feulant.}
-        }</target>
+        Raluca {**{character}** sait parfaitement comment dompter le mauvais caractère de **{target_equipment}**. Elle le pose délicatement sur un meuble, lui fait de nombreuses caresses pour le distraire, une petite grattouille derrière l'oreille et une soudaine piqûre dans le derrière ! Le chat s'enfuit non sans lancer un regard accusateur à celle qui tenait encore la seringue dans sa main}
+        other {**{character}** sert fortement **{target_equipment}** pour l'empêcher de s'échapper. La créature se débat comme elle peut, mais il est rapidement trop tard : le liquide jaune et visqueux lui a été injecté ! Aussitôt que la pression sur son corps se relâche, elle se libère pour se cacher dans la pièce en feulant}
+        }.</target>
       </segment>
     </unit>
     <unit id="cure_cat_fail">
@@ -1226,13 +1226,13 @@
         <source>shoot_cat_critical_fail</source>
         <target>{version, select,
                     1 {{character_gender, select,
-                        male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde.}
-                        female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde.}
+                        male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde}
+                        female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde}
                         other {invalid gender input}
                     }}
-                    2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target}** l'en sait gré.}
+                    2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target}** l'en sait gré}
                     other {invalid version input}
-                }</target>
+                }.</target>
       </segment>
     </unit>
     <unit id="daunt_success">
@@ -1332,8 +1332,8 @@
     </unit>
     <unit id="exchange_body_success">
       <segment id="exchange_body_success" state="translated">
-          <source>exchange_body_success</source>
-        <target>***Pour la Moderation Seulement*** : **{character}** se transfert dans **{target_character}**.</target>
+        <source>exchange_body_success</source>
+        <target>***Pour la Modération Seulement*** : **{character}** se transfère dans **{target_character}**.</target>
       </segment>
     </unit>
   </file>

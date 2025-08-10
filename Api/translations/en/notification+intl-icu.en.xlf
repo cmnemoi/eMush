@@ -173,5 +173,21 @@
         <target>Something has... changed. You feel different.////A calming serenity has overtaken you. You want to *share it* with your crewmates...////Comrade, **you are an agent of Mush**!////You can successfully complete your mission in two ways: by converting everyone to Mush, or by destroying the ship!////You'll begin your mission with **earned {quantity}** :triumph_mush:.</target>
       </segment>
     </unit>
+    <unit id="welcome_on_board">
+      <segment state="translated">
+        <source>welcome_on_board.title</source>
+        <target>Welcome on board!</target>
+      </segment>
+      <segment state="translated">
+        <source>welcome_on_board.description</source>
+        <target>**NERON:** Alert: Erroneous destination. Alert: Hunter attack underway. ... 
+Emergency crew wakeup procedure engaged.//
+//
+Wiggle fingers. *Check.* Wiggle toes. *Check.*//
+Human in functional state.//
+//
+*The ship's Artificial Intelligence system wishes you a safe trip...* Next.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

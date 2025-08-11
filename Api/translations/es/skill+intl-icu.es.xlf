@@ -106,11 +106,10 @@
         <target>{character_gender, select,
         female {La técnica está habilitada para reparar materiales, equipos y el casco del Daedalus.}
         other {El técnico está habilitado para reparar materiales, equipos y el casco del Daedalus.}}//
-:point: +1 :pa_eng: (punto de acción **Reparación**) por día.//
+:point: +1 :pa_eng: (punto de **Mecánica**) por día.//
 :point: Puede **Desarmar** objetos.//
 :point: Puede **Blindar** objetos.//
-:point: Probabilidades de éxito duplicadas para las **Reparaciones**.//
-:point: Probabilidades de éxito duplicadas para las **Renovaciones**
+:point: Probabilidades de éxito duplicadas para las **Reparaciones** y las **Renovaciones**.//
 :point: Bonus para desarrollar ciertos **Proyectos NERON** y **Reparar PILGRED**.</target>
       </segment>
     </unit>

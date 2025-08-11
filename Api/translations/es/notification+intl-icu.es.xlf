@@ -58,7 +58,7 @@
       </segment>
       <segment state="translated">
         <source>exploration_closed_by_u_turn.description</source>
-        <target>Puedes averiguar el {exploration_link} para averigüar lo que pasó...</target>
+        <target>Puedes consultar el {exploration_link} para averigüar lo que pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_everyone_dead">
@@ -68,7 +68,7 @@
       </segment>
       <segment state="translated">
         <source>exploration_closed_everyone_dead.description</source>
-        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
+        <target>Puedes consultar el {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_no_spacesuit">
@@ -78,7 +78,7 @@
       </segment>
       <segment state="translated">
         <source>exploration_closed_no_spacesuit.description</source>
-        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
+        <target>Puedes consultar el {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_return_event_mankarog">
@@ -88,13 +88,13 @@
       </segment>
       <segment state="translated">
         <source>exploration_closed_return_event_mankarog.description</source>
-        <target>Puedes consultar {exploration_link} para descubrir qué pasó...</target>
+        <target>Puedes consultar el {exploration_link} para descubrir qué pasó...</target>
       </segment>
     </unit>
     <unit id="exploration_closed_return_event_seismic_activity">
       <segment state="translated">
         <source>exploration_closed_return_event_seismic_activity.subTitle</source>
-        <target>Un temblor violento paraliza la expedición... y silencio de nuevo... ¡Mejor regresar al Deadolus rápido!</target>
+        <target>Un temblor violento paraliza la expedición... y silencio de nuevo... ¡Mejor regresar al Daedalus rápido!</target>
       </segment>
       <segment state="translated">
         <source>exploration_closed_return_event_seismic_activity.description</source>
@@ -180,7 +180,7 @@
       </segment>
       <segment state="translated">
         <source>welcome_on_board.description</source>
-        <target>**NERON:** Alerta: Destino erróneo. Alerta: Ataque de Hunter en curso... 
+        <target>**NERON:** Alerta: Destino erróneo. Alerta: Ataque de Hunters en curso... 
 Procedimiento de activación de emergencia de la tripulación iniciado.//
 //
 Mueve los dedos de las manos. *Comprobado.* Mueve los dedos de los pies. *Comprobado.*//

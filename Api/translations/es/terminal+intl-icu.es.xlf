@@ -134,13 +134,13 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
-        <target>&lt;target/&gt;</target>
+        <target/>
       </segment>
     </unit>
     <unit id="exploration">
       <segment id="tips" state="translated">
         <source>exploration.tips</source>
-        <target>{isExplorationFinished, select, other {{quantity, plural, one {La exploración se realiza automáticamente. Cada minuto se desarrolla una nueva etapa. Una vez que vayas, no podrás regresar.} other {La exploración se realiza automáticamente. Cada # minutos se produce una nueva estapa. Una vez que bayas, no hay vuelta atrás.} }} true {Esta expedición ya ha terminado. Puedes revisar aquí los diferentes eventos que encontraron los miembros de la tripulación.}}</target>
+        <target>{isExplorationFinished, select, other {{quantity, plural, one {La exploración se realiza automáticamente. Cada minuto se desarrolla una nueva etapa. Una vez que vayas, no podrás regresar.} other {La exploración se realiza automáticamente. Cada # minutos se produce una nueva estapa. Una vez que vayas, no hay vuelta atrás.} }} true {Esta expedición ya ha terminado. Puedes revisar aquí los diferentes eventos que encontraron los miembros de la tripulación.}}</target>
       </segment>
       <segment id="recolted_infos" state="translated">
         <source>exploration.recolted_infos</source>
@@ -172,7 +172,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="tips" state="translated">
         <source>bios_terminal.tips</source>
-        <target>Estás accediendo a las BIOS de NERON. Solo el Administrador de NERON puede cambiar sus parámetros.</target>
+        <target>Estás accediendo a la BIOS de NERON. Solo el Administrador de NERON puede cambiar sus parámetros.</target>
       </segment>
       <segment id="cpu_priority.name" state="translated">
         <source>bios_terminal.cpu_priority_name</source>
@@ -180,7 +180,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="cpu_priority.description" state="translated">
         <source>bios_terminal.cpu_priority_description</source>
-        <target>Controla la repartición de recursos del CPU. Puede hacer los proyectos e investigaciones más fáciles de realizar, aumentar la cantidad de GeoDatos analizados de los planetas, o ponerse en modo de economía de energía, el cual no hace nada. Este atributo puede ser cambiado solo **una vez al día** para no provocar una sobrecarga cognitiva en NERON.</target>
+        <target>Controla la repartición de recursos del CPU. Puede hacer los proyectos o investigaciones más fáciles de realizar, aumentar la cantidad de GeoDatos analizados de los planetas, o ponerse en modo de economía de energía, el cual no hace nada. Este atributo puede ser cambiado solo **una vez al día** para no provocar una sobrecarga cognitiva en NERON.</target>
       </segment>
       <segment id="cpu_priority.astronavigation" state="translated">
         <source>bios_terminal.cpu_priority_astronavigation</source>
@@ -228,11 +228,11 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="food_destruction_option.name" state="translated">
         <source>bios_terminal.food_destruction_option_name</source>
-        <target>Destrucción de alimentos</target>
+        <target>Destrucción de víveres</target>
       </segment>
       <segment id="food_destruction_option.description" state="translated">
         <source>bios_terminal.food_destruction_option_description</source>
-        <target>Controla la destrucción programada de la comida caducada que se activa cuando cambia el día.</target>
+        <target>Activa la destrucción programada de alimentos perecidos en la noche.</target>
       </segment>
       <segment id="food_destruction_option.never" state="translated">
         <source>bios_terminal.food_destruction_option_never</source>
@@ -240,11 +240,11 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="food_destruction_option.unstable" state="translated">
         <source>bios_terminal.food_destruction_option_unstable</source>
-        <target>Inestable</target>
+        <target>Sospechoso</target>
       </segment>
       <segment id="food_destruction_option.hazardous" state="translated">
         <source>bios_terminal.food_destruction_option_hazardous</source>
-        <target>Averiada</target>
+        <target>Nocivo</target>
       </segment>
       <segment id="food_destruction_option.decomposing" state="translated">
         <source>bios_terminal.food_destruction_option_decomposing</source>
@@ -284,11 +284,11 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="neron_inhibition.name" state="translated">
         <source>bios_terminal.neron_inhibition_name</source>
-        <target>Bloquear DMZ-CorePeace</target>
+        <target>Bloqueo DMZ-CorePeace</target>
       </segment>
       <segment id="neron_inhibition.description" state="translated">
         <source>bios_terminal.neron_inhibition_description</source>
-        <target>Activa el inhibidor de comportamiento de NERON. El inhibidor cambia varios de los comportamientos agresivos de NERON.</target>
+        <target>Activa el bloqueo del comportamiento de NERON. El bloqueo cambia un número de comportamientos agresivos de NERON.</target>
       </segment>
       <segment id="neron_inhibition.toggle_active" state="translated">
         <source>bios_terminal.neron_inhibition_toggle_active</source>
@@ -300,11 +300,11 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="death_announcements_name" state="translated">
         <source>bios_terminal.death_announcements_name</source>
-        <target>Reportar muertes</target>
+        <target>Señalar los decesos</target>
       </segment>
       <segment id="death_announcements_description" state="translated">
         <source>bios_terminal.death_announcements_description</source>
-        <target>Permite que NERON reporte las muertes con un anuncio general.</target>
+        <target>Activa la capacidad de NERON de anunciar los decesos.</target>
       </segment>
       <segment id="death_announcements_toggle_active" state="translated">
         <source>bios_terminal.death_announcements_toggle_active</source>
@@ -320,7 +320,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="vocoded_announcements_description" state="translated">
         <source>bios_terminal.vocoded_announcements_description</source>
-        <target>Permite a NERON transmitir los mensajes del Administrador de NERON.</target>
+        <target>Activa la capacidad de NERON de transmitir los mensajes del Administrador de NERON.</target>
       </segment>
       <segment id="vocoded_announcements_toggle_active" state="translated">
         <source>bios_terminal.vocoded_announcements_toggle_active</source>
@@ -421,7 +421,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
       <segment id="eden_computed" state="translated">
         <source>calculator.eden_computed</source>
-        <target>El cálculo de las coordenadas de Eden ha sido completado con éxito. Las coordenadas han sido transferidas a *NERON. Consulta a tu ***Comandante*** para obtener más información*.</target>
+        <target>El cálculo de las coordenadas de Edén ha sido completado con éxito. Las coordenadas han sido transferidas a *NERON. Consulta a tu ***Comandante*** para obtener más información*.</target>
       </segment>
     </unit>
     <unit id="communication_center">

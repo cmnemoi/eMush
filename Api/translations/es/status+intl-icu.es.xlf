@@ -1490,7 +1490,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>multi_teamster.description</source>
-        <target>Los sensores han detectado que este tripulante tiene varias identidades paralelas. Por favor,  contactar con las Fuerzas de Autodefensa para resolver esta situación.</target>
+        <target>Los sensores han detectado que este tripulante tiene varias identidades paralelas. Por favor,  contactar con la FDS para resolver esta situación.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>multi_teamster.examine</source>
@@ -1548,7 +1548,7 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
       <segment id="description" state="translated">
         <source>pregnant.description</source>
-        <target>¡Estás esperando un evento feliz! Esto te da :triumph: extra, y si mueres, :pmo: del equipo estará fuertemente afectado.</target>
+        <target>¡Estás esperando un evento feliz! Esto te da :triumph: extra, y si mueres, el :pmo: de la tripulación será afectado severamente.</target>
       </segment>
       <segment id="effect" state="initial">
         <source>pregnant.examine</source>
@@ -1724,7 +1724,7 @@ Todas tus acciones se vuelven más difíciles.</target>
     <unit id="firefighter_drone_upgrade">
       <segment id="description" state="translated">
         <source>firefighter_drone_upgrade.description</source>
-        <target>:point: Bombero : Intenta apagar los incendios en la sala antes de desplazarse. También se protege del fuego.</target>
+        <target>:point: Bombero: Intenta apagar los incendios en la sala antes de desplazarse. También se protege del fuego.</target>
       </segment>
     </unit>
   </file>

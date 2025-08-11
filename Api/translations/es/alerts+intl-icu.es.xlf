@@ -101,7 +101,7 @@ Repáralo para que NERON pueda restablecer la gravedad en el próximo ciclo.</ta
       </segment>
       <segment id="description" state="translated">
         <source>low_hull.description</source>
-        <target>La estructura de la nave está en mal estado. ¡Avisa a un técnico o hazlo tú mismo!</target>
+        <target>La estructura de la nave está en mal estado. ¡Avisa a un técnico o repárala tú mismo!</target>
       </segment>
     </unit>
     <unit id="hunger">

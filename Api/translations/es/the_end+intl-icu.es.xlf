@@ -22,7 +22,7 @@
     <unit id="explorationsStarted">
       <segment state="translated">
         <source>explorationsStarted</source>
-        <target>Expediciones</target>
+        <target>Exploraciones</target>
       </segment>
     </unit>
     <unit id="rebelBasesContacted">
@@ -40,7 +40,7 @@
     <unit id="mushAmount">
       <segment state="translated">
         <source>mushAmount</source>
-        <target>Número de Mush</target>
+        <target>Cantidad de Mush</target>
       </segment>
     </unit>
     <unit id="neronProjects">

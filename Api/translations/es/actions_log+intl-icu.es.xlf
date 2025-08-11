@@ -195,7 +195,7 @@ other {invalid gender input}
         <target>{versionPart1, select, 1 {} other {}}{versionPart2, select,
 
   1 {**{target_equipment}** del demonio... ¡Déjate reparar!}
-  2 {A pesar de tu esfuerzo, no lograste reparar {target_equipment_gender, select, female {el **{target_equipment}** other {la **{target_equipment}**}}.}
+  2 {A pesar de tu esfuerzo, no lograste reparar {target_equipment_gender, select, female {la **{target_equipment}**} other {el **{target_equipment}**}}.}
   3 {Reparar {target_equipment_gender, select, female {la **{equipment}**} other {el **{equipment}**}} resulta ser todo un desafío.}
   4 {Fallaste en la reparación {target_equipment_gender, select, female {de la **{target_equipment}**} other {del **{target_equipment}**}}.}
   5 {Parece que reparar {target_equipment_gender, select, female {la **{equipment}**} other {el **{equipment}**}} no es nada fácil.}
@@ -239,8 +239,8 @@ other {invalid gender input}
   39 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. No, no se reparará por obra del Espíritu Santo.}
   40 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. Hay días en que es mejor no salir de la cama.}
   41 {{target_equipment_gender, select, female {La **{target_equipment}**} other {El **{target_equipment}**}} no quiere funcionar. Tal vez no has tomado un buen desayuno.}
-  other {invalid version number}
-}:</target>
+  other {{target_equipment_gender, select, female {La **{target_equipment}** sigue dañada} other {El **{target_equipment}** sigue dañado}} a pesar de tus esfuerzos.}
+}</target>
       </segment>
     </unit>
     <unit id="repair_success">

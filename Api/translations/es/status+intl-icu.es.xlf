@@ -1668,7 +1668,7 @@ Todas tus acciones se vuelven más difíciles.</target>
       </segment>
       <segment id="description" state="translated">
         <source>cat_infected.description</source>
-        <target>Tu misión es demasiado importante como para elegir a tus aliados.//Cada miembro de la tripulación **humano** que este gato ha **arañado**  verá su **nivel de contaminación aumentar de uno**.//*Puedes ver este mensaje porque eres parte de Mush.*</target>
+        <target>Tu misión es demasiado importante como para discriminar a tus aliados.//Cada  **humano** que este gato **arañe** será **contaminado con una espora**.//*Puedes ver este mensaje porque eres parte del Mush.*</target>
       </segment>
     </unit>
     <unit id="antique_perfume_immunized">

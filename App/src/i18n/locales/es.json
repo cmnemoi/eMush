@@ -506,7 +506,7 @@
 			"isNotPerishable": "No perecible",
 			"satiety": "Saciedad",
 			"actionPoints": "Puntos de acción obtenidos (puntos => probabilidad)",
-			"moralPoints": "Puntos de moral obtenidos (puntos => probabilidad)",
+			"moralPoints": "Puntos de ánimo obtenidos (puntos => probabilidad)",
 			"healthPoints": "Puntos de vida obtenidos (puntos => probabilidad)",
 			"movementPoints": "Puntos de movimiento obtenidos (puntos => probabilidad)",
 			"extraEffects": "Efectos secundarios",

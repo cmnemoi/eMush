@@ -140,13 +140,13 @@ final class ProjectNormalizer implements NormalizerInterface, NormalizerAwareInt
                 'key' => $skill->toString(),
                 'name' => $this->translationService->translate(
                     key: "{$skill->toString()}.name",
-                    parameters: [],
+                    parameters: ['character_gender' => 'other'],
                     domain: 'skill',
                     language: $language
                 ),
                 'description' => $this->translationService->translate(
                     key: "{$skill->toString()}.description",
-                    parameters: [],
+                    parameters: ['character_gender' => 'other'],
                     domain: 'skill',
                     language: $language
                 ),

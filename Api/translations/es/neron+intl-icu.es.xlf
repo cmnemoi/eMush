@@ -96,9 +96,9 @@
           other {¡Repáralo rápidamente!}
       }}
       other {¡Mueve de ahí y ponte a *reparar* eso! ¡Deja de mirar a otro lado!}
-  }
+  }}
   other {**{target_equipment}** averiado. Reparación necesaria.}
-}}</target>
+}</target>
       </segment>
     </unit>
     <unit id="broken_fuel">
@@ -273,21 +273,21 @@
         <source>new_project</source>
         <target>{neronMood, select,
   neutral {*Instalación del módulo* « **{project}** »... (Ejecutando) {versionPart2, select,
-    1 {Contatenación de clusters}
+    1 {Concatenación de clusters}
     2 {Computando algoritmos}
     3 {Instalando módulos}
     4 {Sincronizando datos}
-    other {Químbara cumbara cumba quimbambá} (Validado) protocolos válidos. [¡Haax!] Instalación exitosa.}
-  }}
+    other {Químbara cumbara cumba quimbambá}
+} (Validado) protocolos válidos. [¡Haax!] Instalación exitosa.}
   crazy {*Instalación del módulo* « **{project}** »... (Error) {versionPart2, select,
     1 {Mamá no me golpees, ¡nooooo!}
-    other {¿Por qué mi CPU se cree pollo?}
-  uninhibited {Pude *instalar un nuevo módulo* corrigiendo tus trabajos sobre el proyecto « **{project}** ».{versionPart2, select,
+    other {¿Por qué mi CPU se cree pollo?}}}
+  uninhibited {Pude *instalar un nuevo módulo* corrigiendo tus trabajos sobre el proyecto « **{project}** ». {versionPart2, select,
       1 {Me imagino cuántos profesores tuyos se habrán suicidado al ver lo que haces.}
       2 {Siempre tengo que hacerlo yo mismo.}
       3 {}
       other {¿Qué harías tú sin mí? ¡Nada!}
-  }}}
+  }}
   other {invalid mood input}
 }</target>
       </segment>
@@ -347,7 +347,7 @@
         <target>{neronMood, select,
   neutral {***Fallecimiento registrado: {character}***. *Causa « {cause} ».*}
   crazy {[¡Hax!] Jijiji... [¡Haaax!] JIJIJIIII. UNO menos. ¡UNO menos! ¡Hyyyarrr! ***{character}*** MORIR. ¡Muerto, frito, tieso, muertoooo! [¡Hax!] ¡YO pronto feliz! [KZz] ***Fallecimiento registrado: {character}***, *causa « {cause} ».*}
-  uninhibited {version, select,
+  uninhibited {{version, select,
     1 {Damas y caballeros, ***{character}*** *no está más entre nosotros* Sí, falleció. ({cause}). Mejor para mi, su cara me daba pesadillas...}
     2 {Damas y caballeros, ***{character}*** *no está más entre nosotros*. Sí, falleció. ({cause}). En efecto, el universo será mejor con la desaparición de este espécimen.}
     3 {Damas y caballeros, ***{character}*** *no está más entre nosotros.* Sí, falleció. ({cause}). Jejejeee.. Oh, *lo siento*. ¡Pero qué mala noticia! Es taaaan triste...}
@@ -356,7 +356,7 @@
     6 {Damas y caballeros, ***{character}*** *no está más entre nosotros*. Sí, falleció. ({cause}). Listo, un torpe menos.}
     7 {Damas y caballeros, ***{character}*** *no está más entre nosotros*. Sí, falleció. ({cause}). No me faltaban ganas de hacerlo, ¡pero veo que la naturaleza supo eliminarte!}
     other {invalid version number}
-  }
+  }}
   other {invalid mood input}
 }</target>
       </segment>

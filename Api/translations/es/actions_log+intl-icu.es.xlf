@@ -883,13 +883,13 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="take_cat">
       <segment id="take_cat" state="translated">
         <source>take_cat</source>
-        <target>**{character}** ha levantado al **Gato {target_equipment}**.</target>
+        <target>**{character}** ha levantado al **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="pet_cat">
       <segment id="pet_cat" state="translated">
         <source>pet_cat</source>
-        <target>**{character}** acaricia a **{target_equipment}**, a él no le gusta mucho pero se deja...</target>
+        <target>**{character}** acaricia a **Schrödinger**, a él no le gusta mucho pero se deja...</target>
       </segment>
     </unit>
     <unit id="cure_cat_success">

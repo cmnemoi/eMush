@@ -7,7 +7,7 @@
         <target>{version, select,
     1 {**{character}** desenfunda y dispara sobre **{target_character}**.}
     2 {Sin más ni más, **{character}** saca su arma y dispara sobre **{target_character}**, una, dos, tres veces...}
-    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae {target_character_gender, select, female {abatida} other {abatido} en pocos segundos.}
+    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae {target_character_gender, select, female {abatida} other {abatido} en pocos segundos.}}
     4 {**{character}** gira súbitamente y dispara sobre **{target_character}**.}
     other {**{target_character}** recibe un tiro certero de **{character}**.}
 }</target>
@@ -371,7 +371,7 @@
         <target>{version, select,
     1 {**{character}** desenfunda y dispara sobre **{target_character}**.}
     2 {Sin más ni más, **{character}** saca su arma y dispara sobre **{target_character}**, una, dos, tres veces...}
-    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae {target_character_gender, select, female {abatida} other {abatido} en pocos segundos.}
+    3 {**{character}** hace una secuencia de movimientos de puño y dispara sobre **{target_character}**... quien cae {target_character_gender, select, female {abatida} other {abatido} en pocos segundos.}}
     4 {**{character}** gira súbitamente y dispara sobre **{target_character}**.}
     other {**{target_character}** recibe un tiro certero de **{character}**.}
 }</target>

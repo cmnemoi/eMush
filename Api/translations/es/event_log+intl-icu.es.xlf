@@ -405,7 +405,7 @@
         <source>self_surgery_success</source>
         <target>Parecía interminable... 
 {version, select,
-                    1 **{character}** se recupera satisfactoriamente.}
+                    1 {**{character}** se recupera satisfactoriamente.}
                      2 {la operación fue un éxito. **{character}** está bien y pronto estará de pie.}
                      other {invalid version input}
                      } La herida ({disease}) de **{character}** ha sido curada.</target>
@@ -885,7 +885,7 @@
         <source>lost_research_sample</source>
         <target>Sujeto : {character} Resultado: {is_negative, select,
 true {Negativo}
-other {¡¡¡Muestra insuficiente!!!}</target>
+other {¡¡¡Muestra insuficiente!!!}}</target>
       </segment>
     </unit>
     <unit id="observant_noticed_something">

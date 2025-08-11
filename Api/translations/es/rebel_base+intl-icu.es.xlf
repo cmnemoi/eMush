@@ -41,7 +41,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>centauri.description</source>
-        <target>Saludos, aliados en la guerra anti-mush. Estamos acorralados por los invasores. Para facilitar vuestras exploraciones os transferimos los planos del PL80-Blaster, un poderoso cañón de plasma que debe ser usado con mucha cautela. ¡Hasta la victoria, siempre!//**Cada Blaster gana un punto de poder adicional en una expedición.**</target>
+        <target>Saludos, aliados en la guerra anti-mush. Estamos acorralados por los invasores. Para facilitar vuestras exploraciones os transferimos los planos del PL80-Blaster, un poderoso cañón de plasma que debe ser usado con mucha cautela. ¡Hasta la victoria, siempre!//**Cada Blaster aporta un punto de poder adicional en una expedición.**</target>
       </segment>
     </unit>
     <unit id="kaladaan">

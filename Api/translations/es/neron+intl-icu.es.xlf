@@ -468,7 +468,7 @@
         <source>sol_contact</source>
         <target>{neronMood, select,
   neutral {**Redes rebeldes:** Conexión establecida. … Indice de salud: *El ánimo de la tripulación sube.*}
-  crazy {}
+  crazy {sol_contact_crazy_mood}
   uninhibited {La comunicación ha sido establecida con las **redes rebeldes**. … Mis indicios de salud muestran « *el ánimo de la tripulación aumenta * »... Perfecto, estoy feliz: por fin podré hablar a gente que sí vale la pena.}
   other {invalid mood input}
 }</target>
@@ -487,7 +487,7 @@
       4 {Queridos amigos, he decidido *reatribuir el título* de « **{title}** » a **{character}**. Ay si, {character} es el personaje favorito, ¡ay sí! }
       5 {Debido a los vergonzosos eventos recientes, he decidido *reatribuir el título* de « **{title}** » al menos atolondrado de vosotros. "*Felicitaciones*" {character}.}
       6 {Debido a los vergonzosos eventos recientes, he decidido *reatribuir el título* de « **{title}** » al menos baboso de vosotros: ***{character}***.}
-      7 {Queridos amigos, he decidido *reatribuir el título* de « **{title}title** » a ***{character}***. No creas {character}, no confío en ti, pero los demás son peores.}
+      7 {Queridos amigos, he decidido *reatribuir el título* de « **{title}** » a ***{character}***. No creas {character}, no confío en ti, pero los demás son peores.}
       other {invalid version number}
   }}
   other {invalid mood input}

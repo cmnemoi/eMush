@@ -1331,7 +1331,11 @@
     <unit id="germaphobe">
       <segment id="name" state="translated">
         <source>germaphobe.name</source>
-        <target>Germófobo</target>
+        <target>{character_gender, select,
+            male {Germófobo}
+            female {Germófoba}
+            other {Germófobo}
+            }</target>
       </segment>
       <segment id="description" state="translated">
         <source>germaphobe.description</source>

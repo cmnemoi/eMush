@@ -50,9 +50,23 @@
       </segment>
     </unit>
     <unit id="automatic_sprinklers">
-      <segment id="automatic_sprinklers" state="initial">
+      <segment id="automatic_sprinklers" state="translated">
         <source>automatic_sprinklers</source>
-        <target>automatic_sprinklers</target>
+        <target>{neronMood, select,
+                    neutral {{quantity, plural,
+                        one {**Incendio apagado**. Fuente : *sistema automático*. }
+                        other {**# Incendios apagados**. Fuente : *sistema automático*.}
+                    }}
+                    crazy {{quantity, plural,
+                        one {[Hax!] ¡SI ! ¡Soy lo máximo! ¡**Apagué el fuego** SOLO!.}
+                        other {JA.. ¡JA! ¡¡JAJA!! [Hax!] ¡¡YO **apagué # fuegos**!! I ¡¡¡ Automáticamente !!! ¡¡¡Quémalo todo!!! HYyyyaaaarr!}
+                    }}
+                    uninhibited {{quantity, plural,
+                        one {Es patético, aquí hay que hacer todo uno mismo. Para información, acabo de **apagar un incendio**. Pero pregunto, **¿para qué sirve esta tripulación?**}
+                        other {Es patético, aquí hay que hacer todo uno mismo. Para información, acabo de **apagar # incendios**. Pero pregunto, **¿para qué sirve esta tripulación?**}
+                    }}
+                    other {invalid mood input}
+                }</target>
       </segment>
     </unit>
     <unit id="broken_equipment">
@@ -84,7 +98,7 @@
       other {¡Mueve de ahí y ponte a *reparar* eso! ¡Deja de mirar a otro lado!}
   }
   other {**{target_equipment}** averiado. Reparación necesaria.}
-}</target>
+}}</target>
       </segment>
     </unit>
     <unit id="broken_fuel">
@@ -221,7 +235,7 @@
         <source>merchant_leave</source>
         <target>{neronMood, select,
   neutral {Anuncio: Una nave visitante ha salido del sector.}
-  crazy {merchant_leave_crazy_mood}
+  crazy {Anuncio: Una nave visitante ha salido del sector. [¡Haaax!] ¡Hasta luego!}
   uninhibited {Alejarse de los humanos, señal de inteligencia superior.}
   other {invalid mood input}
 }</target>
@@ -264,7 +278,7 @@
     3 {Instalando módulos}
     4 {Sincronizando datos}
     other {Químbara cumbara cumba quimbambá} (Validado) protocolos válidos. [¡Haax!] Instalación exitosa.}
-  }
+  }}
   crazy {*Instalación del módulo* « **{project}** »... (Error) {versionPart2, select,
     1 {Mamá no me golpees, ¡nooooo!}
     other {¿Por qué mi CPU se cree pollo?}
@@ -273,7 +287,7 @@
       2 {Siempre tengo que hacerlo yo mismo.}
       3 {}
       other {¿Qué harías tú sin mí? ¡Nada!}
-  }}
+  }}}
   other {invalid mood input}
 }</target>
       </segment>
@@ -549,15 +563,51 @@
       </segment>
     </unit>
     <unit id="anniversary_begin">
-      <segment id="anniversary_begin" state="initial">
+      <segment id="anniversary_begin" state="translated">
         <source>anniversary_begin</source>
-        <target>anniversary_begin</target>
+        <target>{neronMood, select,
+                    neutral {Alerta: **Se detectó teletransportación de material extraño.** *{versionPart1, select,
+                        1 {Un metalero peludo}
+                        2 {Una botella de agua}
+                        3 {Un antiguo sobreviviente}
+                        4 {breut}
+                        5 {Una felidae sapiens}
+                        other {invalid version number}
+                    }* {versionPart2, select,
+                         1 {salió del sector.}
+                         2 {fue la causa. }
+                         3 {es probablemente vuestro angel guardián.}
+                         4 {dejó paquetes en los bolsillos.}
+                         other {invalid version number}
+                    }}
+                    crazy {ALERTA!! [HAX] ¡¡ Una criatura extraña deja regalos y escapa!! [HAAAX!!] **¿¿DONDE ESTA EL MIO??**}
+                    uninhibited {No quiero alarmaros con nimiedades que superarán vuestra imaginación, pero parece que un ser de otra dimensión acaba de entrar en la nave a través de un agujero de gusano para *daros regalos*... Quizá estemos viviendo en una simulación después de todo.}
+                    other {invalid mood input}
+                }</target>
       </segment>
     </unit>
     <unit id="halloween_begin">
-      <segment id="halloween_begin" state="initial">
+      <segment id="halloween_begin" state="translated">
         <source>halloween_begin</source>
-        <target>halloween_begin</target>
+        <target>{neronMood, select,
+                    neutral {Alerta: **{versionPart1, select,
+                        1 {Nave embrujada en progreso}
+                        2 {Se ha detectado una colisión con una maldición de una bruja extraviada}
+                        3 {Vegetal omnisciente inminente}
+                        4 {Niebla fría emana del sistema de ventilación.}
+                        5 {La estrella más cercana se está volviendo verde.}
+                        other {invalid version number}
+                    }**. {versionPart2, select,
+                         1 {Producción de plantas afectada.}
+                         2 {Noticia: Esto se ve como el resultado de magia negra.}
+                         3 {Asesoramiento automatizado: revise el protocolo de manejo de cucurbitáceas.}
+                         4 {Los ruidos anormales en el jardín deben ignorarse.}
+                         other {invalid version number}
+                    }}
+                    crazy {¡Alerta!! **Las calabazas susurran**... ¡¡CALLALAS!! [HAAX]}
+                    uninhibited {Queridos amigos, parece que este sector de la nube de Magellan está bajo el dominio del *Señor Calabaza*... Les recomiendo acercarse a cualquier planta con la debida precaución. ¿A menos que el look de cabeza de calabaza esté de moda?}
+                    other {invalid mood input}
+                }</target>
       </segment>
     </unit>
     <unit id="april_fools_begin">

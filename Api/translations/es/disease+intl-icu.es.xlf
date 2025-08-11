@@ -292,9 +292,9 @@
       </segment>
     </unit>
     <unit id="crabism">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>crabism.name</source>
-        <target>crabism.name</target>
+        <target>Crabismo</target>
       </segment>
       <segment id="description" state="translated">
         <source>crabism.description</source>

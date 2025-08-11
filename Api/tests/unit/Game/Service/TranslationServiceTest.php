@@ -12,6 +12,7 @@ use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -33,6 +34,7 @@ final class TranslationServiceTest extends TestCase
 
         $this->translationService = new TranslationService(
             $this->translator,
+            self::createStub(LoggerInterface::class),
         );
     }
 

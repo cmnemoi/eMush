@@ -4,6 +4,7 @@ namespace Mush\Game\Service;
 
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\LanguageEnum;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TranslationService implements TranslationServiceInterface
@@ -11,7 +12,8 @@ class TranslationService implements TranslationServiceInterface
     private TranslatorInterface $translator;
 
     public function __construct(
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        private readonly LoggerInterface $logger
     ) {
         $this->translator = $translator;
     }
@@ -24,7 +26,18 @@ class TranslationService implements TranslationServiceInterface
 
         $parameters = $this->getTranslateParameters($parameters, $language);
 
-        return $this->translator->trans($key, $parameters, $domain, $language);
+        try {
+            return $this->translator->trans($key, $parameters, $domain, $language);
+        } catch (\Exception $e) {
+            $this->logger->error('Error translating key: ' . $key, [
+                'parameters' => $parameters,
+                'domain' => $domain,
+                'language' => $language,
+                'error' => $e->getMessage(),
+            ]);
+
+            throw $e;
+        }
     }
 
     private function getTranslateParameters(array $parameters, string $language): array

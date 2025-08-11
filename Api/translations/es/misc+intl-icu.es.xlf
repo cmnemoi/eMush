@@ -126,9 +126,9 @@
       </segment>
     </unit>
     <unit id="project_grants_triumph">
-      <segment id="project_grants_triumph" state="initial">
+      <segment id="project_grants_triumph" state="translated">
         <source>project_grants_triumph</source>
-        <target>project_grants_triumph</target>
+        <target>Otorga {quantity} :triumph:</target>
       </segment>
     </unit>
   </file>

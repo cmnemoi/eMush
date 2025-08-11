@@ -874,9 +874,9 @@
         <source>mush_hunter_zc16h.name</source>
         <target>El Mush-Hunter : ZC16H</target>
       </segment>
-      <segment id="mush_hunter_zc16h.lore" state="initial">
+      <segment id="mush_hunter_zc16h.lore" state="translated">
         <source>mush_hunter_zc16h.lore</source>
-        <target>mush_hunter_zc16h.lore</target>
+        <target>Parte de la melanina secretada por Chun parece ser utilizada por su hígado para secretar una bacteria completamente única, nombrada ZC16H. Al parecer, esta bacteria reacciona violentamente al entrar en contacto con una muestra de Mush. Literalmente digiere el hongo y luego se reproduce a un ritmo alarmante. Debemos descubrir qué afecta el tratamiento de la melanina, ¡y esto podría ser la clave para crear un antídoto contra Mush! Los hallazgos de este estudio podrían ser cruciales y dar fama a todo el equipo.</target>
       </segment>
     </unit>
     <unit id="mushicide_soap">
@@ -906,9 +906,9 @@
         <source>mush_language.name</source>
         <target>Lenguaje Mush</target>
       </segment>
-      <segment id="mush_language.lore" state="initial">
+      <segment id="mush_language.lore" state="translated">
         <source>mush_language.lore</source>
-        <target>mush_language.lore</target>
+        <target>Una excelente tesis sobre la estructura cristalina de las feromonas de comunicación de Mush. Lectura ligera, pero esencial para la comprensión del parásito, aborda concisamente el problema de los armónicos del ADN y su expresión lingüística.</target>
       </segment>
     </unit>
     <unit id="mushovore_bacteria">
@@ -938,9 +938,9 @@
         <source>mush_races.name</source>
         <target>Razas Mush</target>
       </segment>
-      <segment id="mush_races.lore" state="initial">
+      <segment id="mush_races.lore" state="translated">
         <source>mush_races.lore</source>
-        <target>mush_races.lore</target>
+        <target>Tras la autopsia de una especie de axolote conocida como "El Oráculo de Wupperthal", se encontraron ciertas similitudes entre una especie de este vertebrado y la secreción del bacilo 764. Se demostró que Mush y sus componentes no saprofitos los llevaron a crear una cadena de hongos procariotas que mutaron con mayor rapidez. Esto nos permitió observar que la cepa de Mush que conocemos posee varias subcadenas que se detallan en este interesante artículo.</target>
       </segment>
     </unit>
     <unit id="mush_reproductive_system">
@@ -952,9 +952,9 @@
         <source>mush_reproductive_system.name</source>
         <target>Sistema de reproducción Mush</target>
       </segment>
-      <segment id="mush_reproductive_system.lore" state="initial">
+      <segment id="mush_reproductive_system.lore" state="translated">
         <source>mush_reproductive_system.lore</source>
-        <target>mush_reproductive_system.lore</target>
+        <target>Un estudio fascinante que vincula la partenogénesis del rebozuelo en un entorno anaeróbico con la posibilidad de reproducir el parásito Mush. Los hallazgos de este informe catapultarán asus autores al estrellato científico.</target>
       </segment>
     </unit>
     <unit id="mycoalarm">
@@ -1056,9 +1056,9 @@
         <source>perpetual_hydration.name</source>
         <target>Hidratación perpetua</target>
       </segment>
-      <segment id="perpetual_hydration.lore" state="initial">
+      <segment id="perpetual_hydration.lore" state="translated">
         <source>perpetual_hydration.lore</source>
-        <target>perpetual_hydration.lore</target>
+        <target>Gracias a una serie de rigurosas pruebas, ¡por fin hemos descubierto cómo usar el palo de lluvia! Simplemente hay que insertarlo en una fosa nasal. La circulación regular del aire permite una reacción de oxidación pasiva, lo que produce una filtración débil pero regular. Esto garantiza el abastecimiento de agua para el cuerpo humano durante más de 3200 años.</target>
       </segment>
     </unit>
     <unit id="pheromodem">

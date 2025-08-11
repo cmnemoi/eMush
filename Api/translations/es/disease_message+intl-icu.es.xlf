@@ -16,33 +16,168 @@
                     other {invalid version}
                 }</target>
       </segment>
-      <segment id="post" state="initial">
+      <segment id="post" state="translated">
         <source>post_coprolalia</source>
-        <target>post_coprolalia</target>
+        <target>{version, select,
+                    1 {, todos ustedes son {word_plural_coprolalia} de todas formas.}
+                    2 {, realmente {word_plural_coprolalia}...}
+                    3 {, este es un exelente grupo de {prefix_coprolalia} {word, select,
+                        1 {de} 4 {de} 8 {de}
+                        19 {{animal, select, 3{de} 9{de} 11{de} other {de }}}
+                        20 {{animal, select, 3{de} 9{of} 11{de} other {de }}}
+                        other {de }
+                    }{word_plural_coprolalia}...}
+                    other {invalid version}
+                }</target>
       </segment>
-      <segment id="replace" state="initial">
+      <segment id="replace" state="translated">
         <source>replace_coprolalia</source>
-        <target>replace_coprolalia</target>
+        <target>{version, select,
+                    1 {Todos son {word_plural_coprolalia}.}
+                    2 {Grupo {word, select,
+                        1 {de} 4 {de} 8 {of}
+                        19 {{animal, select, 3{de} 9{de} 11{de} other {de }}}
+                        20 {{animal, select, 3{de} 9{de} 11{de} other {de }}}
+                        other {de }
+                    }{word_plural_coprolalia}, dónde escondieron sus {balls_coprolalia}}
+                    3 {Un montón de {word, select,
+                        1 {de} 4 {de} 8 {de}
+                        19 {{animal, select, 3{de} 9{de} 11{de} other {de }}}
+                        20 {{animal, select, 3{de} 9{de} 11{de} other {de }}}
+                        other {de }
+                        }{word_plural_coprolalia}.
+                    }
+                    4 {¿Vas a mover tus {balls_coprolalia}, huh?}
+                    5 {Realmente todos son {word_plural_coprolalia}.}
+                    6 {¿Acaso ya creciste {balls_coprolalia}, eh?}
+                    7 {No tienes nada en tus {balls_coprolalia}, ¿verdad?}
+                    8 {Admins, realmente son {word_plural_coprolalia}.}
+                    9 {{prefix_coprolalia} de admins incompetentes}
+                    10 {{prefix_coprolalia} de {word_plural_coprolalia}.}
+                    11 {Tu y tu inútil valor de {prefix_coprolalia}}
+                    12 {Inútil {prefix_coprolalia}}
+                    13 {Sabes lo que {balls_coprolalia} dicen de ti? Hooolaaaa!}
+                    other {invalid version}
+                    }</target>
       </segment>
-      <segment id="word" state="initial">
+      <segment id="word" state="translated">
         <source>word_coprolalia</source>
-        <target>word_coprolalia</target>
+        <target>{word, select,
+                    1 {analfabeto}
+                    2 {algodón de azucar}
+                    3 {idiotas}
+                    4 {ganglio inflamado}
+                    5 {culo de cactus}
+                    6 {imbécil}
+                    7 {pus squirter}
+                    8 {heterocigoto}
+                    9 {señor helado}
+                    10 {lameculos}
+                    11 {cobarde}
+                    12 {mierda de {adjective_coprolalia}}
+                    13 {mierda de {adjective_coprollalia}}
+                    14 {estúpido}
+                    15 {bolas de {adjective_coprolalia}}
+                    16 {bolas de {adjective_coprolalia}}
+                    17 {piel de {adjective_coprolalia}}
+                    18 {cola de {animal_coprolalia}}
+                    19 {{animal, select,
+                        1 {{adjective_coprolalia}}
+                        8 {{adjective_coprolalia}}
+                        9 {{adjective_coprolalia}}
+                        other {{adjective_male_single_coprolalia}}
+                    } {animal_coprolalia} }
+                    20 {{animal_coprolalia}}
+                    21 {yay banana}
+                    other {heterocigoto}
+                    }</target>
       </segment>
-      <segment id="word_plural" state="initial">
+      <segment id="word_plural" state="translated">
         <source>word_plural_coprolalia</source>
-        <target>word_plural_coprolalia</target>
+        <target>{word, select,
+                    1 {analfabetos}
+                    2 {algodones de azúcar}
+                    3 {idiotas}
+                    4 {ganglios inflamados}
+                    5 {culos de cactus}
+                    6 {imbeciles}
+                    7 {bolsas de pus}
+                    8 {heterocigotos}
+                    9 {señores helados}
+                    10 {lameculos}
+                    11 {cobardes}
+                    12 {mierdas de {adjective_coprolalia}}
+                    13 {mierdas de {adjective_coprollalia}}
+                    14 {estúpidos}
+                    15 {bolas de {adjective_coprolalia}}
+                    16 {bolas de {adjective_coprolalia}}
+                    17 {pieles de {adjective_coprolalia}}
+                    18 {colas de {animal_coprolalia}}
+                    19 {{animal, select,
+                        1 {{adjective_coprolalia}}
+                        8 {{adjective_coprolalia}}
+                        9 {{adjective_coprolalia}}
+                        other {{adjective_male_plural_coprolalia}}
+                    } {animal_coprolalia} }
+                    20 {{animal_coprolalia}}
+                    21 {yay banana}
+                    other {heterocigotos}
+                    }</target>
       </segment>
-      <segment id="animal" state="initial">
+      <segment id="animal" state="translated">
         <source>animal_coprolalia</source>
-        <target>animal_coprolalia</target>
+        <target>{animal, select,
+                    1 {nutria}
+                    2 {tortuga}
+                    3 {ornitorrinco}
+                    4 {canario}
+                    5 {mamut}
+                    6 {chancro}
+                    7 {ñu}
+                    8 {mejillón}
+                    9 {almeja}
+                    10 {macaco}
+                    11 {pilluelo}
+                    12 {cienpies}
+                    13 {pulpo}
+                    14 {zebra}
+                    other {invalid version}
+                }</target>
       </segment>
-      <segment id="animal_plural" state="initial">
+      <segment id="animal_plural" state="translated">
         <source>animal_plural_coprolalia</source>
-        <target>animal_plural_coprolalia</target>
+        <target>{animal, select,
+                    1 {nutrias}
+                    2 {tortugas}
+                    3 {ornitorrincos}
+                    4 {canarios}
+                    5 {mamuts}
+                    6 {chancros}
+                    7 {ñus}
+                    8 {mejillones}
+                    9 {almejas}
+                    10 {macacos}
+                    11 {pilluelos}
+                    12 {cienpies}
+                    13 {pulpos}
+                    14 {zebras}
+                    other {invalid version}
+                }</target>
       </segment>
-      <segment id="balls" state="initial">
+      <segment id="balls" state="translated">
         <source>balls_coprolalia</source>
-        <target>balls_coprolalia</target>
+        <target>{balls, select,
+                    1 {bolas}
+                    2 {nueces}
+                    3 {bolsas}
+                    4 {bolsas}
+                    5 {trombones}
+                    6 {silbatos}
+                    7 {pipas}
+                    8 {flutas}
+                    9 {bolas}
+                    other {invalid version}
+                }</target>
       </segment>
       <segment id="adjective_male_single" state="translated">
         <source>adjective_male_single_coprolalia</source>
@@ -56,25 +191,57 @@
                     other {invalid adjective}
                 }</target>
       </segment>
-      <segment id="adjective_male_plural" state="initial">
+      <segment id="adjective_male_plural" state="translated">
         <source>adjective_male_plural_coprolalia</source>
-        <target>adjective_male_plural_coprolalia</target>
+        <target>{adjective, select,
+                    1 {borrachos}
+                    2 {coprófagos}
+                    3 {débiles}
+                    4 {arrugados}
+                    5 {drogados}
+                    6 {decapitados}
+                    other {invalid adjective}
+                    }</target>
       </segment>
       <segment id="adjective_coprolalia" state="initial">
         <source>adjective_coprolalia</source>
         <target>adjective_coprolalia</target>
       </segment>
-      <segment id="adjective_female_single" state="initial">
+      <segment id="adjective_female_single" state="translated">
         <source>adjective_female_single_coprolalia</source>
-        <target>adjective_female_single_coprolalia</target>
+        <target>{adjective, select,
+                    1 {borracha}
+                    2 {coprófaga}
+                    3 {débiles}
+                    4 {arrugada}
+                    5 {drogada}
+                    6 {decapitada}
+                    other {invalid adjective}
+                    }</target>
       </segment>
-      <segment id="adjective_female_plural" state="initial">
+      <segment id="adjective_female_plural" state="translated">
         <source>adjective_female_plural_coprolalia</source>
-        <target>adjective_female_plural_coprolalia</target>
+        <target>{adjective, select,
+                    1 {borrachas}
+                    2 {coprófagas}
+                    3 {débiles}
+                    4 {arrugadas}
+                    5 {drogadas}
+                    6 {decapitadas}
+                    other {invalid adjective}
+                    }</target>
       </segment>
-      <segment id="preposition" state="initial">
+      <segment id="preposition" state="translated">
         <source>preposition_coprolalia</source>
-        <target>preposition_coprolalia</target>
+        <target>{adjective, select,
+                    1 {{animal, select, 3{de} 9{de} 11{de} other {de }}{animal_coprolalia}}
+                    2 {trasero {animal, select, 3{de} 9{de} 11{de} other {de }}{animal_coprolalia}}
+                    3 {lana {animal, select, 3{de} 9{de} 11{de} other {de }}{animal_coprolalia}}
+                    4 {vejiga {animal, select, 3{de} 9{de} 11{de} other {de }}{animal_coprolalia}}
+                    5 {de {balls_coprolalia} {animal, select, 3{de} 9{de} 11{de} other {de }}{animal_coprolalia}}
+                    6 {culo {animal, select, 3{de} 9{de} 11{de} other {de }}{animal_coprolalia}}
+                    other {invalid version}
+                }</target>
       </segment>
       <segment id="prefix" state="initial">
         <source>prefix_coprolalia</source>
@@ -86,13 +253,50 @@
         <source>replace_paranoia</source>
         <target>replace_paranoia</target>
       </segment>
-      <segment id="accuse" state="initial">
+      <segment id="accuse" state="translated">
         <source>accuse_paranoia</source>
-        <target>accuse_paranoia</target>
+        <target>{version, select,
+                    1 {Sabes, {character} es Mush…}
+                    2 { {paranoia_version_4, select,
+                        1 {Pienso}
+                        2 {Creo}
+                        3 {Te juro}
+                        other {Estoy convencido}
+                    } que voy a {paranoia_version_6, select,
+                        1 {matar a}
+                        2 {acabar con}
+                        3 {deshacerme de}
+                        4 {asesinar a}
+                        5 {destruir a}
+                        other {apuñalar a}
+                    }  {character}.}
+                    3 {Hay muchas razones que indican {character} es mush.}
+                    4 {{character} es mush, estoy seguro…}
+                    5 {{character} es Mush, de verdad.}
+                    6 {{character} es Mush…}
+                    7 {{character} es un peligro para todos.}
+                    8 {{character} es una amenazal.}
+                    9 {{character} no regó las plantas, creo que es Mush…}
+                    10 {{character} hace {paranoia_version_6, select,
+                        1 {tonterías.}
+                        2 {huevadas.}
+                        3 {pura mierda.}
+                        4 {estupideces.}
+                        5 {mierda.}
+                        other {cosas podridas.}
+                    }}
+                    other {invalid version}
+                    }</target>
       </segment>
-      <segment id="pre" state="initial">
+      <segment id="pre" state="translated">
         <source>pre_paranoia</source>
-        <target>pre_paranoia</target>
+        <target>{version, select,
+                    1 {Maldita sea, }
+                    2 {Maldita..., }
+                    3 {Hijue..., }
+                    4 {Mierda, }
+                    other {Mierda, }
+                    }</target>
       </segment>
     </unit>
     <unit id="deaf">

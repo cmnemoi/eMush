@@ -757,9 +757,17 @@
         <source>roland.abstract</source>
         <target>Tras un tumultuoso pero brillante ascenso en la Academia FDS para pilotos de élite, Roland Zuccali es detenido tras dar positivo por una infección de Mush. Manipulado por sus superiores a pesar de haber demostrado su inocencia, Roland pierde toda confianza en la FDS y finalmente deserta durante la Guerra Sucia contra los rebeldes. Se convierte entonces en el piloto del Daedalus.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>roland.biography</source>
-        <target>roland.biography</target>
+        <target>- 3127: Nace en la Tierra. Aix-en-Provence, Francia.
+- 3145: Roland se une a la ***FDS*** para hacer realidad el sueño de su vida: convertirse en piloto de jet espacial. Rápidamente se consolidó como un alumno talentoso en la academia al acumular 1600 horas de vuelo en un solo año. Desafortunadamente, la ***mitad de sus horas no estaban autorizadas***, lo que resultó en suspensiones regulares. Sin embargo, su reputación de bromista lo hizo extremadamente popular entre su escuadrón.
+- 3146: Durante un salto en paracaídas sobre la superficie de Marte, Roland es suspendido por llevar consigo a una periodista del SNC... sin paracaídas. Tras pasar 6 meses en prisión, finalmente es liberado para ***defender a la Federación contra la invasión solar***...
+- 3149: Durante una misión de supervivencia en el bosque, Roland le gastó una broma a su escuadrón. Fingió haber contraído la infección de Mush por una seta venenosa. Sus superiores se tomaron en serio la amenaza y lo transfirieron inmediatamente a una celda de cuarentena.
+- 3150: El ***departamento científico de Encelade*** confirma la infección de Roland. A pesar de sus protestas, lo encierran en un laboratorio del FDS y lo utilizan como conejillo de indias para el ***cañón IOM***, un procedimiento revolucionario capaz de destruir una capa de micelio sin dañar los órganos humanos.
+- 3151: Tras solo dos exposiciones a los rayos anti-Mush, Roland es declarado libre de toda infección. Es inmediatamente ***enviado a Ross154 para unirse a la Guerra Sucia***. Tras tres negativas sucesivas a cumplir las órdenes de bombardear colonias habitadas, Roland es ***marcado como desertor*** y puesto de nuevo en cuarentena. Una vez allí, es tratado de nuevo como portador de la infección, pero logra escapar. 
+- 3152: Cuando Roland intenta contactar con la rebelión para compartir su información, contacta con la ***periodista Eleesha Williams***, a quien envió al cielo de Marte. La Federación lo persigue por traición y encuentra refugio en una base en Júpiter, donde comienza a planear la construcción de un Arca para huir de Sol.
+- 3153: Roland es aceptado en el equipo Daedalus, que carece de pilotos para patrullas. El ***explorador Jiang-Hua*** le enseña las complejidades del manejo de motores y planifica su entrenamiento en la plataforma orbital.
+- 3153: Tras una explosión solar sin precedentes, la destrucción de un ala de su nave obliga a Roland a negociar un ***aterrizaje de emergencia en Mercurio***. Con Jiang Hua, su copiloto, se ven obligados a esperar 36 horas a temperaturas extremas.</target>
       </segment>
       <segment id="tips" state="translated">
         <source>roland.tips</source>
@@ -799,9 +807,20 @@
         <source>stephen.abstract</source>
         <target>Stephen fue maletero en un tren interplanetario, luego esclavo en una mina de cobalto mexicana, senador de la coalición Chile con Latte, mercenario espacial, recaudador de impuestos federales privado, blanqueador de dinero, secuestrador de niños, minero de Boxylium, cocinero militar de las Fuerzas de Autodefensa (SDF) y condenado a muerte. Su viaje lo lleva a Xyloph-17, donde es criogenizado accidentalmente y enviado a bordo del Daedalus.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>stephen.biography</source>
-        <target>stephen.biography</target>
+        <target>- 3107: Nacido en la Tierra.
+- 3124: Tras fracasar en sus estudios, el joven Stephen encuentra trabajo como botones en un tren interplanetario que iba de la Tierra a Marte.
+- 3127: Tras el abordaje de los trenes por mercenarios espaciales, las vías fueron destruidas. Stephen y parte de la tripulación fueron esposados y llevados a Venus para ser vendidos como esclavos. Stephen ***comenzó su vida como esclavo en la Tierra***, en una mina de cobalto mexicana.
+- 3129: Hombres de ***Chili Con Latte***, un movimiento separatista mexicano, invaden la mina y liberan a Stephen. Se unió al movimiento como parte de su milicia, ayudando a liberar a miles de esclavos.
+- 3132: Stephen ***fue elegido senador*** por la coalición mexicana de Chili Con Latte. Estaba muy orgulloso de su nueva posición social y la utilizó para malversar millones de créditos. - 3136: Stephen se vio obligado a renunciar apresuradamente a su puesto para evadir una orden judicial. Partió hacia Australia, pero tras una explosión en su coche, ***decidió vivir en Marte IV***. Finalmente, debido a la ***caída de la Torre Baer*** donde Stephen se había establecido, se vio obligado a evaluar su situación, por lo que, para escapar de la policía y sus enemigos dentro de la coalición, tuvo que desaparecer de la vida pública.
+- 3139: Tras varios años de vagabundeo en Venus, Stephen ***formó su propia tripulación de mercenarios espaciales privados***. Buscó contratos legales, pero los tiempos eran difíciles. Aun así, logró llegar a fin de mes gracias a un ingenioso sistema fiscal aplicado a las estaciones orbitales comerciales.
+- 3144: Las búsquedas policiales se intensificaron en Venus, y la tripulación de Stephen regresó a Marte, donde se encargaron de los detalles de las entregas. - 3146: Tras ayudar a ***Paola Rinaldo, hija de un multimillonario***, a huir a Marte, Stephen fue ***encarcelado por corromper a una menor***. Fue ***enviado a una plataforma orbital en Ross154 para extraer Boxylium pesado*** en el cinturón ***Confolens IV***.
+- 3149: Tras el pánico causado por la ***revolución burguesa del 17 de mayo***, Stephen logró escapar del centro de detención. Se coló en un convoy de repatriación y regresó a ***Encelada***.
+- 3151: Como parte de un batallón que se dirigía a ***Tau-Ceti***, Stephen evitó por poco la ***Guerra Sucia***, gracias a un oficial particularmente perturbado que lo encerró en una celda de detención tras servirle una simple tarta de champiñones...
+- 3152: Stephen fue acusado en ***Encelada***. No comprendía bien los cargos presentados por sus superiores. Parecían no haber llegado a un acuerdo sobre si se había producido algún "genocidio fúngico". Un fuerte olor a moho impregnaba la sala de audiencias.
+- 3153: El mismo día de su ejecución pública, Stephen es ***salvado por poco por un comando*** entrenado por dos exagentes de élite de las SDF. El comando confunde a Stephen con un destacado científico especializado en hongos. Stephen, cuyo talento como cocinero nunca había recibido tantos elogios, se siente halagado. Lo llevan a la estación orbital ***Xyloph-17***, que orbita Júpiter. Una vez allí, Stephen es ***presentado al equipo del Daedalus*** y puesto en detención.
+- 3154: Mientras varios batallones de las SDF parecen querer tomar el control del laboratorio, Stephen aprovecha la confusión generalizada para abandonar la zona de cuarentena. Consigue ***subirse a una gran nave de exploración***, pero es perseguido por un grupo armado. Finalmente ***encuentra refugio en una gran cápsula*** que resulta ser extremadamente cómoda, aunque un poco fría...</target>
       </segment>
       <segment id="tips" state="translated">
         <source>stephen.tips</source>
@@ -841,9 +860,18 @@
         <source>terrence.abstract</source>
         <target>Tras ser gravemente herido durante una incursión contra los rebeldes en Sol, Terrence pasa seis meses en coma. Regresa a la vida civil, destrozado y magullado, postrado en una silla de ruedas. Terrence decide entonces dedicar su vida a la ingeniería avanzada y a la creación de drones. Su sueño es desarrollar aviones de combate no tripulados y drones teledirigidos.</target>
       </segment>
-      <segment id="biography" state="initial">
+      <segment id="biography" state="translated">
         <source>terrence.biography</source>
-        <target>terrence.biography</target>
+        <target>- 3110: Nació en una base militar en Encelada.
+- 3126: Terrence ***aderió en los exploradores espaciales de Encelada*** por 16 años, donde aprendió a manejar un arma y una aspiradora Jet. Allí descubrió su talento para el tráfico de maquinaria.
+- 3129: Tras suspender sus estudios en ingeniería militar, Terrence se unió a la ***flotilla de las SDF***. Su talento como piloto fue reconocido, pero tuvo algunos problemas para integrarse en el equipo.
+- 3146: Durante la Guerra Solar, la ***nave de combate de Terrence explotó en pleno vuelo en la atmósfera de Marte***. Logró eyectarse, pero debido a un propulsor defectuoso, su cápsula de supervivencia se estrelló contra el suelo a más de 120 km/h. Terrence sobrevivió al impacto, pero ***perdió el uso de ambas piernas***.
+- 3147: Terrence comenzó tarde sus estudios de robótica en Ganímedes. Estaba particularmente interesado en los cursos de nanorobótica e inteligencia artificial. Fue en este último donde conoció a ***Janice Kent, una joven estudiante de ciberpsicología***.
+- 3148: Janice y Terrence crearon juntos el primer dron con capacidad de aprendizaje de clase C y su propia personalidad evolutiva. Recibieron el ***Premio Redmoon*** por ello y establecieron su ***laboratorio de investigación en Calisto***.
+- 3149: Posteriormente, las Fuerzas de Autodefensa (FDS) propusieron financiar el proyecto. Su objetivo era mejorar la capacidad de aprendizaje del dron, buscando emplearlo en conflictos armados en ***Tau-Ceti y Ross154***. La ausencia de un sistema nervioso biológico convierte a estos drones en el arma perfecta contra el Mush.
+- 3150: Janice abandona el proyecto. Terrence continuó el trabajo solo, pero pronto se vio obstaculizado por otra dificultad: los pagos de las FDS se volvieron cada vez más escasos y finalmente cesaron por completo. El anuncio de la ***construcción del cañón IOM*** confirmó las sospechas de Terrence sobre las razones de su repentino desinterés. Ahora debía buscar otra fuente de inversión.
+- 3152: Terrence recibe un mensaje inquietante de Janice. ***La invasión Mush de la Federación*** lleva al menos dos años en marcha. Los directores de la Federación y las Fuerzas de Autodefensa están infectados y la recuperación de los sistemas rebeldes es simplemente un encubrimiento. Terrence parte hacia ***Xyloph-17***, donde conoce al nuevo equipo de Janice. Su proyecto consiste en construir una nueva nave capaz de abandonar esta galaxia.
+- 3153: Los drones de Terrence resultan extremadamente útiles en la ***construcción del Daedalus***. Al conectarlos al núcleo de IA de la nave, llamado ***NERON***, Janice consigue aumentar aún más su productividad. - 3154: Tras la toma del laboratorio por parte de las Fuerzas de Autodefensa (SDF), Terrence no tiene más opción que huir con la tripulación del Dédalo. Está a salvo, pero completamente devastado: todo su trabajo, junto con sus 32 drones asistentes, se ha quedado en Xyloph-17.</target>
       </segment>
       <segment id="tips" state="translated">
         <source>terrence.tips</source>

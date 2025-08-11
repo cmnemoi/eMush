@@ -538,13 +538,13 @@
         <source>anemole.first_letter</source>
         <target>vowel</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>anemole.description</source>
-        <target>anemole.description</target>
+        <target>La anémola es un fruto fresco que se puede utilizar para elaborar una mantequilla que puede emplearse como alternativa a la mantequilla normal para cocinar.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>anemole.examine</source>
-        <target>anemole.examine</target>
+        <target>La anémola es un fruto fresco que se puede utilizar para elaborar una mantequilla que puede emplearse como alternativa a la mantequilla normal para cocinar.</target>
       </segment>
     </unit>
     <unit id="kubinus">
@@ -590,13 +590,13 @@
         <source>caleboot.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>caleboot.description</source>
-        <target>caleboot.description</target>
+        <target>La Calebota puede ser reconocida inmediatamente por sus aromas brutales y sus sabores intensos.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>caleboot.examine</source>
-        <target>caleboot.examine</target>
+        <target>La Calebota puede ser reconocida inmediatamente por sus aromas brutales y sus sabores intensos.</target>
       </segment>
     </unit>
     <unit id="tracker">
@@ -1874,9 +1874,13 @@ Usado para operaciones de mantenimiento, casi pueden reemplazar a un ser humano,
         <source>jar_of_alien_oil.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>jar_of_alien_oil.description</source>
-        <target>jar_of_alien_oil.description</target>
+        <target>Este aceite mi-la-groso no solo cura tus heridas, sino que también sirve para alimentar el reactor del Daedalus.
+//
+Cura el 100 % de las heridas.
+//
+Se puede insertar en un reservorio para obtener 5 unidades de combustible.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>jar_of_alien_oil.examine</source>
@@ -2061,9 +2065,13 @@ Hubiéramos podido usar esto en la cocina pero el cocinero no quiere...</target>
         <target>¡Increíble! Este pacífico crustáceo alienígena tubular tiene exactamente el mismo diámetro que las carcasas Tesla de las torretas del Daedalus.
 +100% de daño para la torreta donde se coloca. Si se destruye, provocará un incendio en la habitación.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>invertebrate_shell.examine</source>
-        <target>invertebrate_shell.examine</target>
+        <target>¡Increíble! Este pacífico crustáceo alienígena tubular tiene exactamente el mismo diámetro que las conchas Tesla en las torretas del Daedalus.
+//
++100 % de daño para la torreta donde está colocada. Si se destruye, provocará un incendio en la habitación.
+//
+Aún no se ve muerto.</target>
       </segment>
     </unit>
     <unit id="magellan_liquid_map">
@@ -2519,13 +2527,15 @@ Lleva escrito: "Clínicamente probado sobre aliens".</target>
         <source>rocket_launcher.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>rocket_launcher.description</source>
-        <target>rocket_launcher.description</target>
+        <target>Arma muy sofisticada para aquellos que lo son menos. // Expedición: +3 añadidos a la fuerza del equipo durante los combates.</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>rocket_launcher.examine</source>
-        <target>rocket_launcher.examine</target>
+        <target>Arma muy sofisticada para aquellos que lo son menos. // Expedición: +3 añadidos a la fuerza del equipo durante los combates.
+//
+El lanzacohetes ha sido durante mucho tiempo parte integral del arsenal de las tropas de expedición en zonas hostiles. Su tecnología no ha cambiado en siglos. Tiene un estatus de culto particular, casi de fetiche, entre quienes lo portan...</target>
       </segment>
     </unit>
     <unit id="survival_kit">
@@ -3048,13 +3058,15 @@ Sirve para colocar una planta en el jardín.</target>
         <source>tubiliscus.first_letter</source>
         <target>consonant</target>
       </segment>
-      <segment id="description" state="initial">
+      <segment id="description" state="translated">
         <source>tubiliscus.description</source>
-        <target>tubiliscus.description</target>
+        <target>La última moda en el cultivo de árboles venusinos es cultivar tu propio Tubiliscus. Sus frutos tienen múltiples y variados usos.
+</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>tubiliscus.examine</source>
-        <target>tubiliscus.examine</target>
+        <target>La última moda en el cultivo de árboles venusinos es cultivar tu propio Tubiliscus. Sus frutos tienen múltiples y variados usos.
+Si cuidas bien de esta planta, te recompensará con oxígeno y deliciosas anémolas.</target>
       </segment>
     </unit>
     <unit id="graapshoot">
@@ -3114,9 +3126,12 @@ Sirve para colocar una planta en el jardín.</target>
       </segment>
     </unit>
     <unit id="fiboniccus">
-      <segment id="name" state="initial">
+      <segment id="name" state="translated">
         <source>fiboniccus.name</source>
-        <target>fiboniccus.name</target>
+        <target>{age, select,
+       young {Joven }
+       other {}
+}Fiboniccus</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>fiboniccus.short_name</source>
@@ -3487,9 +3502,9 @@ Sirve para colocar una planta en el jardín.</target>
         <source>space_potato.description</source>
         <target>¡Papas fritas espaciales! Lo curioso es que a los chicos les encantan, pero las mujeres de la tripulación las han prohibido en el refectorio. Al parecer, huelen a medias sucias y son demasiado pesadas...</target>
       </segment>
-      <segment id="examine" state="initial">
+      <segment id="examine" state="translated">
         <source>space_potato.examine</source>
-        <target>space_potato.examine</target>
+        <target>¡Papas fritas espaciales! Lo curioso es que a los chicos les encantan, pero las mujeres de la tripulación las han prohibido en el refectorio. Al parecer, huelen a calcetines y son demasiado pesadas...</target>
       </segment>
     </unit>
     <unit id="standard_ration">

@@ -459,7 +459,7 @@
     <unit id="infect_cat">
       <segment id="infect_cat" state="translated">
         <source>infect_cat</source>
-        <target>**{target_character}** se ha contaminado **{character}** al tocar a **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** ha sido contaminado por **{character}** al tocar a **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_mush_raid">

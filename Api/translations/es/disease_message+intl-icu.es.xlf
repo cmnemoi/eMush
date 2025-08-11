@@ -243,15 +243,72 @@
                     other {invalid version}
                 }</target>
       </segment>
-      <segment id="prefix" state="initial">
+      <segment id="prefix" state="translated">
         <source>prefix_coprolalia</source>
-        <target>prefix_coprolalia</target>
+        <target>{prefix, select,
+                    1 {verga}
+                    2 {mierda}
+                    3 {diablos}
+                    4 {hostia}
+                    other {invalid version}
+                    }</target>
       </segment>
     </unit>
     <unit id="paranoia">
-      <segment id="replace" state="initial">
+      <segment id="replace" state="translated">
         <source>replace_paranoia</source>
-        <target>replace_paranoia</target>
+        <target>{version, select,
+                    1 {Esta parte es una mierda…}
+                    2 {No sé {paranoia_version_4, select,
+                        1 {bien}
+                        2 {muy bien}
+                        3 {para nada}
+                        other {not}
+                    } como saldremos de esto…}
+                    3 { {paranoia_version_4, select,
+                        1 {realmente no veo}
+                        2 {veo mal}
+                        3 {no veo para nada}
+                        other {no veo bien}
+                    } como saldremos de esto…}
+                    4 {La tripulación de la Princesa Pacífica hubiera hecho un mejor trabajo que nosotros.}
+                    5 {Los Mush están por todas partes…}
+                    6 {Estamos fritos…}
+                    7 {Que mierda de juego…}
+                    8 { {paranoia_version_4, select,
+                        1 {Pienso}
+                        2 {Creo}
+                        3 {Te juro}
+                        other {Creo}
+                    } que un admin nos observa…}
+                    9 {{paranoia_version_4, select,
+                        1 {Pienso}
+                        2 {Creo}
+                        3 {Te juro}
+                        other {Creo}
+                    } que alguien quiere matarme…}
+                    10 {Seguro fue amañado...}
+                    11 {{paranoia_version_4, select,
+                        1 {Pienso}
+                        2 {Creo}
+                        3 {Te juro}
+                        other {Creo}
+                    } que un admin nos está saboteando…}
+                    12 {{paranoia_version_4, select,
+                        1 {NERON}
+                        2 {El equipo de investigadores}
+                        3 {El administrador de NERON}
+                        other {El comandante}
+                    } {paranoia_version_6, select,
+                        1 {hace tonterías.}
+                        2 {es una mierda.}
+                        3 {dice huevadas.}
+                        4 {es inútil.}
+                        5 { lo arruina todo.}
+                        other {está podrido.}
+                    }}
+                    other {invalid version}
+                    }</target>
       </segment>
       <segment id="accuse" state="translated">
         <source>accuse_paranoia</source>

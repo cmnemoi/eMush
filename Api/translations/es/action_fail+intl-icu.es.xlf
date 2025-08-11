@@ -290,9 +290,9 @@ other {**Vuelve cuando estés limpio.**"}
       <segment id="description" state="translated">
         <source>whisper_no_available_chanel.description</source>
         <target>{target_character_gender, select,
-  female {Esta tripulante ya está ocupada con otras conversaciones.
+  female {Esta tripulante ya está ocupada con otras conversaciones.}
   other {Este tripulante ya está ocupado con otras conversaciones.}
-}}</target>
+}</target>
       </segment>
     </unit>
     <unit id="target_already_outcast">

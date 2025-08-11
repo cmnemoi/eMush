@@ -1196,7 +1196,7 @@
     <unit id="demoralized">
       <segment id="name" state="translated">
         <source>demoralized.name</source>
-        <target>{character_gender, select
+        <target>{character_gender, select,
   female {Desmoralizada}
   other {Desmoralizado}
 }</target>

@@ -8,7 +8,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>tips.description</source>
-        <target>Aquí puedes encontrar **consejos prácticos** para tu vida diaria (patrocinado por estilosdevidasaludable.sanidad.gob.es)</target>
+        <target>Aquí puedes encontrar **consejos prácticos** para tu vida diaria (patrocinado por estilosdevidasaludable.sanidad.gob.es).</target>
       </segment>
       <segment id="teamObjectives.title" state="translated">
         <source>tips.teamObjectives.title</source>
@@ -130,7 +130,7 @@ other {Tus compañeros usando el :wall: **canal general**}}</target>
       </segment>
       <segment id="description" state="translated">
         <source>new.description</source>
-        <target>Tu walkie-talkie tiene un canal privado abierto. Haz clic aquí para iniciar una conversación con uno o varios tripulantes que tengan también un :talkie: **:walkie-talkie**.
+        <target>Tu walkie-talkie tiene un canal privado abierto. Haz clic aquí para iniciar una conversación con uno o más tripulantes que tengan también un :talkie: **walkie-talkie**.
 **Ten en cuenta que los canales privados forman parte del juego y, por tanto, están sujetos a las mismas restricciones de confidencialidad que eMush.**</target>
       </segment>
     </unit>

@@ -364,7 +364,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="consume_full_belly">
       <segment id="description" state="translated">
         <source>consume_full_belly.description</source>
-        <target>{character_gender, select
+        <target>{character_gender, select,
   female {Estás saciada.}
   other {Estás saciado.}
 }</target>

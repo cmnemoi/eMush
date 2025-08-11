@@ -723,7 +723,7 @@ Lavarte en la cocina no te dará los beneficios de un Baño turco.</target>
     <unit id="suicide">
       <segment id="name" state="translated">
         <source>suicide.name</source>
-        <target>Suicidarte</target>
+        <target>Suicidarse</target>
       </segment>
       <segment id="description" state="translated">
         <source>suicide.description</source>

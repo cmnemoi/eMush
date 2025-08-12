@@ -256,6 +256,7 @@ other {invalid gender input}
   5 {**{character}** es {character_gender, select, female {una} other {un}} genio. {target_equipment_gender, select, female {La} other {El}} **{target_equipment}** quedó de mil maravillas.}
   6 {Agradecemos a **{character}** por haber reparado {target_equipment_gender, select, female {la} other {el}} **{target_equipment}**.}
   7 {**{character}** logró reparar {target_equipment_gender, select, female {la} other {el}} **{target_equipment}**. Estupendo}
+  other {**{target_equipment}** funciona nuevamente gracias a **{character}**.}
 }</target>
       </segment>
     </unit>

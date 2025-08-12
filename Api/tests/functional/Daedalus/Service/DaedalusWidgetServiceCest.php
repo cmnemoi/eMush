@@ -203,6 +203,36 @@ final class DaedalusWidgetServiceCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldReturnPatrolShipNameWithEquipmentSensor(FunctionalTester $I): void
+    {
+        // given equipment sensor project is completed
+        $equipmentDetector = $this->daedalus->getProjectByName(ProjectName::EQUIPMENT_SENSOR);
+        $equipmentDetector->finish();
+
+        // given there is a patrol ship
+        $patrolShip = $this->gameEquipmentService->createGameEquipment(
+            equipmentConfig: $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => EquipmentEnum::PATROL_SHIP . '_default']),
+            holder: $this->daedalus->getPlaceByName(RoomEnum::LABORATORY),
+            reasons: [],
+            time: new \DateTime(),
+            patrolShipName: EquipmentEnum::PATROL_SHIP_ALPHA_JUJUBE,
+        );
+
+        // given the patrol ship is broken
+        $this->statusService->createStatusFromName(
+            EquipmentStatusEnum::BROKEN,
+            holder: $patrolShip,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // when I get the minimap
+        $minimap = $this->daedalusService->getMinimap($this->daedalus, $this->chun);
+
+        // then the patrol ship name should be visible on the minimap
+        $I->assertEquals(expected: 'patrol_ship_alpha_jujube', actual: $minimap[RoomEnum::LABORATORY]['broken_equipments'][0]);
+    }
+
     private function createDoorFromLaboratoryToFrontCorridor(FunctionalTester $I): Door
     {
         $this->createExtraPlace(RoomEnum::FRONT_CORRIDOR, $I, $this->daedalus);

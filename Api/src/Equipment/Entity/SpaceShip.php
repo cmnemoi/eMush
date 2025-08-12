@@ -52,4 +52,9 @@ class SpaceShip extends GameEquipment
     {
         return $this->getPatrolShipName() ?: $this->getName();
     }
+
+    public function getMinimapName(): string
+    {
+        return $this->getPatrolShipName();
+    }
 }

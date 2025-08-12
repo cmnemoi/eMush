@@ -688,6 +688,11 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return ItemEnum::getGuns()->contains($this->getName());
     }
 
+    public function getMinimapName(): string
+    {
+        return $this->name;
+    }
+
     private function isActionProvidedByMechanic(string $actionName): bool
     {
         $toolProvidesAction = $this->getToolMechanicOrNull()?->hasAction(ActionEnum::from($actionName));

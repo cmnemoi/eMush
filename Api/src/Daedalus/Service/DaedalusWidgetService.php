@@ -95,7 +95,7 @@ final class DaedalusWidgetService implements DaedalusWidgetServiceInterface
             // if there is no project only gather reported elements
             if (($isProject || $alertElement->getPlayerInfo() !== null) && ($equipment = $alertElement->getEquipment()) !== null) {
                 $roomName = $equipment->getPlace()->getName();
-                $equipmentName = $equipment->getName();
+                $equipmentName = $equipment->getMinimapName();
 
                 $displayedBrokenEquipments[$roomName][] = $equipmentName;
             }

@@ -883,7 +883,7 @@
 import { defineComponent } from "vue";
 import { RoomsEnum } from '@/enums/room.enum';
 import { DoorsEnum } from '@/enums/doors.enum';
-import { Minimap } from "@/entities/Minimap";
+import { Minimap, ActopiPlayer, HexColor } from "@/entities/Minimap";
 import { mapGetters } from "vuex";
 import { Player } from "@/entities/Player";
 import { Room } from "@/entities/Room";
@@ -946,8 +946,7 @@ export default defineComponent ({
             roomsWithPlayers.forEach((room: Minimap) => {
                 const roomCoord = RoomsEnum[room.name];
                 let i = 0;
-                if (room.name === this.playerRoom
-                    .key) {
+                if (room.name === this.playerRoom.key) {
                     i++;
                 }
                 while ( i < room.players_count ){
@@ -962,7 +961,7 @@ export default defineComponent ({
         },
         displayPlayerInitials(room: string): void {
             const roomPlayers = this.minimap.find((rooms: Minimap) => rooms.name === room).actopi;
-            this.playersInRoom = roomPlayers.map((player: {initials: string}) => player.initials).join(' ');
+            this.playersInRoom = roomPlayers.map((player: ActopiPlayer) => player.initials).join(' ');
         },
         resetPlayerInitials(): void {
             this.playersInRoom = '';
@@ -997,7 +996,7 @@ interface PlayersPoints {
     left: number;
     top: number;
     name: string;
-    color: `#${string}`;
+    color: HexColor;
 }
 interface Doors {
     name: string,

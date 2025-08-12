@@ -1,6 +1,6 @@
-type HexColor = `#${string}`;
+export type HexColor = `#${string}`;
 
-type ActopiPlayer = {
+export type ActopiPlayer = {
     initials: string;
     color: HexColor;
 };

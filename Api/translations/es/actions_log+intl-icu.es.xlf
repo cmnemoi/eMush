@@ -168,7 +168,7 @@ other {invalid gender input}
     <unit id="exit_room">
       <segment id="exit_room" state="translated">
         <source>exit_room</source>
-        <target>**{character}** ha salido{is_tracker, select, true {{exit_loc_prep} {place}} other {}}.</target>
+        <target>**{character}** ha salido{is_tracker, select, true { {exit_loc_prep} {place}} other {}}.</target>
       </segment>
     </unit>
     <unit id="read_book">
@@ -306,7 +306,7 @@ other {invalid gender input}}.</target>
 1 {**{character}** rompe un papel con cara de satisfacción.}
 2 {**{character}** rompe un papel con cara de preocupación.}
 3 {**{character}** rompe un papel con cara de alivio.}
-other {"invalid version number"}
+other {**{character}** rompe un papel.}
 }</target>
       </segment>
     </unit>
@@ -365,8 +365,9 @@ other {**{character}** extrae delicadamente un poco de oxígeno del tanque. Tal 
         <source>insert_fuel</source>
         <target>{target_equipment_gender, select,
 male {**{character}** ha insertado un *{target_equipment}* en el *Tanque*.}
-female **{character}** ha insertado una *{target_equipment}* en el *Tanque*.}
-other {**{character}** ha insertado una {target_equipment}* en el *Tanque*.}}</target>
+female {**{character}** ha insertado una *{target_equipment}* en el *Tanque*.}
+other {**{character}** ha insertado una {target_equipment}* en el *Tanque*.}
+}</target>
       </segment>
     </unit>
     <unit id="sabotage_success">
@@ -589,13 +590,13 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="takeoff_no_pilot">
       <segment id="takeoff_no_pilot" state="translated">
         <source>takeoff_no_pilot</source>
-        <target>El despegue de **{character}** fue tan malo que ha dañado {is_tracker, true, {el {patrol_ship}} other {su nave}}.</target>
+        <target>El despegue de **{character}** fue tan malo que ha dañado {is_tracker, select, true {el {patrol_ship}} other {su nave}}.</target>
       </segment>
     </unit>
     <unit id="land_no_pilot">
       <segment id="land_no_pilot" state="translated">
         <source>land_no_pilot</source>
-        <target>El aterrizaje de **{character}** fue tan malo que ha dañado su nave.</target>
+        <target>El aterrizaje de **{character}** fue tan malo que ha dañado {is_tracker, select, true {el {patrol_ship}} other {su nave}}.</target>
       </segment>
     </unit>
     <unit id="access_terminal_success">
@@ -830,7 +831,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="slime_object_success">
       <segment id="slime_object_success" state="translated">
         <source>slime_object_success</source>
-        <target>:mush: **{character}** derrama un asqueroso gel verde sobre {target_equipment_gender, select, female {una} other {un} **{equipment}**. Este equipo dejará de funcionar en {quantity, select, 1 {un ciclo} other {{quantity} ciclos}}.</target>
+        <target>:mush: **{character}** derrama un asqueroso gel verde sobre {target_equipment_gender, select, female {una} other {un}} **{equipment}**. Este equipo dejará de funcionar en {quantity, select, 1 {un ciclo} other {{quantity} ciclos}}.</target>
       </segment>
     </unit>
     <unit id="mass_ggedon_success">
@@ -904,7 +905,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="cure_cat_fail">
       <segment id="cure_cat_fail" state="translated">
         <source>cure_cat_fail</source>
-        <target>**{character}** forcejea con **{target_equipment}**  antes de que se escape de sus brazos. {character_gender, select, male {El} female {Ella} other { Elle }} lo persigue por la habitación maldiciendo, sin éxito, hasta que la criatura termina por deslizarse debajo de un mueble.</target>
+        <target>**{character}** forcejea con **{target_equipment}**  antes de que se escape de sus brazos. {character_gender, select, male {El} female {Ella} other {Elle}} lo persigue por la habitación maldiciendo, sin éxito, hasta que la criatura termina por deslizarse debajo de un mueble.</target>
       </segment>
     </unit>
     <unit id="shoot_cat_success">
@@ -916,15 +917,15 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="shoot_cat_critical_success">
       <segment id="shoot_cat_critical_success" state="translated">
         <source>shoot_cat_critical_success</source>
-        <target>Sin más ni más, **{character}** saca su arma y dispara sobre **{target_character_name}**, una, dos, tres veces...</target>
+        <target>Sin más ni más, **{character}** saca su arma y dispara sobre **{target_equipment}**, una, dos, tres veces...</target>
       </segment>
     </unit>
     <unit id="shoot_cat_fail">
       <segment id="shoot_cat_fail" state="translated">
         <source>shoot_cat_fail</source>
         <target>{version, select,
- 1 {**{character}** ha disparado sobre **{target_character_name}**, pero no fue capaz de apuntar bien...}
-  2 {Clic...clic... **{character}** ha perdido su oportunidad...}
+ 1 {**{character}** ha disparado sobre **{target_equipment}**, pero no fue capaz de apuntar bien...}
+  other {Clic...clic... **{character}** ha perdido su oportunidad...}
 }</target>
       </segment>
     </unit>
@@ -946,7 +947,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="gen_metal_fail">
       <segment id="gen_metal_fail" state="translated">
         <source>gen_metal_fail</source>
-        <target>Das la vuelta todas esas máquinas inútiles, poniéndoles patas arriba y al revés, pero en realidad no hay nada interesante aquí...</target>
+        <target>Le das vuelta a todas esas máquinas inútiles, poniéndolas patas arriba y al revés, pero en realidad no hay nada interesante aquí...</target>
       </segment>
     </unit>
     <unit id="door_sabotage_success">
@@ -997,7 +998,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="establish_link_with_sol_fail">
       <segment id="establish_link_with_sol_fail" state="translated">
         <source>establish_link_with_sol_fail</source>
-        <target>No lograste establecer comunicación con el Sistema Solar, pero has **mejorado la calidad de la señal**. Mañana podrás intentarlo de nuevo.</target>
+        <target>No lograste establecer comunicación con el sistema solar de Sol, pero has **mejorado la calidad de la señal**. Mañana podrás intentarlo de nuevo.</target>
       </segment>
     </unit>
     <unit id="establish_link_with_sol_success">
@@ -1027,7 +1028,7 @@ Blouzorg aparece en la pantalla, parece orgulloso y no se entiende nada de lo qu
     <unit id="exchange_body_success">
       <segment id="exchange_body_success" state="translated">
         <source>exchange_body_success</source>
-        <target>***Solo para moderación***: **{character}** se transfiere a **{target_character}**.</target>
+        <target>***Solo para la moderación***: **{character}** se transfiere a **{target_character}**.</target>
       </segment>
     </unit>
   </file>

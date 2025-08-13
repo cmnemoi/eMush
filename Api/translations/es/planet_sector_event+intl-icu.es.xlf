@@ -59,7 +59,7 @@
       </segment>
       <segment id="oxygen_description" state="translated">
         <source>nothing_to_report.oxygen_description</source>
-        <target>La bomba de oxigeno de {equipment} está atascada, no hay nada que hacer!</target>
+        <target>¡La bomba de oxígeno del {equipment} está atascada, no hay nada que hacer!</target>
       </segment>
       <segment id="seismic_activity_description" state="translated">
         <source>nothing_to_report.seismic_activity_description</source>
@@ -120,7 +120,7 @@
       </segment>
       <segment id="landing_description" state="translated">
         <source>tired.landing_description</source>
-        <target>El aterrizaje es difícil, la nave gira y se desvía en todas direcciones, la tripulación se marea.</target>
+        <target>El aterrizaje es difícil, el {equipment} gira y se desvía en todas direcciones, la tripulación se marea.</target>
       </segment>
       <segment id="cold_description" state="translated">
         <source>tired.cold_description</source>
@@ -132,7 +132,7 @@
       </segment>
       <segment id="swamp_description" state="translated">
         <source>tired.swamp_description</source>
-        <target>Después de dos horas de marcha en el fango, ya no aguantas más. Ni hablemos de los parásitos. Y del calor. Y de la humedad. Y de los gritos...</target>
+        <target>Después de dos horas de marcha en el fango, ya no aguantáis más. Ni hablemos de los parásitos. Y del calor. Y de la humedad. Y de los gritos...</target>
       </segment>
       <segment id="mountain_description" state="translated">
         <source>tired.mountain_description</source>
@@ -195,7 +195,7 @@
       </segment>
       <segment id="landing_description" state="translated">
         <source>accident.landing_description</source>
-        <target>{equipment} tiene un aterrizaje catastrófico en {planet}, y durante la maniobra {character} se lastimó.</target>
+        <target>El {equipment} aterriza catastróficamente en {planet}, y durante la maniobra {character} se lastimó.</target>
       </segment>
     </unit>
     <unit id="disaster">
@@ -224,10 +224,10 @@
       <segment id="oxygen_description" state="translated">
         <source>oxygen.oxygen_description</source>
         <target>{quantity, select,
-  8 { }
+  8 {La bomba de oxígeno del {equipment} está pidiendo remplazo, a duras penas logra extraer {quantity} unidades de oxígeno.}
   16 {Iniciáis la extracción de oxígeno para llenar las reservas del Daedalus. Parece que la bomba del {equipment} está algo vieja... ¡Pero al menos tenéis {quantity} m³ de oxígeno!}
   24 {Iniciáis la extracción de oxígeno para llenar las reservas del Daedalus. ¡Todo marcha bien y ya tenéis {quantity} m³ de este precioso gas!}
-  other { }
+  other {Iniciáis la extracción de oxígeno para llenar las reservas del Daedalus.  Tenéis {quantity} m³ de oxígeno.}
   }</target>
       </segment>
     </unit>
@@ -245,14 +245,14 @@
         <target>{has_drill, select,
           true {{quantity, select,
         6 {En el fondo de una grieta, encontráis una vena de carbonita…}
-        8 {}
-        10 {}
+        8 {Los inmensos charcos de barro parecen contener rastros de alquitrán supercarbonizado, habrá que recoger un poco para el Daedalus.}
+        10 {¡Increíble! La expedición ha descubierto un monolito gigantesco de carbonita! Nunca entrará en el reactor...}
         12 {¡El equipo de expedición encontró un pequeño lago de heptanol violeta! Con todo eso, al Daedalus no le faltará combustible por mucho tiempo.}
         other {Has ganado {quantity} unidades de Combustible.}}}
           other {{quantity, select,
         3 {En el fondo de una grieta, encontráis una vena de carbonita……}
-        4 {}
-        5 {…}
+        4 {Los inmensos charcos de barro parecen contener rastros de alquitrán supercarbonizado, habrá que recoger un poco para el Daedalus.}
+        5 {¡Increíble! La expedición ha descubierto un monolito gigantesco de carbonita! Nunca entrará en el reactor...}
         6 {¡El equipo de expedición encontró un pequeño lago de heptanol violeta! Con todo eso, al Daedalus no le faltará combustible por mucho tiempo.}
         other {Has ganado {quantity} unidades de Combustible.}}}
         }</target>
@@ -285,7 +285,7 @@
       </segment>
       <segment id="cave_description" state="translated">
         <source>artefact.cave_description</source>
-        <target>En el fondo de la cueva, encuentras una pequeña caja con un objeto bien extraño...</target>
+        <target>En el fondo de la cueva, encontráis una pequeña caja con un objeto bastante extraño...</target>
       </segment>
       <segment id="mankarog_description" state="translated">
         <source>artefact.mankarog_description</source>
@@ -309,7 +309,7 @@
     <unit id="fight_prevented_by_item">
       <segment id="description" state="translated">
         <source>fight_prevented_by_item</source>
-        <target>Probabilidad de combate anulada por {equipment}</target>
+        <target>Probabilidad de combate anulada por {equipment}.</target>
       </segment>
     </unit>
     <unit id="skill_reduced_damage_for_player">
@@ -327,7 +327,7 @@
     <unit id="fight_prevented_by_skill">
       <segment id="description" state="translated">
         <source>fight_prevented_by_skill</source>
-        <target>Probabilidad de combate anulada. {skill}.</target>
+        <target>Probabilidad de combate anulada por {skill}.</target>
       </segment>
     </unit>
     <unit id="kill_random">
@@ -381,7 +381,7 @@
       </segment>
       <segment id="predator_description" state="translated">
         <source>fight.predator_description</source>
-        <target>Te sientes espado. Un Desollador hostil y hambriento te observa... ¡Tus compañeros comienzan a escapar, pero la criatura se lanza sobre ti!</target>
+        <target>Te sientes espiado. Un Desollador hostil y hambriento te observa... ¡Tus compañeros comienzan a escapar, pero la criatura se lanza sobre ti!</target>
       </segment>
       <segment id="insect_description" state="translated">
         <source>fight.insect_description</source>
@@ -393,15 +393,15 @@
       </segment>
       <segment id="ruins_description" state="translated">
         <source>fight.ruins_description</source>
-        <target>Mientras buscan la ciudad en ruinas, una sombra gigantesca aparece sobre la expedición... Y no es una nube...</target>
+        <target>Mientras buscáis por la ciudad en ruinas, no lográis percibir la horda de zombies alien que os rodea... ¡Es una emboscada!</target>
       </segment>
       <segment id="wreck_description" state="translated">
         <source>fight.wreck_description</source>
-        <target>¡Parecería que el piloto de la nave sigue vivo! Y queda claro que no te considera su salvador...</target>
+        <target>¡Parecería que el piloto de la nave sigue vivo! Y queda claro que no os considera su salvador...</target>
       </segment>
       <segment id="cristal_field_description" state="translated">
         <source>fight.cristal_field_description</source>
-        <target>Los campos están desiertos... Un aullido siniestro te ensordece... No hay palabras para describir a esta criatura de un mundo sin luz ni calor. ¡A las armas!</target>
+        <target>Los campos están desiertos... Un aullido siniestro te ensordece... ¡Un Controla-mentes! No hay palabras para describir a esta criatura de un mundo sin luz ni calor. ¡A las armas!</target>
       </segment>
     </unit>
     <unit id="provision">
@@ -607,11 +607,11 @@
       </segment>
       <segment id="forest_description" state="translated">
         <source>player_lost.forest_description</source>
-        <target>La jungla es tan densa, que es difícil permanecer juntos. Al cabo de una hora caminando... no hay rastro de {Jin Su}</target>
+        <target>La jungla es tan densa, que es difícil permanecer juntos. Al cabo de una hora caminando... no hay rastro de {character}.</target>
       </segment>
       <segment id="ocean_description" state="translated">
         <source>player_lost.ocean_description</source>
-        <target>Pesadilla... {character} cayó en el agua. Esto complica las cosas..</target>
+        <target>Pesadilla... {character} cayó en el agua. Esto complica las cosas...</target>
       </segment>
       <segment id="cold_description" state="translated">
         <source>player_lost.cold_description</source>
@@ -647,9 +647,10 @@
       <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>
         <target>{character_gender, select,
-        male  {{personaje}  es encontrado debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Y ni rastro de respiración. Parece que el diagnóstico del laboratorio será "Fallecido"}
-        female {{personaje}  es encontrada debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Y ni rastro de respiración. Parece que el diagnóstico del laboratorio será "Fallecida"}
-        other {{personaje}  es encontrade debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Y ni rastro de respiración. Parece que el diagnóstico del laboratorio será "Falleció"}}</target>
+        male  {{personaje} es encontrado debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecido".}
+        female {{personaje} es encontrada debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecida".}
+        other {{personaje} es encontrade debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Falleció".}
+}</target>
       </segment>
     </unit>
   </file>

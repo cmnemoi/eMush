@@ -8,7 +8,7 @@
       </segment>
       <segment id="loc_prep" state="translated">
         <source>bridge.loc_prep</source>
-        <target>on el</target>
+        <target>en el</target>
       </segment>
       <segment id="enter_loc_prep" state="translated">
         <source>bridge.enter_loc_prep</source>

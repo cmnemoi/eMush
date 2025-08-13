@@ -439,7 +439,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="no_active_rebel">
       <segment id="description" state="translated">
         <source>no_active_rebel.description</source>
-        <target>Ninguna base rebelde ha emitido señal.</target>
+        <target>Ninguna base rebelde está emitiendo señal.</target>
       </segment>
     </unit>
     <unit id="no_selected_rebel">
@@ -508,7 +508,7 @@ other {**Vuelve cuando estés limpio.**"}
         <target>{character_gender, select,
             male {Ya estás recostado.}
             female {Ya estás recostada.}
-            other {Ya estás recostado}
+            other {Ya estás recostado.}
             }</target>
       </segment>
     </unit>
@@ -572,7 +572,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="screwed_talkie_no_talkie">
       <segment id="description" state="translated">
         <source>screwed_talkie_no_talkie.description</source>
-        <target>Es una pena, tu compañero de equipo no tiene su walkie-talkie con él.</target>
+        <target>Es una pena, tu camarada no tiene su walkie-talkie con él.</target>
       </segment>
     </unit>
     <unit id="screwed_talkie_no_talkie_self">
@@ -722,7 +722,7 @@ other {**Vuelve cuando estés limpio.**"}
     <unit id="link_with_sol_not_established">
       <segment id="description" state="translated">
         <source>link_with_sol_not_established.description</source>
-        <target>Es necesario tener contacto con Sol para realizar esta acción</target>
+        <target>Es necesario tener contacto con Sol para realizar esta acción.</target>
       </segment>
     </unit>
     <unit id="max_neron_version_reached">

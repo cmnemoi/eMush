@@ -294,11 +294,11 @@
     <unit id="crabism">
       <segment id="name" state="translated">
         <source>crabism.name</source>
-        <target>Crabismo</target>
+        <target>Cangrejismo</target>
       </segment>
       <segment id="description" state="translated">
         <source>crabism.description</source>
-        <target>De vez en cuando te pones a caminar de un lado a otro, o te tiras al suelo, sólo para regresar por breves periodos a la normalidad. </target>
+        <target>De vez en cuando te pones a caminar de un lado a otro, o te tiras al suelo, solo para regresar por breves periodos a la normalidad. </target>
       </segment>
     </unit>
     <unit id="depression">
@@ -328,7 +328,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>psychotic_episodes.description</source>
-        <target>A menudo la ira te abruma y pierdes control. Se aconseja evitar toda forma de armas. </target>
+        <target>A menudo la ira te abruma y pierdes el control. Se aconseja evitar toda forma de armas.</target>
       </segment>
     </unit>
     <unit id="spleen">
@@ -514,7 +514,7 @@
     <unit id="destroyed_ears">
       <segment id="name" state="translated">
         <source>destroyed_ears.name</source>
-        <target>Oídos pulverizados.</target>
+        <target>Orejas destruidas</target>
       </segment>
       <segment id="description" state="translated">
         <source>destroyed_ears.description</source>

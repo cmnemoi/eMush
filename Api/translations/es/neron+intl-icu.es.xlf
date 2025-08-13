@@ -382,7 +382,7 @@
     <unit id="rebel_signal">
       <segment id="rebel_signal" state="translated">
         <source>rebel_signal</source>
-        <target>{neronMood, select
+        <target>{neronMood, select,
   neutral {Detección de una **señal cósmica encriptada**: Intento de comunicación con el Daedalus. *Se requiere la intervención del « Oficial de Comunicaciones ».*}
   crazy {[¡¿Hax?!] ¡¿ALÓ?! **¿Quién llamar al Daedalus?** ALÓ ¡¡ALÓÓÓ!! [¡Haaax!] *«Oficial de Comunicaciones» ¡Responder llamada!*}
   uninhibited {Detecto una **señal cósmica encriptada**... Alguien intenta contactarnos. Llamando al *«Oficial de Comunicaciones»*{version, select,

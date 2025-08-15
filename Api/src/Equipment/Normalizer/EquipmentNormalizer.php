@@ -123,6 +123,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
         if (($book = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BOOK)) instanceof Book) {
             $nameParameters['skill'] = $book->getSkill()->toString();
+            $nameParameters['character_gender'] = 'other';
         }
 
         return $nameParameters;

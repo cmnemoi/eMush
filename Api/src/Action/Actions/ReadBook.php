@@ -129,6 +129,7 @@ final class ReadBook extends AbstractAction
             player: $this->player,
             parameters: [
                 LogParameterKeyEnum::SKILL => $learnedSkill->toString(),
+                'character_gender' => 'other',
             ],
         );
     }

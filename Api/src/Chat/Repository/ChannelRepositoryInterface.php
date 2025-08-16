@@ -26,4 +26,6 @@ interface ChannelRepositoryInterface
     public function findOneByDaedalusInfoAndScope(DaedalusInfo $daedalusInfo, string $scope): ?Channel;
 
     public function findDaedalusPublicChannelOrThrow(Daedalus $daedalus): Channel;
+
+    public function wrapInTransaction(callable $operation): mixed;
 }

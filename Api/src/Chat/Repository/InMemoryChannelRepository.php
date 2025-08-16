@@ -117,6 +117,11 @@ final class InMemoryChannelRepository implements ChannelRepositoryInterface
         $this->channels = [];
     }
 
+    public function wrapInTransaction(callable $operation): mixed
+    {
+        return $operation();
+    }
+
     /**
      * @return array<Channel>
      */

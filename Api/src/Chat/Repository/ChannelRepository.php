@@ -136,6 +136,11 @@ final class ChannelRepository extends ServiceEntityRepository implements Channel
         return $channel;
     }
 
+    public function wrapInTransaction(callable $operation): mixed
+    {
+        return $this->getEntityManager()->wrapInTransaction($operation);
+    }
+
     private function findPrivateChannelsByPlayer(PlayerInfo $playerInfo): Collection
     {
         $queryBuilder = $this->createQueryBuilder('channel');

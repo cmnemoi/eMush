@@ -91,6 +91,10 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     private const int MAX_ACTION_HISTORY = 20;
 
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer')]
+    private int $version = 1;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -180,6 +184,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getVersion(): int
+    {
+        return $this->version;
     }
 
     public function getPlayerInfo(): PlayerInfo

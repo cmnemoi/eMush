@@ -55,17 +55,23 @@ final class ChannelService implements ChannelServiceInterface
 
     public function createPrivateChannel(Player $player): Channel
     {
-        $channel = new Channel();
-        $channel
-            ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
-            ->setScope(ChannelScopeEnum::PRIVATE);
+        return $this->channelRepository->wrapInTransaction(function () use ($player) {
+            $currentChannelCount = $this->getPlayerChannels($player, true)->count();
+            if ($currentChannelCount >= $player->getMaxPrivateChannels()) {
+                throw new \RuntimeException('Player has reached maximum number of private channels');
+            }
 
-        $this->channelRepository->save($channel);
+            $channel = new Channel();
+            $channel
+                ->setDaedalus($player->getDaedalus()->getDaedalusInfo())
+                ->setScope(ChannelScopeEnum::PRIVATE);
+            $this->channelRepository->save($channel);
 
-        $event = new ChannelEvent($channel, [ChatActionEnum::CREATE_CHANNEL], new \DateTime(), $player);
-        $this->eventService->callEvent($event, ChannelEvent::NEW_CHANNEL);
+            $event = new ChannelEvent($channel, [ChatActionEnum::CREATE_CHANNEL], new \DateTime(), $player);
+            $this->eventService->callEvent($event, ChannelEvent::NEW_CHANNEL);
 
-        return $channel;
+            return $channel;
+        });
     }
 
     public function createMushChannel($daedalusInfo): Channel

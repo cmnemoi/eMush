@@ -68,7 +68,11 @@ class ActionVariableSubscriber implements EventSubscriberInterface
             $event->getTags(),
             $event->getTime()
         );
-        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+        $events = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+
+        if ($events->werePrevented()) {
+            return;
+        }
 
         $this->updatePlayerNotification->execute(
             player: $author,

@@ -87,4 +87,9 @@ class EventChain extends ArrayCollection
 
         return new self($eventArray);
     }
+
+    public function werePrevented(): bool
+    {
+        return $this->filter(static fn (AbstractGameEvent $event) => $event->getPriority() === 0)->count() === 0;
+    }
 }

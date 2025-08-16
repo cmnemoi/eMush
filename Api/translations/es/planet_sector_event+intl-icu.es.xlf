@@ -647,9 +647,9 @@
       <segment id="lost_description" state="translated">
         <source>kill_lost.lost_description</source>
         <target>{character_gender, select,
-        male  {{personaje} es encontrado debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecido".}
-        female {{personaje} es encontrada debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecida".}
-        other {{personaje} es encontrade debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Falleció".}
+        male  {{character} es encontrado debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecido".}
+        female {{character} es encontrada debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Fallecida".}
+        other {{character} es encontrade debajo de una roca, y no tiene buena pinta. No se mueve en absoluto. Yyyy sin signos vitales. Parece que el diagnóstico del laboratorio será "Falleció".}
 }</target>
       </segment>
     </unit>

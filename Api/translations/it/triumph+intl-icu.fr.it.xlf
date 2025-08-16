@@ -187,8 +187,8 @@
         <target>pilgred_mother.name</target>
       </segment>
       <segment id="pilgred_mother.log" state="initial">
-        <source>pilgred_mother</source>
-        <target>pilgred_mother</target>
+        <source>pilgred_mother.log</source>
+        <target>pilgred_mother.log</target>
       </segment>
       <segment id="pilgred_mother.personal_description" state="initial">
         <source>pilgred_mother.personal_description</source>

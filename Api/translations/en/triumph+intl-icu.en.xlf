@@ -187,7 +187,7 @@
         <target>Mother</target>
       </segment>
       <segment id="pilgred_mother.log" state="translated">
-        <source>pilgred_mother</source>
+        <source>pilgred_mother.log</source>
         <target>You have earned {quantity} :triumph: as Raluca because PILGRED made significant progress!</target>
       </segment>
       <segment id="pilgred_mother.personal_description" state="translated">

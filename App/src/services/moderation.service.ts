@@ -108,8 +108,7 @@ const ModerationService = {
     },
     getPlayerPrivateChannels: async(player: ModerationViewPlayer): Promise<ModerationChannel[]> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
-        // @TODO: find a way to filter by allTimeParticipants from backend... But from my experience, it's not possible with API Platform v2.7.
-        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?scope=private`).then((response) => {
+        const channels = await ApiService.get(`${CHANNEL_ENDPOINT}?pagination=false&scope=private&allTimeParticipants.participant.id=${player.id}`).then((response) => {
             return response.data['hydra:member'].map((channelData: any) => {
                 return {
                     id: channelData.id,
@@ -118,10 +117,6 @@ const ModerationService = {
                     participants: channelData.participants,
                     allTimeParticipants: channelData.allTimeParticipants
                 } as ModerationChannel;
-            }).filter((channel: ModerationChannel) => {
-                return channel.allTimeParticipants.some((participant: ModerationChannelParticipant) => {
-                    return participant.id === player.id;
-                });
             });
         });
 

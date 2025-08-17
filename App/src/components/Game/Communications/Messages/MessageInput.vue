@@ -130,6 +130,11 @@ export default defineComponent ({
     mounted() {
         this.text = this.$refs.input.value = this.typedMessage;
         this.resize();
+        this.$nextTick(() => {
+            if (this.$refs.input && this.$refs.input.offsetParent !== null) {
+                this.$refs.input.focus();
+            }
+        });
     },
     watch: {
         typedMessage() {

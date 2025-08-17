@@ -176,7 +176,7 @@
     <unit id="panic_crisis">
       <segment state="translated">
         <source>panic_crisis</source>
-        <target>Sientes escalofríos, pierdes toda esperanza y te preguntas cuando va a acabar este infierno... Eres víctima de una Crisis de pánico.</target>
+        <target>Sientes escalofríos, pierdes toda esperanza y te preguntas cuándo va a acabar este infierno... Eres víctima de una Crisis de pánico.</target>
       </segment>
     </unit>
     <unit id="plant_new_fruit">
@@ -441,7 +441,7 @@
     <unit id="infect_action">
       <segment id="infect_action" state="translated">
         <source>infect_action</source>
-        <target>**{target_character}** ha sido {target_character_gender, select, female {contagiada} other {contagiado}} con una espora por **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} con una espora por **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_trap">
@@ -453,28 +453,28 @@
     <unit id="infect_std">
       <segment id="infect_std" state="translated">
         <source>infect_std</source>
-        <target>**{target_character}** ha sido {target_character_gender, select, female {contagiada} other {contagiado}} al hacerlo con **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} al hacerlo con **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_cat">
       <segment id="infect_cat" state="translated">
         <source>infect_cat</source>
-        <target>**{target_character}** ha sido contaminado por **{character}** al tocar a **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} por **{character}** al tocar a **{equipment}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="infect_mush_raid">
       <segment id="infect_mush_raid" state="translated">
         <source>infect_mush_raid</source>
         <target>{is_player_mush, select,
-  true {**{character}** se ha contaminado por una Trampa Mush en la exploración. Su nivel de infección es ahora de **{quantity}**.}
-  other {Aprovechando la confusión del ataque en el campo de cristalitas, **{character}** ha recogido **1** espora.}
+  true {Aprovechando la confusión del ataque en el campo de cristalitas, **{character}** ha recogido **1** espora.}
+  other {**{character}** se ha contaminado por una Trampa Mush en la exploración. Su nivel de infección es ahora de **{quantity}**.}
 }</target>
       </segment>
     </unit>
     <unit id="infect_trapped_ration">
       <segment id="infect_trapped_ration" state="translated">
         <source>infect_trapped_ration</source>
-        <target>**{target_character}** ha sido {target_character_gender, select, female {contagiada} other {contagiado}} al consumir un alimento contaminado por **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
+        <target>**{target_character}** ha sido {target_character_gender, select, female {contaminada} other {contaminado}} al consumir un alimento contaminado por **{character}**. Su nivel de contaminación es ahora de **{quantity}**.</target>
       </segment>
     </unit>
     <unit id="mush_convert_event">
@@ -540,7 +540,7 @@
     <unit id="scrap_collected">
       <segment id="scrap_collected" state="translated">
         <source>scrap_collected</source>
-        <target>El {place} pilotado por **{character}** ha traido {target_equipment_gender, select, female {una} other {un}} **{target_equipment}**.</target>
+        <target>El {place} pilotado por **{character}** ha traído {target_equipment_gender, select, female {una} other {un}} **{target_equipment}**.</target>
       </segment>
     </unit>
     <unit id="patrol_damage">
@@ -576,7 +576,10 @@
     <unit id="get_up_bed_broken">
       <segment id="get_up_bed_broken" state="translated">
         <source>get_up_bed_broken</source>
-        <target>{target_equipment_gender, select, female {Esta} other {Este}} **{target_equipment}** parece incluso más {target_equipment_gender, select, female {incómoda} other {incómodo}} **{target_equipment}** que de costumbre; ¿cómo es posible?  **{character}** se da un par de vueltas antes levantarse.</target>
+        <target>{target_equipment_gender, select,
+  female {Esta **{target_equipment}** parece más incómoda que de costumbre}
+  other {Este **{target_equipment}** parece más incómodo que de costumbre}
+  }; ¿cómo es posible? **{character}** se da un par de vueltas antes levantarse.</target>
       </segment>
     </unit>
     <unit id="help_disabled">
@@ -670,7 +673,7 @@
     <unit id="invertebrate_shell_explosion">
       <segment state="translated">
         <source>invertebrate_shell_explosion</source>
-        <target>¡El **cartucho invertebrado** explota en una lluvia de llamas que rompe todo el equipo de la habitación!</target>
+        <target>¡El **Proyectil invertebrado** explota en una lluvia de llamas que rompe todos los equipos de la sala!</target>
       </segment>
     </unit>
     <unit id="lost_item_in_exploration">

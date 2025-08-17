@@ -10,10 +10,10 @@
     <unit id="change.variable.decrease_on_player.new.cycle">
       <segment id="description" state="translated">
         <source>change.variable.decrease_on_player.new.cycle.description</source>
-        <target>chance, select,
-  100 {Cada ciclo, pierdes **{quantity}** {emote}.}
-  other {Cada ciclo, **{chance}%** de probabilidades de perder **{quantity}** {emote}.}
-  }</target>
+        <target>{chance, select,
+  100 {Cada ciclo, pierdes **{quantity}** {emote}}
+  other {Cada ciclo, **{chance}%** de probabilidades de perder **{quantity}** {emote}}
+  }.</target>
       </segment>
     </unit>
     <unit id="change.variable.decrease_on_infection.player">
@@ -25,7 +25,7 @@
     <unit id="change.variable.decrease_on_post.action">
       <segment id="description" state="translated">
         <source>change.variable.decrease_on_post.action.description</source>
-        <target>apply.cost_decrease.description</target>
+        <target>Por cada acción **{action_name}**, pierdes **{quantity}** {emote}.</target>
       </segment>
     </unit>
     <unit id="apply.cost_increase_move">

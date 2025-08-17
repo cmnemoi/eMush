@@ -4,7 +4,7 @@
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
         <source>check_spore_level</source>
-        <target>Has iniciado la detección de huellas de Mush... Nivel pre-mushiano: {quantity, select, 0 {nul}  other {{quantity}}}.</target>
+        <target>Has iniciado la detección de huellas de Mush... Nivel pre-mushiano: {quantity, select, 0 {nul} other {{quantity}}}.</target>
       </segment>
     </unit>
     <unit id="coffee_success">

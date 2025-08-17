@@ -87,7 +87,7 @@ Os ofrecemos a cambio tecnología que podría ser útil.</target>
     <unit id="microwave">
       <segment id="microwave" state="translated">
         <source>microwave</source>
-        <target># Microondas</target>
+        <target>{quantity} Microondas</target>
       </segment>
     </unit>
     <unit id="blaster">
@@ -99,7 +99,7 @@ Os ofrecemos a cambio tecnología que podría ser útil.</target>
     <unit id="pilgred">
       <segment id="pilgred" state="translated">
         <source>pilgred</source>
-        <target># PILGRED</target>
+        <target>{quantity} PILGRED</target>
       </segment>
     </unit>
     <unit id="random_project">

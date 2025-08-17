@@ -115,7 +115,7 @@
         <source>tired.description</source>
         <target>{quantity, plural,
   one {Todos los miembros del equipo sufren # punto de daño.}
-  other {Todos los miembros del equipo sufren # puntos de daño}
+  other {Todos los miembros del equipo sufren # puntos de daño.}
   }{fight_prevented_by_item}{skill_reduced_damage_for_player}{fight_prevented_by_skill}</target>
       </segment>
       <segment id="landing_description" state="translated">

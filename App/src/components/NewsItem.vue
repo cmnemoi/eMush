@@ -80,7 +80,11 @@ article {
 
     p { line-height: 1.4em; }
 
-    a { color: $pink; }
+    :deep(a) {
+        color: $green;
+        text-decoration: none;
+        &:hover, &:focus, &:active { color: white; }
+    }
 
     &:not(:first-child) .title { cursor: pointer; } // for hidden news interaction cue
 }

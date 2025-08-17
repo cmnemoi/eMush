@@ -45,6 +45,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 /* --- PROVISIONAL UNTIL LINE 185 --- */
 
@@ -126,7 +127,7 @@ export default defineComponent ({
     p {
         margin: 0;
         font-size: 0.95em;
-        &::v-deep(img) { vertical-align: middle; }
+        :deep(img) { vertical-align: middle; }
     }
 }
 
@@ -137,7 +138,7 @@ export default defineComponent ({
         padding: 5px 0;
     }
 
-    &::v-deep(.chat-input .submit-button) { //change the submit button color
+    :deep(.chat-input .submit-button) { //change the submit button color
         $color: #7152d9;
         $hover-color: #9469fa;
 
@@ -145,12 +146,12 @@ export default defineComponent ({
         background:
             linear-gradient(
                 0deg,
-                darken(adjust-hue($color, 13), 5.49) 2%,
+                color.adjust(color.adjust($color, $hue: 13deg), $lightness: -5.49%) 2%,
                 $color 6%,
                 $color 46%,
-                lighten(adjust-hue($color, -6), 3.5) 54%,
-                lighten(adjust-hue($color, -6), 3.5) 94%,
-                lighten(desaturate($color, 25), 15.49) 96%
+                color.adjust(color.adjust($color, $hue: -6deg), $lightness: 3.5%) 54%,
+                color.adjust(color.adjust($color, $hue: -6deg), $lightness: 3.5%) 94%,
+                color.adjust(color.adjust($color, $saturation: -25%), $lightness: 15.49%) 96%
             );
 
         &:hover,
@@ -159,12 +160,12 @@ export default defineComponent ({
             background:
                 linear-gradient(
                     0deg,
-                    darken(adjust-hue($hover-color, 14), 3.92) 2%,
+                    color.adjust(color.adjust($hover-color, $hue: 14deg), $lightness: -3.92%) 2%,
                     $hover-color 6%,
                     $hover-color 46%,
-                    lighten(adjust-hue($hover-color, -4), 1) 54%,
-                    lighten(adjust-hue($hover-color, -4), 1) 94%,
-                    lighten(desaturate($hover-color, 18.1), 13.14) 96%
+                    color.adjust(color.adjust($hover-color, $hue: -4deg), $lightness: 1%) 54%,
+                    color.adjust(color.adjust($hover-color, $hue: -4deg), $lightness: 1%) 94%,
+                    color.adjust(color.adjust($hover-color, $saturation: -18.1%), $lightness: 13.14%) 96%
                 );
         }
     }
@@ -175,10 +176,10 @@ export default defineComponent ({
         align-items: stretch;
 
         a {
-            @include button-style(0.83em, 400, initial);
-
             height: 100%;
             margin-left: 3px;
+
+            @include button-style(0.83em, 400, initial);
         }
     }
 

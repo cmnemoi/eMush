@@ -134,6 +134,7 @@ export default defineComponent ({
 </script>
 
 <style  lang="scss" scoped>
+@use "sass:color";
 
 .panel {
     position: relative;
@@ -228,7 +229,7 @@ export default defineComponent ({
     align-items: center;
     gap: 0.6em;
     padding: 0.8em 0.6em;
-    background: lighten($brightCyan, 6.5);
+    background: color.adjust($brightCyan, $lightness: 6.5%);
     border: solid #aad4e5;
     border-width: 1px 0;
 
@@ -298,8 +299,11 @@ export default defineComponent ({
 
 .new-cycle-button {
     @include button-style();
-    align-self: center;
-    min-width: 45%;
+
+    & {
+        align-self: center;
+        min-width: 45%;
+    }
 }
 
 </style>

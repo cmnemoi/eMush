@@ -16,6 +16,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 .toast-container {
     position: fixed;
@@ -50,7 +51,7 @@ export default defineComponent ({
 
 .toast-background {
     position: fixed;
-    background: transparentize(#09092d, 0.5);
+    background: color.adjust(#09092d, $alpha: -0.5);
     top: 0;
     right: 0;
     bottom: 0;

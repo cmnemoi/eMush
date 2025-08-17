@@ -199,6 +199,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 .box-container {
     justify-content: stretch;
@@ -248,7 +249,7 @@ h1 {
     .error {
         margin: 1em 0;
         padding: .3em .8em;
-        background: transparentize($red, .7);
+        background: color.adjust($red, $alpha: -0.7);
         border: 1px solid $red;
         border-radius: 6px;
         font-size: .9em;

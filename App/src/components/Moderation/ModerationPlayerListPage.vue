@@ -295,7 +295,10 @@ export default defineComponent({
 
 button {
     @include button-style();
-    padding: 2px 15px 4px;
+
+    & {
+        padding: 2px 15px 4px;
+    }
 }
 
 </style>

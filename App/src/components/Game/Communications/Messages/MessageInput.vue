@@ -179,11 +179,14 @@ export default defineComponent ({
     .format-button, .submit-button {
         cursor: pointer;
         @include button-style();
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+        & {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         &:first-child {
             margin-bottom: 4px; /* Espace entre les deux boutons */

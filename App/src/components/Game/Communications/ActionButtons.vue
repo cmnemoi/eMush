@@ -52,11 +52,10 @@ export default defineComponent ({
 
 button {
     cursor: pointer;
-
-    @include button-style(0.83em, 400, initial);
-
     height: 100%;
     margin-left: 3px;
+
+    @include button-style(0.83em, 400, initial);
 
     img {
         padding: 0 0.2em 0 0;

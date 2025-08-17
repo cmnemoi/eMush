@@ -251,6 +251,7 @@ export default defineComponent({
 
 <!-- Formattage CSS  =================================================================================  -->
 <style lang="scss" scoped>
+@use "sass:color";
 
     .message-input-advanced-overlay {
         top: 0;
@@ -316,7 +317,7 @@ export default defineComponent({
         scroll-behavior: smooth;
         display: inline;
         :deep(em) {
-            color: lighten(#cf1830, 15);
+            color: color.adjust(#cf1830, $lightness: 15%);
         }
     }
 
@@ -342,8 +343,12 @@ export default defineComponent({
         display: inline-block;
         cursor: pointer;
         @include button-style();
-        width: 24px;
-        margin-left: 4px;
+
+        & {
+            width: 24px;
+            margin-left: 4px;
+        }
+
         &:hover {
             background-color: #00B0EC;
         }

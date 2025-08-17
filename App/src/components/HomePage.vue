@@ -245,6 +245,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 .homepage-container {
     align-items: center;
@@ -499,7 +500,7 @@ export default defineComponent ({
 
         img { vertical-align: middle; }
 
-        &:hover, &:focus { background-color: lighten($greyBlue, 35%); }
+        &:hover, &:focus { background-color: color.adjust($greyBlue, $lightness: 35%); }
     }
 
     .pegi { margin: -0.2em 0.6em 0; }

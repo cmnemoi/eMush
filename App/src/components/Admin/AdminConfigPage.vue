@@ -22,6 +22,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 .admin-config-container { flex-direction: row; }
 
@@ -29,7 +30,7 @@ export default defineComponent ({
     flex: 1;
     margin-right: 1.6em;
 
-    &::v-deep {
+    :deep(*) {
 
         h2 { font-size: 1.6em; }
 
@@ -47,14 +48,14 @@ export default defineComponent ({
             min-width: 200px;
             padding-left: 0.6em;
             margin-top: 1.15em;
-            border: 1px solid transparentize(white, 0.8);
+            border: 1px solid color.adjust(white, $alpha: -0.8);
             border-radius: 1px;
             align-self: stretch;
             align-items: center;
 
             &:focus {
                 outline: none;
-                box-shadow: 0 0 0 3px transparentize(white, 0.85);
+                box-shadow: 0 0 0 3px color.adjust(white, $alpha: -0.85);
             }
 
             label {

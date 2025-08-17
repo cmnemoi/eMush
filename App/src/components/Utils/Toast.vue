@@ -54,6 +54,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 $info-color: #3965fb;
 $success-color: #16b64b;
@@ -68,7 +69,7 @@ $error-color: #e72719;
     background-color: rgba(35, 37, 100, .9);
     border: 2px solid $info-color;
     border-radius: 5px;
-    box-shadow: 0 0 22px 8px transparentize(#09092d, 0.2);
+    box-shadow: 0 0 22px 8px color.adjust(#09092d, $alpha: -0.2);
 
     animation: appear 0.8s ease-out 1;
     animation-fill-mode: both;
@@ -80,7 +81,7 @@ $error-color: #e72719;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        background: transparentize($info-color, 0.4);
+        background: color.adjust($info-color, $alpha: -0.4);
         width: 3.6em;
 
         img { max-width: 36px; }
@@ -89,18 +90,18 @@ $error-color: #e72719;
     &.success, &.news {
         border-color: $success-color;
 
-        .icon { background: transparentize($success-color, 0.4); }
+        .icon { background: color.adjust($success-color, $alpha: -0.4); }
     }
 
     &.warning {
         border-color: $warning-color;
 
-        .icon { background: transparentize($warning-color, 0.4); }
+        .icon { background: color.adjust($warning-color, $alpha: -0.4); }
     }
 
     &.error {
         border-color: $error-color;
-        .icon { background: transparentize($error-color, 0.4); }
+        .icon { background: color.adjust($error-color, $alpha: -0.4); }
     }
 
     .content {
@@ -113,7 +114,7 @@ $error-color: #e72719;
         &:nth-child(#{$i}) { animation-delay: $i*400ms ; }
     }
 
-    @media screen and (max-width: $breakpoint-desktop-m) { box-shadow: 0 0 14px 4px transparentize(#09092d, 0.2); }
+    @media screen and (max-width: $breakpoint-desktop-m) { box-shadow: 0 0 14px 4px color.adjust(#09092d, $alpha: -0.2); }
 }
 
 h1 {
@@ -132,7 +133,7 @@ h1 {
     right: 0;
     top: 0;
     padding: 12px;
-    color: transparentize(white, 0.4);
+    color: color.adjust(white, $alpha: -0.4);
     font-size: 1em;
     letter-spacing: 0.03em;
     text-decoration: none;

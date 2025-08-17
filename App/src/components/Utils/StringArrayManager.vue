@@ -59,12 +59,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 pre {
     padding: 0.8em 1.4em;
     line-height: 1.5em;
-    background-color: transparentize(black, 0.8);
-    border: 1px solid transparentize(white, 0.8);
+    background-color: color.adjust(black, $alpha: -0.8);
+    border: 1px solid color.adjust(white, $alpha: -0.8);
     border-radius: 4px;
 }
 
@@ -91,12 +92,12 @@ pre {
         font-size: 1.3em;
         color: white;
         background: #222b6b;
-        border: 1px solid transparentize(white, 0.8);
+        border: 1px solid color.adjust(white, $alpha: -0.8);
         border-radius: 1px;
 
         &:focus {
             outline: none;
-            box-shadow: 0 0 0 3px transparentize(white, 0.85);
+            box-shadow: 0 0 0 3px color.adjust(white, $alpha: -0.85);
         }
     }
 }

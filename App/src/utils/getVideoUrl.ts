@@ -1,3 +1,7 @@
+const videos = import.meta.glob('/src/assets/videos/**/*.{mp4,webm,ogg,ogv}', {
+    eager: true, query: '?url', import: 'default'
+});
+
 export function getVideoUrl(videoName: string): string {
-    return new URL(`/src/assets/videos/${videoName}`, import.meta.url).href;
+    return videos[`/src/assets/videos/${videoName}`] || '';
 }

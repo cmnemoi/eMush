@@ -33,6 +33,7 @@ export default defineComponent ({
 </script>
 
 <style  lang="scss" scoped>
+@use "sass:color";
 .modal-box {
     position: relative;
     margin-bottom: 1.2em;
@@ -42,7 +43,7 @@ export default defineComponent ({
     border: 1px solid #3965fb;
     box-shadow:
         0 0 0 1px #191a4c,
-        0 8px 8px -5px transparentize(black, .15),
+        0 8px 8px -5px color.adjust(black, $alpha: -0.15),
         0 0 5px 1px rgba(57, 101, 251, 0.7)
     ;
 

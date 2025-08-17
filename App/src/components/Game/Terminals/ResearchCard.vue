@@ -108,6 +108,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 .project {
     min-width: 132px;
     width: 132px;
@@ -181,7 +182,10 @@ export default defineComponent({
 
     .action-participate {
         @include button-style;
-        margin: 1px 4px;
+
+        & {
+            margin: 1px 4px;
+        }
     }
 
     &.ongoing {
@@ -189,7 +193,7 @@ export default defineComponent({
 
         .completion {
             opacity: 1;
-            color: darken($green, 5%);
+            color: color.adjust($green, $lightness: -5%);
             text-shadow: 0 0 10px white;
         }
     }

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* VARIABLES */
 
 $brightCyan: #c2f3fc;
@@ -106,12 +108,12 @@ Adding the class ".flashing" to the element will will animate its border to incr
     background:
         linear-gradient(
             0deg,
-            darken(adjust-hue($color, 13), 5.49) 2%,
+            color.adjust(color.adjust($color, $hue: 13deg), $lightness: -5.49%) 2%,
             $color 6%,
             $color 46%,
-            lighten(adjust-hue($color, -6), 1.18) 54%,
-            lighten(adjust-hue($color, -6), 1.18) 94%,
-            lighten(desaturate($color, 25), 15.49) 96%
+            color.adjust(color.adjust($color, $hue: -6deg), $lightness: 1.18%) 54%,
+            color.adjust(color.adjust($color, $hue: -6deg), $lightness: 1.18%) 94%,
+            color.adjust(color.adjust($color, $saturation: -25%), $lightness: 15.49%) 96%
         );
 
     @media screen and (max-width: $breakpoint-desktop-m) { font-size: calc($font-size * 0.85); }
@@ -122,12 +124,12 @@ Adding the class ".flashing" to the element will will animate its border to incr
         background:
             linear-gradient(
                 0deg,
-                darken(adjust-hue($hover-color, 14), 3.92) 2%,
+                color.adjust(color.adjust($hover-color, $hue: 14deg), $lightness: -3.92%) 2%,
                 $hover-color 6%,
                 $hover-color 46%,
-                lighten(adjust-hue($hover-color, -4), 0.78) 54%,
-                lighten(adjust-hue($hover-color, -4), 0.78) 94%,
-                lighten(desaturate($hover-color, 18.1), 13.14) 96%
+                color.adjust(color.adjust($hover-color, $hue: -4deg), $lightness: 0.78%) 54%,
+                color.adjust(color.adjust($hover-color, $hue: -4deg), $lightness: 0.78%) 94%,
+                color.adjust(color.adjust($hover-color, $saturation: -18.1%), $lightness: 13.14%) 96%
             );
     }
 
@@ -142,13 +144,13 @@ Adding the class ".flashing" to the element will will animate its border to incr
     &.disabled, &:disabled { opacity: 0.5; text-decoration: line-through; cursor: not-allowed;}
 
     &.flashing {
+        animation: flashing-effect 1.3s ease-in-out infinite;
+        
         @keyframes flashing-effect {
             0% {box-shadow: 0 0 0 1px $border-color;}
             15% {box-shadow: 0 0 0 1px white;}
             30% {box-shadow: 0 0 0 1px $border-color;}
         }
-
-        animation: flashing-effect 1.3s ease-in-out infinite;
     }
 }
 

@@ -86,7 +86,7 @@ export default defineComponent ({
             justify-content: center;
             display: flex;
 
-            &::v-deep(.status) {
+            :deep(.status) {
                 vertical-align: middle;
                 margin-left: 2px;
             }

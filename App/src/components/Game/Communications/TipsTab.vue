@@ -266,10 +266,10 @@ export default defineComponent ({
     padding: 7px 7px 4px 7px;
 
     a {
-        @include button-style();
-
         width: 24px;
         margin-left: 4px;
+
+        @include button-style();
     }
 
     textarea {
@@ -306,7 +306,7 @@ export default defineComponent ({
     p {
         margin: 0;
         font-size: 0.95em;
-        &::v-deep(img) { vertical-align: middle; }
+        :deep(img) { vertical-align: middle; }
     }
 }
 

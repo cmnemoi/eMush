@@ -122,7 +122,10 @@ export default defineComponent ({
 
         button {
             @include button-style;
-            margin: .2rem;
+
+            & {
+                margin: .2rem;
+            }
 
             &.icon { padding: 1px 4px; }
         }

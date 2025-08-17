@@ -69,9 +69,9 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 .action-button {
-    @include button-style();
     margin: 0.2rem !important;
     flex-flow: row wrap;
+    @include button-style();
 }
 .medium {
     min-width: 10em;

@@ -205,6 +205,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 $hit-color: #fd1f07;
 .allies-container, .hunters-container {
@@ -361,8 +362,8 @@ img {
     align-items: center;
 
     &:hover, &:focus {
-        background-color: lighten($slightlyDeepBlue, 10%);
-        border-color: lighten($greyBlue, 15%);
+        background-color: color.adjust($slightlyDeepBlue, $lightness: 10%);
+        border-color: color.adjust($greyBlue, $lightness: 15%);
     }
 
     &:active, &.highlight {

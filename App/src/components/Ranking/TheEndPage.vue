@@ -908,10 +908,13 @@ h2 {
 
 a.back {
     @include button-style;
-    width: 85%;
-    max-width: 300px;
-    margin: auto;
-    margin-top: 1em;
+
+    & {
+        width: 85%;
+        max-width: 300px;
+        margin: auto;
+        margin-top: 1em;
+    }
 }
 
 @media only screen and (max-width: 560px) {

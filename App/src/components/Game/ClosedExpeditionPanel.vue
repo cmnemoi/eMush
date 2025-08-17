@@ -118,6 +118,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 .panel {
     position: relative;
     flex-direction: column;
@@ -210,7 +211,7 @@ export default defineComponent ({
     align-items: center;
     gap: 0.6em;
     padding: 0.8em 0.6em;
-    background: lighten($brightCyan, 6.5);
+    background: color.adjust($brightCyan, $lightness: 6.5%);
     border: solid #aad4e5;
     border-width: 1px 0;
 
@@ -275,11 +276,11 @@ export default defineComponent ({
     margin: 5px 0 10px 0;
     font-size: 11pt;
 
-    &::v-deep(strong) {
+    :deep(strong) {
     color: $cyan;
     }
 
-    &::v-deep(a) {
+    :deep(a) {
         color: $green;
     }
 

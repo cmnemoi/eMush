@@ -121,6 +121,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 h2 { font-size: 1.6em; }
 
@@ -134,7 +135,10 @@ h2, h3 {
 
 button {
     @include button-style();
-    padding: 2px 15px 4px;
+
+    & {
+        padding: 2px 15px 4px;
+    }
 }
 
 .select-default {
@@ -154,12 +158,12 @@ button {
         font-size: 1.3em;
         color: white;
         background: #222b6b;
-        border: 1px solid transparentize(white, 0.8);
+        border: 1px solid color.adjust(white, $alpha: -0.8);
         border-radius: 1px;
 
         &:focus {
             outline: none;
-            box-shadow: 0 0 0 3px transparentize(white, 0.85);
+            box-shadow: 0 0 0 3px color.adjust(white, $alpha: -0.85);
         }
     }
 }

@@ -66,8 +66,11 @@ export default defineComponent({
     display: inline-block;
     cursor: pointer;
     @include button-style();
-    width: 24px;
-    margin-left: 4px;
+
+    & {
+        width: 24px;
+        margin-left: 4px;
+    }
 
     &:hover {
         background-color: #00B0EC;

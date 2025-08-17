@@ -358,8 +358,11 @@ h1 {
 
 .validate {
     @include button-style;
-    margin: .5em auto;
-    padding: .2em 1em .4em;
+
+    & {
+        margin: .5em auto;
+        padding: .2em 1em .4em;
+    }
 }
 
 

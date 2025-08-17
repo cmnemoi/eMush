@@ -28,9 +28,10 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 .modal-background {
     position: fixed;
-    background: transparentize(#09092d, 0.5);
+    background: color.adjust(#09092d, $alpha: -0.5);
     top: 0;
     right: 0;
     bottom: 0;
@@ -81,7 +82,7 @@ export default defineComponent ({
     right: 0;
     top: 0;
     padding: 12px;
-    color: transparentize(white, 0.4);
+    color: color.adjust(white, $alpha: -0.4);
     font-size: 1em;
     letter-spacing: 0.03em;
     text-decoration: none;

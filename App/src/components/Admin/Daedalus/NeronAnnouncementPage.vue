@@ -95,10 +95,13 @@ table {
     th, td {
         padding: 1em 0.5em 1em 1.2em;
         vertical-align: middle;
-        &::v-deep(a), &::v-deep(button) {
+        :deep(a), :deep(button) {
             @include button-style();
-            width: fit-content;
-            padding: 2px 15px 4px;
+
+            & {
+                width: fit-content;
+                padding: 2px 15px 4px;
+            }
         }
     }
 

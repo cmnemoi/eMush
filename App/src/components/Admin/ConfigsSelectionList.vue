@@ -91,6 +91,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 .configs-list {
     margin: 1rem 15%;
@@ -113,7 +114,7 @@ li {
     transition: background-color 0.2s;
 
     &.selected {
-        background-color: transparentize($greyBlue, 0.5);
+        background-color: color.adjust($greyBlue, $alpha: -0.5);
     }
 
     &:hover, &:focus, &:active {

@@ -351,6 +351,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 $color: #222b6b;
 $border-color: #3d4dbf;
@@ -368,8 +369,8 @@ $border-radius: .3rem;
 .page-item:not(.disabled):not(.active) .page-link {
     &:active,
     &:hover {
-        background-color: lighten($color, 15%);
-        border-top-color: lighten($border-color, 15%);
+        background-color: color.adjust($color, $lightness: 15%);
+        border-top-color: color.adjust($border-color, $lightness: 15%);
         z-index: 2;
     }
 }
@@ -380,8 +381,8 @@ $border-radius: .3rem;
 }
 
 .page-item.active .page-link {
-    background-color: lighten($color, 30%);
-    border-top-color: lighten($border-color, 20%);
+    background-color: color.adjust($color, $lightness: 30%);
+    border-top-color: color.adjust($border-color, $lightness: 20%);
     font-weight: bold;
 }
 

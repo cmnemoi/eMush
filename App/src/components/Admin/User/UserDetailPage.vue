@@ -111,6 +111,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 h2 { font-size: 1.6em; }
 
@@ -136,16 +137,16 @@ h2, h3 {
         font-size: 1.3em;
         color: white;
         background: #222b6b;
-        border: 1px solid transparentize(white, 0.8);
+        border: 1px solid color.adjust(white, $alpha: -0.8);
         border-radius: 1px;
 
         &:focus {
             outline: none;
-            box-shadow: 0 0 0 3px transparentize(white, 0.85);
+            box-shadow: 0 0 0 3px color.adjust(white, $alpha: -0.85);
         }
 
         & option:checked {
-            background: transparentize($blue, 0.7);
+            background: color.adjust($blue, $alpha: -0.7);
             font-weight: bold;
         }
     }

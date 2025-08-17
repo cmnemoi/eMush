@@ -215,6 +215,9 @@ export default defineComponent({
 
 .action-button {
     @include button-style();
-    margin: 0.2rem !important;
+
+    & {
+        margin: 0.2rem !important;
+    }
 }
 </style>

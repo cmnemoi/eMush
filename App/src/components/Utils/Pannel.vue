@@ -39,19 +39,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 .pannel-default {
     width: 31%;
     min-width: 200px;
     position: relative;
-    background-color: transparentize(black, 0.8);
-    border: 1px solid transparentize(white, 0.8);
+    background-color: color.adjust(black, $alpha: -0.8);
+    border: 1px solid color.adjust(white, $alpha: -0.8);
     border-radius: 4px;
 
     .header {
         flex-direction: row;
 
-        &::v-deep(span) {
+        :deep(span) {
             padding: .6em .8em;
             // background: #222b6b;
             white-space: nowrap;
@@ -61,7 +62,7 @@ export default {
         }
     }
 
-    &::v-deep {
+    :deep(*) {
         span {
             flex: 1;
             padding: .2em .8em .2em 1.6em;

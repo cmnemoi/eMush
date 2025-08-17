@@ -55,6 +55,7 @@ export default defineComponent ({
 
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 .banner {
     // position: relative;
@@ -86,7 +87,7 @@ export default defineComponent ({
     font-weight: normal;
     letter-spacing: .03em;
     text-decoration: none;
-    border-bottom: 1px solid transparentize(white, 0.8);
+    border-bottom: 1px solid color.adjust(white, $alpha: -0.8);
 
 
     &:hover,
@@ -104,7 +105,7 @@ export default defineComponent ({
 }
 
 .admin-menu > * {
-    border-bottom: 1px solid transparentize(white, 0.8);
+    border-bottom: 1px solid color.adjust(white, $alpha: -0.8);
 }
 
 .logo {

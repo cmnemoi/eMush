@@ -120,6 +120,7 @@ export default defineComponent ({
 </script>
 
 <style scoped lang="scss">
+@use "sass:color";
 .box-container {
     :deep(strong) {
         color: $cyan;
@@ -153,7 +154,7 @@ export default defineComponent ({
 .alphaLeeway {
     margin: 1em 0;
     padding: .3em .8em;
-    background: transparentize($red, .7);
+    background: color.adjust($red, $alpha: -0.7);
     border: 1px solid $red;
     border-radius: 6px;
     font-style: italic;

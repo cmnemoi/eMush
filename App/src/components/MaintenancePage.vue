@@ -31,11 +31,11 @@ export default defineComponent ({
 
 <style scoped lang="scss">
 .box-container {
-    &::v-deep(strong) {
+    :deep(strong) {
         color: $cyan;
     }
 
-    &::v-deep(a) {
+    :deep(a) {
         color: $green;
     }
 

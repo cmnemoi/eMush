@@ -325,6 +325,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+@use "sass:color";
 
 .iconLife, .iconMorale {
     position: relative;
@@ -386,7 +387,7 @@ export default defineComponent ({
             display: flex;
             flex-direction: row;
             align-items: center;
-            border: 1px solid lighten($greyBlue, 3.2);
+            border: 1px solid color.adjust($greyBlue, $lightness: 3.2%);
             border-radius: 3px;
             background: $greyBlue;
             box-shadow: 0 0 4px 1px inset rgba(28, 29, 56, 1);
@@ -450,7 +451,7 @@ div.inventory {
         letter-spacing: 0.03em;
         font-variant: small-caps;
 
-        &::v-deep(.status) {
+        :deep(.status) {
             vertical-align: middle;
             margin-left: 2px;
         }
@@ -484,9 +485,12 @@ div.inventory {
 
         button {
             @include button-style();
-            width: 22px;
-            height: 22px;
-            padding: 0;
+
+            & {
+                width: 22px;
+                height: 22px;
+                padding: 0;
+            }
 
             img {
                 top: 0;

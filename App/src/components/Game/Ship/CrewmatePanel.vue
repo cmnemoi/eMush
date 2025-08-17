@@ -202,11 +202,11 @@ export default defineComponent ({
             font-size: 0.9em;
             flex-wrap: wrap;
 
-            &::v-deep(.status) {
+            :deep(.status) {
                 padding: 1px;
             }
 
-            &::v-deep(.title) {
+            :deep(.title) {
                 padding: 1px;
             }
         }

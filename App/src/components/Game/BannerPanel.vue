@@ -209,9 +209,6 @@ span.tippy-tooltip {
 }
 
 .in-game-level {
-    @include button-style(1.4em);
-    @include corner-bezel(12px, 0);
-
     width: 52px;
     height: 35px;
     border: 1px solid rgba(4, 21, 156, 1);
@@ -219,6 +216,9 @@ span.tippy-tooltip {
     margin: auto;
     padding-right: 4px;
     font-family: $font-days-one;
+
+    @include corner-bezel(12px, 0);
+    @include button-style(1.4em);
 }
 
 .in-game-level-progress {
@@ -324,7 +324,7 @@ span.tippy-tooltip {
 }
 
 .new-cycle-button {
-    @include button-style();
     display: block;
+    @include button-style();
 }
 </style>

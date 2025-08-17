@@ -168,7 +168,7 @@ export default defineComponent ({
         @extend %game-scrollbar;
     }
 
-    &::v-deep(em) {
+    :deep(em) {
         color: $red;
     }
 

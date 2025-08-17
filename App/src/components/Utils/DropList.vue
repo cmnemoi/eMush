@@ -25,6 +25,7 @@ export default defineComponent ({
 </script>
 
 <style  lang="scss" scoped>
+@use "sass:color";
 
 .dropdown {
     position: relative;
@@ -38,9 +39,12 @@ export default defineComponent ({
 
     button {
         @include button-style();
-        padding: .3em 1em;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
+
+        & {
+            padding: .3em 1em;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
     }
 }
 
@@ -52,15 +56,18 @@ export default defineComponent ({
     min-width: 100%;
     width: max-content;
     padding: 0 2px;
-    background: darken(#222b6b, 3%);
-    box-shadow: 0px 5px 8px transparentize(black, 0.5);
+    background: color.adjust(#222b6b, $lightness: -3%);
+    box-shadow: 0px 5px 8px color.adjust(black, $alpha: -0.5);
 
     // transition: visibility .4s;
 
-    &::v-deep(*) {
+    :deep(*) {
         @include button-style();
-        width: 100%;
-        padding: .4em 1em;
+
+        & {
+            width: 100%;
+            padding: .4em 1em;
+        }
     }
 
 }

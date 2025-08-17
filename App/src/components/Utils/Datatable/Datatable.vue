@@ -169,12 +169,15 @@ table {
         padding: 1em 0.5em 1em 1.2em;
         vertical-align: middle;
 
-        &::v-deep(a), &::v-deep(button) {
+        :deep(a), :deep(button) {
             @include button-style();
-            width: fit-content;
-            flex: 1;
-            padding: 2px 15px 4px;
-            white-space: nowrap;
+
+            & {
+                width: fit-content;
+                flex: 1;
+                padding: 2px 15px 4px;
+                white-space: nowrap;
+            }
         }
     }
 

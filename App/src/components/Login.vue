@@ -79,10 +79,12 @@ button {
 
     @include button-style(1em);
 
-    margin: 7px 0;
-    padding-top: 4px;
-    padding-bottom: 6px;
-    border: 0;
+    & {
+        margin: 7px 0;
+        padding-top: 4px;
+        padding-bottom: 6px;
+        border: 0;
+    }
 }
 
 </style>

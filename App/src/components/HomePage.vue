@@ -14,22 +14,11 @@
                 alt="Award" />
         </section>
         <section class="trailer-container">
-            <video
-                v-if="localeIsFrench()"
-                controls
-                ref="trailer"
-                preload="metadata">
-                <source :src="`${getVideoUrl('trailer_fr.mp4')}#t=1`" type="video/mp4"/>
-                Désolé, votre navigateur ne supporte pas les vidéos intégrées.
-            </video>
-            <video
-                v-else
-                controls
-                ref="trailer"
-                preload="metadata">
-                <source :src="`${getVideoUrl('trailer_en.mp4')}#t=1`" type="video/mp4"/>
-                Sorry, your browser doesn't support embedded videos.
-            </video>
+            <RuffleContent
+                :swf-url="getSwfUrl(`trailer_${locale}.swf`)"
+                :width="555"
+                :height="310"
+            />
         </section>
         <section class="incentive">
             <div class="box-container" id="play-container">
@@ -138,16 +127,22 @@ import NewsService from "@/services/news.service";
 import { News } from "@/entities/News";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { getVideoUrl } from "@/utils/getVideoUrl";
+import { getSwfUrl } from "@/utils/getSwfUrl";
+import RuffleContent from "./RuffleContent.vue";
 
 export default defineComponent ({
     name: "HomePage",
     components: {
-        NewsItem
+        NewsItem,
+        RuffleContent
     },
     computed: {
         ...mapGetters('auth', [
             'loggedIn'
-        ])
+        ]),
+        locale() {
+            return this.$i18n.locale.split('-')[0];
+        }
     },
     methods: {
         ...mapActions('auth', [
@@ -155,8 +150,9 @@ export default defineComponent ({
         ]),
         getImgUrl,
         getVideoUrl,
+        getSwfUrl,
         localeIsFrench() {
-            return this.$i18n.locale.split('-')[0] === 'fr';
+            return this.locale === 'fr';
         },
         move(amount: any) {
             let newActive = this.slide + amount;
@@ -264,12 +260,8 @@ export default defineComponent ({
 
     .trailer-container {
         margin-top: 1em;
-
-        video {
-            border: 1px solid #26378c;
-            box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.5);
-            width: 100%;
-        }
+        border: 1px solid #26378c;
+        box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.5);
     }
 
     p {

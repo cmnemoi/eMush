@@ -464,6 +464,34 @@ final class DroneCest extends AbstractFunctionalTest
         $this->thenDroneShouldBeInPatrolShipDockingPlace($I);
     }
 
+    public function pilotShouldLandWhenPatrolShipHasNoChargesEvenWithHuntersAttacking(FunctionalTester $I): void
+    {
+        $this->givenThereIsOneAttackingHunter();
+
+        $this->givenDroneIsPilot();
+
+        $this->givenDroneIsInAPatrolShip($I);
+
+        $this->givenPatrolShipHasNoCharges();
+
+        $this->whenDroneActs();
+
+        $this->thenDroneShouldBeInPatrolShipDockingPlace($I);
+    }
+
+    public function pilotShouldNotLandWhenPatrolShipHasChargesAndHuntersAreAttacking(FunctionalTester $I): void
+    {
+        $this->givenThereIsOneAttackingHunter();
+
+        $this->givenDroneIsPilot();
+
+        $this->givenDroneIsInAPatrolShip($I);
+
+        $this->whenDroneActs();
+
+        $this->thenDroneShouldBeInPatrolShipPlace($I);
+    }
+
     public function turboShouldMoveThenRepair(FunctionalTester $I): void
     {
         $this->givenDroneHasTurboUpgrade();
@@ -638,6 +666,17 @@ final class DroneCest extends AbstractFunctionalTest
         );
 
         return $mycoscan;
+    }
+
+    private function givenPatrolShipHasNoCharges(): void
+    {
+        $this->statusService->updateCharge(
+            chargeStatus: $this->patrolShip->getChargeStatusByNameOrThrow(EquipmentStatusEnum::ELECTRIC_CHARGES),
+            delta: 0,
+            tags: [],
+            time: new \DateTime(),
+            mode: VariableEventInterface::SET_VALUE,
+        );
     }
 
     private function whenDroneActs(): void

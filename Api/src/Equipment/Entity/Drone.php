@@ -238,7 +238,7 @@ class Drone extends GameItem
 
     private function cannotLand(): bool
     {
-        return $this->isNotPilot() || $this->isInDaedalus() || $this->huntersAreAttacking() || $this->noLandActionAvailable();
+        return $this->isNotPilot() || $this->isInDaedalus() || $this->noLandActionAvailable();
     }
 
     private function cannotShootHunter(): bool
@@ -297,12 +297,7 @@ class Drone extends GameItem
 
     private function noShootHunterActionAvailable(): bool
     {
-        try {
-            $patrolShip = $this->getPlace()->getFirstPatrolShipOrThrow();
-        } catch (\Throwable $e) {
-            return true;
-        }
-
+        $patrolShip = $this->getPlace()->getFirstPatrolShipOrThrow();
         if ($patrolShip->isNotOperational()) {
             return true;
         }
@@ -312,12 +307,8 @@ class Drone extends GameItem
 
     private function noLandActionAvailable(): bool
     {
-        try {
-            $patrolShip = $this->getPlace()->getFirstPatrolShipOrThrow();
-        } catch (\Throwable $e) {
-            return true;
-        }
-        if ($patrolShip->isNotOperational()) {
+        $patrolShip = $this->getPlace()->getFirstPatrolShipOrThrow();
+        if ($patrolShip->isBroken()) {
             return true;
         }
 

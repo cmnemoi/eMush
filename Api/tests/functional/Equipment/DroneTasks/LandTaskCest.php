@@ -69,17 +69,6 @@ final class LandTaskCest extends AbstractFunctionalTest
         $this->thenTaskShouldNotBeApplicable($I);
     }
 
-    public function shouldNotBeAvailableIfHuntersAreAttacking(FunctionalTester $I): void
-    {
-        $this->givenDroneIsAPilot();
-
-        $this->givenSomeHuntersAreAttacking();
-
-        $this->whenIExecuteLandTask();
-
-        $this->thenTaskShouldNotBeApplicable($I);
-    }
-
     public function shouldNotBeApplicableIfDroneIsNotInAPatrolShip(FunctionalTester $I): void
     {
         $this->givenDroneIsAPilot();
@@ -156,7 +145,6 @@ final class LandTaskCest extends AbstractFunctionalTest
             time: new \DateTime()
         );
 
-        $I->assertInstanceOf(Drone::class, $drone);
         $this->drone = $drone;
         $this->statusService->createOrIncrementChargeStatus(
             name: EquipmentStatusEnum::ELECTRIC_CHARGES,
@@ -238,7 +226,7 @@ final class LandTaskCest extends AbstractFunctionalTest
 
     private function thenTaskShouldNotBeApplicable(FunctionalTester $I): void
     {
-        $I->assertFalse($this->task->isApplicable());
+        $I->assertFalse($this->task->isApplicable(), "{$this->task->name()} should not be applicable");
     }
 
     private function thenDroneShouldBeInPatrolShipDockingPlace(FunctionalTester $I): void

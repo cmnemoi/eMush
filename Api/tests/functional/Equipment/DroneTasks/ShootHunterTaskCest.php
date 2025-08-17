@@ -59,21 +59,24 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->thenTaskShouldNotBeApplicable($I);
     }
 
-    public function shouldNotBeApplicableIfNoShootHunterActionIsAvailable(FunctionalTester $I): void
+    public function shouldThrowIfDroneNotInAPatrolShip(FunctionalTester $I): void
     {
         $this->givenDroneIsAPilot();
 
         $this->givenOneAttackingHunter();
 
-        // drone is not in patrol ship
+        // Given that the drone is not in a patrol ship
         $this->gameEquipmentService->moveEquipmentTo(
             equipment: $this->drone,
             newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE),
         );
 
-        $this->whenIExecuteShootHunterTask();
-
-        $this->thenTaskShouldNotBeApplicable($I);
+        $I->expectThrowable(
+            new \RuntimeException('There should be a patrol ship equipment in the place'),
+            function () {
+                $this->whenIExecuteShootHunterTask();
+            },
+        );
     }
 
     public function shouldNotBeApplicableIfPatrolShipIsNotOperational(FunctionalTester $I): void

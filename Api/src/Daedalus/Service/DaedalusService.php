@@ -32,6 +32,7 @@ use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Repository\LocalizationConfigRepository;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Game\Service\GameConfigServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Config\CharacterConfig;
@@ -44,6 +45,7 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\User\Entity\User;
+use Symfony\Component\Uid\Uuid;
 
 class DaedalusService implements DaedalusServiceInterface
 {
@@ -59,6 +61,7 @@ class DaedalusService implements DaedalusServiceInterface
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
     private FunFactsServiceInterface $funFactsService;
+    private GameConfigServiceInterface $gameConfigService;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -161,6 +164,16 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalusInfo->getDaedalus();
     }
 
+    public function findAvailableDaedalusInLanguageForUserWithLock(string $language, User $user): ?Daedalus
+    {
+        $daedalusInfo = $this->daedalusInfoRepository->findAvailableDaedalusInLanguageForUserWithLock($language, $user);
+        if ($daedalusInfo === null) {
+            return null;
+        }
+
+        return $daedalusInfo->getDaedalus();
+    }
+
     public function existAvailableDaedalus(): bool
     {
         return $this->daedalusInfoRepository->existAvailableDaedalus();
@@ -190,35 +203,7 @@ class DaedalusService implements DaedalusServiceInterface
         $this->entityManager->beginTransaction();
 
         try {
-            $daedalus = new Daedalus();
-            $daedalusConfig = $gameConfig->getDaedalusConfig();
-            $daedalus
-                ->setCycle(0)
-                ->setDaedalusVariables($daedalusConfig);
-
-            $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
-            if ($localizationConfig === null) {
-                throw new \Exception('there is no localizationConfig for this language');
-            }
-
-            $neron = new Neron();
-            $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
-            $daedalusInfo
-                ->setName($name)
-                ->setNeron($neron);
-            $this->persistDaedalusInfo($daedalusInfo);
-
-            $daedalus = $this->addTitlePrioritiesToDaedalus($daedalus);
-
-            $daedalus = $this->setAvailableCharacters($daedalus);
-
-            $daedalusEvent = new DaedalusInitEvent(
-                $daedalus,
-                $daedalusConfig,
-                [EventEnum::CREATE_DAEDALUS],
-                new \DateTime()
-            );
-            $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
+            $daedalus = $this->buildDaedalus($gameConfig, $name, $language);
             $this->entityManager->commit();
         } catch (\Throwable $throwable) {
             $this->entityManager->rollback();
@@ -376,6 +361,29 @@ class DaedalusService implements DaedalusServiceInterface
         return $daedalus;
     }
 
+    public function findOrCreateAvailableDaedalus(string $language, User $user, GameConfig $gameConfig): Daedalus
+    {
+        $this->entityManager->beginTransaction();
+
+        try {
+            // Use pessimistic lock to prevent race conditions
+            $daedalus = $this->findAvailableDaedalusInLanguageForUserWithLock($language, $user);
+
+            if ($daedalus === null) {
+                $daedalus = $this->buildDaedalus($gameConfig, Uuid::v4()->toRfc4122(), $language);
+            }
+
+            $this->entityManager->commit();
+        } catch (\Throwable $throwable) {
+            $this->entityManager->rollback();
+            $this->entityManager->close();
+
+            throw $throwable;
+        }
+
+        return $daedalus;
+    }
+
     public function killRemainingPlayers(Daedalus $daedalus, array $reasons, \DateTime $date): Daedalus
     {
         $playerAliveNb = $daedalus->getPlayers()->getPlayerAlive()->count();
@@ -497,6 +505,41 @@ class DaedalusService implements DaedalusServiceInterface
         }
 
         return $daedalus;
+    }
+
+    private function buildDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus
+    {
+        $daedalus = new Daedalus();
+        $daedalusConfig = $gameConfig->getDaedalusConfig();
+        $daedalus
+            ->setCycle(0)
+            ->setDaedalusVariables($daedalusConfig);
+
+        $localizationConfig = $this->localizationConfigRepository->findByLanguage($language);
+        if ($localizationConfig === null) {
+            throw new \Exception('there is no localizationConfig for this language');
+        }
+
+        $neron = new Neron();
+        $daedalusInfo = new DaedalusInfo($daedalus, $gameConfig, $localizationConfig);
+        $daedalusInfo
+            ->setName($name)
+            ->setNeron($neron);
+        $this->persistDaedalusInfo($daedalusInfo);
+
+        $daedalus = $this->addTitlePrioritiesToDaedalus($daedalus);
+
+        $daedalus = $this->setAvailableCharacters($daedalus);
+
+        $daedalusEvent = new DaedalusInitEvent(
+            $daedalus,
+            $daedalusConfig,
+            [EventEnum::CREATE_DAEDALUS],
+            new \DateTime()
+        );
+        $this->eventService->callEvent($daedalusEvent, DaedalusInitEvent::NEW_DAEDALUS);
+
+        return $this->persist($daedalus);
     }
 
     private function assignTitlesToEligiblePlayers(Daedalus $daedalus, \DateTime $date): void

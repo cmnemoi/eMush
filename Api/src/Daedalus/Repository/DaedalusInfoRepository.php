@@ -3,6 +3,7 @@
 namespace Mush\Daedalus\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Enum\GameStatusEnum;
@@ -116,5 +117,45 @@ class DaedalusInfoRepository extends ServiceEntityRepository
             ->setParameter('name', $name);
 
         return \count($qb->getQuery()->getResult()) > 0;
+    }
+
+    public function findAvailableDaedalusInLanguageForUserWithLock(string $language, User $user): ?DaedalusInfo
+    {
+        $userDaedaluses = $this->userService->findUserDaedaluses($user);
+
+        if (\count($userDaedaluses) === 0) {
+            return $this->findAvailableDaedalusInLanguageWithLock($language);
+        }
+
+        $qb = $this->createQueryBuilder('daedalus_info');
+
+        $qb
+            ->select('daedalus_info')
+            ->leftJoin('daedalus_info.localizationConfig', 'language')
+            ->where($qb->expr()->in('daedalus_info.gameStatus', ':game_status'))
+            ->andWhere($qb->expr()->eq('language.name', ':language'))
+            ->andWhere($qb->expr()->notIn('daedalus_info', ':user_daedaluses'))
+            ->setMaxResults(1)
+            ->setParameter('language', $language)
+            ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY])
+            ->setParameter('user_daedaluses', $userDaedaluses);
+
+        return $qb->getQuery()->setLockMode(LockMode::PESSIMISTIC_WRITE)->getOneOrNullResult();
+    }
+
+    public function findAvailableDaedalusInLanguageWithLock(string $language): ?DaedalusInfo
+    {
+        $qb = $this->createQueryBuilder('daedalus_info');
+
+        $qb
+            ->select('daedalus_info')
+            ->leftJoin('daedalus_info.localizationConfig', 'language')
+            ->where($qb->expr()->in('daedalus_info.gameStatus', ':game_status'))
+            ->andWhere($qb->expr()->eq('language.name', ':language'))
+            ->setMaxResults(1)
+            ->setParameter('language', $language)
+            ->setParameter('game_status', [GameStatusEnum::STARTING, GameStatusEnum::STANDBY]);
+
+        return $qb->getQuery()->setLockMode(LockMode::PESSIMISTIC_WRITE)->getOneOrNullResult();
     }
 }

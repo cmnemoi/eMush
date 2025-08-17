@@ -30,7 +30,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -81,13 +80,9 @@ class DaedalusController extends AbstractGameController
         $this->denyAccessUnlessGranted(UserVoter::IS_NOT_BANNED, message: 'You have been banned!');
 
         $language = $request->get('language', '');
-        $daedalus = $this->daedalusService->findAvailableDaedalusInLanguageForUser($language, $user);
 
-        if ($daedalus === null) {
-            // TODO: handle different game configs (send game config in the request? how to choose the game config?)
-            $gameConfig = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
-            $daedalus = $this->daedalusService->createDaedalus($gameConfig, Uuid::v4()->toRfc4122(), $language);
-        }
+        $gameConfig = $this->gameConfigService->getConfigByName(GameConfigEnum::DEFAULT);
+        $daedalus = $this->daedalusService->findOrCreateAvailableDaedalus($language, $user, $gameConfig);
 
         $availableCharacters = $this->daedalusService->findAvailableCharacterForDaedalus($daedalus);
 

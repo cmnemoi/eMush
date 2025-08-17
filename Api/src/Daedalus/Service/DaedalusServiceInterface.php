@@ -29,6 +29,8 @@ interface DaedalusServiceInterface
 
     public function findAvailableDaedalusInLanguageForUser(string $language, User $user): ?Daedalus;
 
+    public function findAvailableDaedalusInLanguageForUserWithLock(string $language, User $user): ?Daedalus;
+
     public function findAllFinishedDaedaluses(): DaedalusCollection;
 
     public function findAllNonFinishedDaedaluses(): DaedalusCollection;
@@ -44,6 +46,8 @@ interface DaedalusServiceInterface
     public function existAvailableDaedalusWithName(string $name): bool;
 
     public function createDaedalus(GameConfig $gameConfig, string $name, string $language): Daedalus;
+
+    public function findOrCreateAvailableDaedalus(string $language, User $user, GameConfig $gameConfig): Daedalus;
 
     public function endDaedalus(Daedalus $daedalus, string $cause, \DateTime $date): ClosedDaedalus;
 

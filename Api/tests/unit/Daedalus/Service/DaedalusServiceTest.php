@@ -84,6 +84,8 @@ final class DaedalusServiceTest extends TestCase
     /** @var FunFactsServiceInterface|Mockery\Mock */
     private FunFactsServiceInterface $funFactsService;
 
+    private TitlePriorityRepositoryInterface $titlePriorityRepository;
+
     private DaedalusService $service;
 
     /**
@@ -102,6 +104,7 @@ final class DaedalusServiceTest extends TestCase
         $this->playerService = \Mockery::mock(PlayerServiceInterface::class);
         $this->statusService = \Mockery::mock(StatusServiceInterface::class);
         $this->funFactsService = \Mockery::mock(FunFactsServiceInterface::class);
+        $this->titlePriorityRepository = self::createStub(TitlePriorityRepositoryInterface::class);
 
         $this->service = new DaedalusService(
             $this->entityManager,
@@ -112,10 +115,10 @@ final class DaedalusServiceTest extends TestCase
             $this->localizationConfigRepository,
             $this->daedalusInfoRepository,
             $this->daedalusRepository,
-            self::createStub(TitlePriorityRepositoryInterface::class),
+            $this->titlePriorityRepository,
             $this->playerService,
             $this->statusService,
-            $this->funFactsService
+            $this->funFactsService,
         );
     }
 
@@ -170,10 +173,10 @@ final class DaedalusServiceTest extends TestCase
         $this->entityManager->shouldReceive('beginTransaction')->once();
         $this->entityManager
             ->shouldReceive('persist')
-            ->once();
+            ->twice();
         $this->entityManager
             ->shouldReceive('flush')
-            ->once();
+            ->twice();
         $this->entityManager->shouldReceive('commit')->once();
 
         $daedalus = $this->service->createDaedalus($gameConfig, 'name', LanguageEnum::FRENCH);
@@ -383,6 +386,108 @@ final class DaedalusServiceTest extends TestCase
         $this->eventService->shouldReceive('callEvent')->twice();
 
         $this->service->attributeTitles($daedalus, new \DateTime());
+    }
+
+    public function testFindOrCreateAvailableDaedalusWithExistingDaedalus(): void
+    {
+        $language = 'fr';
+        $user = new User();
+        $existingDaedalus = new Daedalus();
+
+        $this->daedalusInfoRepository
+            ->shouldReceive('findAvailableDaedalusInLanguageForUserWithLock')
+            ->once()
+            ->with($language, $user)
+            ->andReturn(new DaedalusInfo($existingDaedalus, new GameConfig(), new LocalizationConfig()));
+
+        $this->entityManager
+            ->shouldReceive('beginTransaction')
+            ->once();
+
+        $this->entityManager
+            ->shouldReceive('commit')
+            ->once();
+
+        $result = $this->service->findOrCreateAvailableDaedalus($language, $user, new GameConfig());
+
+        self::assertSame($existingDaedalus, $result);
+    }
+
+    public function testFindOrCreateAvailableDaedalusCreatesNewWhenNoneExists(): void
+    {
+        $language = 'fr';
+        $user = new User();
+        $gameConfig = new GameConfig();
+        $daedalusConfig = new DaedalusConfig();
+        $gameConfig->setDaedalusConfig($daedalusConfig);
+
+        $this->daedalusInfoRepository
+            ->shouldReceive('findAvailableDaedalusInLanguageForUserWithLock')
+            ->once()
+            ->with($language, $user)
+            ->andReturn(null);
+
+        $this->entityManager
+            ->shouldReceive('beginTransaction')
+            ->once();
+
+        $this->entityManager
+            ->shouldReceive('commit')
+            ->once();
+
+        // Mock all the dependencies needed for createDaedalusWithoutTransaction
+        $this->localizationConfigRepository
+            ->shouldReceive('findByLanguage')
+            ->once()
+            ->with($language)
+            ->andReturn(new LocalizationConfig());
+
+        $this->entityManager
+            ->shouldReceive('persist')
+            ->atLeast()
+            ->once();
+
+        $this->entityManager
+            ->shouldReceive('flush')
+            ->atLeast()
+            ->once();
+
+        $this->eventService
+            ->shouldReceive('callEvent')
+            ->once();
+
+        $result = $this->service->findOrCreateAvailableDaedalus($language, $user, $gameConfig);
+
+        self::assertInstanceOf(Daedalus::class, $result);
+    }
+
+    public function testFindOrCreateAvailableDaedalusRollsBackOnException(): void
+    {
+        $language = 'fr';
+        $user = new User();
+
+        $this->daedalusInfoRepository
+            ->shouldReceive('findAvailableDaedalusInLanguageForUserWithLock')
+            ->once()
+            ->with($language, $user)
+            ->andThrow(new \Exception('Database error'));
+
+        $this->entityManager
+            ->shouldReceive('beginTransaction')
+            ->once();
+
+        $this->entityManager
+            ->shouldReceive('rollback')
+            ->once();
+
+        $this->entityManager
+            ->shouldReceive('close')
+            ->once();
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Database error');
+
+        $this->service->findOrCreateAvailableDaedalus($language, $user, new GameConfig());
     }
 
     protected function setupTestAttributeTitles(Daedalus $daedalus): PlayerCollection

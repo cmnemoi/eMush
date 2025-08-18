@@ -147,9 +147,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[OrderBy(['updatedAt' => Order::Descending->value])]
     private Collection $favoriteMessages;
 
-    #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private \DateTime $lastActionDate;
-
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $actionHistory = [];
 
@@ -170,7 +167,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         $this->skills = new ArrayCollection();
         $this->planets = new ArrayCollection();
         $this->favoriteMessages = new ArrayCollection();
-        $this->lastActionDate = new \DateTime();
         $this->notifications = new ArrayCollection();
         $this->receivedMissions = new ArrayCollection();
         $this->availableSkills = new SkillConfigCollection();
@@ -1155,23 +1151,6 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     public function isLaidDownInShrinkRoom(): bool
     {
         return $this->hasStatus(PlayerStatusEnum::LYING_DOWN) && $this->place->hasAnAliveShrinkExceptPlayer($this);
-    }
-
-    public function lastActionIsFromYesterdayOrLater(): bool
-    {
-        return $this->lastActionDate <= new \DateTime('-1 day');
-    }
-
-    public function lastActionIsFromTwoDaysAgoOrLater(): bool
-    {
-        return $this->lastActionDate <= new \DateTime('-2 days');
-    }
-
-    public function updateLastActionDate(): static
-    {
-        $this->lastActionDate = new \DateTime();
-
-        return $this;
     }
 
     /**

@@ -25,15 +25,9 @@ final class ActionEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ActionEvent::PRE_ACTION => 'onPreAction',
             ActionEvent::RESULT_ACTION => 'onResultAction',
             ActionEvent::POST_ACTION => 'onPostAction',
         ];
-    }
-
-    public function onPreAction(ActionEvent $event): void
-    {
-        $event->getAuthor()->updateLastActionDate();
     }
 
     public function onResultAction(ActionEvent $event): void

@@ -43,7 +43,7 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
 
         $this->givenPlayerHasAllTheirActionPoints($player);
 
-        $this->givenPlayerLastActionIsFrom($player, new \DateTime('-1 day'));
+        $this->givenUserLastActivityIsFrom($player, new \DateTime('-1 day'));
 
         $this->whenIMakePlayerInactive($player);
 
@@ -54,7 +54,7 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
     {
         $player = $this->givenAPlayer();
 
-        $this->givenPlayerLastActionIsFrom($player, new \DateTime('-1 day'));
+        $this->givenUserLastActivityIsFrom($player, new \DateTime('-1 day'));
 
         $this->givenPlayerDoesNotHaveAllTheirActionPoints($player);
 
@@ -69,7 +69,7 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
 
         $this->givenPlayerHasAllTheirActionPoints($player);
 
-        $this->givenPlayerLastActionIsFrom(player: $player, date: new \DateTime());
+        $this->givenUserLastActivityIsFrom($player, new \DateTime());
 
         $this->whenIMakePlayerInactive($player);
 
@@ -82,7 +82,7 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
 
         $this->givenPlayerHasAllTheirActionPoints($player);
 
-        $this->givenPlayerLastActionIsFrom($player, new \DateTime('2 days ago'));
+        $this->givenUserLastActivityIsFrom($player, new \DateTime('-2 days'));
 
         $this->whenIMakePlayerInactive($player);
 
@@ -95,7 +95,7 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
 
         $this->givenPlayerHasAllTheirActionPoints($player);
 
-        $this->givenPlayerLastActionIsFrom($player, new \DateTime('2 days ago'));
+        $this->givenUserLastActivityIsFrom($player, new \DateTime('-2 days'));
 
         $this->givenPlayerHasInactiveStatus($player);
 
@@ -121,9 +121,9 @@ final class MakePlayerInactiveUseCaseTest extends TestCase
         $player->setActionPoint(0);
     }
 
-    private function givenPlayerLastActionIsFrom(Player $player, \DateTime $date): void
+    private function givenUserLastActivityIsFrom(Player $player, \DateTime $date): void
     {
-        (new \ReflectionProperty($player, 'lastActionDate'))->setValue($player, $date);
+        (new \ReflectionProperty($player->getUser(), 'lastActivityAt'))->setValue($player->getUser(), $date);
     }
 
     private function givenPlayerHasInactiveStatus(Player $player): void

@@ -210,7 +210,8 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->haveInRepository($jinSu);
 
         // given Jin Su is inactive
-        (new \ReflectionProperty($jinSu, 'lastActionDate'))->setValue($jinSu, new \DateTime('-3 days'));
+        $user = $jinSu->getUser();
+        (new \ReflectionProperty($user, 'lastActivityAt'))->setValue($jinSu, new \DateTime('-3 days'));
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::INACTIVE,
             holder: $jinSu,
@@ -252,14 +253,16 @@ final class DaedalusCycleEventCest extends AbstractFunctionalTest
         $I->assertTrue($eleesha->hasTitle(TitleEnum::COM_MANAGER));
 
         // when Jin Su and Janice go inactive
-        (new \ReflectionProperty($jinSu, 'lastActionDate'))->setValue($jinSu, new \DateTime('-1 days'));
+        $user = $jinSu->getUser();
+        (new \ReflectionProperty($user, 'lastActivityAt'))->setValue($jinSu, new \DateTime('-1 days'));
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::INACTIVE,
             holder: $jinSu,
             tags: [],
             time: new \DateTime()
         );
-        (new \ReflectionProperty($janice, 'lastActionDate'))->setValue($janice, new \DateTime('-1 days'));
+        $user = $janice->getUser();
+        (new \ReflectionProperty($user, 'lastActivityAt'))->setValue($janice, new \DateTime('-1 days'));
         $this->statusService->createStatusFromName(
             statusName: PlayerStatusEnum::INACTIVE,
             holder: $janice,

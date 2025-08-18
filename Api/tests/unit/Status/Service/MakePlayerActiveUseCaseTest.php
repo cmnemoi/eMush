@@ -37,26 +37,26 @@ final class MakePlayerActiveUseCaseTest extends TestCase
         $this->statusService->statuses->clear();
     }
 
-    public function testShouldRemoveActiveStatusIfPlayerLastActionIsNotFromYesterday(): void
+    public function testShouldRemoveActiveStatusIfUserLastActivityIsNotFromYesterday(): void
     {
         $player = $this->givenAPlayer();
 
         $this->givenPlayerHasInactiveStatus($player);
 
-        $this->givenPlayerLastActionIsFrom(player: $player, date: new \DateTime());
+        $this->givenUserLastActivityIsFrom($player, new \DateTime());
 
         $this->whenIMakePlayerActive($player);
 
         $this->thenPlayerShouldNotHaveActiveStatus($player);
     }
 
-    public function testShouldRemoveHighlyActiveStatusIfPlayerLastActionIsNotFromTwoDaysAgo(): void
+    public function testShouldRemoveHighlyActiveStatusIfUserLastActivityIsNotFromTwoDaysAgo(): void
     {
         $player = $this->givenAPlayer();
 
         $this->givenPlayerHasHighlyInactiveStatus($player);
 
-        $this->givenPlayerLastActionIsFrom($player, new \DateTime());
+        $this->givenUserLastActivityIsFrom($player, new \DateTime());
 
         $this->whenIMakePlayerActive($player);
 
@@ -68,9 +68,9 @@ final class MakePlayerActiveUseCaseTest extends TestCase
         return PlayerFactory::createPlayerByName(CharacterEnum::CHUN);
     }
 
-    private function givenPlayerLastActionIsFrom(Player $player, \DateTime $date): void
+    private function givenUserLastActivityIsFrom(Player $player, \DateTime $date): void
     {
-        (new \ReflectionProperty($player, 'lastActionDate'))->setValue($player, $date);
+        (new \ReflectionProperty($player->getUser(), 'lastActivityAt'))->setValue($player->getUser(), $date);
     }
 
     private function givenPlayerHasInactiveStatus(Player $player): void

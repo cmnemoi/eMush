@@ -40,18 +40,29 @@ final class InactivityStatusCest extends AbstractFunctionalTest
     {
         $this->givenPlayerHasAllTheirActionPoints();
 
-        $this->givenPlayerLastActionIsFrom(new \DateTime('-1 day'));
+        $this->givenUserLastActivityIsFrom(new \DateTime('-1 day'));
 
         $this->whenANewCycleIsTriggered();
 
         $this->thenThePlayerShouldHaveTheInactiveStatus($I);
     }
 
+    public function shouldPrintAPublicLogWhenCreated(FunctionalTester $I): void
+    {
+        $this->givenPlayerHasAllTheirActionPoints();
+
+        $this->givenUserLastActivityIsFrom(new \DateTime('-1 day'));
+
+        $this->whenANewCycleIsTriggered();
+
+        $this->thenAPublicCreationRoomLogShouldBeCreated($I);
+    }
+
     public function shouldBeRemovedAfterAnAction(FunctionalTester $I): void
     {
         $this->givenPlayerHasAllTheirActionPoints();
 
-        $this->givenPlayerLastActionIsFrom(new \DateTime('-1 day'));
+        $this->givenUserLastActivityIsFrom(new \DateTime());
 
         $this->givenPlayerHasInactiveStatus();
 
@@ -60,24 +71,13 @@ final class InactivityStatusCest extends AbstractFunctionalTest
         $this->thenThePlayerShouldNotHaveTheInactiveStatus($I);
     }
 
-    public function shouldPrintAPublicLogWhenCreated(FunctionalTester $I): void
-    {
-        $this->givenPlayerHasAllTheirActionPoints();
-
-        $this->givenPlayerLastActionIsFrom(new \DateTime('-1 day'));
-
-        $this->whenANewCycleIsTriggered();
-
-        $this->thenAPublicCreationRoomLogShouldBeCreated($I);
-    }
-
     public function shouldPrintAPublicLogWhenDeleted(FunctionalTester $I): void
     {
         $this->givenPlayerHasAllTheirActionPoints();
 
-        $this->givenPlayerLastActionIsFrom(new \DateTime('-1 day'));
-
         $this->givenPlayerHasInactiveStatus();
+
+        $this->givenUserLastActivityIsFrom(new \DateTime());
 
         $this->whenPlayerMakesAnAction($I);
 
@@ -99,9 +99,9 @@ final class InactivityStatusCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenPlayerLastActionIsFrom(\DateTime $date): void
+    private function givenUserLastActivityIsFrom(\DateTime $date): void
     {
-        (new \ReflectionProperty($this->player, 'lastActionDate'))->setValue($this->player, $date);
+        (new \ReflectionProperty($this->player->getUser(), 'lastActivityAt'))->setValue($this->player->getUser(), $date);
     }
 
     private function whenANewCycleIsTriggered(): void

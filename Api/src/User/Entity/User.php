@@ -53,9 +53,13 @@ class User implements UserInterface
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $hasReadLatestNews = false;
 
+    #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private \DateTime $lastActivityAt;
+
     public function __construct()
     {
         $this->moderationSanctions = new ArrayCollection();
+        $this->lastActivityAt = new \DateTime();
     }
 
     public function getId(): int
@@ -229,5 +233,27 @@ class User implements UserInterface
     public function hasNotReadLatestNews(): bool
     {
         return $this->hasReadLatestNews === false;
+    }
+
+    public function getLastActivityAt(): \DateTime
+    {
+        return $this->lastActivityAt;
+    }
+
+    public function updateLastActivityDate(): self
+    {
+        $this->lastActivityAt = new \DateTime();
+
+        return $this;
+    }
+
+    public function lastActivityFromYesterdayOrLater(): bool
+    {
+        return $this->lastActivityAt <= new \DateTime('-1 day');
+    }
+
+    public function lastActivityFromTwoDaysAgoOrLater(): bool
+    {
+        return $this->lastActivityAt <= new \DateTime('-2 days');
     }
 }

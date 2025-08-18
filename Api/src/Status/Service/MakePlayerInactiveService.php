@@ -18,7 +18,9 @@ final class MakePlayerInactiveService
             return;
         }
 
-        if ($player->lastActionIsFromTwoDaysAgoOrLater()) {
+        $user = $player->getUser();
+
+        if ($user->lastActivityFromTwoDaysAgoOrLater()) {
             $this->statusService->removeStatus(
                 statusName: PlayerStatusEnum::INACTIVE,
                 holder: $player,
@@ -32,7 +34,7 @@ final class MakePlayerInactiveService
                 time: new \DateTime(),
                 visibility: VisibilityEnum::PUBLIC
             );
-        } elseif ($player->lastActionIsFromYesterdayOrLater()) {
+        } elseif ($user->lastActivityFromYesterdayOrLater()) {
             $this->statusService->createStatusFromName(
                 statusName: PlayerStatusEnum::INACTIVE,
                 holder: $player,

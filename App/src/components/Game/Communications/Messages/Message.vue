@@ -215,9 +215,17 @@ export default defineComponent ({
         async read(message: Message) {
             if (this.adminMode) return;
 
-            if (message.isUnread && !this.readMessageMutex) {
-                await this.acquireReadMessageMutex();
-                await this.readMessage(message);
+            if (!message.isUnread) {
+                return;
+            }
+
+            await this.acquireReadMessageMutex();
+
+            try {
+                if (message.isUnread) {
+                    await this.readMessage(message);
+                }
+            } finally {
                 await this.releaseReadMessageMutex();
             }
         },

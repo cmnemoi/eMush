@@ -209,4 +209,19 @@ final class ChannelServiceCest extends AbstractFunctionalTest
         // then Chun should not have access to the Mush channel
         $I->assertNotContains(ChannelScopeEnum::MUSH, $channels->map(static fn (Channel $channel) => $channel->getScope()));
     }
+
+    public function testMarkTipsChannelAsRead(FunctionalTester $I): void
+    {
+        // given a player who has not read tips yet
+        $I->assertFalse($this->player->hasReadTips());
+
+        // given a tips channel
+        $tipsChannel = Channel::createTipsChannelForPlayer($this->player);
+
+        // when I mark the tips channel as read
+        $this->channelService->markTipsChannelAsReadForPlayer($tipsChannel, $this->player);
+
+        // then the player should have read tips channel
+        $I->assertTrue($this->player->hasReadTips());
+    }
 }

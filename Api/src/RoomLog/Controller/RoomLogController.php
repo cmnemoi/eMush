@@ -103,6 +103,7 @@ class RoomLogController extends AbstractGameController
             'description' => $this->translationService->translate('room_log.description', [], 'chat', $language),
             'scope' => ChannelScopeEnum::ROOM_LOG,
             'numberOfNewMessages' => $this->roomLogService->getNumberOfUnreadRoomLogsForPlayer($player),
+            'flashing' => false,
         ]);
     }
 

@@ -48,7 +48,7 @@ const actions: ActionTree<any, any> = {
     storePlayer({ commit }, { player }) {
         commit('updatePlayer', player);
     },
-    async chooseSkill({ commit }, { player, skill }) {
+    async chooseSkill({ commit, dispatch }, { player, skill }) {
         commit('setLoading', true);
         try {
             await PlayerService.chooseSkill(player, skill);
@@ -56,27 +56,45 @@ const actions: ActionTree<any, any> = {
             await this.dispatch('player/reloadPlayer');
         } catch (error) {
             console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
         commit('setLoading', false);
     },
-    async deleteNotification({ commit }) {
+    async deleteNotification({ commit, dispatch }) {
         commit('setLoading', true);
         try {
             const player = store.getters['player/player'];
             await PlayerService.deleteNotification(player);
         } catch (error) {
             console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
         commit('setLoading', false);
     },
-    async toggleMissionCompletion({ commit }, { mission }) {
+    async toggleMissionCompletion({ commit, dispatch }, { mission }) {
         commit('setLoading', true);
         try {
             await PlayerService.toggleMissionCompletion(mission.id);
+            await dispatch("communication/loadAlivePlayerChannels", null, { root: true });
+            mission.isCompleted = !mission.isCompleted;
         } catch (error) {
             console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
         commit('setLoading', false);
+    },
+    async markMissionAsRead({ dispatch }, { mission }) {
+        try {
+            await PlayerService.markMissionAsRead(mission.id);
+            mission.isUnread = false;
+        } catch (error) {
+            console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+        }
     },
     async loadPlayer({ commit, dispatch, state }, { playerId, isRetry = false }) {
         if (!playerId) {
@@ -252,7 +270,6 @@ async function loadAlertsForCurrentPlayer(dispatch: any, playerIsNull: boolean, 
 }
 
 async function loadAlertsIfNeeded(dispatch: any, player: Player | null, playerIsNull: boolean): Promise<void> {
-    console.log('loadAlertsIfNeeded - playerIsNull:', playerIsNull, 'player:', player);
     if (!playerIsNull) {
         return Promise.resolve();
     }
@@ -311,6 +328,8 @@ async function handlePlayerLoadError(dispatch: any, commit: any, e: any, isRetry
 
     console.error('Load player failed (no retry):', e);
     commit('errorUpdatePlayer');
+    await dispatch('error/setError', e, { root: true });
+    await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
     return false;
 }
 

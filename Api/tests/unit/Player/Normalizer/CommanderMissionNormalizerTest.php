@@ -51,6 +51,7 @@ final class CommanderMissionNormalizerTest extends TestCase
             'date' => 'à l\'instant',
             'isPending' => true,
             'isCompleted' => false,
+            'isUnread' => true,
         ], $normalizedCommanderMission);
     }
 

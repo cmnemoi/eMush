@@ -8,8 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Daedalus\Entity\DaedalusInfo;
+use Mush\Player\Entity\CommanderMission;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'communication_channel')]
@@ -66,6 +68,11 @@ class Channel
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getIdOrThrow(): int
+    {
+        return $this->id ?? throw new \RuntimeException('Channel id not found');
     }
 
     public function getDaedalusInfo(): DaedalusInfo
@@ -196,6 +203,32 @@ class Channel
         return ChannelScopeEnum::TIPS !== $this->scope;
     }
 
+    public function shouldFlashForPlayer(Player $player): bool
+    {
+        if ($this->isNotTipsChannel()) {
+            return false;
+        }
+
+        $shouldFlashForBeginner = $player->hasStatus(PlayerStatusEnum::BEGINNER) && !$player->hasReadTips();
+        $shouldFlashForUncompletedMissions = $player->hasUnreadMissions();
+
+        return $shouldFlashForBeginner || $shouldFlashForUncompletedMissions;
+    }
+
+    public function getNumberOfTipsMessagesForPlayer(Player $player): int
+    {
+        if ($this->isNotTipsChannel()) {
+            return 0;
+        }
+
+        $count = $player->getReceivedMissions()->filter(static fn (CommanderMission $mission) => $mission->isUnread())->count();
+        if ($player->hasStatus(PlayerStatusEnum::BEGINNER) && !$player->hasReadTips()) {
+            ++$count;
+        }
+
+        return $count;
+    }
+
     private function addAllTimeParticipant(ChannelPlayer $channelPlayer): self
     {
         /** @var ChannelPlayer $participant */
@@ -211,6 +244,6 @@ class Channel
 
     private static function setupFakeIdForChannel(self $channel): void
     {
-        (new \ReflectionClass($channel))->getProperty('id')->setValue($channel, random_int(1, PHP_INT_MAX));
+        (new \ReflectionClass($channel))->getProperty('id')->setValue($channel, 0);
     }
 }

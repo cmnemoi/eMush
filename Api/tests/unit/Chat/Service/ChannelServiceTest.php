@@ -29,6 +29,7 @@ use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Factory\PlayerFactory;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -70,6 +71,7 @@ final class ChannelServiceTest extends TestCase
             $this->messageRepository,
             $this->eventService,
             $this->statusService,
+            self::createStub(PlayerRepositoryInterface::class),
         );
     }
 

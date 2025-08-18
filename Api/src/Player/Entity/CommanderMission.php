@@ -33,6 +33,9 @@ class CommanderMission implements SanctionEvidenceInterface
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $completed = false;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $read = false;
+
     public function __construct(Player $commander, Player $subordinate, string $mission)
     {
         $this->commander = $commander;
@@ -92,6 +95,11 @@ class CommanderMission implements SanctionEvidenceInterface
         return $this->completed;
     }
 
+    public function isUnread(): bool
+    {
+        return $this->read === false;
+    }
+
     public function accept(): self
     {
         $this->pending = false;
@@ -110,6 +118,13 @@ class CommanderMission implements SanctionEvidenceInterface
     public function toggleCompletion(): self
     {
         $this->completed = !$this->completed;
+
+        return $this;
+    }
+
+    public function markAsRead(): self
+    {
+        $this->read = true;
 
         return $this;
     }

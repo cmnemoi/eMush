@@ -60,13 +60,7 @@ const CommunicationService = {
         });
         await tipsChannelPromise.then((tipsChannelData: any) => {
             if (tipsChannelData.data) {
-                channels.push((new Channel()).load({
-                    scope: ChannelType.TIPS,
-                    id: ChannelType.TIPS,
-                    name: tipsChannelData.data.name,
-                    description: tipsChannelData.data.description,
-                    tips: tipsChannelData.data.tips
-                }));
+                channels.push((new Channel()).load(tipsChannelData.data));
             }
         });
 
@@ -246,6 +240,14 @@ const CommunicationService = {
             });
         }
         return messages;
+    },
+
+    markTipsChannelAsRead: async (tipsChannel: Channel): Promise<void> => {
+        if (tipsChannel.isNotTipsChannel()) {
+            throw new Error("Channel must be a tips channel");
+        }
+
+        await ApiService.patch(urlJoin(TIPS_CHANNEL_ENDPOINT, 'read'));
     }
 };
 export default CommunicationService;

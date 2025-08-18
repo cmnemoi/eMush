@@ -26,7 +26,7 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Channel::class => false,
+            Channel::class => true,
         ];
     }
 
@@ -39,6 +39,8 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
         $currentPlayer = $context['currentPlayer'];
 
         return [
+            'id' => $channel->getId(),
+            'scope' => $channel->getScope(),
             'name' => $this->translationService->translate(
                 key: \sprintf('%s.name', $channel->getScope()),
                 parameters: [],
@@ -92,6 +94,8 @@ final class TipsChannelNormalizer implements NormalizerInterface, NormalizerAwar
                     'element' => $this->normalizer->normalize($currentPlayer->getDaedalus()->getLatestAnnouncement(), $format, $context),
                 ],
             ],
+            'numberOfNewMessages' => $channel->getNumberOfTipsMessagesForPlayer($currentPlayer),
+            'flashing' => $channel->shouldFlashForPlayer($currentPlayer),
         ];
     }
 

@@ -64,4 +64,6 @@ interface ChannelServiceInterface
     public function getPlayerFavoritesChannel(Player $player): Channel;
 
     public function markChannelAsReadForPlayer(Channel $channel, Player $player): void;
+
+    public function markTipsChannelAsReadForPlayer(Channel $tipsChannel, Player $player): void;
 }

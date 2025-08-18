@@ -20,7 +20,8 @@
                 :description="channel.description"
                 :selected="isChannelSelected(channel)"
                 :number-of-new-messages="numberOfNewMessages(channel)"
-                @select="changeChannel({ channel })"
+                :flashing="channel.flashing"
+                @select="changeChannel({ channel }); readTipsChannel(channel)"
             />
         </ul>
         <component :is="currentTabComponent" :channel="currentChannel" :calendar="calendar" />
@@ -124,7 +125,8 @@ export default defineComponent ({
             loadDeadPlayerChannels: 'communication/loadDeadPlayerChannels',
             loadMoreMessages: 'communication/loadMoreMessages',
             markAllRoomLogsAsRead: 'communication/markAllRoomLogsAsRead',
-            markCurrentChannelAsRead: 'communication/markCurrentChannelAsRead'
+            markCurrentChannelAsRead: 'communication/markCurrentChannelAsRead',
+            markTipsChannelAsRead: 'communication/markTipsChannelAsRead'
         }),
         canLoadMoreMessages(): boolean {
             return this.currentChannel.isChannelWithPagination();
@@ -167,6 +169,13 @@ export default defineComponent ({
         },
         numberOfNewMessages(channel: Channel): number {
             return channel.id === this.currentChannel.id ? this.currentChannelNumberOfNewMessages : channel.numberOfNewMessages;
+        },
+        async readTipsChannel(channel: Channel): Promise<void> {
+            if (!channel.isTipsChannel()) {
+                return;
+            }
+
+            await this.markTipsChannelAsRead(channel);
         }
     }
 });

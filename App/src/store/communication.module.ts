@@ -63,6 +63,9 @@ const getters: GetterTree<any, any> = {
     },
     contactablePlayers(state) {
         return state.contactablePlayers;
+    },
+    tipsChannel(state) {
+        return state.channels.find((channel: Channel) => channel.scope === ChannelType.TIPS);
     }
 };
 
@@ -286,6 +289,10 @@ const actions: ActionTree<any, any> = {
 
         await CommunicationService.markChannelAsRead(state.currentChannel);
         commit('setCurrentChannelNumberOfNewMessages', { channel: state.currentChannel, numberOfNewMessages: 0 });
+    },
+
+    async markTipsChannelAsRead({ getters, commit }) {
+        await CommunicationService.markTipsChannelAsRead(getters.tipsChannel);
     }
 };
 

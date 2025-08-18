@@ -67,9 +67,17 @@ export default defineComponent ({
         formatText,
         getImgUrl,
         async read(roomLog: RoomLog) {
-            if (!this.isReadingLog && roomLog.isUnread) {
-                await this.acquireReadLogMutex();
-                await this.readRoomLog(roomLog);
+            if (!roomLog.isUnread) {
+                return;
+            }
+
+            await this.acquireReadLogMutex();
+
+            try {
+                if (roomLog.isUnread) {
+                    await this.readRoomLog(roomLog);
+                }
+            } finally {
                 await this.releaseReadLogMutex();
             }
         },

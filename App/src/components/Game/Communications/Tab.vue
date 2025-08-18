@@ -2,7 +2,7 @@
     <Tippy
         tag="div"
         class="tab"
-        :class="[selected ? 'checked' : '', isPirated ? 'pirated' : '']"
+        :class="[selected ? 'checked' : '', isPirated ? 'pirated' : '', flashing ? 'flashing' : '']"
         @click="$emit('select')"
     >
         <img :src="icon">
@@ -37,7 +37,8 @@ export default defineComponent ({
             default: 0
         },
         name: String,
-        description: String
+        description: String,
+        flashing: Boolean
     },
     emits: [
         'select'
@@ -110,6 +111,24 @@ export default defineComponent ({
 
     &.pirated::after{ // Background of the tab icons
         background: rgba(252, 154, 166, 1);
+    }
+
+    &.flashing::after {
+        background: linear-gradient(45deg, $slightlyDeepBlue, $lightCyan);
+        background-size: 400% 400%;
+        animation: gradient-flash 3s ease-in-out infinite;
+    }
+
+    @keyframes gradient-flash {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     .new-messages-number {

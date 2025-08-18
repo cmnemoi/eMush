@@ -157,6 +157,9 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
     #[OrderBy(['createdAt' => Order::Descending->value])]
     private Collection $receivedMissions;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $readTipsChannelId = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -1287,6 +1290,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         return $this->receivedMissions->filter(static fn (CommanderMission $mission) => $mission->isPending())->count() > 0;
     }
 
+    public function hasUnreadMissions(): bool
+    {
+        return $this->receivedMissions->filter(static fn (CommanderMission $mission) => $mission->isUnread())->count() > 0;
+    }
+
     public function hasMeansOfCommunication(): bool
     {
         return $this->hasOperationalEquipmentByName(ItemEnum::WALKIE_TALKIE)
@@ -1400,6 +1408,18 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
         }
 
         return null;
+    }
+
+    public function markTipsAsRead(int $tipsChannelId): static
+    {
+        $this->readTipsChannelId = $tipsChannelId;
+
+        return $this;
+    }
+
+    public function hasReadTips(): bool
+    {
+        return $this->readTipsChannelId !== null;
     }
 
     private function hasPheromodemConnectedTracker(): bool

@@ -22,6 +22,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Collection\PlayerCollection;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
+use Mush\Player\Repository\PlayerRepositoryInterface;
 use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -34,6 +35,7 @@ final class ChannelService implements ChannelServiceInterface
         private MessageRepositoryInterface $messageRepository,
         private EventServiceInterface $eventService,
         private StatusServiceInterface $statusService,
+        private PlayerRepositoryInterface $playerRepository,
     ) {}
 
     public function getPublicChannel(DaedalusInfo $daedalusInfo): ?Channel
@@ -303,6 +305,16 @@ final class ChannelService implements ChannelServiceInterface
 
         $this->readMessages($channel->getPlayerUnreadMessages($player), $player);
         $this->readMessages($channel->getMessagesWithChildren()->filter(static fn (Message $message) => $message->isUnreadBy($player)), $player);
+    }
+
+    public function markTipsChannelAsReadForPlayer(Channel $tipsChannel, Player $player): void
+    {
+        if ($tipsChannel->isNotTipsChannel()) {
+            throw new \InvalidArgumentException('Channel must be a tips channel');
+        }
+
+        $player->markTipsAsRead($tipsChannel->getIdOrThrow());
+        $this->playerRepository->save($player);
     }
 
     /**

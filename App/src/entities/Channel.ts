@@ -8,6 +8,7 @@ export type CommanderMission = {
     date: string,
     isPending: boolean,
     isCompleted: boolean,
+    isUnread: boolean,
 };
 
 export type ComManagerAnnouncement = {
@@ -72,6 +73,7 @@ export class Channel {
     public description!: string;
     public numberOfNewMessages!: integer;
     public tips?: Tips;
+    public flashing!: boolean;
 
     constructor() {
         this.participants = [];
@@ -95,6 +97,7 @@ export class Channel {
             this.description = object.description;
             this.numberOfNewMessages = object.numberOfNewMessages;
             this.tips = object.tips;
+            this.flashing = object.flashing;
         }
         return this;
     }
@@ -128,8 +131,12 @@ export class Channel {
         return this.scope === ChannelType.FAVORITES;
     }
 
+    isTipsChannel(): boolean {
+        return this.scope === ChannelType.TIPS;
+    }
+
     isNotTipsChannel(): boolean {
-        return this.scope !== ChannelType.TIPS;
+        return this.isTipsChannel() === false;
     }
 
     supportsReplies(): boolean {

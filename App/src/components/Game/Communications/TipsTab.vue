@@ -4,8 +4,12 @@
             <div class="banner">
                 <span><img :src="getImgUrl('comms/notebook.png')"> {{ channel.tips.missions.title }} <img :src="getImgUrl('comms/notebook.png')"></span>
             </div>
-            <div class="mission" v-for="mission in channel.tips.missions.elements" :key="mission.commander.key">
-                <div class="message">
+            <div
+                class="mission"
+                v-for="mission in channel.tips.missions.elements"
+                :key="mission.commander.key"
+                @mouseover="markMissionAsRead(mission)">
+                <div :class="['message', { new: mission.isUnread }]">
                     <div class="char-portrait">
                         <img :src="getImgUrl(`char/body/${mission.commander.key}.png`)">
                     </div>
@@ -134,7 +138,8 @@ export default defineComponent ({
     computed: {
         ...mapGetters({
             channel: "communication/currentChannel",
-            player: "player/player"
+            player: "player/player",
+            isReadingMission: 'communication/readMessageMutex'
         }),
         generalAnnouncement(): ComManagerAnnouncementElement | undefined {
             return this.channel.tips?.announcement.element;
@@ -151,6 +156,9 @@ export default defineComponent ({
             'executeAction': 'action/executeAction',
             'reportCommanderMission': 'moderation/reportCommanderMission',
             'toggleMission': 'player/toggleMissionCompletion',
+            'readMission': 'player/markMissionAsRead',
+            'acquireReadMissionMutex': 'communication/acquireReadMessageMutex',
+            'releaseReadMissionMutex': 'communication/releaseReadMessageMutex',
             'reportComManagerAnnouncement': 'moderation/reportComManagerAnnouncement'
         }),
         async acceptMission(missionId: number): Promise<void> {
@@ -170,7 +178,21 @@ export default defineComponent ({
         },
         async toggleMissionCompletion(mission: CommanderMission): Promise<void> {
             await this.toggleMission({ mission });
-            mission.isCompleted = !mission.isCompleted;
+        },
+        async markMissionAsRead(mission: CommanderMission): Promise<void> {
+            if (!mission.isUnread) {
+                return;
+            }
+
+            await this.acquireReadMissionMutex();
+
+            try {
+                if (mission.isUnread) {
+                    await this.readMission({ mission });
+                }
+            } finally {
+                await this.releaseReadMissionMutex();
+            }
         },
         async submitReportAnnouncement(announcement: ComManagerAnnouncementElement): Promise<void> {
             const params = new URLSearchParams();

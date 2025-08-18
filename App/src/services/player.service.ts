@@ -120,10 +120,11 @@ const PlayerService = {
     },
 
     toggleMissionCompletion: async (missionId: number): Promise<void> => {
-        await store.dispatch('player/setLoading', { loading: true });
         await ApiService.put(urlJoin(PLAYER_ENDPOINT, 'toggle-mission-completion', String(missionId)));
-        await store.dispatch("communication/loadAlivePlayerChannels", null, { root: true });
-        await store.dispatch('player/setLoading', { loading: false });
+    },
+
+    markMissionAsRead: async (missionId: number): Promise<void> => {
+        await ApiService.put(urlJoin(PLAYER_ENDPOINT, 'mark-mission-as-read', String(missionId)));
     }
 };
 export default PlayerService;

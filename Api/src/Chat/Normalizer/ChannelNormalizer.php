@@ -84,6 +84,7 @@ class ChannelNormalizer implements NormalizerInterface
             'newMessageAllowed' => $this->messageService->canPlayerPostMessage($currentPlayer, $channel),
             'piratedPlayer' => $piratedPlayerId,
             'numberOfNewMessages' => $this->messageService->getNumberOfNewMessagesForPlayer($currentPlayer, $channel),
+            'flashing' => $channel->shouldFlashForPlayer($currentPlayer),
         ];
     }
 }

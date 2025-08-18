@@ -15,7 +15,7 @@ final readonly class CommanderMissionNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            CommanderMission::class => false,
+            CommanderMission::class => true,
         ];
     }
 
@@ -44,6 +44,7 @@ final readonly class CommanderMissionNormalizer implements NormalizerInterface
             'date' => $this->getTranslatedDate($commanderMission->getCreatedAtOrThrow(), $commanderMission->getLanguage()),
             'isPending' => $commanderMission->isPending(),
             'isCompleted' => $commanderMission->isCompleted(),
+            'isUnread' => $commanderMission->isUnread(),
         ];
     }
 

@@ -11,12 +11,14 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusConfig;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Daedalus\Entity\Neron;
+use Mush\Disease\Enum\DisorderEnum;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Config\ItemConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Enum\GameConfigEnum;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Hunter\Entity\HunterConfig;
 use Mush\Hunter\Enum\HunterEnum;
 use Mush\Place\Entity\Place;
@@ -28,16 +30,21 @@ use Mush\Status\Entity\Config\ChargeStatusConfig;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\User\Entity\User;
 use Mush\User\Factory\UserFactory;
 
-class CreatePlayerServiceCest
+/**
+ * @internal
+ */
+final class CreatePlayerServiceCest extends AbstractFunctionalTest
 {
     private PlayerService $playerService;
 
     public function _before(FunctionalTester $I)
     {
+        parent::_before($I);
         $this->playerService = $I->grabService(PlayerService::class);
     }
 
@@ -146,5 +153,47 @@ class CreatePlayerServiceCest
         $I->assertTrue($playerFinola->isMush());
         $I->assertTrue($playerGioele->isMush());
         $I->assertNotNull($daedalus->getFilledAt());
+    }
+
+    public function alphaMushEleeshaGetsChronicVertigosWhenJoiningLast(FunctionalTester $I): void
+    {
+        $this->givenGameIsStartingWithThreePlayersAndEleeshaAvailable($I);
+        $eleesha = $this->whenEleeshaJoinsLast($I);
+        $this->thenGameIsCurrentAndEleeshaIsMushWithChronicVertigos($eleesha, $I);
+    }
+
+    private function givenGameIsStartingWithThreePlayersAndEleeshaAvailable(FunctionalTester $I): void
+    {
+        $this->daedalus->getDaedalusInfo()->setGameStatus(GameStatusEnum::STARTING);
+        $this->daedalus->getDaedalusConfig()->setPlayerCount(3);
+        $eleeshaConfig = $I->grabEntityFromRepository(CharacterConfig::class, ['name' => CharacterEnum::ELEESHA]);
+        $this->daedalus->addAvailableCharacter($eleeshaConfig);
+        $I->haveInRepository($this->daedalus);
+        $this->createExtraPlace(RoomEnum::FRONT_STORAGE, $I, $this->daedalus);
+    }
+
+    private function whenEleeshaJoinsLast(FunctionalTester $I)
+    {
+        $user = UserFactory::createUser();
+        $I->haveInRepository($user);
+
+        return $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ELEESHA);
+    }
+
+    private function thenGameIsCurrentAndEleeshaIsMushWithChronicVertigos($eleesha, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            GameStatusEnum::CURRENT,
+            $this->daedalus->getGameStatus(),
+            'Game should switch to in-game status after the last player joins.'
+        );
+        $I->assertTrue(
+            $eleesha->isMush(),
+            'Eleesha should be mush.'
+        );
+        $I->assertTrue(
+            $eleesha->getMedicalConditionByNameOrThrow(DisorderEnum::CHRONIC_VERTIGO)->isActive(),
+            'Eleesha should have chronic vertigos.'
+        );
     }
 }

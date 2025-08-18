@@ -7,6 +7,7 @@ use Mush\Disease\Enum\DiseaseCauseEnum;
 use Mush\Disease\Service\DiseaseCauseServiceInterface;
 use Mush\Disease\Service\PlayerDiseaseServiceInterface;
 use Mush\Game\Enum\EventEnum;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\RollPercentageEvent;
 use Mush\Game\Service\EventServiceInterface;
@@ -56,7 +57,7 @@ final class PlayerSubscriber implements EventSubscriberInterface
             PlayerEvent::CYCLE_DISEASE => 'onCycleDisease',
             PlayerEvent::DEATH_PLAYER => ['onDeathPlayer', 20], // higher priority than Death log
             PlayerEvent::INFECTION_PLAYER => 'onInfectionPlayer',
-            PlayerEvent::NEW_PLAYER => 'onNewPlayer',
+            PlayerEvent::NEW_PLAYER => ['onNewPlayer', EventPriorityEnum::HIGH],
         ];
     }
 

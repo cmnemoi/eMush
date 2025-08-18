@@ -1,5 +1,7 @@
 <template>
     <div class="main-container">
+        <TopBar />
+        <UserMenu />
         <Spinner :loading="userLoading || playerLoading || configLoading || adminLoading"/>
         <ToastContainer />
         <Banner />
@@ -10,7 +12,6 @@
         <PlayerNotificationPopUp />
         <Thanks />
         <ModerationWarningBanner :user-sanctions="userSanctions" />
-        <LocaleChange />
     </div>
 </template>
 
@@ -21,7 +22,6 @@ import ErrorPopup from "@/components/ErrorPopup.vue";
 import ConfirmPopup from "@/components/ConfirmPopup.vue";
 import Spinner from "@/components/Utils/Spinner.vue";
 import { mapGetters, mapActions } from "vuex";
-import LocaleChange from "@/components/Utils/LocaleChange.vue";
 import Thanks from "@/components/Thanks.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
 import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBanner.vue";
@@ -29,6 +29,8 @@ import { defineComponent } from "vue";
 import ToastContainer from "./components/ToastContainer.vue";
 import PlayerNotificationPopUp from "@/components/Game/PlayerNotificationPopUp.vue";
 import UserService from "@/services/user.service";
+import TopBar from "./components/Hud/TopBar.vue";
+import UserMenu from "./components/Hud/UserMenu.vue";
 
 export default defineComponent({
     name: 'App',
@@ -49,11 +51,12 @@ export default defineComponent({
         Banner,
         ErrorPopup,
         ConfirmPopup,
-        LocaleChange,
         Thanks,
         MaintenancePage,
         ToastContainer,
-        PlayerNotificationPopUp
+        PlayerNotificationPopUp,
+        TopBar,
+        UserMenu
     },
     computed: {
         ...mapGetters({
@@ -99,6 +102,7 @@ export default defineComponent({
     min-height: 100%;
     background: #0f0f43 url("/src/assets/images/bg.jpg") no-repeat center 0;
     overflow-y: auto;
+    padding-top: 32px;
 }
 
 </style>

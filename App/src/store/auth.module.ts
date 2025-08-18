@@ -46,6 +46,10 @@ const getters = {
         }
     },
 
+    username: (state: AuthState): string | null => {
+        return state.userInfo ? state.userInfo.username : null;
+    },
+
     isAdmin: (state: AuthState): boolean => {
         return state.userInfo ? state.userInfo.isAdmin() : false;
     },

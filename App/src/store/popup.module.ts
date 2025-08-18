@@ -43,7 +43,10 @@ const state = {
         playerName: null,
         gains: null,
         highlights: null
-    } as PlayerHistoryPopUpData
+    } as PlayerHistoryPopUpData,
+    userMenu: {
+        isOpen: false
+    }
 };
 
 const getters: GetterTree<any, any> = {
@@ -61,6 +64,9 @@ const getters: GetterTree<any, any> = {
     },
     playerHistoryPopUp: (state: any): PlayerHistoryPopUpData => {
         return state.playerHistoryPopUp;
+    },
+    userMenu: (state: any): BasicPopUp => {
+        return state.userMenu;
     }
 };
 
@@ -109,6 +115,12 @@ const mutations: MutationTree<any> = {
         state.playerHistoryPopUp.playerName = null;
         state.playerHistoryPopUp.gains = null;
         state.playerHistoryPopUp.highlights = null;
+    },
+    openUserMenu(state) {
+        state.userMenu.isOpen = true;
+    },
+    closeUserMenu(state) {
+        state.userMenu.isOpen = false;
     }
 };
 
@@ -142,6 +154,12 @@ const actions: ActionTree<any, any> = {
     },
     closePlayerHistoryPopUp({ commit }) {
         commit('closePlayerHistoryPopUp');
+    },
+    openUserMenu({ commit }) {
+        commit('openUserMenu');
+    },
+    closeUserMenu({ commit }) {
+        commit('closeUserMenu');
     }
 };
 

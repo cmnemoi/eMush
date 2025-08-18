@@ -2,11 +2,15 @@
     <div class="localechange">
         <ol>
             <img
-                v-for="(lang, i) in langs"
-                :key="`Lang${i}`"
+                v-for="(lang, langKey) in langs"
+                :class="{ flag: true, selected: selectedLocale === langKey }"
+                :key="`Lang${langKey}`"
                 :value="lang.caption"
-                @click="switchLocale(i)"
-                :src="lang.icon" />
+                @click="updateLocale(langKey as string)"
+                :src="lang.icon"
+                :alt="lang.caption"
+                :title="lang.caption"
+            />
         </ol>
     </div>
 </template>
@@ -14,34 +18,54 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { gameLocales } from "@/i18n";
+import { mapGetters, mapActions } from "vuex";
 
 export default defineComponent ({
     name: 'LocaleChange',
     data () {
         return { langs: gameLocales };
     },
+    computed: {
+        ...mapGetters({
+            selectedLocale: 'locale/currentLocale'
+        })
+    },
     methods: {
-        switchLocale: function(locale :string) {
-            if (this.$i18n.locale !== locale) {
-                this.$i18n.locale = locale;
-            }
-        }
+        ...mapActions({
+            updateLocale: 'locale/updateLocale'
+        })
     }
 });
 </script>
 
 <style lang="scss" scoped>
-
 .localechange {
-    img {
-        width: auto;
-        height: auto;
-        margin: 0.6em auto .1em;
-        padding: .6em;
-        border-radius: .4em;
-        background-color: rgba(15, 15, 67, .5);
-    }
-    position: fixed;
-    bottom: 0;
+	width: 100%;
+}
+
+ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	gap: 8px;
+}
+
+.flag {
+	cursor: pointer;
+	box-shadow: none;
+	border: 1px solid rgb(108, 113, 136);
+	object-fit: cover;
+
+	&:not(.selected):hover {
+		box-shadow: $orange 0px 0px 8px;
+	}
+}
+
+.selected {
+	box-shadow: $orange 0px 0px 8px;
 }
 </style>

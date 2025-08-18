@@ -139,9 +139,18 @@
                 <h3>{{ $t('footer.otherGames') }}</h3>
                 <ul>
                     <li v-for="game in otherGames()" :key="game.key">
-                        <a :href="game.link" target="_blank" rel="noopener noreferrer">
-                            {{ $t(`footer.eternaltwinGames.${game.key}`) }}
-                        </a>
+                        <Tippy
+                            tag="a"
+                            :href="game.link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {{ $t(`footer.eternaltwinGames.${game.key}.name`) }}
+                            <template #content>
+                                <h1>{{ $t(`footer.eternaltwinGames.${game.key}.name`) }}</h1>
+                                <p>{{ $t(`footer.eternaltwinGames.${game.key}.description`) }}</p>
+                            </template>
+                        </Tippy>
                     </li>
                 </ul>
             </div>
@@ -157,9 +166,11 @@ import { mapActions } from "vuex";
 import { mapGetters } from 'vuex';
 import { getImgUrl } from '@/utils/getImgUrl';
 import { getEternaltwinGames } from '@/utils/getEternaltwinGames';
+import { Tippy } from 'vue-tippy';
 
 export default defineComponent({
     name: 'Thanks',
+    components: { Tippy },
     computed: {
         ...mapGetters({
             player: 'player/player'

@@ -30,16 +30,46 @@
 		"report": "Report inappropriate behavior",
 		"otherGames": "Discover other Eternalltwin games",
 		"eternaltwinGames": {
-			"alphabounce": "Alphabounce",
-			"dinocard": "Dinocard",
-			"dinorpg": "DinoRPG",
-			"directquiz": "Directquiz",
-			"epopotamo": "ePopotamo",
-			"eternalfest": "Eternalfest",
-			"kingdom": "Eternal Kingdom",
-			"mybrute": "MyBrute",
-			"myhordes": "MyHordes",
-			"neoparc": "Neoparc"
+			"alphabounce": {
+				"name": "AlphaBounce",
+				"description": "AlphaBounce is a brick game where you are a prisoner sentenced to mine in the space for ever. Maybe you could get home?"
+			},
+			"dinocard": {
+				"name": "Dinocard",
+				"description": "Dinocard Rebirth is a reimplementation of Dinocard. There is already 150 playable cards!"
+			},
+			"dinorpg": {
+				"name": "DinoRPG",
+				"description": "Train your dinoz and set off on an extraordinary adventure..."
+			},
+			"directquiz": {
+				"name": "Directquiz",
+				"description": "Jeu de quiz : votre culture mise à rude épreuve ! (only available in French)"
+			},
+			"epopotamo": {
+				"name": "ePopotamo",
+				"description": "Le jeu de mots relax jouable en toute situation ! (only available in French)"
+			},
+			"eternalfest": {
+				"name": "Eternalfest",
+				"description": "Eternalfest is a reimplementation of Hammerfest. It has both the official levels, and new content!"
+			},
+			"kingdom": {
+				"name": "Eternal Kingdom",
+				"description": "Expand your domain and become emperor!"
+			},
+			"mybrute": {
+				"name": "My Brute",
+				"description": "Settle your differences in the arena!"
+			},
+			"myhordes": {
+				"name": "MyHordes",
+				"description": "The first free zombie survival game taking place in a hostile world populated by zombies!"
+			},
+			"neoparc": {
+				"name": "Neoparc",
+				"description": "Neoparc is a fresh implementation of Dinoparc. Raise your Dinoz in this improved version!"
+			}
 		}
 	},
 	"util": {

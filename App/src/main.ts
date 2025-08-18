@@ -6,11 +6,12 @@ import { TokenService } from "./services/storage.service";
 import store from './store';
 import router from './router';
 import { createI18n } from 'vue-i18n';
-import { messages, defaultLocale } from '@/i18n';
+import { messages, defaultLocale, normalizeLocale } from '@/i18n';
 import { mixin } from './mixin/mixin';
 import { plugin as VueTippy } from 'vue-tippy';
 import UUID from "vue3-uuid";
 import { VueHeadMixin, createHead } from '@unhead/vue/client';
+import { LocaleService } from './services/locale.service';
 
 // Set the base URL of the API
 ApiService.init(import.meta.env.VITE_APP_API_URL!);
@@ -24,9 +25,9 @@ if (TokenService.getToken()) {
 ApiService.mountErrorInterceptor();
 
 // Translation with i18n
-const i18n = createI18n({
+export const i18n = createI18n({
     messages,
-    locale: navigator.language,
+    locale: LocaleService.getLocale() || normalizeLocale(defaultLocale),
     fallbackLocale: defaultLocale
 });
 

@@ -30,16 +30,46 @@
 		"report": "Signaler un comportement inapproprié",
 		"otherGames": "Découvrez les autres jeux d'Eternaltwin",
 		"eternaltwinGames": {
-			"alphabounce": "Alphabounce",
-			"dinocard": "Dinocard",
-			"dinorpg": "DinoRPG",
-			"directquiz": "Directquiz",
-			"epopotamo": "ePopotamo",
-			"eternalfest": "Eternalfest",
-			"kingdom": "Eternal Kingdom",
-			"mybrute": "LaBrute",
-			"myhordes": "MyHordes",
-			"neoparc": "Neoparc"
+			"alphabounce": {
+				"name": "AlphaBounce",
+				"description": "AlphaBounce est un jeu de casse-briques dans lequel vous incarnez un prisonnier condamné à miner dans l'espace pour l'éternité. Mais peut-être arriverez-vous à rentrer chez vous ?"
+			},
+			"dinocard": {
+				"name": "Dinocard",
+				"description": "Dinocard Rebirth est une nouvelle version de Dinocard. Il y a déjà 150 cartes jouables !"
+			},
+			"dinorpg": {
+				"name": "DinoRPG",
+				"description": "Élevez vos dinoz dans un jeu d'aventure extraordinaire !"
+			},
+			"directquiz": {
+				"name": "Directquiz",
+				"description": "Mettez votre culture à rude épreuve dans Direct Quiz, le jeu de quiz le plus déjanté du web !"
+			},
+			"epopotamo": {
+				"name": "ePopotamo",
+				"description": "Le jeu de mots relax jouable en toute situation !"
+			},
+			"eternalfest": {
+				"name": "Eternalfest",
+				"description": "Plus de 200 niveaux ! Une grande variété d'ennemis très très méchants !"
+			},
+			"kingdom": {
+				"name": "Eternal Kingdom",
+				"description": "Faites prospérer votre capitale. Recrutez des soldats et devenez... Empereur !"
+			},
+			"mybrute": {
+				"name": "La Brute",
+				"description": "Règle tes comptes dans l'arène !"
+			},
+			"myhordes": {
+				"name": "MyHordes",
+				"description": "Le premier jeu de survie zombie gratuit se déroulant dans un monde hostile peuplé de morts-vivants !"
+			},
+			"neoparc": {
+				"name": "Neoparc",
+				"description": "Combattez d'autres Dinoz et gagnez ainsi petit à petit de l'expérience lors de combats sans merci !"
+			}
 		}
 	},
 	"util": {
@@ -993,5 +1023,24 @@
 		"mushGenome": "Génome Mush",
 		"displayYourHumanSkills": "Cliquez ici pour afficher vos **compétences humaines**.",
 		"displayYourMushSkills": "Cliquez ici pour afficher vos **compétences Mush**."
+	},
+	"hud": {
+		"userMenu": {
+			"account": "Mon compte",
+			"rankings": "Classements",
+			"news": "News",
+			"rules": "Règlement",
+			"daedalus": "Daedalus",
+			"logout": "Déconnexion",
+			"notifications": "Notifications",
+			"readAll": "Tout marquer comme lu",
+			"soon": "Bientôt disponible",
+			"ok": "OK",
+			"settings": "Paramètres"
+		},
+		"topBar": {
+			"login": "Connexion",
+			"notifications": "{count} notification | {count} notifications"
+		}
 	}
 }

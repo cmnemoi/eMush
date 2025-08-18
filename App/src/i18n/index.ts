@@ -36,4 +36,10 @@ export const messages = {
     [GameLocales.FR]: fr,
     [GameLocales.ES]: es
 };
-export const defaultLocale = GameLocales.FR;
+export const defaultLocale = GameLocales.EN;
+
+export const normalizeLocale = (browserLocale: string): string => {
+    const supportedLocales = [GameLocales.EN, GameLocales.FR, GameLocales.ES];
+    const shortLocale = browserLocale.split('-')[0].toLowerCase() as GameLocales;
+    return supportedLocales.includes(shortLocale) ? shortLocale : defaultLocale;
+};

@@ -12,6 +12,7 @@ import { popup } from "@/store/popup.module";
 import { moderation } from "@/store/moderation.module";
 import { toast } from "@/store/toast.module";
 import { adminActions } from "@/store/admin.actions.module";
+import { locale } from "@/store/locale.module";
 
 export default createStore({
     modules: {
@@ -27,7 +28,8 @@ export default createStore({
         popup,
         moderation,
         toast,
-        adminActions
+        adminActions,
+        locale
     }
 })
 ;

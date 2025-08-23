@@ -1519,6 +1519,11 @@
   resolved "https://registry.yarnpkg.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.46.2.tgz#87079f137b5fdb75da11508419aa998cc8cc3d8b"
   integrity sha512-CvUo2ixeIQGtF6WvuB87XWqPQkoFAFqW+HUo/WzHwuHDvIwZCtjdWXoYCcr06iKGydiqTclC4jU/TNObC/xKZg==
 
+"@ruffle-rs/ruffle@^0.2.0-nightly.2025.8.23":
+  version "0.2.0-nightly.2025.8.23"
+  resolved "https://registry.yarnpkg.com/@ruffle-rs/ruffle/-/ruffle-0.2.0-nightly.2025.8.23.tgz#a98218a8f8900bf82b09bda839edd29ded916e4d"
+  integrity sha512-NFDhNDHdoYQ95QZRbKK5W0ApFMVdoQTpz2zYxSuOnx+mk0k5FlSIhWmntRh+HF87v6f8kgBntyZTZ5mhcJQwgA==
+
 "@sinonjs/commons@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-3.0.1.tgz#1029357e44ca901a615585f6d27738dbc89084cd"

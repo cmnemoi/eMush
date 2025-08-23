@@ -89,6 +89,6 @@ export default defineConfig({
   build: {
     assetsInlineLimit: 0,
   },
-  test: {
-  },
+  test: {},
+  assetsInclude: ['**/*.swf'],
 })

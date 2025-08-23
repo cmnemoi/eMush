@@ -9,9 +9,11 @@
     "serve": "vite --host",
     "test": "vitest",
     "test-ci": "vitest run",
-    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src"
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src",
+    "postinstall": "mkdir -p public/ruffle && cp -R node_modules/@ruffle-rs/ruffle/* public/ruffle"
   },
   "dependencies": {
+    "@ruffle-rs/ruffle": "^0.2.0-nightly.2025.8.23",
     "@unhead/vue": "^2.0.14",
     "@vitejs/plugin-vue": "^6.0.1",
     "axios": "^1.11.0",

@@ -27,6 +27,12 @@ If you don't want to go through the installation process, you can use the projec
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/eternaltwin/mush/mush)
 
+## Run in with Codeanywhere
+
+This will create a new workspace in the cloud with all the dependencies installed and the project ready to run with your prefered IDE. You need a Codeanywhere account to use this feature.
+
+[![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)](https://app.codeanywhere.com/#https://github.com/eternaltwin/mush/mush)
+
 This will create a new workspace in the cloud with all the dependencies installed and the project ready to run with your prefered IDE. You need a Gitpod account to use this feature.
 
 ### Installing with Docker (recommended)

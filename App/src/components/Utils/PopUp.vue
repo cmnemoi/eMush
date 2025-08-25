@@ -40,9 +40,9 @@ export default defineComponent ({
     transition: all 0.3s;
 
     .modal-box {
-        min-width: 400px;
+        min-width: 320px;
         max-width: 560px;
-        max-height: 900px;
+        max-height: 80%;
         position: absolute;
         top: 50%;
         left: 50%;

@@ -182,7 +182,7 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             }
         }
 
-        return $normalizedProjects;
+        return $this->putLastAdvancedProjectFirst($normalizedProjects);
     }
 
     private function getNormalizedTerminalItems(GameEquipment $terminal, ?string $format, array $context): array
@@ -720,5 +720,23 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
         }
 
         return $deathAnnouncementsToggles;
+    }
+
+    private function putLastAdvancedProjectFirst(array $normalizedProjects): array
+    {
+        foreach ($normalizedProjects as $normalizedProject) {
+            if ($normalizedProject['isLastAdvancedProject']) {
+                $lastAdvancedProject = $normalizedProject;
+
+                return array_merge(
+                    [$lastAdvancedProject],
+                    array_filter($normalizedProjects, static function ($project) use ($lastAdvancedProject) {
+                        return $project['id'] !== $lastAdvancedProject['id'];
+                    })
+                );
+            }
+        }
+
+        return $normalizedProjects;
     }
 }

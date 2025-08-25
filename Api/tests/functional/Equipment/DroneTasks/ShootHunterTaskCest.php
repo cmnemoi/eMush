@@ -13,9 +13,11 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
+use Mush\Hunter\Enum\HunterEnum;
 use Mush\Hunter\Enum\HunterVariableEnum;
 use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Hunter\Event\HunterVariableEvent;
+use Mush\Hunter\Service\CreateHunterService;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -33,6 +35,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private CreateHunterService $createHunter;
 
     private Drone $drone;
     private GameEquipment $patrolShip;
@@ -45,6 +48,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->createHunter = $I->grabService(CreateHunterService::class);
 
         $this->givenAPatrolShipInBattle($I);
         $this->givenADroneInPatrolShip($I);
@@ -216,6 +220,17 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->thenPatrolShipShouldHaveCharges(9, $I);
     }
 
+    public function shouldNotBeApplicableIfOnlyTransportAreAroundDaedalus(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenOneTransport();
+
+        $this->whenIExecuteShootHunterTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
+    }
+
     private function givenAPatrolShipInBattle(FunctionalTester $I): void
     {
         $place = $this->createExtraPlace(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN, $I, $this->daedalus);
@@ -306,6 +321,11 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->patrolShip->getWeaponMechanicOrThrow()->setBaseAccuracy(0);
     }
 
+    private function givenOneTransport(): void
+    {
+        $this->createHunter->execute(HunterEnum::TRANSPORT, $this->daedalus->getId());
+    }
+
     private function whenIExecuteShootHunterTask(): void
     {
         $this->task->execute($this->drone, new \DateTime());
@@ -313,7 +333,7 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
 
     private function thenTaskShouldNotBeApplicable(FunctionalTester $I): void
     {
-        $I->assertFalse($this->task->isApplicable());
+        $I->assertFalse($this->task->isApplicable(), 'Task should not be applicable');
     }
 
     private function thenAttackingHunterShouldHaveLessHealth(FunctionalTester $I): void

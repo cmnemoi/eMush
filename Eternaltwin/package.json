@@ -14,5 +14,6 @@
     "packages": [
       "App"
     ]
-  }
+  },
+  "packageManager": "yarn@4.9.3"
 }

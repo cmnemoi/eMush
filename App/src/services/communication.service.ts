@@ -86,7 +86,7 @@ const CommunicationService = {
             }
         });
 
-        return channels;
+        return channels.filter((channel: Channel) => channel.scope !== ChannelType.MUSH);
     },
 
     createPrivateChannel: async (): Promise<Channel> => {

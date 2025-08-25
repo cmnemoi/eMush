@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Skill;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Game\Enum\VisibilityEnum;
-use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
@@ -28,7 +29,6 @@ final class ColdBloodedCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
 
@@ -39,14 +39,14 @@ final class ColdBloodedCest extends AbstractFunctionalTest
     {
         $this->givenChunHasActionPoints(0);
 
-        $this->whenKuanTiDies();
+        $this->whenKuanTiDiesFrom(EndCauseEnum::DEPRESSION);
 
         $this->thenChunShouldHaveActionPoints(3, $I);
     }
 
     public function shouldPrintPrivateLog(FunctionalTester $I): void
     {
-        $this->whenKuanTiDies();
+        $this->whenKuanTiDiesFrom(EndCauseEnum::DEPRESSION);
 
         $this->ISeeTranslatedRoomLogInRepository(
             expectedRoomLog: 'Votre compétence **Sang-froid** a porté ses fruits...',
@@ -66,9 +66,24 @@ final class ColdBloodedCest extends AbstractFunctionalTest
 
         $this->givenPlayerIsMush();
 
-        $this->whenKuanTiDies();
+        $this->whenKuanTiDiesFrom(EndCauseEnum::DEPRESSION);
 
         $this->thenPlayerShouldNotHaveActionPoints(0, $I);
+    }
+
+    #[DataProvider('happyEnds')]
+    public function shouldNotGainActionPointsOnHappyEnds(FunctionalTester $I, Example $example): void
+    {
+        $this->givenPlayerHasActionPoints(0);
+
+        $this->whenKuanTiDiesFrom($example['endCause']);
+
+        $this->thenPlayerShouldNotHaveActionPoints(0, $I);
+    }
+
+    public static function happyEnds(): array
+    {
+        return EndCauseEnum::getNotDeathEndCauses()->map(static fn (string $endCause) => ['endCause' => $endCause])->toArray();
     }
 
     private function givenChunHasActionPoints(int $actionPoints): void
@@ -91,11 +106,11 @@ final class ColdBloodedCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenKuanTiDies(): void
+    private function whenKuanTiDiesFrom(string $endCause): void
     {
         $this->playerService->killPlayer(
             player: $this->kuanTi,
-            endReason: EndCauseEnum::DEPRESSION,
+            endReason: $endCause,
             time: new \DateTime(),
         );
     }

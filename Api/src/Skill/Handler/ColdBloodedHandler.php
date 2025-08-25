@@ -16,11 +16,6 @@ final class ColdBloodedHandler
 
     public function execute(Player $player): void
     {
-        $this->addColdBloodedBonusToPlayer($player);
-    }
-
-    private function addColdBloodedBonusToPlayer(Player $player): void
-    {
         $playerVariableEvent = new PlayerVariableEvent(
             player: $player,
             variableName: $this->coldBloodedBonusVariable($player),

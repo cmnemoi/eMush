@@ -8,6 +8,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Game\Enum\TitleEnum;
 use Mush\Player\Entity\Player;
+use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerEvent;
 use Mush\Player\Service\ChangePlayerVariableMaximumServiceInterface;
@@ -53,6 +54,10 @@ final class PlayerEventSubscriber implements EventSubscriberInterface
 
     public function onDeathPlayer(PlayerEvent $event): void
     {
+        if ($event->hasAnyTag(EndCauseEnum::getNotDeathEndCauses()->toArray())) {
+            return;
+        }
+
         $daedalus = $event->getDaedalus();
         $coldBloodedPlayers = $daedalus
             ->getAlivePlayers()

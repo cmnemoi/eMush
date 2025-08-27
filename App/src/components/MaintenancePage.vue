@@ -1,72 +1,20 @@
 <template>
-    <div class="box-container">
-        <h1 class="title">{{ $t("errors.title") }}</h1>
-        <div class="error-container">
-            <img class="neron-img" :src="getImgUrl('neron_eye.gif')" alt="Neron">
-            <span class="neron-message" v-html="$t('errors.neronMessage')"></span>
-            <p class="error">{{ $t('errors.gameInMaintenance') }}</p>
-            <p class="community" v-html="$t('errors.consultCommunity')"></p>
-        </div>
-    </div>
+    <ErrorPage :title="$t('errors.title')" :error-message="errorMessage" />
 </template>
 
 <script lang="ts">
-import { getImgUrl } from "@/utils/getImgUrl";
 import { defineComponent } from "vue";
+import ErrorPage from "@/components/ErrorPage.vue";
 
 export default defineComponent ({
     name: 'MaintenancePage',
-    props: {
-        error: {
-            type: Object,
-            default: null
+    components: { ErrorPage },
+    computed: {
+        errorMessage(): string {
+            return this.$t('errors.gameInMaintenance') as unknown as string;
         }
-    },
-    methods: {
-        getImgUrl
     }
 });
 
 </script>
 
-<style scoped lang="scss">
-.box-container {
-    :deep(strong) {
-        color: $cyan;
-    }
-
-    :deep(a) {
-        color: $green;
-    }
-
-    .title {
-        font-size: 17pt;
-        margin-bottom: 15px;
-    }
-
-    .error-container {
-        display: block;
-        margin: 5px 0 10px 0;
-        font-size: 11pt;
-
-        .neron-img {
-            float: left;
-            width: 100px;
-            height: 100px;
-            margin-right: 10px;
-        }
-
-        .neron-message {
-            display: inline;
-        }
-
-        .error {
-            margin: 10px 10px;
-            margin-left: 110px;
-            padding: 5px 10px;
-            border: 1px solid $red;
-            background-color: #222b6b;
-        }
-    }
-}
-</style>

@@ -76,27 +76,12 @@ const ApiService = {
             },
             async (error) => {
                 if (error.request.status === 401) {
-                    //@TODO: use refresh token when available
                     await store.dispatch('auth/logout');
-                    // if (error.config.url.includes('/oauth/v2/token')) {
-                    //     // Refresh token has failed. Logout the user
-                    //     await store.dispatch('auth/logout');
-                    //     throw error
-                    // } else {
-                    //     // Refresh the access token
-                    //     try{
-                    //         await store.dispatch('auth/refreshToken');
-                    //         // Retry the original request
-                    //         return this.customRequest({
-                    //             method: error.config.method,
-                    //             url: error.config.url,
-                    //             data: error.config.data
-                    //         })
-                    //     } catch (e) {
-                    //         // Refresh has failed - reject the original request
-                    //         throw error
-                    //     }
-                    // }
+
+                } else if (error.request.status === 503) {
+                    // Set global maintenance flag; App.vue will render MaintenancePage
+                    store.commit('admin/setMaintenanceStatus', true);
+                    throw error;
                 } else {
                     // If error was not 401, inform user with a pop-up before rejecting
                     await store.dispatch('error/setError', error);

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import router from "@/router";
 import { defineComponent } from "vue";
 
@@ -33,20 +33,10 @@ export default defineComponent ({
             return;
         }
 
-        this.loadGameMaintenanceStatus();
-        if (this.gameInMaintenance()) {
-            router.push({ name: 'MaintenancePage' });
-            return;
-        }
-
         router.push({ name: 'GamePage' });
     },
     methods: {
-        ...mapGetters({
-            gameInMaintenance: 'admin/gameInMaintenance'
-        }),
         ...mapActions({
-            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
             login: 'auth/login'
         })
     }

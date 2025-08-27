@@ -762,7 +762,8 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
-		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord d'Eternaltwin</a>."
+		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord d'Eternaltwin</a>.",
+		"notFound": "La page que vous cherchez est introuvable. Encore un coup de la matière noire, du Mush ou toute autre explication farfelue générique... Désolé :)"
 	},
 	"metaSeo": {
 		"description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !",
@@ -1042,5 +1043,26 @@
 			"login": "Connexion",
 			"notifications": "{count} notification | {count} notifications"
 		}
-	}
+	},
+  "fakeAdmin": {
+    "title": "Console administrateur NERON — Accès contrôlé",
+    "subtitle": "Bonjour {user}. Session ouverte en mode restreint. Lancez une opération pour initialiser la vérification des accréditations.",
+    "buttons": {
+      "teleportToEden": "Se téléporter sur Eden",
+      "revealMush": "Révéler les Mushs",
+      "advanceTime50Days": "Avancer le temps de 50 jours",
+      "makeChunMush": "Rendre Chun Mush",
+      "get999AP": "Obtenir 999 PA",
+	  "repairFuelTanks": "Réparer les réservoirs de fuel"
+    },
+    "alerts": {
+      "teleportToEden": "Téléportation vers Eden impossible: météo solaire capricieuse. Restez bien au chaud.",
+      "revealMush": "Révélation des Mushs en cours... Erreur: tous les humains ont l'air suspects.",
+      "advanceTime50Days": "Avance temporelle refusée: paradoxe détecté. Merci de respecter la ligne temporelle.",
+      "makeChunMush": "Chun refuse poliment. Enfin, poliment... c'est vite dit.",
+      "get999AP": "Crédit PA annulé: 'tricher' n'est pas une compétence reconnue par NERON.",
+	  "repairFuelTanks": "Réparation des réservoirs de fuel en cours... Erreur: vous êtes attaqué par Capucine."
+    },
+    "hint": "Astuce: pour utiliser ces fonctionnalités, il faut des accréditations valides. Ou un très bon sens de l'humour."
+  }
 }

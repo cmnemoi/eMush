@@ -32,6 +32,9 @@ import AdminActionsPage from "@/components/Admin/Actions/AdminActionsPage.vue";
 import ModerationReportListPage from "@/components/Moderation/ModerationReportListPage.vue";
 import ModerationShipListPage from "@/components/Moderation/ModerationShipListPage.vue";
 import ModerationShipViewPage from "@/components/Moderation/ModerationShipViewPage.vue";
+import { User } from "@/entities/User";
+import NotFoundPage from "@/components/NotFoundPage.vue";
+import FakeAdminPage from "@/components/FakeAdminPage.vue";
 
 const routes = [
     {
@@ -283,6 +286,16 @@ const routes = [
         path: "/token",
         name: "Token",
         component: Token
+    },
+    {
+        path: "/fake-admin",
+        name: "FakeAdmin",
+        component: FakeAdminPage
+    },
+    {
+        path: "/:pathMatch(.*)*",
+        name: "NotFound",
+        component: NotFoundPage
     }
 ];
 
@@ -296,28 +309,26 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    // redirect to login page if not logged in and trying to access a restricted page
-    const { authorize }: any = to.meta;
-    const currentUser = store.getters["auth/getUserInfo"];
-    if (authorize) {
-        if (!currentUser) {
-            // not logged in so redirect to login page with the return url
-            return next({ path: '/', query: { returnUrl: to.path } });
-        }
-
-        // check if user has accepted rules, if not redirect to rules page
-        if (!currentUser.hasAcceptedRules && to.name !== 'Rules') {
-            return next({ name: 'Rules' });
-        }
-
-        // check if route is restricted by role
-        if (authorize.length && is_granted(authorize, currentUser)) {
-            // role not authorised so redirect to home page
-            return next({ path: '/' });
-        }
+    const authorize = (to.meta?.authorize as UserRole[] | undefined);
+    if (!authorize) {
+        return next();
     }
 
-    next();
+    const currentUser = store.getters["auth/getUserInfo"] as User | null;
+    if (!currentUser) {
+        return next({ path: '/', query: { returnUrl: to.path } });
+    }
+
+    if (!currentUser.hasAcceptedRules && to.name !== 'Rules') {
+        return next({ name: 'Rules' });
+    }
+
+    const isAuthorizedForRoute: boolean = authorize.some((role: UserRole) => is_granted(role, currentUser));
+    if (!isAuthorizedForRoute) {
+        return next({ name: 'FakeAdmin' });
+    }
+
+    return next();
 });
 
 export default router;

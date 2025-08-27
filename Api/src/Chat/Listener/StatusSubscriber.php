@@ -10,6 +10,8 @@ use Mush\Chat\Services\NeronMessageServiceInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Event\EquipmentEvent;
 use Mush\Game\Enum\EventEnum;
+use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\DaedalusStatusEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
@@ -73,7 +75,7 @@ final class StatusSubscriber implements EventSubscriberInterface
                 parameters: [],
                 dateTime: $event->getTime()
             ),
-            PlayerStatusEnum::MUSH => $this->channelService->removePlayerFromMushChannel($event->getPlayerStatusHolder()),
+            PlayerStatusEnum::MUSH => $this->removePlayerFromMushChannelIfNeeded($event->getPlayerStatusHolder()),
             default => null,
         };
     }
@@ -93,5 +95,16 @@ final class StatusSubscriber implements EventSubscriberInterface
                 $this->channelService->updatePlayerPrivateChannels($player, EquipmentStatusEnum::BROKEN, $event->getTime());
             }
         }
+    }
+
+    private function removePlayerFromMushChannelIfNeeded(Player $player): void
+    {
+        // If Pheromodem is finished, all players stay in mush channel
+        $pheromodem = $player->getDaedalus()->getProjectByName(ProjectName::PHEROMODEM);
+        if ($pheromodem->isFinished()) {
+            return;
+        }
+
+        $this->channelService->removePlayerFromMushChannel($player);
     }
 }

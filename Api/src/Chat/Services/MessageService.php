@@ -104,12 +104,12 @@ final class MessageService implements MessageServiceInterface
             return $messages;
         }
 
-        return $messages->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
+        return $messages->map(fn (Message $message) => $this->getModifiedMessageWithChildren($message, $player));
     }
 
     public function getPlayerFavoritesChannelMessages(Player $player): Collection
     {
-        return $player->getFavoriteMessages()->map(fn (Message $message) => $this->getModifiedMessage($message, $player));
+        return $player->getFavoriteMessages()->map(fn (Message $message) => $this->getModifiedMessageWithChildren($message, $player));
     }
 
     public function canPlayerPostMessage(Player $player, Channel $channel): bool
@@ -280,6 +280,18 @@ final class MessageService implements MessageServiceInterface
     private function getByChannelWithTimeLimit(Channel $channel, \DateInterval $timeLimit): Collection
     {
         return new ArrayCollection($this->messageRepository->findByChannel($channel, $timeLimit));
+    }
+
+    private function getModifiedMessageWithChildren(Message $message, Player $player): Message
+    {
+        $modifiedMessage = $this->getModifiedMessage($message, $player);
+
+        // Apply modifications to child messages as well
+        $modifiedMessage->getChild()->map(
+            fn (Message $childMessage) => $this->getModifiedMessage($childMessage, $player)
+        );
+
+        return $modifiedMessage;
     }
 
     private function getModifiedMessage(Message $message, Player $player): Message

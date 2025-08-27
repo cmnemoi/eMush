@@ -68,6 +68,46 @@ final class MessageServiceCest extends AbstractFunctionalTest
         $this->thenMessageShouldBeRejected($I);
     }
 
+    public function shouldPrevenDeafPlayerToReadMessages(FunctionalTester $I): void
+    {
+        // given player is deaf
+        $this->playerDiseaseService->createDiseaseFromName(
+            InjuryEnum::DESTROYED_EARS,
+            $this->player,
+        );
+
+        // given messages in public channel
+        $message = $this->messageService->createPlayerMessage(
+            player: $this->player2,
+            createMessage: new CreateMessage()->setChannel($this->publicChannel)->setMessage('Hello, World!'),
+        );
+
+        // given a child message
+        $this->messageService->createPlayerMessage(
+            player: $this->player2,
+            createMessage: new CreateMessage()->setChannel($this->publicChannel)->setMessage('Hello, World!')->setParent($message),
+        );
+
+        // when player tries to read message
+        $messages = $this->messageService->getChannelMessages($this->player, $this->publicChannel, new \DateInterval('P7D'));
+
+        // then message should not be readable
+        $I->assertEquals(
+            expected: [
+                '...',
+            ],
+            actual: $messages->map(static fn (Message $message) => $message->getMessage())->toArray(),
+        );
+
+        // then child message should not be readable too
+        $I->assertEquals(
+            expected: [[
+                '...',
+            ]],
+            actual: $messages->map(static fn (Message $message) => $message->getChild()->map(static fn (Message $child) => $child->getMessage())->toArray())->toArray(),
+        );
+    }
+
     private function givenPlayerHasTornTongue(): void
     {
         $this->playerDiseaseService->createDiseaseFromName(

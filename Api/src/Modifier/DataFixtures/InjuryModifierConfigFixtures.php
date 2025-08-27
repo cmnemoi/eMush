@@ -189,22 +189,10 @@ class InjuryModifierConfigFixtures extends Fixture implements DependentFixtureIn
         $shootAction40PercentAccuracyLost->buildName();
         $manager->persist($shootAction40PercentAccuracyLost);
 
-        $deafSpeak = new EventModifierConfig(MessageModificationEnum::DEAF_SPEAK);
-        $deafSpeak
-            ->setTargetEvent(MessageEvent::NEW_MESSAGE)
-            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
-            ->setModifierStrategy(ModifierStrategyEnum::MESSAGE_MODIFIER)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('deaf_speak_modifier_fixture');
+        $deafSpeak = EventModifierConfig::fromConfigData(ModifierConfigData::getByName('deaf_ON_new_message_default'));
         $manager->persist($deafSpeak);
 
-        $deafListen = new EventModifierConfig(MessageModificationEnum::DEAF_LISTEN);
-        $deafListen
-            ->setTargetEvent(MessageEvent::READ_MESSAGE)
-            ->setPriority(ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY)
-            ->setModifierStrategy(ModifierStrategyEnum::PREVENT_EVENT)
-            ->setModifierRange(ModifierHolderClassEnum::PLAYER)
-            ->setName('deaf_listen__modifier_fixture');
+        $deafListen = EventModifierConfig::fromConfigData(ModifierConfigData::getByName('deaf_ON_read_message_default'));
         $manager->persist($deafListen);
 
         $paranoia = new EventModifierConfig(MessageModificationEnum::PARANOIA_MESSAGES);

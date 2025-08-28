@@ -54,9 +54,25 @@ Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_
 
 Refer to detailed Docker installation instructions [here](https://gitlab.com/eternaltwin/mush/mush/-/wikis/Docker-install-detailed-instructions) and adapt to your needs.
 
-If you enconter any issue, ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
+If you encounter any issue, ask for help on [Discord](https://discord.com/channels/693082011484684348/746873392463872071).
 
 ### Installing without Docker
+
+#### Devbox
+
+You can use [Devbox](https://www.jetify.com/docs/devbox/) to manage your development environment (not on Windows, unless you run WSL2).
+
+```bash
+git clone https://gitlab.com/eternaltwin/mush/mush.git && cd mush
+curl -fsSL https://get.jetify.com/devbox | bash # Install Devbox
+devbox shell # Run a shell with dependencies managed by Devbox
+devbox run install # Install the project
+devbox run emush # Launch eMush
+```
+
+Please find more commands in [`devbox.json`](./devbox.json).
+
+#### Installation scripts
 
 If you don't want to use Docker, here are two installation scripts.
 
@@ -79,7 +95,7 @@ Run `curl -sSL https://gitlab.com/eternaltwin/mush/mush/-/raw/develop/clone_and_
 
 If everything went well you should be able to access:
   - Swagger API documentation : http://localhost:8080/swagger/
-  - eMush front end : http://localhost
+  - eMush front end : http://localhost (http://localhost:5173 on non-Docker installations)
 
 Use the following credentials to login (all users - named by eMush characters - have the same password):
 ```

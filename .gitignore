@@ -36,3 +36,7 @@ TODO.md
 .windsurfrules
 project-guidelines.md
 AGENT.md
+
+# Devbox
+.devbox
+devbox.d/

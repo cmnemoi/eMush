@@ -1,0 +1,66 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
+  "packages": [
+    "php@8.4",
+    "php84Extensions.pgsql",
+    "php84Extensions.pdo",
+    "php84Extensions.pdo_pgsql",
+    "php84Extensions.opcache",
+    "php84Extensions.protobuf",
+    "nodejs@22",
+    "postgresql@17",
+    "php84Extensions.intl@latest",
+    "yarn-berry_4@latest",
+    "concurrently@latest"
+  ],
+  "shell": {
+    "init_hook": [],
+    "scripts": {
+      "emush": [
+        "concurrently --prefix \"[{name}]\" --names \"API,APP,ETWIN\" -c \"bgMagenta.bold,bgBlue.bold,bgGreen.bold\" \"devbox run start:api\" \"devbox run start:app\" \"devbox run start:eternaltwin\""
+      ],
+      "install": [
+        "devbox run setup-env-variables",
+        "devbox run install:postgres",
+        "concurrently \"devbox run install:api\" \"devbox run install:app\" \"devbox run install:eternaltwin\""
+      ],
+      "install:api": [
+        "cd Api && composer reset"
+      ],
+      "install:app": [
+        "cd App && yarn install"
+      ],
+      "install:postgres": [
+        "rm -rf .devbox/virtenv/postgresql/data",
+        "initdb",
+        "devbox services start postgresql && sleep 5",
+        "createuser -s -r postgres",
+        "chmod +x init_db.sh && ./init_db.sh"
+      ],
+      "install:eternaltwin": [
+        "cd Eternaltwin && yarn install && yarn eternaltwin db sync"
+      ],
+      "setup-env-variables": [
+        "cp Api/.env.bare.metal Api/.env.local",
+        "cp Api/.env.bare.metal.test Api/.env.test.local",
+        "cp App/.env.bare.metal App/.env",
+        "cp Eternaltwin/eternaltwin.bare.metal.toml Eternaltwin/eternaltwin.local.toml"
+      ],
+      "start:api": [
+        "cd Api && php -S localhost:8080 -t public"
+      ],
+      "start:app": [
+        "cd App && yarn dev"
+      ],
+      "start:eternaltwin": [
+        "cd Eternaltwin && yarn eternaltwin start"
+      ],
+      "fill-daedalus": [
+        "cd Api && php bin/console mush:fill-daedalus"
+      ],
+      "test:app": [
+        "cd App && yarn test"
+      ]
+    }
+  }
+}

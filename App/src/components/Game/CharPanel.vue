@@ -467,7 +467,6 @@ div.inventory {
         display: flex;
         flex-direction: column;
         float: right;
-        min-width: 32px;
     }
 
     li {
@@ -624,6 +623,9 @@ div.inventory {
 }
 
 @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
+    .actions-sheet {
+        width: 100%;
+    }
     .char-panel {
         width: 100%;
 

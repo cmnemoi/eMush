@@ -7,15 +7,23 @@
                 <BannerPanel :player="player" :daedalus="player.daedalus" />
             </div>
             <div class="game-content">
-                <CharPanel :player="player" />
-                <TerminalPanel v-if="player.isFocused()" :player="player" />
-                <CommanderOrderPanel v-else-if="commanderOrderPanelOpen" :player="player" />
-                <ComManagerAnnouncementPanel v-else-if="comManagerAnnouncementPanelOpen" :player="player" />
-                <ExpeditionPanel v-else-if="player.isExploring()" :player="player" />
-                <ShipPanel v-else :room="player.room" :player="player" />
-                <CommsPanel :calendar="player.daedalus.calendar"/>
+                <div class="grid-container char-panel-container">
+                    <CharPanel :player="player" />
+                </div>
+                <div class="grid-container central-panel-container">
+                    <TerminalPanel v-if="player.isFocused()" :player="player" />
+                    <CommanderOrderPanel v-else-if="commanderOrderPanelOpen" :player="player" />
+                    <ComManagerAnnouncementPanel v-else-if="comManagerAnnouncementPanelOpen" :player="player" />
+                    <ExpeditionPanel v-else-if="player.isExploring()" :player="player" />
+                    <ShipPanel v-else :room="player.room" :player="player" />
+                </div>
+                <div class="grid-container comms-panel-container">
+                    <CommsPanel :calendar="player.daedalus.calendar"/>
+                </div>
+                <div class="grid-container projects-panel-container">
+                    <ProjectsPanel :projects="player.daedalus.projects" />
+                </div>
             </div>
-            <ProjectsPanel :projects="player.daedalus.projects" />
             <div class="bottom-banner" />
         </div>
         <div v-else-if="['finished'].includes(player.gameStatus)" class="main">
@@ -95,18 +103,52 @@ export default defineComponent ({
 <style lang="scss" scoped>
 
 .box-container {
+    margin-top: 8px;
     position: relative;
     min-height: 424px;
     //z-index: 10;
 }
 
 .game-content {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    row-gap: 5px;
-    column-gap: 5px;
+    display: grid;
+    gap: 6px;
 
-    @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { flex-direction: column; }
+    .char-panel-container {
+        grid-area: char-panel;
+    }
+
+    .central-panel-container {
+        grid-area: central-panel;
+    }
+
+    .comms-panel-container {
+        grid-area: comms-panel;
+    }
+
+    .projects-panel-container {
+        grid-area: projects-panel;
+    }
+
+    grid-template-columns: 1fr minmax(360px, 424px) 2fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "char-panel       central-panel       comms-panel"
+      "projects-panel   projects-panel      comms-panel";
+}
+
+@media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
+    .game-content {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "char-panel"
+            "central-panel"
+            "comms-panel"
+            "projects-panel";
+
+        .grid-container {
+            overflow-x: auto;
+            align-items: center;
+        }
+    }
 }
 </style>

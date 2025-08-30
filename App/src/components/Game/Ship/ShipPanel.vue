@@ -146,8 +146,6 @@ export default defineComponent ({
 
     }
 
-    @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { margin: auto; }
-
 }
 
 </style>

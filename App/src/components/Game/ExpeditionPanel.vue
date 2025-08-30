@@ -139,7 +139,6 @@ export default defineComponent ({
 .panel {
     position: relative;
     flex-direction: column;
-    width: 424px;
     height: 460px;
     padding: 5px 8px;
     color: $deepBlue;

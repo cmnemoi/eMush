@@ -233,7 +233,7 @@ export default defineComponent ({
 #comms-panel {
     position: relative;
     display: block;
-    width: 404px;
+    width: 100%;
     min-height: 460px;
 
     .tabs {
@@ -255,7 +255,9 @@ export default defineComponent ({
         }
     }
 
-    @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { width: 100%; }
+    @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) { 
+        margin-top: 3px;
+    }
 }
 
 /* TIMER STYLING */

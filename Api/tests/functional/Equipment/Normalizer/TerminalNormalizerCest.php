@@ -7,6 +7,8 @@ namespace Mush\tests\functional\Equipment\Normalizer;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communications\Entity\NeronVersion;
+use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Enum\ToolItemEnum;
@@ -39,6 +41,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
     private Project $pilgredProject;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private NeronVersionRepositoryInterface $neronVersionRepository;
     private string $isChunPresentText;
     private string $isAnyMushDeadText;
 
@@ -52,6 +55,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
 
         $this->translationService = $I->grabService(TranslationService::class);
 
@@ -69,6 +73,8 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
             language: $this->daedalus->getLanguage(),
         );
         $this->createExtraPlace(RoomEnum::NEXUS, $I, $this->daedalus);
+
+        $this->neronVersionRepository->save(new NeronVersion($this->daedalus->getId()));
 
         $this->givenGameHasStarted();
     }
@@ -186,7 +192,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         // then I should get the normalized terminal
         $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
-        $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
+        $I->assertEquals(expected: 'Cœur de NERON V1.00', actual: $normalizedTerminal['name']);
         $I->assertEquals(
             expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
             actual: $normalizedTerminal['tips']
@@ -227,7 +233,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         // then I should get the normalized terminal
         $I->assertEquals(expected: EquipmentEnum::NERON_CORE, actual: $normalizedTerminal['key']);
-        $I->assertEquals(expected: 'Cœur de NERON', actual: $normalizedTerminal['name']);
+        $I->assertEquals(expected: 'Cœur de NERON V1.00', actual: $normalizedTerminal['name']);
         $I->assertEquals(
             expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
             actual: $normalizedTerminal['tips']
@@ -274,7 +280,7 @@ final class TerminalNormalizerCest extends AbstractFunctionalTest
 
         // then I should get the normalized terminal
         $I->assertEquals(expected: EquipmentEnum::AUXILIARY_TERMINAL, actual: $normalizedTerminal['key']);
-        $I->assertEquals(expected: 'Cœur de NERON auxiliaire', actual: $normalizedTerminal['name']);
+        $I->assertEquals(expected: 'Cœur de NERON V1.00 auxiliaire', actual: $normalizedTerminal['name']);
         $I->assertEquals(
             expected: "Vous êtes dans le Cœur de NERON. Ici vous pouvez le mettre à jour et **débloquer des fonctionnalités** avancées bénéfiques pour tout l'équipage. Ces fonctionnalités font partie du projet original Magellan.////Les projets avanceront mieux si vous possédez **les compétences adéquates**.////Une seule personne, même si elle possède les compétences conseillées, peut difficilement accomplir un projet toute seule. En effet, si vous avancez un projet plus d'une fois à la suite, l'efficacité de votre action diminuera. **Le travail alterné avec un camarade est la clé !**////Et ce n'est pas tout : un seul projet par set peut être mené à fin. **Lorsqu'un projet est complété, les deux autres sont désactivés de manière permanente.** Discutez entre vous pour déterminer lequel servira le vaisseau au mieux!",
             actual: $normalizedTerminal['tips']

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mush\tests\functional\Equipment\Normalizer;
 
 use Mush\Action\Enum\ActionEnum;
+use Mush\Communications\Entity\NeronVersion;
+use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -26,6 +28,7 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
 
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private NeronVersionRepositoryInterface $neronVersionRepository;
 
     private GameEquipment $calculator;
 
@@ -39,9 +42,12 @@ final class CalculatorTerminalNormalizerCest extends AbstractFunctionalTest
         $this->terminalNormalizer->setNormalizer($I->grabService(NormalizerInterface::class));
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->neronVersionRepository = $I->grabService(NeronVersionRepositoryInterface::class);
 
         $this->givenCalcualtorInRoom();
         $this->givenPlayerIsFocusedOnCalculatorTerminal();
+
+        $this->neronVersionRepository->save(new NeronVersion($this->daedalus->getId()));
     }
 
     public function shouldNormalizeName(FunctionalTester $I): void

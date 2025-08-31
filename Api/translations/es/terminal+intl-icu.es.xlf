@@ -357,7 +357,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
     <unit id="neron_core">
       <segment id="name" state="translated">
         <source>neron_core.name</source>
-        <target>Núcleo de NERON</target>
+        <target>Núcleo de NERON V{neronVersion}</target>
       </segment>
       <segment id="tips" state="translated">
         <source>neron_core.tips</source>
@@ -379,7 +379,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
     <unit id="auxiliary_terminal">
       <segment id="name" state="translated">
         <source>auxiliary_terminal.name</source>
-        <target>Terminal auxiliar de NERON</target>
+        <target>Terminal auxiliar de NERON V{neronVersion}</target>
       </segment>
       <segment id="tips" state="translated">
         <source>auxiliary_terminal.tips</source>

@@ -92,7 +92,9 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
             'key' => $terminalKey,
             'name' => $this->translationService->translate(
                 key: $terminalKey . '.name',
-                parameters: [],
+                parameters: [
+                    'neronVersion' => $this->neronVersionRepository->findByDaedalusIdOrThrow($daedalus->getId())->toString(),
+                ],
                 domain: 'terminal',
                 language: $daedalus->getLanguage()
             ),

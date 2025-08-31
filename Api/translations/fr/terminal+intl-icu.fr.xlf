@@ -342,7 +342,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
     <unit id="neron_core">
       <segment id="name" state="translated">
         <source>neron_core.name</source>
-        <target>Cœur de NERON</target>
+        <target>Cœur de NERON V{neronVersion}</target>
       </segment>
       <segment id="tips" state="translated">
         <source>neron_core.tips</source>
@@ -364,7 +364,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
     <unit id="auxiliary_terminal">
       <segment id="name" state="translated">
         <source>auxiliary_terminal.name</source>
-        <target>Cœur de NERON auxiliaire</target>
+        <target>Cœur de NERON V{neronVersion} auxiliaire</target>
       </segment>
       <segment id="tips" state="translated">
         <source>auxiliary_terminal.tips</source>

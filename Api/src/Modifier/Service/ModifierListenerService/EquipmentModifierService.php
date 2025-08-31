@@ -30,9 +30,8 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         $gearModifierConfig = $this->getGearModifierConfigs($gameEquipment);
         foreach ($gearModifierConfig as $modifierConfig) {
             $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig);
-
-            if ($holder === null) {
-                return;
+            if (!$holder) {
+                continue;
             }
 
             $this->modifierCreationService->createModifier(
@@ -50,10 +49,10 @@ class EquipmentModifierService implements EquipmentModifierServiceInterface
         $gearModifierConfig = $this->getGearModifierConfigs($gameEquipment);
         foreach ($gearModifierConfig as $modifierConfig) {
             $holder = $this->getModifierHolderFromConfig($gameEquipment, $modifierConfig);
-
-            if ($holder === null) {
-                return;
+            if (!$holder) {
+                continue;
             }
+
             $this->modifierCreationService->deleteModifier(
                 modifierConfig: $modifierConfig,
                 holder: $holder,

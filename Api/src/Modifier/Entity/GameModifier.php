@@ -15,6 +15,10 @@ use Mush\Status\Entity\ChargeStatus;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'game_modifier')]
+#[ORM\UniqueConstraint(
+    name: 'unique_modifier_config_holder_provider',
+    columns: ['modifier_config_id', 'modifier_holder_id', 'modifier_provider_id']
+)]
 class GameModifier
 {
     #[ORM\Id]

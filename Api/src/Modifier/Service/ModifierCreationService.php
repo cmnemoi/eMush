@@ -2,7 +2,6 @@
 
 namespace Mush\Modifier\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Mush\Game\Entity\VariableEventConfig;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Modifier\Entity\Config\AbstractModifierConfig;
@@ -10,38 +9,32 @@ use Mush\Modifier\Entity\Config\DirectModifierConfig;
 use Mush\Modifier\Entity\GameModifier;
 use Mush\Modifier\Entity\ModifierHolderInterface;
 use Mush\Modifier\Entity\ModifierProviderInterface;
+use Mush\Modifier\Repository\ModifierRepositoryInterface;
 
 class ModifierCreationService implements ModifierCreationServiceInterface
 {
-    private EntityManagerInterface $entityManager;
-    private EventServiceInterface $eventService;
-    private EventCreationServiceInterface $eventCreationService;
-    private ModifierRequirementServiceInterface $modifierRequirementService;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        EventServiceInterface $eventService,
-        EventCreationServiceInterface $eventCreationService,
-        ModifierRequirementServiceInterface $modifierRequirementService
+        private ModifierRepositoryInterface $modifierRepository,
+        private EventServiceInterface $eventService,
+        private EventCreationServiceInterface $eventCreationService,
+        private ModifierRequirementServiceInterface $modifierRequirementService
     ) {
-        $this->entityManager = $entityManager;
         $this->eventService = $eventService;
         $this->eventCreationService = $eventCreationService;
         $this->modifierRequirementService = $modifierRequirementService;
+        $this->modifierRepository = $modifierRepository;
     }
 
     public function persist(GameModifier $modifier): GameModifier
     {
-        $this->entityManager->persist($modifier);
-        $this->entityManager->flush();
+        $this->modifierRepository->save($modifier);
 
         return $modifier;
     }
 
     public function delete(GameModifier $modifier): void
     {
-        $this->entityManager->remove($modifier);
-        $this->entityManager->flush();
+        $this->modifierRepository->delete($modifier);
     }
 
     public function createModifier(
@@ -51,31 +44,33 @@ class ModifierCreationService implements ModifierCreationServiceInterface
         array $tags = [],
         \DateTime $time = new \DateTime(),
     ): void {
-        if ($this->holderAlreadyHasModifierFromThisProvider(
-            $holder,
-            $modifierConfig,
-            $modifierProvider
-        )) {
-            return;
-        }
+        $this->modifierRepository->wrapInTransaction(function () use ($modifierConfig, $holder, $modifierProvider, $tags, $time) {
+            if ($this->holderAlreadyHasModifierFromThisProvider(
+                $holder,
+                $modifierConfig,
+                $modifierProvider
+            )) {
+                return;
+            }
 
-        if ($modifierConfig instanceof DirectModifierConfig) {
-            $this->createDirectModifier(
-                modifierConfig: $modifierConfig,
-                modifierRange: $holder,
-                modifierProvider: $modifierProvider,
-                tags: $tags,
-                time: $time,
-                reverse: false
-            );
+            if ($modifierConfig instanceof DirectModifierConfig) {
+                $this->createDirectModifier(
+                    modifierConfig: $modifierConfig,
+                    modifierRange: $holder,
+                    modifierProvider: $modifierProvider,
+                    tags: $tags,
+                    time: $time,
+                    reverse: false
+                );
 
-            // if the direct modifier is reverted on remove we create a gameModifier to keep a trace of its presence
-            if ($modifierConfig->getRevertOnRemove()) {
+                // if the direct modifier is reverted on remove we create a gameModifier to keep a trace of its presence
+                if ($modifierConfig->getRevertOnRemove()) {
+                    $this->createGameEventModifier($modifierConfig, $holder, $modifierProvider);
+                }
+            } else {
                 $this->createGameEventModifier($modifierConfig, $holder, $modifierProvider);
             }
-        } else {
-            $this->createGameEventModifier($modifierConfig, $holder, $modifierProvider);
-        }
+        });
     }
 
     public function deleteModifier(

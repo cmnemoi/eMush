@@ -24,24 +24,31 @@ class ModifierProvider
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?Player $player = null;
 
     #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?GameEquipment $gameEquipment = null;
 
     #[ORM\ManyToOne(targetEntity: Project::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?Project $project = null;
 
     #[ORM\ManyToOne(targetEntity: Status::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?Status $status = null;
 
     #[ORM\ManyToOne(targetEntity: RebelBase::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?RebelBase $rebelBase = null;
 
     #[ORM\ManyToOne(targetEntity: XylophEntry::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?XylophEntry $xylophEntry = null;
 
     #[ORM\ManyToOne(targetEntity: PlayerDisease::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?PlayerDisease $playerDisease = null;
 
     public function getId(): int

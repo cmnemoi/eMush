@@ -24,15 +24,19 @@ class ModifierHolder
     private GameModifier $gameModifier;
 
     #[ORM\ManyToOne(targetEntity: Player::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?Player $player = null;
 
     #[ORM\ManyToOne(targetEntity: Place::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?Place $place = null;
 
     #[ORM\ManyToOne(targetEntity: GameEquipment::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?GameEquipment $gameEquipment = null;
 
     #[ORM\ManyToOne(targetEntity: Daedalus::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?Daedalus $daedalus = null;
 
     public function getId(): int

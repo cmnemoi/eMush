@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Equipment\DroneTasks;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Equipment\DroneTasks\ShootHunterTask;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
@@ -63,24 +65,23 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->thenTaskShouldNotBeApplicable($I);
     }
 
-    public function shouldThrowIfDroneNotInAPatrolShip(FunctionalTester $I): void
+    #[DataProvider('nonPatrolShipPlaces')]
+    public function shouldNotBeApplicableIfDroneIsNotInAPatrolShip(FunctionalTester $I, Example $example): void
     {
         $this->givenDroneIsAPilot();
 
         $this->givenOneAttackingHunter();
 
         // Given that the drone is not in a patrol ship
+        $place = $this->daedalus->getPlaceByName($example['place']) ?? $this->createExtraPlace($example['place'], $I, $this->daedalus);
         $this->gameEquipmentService->moveEquipmentTo(
             equipment: $this->drone,
-            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE),
+            newHolder: $place,
         );
 
-        $I->expectThrowable(
-            new \RuntimeException('There should be a patrol ship equipment in the place'),
-            function () {
-                $this->whenIExecuteShootHunterTask();
-            },
-        );
+        $this->whenIExecuteShootHunterTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
     }
 
     public function shouldNotBeApplicableIfPatrolShipIsNotOperational(FunctionalTester $I): void
@@ -99,29 +100,6 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
     public function shouldNotBeApplicableIfThereIsNoAttackingHunters(FunctionalTester $I): void
     {
         $this->givenDroneIsAPilot();
-
-        $this->whenIExecuteShootHunterTask();
-
-        $this->thenTaskShouldNotBeApplicable($I);
-    }
-
-    public function shouldNotBeApplicableIfDroneIsNotInAPatrolShip(FunctionalTester $I): void
-    {
-        $this->givenDroneIsAPilot();
-
-        $this->givenOneAttackingHunter();
-
-        // drone is not in patrol ship
-        $this->gameEquipmentService->moveEquipmentTo(
-            equipment: $this->drone,
-            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY),
-        );
-
-        // patrol ship is not in its place
-        $this->gameEquipmentService->moveEquipmentTo(
-            equipment: $this->patrolShip,
-            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY),
-        );
 
         $this->whenIExecuteShootHunterTask();
 
@@ -229,6 +207,17 @@ final class ShootHunterTaskCest extends AbstractFunctionalTest
         $this->whenIExecuteShootHunterTask();
 
         $this->thenTaskShouldNotBeApplicable($I);
+    }
+
+    public function nonPatrolShipPlaces(): array
+    {
+        return [
+            ['place' => RoomEnum::PLANET],
+            ['place' => RoomEnum::SPACE],
+            ['place' => RoomEnum::LABORATORY],
+            ['place' => RoomEnum::PLANET_DEPTHS],
+            ['place' => RoomEnum::TABULATRIX_QUEUE],
+        ];
     }
 
     private function givenAPatrolShipInBattle(FunctionalTester $I): void

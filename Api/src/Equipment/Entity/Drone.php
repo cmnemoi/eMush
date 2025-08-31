@@ -238,17 +238,17 @@ class Drone extends GameItem
 
     private function cannotLand(): bool
     {
-        return $this->isNotPilot() || $this->isInDaedalus() || $this->noLandActionAvailable();
+        return $this->isNotPilot() || !$this->isInAPatrolShip() || $this->noLandActionAvailable();
     }
 
     private function cannotShootHunter(): bool
     {
-        return $this->isNotPilot() || $this->isInDaedalus() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable();
+        return $this->isNotPilot() || !$this->isInAPatrolShip() || $this->noAttackingHunters() || $this->noShootHunterActionAvailable();
     }
 
     private function cannotTakeoff(): bool
     {
-        return $this->isNotPilot() || $this->isInAPatrolShip() || $this->noAttackingHunters() || $this->noPatrolShipTakeoffActionAvailable();
+        return $this->isNotPilot() || !$this->isInDaedalus() || $this->noAttackingHunters() || $this->noPatrolShipTakeoffActionAvailable();
     }
 
     private function nothingBrokenInRoom(): bool

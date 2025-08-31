@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Equipment\DroneTasks;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Equipment\DroneTasks\LandTask;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Drone;
@@ -13,7 +15,6 @@ use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Hunter\Event\HunterPoolEvent;
 use Mush\Place\Enum\RoomEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
@@ -69,11 +70,21 @@ final class LandTaskCest extends AbstractFunctionalTest
         $this->thenTaskShouldNotBeApplicable($I);
     }
 
-    public function shouldNotBeApplicableIfDroneIsNotInAPatrolShip(FunctionalTester $I): void
+    #[DataProvider('nonPatrolShipPlaces')]
+    public function shouldNotBeApplicableIfDroneIsNotInAPatrolShip(FunctionalTester $I, Example $example): void
     {
         $this->givenDroneIsAPilot();
 
-        $this->givenDroneIsNotInAPatrolShip($I);
+        // Given that the drone is not in a patrol ship
+        $place = $this->daedalus->getPlaceByName($example['place']) ?? $this->createExtraPlace($example['place'], $I, $this->daedalus);
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->drone,
+            newHolder: $place
+        );
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->patrolShip,
+            newHolder: $place,
+        );
 
         $this->whenIExecuteLandTask();
 
@@ -136,6 +147,28 @@ final class LandTaskCest extends AbstractFunctionalTest
         $this->thenChunShouldBeInTheDockingPlace($I);
     }
 
+    public function shouldNotBeApplicableOnPlanet(FunctionalTester $I): void
+    {
+        $this->givenDroneIsAPilot();
+
+        $this->givenDroneIsOnPlanet();
+
+        $this->whenIExecuteLandTask();
+
+        $this->thenTaskShouldNotBeApplicable($I);
+    }
+
+    public function nonPatrolShipPlaces(): array
+    {
+        return [
+            ['place' => RoomEnum::PLANET],
+            ['place' => RoomEnum::SPACE],
+            ['place' => RoomEnum::LABORATORY],
+            ['place' => RoomEnum::PLANET_DEPTHS],
+            ['place' => RoomEnum::TABULATRIX_QUEUE],
+        ];
+    }
+
     private function givenADroneInPatrolShipPlace(FunctionalTester $I): void
     {
         $drone = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -191,16 +224,6 @@ final class LandTaskCest extends AbstractFunctionalTest
         );
     }
 
-    private function givenSomeHuntersAreAttacking(): void
-    {
-        $hunterPoolEvent = new HunterPoolEvent(
-            daedalus: $this->daedalus,
-            tags: [],
-            time: new \DateTime(),
-        );
-        $this->eventService->callEvent($hunterPoolEvent, HunterPoolEvent::UNPOOL_HUNTERS);
-    }
-
     private function givenDroneIsNotInAPatrolShip(FunctionalTester $I): void
     {
         $this->gameEquipmentService->moveEquipmentTo(
@@ -217,6 +240,14 @@ final class LandTaskCest extends AbstractFunctionalTest
     private function givenChunIsInThePatrolShipPlace(): void
     {
         $this->chun->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::PATROL_SHIP_ALPHA_TAMARIN));
+    }
+
+    private function givenDroneIsOnPlanet(): void
+    {
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->drone,
+            newHolder: $this->daedalus->getPlaceByNameOrThrow(RoomEnum::PLANET),
+        );
     }
 
     private function whenIExecuteLandTask(): void

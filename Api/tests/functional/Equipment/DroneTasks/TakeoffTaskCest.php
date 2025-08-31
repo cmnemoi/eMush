@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Equipment\DroneTasks;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Drone;
@@ -82,13 +84,19 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
         $this->thenTaskShouldNotBeApplicable($I);
     }
 
-    public function shouldNotBeApplicableIfDroneIsInAPatrolShip(FunctionalTester $I): void
+    #[DataProvider('nonDaedalusPlaces')]
+    public function shouldNotBeApplicableIfDroneNotOnDaedalus(FunctionalTester $I, Example $example): void
     {
         $this->givenThereIsAttackingHunters();
 
         $this->givenDroneIsPilot();
 
-        $this->givenDroneIsInAPatrolShip($I);
+        // Given that the drone is not in a patrol ship
+        $place = $this->daedalus->getPlaceByName($example['place']) ?? $this->createExtraPlace($example['place'], $I, $this->daedalus);
+        $this->gameEquipmentService->moveEquipmentTo(
+            equipment: $this->drone,
+            newHolder: $place,
+        );
 
         $this->whenIExecuteTakeoffTask();
 
@@ -150,6 +158,17 @@ final class TakeoffTaskCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
+    }
+
+    public function nonDaedalusPlaces(): array
+    {
+        return [
+            ['place' => RoomEnum::PATROL_SHIP_ALPHA_TAMARIN],
+            ['place' => RoomEnum::PLANET],
+            ['place' => RoomEnum::SPACE],
+            ['place' => RoomEnum::PLANET_DEPTHS],
+            ['place' => RoomEnum::TABULATRIX_QUEUE],
+        ];
     }
 
     private function givenADroneInRoom(FunctionalTester $I): void

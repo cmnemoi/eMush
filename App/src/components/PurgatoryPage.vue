@@ -1,5 +1,5 @@
 <template>
-    <div class="box-container">
+    <div class="box-container purgatory-page-root">
         <div v-if="deadPlayerInfo" class="death-summary">
             <div class="char-sheet">
                 <img class="avatar" :src="characterPortrait" alt="avatar">
@@ -64,7 +64,9 @@
             <p><em>{{ $t('deathpage.notyet') }}</em></p>
             <a href="#" class="validate" @click="endGame">{{ $t('deathpage.endgame') }}</a>
         </div>
-        <CommsPanel :calendar="player.daedalus.calendar" />
+        <div class="purgatory-comms-panel-container">
+            <CommsPanel :calendar="player.daedalus.calendar" />
+        </div>
     </div>
 </template>
 
@@ -159,12 +161,19 @@ export default defineComponent ({
 
 <style lang="scss" scoped>
 
-.box-container { flex-flow: row wrap; }
+.purgatory-page-root {
+    display: flex;
+    flex-direction: row;
+}
 
 .death-summary {
-    flex: 1;
+    flex: 1.6;
     padding-right: 10px;
     font-size: 1.05rem;
+}
+
+.purgatory-comms-panel-container {
+    flex: 1;
 }
 
 h1 {
@@ -376,6 +385,10 @@ h1 {
 }
 
 @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
+
+    .purgatory-page-root {
+        flex-direction: column;
+    }
 
     .char-sheet .avatar {
         margin-top: 2em;

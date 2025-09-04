@@ -1,5 +1,5 @@
 <template>
-    <div v-if="player">
+    <div v-if="player" class="game-content-wrapper">
         <ExpeditionPopUp :exploration="player.daedalus.exploration" />
         <div v-if="['in_game'].includes(player.gameStatus)" class="box-container">
             <InvitationPrivateChannelMenu />
@@ -101,6 +101,11 @@ export default defineComponent ({
 </script>
 
 <style lang="scss" scoped>
+
+.game-content-wrapper {
+    width: fit-content;
+    margin: auto;
+}
 
 .box-container {
     margin-top: 8px;

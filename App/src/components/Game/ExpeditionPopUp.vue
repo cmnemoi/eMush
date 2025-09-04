@@ -1,14 +1,16 @@
 <template>
-    <GamePopUp
-        :title="formatText(exploration.title)"
-        class="expedition"
-        v-if="exploration"
-        :is-open="exploration !== null"
-    >
-        <span v-html="formatText(exploration.planet)" />
-        <span v-html="formatText(exploration.explorators)" />
-        <span v-html="formatText(exploration.estimatedDuration)" />
-    </GamePopUp>
+    <div class="game-popup-exploration-wrapper">
+        <GamePopUp
+            :title="formatText(exploration.title)"
+            class="expedition"
+            v-if="exploration"
+            :is-open="exploration !== null"
+        >
+            <span v-html="formatText(exploration.planet)" />
+            <span v-html="formatText(exploration.explorators)" />
+            <span v-html="formatText(exploration.estimatedDuration)" />
+        </GamePopUp>
+    </div>
 </template>
 
 <script lang="ts">
@@ -44,4 +46,26 @@ export default defineComponent ({
             color: $cyan;
         }
     }
+
+    .expedition {
+        width: 100%;
+        max-width: calc($breakpoint-desktop-l / 3);
+        margin: 4px 0px;
+    }
+
+    .game-popup-exploration-wrapper h1.header::before {
+        content: url("/src/assets/images/ui_icons/planet.png");
+        padding-right: 0.25em;
+    }
+
+    .game-popup-exploration-wrapper {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+
+        @media screen and (max-width: $breakpoint-desktop-m) and (orientation: portrait) {
+            align-items: center;
+        }
+    }
+
 </style>

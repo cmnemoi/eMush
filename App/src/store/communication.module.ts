@@ -64,7 +64,7 @@ const getters: GetterTree<any, any> = {
     contactablePlayers(state) {
         return state.contactablePlayers;
     },
-    tipsChannel(state) {
+    tipsChannel(state): Channel | undefined {
         return state.channels.find((channel: Channel) => channel.scope === ChannelType.TIPS);
     }
 };
@@ -292,7 +292,10 @@ const actions: ActionTree<any, any> = {
     },
 
     async markTipsChannelAsRead({ getters, commit }) {
-        await CommunicationService.markTipsChannelAsRead(getters.tipsChannel);
+        const tipsChannel = getters.tipsChannel;
+        await CommunicationService.markTipsChannelAsRead(tipsChannel);
+        commit('setCurrentChannelNumberOfNewMessages', { channel: tipsChannel, numberOfNewMessages: 0 });
+        tipsChannel.flashing = false;
     }
 };
 

@@ -174,12 +174,14 @@ install_backend() {
     run_command "chmod go+r config/jwt/private.pem"
 
     log_message "Setup back-end env variables..."
+    run_command "cp .env.bare-metal .env"
     run_command "cp .env.bare-metal .env.local"
     run_command "cp .env.bare-metal.test .env.test.local"
 
     log_message "Installing back-end dependencies..."
     run_command "composer install"
     run_command "composer reset"
+    run_command "php bin/console mush:generate-web-push-keys"
 }
 
 # Function to launch the project

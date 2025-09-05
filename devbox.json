@@ -25,7 +25,8 @@
         "concurrently \"devbox run install:api\" \"devbox run install:app\" \"devbox run install:eternaltwin\""
       ],
       "install:api": [
-        "cd Api && composer reset"
+        "cd Api && composer reset",
+        "php bin/console mush:generate-web-push-keys"
       ],
       "install:app": [
         "cd App && yarn install"

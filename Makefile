@@ -110,6 +110,18 @@ setup-JWT-certificates:
 .PHONY: setup-vapid-keys
 setup-vapid-keys:
 	docker compose -f docker/docker-compose.yml run -u dev mush-php php bin/console mush:generate-web-push-keys
+	@echo "Copying VAPID_PUBLIC_KEY from Api/.env to App/.env as VITE_VAPID_PUBLIC_KEY..."
+	@VAPID_KEY=$$(grep "^VAPID_PUBLIC_KEY=" Api/.env | cut -d'=' -f2); \
+	if [ -n "$$VAPID_KEY" ]; then \
+		if grep -q "^VITE_VAPID_PUBLIC_KEY=" App/.env; then \
+			sed -i "s/^VITE_VAPID_PUBLIC_KEY=.*/VITE_VAPID_PUBLIC_KEY=$$VAPID_KEY/" App/.env; \
+		else \
+			echo "VITE_VAPID_PUBLIC_KEY=$$VAPID_KEY" >> App/.env; \
+		fi; \
+		echo "VAPID public key copied successfully: $$VAPID_KEY"; \
+	else \
+		echo "Warning: VAPID_PUBLIC_KEY not found in Api/.env"; \
+	fi 
 
 .PHONY: start-eternaltwin-server
 start-eternaltwin-server:

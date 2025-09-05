@@ -1,3 +1,5 @@
 services:
     Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager:
         public: true
+    WebPush\WebPushService:
+        class: Mush\Tests\unit\TestDoubles\Service\FakeWebPushService

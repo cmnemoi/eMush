@@ -1,0 +1,13 @@
+webpush:
+  logger: Psr\Log\LoggerInterface
+  payload:
+    aesgcm:
+      cache: Psr\Cache\CacheItemPoolInterface
+  vapid:
+    enabled: true
+    subject: '%env(resolve:EMUSH_BASE_URI)%'
+    lcobucci:
+        enabled: true
+        public_key: '%env(resolve:VAPID_PUBLIC_KEY)%'
+        private_key: '%env(resolve:VAPID_PRIVATE_KEY)%'
+  

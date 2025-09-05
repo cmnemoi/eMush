@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="user_notification.ext">
+    <unit id="inactivity">
+      <segment state="translated">
+        <source>inactivity</source>
+        <target>{user}, votre équipage vous attend !</target>
+      </segment>
+    </unit>
+    <unit id="ok">
+      <segment state="translated">
+        <source>ok</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
+    <unit id="go">
+      <segment state="translated">
+        <source>go</source>
+        <target>J'y vais !</target>
+      </segment>
+    </unit>
+    <unit id="later">
+      <segment state="translated">
+        <source>later</source>
+        <target>Plus tard...</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

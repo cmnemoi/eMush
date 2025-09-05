@@ -17,6 +17,8 @@ abstract class UserFactory
             ->setUsername(Uuid::v4()->toRfc4122())
             ->setUserId(Uuid::v4()->toRfc4122());
 
+        self::setupUserId($user);
+
         return $user;
     }
 
@@ -42,5 +44,10 @@ abstract class UserFactory
         $user->setRoles([RoleEnum::MODERATOR]);
 
         return $user;
+    }
+
+    private static function setupUserId(User $user): void
+    {
+        new \ReflectionProperty($user, 'id')->setValue($user, random_int(1, PHP_INT_MAX));
     }
 }

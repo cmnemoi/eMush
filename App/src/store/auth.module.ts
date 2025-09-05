@@ -60,6 +60,9 @@ const getters = {
 
     hasAcceptedRules: (state: AuthState): boolean => {
         return state.hasAcceptedRules;
+    },
+    token(state: AuthState): string | null {
+        return state.accessToken;
     }
 };
 

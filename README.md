@@ -120,10 +120,15 @@ With non-Docker install, run `cd Api && composer fill-daedalus` to fill a Daedal
 
 - When your first Merge Request is ready, ask access to the repository by sending us your GitLab username on [Discord](https://discord.com/channels/693082011484684348/746873392463872071) :)
 
-## Endpoints
-A swagger is available that list all the available endpoints and their specifications : [Swagger](http://localhost:8080/swagger/)
+## OpenAPI / Swagger documentation page
 
-To authenticate, at the moment, use the login endpoint and set the access_token returned in the swagger header to use the other endpoints
+An OpenAPI / Swagger documentation page that lists all the available endpoints and their specifications is available : [Swagger](http://localhost:8080/swagger/)
+
+To use it, you need to provide a `Authorization` header with a valid token by clicking on the `Authorize` button in the top right corner of the page.
+
+You can grab a token by calling any API endpoint and checking the `Authorization` header in the response :
+
+![How to grab a token](./Api/docs/bearer.png)
 
 ## Gitlab
 This project use gitlab ci to check the merge requests

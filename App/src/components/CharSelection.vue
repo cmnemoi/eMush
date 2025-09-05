@@ -117,7 +117,7 @@ export default defineComponent ({
     name: 'CharSelection',
     head() {
         return {
-            title: this.$t('title.headline')
+            title: this.$t('title.headline', { count: this.notificationsCount })
         };
     },
     components: {
@@ -141,9 +141,10 @@ export default defineComponent ({
         };
     },
     computed: {
-        ...mapGetters('auth', [
-            'getUserInfo'
-        ])
+        ...mapGetters({
+            getUserInfo: 'auth/getUserInfo',
+            notificationsCount: 'notifications/notificationsCount'
+        })
     },
     methods: {
         loadAvailableCharacters(language: string) {

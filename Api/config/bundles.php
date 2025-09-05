@@ -14,6 +14,7 @@ use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Twig\Extra\TwigExtraBundle\TwigExtraBundle;
+use WebPush\Bundle\WebPushBundle;
 
 return [
     FrameworkBundle::class => ['all' => true],
@@ -30,4 +31,5 @@ return [
     NelmioCorsBundle::class => ['all' => true],
     SensioFrameworkExtraBundle::class => ['all' => true],
     ApiPlatformBundle::class => ['all' => true],
+    WebPushBundle::class => ['all' => true],
 ];

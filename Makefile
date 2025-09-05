@@ -53,7 +53,7 @@ fill-daedalus:
 	docker compose -f docker/docker-compose.yml run -u dev mush-php php bin/console mush:fill-daedalus
 
 .PHONY: install
-install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates reset-eternaltwin-database docker-start fill-daedalus
+install: setup-git-hooks setup-env-variables build install-api install-front install-eternaltwin setup-JWT-certificates setup-vapid-keys reset-eternaltwin-database docker-start fill-daedalus
 	@echo "Installation completed successfully ! You can access eMush at http://localhost/."
 	@echo "You can log in with the following credentials:"
 	@echo "Username: chun"
@@ -61,8 +61,7 @@ install: setup-git-hooks setup-env-variables build install-api install-front ins
 
 .PHONY: install-api
 install-api:
-	docker compose -f docker/docker-compose.yml run -u dev mush-php composer install &&\
-	docker compose -f docker/docker-compose.yml run -u dev mush-php ./reset.sh --init
+	docker compose -f docker/docker-compose.yml run -u dev mush-php composer reset
 
 .PHONY: install-eternaltwin
 .PHONY: install-eternaltwin
@@ -108,12 +107,16 @@ setup-JWT-certificates:
 	docker compose -f docker/docker-compose.yml run -u dev mush-php openssl pkey -passin pass:mush -in config/jwt/private.pem -out config/jwt/public.pem -pubout
 	docker compose -f docker/docker-compose.yml run -u dev mush-php chmod go+r config/jwt/private.pem
 
+.PHONY: setup-vapid-keys
+setup-vapid-keys:
+	docker compose -f docker/docker-compose.yml run -u dev mush-php php bin/console mush:generate-web-push-keys
+
 .PHONY: start-eternaltwin-server
 start-eternaltwin-server:
 	docker compose -f docker/docker-compose.yml run -u node mush-eternaltwin yarn etwin start
 
 .PHONY: gitpod-install
-gitpod-install: setup-git-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates reset-eternaltwin-database gitpod-start fill-daedalus
+gitpod-install: setup-git-hooks gitpod-setup-env-variables gitpod-build install-api install-front install-eternaltwin setup-JWT-certificates setup-vapid-keys reset-eternaltwin-database gitpod-start fill-daedalus
 
 .PHONY: gitpod-build
 gitpod-build:

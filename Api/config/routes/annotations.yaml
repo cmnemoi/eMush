@@ -1,3 +1,7 @@
+notification:
+    resource: ../../src/Notification/Controller/
+    type: attribute
+    prefix: /api/v1
 daedalus:
     resource: ../../src/Daedalus/Controller/
     type: annotation

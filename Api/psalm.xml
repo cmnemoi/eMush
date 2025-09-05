@@ -25,6 +25,16 @@
                 <directory name="src/"/>
             </errorLevel>
         </InvalidOperand>
+        <InvalidFunctionCall>
+            <errorLevel type="info">
+                <file name="src/Notification/Factory/NotificationFactory.php"/>
+            </errorLevel>
+        </InvalidFunctionCall>
+        <ArgumentTypeCoercion>
+            <errorLevel type="info">
+                <file name="src/Notification/Command/NotifyUserCommandHandler.php"/>
+            </errorLevel>
+        </ArgumentTypeCoercion>
     </issueHandlers>
     <plugins>
         <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>

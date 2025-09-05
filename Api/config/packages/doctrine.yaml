@@ -130,4 +130,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Triumph/Entity'
                 prefix: 'Mush\Triumph\Entity'
                 alias: Triumph
+            Notification:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Notification/Entity'
+                prefix: 'Mush\Notification\Entity'
+                alias: Notification
 

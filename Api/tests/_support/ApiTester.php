@@ -78,4 +78,15 @@ class ApiTester extends Actor
 
         $this->sendPut($url, $params);
     }
+
+    public function sendPostRequest(string $url, array $params = [], bool $debug = false)
+    {
+        if ($debug) {
+            $url .= '?XDEBUG_SESSION_START=PHPSTORM';
+        }
+
+        $this->haveHttpHeader('Content-Type', 'application/json');
+
+        $this->sendPost($url, $params);
+    }
 }

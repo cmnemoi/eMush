@@ -7,7 +7,7 @@ namespace Mush\User\Service;
 use Mush\User\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-final readonly class TokenService
+final readonly class TokenService implements TokenServiceInterface
 {
     public function __construct(private TokenStorageInterface $tokenStorage) {}
 
@@ -24,5 +24,10 @@ final readonly class TokenService
         }
 
         return $user;
+    }
+
+    public function toUserId(): int
+    {
+        return $this->toUser()->getId();
     }
 }

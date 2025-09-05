@@ -36,7 +36,7 @@ export default defineComponent({
     name: 'App',
     head() {
         return {
-            title: this.$t('title.headline'),
+            title: this.$t('title.headline', { count: this.notificationsCount }),
             meta: [
                 { name: 'description', content: this.$t('metaSeo.description') },
                 { name: 'og:title', content: this.$t('metaSeo.og:title') },
@@ -67,7 +67,8 @@ export default defineComponent({
             playerLoading: 'player/isLoading',
             configLoading: 'gameConfig/isLoading',
             adminLoading: 'admin/isLoading',
-            userIsAdmin: 'auth/isAdmin'
+            userIsAdmin: 'auth/isAdmin',
+            notificationsCount: 'notifications/notificationsCount'
         }),
         baseUrl() {
             return import.meta.env.VITE_APP_URL as string;

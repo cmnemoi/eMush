@@ -13,6 +13,10 @@ import { moderation } from "@/store/moderation.module";
 import { toast } from "@/store/toast.module";
 import { adminActions } from "@/store/admin.actions.module";
 import { locale } from "@/store/locale.module";
+import { createNotificationsModule } from "@/features/notification/store";
+import { NotificationService } from "@/features/notification/notification.service";
+import { LocalStorageService } from "@/shared/local.storage.service";
+import { translate } from "@/utils/i18n";
 
 export default createStore({
     modules: {
@@ -29,7 +33,11 @@ export default createStore({
         moderation,
         toast,
         adminActions,
-        locale
+        locale,
+        notifications: createNotificationsModule({
+            localStorageService: new LocalStorageService(),
+            notificationService: new NotificationService(),
+            translate
+        })
     }
-})
-;
+});

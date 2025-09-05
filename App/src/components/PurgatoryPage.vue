@@ -93,7 +93,7 @@ export default defineComponent ({
     name: 'Purgatory',
     head() {
         return {
-            title: this.deadPlayerInfo?.hasGoodEndCause() ? this.$t('title.endOfAdventure') : this.$t('title.youAreDead')
+            title: this.deadPlayerInfo?.hasGoodEndCause() ? this.$t('title.endOfAdventure', { count: this.notificationsCount }) : this.$t('title.youAreDead', { count: this.notificationsCount })
         };
     },
     components: { CommsPanel, HistoryLogs },
@@ -147,9 +147,10 @@ export default defineComponent ({
         characterPortrait: function(): string {
             return characterEnum[this.player.character.key].portrait ?? "";
         },
-        ...mapGetters('auth', [
-            'getUserInfo'
-        ])
+        ...mapGetters({
+            getUserInfo: 'auth/getUserInfo',
+            notificationsCount: 'notifications/notificationsCount'
+        })
     },
     beforeMount(): void {
         PlayerService.loadDeadPlayerInfo(this.player.id).then((res: DeadPlayerInfo|null) => {

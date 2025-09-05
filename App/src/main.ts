@@ -12,6 +12,7 @@ import { plugin as VueTippy } from 'vue-tippy';
 import UUID from "vue3-uuid";
 import { VueHeadMixin, createHead } from '@unhead/vue/client';
 import { LocaleService } from './services/locale.service';
+import { createServiceWorkerListener } from './store/plugins/service.worker.listener';
 
 // Set the base URL of the API
 ApiService.init(import.meta.env.VITE_APP_API_URL!);
@@ -58,8 +59,13 @@ app.use(store)
     .mixin(mixin)
     .use(VueTippy, vueTippyProps)
     .use(UUID)
-    .use(head)
-    .mount('#app');
+    .use(head);
+
+if ('serviceWorker' in navigator) {
+    app.use(createServiceWorkerListener(store, navigator.serviceWorker));
+}
+
+app.mount('#app');
 
 
 

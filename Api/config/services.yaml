@@ -29,6 +29,7 @@ imports:
     - { resource: ../src/Skill/config/services.yaml }
     - { resource: ../src/Communications/config/services.yaml }
     - { resource: ../src/Triumph/config/services.yaml }
+    - { resource: ../src/Notification/config/services.yaml }
 
 
 services:

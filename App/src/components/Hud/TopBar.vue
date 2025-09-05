@@ -27,7 +27,16 @@
                 <button class="connectBadge">{{ $t('hud.topBar.login') }}</button>
             </a>
             <button v-if="isLogged" class="playerLogged" @click="openUserMenu">
-                <span class="notifications" v-if="notificationsCount > 0" :data-count="notificationsCount">{{ $t('hud.topBar.notifications', { count: notificationsCount }) }}</span>
+                <Transition name="notification" mode="out-in">
+                    <span
+                        v-if="notificationsCount > 0"
+                        :key="notificationsCount"
+                        class="notifications"
+                        :data-count="notificationsCount"
+                    >
+                        {{ $t('hud.topBar.notifications', { count: notificationsCount }) }}
+                    </span>
+                </Transition>
                 <span class="usernameBadge">
                     {{ `< ${username}` }}
                 </span>
@@ -37,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, Transition } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import { getEternaltwinGames } from '@/utils/getEternaltwinGames';
 import { Tippy } from 'vue-tippy';
@@ -47,14 +56,14 @@ export default defineComponent({
     components: { Tippy },
     data() {
         return {
-            notificationsCount: 0,
             time: ''
         };
     },
     computed: {
         ...mapGetters({
             isLogged: 'auth/loggedIn',
-            username: 'auth/username'
+            username: 'auth/username',
+            notificationsCount: 'notifications/notificationsCount'
         }),
         eternaltwinGames() {
             return getEternaltwinGames().sort(() => Math.random() - 0.5);
@@ -271,6 +280,15 @@ export default defineComponent({
                 border-radius: 3px;
                 flex-shrink: 0;
 
+                // Smooth transitions for all visual properties
+                transition: all 0.2s ease;
+                transform: scale(1);
+
+                &:hover {
+                    transform: scale(1.05);
+                    box-shadow: inset 0px 0px 10px $lightBlue, 0px 0px 6px $darkBlue, 0px 0px 20px $darkBlue;
+                }
+
                 @media (max-width: 768px) {
                     font-size: 0;
                     min-width: 16px;
@@ -290,5 +308,34 @@ export default defineComponent({
             }
         }
     }
+}
+
+// Transition classes for notification
+.notification-enter-active {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.notification-leave-active {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.notification-enter-from {
+    opacity: 0;
+    transform: scale(0.3) translateY(-10px);
+}
+
+.notification-leave-to {
+    opacity: 0;
+    transform: scale(0.8) translateX(10px);
+}
+
+.notification-enter-to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.notification-leave-from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
 }
 </style>

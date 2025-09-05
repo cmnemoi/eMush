@@ -1,47 +1,58 @@
-// This is the "Offline page" service worker
+// Some code from https://github.com/bpolaszek/webpush-js (MIT License, © 2025 Beno!t POLASZEK)
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+self.addEventListener('install', event => { event.waitUntil(self.skipWaiting()); });
 
-const CACHE = "pwabuilder-page";
+self.addEventListener('activate', event => { event.waitUntil(self.clients.claim()); });
 
-// TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "offline.html";
-const offlineFallbackPage = "offline.html";
-
-self.addEventListener("message", (event) => {
-    if (event.data && event.data.type === "SKIP_WAITING") {
-        self.skipWaiting();
+self.addEventListener('push', event => {
+    try {
+        const Notification = event.data.json();
+        sendNotificationToAllClients(Notification);
+        event.waitUntil(
+            self.registration.showNotification(Notification.title || '', Notification.options || {})
+        );
+    } catch (error) {
+        try {
+            const Notification = event.data.text();
+            event.waitUntil(
+                self.registration.showNotification('Notification', { body: Notification })
+            );
+        } catch (error) {
+            event.waitUntil(
+                self.registration.showNotification('')
+            );
+        }
     }
 });
 
-self.addEventListener('install', async (event) => {
+self.addEventListener('notificationclick', event => {
+    event.notification.close();
+    const url = new URL(event.notification.data.link, self.location.origin);
+
     event.waitUntil(
-        caches.open(CACHE)
-            .then((cache) => cache.add(offlineFallbackPage))
+        clients.matchAll({ type: 'window', includeUncontrolled: true })
+            .then(windowClients => {
+                for (const client of windowClients) {
+                    if (client.url === url.toString() && 'focus' in client) {
+                        return client.focus();
+                    }
+                }
+
+                if (clients.openWindow) {
+                    return clients.openWindow(url);
+                }
+            })
     );
 });
 
-if (workbox.navigationPreload.isSupported()) {
-    workbox.navigationPreload.enable();
+function sendNotificationToAllClients(notification) {
+    self.clients.matchAll({ includeUncontrolled: true, type: 'window' })
+        .then(clients => {
+            clients.forEach(client => {
+                client.postMessage({
+                    type: 'PUSH_NOTIFICATION',
+                    data: notification
+                });
+            });
+        });
 }
-
-self.addEventListener('fetch', (event) => {
-    if (event.request.mode === 'navigate') {
-        event.respondWith((async () => {
-            try {
-                const preloadResp = await event.preloadResponse;
-
-                if (preloadResp) {
-                    return preloadResp;
-                }
-
-                const networkResp = await fetch(event.request);
-                return networkResp;
-            } catch (error) {
-
-                const cache = await caches.open(CACHE);
-                const cachedResp = await cache.match(offlineFallbackPage);
-                return cachedResp;
-            }
-        })());
-    }
-});

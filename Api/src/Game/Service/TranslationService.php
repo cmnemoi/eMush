@@ -18,6 +18,11 @@ class TranslationService implements TranslationServiceInterface
         $this->translator = $translator;
     }
 
+    public function __invoke(string $key, array $parameters, string $domain, ?string $language = null): string
+    {
+        return $this->translate($key, $parameters, $domain, $language);
+    }
+
     public function translate(string $key, array $parameters, string $domain, ?string $language = null): string
     {
         if ($language === null) {

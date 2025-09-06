@@ -45,6 +45,10 @@ final class InactivityStatusAppliedCest extends AbstractFunctionalTest
             'key' => 'inactivity',
             'title' => 'Équipage en attente',
             'description' => "Revenez sur le Daedalus, {$this->player->getUser()->getUsername()} !",
+            'actions' => [
+                ['action' => 'go', 'title' => 'J\'y vais !'],
+                ['action' => 'later', 'title' => 'Plus tard...'],
+            ],
         ], $I);
     }
 
@@ -96,5 +100,6 @@ final class InactivityStatusAppliedCest extends AbstractFunctionalTest
             expected: $example['description'],
             actual: $options['body'],
         );
+        $I->assertEquals($example['actions'], $options['actions']);
     }
 }

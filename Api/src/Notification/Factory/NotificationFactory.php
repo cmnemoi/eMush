@@ -8,6 +8,7 @@ use Mush\Game\Service\TranslationServiceInterface as Translate;
 use Mush\Notification\Command\NotifyUserCommand;
 use Mush\Notification\Enum\NotificationEnum;
 use Mush\User\Entity\User;
+use WebPush\Action;
 use WebPush\Message as WebPushMessage;
 use WebPush\Notification as WebPushNotification;
 
@@ -23,14 +24,17 @@ abstract class NotificationFactory
 
     private static function createForUser(NotificationEnum $name, User $user, string $language, Translate $translate): WebPushNotification
     {
-        $message = self::createMessageForUser($name, $user, $language, $translate);
+        $message = self::createMessageForUser($name, $user, $language, $translate)
+            ->addAction(Action::create('ok', self::translateForUser('ok', $language, $user, $translate)));
 
         return new WebPushNotification()->withPayload($message->toString())->withTTL(3 * 60 * 60)->withUrgency(WebPushNotification::URGENCY_NORMAL);
     }
 
     private static function createUrgentForUser(NotificationEnum $name, User $user, string $language, Translate $translate): WebPushNotification
     {
-        $message = self::createMessageForUser($name, $user, $language, $translate)->vibrate(200, 300, 200, 300);
+        $message = self::createMessageForUser($name, $user, $language, $translate)->vibrate(200, 300, 200, 300)
+            ->addAction(Action::create('go', self::translateForUser('go', $language, $user, $translate)))
+            ->addAction(Action::create('later', self::translateForUser('later', $language, $user, $translate)));
 
         return new WebPushNotification()->withPayload($message->toString())->withTTL(30 * 60)->withUrgency(WebPushNotification::URGENCY_HIGH);
     }

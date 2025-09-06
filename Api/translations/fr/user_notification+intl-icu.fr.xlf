@@ -2,9 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="user_notification.ext">
     <unit id="inactivity">
-      <segment state="translated">
-        <source>inactivity</source>
-        <target>{user}, votre équipage vous attend !</target>
+      <segment id="key" state="translated">
+        <source>inactivity.title</source>
+        <target>Équipage en attente</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>inactivity.description</source>
+        <target>Revenez sur le Daedalus, {user} !</target>
       </segment>
     </unit>
     <unit id="ok">

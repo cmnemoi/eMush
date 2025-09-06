@@ -43,11 +43,8 @@ final class InactivityStatusAppliedCest extends AbstractFunctionalTest
 
         $this->thenNotificationShouldMatch([
             'key' => 'inactivity',
-            'name' => "{$this->player->getUser()->getUsername()}, votre équipage vous attend !",
-            'actions' => [
-                ['icon' => '/src/assets/images/ready.png', 'action' => 'go', 'title' => 'J\'y vais !'],
-                ['icon' => '/src/assets/images/status/laid.png', 'action' => 'later', 'title' => 'Plus tard...'],
-            ],
+            'title' => 'Équipage en attente',
+            'description' => "Revenez sur le Daedalus, {$this->player->getUser()->getUsername()} !",
         ], $I);
     }
 
@@ -84,19 +81,20 @@ final class InactivityStatusAppliedCest extends AbstractFunctionalTest
     private function thenNotificationShouldMatch(array $example, FunctionalTester $I): void
     {
         $notification = $this->webPush->getSentNotifications()[0];
-        $payload = json_decode($notification->getPayload(), true)['options'];
+        $payload = json_decode($notification->getPayload(), true);
+        $options = $payload['options'];
 
         $I->assertEquals(
             expected: $example['key'],
-            actual: $payload['tag'],
+            actual: $options['tag'],
         );
         $I->assertEquals(
-            expected: $example['name'],
-            actual: $payload['body'],
+            expected: $example['title'],
+            actual: $payload['title'],
         );
         $I->assertEquals(
-            expected: $example['actions'],
-            actual: $payload['actions'],
+            expected: $example['description'],
+            actual: $options['body'],
         );
     }
 }

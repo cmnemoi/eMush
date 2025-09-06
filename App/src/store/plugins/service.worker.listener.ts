@@ -9,7 +9,7 @@ export function createServiceWorkerListener(store: Store<any>, serviceWorker: Se
                     return;
                 }
 
-                store.dispatch('notifications/addNotification', event.data.data.options.body);
+                store.dispatch('notifications/addNotification', event.data.data.title);
             });
         }
     };

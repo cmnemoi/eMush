@@ -8,7 +8,6 @@ use Mush\Game\Service\TranslationServiceInterface as Translate;
 use Mush\Notification\Command\NotifyUserCommand;
 use Mush\Notification\Enum\NotificationEnum;
 use Mush\User\Entity\User;
-use WebPush\Action;
 use WebPush\Message as WebPushMessage;
 use WebPush\Notification as WebPushNotification;
 
@@ -25,34 +24,32 @@ abstract class NotificationFactory
     private static function createForUser(NotificationEnum $name, User $user, string $language, Translate $translate): WebPushNotification
     {
         $message = self::createMessageForUser($name, $user, $language, $translate);
-        $message
-            ->addAction(Action::create('ok', self::translateForUser('ok', $language, $user, $translate))->withIcon('/src/assets/images/info.png'));
 
         return new WebPushNotification()->withPayload($message->toString())->withTTL(3 * 60 * 60)->withUrgency(WebPushNotification::URGENCY_NORMAL);
     }
 
     private static function createUrgentForUser(NotificationEnum $name, User $user, string $language, Translate $translate): WebPushNotification
     {
-        $message = self::createMessageForUser($name, $user, $language, $translate)
-            ->vibrate(200, 300, 200, 300)
-            ->addAction(Action::create('go', self::translateForUser('go', $language, $user, $translate))->withIcon('/src/assets/images/ready.png'))
-            ->addAction(Action::create('later', self::translateForUser('later', $language, $user, $translate))->withIcon('/src/assets/images/status/laid.png'));
+        $message = self::createMessageForUser($name, $user, $language, $translate)->vibrate(200, 300, 200, 300);
 
         return new WebPushNotification()->withPayload($message->toString())->withTTL(30 * 60)->withUrgency(WebPushNotification::URGENCY_HIGH);
     }
 
     private static function createMessageForUser(NotificationEnum $name, User $user, string $language, Translate $translate): WebPushMessage
     {
-        return WebPushMessage::create('eMush', self::translateForUser($name->toString(), $language, $user, $translate))
+        return WebPushMessage::create(
+            title: self::translateForUser($name->toTranslationTitleKey(), $language, $user, $translate),
+            body: self::translateForUser($name->toTranslationBodyKey(), $language, $user, $translate)
+        )
             ->auto()
             ->renotify()
-            ->withImage('/pwa-192x192.png')
+            ->withImage('/twitter-card.png')
             ->withIcon('/pwa-192x192.png')
-            ->withBadge('/pwa-192x192.png')
+            ->withBadge('/pwa-192x192-monochrome.png')
             ->withData(['link' => '/'])
             ->withTag($name->toString())
             ->withLang($language)
-            ->withTimestamp(new \DateTime()->getTimestamp())
+            ->withTimestamp(new \DateTime()->getTimestamp() * 1_000)
             ->interactionRequired();
     }
 

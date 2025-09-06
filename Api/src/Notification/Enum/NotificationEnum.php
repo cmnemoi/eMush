@@ -12,4 +12,14 @@ enum NotificationEnum: string
     {
         return $this->value;
     }
+
+    public function toTranslationTitleKey(): string
+    {
+        return $this->value . '.title';
+    }
+
+    public function toTranslationBodyKey(): string
+    {
+        return $this->value . '.description';
+    }
 }

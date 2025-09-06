@@ -15,6 +15,7 @@
         </section>
         <section class="trailer-container">
             <RuffleContent
+                v-if="!mobile"
                 :swf-url="getSwfUrl(`trailer_${locale}.swf`)"
                 :width="555"
                 :height="310"
@@ -137,11 +138,12 @@ export default defineComponent ({
         RuffleContent
     },
     computed: {
-        ...mapGetters('auth', [
-            'loggedIn'
-        ]),
-        locale() {
-            return this.$i18n.locale.split('-')[0];
+        ...mapGetters({
+            'loggedIn': 'auth/loggedIn',
+            'locale': 'locale/currentLocale'
+        }),
+        mobile() {
+            return window.innerWidth <= 768;
         }
     },
     methods: {

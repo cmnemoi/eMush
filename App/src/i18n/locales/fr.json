@@ -1042,8 +1042,10 @@
 			"ok": "OK",
 			"settings": {
 				"name": "Paramètres",
-				"susbcribeToNotifications": "S'abonner aux notifications",
-				"notifications": "Notifications"
+				"subscribeToNotifications": "S'abonner aux notifications",
+				"notifications": "Notifications",
+				"hideMushActions": "Masquer les actions Mush",
+				"showMushActions": "Afficher les actions Mush"
 			}
 		},
 		"topBar": {

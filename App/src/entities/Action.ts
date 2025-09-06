@@ -19,6 +19,7 @@ export class Action {
     public confirmation: string|null;
     public actionProvider!: ActionProvider;
     public skillPointCosts: Array<string>;
+    public isMushAction!: boolean;
 
     constructor() {
         this.iri = null;
@@ -49,6 +50,7 @@ export class Action {
             this.confirmation = object.confirmation;
             this.skillPointCosts = object.skillPointCosts;
             this.actionProvider = object.actionProvider;
+            this.isMushAction = object.isMushAction;
         }
         return this;
     }

@@ -65,7 +65,7 @@
                         <Statuses :statuses="selectedItem.statuses" type="item" />
                     </span>
                     <ActionButton
-                        v-for="(action, key) in target.actions"
+                        v-for="(action, key) in targetActions"
                         :key="key"
                         :action="action"
                         @click="executeTargetAction(target, action)"
@@ -176,7 +176,7 @@ import { characterEnum } from '@/enums/character';
 import Inventory from "@/components/Game/Inventory.vue";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { Item } from "@/entities/Item";
 import { Equipment } from "@/entities/Equipment";
 import { Action } from "@/entities/Action";
@@ -204,7 +204,12 @@ export default defineComponent ({
         }
     },
     computed: {
-        ...mapState('player', ['loading', 'selectedItem', 'displayMushSkills']),
+        ...mapGetters({
+            'loading': 'player/isLoading',
+            'selectedItem': 'player/selectedItem',
+            'displayMushSkills': 'player/displayMushSkills',
+            'hideMushActions': 'settings/hideMushActions'
+        }),
         characterPortrait(): string {
             return characterEnum[this.player.character.key].portrait ?? '';
         },
@@ -224,9 +229,16 @@ export default defineComponent ({
             return this.selectedItem || this.player;
         },
         targetActions(): Action[] {
-            let actions = this.target?.actions.filter(action => action.isNotMissionAction());
+            let actions = this.target?.actions;
+            if (this.hideMushActions) {
+                actions = actions?.filter(action => !action.isMushAction);
+            }
+
+            actions = actions?.filter(action => action.isNotMissionAction());
+
             // Setup commander order action cost to 0 if available
             if (this.target instanceof Player && this.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
+
                 const commanderOrderAction = this.target.getActionByKey(ActionEnum.COMMANDER_ORDER);
                 actions = actions.filter(action => action.key !== ActionEnum.COMMANDER_ORDER);
                 const newOrderAction = (new Action()).decode(commanderOrderAction?.jsonEncode());

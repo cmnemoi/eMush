@@ -14,6 +14,7 @@ import { toast } from "@/store/toast.module";
 import { adminActions } from "@/store/admin.actions.module";
 import { locale } from "@/store/locale.module";
 import { createNotificationsModule } from "@/features/notification/store";
+import { createSettingsModule } from "@/features/settings/store";
 import { NotificationService } from "@/features/notification/notification.service";
 import { LocalStorageService } from "@/shared/local.storage.service";
 import { translate } from "@/utils/i18n";
@@ -38,6 +39,9 @@ export default createStore({
             localStorageService: new LocalStorageService(),
             notificationService: new NotificationService(),
             translate
+        }),
+        settings: createSettingsModule({
+            localStorageService: new LocalStorageService()
         })
     }
 });

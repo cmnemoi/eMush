@@ -1,5 +1,6 @@
 export interface LocalStorageServiceInterface {
     getItemAsBoolean(key: string): boolean;
+    getItemAsBooleanOrNull(key: string): boolean | null;
     setItemAsBoolean(key: string, value: boolean): void;
     removeItem(key: string): void;
     getItemAsArray(key: string): string[];
@@ -12,6 +13,13 @@ export class LocalStorageService implements LocalStorageServiceInterface {
         const item = localStorage.getItem(key);
         if (!item) {
             return false;
+        }
+        return item === 'true';
+    }
+    getItemAsBooleanOrNull(key: string): boolean | null {
+        const item = localStorage.getItem(key);
+        if (!item) {
+            return null;
         }
         return item === 'true';
     }

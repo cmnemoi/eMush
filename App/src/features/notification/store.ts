@@ -71,6 +71,9 @@ export function createNotificationsModule(
                 commit('setNotifications', updatedNotifications);
                 localStorageService.saveItemAsArray('notifications', updatedNotifications);
             },
+            toggleNotificationSubscription({ dispatch, state }): void {
+                state.subscriptionStatus ? dispatch('unsubscribe') : dispatch('subscribe');
+            },
             clearNotifications({ commit }): void {
                 commit('setNotifications', []);
                 localStorageService.saveItemAsArray('notifications', []);

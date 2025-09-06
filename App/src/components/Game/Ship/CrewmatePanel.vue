@@ -88,7 +88,8 @@ export default defineComponent ({
     ],
     computed: {
         ...mapGetters({
-            'selectedTarget': 'room/selectedTarget'
+            'selectedTarget': 'room/selectedTarget',
+            'hideMushActions': 'settings/hideMushActions'
         }),
         getSelectedPlayer(): Player | null
         {
@@ -98,7 +99,13 @@ export default defineComponent ({
         getActions(): Action[]
         {
             if (!(this.selectedTarget instanceof Player)) { return [];}
-            let actions = this.selectedTarget.actions.filter(action => action.isNotMissionAction());
+
+            let actions = this.selectedTarget.actions;
+            if (this.hideMushActions) {
+                actions = actions.filter(action => !action.isMushAction);
+            }
+
+            actions = actions.filter(action => action.isNotMissionAction());
             // Setup commander order action to 0 action points if available
             if (this.selectedTarget instanceof Player && this.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
                 const commanderOrderAction = this.selectedTarget.getActionByKey(ActionEnum.COMMANDER_ORDER);

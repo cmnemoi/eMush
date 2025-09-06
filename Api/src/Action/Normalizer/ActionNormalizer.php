@@ -204,6 +204,8 @@ class ActionNormalizer implements NormalizerInterface
                     : null;
         }
 
+        $normalizedAction['isMushAction'] = $actionClass->hasTag(ActionTypeEnum::ACTION_MUSH->toString());
+
         return $normalizedAction;
     }
 

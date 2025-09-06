@@ -138,4 +138,16 @@ describe("Notification Store", () => {
             type: "info"
         });
     });
+
+    it("should toggle notification subscription", async () => {
+        await store.dispatch("notifications/subscribe");
+
+        expect(store.getters["notifications/isUserSubscribed"]).toBe(true);
+        expect(localStorageService.getItemAsBoolean('subscriptionStatus')).toBe(true);
+
+        await store.dispatch("notifications/toggleNotificationSubscription");
+
+        expect(store.getters["notifications/isUserSubscribed"]).toBe(false);
+        expect(localStorageService.getItemAsBoolean('subscriptionStatus')).toBe(false);
+    });
 });

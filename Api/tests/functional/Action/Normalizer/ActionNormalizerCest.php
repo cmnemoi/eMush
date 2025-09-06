@@ -83,6 +83,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'name' => 'Piéger pièce',
                 'description' => 'Permet de piéger la pièce, toutes les interactions avec les objets et équipements de la pièce déclencheront le piège.//Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.',
                 'canExecute' => true,
+                'isMushAction' => true,
                 'confirmation' => null,
             ],
             actual: $normalizedAction,
@@ -102,7 +103,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
         // when I normalize extract spore action for KT
         /** @var Action $trapClosetAction */
         $extractSporeAction = $this->kuanTi
-            ->getProvidedActions(ActionHolderEnum::PLAYER, [ActionRangeEnum::SELF])
+            ->getProvidedActions(ActionHolderEnum::PLAYER, [ActionRangeEnum::PLAYER])
             ->filter(static fn (Action $action) => $action->getActionConfig()->getActionName() === ActionEnum::EXTRACT_SPORE)
             ->first();
 
@@ -126,6 +127,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'description' => "Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
         L'ensemble des **Mush** peuvent encore produire **4 spores** aujourd'hui.//Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.",
                 'canExecute' => true,
+                'isMushAction' => true,
                 'confirmation' => null,
             ],
             actual: $normalizedAction,
@@ -188,6 +190,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'name' => 'Chirurgie-Auto',
                 'description' => 'Vous n\'êtes pas blessée, mais ça peut s\'arranger...',
                 'canExecute' => false,
+                'isMushAction' => false,
             ],
             actual: $normalizedAction,
         );
@@ -246,6 +249,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'name' => 'Imprimer LA liste',
                 'description' => 'Vous permet de récupérer une liste que vous avez créée avant le départ du Daedalus. Cette liste contient des noms de personnes potentiellement infectées. À chaque jour, cette liste s\'affine d\'un nom. Cette liste contient actuellement **1** nom.',
                 'canExecute' => true,
+                'isMushAction' => false,
                 'confirmation' => null,
             ],
             actual: $normalizedAction,

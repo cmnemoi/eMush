@@ -7,6 +7,14 @@ export class FakeLocalStorageService implements LocalStorageServiceInterface {
         return this.storage[key] === 'true';
     }
 
+    getItemAsBooleanOrNull(key: string): boolean | null {
+        const item = this.storage[key];
+        if (!item) {
+            return null;
+        }
+        return item === 'true';
+    }
+
     setItemAsBoolean(key: string, value: boolean): void {
         this.storage[key] = JSON.stringify(value);
     }

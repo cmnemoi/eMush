@@ -110,6 +110,7 @@ final class ProjectNormalizerForPilgredCest extends AbstractFunctionalTest
                         'description' => 'Réparer PILGRED vous permettra d\'ouvrir de nouvelles routes spatiales, dont celle vers la Terre.',
                         'canExecute' => true,
                         'confirmation' => null,
+                        'isMushAction' => false,
                         'actionProvider' => ['class' => $this->terminal::class, 'id' => $this->terminal->getId()],
                     ],
                 ],

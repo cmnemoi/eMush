@@ -1346,7 +1346,7 @@ class ActionData
         [
             'name' => 'extract_spore',
             'action_name' => ActionEnum::EXTRACT_SPORE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -1362,7 +1362,7 @@ class ActionData
         [
             'name' => 'infect',
             'action_name' => ActionEnum::INFECT,
-            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'covert', 'fail' => 'private'],
@@ -1378,7 +1378,7 @@ class ActionData
         [
             'name' => 'spread_fire',
             'action_name' => ActionEnum::SPREAD_FIRE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -1394,7 +1394,7 @@ class ActionData
         [
             'name' => 'make_sick',
             'action_name' => ActionEnum::MAKE_SICK,
-            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'covert', 'fail' => 'private'],
@@ -1410,7 +1410,7 @@ class ActionData
         [
             'name' => 'fake_disease',
             'action_name' => ActionEnum::FAKE_DISEASE,
-            'types' => [ActionTypeEnum::ACTION_ADMIN],
+            'types' => [ActionTypeEnum::ACTION_ADMIN, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -1426,7 +1426,7 @@ class ActionData
         [
             'name' => 'screw_talkie',
             'action_name' => ActionEnum::SCREW_TALKIE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'covert', 'fail' => 'private'],
@@ -1442,7 +1442,7 @@ class ActionData
         [
             'name' => 'eat_spore',
             'action_name' => ActionEnum::PHAGOCYTE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'private', 'fail' => 'private'],
@@ -1954,7 +1954,7 @@ class ActionData
         [
             'name' => ActionEnum::TRAP_CLOSET->value,
             'action_name' => ActionEnum::TRAP_CLOSET,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::SECRET, 'fail' => VisibilityEnum::HIDDEN],
@@ -2162,7 +2162,7 @@ class ActionData
         [
             'name' => ActionEnum::EXCHANGE_BODY->value,
             'action_name' => ActionEnum::EXCHANGE_BODY,
-            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => VisibilityEnum::HIDDEN, 'fail' => VisibilityEnum::HIDDEN],
@@ -2530,7 +2530,7 @@ class ActionData
         [
             'name' => 'convert_cat',
             'action_name' => ActionEnum::CONVERT_CAT,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'public', 'fail' => 'private'],
@@ -2930,7 +2930,7 @@ class ActionData
         [
             'name' => ActionEnum::GO_BERSERK->value,
             'action_name' => ActionEnum::GO_BERSERK,
-            'types' => [ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::PUBLIC, 'fail' => VisibilityEnum::HIDDEN],

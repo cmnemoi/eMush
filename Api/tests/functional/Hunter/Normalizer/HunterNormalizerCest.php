@@ -82,6 +82,7 @@ final class HunterNormalizerCest extends AbstractFunctionalTest
                         'description' => 'Tire une charge de Telsatron sur un vaisseau ennemi.',
                         'canExecute' => true,
                         'confirmation' => null,
+                        'isMushAction' => false,
                         'actionProvider' => ['class' => $turret->getClassName(), 'id' => $turret->getId()],
                     ],
                 ],

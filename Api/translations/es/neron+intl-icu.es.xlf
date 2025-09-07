@@ -301,7 +301,9 @@
   uninhibited {Alerta: {character_gender, select,
   female {**{character}** piensa que es muy lista. Protocolo JAP-KITCH-101 iniciado. Quizás deberían considerar deshacerse de ella.}
   other {**{character}** piensa que es muy listo. Protocolo JAP-KITCH-101 iniciado. Quizás deberían considerar deshacerse de él.}
-  }}</target>
+  }}
+other {invalid mood input}
+}</target>
       </segment>
     </unit>
     <unit id="oxygenated_ducts">
@@ -425,14 +427,14 @@
         <target>{neronMood, select,
   neutral {¡Alerta! ¡**Incendio** señalado por ***{character}***!}
   crazy {¡Alerta! ¡ALERTA! YO fuego, YO quemar. ¡Hyyaaaaaar! [KZz] Aler... [KZz] *Alerta.* **Incendio** *señalado por* ***{character}***.}
-  uninhibited {Agradezcan a **{character}**, que fue lo suficientemente valiente para señalar un **incendio** a pesar de que esto llama la atención sobre su vergonzosa incapacidad para lidiar con ello por su cuenta. ¿Alguien podría ayudarle?{version, select,
+  uninhibited {Agradezcan a **{character}**, que fue lo suficientemente valiente para señalar un **incendio** a pesar de que esto llama la atención sobre su vergonzosa incapacidad para lidiar con ello por su cuenta. ¿Alguien podría ayudarle? {version, select,
 1{}
 2 {... Antes de que el fuego se lleve a alguien más...}
 3 {Si te importa, el humo es tóxico...}
 4 {¡Y listo, las cenizas ensuciarán mis pasillos!}
 5 {¡Esto se trata sobre mí integridad: esto es UR-GEN-TE!
 other {invalid version number}
-}}
+}}}
   other {invalid mood input}
 }</target>
       </segment>

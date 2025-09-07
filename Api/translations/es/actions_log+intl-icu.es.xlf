@@ -4,7 +4,7 @@
     <unit id="check_spore_level">
       <segment id="check_spore_level" state="translated">
         <source>check_spore_level</source>
-        <target>Has iniciado la detección de huellas de Mush... Nivel pre-mushiano: {quantity, select, 0 {nul} other {{quantity}}}.</target>
+        <target>Has iniciado la detección de huellas de Mush... Nivel pre-mushiano: {quantity, select, 0 {nulo} other {{quantity}}}.</target>
       </segment>
     </unit>
     <unit id="coffee_success">
@@ -314,8 +314,8 @@ other {**{character}** rompe un papel.}
       <segment id="take" state="translated">
         <source>take</source>
         <target>{target_equipment_gender, select,
-male {**{character}** ha tomado un **{target_equipment}**}
-female {**{character}** ha tomado una **{target_equipment}**}
+male {**{character}** ha recogido un **{target_equipment}**}
+female {**{character}** ha recogido una **{target_equipment}**}
 other {invalid gender input}}.</target>
       </segment>
     </unit>

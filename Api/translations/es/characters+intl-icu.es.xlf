@@ -518,11 +518,11 @@
       </segment>
       <segment id="tips" state="translated">
         <source>ian.tips</source>
-        <target>**Riega** las plantas sedientas y secas, y **trata** las plantas enfermas.//**Planta frutas** en hidroponía.//**Participa en investigaciones** en el Laboratorio para ralentizar a los hongos gracias a tu habilidad de Biólogo.</target>
+        <target>**Riega** las plantas sedientas y secas, y **trata** las plantas enfermas.//**Planta frutas** en las hydromacetas.//**Participa en investigaciones** en el Laboratorio para ralentizar a los hongos gracias a tu habilidad de Biólogo.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>ian.tutorial</source>
-        <target>ian.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Ian_Soulton</target>
       </segment>
     </unit>
     <unit id="jin_su">
@@ -552,7 +552,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>jin_su.abstract</source>
-        <target>Jin Su comenzó a explorar a temprana edad, yendo en misiones de investigación en la Estrella Barnard. Rápidamente ascendió al rango de Comandante y se le encargó la dirección de importantes misiones en Ross 154 y Epsilon Indi. El descubrimiento de múltiples depósitos de Boxylium en Tau-ceti lo convirtió instantáneamente en una celebridad interplanetaria. En 3146, la Federación lo nombró Comandante Ejecutivo del Proyecto Magellan. Tras la invasión Mush de Sol, Jin Su elaboró los planos del Daedalus junto con Lai Kuan Ti y reunió una tripulación de élite para asegurar la supervivencia de la raza humana en otra galaxia.</target>
+        <target>Jin Su comenzó a explorar a temprana edad, yendo en misiones de investigación en la Estrella Barnard. Rápidamente ascendió al rango de Comandante y se le encargó la dirección de importantes misiones en Ross 154 y Epsilon Indi. El descubrimiento de múltiples depósitos de Boxylium en Tau-ceti lo convirtió instantáneamente en una celebridad interplanetaria. En 3146, la Federación lo nombró Comandante Ejecutivo del Proyecto Magallanes. Tras la invasión Mush de Sol, Jin Su elaboró los planos del Daedalus junto con Lai Kuan Ti y reunió una tripulación de élite para asegurar la supervivencia de la raza humana en otra galaxia.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>jin_su.biography</source>
@@ -569,11 +569,11 @@
       </segment>
       <segment id="tips" state="translated">
         <source>jin_su.tips</source>
-        <target>**Elimina cazadores** con las naves de patrulla ubicadas en las bahías para proteger la nave.//**Recupera chatarra** de los cazadores eliminádolos con el Pasiphae (ubicado en la bahía Alpha 2) para reparar la armadura de la nave.//**Orienta y viaja con la nave** usando la terminal de comando en el puente para explorar planetas.//**Da discursos motivadores** a compañeros de equipo desmoralizados para levantarles la moral.</target>
+        <target>**Elimina hunters** usando los patrulleros ubicados en las plataformas para proteger la nave.//**Recolecta chatarra** de los hunters eliminados con el Pasiphae (ubicado en la Plataforma Alpha 2) para reparar el casco de la nave.//**Orienta y viaja con la nave** usando la terminal de comando en el puente para explorar planetas.//**Da discursos motivadores** a tus compañeros de equipo desmoralizados para levantarles el ánimo.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>jin_su.tutorial</source>
-        <target>jin_su.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Kim_Jin_Su</target>
       </segment>
     </unit>
     <unit id="kuan_ti">
@@ -603,7 +603,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>kuan_ti.abstract</source>
-        <target>Kuan Ti es uno de los dos diseñadores del Dédalo. No prestó atención alguna a la existencia de Mush en Tau-Ceti hasta que Eleesha William le informó del avanzado estado de propagación del micelio en el sistema solar. Kuan Ti, Raluca y Jin Su deciden adelantar de ocho años el lanzamiento del programa Magellan antes de que la Federación pueda cancelarlo.</target>
+        <target>Kuan Ti es uno de los dos artífices del Daedalus. No prestó atención alguna a la existencia de Mush en Tau-Ceti hasta que Eleesha Williams le informó del avanzado estado de propagación del micelio en el sistema solar. Kuan Ti, Raluca y Jin Su deciden adelantar ocho años el lanzamiento del programa Magallanes antes de que la Federación pueda ponerle fin.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>kuan_ti.biography</source>
@@ -619,11 +619,11 @@
       </segment>
       <segment id="tips" state="translated">
         <source>kuan_ti.tips</source>
-        <target>**Participa en proyectos NERON** usando el núcleo  NERON en el Nexus para mejorar la nave.//**Participa en reparaciones del PILGRED** en la Sala de máquinas para regresar a Sol.//**Repara equipo vital** de la nave.//**Da discursos motivadores** a compañeros desmoralizados para levantarles la moral.</target>
+        <target>**Participa en proyectos NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Participa en la reparación del PILGRED** en la Sala de motores para regresar a Sol.//**Repara equipo vital** de la nave.//**Da discursos motivadores** a tus compañeros desmoralizados para levantarles la moral.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>kuan_ti.tutorial</source>
-        <target>kuan_ti.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Lai_Kuan_Ti</target>
       </segment>
     </unit>
     <unit id="Paola">
@@ -668,11 +668,11 @@
       </segment>
       <segment id="tips" state="translated">
         <source>paola.tips</source>
-        <target>**Responde a las solicitudes de contacto de las bases rebeldes de Sol, recupera la base de datos Xyloph y mejora el software de NERON** desde la terminal de comunicaciones en el Puente.//**Elimina cazadores** usando las torretas de la nave gracias a tu habilidad de Artillero.//**Participa en la investigación** en el Laboratorio para ralentizar a los Mushs gracias a tu habilidad de Biólogo.</target>
+        <target>**Responde a las solicitudes de contacto de las bases rebeldes de Sol, recupera la base de datos Xyloph y mejora el software de NERON** desde la terminal de comunicaciones en el Puente.//**Elimina hunters** usando las torretas de la nave gracias a tu habilidad de Artillero.//**Participa en la investigación** en el Laboratorio para ralentizar a los Mushs gracias a tu habilidad de Biólogo.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>paola.tutorial</source>
-        <target>paola.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Paola_Rinaldo</target>
       </segment>
     </unit>
     <unit id="Raluca">
@@ -702,7 +702,7 @@
       </segment>
       <segment id="abstract" state="translated">
         <source>raluca.abstract</source>
-        <target>Raluca, genio de la física, inventó el reactor de combustión reversible PILGRED cuando tan solo tenía 11 años. Junto con Lai Kuan Ti, diseñó casi todos los módulos de a bordo y es capaz de mejorarlos aún más. Autista, Raluca solo tolera la presencia de Schrödinger, su gato, al que logró subir a bordo a escondidas a pesar de las recomendaciones del médico. Sus disputas con NERON son legendarias.</target>
+        <target>Raluca, genio de la física, inventó el reactor de combustión reversible PILGRED cuando tan solo tenía 11 años. Junto con Lai Kuan Ti, diseñó casi todos los módulos de a bordo y es capaz de mejorarlos aún más. Siendo autista, Raluca solo tolera la presencia de Schrödinger, su gato, al que logró subir a bordo a escondidas a pesar de las recomendaciones del médico. Sus disputas con NERON son legendarias.</target>
       </segment>
       <segment id="biography" state="translated">
         <source>raluca.biography</source>
@@ -723,9 +723,9 @@
         <source>raluca.tips</source>
         <target>**Participa en la reparación del PILGRED** en la Sala de Máquinas para regresar a Sol.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Repara equipo vital** de la nave.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>raluca.tutorial</source>
-        <target>raluca.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Raluca_Tomescu</target>
       </segment>
     </unit>
     <unit id="Roland">
@@ -771,11 +771,11 @@
       </segment>
       <segment id="tips" state="translated">
         <source>roland.tips</source>
-        <target>**Elimina cazadores** con las naves de patrulla ubicadas en bahías para proteger la nave.//**Recupera chatarra** de los cazadores eliminados con el Pasiphae ubicado en la bahía Alpha 2 para reparar la armadura de la nave.//**Lanza expediciones** a planetas con el Icarus en la bahía del Icarus para recolectar recursos.</target>
+        <target>**Elimina hunters** con los patrulleros ubicados en las plataformas para proteger la nave.//**Recupera chatarra** de los hunters eliminados con el Pasiphae ubicado en la plataforma Alpha 2 para reparar el casco de la nave.//**Lanza expediciones** a planetas con el Icarus en la plataforma del Icarus para recolectar recursos.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>roland.tutorial</source>
-        <target>roland.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Roland_Zuccali</target>
       </segment>
     </unit>
     <unit id="Stephen">
@@ -824,11 +824,11 @@
       </segment>
       <segment id="tips" state="translated">
         <source>stephen.tips</source>
-        <target>**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Elimina Mush confirmados** usando tus habilidades Solid y Shooter.//**Copia una habilidad valiosa** usando Apprentice, dependiendo de las necesidades de la tripulación.</target>
+        <target>**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.//**Elimina Mush confirmados** usando tus habilidades Robusto y Pistolero.//**Copia una habilidad valiosa** usando Entrenamiento, dependiendo de las necesidades de la tripulación.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>stephen.tutorial</source>
-        <target>stephen.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Stephen_Seagull</target>
       </segment>
     </unit>
     <unit id="Terrence">
@@ -875,11 +875,11 @@
       </segment>
       <segment id="tips" state="translated">
         <source>terrence.tips</source>
-        <target>**Elimina cazadores** con las naves de patrulla ubicadas en bahías para proteger la nave.//**Recupera chatarra** de los cazadores eliminados con el Pasiphae ubicado en la bahía Alpha 2 para reparar la armadura de la nave.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.</target>
+        <target>**Elimina hunters** con los patrulleros ubicados en las plataformas para proteger la nave.//**Recupera chatarra** de los hunters eliminados con el Pasiphae ubicado en la plataforma Alpha 2 para reparar el casco de la nave.//**Participa en proyectos de NERON** usando el núcleo de NERON en el Nexus para mejorar la nave.</target>
       </segment>
-      <segment id="tutorial" state="initial">
+      <segment id="tutorial" state="translated">
         <source>terrence.tutorial</source>
-        <target>terrence.tutorial</target>
+        <target>https://www.mushpedia.com/wiki/Terrence_Archer</target>
       </segment>
     </unit>
     <unit id="janice">
@@ -926,7 +926,7 @@
       </segment>
       <segment id="tips" state="translated">
         <source>janice.tips</source>
-        <target>**Participa en proyectos NERON** usando el núcleo NERON en el Nexus para mejorar la nave.//**Reconforta a tus compañeros ánimo bajo y permanece cerca de tus compañeros recostados** para mejorar su moral usando tu habilidad Psicólogo.//**Cambia los parámetros BIOS de NERON** usando la terminal BIOS en el Nexus gracias a tu título de administrador de NERON.</target>
+        <target>**Participa en proyectos NERON** usando el núcleo NERON en el Nexus para mejorar la nave.//**Reconforta a tus compañeros con ánimo bajo y permanece cerca de tus compañeros recostados** para mejorar su ánimo usando tu habilidad Psicólogo.//**Cambia los parámetros de la BIOS de NERON** usando la terminal BIOS en el Nexus gracias a tu título de administrador de NERON.</target>
       </segment>
       <segment id="tutorial" state="translated">
         <source>janice.tutorial</source>

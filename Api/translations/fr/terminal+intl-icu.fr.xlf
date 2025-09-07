@@ -118,7 +118,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
         <source>block_of_post_it.name</source>
         <target>Bloc de pense-bêtes</target>
       </segment>
-      <segment id="tips" state="final">
+      <segment id="tips" state="translated">
         <source>block_of_post_it.tips</source>
         <target/>
       </segment>

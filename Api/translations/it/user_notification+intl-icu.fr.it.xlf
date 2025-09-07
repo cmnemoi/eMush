@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
+  <file id="user_notification.ext">
+    <unit id="inactivity">
+      <segment id="key" state="initial">
+        <source>inactivity.title</source>
+        <target>inactivity.title</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>inactivity.description</source>
+        <target>inactivity.description</target>
+      </segment>
+    </unit>
+    <unit id="ok">
+      <segment state="initial">
+        <source>ok</source>
+        <target>ok</target>
+      </segment>
+    </unit>
+    <unit id="go">
+      <segment state="initial">
+        <source>go</source>
+        <target>go</target>
+      </segment>
+    </unit>
+    <unit id="later">
+      <segment state="initial">
+        <source>later</source>
+        <target>later</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

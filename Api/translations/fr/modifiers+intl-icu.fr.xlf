@@ -19,7 +19,7 @@
     <unit id="change.variable.decrease_on_infection.player">
       <segment id="description" state="translated">
         <source>change.variable.decrease_on_infection.player.description</source>
-        <target>Recevoir un Spore fait perdre **{quantity}** {emote}.</target>
+        <target>Recevoir une Spore fait perdre **{quantity}** {emote}.</target>
       </segment>
     </unit>
     <unit id="change.variable.decrease_on_post.action">

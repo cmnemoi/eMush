@@ -1,8 +1,8 @@
 {
 	"title": {
-		"endOfAdventure": "eMush - Fin de l'aventure !",
-		"headline": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
-		"youAreDead": "eMush - Vous êtes mort !"
+		"endOfAdventure": "eMush - Fin de l'aventure | ({count}) eMush - Fin de l'aventure | ({count})  eMush - Fin de l'aventure !",
+		"headline": "eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace ! | ({count}) eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace ! | ({count}) eMush - Jeu multijoueur de coopération : trahisons et survie dans l'espace !",
+		"youAreDead": "eMush - Vous êtes mort | ({count}) eMush - Vous êtes mort | ({count}) eMush - Vous êtes mort !"
 	},
 	"alpha": {
 		"homepage": "<em>eMush</em> n'est actuellement pas ouvert au public car le jeu n'est pas terminé et est infesté de <em class='red'>Mushs</em> <em>!!!</em><br><br>Si vous êtes intéressé par le projet, n'hésitez pas à nous rejoindre sur <a href='https://discord.gg/ERc3svy'>Discord</a> et sur les <a href='https://eternal-twin.net/forum'>forums d'Eternaltwin</a>. Toutes les informations sont disponibles sur <a href='https://eternal-twin.net'>Eternaltwin</a>.<br><br>Concernant eMush alpha, des vaisseaux privés sont lancés régulièrement avec des volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>. Pour faire partie d'un vaisseau alpha, vous aurez besoin d'un compte <a href='https://eternal-twin.net/'>Eternaltwin</a> et de rejoindre la liste de volontaires sur <a href='https://discord.gg/ERc3svy'>Discord</a>.<br><br><em>Si vous n'êtes pas sélectionné pour un vaisseau alpha , pas d'inquiétude !</em> La liste des personnes sélectionnées change pour chaque vaisseau afin de fournir une chance à tous.",
@@ -30,16 +30,50 @@
 		"report": "Signaler un comportement inapproprié",
 		"otherGames": "Découvrez les autres jeux d'Eternaltwin",
 		"eternaltwinGames": {
-			"alphabounce": "Alphabounce",
-			"dinocard": "Dinocard",
-			"dinorpg": "DinoRPG",
-			"directquiz": "Directquiz",
-			"epopotamo": "ePopotamo",
-			"eternalfest": "Eternalfest",
-			"kingdom": "Eternal Kingdom",
-			"mybrute": "LaBrute",
-			"myhordes": "MyHordes",
-			"neoparc": "Neoparc"
+			"alphabounce": {
+				"name": "AlphaBounce",
+				"description": "AlphaBounce est un jeu de casse-briques dans lequel vous incarnez un prisonnier condamné à miner dans l'espace pour l'éternité. Mais peut-être arriverez-vous à rentrer chez vous ?"
+			},
+			"dinocard": {
+				"name": "Dinocard",
+				"description": "Dinocard Rebirth est une nouvelle version de Dinocard. Il y a déjà 150 cartes jouables !"
+			},
+			"dinorpg": {
+				"name": "DinoRPG",
+				"description": "Élevez vos dinoz dans un jeu d'aventure extraordinaire !"
+			},
+			"directquiz": {
+				"name": "Directquiz",
+				"description": "Mettez votre culture à rude épreuve dans Direct Quiz, le jeu de quiz le plus déjanté du web !"
+			},
+			"epopotamo": {
+				"name": "ePopotamo",
+				"description": "Le jeu de mots relax jouable en toute situation !"
+			},
+			"eternalfest": {
+				"name": "Eternalfest",
+				"description": "Plus de 200 niveaux ! Une grande variété d'ennemis très très méchants !"
+			},
+			"kingdom": {
+				"name": "Eternal Kingdom",
+				"description": "Faites prospérer votre capitale. Recrutez des soldats et devenez... Empereur !"
+			},
+			"mybrute": {
+				"name": "La Brute",
+				"description": "Règle tes comptes dans l'arène !"
+			},
+			"myhordes": {
+				"name": "MyHordes",
+				"description": "Le premier jeu de survie zombie gratuit se déroulant dans un monde hostile peuplé de morts-vivants !"
+			},
+			"neoparc": {
+				"name": "Neoparc",
+				"description": "Combattez d'autres Dinoz et gagnez ainsi petit à petit de l'expérience lors de combats sans merci !"
+			},
+			"pioupiouz": {
+				"name": "PiouPiouZ",
+				"description": "Ils se \"plurtchent\", ils explosent, ils se dilatent, ils se transforment, ils avancent tout droit sans réfléchir et seul vous pouvez les amener à la sortie salvatrice !"
+			}
 		}
 	},
 	"util": {
@@ -732,7 +766,8 @@
 		"problem": "Il y a eu un problème lors du traitement de votre requête.",
 		"reportToDevs": "Merci de rapporter cette erreur aux développeurs, avec des détails sur comment elle est apparue.",
 		"title": "ERREUR",
-		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord d'Eternaltwin</a>."
+		"You have been banned!": "Suite à vos agissements, vous avez été banni par un modérateur.\nSi vous pensez qu'il s'agit d'une erreur, veuillez ouvrir un ticket sur le <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord d'Eternaltwin</a>.",
+		"notFound": "La page que vous cherchez est introuvable. Encore un coup de la matière noire, du Mush ou toute autre explication farfelue générique... Désolé :)"
 	},
 	"metaSeo": {
 		"description": "eMush est une reprise de Mush, le jeu de survie et d'enquête récompensé de Motion Twin (Twinoid). Plongez maintenant dans un space opera palpitant qui mêle la survie, la déduction sociale et le jeu de rôle dans une expérience multijoueur unique !",
@@ -993,5 +1028,62 @@
 		"mushGenome": "Génome Mush",
 		"displayYourHumanSkills": "Cliquez ici pour afficher vos **compétences humaines**.",
 		"displayYourMushSkills": "Cliquez ici pour afficher vos **compétences Mush**."
+	},
+	"hud": {
+		"userMenu": {
+			"account": "Mon compte",
+			"rankings": "Classements",
+			"news": "News",
+			"rules": "Règlement",
+			"daedalus": "Daedalus",
+			"logout": "Déconnexion",
+			"notifications": {
+				"title": "Notifications",
+				"empty": "Plus rien à voir ici !"
+			},
+			"readAll": "Tout marquer comme lu",
+			"soon": "Bientôt disponible",
+			"ok": "OK",
+			"settings": {
+				"name": "Paramètres",
+				"subscribeToNotifications": "S'abonner aux notifications",
+				"notifications": "Notifications",
+				"hideMushActions": "Masquer les actions Mush",
+				"showMushActions": "Afficher les actions Mush"
+			}
+		},
+		"topBar": {
+			"login": "Connexion",
+			"notifications": "{count} notification | {count} notifications"
+		}
+	},
+	"fakeAdmin": {
+		"title": "Console administrateur NERON — Accès contrôlé",
+		"subtitle": "Bonjour {user}. Session ouverte en mode restreint. Lancez une opération pour initialiser la vérification des accréditations.",
+		"buttons": {
+			"teleportToEden": "Se téléporter sur Eden",
+			"revealMush": "Révéler les Mushs",
+			"advanceTime50Days": "Avancer le temps de 50 jours",
+			"makeChunMush": "Rendre Chun Mush",
+			"get999AP": "Obtenir 999 PA",
+			"repairFuelTanks": "Réparer les réservoirs de fuel"
+		},
+		"alerts": {
+			"teleportToEden": "Téléportation vers Eden impossible: météo solaire capricieuse. Restez bien au chaud.",
+			"revealMush": "Révélation des Mushs en cours... Erreur: tous les humains ont l'air suspects.",
+			"advanceTime50Days": "Avance temporelle refusée: paradoxe détecté. Merci de respecter la ligne temporelle.",
+			"makeChunMush": "Chun refuse poliment. Enfin, poliment... c'est vite dit.",
+			"get999AP": "Crédit PA annulé: 'tricher' n'est pas une compétence reconnue par NERON.",
+			"repairFuelTanks": "Réparation des réservoirs de fuel en cours... Erreur: vous êtes attaqué par Capucine."
+		},
+		"hint": "Astuce: pour utiliser ces fonctionnalités, il faut des accréditations valides. Ou un très bon sens de l'humour."
+	},
+	"toast": {
+		"notification": {
+			"subscribeSuccess": "Vous êtes maintenant abonné aux notifications !",
+			"subscribeError": "Une erreur s'est produite lors de l'abonnement à la notification.",
+			"unsubscribeSuccess": "Vous vous êtes désabonné des notifications.",
+			"unsubscribeError": "Une erreur s'est produite lors de la désabonnement des notifications."
+		}
 	}
 }

@@ -68,7 +68,7 @@ Lo último en comunicaciones, su potencia permite intercambiar mensajes con el o
       </segment>
       <segment id="plural_name" state="translated">
         <source>astro_terminal.plural_name</source>
-        <target>Terminales Astros</target>
+        <target>Terminales Astro</target>
       </segment>
       <segment id="genre" state="translated">
         <source>astro_terminal.gender</source>

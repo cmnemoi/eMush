@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="user_notification.ext">
     <unit id="inactivity">
       <segment id="key" state="translated">
         <source>inactivity.title</source>
-        <target>Équipage en attente</target>
+        <target>Crew on standby</target>
       </segment>
       <segment id="description" state="translated">
         <source>inactivity.description</source>
-        <target>Revenez sur le Daedalus, {user} !</target>
+        <target>Return to the Daedalus, {user}!</target>
       </segment>
     </unit>
     <unit id="ok">
@@ -20,13 +20,13 @@
     <unit id="go">
       <segment state="translated">
         <source>go</source>
-        <target>J'y vais !</target>
+        <target>On my way!</target>
       </segment>
     </unit>
     <unit id="later">
       <segment state="translated">
         <source>later</source>
-        <target>Plus tard...</target>
+        <target>Later...</target>
       </segment>
     </unit>
   </file>

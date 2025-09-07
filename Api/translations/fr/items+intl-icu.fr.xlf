@@ -1116,12 +1116,12 @@ Un vieux tablier fatigué avec écrit dessus : "Meilleur ingénieur de mon coeur
       </segment>
       <segment id="description" state="translated">
         <source>super_soaper.description</source>
-        <target>Super Savon est un produit révolutionnaire indispensable dans la lutte anti-mush. L'action Se Laver coûte un PA de moins ET vous nettoie d'un spore !</target>
+        <target>Super Savon est un produit révolutionnaire indispensable dans la lutte anti-mush. L'action Se Laver coûte un PA de moins ET vous nettoie d'une spore !</target>
       </segment>
       <segment id="examine" state="translated">
         <source>super_soaper.examine</source>
         <target>Super Savon est un produit révolutionnaire indispensable dans la lutte anti-mush.
-L'action Se Laver coûte un PA de moins ET vous nettoie d'un spore !
+L'action Se Laver coûte un PA de moins ET vous nettoie d'une spore !
 L'avenir de l'Humanité sera propre ou ne sera pas.</target>
       </segment>
     </unit>

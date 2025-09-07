@@ -86,7 +86,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>eat_spore.description</source>
-        <target>Consommer un spore pour vous apporter 4 :pa: et 4 :hp:.</target>
+        <target>Consommer une spore pour vous apporter 4 :pa: et 4 :hp:.</target>
       </segment>
     </unit>
     <unit id="cook">
@@ -140,11 +140,11 @@
     <unit id="extract_spore">
       <segment id="extract_spore" state="translated">
         <source>extract_spore.name</source>
-        <target>Extirper un spore</target>
+        <target>Extirper une spore</target>
       </segment>
       <segment id="description" state="translated">
         <source>extract_spore.description</source>
-        <target>Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
+        <target>Extirpez-vous une spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
         L'ensemble des **Mush** peuvent encore produire **{quantity_remaining} spores** aujourd'hui.</target>
       </segment>
     </unit>
@@ -213,7 +213,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>infect.description</source>
-        <target>Poinçonner une personne avec un spore permets de l'infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
+        <target>Poinçonner une personne avec une spore permets de l'infecter. Pour cela, vous devez avoir des spores sur vous. Au bout de trois infections, le personnage aura achevé son voyage vers le Mush.</target>
       </segment>
     </unit>
     <unit id="lie_down">
@@ -1370,7 +1370,7 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
       </segment>
       <segment id="description" state="translated">
         <source>mix_ration_spore.description</source>
-        <target>Permet de mettre un spore dans une denrée ingérable.</target>
+        <target>Permet de mettre une spore dans une denrée ingérable.</target>
       </segment>
     </unit>
     <unit id="slime_trap">

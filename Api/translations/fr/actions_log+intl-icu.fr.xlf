@@ -22,7 +22,7 @@
     <unit id="phagocyte_success">
       <segment id="phagocyte_success" state="translated">
         <source>phagocyte_success</source>
-        <target>:mush: Vous avez absorbé un spore pour vous revigorer.</target>
+        <target>:mush: Vous avez absorbé une spore pour vous revigorer.</target>
       </segment>
     </unit>
     <unit id="consume_success">
@@ -151,7 +151,7 @@
     <unit id="extract_spore_success">
       <segment id="extract_spore_success" state="translated">
         <source>extract_spore_success</source>
-        <target>:mush: **{character}** s'extirpe un spore. C'est vraiment répugnant. Et l'odeur...</target>
+        <target>:mush: **{character}** s'extirpe une spore. C'est vraiment répugnant. Et l'odeur...</target>
       </segment>
     </unit>
     <unit id="flirt_success">
@@ -696,7 +696,7 @@
     <unit id="remove_spore_fail">
       <segment id="remove_spore_fail" state="translated">
         <source>remove_spore_fail</source>
-        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucun spore à récupérer</target>
+        <target>Vous utilisez votre extracteur sur ce vilain furoncle. Le bruit fait un peu peur et le sang aussi... Heureusement vous n'aviez aucun spore à récupérer.</target>
       </segment>
     </unit>
     <unit id="public_broadcast">

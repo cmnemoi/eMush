@@ -220,7 +220,7 @@
     <unit id="chitchat">
       <segment id="highlight" state="translated">
         <source>chitchat.highlight</source>
-        <target>You accompanied **{target_character}** in their journey to find peace!</target>
+        <target>You chitchat with **{target_character}**.</target>
       </segment>
     </unit>
     <unit id="graft">

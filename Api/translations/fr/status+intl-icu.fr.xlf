@@ -1486,7 +1486,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>spores.description</source>
-        <target>Un spore sert à contaminer les autres membres de l'équipage.</target>
+        <target>Une spore sert à contaminer les autres membres de l'équipage.</target>
       </segment>
       <segment id="effect" state="translated">
         <source>spores.examine</source>
@@ -1584,7 +1584,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>cat_infected.description</source>
-        <target>Votre mission est trop importante pour discriminer sur votre choix d'alliés...//Tout membre d'équipage **humain** que ce chat **griffera** se verra **contaminé par un spore.**//*Vous voyez ce message car vous faites partie du Mush.*</target>
+        <target>Votre mission est trop importante pour discriminer sur votre choix d'alliés...//Tout membre d'équipage **humain** que ce chat **griffera** se verra **contaminé par une spore.**//*Vous voyez ce message car vous faites partie du Mush.*</target>
       </segment>
     </unit>
     <unit id="antique_perfume_immunized">

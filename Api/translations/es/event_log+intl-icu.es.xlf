@@ -89,7 +89,7 @@
       <segment state="translated">
         <source>object_fell</source>
         <target>{target_equipment_gender, select,
-                        male {**{character}** dejó caer un **{target_equipment}**}
+                        male {**{character}** dejó caer un {target_equipment, select, Café {una taza de } other {un}} **{target_equipment}**}
                         female {**{character}** dejó caer una **{target_equipment}**}
                         other {invalid gender input}}.</target>
       </segment>
@@ -130,7 +130,7 @@
     <unit id="metal_plate">
       <segment state="translated">
         <source>metal_plate</source>
-        <target>Una sacudida inesperada hizo caer una placa de metal sobre **{character}**. {target_character_gender, select, female {¡Quedó gravemente herida!} other {¡Quedó gravemente herido!}}</target>
+        <target>Una sacudida inesperada hizo caer una placa de metal sobre **{target_character}**. {target_character_gender, select, female {¡Quedó gravemente herida!} other {¡Quedó gravemente herido!}}</target>
       </segment>
     </unit>
     <unit id="tremor_gravity">
@@ -754,7 +754,7 @@
     female {la **{target_equipment}** como nueva}
     other {el **{target_equipment}** como nuevo}}.}
   4 {Esta vez {drone} pudo reparar {target_equipment_gender, select, female {la} other {el}} **{target_equipment}**, ¡y funciona!}
-  5 {{drone} es {character_gender, select, female {una} other {un}} genio. {target_equipment_gender, select, female {La} other {El}} **{target_equipment}** quedó de mil maravillas.}
+  5 {{drone} es un genio. {target_equipment_gender, select, female {La} other {El}} **{target_equipment}** quedó de mil maravillas.}
   6 {Agradecemos a {drone} por haber reparado {target_equipment_gender, select, female {la} other {el}} **{target_equipment}**.}
   7 {{drone} logró reparar {target_equipment_gender, select, female {la} other {el}} **{target_equipment}**. Estupendo.}
   other {{drone} logró reparar {target_equipment_gender, select, female {la} other {el}} **{target_equipment}**. Estupendo.}}</target>
@@ -861,7 +861,7 @@
         <source>ceasefire_end</source>
         <target>{new_cycle, select, 
         true {Ya nadie toma a **{target_character}**  en serio. Fin del cese al fuego.}
-        other {**{target_character}** salió del cuarto.  Fin del cese al fuego.}}</target>
+        other {**{target_character}** salió de la sala. Fin del cese al fuego.}}</target>
       </segment>
     </unit>
     <unit id="tabulatrix_prints">
@@ -930,7 +930,7 @@ other {¡¡¡Muestra insuficiente!!!}}</target>
     <unit id="strateguru_worked">
       <segment id="strateguru_worked" state="translated">
         <source>strateguru_worked</source>
-        <target>Tu competencia de **Estratega Militar* ha dado frutos, los agresores se pierden en el brazo de una nebulosa.</target>
+        <target>Tu habilidad **Estratega Militar* ha dado sus frutos, has perdido algunos de tus agresores en el brazo de una nebulosa.</target>
       </segment>
     </unit>
     <unit id="drop_success">
@@ -976,7 +976,7 @@ other {invalid gender input}
     <unit id="drone_kill_hunter">
       <segment id="drone_kill_hunter" state="translated">
         <source>drone_kill_hunter</source>
-        <target>:hunter: {drone} grita de felicidad. Un **{hunter}** menos, ¡eso es!</target>
+        <target>:hunter: {drone} emite un chirrido de felicidad. Un **{hunter}** menos, ¡eso es!</target>
       </segment>
     </unit>
     <unit id="drone_land">
@@ -995,25 +995,25 @@ other {invalid gender input}
       <segment id="cat_meow" state="translated">
         <source>cat_meow</source>
         <target>:cat: **{equipment} :** {version, select,
-                    1{beep beep}
-                    2{grrrrrrrr!}
-	                  3{miiiiiiiiau}
-	                  4{miau}
-	                  5{miauuu}
-	                  6{miaaaau}
-	                  7{Miau miau miau...}
-	                  8{mimiau}
-	                  9{miiiiiaaaaaauuuuu}
-	                  10{mrriaaauuuu}
-	                  11{mrrriiiaaauuuu}
-	                  12{mrrrrriaaauuu miaw}
-	                  13{nyan?}
-	                  14{pfffpffpffffpfff}
-	                  15{puuurrrrrr}
-	                  16{rrrrrrrrrr}
-	                  17{Guau?}
-                    other {invalid version input}
-                }</target>
+  1 {¿miau?}
+  2 {miaaaaaauuu}
+  3 {miau miaaaaau}
+  4 {miauu}
+  5 {mirrrriauuuu}
+  6 {mrrrrr}
+  7 {mrrrrauuu}
+  8 {ñiaaaaa}
+  9 {pfff pfff}
+  10 {pfffpffpffffpfff}
+  11 {pshhh psshhh}
+  12 {rrrrrrrrrr}
+  13 {yauuuu-miiii...}
+  14 {mrrrrru mrruuu}
+  15 {guau}
+  16 {ñiaaaaa}
+  17 {guau?}
+  other {invalid version input}
+}</target>
       </segment>
     </unit>
     <unit id="cat_shot_dead">
@@ -1052,14 +1052,14 @@ other {invalid gender input}
         <source>torturer_actions</source>
         <target>{quantity, select,
         0 {Atacas violentamente a **{character}**. Su cabeza termina girando en todas las direcciones... Pero no hay nada que ver. }
-        1 {Atacas violentamente a **{character}**. Aferras un directorio que se había caído al piso y le golpeas la cabeza con él... Es un poco sangriento, pero al final...**{character}** te cuenta todo... Su última acción es {lastAction}.}
-        other {Atacas violentamente a **{character}**. Aferras un directorio que se había caído al piso y le golpeas la cabeza con él... Es un poco sangriento, pero al final...**{character}** te cuenta todo...  Sus últimas acciones son {actions} y {lastAction}.}}</target>
+        1 {Atacas violentamente a **{character}**. Agarras un directorio que se había caído al piso y le golpeas la cabeza con él... Es un poco sangriento, pero al final...**{character}** te cuenta todo... Su última acción es {lastAction}.}
+        other {Atacas violentamente a **{character}**. Agarras un directorio que se había caído al piso y le golpeas la cabeza con él... Es un poco sangriento, pero al final...**{character}** te cuenta todo...  Sus últimas acciones son {actions} y {lastAction}.}}</target>
       </segment>
     </unit>
     <unit id="player_vaccinated">
       <segment id="player_vaccinated" state="translated">
         <source>player_vaccinated</source>
-        <target>Empiezas a vomitar. Te sientes extraño. Como si tus sentidos se hubieran silenciado, como si ya no existieras. De repente sientes una gran soledad. Vuelves a sentir ansiedad porque el fin se acerca, vuelves a sentir miedo verdadero. Ya no eres Mush...</target>
+        <target>Empiezas a vomitar. Te sientes extraño. Como si tus sentidos se hubieran silenciado, como si ya no existieras. De repente sientes una gran soledad. Vuelves a sentir ansiedad porque el fin se acerca, vuelves a sentir el miedo. Ya no eres Mush...</target>
       </segment>
     </unit>
     <unit id="lethargy_worked">
@@ -1095,7 +1095,7 @@ other {invalid gender input}
     <unit id="gen_metal_success">
       <segment id="gen_metal_success" state="translated">
         <source>gen_metal_success</source>
-        <target>**{character}** emerge de su montón de escombros luciendo feliz, ¡Ha encontrado algo! ¡Es {target_equipment_gender, select, female {una **{target_equipment}**} other {un **{target_equipment}**}} !</target>
+        <target>**{character}** emerge de su montón de escombros exaltado, ¡Ha encontrado algo! ¡He aquí, {target_equipment_gender, select, female {una **{target_equipment}**} other {un **{target_equipment}**}}!</target>
       </segment>
     </unit>
     <unit id="gain_chef_point">

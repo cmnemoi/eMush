@@ -808,7 +808,7 @@
       </segment>
       <segment id="antispore_gas.lore" state="translated">
         <source>antispore_gas.lore</source>
-        <target>En injectant des composants vanillés à haute pression dans le compresseur à oxygène, on s'aperçoit que ça tue les champignons des conduites de ventilation. Pourquoi ne pas en diffuser partout ça nuira peut-être à notre parasite detesté et puis en plus le vaisseau sentira la vanille.</target>
+        <target>En injectant des composants vanillés à haute pression dans le compresseur à oxygène, on s'aperçoit que ça tue les champignons des conduites de ventilation. Pourquoi ne pas en diffuser partout ça nuira peut-être à notre parasite détesté et puis en plus le vaisseau sentira la vanille.</target>
       </segment>
     </unit>
     <unit id="constipaspore_serum">
@@ -890,7 +890,7 @@
       </segment>
       <segment id="mushicide_soap.description" state="translated">
         <source>mushicide_soap.description</source>
-        <target>À chaque douche vous détruisez un spore présent sur vous. Accorde 3 :triumph:</target>
+        <target>À chaque douche vous détruisez une spore présent sur vous.</target>
       </segment>
       <segment id="mushicide_soap.lore" state="translated">
         <source>mushicide_soap.lore</source>
@@ -972,7 +972,7 @@
       </segment>
       <segment id="mycoalarm.lore" state="translated">
         <source>mycoalarm.lore</source>
-        <target>Les toxines, les spores, l'odeur, bref, il y a tellement de composés qui trahissent le Mush, que vous vous lancez dans un article rageur qui cumule toutes les spécificités connues du Mush pour élaborer l'alarme ultime. En se basant sur le coefficient d'oscillation de la phéromone Alpha et sur le taux d'émission de toxine, il serait possible de créer une alarme miniature qui se déclenchera automatiquement lors de l'insertion d'un spore dans la salle contrôlée.</target>
+        <target>Les toxines, les spores, l'odeur, bref, il y a tellement de composés qui trahissent le Mush, que vous vous lancez dans un article rageur qui cumule toutes les spécificités connues du Mush pour élaborer l'alarme ultime. En se basant sur le coefficient d'oscillation de la phéromone Alpha et sur le taux d'émission de toxine, il serait possible de créer une alarme miniature qui se déclenchera automatiquement lors de l'insertion d'une spore dans la salle contrôlée.</target>
       </segment>
     </unit>
     <unit id="narcotics_distiller">

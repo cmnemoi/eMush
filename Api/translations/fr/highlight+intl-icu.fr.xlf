@@ -26,7 +26,7 @@
     <unit id="extract_spore">
       <segment id="highlight" state="translated">
         <source>extract_spore.highlight</source>
-        <target>Vous avez créé un **spore**.</target>
+        <target>Vous avez créé une **spore**.</target>
       </segment>
     </unit>
     <unit id="flirt">
@@ -108,7 +108,7 @@
     <unit id="remove_spore">
       <segment id="highlight" state="translated">
         <source>remove_spore.highlight</source>
-        <target>Vous vous êtes retiré un spore.</target>
+        <target>Vous vous êtes retiré une spore.</target>
       </segment>
     </unit>
     <unit id="extinguish_manually">

@@ -19,7 +19,7 @@
 	},
 	"footer": {
 		"alphaVersion": "Versión Alpha",
-		"crowdin": "Puedes ayudarnos a traducir el juego en",
+		"crowdin": "Puedes ayudarnos a traducir el juego en ",
 		"developers": "Desarrolladores",
 		"coreTeam": "El equipo de eMush:",
 		"contributors": "Gracias a nuestros colaboradores",
@@ -30,16 +30,50 @@
 		"report": "Denunciar un comportamiento inapropiado",
 		"otherGames": "Descubre los otros juegos de Eternaltwin",
 		"eternaltwinGames": {
-			"alphabounce": "Alphabounce",
-			"dinocard": "Dinocard",
-			"dinorpg": "DinoRPG",
-			"directquiz": "Directquiz",
-			"epopotamo": "ePopotamo",
-			"eternalfest": "Eternalfest",
-			"kingdom": "Eternal Kingdom",
-			"mybrute": "ElBruto",
-			"myhordes": "MyHordes",
-			"neoparc": "Neoparc"
+			"alphabounce": {
+				"name": "AlphaBounce",
+				"description": "AlphaBounce es un juego de ladrillos en el que eres un prisionero condenado a minar en el espacio para siempre. ¿Quizás puedas volver a casa?"
+			},
+			"dinocard": {
+				"name": "Dinocard",
+				"description": "Dinocard Rebirth es una reimplementación de Dinocard. ¡Ya hay 150 cartas jugables!"
+			},
+			"dinorpg": {
+				"name": "DinoRPG",
+				"description": "Entrena a tus dinoz y embárcate en una aventura extraordinaria..."
+			},
+			"directquiz": {
+				"name": "Directquiz",
+				"description": "Jeu de quiz : votre culture mise à rude épreuve ! (solo disponible en francés)"
+			},
+			"epopotamo": {
+				"name": "ePopotamo",
+				"description": "Le jeu de mots relax jouable en toute situation ! (solo disponible en francés)"
+			},
+			"eternalfest": {
+				"name": "Eternalfest",
+				"description": "Eternalfest es una reimplementación de Hammerfest. ¡Incluye tanto los niveles oficiales como contenido nuevo!"
+			},
+			"kingdom": {
+				"name": "Eternal Kingdom",
+				"description": "¡Expande tu dominio y conviértete en emperador!"
+			},
+			"mybrute": {
+				"name": "El Bruto",
+				"description": "¡Resuelve tus diferencias en la arena!"
+			},
+			"myhordes": {
+				"name": "MyHordes",
+				"description": "¡El primer juego gratuito de supervivencia de zombis que tiene lugar en un mundo hostil poblado por zombis!"
+			},
+			"neoparc": {
+				"name": "Neoparc",
+				"description": "Neoparc es una nueva implementación de Dinoparc. ¡Cría a tus Dinoz en esta versión mejorada!"
+			},
+			"pioupiouz": {
+				"name": "PiouPiouZ",
+				"description": "Se \"plurtchan\", explotan, se dilatan, se transforman, avanzan en línea recta sin pensar y ¡solo tú puedes llevarlos a la salida salvadora! (disponible solo en francés)"
+			}
 		}
 	},
 	"util": {
@@ -732,7 +766,8 @@
 		"problem": "Hubo un problema procesando tu solicitud.",
 		"reportToDevs": "Por favor reporta este error a los desarrolladores, con detalles de cómo sucedió.",
 		"title": "ERROR",
-		"You have been banned!": "A la luz de tus acciones, un moderador te ha baneado. Si crees que se trata de un error, por favor abre un ticket en el <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord de Eternaltwin</a>."
+		"You have been banned!": "A la luz de tus acciones, un moderador te ha baneado. Si crees que se trata de un error, por favor abre un ticket en el <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Discord de Eternaltwin</a>.",
+		"notFound": "La página que buscas no se puede encontrar. Debe de ser materia oscura, un Mush u otra explicación descabellada... Lo sentimos :)"
 	},
 	"metaSeo": {
 		"description": "eMush es una reimplementación de Mush, el juego galardonado de supervivencia e investigación de Motion Twin (Twinoid). ¡Sumérgete en una emocionante ópera espacial que combina supervivencia, deducción social y juego de rol en una experiencia de multijugador única!",
@@ -993,5 +1028,62 @@
 		"mushGenome": "Genoma Mush",
 		"displayYourHumanSkills": "Haz clic aquí para ver tus **habilidades humanas**.",
 		"displayYourMushSkills": "Haz clic aquí para ver tus **habilidades Mush**."
+	},
+	"hud": {
+		"userMenu": {
+			"account": "Mi cuenta",
+			"rankings": "Clasificación",
+			"news": "Noticias",
+			"rules": "Reglas",
+			"daedalus": "Daedalus",
+			"logout": "Desconectarse",
+			"notifications": {
+				"title": "Notificaciones",
+				"empty": "¡Nada que ver aquí!"
+			},
+			"readAll": "Marcar todo como leído",
+			"soon": "Disponible pronto",
+			"ok": "Ok",
+			"settings": {
+				"name": "Parámetros",
+				"subscribeToNotifications": "Suscribirse a las notificaciones",
+				"notifications": "Notificaciones",
+				"hideMushActions": "Ocultar acciones de los Mush",
+				"showMushActions": "Mostrar acciones de los Mush"
+			}
+		},
+		"topBar": {
+			"login": "Conectarse",
+			"notifications": "{count} notificación | {count} notificaciones"
+		}
+	},
+	"fakeAdmin": {
+		"title": "Consola de administrador NERON — Acceso controlado",
+		"subtitle": "Hola {user}. Sesión abierta en modo restringido. Inicie una operación para inicializar la verificación de las acreditaciones.",
+		"buttons": {
+			"teleportToEden": "Teletransportarse a Edén\n",
+			"revealMush": "Revelar a los Mushes",
+			"advanceTime50Days": "Avanzar el tiempo 50 días",
+			"makeChunMush": "Convertir a Chun en un Mush",
+			"get999AP": "Obtener 999 PA",
+			"repairFuelTanks": "Reparar los tanques de combustible"
+		},
+		"alerts": {
+			"teleportToEden": "La teletransportación a Edén ha fallado: clima solar impredecible. Mejor quedarse cómodo.",
+			"revealMush": "Revelación de los Mush en progreso... Error: todos los humanos parecen sospechosos.",
+			"advanceTime50Days": "Avance de tiempo denegado: paradoja detectada. Por favor, respete la línea temporal.",
+			"makeChunMush": "Chun se niega cortésmente. Bueno... “cortésmente” quizá sea exagerar.",
+			"get999AP": "Crédito de PA cancelado: “hacer trampa” no es una habilidad reconocida por NERON.",
+			"repairFuelTanks": "Reparación de los tanques de combustible en progreso... Error: estás siendo atacado por Capucine."
+		},
+		"hint": "Consejo: para usar estas funciones, necesitas credenciales válidas. O un muy buen sentido del humor."
+	},
+	"toast": {
+		"notification": {
+			"subscribeSuccess": "¡Ahora estás suscrito a las notificaciones!",
+			"subscribeError": "Se produjo un error al suscribirse a las notificaciones.",
+			"unsubscribeSuccess": "Te has dado de baja de las notificaciones.",
+			"unsubscribeError": "Se produjo un error al darse de baja de las notificaciones."
+		}
 	}
 }

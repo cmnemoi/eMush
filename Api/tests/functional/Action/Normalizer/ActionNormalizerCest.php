@@ -123,8 +123,8 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'movementPointCost' => 0,
                 'skillPointCosts' => [],
                 'successRate' => 100,
-                'name' => 'Extirper un spore',
-                'description' => "Extirpez-vous un spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
+                'name' => 'Extirper une spore',
+                'description' => "Extirpez-vous une spore pour ensuite contaminer un coéquipier (mais avant ça, repérez les caméras).//
         L'ensemble des **Mush** peuvent encore produire **4 spores** aujourd'hui.//Cette action est **Discrète**. Elle sera révélée par les **Caméras** et les **Équipiers**, y compris ceux de **votre camp**.",
                 'canExecute' => true,
                 'isMushAction' => true,

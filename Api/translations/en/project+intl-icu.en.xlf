@@ -891,7 +891,7 @@
       </segment>
       <segment id="mushicide_soap.description" state="translated">
         <source>mushicide_soap.description</source>
-        <target>Every shower you take will destroy one mush spore on your body. Give 3 :triumph:</target>
+        <target>Every shower you take with the soap will destroy one mush spore on your body.</target>
       </segment>
       <segment id="mushicide_soap.lore" state="translated">
         <source>mushicide_soap.lore</source>

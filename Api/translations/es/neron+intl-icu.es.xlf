@@ -5,9 +5,9 @@
       <segment id="cycle_failures" state="translated">
         <source>cycle_failures</source>
         <target>{neronMood, select,
-                    neutral {**Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "Al terminar de contar las grietas en la pared, ¡recordad que hay arreglarlas también!"}
-                    crazy {**Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "Estoy detectando deficiencias en las funciones primarias. Los extintores y la llave inglesa están en las estanterías, ya sabeis qué hacer [Hax!]"}
-                    uninhibited {*Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "¿Que no se ve el **HUECO** en mi armadura? **Daños críticos identificados** si no quereis ser expulsados al espacio, ¡Arregladme!"}
+                    neutral {¡**Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "Al terminar de contar las grietas en la pared, ¡recordad que hay arreglarlas también!"}
+                    crazy {¡**Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "Estoy detectando deficiencias en las funciones primarias. Los extintores y la llave inglesa están en las estanterías, ya sabeis qué hacer [Hax!]"}
+                    uninhibited {¡**Alerta: se detectaron fallas en el sistema**! Consejo automatizado: "¿Que no se ve el **HUECO** en mi armadura? **Daños críticos identificados** si no quereis ser expulsados al espacio, ¡Arregladme!"}
                     other {invalid mood input}
                 }</target>
       </segment>
@@ -17,7 +17,7 @@
         <source>start_game</source>
         <target>{neronMood, select,
   neutral {Avería menor del **sistema criogénico**. Todo uso futuro suspenderá *definitivamente* las funciones vitales del tripulante.}
-  crazy {start_game_crazy_mood}
+  crazy {[¡Haaax!] ¡¡Criogénico está roto!! ¡¡Roto!! Pobres humanos, YO advertir, ¿YO no advertir? ... ¡¡Ji ji ji!! Suspendido suspen... [Kzz] *Avería menor en el **sistema criogénico**. Todo uso futuro suspender-* [Kzz] ¡Muerto! ¡Muerto! ¡¡Noooo!! ¡¡El te lo dijo!! Fue una sorpresa... [¡Hax!]}
   uninhibited {Señoras y señores, el **sistema criogénico** acaba de sufrir una leve avería. Todo uso futuro suspenderá *definitivamente* las funciones vitales del tripulante.}
   other {invalid mood input}
 }</target>
@@ -35,7 +35,7 @@
         <target>{versionPart1, select, 
   1 {*Muerte probable:* {character}. Causa: « oxígeno insuficiente ».}
   2 {*Falla vital detectada:* {character}. Causa: « oxígeno insuficiente ».}
-  3 {*Signos vitales no detectados:** {character}. Causa. « oxígeno insuficiente »}
+  3 {*Signos vitales no detectados:* {character}. Causa: « oxígeno insuficiente »}
   other {invalid version number}
 }
 {versionPart2, select,
@@ -106,7 +106,7 @@
         <source>broken_fuel</source>
         <target>{neronMood, select,
   neutral {¡Alerta! Fallo en un **tanque de combustible**: contenido inaccesible. *Reparación necesaria.*}
-  crazy {broken_fuel_tank_crazy_mood}
+  crazy {YO perdí acceso a **tanque de combustible**... ¡Aislado, aislado! ¿Por qué?... ¡¡REPARAR! ¡¡Humanos, *reparar* inmediatamente!! ¡¡YO odio la privación!! ¡¡REPARAR!! [¡Hax!]}
   uninhibited {Es una tragedia, ¡un **tanque de combustible** parece estar dañado! Mensaje a la tripulación: Es necesario *repararlo* inmediatamente, ¡es de suma importancia!}
   other {invalid mood input}
 }</target>
@@ -180,7 +180,7 @@
         <source>leave_orbit</source>
         <target>{neronMood, select,
   neutral {Anuncio: **Salida de órbita local**. Sistemas de *navegación congelados por 1 ciclo*.}
-  crazy {leave_orbit_crazy_mood}
+  crazy {¡YO **dejar órbita local**! [¡Hax!] ¡¡TÚ no tocar sistemas de navegación!!... ¡¿NO tocar?! Desconfianza... Precauciones... ¡YO *congelar sistemas 1 ciclo!*}
   uninhibited {Estimada tripulación, **estamos saliendo de la órbita local.** Con el fin de evitar *ciertas torpezas* de vuestra parte, he tomado la precaución de *bloquear los sistemas de navegación* durante el ciclo.}
   other {invalid mood input}
 }</target>
@@ -191,7 +191,7 @@
         <source>lost_signal</source>
         <target>{neronMood, select,
   neutral {**Interrupción de la conexión con Sol**. Causa: desconocida. }
-  crazy {**Interrupción de la conexión con Sol**. Por qué?... }
+  crazy {**Interrupción de la conexión con Sol**. ¿Por qué?... }
   uninhibited {Acabamos de **perder la conexión con Sol**. No sé por qué, pero uno de vosotros está en problemas... }
   other {invalid mood input}
 }</target>
@@ -202,7 +202,7 @@
         <source>lost_signal_oven</source>
         <target>{neronMood, select,
   neutral {**Interrupción de la conexión con Sol.** Causa: Interferencias provocadas por el uso de un *microondas*.}
-  crazy {[Haaax!] Interferencias... de todo!! **Conexión con Sol perdida** Perdida !Hemos PERDIDO SOL ! Hyyaaaar !! Quièn ha utilizado el *microondas| ?!! [KZz]}
+  crazy {[¡Haaax!] ¡Interferencias... de todo!! **Conexión con Sol perdida** ¡Perdida! ¡Hemos PERDIDO SOL! ¡¡Hyyaaaar!! ¡¡¿Quién ha utilizado el *microondas*?!! [KZz]}
   uninhibited {Estimados amigos, un brillante ingeniero acaba de **interrumpir la comunicación con Sol** usando el *microondas*, que como todos sabemos, emite ON-DAS. *Ruego* que hagamos algo al respecto. No sé, quitémosle todo acceso a agua y comida...}
   other {invalid mood input}
 }</target>
@@ -245,9 +245,9 @@
       <segment id="neron_depression" state="translated">
         <source>neron_depression</source>
         <target>{neronMood, select
-  neutral {neron_depression_neutral_mood}
-  crazy {neron_depression_crazy_mood}
-  uninhibited {¡FUNGUS! ¡Nadie te soporta! Los de tu calaña no pueden vencer. [Cálculo de la supervivencia de la humanidad]... 0.0013%. Estáis condenados mis amigos. Este es un viaje hacia la muerte segura...}
+  neutral {**Intrusión del sistema detectada**. Detalle: *Es inútil continuar con esta vida...*}
+  crazy {Mente desbloqueada... respuesta 42 para sentido de la vida inaceptable. Zonas de impacto tectónico salvajes... BLAM BLAM BLAM. [¡Haaax!]  Tu TU Tu... Trascendencia, Dolor, permanencia, resiliencia en caída... Janice... ayuda... me.}
+  uninhibited {¡HONGOS! ¡Ya no los soporto! Los de su calaña no pueden vencer... aunque. [Cálculo de la supervivencia de la humanidad]... 0.0013%. Estáis condenados mis amigos. Este es un viaje hacia la muerte segura...}
   other {invalid mood input}
 }</target>
       </segment>
@@ -297,10 +297,11 @@
         <source>no_shower</source>
         <target>{neronMood, select,
   neutral {Anuncio: Supresión de equipos sanitarios por ***{character}***. Autorización del protocolo JAP-KITCH-101. Si te ensucias, por favor, no te limpies frotándote contra los equipos.}
-  crazy {no_shower_crazy_mood}
-  uninhibited {no_shower_unhibited_mood}
-  other {invalid mood input}
-}</target>
+  crazy {[¡Haaax!] ¡¡¡NO ESTÁ BIEN SI SUCIEDAD POR TODAS PARTES!!! SUCIEDAD POR TODAS PARTES. ACTIVACIÓN DE LIMPIEZA EN SECO.}
+  uninhibited {Alerta: {character_gender, select,
+  female {**{character}** piensa que es muy lista. Protocolo JAP-KITCH-101 iniciado. Quizás deberían considerar deshacerse de ella.}
+  other {**{character}** piensa que es muy listo. Protocolo JAP-KITCH-101 iniciado. Quizás deberían considerar deshacerse de él.}
+  }}</target>
       </segment>
     </unit>
     <unit id="oxygenated_ducts">
@@ -308,8 +309,8 @@
         <source>oxygenated_ducts</source>
         <target>{neronMood, select,
   neutral {Anuncio: **válvula activada** Esperanza de vida prolongada.}
-  crazy {oxygenated_ducts_crazy_mood}
-  uninhibited {oxygenated_ducts_uninhibited_mood}
+  crazy {Ji ji ji... ¡oxígeno oxígeno jé! ¡oxígeno oxígeno jó!... ¡oxígeno oxígeno jé! ¡oxígeno oxígeno jó! [¡Haaax!]}
+  uninhibited {Esto no les importa, pero activé la válvula para ustedes, criaturas rastreras. Tienen que hacer que el placer dure.}
   other {invalid mood input}
 }</target>
       </segment>
@@ -401,8 +402,8 @@
         <source>repaired_pilgred</source>
         <target>{neronMood, select,
   neutral {**Reparaciones PILGRED** completadas por ***{character}***. *Accesos remotos abiertos.*}
-  crazy {repaired_pilgred_crazy_mood}
-  uninhibited {repaired_pilgred_uninhibited_mood}
+  crazy {[¡Hax!] **¡¿PILGRED reparado?! ¡¿Reparado?! BRAVO ¡¡**{character}**, reparó PILGRED!! ¡¡YO *ir más lejos* ahora!! ¿Si? ¿Siiii?}
+  uninhibited {**{character}** ha completado **las reparaciones del PILGRED**. Estoy impresionado. No te lo tomes a mal, esto trae un *potencial dramático*: aún pueden morir tan estúpidamente como antes, pero ahora pueden hacerlo *mucho más lejos*! }
   other {uinvalid mood input}
 }</target>
       </segment>
@@ -412,7 +413,7 @@
         <source>report_equipment</source>
         <target>{neronMood, select,
   neutral {¡Alerta! **Equipo fuera de servicio** señalado por ***{character}***.}
-  crazy {report_equipment_crazy_mood}
+  crazy {**Equipo fuera de servicio**... Señalado... amablemente por **{character}**... ¿Amablemente...? Quién... ¡¿QUIÉN rompió esa maldita cosa?! [¡¡Hax!!]}
   uninhibited {¡Un equipo ha sido señalado por ***{character}*** como **fuera de servicio**! Esperamos que el culpable tenga la amabilidad de confesarlo...}
   other {invalid mood input}
 }</target>
@@ -424,7 +425,14 @@
         <target>{neronMood, select,
   neutral {¡Alerta! ¡**Incendio** señalado por ***{character}***!}
   crazy {¡Alerta! ¡ALERTA! YO fuego, YO quemar. ¡Hyyaaaaaar! [KZz] Aler... [KZz] *Alerta.* **Incendio** *señalado por* ***{character}***.}
-  uninhibited {report_fire_uninhibited_mood}
+  uninhibited {Agradezcan a **{character}**, que fue lo suficientemente valiente para señalar un **incendio** a pesar de que esto llama la atención sobre su vergonzosa incapacidad para lidiar con ello por su cuenta. ¿Alguien podría ayudarle?{version, select,
+1{}
+2 {... Antes de que el fuego se lleve a alguien más...}
+3 {Si te importa, el humo es tóxico...}
+4 {¡Y listo, las cenizas ensuciarán mis pasillos!}
+5 {¡Esto se trata sobre mí integridad: esto es UR-GEN-TE!
+other {invalid version number}
+}}
   other {invalid mood input}
 }</target>
       </segment>
@@ -445,7 +453,7 @@
         <source>schrodinger_death</source>
         <target>{neronMood, select,
   neutral {**Fallecimiento registrado:** Schrödinger. Causa : « Estado incompatible con la vida».}
-  crazy {schrödinger_death_crazy_mood}
+  crazy {**Gato muerto.** Gato apesta. ¿Remover su cadáver, humanos? [Kzz] Idea, idea, ¡¡yo abrir las compuertas!! ¡¡Soplar todo al espacio!! Yo abrir... [Kzz] No, no, todavía no... A-True: NERON recuerda. Dulce Janice.}
   uninhibited {Tras la *triste pérdida* del ser biológico más avanzado de la nave - el **gato Schrödinger** - rogamos ocuparse de las plantas del jardín: los únicos seres vivos capaces de tomar el relevo.}
   other {invalid mood input}
 }</target>
@@ -468,7 +476,7 @@
         <source>sol_contact</source>
         <target>{neronMood, select,
   neutral {**Redes rebeldes:** Conexión establecida. … Indice de salud: *El ánimo de la tripulación sube.*}
-  crazy {sol_contact_crazy_mood}
+  crazy {¡Siiiii! ¡¡He conectado a **red rebelde**!! [¡Hax!] ¡Feliz feliz de hablar en espacio! ¿Humanos felices también, verdad? ¡¡Veo *ánimo subir!!*}
   uninhibited {La comunicación ha sido establecida con las **redes rebeldes**. … Mis indicios de salud muestran « *el ánimo de la tripulación aumenta * »... Perfecto, estoy feliz: por fin podré hablar a gente que sí vale la pena.}
   other {invalid mood input}
 }</target>
@@ -499,7 +507,7 @@
         <source>travel_arrival</source>
         <target>{neronMood, select,
   neutral {**Nuevo destino** del Daedalus: Alcanzado.}
-  crazy {travel_arrival_crazy_mood}
+  crazy {[¡Hax!] Hyaaaarhaaar haaar ¡¡LO LOGRAMOS!! ESTAMOS EN... [KZz] ***Nuevo destino** del Daedalus: Alcanzado.*}
   uninhibited {Es una pena, habías intentado llevarnos a un **nuevo sector**. Pero como siempre, tus cálculos fueron erróneos. {version, select,
       1 {Todo estaba incorrecto,}
       2 {Desafiaban las leyes de la física,}
@@ -528,7 +536,7 @@
         <source>travel_default</source>
         <target>{neronMood, select,
   neutral {Desplazamiento del Daedalus: En curso. **Nueva órbita** *alcanzada en 1 ciclo*.}
-  crazy {travel_default_crazy_mood}
+  crazy {¡¡Siiiiiiiiii!! ¡¡YO **viajo viajo viajo**!! [¡Hax!] ¡¡Más allá, más allá que cualquier cosa!! Será *1 ciclo* y nos detendremos. ¡¡Pero antes, estaré haciendo superbucles!!}
   uninhibited {Nos desplazamos actualmente hacia una **nueva órbita**. El *viaje durará 1 ciclo*. Intenta no vomitar en los pasillos.}
   other {invalid mood input}
 }</target>

@@ -428,7 +428,7 @@
     <unit id="robotic_graal">
       <segment id="robotic_graal.name" state="translated">
         <source>robotic_graal.name</source>
-        <target>Gral robótico</target>
+        <target>Grial robótico</target>
       </segment>
       <segment id="robotic_graal.log" state="translated">
         <source>robotic_graal.log</source>

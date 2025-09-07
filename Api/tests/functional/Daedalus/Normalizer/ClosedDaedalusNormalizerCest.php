@@ -120,7 +120,7 @@ final class ClosedDaedalusNormalizerCest extends AbstractFunctionalTest
                     'key' => 'antispore_gas',
                     'name' => 'Gaz antispore',
                     'description' => 'Le maximum de spores journalier des Mush est réduit de deux points.//Accorde 3 :triumph:',
-                    'lore' => 'En injectant des composants vanillés à haute pression dans le compresseur à oxygène, on s\'aperçoit que ça tue les champignons des conduites de ventilation. Pourquoi ne pas en diffuser partout ça nuira peut-être à notre parasite detesté et puis en plus le vaisseau sentira la vanille.',
+                    'lore' => 'En injectant des composants vanillés à haute pression dans le compresseur à oxygène, on s\'aperçoit que ça tue les champignons des conduites de ventilation. Pourquoi ne pas en diffuser partout ça nuira peut-être à notre parasite détesté et puis en plus le vaisseau sentira la vanille.',
                 ],
             ],
             actual: $normalizedDaedalus['projects']['researchProjects']['lines']

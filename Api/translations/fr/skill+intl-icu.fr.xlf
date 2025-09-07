@@ -477,7 +477,7 @@
       </segment>
       <segment id="phagocyte.description" state="translated">
         <source>phagocyte.description</source>
-        <target>En cas de coup dur, vous avez LA solution.//:point: Pour **0** :pa:, vous pouvez dévorer un **Spore** ce qui vous rend **4** :pa: et **4** :hp:.</target>
+        <target>En cas de coup dur, vous avez LA solution.//:point: Pour **0** :pa:, vous pouvez dévorer une **Spore** ce qui vous rend **4** :pa: et **4** :hp:.</target>
       </segment>
     </unit>
     <unit id="wrestler">
@@ -531,7 +531,7 @@
       </segment>
       <segment id="trapper.description" state="translated">
         <source>trapper.description</source>
-        <target>Surprise !//:point: Pour **1** :pa:, vous pouvez piéger une **pièce** avec un **spore**. Si une personne manipule un **objet** ou un **équipement** de la pièce, elle sera **infectée**. Si c'est un Mush (dont vous-même) ou un Immunisé, le spore est perdu.</target>
+        <target>Surprise !//:point: Pour **1** :pa:, vous pouvez piéger une **pièce** avec une **spore**. Si une personne manipule un **objet** ou un **équipement** de la pièce, elle sera **infectée**. Si c'est un Mush (dont vous-même) ou un Immunisé, la spore est perdu.</target>
       </segment>
     </unit>
     <unit id="tracker">
@@ -651,7 +651,7 @@
       </segment>
       <segment id="mycologist.description" state="translated">
         <source>mycologist.description</source>
-        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou à l'aide d'un **Medikit**.//:point: Vos soins retirent automatiquement un spore.</target>
+        <target>Le Mycologiste peut soigner les infections fongiques à l'**Infirmerie** ou à l'aide d'un **Medikit**.//:point: Vos soins retirent automatiquement une spore.</target>
       </segment>
     </unit>
     <unit id="fungal_kitchen">
@@ -661,7 +661,7 @@
       </segment>
       <segment id="fungal_kitchen.description" state="translated">
         <source>fungal_kitchen.description</source>
-        <target>Un grand classique de la gastronomie moderne sur Sol.//:point: Vous pouvez créer un **aliment piégé** en mélangeant un **spore** et un **consommable** pour **1** :pa:.</target>
+        <target>Un grand classique de la gastronomie moderne sur Sol.//:point: Vous pouvez créer un **aliment piégé** en mélangeant une **spore** et un **consommable** pour **1** :pa:.</target>
       </segment>
     </unit>
     <unit id="hard_boiled">

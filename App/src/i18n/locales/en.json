@@ -32,7 +32,7 @@
 		"eternaltwinGames": {
 			"alphabounce": {
 				"name": "AlphaBounce",
-				"description": "AlphaBounce is a brick game where you are a prisoner sentenced to mine in the space for ever. Maybe you could get home?"
+				"description": "AlphaBounce is a brick game where you are a prisoner sentenced to mine in the space forever. Maybe you could get home?"
 			},
 			"dinocard": {
 				"name": "Dinocard",
@@ -69,6 +69,10 @@
 			"neoparc": {
 				"name": "Neoparc",
 				"description": "Neoparc is a fresh implementation of Dinoparc. Raise your Dinoz in this improved version!"
+			},
+			"pioupiouz": {
+				"name": "PiouPiouZ",
+				"description": "Ils se \"plurtchent\", ils explosent, ils se dilatent, ils se transforment, ils avancent tout droit sans réfléchir et seul vous pouvez les amener à la sortie salvatrice ! (available only in french)"
 			}
 		}
 	},
@@ -762,7 +766,8 @@
 		"problem": "There was a problem processing your request.",
 		"reportToDevs": "Please report this error to the developers, with details of how it occurred.",
 		"title": "ERROR",
-		"You have been banned!": "As a result of your actions, you have been banned by a moderator.\\nIf you think this is a mistake, please open a ticket on the <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Eternaltwin Discord</a>."
+		"You have been banned!": "As a result of your actions, you have been banned by a moderator.\\nIf you think this is a mistake, please open a ticket on the <a href='https://discord.gg/Jb8Nwjck6r', target='_blank', rel='noopener noreferrer'>Eternaltwin Discord</a>.",
+		"notFound": "The page you are looking for cannot be found. Must be dark matter, a Mush, or some other far-fetched explanation... Sorry :)"
 	},
 	"metaSeo": {
 		"description": "eMush is a remake of Mush, the award-winning survival and investigation game from Motion Twin (Twinoid). Dive into a thrilling space opera that blends survival, social deduction and role-playing in a unique multiplayer experience!",
@@ -1023,5 +1028,62 @@
 		"mushGenome": "Mush genome",
 		"displayYourHumanSkills": "Click here to view your **human skills**.",
 		"displayYourMushSkills": "Click here to view your **Mush skills**."
+	},
+	"hud": {
+		"userMenu": {
+			"account": "My account",
+			"rankings": "Rankings",
+			"news": "News",
+			"rules": "Rules",
+			"daedalus": "Daedalus",
+			"logout": "Logout",
+			"notifications": {
+				"title": "Notifications",
+				"empty": "Nothing to see here!"
+			},
+			"readAll": "Mark all as read",
+			"soon": "Available soon",
+			"ok": "OK",
+			"settings": {
+				"name": "Settings",
+				"subscribeToNotifications": "Subscribe to notifications",
+				"notifications": "Notifications",
+				"hideMushActions": "Hide Mush actions",
+				"showMushActions": "Display Mush actions"
+			}
+		},
+		"topBar": {
+			"login": "Login",
+			"notifications": "{count} notification | {count} notifications"
+		}
+	},
+	"fakeAdmin": {
+		"title": "NERON Administrator Console — Controlled Access",
+		"subtitle": "Hello {user}. Session opened in restricted mode. Start an operation to initialize accreditation verification.",
+		"buttons": {
+			"teleportToEden": "Teleport to Eden",
+			"revealMush": "Reveal the Mushes",
+			"advanceTime50Days": "Fast-forward time 50 days",
+			"makeChunMush": "Turn Chun into a Mush",
+			"get999AP": "Get 999 AP",
+			"repairFuelTanks": "Repair the fuel tanks"
+		},
+		"alerts": {
+			"teleportToEden": "Teleportation to Eden failed: unpredictable solar weather. Better stay cozy.",
+			"revealMush": "Mush revelation in progress... Error: all humans look suspicious.",
+			"advanceTime50Days": "Time advance denied: paradox detected. Please respect the timeline.",
+			"makeChunMush": "Chun politely refuses. Well... “politely” might be a stretch.",
+			"get999AP": "AP credit canceled: 'cheating' is not a skill recognized by NERON.",
+			"repairFuelTanks": "Fuel tank repairs in progress... Error: you are under attack by Capucine."
+		},
+		"hint": "Tip: to use these features, you need valid credentials. Or a really good sense of humor."
+	},
+	"toast": {
+		"notification": {
+			"subscribeSuccess": "You are now subscribed to notifications!",
+			"subscribeError": "An error occurred while subscribing to notifications.",
+			"unsubscribeSuccess": "You have unsubscribed from notifications.",
+			"unsubscribeError": "An error occurred while unsubscribing from notifications."
+		}
 	}
 }

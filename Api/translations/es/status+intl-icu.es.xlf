@@ -1447,7 +1447,7 @@
     <unit id="lost">
       <segment id="name" state="translated">
         <source>lost.name</source>
-        <target>{character_gender, select
+        <target>{character_gender, select,
   female {Perdida}
   other {Perdido}
 }</target>

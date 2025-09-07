@@ -300,11 +300,11 @@ Disponible solo durante el alpha.
     <unit id="take">
       <segment id="name" state="translated">
         <source>take.name</source>
-        <target>Tomar</target>
+        <target>Recoger</target>
       </segment>
       <segment id="description" state="translated">
         <source>take.description</source>
-        <target>Toma un objeto de esta sala y colócalo en tu inventario.</target>
+        <target>Recoge un objeto de esta sala y colócalo en tu inventario.</target>
       </segment>
     </unit>
     <unit id="transplant">
@@ -939,7 +939,7 @@ O si simplemente quieres un poco de aire fresco... ¿aire?</target>
     <unit id="retrieve_fuel_chamber">
       <segment id="name" state="translated">
         <source>retrieve_fuel_chamber.name</source>
-        <target>Tomar cápsula</target>
+        <target>Sacar cápsula de combustible</target>
       </segment>
       <segment id="description" state="translated">
         <source>retrieve_fuel_chamber.description</source>
@@ -1454,7 +1454,7 @@ Se desplaza inteligentemente hacia el incendio equipo o patrullero más cercano 
     <unit id="take_cat">
       <segment id="name" state="translated">
         <source>take_cat.name</source>
-        <target>Tomar</target>
+        <target>Levantar</target>
       </segment>
       <segment id="description" state="translated">
         <source>take_cat.description</source>

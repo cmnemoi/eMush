@@ -890,7 +890,7 @@
       </segment>
       <segment id="mushicide_soap.description" state="translated">
         <source>mushicide_soap.description</source>
-        <target>Cada vez que te duches, destruirás una espora que lleves encima.</target>
+        <target>Cada vez que te duches con el jabón, destruirás una espora que lleves encima.</target>
       </segment>
       <segment id="mushicide_soap.lore" state="translated">
         <source>mushicide_soap.lore</source>

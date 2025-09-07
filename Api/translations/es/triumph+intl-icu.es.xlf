@@ -332,9 +332,9 @@
         <source>eden_one_man.name</source>
         <target>Uno para todos</target>
       </segment>
-      <segment id="eden_one_man.log" state="translated">
+      <segment id="eden_one_man.log" state="final">
         <source>eden_one_man.log</source>
-        <target>Has ganado {quantity} :triumph: porque {quantity} {quantity, select, 1 {tripulante ha} other {tripulantes han} llegado al Edén.</target>
+        <target>Has ganado {quantity} :triumph: porque {quantity} {quantity, select, 1 {tripulante ha} other {tripulantes han}} llegado al Edén.</target>
       </segment>
     </unit>
     <unit id="eden_engineers">

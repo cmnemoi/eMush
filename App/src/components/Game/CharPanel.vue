@@ -207,8 +207,7 @@ export default defineComponent ({
         ...mapGetters({
             'loading': 'player/isLoading',
             'selectedItem': 'player/selectedItem',
-            'displayMushSkills': 'player/displayMushSkills',
-            'hideMushActions': 'settings/hideMushActions'
+            'displayMushSkills': 'player/displayMushSkills'
         }),
         characterPortrait(): string {
             return characterEnum[this.player.character.key].portrait ?? '';
@@ -229,12 +228,7 @@ export default defineComponent ({
             return this.selectedItem || this.player;
         },
         targetActions(): Action[] {
-            let actions = this.target?.actions;
-            if (this.hideMushActions) {
-                actions = actions?.filter(action => !action.isMushAction);
-            }
-
-            actions = actions?.filter(action => action.isNotMissionAction());
+            let actions = this.target?.actions.filter(action => action.isNotMissionAction());
 
             // Setup commander order action cost to 0 if available
             if (this.target instanceof Player && this.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {

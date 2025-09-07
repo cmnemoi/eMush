@@ -1250,7 +1250,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_1',
             'action_name' => ActionEnum::SABOTAGE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -1266,7 +1266,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_3',
             'action_name' => ActionEnum::SABOTAGE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -1282,7 +1282,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_6',
             'action_name' => ActionEnum::SABOTAGE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -1298,7 +1298,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_12',
             'action_name' => ActionEnum::SABOTAGE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -1314,7 +1314,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_25',
             'action_name' => ActionEnum::SABOTAGE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -1330,7 +1330,7 @@ class ActionData
         [
             'name' => 'sabotage_percent_50',
             'action_name' => ActionEnum::SABOTAGE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'secret', 'fail' => 'private'],
@@ -2274,7 +2274,7 @@ class ActionData
         [
             'name' => ActionEnum::DELOG->value,
             'action_name' => ActionEnum::DELOG,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'hidden', 'fail' => 'hidden'],
@@ -2338,7 +2338,7 @@ class ActionData
         [
             'name' => ActionEnum::MIX_RATION_SPORE->value,
             'action_name' => ActionEnum::MIX_RATION_SPORE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => 'hidden', 'fail' => 'hidden'],
@@ -2354,7 +2354,7 @@ class ActionData
         [
             'name' => ActionEnum::DEPRESS->value,
             'action_name' => ActionEnum::DEPRESS,
-            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => VisibilityEnum::COVERT, 'fail' => VisibilityEnum::HIDDEN],
@@ -2370,7 +2370,7 @@ class ActionData
         [
             'name' => ActionEnum::SLIME_TRAP->value,
             'action_name' => ActionEnum::SLIME_TRAP,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => VisibilityEnum::COVERT, 'fail' => VisibilityEnum::HIDDEN],
@@ -2386,7 +2386,7 @@ class ActionData
         [
             'name' => ActionEnum::SLIME_OBJECT->value,
             'action_name' => ActionEnum::SLIME_OBJECT,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::EQUIPMENT,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::COVERT, 'fail' => 'private'],
@@ -2402,7 +2402,7 @@ class ActionData
         [
             'name' => ActionEnum::MASS_GGEDON->value,
             'action_name' => ActionEnum::MASS_GGEDON,
-            'types' => [ActionTypeEnum::ACTION_CONFIRM],
+            'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::SECRET, 'fail' => VisibilityEnum::HIDDEN],
@@ -2626,7 +2626,7 @@ class ActionData
         [
             'name' => ActionEnum::DOOR_SABOTAGE->value,
             'action_name' => ActionEnum::DOOR_SABOTAGE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::SECRET, 'fail' => VisibilityEnum::HIDDEN],
@@ -2642,7 +2642,7 @@ class ActionData
         [
             'name' => ActionEnum::GIVE_NIGHTMARE->value,
             'action_name' => ActionEnum::GIVE_NIGHTMARE,
-            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE],
+            'types' => [ActionTypeEnum::ACTION_AGGRESSIVE, ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::OTHER_PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => VisibilityEnum::COVERT, 'fail' => VisibilityEnum::HIDDEN],
@@ -2658,7 +2658,7 @@ class ActionData
         [
             'name' => ActionEnum::NERON_DEPRESS->value,
             'action_name' => ActionEnum::NERON_DEPRESS,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_MUSH],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::SELF,
             'visibilities' => ['success' => VisibilityEnum::SECRET, 'fail' => VisibilityEnum::HIDDEN],

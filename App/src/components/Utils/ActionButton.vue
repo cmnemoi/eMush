@@ -1,5 +1,5 @@
 <template>
-    <Tippy tag="div" :class="['action-button-flex-v2']" v-if=action>
+    <Tippy tag="div" :class="['action-button-flex-v2']" v-if="action && isVisible">
         <a
             :class="['action-button', cssClass, isDisabled].join(' ')"
             href="#">
@@ -40,6 +40,7 @@ import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { getImgUrl } from "@/utils/getImgUrl";
 import { skillPointEnum } from "@/enums/skill.point.enum";
 import { Tippy } from "vue-tippy";
+import { mapGetters } from "vuex";
 
 export default defineComponent ({
     components: { Tippy },
@@ -49,8 +50,14 @@ export default defineComponent ({
         player: Player
     },
     computed:{
+        ...mapGetters({
+            'hideMushActions': 'settings/hideMushActions'
+        }),
         isDisabled(): string {
             return !this.action?.canExecute ? "disabled" : "";
+        },
+        isVisible(): boolean {
+            return !(this.hideMushActions && this.action?.isMushAction);
         }
     },
     methods: {

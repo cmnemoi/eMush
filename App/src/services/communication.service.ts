@@ -7,6 +7,7 @@ import { ChannelType } from "@/enums/communication.enum";
 import { AxiosResponse } from "axios";
 import urlJoin from "url-join";
 import { ContactablePlayer } from "@/entities/ContactablePlayer";
+import { fileURLToPath } from "node:url";
 
 const API_URL = import.meta.env.VITE_APP_API_URL as string;
 
@@ -27,64 +28,87 @@ function toArray(data: any): any[] {
 
 const CommunicationService = {
     loadAlivePlayerChannels: async(): Promise<Channel[]> => {
-        const channelsPromise = CommunicationService.loadDeadPlayerChannels();
+        const roomLogChannelPromise = ApiService.get(ROOM_LOGS_CHANNEL_ENDPOINT);
+        const channelsPromise = ApiService.get(CHANNELS_ENDPOINT);
         const favoritesChannelPromise = ApiService.get(FAVORITES_CHANNEL_ENDPOINT);
         const piratedChannelsPromise = ApiService.get(PIRATED_CHANNELS_ENDPOINT);
         const newChannelPromise = ApiService.get(CAN_CREATE_CHANNEL_ENDPOINT);
         const tipsChannelPromise = ApiService.get(TIPS_CHANNEL_ENDPOINT);
 
-        const channels = await channelsPromise.then((channels: Channel[]) => {
-            return channels;
-        });
-        await favoritesChannelPromise.then((favoritesChannelData: any) => {
-            if (favoritesChannelData.data) {
-                channels.push((new Channel()).load(favoritesChannelData.data));
-            }
-        });
-        await piratedChannelsPromise.then((piratedChannelsData: any) => {
-            if (piratedChannelsData.data) {
-                toArray(piratedChannelsData.data).forEach((data: any) => {
-                    channels.push((new Channel()).load(data));
-                });
-            }
-        });
-        await newChannelPromise.then((newChannelData: any) => {
-            if (newChannelData.data && newChannelData.data['canCreate']) {
-                channels.push((new Channel()).load({
-                    scope: ChannelType.NEW_CHANNEL,
-                    id: ChannelType.NEW_CHANNEL,
-                    name: newChannelData.data['name'],
-                    description: newChannelData.data['description']
-                }));
-            }
-        });
-        await tipsChannelPromise.then((tipsChannelData: any) => {
-            if (tipsChannelData.data) {
-                channels.push((new Channel()).load(tipsChannelData.data));
-            }
-        });
+        const [
+            roomLogChannelData,
+            channelsData,
+            favoritesChannelData,
+            piratedChannelsData,
+            newChannelData,
+            tipsChannelData
+        ] = await Promise.all([
+            roomLogChannelPromise,
+            channelsPromise,
+            favoritesChannelPromise,
+            piratedChannelsPromise,
+            newChannelPromise,
+            tipsChannelPromise
+        ]);
+
+        const channels: Channel[] = [];
+
+        if (channelsData.data) {
+            toArray(channelsData.data).forEach((data: any) => {
+                channels.push((new Channel()).load(data));
+            });
+        }
+
+        if (roomLogChannelData.data) {
+            channels.push((new Channel()).load(roomLogChannelData.data));
+        }
+
+        if (favoritesChannelData.data) {
+            channels.push((new Channel()).load(favoritesChannelData.data));
+        }
+
+        if (piratedChannelsData.data) {
+            toArray(piratedChannelsData.data).forEach((data: any) => {
+                channels.push((new Channel()).load(data));
+            });
+        }
+
+        if (newChannelData.data && newChannelData.data['canCreate']) {
+            channels.push((new Channel()).load({
+                scope: ChannelType.NEW_CHANNEL,
+                id: ChannelType.NEW_CHANNEL,
+                name: newChannelData.data['name'],
+                description: newChannelData.data['description']
+            }));
+        }
+
+        if (tipsChannelData.data) {
+            channels.push((new Channel()).load(tipsChannelData.data));
+        }
 
         return channels;
     },
 
     loadDeadPlayerChannels: async (): Promise<Channel[]> => {
-        const channels: Channel[] = [];
-
         const roomLogChannelPromise = ApiService.get(ROOM_LOGS_CHANNEL_ENDPOINT);
         const channelsPromise = ApiService.get(CHANNELS_ENDPOINT);
 
-        await roomLogChannelPromise.then((roomLogChannelData: any) => {
-            if (roomLogChannelData.data) {
-                channels.push((new Channel()).load(roomLogChannelData.data));
-            }
-        });
-        await channelsPromise.then((channelsData: any) => {
-            if (channelsData.data) {
-                toArray(channelsData.data).forEach((data: any) => {
-                    channels.push((new Channel()).load(data));
-                });
-            }
-        });
+        const [roomLogChannelData, channelsData] = await Promise.all([
+            roomLogChannelPromise,
+            channelsPromise
+        ]);
+
+        const channels: Channel[] = [];
+
+        if (roomLogChannelData.data) {
+            channels.push((new Channel()).load(roomLogChannelData.data));
+        }
+
+        if (channelsData.data) {
+            toArray(channelsData.data).forEach((data: any) => {
+                channels.push((new Channel()).load(data));
+            });
+        }
 
         return channels.filter((channel: Channel) => channel.scope !== ChannelType.MUSH);
     },

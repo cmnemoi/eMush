@@ -432,9 +432,9 @@ other {invalid mood input}
 2 {... Antes de que el fuego se lleve a alguien más...}
 3 {Si te importa, el humo es tóxico...}
 4 {¡Y listo, las cenizas ensuciarán mis pasillos!}
-5 {¡Esto se trata sobre mí integridad: esto es UR-GEN-TE!
+5 {¡Esto se trata sobre mí integridad: esto es UR-GEN-TE!}
 other {invalid version number}
-}}}
+}}
   other {invalid mood input}
 }</target>
       </segment>

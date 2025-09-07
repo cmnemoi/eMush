@@ -69,6 +69,10 @@
 			"neoparc": {
 				"name": "Neoparc",
 				"description": "Combattez d'autres Dinoz et gagnez ainsi petit à petit de l'expérience lors de combats sans merci !"
+			},
+			"pioupiouz": {
+				"name": "PiouPiouZ",
+				"description": "Ils se \"plurtchent\", ils explosent, ils se dilatent, ils se transforment, ils avancent tout droit sans réfléchir et seul vous pouvez les amener à la sortie salvatrice !"
 			}
 		}
 	},

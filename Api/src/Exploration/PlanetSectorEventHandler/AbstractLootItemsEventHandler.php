@@ -81,6 +81,7 @@ abstract class AbstractLootItemsEventHandler extends AbstractPlanetSectorEventHa
                 parameters: [
                     'skill' => $skill->toString(),
                     'quantity' => $bonusLoot,
+                    'character_gender' => 'other',
                 ],
                 domain: 'planet_sector_event',
                 language: $language

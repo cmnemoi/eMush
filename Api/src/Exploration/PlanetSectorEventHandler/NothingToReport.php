@@ -32,7 +32,7 @@ final class NothingToReport extends AbstractPlanetSectorEventHandler
         if ($event->hasTag('always_successful_thanks_to_pilot')) {
             $alwaysSuccessfulThanksToSkill = $this->translationService->translate(
                 key: 'always_successful_thanks_to_skill',
-                parameters: ['skill' => SkillEnum::PILOT->toString()],
+                parameters: ['skill' => SkillEnum::PILOT->toString(), 'character_gender' => 'other'],
                 domain: 'planet_sector_event',
                 language: $language,
             );

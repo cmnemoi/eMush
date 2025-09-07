@@ -130,7 +130,7 @@ final class TradeOptionNormalizer implements NormalizerInterface
 
         return $this->translationService->translate(
             key: \sprintf('%s.name', $skillEnum->toString()),
-            parameters: [],
+            parameters: ['character_gender' => 'other'],
             domain: 'skill',
             language: $language,
         );

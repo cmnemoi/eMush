@@ -79,7 +79,7 @@ abstract class AbstractPlanetSectorEventHandler
         if ($event->hasTag(SkillEnum::DIPLOMAT->toString())) {
             $logParameters['fight_prevented_by_skill'] = '////' . $this->translationService->translate(
                 key: 'fight_prevented_by_skill',
-                parameters: ['skill' => SkillEnum::DIPLOMAT->toString()],
+                parameters: ['skill' => SkillEnum::DIPLOMAT->toString(), 'character_gender' => 'other'],
                 domain: 'planet_sector_event',
                 language: $event->getExploration()->getDaedalus()->getLanguage()
             );
@@ -104,8 +104,10 @@ abstract class AbstractPlanetSectorEventHandler
                 $player->getLogKey() => $player->getLogName(),
                 'skill' => $skill->toString(),
                 'quantity' => $this->getSkillReduction($player, $skill),
+                $player->getLogKey() => $player->getLogName(),
             ],
             domain: 'planet_sector_event',
+            language: $player->getLanguage(),
         );
     }
 

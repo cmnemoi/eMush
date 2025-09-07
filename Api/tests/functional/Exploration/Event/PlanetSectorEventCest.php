@@ -845,6 +845,11 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
             explorators: $this->players
         );
 
+        $this->givenOnlyThisEventCanHappenInSector(
+            event: 'fight_1',
+            sector: PlanetSectorEnum::INTELLIGENT,
+        );
+
         $this->givenEveryoneHasZeroTriumph();
 
         // when fight is dispatched

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mush\Chat\Services;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\ChannelPlayer;
 use Mush\Chat\Entity\Message;
@@ -432,13 +431,9 @@ final class ChannelService implements ChannelServiceInterface
             return;
         }
 
-        try {
-            $message = $message->addReader($player);
-            $message = $message->cancelTimestampable();
-            $this->messageRepository->save($message);
-        } catch (UniqueConstraintViolationException $e) {
-            // ignore as this is probably due to a race condition
-        }
+        $message = $message->addReader($player);
+        $message = $message->cancelTimestampable();
+        $this->messageRepository->save($message);
     }
 
     private function getPiratePlayer(Player $player): ?Player

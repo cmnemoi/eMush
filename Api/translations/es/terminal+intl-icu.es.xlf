@@ -355,7 +355,7 @@ Una sola persona podrá difícilmente completar una investigación, incluso si t
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>neron_core.name</source>
         <target>Núcleo de NERON V{neronVersion}</target>
       </segment>

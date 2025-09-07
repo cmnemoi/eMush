@@ -340,7 +340,7 @@ Une seule personne, même si elle possède les compétences conseillées, peut d
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>neron_core.name</source>
         <target>Cœur de NERON V{neronVersion}</target>
       </segment>

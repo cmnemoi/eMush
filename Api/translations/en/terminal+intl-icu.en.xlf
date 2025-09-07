@@ -355,7 +355,7 @@ A lone crewmember, even if they have the appropriate skills, will have difficult
       </segment>
     </unit>
     <unit id="neron_core">
-      <segment id="name" state="translated">
+      <segment id="name" state="final">
         <source>neron_core.name</source>
         <target>NERON's Core V{neronVersion}</target>
       </segment>

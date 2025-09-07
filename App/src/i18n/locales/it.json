@@ -1081,7 +1081,7 @@
 	"toast": {
 		"notification": {
 			"subscribeSuccess": "Vous êtes maintenant abonné aux notifications !",
-			"subscribeError": "Une erreur s'est produite lors de l'abonnement à la notification.",
+			"subscribeError": "Une erreur s'est produite lors de l'abonnement aux notifications.",
 			"unsubscribeSuccess": "Vous vous êtes désabonné des notifications.",
 			"unsubscribeError": "Une erreur s'est produite lors de la désabonnement des notifications."
 		}

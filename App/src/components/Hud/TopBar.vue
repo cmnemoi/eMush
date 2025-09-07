@@ -63,6 +63,7 @@ export default defineComponent({
         ...mapGetters({
             isLogged: 'auth/loggedIn',
             username: 'auth/username',
+            locale: 'locale/currentLocale',
             notificationsCount: 'notifications/notificationsCount'
         }),
         eternaltwinGames() {
@@ -75,7 +76,7 @@ export default defineComponent({
             openUserMenu: 'popup/openUserMenu'
         }),
         getTime() {
-            return new Date().toLocaleTimeString(this.$i18n.locale, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            return new Date().toLocaleTimeString(this.locale, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         }
     },
     mounted() {
@@ -121,6 +122,11 @@ export default defineComponent({
             gap: 6px;
             flex: 0 1 auto;
             max-width: 30%;
+
+            // Hide games from the 5th onwards on mobile
+            .eternaltwinGame:nth-child(n+5) {
+                display: none;
+            }
         }
 
         .eternaltwinGame {

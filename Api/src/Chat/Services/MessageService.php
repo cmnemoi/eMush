@@ -104,7 +104,9 @@ final class MessageService implements MessageServiceInterface
             return $messages;
         }
 
-        return $messages->map(fn (Message $message) => $this->getModifiedMessageWithChildren($message, $player));
+        return $messages
+            ->map(fn (Message $message) => $this->getModifiedMessageWithChildren($message, $player))
+            ->filter(static fn (?Message $message) => $message !== null);
     }
 
     public function getPlayerFavoritesChannelMessages(Player $player): Collection
@@ -282,19 +284,19 @@ final class MessageService implements MessageServiceInterface
         return new ArrayCollection($this->messageRepository->findByChannel($channel, $timeLimit));
     }
 
-    private function getModifiedMessageWithChildren(Message $message, Player $player): Message
+    private function getModifiedMessageWithChildren(Message $message, Player $player): ?Message
     {
         $modifiedMessage = $this->getModifiedMessage($message, $player);
 
         // Apply modifications to child messages as well
-        $modifiedMessage->getChild()->map(
+        $modifiedMessage?->getChild()->map(
             fn (Message $childMessage) => $this->getModifiedMessage($childMessage, $player)
         );
 
         return $modifiedMessage;
     }
 
-    private function getModifiedMessage(Message $message, Player $player): Message
+    private function getModifiedMessage(Message $message, Player $player): ?Message
     {
         $messageEvent = new MessageEvent(
             $message,
@@ -303,9 +305,9 @@ final class MessageService implements MessageServiceInterface
             new \DateTime()
         );
 
-        /** @var MessageEvent $event */
+        /** @var ?MessageEvent $event */
         $event = $this->eventService->computeEventModifications($messageEvent, MessageEvent::READ_MESSAGE);
 
-        return $event->getMessage();
+        return $event?->getMessage();
     }
 }

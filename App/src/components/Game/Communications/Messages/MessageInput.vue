@@ -131,6 +131,10 @@ export default defineComponent ({
         this.text = this.$refs.input.value = this.typedMessage;
         this.resize();
         this.$nextTick(() => {
+            if (window.innerWidth < 768) {
+                return;
+            }
+            
             if (this.$refs.input && this.$refs.input.offsetParent !== null) {
                 this.$refs.input.focus();
             }

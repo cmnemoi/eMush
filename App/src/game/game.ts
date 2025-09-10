@@ -6,16 +6,28 @@ import PhaserNavMeshPlugin from "phaser-navmesh";
 
 
 function launch(containerId: any, player: Player): Phaser.Game {
-    return new Phaser.Game({
+    const game = new Phaser.Game({
         type: Phaser.WEBGL,
         width: 424,
         height: 460,
         backgroundColor: '#2d2d2d',
         parent: containerId,
         pixelArt: true,
+        roundPixels: true,
+        render: {
+            antialias: false,
+            powerPreference: 'low-power',
+            failIfMajorPerformanceCaveat: false,
+            premultipliedAlpha: false,
+            transparent: false,
+            clearBeforeRender: true
+        },
         fps: {
             target: 60,
-            forceSetTimeOut: true
+            min: 30,
+            smoothStep: true,
+            panicMax: 0,
+            forceSetTimeOut: false
         },
         plugins: {
             scene: [
@@ -31,10 +43,18 @@ function launch(containerId: any, player: Player): Phaser.Game {
         physics: {
             default: 'arcade',
             arcade: {
-                debug: false
+                debug: false,
+                fps: 60
             }
         }
     });
+
+    game.events.on(Phaser.Core.Events.BLUR, () => game.loop.sleep());
+    game.events.on(Phaser.Core.Events.FOCUS, () => game.loop.wake());
+    game.events.on(Phaser.Core.Events.HIDDEN, () => game.loop.sleep());
+    game.events.on(Phaser.Core.Events.VISIBLE, () => game.loop.wake());
+
+    return game;
 }
 
 

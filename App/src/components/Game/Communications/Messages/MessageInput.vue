@@ -134,7 +134,7 @@ export default defineComponent ({
             if (window.innerWidth < 768) {
                 return;
             }
-            
+
             if (this.$refs.input && this.$refs.input.offsetParent !== null) {
                 this.$refs.input.focus();
             }

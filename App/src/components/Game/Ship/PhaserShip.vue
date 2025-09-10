@@ -1,5 +1,5 @@
 <template>
-    <div v-if="downloaded" :id="containerId" />
+    <div v-if="downloaded" ref="container" />
     <div v-else class="placeholder">
         {{ $t('downloading') }}
     </div>
@@ -32,11 +32,28 @@ export default defineComponent ({
         }
     },
     async mounted() {
-        const game = await import(/* webpackChunkName: "game" */ '@/game/game');
+        if (this.gameInstance) return;
+
+        const phaserScene = await import("@/game/game");
         this.downloaded = true;
-        this.$nextTick(() => {
-            this.gameInstance = game.launch(this.containerId, this.player);
-        });
+
+        // Make sure the container is ready
+        await this.$nextTick();
+
+        // Remove old scene
+        const sceneContainer = this.$refs.container as HTMLDivElement | undefined;
+        if (!sceneContainer) return;
+        while (sceneContainer.firstChild) sceneContainer.removeChild(sceneContainer.firstChild);
+
+        // Launch new scene
+        this.gameInstance = phaserScene.launch(sceneContainer, this.player);
+    },
+    beforeUnmount() {
+        // Delete scene before destroying the container
+        if (this.gameInstance !== null) {
+            this.gameInstance.destroy(true);
+            this.gameInstance = null;
+        }
     }
 });
 </script>

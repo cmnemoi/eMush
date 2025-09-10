@@ -5,6 +5,7 @@ namespace Mush\Chat\Repository;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\ChannelPlayer;
 use Mush\Daedalus\Entity\Daedalus;
+use Mush\Player\Entity\PlayerInfo;
 
 final class InMemoryChannelPlayerRepository implements ChannelPlayerRepositoryInterface
 {
@@ -43,6 +44,19 @@ final class InMemoryChannelPlayerRepository implements ChannelPlayerRepositoryIn
                 return;
             }
         }
+    }
+
+    public function findByChannelAndPlayer(Channel $channel, PlayerInfo $playerInfo): ?ChannelPlayer
+    {
+        foreach ($this->channelPlayers as $channelPlayer) {
+            if ($channelPlayer->getChannel()->getId() === $channel->getId()
+                && $channelPlayer->getParticipant()->getId() === $playerInfo->getId()
+            ) {
+                return $channelPlayer;
+            }
+        }
+
+        return null;
     }
 
     public function clear(): void

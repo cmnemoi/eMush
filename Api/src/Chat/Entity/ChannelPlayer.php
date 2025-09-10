@@ -3,11 +3,13 @@
 namespace Mush\Chat\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'communication_channel_player')]
+#[UniqueConstraint(name: 'unique_channel_participant', columns: ['channel_id', 'participant_id'])]
 class ChannelPlayer
 {
     use TimestampableEntity;

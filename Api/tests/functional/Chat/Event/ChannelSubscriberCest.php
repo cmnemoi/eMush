@@ -14,6 +14,7 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Entity\LocalizationConfig;
+use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
@@ -56,7 +57,11 @@ class ChannelSubscriberCest
 
         $I->haveInRepository($playerInfo);
         $player->setPlayerInfo($playerInfo);
-        $I->refreshEntities($player);
+        $I->haveInRepository($player);
+
+        $place = Place::createNull();
+        $I->haveInRepository($place);
+        $player->setPlace($place);
 
         $privateChannel = new Channel();
         $privateChannel
@@ -65,7 +70,7 @@ class ChannelSubscriberCest
         $I->haveInRepository($privateChannel);
 
         $event = new ChannelEvent($privateChannel, [ChatActionEnum::CREATE_CHANNEL], new \DateTime(), $player);
-        $this->channelSubscriber->onJoinChannel($event);
+        $this->channelSubscriber->onRequestChannel($event);
 
         $I->seeInRepository(ChannelPlayer::class, [
             'channel' => $privateChannel->getId(),

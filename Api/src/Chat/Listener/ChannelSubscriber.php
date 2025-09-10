@@ -40,6 +40,7 @@ class ChannelSubscriber implements EventSubscriberInterface
     {
         return [
             ChannelEvent::NEW_CHANNEL => 'onNewChannel',
+            ChannelEvent::REQUEST_CHANNEL => 'onRequestChannel',
             ChannelEvent::JOIN_CHANNEL => 'onJoinChannel',
             ChannelEvent::EXIT_CHANNEL => 'onExitChannel',
         ];
@@ -54,20 +55,26 @@ class ChannelSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onJoinChannel(ChannelEvent $event): void
+    public function onRequestChannel(ChannelEvent $event): void
     {
         $channel = $event->getChannel();
 
         if ($player = $event->getAuthor()) {
             $this->channelService->addPlayer($player->getPlayerInfo(), $channel);
-
-            $this->messageService->createSystemMessage(
-                NeronMessageEnum::PLAYER_ENTER_CHAT,
-                $channel,
-                ['character' => $player->getName()],
-                new \DateTime()
-            );
         }
+    }
+
+    public function onJoinChannel(ChannelEvent $event): void
+    {
+        $channel = $event->getChannel();
+        $player = $event->getAuthorOrThrow();
+
+        $this->messageService->createSystemMessage(
+            NeronMessageEnum::PLAYER_ENTER_CHAT,
+            $channel,
+            [$player->getLogKey() => $player->getLogName()],
+            $event->getTime()
+        );
     }
 
     public function onExitChannel(ChannelEvent $event): void

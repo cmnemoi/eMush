@@ -554,6 +554,8 @@ final class ChannelServiceTest extends TestCase
         $channel = new Channel();
         $channel->setDaedalus($daedalus->getDaedalusInfo());
         $this->channelRepository->save($channel);
+        $this->eventService->shouldReceive('callEvent')->once();
+
         $this->service->addPlayer($playerInfo, $channel);
 
         // Verify channel player was added

@@ -4,7 +4,6 @@ namespace Mush\Chat\Services;
 
 use Doctrine\Common\Collections\Collection;
 use Mush\Chat\Entity\Channel;
-use Mush\Chat\Entity\ChannelPlayer;
 use Mush\Chat\Enum\ChatActionEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusInfo;
@@ -57,7 +56,7 @@ interface ChannelServiceInterface
 
     public function getPiratedChannels(Player $piratedPlayer): Collection;
 
-    public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer;
+    public function addPlayer(PlayerInfo $playerInfo, Channel $channel): void;
 
     public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool;
 

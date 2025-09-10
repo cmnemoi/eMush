@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mush\Chat\Services;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\OptimisticLockException;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\ChannelPlayer;
 use Mush\Chat\Entity\Message;
@@ -125,7 +127,7 @@ final class ChannelService implements ChannelServiceInterface
     public function invitePlayer(Player $player, Channel $channel): Channel
     {
         $event = new ChannelEvent($channel, [ChatActionEnum::INVITED], new \DateTime(), $player);
-        $this->eventService->callEvent($event, ChannelEvent::JOIN_CHANNEL);
+        $this->eventService->callEvent($event, ChannelEvent::REQUEST_CHANNEL);
 
         return $channel;
     }
@@ -264,20 +266,30 @@ final class ChannelService implements ChannelServiceInterface
         return $channel;
     }
 
-    public function addPlayer(PlayerInfo $playerInfo, Channel $channel): ChannelPlayer
+    public function addPlayer(PlayerInfo $playerInfo, Channel $channel): void
     {
-        $channelPlayer = new ChannelPlayer();
+        try {
+            $this->channelRepository->wrapInTransaction(function () use ($playerInfo, $channel) {
+                // Check if player is already in the channel
+                $existingChannelPlayer = $this->channelPlayerRepository->findByChannelAndPlayer($channel, $playerInfo);
+                if ($existingChannelPlayer) {
+                    return;
+                }
 
-        $channelPlayer
-            ->setChannel($channel)
-            ->setParticipant($playerInfo);
+                $channelPlayer = new ChannelPlayer();
+                $channelPlayer->setChannel($channel)->setParticipant($playerInfo);
+                $channel->addParticipant($channelPlayer);
 
-        $channel->addParticipant($channelPlayer);
+                $this->channelPlayerRepository->save($channelPlayer);
+                $this->channelRepository->save($channel);
 
-        $this->channelPlayerRepository->save($channelPlayer);
-        $this->channelRepository->save($channel);
-
-        return $channelPlayer;
+                $this->eventService->callEvent(
+                    new ChannelEvent($channel, [ChatActionEnum::INVITED], new \DateTime(), $playerInfo->getPlayer()),
+                    ChannelEvent::JOIN_CHANNEL
+                );
+            });
+        } catch (OptimisticLockException|UniqueConstraintViolationException $e) {
+        }
     }
 
     public function removePlayer(PlayerInfo $playerInfo, Channel $channel): bool

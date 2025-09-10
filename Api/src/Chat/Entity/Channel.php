@@ -19,6 +19,10 @@ class Channel
 {
     use TimestampableEntity;
 
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 1])]
+    private int $version = 1;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]
@@ -90,6 +94,11 @@ class Channel
     public function getScope(): string
     {
         return $this->scope;
+    }
+
+    public function getVersion(): int
+    {
+        return $this->version;
     }
 
     public function setScope(string $scope): static

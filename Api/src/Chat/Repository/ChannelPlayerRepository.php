@@ -53,6 +53,14 @@ final class ChannelPlayerRepository extends ServiceEntityRepository implements C
         $entityManager->flush();
     }
 
+    public function findByChannelAndPlayer(Channel $channel, PlayerInfo $playerInfo): ?ChannelPlayer
+    {
+        return $this->findOneBy([
+            'channel' => $channel,
+            'participant' => $playerInfo,
+        ]);
+    }
+
     public function delete(ChannelPlayer $channelPlayer): void
     {
         $entityManager = $this->getEntityManager();

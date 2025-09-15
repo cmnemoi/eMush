@@ -89,9 +89,9 @@ class LoginService
         try {
             $accessToken = $this->oauthClient->getAccessTokenSync($code);
         } catch (GuzzleException $e) {
-            throw new UnauthorizedHttpException($e->getMessage());
+            throw $e;
         } catch (\JsonException $e) {
-            throw new UnauthorizedHttpException($e->getMessage());
+            throw $e;
         }
 
         $apiClient = new HttpEtwinClient($this->etwinUri);

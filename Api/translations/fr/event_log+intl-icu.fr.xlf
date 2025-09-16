@@ -1071,6 +1071,10 @@
         1 {{lastPlayer} est infecté(e) par le Mush. C'est une certitude.}
         other {L'un d'entre eux était un agent infecté du Mush quand on a fui Xyloph. J'en mettrais ma main au feu... {firstPlayers} et {lastPlayer}. Mais qui...}}</target>
       </segment>
+      <segment id="ze_list_no_mush" state="translated">
+        <source>ze_list_no_mush</source>
+        <target>Il n'y a plus de Mushs à bord... c'est une certitude.</target>
+      </segment>
     </unit>
     <unit id="lost_research">
       <segment id="lost_research_headline" state="translated">

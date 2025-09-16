@@ -191,18 +191,15 @@ final class PrintZeListCest extends AbstractFunctionalTest
         );
     }
 
-    public function shouldNotBeExecutableIfThereIsNoMushAlive(FunctionalTester $I): void
+    public function shouldPrintNoMushInformationIfThereIsNoMushAlive(FunctionalTester $I): void
     {
         $this->givenChunIsATracker();
 
         $this->givenAllMushAreDead();
 
-        $this->whenChunTriesToPrintZeList();
+        $this->whenChunPrintsZeList();
 
-        $this->thenActionShouldNotBeExecutableWithMessage(
-            ActionImpossibleCauseEnum::LIST_NO_MUSH,
-            $I
-        );
+        $this->thenZeListShouldInformAboutNoMush($I);
     }
 
     public function shouldNotPrintAlphaMushTwice(FunctionalTester $I): void
@@ -322,5 +319,15 @@ final class PrintZeListCest extends AbstractFunctionalTest
     private function thenActionShouldNotBeExecutableWithMessage(string $cause, FunctionalTester $I): void
     {
         $I->assertEquals($cause, $this->printZeList->cannotExecuteReason());
+    }
+
+    private function thenZeListShouldInformAboutNoMush(FunctionalTester $I): void
+    {
+        $zeList = $this->chun->getEquipmentByName(ItemEnum::DOCUMENT);
+
+        $I->assertEquals(
+            expected: 'Il n\'y a plus de Mushs à bord... c\'est une certitude.',
+            actual: $zeList->getStatusByNameOrThrow(EquipmentStatusEnum::DOCUMENT_CONTENT)->getContent()
+        );
     }
 }

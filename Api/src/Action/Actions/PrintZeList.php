@@ -9,10 +9,10 @@ use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
-use Mush\Action\Validator\AllMushsAreDead;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\HasSkill;
 use Mush\Action\Validator\HasStatus;
+use Mush\Action\Validator\PreMush;
 use Mush\Action\Validator\Reach;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ItemEnum;
@@ -64,10 +64,9 @@ final class PrintZeList extends AbstractAction
                 'groups' => [ClassConstraint::EXECUTE],
                 'message' => ActionImpossibleCauseEnum::LIST_ALREADY_PRINTED,
             ]),
-            new AllMushsAreDead([
+            new PreMush([
                 'groups' => [ClassConstraint::EXECUTE],
-                'message' => ActionImpossibleCauseEnum::LIST_NO_MUSH,
-            ]),
+                'message' => ActionImpossibleCauseEnum::PRE_MUSH_RESTRICTED]),
         ]);
     }
 
@@ -126,6 +125,15 @@ final class PrintZeList extends AbstractAction
 
     private function translatedList(): string
     {
+        if ($this->player->getDaedalus()->getAlivePlayers()->getMushPlayer()->isEmpty()) {
+            return $this->translationService->translate(
+                key: 'ze_list_no_mush',
+                parameters: [],
+                domain: 'event_log',
+                language: $this->player->getLanguage(),
+            );
+        }
+
         $selectedPlayers = $this->selectedPlayers();
 
         /** @var Player $lastPlayer */

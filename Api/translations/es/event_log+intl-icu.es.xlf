@@ -878,6 +878,10 @@
   other {Al menos, uno de ellos era un agente de Mush que embarcó en Xyloph. ¡No tengo duda! {firstPlayers} y {lastPlayer}. ¿Pero quién de ellos?...}
 }</target>
       </segment>
+      <segment id="ze_list_no_mush" state="initial">
+        <source>ze_list_no_mush</source>
+        <target>ze_list_no_mush</target>
+      </segment>
     </unit>
     <unit id="lost_research">
       <segment id="lost_research_headline" state="translated">

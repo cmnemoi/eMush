@@ -16,6 +16,7 @@ use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusService;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -109,6 +110,19 @@ final class DisassembleCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldConsumeOneTechnicianPointWhenLaidDown(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsATechnician($I);
+
+        $this->givenPlayerIsLaidDown();
+
+        $this->givenPlayerHasABlaster();
+
+        $this->whenPlayerDisassemblesTheBlaster();
+
+        $I->assertEquals(1, $this->player->getSkillByNameOrThrow(SkillEnum::TECHNICIAN)->getSkillPoints(), 'Tech should consume one tech point');
+    }
+
     private function givenPlayerHasABlaster(): void
     {
         $this->blaster = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -134,6 +148,21 @@ final class DisassembleCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenPlayerIsLaidDown(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LYING_DOWN,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function givenPlayerIsATechnician(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I, $this->player);
+    }
+
     private function whenPlayerTriesToDisassembleBlaster(): void
     {
         $this->disassembleAction->loadParameters(
@@ -142,6 +171,17 @@ final class DisassembleCest extends AbstractFunctionalTest
             player: $this->player,
             target: $this->blaster,
         );
+    }
+
+    private function whenPlayerDisassemblesTheBlaster(): void
+    {
+        $this->disassembleAction->loadParameters(
+            actionConfig: $this->actionConfig,
+            actionProvider: $this->blaster,
+            player: $this->player,
+            target: $this->blaster,
+        );
+        $this->disassembleAction->execute();
     }
 
     private function thenActionShouldNotBeExecutableWithMessage(string $message, FunctionalTester $I): void

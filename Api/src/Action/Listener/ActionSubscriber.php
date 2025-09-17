@@ -78,14 +78,11 @@ final class ActionSubscriber implements EventSubscriberInterface
             /** @var AbstractAction $getUpActionHandler */
             $getUpActionHandler = $this->actionStrategyService->getAction(ActionEnum::GET_UP);
 
-            $tags = $event->getTags();
-            $tags[] = ActionEvent::FORCED_GET_UP;
-
             $getUpActionHandler->loadParameters(
                 $getUpAction->getActionConfig(),
                 $getUpAction->getActionProvider(),
                 $player,
-                tags: $tags
+                tags: [ActionEvent::FORCED_GET_UP],
             );
             $getUpActionHandler->execute();
         }

@@ -30,7 +30,7 @@ class SpaceBattlePatrolShipNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            SpaceShip::class => false,
+            SpaceShip::class => true,
         ];
     }
 

@@ -2,7 +2,6 @@
 
 namespace Mush\Player\Normalizer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
 use Mush\Daedalus\Entity\Daedalus;
@@ -12,6 +11,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Normalizer\SpaceBattlePatrolShipNormalizer;
 use Mush\Equipment\Normalizer\SpaceBattleTurretNormalizer;
 use Mush\Equipment\Normalizer\TerminalNormalizer;
+use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Equipment\Service\GearToolServiceInterface;
 use Mush\Exploration\Entity\Exploration;
@@ -37,46 +37,21 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
     use ActionHolderNormalizerTrait;
     use NormalizerAwareTrait;
 
-    private GameEquipmentServiceInterface $gameEquipmentService;
-    private PlayerServiceInterface $playerService;
-    private PlayerVariableServiceInterface $playerVariableService;
-    private SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer;
-    private SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer;
-    private TerminalNormalizer $terminalNormalizer;
-    private TranslationServiceInterface $translationService;
-    private GearToolServiceInterface $gearToolService;
-    private HunterNormalizerHelperInterface $hunterNormalizerHelper;
-    private ClosedExplorationServiceInterface $closedExplorationService;
-    private ExplorationServiceInterface $explorationService;
-    private TriumphConfigRepositoryInterface $triumphConfigRepository;
-
     public function __construct(
-        GameEquipmentServiceInterface $equipmentService,
-        PlayerServiceInterface $playerService,
-        PlayerVariableServiceInterface $playerVariableService,
-        SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer,
-        SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer,
-        TerminalNormalizer $terminalNormalizer,
-        TranslationServiceInterface $translationService,
-        GearToolServiceInterface $gearToolService,
-        HunterNormalizerHelperInterface $hunterNormalizerHelper,
-        ClosedExplorationServiceInterface $closedExplorationService,
-        ExplorationServiceInterface $explorationService,
-        TriumphConfigRepositoryInterface $triumphConfigRepository
-    ) {
-        $this->gameEquipmentService = $equipmentService;
-        $this->playerService = $playerService;
-        $this->playerVariableService = $playerVariableService;
-        $this->spaceBattlePatrolShipNormalizer = $spaceBattlePatrolShipNormalizer;
-        $this->spaceBattleTurretNormalizer = $spaceBattleTurretNormalizer;
-        $this->terminalNormalizer = $terminalNormalizer;
-        $this->translationService = $translationService;
-        $this->gearToolService = $gearToolService;
-        $this->hunterNormalizerHelper = $hunterNormalizerHelper;
-        $this->closedExplorationService = $closedExplorationService;
-        $this->explorationService = $explorationService;
-        $this->triumphConfigRepository = $triumphConfigRepository;
-    }
+        private GameEquipmentServiceInterface $gameEquipmentService,
+        private PlayerServiceInterface $playerService,
+        private PlayerVariableServiceInterface $playerVariableService,
+        private SpaceBattlePatrolShipNormalizer $spaceBattlePatrolShipNormalizer,
+        private SpaceBattleTurretNormalizer $spaceBattleTurretNormalizer,
+        private TerminalNormalizer $terminalNormalizer,
+        private TranslationServiceInterface $translationService,
+        private GearToolServiceInterface $gearToolService,
+        private HunterNormalizerHelperInterface $hunterNormalizerHelper,
+        private ClosedExplorationServiceInterface $closedExplorationService,
+        private ExplorationServiceInterface $explorationService,
+        private TriumphConfigRepositoryInterface $triumphConfigRepository,
+        private GameEquipmentRepositoryInterface $gameEquipmentRepository
+    ) {}
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
@@ -249,7 +224,7 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         $daedalus = $player->getDaedalus();
         $patrolShips = $this->getPatrolShipsInBattle($daedalus);
-        $turrets = $this->gameEquipmentService->findEquipmentsByNameAndDaedalus(EquipmentEnum::TURRET_COMMAND, $daedalus);
+        $turrets = $this->gameEquipmentRepository->findByNamesAndDaedalus([EquipmentEnum::TURRET_COMMAND], $daedalus);
 
         $huntersToNormalize = $this->hunterNormalizerHelper->getHuntersToNormalize($daedalus);
         $normalizedHunters = [];
@@ -259,17 +234,21 @@ class CurrentPlayerNormalizer implements NormalizerInterface, NormalizerAwareInt
 
         return [
             'hunters' => $normalizedHunters,
-            'patrolShips' => $patrolShips->map(fn (GameEquipment $patrolShip) => $this->spaceBattlePatrolShipNormalizer->normalize($patrolShip, $format, $context))->toArray(),
-            'turrets' => $turrets->map(fn (GameEquipment $turret) => $this->spaceBattleTurretNormalizer->normalize($turret, $format, $context))->toArray(),
+            'patrolShips' => array_map(fn (GameEquipment $patrolShip) => $this->spaceBattlePatrolShipNormalizer->normalize($patrolShip, $format, $context), $patrolShips),
+            'turrets' => array_map(fn (GameEquipment $turret) => $this->spaceBattleTurretNormalizer->normalize($turret, $format, $context), $turrets),
         ];
     }
 
-    private function getPatrolShipsInBattle(Daedalus $daedalus): ArrayCollection
+    /**
+     * @return GameEquipment[]
+     */
+    private function getPatrolShipsInBattle(Daedalus $daedalus): array
     {
-        $patrolShips = $this->gameEquipmentService->findEquipmentsByNameAndDaedalus(EquipmentEnum::PATROL_SHIP, $daedalus);
-        $patrolShipsInBattle = $patrolShips->filter(static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
+        /** @var GameEquipment[] $patrolShips */
+        $patrolShips = $this->gameEquipmentRepository->findByNamesAndDaedalus(EquipmentEnum::getPatrolShips()->toArray(), $daedalus);
+        $patrolShipsInBattle = array_filter($patrolShips, static fn (GameEquipment $patrolShip) => $patrolShip->isInSpaceBattle());
 
-        return new ArrayCollection(array_values($patrolShipsInBattle->toArray()));
+        return $patrolShipsInBattle;
     }
 
     private function getNormalizedPlayerStatuses(Player $player, ?string $format = null, array $context = []): array

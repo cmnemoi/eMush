@@ -4,7 +4,7 @@
             <ActionButtons
                 class="action-buttons"
                 :actions="['refresh', 'invite', 'leave']"
-                @leave="leavePrivateChannel(channel)"
+                @leave="leavePrivateChannel(channel); closeInvitation()"
                 @invite="getInvitablePlayersToPrivateChannel(channel)"
             />
         </div>
@@ -59,6 +59,7 @@ export default defineComponent ({
         },
         ...mapActions('communication', [
             'leavePrivateChannel',
+            'closeInvitation',
             'loadMessages',
             'getInvitablePlayersToPrivateChannel'
         ])

@@ -67,8 +67,11 @@ class ChannelSubscriber implements EventSubscriberInterface
     public function onJoinChannel(ChannelEvent $event): void
     {
         $channel = $event->getChannel();
-        $player = $event->getAuthorOrThrow();
+        if ($channel->isMushChannel()) {
+            return;
+        }
 
+        $player = $event->getAuthorOrThrow();
         $this->messageService->createSystemMessage(
             NeronMessageEnum::PLAYER_ENTER_CHAT,
             $channel,

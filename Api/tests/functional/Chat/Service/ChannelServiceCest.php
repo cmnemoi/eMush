@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Mush\tests\Functional\Chat\Service;
 
 use Mush\Chat\Entity\Channel;
+use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\ChannelScopeEnum;
+use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\ChannelServiceInterface;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
@@ -223,5 +225,23 @@ final class ChannelServiceCest extends AbstractFunctionalTest
 
         // then the player should have read tips channel
         $I->assertTrue($this->player->hasReadTips());
+    }
+
+    public function shouldNotPrintJoinedChannelMessageInMushChannel(FunctionalTester $I): void
+    {
+        // given Mush channel
+        $mushChannel = $this->channelService->getMushChannel($this->daedalus->getDaedalusInfo());
+
+        // when player joins the channel
+        $this->channelService->addPlayer($this->player->getPlayerInfo(), $mushChannel);
+
+        // then I should not see PLAYER_ENTER_CHAT message
+        $I->dontSeeInRepository(
+            entity: Message::class,
+            params: [
+                'channel' => $mushChannel,
+                'message' => NeronMessageEnum::PLAYER_ENTER_CHAT,
+            ],
+        );
     }
 }

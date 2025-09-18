@@ -26,4 +26,6 @@ interface TriumphSourceEventInterface
     public function hasTag(string $tag): bool;
 
     public function getTriumphTargets(TriumphConfig $triumphConfig): PlayerCollection;
+
+    public function getTime(): \DateTime;
 }

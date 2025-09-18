@@ -43,7 +43,7 @@ final class ChangeTriumphFromEventService
 
         foreach ($triumphConfigs as $triumphConfig) {
             $event->getTriumphTargets($triumphConfig)->map(
-                fn (Player $player) => $this->addTriumphToPlayer($triumphConfig, $player)
+                fn (Player $player) => $this->addTriumphToPlayer($triumphConfig, $player, $event->getTime())
             );
         }
     }
@@ -66,7 +66,7 @@ final class ChangeTriumphFromEventService
         return $triumphConfig ? $triumphConfig->getQuantity() : 0;
     }
 
-    private function addTriumphToPlayer(TriumphConfig $triumphConfig, Player $player): void
+    private function addTriumphToPlayer(TriumphConfig $triumphConfig, Player $player, \DateTime $time): void
     {
         if ($this->isPreventedByRegression($triumphConfig, $player)) {
             return;
@@ -83,7 +83,7 @@ final class ChangeTriumphFromEventService
         $this->recordTriumphGain($triumphConfig, $player, $quantity);
 
         $this->eventService->callEvent(
-            new TriumphChangedEvent($player, $triumphConfig, $quantity),
+            new TriumphChangedEvent($player, $triumphConfig, $quantity, time: $time),
             TriumphChangedEvent::class,
         );
     }

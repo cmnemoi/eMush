@@ -380,8 +380,9 @@ const clearNotifications = () => store.dispatch('notifications/clearNotification
 			justify-content: center;
 			-moz-box-align: center;
 			align-items: center;
-			width: 64px;
-			height: 64px;
+			min-width: 64px;
+			min-height: 64px;
+			padding: 2px 2px;
 			color: rgb(108, 113, 136);
 			border-radius: 3px;
 			text-decoration: none;
@@ -393,6 +394,8 @@ const clearNotifications = () => store.dispatch('notifications/clearNotification
 				font-size: 1rem;
 				line-height: 1.66;
 				text-align: center;
+				word-wrap: break-word;
+				max-width: 100%;
 			}
 			.svgLinkIcon {
 				user-select: none;

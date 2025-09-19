@@ -76,6 +76,11 @@ const actions: ActionTree<any, any> = {
         commit('setToken', token);
     },
 
+    redirectToRegister({ commit }): Promise<void> {
+        commit('resetUserInfo');
+        return UserService.redirectToRegister();
+    },
+
     redirectToLogin({ commit }): Promise<void> {
         commit('resetUserInfo');
         return UserService.redirectToLogin();

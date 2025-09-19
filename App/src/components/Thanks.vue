@@ -15,7 +15,7 @@
                     </ul>
                 </div>
                 <div class="box description" id="eternaltwin">
-                    <p v-html="$t('footer.eternaltwin')" />
+                    <p v-html="$t('footer.eternaltwin', { eternaltwinUrl: eternaltwinLink })" />
                     <div class="status">
                         <span>
                             <svg
@@ -39,7 +39,7 @@
                             {{ $t('alpha.issue') }}
                             <a href="https://discord.gg/Jb8Nwjck6r" target="_blank" rel="noopener noreferrer">Discord</a>
                             {{ $t('alpha.issue2') }}
-                            <a href="https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1" target="_blank" rel="noopener noreferrer">forum</a>.
+                            <a :href="forumLink" target="_blank" rel="noopener noreferrer">forum</a>.
                         </span>
                         <span class="crowdin">{{ $t('footer.crowdin') }}<a :href=crowdin>Crowdin</a>!</span>
                         <div class="versionId">
@@ -115,7 +115,7 @@
                     </div>
                     <div class="serious-stuff">
                         <router-link :to="{ name: 'Rules' }">{{ $t("rules.title") }}</router-link>
-                        <a href="https://eternal-twin.net/legal" target="_blank" rel="noopener noreferrer">{{
+                        <a :href="legalLink" target="_blank" rel="noopener noreferrer">{{
                             $t('footer.legal')
                         }}</a>
                     </div>
@@ -167,6 +167,7 @@ import { mapGetters } from 'vuex';
 import { getImgUrl } from '@/utils/getImgUrl';
 import { getEternaltwinGames } from '@/utils/getEternaltwinGames';
 import { Tippy } from 'vue-tippy';
+import urlJoin from 'url-join';
 
 export default defineComponent({
     name: 'Thanks',
@@ -174,7 +175,16 @@ export default defineComponent({
     computed: {
         ...mapGetters({
             player: 'player/player'
-        })
+        }),
+        eternaltwinLink() {
+            return import.meta.env.VITE_ETERNALTWIN_URL;
+        },
+        forumLink() {
+            return urlJoin(import.meta.env.VITE_ETERNALTWIN_URL, "forum", "sections", "b5ddc792-0738-4289-9818-c2f1f029c8b1");
+        },
+        legalLink() {
+            return urlJoin(import.meta.env.VITE_ETERNALTWIN_URL, "legal");
+        }
     },
     data() {
         return {

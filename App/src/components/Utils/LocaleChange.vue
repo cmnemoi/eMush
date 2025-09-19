@@ -1,7 +1,8 @@
 <template>
     <div class="localechange">
         <ol>
-            <img
+            <Tippy
+                tag="img"
                 v-for="(lang, langKey) in langs"
                 :class="{ flag: true, selected: selectedLocale === langKey }"
                 :key="`Lang${langKey}`"
@@ -10,7 +11,11 @@
                 :src="lang.icon"
                 :alt="lang.caption"
                 :title="lang.caption"
-            />
+            >
+                <template #content>
+                    <p>{{ lang.caption }}</p>
+                </template>
+            </Tippy>
         </ol>
     </div>
 </template>
@@ -19,9 +24,11 @@
 import { defineComponent } from "vue";
 import { gameLocales } from "@/i18n";
 import { mapGetters, mapActions } from "vuex";
+import { Tippy } from "vue-tippy";
 
 export default defineComponent ({
     name: 'LocaleChange',
+    components: { Tippy },
     data () {
         return { langs: gameLocales };
     },

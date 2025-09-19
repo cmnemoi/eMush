@@ -142,6 +142,7 @@ abstract class ActionLogEnum
     public const string MASS_GGEDON_SUCCESS = 'mass_ggedon_success';
     public const string REINFORCE_SUCCESS = 'reinforce_success';
     public const string REINFORCE_FAIL = 'reinforce_fail';
+    public const string COLLECT_SCRAP_SUCCESS = 'collect_scrap_success';
     public const string COLLECT_SCRAP_FAIL = 'collect_scrap_fail';
     public const string UPGRADE_DRONE_TO_TURBO_SUCCESS = 'upgrade_drone_to_turbo_success';
     public const string UPGRADE_DRONE_TO_FIREFIGHTER_SUCCESS = 'upgrade_drone_to_firefighter_success';
@@ -539,6 +540,7 @@ abstract class ActionLogEnum
             ActionOutputEnum::FAIL => self::REINFORCE_FAIL,
         ],
         ActionEnum::COLLECT_SCRAP->value => [
+            ActionOutputEnum::SUCCESS => self::COLLECT_SCRAP_SUCCESS,
             ActionOutputEnum::FAIL => self::COLLECT_SCRAP_FAIL,
         ],
         ActionEnum::TAKE_CAT->value => [

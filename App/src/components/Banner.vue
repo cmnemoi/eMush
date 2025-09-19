@@ -22,6 +22,7 @@ import Login from "@/components/Login.vue";
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import { getImgUrl } from "@/utils/getImgUrl";
+import urlJoin from "url-join";
 
 
 export default defineComponent ({
@@ -31,7 +32,7 @@ export default defineComponent ({
     },
     data() {
         return {
-            forumLink: "https://eternaltwin.org/forum/sections/b5ddc792-0738-4289-9818-c2f1f029c8b1"
+            forumLink: urlJoin(import.meta.env.VITE_ETERNALTWIN_URL, "forum", "sections", "b5ddc792-0738-4289-9818-c2f1f029c8b1")
         };
     },
     computed: {

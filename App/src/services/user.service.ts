@@ -24,10 +24,14 @@ class AuthenticationError extends Error {
 }
 
 const UserService = {
+    redirectToRegister: async function(): Promise<void> {
+        global.window.location.href = urlJoin(import.meta.env.VITE_ETERNALTWIN_URL, "register");
+    },
+
     redirectToLogin: async function(): Promise<void> {
         const redirectUri = new URLSearchParams();
         redirectUri.set('redirect_uri', callBackUrl);
-        global.window.location.replace(decodeURIComponent(authorizationUrl + '?'+ redirectUri.toString()));
+        global.window.location.href = decodeURIComponent(authorizationUrl + '?'+ redirectUri.toString());
     },
 
     login: async function(code: string): Promise<string> {

@@ -19,12 +19,13 @@
         </div>
 
         <div class="centerSection">
-            <span class="time">{{ time }}</span>
+            <LocaleChange />
         </div>
 
         <div class="rightSection">
-            <a v-if="!isLogged" class="connectLink" @click="login">
-                <button class="connectBadge">{{ $t('hud.topBar.login') }}</button>
+            <a v-if="!isLogged" class="connectLink">
+                <button class="badge register" @click="register">{{ $t('hud.topBar.register') }}</button>
+                <button class="badge connect" @click="login">{{ $t('hud.topBar.login') }}</button>
             </a>
             <button v-if="isLogged" class="playerLogged" @click="openUserMenu">
                 <Transition name="notification" mode="out-in">
@@ -50,10 +51,11 @@ import { defineComponent, Transition } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import { getEternaltwinGames } from '@/utils/getEternaltwinGames';
 import { Tippy } from 'vue-tippy';
+import LocaleChange from '../Utils/LocaleChange.vue';
 
 export default defineComponent({
     name: 'TopBar',
-    components: { Tippy },
+    components: { LocaleChange, Tippy },
     data() {
         return {
             time: ''
@@ -73,14 +75,9 @@ export default defineComponent({
     methods: {
         ...mapActions({
             login: 'auth/redirectToLogin',
-            openUserMenu: 'popup/openUserMenu'
-        }),
-        getTime() {
-            return new Date().toLocaleTimeString(this.locale, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        }
-    },
-    mounted() {
-        setInterval(() => this.time = this.getTime(), 1_000);
+            openUserMenu: 'popup/openUserMenu',
+            register: 'auth/redirectToRegister'
+        })
     }
 });
 </script>
@@ -119,9 +116,10 @@ export default defineComponent({
         border-right: 1px dotted $mediumGrey;
 
         @media (max-width: 768px) {
-            gap: 6px;
+            gap: 4px;
             flex: 0 1 auto;
-            max-width: 30%;
+            max-width: 25%;
+            padding-right: 6px;
 
             // Hide games from the 5th onwards on mobile
             .eternaltwinGame:nth-child(n+5) {
@@ -168,7 +166,8 @@ export default defineComponent({
             position: static;
             transform: none;
             flex: 1;
-            margin: 0 8px;
+            margin: 0 6px;
+            min-width: 0;
         }
 
         .time {
@@ -195,38 +194,41 @@ export default defineComponent({
         min-width: 0;
 
         @media (max-width: 768px) {
-            padding-left: 8px;
+            padding-left: 6px;
             flex: 0 1 auto;
-            max-width: 40%;
+            max-width: 45%;
         }
 
         .connectLink {
-            text-decoration: none;
+            display: flex;
+            flex-direction: row;
 
-            .connectBadge {
-                background-color: $orange;
-                color: white;
-                border: none;
-                padding: 0 8px;
-                border-radius: 3px;
-                font-size: 0.8rem;
-                font-weight: 600;
+            .badge {
                 cursor: pointer;
-                transition: background-color 0.2s ease;
-                height: 24px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                white-space: nowrap;
+                font-size: 11pt;
+                padding: 3px 12px;
 
                 @media (max-width: 768px) {
-                    padding: 0 6px;
-                    font-size: 0.7rem;
-                    height: 22px;
+                    font-size: 10pt;
+                    padding: 2px 8px;
                 }
+            }
 
-                &:hover {
-                    background-color: $lightOrange;
+            .register {
+                color: #feb500;
+                font-weight: bold;
+                text-shadow: 0 0 8px #fe7d00;
+
+                @media (max-width: 768px) {
+                    display: none;
+                }
+            }
+
+            .connect {
+                color: #b7b9c6;
+
+                @media (max-width: 768px) {
+                    font-size: 9pt;
                 }
             }
         }
@@ -267,7 +269,7 @@ export default defineComponent({
 
                 @media (max-width: 768px) {
                     font-size: 10pt;
-                    max-width: 80px;
+                    max-width: 90px;
                 }
             }
 

@@ -215,6 +215,7 @@ enum ActionEnum: string
         return (new ArrayCollection([
             self::CHANGE_NERON_CPU_PRIORITY,
             self::CHANGE_NERON_CREW_LOCK,
+            self::CHANGE_NERON_FOOD_DESTRUCTION_OPTION,
             self::DROP,
             self::EXAMINE,
             self::MOVE,
@@ -222,9 +223,12 @@ enum ActionEnum: string
             self::TOGGLE_MAGNETIC_NET,
             self::TOGGLE_NERON_INHIBITION,
             self::TOGGLE_PLASMA_SHIELD,
+            self::TOGGLE_DEATH_ANNOUNCEMENTS,
+            self::TOGGLE_VOCODED_ANNOUNCEMENTS,
             self::ACCEPT_MISSION,
             self::REJECT_MISSION,
             self::EXIT_TERMINAL,
+            self::CONVERT_ACTION_TO_MOVEMENT,
         ]))->contains($this);
     }
 

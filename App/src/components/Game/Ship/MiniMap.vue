@@ -320,7 +320,13 @@
                             <path class="floor" serif:id="floor" d="M179.958,35l0,-6l-6,0l0,6l6,0Z" />
                             <path class="wall" serif:id="wall" d="M180.958,29l0,6" />
                         </g>
-                        <g id="Planet-Scanner" serif:id="Planet Scanner" :class="{visible : isBroken('equipment', 'engine_room' , 'planet_scanner')}">
+                        <g
+                            id="Planet-Scanner"
+                            serif:id="Planet Scanner"
+                            :class="{
+                                visible: isBroken('equipment', 'engine_room' , 'planet_scanner') ||
+                                    isBroken('equipment', 'engine_room' , 'quantum_sensors_planet_scanner')
+                            }">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -331,7 +337,12 @@
                             />
                             <path class="wall" serif:id="wall" d="M176,73l-6,0" />
                         </g>
-                        <g id="Antenna" :class="{visible : isBroken('equipment', 'engine_room' , 'antenna')}">
+                        <g
+                            id="Antenna"
+                            :class="{
+                                visible : isBroken('equipment', 'engine_room' , 'antenna') ||
+                                    isBroken('equipment', 'engine_room' , 'radar_trans_void_antenna')
+                            }">
                             <rect
                                 class="floor"
                                 serif:id="floor"
@@ -534,7 +545,7 @@
                             <path class="floor" serif:id="floor" d="M84,52l0,4l4,0l0,-4l-4,0Z" />
                             <path class="wall" serif:id="wall" d="M83,56l0,-4" />
                         </g>
-                        <g id="Kitchen" :class="{visible : isBroken('equipment', 'refectory' , 'kitchen')}">
+                        <g id="Kitchen" :class="{visible : isBroken('equipment', 'refectory' , 'kitchen') || isBroken('equipment', 'engine_room' , 'snc_kitchen')}">
                             <rect
                                 class="floor"
                                 serif:id="floor"

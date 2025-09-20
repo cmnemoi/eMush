@@ -1,13 +1,14 @@
 <template>
     <div>
         <a v-if="!loggedIn" class="login-button" @click="redirectToLogin">{{ $t('login') }}</a>
-        <a v-else class="logout-button" @click="logout">{{ $t('logout') }}</a>
+        <a v-else class="logout-button" @click="logoutAndRedirectToHome">{{ $t('logout') }}</a>
     </div>
 </template>
 
 <script lang="ts">
 import { mapActions, mapGetters } from "vuex";
 import { defineComponent } from "vue";
+import router from "@/router";
 
 export default defineComponent ({
     name: 'Login',
@@ -26,8 +27,13 @@ export default defineComponent ({
     methods: {
         ...mapActions('auth', [
             'redirectToLogin',
-            'logout'
-        ])
+            'logout',
+            'redirectToHome'
+        ]),
+        logoutAndRedirectToHome() {
+            this.logout();
+            router.push('/');
+        }
     }
 });
 </script>

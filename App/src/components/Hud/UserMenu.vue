@@ -93,7 +93,7 @@
                         <span>{{ $t('hud.userMenu.rules') }}</span>
                     </router-link>
 
-                    <div class="link" @click="logout">
+                    <div class="link" @click="logoutAndRedirectToHome">
                         <svg
                             class="svgLinkIcon logout"
                             focusable="false"
@@ -161,6 +161,7 @@ import { computed } from 'vue';
 import { useStore } from 'vuex';
 import LocaleChange from '../Utils/LocaleChange.vue';
 import { Settings } from '@/features/settings/store';
+import router from '@/router';
 
 const store = useStore();
 
@@ -172,7 +173,7 @@ const parameters = computed((): Settings[] => store.getters['settings/settings']
 
 // Methods
 const closeUserMenu = () => store.dispatch('popup/closeUserMenu');
-const logout = () => store.dispatch('auth/logout');
+const logoutAndRedirectToHome = () => { store.dispatch('auth/logout'); router.push('/'); };
 const removeNotification = (notification: string) => store.dispatch('notifications/removeNotification', notification);
 const clearNotifications = () => store.dispatch('notifications/clearNotifications');
 </script>

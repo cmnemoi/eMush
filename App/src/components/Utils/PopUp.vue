@@ -40,8 +40,8 @@ export default defineComponent ({
     transition: all 0.3s;
 
     .modal-box {
-        min-width: 320px;
-        max-width: 560px;
+        min-width: 400px;
+        max-width: 80%;
         max-height: 80%;
         position: absolute;
         top: 50%;
@@ -95,7 +95,7 @@ export default defineComponent ({
 @media screen and (max-width: $breakpoint-desktop-m) {
     .modal-background {
         .modal-box {
-            max-width: 80%;
+            min-width: 320px;
         }
     }
 }

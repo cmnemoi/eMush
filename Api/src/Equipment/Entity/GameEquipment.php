@@ -28,6 +28,7 @@ use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\GameFruitEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
+use Mush\Game\Service\TranslationServiceInterface as Translate;
 use Mush\Hunter\Entity\HunterTargetEntityInterface;
 use Mush\Modifier\Entity\Collection\ModifierCollection;
 use Mush\Modifier\Entity\ModifierHolder;
@@ -38,6 +39,7 @@ use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
 use Mush\Player\Entity\Player;
 use Mush\Player\ValueObject\PlayerHighlightTargetInterface;
+use Mush\RoomLog\Entity\ExaminableInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Enum\LogParameterKeyEnum;
 use Mush\Status\Entity\ChargeStatus;
@@ -59,7 +61,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
     'drone' => Drone::class,
     'space_ship' => SpaceShip::class,
 ])]
-class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface
+class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterface, LogParameterInterface, ModifierHolderInterface, HunterTargetEntityInterface, ActionHolderInterface, ActionProviderInterface, ModifierProviderInterface, PlayerHighlightTargetInterface, ExaminableInterface
 {
     use ModifierHolderTrait;
     use TargetStatusTrait;
@@ -691,6 +693,16 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
     public function getMinimapName(): string
     {
         return $this->name;
+    }
+
+    public function toExamineLogParameters(Translate $translate): array
+    {
+        $parameters = [];
+        if ($this->hasMechanicByName(EquipmentMechanicEnum::CONTAINER)) {
+            $parameters['quantity'] = $this->getUsedCharge(ActionEnum::OPEN_CONTAINER->toString())?->getCharge();
+        }
+
+        return $parameters;
     }
 
     private function isActionProvidedByMechanic(string $actionName): bool

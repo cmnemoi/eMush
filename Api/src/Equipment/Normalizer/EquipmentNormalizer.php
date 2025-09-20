@@ -297,8 +297,8 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
 
         $description = $this->translationService->translate("{$key}.description", $translationParameters, $type, $language);
 
-        if (($blueprint = $equipment->getEquipment()->getMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) instanceof Blueprint) {
-            foreach ($blueprint->getIngredients() as $name => $number) {
+        if ($equipment->hasMechanicByName(EquipmentMechanicEnum::BLUEPRINT)) {
+            foreach ($equipment->getBlueprintMechanicOrThrow()->getIngredients() as $name => $number) {
                 $ingredientTranslation = $this->translationService->translate(
                     'blueprint_ingredient.description',
                     ['quantity' => $number, 'item' => $name],

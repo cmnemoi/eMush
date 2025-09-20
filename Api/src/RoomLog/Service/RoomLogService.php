@@ -11,7 +11,6 @@ use Mush\Chat\Enum\NeronPersonalitiesEnum;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\Neron;
 use Mush\Daedalus\ValueObject\GameDate;
-use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -23,6 +22,7 @@ use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
+use Mush\RoomLog\Entity\ExaminableInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
@@ -30,7 +30,6 @@ use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Repository\RoomLogRepositoryInterface;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlaceStatusEnum;
 
 final class RoomLogService implements RoomLogServiceInterface
@@ -291,75 +290,18 @@ final class RoomLogService implements RoomLogServiceInterface
 
     private function createExamineLog(Player $player, ?LogParameterInterface $actionParameter): RoomLog
     {
-        if ($actionParameter instanceof Drone) {
-            $logParameters = $this->getDroneLogParameters($actionParameter);
-
-            return $this->createLog(
-                $actionParameter->getLogName() . '.examine',
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'items',
-                $player,
-                $logParameters,
-            );
+        if (!$actionParameter instanceof ExaminableInterface) {
+            throw new \LogicException('Action parameter should be Examinable');
         }
 
-        if ($actionParameter instanceof GameItem) {
-            return $this->createLog(
-                $actionParameter->getLogName() . '.examine',
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'items',
-                $player,
-            );
-        }
-
-        if ($actionParameter instanceof GameEquipment) {
-            $logParameters = $this->getPatrolShipLogParameters($actionParameter);
-
-            return $this->createLog(
-                $actionParameter->getLogName() . '.examine',
-                $player->getPlace(),
-                VisibilityEnum::PRIVATE,
-                'equipments',
-                $player,
-                $logParameters,
-            );
-        }
-
-        throw new \LogicException('examine action is not implemented for this type of entity');
-    }
-
-    private function getDroneLogParameters(Drone $drone): array
-    {
-        $upgrades = '';
-
-        if ($drone->isUpgraded()) {
-            $language = $drone->getDaedalus()->getLanguage();
-            foreach ($drone->getUpgrades() as $upgrade) {
-                $upgrades = $upgrades
-                . '//'
-                . $this->translationService->translate(
-                    $upgrade->getName() . '.description',
-                    [],
-                    'status',
-                    $language
-                );
-            }
-        }
-
-        return ['drone_upgrades' => $upgrades];
-    }
-
-    private function getPatrolShipLogParameters(GameEquipment $patrolShip): array
-    {
-        $electricCharges = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES);
-        $patrolShipArmor = $patrolShip->getChargeStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR);
-
-        return [
-            'charges' => $electricCharges?->getCharge(),
-            'armor' => $patrolShipArmor?->getCharge(),
-        ];
+        return $this->createLog(
+            $actionParameter->getLogName() . '.examine',
+            $player->getPlace(),
+            VisibilityEnum::PRIVATE,
+            $actionParameter->getNormalizationType(),
+            $player,
+            $actionParameter->toExamineLogParameters($this->translationService),
+        );
     }
 
     private function getNeronPersonality(Daedalus $daedalus): string

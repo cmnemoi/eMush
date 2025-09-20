@@ -4,6 +4,8 @@ namespace Mush\Equipment\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Mush\Equipment\Entity\Config\SpaceShipConfig;
+use Mush\Game\Service\TranslationServiceInterface as Translate;
+use Mush\Status\Enum\EquipmentStatusEnum;
 
 #[ORM\Entity]
 class SpaceShip extends GameEquipment
@@ -56,5 +58,13 @@ class SpaceShip extends GameEquipment
     public function getMinimapName(): string
     {
         return $this->getPatrolShipName();
+    }
+
+    public function toExamineLogParameters(Translate $translate): array
+    {
+        return [
+            'charges' => $this->getChargeStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES)?->getCharge(),
+            'armor' => $this->getChargeStatusByName(EquipmentStatusEnum::PATROL_SHIP_ARMOR)?->getCharge(),
+        ];
     }
 }

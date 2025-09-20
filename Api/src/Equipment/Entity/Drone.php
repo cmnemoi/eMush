@@ -17,6 +17,7 @@ use Mush\Equipment\DroneTasks\TakeoffTask;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Entity\Collection\ProbaCollection;
+use Mush\Game\Service\TranslationServiceInterface as Translate;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Place\Entity\Place;
 use Mush\Place\Enum\PlaceTypeEnum;
@@ -224,6 +225,27 @@ class Drone extends GameItem
     public function huntersAreAttacking(): bool
     {
         return $this->getDaedalus()->getAttackingHunters()->count() > 0;
+    }
+
+    /**
+     * @psalm-suppress InvalidFunctionCall
+     */
+    public function toExamineLogParameters(Translate $translate): array
+    {
+        if (!$this->isUpgraded()) {
+            return [];
+        }
+
+        $upgrades = $this->getUpgrades()->map(function (Status $upgrade) use ($translate) {
+            return $translate(
+                $upgrade->getName() . '.description',
+                [],
+                'status',
+                $this->getDaedalus()->getLanguage()
+            );
+        })->toArray();
+
+        return ['drone_upgrades' => implode('//', $upgrades)];
     }
 
     private function cannotRepair(): bool

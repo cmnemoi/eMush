@@ -10,6 +10,7 @@ use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Service\TranslationServiceInterface;
@@ -37,7 +38,7 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Place::class => false,
+            Place::class => true,
         ];
     }
 
@@ -74,9 +75,10 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
             $context
         );
 
-        // Split equipments between items and equipments
+        // Split equipments between items and equipments, do not normalize doors
         $partition = $room
             ->getEquipments()
+            ->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class)
             ->partition(
                 static fn ($_, GameEquipment $gameEquipment) => !$gameEquipment->shouldBeNormalizedAsItem()
                 || ($gameEquipment instanceof GameItem && $gameEquipment->shouldBeNormalizedAsEquipment())
@@ -85,9 +87,8 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $equipments = $partition[0];
         $items = $partition[1];
 
-        // do not normalize doors
-        $equipments = $equipments->filter(static fn (GameEquipment $gameEquipment) => $gameEquipment->getClassName() !== Door::class);
-
+        // If there are multiple sofas in the same room, allow them to be displayed in the shelf
+        $items = $this->handleMultipleInstanceEquipments($room, $equipments, $items);
         $items = $this->putContaminatedItemsOnTop($items);
 
         $normalizedEquipments = $this->normalizeEquipments(
@@ -375,5 +376,25 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
         );
 
         return new ArrayCollection($items);
+    }
+
+    /**
+     * Handles the logic for displaying multiple instances of specific equipment types in the shelf.
+     */
+    private function handleMultipleInstanceEquipments(Place $room, Collection $equipments, Collection $items): Collection
+    {
+        $multiInstanceEquipments = [EquipmentEnum::SWEDISH_SOFA];
+
+        foreach ($multiInstanceEquipments as $equipmentName) {
+            if ($room->getAllEquipmentsByName($equipmentName)->count() > 1) {
+                foreach ($equipments as $equipment) {
+                    if ($equipment->getName() === $equipmentName && !$items->contains($equipment)) {
+                        $items->add($equipment);
+                    }
+                }
+            }
+        }
+
+        return $items;
     }
 }

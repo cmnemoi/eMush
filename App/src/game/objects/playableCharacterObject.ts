@@ -222,14 +222,10 @@ export default class PlayableCharacterObject extends CharacterObject {
         const targetBed = this.player.isLyingDown();
         const room = this.player.room;
 
-        if (targetBed !== null) {
-            const bed = (<DaedalusScene>this.scene).findObjectByNameAndId(targetBed.key, targetBed.id);
+        const phaserBed = targetBed !== null ? (<DaedalusScene>this.scene).findObjectByNameAndId(targetBed.key, targetBed.id) : null;
 
-            if (bed !== null) {
-                this.applyEquipmentInteractionInformation(bed);
-            }
-
-            //reset any ongoing movement
+        if (phaserBed) {
+            this.applyEquipmentInteractionInformation(phaserBed);
             this.resetMove();
         } else if (room && room.type === 'space') {
             this.play('space_giggle');
@@ -239,10 +235,8 @@ export default class PlayableCharacterObject extends CharacterObject {
                 this.setPositionFromFeet(interactCoordinates.toCartesianCoordinates());
                 this.interactedEquipment = null;
             }
-            //Set the initial sprite randomly such as it faces the screen
-            if (Math.random() > 0.5) {
-                this.flipX = true;
-            }
+            // Set the initial sprite randomly such as it faces the screen
+            this.flipX = Math.random() > 0.5;
             this.anims.play('right');
             this.checkPositionDepth();
         }

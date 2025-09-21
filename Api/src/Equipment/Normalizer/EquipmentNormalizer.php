@@ -10,13 +10,16 @@ use Mush\Daedalus\Entity\Daedalus;
 use Mush\Disease\Entity\ConsumableDiseaseAttribute;
 use Mush\Disease\Service\ConsumableDiseaseServiceInterface;
 use Mush\Equipment\Entity\ConsumableEffect;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Entity\Mechanics\Blueprint;
 use Mush\Equipment\Entity\Mechanics\Book;
 use Mush\Equipment\Entity\Mechanics\Plant;
 use Mush\Equipment\Entity\Mechanics\Ration;
 use Mush\Equipment\Entity\SpaceShip;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\EquipmentMechanicEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\EquipmentEffectServiceInterface;
@@ -48,7 +51,10 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
     public function getSupportedTypes(?string $format): array
     {
         return [
-            GameEquipment::class => false,
+            GameEquipment::class => true,
+            GameItem::class => true,
+            SpaceShip::class => true,
+            Door::class => true,
         ];
     }
 
@@ -89,7 +95,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
             'effects' => $this->getEquipmentEffects($equipment, $currentPlayer),
         ];
 
-        if ($equipment->shouldBeNormalizedAsItem()) {
+        if ($equipment->shouldBeNormalizedAsItem() || $equipment->getName() === EquipmentEnum::SWEDISH_SOFA) {
             $normalizedEquipment['updatedAt'] = $equipment->getUpdatedAt();
         }
 

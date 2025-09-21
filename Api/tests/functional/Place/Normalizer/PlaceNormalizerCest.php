@@ -8,6 +8,7 @@ use Mush\Action\Actions\Drop;
 use Mush\Action\Actions\Take;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GameDrugEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -190,5 +191,34 @@ final class PlaceNormalizerCest extends AbstractFunctionalTest
         // then the contaminated ration should be at the top of the normalized pile
         $placeNormalizedItems = $normalizedPlace['items'];
         $I->assertEquals($contaminatedRation->getId(), $placeNormalizedItems[0]['id']);
+    }
+
+    public function shouldNormalizeMultipleSofasAsEquipmentsAndItems(FunctionalTester $I): void
+    {
+        // given I have a sofa in player's place
+        $sofa = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SWEDISH_SOFA,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+        $secondSofa = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::SWEDISH_SOFA,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime()
+        );
+
+        // when I normalize the place
+        $place = $this->player->getPlace();
+        $normalizedPlace = $this->placeNormalizer->normalize($place, null, ['currentPlayer' => $this->player]);
+
+        // then the sofas should be normalized as equipments and items
+        $placeNormalizedEquipments = $normalizedPlace['equipments'];
+        $placeNormalizedItems = $normalizedPlace['items'];
+        $I->assertEquals(EquipmentEnum::SWEDISH_SOFA, $placeNormalizedEquipments[0]['key']);
+        $I->assertEquals(EquipmentEnum::SWEDISH_SOFA, $placeNormalizedEquipments[1]['key']);
+        $I->assertEquals(EquipmentEnum::SWEDISH_SOFA, $placeNormalizedItems[0]['key']);
+        $I->assertEquals(EquipmentEnum::SWEDISH_SOFA, $placeNormalizedItems[1]['key']);
     }
 }

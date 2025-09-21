@@ -141,6 +141,7 @@ const NCC_LENSES = "ncc_lenses";
 const RETRO_FUNGAL_SERUM = "retro_fungal_serum";
 const SUPER_SOAPER = "super_soaper";
 
+const SWEDISH_SOFA = "swedish_sofa";
 
 export const itemEnum: {[index: string]: any} = {
     [ALIEN_BOTTLE_OPENER]: {
@@ -508,5 +509,8 @@ export const itemEnum: {[index: string]: any} = {
     },
     [PROACTIVE_PUFFED_RICE]:{
         'image': getImgUrl('items/proactive_puffed_rice.jpg')
+    },
+    [SWEDISH_SOFA]:{
+        'image': getImgUrl('items/sofa.jpg')
     }
 };

@@ -891,5 +891,71 @@
         <target>Jin Su gagne {quantity} :triumph: à chaque voyage interstellaire effectué sous son commandement. Passé {regressiveFactor} gains, ces gains seront de moins en moins fréquents.</target>
       </segment>
     </unit>
+    <unit id="lover">
+      <segment id="lover.name" state="translated">
+        <source>lover.name</source>
+        <target>Amoureux</target>
+      </segment>
+      <segment id="lover.log" state="translated">
+        <source>lover.log</source>
+        <target>Vous avez gagné {quantity} :triumph: en réuissant un flirt réciproque en tant que Derek !</target>
+      </segment>
+      <segment id="lover.personal_description" state="translated">
+        <source>lover.personal_description</source>
+        <target>Derek gagne {quantity} :triumph: pour chaque acte d'amour réciproque.</target>
+      </segment>
+    </unit>
+    <unit id="andie_fate">
+      <segment id="andie_fate.name" state="translated">
+        <source>andie_fate.name</source>
+        <target>Destin d'Andie</target>
+      </segment>
+      <segment id="andie_fate.log" state="translated">
+        <source>andie_fate.log</source>
+        <target>Vous avez gagné {quantity} :triumph: car un échange avec des marchands aliens a été réalisé en votre présence en tant que Andie !</target>
+      </segment>
+      <segment id="andie_fate.personal_description" state="translated">
+        <source>andie_fate.personal_description</source>
+        <target>Andie gagne {quantity} :triumph: pour chaque échange réussi avec des marchands aliens.</target>
+      </segment>
+    </unit>
+    <unit id="naturalist">
+      <segment id="naturalist.name" state="translated">
+        <source>naturalist.name</source>
+        <target>Naturaliste</target>
+      </segment>
+      <segment id="naturalist.log" state="translated">
+        <source>naturalist.log</source>
+        <target>Vous avez gagné {quantity} :triumph: en plantant un fruit alien en tant que Ian !</target>
+      </segment>
+      <segment id="naturalist.personal_description" state="translated">
+        <source>naturalist.personal_description</source>
+        <target>Ian gagne {quantity} :triumph: à chaque fruit alien planté.</target>
+      </segment>
+    </unit>
+    <unit id="rebel_contact">
+      <segment id="rebel_contact.name" state="translated">
+        <source>rebel_contact.name</source>
+        <target>Réseaux Rebelles</target>
+      </segment>
+      <segment id="rebel_contact.log" state="translated">
+        <source>rebel_contact.log</source>
+        <target>Vous avez gagné {quantity} :triumph: car une base rebelle a été contactée en votre présence en tant que Eleesha !</target>
+      </segment>
+      <segment id="rebel_contact.personal_description" state="translated">
+        <source>rebel_contact.personal_description</source>
+        <target>Eleesha gagne {quantity} :triumph: à chaque fois qu'une base rebelle est contactée.</target>
+      </segment>
+    </unit>
+    <unit id="all_pregnant">
+      <segment id="all_pregnant.name" state="translated">
+        <source>all_pregnant.name</source>
+        <target>Nouvel Espoir</target>
+      </segment>
+      <segment id="all_pregnant.log" state="translated">
+        <source>all_pregnant.log</source>
+        <target>Vous avez gagné {quantity} :triumph: car l'un de vos coéquipiers attend un heureux évènement !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

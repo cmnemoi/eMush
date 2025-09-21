@@ -3,14 +3,13 @@
         <ol>
             <Tippy
                 tag="img"
-                v-for="(lang, langKey) in langs"
+                v-for="(lang, langKey) in locales"
                 :class="{ flag: true, selected: selectedLocale === langKey }"
                 :key="`Lang${langKey}`"
                 :value="lang.caption"
                 @click="updateLocale(langKey as string)"
                 :src="lang.icon"
                 :alt="lang.caption"
-                :title="lang.caption"
             >
                 <template #content>
                     <p>{{ lang.caption }}</p>
@@ -20,29 +19,16 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { gameLocales } from "@/i18n";
-import { mapGetters, mapActions } from "vuex";
-import { Tippy } from "vue-tippy";
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
+import { gameLocales } from '@/i18n';
+import { Tippy } from 'vue-tippy';
 
-export default defineComponent ({
-    name: 'LocaleChange',
-    components: { Tippy },
-    data () {
-        return { langs: gameLocales };
-    },
-    computed: {
-        ...mapGetters({
-            selectedLocale: 'locale/currentLocale'
-        })
-    },
-    methods: {
-        ...mapActions({
-            updateLocale: 'locale/updateLocale'
-        })
-    }
-});
+const store = useStore();
+const locales = ref(gameLocales);
+const selectedLocale = computed(() => store.getters['locale/currentLocale']);
+const updateLocale = (locale: string) => store.dispatch('locale/updateLocale', locale);
 </script>
 
 <style lang="scss" scoped>

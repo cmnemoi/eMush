@@ -210,6 +210,11 @@ export default defineComponent({
             this.loadData();
         }
     },
+    watch: {
+        "$route.params.userId"() {
+            this.loadData();
+        }
+    },
     beforeMount() {
         this.loadData();
     }

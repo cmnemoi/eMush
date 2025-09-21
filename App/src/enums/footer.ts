@@ -36,7 +36,10 @@ export const team: (Contributor)[] = [
     { name: 'Valedres', role: 'developer', active: true, coreTeam: false },
     { name: 'Shadowombat', role: 'helper', active: true, coreTeam: true },
     { name: 'Brute Epaisse', role: 'helper', active: true, coreTeam: true },
-    { name: 'Monoxyd', role: 'developer', active: true, coreTeam: false }
+    { name: 'Monoxyd', role: 'developer', active: true, coreTeam: false },
+    { name: 'Peanutz', role: 'moderator', active: true, coreTeam: true },
+    { name: 'Aderach', role: 'moderator', active: true, coreTeam: true },
+    { name: 'Nickboom', role: 'helper', active: true, coreTeam: true }
 ];
 
 export const crowdin = "https://eternaltwin.crowdin.com/multilingual/c9f4ef84da7d855637e201101992f6ed/all?languages=fr,es,en&filter=basic&value=0";

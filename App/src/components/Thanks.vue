@@ -215,6 +215,8 @@ export default defineComponent({
                 return getImgUrl('project_roles/artistPicto.png');
             } else if (role === 'translator') {
                 return getImgUrl('project_roles/translatorPicto.png');
+            } else if (role === 'moderator') {
+                return getImgUrl('project_roles/moderatorPicto.svg');
             } else {
                 return '';
             }

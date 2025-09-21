@@ -635,16 +635,6 @@
         <target>Vous avez gagné {quantity} :triumph: en achevant le calcul des coordonnées d'Eden !</target>
       </segment>
     </unit>
-    <unit id="andie_fate">
-      <segment id="andie_fate.name" state="translated">
-        <source>andie_fate.name</source>
-        <target>Destin d'Andie</target>
-      </segment>
-      <segment id="andie_fate.log" state="translated">
-        <source>andie_fate.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en tant qu'Andie car le Daedalus a effectué un échange avec des marchands !</target>
-      </segment>
-    </unit>
     <unit id="pregnant_in_eden">
       <segment id="eden_mush_cat.name" state="translated">
         <source>pregnant_in_eden.name</source>

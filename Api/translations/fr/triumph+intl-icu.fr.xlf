@@ -268,7 +268,7 @@
         <source>mushicide.name</source>
         <target>Mushicide</target>
       </segment>
-      <segment id="mush_fear.log" state="translated">
+      <segment id="mushicide.log" state="translated">
         <source>mushicide.log</source>
         <target>Vous avez gagné {quantity} :triumph: en portant le coup fatal à un Mush !</target>
       </segment>
@@ -449,16 +449,6 @@
         <target>Vous avez gagné {quantity} :triumph: car le Daedalus a contacté les Enfants Perdus de Wolf.</target>
       </segment>
     </unit>
-    <unit id="rebel_contact">
-      <segment id="rebel_contact.name" state="translated">
-        <source>rebel_contact.name</source>
-        <target>Réseaux Rebelles</target>
-      </segment>
-      <segment id="rebel_contact.log" state="translated">
-        <source>rebel_contact.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en tant qu'Eleesha car le Daedalus a contacté une base rebelle !</target>
-      </segment>
-    </unit>
     <unit id="looking_for_kivanc">
       <segment id="looking_for_kivanc.name" state="translated">
         <source>looking_for_kivanc.name</source>
@@ -556,6 +546,10 @@
         <source>fast_forward.log</source>
         <target>Vous avez gagné {quantity} :triumph: en lançant un voyage vers une planète en tant que Jin Su!</target>
       </segment>
+      <segment id="fast_forward.personal_description" state="translated">
+        <source>fast_forward.personal_description</source>
+        <target>Jin Su gagne {quantity} :triumph: à chaque voyage interstellaire effectué sous son commandement. Passé {regressiveFactor} gains, ces gains seront de moins en moins fréquents.</target>
+      </segment>
     </unit>
     <unit id="planet_searcher">
       <segment id="planet_searcher.name" state="translated">
@@ -636,11 +630,11 @@
       </segment>
     </unit>
     <unit id="pregnant_in_eden">
-      <segment id="eden_mush_cat.name" state="translated">
+      <segment id="pregnant_in_eden.name" state="translated">
         <source>pregnant_in_eden.name</source>
         <target>Passage de flambeau</target>
       </segment>
-      <segment id="eden_mush_cat.log" state="translated">
+      <segment id="pregnant_in_eden.log" state="translated">
         <source>pregnant_in_eden.log</source>
         <target>Vous avez gagné {quantity} :triumph: pour chaque équipière enceinte qui part pour Eden.</target>
       </segment>
@@ -839,24 +833,6 @@
       <segment state="translated">
         <source>pretty_cook.log</source>
         <target>Vous avez gagné {quantity} :triumph: en participant à un combat en expédition en tant que Stephen !</target>
-      </segment>
-    </unit>
-    <unit id="fast_forward.name">
-      <segment state="translated">
-        <source>fast_forward.name</source>
-        <target>Avance rapide</target>
-      </segment>
-    </unit>
-    <unit id="fast_forward.log">
-      <segment state="translated">
-        <source>fast_forward.log</source>
-        <target>Vous avez gagné {quantity} :triumph: en lançant un voyage vers une planète en tant que Jin Su!</target>
-      </segment>
-    </unit>
-    <unit id="fast_forward.personal_description">
-      <segment state="translated">
-        <source>fast_forward.personal_description</source>
-        <target>Jin Su gagne {quantity} :triumph: à chaque voyage interstellaire effectué sous son commandement. Passé {regressiveFactor} gains, ces gains seront de moins en moins fréquents.</target>
       </segment>
     </unit>
     <unit id="lover">

@@ -26,6 +26,7 @@ use Mush\Equipment\Service\EquipmentEffectServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Modifier\Enum\ModifierNameEnum;
 use Mush\Player\Entity\Player;
+use Mush\Project\Enum\ProjectName;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -208,6 +209,7 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         if ($actionPoint) {
             $actionPoint += $this->getFrugivoreBonus($food, $player);
             $actionPoint += $this->getSiriusRebelBaseBonus($food);
+            $actionPoint += $this->getGuarannaCappuccinoBonus($food, $player);
             $effects[] = $this->createEffectLine($actionPoint, 'action_point', $language);
         }
         $movementPoint = $consumableEffect->getMovementPoint();
@@ -352,5 +354,20 @@ class EquipmentNormalizer implements NormalizerInterface, NormalizerAwareInterfa
         }
 
         return (int) $siriusModifierConfig->getDelta();
+    }
+
+    private function getGuarannaCappuccinoBonus(GameEquipment $food, Player $currentPlayer): int
+    {
+        $daedalus = $currentPlayer->getDaedalus();
+        if (!$daedalus->hasActiveProject(ProjectName::GUARANA_CAPPUCCINO)) {
+            return 0;
+        }
+
+        $guarannaModifierConfig = $daedalus->getModifiers()->getModifierByModifierNameOrThrow(ModifierNameEnum::GUARANA_CAPPUCCINO_MODIFIER)->getVariableModifierConfigOrThrow();
+        if (!\in_array($food->getName(), array_keys($guarannaModifierConfig->getTagConstraints()), true)) {
+            return 0;
+        }
+
+        return (int) $guarannaModifierConfig->getDelta();
     }
 }

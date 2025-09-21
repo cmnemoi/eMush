@@ -25,7 +25,7 @@ final class DepressNeronService implements DepressNeronServiceInterface
     {
         $this->changeNeronCpuPriority($neron, $author, $tags);
         $this->changeCrewLock($neron);
-        $this->changeInhibition($neron);
+        $this->changeInhibition($neron, $time);
         $this->changeFoodDestructionOption($neron);
         $neron->toggleVocodedAnnouncements();
         $neron->toggleDeathAnnouncements();
@@ -69,13 +69,13 @@ final class DepressNeronService implements DepressNeronServiceInterface
         $neron->changeFoodDestructionOption($this->randomFoodDestructionOption($neron));
     }
 
-    private function changeInhibition(Neron $neron): void
+    private function changeInhibition(Neron $neron, \DateTime $time): void
     {
         if ($neron->isInhibited()) {
             return;
         }
 
-        $this->neronService->toggleInhibition($neron);
+        $this->neronService->toggleInhibition($neron, $time);
     }
 
     private function randomCpuPriority(Neron $neron): string

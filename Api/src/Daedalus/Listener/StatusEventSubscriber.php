@@ -23,12 +23,12 @@ final class StatusEventSubscriber implements EventSubscriberInterface
     public function onStatusRemoved(StatusEvent $event): void
     {
         match ($event->getStatusName()) {
-            DaedalusStatusEnum::NERON_DEPRESSION => $this->handleNeronDepressionRemoved($event),
+            DaedalusStatusEnum::NERON_DEPRESSION => $this->dispatchNERONDepression($event),
             default => null,
         };
     }
 
-    private function handleNeronDepressionRemoved(StatusEvent $event): void
+    private function dispatchNERONDepression(StatusEvent $event): void
     {
         $neron = $event->getDaedalus()->getNeron();
 

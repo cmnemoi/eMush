@@ -174,6 +174,35 @@ final class NeronDepressCest extends AbstractFunctionalTest
         );
     }
 
+    public function changeInhibitionMessageShouldBeCycleChangeDate(FunctionalTester $I): void
+    {
+        $neron = $this->daedalus->getNeron();
+        $neron->toggleInhibition();
+
+        $this->givenPlayerDepressesNeron();
+
+        $cycleChangeDate = new \DateTime()->modify('-2 minutes');
+        $this->whenCyclePasses($cycleChangeDate);
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getNeron(),
+                'message' => NeronMessageEnum::NERON_DEPRESSION,
+                'createdAt' => $cycleChangeDate,
+            ]
+        );
+
+        $I->seeInRepository(
+            entity: Message::class,
+            params: [
+                'neron' => $this->daedalus->getNeron(),
+                'message' => NeronMessageEnum::ACTIVATE_DMZ,
+                'createdAt' => $cycleChangeDate,
+            ]
+        );
+    }
+
     private function givenCpuPriorityIsOnNone(): void
     {
         $this->daedalus->getNeron()->setCpuPriority(NeronCpuPriorityEnum::NONE);
@@ -237,18 +266,17 @@ final class NeronDepressCest extends AbstractFunctionalTest
             actionConfig: $this->actionConfig,
             actionProvider: $this->player,
             player: $this->player,
-            target: null,
         );
         $this->neronDepress->execute();
     }
 
-    private function whenCyclePasses(): void
+    private function whenCyclePasses(\DateTime $cycleChangeDate = new \DateTime()): void
     {
         $this->eventService->callEvent(
             event: new DaedalusCycleEvent(
                 daedalus: $this->daedalus,
                 tags: [EventEnum::NEW_CYCLE],
-                time: new \DateTime(),
+                time: $cycleChangeDate,
             ),
             name: DaedalusCycleEvent::DAEDALUS_NEW_CYCLE,
         );

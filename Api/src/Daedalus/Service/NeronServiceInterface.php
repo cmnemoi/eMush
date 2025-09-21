@@ -11,5 +11,5 @@ interface NeronServiceInterface
 {
     public function changeCpuPriority(Neron $neron, string $cpuPriority, array $reasons = [], ?Player $author = null): void;
 
-    public function toggleInhibition(Neron $neron): void;
+    public function toggleInhibition(Neron $neron, \DateTime $time = new \DateTime()): void;
 }

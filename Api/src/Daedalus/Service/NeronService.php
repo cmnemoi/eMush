@@ -34,12 +34,12 @@ final class NeronService implements NeronServiceInterface
         $this->persist([$neron]);
     }
 
-    public function toggleInhibition(Neron $neron): void
+    public function toggleInhibition(Neron $neron, \DateTime $time = new \DateTime()): void
     {
         $neron->toggleInhibition();
         $this->persist([$neron]);
 
-        $neronEvent = new NeronEvent($neron);
+        $neronEvent = new NeronEvent($neron, time: $time);
         $this->eventService->callEvent($neronEvent, NeronEvent::INHIBITION_TOGGLED);
     }
 

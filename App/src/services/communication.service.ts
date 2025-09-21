@@ -244,7 +244,7 @@ const CommunicationService = {
         await ApiService.delete(urlJoin(CHANNELS_ENDPOINT, 'unfavorite-message', String(message.id)));
     },
 
-    sendMessage: async (channel: Channel, text: string, parent?: Message): Promise<Message[]> => {
+    sendMessage: async (channel: Channel, text: string, player: Player, parent?: Message): Promise<Message[]> => {
         let parentId = null;
         if (typeof parent !== "undefined") {
             parentId = parent.id;
@@ -252,6 +252,7 @@ const CommunicationService = {
 
         const messagesData = await ApiService.post(CHANNELS_ENDPOINT + '/' + channel.id + '/message', {
             'message': text,
+            'playerId': player.id,
             'parent': parentId,
             'isPirated': channel.piratedPlayer ? true : false,
             'timeLimit': 48

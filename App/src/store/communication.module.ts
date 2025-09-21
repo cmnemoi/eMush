@@ -171,10 +171,10 @@ const actions: ActionTree<any, any> = {
         }
     },
 
-    async sendMessage({ commit }, { channel, text, parent }) {
+    async sendMessage({ commit }, { channel, text, player, parent }) {
         commit('setLoadingForChannel', { channel, newStatus: true });
         try {
-            const messages = await CommunicationService.sendMessage(channel, text, parent);
+            const messages = await CommunicationService.sendMessage(channel, text, player, parent);
             commit('setChannelMessages', { channel, messages });
             commit('setLoadingForChannel', { channel, newStatus: false });
             return true;

@@ -30,6 +30,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
         $message = $request->request->get('message');
         $parent = $request->request->get('parent');
         $pirated = $request->request->get('isPirated');
+        $playerId = $request->request->get('playerId');
         $timeLimit = (int) $request->request->get('timeLimit', self::TIME_LIMIT);
 
         $messageCreate = new CreateMessage();
@@ -43,6 +44,7 @@ class MessageCreateParamConverter implements ParamConverterInterface
 
         $messageCreate
             ->setParent($parentMessage)
+            ->setPlayerId((int) $playerId)
             ->setMessage((string) $message)
             ->setTimeLimit(new \DateInterval(\sprintf('PT%dH', $timeLimit)))
             ->setPirated((bool) $pirated);

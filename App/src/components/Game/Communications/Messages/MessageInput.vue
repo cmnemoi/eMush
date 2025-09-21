@@ -73,9 +73,10 @@ export default defineComponent ({
         };
     },
     computed: {
-        ...mapGetters('communication', [
-            'typedMessage'
-        ])
+        ...mapGetters({
+            typedMessage: 'communication/typedMessage',
+            player: 'player/player'
+        })
     },
     methods: {
         getImgUrl,
@@ -89,7 +90,8 @@ export default defineComponent ({
                 this.sendMessage({
                     text: formattedText,
                     parent: this.parent,
-                    channel: this.channel
+                    channel: this.channel,
+                    player: this.player
                 });
                 this.text = "";
                 this.closeRichEditor();

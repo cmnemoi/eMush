@@ -6,6 +6,7 @@ use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Validator\MaxNestedParent;
 use Mush\Chat\Validator\MessageParent;
+use Mush\Player\Entity\Player;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -25,6 +26,8 @@ class CreateMessage
     private bool $pirated = false;
 
     private \DateInterval $timeLimit;
+
+    private int $playerId;
 
     /**
      * @Assert\NotNull
@@ -96,5 +99,22 @@ class CreateMessage
     public function isPirated(): bool
     {
         return $this->pirated;
+    }
+
+    public function getPlayerId(): int
+    {
+        return $this->playerId;
+    }
+
+    public function setPlayerId(int $playerId): self
+    {
+        $this->playerId = $playerId;
+
+        return $this;
+    }
+
+    public function sentByPlayer(Player $player): bool
+    {
+        return $this->playerId === $player->getId();
     }
 }

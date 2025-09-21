@@ -18,9 +18,9 @@ use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\MetaGame\Service\AdminServiceInterface;
 use Mush\Player\Entity\Player;
-use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Repository\PlayerInfoRepository;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\Player\UseCase\GetUserCurrentPlayerUseCase;
 use Mush\User\Entity\User;
 use Mush\User\Voter\UserVoter;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -28,6 +28,7 @@ use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -42,35 +43,19 @@ class ChannelController extends AbstractGameController
 {
     private const int TIME_LIMIT = 48;
 
-    private SpecificationInterface $canCreateChannel;
-    private ChannelServiceInterface $channelService;
-    private MessageServiceInterface $messageService;
-    private PlayerServiceInterface $playerService;
-    private ValidatorInterface $validator;
-    private CycleServiceInterface $cycleService;
-    private TranslationServiceInterface $translationService;
-    private PlayerInfoRepository $playerInfoRepository;
-
     public function __construct(
         AdminServiceInterface $adminService,
-        SpecificationInterface $canCreateChannel,
-        ChannelServiceInterface $channelStrategyService,
-        MessageServiceInterface $messageService,
-        PlayerServiceInterface $playerService,
-        ValidatorInterface $validator,
-        CycleServiceInterface $cycleService,
-        TranslationServiceInterface $translationService,
-        PlayerInfoRepository $playerInfoRepository
+        private SpecificationInterface $canCreateChannel,
+        private ChannelServiceInterface $channelService,
+        private MessageServiceInterface $messageService,
+        private PlayerServiceInterface $playerService,
+        private ValidatorInterface $validator,
+        private CycleServiceInterface $cycleService,
+        private TranslationServiceInterface $translationService,
+        private PlayerInfoRepository $playerInfoRepository,
+        private GetUserCurrentPlayerUseCase $getUserCurrentPlayer,
     ) {
         parent::__construct($adminService);
-        $this->canCreateChannel = $canCreateChannel;
-        $this->channelService = $channelStrategyService;
-        $this->messageService = $messageService;
-        $this->playerService = $playerService;
-        $this->validator = $validator;
-        $this->cycleService = $cycleService;
-        $this->translationService = $translationService;
-        $this->playerInfoRepository = $playerInfoRepository;
     }
 
     /**
@@ -402,6 +387,11 @@ class ChannelController extends AbstractGameController
      *                  description="The message"
      *              ),
      *              @OA\Property(
+     *                  type="integer",
+     *                  property="playerId",
+     *                  description="The player id"
+     *              ),
+     *              @OA\Property(
      *                  type="boolean",
      *                  property="isPirated",
      *                  description="If the message is written from a pirated channel or not"
@@ -449,23 +439,22 @@ class ChannelController extends AbstractGameController
 
         /** @var User $user */
         $user = $this->getUser();
+        $userPlayer = $this->getUserCurrentPlayer->execute($user);
 
-        /** @var PlayerInfo $currentPlayerInfo */
-        $currentPlayerInfo = $this->playerInfoRepository->getCurrentPlayerInfoForUserOrNull($user);
+        if (!$messageCreate->sentByPlayer($userPlayer)) {
+            throw new ConflictHttpException('You are sending a message under the name of another player.');
+        }
 
-        /** @var Player $currentPlayer */
-        $currentPlayer = $currentPlayerInfo->getPlayer();
-
-        $this->messageService->createPlayerMessage($currentPlayer, $messageCreate);
+        $this->messageService->createPlayerMessage($userPlayer, $messageCreate);
 
         if ($channel->isFavorites()) {
-            $messages = $this->messageService->getPlayerFavoritesChannelMessages($currentPlayer);
+            $messages = $this->messageService->getPlayerFavoritesChannelMessages($userPlayer);
         } else {
-            $messages = $this->messageService->getChannelMessages($currentPlayer, $channel, $messageCreate->getTimeLimit());
+            $messages = $this->messageService->getChannelMessages($userPlayer, $channel, $messageCreate->getTimeLimit());
         }
 
         $context = new Context();
-        $context->setAttribute('currentPlayer', $currentPlayer);
+        $context->setAttribute('currentPlayer', $userPlayer);
 
         $view = $this->view($messages, 200);
         $view->setContext($context);

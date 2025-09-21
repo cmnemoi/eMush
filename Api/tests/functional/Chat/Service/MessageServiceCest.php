@@ -7,6 +7,7 @@ namespace Mush\tests\functional\Chat\Service;
 use Mush\Chat\Entity\Channel;
 use Mush\Chat\Entity\Dto\CreateMessage;
 use Mush\Chat\Entity\Message;
+use Mush\Chat\Enum\ChannelScopeEnum;
 use Mush\Chat\Enum\NeronMessageEnum;
 use Mush\Chat\Services\MessageServiceInterface;
 use Mush\Disease\Enum\InjuryEnum;
@@ -106,6 +107,22 @@ final class MessageServiceCest extends AbstractFunctionalTest
             ]],
             actual: $messages->map(static fn (Message $message) => $message->getChild()->map(static fn (Message $child) => $child->getMessage())->toArray())->toArray(),
         );
+    }
+
+    public function shouldThrowIfPlayerNotInPrivateChannel(FunctionalTester $I): void
+    {
+        $privateChannel = new Channel();
+        $privateChannel
+            ->setScope(ChannelScopeEnum::PRIVATE)
+            ->setDaedalus($this->player->getDaedalus()->getDaedalusInfo());
+        $I->haveInRepository($privateChannel);
+
+        $I->expectThrowable(new \InvalidArgumentException('Cannot post in private channel if not inside'), function () use ($privateChannel) {
+            $this->messageService->createPlayerMessage(
+                player: $this->player,
+                createMessage: new CreateMessage()->setChannel($privateChannel)->setMessage('Hello, World!'),
+            );
+        });
     }
 
     private function givenPlayerHasTornTongue(): void

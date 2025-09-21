@@ -32,8 +32,12 @@ final class MessageService implements MessageServiceInterface
 
     public function createPlayerMessage(Player $player, CreateMessage $createMessage): Message
     {
-        $messageContent = trim($createMessage->getMessage());
         $channel = $createMessage->getChannel();
+        if ($channel->isPrivate() && !$channel->isPlayerParticipant($player->getPlayerInfo())) {
+            throw new \InvalidArgumentException('Cannot post in private channel if not inside');
+        }
+
+        $messageContent = trim($createMessage->getMessage());
         $pirateVictim = $player->getPirateVictim();
 
         if ($createMessage->isPirated() && $pirateVictim) {

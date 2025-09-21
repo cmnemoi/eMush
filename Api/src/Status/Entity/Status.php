@@ -120,6 +120,13 @@ class Status implements ActionProviderInterface, ModifierProviderInterface
         return $owner;
     }
 
+    public function getPlayerOwnerOrThrow(): Player
+    {
+        $owner = $this->getOwner();
+
+        return $owner instanceof Player ? $owner : throw new \RuntimeException("Status {$this->getName()} owner is not a Player, but {$owner->getClassName()}");
+    }
+
     public function setTargetOwner(StatusTarget $owner): self
     {
         $this->owner = $owner;

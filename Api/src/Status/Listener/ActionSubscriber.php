@@ -3,7 +3,10 @@
 namespace Mush\Status\Listener;
 
 use Mush\Action\Event\ActionEvent;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\ToolItemEnum;
 use Mush\Game\Enum\EventPriorityEnum;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlaceStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\MakePlayerActiveService;
@@ -55,11 +58,12 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     public function onPostAction(ActionEvent $event): void
     {
-        $this->handleAntiquePerfumeBonus($event);
-        $this->removeLyingDownStatusFromTargetPlayer($event);
+        $this->immunizeAntiquePerfumePlayerAfterAShower($event);
+        $this->removeLyingDownStatusIfPlayerWakesUpAfterAction($event);
+        $this->removeFocusedStatusIfPlayerIsAccessingTakenBlockOfPostIt($event);
     }
 
-    private function handleAntiquePerfumeBonus(ActionEvent $event): void
+    private function immunizeAntiquePerfumePlayerAfterAShower(ActionEvent $event): void
     {
         if ($event->shouldCreateParfumeAntiqueImmunizedStatus()) {
             $this->statusService->createStatusFromName(
@@ -71,12 +75,33 @@ final class ActionSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function removeLyingDownStatusFromTargetPlayer(ActionEvent $event): void
+    private function removeLyingDownStatusIfPlayerWakesUpAfterAction(ActionEvent $event): void
     {
         if ($event->shouldRemoveTargetLyingDownStatus()) {
             $this->statusService->removeStatus(
                 statusName: PlayerStatusEnum::LYING_DOWN,
                 holder: $event->getPlayerActionTargetOrThrow(),
+                tags: $event->getTags(),
+                time: $event->getTime()
+            );
+        }
+    }
+
+    private function removeFocusedStatusIfPlayerIsAccessingTakenBlockOfPostIt(ActionEvent $event): void
+    {
+        /** @var ?GameEquipment $blockOfPostIt */
+        $blockOfPostIt = $event->getActionTarget();
+        if ($blockOfPostIt?->getLogName() !== ToolItemEnum::BLOCK_OF_POST_IT) {
+            return;
+        }
+
+        /** @var ?Player $focusedPlayer */
+        $focusedPlayer = $blockOfPostIt?->getTargetingStatusByName(PlayerStatusEnum::FOCUSED)?->getPlayerOwnerOrThrow();
+
+        if ($focusedPlayer) {
+            $this->statusService->removeStatus(
+                statusName: PlayerStatusEnum::FOCUSED,
+                holder: $focusedPlayer,
                 tags: $event->getTags(),
                 time: $event->getTime()
             );

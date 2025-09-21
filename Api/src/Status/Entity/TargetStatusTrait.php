@@ -137,4 +137,13 @@ trait TargetStatusTrait
     {
         return $this->getId() !== $statusHolder->getId();
     }
+
+    public function getTargetingStatusByName(string $name): ?Status
+    {
+        $status = $this->getTargetingStatuses()
+            ->filter(static fn (Status $status) => ($status->getName() === $name))
+            ->first();
+
+        return $status ?: null;
+    }
 }

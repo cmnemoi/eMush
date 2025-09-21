@@ -44,7 +44,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     public function onPreAction(ActionEvent $event): void
     {
         match ($event->getActionName()) {
-            ActionEnum::MOVE => $this->handleExitActionLog($event),
+            ActionEnum::MOVE => $this->tryToCreateCatNoises($event),
             ActionEnum::TAKEOFF => $this->createTakeoffActionLog($event),
             default => null,
         };
@@ -55,7 +55,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         $actionLog = $this->roomLogService->createLogFromActionEvent($event);
 
         if ($actionLog?->isPublicOrRevealed()) {
-            $this->handleCatNoises($event);
+            $this->tryToCreateCatNoises($event);
         }
 
         if ($event->getActionName()->isDetectedByMycoAlarm()) {
@@ -69,7 +69,7 @@ final class ActionSubscriber implements EventSubscriberInterface
     {
         match ($event->getActionName()) {
             ActionEnum::LAND => $this->handleLandActionLog($event),
-            ActionEnum::MOVE => $this->handleEnterActionLog($event),
+            ActionEnum::MOVE => $this->tryToCreateCatNoises($event),
             default => null,
         };
 
@@ -115,18 +115,6 @@ final class ActionSubscriber implements EventSubscriberInterface
             [$player->getLogKey() => $player->getLogName(), 'content' => $actionResult->getContentOrThrow()],
             new \DateTime('now')
         );
-    }
-
-    private function handleEnterActionLog(ActionEvent $event): void
-    {
-        $this->createEnterRoomLog($event);
-        $this->handleCatNoises($event);
-    }
-
-    private function handleExitActionLog(ActionEvent $event): void
-    {
-        $this->handleCatNoises($event);
-        $this->createExitRoomLog($event);
     }
 
     private function handlePlayerWakeUpLog(ActionEvent $event): void
@@ -279,7 +267,7 @@ final class ActionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    private function handleCatNoises(ActionEvent $event): void
+    private function tryToCreateCatNoises(ActionEvent $event): void
     {
         if ($this->shotAtCatAndFailed($event) || $this->cureCatAndFailed($event)) {
             $this->createCatHissLog($event);

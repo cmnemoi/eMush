@@ -77,10 +77,7 @@ final class PutThroughDoor extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $targetPlayer */
-        $targetPlayer = $this->target;
-
-        $this->playerService->changePlace(player: $targetPlayer, place: $this->getRandomRoom());
+        $this->playerService->changePlace(player: $this->playerTarget(), place: $this->getRandomRoom());
     }
 
     private function getRandomRoom(): Place

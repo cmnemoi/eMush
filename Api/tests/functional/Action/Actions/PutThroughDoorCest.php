@@ -12,6 +12,7 @@ use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\Door;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
@@ -108,6 +109,30 @@ final class PutThroughDoorCest extends AbstractFunctionalTest
             ),
             I: $I,
         );
+    }
+
+    public function shouldPrintExitAndEnterLogs(FunctionalTester $I): void
+    {
+        $this->whenChunPutsThroughKuanTiThroughDoor();
+
+        $exitRoomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => ActionLogEnum::EXIT_ROOM,
+                'place' => RoomEnum::LABORATORY,
+            ],
+        );
+        $I->assertEquals('front_corridor', $exitRoomLog->getParameters()['place']);
+        $I->assertEquals('vers le', $exitRoomLog->getParameters()['exit_loc_prep']);
+
+        $enterRoomLog = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => ActionLogEnum::ENTER_ROOM,
+            ],
+        );
+        $I->assertEquals('laboratory', $enterRoomLog->getParameters()['place']);
+        $I->assertEquals('depuis le', $enterRoomLog->getParameters()['enter_loc_prep']);
     }
 
     public function shouldCostOneLessActionPointOnInactivePlayer(FunctionalTester $I): void

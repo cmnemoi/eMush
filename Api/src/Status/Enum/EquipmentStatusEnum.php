@@ -45,6 +45,7 @@ class EquipmentStatusEnum
             self::UNSTABLE,
             self::HAZARDOUS,
             self::FROZEN,
+            self::DOCUMENT_CONTENT,
         ];
     }
 

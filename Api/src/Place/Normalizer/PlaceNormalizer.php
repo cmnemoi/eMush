@@ -348,23 +348,30 @@ class PlaceNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private function getPileName(GameItem $item, Player $currentPlayer): string
     {
         $itemStatuses = $item->getStatuses();
-        $pileName = null;
 
         $statusesFilter = EquipmentStatusEnum::splitItemPileStatus();
-        $statusesFilter[] = EquipmentStatusEnum::DOCUMENT_CONTENT;
         if ($currentPlayer->isMush()) {
             $statusesFilter[] = EquipmentStatusEnum::CONTAMINATED;
         }
 
-        $statusesName = $itemStatuses->filter(static fn (Status $status) => \in_array($status->getName(), $statusesFilter, true));
-
-        if (!$statusesName->isEmpty()) {
-            /** @var Status $status */
-            $status = $statusesName->first();
-            $pileName = ($status instanceof ContentStatus) ? $status->getContent() : $status->getName();
+        /** @var ArrayCollection<array-key, Status> $relevantStatuses */
+        $relevantStatuses = $itemStatuses->filter(static fn (Status $status) => \in_array($status->getName(), $statusesFilter, true));
+        if ($relevantStatuses->isEmpty()) {
+            return 'no_status';
         }
 
-        return $pileName ?? 'no_status';
+        $statusNames = [];
+
+        /** @var Status $status */
+        foreach ($relevantStatuses as $status) {
+            $statusNames[] = ($status instanceof ContentStatus) ? $status->getContent() : $status->getName();
+        }
+
+        // Sort status names to ensure consistent ordering
+        sort($statusNames);
+
+        // Join all status names with underscores to create unique pile name
+        return implode('_', $statusNames);
     }
 
     private function putContaminatedItemsOnTop(Collection $items): ArrayCollection

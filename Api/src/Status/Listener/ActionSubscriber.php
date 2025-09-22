@@ -2,6 +2,7 @@
 
 namespace Mush\Status\Listener;
 
+use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\ToolItemEnum;
@@ -89,6 +90,10 @@ final class ActionSubscriber implements EventSubscriberInterface
 
     private function removeFocusedStatusIfPlayerIsAccessingTakenBlockOfPostIt(ActionEvent $event): void
     {
+        if ($event->getActionName() !== ActionEnum::TAKE) {
+            return;
+        }
+
         /** @var ?GameEquipment $blockOfPostIt */
         $blockOfPostIt = $event->getActionTarget();
         if ($blockOfPostIt?->getLogName() !== ToolItemEnum::BLOCK_OF_POST_IT) {

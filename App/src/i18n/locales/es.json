@@ -1039,7 +1039,8 @@
 			"logout": "Desconectarse",
 			"notifications": {
 				"title": "Notificaciones",
-				"empty": "¡Nada que ver aquí!"
+				"empty": "¡Nada que ver aquí!",
+				"initialNotification": "Aquí podrás encontrar tus ajustes así como tus notificaciones, activándolos a continuación."
 			},
 			"readAll": "Marcar todo como leído",
 			"soon": "Disponible pronto",

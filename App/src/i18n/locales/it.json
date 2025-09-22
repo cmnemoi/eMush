@@ -1039,7 +1039,8 @@
 			"logout": "Déconnexion",
 			"notifications": {
 				"title": "Notifications",
-				"empty": "Plus rien à voir ici !"
+				"empty": "Plus rien à voir ici !",
+				"initialNotification": "Vous pourrez retrouver ici vos paramètres ainsi que vos notifications, en les activant ci-dessous."
 			},
 			"readAll": "Tout marquer comme lu",
 			"soon": "Bientôt disponible",

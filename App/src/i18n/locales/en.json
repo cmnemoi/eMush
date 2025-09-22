@@ -1039,7 +1039,8 @@
 			"logout": "Logout",
 			"notifications": {
 				"title": "Notifications",
-				"empty": "Nothing to see here!"
+				"empty": "Nothing to see here!",
+				"initialNotification": "Here you can find your settings as well as your notifications, by enabling them below."
 			},
 			"readAll": "Mark all as read",
 			"soon": "Available soon",

@@ -155,8 +155,9 @@ const actions: ActionTree<any, any> = {
     closePlayerHistoryPopUp({ commit }) {
         commit('closePlayerHistoryPopUp');
     },
-    openUserMenu({ commit }) {
+    openUserMenu({ commit, dispatch }) {
         commit('openUserMenu');
+        dispatch('notifications/markUserMenuAsOpened', null, { root: true });
     },
     closeUserMenu({ commit }) {
         commit('closeUserMenu');

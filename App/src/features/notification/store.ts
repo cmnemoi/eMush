@@ -5,6 +5,7 @@ import { Module } from "vuex";
 export type NotificationState = {
     subscriptionStatus: boolean,
     notifications: string[],
+    hasOpenedUserMenu: boolean,
 };
 
 export function createNotificationsModule(
@@ -20,7 +21,11 @@ export function createNotificationsModule(
         namespaced: true,
         state: (): NotificationState => ({
             subscriptionStatus: localStorageService.getItemAsBoolean('subscriptionStatus'),
-            notifications: localStorageService.getItemAsArray('notifications')
+            hasOpenedUserMenu: localStorageService.getItemAsBoolean('hasOpenedUserMenu'),
+            notifications: localStorageService.getItemAsBoolean('hasOpenedUserMenu') ? localStorageService.getItemAsArray('notifications')
+                : [
+                    'hud.userMenu.notifications.initialNotification'
+                ]
         }),
         mutations: {
             setSubscriptionStatus(state: NotificationState, status: boolean) {
@@ -28,12 +33,16 @@ export function createNotificationsModule(
             },
             setNotifications(state: NotificationState, notifications: string[]) {
                 state.notifications = notifications;
+            },
+            setHasOpenedUserMenu(state: NotificationState, value: boolean) {
+                state.hasOpenedUserMenu = value;
             }
         },
         getters: {
             isUserSubscribed: (state: NotificationState): boolean => state.subscriptionStatus,
             notifications: (state: NotificationState): string[] => state.notifications,
-            notificationsCount: (state: NotificationState): number => state.notifications.length
+            notificationsCount: (state: NotificationState): number => state.notifications.length,
+            hasOpenedUserMenu: (state: NotificationState): boolean => state.hasOpenedUserMenu
         },
         actions: {
             async subscribe({ commit, dispatch, rootState }): Promise<void> {
@@ -77,6 +86,14 @@ export function createNotificationsModule(
             clearNotifications({ commit }): void {
                 commit('setNotifications', []);
                 localStorageService.saveItemAsArray('notifications', []);
+            },
+            markUserMenuAsOpened({ commit, state }): void {
+                if (state.hasOpenedUserMenu) {
+                    return;
+                }
+
+                commit('setHasOpenedUserMenu', true);
+                localStorageService.setItemAsBoolean('hasOpenedUserMenu', true);
             }
         }
     };

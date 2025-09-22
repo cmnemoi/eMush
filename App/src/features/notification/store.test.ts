@@ -14,6 +14,7 @@ describe("Notification Store", () => {
     let notificationService: NotificationServiceInterface;
     beforeEach(() => {
         localStorageService = new FakeLocalStorageService();
+        localStorageService.setItemAsBoolean('hasOpenedUserMenu', true);
         notificationService = new FakeNotificationService();
         store = createStore({
             modules: {
@@ -149,5 +150,48 @@ describe("Notification Store", () => {
 
         expect(store.getters["notifications/isUserSubscribed"]).toBe(false);
         expect(localStorageService.getItemAsBoolean('subscriptionStatus')).toBe(false);
+    });
+
+    it("should mark user menu as opened", async () => {
+        localStorageService.setItemAsBoolean('hasOpenedUserMenu', false);
+        store = createStore({
+            modules: {
+                notifications: createNotificationsModule({
+                    localStorageService,
+                    notificationService,
+                    translate: (key: string) => key
+                }),
+                toast: toastModule,
+                auth: { state: { accessToken: 'token' } }
+            }
+        });
+
+        await store.dispatch("notifications/markUserMenuAsOpened");
+
+        expect(store.getters["notifications/hasOpenedUserMenu"]).toBe(true);
+        expect(localStorageService.getItemAsBoolean('hasOpenedUserMenu')).toBe(true);
+    });
+
+    it("should init state when user menu has not been opened", async () => {
+        localStorageService.setItemAsBoolean('hasOpenedUserMenu', false);
+        store = createStore({
+            modules: {
+                notifications: createNotificationsModule({
+                    localStorageService,
+                    notificationService,
+                    translate: (key: string) => key
+                }),
+                toast: toastModule,
+                auth: { state: { accessToken: 'token' } }
+            }
+        });
+
+        expect(store.state.notifications).toEqual({
+            subscriptionStatus: false,
+            hasOpenedUserMenu: false,
+            notifications: [
+                'hud.userMenu.notifications.initialNotification'
+            ]
+        });
     });
 });

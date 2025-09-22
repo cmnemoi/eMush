@@ -6,6 +6,8 @@ namespace Mush\Skill\Normalizer;
 
 use Mush\Game\Service\TranslationServiceInterface;
 use Mush\Skill\Entity\Skill;
+use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class SkillNormalizer implements NormalizerInterface
@@ -20,7 +22,7 @@ final class SkillNormalizer implements NormalizerInterface
     public function getSupportedTypes(?string $format): array
     {
         return [
-            Skill::class => false,
+            Skill::class => true,
         ];
     }
 
@@ -30,19 +32,23 @@ final class SkillNormalizer implements NormalizerInterface
         $skill = $object;
         $player = $skill->getPlayer();
 
+        $skillKey = $player->hasStatus(PlayerStatusEnum::DISABLED) && $skill->getName() === SkillEnum::SPRINTER
+            ? SkillEnum::DISABLED_SPRINTER->value
+            : $skill->getNameAsString();
+
         return [
-            'key' => $skill->getNameAsString(),
+            'key' => $skillKey,
             'name' => $this->translationService->translate(
                 key: $skill->getNameAsString() . '.name',
                 parameters: [$player->getLogKey() => $player->getLogName()],
                 domain: 'skill',
-                language: $player->getDaedalus()->getLanguage()
+                language: $player->getLanguage(),
             ),
             'description' => $this->translationService->translate(
                 key: $skill->getNameAsString() . '.description',
                 parameters: [$player->getLogKey() => $player->getLogName()],
                 domain: 'skill',
-                language: $player->getDaedalus()->getLanguage()
+                language: $player->getLanguage(),
             ),
             'isMushSkill' => $skill->isMushSkill(),
         ];

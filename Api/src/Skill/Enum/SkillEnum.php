@@ -98,6 +98,7 @@ enum SkillEnum: string
     case U_TURN = 'u_turn';
     case VICTIMIZER = 'victimizer';
     case WRESTLER = 'wrestler';
+    case DISABLED_SPRINTER = 'disabled_sprinter';
 
     public function toString(): string
     {

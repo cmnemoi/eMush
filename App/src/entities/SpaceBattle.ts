@@ -1,3 +1,4 @@
+import { toArray } from "@/utils/toArray";
 import { Hunter } from "./Hunter";
 import { SpaceBattlePatrolShip } from "./SpaceBattlePatrolShip";
 import { SpaceBattleTurret } from "./SpaceBattleTurret";
@@ -23,19 +24,19 @@ export class SpaceBattle {
         this.turrets = [];
 
         if (typeof object.hunters !== "undefined") {
-            object.hunters.forEach((hunter: any) => {
+            toArray(object.hunters).forEach((hunter: any) => {
                 this.hunters.push(new Hunter().load(hunter));
             });
         }
 
         if (typeof object.patrolShips !== "undefined") {
-            object.patrolShips.forEach((patrolShip: any) => {
+            toArray(object.patrolShips).forEach((patrolShip: any) => {
                 this.patrolShips.push(new SpaceBattlePatrolShip().load(patrolShip));
             });
         }
 
         if (typeof object.turrets !== "undefined") {
-            object.turrets.forEach((turret: any) => {
+            toArray(object.turrets).forEach((turret: any) => {
                 this.turrets.push(new SpaceBattleTurret().load(turret));
             });
             // sort turrets by their name instead of their id so they are always displayed in the same order

@@ -25,7 +25,7 @@
 		"contributors": "Merci à nos contributeurs :",
 		"translatorsAndAlphaTesters": "à nos traducteurs et tous les alpha testeurs :)",
 		"emush": "eMush",
-		"eternaltwin": "eMush est un site web non-commercial géré par des bénévoles. Il fait partie du projet <a href=https://eternaltwin.org/>Eternaltwin</a> dont le but est de préserver les jeux de Motion Twin, c'est-à-dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>.",
+		"eternaltwin": "eMush est un site web non-commercial géré par des bénévoles. Il fait partie du projet <a href={eternaltwinUrl}>Eternaltwin</a> dont le but est de préserver les jeux de Motion Twin, c'est-à-dire les garder accessibles même en cas de fermeture du site officiel. <strong>Nous ne sommes pas liés à Motion Twin</strong>.",
 		"legal": "Mentions légales",
 		"report": "Signaler un comportement inapproprié",
 		"otherGames": "Découvrez les autres jeux d'Eternaltwin",
@@ -59,7 +59,7 @@
 				"description": "Faites prospérer votre capitale. Recrutez des soldats et devenez... Empereur !"
 			},
 			"mybrute": {
-				"name": "La Brute",
+				"name": "LaBrute",
 				"description": "Règle tes comptes dans l'arène !"
 			},
 			"myhordes": {
@@ -1053,8 +1053,9 @@
 			}
 		},
 		"topBar": {
-			"login": "Connexion",
-			"notifications": "{count} notification | {count} notifications"
+			"login": "Se connecter",
+			"notifications": "{count} notification | {count} notifications",
+			"register": "Créer un compte"
 		}
 	},
 	"fakeAdmin": {

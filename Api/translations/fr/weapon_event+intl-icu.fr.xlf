@@ -71,7 +71,15 @@
     <unit id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury">
       <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="translated">
         <source>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</source>
-        <target>Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde.</target>
+        <target>{version, select,
+                    1 {{character_gender, select,
+                        male {Le tour de magie de **{character}** est décidément raté, il retourne son arme contre lui par mégarde}
+                        female {Le tour de magie de **{character}** est décidément raté, elle retourne son arme contre elle par mégarde}
+                        other {invalid gender input}
+                    }}
+                    2 {La violence est le refuge de l'incompétence. **{character}** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **{target_character}** l'en sait gré}
+                    other {invalid version input}
+                }.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_break_weapon">

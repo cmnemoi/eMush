@@ -268,7 +268,7 @@
         <source>mushicide.name</source>
         <target>mushicide.name</target>
       </segment>
-      <segment id="mush_fear.log" state="initial">
+      <segment id="mushicide.log" state="initial">
         <source>mushicide.log</source>
         <target>mushicide.log</target>
       </segment>
@@ -449,16 +449,6 @@
         <target>rebel_wolf.log</target>
       </segment>
     </unit>
-    <unit id="rebel_contact">
-      <segment id="rebel_contact.name" state="initial">
-        <source>rebel_contact.name</source>
-        <target>rebel_contact.name</target>
-      </segment>
-      <segment id="rebel_contact.log" state="initial">
-        <source>rebel_contact.log</source>
-        <target>rebel_contact.log</target>
-      </segment>
-    </unit>
     <unit id="looking_for_kivanc">
       <segment id="looking_for_kivanc.name" state="initial">
         <source>looking_for_kivanc.name</source>
@@ -556,6 +546,10 @@
         <source>fast_forward.log</source>
         <target>fast_forward.log</target>
       </segment>
+      <segment id="fast_forward.personal_description" state="initial">
+        <source>fast_forward.personal_description</source>
+        <target>fast_forward.personal_description</target>
+      </segment>
     </unit>
     <unit id="planet_searcher">
       <segment id="planet_searcher.name" state="initial">
@@ -635,22 +629,12 @@
         <target>eden_computed.log</target>
       </segment>
     </unit>
-    <unit id="andie_fate">
-      <segment id="andie_fate.name" state="initial">
-        <source>andie_fate.name</source>
-        <target>andie_fate.name</target>
-      </segment>
-      <segment id="andie_fate.log" state="initial">
-        <source>andie_fate.log</source>
-        <target>andie_fate.log</target>
-      </segment>
-    </unit>
     <unit id="pregnant_in_eden">
-      <segment id="eden_mush_cat.name" state="initial">
+      <segment id="pregnant_in_eden.name" state="initial">
         <source>pregnant_in_eden.name</source>
         <target>pregnant_in_eden.name</target>
       </segment>
-      <segment id="eden_mush_cat.log" state="initial">
+      <segment id="pregnant_in_eden.log" state="initial">
         <source>pregnant_in_eden.log</source>
         <target>pregnant_in_eden.log</target>
       </segment>
@@ -805,16 +789,6 @@
         <target>cm_use_extinguisher.log</target>
       </segment>
     </unit>
-    <unit id="naturalist">
-      <segment id="naturalist.name" state="initial">
-        <source>naturalist.name</source>
-        <target>naturalist.name</target>
-      </segment>
-      <segment id="naturalist.log" state="initial">
-        <source>naturalist.log</source>
-        <target>naturalist.log</target>
-      </segment>
-    </unit>
     <unit id="perpetual_hydration">
       <segment id="perpetual_hydration.name" state="initial">
         <source>perpetual_hydration.name</source>
@@ -843,18 +817,6 @@
         <target>alien_friend.personal_description</target>
       </segment>
     </unit>
-    <unit id="naturalist.name">
-      <segment state="initial">
-        <source>naturalist.name</source>
-        <target>naturalist.name</target>
-      </segment>
-    </unit>
-    <unit id="naturalist.log">
-      <segment state="initial">
-        <source>naturalist.log</source>
-        <target>naturalist.log</target>
-      </segment>
-    </unit>
     <unit id="pretty_cook.name">
       <segment state="initial">
         <source>pretty_cook.name</source>
@@ -873,22 +835,70 @@
         <target>pretty_cook.log</target>
       </segment>
     </unit>
-    <unit id="fast_forward.name">
-      <segment state="initial">
-        <source>fast_forward.name</source>
-        <target>fast_forward.name</target>
+    <unit id="lover">
+      <segment id="lover.name" state="initial">
+        <source>lover.name</source>
+        <target>lover.name</target>
+      </segment>
+      <segment id="lover.log" state="initial">
+        <source>lover.log</source>
+        <target>lover.log</target>
+      </segment>
+      <segment id="lover.personal_description" state="initial">
+        <source>lover.personal_description</source>
+        <target>lover.personal_description</target>
       </segment>
     </unit>
-    <unit id="fast_forward.log">
-      <segment state="initial">
-        <source>fast_forward.log</source>
-        <target>fast_forward.log</target>
+    <unit id="andie_fate">
+      <segment id="andie_fate.name" state="initial">
+        <source>andie_fate.name</source>
+        <target>andie_fate.name</target>
+      </segment>
+      <segment id="andie_fate.log" state="initial">
+        <source>andie_fate.log</source>
+        <target>andie_fate.log</target>
+      </segment>
+      <segment id="andie_fate.personal_description" state="initial">
+        <source>andie_fate.personal_description</source>
+        <target>andie_fate.personal_description</target>
       </segment>
     </unit>
-    <unit id="fast_forward.personal_description">
-      <segment state="initial">
-        <source>fast_forward.personal_description</source>
-        <target>fast_forward.personal_description</target>
+    <unit id="naturalist">
+      <segment id="naturalist.name" state="initial">
+        <source>naturalist.name</source>
+        <target>naturalist.name</target>
+      </segment>
+      <segment id="naturalist.log" state="initial">
+        <source>naturalist.log</source>
+        <target>naturalist.log</target>
+      </segment>
+      <segment id="naturalist.personal_description" state="initial">
+        <source>naturalist.personal_description</source>
+        <target>naturalist.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="rebel_contact">
+      <segment id="rebel_contact.name" state="initial">
+        <source>rebel_contact.name</source>
+        <target>rebel_contact.name</target>
+      </segment>
+      <segment id="rebel_contact.log" state="initial">
+        <source>rebel_contact.log</source>
+        <target>rebel_contact.log</target>
+      </segment>
+      <segment id="rebel_contact.personal_description" state="initial">
+        <source>rebel_contact.personal_description</source>
+        <target>rebel_contact.personal_description</target>
+      </segment>
+    </unit>
+    <unit id="all_pregnant">
+      <segment id="all_pregnant.name" state="initial">
+        <source>all_pregnant.name</source>
+        <target>all_pregnant.name</target>
+      </segment>
+      <segment id="all_pregnant.log" state="initial">
+        <source>all_pregnant.log</source>
+        <target>all_pregnant.log</target>
       </segment>
     </unit>
   </file>

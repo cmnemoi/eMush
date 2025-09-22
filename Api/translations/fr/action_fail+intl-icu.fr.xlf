@@ -96,7 +96,7 @@
         <target>{character_gender, select,
             male {Vous n'êtes pas blessé, mais ça peut s'arranger...}
             female {Vous n'êtes pas blessée, mais ça peut s'arranger...}
-            other {invalid gender input}
+            other {Vous n'êtes pas blessé, mais ça peut s'arranger...}
             }</target>
       </segment>
     </unit>

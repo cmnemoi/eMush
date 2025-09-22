@@ -25,7 +25,7 @@
 		"contributors": "Gracias a nuestros colaboradores",
 		"translatorsAndAlphaTesters": "a nuestros traductores y a todos los alpha testers :)",
 		"emush": "eMush",
-		"eternaltwin": "eMush es un sitio web no comercial operado por aficionados. Pertenece al proyecto <a href=https://eternaltwin.org/>Eternaltwin</a> cuyo objetivo es archivar los juegos de Motion Twin. Esto significa que queremos asegurarnos de que permanezcan disponibles incluso si el sitio web oficial cierra. <strong>No estamos relacionados con Motion Twin</strong>.\n",
+		"eternaltwin": "eMush es un sitio web no comercial operado por aficionados. Pertenece al proyecto <a href={eternaltwinUrl}>Eternaltwin</a> cuyo objetivo es archivar los juegos de Motion Twin. Esto significa que queremos asegurarnos de que permanezcan disponibles incluso si el sitio web oficial cierra. <strong>No estamos relacionados con Motion Twin</strong>.",
 		"legal": "Aviso legal",
 		"report": "Denunciar un comportamiento inapropiado",
 		"otherGames": "Descubre los otros juegos de Eternaltwin",
@@ -1053,8 +1053,9 @@
 			}
 		},
 		"topBar": {
-			"login": "Conectarse",
-			"notifications": "{count} notificación | {count} notificaciones"
+			"login": "Acceso",
+			"notifications": "{count} notificación | {count} notificaciones",
+			"register": "Crea una cuenta"
 		}
 	},
 	"fakeAdmin": {

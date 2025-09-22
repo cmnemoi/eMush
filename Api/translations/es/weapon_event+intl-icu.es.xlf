@@ -70,7 +70,7 @@
     <unit id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury">
       <segment id="blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury" state="translated">
         <source>blaster_shooter_minus_1_ap_shooter_drop_weapon_shooter_random_injury</source>
-        <target>El truco de magia de **{character}** definitivamente es un fracaso, accidentalmente vuelve su arma contra sí {character_gender, select female {misma} other {mismo}}.</target>
+        <target>El truco de magia de **{character}** definitivamente es un fracaso, accidentalmente vuelve su arma contra sí {character_gender, select, female {misma} other {mismo}}.</target>
       </segment>
     </unit>
     <unit id="blaster_shooter_minus_1_ap_break_weapon">

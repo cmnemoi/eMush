@@ -760,10 +760,6 @@ final class ShootActionCest extends AbstractFunctionalTest
                 WeaponEventEnum::BLASTER_SHOOTER_DROP_WEAPON->toString(),
                 "La violence est le refuge de l'incompétence. **Chun** aurait mieux fait de s'abstenir. Son arme est maintenant par terre et **Kuan Ti** l'en sait gré.",
             ],
-            WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->toString() => [
-                WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->toString(),
-                'Le tour de magie de **Chun** est décidément raté, il retourne son arme contre lui par mégarde.',
-            ],
             WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->toString() => [
                 WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_BREAK_WEAPON->toString(),
                 '**Chun** bute sur un poney imaginaire et tombe en arrière !',

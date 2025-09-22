@@ -798,7 +798,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>stephen.description</source>
-        <target>Cuisinier le plus dangeureux de la galaxie.</target>
+        <target>Cuisinier le plus dangereux de la galaxie.</target>
       </segment>
       <segment id="employment" state="translated">
         <source>stephen.employment</source>

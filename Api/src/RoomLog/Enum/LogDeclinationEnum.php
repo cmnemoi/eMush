@@ -108,6 +108,7 @@ abstract class LogDeclinationEnum
             WeaponEventEnum::ROCKET_LAUNCHER_SUCCESSFUL_HIT_2_RANDOM_WOUNDS_4_ITEMS_6_SPLASH->value => [self::VERSION => 2],
             WeaponEventEnum::ROCKET_LAUNCHER_ROCKETTED->value => [self::VERSION => 3],
             WeaponEventEnum::ROCKET_LAUNCHER_CRITICAL_3_RANDOM_WOUNDS_2_ITEMS->value => [self::VERSION => 3],
+            WeaponEventEnum::BLASTER_SHOOTER_MINUS_1_AP_SHOOTER_DROP_WEAPON_SHOOTER_RANDOM_INJURY->value => [self::VERSION => 2],
             LogEnum::DOG_BARK => [self::VERSION => 17],
             LogEnum::DOG_BOTHER_CAT => [self::VERSION => 4],
         ];

@@ -1109,7 +1109,7 @@ Anything can happen in space, and sometimes a good shower gets you back in the g
     </unit>
     <unit id="swedish_sofa">
       <segment id="name" state="translated">
-        <source>.name</source>
+        <source>swedish_sofa.name</source>
         <target>Swedish Sofa</target>
       </segment>
       <segment id="short_name" state="translated">
@@ -1128,9 +1128,13 @@ Anything can happen in space, and sometimes a good shower gets you back in the g
         <source>swedish_sofa.first_letter</source>
         <target>consonant</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>swedish_sofa.description</source>
+        <target>A superb sofa in hand-stitched Nubuck leather. Designed in Sweden but produced cheaply on Encelade.</target>
+      </segment>
       <segment id="examine" state="translated">
         <source>swedish_sofa.examine</source>
-        <target>A superb sofa in hand-stitched Nubuck leather. Designed in Sweden but produced cheaply on Encelade.
+        <target>A superb sofa in hand-stitched Nubuck leather. Designed in Sweden but produced cheaply on Encelade.//
 Who would have thought that a plywood structure and a few cushions could be so relaxing...</target>
       </segment>
     </unit>

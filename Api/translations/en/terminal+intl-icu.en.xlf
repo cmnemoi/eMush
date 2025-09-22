@@ -385,7 +385,7 @@ That's not all: only one project per set can be brought to fruition. **When a pr
     <unit id="auxiliary_terminal">
       <segment id="name" state="translated">
         <source>auxiliary_terminal.name</source>
-        <target>NERON's Core</target>
+        <target>NERON's Core V{neronVersion}</target>
       </segment>
       <segment id="tips" state="translated">
         <source>auxiliary_terminal.tips</source>

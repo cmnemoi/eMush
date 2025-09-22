@@ -268,7 +268,7 @@
         <source>mushicide.name</source>
         <target>Mushicida</target>
       </segment>
-      <segment id="mush_fear.log" state="translated">
+      <segment id="mushicide.log" state="translated">
         <source>mushicide.log</source>
         <target>¡Has ganado {quantity} :triumph: porque le diste el golpe mortal a un Mush!</target>
       </segment>
@@ -449,16 +449,6 @@
         <target>Has ganado {quantity} :triumph: porque el Daedalus se ha contactado con los Niños Perdidos de Wolf.</target>
       </segment>
     </unit>
-    <unit id="rebel_contact">
-      <segment id="rebel_contact.name" state="translated">
-        <source>rebel_contact.name</source>
-        <target>Redes Rebeldes</target>
-      </segment>
-      <segment id="rebel_contact.log" state="translated">
-        <source>rebel_contact.log</source>
-        <target>¡Has ganado {quantity} :triumph: como Eleesha porque el Daedalus se ha contactado con una Base rebelde!</target>
-      </segment>
-    </unit>
     <unit id="looking_for_kivanc">
       <segment id="looking_for_kivanc.name" state="translated">
         <source>looking_for_kivanc.name</source>
@@ -556,6 +546,11 @@
         <source>fast_forward.log</source>
         <target>¡Has ganado {quantity} :triumph: por iniciar el viaje hacia un planeta como Jin Su!</target>
       </segment>
+      <segment id="fast_forward.personal_description" state="translated">
+        <source>fast_forward.personal_description</source>
+        <target>Jin Su gana {quantity} :triumph: por cada viaje a un planeta realizado bajo su comando. 
+Una vez ganado más que {regressiveFactor}, pasará menos frecuentemente.</target>
+      </segment>
     </unit>
     <unit id="planet_searcher">
       <segment id="planet_searcher.name" state="translated">
@@ -635,22 +630,12 @@
         <target>¡Has ganado {quantity} :triumph: porque lograste calcular las coordenadas del Edén!</target>
       </segment>
     </unit>
-    <unit id="andie_fate">
-      <segment id="andie_fate.name" state="translated">
-        <source>andie_fate.name</source>
-        <target>Traficante</target>
-      </segment>
-      <segment id="andie_fate.log" state="translated">
-        <source>andie_fate.log</source>
-        <target>¡Has ganado {quantity} :triumph: como Andie porque el Daedalus hizo un intercambio con mercaderes extraterrestres!</target>
-      </segment>
-    </unit>
     <unit id="pregnant_in_eden">
-      <segment id="eden_mush_cat.name" state="translated">
+      <segment id="pregnant_in_eden.name" state="translated">
         <source>pregnant_in_eden.name</source>
         <target>El Paso de la Antorcha</target>
       </segment>
-      <segment id="eden_mush_cat.log" state="translated">
+      <segment id="pregnant_in_eden.log" state="translated">
         <source>pregnant_in_eden.log</source>
         <target>Has ganado {quantity} :triumph: por cada personaje encinta que va hacia el Edén.</target>
       </segment>
@@ -805,16 +790,6 @@
         <target>Has ganado {quantity} :triumph: por utilizar correctamente un extintor.</target>
       </segment>
     </unit>
-    <unit id="naturalist">
-      <segment id="naturalist.name" state="translated">
-        <source>naturalist.name</source>
-        <target>Naturalista</target>
-      </segment>
-      <segment id="naturalist.log" state="translated">
-        <source>naturalist.log</source>
-        <target>¡Has ganado {quantity} :triumph: por sembrar un fruto alienígena como Ian!</target>
-      </segment>
-    </unit>
     <unit id="perpetual_hydration">
       <segment id="perpetual_hydration.name" state="translated">
         <source>perpetual_hydration.name</source>
@@ -843,18 +818,6 @@
         <target>Janice gana {quantity} :triumph: cada vez que entra en contacto con una forma de vida extraterrestre.</target>
       </segment>
     </unit>
-    <unit id="naturalist.name">
-      <segment state="translated">
-        <source>naturalist.name</source>
-        <target>Naturalista</target>
-      </segment>
-    </unit>
-    <unit id="naturalist.log">
-      <segment state="translated">
-        <source>naturalist.log</source>
-        <target>¡ Has ganado {quantity} :triumph: al plantar una fruta alienígena siendo Ian !</target>
-      </segment>
-    </unit>
     <unit id="pretty_cook.name">
       <segment state="translated">
         <source>pretty_cook.name</source>
@@ -873,23 +836,70 @@
         <target>¡Has ganado {quantity} :triumph: al participar en un combate durante una expedición siendo Stephen !</target>
       </segment>
     </unit>
-    <unit id="fast_forward.name">
-      <segment state="translated">
-        <source>fast_forward.name</source>
-        <target>Avance rápido</target>
+    <unit id="lover">
+      <segment id="lover.name" state="translated">
+        <source>lover.name</source>
+        <target>Enamorado</target>
+      </segment>
+      <segment id="lover.log" state="translated">
+        <source>lover.log</source>
+        <target>Has ganado {quantity} :triumph: al flirtear con éxito mutuamente como Derek.</target>
+      </segment>
+      <segment id="lover.personal_description" state="translated">
+        <source>lover.personal_description</source>
+        <target>Has ganado {quantity} :triumph: al flirtear con éxito mutuamente como Derek.</target>
       </segment>
     </unit>
-    <unit id="fast_forward.log">
-      <segment state="translated">
-        <source>fast_forward.log</source>
-        <target>¡Has ganado {quantity} :triumph: por iniciar el viaje hacia un planeta como Jin Su!</target>
+    <unit id="andie_fate">
+      <segment id="andie_fate.name" state="translated">
+        <source>andie_fate.name</source>
+        <target>Traficante</target>
+      </segment>
+      <segment id="andie_fate.log" state="translated">
+        <source>andie_fate.log</source>
+        <target>¡Has ganado {quantity} :triumph: como Andie porque el Daedalus hizo un intercambio con mercaderes extraterrestres!</target>
+      </segment>
+      <segment id="andie_fate.personal_description" state="translated">
+        <source>andie_fate.personal_description</source>
+        <target>Andie gana {quantity} :triumph: por cada intercambio exitoso con comerciantes alienígenas.</target>
       </segment>
     </unit>
-    <unit id="fast_forward.personal_description">
-      <segment state="translated">
-        <source>fast_forward.personal_description</source>
-        <target>Jin Su gana {quantity} :triumph: por cada viaje interestelar realizado bajo su comando. 
-Una vez ganado más que {regressiveFactor}, pasará menos frecuentemente.</target>
+    <unit id="naturalist">
+      <segment id="naturalist.name" state="translated">
+        <source>naturalist.name</source>
+        <target>Naturalista</target>
+      </segment>
+      <segment id="naturalist.log" state="translated">
+        <source>naturalist.log</source>
+        <target>¡Has ganado {quantity} :triumph: por sembrar un fruto alienígena como Ian!</target>
+      </segment>
+      <segment id="naturalist.personal_description" state="translated">
+        <source>naturalist.personal_description</source>
+        <target>Ian gana {quantity} :triumph: cada vez que planta una fruta alienígena.</target>
+      </segment>
+    </unit>
+    <unit id="rebel_contact">
+      <segment id="rebel_contact.name" state="translated">
+        <source>rebel_contact.name</source>
+        <target>Redes Rebeldes</target>
+      </segment>
+      <segment id="rebel_contact.log" state="translated">
+        <source>rebel_contact.log</source>
+        <target>¡Has ganado {quantity} :triumph: como Eleesha porque el Daedalus se ha contactado con una Base rebelde!</target>
+      </segment>
+      <segment id="rebel_contact.personal_description" state="translated">
+        <source>rebel_contact.personal_description</source>
+        <target>Eleesha obtiene {quantity} :triumph: cada vez que una base rebelde es contactada.</target>
+      </segment>
+    </unit>
+    <unit id="all_pregnant">
+      <segment id="all_pregnant.name" state="translated">
+        <source>all_pregnant.name</source>
+        <target>Nueva Esperanza</target>
+      </segment>
+      <segment id="all_pregnant.log" state="translated">
+        <source>all_pregnant.log</source>
+        <target>Nueva Esperanza</target>
       </segment>
     </unit>
   </file>

@@ -1017,8 +1017,8 @@
     </unit>
     <unit id="swedish_sofa">
       <segment id="name" state="initial">
-        <source>.name</source>
-        <target>.name</target>
+        <source>swedish_sofa.name</source>
+        <target>swedish_sofa.name</target>
       </segment>
       <segment id="short_name" state="initial">
         <source>swedish_sofa.short_name</source>
@@ -1035,6 +1035,10 @@
       <segment id="first_letter" state="initial">
         <source>swedish_sofa.first_letter</source>
         <target>swedish_sofa.first_letter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>swedish_sofa.description</source>
+        <target>swedish_sofa.description</target>
       </segment>
       <segment id="examine" state="initial">
         <source>swedish_sofa.examine</source>

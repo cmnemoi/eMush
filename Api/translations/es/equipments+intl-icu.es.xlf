@@ -1118,8 +1118,8 @@ Mente limpia en cuerpo limpio.</target>
     </unit>
     <unit id="swedish_sofa">
       <segment id="name" state="translated">
-        <source>.name</source>
-        <target>Sofá</target>
+        <source>swedish_sofa.name</source>
+        <target>Sofá Sueco</target>
       </segment>
       <segment id="short_name" state="translated">
         <source>swedish_sofa.short_name</source>
@@ -1137,10 +1137,14 @@ Mente limpia en cuerpo limpio.</target>
         <source>swedish_sofa.first_letter</source>
         <target>consonant</target>
       </segment>
+      <segment id="description" state="translated">
+        <source>swedish_sofa.description</source>
+        <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.</target>
+      </segment>
       <segment id="examine" state="translated">
         <source>swedish_sofa.examine</source>
-        <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.
-Lo único que te hace sentir como en casa...</target>
+        <target>Un magnífico sofá de cuero genuino, cosido a mano. Diseñado en Suecia pero hecho en un planeta de esclavos.//
+Lo único que te hacer sentir como en casa...</target>
       </segment>
     </unit>
     <unit id="surgery_plot">

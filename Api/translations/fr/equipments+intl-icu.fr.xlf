@@ -1097,7 +1097,7 @@ Un laboratoire super ultra moderne avec de vrais ordinateurs à lampe fluo compa
       </segment>
       <segment id="examine" state="translated">
         <source>swedish_sofa.examine</source>
-        <target>Un superbe sofa en cuir de Nubuk véritable, cousu main. Conçu en Suède mais fabriqué sur Encelade pour pas cher. Qui eût cru que quelques coussins et une structure de contre-plaqué puissent autant détendre...</target>
+        <target>Un superbe sofa en cuir de Nubuk véritable, cousu main. Conçu en Suède mais fabriqué sur Encelade pour pas cher.// Qui eût cru que quelques coussins et une structure de contre-plaqué puissent autant détendre...</target>
       </segment>
     </unit>
     <unit id="surgery_plot">

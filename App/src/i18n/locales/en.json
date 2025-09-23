@@ -1086,6 +1086,7 @@
 			"subscribeError": "An error occurred while subscribing to notifications.",
 			"unsubscribeSuccess": "You have unsubscribed from notifications.",
 			"unsubscribeError": "An error occurred while unsubscribing from notifications."
-		}
+		},
+		"newVersion": "A new version of the game is available. Please clear your cache."
 	}
 }

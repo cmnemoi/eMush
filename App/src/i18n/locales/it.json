@@ -1086,6 +1086,7 @@
 			"subscribeError": "Une erreur s'est produite lors de l'abonnement aux notifications.",
 			"unsubscribeSuccess": "Vous vous êtes désabonné des notifications.",
 			"unsubscribeError": "Une erreur s'est produite lors de la désabonnement des notifications."
-		}
+		},
+		"newVersion": "Une nouvelle version du jeu est disponible, veuillez vider votre cache."
 	}
 }

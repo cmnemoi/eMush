@@ -1086,6 +1086,7 @@
 			"subscribeError": "Se produjo un error al suscribirse a las notificaciones.",
 			"unsubscribeSuccess": "Te has dado de baja de las notificaciones.",
 			"unsubscribeError": "Se produjo un error al darse de baja de las notificaciones."
-		}
+		},
+		"newVersion": "Hay una nueva versión del juego disponible. Por favor, borra la caché."
 	}
 }

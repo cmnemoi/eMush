@@ -75,7 +75,7 @@ services:
     closedDaedalus.order_filter:
         parent: 'api_platform.doctrine.orm.order_filter'
         arguments:
-            $properties: { endDay: DESC, endCycle: DESC }
+            $properties: { endDay: DESC, endCycle: DESC, humanTriumphSum: DESC, mushTriumphSum: DESC }
             $orderParameterName: order
         tags: [ 'api_platform.filter' ]
         autowire: false

@@ -43,6 +43,8 @@ export class ClosedDaedalus {
     public projects!: ClosedDaedalusProjects;
     public titleHolders!: TitleHolder[];
     public funFacts!: FunFact[];
+    public humanTriumphSum: integer|null;
+    public mushTriumphSum: integer|null;
 
     constructor() {
         this.iri = null;
@@ -53,6 +55,8 @@ export class ClosedDaedalus {
         this.players = [];
         this.titleHolders = [];
         this.funFacts = [];
+        this.humanTriumphSum = null;
+        this.mushTriumphSum = null;
     }
     load(object :any): ClosedDaedalus {
         if (typeof object !== "undefined") {
@@ -73,6 +77,8 @@ export class ClosedDaedalus {
             }
             this.titleHolders = object.titleHolders;
             this.funFacts = object.funFacts;
+            this.humanTriumphSum = object.humanTriumphSum;
+            this.mushTriumphSum = object.mushTriumphSum;
         }
         return this;
     }
@@ -88,7 +94,9 @@ export class ClosedDaedalus {
             'statistics': this.statistics,
             'projects': this.projects,
             'titleHolders': this.titleHolders,
-            'funFacts': this.funFacts
+            'funFacts': this.funFacts,
+            'humanTriumphSum': this.humanTriumphSum,
+            'mushTriumphSum': this.mushTriumphSum
         };
 
         return data;

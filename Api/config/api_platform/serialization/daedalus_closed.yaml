@@ -18,3 +18,7 @@ Mush\Daedalus\Entity\ClosedDaedalus:
       groups: [ 'closed_daedalus_read' ]
     language:
       groups: [ 'closed_daedalus_read' ]
+    humanTriumphSum:
+      groups: [ 'closed_daedalus_read' ]
+    mushTriumphSum:
+      groups: [ 'closed_daedalus_read' ]

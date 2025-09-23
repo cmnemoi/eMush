@@ -229,6 +229,8 @@ class DaedalusService implements DaedalusServiceInterface
         // update closedDaedalus entity
         $closedDaedalus = $daedalusInfo->getClosedDaedalus();
         $closedDaedalus->updateEnd($daedalus, $cause);
+        $closedDaedalus->setHumanTriumphSum($this->computeHumanTriumphSum($daedalus));
+        $closedDaedalus->setMushTriumphSum($this->computeMushTriumphSum($daedalus));
         $daedalusInfo->setClosedDaedalus($closedDaedalus);
         $this->persistDaedalusInfo($daedalusInfo);
 
@@ -699,6 +701,26 @@ class DaedalusService implements DaedalusServiceInterface
             holder: $player,
             tags: $reasons,
             time: new \DateTime(),
+        );
+    }
+
+    private function computeHumanTriumphSum(Daedalus $daedalus): int
+    {
+        return $daedalus->getPlayers()->reduce(
+            static function (int $carry, Player $player) {
+                return $carry + ($player->isMush() ? 0 : $player->getTriumph());
+            },
+            0
+        );
+    }
+
+    private function computeMushTriumphSum(Daedalus $daedalus): int
+    {
+        return $daedalus->getPlayers()->reduce(
+            static function (int $carry, Player $player) {
+                return $carry + ($player->isMush() ? $player->getTriumph() : 0);
+            },
+            0
         );
     }
 }

@@ -1,16 +1,29 @@
 <template>
     <div class="ship_ranking_container box-container">
-        <label>{{ $t('ranking.languages') }}
-            <select v-model="language" @change="updateFilter">
-                <option
-                    v-for="option in languagesOption"
-                    :value=option.value
-                    :key=option.key
-                >
-                    {{ $t(option.key) }}
-                </option>
-            </select>
-        </label>
+        <div class="label-container">
+            <label>{{ $t('ranking.languages') }}
+                <select v-model="language" @change="updateFilter">
+                    <option
+                        v-for="option in languagesOption"
+                        :value=option.value
+                        :key=option.key
+                    >
+                        {{ $t(option.key) }}
+                    </option>
+                </select>
+            </label>
+            <label>{{ $t('ranking.category') }}
+                <select v-model="category" @change="updateCategory">
+                    <option
+                        v-for="option in categoryOption"
+                        :value=option.value
+                        :key=option.key
+                    >
+                        {{ $t(option.key) }}
+                    </option>
+                </select>
+            </label>
+        </div>
         <Datatable
             :headers='fields'
             :uri="uri"
@@ -55,6 +68,12 @@ export default defineComponent({
                 { key: 'ranking.english', value: 'en' }
             ],
             language: '',
+            categoryOption: [
+                { key: 'ranking.timeSurvived', value: 'timeSurvived' },
+                { key: 'ranking.humanTriumph', value: 'humanTriumph' },
+                { key: 'ranking.mushTriumph', value: 'mushTriumph' }
+            ],
+            category: 'timeSurvived',
             fields: [
                 {
                     key: 'endCause',
@@ -125,6 +144,8 @@ export default defineComponent({
                 .then((result) => {
                     for (const closedDaedalus of result.data['hydra:member']) {
                         closedDaedalus.endCause = this.$t('ranking.endCause.' + closedDaedalus.endCause);
+                        closedDaedalus.humanTriumphIcon = this.getImgUrl('ui_icons/player_variables/triumph.png');
+                        closedDaedalus.mushTriumphIcon = this.getImgUrl('ui_icons/player_variables/triumph_mush.png');
                     }
                     return result.data;
                 })
@@ -158,6 +179,98 @@ export default defineComponent({
             this.pagination.currentPage = 1;
             this.loadData();
         },
+        updateCategory() {
+            if (this.category === 'timeSurvived') {
+                this.sortField = 'daysSurvived';
+            } else if (this.category === 'humanTriumph') {
+                this.sortField = 'humanTriumphSum';
+            } else if (this.category === 'mushTriumph') {
+                this.sortField = 'mushTriumphSum';
+            }
+            this.fields = this.getFieldFromCategory(this.category);
+            this.updateFilter();
+        },
+        getFieldFromCategory(category: string): Array <{key: string; name: string; sortable: boolean; slot?: boolean; image?: string}> {
+            switch (category) {
+            case 'timeSurvived':
+                return [
+                    {
+                        key: 'endCause',
+                        name: 'ranking.ship_end_cause',
+                        sortable: false
+                    },
+                    {
+                        key: 'daysSurvived',
+                        name: 'ranking.daysSurvived',
+                        sortable: false
+                    },
+                    {
+                        key: 'cyclesSurvived',
+                        name: 'ranking.cyclesSurvived',
+                        sortable: false
+                    },
+                    {
+                        key: 'actions',
+                        name: 'ranking.goToTheEnd',
+                        sortable: false,
+                        slot: true
+                    }
+                ];
+            case 'humanTriumph':
+                return [
+                    {
+                        key: 'endCause',
+                        name: 'ranking.ship_end_cause',
+                        sortable: false
+                    },
+                    {
+                        key: 'humanTriumphSum',
+                        name: 'ranking.triumphSum',
+                        sortable: false,
+                        image: 'humanTriumphIcon'
+                    },
+                    {
+                        key: 'highestHumanTriumph',
+                        name: 'ranking.highestTriumph',
+                        sortable: false,
+                        image: 'humanTriumphIcon'
+                    },
+                    {
+                        key: 'actions',
+                        name: 'ranking.goToTheEnd',
+                        sortable: false,
+                        slot: true
+                    }
+                ];
+            case 'mushTriumph':
+                return [
+                    {
+                        key: 'endCause',
+                        name: 'ranking.ship_end_cause',
+                        sortable: false
+                    },
+                    {
+                        key: 'mushTriumphSum',
+                        name: 'ranking.triumphSum',
+                        sortable: false,
+                        image: 'mushTriumphIcon'
+                    },
+                    {
+                        key: 'highestMushTriumph',
+                        name: 'ranking.highestTriumph',
+                        sortable: false,
+                        image: 'mushTriumphIcon'
+                    },
+                    {
+                        key: 'actions',
+                        name: 'ranking.goToTheEnd',
+                        sortable: false,
+                        slot: true
+                    }
+                ];
+            }
+            return [];
+        },
         paginationClick(page: number) {
             this.pagination.currentPage = page;
             this.loadData();
@@ -170,6 +283,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+.label-container {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    & > label {
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+}
 
 .user_filter_options {
     display: flex;

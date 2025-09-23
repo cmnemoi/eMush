@@ -6,6 +6,7 @@ use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Game\Service\CycleServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Game\Service\TranslationServiceInterface;
+use Mush\Player\Entity\ClosedPlayer;
 use Mush\Project\Enum\ProjectType;
 use Mush\Triumph\Service\ChangeTriumphFromEventService;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -69,6 +70,10 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
         $normalizedDaedalus['projects'] = $this->getNormalizedProjects($daedalus);
         $normalizedDaedalus['titleHolders'] = $this->getNormalizedTitleHolders($daedalus);
         $normalizedDaedalus['funFacts'] = $this->getNormalizedRandomFunFacts($daedalus);
+        $normalizedDaedalus['humanTriumphSum'] = $daedalus->getHumanTriumphSum();
+        $normalizedDaedalus['mushTriumphSum'] = $daedalus->getMushTriumphSum();
+        $normalizedDaedalus['highestHumanTriumph'] = max(array_merge($daedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->isHuman())->map(static fn (ClosedPlayer $player) => $player->getTriumph())->toArray(), [0]));
+        $normalizedDaedalus['highestMushTriumph'] = max(array_merge($daedalus->getPlayers()->filter(static fn (ClosedPlayer $player) => $player->isMush())->map(static fn (ClosedPlayer $player) => $player->getTriumph())->toArray(), [0]));
 
         return $normalizedDaedalus;
     }

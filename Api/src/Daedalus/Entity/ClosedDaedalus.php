@@ -43,6 +43,12 @@ class ClosedDaedalus
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $finishedAt = null;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => -1])]
+    private int $humanTriumphSum = -1;
+
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => -1])]
+    private int $mushTriumphSum = -1;
+
     public function getId(): int
     {
         return $this->id;
@@ -152,5 +158,47 @@ class ClosedDaedalus
         }
 
         return $this->createdAt;
+    }
+
+    public function getHumanTriumphSum(): int
+    {
+        if ($this->humanTriumphSum < 0) {
+            $this->humanTriumphSum = $this->players->reduce(
+                static function (int $carry, ClosedPlayer $player) {
+                    return $carry + ($player->isMush() ? 0 : $player->getTriumph());
+                },
+                0
+            );
+        }
+
+        return $this->humanTriumphSum;
+    }
+
+    public function setHumanTriumphSum(int $humanTriumphSum): static
+    {
+        $this->humanTriumphSum = $humanTriumphSum;
+
+        return $this;
+    }
+
+    public function getMushTriumphSum(): int
+    {
+        if ($this->mushTriumphSum < 0) {
+            $this->mushTriumphSum = $this->players->reduce(
+                static function (int $carry, ClosedPlayer $player) {
+                    return $carry + ($player->isMush() ? $player->getTriumph() : 0);
+                },
+                0
+            );
+        }
+
+        return $this->mushTriumphSum;
+    }
+
+    public function setMushTriumphSum(int $mushTriumphSum): static
+    {
+        $this->mushTriumphSum = $mushTriumphSum;
+
+        return $this;
     }
 }

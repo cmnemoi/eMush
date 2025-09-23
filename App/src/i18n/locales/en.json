@@ -108,7 +108,13 @@
 			"daedalus_destroyed": "Daedalus destroyed",
 			"killed_by_neron": "Contaminated crew assassinated by NERON",
 			"super_nova": "Supernova"
-		}
+		},
+		"timeSurvived": "Time survived",
+		"humanTriumph": "Human glory",
+		"mushTriumph": "Mush glory",
+		"highestTriumph": "Highest glory",
+		"triumphSum": "Total glory",
+		"category": "Ranking category"
 	},
 	"theEnd": {
 		"headliner": "Starring role :",

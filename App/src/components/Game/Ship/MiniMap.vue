@@ -20,7 +20,7 @@
                         y="73"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.rearBravoTurret')); displayPlayerInitials('rear_bravo_turret')"
+                        @mouseenter="displayName($t('room.rearBravoTurret')); updateRoomDisplay('rear_bravo_turret')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('rear_bravo_turret')}"
                     />
@@ -28,7 +28,7 @@
                         id="Engine-Room"
                         serif:id="Engine Room"
                         d="M183,28.005l-2,1.241l0,5.553l2,1.242l0,7.941l-2,1.241l0,5.554l2,1.241l0,7.941l-2,1.242l0,5.553l2,1.241l0,5.005l-34,0l0,-50l34,0l0,5.005Z"
-                        @mouseenter="displayName($t('room.engineRoom')); displayPlayerInitials('engine_room')"
+                        @mouseenter="displayName($t('room.engineRoom')); updateRoomDisplay('engine_room')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('engine_room')}"
                     />
@@ -39,7 +39,7 @@
                         y="11"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.rearAlphaTurret')); displayPlayerInitials('rear_alpha_turret')"
+                        @mouseenter="displayName($t('room.rearAlphaTurret')); updateRoomDisplay('rear_alpha_turret')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('rear_alpha_turret')}"
                     />
@@ -50,7 +50,7 @@
                         y="73"
                         width="34"
                         height="22"
-                        @mouseenter="displayName($t('room.icarusBay')); displayPlayerInitials('icarus_bay')"
+                        @mouseenter="displayName($t('room.icarusBay')); updateRoomDisplay('icarus_bay')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('icarus_bay')}"
                     />
@@ -61,7 +61,7 @@
                         y="61"
                         width="24"
                         height="12"
-                        @mouseenter="displayName($t('room.rearBravoStorage')); displayPlayerInitials('rear_bravo_storage')"
+                        @mouseenter="displayName($t('room.rearBravoStorage')); updateRoomDisplay('rear_bravo_storage')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('rear_bravo_storage')}"
                     />
@@ -72,7 +72,7 @@
                         y="23"
                         width="24"
                         height="12"
-                        @mouseenter="displayName($t('room.rearAlphaStorage')); displayPlayerInitials('rear_alpha_storage')"
+                        @mouseenter="displayName($t('room.rearAlphaStorage')); updateRoomDisplay('rear_alpha_storage')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('rear_alpha_storage')}"
                     />
@@ -83,7 +83,7 @@
                         y="23"
                         width="6"
                         height="60"
-                        @mouseenter="displayName($t('room.rearCorridor')); displayPlayerInitials('rear_corridor')"
+                        @mouseenter="displayName($t('room.rearCorridor')); updateRoomDisplay('rear_corridor')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('rear_corridor')}"
                     />
@@ -94,7 +94,7 @@
                         y="1"
                         width="42"
                         height="22"
-                        @mouseenter="displayName($t('room.alphaBay2')); displayPlayerInitials('alpha_bay_2')"
+                        @mouseenter="displayName($t('room.alphaBay2')); updateRoomDisplay('alpha_bay_2')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('alpha_bay_2')}"
                     />
@@ -102,7 +102,7 @@
                         id="Bravo-Dorm"
                         serif:id="Bravo Dorm"
                         d="M119,73l-20,0l0,-14l6,0l0,-4l14,0l0,18Z"
-                        @mouseenter="displayName($t('room.bravoDorm')); displayPlayerInitials('bravo_dorm')"
+                        @mouseenter="displayName($t('room.bravoDorm')); updateRoomDisplay('bravo_dorm')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('bravo_dorm')}"
                     />
@@ -112,7 +112,7 @@
                         y="41"
                         width="14"
                         height="14"
-                        @mouseenter="displayName($t('room.nexus')); displayPlayerInitials('nexus')"
+                        @mouseenter="displayName($t('room.nexus')); updateRoomDisplay('nexus')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('nexus')}"
                     />
@@ -120,7 +120,7 @@
                         id="Alpha-Dorm"
                         serif:id="Alpha Dorm"
                         d="M119,23l-20,0l0,14l6,0l0,4l14,0l0,-18Z"
-                        @mouseenter="displayName($t('room.alphaDorm')); displayPlayerInitials('alpha_dorm')"
+                        @mouseenter="displayName($t('room.alphaDorm')); updateRoomDisplay('alpha_dorm')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('alpha_dorm')}"
                     />
@@ -131,7 +131,7 @@
                         y="59"
                         width="16"
                         height="14"
-                        @mouseenter="displayName($t('room.centerBravoStorage')); displayPlayerInitials('center_bravo_storage')"
+                        @mouseenter="displayName($t('room.centerBravoStorage')); updateRoomDisplay('center_bravo_storage')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('center_bravo_storage')}"
                     />
@@ -141,7 +141,7 @@
                         y="37"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.refectory')); displayPlayerInitials('refectory')"
+                        @mouseenter="displayName($t('room.refectory')); updateRoomDisplay('refectory')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('refectory')}"
                     />
@@ -152,7 +152,7 @@
                         y="23"
                         width="16"
                         height="14"
-                        @mouseenter="displayName($t('room.centerAlphaStorage')); displayPlayerInitials('center_alpha_storage')"
+                        @mouseenter="displayName($t('room.centerAlphaStorage')); updateRoomDisplay('center_alpha_storage')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('center_alpha_storage')}"
                     />
@@ -163,7 +163,7 @@
                         y="73"
                         width="44"
                         height="22"
-                        @mouseenter="displayName($t('room.bravoBay')); displayPlayerInitials('bravo_bay')"
+                        @mouseenter="displayName($t('room.bravoBay')); updateRoomDisplay('bravo_bay')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('bravo_bay')}"
                     />
@@ -174,7 +174,7 @@
                         y="23"
                         width="6"
                         height="50"
-                        @mouseenter="displayName($t('room.centralCorridor')); displayPlayerInitials('central_corridor')"
+                        @mouseenter="displayName($t('room.centralCorridor')); updateRoomDisplay('central_corridor')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('central_corridor')}"
                     />
@@ -185,7 +185,7 @@
                         y="1"
                         width="42"
                         height="22"
-                        @mouseenter="displayName($t('room.alphaBay')); displayPlayerInitials('alpha_bay')"
+                        @mouseenter="displayName($t('room.alphaBay')); updateRoomDisplay('alpha_bay')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('alpha_bay')}"
                     />
@@ -196,7 +196,7 @@
                         y="73"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.centreBravoTurret')); displayPlayerInitials('centre_bravo_turret')"
+                        @mouseenter="displayName($t('room.centreBravoTurret')); updateRoomDisplay('centre_bravo_turret')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('centre_bravo_turret')}"
                     />
@@ -206,7 +206,7 @@
                         y="51"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.medlab')); displayPlayerInitials('medlab')"
+                        @mouseenter="displayName($t('room.medlab')); updateRoomDisplay('medlab')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('medlab')}"
                     />
@@ -217,7 +217,7 @@
                         y="23"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.frontStorage')); displayPlayerInitials('front_storage')"
+                        @mouseenter="displayName($t('room.frontStorage')); updateRoomDisplay('front_storage')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('front_storage')}"
                     />
@@ -228,7 +228,7 @@
                         y="11"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.centreAlphaTurret')); displayPlayerInitials('centre_alpha_turret')"
+                        @mouseenter="displayName($t('room.centreAlphaTurret')); updateRoomDisplay('centre_alpha_turret')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('centre_alpha_turret')}"
                     />
@@ -238,7 +238,7 @@
                         y="51"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.laboratory')); displayPlayerInitials('laboratory')"
+                        @mouseenter="displayName($t('room.laboratory')); updateRoomDisplay('laboratory')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('laboratory')}"
                     />
@@ -249,7 +249,7 @@
                         y="23"
                         width="22"
                         height="22"
-                        @mouseenter="displayName($t('room.hydroponicGarden')); displayPlayerInitials('hydroponic_garden')"
+                        @mouseenter="displayName($t('room.hydroponicGarden')); updateRoomDisplay('hydroponic_garden')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('hydroponic_garden')}"
                     />
@@ -257,7 +257,7 @@
                         id="Front-Corridor"
                         serif:id="Front Corridor"
                         d="M33,71l-6,0l0,-46l6,0l0,20l44,0l0,6l-44,0l0,20Z"
-                        @mouseenter="displayName($t('room.frontCorridor')); displayPlayerInitials('front_corridor')"
+                        @mouseenter="displayName($t('room.frontCorridor')); updateRoomDisplay('front_corridor')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('front_corridor')}"
                     />
@@ -268,14 +268,14 @@
                         y="61"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.frontBravoTurret')); displayPlayerInitials('front_bravo_turret')"
+                        @mouseenter="displayName($t('room.frontBravoTurret')); updateRoomDisplay('front_bravo_turret')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('front_bravo_turret')}"
                     />
                     <path
                         id="Bridge"
                         d="M6,42.121l0,-7.121l21,0l0,26l-21,0l0,-7.121l-5,-3.102l0,-5.554l5,-3.102Z"
-                        @mouseenter="displayName($t('room.bridge')); displayPlayerInitials('bridge')"
+                        @mouseenter="displayName($t('room.bridge')); updateRoomDisplay('bridge')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('bridge')}"
                     />
@@ -286,7 +286,7 @@
                         y="23"
                         width="12"
                         height="12"
-                        @mouseenter="displayName($t('room.frontAlphaTurret')); displayPlayerInitials('front_alpha_turret')"
+                        @mouseenter="displayName($t('room.frontAlphaTurret')); updateRoomDisplay('front_alpha_turret')"
                         @mouseleave="displayName(''); resetPlayerInitials()"
                         :class="{fire: isFire('front_alpha_turret')}"
                     />
@@ -889,119 +889,14 @@
     </div>
 </template>
 
-
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { computed, ref, onMounted, watch } from "vue";
+import { useStore } from "vuex";
 import { RoomsEnum } from '@/enums/room.enum';
 import { DoorsEnum } from '@/enums/doors.enum';
 import { Minimap, ActopiPlayer, HexColor } from "@/entities/Minimap";
-import { mapGetters } from "vuex";
 import { Player } from "@/entities/Player";
 import { Room } from "@/entities/Room";
-
-export default defineComponent ({
-    name: "MiniMap",
-    computed: {
-        ...mapGetters({
-            daedalus: 'daedalus/daedalus',
-            minimap: 'daedalus/minimap',
-            player: 'player/player'
-        }),
-        mapClass(): string {
-            if (this.daedalus.hasActivePlasmaShield()) {
-                return 'map-with-blue-halo';
-            } else if (this.daedalus.shieldIsBroken()) {
-                return 'map-with-red-halo';
-            }
-            return 'map';
-        },
-        playerRoom(): Room {
-            const room = this.player.room;
-            if (!room) {
-                throw new Error('Room is not defined');
-            }
-
-            return room;
-        }
-    },
-    data() {
-        return {
-            roomName : '' as string,
-            actopi: false as boolean,
-            playersInRoom: '' as string,
-            me : {
-                left: 0 as number,
-                top: 0 as number
-            },
-            playersPoints: [] as Array<PlayersPoints>,
-            doorsList: DoorsEnum as Array<Doors>
-        };
-    },
-    methods: {
-        displayName(room: string): void {
-            this.roomName = room;
-        },
-        displayMe(): void {
-            const myCoord = RoomsEnum[this.playerRoom.key];
-            this.me.left = myCoord.A.x + Math.round(Math.random() * (myCoord.B.x - 6 - myCoord.A.x) );
-            this.me.top = myCoord.A.y + Math.round(Math.random() * (myCoord.C.y - 6 - myCoord.B.y));
-        },
-        displayOther(): void
-        {
-            if (!this.minimap) {
-                return;
-            }
-
-            this.playersPoints = [];
-            const roomsWithPlayers = this.minimap.filter((room: Minimap) => room.players_count > 0);
-            roomsWithPlayers.forEach((room: Minimap) => {
-                const roomCoord = RoomsEnum[room.name];
-                let i = 0;
-                if (room.name === this.playerRoom.key) {
-                    i++;
-                }
-                while ( i < room.players_count ){
-                    const left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - 4 - roomCoord.A.x));
-                    const top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - 4 - roomCoord.B.y));
-                    const name = room.actopi.length > 0 ? room.actopi[i].initials : '';
-                    const color = room.actopi.length > 0 ? room.actopi[i].color : '#f88';
-                    this.playersPoints.push( { left, top, name, color });
-                    i++;
-                }
-            });
-        },
-        displayPlayerInitials(room: string): void {
-            const roomPlayers = this.minimap.find((rooms: Minimap) => rooms.name === room).actopi;
-            this.playersInRoom = roomPlayers.map((player: ActopiPlayer) => player.initials).join(' ');
-        },
-        resetPlayerInitials(): void {
-            this.playersInRoom = '';
-        },
-        isFire(room: string): boolean {
-            return this.minimap.find((rooms: Minimap) => rooms.name === room)!.fire;
-        },
-        isBroken(type: string, room: string, object: string): boolean {
-            switch (type) {
-            case 'door':
-                return this.minimap.find((rooms: Minimap) => rooms.name === room.split(' ')[0])!.broken_doors.includes(object) || this.minimap.find((rooms: Minimap) => rooms.name === room.split(' ')[1])!.broken_doors.includes(object);
-            case 'equipment':
-                return this.minimap.find((rooms: Minimap) => rooms.name === room)!.broken_equipments.includes(object);
-            default:
-                return false;
-            }
-        }
-    },
-    mounted(): void {
-        this.displayMe();
-        this.displayOther();
-    },
-    watch: {
-        minimap(): void {
-            this.displayMe();
-            this.displayOther();
-        }
-    }
-});
 
 interface PlayersPoints {
     left: number;
@@ -1015,7 +910,154 @@ interface Doors {
     room1: string,
     room2: string
 }
+
+const store = useStore();
+
+const daedalus = computed(() => store.getters['daedalus/daedalus']);
+const minimap = computed(() => store.getters['daedalus/minimap']);
+const player = computed(() => store.getters['player/player']);
+
+const mapClass = computed((): string => {
+    if (daedalus.value.hasActivePlasmaShield()) {
+        return 'map-with-blue-halo';
+    } else if (daedalus.value.shieldIsBroken()) {
+        return 'map-with-red-halo';
+    }
+    return 'map';
+});
+
+const playerRoom = computed((): Room => {
+    const room = player.value.room;
+    if (!room) {
+        throw new Error('Room is not defined');
+    }
+    return room;
+});
+
+const roomName = ref('' as string);
+const playersInRoom = ref('' as string);
+const me = ref({
+    left: 0 as number,
+    top: 0 as number
+});
+const playersPoints = ref([] as Array<PlayersPoints>);
+const doorsList = ref(DoorsEnum as Array<Doors>);
+
+const displayName = (room: string): void => {
+    roomName.value = room;
+};
+
+const updateRoomDisplay = (room: string): void => {
+    const roomData = minimap.value.find((rooms: Minimap) => rooms.name === room);
+    const count = roomData.players_count;
+    const initials = roomData.actopi.length > 0 ? roomData.actopi.map((player: ActopiPlayer) => player.initials).join(' ') : '';
+    let display = roomName.value;
+    if (initials) {
+        display += ` ${initials}`;
+    }
+    if (count > 0) {
+        display += ` (${count})`;
+    }
+    roomName.value = display;
+};
+
+const resetPlayerInitials = (): void => {
+    playersInRoom.value = '';
+};
+
+const isFire = (room: string): boolean => {
+    return minimap.value.find((rooms: Minimap) => rooms.name === room)!.fire;
+};
+
+const isBroken = (type: string, room: string, object: string): boolean => {
+    switch (type) {
+    case 'door':
+        return minimap.value.find((rooms: Minimap) => rooms.name === room.split(' ')[0])!.broken_doors.includes(object) || minimap.value.find((rooms: Minimap) => rooms.name === room.split(' ')[1])!.broken_doors.includes(object);
+    case 'equipment':
+        return minimap.value.find((rooms: Minimap) => rooms.name === room)!.broken_equipments.includes(object);
+    default:
+        return false;
+    }
+};
+
+const displayMe = (): void => {
+    const myCoord = RoomsEnum[playerRoom.value.key];
+    const pos = findNonOverlappingPosition(myCoord, playersPoints.value.map(p => ({ left: p.left, top: p.top })), 6);
+    me.value.left = pos.left;
+    me.value.top = pos.top;
+};
+
+const displayOther = (): void => {
+    if (!minimap.value) {
+        return;
+    }
+
+    playersPoints.value = [];
+    const roomsWithPlayers = minimap.value.filter((room: Minimap) => room.players_count > 0);
+    roomsWithPlayers.forEach((room: Minimap) => {
+        playersPoints.value.push(...placePlayersInRoom(room));
+    });
+};
+
+const placePlayersInRoom = (room: Minimap): PlayersPoints[] => {
+    const roomCoord = RoomsEnum[room.name];
+    const positions: {left: number, top: number}[] = [];
+    const playersPointsArray: PlayersPoints[] = [];
+    let i = 0;
+    if (room.name === playerRoom.value.key) {
+        i++;
+    }
+    while (i < room.players_count) {
+        const pos = findNonOverlappingPosition(roomCoord, positions, 4);
+        positions.push(pos);
+        const name = room.actopi.length > 0 ? room.actopi[i].initials : '';
+        const color = room.actopi.length > 0 ? room.actopi[i].color : '#f88';
+        playersPointsArray.push({ left: pos.left, top: pos.top, name, color });
+        i++;
+    }
+    return playersPointsArray;
+};
+
+const findNonOverlappingPosition = (roomCoord: any, existingPositions: {left: number, top: number}[], size: number): {left: number, top: number} => {
+    let attempts = 0;
+    let placed = false;
+    let left = 0, top = 0;
+    while (!placed && attempts < 10) {
+        left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - size - roomCoord.A.x));
+        top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - size - roomCoord.B.y));
+        let tooClose = false;
+        for (const pos of existingPositions) {
+            const dx = left - pos.left;
+            const dy = top - pos.top;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 5) {
+                tooClose = true;
+                break;
+            }
+        }
+        if (!tooClose) {
+            placed = true;
+        }
+        attempts++;
+    }
+    if (!placed) {
+        left = roomCoord.A.x + Math.round(Math.random() * (roomCoord.B.x - size - roomCoord.A.x));
+        top = roomCoord.A.y + Math.round(Math.random() * (roomCoord.C.y - size - roomCoord.B.y));
+    }
+    return { left, top };
+};
+
+onMounted(() => {
+    displayOther();
+    displayMe();
+});
+
+watch(minimap, () => {
+    displayOther();
+    displayMe();
+});
 </script>
+
 <style lang="scss" scoped>
 
 .map-container {

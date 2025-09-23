@@ -32,25 +32,10 @@ const getters: GetterTree<any, any> = {
 };
 
 const mutations: MutationTree<any> = {
-    openErrorToast(state, title: string) {
+    openToast(state, payload: { type: ToastType, title: string }) {
         state.toast.isOpen = true;
-        state.toast.type = 'error';
-        state.toast.title = title;
-    },
-    openInfoToast(state, title: string) {
-        state.toast.isOpen = true;
-        state.toast.type = 'info';
-        state.toast.title = title;
-    },
-    openSuccessToast(state, title: string) {
-        state.toast.isOpen = true;
-        state.toast.type = 'success';
-        state.toast.title = title;
-    },
-    openNewsToast(state, title: string) {
-        state.toast.isOpen = true;
-        state.toast.type = 'news';
-        state.toast.title = title;
+        state.toast.type = payload.type;
+        state.toast.title = payload.title;
     },
     closeToast(state) {
         state.toast.isOpen = false;
@@ -59,16 +44,19 @@ const mutations: MutationTree<any> = {
 
 const actions: ActionTree<any, any> = {
     openErrorToast({ commit }, title: string) {
-        commit('openErrorToast', title);
+        commit('openToast', { type: 'error', title });
     },
     openInfoToast({ commit }, title: string) {
-        commit('openInfoToast', title);
+        commit('openToast', { type: 'info', title });
     },
     openSuccessToast({ commit }, title: string) {
-        commit('openSuccessToast', title);
+        commit('openToast', { type: 'success', title });
     },
     openNewsToast({ commit }, title: string) {
-        commit('openNewsToast', title);
+        commit('openToast', { type: 'news', title });
+    },
+    openWarningToast({ commit }, title: string) {
+        commit('openToast', { type: 'warning', title });
     },
     closeToast({ commit }) {
         commit('closeToast');

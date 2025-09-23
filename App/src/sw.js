@@ -2,20 +2,27 @@
 
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()));
 
-self.addEventListener('activate', event => event.waitUntil(self.clients.claim()));
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        (async () => {
+            await self.clients.claim();
+            informClientsOfNewVersion();
+        })()
+    );
+});
 
 self.addEventListener('push', event => {
     try {
-        const Notification = event.data.json();
-        sendNotificationToAllClients(Notification);
+        const notification = event.data.json();
+        sendNotificationToAllClients(notification);
         event.waitUntil(
-            self.registration.showNotification(Notification.title || '', Notification.options || {})
+            self.registration.showNotification(notification.title || '', notification.options || {})
         );
     } catch (error) {
         try {
-            const Notification = event.data.text();
+            const notification = event.data.text();
             event.waitUntil(
-                self.registration.showNotification('Notification', { body: Notification })
+                self.registration.showNotification('Notification', { body: notification })
             );
         } catch (error) {
             event.waitUntil(
@@ -52,6 +59,17 @@ function sendNotificationToAllClients(notification) {
                 client.postMessage({
                     type: 'PUSH_NOTIFICATION',
                     data: notification
+                });
+            });
+        });
+}
+
+function informClientsOfNewVersion() {
+    self.clients.matchAll({ includeUncontrolled: true, type: 'window' })
+        .then(clients => {
+            clients.forEach(client => {
+                client.postMessage({
+                    type: 'NEW_VERSION'
                 });
             });
         });

@@ -77,7 +77,6 @@ const ApiService = {
             async (error) => {
                 if (error.request.status === 401) {
                     await store.dispatch('auth/logout');
-
                 } else if (error.request.status === 503) {
                     // Set global maintenance flag; App.vue will render MaintenancePage
                     store.commit('admin/setMaintenanceStatus', true);

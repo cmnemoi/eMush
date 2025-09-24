@@ -51,6 +51,9 @@ class ModifierProvider
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?PlayerDisease $playerDisease = null;
 
+    #[ORM\OneToOne(mappedBy: 'modifierProvider', targetEntity: GameModifier::class, cascade: ['remove'])]
+    private ?GameModifier $gameModifier = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -130,5 +133,12 @@ class ModifierProvider
         }
 
         throw new LogicException('this class is not a modifierProvider');
+    }
+
+    public function setGameModifier(GameModifier $gameModifier): static
+    {
+        $this->gameModifier = $gameModifier;
+
+        return $this;
     }
 }

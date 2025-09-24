@@ -32,7 +32,7 @@ class GameModifier
     #[ORM\OneToOne(inversedBy: 'gameModifier', targetEntity: ModifierHolder::class, cascade: ['All'])]
     private ModifierHolder $modifierHolder;
 
-    #[ORM\OneToOne(targetEntity: ModifierProvider::class, cascade: ['All'])]
+    #[ORM\OneToOne(inversedBy: 'gameModifier', targetEntity: ModifierProvider::class, cascade: ['All'])]
     private ModifierProvider $modifierProvider;
 
     public function __construct(ModifierHolderInterface $holder, AbstractModifierConfig $modifierConfig)
@@ -90,6 +90,7 @@ class GameModifier
     {
         $modifierProviderEntity = new ModifierProvider();
         $modifierProviderEntity->setModifierProvider($modifierProvider);
+        $modifierProviderEntity->setGameModifier($this);
 
         $this->modifierProvider = $modifierProviderEntity;
 

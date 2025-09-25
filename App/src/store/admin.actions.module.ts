@@ -103,6 +103,18 @@ const actions: ActionTree<any, any> = {
             await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
         await dispatch('admin/endLoading', null, { root: true });
+    },
+    async markDaedalusAsCheater({ dispatch }, { closedDaedalusId }): Promise<void> {
+        await dispatch('admin/displayLoading', null, { root: true });
+        try {
+            const response: SuccessReponse = await AdminActionsService.markDaedalusAsCheater(closedDaedalusId);
+            await dispatch('toast/openSuccessToast', response.data.detail, { root: true });
+        } catch (error) {
+            console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+        }
+        await dispatch('admin/endLoading', null, { root: true });
     }
 };
 

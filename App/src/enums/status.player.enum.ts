@@ -121,7 +121,7 @@ export const statusPlayerEnum: {[index: string]: any} = {
         'icon': getImgUrl('status/sleepy.png')
     },
     [StatusPlayerNameEnum.HIGHLY_INACTIVE]: {
-        'icon': getImgUrl('status/noob.png')
+        'icon': getImgUrl('status/highly_inactive.png')
     },
     [StatusPlayerNameEnum.GUARDIAN]: {
         'icon': getImgUrl('status/guardian.png')

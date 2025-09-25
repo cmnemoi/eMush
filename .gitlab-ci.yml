@@ -12,6 +12,7 @@ stages:
       - "Api/.psalm/"
   before_script:
     - php -v
+    - echo 'memory_limit=256M' > /usr/local/etc/php/conf.d/ci-memory.ini
     - cd Api
     # Install all project dependencies
     - composer install --ignore-platform-req=ext-protobuf
@@ -20,13 +21,14 @@ stages:
 .php_with_db_template: &php_with_db_template
   extends: .php_template
   services:
-    - postgres:17.4-alpine
+    - postgres:17-alpine
   variables:
     POSTGRES_DB: emush_test
     POSTGRES_USER: runner
     POSTGRES_PASSWORD: "password"
   before_script:
     - php -v
+    - echo 'memory_limit=256M' > /usr/local/etc/php/conf.d/ci-memory.ini
     - cd Api
     # Install all project dependencies
     - composer install --ignore-platform-req=ext-protobuf

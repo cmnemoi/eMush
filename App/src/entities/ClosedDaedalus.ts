@@ -45,6 +45,7 @@ export class ClosedDaedalus {
     public funFacts!: FunFact[];
     public humanTriumphSum: integer|null;
     public mushTriumphSum: integer|null;
+    public isCheater!: boolean;
 
     constructor() {
         this.iri = null;
@@ -79,6 +80,7 @@ export class ClosedDaedalus {
             this.funFacts = object.funFacts;
             this.humanTriumphSum = object.humanTriumphSum;
             this.mushTriumphSum = object.mushTriumphSum;
+            this.isCheater = object.isCheater;
         }
         return this;
     }
@@ -95,6 +97,7 @@ export class ClosedDaedalus {
             'projects': this.projects,
             'titleHolders': this.titleHolders,
             'funFacts': this.funFacts,
+            'isCheater': this.isCheater,
             'humanTriumphSum': this.humanTriumphSum,
             'mushTriumphSum': this.mushTriumphSum
         };

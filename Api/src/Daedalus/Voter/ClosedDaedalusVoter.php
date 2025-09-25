@@ -30,6 +30,6 @@ final class ClosedDaedalusVoter extends Voter
         /** @var ClosedDaedalus $daedalus */
         $daedalus = $subject;
 
-        return $daedalus->getDaedalusInfo()->isDaedalusFinished();
+        return $daedalus->isDaedalusFinished();
     }
 }

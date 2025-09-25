@@ -22,3 +22,5 @@ Mush\Daedalus\Entity\ClosedDaedalus:
       groups: [ 'closed_daedalus_read' ]
     mushTriumphSum:
       groups: [ 'closed_daedalus_read' ]
+    isCheater:
+      groups: [ 'closed_daedalus_read' ]

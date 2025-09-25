@@ -49,23 +49,29 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import urlJoin from "url-join";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
 import qs from "qs";
-import ApiService from "@/services/api.service";
 import { getImgUrl } from "@/utils/getImgUrl";
+import { RankingDaedalus } from "@/features/rankings/models";
+import { mapActions, mapGetters } from "vuex";
 
 export default defineComponent({
     name: "ShipRanking",
     components: {
         Datatable
     },
+    computed: {
+        ...mapGetters({
+            ranking: 'daedalusRanking/ranking'
+        })
+    },
     data() {
         return {
             languagesOption: [
                 { key: 'ranking.all', value: '' },
                 { key: 'ranking.french', value: 'fr' },
-                { key: 'ranking.english', value: 'en' }
+                { key: 'ranking.english', value: 'en' },
+                { key: 'ranking.spanish', value: 'es' }
             ],
             language: '',
             categoryOption: [
@@ -103,7 +109,7 @@ export default defineComponent({
                 totalItem: 1,
                 totalPage: 1
             },
-            rowData: [],
+            rowData: [] as RankingDaedalus[],
             filter: '',
             sortField: 'endDay',
             sortDirection: 'DESC',
@@ -116,8 +122,11 @@ export default defineComponent({
         };
     },
     methods: {
+        ...mapActions({
+            loadDaedalusRanking: 'daedalusRanking/loadRanking'
+        }),
         getImgUrl,
-        loadData() {
+        async loadData() {
             this.loading = true;
             const params: any = {
                 header: {
@@ -140,21 +149,15 @@ export default defineComponent({
                 qs.stringify(params.params['order'] = { [this.sortField]: this.sortDirection });
             }
 
-            ApiService.get(urlJoin(import.meta.env.VITE_APP_API_URL+'closed_daedaluses'), params)
-                .then((result) => {
-                    for (const closedDaedalus of result.data['hydra:member']) {
-                        closedDaedalus.endCause = this.$t('ranking.endCause.' + closedDaedalus.endCause);
-                        closedDaedalus.humanTriumphIcon = this.getImgUrl('ui_icons/player_variables/triumph.png');
-                        closedDaedalus.mushTriumphIcon = this.getImgUrl('ui_icons/player_variables/triumph_mush.png');
-                    }
-                    return result.data;
-                })
-                .then((remoteRowData: any) => {
-                    this.rowData = remoteRowData['hydra:member'];
-                    this.pagination.totalItem = remoteRowData['hydra:totalItems'];
-                    this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
-                    this.loading = false;
-                });
+            await this.loadDaedalusRanking({
+                language: this.language,
+                page: this.pagination.currentPage,
+                itemsPerPage: this.pagination.pageSize
+            });
+            this.rowData = this.ranking;
+            this.pagination.totalItem = this.ranking.length;
+            this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
+            this.loading = false;
         },
         sortTable(selectedField: any): void {
             if (!selectedField.sortable) {

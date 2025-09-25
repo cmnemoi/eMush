@@ -49,6 +49,9 @@ class ClosedDaedalus
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => -1])]
     private int $mushTriumphSum = -1;
 
+    #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
+    private bool $isCheater = false;
+
     public function getId(): int
     {
         return $this->id;
@@ -200,5 +203,20 @@ class ClosedDaedalus
         $this->mushTriumphSum = $mushTriumphSum;
 
         return $this;
+    }
+
+    public function isCheater(): bool
+    {
+        return $this->isCheater;
+    }
+
+    public function markAsCheater(): void
+    {
+        $this->isCheater = true;
+    }
+
+    public function getIsCheater(): bool
+    {
+        return $this->isCheater;
     }
 }

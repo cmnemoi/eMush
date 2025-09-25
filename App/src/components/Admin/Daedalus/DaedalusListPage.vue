@@ -88,7 +88,19 @@
                         @click="createAPlanet(slotProps.id)">
                         {{ $t("admin.daedalus.createAPlanet") }}
                     </button>
+                    <button
+                        type="button"
+                        @click="markDaedalusAsCheater(slotProps.id)">
+                        {{ $t("admin.daedalus.markAsCheater") }}
+                    </button>
                     <router-link :to="{ name: 'ModerationShipView', params: { daedalusId : slotProps.id } }">{{ $t('moderation.shipView') }}</router-link>
+                </DropList>
+                <DropList class="align-right" v-else>
+                    <button
+                        type="button"
+                        @click="markDaedalusAsCheater(slotProps.id)">
+                        {{ $t("admin.daedalus.markAsCheater") }}
+                    </button>
                 </DropList>
             </template>
 
@@ -170,7 +182,8 @@ export default defineComponent({
             gameInMaintenance: 'admin/gameInMaintenance'
         }),
         ...mapActions({
-            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus'
+            loadGameMaintenanceStatus: 'admin/loadGameMaintenanceStatus',
+            banDaedalus: 'adminActions/markDaedalusAsCheater'
         }),
         formatDate: (date: string): string => {
             const dateObject = new Date(date);
@@ -274,6 +287,11 @@ export default defineComponent({
         },
         createAPlanet(id: number) {
             DaedalusService.createAPlanet(id).then(() => {
+                this.loadData();
+            });
+        },
+        async markDaedalusAsCheater(id: number) {
+            await this.banDaedalus({ closedDaedalusId: id }).then(() => {
                 this.loadData();
             });
         }

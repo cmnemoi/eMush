@@ -19,23 +19,11 @@
                 <tr v-for="row in rowData" :key='row.id' @click="onRowClick(row)">
                     <td v-for="field in headers" :key='field.key'>
                         <slot v-if="field.slot" :name="`row-${field.key}`" v-bind="row" />
-                        <span v-else-if="field.image !== 'characterBody'">
-                            {{ $t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])) }}
-                            <img
-                                :src="row[field.image]"
-                                v-if="row[field.image]"
-                                :alt="row[field.name]"
-                                id="row-image"
-                            />
+                        <span v-else-if="field.image !== 'characterBody'" v-html="formatText($t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])))">
+
                         </span>
-                        <span v-else>
-                            <img
-                                :src="row[field.image]"
-                                v-if="row[field.image]"
-                                :alt="row[field.name]"
-                                id="row-image"
-                            />
-                            {{ $t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])) }}
+                        <span v-else v-html="formatText($t(String(field.subkey ? row[field.key][field.subkey] : row[field.key])))">
+
                         </span>
                     </td>
                 </tr>
@@ -57,6 +45,7 @@
 import { defineComponent } from "vue";
 import Pagination from "@/components/Utils/Datatable/Pagination.vue";
 import Spinner from "@/components/Utils/Spinner.vue";
+import { formatText } from "@/utils/formatText";
 
 export interface Header {
     key: string,
@@ -142,19 +131,26 @@ export default defineComponent ({
                 className += this.sortDirection === "ASC" ? " sorting_asc" : " sorting_desc";
             }
             return className;
-        }
+        },
+        formatText
     }
 });
 </script>
 
 <style lang="scss" scoped>
 
-.datatable-container { position: relative; }
+.datatable-container {
+    position: relative;
+    overflow-x: auto;
+    max-width: 100%;
+}
 
 table {
     background: #222b6b;
     border-radius: 5px;
     border-collapse: collapse;
+    min-width: 100%;
+    width: max-content;
 
     tbody tr {
         border-top: 1px solid rgba(0,0,0,0.2);
@@ -187,6 +183,9 @@ table {
         text-align: left;
         font-weight: bold;
         border-bottom: 1px solid rgba(255, 255, 255, .75);
+        max-width: 120px;
+        word-wrap: break-word;
+        white-space: normal;
 
         &.sorting { cursor: pointer; }
     }

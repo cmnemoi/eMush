@@ -15,7 +15,6 @@ import AdminPage from "@/components/Admin/AdminPage.vue";
 import AdminConfigPage from "@/components/Admin/AdminConfigPage.vue";
 import TheEndPage from "@/components/Ranking/TheEndPage.vue";
 import UserPage from "@/components/User/UserPage.vue";
-import UserShips from "@/components/User/UserShips.vue";
 import NewsListPage from "@/components/Admin/News/NewsListPage.vue";
 import NewsWritePage from "@/components/Admin/News/NewsWritePage.vue";
 import NewsPage from "@/components/NewsPage.vue";
@@ -35,6 +34,8 @@ import ModerationShipViewPage from "@/components/Moderation/ModerationShipViewPa
 import { User } from "@/entities/User";
 import NotFoundPage from "@/components/NotFoundPage.vue";
 import FakeAdminPage from "@/components/FakeAdminPage.vue";
+import UserProfileShips from "@/components/User/UserProfileShips.vue";
+import UserShipHistory from "@/components/User/UserShipHistory.vue";
 
 const routes = [
     {
@@ -52,13 +53,13 @@ const routes = [
         path: "/user/:userId",
         name: "UserPage",
         component: UserPage,
-        redirect: { name: 'UserShips' },
+        redirect: { name: 'UserShipHistory' },
         meta: { authorize: [UserRole.USER] },
         children: [
             {
-                name: "UserShips",
+                name: "UserShipHistory",
                 path: '',
-                component: UserShips
+                component: UserShipHistory
             }
         ]
     },

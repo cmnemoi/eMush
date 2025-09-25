@@ -18,6 +18,10 @@
             <img :src="getImgUrl('ending-eden.png')" :alt="$t('theEnd.endCause.eden')" v-else-if="closedDaedalus.endCause === 'eden'">
             <img :src="getImgUrl('ending-destroyed.png')" :alt="$t(`ranking.endCause.${closedDaedalus.endCause}`)" v-else>
         </div>
+        <div class="cheater-banner" v-if="closedDaedalus?.isCheater">
+            <img :src="getImgUrl('ui_icons/noob.png')" alt="Cheater">
+            {{ $t("theEnd.cheaterMessage") }}
+        </div>
         <h2>{{ $t("theEnd.headliner") }}</h2>
         <div class="card star-card" v-if="goldNovaPlayer">
             <div>
@@ -577,6 +581,17 @@ export default defineComponent ({
 }
 
 p { margin: 0; }
+
+.cheater-banner {
+    margin: 10px 10px 20px 10px;
+    padding: 10px 15px;
+    border: 1px solid $red;
+    background-color: #222b6b;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 3px;
+    flex-direction: row;
+}
 
 .ending-screen {
     width: 100%;

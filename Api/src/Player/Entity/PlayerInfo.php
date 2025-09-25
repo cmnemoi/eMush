@@ -42,6 +42,9 @@ class PlayerInfo
     #[ORM\Embedded(class: PlayerStatistics::class)]
     private PlayerStatistics $playerStatistics;
 
+    #[ORM\Column(type: 'json', nullable: true, options: ['default' => '[]'])]
+    private array $titles = [];
+
     public function __construct(
         Player $player,
         User $user,
@@ -160,5 +163,19 @@ class PlayerInfo
         $this->closedPlayer->addPlayerHighlight($playerHighlight);
 
         return $this;
+    }
+
+    public function addTitle(string $title): static
+    {
+        if (!\in_array($title, $this->titles, true)) {
+            $this->titles[] = $title;
+        }
+
+        return $this;
+    }
+
+    public function hasAllTitles(array $titles): bool
+    {
+        return array_diff($this->titles, $titles) === [];
     }
 }

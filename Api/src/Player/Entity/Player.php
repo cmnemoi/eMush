@@ -925,7 +925,11 @@ class Player implements StatusHolderInterface, VisibleStatusHolderInterface, Log
 
     public function addTitle(string $title): static
     {
-        $this->titles[] = $title;
+        if (!\in_array($title, $this->titles, true)) {
+            $this->titles[] = $title;
+            $this->playerInfo->addTitle($title);
+            $this->getDaedalusInfo()->addTitleHolder($title, $this->getLogName());
+        }
 
         return $this;
     }

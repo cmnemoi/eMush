@@ -123,7 +123,10 @@ final class DaedalusFactory
 
     private static function setupId(Daedalus $daedalus): void
     {
-        (new \ReflectionProperty($daedalus, 'id'))->setValue($daedalus, random_int(1, PHP_INT_MAX));
+        $id = random_int(1, PHP_INT_MAX);
+        (new \ReflectionProperty($daedalus, 'id'))->setValue($daedalus, $id);
+        (new \ReflectionProperty($daedalus->getDaedalusInfo(), 'id'))->setValue($daedalus->getDaedalusInfo(), $id);
+        (new \ReflectionProperty($daedalus->getDaedalusInfo()->getClosedDaedalus(), 'id'))->setValue($daedalus->getDaedalusInfo()->getClosedDaedalus(), $id);
     }
 
     private static function getMushSkillConfigs(): ArrayCollection

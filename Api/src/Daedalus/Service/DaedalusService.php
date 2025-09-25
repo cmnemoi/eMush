@@ -569,20 +569,14 @@ class DaedalusService implements DaedalusServiceInterface
 
             if (!$titleAssigned) {
                 if (!$player->hasTitle($title)) {
-                    $this->assignTitleToPlayer($player, $title, $date);
+                    $player->addTitle($title);
+                    $this->dispatchTitleEvent($player, $title, $date, PlayerEvent::TITLE_ATTRIBUTED);
                 }
                 $titleAssigned = true;
             } elseif ($player->hasTitle($title)) {
                 $this->removeTitleFromPlayer($player, $title, $date);
             }
         }
-    }
-
-    private function assignTitleToPlayer(Player $player, string $title, \DateTime $date): void
-    {
-        $player->addTitle($title);
-        $player->getDaedalusInfo()->addTitleHolder($title, $player->getLogName());
-        $this->dispatchTitleEvent($player, $title, $date, PlayerEvent::TITLE_ATTRIBUTED);
     }
 
     private function removeTitleFromPlayer(Player $player, string $title, \DateTime $date): void

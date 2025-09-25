@@ -112,7 +112,9 @@ final class DaedalusServiceCest extends AbstractFunctionalTest
 
         $I->assertEmpty($chun->getTitles());
         $I->assertEquals($kuanTi->getTitles(), [TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]);
+        $I->assertTrue($kuanTi->getPlayerInfo()->hasAllTitles([TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]));
         $I->assertEquals($gioele->getTitles(), [TitleEnum::COMMANDER]);
+        $I->assertTrue($gioele->getPlayerInfo()->hasAllTitles([TitleEnum::COMMANDER]));
     }
 
     public function testDeleteDaedalusCorrectlyDeletesHunterTargets(FunctionalTester $I): void

@@ -6,10 +6,13 @@ namespace Mush\MetaGame\Controller;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\View\View;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\MetaGame\Command\MarkDaedalusAsCheaterCommand;
+use Mush\MetaGame\Command\MarkDaedalusAsCheaterCommandHandler;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusDto;
 use Mush\MetaGame\Dto\CreateEquipmentForDaedalusesDto;
 use Mush\Player\Entity\Player;
@@ -19,9 +22,12 @@ use Mush\Project\UseCase\ProposeNewNeronProjectsUseCase;
 use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Service\StatusServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use Nelmio\ApiDocBundle\Attribute\Security as NelmioSecurity;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -29,6 +35,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * Class for actions that can be performed by admins.
  *
  * @Route(path="/admin/actions")
+ *
+ * @OA\Tag(name="Admin")
  */
 final class AdminActionsController extends AbstractFOSRestController
 {
@@ -36,14 +44,13 @@ final class AdminActionsController extends AbstractFOSRestController
         private readonly CreateProjectFromConfigForDaedalusUseCase $createProjectFromConfigForDaedalusUseCase,
         private readonly DaedalusRepository $daedalusRepository,
         private readonly GameEquipmentServiceInterface $gameEquipmentService,
+        private readonly MarkDaedalusAsCheaterCommandHandler $handler,
         private readonly ProposeNewNeronProjectsUseCase $proposeNewNeronProjectsUseCase,
         private readonly StatusServiceInterface $statusService,
     ) {}
 
     /**
      * Create all projects for on-going Daedaluses.
-     *
-     * @OA\Tag(name="Admin")
      *
      * @Security(name="Bearer")
      *
@@ -67,8 +74,6 @@ final class AdminActionsController extends AbstractFOSRestController
 
     /**
      * Create pieces of equipment for all on-going Daedaluses.
-     *
-     * @OA\Tag(name="Admin")
      *
      * @Security(name="Bearer")
      *
@@ -102,8 +107,6 @@ final class AdminActionsController extends AbstractFOSRestController
     /**
      * Create pieces of equipment for a given Daedalus.
      *
-     * @OA\Tag(name="Admin")
-     *
      * @Security(name="Bearer")
      *
      * @Rest\Post(path="/create-equipment-for-daedalus")
@@ -130,8 +133,6 @@ final class AdminActionsController extends AbstractFOSRestController
 
     /**
      * Create all players init statuses for on-going Daedaluses.
-     *
-     * @OA\Tag(name="Admin")
      *
      * @Security(name="Bearer")
      *
@@ -166,8 +167,6 @@ final class AdminActionsController extends AbstractFOSRestController
     /**
      * Delete all statuses with a given name.
      *
-     * @OA\Tag(name="Admin")
-     *
      * @Security(name="Bearer")
      *
      * @Rest\Delete(path="/delete-all-statuses-by-name/{name}", requirements={"name"="^[a-zA-Z_]+$"})
@@ -183,8 +182,6 @@ final class AdminActionsController extends AbstractFOSRestController
     /**
      * Propose new Neron projects for on-going Daedaluses.
      *
-     * @OA\Tag(name="Admin")
-     *
      * @Security(name="Bearer")
      *
      * @Rest\Put(path="/propose-new-neron-projects-for-on-going-daedaluses")
@@ -198,5 +195,18 @@ final class AdminActionsController extends AbstractFOSRestController
         }
 
         return $this->view(['detail' => 'Neron projects proposed successfully.'], Response::HTTP_OK);
+    }
+
+    /**
+     * Mark a Daedalus as cheater.
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Post(path: '/mark-daedalus-as-cheater')]
+    #[NelmioSecurity(name: 'Bearer')]
+    public function markDaedalusAsCheaterEndpoint(#[MapRequestPayload] MarkDaedalusAsCheaterCommand $markDaedalusAsCheater): JsonResponse
+    {
+        $this->handler->execute($markDaedalusAsCheater);
+
+        return $this->json(['detail' => "Closed daedalus {$markDaedalusAsCheater->closedDaedalusId} marked as cheater successfully."], Response::HTTP_OK);
     }
 }

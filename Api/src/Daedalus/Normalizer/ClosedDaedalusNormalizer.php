@@ -40,7 +40,7 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
             return false;
         }
 
-        return $data instanceof ClosedDaedalus;
+        return $data instanceof ClosedDaedalus && $data->isDaedalusFinished();
     }
 
     public function normalize($object, $format = null, array $context = []): array
@@ -54,10 +54,6 @@ class ClosedDaedalusNormalizer implements NormalizerInterface, NormalizerAwareIn
 
         if (!\is_array($normalizedDaedalus)) {
             throw new \Exception('normalized closedDaedalus should be an array');
-        }
-
-        if (!$daedalus->isDaedalusFinished()) {
-            return $normalizedDaedalus;
         }
 
         $normalizedDaedalus['cyclesSurvived'] = $this->cycleService->getNumberOfCycleElapsed(

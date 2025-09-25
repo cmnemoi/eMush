@@ -72,8 +72,7 @@ export default defineComponent({
                 {
                     key: 'triumph',
                     name: 'userShips.triumph',
-                    sortable: true,
-                    image: 'triumphIcon'
+                    sortable: true
                 },
                 {
                     key: 'endCause',

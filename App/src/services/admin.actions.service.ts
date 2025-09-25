@@ -40,6 +40,11 @@ const AdminActionsService = {
     },
     resetRulesAcceptanceForAllUsers: async(): Promise<any> => {
         return await ApiService.put(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'reset-rules-acceptance'));
+    },
+    markDaedalusAsCheater: async(closedDaedalusId: integer): Promise<any> => {
+        return await ApiService.post(urlJoin(ADMIN_ACTIONS_ENDPOINT, 'mark-daedalus-as-cheater'), {
+            closedDaedalusId: closedDaedalusId
+        });
     }
 };
 export default AdminActionsService;

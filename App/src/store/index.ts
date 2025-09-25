@@ -18,6 +18,11 @@ import { createSettingsModule } from "@/features/settings/store";
 import { NotificationService } from "@/features/notification/notification.service";
 import { LocalStorageService } from "@/shared/local.storage.service";
 import { translate } from "@/utils/i18n";
+import { createDaedalusRankingModule } from "@/features/rankings/store";
+import { gateway as daedalusRankingGateway } from "@/features/rankings/gateway";
+import { createUserProfileModule } from "@/features/userProfile/store";
+import { gateway as userProfileGateway } from "@/features/userProfile/gateway";
+import UserService from "@/services/user.service";
 
 export default createStore({
     modules: {
@@ -42,6 +47,11 @@ export default createStore({
         }),
         settings: createSettingsModule({
             localStorageService: new LocalStorageService()
-        })
+        }),
+        daedalusRanking: createDaedalusRankingModule(daedalusRankingGateway.loadDaedalusRanking),
+        userProfile: createUserProfileModule(
+            userProfileGateway.loadShipsHistory,
+            UserService.loadUser
+        )
     }
 });

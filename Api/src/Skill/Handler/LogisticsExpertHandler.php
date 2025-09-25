@@ -12,6 +12,7 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Enum\PlayerVariableEnum;
 use Mush\Player\Event\PlayerVariableEvent;
 use Mush\Skill\Enum\SkillEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 
 final class LogisticsExpertHandler
 {
@@ -39,7 +40,14 @@ final class LogisticsExpertHandler
 
     private function addActionPointToRandomPlayer(Player $player, array $tags, \DateTime $time): void
     {
-        $selectedPlayer = $this->randomService->getRandomPlayer($player->getAlivePlayersInRoomExceptSelf());
+        $selectedPlayer = $this->randomService->getRandomPlayer(
+            $player
+                ->getAlivePlayersInRoomExceptSelf()
+                ->getAllWithoutStatus(PlayerStatusEnum::HIGHLY_INACTIVE)
+        );
+        if ($selectedPlayer->isNull()) {
+            return;
+        }
 
         $playerVariableEvent = new PlayerVariableEvent(
             player: $selectedPlayer,

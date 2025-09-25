@@ -3,6 +3,7 @@
 namespace Mush\Action\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
 use Mush\Action\Actions\AbstractAction;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionProviderInterface;
@@ -11,6 +12,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActionStrategyService implements ActionStrategyServiceInterface
@@ -49,6 +51,17 @@ class ActionStrategyService implements ActionStrategyServiceInterface
             $result = $this->executeInTransaction($player, $actionId, $params);
             $this->entityManager->flush();
             $this->entityManager->commit();
+        } catch (OptimisticLockException $error) {
+            $this->logger->info('Optimistic lock conflict while executing action', [
+                'player' => $player->getId(),
+                'actionId' => $actionId,
+                'actionParameters' => $params,
+                'error' => $error->getMessage(),
+            ]);
+            $this->entityManager->rollback();
+            $this->entityManager->close();
+
+            throw new ConflictHttpException('Could not execute action due to concurrent modification : try again.');
         } catch (\Throwable $error) {
             $this->logger->error('Error while executing action', [
                 'player' => $player->getId(),

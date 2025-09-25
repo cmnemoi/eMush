@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Tests\unit\Project\UseCase;
 
 use Mush\Daedalus\Factory\DaedalusFactory;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\FakeGetRandomIntegerService;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -29,8 +30,9 @@ final class AdvanceProjectUseCaseTest extends TestCase
     protected function setUp(): void
     {
         $this->advanceProjectUseCase = new AdvanceProjectUseCase(
+            self::createStub(EventServiceInterface::class),
+            new FakeGetRandomIntegerService(result: self::PILGRED_EFFICIENCY),
             $this->projectRepository = new InMemoryProjectRepository(),
-            new FakeGetRandomIntegerService(result: self::PILGRED_EFFICIENCY)
         );
     }
 
@@ -45,7 +47,7 @@ final class AdvanceProjectUseCaseTest extends TestCase
         $project = ProjectFactory::createPilgredProject();
 
         // when player advances the project
-        $this->advanceProjectUseCase->execute($player, $project);
+        $this->advanceProjectUseCase->execute($player, $project, []);
 
         // then the project progress in DB is increased by an amount in project efficiency range (here obligatory 1%)
         $project = $this->projectRepository->findByName($project->getName());
@@ -63,7 +65,7 @@ final class AdvanceProjectUseCaseTest extends TestCase
         $project = ProjectFactory::createPilgredProject();
 
         // when player advances the project
-        $this->advanceProjectUseCase->execute($player, $project);
+        $this->advanceProjectUseCase->execute($player, $project, []);
 
         // then player should have one participation in the project
         $project = $this->projectRepository->findByName($project->getName());
@@ -86,7 +88,7 @@ final class AdvanceProjectUseCaseTest extends TestCase
         $project->addPlayerParticipation($player2);
 
         // when player advances the project
-        $this->advanceProjectUseCase->execute($player, $project);
+        $this->advanceProjectUseCase->execute($player, $project, []);
 
         // then player2 should have no participation in the project
         $project = $this->projectRepository->findByName($project->getName());

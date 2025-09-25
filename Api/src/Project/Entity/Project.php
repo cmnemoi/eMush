@@ -34,6 +34,10 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
     public const int SKILL_BONUS = 4;
     public const int PRINTED_CIRCUIT_JELLY = 3;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 1])]
+    #[ORM\Version]
+    private int $version = 1;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]

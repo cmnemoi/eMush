@@ -15,7 +15,6 @@ use Mush\Action\Validator\TargetProjectFinished;
 use Mush\Equipment\Enum\ReachEnum;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Project\Entity\Project;
-use Mush\Project\Event\ProjectEvent;
 use Mush\Project\UseCase\AdvanceProjectUseCase;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -23,13 +22,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractParticipateAction extends AbstractAction
 {
-    protected AdvanceProjectUseCase $advanceProjectUseCase;
+    protected AdvanceProjectUseCase $advanceProject;
 
     public function __construct(
         EventServiceInterface $eventService,
         ActionServiceInterface $actionService,
         ValidatorInterface $validator,
-        AdvanceProjectUseCase $advanceProjectUseCase
+        AdvanceProjectUseCase $advanceProject
     ) {
         parent::__construct(
             $eventService,
@@ -37,7 +36,7 @@ abstract class AbstractParticipateAction extends AbstractAction
             $validator
         );
 
-        $this->advanceProjectUseCase = $advanceProjectUseCase;
+        $this->advanceProject = $advanceProject;
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata): void
@@ -65,15 +64,6 @@ abstract class AbstractParticipateAction extends AbstractAction
     {
         /** @var Project $project */
         $project = $this->target;
-
-        $this->advanceProjectUseCase->execute($this->player, $project);
-
-        $projectEvent = new ProjectEvent(
-            $project,
-            author: $this->player,
-            tags: $this->getActionConfig()->getActionTags(),
-        );
-
-        $this->eventService->callEvent($projectEvent, ProjectEvent::PROJECT_ADVANCED);
+        $this->advanceProject->execute($this->player, $project, $this->getTags());
     }
 }

@@ -5,6 +5,13 @@ declare(strict_types=1);
 namespace Mush\Player\Listener;
 
 use Mush\Action\Enum\ActionTypeEnum;
+use Mush\Equipment\Entity\GameEquipment;
+use Mush\Equipment\Enum\EquipmentEnum;
+use Mush\Equipment\Enum\GamePlantEnum;
+use Mush\Equipment\Enum\ItemEnum;
+use Mush\Equipment\Event\EquipmentEvent;
+use Mush\Equipment\Event\MoveEquipmentEvent;
+use Mush\Game\Enum\VisibilityEnum;
 use Mush\Game\Event\VariableEventInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Mush\Player\Entity\Player;
@@ -42,9 +49,13 @@ final class StatusEventSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
-        if ($event->getStatusName() === PlayerStatusEnum::DIRTY) {
-            $this->sendSoiledNotification($event);
-        }
+        $statusName = $event->getStatusName();
+
+        match ($statusName) {
+            PlayerStatusEnum::HIGHLY_INACTIVE => $this->dropTargetedItems($event),
+            PlayerStatusEnum::DIRTY => $this->sendSoiledNotification($event),
+            default => null,
+        };
     }
 
     public function onStatusRemoved(StatusEvent $event): void
@@ -61,6 +72,33 @@ final class StatusEventSubscriber implements EventSubscriberInterface
             $author = $event->getAuthorOrThrow();
             $author->addPlayerHighlight(PlayerHighlight::fromEventForAuthor($event));
             $this->playerRepository->save($author);
+        }
+    }
+
+    private function dropTargetedItems(StatusEvent $event): void
+    {
+        $isCritical = static fn (GameEquipment $gameEquipment) => EquipmentEnum::getCriticalItems()->contains($gameEquipment->getName());
+        $isPlant = static fn (GameEquipment $gameEquipment) => \in_array($gameEquipment->getName(), GamePlantEnum::getAll(), true);
+        $isHydropot = static fn (GameEquipment $gameEquipment) => $gameEquipment->getName() === ItemEnum::HYDROPOT;
+
+        $droppableItems = $event
+            ->getPlayerStatusHolder()
+            ->getEquipmentsExceptPersonal()
+            ->filter(static fn (GameEquipment $gameEquipment) => $isCritical($gameEquipment) || $isPlant($gameEquipment) || $isHydropot($gameEquipment));
+
+        foreach ($droppableItems as $item) {
+            $tags = $event->getTags();
+            $tags[] = $item->getName();
+
+            $itemEvent = new MoveEquipmentEvent(
+                equipment: $item,
+                newHolder: $event->getPlayerStatusHolder()->getPlace(),
+                author: $event->getPlayerStatusHolder(),
+                visibility: VisibilityEnum::PUBLIC,
+                tags: $tags,
+                time: $event->getTime(),
+            );
+            $this->eventService->callEvent($itemEvent, EquipmentEvent::CHANGE_HOLDER);
         }
     }
 

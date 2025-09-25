@@ -20,6 +20,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlantLogEnum;
 use Mush\RoomLog\Service\RoomLogServiceInterface;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EquipmentSubscriber implements EventSubscriberInterface
@@ -55,6 +56,7 @@ class EquipmentSubscriber implements EventSubscriberInterface
         ProjectName::FOOD_RETAILER->value => LogEnum::FRUIT_TRANSPORTED,
         Takeoff::DROP_CRITICAL_ITEM => LogEnum::DROP_SUCCESS,
         ActionEnum::CURE_CAT->value => LogEnum::DROP_SUCCESS,
+        PlayerStatusEnum::HIGHLY_INACTIVE => LogEnum::OBJECT_FELL,
     ];
     private RoomLogServiceInterface $roomLogService;
 

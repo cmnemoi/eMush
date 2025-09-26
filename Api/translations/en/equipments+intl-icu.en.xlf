@@ -1296,9 +1296,10 @@ An awesome jukebox from back in the day. Even better, it comes preloaded with th
       </segment>
       <segment id="examine" state="translated">
         <source>camera_equipment.examine</source>
-        <target>The camera is an extremely useful tool for ~~spying~~ observing your neighbors.
-In the presence of a camera, **secret** and **covert** actions are revealed.
-When a camera is installed in a room, all logs are saved in the history and displayed publicly. The camera also logs covert and furtive activity. It doesn't work if it is in your personal inventory.</target>
+        <target>The camera is an extremely useful tool for ~~spying~~ observing your neighbors.//
+In the presence of a camera, **secret** and **covert** actions are revealed.//
+When a camera is installed in a room, all logs are saved in the history and displayed publicly. The camera also logs covert and furtive activity. It doesn't work if it is in your personal inventory.//
+The camera cannot detect its own sabotage.</target>
       </segment>
     </unit>
     <unit id="patrol_ship.examine">

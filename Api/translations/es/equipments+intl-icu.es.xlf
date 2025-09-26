@@ -1305,9 +1305,10 @@ La rockola de esos años maravillosos. ¡Y tiene las canciones favoritas de la t
       </segment>
       <segment id="examine" state="translated">
         <source>camera_equipment.examine</source>
-        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.
-En su presencia, las acciones **discretas** y **furtivas** efectuadas son reveladas.
-Cuando hay una instalada en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.</target>
+        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.//
+En su presencia, las acciones **discretas** y **furtivas** efectuadas son reveladas.//
+Cuando hay una instalada en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.//
+La cámara no puede detectar su propio sabotaje.</target>
       </segment>
     </unit>
     <unit id="patrol_ship.examine">

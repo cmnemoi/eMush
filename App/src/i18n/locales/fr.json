@@ -181,7 +181,7 @@
 			"awards": "Palmarès",
 			"trips": "Voyages"
 		},
-		"pageTitle": "Fiche de "
+		"pageTitle": "Fiche de {user}"
 	},
 	"login": "Connexion",
 	"logout": "Déconnexion",

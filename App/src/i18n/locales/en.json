@@ -102,19 +102,14 @@
 		"all": "All ships",
 		"french": "French ships",
 		"english": "English ships",
+		"spanish": "Spanish ships",
 		"endCause": {
 			"sol_return": "Daedalus returned to Sol",
 			"eden": "Daedalus has settled on Eden",
 			"daedalus_destroyed": "Daedalus destroyed",
 			"killed_by_neron": "Contaminated crew assassinated by NERON",
 			"super_nova": "Supernova"
-		},
-		"timeSurvived": "Time survived",
-		"humanTriumph": "Human glory",
-		"mushTriumph": "Mush glory",
-		"highestTriumph": "Highest glory",
-		"triumphSum": "Total glory",
-		"category": "Ranking category"
+		}
 	},
 	"theEnd": {
 		"headliner": "Starring role :",
@@ -165,60 +160,28 @@
 		},
 		"historyAndTriumph": "History and Glory",
 		"historyAndTriumphDescription": "Click here the history and the glory of **{character}**.",
-		"triumph": "Glory"
+		"triumph": "Glory",
+		"cheaterMessage": "This ship has breached eMush rules. It has therefore been excluded from the rankings by an administrator."
 	},
 	"userBanner": {
 		"userShips": "File"
 	},
-	"userShips": {
-		"pageTitle": "'s file",
-		"character": "Character",
-		"daysSurvived": "Days survived",
-		"cyclesSurvived": "Survived cycles",
-		"timeSurvived": "Time survived",
-		"day": "day",
-		"days": "days",
-		"cycle": "cycle",
-		"cycles": "cycles",
-		"triumph": "Glory",
-		"linkToTheEnd": "Daedalus",
-		"goToTheEnd": "Honours List",
-		"endCauses": "End cause",
-		"endCause": {
-			"sol_return": "Daedalus returned to Sol",
-			"eden": "Daedalus has settled on Eden",
-			"daedalus_destroyed": "Daedalus destroyed",
-			"killed_by_neron": "Assassinated by NERON",
-			"super_nova": "Supernova",
-			"alien_abducted": "Kidnapped by a superior race",
-			"assassinated": "Assassinated",
-			"depression": "Fatal Depression",
-			"asphyxia": "Oxygen Stocks Exhausted",
-			"abandoned": "Abandoned",
-			"allergy": "Allergy",
-			"self_extracted": "Self-Extracted",
-			"exploration": "Unfortunate adventurer",
-			"exploration_combat": "Not cut out for combat",
-			"exploration_lost": "Lost explorer",
-			"electrocuted": "Electrocuted",
-			"injury": "Injuries",
-			"burnt": "Burned",
-			"clumsiness": "Putting the 'fun' in funeral",
-			"space_battle": "Space combat",
-			"space_asphyxiated": "In space without being able to breathe...",
-			"beheaded": "Beheaded",
-			"starvation": "Starvation",
-			"quarantine": "Quarantined by NERON",
-			"black_bite": "Black Bite",
-			"metal_plate": "Steel Plated",
-			"rocketed": "Rocketed",
-			"bled": "Bled Out",
-			"infection": "Sepsis",
-			"mankarog": "Overly curious adventurer",
-			"no_infirmerie": "No medlab available",
-			"suicide": "Suicide",
-			"patrol_ship_explosion": "Pulverized patrol ship"
-		}
+	"userProfile": {
+		"shipHistory": {
+			"character": "character",
+			"days": "days",
+			"explorations": "explorations",
+			"researches": "research projects",
+			"neronProjects": "NERON projects",
+			"scannedPlanets": "scanned planets",
+			"titles": "titles",
+			"triumph": "triumph",
+			"endCause": "end cause",
+			"daedalus": "daedalus",
+			"awards": "Awards",
+			"trips": "Trips"
+		},
+		"pageTitle": "{user}'s file"
 	},
 	"login": "Login",
 	"logout": "Logout",
@@ -391,7 +354,8 @@
 			"language": "Daedalus language",
 			"maintenanceOn": "Put the game into maintenance",
 			"maintenanceOff": "Remove game from maintenance",
-			"createAPlanet": "Create a planet"
+			"createAPlanet": "Create a planet",
+			"markAsCheater": "Mark Daedalus as cheaters"
 		},
 		"save": "Save",
 		"show": "Show",

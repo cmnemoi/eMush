@@ -2038,14 +2038,18 @@ Vous avez l'impression que cette chose essaie de vous parler. Vous devez sûreme
       </segment>
       <segment id="description" state="translated">
         <source>camera_item.description</source>
-        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.
-En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.</target>
+        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.//
+:point: Révèle les actions **discrètes** et **furtives** effectuées dans la pièce dans laquelle elle est installée.//
+:point: Ne révèle **pas** son propre sabotage ou engluage.//
+:point: Ne fonctionne **pas** dans l'inventaire.</target>
       </segment>
       <segment id="examine" state="translated">
         <source>camera.examine</source>
-        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.
-En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
-Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
+        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.//
+En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées.//
+Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.
+//
+La caméra ne détecte pas son propre sabotage.</target>
       </segment>
     </unit>
     <unit id="mush_genome_disk">
@@ -3608,11 +3612,11 @@ Ces insupportables petits feuillets traînent partout... Et puis qui peut en avo
     <unit id="camera_item.examine">
       <segment state="translated">
         <source>camera_item.examine</source>
-        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.
+        <target>La caméra est un outil de surveillance bien pratique pour ~~espionner~~ surveiller votre prochain.//
+En sa présence, les actions **discrètes** et **furtives** effectuées sont révélées.//
+Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.
 //
-En sa présence, les actions *discrètes* et *furtives* effectuées sont révélées.
-//
-Lorsqu'une salle possède une caméra, tous les logs sont sauvegardés dans l'historique et apparaissent publiquement. Elle ne fonctionne pas si elle est placée dans votre inventaire personnel.</target>
+La caméra ne détecte pas son propre sabotage.</target>
       </segment>
     </unit>
     <unit id="jukebox">

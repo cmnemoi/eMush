@@ -2135,15 +2135,16 @@ Tienes la impresión de que esto te quiere hablar... ¿Estás seguro?</target>
         <source>camera_item.description</source>
         <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.
 //
-En su presencia, las acciones *discretas* y *furtivas* efectuadas son reveladas.</target>
+:point: Revela las acciones **discretas** y **furtivas** realizadas en la sala donde está instalado.//  
+:point: **No** revela su propio sabotaje ni embarramiento.//  
+:point: **No** funciona en el inventario.//  </target>
       </segment>
       <segment id="examine" state="translated">
         <source>camera.examine</source>
-        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.
-//
-En su presencia, las acciones *discretas* y *furtivas* efectuadas son reveladas.
-//
-Cuando hay una en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.</target>
+        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.//
+En su presencia, las acciones **discretas** y **furtivas** efectuadas son reveladas.//
+Cuando hay una instalada en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.//
+La cámara no puede detectar su propio sabotaje.</target>
       </segment>
     </unit>
     <unit id="mush_genome_disk">
@@ -3737,11 +3738,10 @@ Nadie pone en duda su utilidad. ¿Pero, en el espacio?</target>
     <unit id="camera_item.examine">
       <segment state="translated">
         <source>camera_item.examine</source>
-        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.
-//
-En su presencia, las acciones *discretas* y *furtivas* efectuadas son reveladas.
-//
-Cuando hay una en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.</target>
+        <target>Es un dispositivo de vigilancia muy útil para ~~espiar~~ ver lo que hacen tus compañeros.//
+En su presencia, las acciones **discretas** y **furtivas** efectuadas son reveladas.//
+Cuando hay una instalada en una sala, todo se registra en el historial y aparece públicamente. No funciona cuando está en tu inventario personal.//
+La cámara no puede detectar su propio sabotaje.</target>
       </segment>
     </unit>
     <unit id="jukebox">

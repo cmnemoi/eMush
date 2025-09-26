@@ -2049,14 +2049,17 @@ You get the feeling that this thing is trying to speak to you. You must be dream
       </segment>
       <segment id="description" state="translated">
         <source>camera_item.description</source>
-        <target>The camera is an extremely useful tool for ~~spying~~ observing your neighbors. 
-In the presence of a camera, *secret* and *covert* actions are revealed.</target>
+        <target>The camera is an extremely useful tool for ~~spying~~ observing your neighbors.//
+:point: Reveals the **secret** and **covert** actions performed in the room where it is installed.//
+:point: Does **not** reveal its own sabotage or slime trap.//  
+:point: Does **not** work in the inventory.//</target>
       </segment>
       <segment id="examine" state="translated">
         <source>camera.examine</source>
-        <target>The camera is an extremely useful tool for ~~spying~~ observing your neighbors.
-In the presence of a camera, **secret** and **covert** actions are revealed.
-When a camera is installed in a room, all logs are saved in the history and displayed publicly. The camera also logs covert and furtive activity. It doesn't work if it is in your personal inventory.</target>
+        <target>The camera is an extremely useful tool for ~~spying~~ observing your neighbors.//
+In the presence of a camera, **secret** and **covert** actions are revealed.//
+When a camera is installed in a room, all logs are saved in the history and displayed publicly. The camera also logs covert and furtive activity. It doesn't work if it is in your personal inventory.//
+The camera cannot detect its own sabotage.</target>
       </segment>
     </unit>
     <unit id="mush_genome_disk">
@@ -3636,11 +3639,10 @@ These wretched little notelets are all over the camp... Who really needs this cr
     <unit id="camera_item.examine">
       <segment state="translated">
         <source>camera_item.examine</source>
-        <target>The camera is an extremely useful tool for ~~spying~~ observing your neighbors.
-        //
-In the presence of a camera, *secret* and *covert* actions are revealed.
-//
-When a camera is installed in a room, all logs are saved in the history and displayed publicly. The camera also logs covert and furtive activity. It doesn't work if it is in your personal inventory.</target>
+        <target>The camera is an extremely useful tool for ~~spying~~ observing your neighbors.//
+In the presence of a camera, **secret** and **covert** actions are revealed.//
+When a camera is installed in a room, all logs are saved in the history and displayed publicly. The camera also logs covert and furtive activity. It doesn't work if it is in your personal inventory.//
+The camera cannot detect its own sabotage.</target>
       </segment>
     </unit>
     <unit id="jukebox">

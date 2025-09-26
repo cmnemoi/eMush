@@ -620,7 +620,7 @@ abstract class ProjectConfigData
             [
                 'name' => ProjectName::MUSHOVORE_BACTERIA,
                 'type' => ProjectType::RESEARCH,
-                'efficiency' => 12,
+                'efficiency' => 3,
                 'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
                 'activationRate' => 100,
                 'modifierConfigs' => [

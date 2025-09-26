@@ -10,10 +10,14 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Chat\Entity\Message;
 use Mush\Chat\Enum\NeronMessageEnum;
+use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Entity\GameItem;
+use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Place\Enum\RoomEnum;
+use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\EquipmentStatusEnum;
@@ -33,6 +37,7 @@ final class SlimeObjectCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
 
     private GameItem $blaster;
+    private GameEquipment $camera;
 
     public function _before(FunctionalTester $I): void
     {
@@ -128,6 +133,25 @@ final class SlimeObjectCest extends AbstractFunctionalTest
         $I->assertEquals($announcement->getTranslationParameters()['target_item'], ItemEnum::BLASTER);
     }
 
+    public function cameraShouldNotRevealTheirOwnSlimeTrap(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::GREEN_JELLY, $I, $this->kuanTi);
+
+        $this->givenACameraInPlayerRoom();
+
+        $this->chun->changePlace($this->daedalus->getPlaceByNameOrThrow(RoomEnum::SPACE));
+
+        $this->whenKuanTiSlimesObject($this->camera);
+
+        $log = $I->grabEntityFromRepository(
+            entity: RoomLog::class,
+            params: [
+                'log' => ActionLogEnum::SLIME_OBJECT_SUCCESS,
+            ]
+        );
+        $I->assertEquals(VisibilityEnum::COVERT, $log->getVisibility());
+    }
+
     private function givenBlasterAlreadySlimed(): void
     {
         $this->statusService->createStatusFromName(
@@ -149,14 +173,26 @@ final class SlimeObjectCest extends AbstractFunctionalTest
         $this->slimeObject->execute();
     }
 
-    private function whenKuanTiSlimesObject(): ActionResult
+    private function givenACameraInPlayerRoom(): void
+    {
+        $this->camera = $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: EquipmentEnum::CAMERA_EQUIPMENT,
+            equipmentHolder: $this->player->getPlace(),
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
+    private function whenKuanTiSlimesObject(?GameEquipment $equipment = null): ActionResult
     {
         $this->slimeObject->loadParameters(
             actionConfig: $this->actionConfig,
-            actionProvider: $this->blaster,
+            actionProvider: $equipment ?? $this->blaster,
             player: $this->kuanTi,
-            target: $this->blaster,
+            target: $equipment ?? $this->blaster,
         );
+
+        $this->slimeObject->cannotExecuteReason();
 
         return $this->slimeObject->execute();
     }

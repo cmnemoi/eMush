@@ -572,9 +572,12 @@ class EquipmentConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $removeCamera */
         $removeCamera = $this->getReference(ActionsFixtures::REMOVE_CAMERA);
 
+        /** @var ActionConfig $slimeObject */
+        $slimeObject = $this->getReference(ActionEnum::SLIME_OBJECT->value);
+
         $camera = EquipmentConfig::fromConfigData(EquipmentConfigData::getByEquipmentName(EquipmentEnum::CAMERA_EQUIPMENT));
         $camera
-            ->setActionConfigs([$dismantle25, $repair25, $sabotage25, $reportAction, $examineAction, $removeCamera])
+            ->setActionConfigs([$dismantle25, $repair25, $sabotage25, $reportAction, $examineAction, $removeCamera, $slimeObject])
             ->setDismountedProducts([ItemEnum::METAL_SCRAPS => 1])
             ->buildName(GameConfigEnum::DEFAULT);
 

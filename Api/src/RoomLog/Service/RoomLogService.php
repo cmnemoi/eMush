@@ -319,15 +319,17 @@ final class RoomLogService implements RoomLogServiceInterface
     {
         $player = $roomLog->getPlayerOrThrow();
 
-        return $this->shouldRevealSecretLog($roomLog, $visibility) || $this->shouldRevealCovertLog($player, $visibility);
+        return $this->shouldRevealSecretLog($roomLog, $visibility) || $this->shouldRevealCovertLog($roomLog, $visibility);
     }
 
-    private function shouldRevealCovertLog(Player $player, string $visibility): bool
+    private function shouldRevealCovertLog(RoomLog $roomLog, string $visibility): bool
     {
-        $place = $player->getPlace();
+        $place = $roomLog->getPlayerOrThrow()->getPlace();
         $placeHasAFunctionalCamera = $place->hasOperationalEquipmentByName(EquipmentEnum::CAMERA_EQUIPMENT);
 
-        return $visibility === VisibilityEnum::COVERT && $placeHasAFunctionalCamera;
+        return $visibility === VisibilityEnum::COVERT
+            && $placeHasAFunctionalCamera
+            && $roomLog->shouldBeRevealedByCamera();
     }
 
     private function shouldRevealSecretLog(RoomLog $roomLog, string $visibility): bool

@@ -176,6 +176,7 @@ abstract class ActionLogEnum
     public const string DECODE_REBEL_SIGNAL_SUCCESS = 'decode_rebel_signal_success';
     public const string PLAY_WITH_DOG = 'play_with_dog';
     public const string MUTATE_SUCCESS = 'mutate_success';
+    public const string PRINT_ZE_LIST = 'print_ze_list';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -611,6 +612,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::GO_BERSERK->value => [
             ActionOutputEnum::SUCCESS => self::MUTATE_SUCCESS,
+        ],
+        ActionEnum::PRINT_ZE_LIST->value => [
+            ActionOutputEnum::SUCCESS => self::PRINT_ZE_LIST,
         ],
     ];
 

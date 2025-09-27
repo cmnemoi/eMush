@@ -2,7 +2,7 @@
     <UserBanner />
     <div class="User-container">
         <div class="box-container">
-            <h2>{{ $t('userProfile.pageTitle') }} {{ user.username }}</h2>
+            <h2>{{ $t('userProfile.pageTitle', { user: user.username }) }}</h2>
             <router-view />
         </div>
     </div>

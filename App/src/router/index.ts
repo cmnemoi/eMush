@@ -34,8 +34,7 @@ import ModerationShipViewPage from "@/components/Moderation/ModerationShipViewPa
 import { User } from "@/entities/User";
 import NotFoundPage from "@/components/NotFoundPage.vue";
 import FakeAdminPage from "@/components/FakeAdminPage.vue";
-import UserProfileShips from "@/components/User/UserProfileShips.vue";
-import UserShipHistory from "@/components/User/UserShipHistory.vue";
+import UserShipHistory from "@/features/userProfile/UserShipHistory.vue";
 
 const routes = [
     {

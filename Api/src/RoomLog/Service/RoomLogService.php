@@ -65,9 +65,16 @@ final class RoomLogService implements RoomLogServiceInterface
         }
 
         $logMapping = ActionLogEnum::ACTION_LOGS[$actionName->value] ?? null;
-
         if (!$logMapping) {
-            return null;
+            return $this->createLog(
+                \sprintf('%s_success', $actionName->value),
+                $player->getPlace(),
+                VisibilityEnum::HIDDEN,
+                'actions_log',
+                $player,
+                $this->getActionLogParameters($event),
+                $time
+            );
         }
 
         $actionResultString = $actionResult?->getName() ?? '';

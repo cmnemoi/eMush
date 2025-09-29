@@ -1,3 +1,7 @@
+export type RoomLogTable = {
+    entry: string[];
+};
+
 export class RoomLog {
     public id!: integer;
     public message : string|null;
@@ -7,6 +11,7 @@ export class RoomLog {
     public day: integer|null;
     public cycle: integer|null;
     public isUnread!: boolean;
+    public tableLog: RoomLogTable[];
 
     constructor() {
         this.message = null;
@@ -15,6 +20,7 @@ export class RoomLog {
         this.place = null;
         this.day = null;
         this.cycle = null;
+        this.tableLog = [];
     }
     load(object: any): RoomLog {
         if (typeof object !== "undefined") {
@@ -26,6 +32,7 @@ export class RoomLog {
             this.day = object.day;
             this.cycle = object.cycle;
             this.isUnread = object.isUnread;
+            this.tableLog = object.tableLog;
         }
         return this;
     }

@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mush\Status\Enum;
+
+/**
+ * Class enumerating the possible Activity Levels that can be displayed with the CheckRoster action.
+ * These activity levels are only for informative purposes.
+ *
+ * AWAKE = The Character is alive on the current game.
+ * INACTIVE = The Character is inactive on the current game.
+ * DEAD = The Character has died on the current game.
+ * CRYOGENIZED = Default status for an unknown Character that has not been selected on the current game.
+ */
+enum PlayerActivityLevelEnum: string
+{
+    case AWAKE = 'awake';
+    case INACTIVE = 'inactive';
+    case DEAD = 'dead';
+    case CRYOGENIZED = 'cryogenized';
+
+    public function toString(): string
+    {
+        return $this->value;
+    }
+}

@@ -46,6 +46,9 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
     private array $parameters = [];
 
+    #[ORM\Column(type: 'array', nullable: false, options: ['default' => 'a:0:{}'])]
+    private array $tableLog = [];
+
     #[ORM\Column(type: 'string', nullable: false, options: ['default' => ''])]
     private string $type = '';
 
@@ -219,6 +222,18 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function setCycle(int $cycle): static
     {
         $this->cycle = $cycle;
+
+        return $this;
+    }
+
+    public function getTableLog(): array
+    {
+        return $this->tableLog;
+    }
+
+    public function setTableLog(array $newTableLog): static
+    {
+        $this->tableLog = $newTableLog;
 
         return $this;
     }

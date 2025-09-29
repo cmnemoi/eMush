@@ -1731,5 +1731,15 @@ Or you simply need some fresh air.... or not.</target>
         <target>This action cannot be undone and will reveal you to everyone. Are you sure you want to continue?</target>
       </segment>
     </unit>
+    <unit id="check_roster">
+      <segment id="name" state="translated">
+        <source>check_roster.name</source>
+        <target>Check Roster</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>check_roster.description</source>
+        <target>Allows you to check who is onboard.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

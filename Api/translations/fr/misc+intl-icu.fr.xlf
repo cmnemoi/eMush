@@ -131,5 +131,23 @@
         <target>Accorde {quantity} :triumph:</target>
       </segment>
     </unit>
+    <unit id="cryo_module">
+      <segment id="awake" state="translated">
+        <source>awake</source>
+        <target>{character_gender, select, male {Éveillé} female {Éveillée} other {Éveillé}}</target>
+      </segment>
+      <segment id="cryogenized" state="translated">
+        <source>cryogenized</source>
+        <target>{character_gender, select, male {Cryogénisé} female {Cryogénisée} other {Cryogénisé}}</target>
+      </segment>
+      <segment id="dead" state="translated">
+        <source>dead</source>
+        <target>{character_gender, select, male {Mort} female {Morte} other {Mort}}</target>
+      </segment>
+      <segment id="inactive" state="translated">
+        <source>inactive</source>
+        <target>{character_gender, select, male {Inactif} female {Inactive} other {Inactif}}</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

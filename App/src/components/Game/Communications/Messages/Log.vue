@@ -11,7 +11,16 @@
         @mouseover="read(roomLog)"
     >
         <p class='text-log'>
-            <span v-html="formatText(roomLog.message)"></span>
+            <span v-html="formatText(roomLog.message)" v-if="roomLog.message"/>
+            <table class="table-log" v-if="roomLog.tableLog.length > 0">
+                <tbody>
+                    <tr v-for="(row, rowIndex) in tableEntries" :key="rowIndex">
+                        <td v-for="(cell, cellIndex) in row.entry" :key="cellIndex">
+                            {{ cell }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <span class="room" v-if="roomLog?.place"> - {{ roomLog.place }}</span>
             <span class="timestamp">{{ roomLog?.date }}</span>
         </p>
@@ -41,14 +50,19 @@ export default defineComponent ({
     components: { Tippy, ReportPopup },
     data() {
         return {
-            reportPopupVisible: false
+            reportPopupVisible: false,
+            tableData: this.roomLog.tableLog
         };
     },
     computed: {
         ...mapGetters({
             isReadingLog: "communication/readMessageMutex",
             roomLogChannel: 'communication/currentChannel'
-        })
+
+        }),
+        tableEntries() {
+            return this.tableData.filter(item => item.entry);
+        }
     },
     props: {
         roomLog: {
@@ -211,6 +225,36 @@ export default defineComponent ({
 .text-log {
     margin: 0;
     font-size: 0.92em;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.table-log {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  margin: 0;
+}
+
+.table-log th { //table header styling
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #333;
+}
+
+.table-log td { //table data styling
+  border-bottom: 1px dotted #3874C6 ;
+  border-right: 1px dotted #3874C6;
+  padding: 5px;
+  background-color: #1D3F6D;
+  color: #FFFFFF;
+  font-size: 9pt;
 }
 
 .room { font-variant: small-caps; }

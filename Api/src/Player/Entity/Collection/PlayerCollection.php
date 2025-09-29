@@ -3,6 +3,8 @@
 namespace Mush\Player\Entity\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Skill\Enum\SkillEnum;
@@ -205,6 +207,13 @@ class PlayerCollection extends ArrayCollection
         }
 
         return $player;
+    }
+
+    public function getSortedBy(string $criteria, Order $order = Order::Ascending): self
+    {
+        $criteria = Criteria::create()->orderBy([$criteria => $order]);
+
+        return new self($this->matching($criteria)->toArray());
     }
 
     private function getPlayerWithStatus(string $status): ?Player

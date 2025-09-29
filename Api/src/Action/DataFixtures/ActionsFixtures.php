@@ -114,6 +114,7 @@ class ActionsFixtures extends Fixture
     public const string CURE_CAT = 'cure_cat';
     public const string SHOOT_CAT = 'shoot_cat';
     public const string OPEN_CONTAINER_COST_0 = 'open_container_cost_0';
+    public const string CHECK_ROSTER = 'check_roster';
 
     public function load(ObjectManager $manager): void
     {
@@ -1170,6 +1171,9 @@ class ActionsFixtures extends Fixture
         $toggleVocodedAnnouncements = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS));
         $manager->persist($toggleVocodedAnnouncements);
 
+        $checkRoster = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHECK_ROSTER));
+        $manager->persist($checkRoster);
+
         $toggleDeathAnnouncements = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS));
         $manager->persist($toggleDeathAnnouncements);
 
@@ -1327,6 +1331,7 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::ACCEPT_TRADE->value, $acceptTrade);
         $this->addReference(ActionEnum::REFUSE_TRADE->value, $refuseTrade);
         $this->addReference(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value, $toggleVocodedAnnouncements);
+        $this->addReference(ActionEnum::CHECK_ROSTER->value, $checkRoster);
         $this->addReference(ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value, $toggleDeathAnnouncements);
     }
 }

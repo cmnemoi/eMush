@@ -9,6 +9,7 @@ use Mush\Place\Entity\Place;
 use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Entity\RoomLogTableContent;
 
 interface RoomLogServiceInterface
 {
@@ -20,6 +21,16 @@ interface RoomLogServiceInterface
         ?Player $player = null,
         array $parameters = [],
         ?\DateTime $dateTime = null
+    ): RoomLog;
+
+    public function createTableLog(
+        RoomLogTableContent $table,
+        Place $place,
+        string $visibility,
+        string $logKey = '',
+        ?Player $player = null,
+        array $parameters = [],
+        \DateTime $dateTime = new \DateTime(),
     ): RoomLog;
 
     public function createLogFromActionEvent(ActionEvent $event): ?RoomLog;

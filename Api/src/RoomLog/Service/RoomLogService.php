@@ -25,6 +25,7 @@ use Mush\RoomLog\Entity\Collection\RoomLogCollection;
 use Mush\RoomLog\Entity\ExaminableInterface;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\RoomLog\Entity\RoomLog;
+use Mush\RoomLog\Entity\RoomLogTableContent;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\LogDeclinationEnum;
 use Mush\RoomLog\Enum\LogEnum;
@@ -92,6 +93,34 @@ final class RoomLogService implements RoomLogServiceInterface
             $parameters,
             $time
         );
+    }
+
+    public function createTableLog(
+        RoomLogTableContent $table,
+        Place $place,
+        string $visibility,
+        string $logKey = '',
+        ?Player $player = null,
+        array $parameters = [],
+        \DateTime $dateTime = new \DateTime(),
+    ): RoomLog {
+        $roomLog = new RoomLog();
+        $roomLog
+            ->setLog($logKey)
+            ->setParameters($parameters)
+            ->setDaedalusInfo($place->getDaedalus()->getDaedalusInfo())
+            ->setPlace($place->getName())
+            ->setPlayerInfo($player?->getPlayerInfo())
+            ->setBaseVisibility($visibility)
+            ->setCreatedAt($dateTime)
+            ->setCycle($place->getDaedalus()->getCycle())
+            ->setDay($place->getDaedalus()->getDay())
+            ->setTableLog($table->toArray());
+
+        $visibility = $this->getVisibility($roomLog, $place);
+        $roomLog->setVisibility($visibility);
+
+        return $this->persist($roomLog);
     }
 
     public function createLog(

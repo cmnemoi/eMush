@@ -635,6 +635,9 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
         /** @var ActionConfig $comManagerAnnouncementAction */
         $comManagerAnnouncementAction = $this->getReference(ActionEnum::COM_MANAGER_ANNOUNCEMENT->value);
 
+        /** @var ActionConfig $whisperAction */
+        $whisperAction = $this->getReference(ActionEnum::WHISPER->value);
+
         /** @var ArrayCollection<array-key, ActionConfig> $defaultActions */
         $defaultActions = new ArrayCollection([
             $hitAction,
@@ -660,6 +663,7 @@ class CharacterConfigFixtures extends Fixture implements DependentFixtureInterfa
             $acceptMissionAction,
             $rejectMissionAction,
             $comManagerAnnouncementAction,
+            $whisperAction,
         ]);
 
         $characterConfig = new CharacterConfig();

@@ -1010,6 +1010,9 @@ class ActionsFixtures extends Fixture
         $chitchat = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::CHITCHAT));
         $manager->persist($chitchat);
 
+        $whisper = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::WHISPER));
+        $manager->persist($whisper);
+
         $graft = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GRAFT));
         $manager->persist($graft);
 
@@ -1333,5 +1336,6 @@ class ActionsFixtures extends Fixture
         $this->addReference(ActionEnum::TOGGLE_VOCODED_ANNOUNCEMENTS->value, $toggleVocodedAnnouncements);
         $this->addReference(ActionEnum::CHECK_ROSTER->value, $checkRoster);
         $this->addReference(ActionEnum::TOGGLE_DEATH_ANNOUNCEMENTS->value, $toggleDeathAnnouncements);
+        $this->addReference(ActionEnum::WHISPER->value, $whisper);
     }
 }

@@ -1763,5 +1763,15 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Permet de vérifier qui se trouve à bord.</target>
       </segment>
     </unit>
+    <unit id="whisper">
+      <segment id="name" state="initial">
+        <source>whisper.name</source>
+        <target>Chuchoter</target>
+      </segment>
+      <segment id="description" state="initial">
+        <source>whisper.description</source>
+        <target>Initie une conversation privée avec cet équipier.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

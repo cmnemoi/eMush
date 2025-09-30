@@ -49,7 +49,8 @@ abstract class ActionImpossibleCauseEnum
     public const string TRANSFER_NO_SPORE = 'transfer_no_spore';
     public const string MUTATED = 'mutated';
     public const string WHISPER_MUTE = 'whisper_mute';
-    public const string WHISPER_NO_AVAILABLE_CHANEL = 'whisper_no_available_chanel';
+    public const string WHISPER_PLAYER_NO_AVAILABLE_CHANNEL = 'whisper_player_no_available_channel';
+    public const string WHISPER_TARGET_NO_AVAILABLE_CHANNEL = 'whisper_target_no_available_channel';
     public const string TARGET_ALREADY_OUTCAST = 'target_already_outcast';
     public const string ALREADY_OUTCAST_ONBOARD = 'already_outcast_onboard';
     public const string LONELY_APPRENTICESHIP = 'lonely_apprenticeship';

@@ -29,6 +29,7 @@ class CharacterConfigData
         ActionEnum::GUARD->value,
         ActionEnum::REPORT_FIRE->value,
         ActionEnum::COM_MANAGER_ANNOUNCEMENT->value,
+        ActionEnum::WHISPER->value,
     ];
 
     public static array $dataArray = [

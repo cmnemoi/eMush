@@ -294,9 +294,15 @@
         <target>Vous ne pouvez plus communiquer.</target>
       </segment>
     </unit>
-    <unit id="whisper_no_available_chanel">
+    <unit id="whisper_player_no_available_channel">
       <segment id="description" state="translated">
-        <source>whisper_no_available_chanel.description</source>
+        <source>whisper_player_no_available_channel.description</source>
+        <target>Vous êtes déjà trop pris par d'autres conversations.</target>
+      </segment>
+    </unit>
+    <unit id="whisper_target_no_available_channel">
+      <segment id="description" state="translated">
+        <source>whisper_target_no_available_channel.description</source>
         <target>Cet équipier est déjà trop pris par d'autres conversations.</target>
       </segment>
     </unit>

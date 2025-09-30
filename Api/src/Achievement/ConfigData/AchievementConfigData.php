@@ -54,6 +54,11 @@ abstract class AchievementConfigData
                 points: 0,
                 threshold: 1_000,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::SUCCEEDED_INSPECTION_1,
+                points: 0,
+                threshold: 1,
+            ),
         ];
     }
 

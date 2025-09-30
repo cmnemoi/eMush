@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\Search;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -27,6 +31,7 @@ final class SearchActionCest extends AbstractFunctionalTest
 
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatisticRepositoryInterface $statisticRepository;
     private StatusServiceInterface $statusService;
 
     public function _before(FunctionalTester $I)
@@ -38,6 +43,7 @@ final class SearchActionCest extends AbstractFunctionalTest
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
     }
 
@@ -102,6 +108,47 @@ final class SearchActionCest extends AbstractFunctionalTest
             'result' => PlayerHighlight::SUCCESS,
             'parameters' => ['target_item' => 'echolocator'],
         ], $I);
+    }
+
+    public function shouldIncrementUserStatisticOnSuccess(FunctionalTester $I): void
+    {
+        // Given a hidden item exists
+        $this->givenHiddenEcholocator();
+
+        // When player searches successfully
+        $this->whenPlayerSearches();
+
+        // Then the succeeded inspection statistic should be incremented
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+            StatisticEnum::SUCCEEDED_INSPECTION,
+            $this->player->getUser()->getId()
+        );
+
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::SUCCEEDED_INSPECTION,
+                'userId' => $this->player->getUser()->getId(),
+                'count' => 1,
+                'isRare' => false,
+            ],
+            actual: $statistic->toArray()
+        );
+    }
+
+    public function shouldNotIncrementUserStatisticOnFail(FunctionalTester $I): void
+    {
+        // Given no hidden items exist
+
+        // When player searches and fails
+        $this->whenPlayerSearches();
+
+        // Then the succeeded inspection statistic should not be incremented
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+            StatisticEnum::SUCCEEDED_INSPECTION,
+            $this->player->getUser()->getId()
+        );
+
+        $I->assertNull($statistic);
     }
 
     private function givenPlayerIsObservant(): void

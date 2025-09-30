@@ -14,6 +14,7 @@ enum AchievementEnum: string
     case SIGNAL_EQUIP_50 = 'signal_equip_50';
     case SIGNAL_EQUIP_200 = 'signal_equip_200';
     case SIGNAL_EQUIP_1000 = 'signal_equip_1000';
+    case SUCCEEDED_INSPECTION_1 = 'succeeded_inspection_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

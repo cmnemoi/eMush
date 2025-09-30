@@ -93,5 +93,19 @@
         <target>Bailloné</target>
       </segment>
     </unit>
+    <unit id="succeeded_inspection">
+      <segment id="name" state="translated">
+        <source>succeeded_inspection.name</source>
+        <target>Inspections réussies</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>succeeded_inspection.description</source>
+        <target>Qui cherche trouve !</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>succeeded_inspection_1.name</source>
+        <target>Elijah Baley</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -7,6 +7,7 @@ export const enum StatisticEnum {
     PLANET_SCANNED = "planet_scanned",
     SIGNAL_EQUIP = "signal_equip",
     SIGNAL_FIRE = "signal_fire",
+    SUCCEEDED_INSPECTION = "succeeded_inspection",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -27,5 +28,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.SIGNAL_FIRE]: {
         'icon': getImgUrl('achievements/signal_fire.png')
+    },
+    [StatisticEnum.SUCCEEDED_INSPECTION]: {
+        'icon': getImgUrl('achievements/search.png')
     }
 };

@@ -20,7 +20,6 @@ use Mush\Status\Entity\Config\StatusConfig;
 use Mush\Status\Entity\Status;
 use Mush\Status\Entity\StatusHolderInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
-use Mush\Status\Enum\StatusEnum;
 use Mush\Triumph\Enum\TriumphTarget;
 use Mush\Triumph\Event\TriumphSourceEventInterface;
 use Mush\Triumph\Event\TriumphSourceEventTrait;
@@ -88,8 +87,7 @@ class StatusEvent extends AbstractGameEvent implements LoggableEventInterface, T
     {
         return match ($this->status->getName()) {
             EquipmentStatusEnum::HIDDEN => true,
-            StatusEnum::FIRE => false,
-            default => throw new \LogicException("Unknown highlight target for status {$this->status->getName()}"),
+            default => false,
         };
     }
 

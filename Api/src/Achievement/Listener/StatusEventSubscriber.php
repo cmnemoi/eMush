@@ -6,7 +6,10 @@ namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Equipment\Entity\Door;
+use Mush\Game\Enum\EventPriorityEnum;
 use Mush\Player\Entity\Player;
+use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -20,8 +23,8 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            StatusEvent::STATUS_APPLIED => 'onStatusApplied',
-            StatusEvent::STATUS_REMOVED => 'onStatusRemoved',
+            StatusEvent::STATUS_APPLIED => ['onStatusApplied', EventPriorityEnum::LOWEST],
+            StatusEvent::STATUS_REMOVED => ['onStatusRemoved', EventPriorityEnum::LOWEST],
         ];
     }
 
@@ -56,6 +59,7 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
 
         $statisticName = match ($event->getStatusName()) {
             StatusEnum::FIRE => StatisticEnum::EXTINGUISH_FIRE,
+            EquipmentStatusEnum::BROKEN => $this->getDoorRepairedStatisticIfDoor($event),
             default => StatisticEnum::NULL,
         };
 
@@ -66,5 +70,12 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
                 language: $author->getLanguage(),
             )
         );
+    }
+
+    private function getDoorRepairedStatisticIfDoor(StatusEvent $event): StatisticEnum
+    {
+        $statusHolder = $event->getStatusHolder();
+
+        return $statusHolder instanceof Door ? StatisticEnum::DOOR_REPAIRED : StatisticEnum::NULL;
     }
 }

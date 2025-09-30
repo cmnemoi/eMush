@@ -2,6 +2,8 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\Examine;
 use Mush\Action\Actions\Repair;
 use Mush\Action\Entity\ActionConfig;
@@ -9,10 +11,13 @@ use Mush\Action\Entity\ActionResult\Fail;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionVariableEnum;
+use Mush\Equipment\Entity\Config\EquipmentConfig;
+use Mush\Equipment\Entity\Door;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\UseCase\ChooseSkillUseCase;
@@ -37,6 +42,7 @@ final class RepairActionCest extends AbstractFunctionalTest
     private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -51,6 +57,7 @@ final class RepairActionCest extends AbstractFunctionalTest
         $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->repairActionConfig->setSuccessRate(100);
     }
@@ -275,6 +282,82 @@ final class RepairActionCest extends AbstractFunctionalTest
 
         // then Kuan Ti should not have a genius idea anymore
         $I->assertFalse($this->kuanTi->hasStatus(PlayerStatusEnum::GENIUS_IDEA));
+    }
+
+    public function shouldIncrementDoorRepairedStatisticOnSuccess(FunctionalTester $I): void
+    {
+        $door = $this->givenABrokenDoorInKuanTiRoom($I);
+
+        $this->repairActionConfig->setSuccessRate(100);
+
+        $this->whenKuanTiRepairsTheDoor($door);
+
+        $this->thenKuanTiDoorRepairedStatisticShouldBe(1, $I);
+    }
+
+    public function shouldNotIncrementDoorRepairedStatisticWhenRepairingEquipment(FunctionalTester $I): void
+    {
+        $mycoscan = $this->prepareBrokenEquipmentInRoom();
+
+        $this->whenKuanTiRepairsEquipment($mycoscan);
+
+        $this->thenKuanTiDoorRepairedStatisticShouldBe(0, $I);
+    }
+
+    private function givenABrokenDoorInKuanTiRoom(FunctionalTester $I): Door
+    {
+        $door = $this->createDoorFromTo($this->kuanTi->getPlace(), $this->daedalus->getPlaceByName(RoomEnum::SPACE), $I);
+
+        $this->statusService->createStatusFromName(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $door,
+            tags: [],
+            time: new \DateTime()
+        );
+
+        return $door;
+    }
+
+    private function createDoorFromTo(Place $from, Place $to, FunctionalTester $I): Door
+    {
+        /** @var EquipmentConfig $doorConfig */
+        $doorConfig = $I->grabEntityFromRepository(EquipmentConfig::class, ['name' => 'door_default']);
+        $door = Door::createFromRooms($from, $to)->setEquipment($doorConfig);
+        $I->haveInRepository($door);
+
+        return $door;
+    }
+
+    private function whenKuanTiRepairsTheDoor(Door $door): void
+    {
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $door,
+            player: $this->kuanTi,
+            target: $door
+        );
+        $this->repairAction->execute();
+    }
+
+    private function whenKuanTiRepairsEquipment(GameEquipment $equipment): void
+    {
+        $this->repairAction->loadParameters(
+            actionConfig: $this->repairActionConfig,
+            actionProvider: $equipment,
+            player: $this->kuanTi,
+            target: $equipment
+        );
+        $this->repairAction->execute();
+    }
+
+    private function thenKuanTiDoorRepairedStatisticShouldBe(int $expected, FunctionalTester $I): void
+    {
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+            StatisticEnum::DOOR_REPAIRED,
+            $this->kuanTi->getUser()->getId()
+        );
+
+        $I->assertEquals($expected, $statistic?->getCount() ?? 0);
     }
 
     private function prepareBrokenEquipmentInRoom(): GameEquipment

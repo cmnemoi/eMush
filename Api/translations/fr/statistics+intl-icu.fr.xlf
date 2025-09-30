@@ -29,6 +29,20 @@
         <target>Pilier de comptoir</target>
       </segment>
     </unit>
+    <unit id="door_repaired">
+      <segment id="name" state="translated">
+        <source>door_repaired.name</source>
+        <target>Portes réparées</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>door_repaired.description</source>
+        <target>Portes que vous avez amoureusement réparées.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>door_repaired_1.name</source>
+        <target>Serrurier</target>
+      </segment>
+    </unit>
     <unit id="planet_scanned">
       <segment id="name" state="translated">
         <source>planet_scanned.name</source>

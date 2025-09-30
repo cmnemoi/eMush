@@ -3,7 +3,6 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Enum\ActionImpossibleCauseEnum;
 use Mush\Action\Service\ActionServiceInterface;
@@ -57,16 +56,16 @@ class Repair extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $target */
-        $target = $this->target;
-
-        if ($result instanceof Success) {
-            $this->statusService->removeStatus(
-                EquipmentStatusEnum::BROKEN,
-                $target,
-                $this->getActionConfig()->getActionTags(),
-                new \DateTime()
-            );
+        if ($result->isAFail()) {
+            return;
         }
+
+        $this->statusService->removeStatus(
+            statusName: EquipmentStatusEnum::BROKEN,
+            holder: $this->gameEquipmentTarget(),
+            tags: $this->getTags(),
+            time: new \DateTime(),
+            author: $this->player
+        );
     }
 }

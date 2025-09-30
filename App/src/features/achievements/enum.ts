@@ -3,6 +3,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 export const enum StatisticEnum {
     CAT_CUDDLED = "cat_cuddled",
     COFFEE_TAKEN = "coffee_taken",
+    DOOR_REPAIRED = "door_repaired",
     EXTINGUISH_FIRE = "extinguish_fire",
     GAGGED = "gagged",
     PLANET_SCANNED = "planet_scanned",
@@ -17,6 +18,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.COFFEE_TAKEN]: {
         'icon': getImgUrl('achievements/coffeeplus.png')
+    },
+    [StatisticEnum.DOOR_REPAIRED]: {
+        'icon': getImgUrl('alerts/door.png')
     },
     [StatisticEnum.EXTINGUISH_FIRE]: {
         'icon': getImgUrl('achievements/signal_fire.png')

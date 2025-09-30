@@ -9,6 +9,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * Inherited Methods.
@@ -38,17 +39,17 @@ class ApiTester extends Actor
         if (!$user instanceof User) {
             switch ($user) {
                 case self::USER:
-                    $user = $this->have(User::class, ['roles' => [RoleEnum::USER]]);
+                    $user = $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::USER]]);
 
                     break;
 
                 case self::ADMIN:
-                    $user = $this->have(User::class, ['roles' => [RoleEnum::ADMIN]]);
+                    $user = $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::ADMIN]]);
 
                     break;
 
                 default:
-                    $user = $this->have(User::class);
+                    $user = $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122()]);
             }
         }
 

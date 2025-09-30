@@ -8,7 +8,11 @@ describe("User profile store", () => {
             modules: {
                 userProfile: createUserProfileModule(
                     () => Promise.resolve([]),
-                    (userId: string) => Promise.resolve({ username: userId })
+                    (userId: string) => Promise.resolve({
+                        id: 0,
+                        userId: userId,
+                        username: `user_${userId}`
+                    })
                 )
             }
         });
@@ -38,8 +42,9 @@ describe("User profile store", () => {
                         ]);
                     },
                     (userId: string) => Promise.resolve({
-                        username: `user_${userId}`,
-                        userId
+                        id: 0,
+                        userId: userId,
+                        username: `user_${userId}`
                     })
                 )
             }
@@ -75,7 +80,8 @@ describe("User profile store", () => {
                 userProfile: createUserProfileModule(
                     () => Promise.resolve([]),
                     (userId: string) => Promise.resolve({
-                        userId,
+                        id: 0,
+                        userId: userId,
                         username: `user_${userId}`
                     })
                 )

@@ -136,4 +136,10 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Notification/Entity'
                 prefix: 'Mush\Notification\Entity'
                 alias: Notification
+            Achievement:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Achievement/Entity'
+                prefix: 'Mush\Achievement\Entity'
+                alias: Achievement
 

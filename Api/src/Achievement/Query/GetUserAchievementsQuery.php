@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mush\Achievement\Query;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
+final readonly class GetUserAchievementsQuery
+{
+    public function __construct(
+        #[Assert\NotBlank]
+        public int $userId,
+        #[Assert\NotBlank]
+        public string $language,
+    ) {}
+
+    public function toNormalizationContext(): array
+    {
+        return ['language' => $this->language];
+    }
+}

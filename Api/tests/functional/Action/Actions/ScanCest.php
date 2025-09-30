@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepository;
 use Mush\Action\Actions\Scan;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -23,7 +25,6 @@ use Mush\Project\Enum\ProjectName;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
@@ -41,7 +42,7 @@ final class ScanCest extends AbstractFunctionalTest
     private StatusServiceInterface $statusService;
     private Place $bridge;
     private GameEquipment $astroTerminal;
-    private ChooseSkillUseCase $chooseSkillUseCase;
+    private StatisticRepository $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -49,10 +50,10 @@ final class ScanCest extends AbstractFunctionalTest
 
         $this->scanActionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['actionName' => ActionEnum::SCAN]);
         $this->scanAction = $I->grabService(Scan::class);
+        $this->statisticRepository = $I->grabService(StatisticRepository::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
 
         $this->scanActionConfig->setSuccessRate(100);
 
@@ -338,6 +339,23 @@ final class ScanCest extends AbstractFunctionalTest
         $this->whenPlayerScans();
 
         $this->thenPlayerPlanetScanRatioShouldBe(0, $I);
+    }
+
+    public function shouldIncrementUserStatisticOnSuccess(FunctionalTester $I): void
+    {
+        $this->whenPlayerScans();
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::PLANET_SCANNED, $this->player->getUser()->getId());
+
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::PLANET_SCANNED,
+                'userId' => $this->player->getUser()->getId(),
+                'count' => 1,
+                'isRare' => false,
+            ],
+            actual: $statistic->toArray()
+        );
     }
 
     private function givenPlayerHasEightActionPoints(FunctionalTester $I): void

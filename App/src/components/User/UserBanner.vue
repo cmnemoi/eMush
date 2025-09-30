@@ -1,6 +1,5 @@
 <template>
     <div class="sub-menu">
-        <router-link :to="{ name: 'UserShipHistory' }">{{ $t("userBanner.userShips") }} </router-link>
     </div>
 </template>
 

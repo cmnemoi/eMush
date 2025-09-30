@@ -16,17 +16,29 @@ self.addEventListener('push', event => {
         const notification = event.data.json();
         sendNotificationToAllClients(notification);
         event.waitUntil(
-            self.registration.showNotification(notification.title || '', notification.options || {})
+            checkIfAnyClientIsActive().then(hasActiveClient => {
+                if (!hasActiveClient || notification.options.data.priority === 'high') {
+                    return self.registration.showNotification(notification.title || '', notification.options || {});
+                }
+            })
         );
     } catch (error) {
         try {
             const notification = event.data.text();
             event.waitUntil(
-                self.registration.showNotification('Notification', { body: notification })
+                checkIfAnyClientIsActive().then(hasActiveClient => {
+                    if (!hasActiveClient || notification.options.data.priority === 'high') {
+                        return self.registration.showNotification('Notification', { body: notification });
+                    }
+                })
             );
         } catch (error) {
             event.waitUntil(
-                self.registration.showNotification('')
+                checkIfAnyClientIsActive().then(hasActiveClient => {
+                    if (!hasActiveClient) {
+                        return self.registration.showNotification('');
+                    }
+                })
             );
         }
     }
@@ -72,5 +84,12 @@ function informClientsOfNewVersion() {
                     type: 'NEW_VERSION'
                 });
             });
+        });
+}
+
+function checkIfAnyClientIsActive() {
+    return self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+        .then(clients => {
+            return clients.some(client => client.visibilityState === 'visible');
         });
 }

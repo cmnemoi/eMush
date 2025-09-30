@@ -17,6 +17,7 @@ export function createUserProfileModule(
             loading: false,
             shipsHistory: [],
             user: {
+                id: 0,
                 userId: '',
                 username: ''
             }

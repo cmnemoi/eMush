@@ -1,7 +1,7 @@
 # Mush Project Guidelines
 
 ## Overview
-This document outlines the project-specific guidelines for the Mush project, based on the rules defined in the `.cursor/rules` folder and analysis of the codebase.
+This document outlines the project-specific guidelines for the Mush project.
 
 ## Project Structure
 The Mush project is a web-based game with a Symfony backend and Vue.js frontend:
@@ -89,7 +89,6 @@ The Mush project is a web-based game with a Symfony backend and Vue.js frontend:
 - Keep mutations synchronous only
 - Handle all async operations in actions
 - Isolate API calls in services
-- Use mapGetters and mapActions for component integration
 
 ### Coding Standards
 - Type everything explicitly

@@ -6,6 +6,7 @@ namespace Mush\Notification\Enum;
 
 enum NotificationEnum: string
 {
+    case ACHIEVEMENT_UNLOCKED = 'achievement_unlocked';
     case INACTIVITY = 'inactivity';
 
     public function toString(): string

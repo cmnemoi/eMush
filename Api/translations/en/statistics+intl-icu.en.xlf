@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
+  <file id="statistics.ext">
+    <unit id="planet_scanned.name">
+      <segment id="name" state="translated">
+        <source>planet_scanned.name</source>
+        <target>Planets detected</target>
+      </segment>
+    </unit>
+    <unit id="planet_scanned.description">
+      <segment id="description" state="translated">
+        <source>planet_scanned.description</source>
+        <target>Planets detected.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

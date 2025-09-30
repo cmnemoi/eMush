@@ -34,7 +34,6 @@ import ModerationShipViewPage from "@/components/Moderation/ModerationShipViewPa
 import { User } from "@/entities/User";
 import NotFoundPage from "@/components/NotFoundPage.vue";
 import FakeAdminPage from "@/components/FakeAdminPage.vue";
-import UserShipHistory from "@/features/userProfile/UserShipHistory.vue";
 
 const routes = [
     {
@@ -52,15 +51,8 @@ const routes = [
         path: "/user/:userId",
         name: "UserPage",
         component: UserPage,
-        redirect: { name: 'UserShipHistory' },
-        meta: { authorize: [UserRole.USER] },
-        children: [
-            {
-                name: "UserShipHistory",
-                path: '',
-                component: UserShipHistory
-            }
-        ]
+        meta: { authorize: [UserRole.USER] }
+        // Removed redirect and child routes; UserPage now renders its own layout
     },
     {
         path: "/me",

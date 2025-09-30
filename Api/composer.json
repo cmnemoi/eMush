@@ -160,6 +160,11 @@
         "test": [
             "php vendor/bin/codecept run"
         ],
+        "test:achievement": [
+            "php vendor/bin/codecept run tests/unit/Achievement",
+            "php vendor/bin/codecept run tests/api/Achievement",
+            "php vendor/bin/codecept run tests/functional/Achievement"
+        ],
         "test:action": [
             "php vendor/bin/codecept run tests/unit/Action",
             "php vendor/bin/codecept run tests/functional/Action"

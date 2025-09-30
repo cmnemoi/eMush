@@ -30,6 +30,7 @@ imports:
     - { resource: ../src/Communications/config/services.yaml }
     - { resource: ../src/Triumph/config/services.yaml }
     - { resource: ../src/Notification/config/services.yaml }
+    - { resource: ../src/Achievement/config/services.yaml }
 
 
 services:

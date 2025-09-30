@@ -12,6 +12,7 @@ use Mush\Exploration\Enum\SpaceOrientationEnum;
 use Mush\Exploration\Repository\PlanetRepository;
 use Mush\Exploration\Service\PlanetService;
 use Mush\Game\Entity\GameConfig;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Player\Factory\PlayerFactory;
@@ -46,6 +47,7 @@ final class PlanetServiceTest extends TestCase
 
         $this->service = new PlanetService(
             $this->entityManager,
+            self::createStub(EventServiceInterface::class),
             $this->planetRepository,
             $this->randomService
         );

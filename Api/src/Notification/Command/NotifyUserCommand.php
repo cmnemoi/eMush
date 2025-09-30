@@ -15,5 +15,6 @@ final readonly class NotifyUserCommand
         public readonly User $user,
         public readonly string $language,
         public readonly string $priority = Notification::URGENCY_NORMAL,
+        public readonly array $translationParameters = [],
     ) {}
 }

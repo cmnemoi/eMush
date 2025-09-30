@@ -122,7 +122,7 @@
 
                 <div v-for="(notification, index) in notifications" :key="index" class="notification">
                     <div class="element">
-                        <span>{{ $t(notification) }}</span>
+                        <span v-html="formatText(notification)"></span>
                     </div>
                     <div class="element">
                         <a class="go" @click="removeNotification(notification)">{{ $t('hud.userMenu.ok') }}</a>
@@ -162,13 +162,14 @@ import { useStore } from 'vuex';
 import LocaleChange from '../Utils/LocaleChange.vue';
 import { Settings } from '@/features/settings/store';
 import router from '@/router';
+import { formatText } from '@/utils/formatText';
 
 const store = useStore();
 
 // Computed properties
 const userMenu = computed(() => store.getters['popup/userMenu']);
-const username = computed(() => store.getters['auth/username']);
-const notifications = computed(() => store.getters['notifications/notifications']);
+const username = computed((): string => store.getters['auth/username']);
+const notifications = computed((): string[] => store.getters['notifications/notifications']);
 const parameters = computed((): Settings[] => store.getters['settings/settings']);
 
 // Methods

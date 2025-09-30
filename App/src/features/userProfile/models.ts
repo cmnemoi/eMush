@@ -12,6 +12,7 @@ export type ShipHistory = {
 };
 
 export type User = {
+    id: integer;
     userId: string;
     username: string;
 }

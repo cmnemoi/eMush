@@ -17,33 +17,37 @@ abstract class NotificationFactory
     public static function createFromCommand(NotifyUserCommand $command, Translate $translate): WebPushNotification
     {
         return match ($command->priority) {
-            WebPushNotification::URGENCY_HIGH => self::createUrgentForUser($command->notification, $command->user, $command->language, $translate),
-            default => self::createForUser($command->notification, $command->user, $command->language, $translate),
+            WebPushNotification::URGENCY_HIGH => self::createUrgentForUser($command->notification, $command->user, $command->language, $command->translationParameters, $translate),
+            default => self::createForUser($command->notification, $command->user, $command->language, $command->translationParameters, $translate),
         };
     }
 
-    private static function createForUser(NotificationEnum $name, User $user, string $language, Translate $translate): WebPushNotification
+    private static function createForUser(NotificationEnum $name, User $user, string $language, array $translationParameters, Translate $translate): WebPushNotification
     {
-        $message = self::createMessageForUser($name, $user, $language, $translate)
-            ->addAction(Action::create('ok', self::translateForUser('ok', $language, $user, $translate)));
+        $message = self::createMessageForUser($name, $user, $language, $translationParameters, $translate)
+            ->addAction(Action::create('ok', self::translateForUser('ok', $language, $user, $translationParameters, $translate)));
+
+        $message = $message->withData(array_merge($message->getData(), ['priority' => WebPushNotification::URGENCY_NORMAL]));
 
         return new WebPushNotification()->withPayload($message->toString())->withTTL(3 * 60 * 60)->withUrgency(WebPushNotification::URGENCY_NORMAL);
     }
 
-    private static function createUrgentForUser(NotificationEnum $name, User $user, string $language, Translate $translate): WebPushNotification
+    private static function createUrgentForUser(NotificationEnum $name, User $user, string $language, array $translationParameters, Translate $translate): WebPushNotification
     {
-        $message = self::createMessageForUser($name, $user, $language, $translate)->vibrate(200, 300, 200, 300)
-            ->addAction(Action::create('go', self::translateForUser('go', $language, $user, $translate)))
-            ->addAction(Action::create('later', self::translateForUser('later', $language, $user, $translate)));
+        $message = self::createMessageForUser($name, $user, $language, $translationParameters, $translate)->vibrate(200, 300, 200, 300)
+            ->addAction(Action::create('go', self::translateForUser('go', $language, $user, $translationParameters, $translate)))
+            ->addAction(Action::create('later', self::translateForUser('later', $language, $user, $translationParameters, $translate)));
+
+        $message = $message->withData(array_merge($message->getData(), ['priority' => WebPushNotification::URGENCY_HIGH]));
 
         return new WebPushNotification()->withPayload($message->toString())->withTTL(30 * 60)->withUrgency(WebPushNotification::URGENCY_HIGH);
     }
 
-    private static function createMessageForUser(NotificationEnum $name, User $user, string $language, Translate $translate): WebPushMessage
+    private static function createMessageForUser(NotificationEnum $name, User $user, string $language, array $translationParameters, Translate $translate): WebPushMessage
     {
         return WebPushMessage::create(
-            title: self::translateForUser($name->toTranslationTitleKey(), $language, $user, $translate),
-            body: self::translateForUser($name->toTranslationBodyKey(), $language, $user, $translate)
+            title: self::translateForUser($name->toTranslationTitleKey(), $language, $user, $translationParameters, $translate),
+            body: self::translateForUser($name->toTranslationBodyKey(), $language, $user, $translationParameters, $translate)
         )
             ->auto()
             ->renotify()
@@ -57,8 +61,13 @@ abstract class NotificationFactory
             ->interactionRequired();
     }
 
-    private static function translateForUser(string $key, string $language, User $user, Translate $translate): string
+    private static function translateForUser(string $key, string $language, User $user, array $translationParameters, Translate $translate): string
     {
-        return $translate($key, ['user' => $user->getUsername()], 'user_notification', $language);
+        return $translate(
+            $key,
+            array_merge(['user' => $user->getUsername()], $translationParameters),
+            'user_notification',
+            $language
+        );
     }
 }

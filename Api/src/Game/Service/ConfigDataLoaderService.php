@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mush\Game\Service;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Achievement\ConfigData\AchievementConfigDataLoader;
+use Mush\Achievement\ConfigData\StatisticConfigDataLoader;
 use Mush\Action\ConfigData\ActionDataLoader;
 use Mush\Communications\ConfigData\RebelBaseConfigDataLoader;
 use Mush\Communications\ConfigData\TradeAssetConfigDataLoader;
@@ -119,6 +121,8 @@ class ConfigDataLoaderService
         TradeConfigDataLoader $tradeConfigDataLoader,
         GameConfigDataLoader $gameConfigDataLoader,
         LocalizationConfigDataLoader $localizationConfigDataLoader,
+        StatisticConfigDataLoader $statisticConfigDataLoader,
+        AchievementConfigDataLoader $achievementConfigDataLoader,
     ) {
         // add data loaders in order of dependencies
         /** @var ArrayCollection<int, ConfigDataLoader> $dataLoaders */
@@ -176,6 +180,8 @@ class ConfigDataLoaderService
                 $tradeConfigDataLoader,
                 $gameConfigDataLoader,
                 $localizationConfigDataLoader,
+                $statisticConfigDataLoader,
+                $achievementConfigDataLoader,
             ]
         );
         $this->setDataLoaders($dataLoaders);

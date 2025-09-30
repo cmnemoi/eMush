@@ -13,7 +13,9 @@ use Mush\Exploration\Entity\PlanetName;
 use Mush\Exploration\Entity\PlanetSector;
 use Mush\Exploration\Entity\PlanetSectorConfig;
 use Mush\Exploration\Entity\SpaceCoordinates;
+use Mush\Exploration\Event\PlanetCreatedEvent;
 use Mush\Exploration\Repository\PlanetRepository;
+use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\RandomServiceInterface;
 use Mush\Player\Entity\Player;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -22,19 +24,12 @@ final class PlanetService implements PlanetServiceInterface
 {
     public const int MAX_PLANET_DISTANCE = 7;
 
-    private EntityManagerInterface $entityManager;
-    private PlanetRepository $planetRepository;
-    private RandomServiceInterface $randomService;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        PlanetRepository $planetRepository,
-        RandomServiceInterface $randomService
-    ) {
-        $this->entityManager = $entityManager;
-        $this->planetRepository = $planetRepository;
-        $this->randomService = $randomService;
-    }
+        private EntityManagerInterface $entityManager,
+        private EventServiceInterface $eventService,
+        private PlanetRepository $planetRepository,
+        private RandomServiceInterface $randomService,
+    ) {}
 
     public function createPlanet(Player $player): Planet
     {
@@ -50,10 +45,11 @@ final class PlanetService implements PlanetServiceInterface
             ->setSize($this->getPlanetSize($daedalus));
 
         $planet->setCoordinates($this->getCoordinatesForPlanet($planet));
-
         $planet = $this->generatePlanetSectors($planet);
 
         $this->persist([$planet]);
+
+        $this->eventService->callEvent(new PlanetCreatedEvent($planet), PlanetCreatedEvent::class);
 
         return $planet;
     }

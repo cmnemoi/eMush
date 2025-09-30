@@ -17,7 +17,7 @@ abstract class UserFactory
             ->setUsername(Uuid::v4()->toRfc4122())
             ->setUserId(Uuid::v4()->toRfc4122());
 
-        self::setupUserId($user);
+        self::setupId($user);
 
         return $user;
     }
@@ -46,8 +46,9 @@ abstract class UserFactory
         return $user;
     }
 
-    private static function setupUserId(User $user): void
+    private static function setupId(User $user): void
     {
-        new \ReflectionProperty($user, 'id')->setValue($user, random_int(1, PHP_INT_MAX));
+        $reflectionProperty = new \ReflectionProperty(User::class, 'id');
+        $reflectionProperty->setValue($user, crc32($user->getUserId()));
     }
 }

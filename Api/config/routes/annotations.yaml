@@ -34,6 +34,10 @@ alert:
     resource: ../../src/Alert/Controller/
     type: annotation
     prefix: /api/v1
+achievement:
+    resource: ../../src/Achievement/Controller/
+    type: attribute
+    prefix: /api/v1
 metagame:
     resource: ../../src/MetaGame/Controller/
     type: annotation

@@ -166,6 +166,14 @@
 	"userBanner": {
 		"userShips": "Fiche"
 	},
+	"achievements": {
+		"title": "Statistiques",
+		"points": "{points} points",
+		"tabs": {
+			"statistics": "Statistiques",
+			"gains": "Gains ({count})"
+		}
+	},
 	"userProfile": {
 		"shipHistory": {
 			"character": "personnage",

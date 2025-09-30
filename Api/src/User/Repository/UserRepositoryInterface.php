@@ -13,6 +13,8 @@ interface UserRepositoryInterface
      */
     public function findAll(): array;
 
+    public function findOneByIdOrThrow(int $id): User;
+
     public function findUserPastCyclesCount(User $user): int;
 
     public function findUserNumberOfPastGames(User $user): int;

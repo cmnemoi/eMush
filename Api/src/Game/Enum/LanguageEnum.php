@@ -35,11 +35,13 @@ abstract class LanguageEnum
     public const string DRONE = 'drone';
     public const string TARGET_DRONE = 'target_drone';
     public const string SKILL = 'skill';
+    public const string ACHIEVEMENT = 'achievement';
 
     // translation domains
     public const string CHARACTERS = 'characters';
     public const string ITEMS = 'items';
     public const string EQUIPMENTS = 'equipments';
+    public const string STATISTICS = 'statistics';
 
     public const array COPROLALIA_PARAMETERS = [
         LogDeclinationEnum::BALLS_COPROLALIA,
@@ -74,6 +76,7 @@ abstract class LanguageEnum
         LogDeclinationEnum::ADJECTIVE_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::ANIMAL_COPROLALIA => self::DISEASE_MESSAGE,
         LogDeclinationEnum::WORD_COPROLALIA => self::DISEASE_MESSAGE,
+        self::ACHIEVEMENT => self::STATISTICS,
     ];
 
     public const array TRANSLATE_PARAMETERS = [
@@ -92,6 +95,7 @@ abstract class LanguageEnum
             self::ACTION => ['name'],
             self::PROJECT => ['name'],
             self::SKILL => ['name'],
+            self::ACHIEVEMENT => ['name'],
             LogDeclinationEnum::BALLS_COPROLALIA => ['balls_coprolalia'],
             LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => [
@@ -125,6 +129,7 @@ abstract class LanguageEnum
             self::ACTION => ['name'],
             self::PROJECT => ['name'],
             self::SKILL => ['name'],
+            self::ACHIEVEMENT => ['name'],
             LogDeclinationEnum::BALLS_COPROLALIA => ['balls_coprolalia'],
             LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => ['adjective_coprolalia'],
@@ -152,6 +157,7 @@ abstract class LanguageEnum
             self::ACTION => ['name'],
             self::PROJECT => ['name'],
             self::SKILL => ['name'],
+            self::ACHIEVEMENT => ['name'],
             LogDeclinationEnum::BALLS_COPROLALIA => ['balls_coprolalia'],
             LogDeclinationEnum::PREFIX_COPROLALIA => ['prefix_coprolalia'],
             LogDeclinationEnum::ADJECTIVE_COPROLALIA => [

@@ -10,6 +10,11 @@ final class InMemoryUserRepository implements UserRepositoryInterface
 {
     private array $users = [];
 
+    public function findOneByIdOrThrow(int $id): User
+    {
+        throw new \LogicException('Not implemented');
+    }
+
     public function findAll(): array
     {
         return $this->users;

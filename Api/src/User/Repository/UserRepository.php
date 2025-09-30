@@ -20,6 +20,16 @@ final class UserRepository extends ServiceEntityRepository implements UserLoader
         parent::__construct($registry, User::class);
     }
 
+    public function findOneByIdOrThrow(int $id): User
+    {
+        $user = $this->findOneBy(['id' => $id]);
+        if (!$user instanceof User) {
+            throw new \RuntimeException("User with id {$id} not found");
+        }
+
+        return $user;
+    }
+
     /**
      * @return User[]
      */

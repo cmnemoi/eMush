@@ -23,6 +23,8 @@ import { gateway as daedalusRankingGateway } from "@/features/rankings/gateway";
 import { createUserProfileModule } from "@/features/userProfile/store";
 import { gateway as userProfileGateway } from "@/features/userProfile/gateway";
 import UserService from "@/services/user.service";
+import { createAchievementsModule } from "@/features/achievements/store";
+import { achievementsGateway } from "@/features/achievements/gateway";
 
 export default createStore({
     modules: {
@@ -40,6 +42,7 @@ export default createStore({
         toast,
         adminActions,
         locale,
+        achievements: createAchievementsModule(achievementsGateway),
         notifications: createNotificationsModule({
             localStorageService: new LocalStorageService(),
             notificationService: new NotificationService(),

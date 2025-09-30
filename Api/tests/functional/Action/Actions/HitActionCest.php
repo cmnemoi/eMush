@@ -302,6 +302,24 @@ final class HitActionCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveLessOrEqualThanHealthPoint(10, $I);
     }
 
+    public function wrestlerShouldNotStackWithSolid(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::WRESTLER, $I, $this->chun);
+        $this->addSkillToPlayer(SkillEnum::SOLID, $I, $this->chun);
+
+        $this->givenBareHandsHas100ChanceToDispatchEvent(WeaponEventEnum::BARE_HANDS_SUCCESSFUL_HIT->toString());
+
+        $this->givenHitDamageIs([1, 1]);
+
+        $this->givenHitActionHasSuccessRate(100);
+
+        $this->givenKuanTiHasHealthPoint(10);
+
+        $this->whenChunHitsKuanTi();
+
+        $this->thenKuanTiShouldHaveExactlyHealthPoint(7, $I);
+    }
+
     private function givenChunHasInactiveStatus(): void
     {
         $this->statusService->createStatusFromName(

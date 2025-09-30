@@ -39,7 +39,7 @@ final class StatisticNormalizerCest extends AbstractFunctionalTest
             expected: [
                 'key' => 'planet_scanned',
                 'name' => 'Planètes détectées',
-                'description' => 'Planètes détectées.',
+                'description' => 'Nombre de planètes que vous avez découvertes.',
                 'isRare' => false,
                 'count' => 1,
                 'formattedCount' => 'x1',

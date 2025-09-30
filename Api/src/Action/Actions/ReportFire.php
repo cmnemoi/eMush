@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -13,7 +15,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\StatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class ReportFire extends AbstractAction
+final class ReportFire extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::REPORT_FIRE;
 
@@ -39,10 +41,9 @@ class ReportFire extends AbstractAction
             $this->player,
             $this->target,
             VisibilityEnum::PRIVATE,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
-
         $this->eventService->callEvent($reportEvent, ApplyEffectEvent::REPORT_FIRE);
     }
 }

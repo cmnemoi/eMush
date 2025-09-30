@@ -14,9 +14,8 @@ abstract class StatisticConfigData
     public static function getAll(): array
     {
         return [
-            new StatisticConfigDto(
-                name: StatisticEnum::PLANET_SCANNED,
-            ),
+            new StatisticConfigDto(StatisticEnum::PLANET_SCANNED),
+            new StatisticConfigDto(StatisticEnum::SIGNAL_FIRE),
         ];
     }
 

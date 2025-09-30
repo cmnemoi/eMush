@@ -99,7 +99,7 @@ final class AchievementControllerCest
             'name' => 'Navigateur',
             'statisticKey' => 'planet_scanned',
             'statisticName' => 'Planètes détectées x1',
-            'statisticDescription' => 'Planètes détectées.',
+            'statisticDescription' => 'Nombre de planètes que vous avez découvertes.',
             'points' => 1,
             'formattedPoints' => '+1',
             'isRare' => false,
@@ -112,7 +112,7 @@ final class AchievementControllerCest
             LanguageEnum::FRENCH => [
                 'language' => LanguageEnum::FRENCH,
                 'expectedName' => 'Planètes détectées',
-                'expectedDescription' => 'Planètes détectées.',
+                'expectedDescription' => 'Nombre de planètes que vous avez découvertes.',
             ],
             LanguageEnum::ENGLISH => [
                 'language' => LanguageEnum::ENGLISH,

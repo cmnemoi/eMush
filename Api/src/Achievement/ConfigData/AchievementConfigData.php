@@ -19,6 +19,31 @@ abstract class AchievementConfigData
                 points: 1,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::SIGNAL_EQUIP_1,
+                points: 0,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::SIGNAL_EQUIP_20,
+                points: 0,
+                threshold: 20,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::SIGNAL_EQUIP_50,
+                points: 0,
+                threshold: 50,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::SIGNAL_EQUIP_200,
+                points: 0,
+                threshold: 200,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::SIGNAL_EQUIP_1000,
+                points: 0,
+                threshold: 1_000,
+            ),
         ];
     }
 

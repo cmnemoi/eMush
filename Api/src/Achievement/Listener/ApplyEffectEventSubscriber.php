@@ -17,8 +17,22 @@ final readonly class ApplyEffectEventSubscriber implements EventSubscriberInterf
     public static function getSubscribedEvents(): array
     {
         return [
+            ApplyEffectEvent::REPORT_EQUIPMENT => 'onReportEquipment',
             ApplyEffectEvent::REPORT_FIRE => 'onReportFire',
         ];
+    }
+
+    public function onReportEquipment(ApplyEffectEvent $event): void
+    {
+        $player = $event->getAuthor();
+
+        $this->commandBus->dispatch(
+            new IncrementUserStatisticCommand(
+                userId: $player->getUser()->getId(),
+                statisticName: StatisticEnum::SIGNAL_EQUIP,
+                language: $player->getLanguage(),
+            )
+        );
     }
 
     public function onReportFire(ApplyEffectEvent $event): void

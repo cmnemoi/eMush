@@ -35,5 +35,35 @@
         <target>Nombre d'incendies que vous avez éteints.</target>
       </segment>
     </unit>
+    <unit id="signal_equip">
+      <segment id="name" state="translated">
+        <source>signal_equip.name</source>
+        <target>Signalement de pannes</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>signal_equip.description</source>
+        <target>Nombre d'équipements endommagés que vous avez signalés.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>signal_equip_1.name</source>
+        <target>Agent de surface</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>signal_equip_20.name</source>
+        <target>Agent de maintenance</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>signal_equip_50.name</source>
+        <target>Préposé aux équipements</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>signal_equip_200.name</source>
+        <target>Équipementier</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>signal_equip_1000.name</source>
+        <target>Inspecteur des travaux finis</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

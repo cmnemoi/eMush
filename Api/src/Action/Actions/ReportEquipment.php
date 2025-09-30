@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -18,7 +20,7 @@ use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class ReportEquipment extends AbstractAction
+final class ReportEquipment extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::REPORT_EQUIPMENT;
 
@@ -42,17 +44,13 @@ class ReportEquipment extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var GameEquipment $target */
-        $target = $this->target;
-
         $reportEvent = new ApplyEffectEvent(
             $this->player,
-            $target,
+            $this->gameEquipmentTarget(),
             VisibilityEnum::PRIVATE,
-            $this->getActionConfig()->getActionTags(),
+            $this->getTags(),
             new \DateTime(),
         );
-
         $this->eventService->callEvent($reportEvent, ApplyEffectEvent::REPORT_EQUIPMENT);
     }
 }

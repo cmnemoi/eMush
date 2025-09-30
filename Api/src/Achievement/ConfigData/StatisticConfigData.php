@@ -17,6 +17,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::EXTINGUISH_FIRE),
             new StatisticConfigDto(StatisticEnum::PLANET_SCANNED),
             new StatisticConfigDto(StatisticEnum::SIGNAL_FIRE),
+            new StatisticConfigDto(StatisticEnum::SIGNAL_EQUIP),
         ];
     }
 

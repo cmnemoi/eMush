@@ -19,13 +19,13 @@
                     <Tippy
                         class="stat-card"
                         v-for="statistic in topThreeStatistics"
-                        :key="statistic.key"
+                        :key="statistic.name"
                         :class="{ active: activeCard === statistic.key }"
                         @click="setActiveCard(statistic.key)"
                     >
                         <div class="card-value">{{ statistic.count }}</div>
                         <div class="card-icon">
-                            <img :src="getImgUrl(`achievements/${statistic.key}.png`)" :alt="statistic.name" />
+                            <img :src="StatisticRecords[statistic.key].icon" :alt="statistic.name" />
                         </div>
                         <div class="card-text" :class="{ rare: statistic.isRare }">{{ statistic.name }}</div>
                         <template #content>
@@ -58,24 +58,24 @@
             <div class="stats-list" v-if="activeTab === 'stats'">
                 <Tippy
                     class="stat-item"
-                    v-for="stat in statistics"
-                    :key="stat.key"
+                    v-for="statistic in statistics"
+                    :key="statistic.name"
                 >
                     <div class="stat-icon">
-                        <img :src="getImgUrl(`achievements/${stat.key}.png`)" :alt="stat.name" />
+                        <img :src="StatisticRecords[statistic.key].icon" :alt="statistic.name" />
                     </div>
-                    <div class="stat-name" :class="{ rare: stat.isRare }">{{ stat.name }}</div>
-                    <div class="stat-value">{{ stat.formattedCount }}</div>
+                    <div class="stat-name" :class="{ rare: statistic.isRare }">{{ statistic.name }}</div>
+                    <div class="stat-value">{{ statistic.formattedCount }}</div>
                     <template #content>
-                        <h1>{{ stat.name }}</h1>
-                        <p>{{ stat.description }}</p>
+                        <h1>{{ statistic.name }}</h1>
+                        <p>{{ statistic.description }}</p>
                     </template>
                 </Tippy>
             </div>
 
             <!-- Gains List -->
             <div class="stats-list" v-if="activeTab === 'gains'">
-                <Tippy class="stat-item" v-for="achievement in achievements" :key="achievement.key">
+                <Tippy class="stat-item" v-for="achievement in achievements" :key="achievement.name">
                     <div class="stat-icon">
                         <img :src="getImgUrl(`achievements/${achievement.statisticKey}.png`)" />
                     </div>
@@ -99,6 +99,7 @@ import { getImgUrl } from '@/utils/getImgUrl';
 import { Achievement, Statistic } from './models';
 import { User } from '../userProfile/models';
 import { useRoute } from 'vue-router';
+import { StatisticRecords } from './enum';
 
 const route = useRoute();
 const store = useStore();

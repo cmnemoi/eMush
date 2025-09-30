@@ -3,7 +3,6 @@
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
-use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\HasStatus;
@@ -53,13 +52,16 @@ class Extinguish extends AttemptAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        if ($result instanceof Success) {
-            $this->statusService->removeStatus(
-                StatusEnum::FIRE,
-                $this->player->getPlace(),
-                $this->getActionConfig()->getActionTags(),
-                new \DateTime()
-            );
+        if ($result->isAFail()) {
+            return;
         }
+
+        $this->statusService->removeStatus(
+            statusName: StatusEnum::FIRE,
+            holder: $this->player->getPlace(),
+            tags: $this->getTags(),
+            time: new \DateTime(),
+            author: $this->player,
+        );
     }
 }

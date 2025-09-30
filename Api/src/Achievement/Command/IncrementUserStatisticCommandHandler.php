@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Mush\Achievement\Command;
 
 use Mush\Achievement\Entity\Statistic;
+use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Event\StatisticIncrementedEvent;
 use Mush\Achievement\Repository\StatisticConfigRepositoryInterface;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
@@ -22,6 +23,10 @@ final readonly class IncrementUserStatisticCommandHandler
 
     public function __invoke(IncrementUserStatisticCommand $command): void
     {
+        if ($command->statisticName === StatisticEnum::NULL) {
+            return;
+        }
+
         $statisticName = $command->statisticName;
         $userId = $command->userId;
         $language = $command->language;

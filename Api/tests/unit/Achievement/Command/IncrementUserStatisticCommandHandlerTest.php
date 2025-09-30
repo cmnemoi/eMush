@@ -106,9 +106,9 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
     private function whenIncrementingDifferentStatistic(): void
     {
         // Using a different achievement name for testing multiple achievements
-        $this->incrementUserStatistic->__invoke(new IncrementUserStatisticCommand(
+        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
             $this->user->getId(),
-            StatisticEnum::NULL,
+            StatisticEnum::EXTINGUISH_FIRE,
             LanguageEnum::FRENCH,
         ));
     }
@@ -132,7 +132,7 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
     private function thenBothStatisticsShouldExist(): void
     {
         $firstStatistic = $this->statisticRepository->findByNameAndUserIdOrNull($this->statisticName, $this->user->getId())?->toArray();
-        $secondStatistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::NULL, $this->user->getId())?->toArray();
+        $secondStatistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EXTINGUISH_FIRE, $this->user->getId())?->toArray();
 
         self::assertNotNull($firstStatistic, 'First achievement should still exist');
         self::assertNotNull($secondStatistic, 'Second achievement should be created');
@@ -147,12 +147,12 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
 
     private function whenIncrementingStatisticForBothUsers(): void
     {
-        $this->incrementUserStatistic->__invoke(new IncrementUserStatisticCommand(
+        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
             $this->user->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
         ));
-        $this->incrementUserStatistic->__invoke(new IncrementUserStatisticCommand(
+        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
             $this->user2->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,

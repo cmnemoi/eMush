@@ -25,5 +25,15 @@
         <target>Nombre d'incendies que vous avez signalés. Au feu !</target>
       </segment>
     </unit>
+    <unit id="extinguish_fire">
+      <segment id="name" state="translated">
+        <source>extinguish_fire.name</source>
+        <target>Extinction d'incendies</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>extinguish_fire.description</source>
+        <target>Nombre d'incendies que vous avez éteints.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

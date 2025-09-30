@@ -14,6 +14,7 @@ abstract class StatisticConfigData
     public static function getAll(): array
     {
         return [
+            new StatisticConfigDto(StatisticEnum::EXTINGUISH_FIRE),
             new StatisticConfigDto(StatisticEnum::PLANET_SCANNED),
             new StatisticConfigDto(StatisticEnum::SIGNAL_FIRE),
         ];

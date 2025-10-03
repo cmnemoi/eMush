@@ -30,6 +30,7 @@ export const enum StatisticEnum {
     GAGGED = "gagged",
     GIVE_MISSION = "give_mission",
     NEW_PLANTS = "new_plants",
+    GAME_WITHOUT_SLEEP = "game_without_sleep",
     PLANET_SCANNED = "planet_scanned",
     SIGNAL_EQUIP = "signal_equip",
     SIGNAL_FIRE = "signal_fire",
@@ -126,6 +127,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.NEW_PLANTS]: {
         'icon': getImgUrl('status/plant_youngling.png')
+    },
+    [StatisticEnum.GAME_WITHOUT_SLEEP]: {
+        'icon': getImgUrl('achievements/game_without_sleep.png')
     },
     [StatisticEnum.PLANET_SCANNED]: {
         'icon': getImgUrl('achievements/planet_scanned.png')

@@ -175,6 +175,21 @@ abstract class AchievementConfigData
                 threshold: 1,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::GAME_WITHOUT_SLEEP_1,
+                points: 5,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::GAME_WITHOUT_SLEEP_20,
+                points: 5,
+                threshold: 20,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::GAME_WITHOUT_SLEEP_100,
+                points: 5,
+                threshold: 100,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

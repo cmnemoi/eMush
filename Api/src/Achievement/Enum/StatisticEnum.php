@@ -19,6 +19,7 @@ enum StatisticEnum: string
     case GAGGED = 'gagged';
     case GIVE_MISSION = 'give_mission';
     case NEW_PLANTS = 'new_plants';
+    case GAME_WITHOUT_SLEEP = 'game_without_sleep';
     case PLANET_SCANNED = 'planet_scanned';
     case SIGNAL_EQUIP = 'signal_equip';
     case SIGNAL_FIRE = 'signal_fire';

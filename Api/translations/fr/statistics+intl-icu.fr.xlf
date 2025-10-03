@@ -953,5 +953,27 @@
         <target>As des As de l'esp-As</target>
       </segment>
     </unit>
+    <unit id="game_without_sleep">
+      <segment id="name" state="translated">
+        <source>game_without_sleep.name</source>
+        <target>Jours sans s'endormir</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>game_without_sleep.description</source>
+        <target>Nombre de voyages que vous avez effectués sans jamais vous endormir. Ce trophée n'est accordé que si vous survivez au delà du jour 6.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>game_without_sleep_1.name</source>
+        <target>Éveillé</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>game_without_sleep_20.name</source>
+        <target>Insomniaque</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>game_without_sleep_100.name</source>
+        <target>Extralucide</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

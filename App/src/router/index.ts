@@ -35,6 +35,7 @@ import ModerationShipViewPage from "@/components/Moderation/ModerationShipViewPa
 import { User } from "@/entities/User";
 import NotFoundPage from "@/components/NotFoundPage.vue";
 import FakeAdminPage from "@/components/FakeAdminPage.vue";
+import ModerationBanAllUsers from "@/components/Moderation/ModerationBanAllUsers.vue";
 
 const routes = [
     {
@@ -269,6 +270,11 @@ const routes = [
                 name: "ModerationUserDetail",
                 path: 'user/:userId',
                 component: UserDetailPage
+            },
+            {
+                name: "ModerationBanAllUsers",
+                path: 'ban-all-users',
+                component: ModerationBanAllUsers
             }
         ]
     },

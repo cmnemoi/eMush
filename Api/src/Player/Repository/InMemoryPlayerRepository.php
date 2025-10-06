@@ -101,4 +101,16 @@ final class InMemoryPlayerRepository implements PlayerRepositoryInterface
 
         return null;
     }
+
+    public function findByUser(User $user): ?Player
+    {
+        /** @var Player $player */
+        foreach ($this->players as $player) {
+            if ($player->getPlayerInfo()->getUser()->getId() === $user->getId()) {
+                return $player;
+            }
+        }
+
+        return null;
+    }
 }

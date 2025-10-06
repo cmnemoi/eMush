@@ -60,6 +60,13 @@ const ModerationService = {
 
         return response;
     },
+    banAllUsers: async(params: { userUuids: string[], reason: string, message: string, durationDays: number | null }): Promise<any> => {
+        await store.dispatch('gameConfig/setLoading', { loading: true });
+        const response = await ApiService.post(MODERATION_ENDPOINT + '/ban-all-users', params);
+        await store.dispatch('gameConfig/setLoading', { loading: false });
+
+        return response;
+    },
     getChannelMessages: async(channel: Channel, filters: { startDate: string, endDate: string, messageContent?: string, author?: string } ): Promise<Message[]> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const queryParameters = `pagination=false&channel.id=${channel.id}`

@@ -98,4 +98,19 @@ class PlayerRepository extends ServiceEntityRepository implements PlayerReposito
 
         return $player instanceof Player ? $player : null;
     }
+
+    public function findByUser(User $user): ?Player
+    {
+        $queryBuilder = $this->createQueryBuilder('player');
+
+        $queryBuilder
+            ->innerJoin('player.playerInfo', 'playerInfo')
+            ->where($queryBuilder->expr()->eq('playerInfo.user', ':user'))
+            ->setParameter('user', $user)
+            ->setMaxResults(1);
+
+        $player = $queryBuilder->getQuery()->getOneOrNullResult();
+
+        return $player instanceof Player ? $player : null;
+    }
 }

@@ -211,6 +211,7 @@ span.tippy-tooltip {
 .in-game-level {
     width: 52px;
     height: 35px;
+    min-width: 52px;
     border: 1px solid rgba(4, 21, 156, 1);
     border-radius: 4px;
     margin: auto;
@@ -225,6 +226,7 @@ span.tippy-tooltip {
     position: relative;
     width: 11px;
     height: 33px;
+    min-width: 11px;
     z-index: 2;
     margin: 1px;
     margin-left: -10px;

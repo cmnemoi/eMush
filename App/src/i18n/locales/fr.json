@@ -804,7 +804,8 @@
 		},
 		"userList": {
 			"userId": "Identifiant de l'utilisateur",
-			"roles": "Rôles"
+			"roles": "Rôles",
+			"createdAt": "Date de création"
 		},
 		"sanction": {
 			"id": "Numéro",

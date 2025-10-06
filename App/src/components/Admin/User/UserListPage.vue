@@ -76,12 +76,7 @@ import { User } from "@/entities/User";
 import ModerationActionPopup from "@/components/Moderation/ModerationActionPopup.vue";
 
 interface UserListData {
-    fields: [
-        { key: string; name: string; },
-        { key: string; name: string; },
-        { key: string; name: string; },
-        { key: string; name: string; sortable: false; slot: true; }
-    ],
+    fields: { key: string; name: string; sortable?: boolean; slot?: boolean; }[],
     pagination: { currentPage: number; pageSize: number; totalItem: number; totalPage: number; };
     rowData: never[];
     filter: string;
@@ -116,6 +111,10 @@ export default defineComponent({
                 {
                     key: 'userId',
                     name: 'moderation.userList.userId'
+                },
+                {
+                    key: 'createdAt',
+                    name: 'moderation.userList.createdAt'
                 },
                 {
                     key: 'roles',

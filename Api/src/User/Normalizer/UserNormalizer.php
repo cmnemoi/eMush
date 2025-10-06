@@ -59,6 +59,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
             'roles' => $user->getRoles(),
             'isBanned' => $user->isBanned(),
             'hasAcceptedRules' => $user->hasAcceptedRules(),
+            'createdAt' => $user->getCreatedAt()?->format('Y-m-d H:i:s'),
         ];
     }
 }

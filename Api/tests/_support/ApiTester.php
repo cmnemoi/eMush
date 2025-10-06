@@ -31,26 +31,19 @@ class ApiTester extends Actor
 {
     use _generated\ApiTesterActions;
 
-    public const USER = 'user';
-    public const ADMIN = 'admin';
+    public const string USER = 'user';
+    public const string MODERATOR = 'moderator';
+    public const string ADMIN = 'admin';
 
     public function loginUser(string|User $user)
     {
         if (!$user instanceof User) {
-            switch ($user) {
-                case self::USER:
-                    $user = $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::USER]]);
-
-                    break;
-
-                case self::ADMIN:
-                    $user = $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::ADMIN]]);
-
-                    break;
-
-                default:
-                    $user = $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122()]);
-            }
+            $user = match ($user) {
+                self::USER => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::USER]]),
+                self::ADMIN => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::ADMIN]]),
+                self::MODERATOR => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::MODERATOR]]),
+                default => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122()]),
+            };
         }
 
         /** @var JWTManager $jwtManagerService */

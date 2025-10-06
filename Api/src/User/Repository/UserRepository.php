@@ -38,6 +38,15 @@ final class UserRepository extends ServiceEntityRepository implements UserLoader
         return parent::findAll();
     }
 
+    public function findByUuids(array $uuids): array
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.userId IN (:uuids)')
+            ->setParameter('uuids', $uuids)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function loadUserByUsername(string $username): ?User
     {
         $user = $this->findOneBy(['username' => $username]);

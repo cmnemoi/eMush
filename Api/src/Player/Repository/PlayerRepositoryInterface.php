@@ -29,4 +29,6 @@ interface PlayerRepositoryInterface
     public function findOneByNameAndDaedalus(string $name, Daedalus $daedalus): ?Player;
 
     public function findOneByUserAndDaedalus(User $user, Daedalus $daedalus): ?Player;
+
+    public function findByUser(User $user): ?Player;
 }

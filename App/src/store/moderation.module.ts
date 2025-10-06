@@ -91,6 +91,17 @@ const actions: ActionTree<any, any> = {
             await dispatch('error/setError', error, { root: true });
             await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
         }
+    },
+    async banAllUsers({ dispatch }, params) {
+        try {
+            await ModerationService.banAllUsers(params);
+            return true;
+        } catch (error) {
+            console.error(error);
+            await dispatch('error/setError', error, { root: true });
+            await dispatch('toast/openErrorToast', store.getters['error/getError'].response.details, { root: true });
+            return false;
+        }
     }
 };
 

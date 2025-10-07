@@ -12,7 +12,7 @@
     >
         <p class='text-log'>
             <span v-html="formatText(roomLog.message)" v-if="roomLog.message"/>
-            <table class="table-log" v-if="roomLog.tableLog.length > 0">
+            <table class="table-log" v-if="roomLog.tableLog?.length > 0">
                 <tbody>
                     <tr v-for="(row, rowIndex) in tableEntries" :key="rowIndex">
                         <td v-for="(cell, cellIndex) in row.entry" :key="cellIndex">

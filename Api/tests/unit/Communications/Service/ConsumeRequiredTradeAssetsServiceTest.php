@@ -403,6 +403,7 @@ final class ConsumeRequiredTradeAssetsServiceTest extends TestCase
             $this->createPlayerRepositoryStub(),
             $this->createRoomLogServiceStub(),
             $this->createPlayerInfoRepositoryStub(),
+            false,
         );
     }
 

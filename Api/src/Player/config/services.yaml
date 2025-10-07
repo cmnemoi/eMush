@@ -1,4 +1,7 @@
 
+parameters:
+  env(ANTI_SPAM): 'true'
+
 services:
 
   _defaults:
@@ -30,3 +33,7 @@ services:
   Mush\Player\Repository\PlayerInfoRepositoryInterface: '@Mush\Player\Repository\PlayerInfoRepository'
   Mush\Player\Repository\PlayerRepositoryInterface: '@Mush\Player\Repository\PlayerRepository'
   Mush\Player\Repository\PlayerNotificationRepositoryInterface: '@Mush\Player\Repository\PlayerNotificationRepository'
+  Mush\Player\Service\PlayerServiceInterface: '@Mush\Player\Service\PlayerService'
+  Mush\Player\Service\PlayerService:
+    arguments:
+      $antiSpam: '%env(bool:ANTI_SPAM)%'

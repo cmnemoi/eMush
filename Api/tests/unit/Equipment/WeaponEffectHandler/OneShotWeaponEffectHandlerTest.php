@@ -39,6 +39,7 @@ final class OneShotWeaponEffectHandlerTest extends TestCase
                 playerRepository: new InMemoryPlayerRepository(),
                 roomLogService: self::createStub(RoomLogServiceInterface::class),
                 playerInfoRepository: self::createStub(PlayerInfoRepositoryInterface::class),
+                antiSpam: false,
             )
         );
     }

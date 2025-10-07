@@ -47,6 +47,7 @@ final class PlayerService implements PlayerServiceInterface
         private PlayerRepositoryInterface $playerRepository,
         private RoomLogServiceInterface $roomLogService,
         private PlayerInfoRepositoryInterface $playerInfoRepository,
+        private bool $antiSpam,
     ) {}
 
     public function persist(Player $player): Player
@@ -129,6 +130,9 @@ final class PlayerService implements PlayerServiceInterface
     {
         try {
             $this->playerRepository->startTransaction();
+            if ($this->antiSpam && $user->getCreatedAt() > new \DateTime('24 hours ago')) {
+                throw new \Exception('User too recent to play');
+            }
 
             // Lock Daedalus to prevent concurrent player creation
             $daedalus = $this->daedalusRepository->lockAndRefresh($daedalus);

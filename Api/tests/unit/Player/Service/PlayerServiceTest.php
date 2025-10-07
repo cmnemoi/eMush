@@ -76,6 +76,7 @@ final class PlayerServiceTest extends TestCase
             playerRepository: $this->playerRepository,
             roomLogService: $this->roomLogService,
             playerInfoRepository: $this->playerInfoRepository,
+            antiSpam: false,
         );
     }
 

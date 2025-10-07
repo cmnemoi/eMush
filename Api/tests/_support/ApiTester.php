@@ -9,6 +9,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * Inherited Methods.

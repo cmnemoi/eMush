@@ -115,29 +115,6 @@ translations-lint:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes: ["Api/**/*.xlf"]
-    
-
-api-test-develop:
-  <<: *php_with_db_template
-  stage: test
-  tags:
-    - saas-linux-large-amd64
-  needs:
-    - job: build-front
-  script:
-    - pecl install pcov && docker-php-ext-enable pcov
-    - php -dpcov.enabled=1 -dpcov.directory=src vendor/bin/codecept run --xml --html --coverage --coverage-html --no-colors
-  coverage: '/^\s+Lines:\s+(\d+\.\d+)%/'
-  artifacts:
-    when: always
-    expire_in: 1 week
-    paths:
-      - Api/tests/_output
-    # make the report available in Gitlab UI. see https://docs.gitlab.com/ee/ci/unit_test_reports.html
-    reports:
-      junit: Api/tests/_output/report.xml
-  only:
-    - develop
 
 front-lint:
   <<: *node_template
@@ -168,7 +145,7 @@ front-test:
     - if: '$CI_COMMIT_BRANCH == "develop"'
     
 # Generate a CHANGELOG.md file and create a new release on GitLab while merging to master
-release:
+generate-changelog:
   image: node:lts
   stage: release
   before_script:
@@ -188,3 +165,15 @@ release:
     - semantic-release --branches master -t $version -p @semantic-release/changelog @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/gitlab 
   only:
     - master
+
+deploy-staging:
+  stage: release
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - sh ./.gitlab/scripts/deploy_staging.sh
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - develop

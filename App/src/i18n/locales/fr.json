@@ -755,7 +755,24 @@
 	"moderation": {
 		"banner": {
 			"players": "Joueurs",
-			"users": "Utilisateurs"
+			"users": "Utilisateurs",
+			"banAllUsers": "Bannir plusieurs utilisateurs"
+		},
+		"banAllUsers": {
+			"title": "Bannir plusieurs utilisateurs",
+			"description": "Vous pouvez bannir plusieurs utilisateurs en une seule fois en copiant leurs identifiants dans la zone de texte ci-dessous.",
+			"uuidsLabel": "identifiants des utilisateurs",
+			"uuidsPlaceholder": "Coller les identifiants des utilisateurs (un par ligne ou séparés par des virgules)",
+			"uuidsHelp": "Copiez les identifiants des utilisateurs à bannir, un par ligne ou séparés par des virgules.",
+			"reasonLabel": "Motif",
+			"messageLabel": "Message",
+			"messagePlaceholder": "Message explicatif pour les utilisateurs",
+			"durationLabel": "Durée (en jours)",
+			"submit": "Bannir les utilisateurs",
+			"submitting": "Bannissement en cours...",
+			"success": "{count} utilisateur(s) banni(s) avec succès",
+			"error": "Erreur lors du bannissement des utilisateurs",
+			"noUuidsError": "Aucun identifiant valide trouvé"
 		},
 		"filters": {
 			"cycle": "Cycle",

@@ -6,54 +6,43 @@
 </template>
 
 
-<script lang="ts">
-import { Player } from "@/entities/Player";
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { Player } from '@/entities/Player';
 
-interface PhaserShipState {
-    downloaded: boolean,
-    gameInstance: null | Phaser.Game,
-    containerId: string
+interface Props {
+    player: Player;
 }
 
-export default defineComponent ({
-    name: 'Game',
-    data(): PhaserShipState {
-        return {
-            downloaded: false,
-            gameInstance: null,
-            containerId: 'game-container'
-        };
-    },
-    props: {
-        player: {
-            type: Player,
-            required: true
-        }
-    },
-    async mounted() {
-        if (this.gameInstance) return;
+const props = defineProps<Props>();
 
-        const phaserScene = await import("@/game/game");
-        this.downloaded = true;
+const downloaded = ref(false);
+const gameInstance = ref<Phaser.Game | null>(null);
+const container = ref<HTMLDivElement>();
 
-        // Make sure the container is ready
-        await this.$nextTick();
+onMounted(async () => {
+    if (gameInstance.value) return;
 
-        // Remove old scene
-        const sceneContainer = this.$refs.container as HTMLDivElement | undefined;
-        if (!sceneContainer) return;
-        while (sceneContainer.firstChild) sceneContainer.removeChild(sceneContainer.firstChild);
+    const phaserScene = await import('@/game/game');
+    downloaded.value = true;
 
-        // Launch new scene
-        this.gameInstance = phaserScene.launch(sceneContainer, this.player);
-    },
-    beforeUnmount() {
-        // Delete scene before destroying the container
-        if (this.gameInstance !== null) {
-            this.gameInstance.destroy(true);
-            this.gameInstance = null;
-        }
+    // Make sure the container is ready
+    await nextTick();
+
+    // Remove old scene
+    const sceneContainer = container.value;
+    if (!sceneContainer) return;
+    while (sceneContainer.firstChild) sceneContainer.removeChild(sceneContainer.firstChild);
+
+    // Launch new scene
+    gameInstance.value = phaserScene.launch(sceneContainer, props.player);
+});
+
+onBeforeUnmount(() => {
+    // Delete scene before destroying the container
+    if (gameInstance.value !== null) {
+        gameInstance.value.destroy(true);
+        gameInstance.value = null;
     }
 });
 </script>

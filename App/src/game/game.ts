@@ -26,7 +26,7 @@ function launch(containerId: any, player: Player): Phaser.Game {
             target: 60,
             min: 30,
             smoothStep: true,
-            panicMax: 0,
+            panicMax: 10,
             forceSetTimeOut: false
         },
         plugins: {
@@ -48,11 +48,6 @@ function launch(containerId: any, player: Player): Phaser.Game {
             }
         }
     });
-
-    game.events.on(Phaser.Core.Events.BLUR, () => game.loop.sleep());
-    game.events.on(Phaser.Core.Events.FOCUS, () => game.loop.wake());
-    game.events.on(Phaser.Core.Events.HIDDEN, () => game.loop.sleep());
-    game.events.on(Phaser.Core.Events.VISIBLE, () => game.loop.wake());
 
     return game;
 }

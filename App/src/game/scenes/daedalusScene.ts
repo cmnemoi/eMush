@@ -835,7 +835,10 @@ export default class DaedalusScene extends Phaser.Scene
             starSpeed = 1000;
             starFrequency = 50;
         }
-        this.textures.generate('star_particles', { data: ['2'] });
+
+        if (!this.textures.exists('star_particles')) {
+            this.textures.generate('star_particles', { data: ['2'] });
+        }
 
         const gameLimits = new Phaser.Geom.Rectangle(
             -10, -10,

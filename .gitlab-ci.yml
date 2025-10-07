@@ -173,7 +173,5 @@ deploy-staging:
     - apk add --no-cache curl jq
   script:
     - sh ./.gitlab/scripts/deploy_staging.sh
-  variables:
-    GIT_STRATEGY: none
   only:
     - develop

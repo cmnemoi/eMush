@@ -30,7 +30,8 @@ services:
       '%env(OAUTH_CLIENT_ID)%',
       '%env(OAUTH_SECRET_ID)%',
       '%env(ADMIN)%',
-      '%env(APP_ENV)%'
+      '%env(APP_ENV)%',
+      '%env(APP_SECRET)%',
     ]
 
   Mush\User\Repository\UserRepositoryInterface: '@Mush\User\Repository\UserRepository'

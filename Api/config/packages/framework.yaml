@@ -20,3 +20,5 @@ framework:
         enable_annotations: false
         mapping:
             paths: ['%kernel.project_dir%/config/api_platform/serialization']
+
+    trusted_headers: ['x-forwarded-for', 'forwarded']

@@ -11,6 +11,7 @@ use Mush\MetaGame\Service\ModerationService;
 use Mush\MetaGame\Service\ModerationServiceInterface;
 use Mush\Player\Service\PlayerServiceInterface;
 use Mush\User\Entity\User;
+use Mush\User\Repository\BannedIpRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,9 +36,10 @@ final class ModerationServiceTest extends TestCase
         $this->translationService = \Mockery::mock(TranslationServiceInterface::class);
 
         $this->service = new ModerationService(
-            $this->entityManager,
-            self::createStub(PlayerServiceInterface::class),
-            $this->translationService
+            entityManager: $this->entityManager,
+            playerService: self::createStub(PlayerServiceInterface::class),
+            translationService: $this->translationService,
+            bannedIpRepository: self::createStub(BannedIpRepositoryInterface::class),
         );
     }
 

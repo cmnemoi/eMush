@@ -60,7 +60,7 @@ const ModerationService = {
 
         return response;
     },
-    banAllUsers: async(params: { userUuids: string[], reason: string, message: string, durationDays: number | null }): Promise<any> => {
+    banAllUsers: async(params: { userUuids: string[], reason: string, message: string, durationDays: number | null, byIp: boolean }): Promise<any> => {
         await store.dispatch('gameConfig/setLoading', { loading: true });
         const response = await ApiService.post(MODERATION_ENDPOINT + '/ban-all-users', params);
         await store.dispatch('gameConfig/setLoading', { loading: false });

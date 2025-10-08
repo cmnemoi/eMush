@@ -21,6 +21,7 @@ interface ModerationServiceInterface
         ?string $message = null,
         ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
+        bool $byIp = false
     ): User;
 
     public function editClosedPlayerMessage(

@@ -3,6 +3,7 @@
 namespace Mush\User\Voter;
 
 use Mush\User\Entity\User;
+use Mush\User\Repository\BannedIpRepositoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
@@ -20,12 +21,10 @@ final class UserVoter extends Voter
     public const string USER_IN_GAME = 'user_in_game';
     public const string IS_REQUEST_USER = 'IS_REQUEST_USER';
 
-    private RoleHierarchyInterface $roleHierarchy;
-
-    public function __construct(RoleHierarchyInterface $roleHierarchy)
-    {
-        $this->roleHierarchy = $roleHierarchy;
-    }
+    public function __construct(
+        private BannedIpRepositoryInterface $bannedIpRepository,
+        private RoleHierarchyInterface $roleHierarchy
+    ) {}
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -54,12 +53,14 @@ final class UserVoter extends Voter
             return false;
         }
 
+        $ipBanned = $this->bannedIpRepository->hasAny($user->getHashedIps());
+
         return match ($attribute) {
             self::USER_IN_GAME => $user->isInGame(),
             self::EDIT_USER_ROLE => $this->canEditUserRole($subject, $token),
             self::NOT_IN_GAME => !$user->isInGame(),
             self::HAS_ACCEPTED_RULES => $user->hasAcceptedRules(),
-            self::IS_NOT_BANNED => !$user->isBanned(),
+            self::IS_NOT_BANNED => !$user->isBanned() && !$ipBanned,
             self::IS_CONNECTED => $user instanceof User,
             self::IS_REQUEST_USER => $user->getUserId() === $subject->getUserId(),
             default => throw new \LogicException('This code should not be reached!'),

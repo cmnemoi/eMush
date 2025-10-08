@@ -56,6 +56,9 @@ class User implements UserInterface
     #[ORM\Column(type: 'datetime', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private \DateTime $lastActivityAt;
 
+    #[ORM\Column(type: 'json', nullable: false, options: ['default' => '{}'])]
+    private array $hashedIps = [];
+
     public function __construct()
     {
         $this->moderationSanctions = new ArrayCollection();
@@ -255,5 +258,19 @@ class User implements UserInterface
     public function lastActivityFromTwoDaysAgoOrLater(): bool
     {
         return $this->lastActivityAt <= new \DateTime('-2 days');
+    }
+
+    public function getHashedIps(): array
+    {
+        return $this->hashedIps;
+    }
+
+    public function addHashedIp(string $ip): self
+    {
+        if (!\in_array($ip, $this->hashedIps, true)) {
+            $this->hashedIps[] = $ip;
+        }
+
+        return $this;
     }
 }

@@ -8,6 +8,7 @@ use Mush\MetaGame\Enum\ModerationSanctionEnum;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
 use Mush\User\Factory\UserFactory;
+use Mush\User\Repository\BannedIpRepositoryInterface;
 use Mush\User\Voter\UserVoter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -28,7 +29,10 @@ final class UserVoterTest extends TestCase
     {
         $this->roleHierarchy = \Mockery::mock(RoleHierarchyInterface::class);
 
-        $this->voter = new UserVoter($this->roleHierarchy);
+        $this->voter = new UserVoter(
+            roleHierarchy: $this->roleHierarchy,
+            bannedIpRepository: self::createStub(BannedIpRepositoryInterface::class),
+        );
     }
 
     protected function tearDown(): void

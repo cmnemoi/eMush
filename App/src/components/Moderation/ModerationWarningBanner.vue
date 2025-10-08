@@ -62,6 +62,7 @@ export default defineComponent({
     align-items: flex-end;
     padding: 10px;
     box-sizing: border-box;
+    z-index: 10;
 }
 
 .dummy_space {

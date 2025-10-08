@@ -141,12 +141,12 @@ final class FillDaedalusCommand extends Command
         return $boardedCount;
     }
 
-    private function onboardCharacter(string $characterName, Daedalus $daedalus, SymfonyStyle $io): void
+    private function onboardCharacter(string $characterName, Daedalus $daedalus): void
     {
         $sessionId = $this->authenticateAndGetSessionId($characterName);
         $authorizationCode = $this->fetchAuthorizationCode($sessionId);
         $firstToken = $this->loginService->verifyCode($authorizationCode);
-        $user = $this->loginService->login($firstToken);
+        $user = $this->loginService->login($firstToken, ip: $this->getClientIp());
         $this->playerService->createPlayer($daedalus, $user, $characterName);
     }
 
@@ -279,7 +279,7 @@ final class FillDaedalusCommand extends Command
         }
 
         try {
-            $this->onboardCharacter($characterName, $daedalus, $io);
+            $this->onboardCharacter($characterName, $daedalus);
             $io->info($characterName . ' joined Daedalus ' . $daedalus->getId() . '!');
 
             return 1;
@@ -320,5 +320,12 @@ final class FillDaedalusCommand extends Command
         }
 
         return $authorizationCode;
+    }
+
+    private function getClientIp(): string
+    {
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+
+        return $ip;
     }
 }

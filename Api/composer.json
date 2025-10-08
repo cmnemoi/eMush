@@ -46,6 +46,7 @@
         "symfony/property-access": "6.4.*",
         "symfony/property-info": "6.4.*",
         "symfony/proxy-manager-bridge": "6.4.*",
+        "symfony/runtime": "6.4.*",
         "symfony/security-bundle": "6.4.*",
         "symfony/serializer": "6.4.*",
         "symfony/translation": "6.4.*",
@@ -81,6 +82,7 @@
         "allow-plugins": {
             "php-http/discovery": false,
             "symfony/flex": true,
+            "symfony/runtime": true,
             "tbachert/spi": true
         }
     },

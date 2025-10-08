@@ -54,6 +54,15 @@
                 </select>
             </div>
 
+            <div class="form-group checkbox" v-if="durationValue === 'permanent'">
+                <label for="byIp">{{ $t('moderation.byIp') }}</label>
+                <input
+                    id="byIp"
+                    v-model="byIp"
+                    type="checkbox"
+                >
+            </div>
+
             <div class="form-actions">
                 <button type="submit" class="btn-primary" :disabled="loading">
                     {{ loading ? $t('moderation.banAllUsers.submitting') : $t('moderation.banAllUsers.submit') }}
@@ -80,6 +89,7 @@ const userUuids = ref('');
 const reason = ref('');
 const message = ref('');
 const durationValue = ref('permanent');
+const byIp = ref(false);
 const loading = ref(false);
 const result = ref<{ type: 'success' | 'error', message: string } | null>(null);
 
@@ -116,7 +126,8 @@ const handleSubmit = async () => {
         userUuids: uuids,
         reason: reason.value,
         message: message.value,
-        durationDays: durationDays.value
+        durationDays: durationDays.value,
+        byIp: byIp.value
     });
 
     if (success) {
@@ -210,6 +221,22 @@ const handleSubmit = async () => {
             margin-top: 0.5em;
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9em;
+        }
+
+        &.checkbox {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+
+            label {
+                margin-bottom: 0;
+                margin-right: 1em;
+            }
+
+            input[type="checkbox"] {
+                width: auto;
+            }
         }
     }
 

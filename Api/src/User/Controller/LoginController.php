@@ -66,7 +66,7 @@ class LoginController extends AbstractFOSRestController
             throw new UnauthorizedHttpException('Bad credentials');
         }
 
-        $user = $this->loginService->login($code);
+        $user = $this->loginService->login($code, $request->getClientIp());
 
         $token = $this->jwtManager->create($user);
 

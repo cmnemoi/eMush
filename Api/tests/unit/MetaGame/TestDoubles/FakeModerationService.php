@@ -28,6 +28,7 @@ final class FakeModerationService implements ModerationServiceInterface
         ?string $message = null,
         ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
+        bool $byIp = false
     ): User {
         $endDate = null;
         if ($duration !== null) {

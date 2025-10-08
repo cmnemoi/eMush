@@ -12,6 +12,7 @@ stages:
       - "Api/.psalm/"
   before_script:
     - php -v
+    - echo 'memory_limit=256M' > /usr/local/etc/php/conf.d/ci-memory.ini
     - cd Api
     # Install all project dependencies
     - composer install --ignore-platform-req=ext-protobuf
@@ -27,6 +28,7 @@ stages:
     POSTGRES_PASSWORD: "password"
   before_script:
     - php -v
+    - echo 'memory_limit=256M' > /usr/local/etc/php/conf.d/ci-memory.ini
     - cd Api
     # Install all project dependencies
     - composer install --ignore-platform-req=ext-protobuf

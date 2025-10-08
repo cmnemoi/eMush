@@ -87,6 +87,14 @@ final class ModerationController extends AbstractFOSRestController
      *       @OA\Schema(type="string", format="string", nullable=true)
      *  )
      *
+     *  @OA\Parameter(
+     *       name="byIp",
+     *       in="query",
+     *       description="Whether we should also ban the user's IPs",
+     *
+     *       @OA\Schema(type="boolean")
+     *  )
+     *
      * @OA\Tag(name="Moderation")
      *
      * @Security(name="Bearer")
@@ -123,6 +131,7 @@ final class ModerationController extends AbstractFOSRestController
             message: $request->get('adminMessage', null),
             startingDate: $startDate,
             duration: $duration,
+            byIp: (bool) $request->get('byIp')
         );
 
         return $this->view(['detail' => 'User banned successfully'], Response::HTTP_OK);

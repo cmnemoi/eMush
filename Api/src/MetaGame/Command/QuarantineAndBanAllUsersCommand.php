@@ -15,5 +15,6 @@ final readonly class QuarantineAndBanAllUsersCommand
         public string $message = '',
         public \DateTime $startingDate = new \DateTime(),
         public ?\DateInterval $duration = null,
+        public bool $byIp = false,
     ) {}
 }

@@ -16,23 +16,18 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Player\Service\PlayerServiceInterface;
+use Mush\User\Entity\BannedIp;
 use Mush\User\Entity\User;
+use Mush\User\Repository\BannedIpRepositoryInterface;
 
 final class ModerationService implements ModerationServiceInterface
 {
-    private EntityManagerInterface $entityManager;
-    private PlayerServiceInterface $playerService;
-    private TranslationServiceInterface $translationService;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        PlayerServiceInterface $playerService,
-        TranslationServiceInterface $translationService
-    ) {
-        $this->entityManager = $entityManager;
-        $this->playerService = $playerService;
-        $this->translationService = $translationService;
-    }
+        private BannedIpRepositoryInterface $bannedIpRepository,
+        private EntityManagerInterface $entityManager,
+        private PlayerServiceInterface $playerService,
+        private TranslationServiceInterface $translationService,
+    ) {}
 
     public function editClosedPlayerMessage(
         ClosedPlayer $closedPlayer,
@@ -110,7 +105,14 @@ final class ModerationService implements ModerationServiceInterface
         ?string $message = null,
         ?\DateTime $startingDate = null,
         ?\DateInterval $duration = null,
+        bool $byIp = false
     ): User {
+        if ($byIp) {
+            foreach ($user->getHashedIps() as $hashedIp) {
+                $this->bannedIpRepository->save(new BannedIp($hashedIp));
+            }
+        }
+
         return $this->addSanctionEntity(
             user: $user,
             player: null,

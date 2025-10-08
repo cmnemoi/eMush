@@ -30,6 +30,9 @@
                 </option>
             </select>
         </label>
+        <label v-if="['quarantine_ban', 'ban_user'].includes(action.value) && moderationDuration === ''">{{ $t("moderation.byIp") }}:
+            <input type="checkbox" v-model="moderationIpBan" />
+        </label>
         <div class="actions" v-if="moderationReason && moderationMessage">
             <button class="action-button" @click="submitSanction">{{ $t("moderation.confirmSanction") }}</button>
         </div>
@@ -51,7 +54,8 @@ export default {
             moderationReason: "",
             moderationMessage: "",
             moderationStartDate: "",
-            moderationDuration: ""
+            moderationDuration: "",
+            moderationIpBan: false
         };
     },
     computed: {
@@ -74,6 +78,7 @@ export default {
             const params = new URLSearchParams();
 
             params.append('reason', this.moderationReason);
+            params.append('byIp', this.moderationIpBan);
             if (this.moderationMessage) {
                 params.append('adminMessage', this.moderationMessage);
             }

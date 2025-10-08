@@ -984,7 +984,8 @@
 		"suspendSanction": "Suspendre la sanction",
 		"suspendSanctionDescription": "Suspendre la sanction. La date de fin est définie à la date courante. La sanction reste dans l'historique de l'utilisateur",
 		"removeSanction": "Supprimer la sanction",
-		"removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur"
+		"removeSanctionDescription": "Supprimer la sanction. La sanction est complétement supprimée de l'historique de l'utilisateur",
+		"byIp": "Bannir par IPs"
 	},
 	"rules": {
 		"title": "Règlement de eMush",

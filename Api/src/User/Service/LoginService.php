@@ -21,6 +21,7 @@ class LoginService
     private string $admin;
     private string $appEnv;
     private string $etwinUri;
+    private string $appSecret;
 
     public function __construct(
         string $etwinUri,
@@ -31,14 +32,16 @@ class LoginService
         string $clientSecret,
         string $admin,
         string $appEnv,
+        string $appSecret,
         UserServiceInterface $userService,
-        JWTEncoderInterface $jwtEncoder
+        JWTEncoderInterface $jwtEncoder,
     ) {
         $this->userService = $userService;
         $this->etwinUri = $etwinUri;
         $this->jwtEncoder = $jwtEncoder;
         $this->admin = $admin;
         $this->appEnv = $appEnv;
+        $this->appSecret = $appSecret;
         $this->oauthClient = new RfcOauthClient(
             $authorizeUri,
             $tokenUri,
@@ -48,7 +51,7 @@ class LoginService
         );
     }
 
-    public function login(string $codeToken): User
+    public function login(string $codeToken, string $ip): User
     {
         try {
             $decodedToken = $this->jwtEncoder->decode($codeToken);
@@ -78,6 +81,10 @@ class LoginService
             $user->acceptRules();
             $user->readLatestNews();
         }
+
+        $user->addHashedIp(
+            hash_hmac('sha256', $ip, $this->appSecret)
+        );
 
         $this->userService->persist($user);
 

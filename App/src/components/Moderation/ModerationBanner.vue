@@ -4,7 +4,7 @@
         <router-link :to="{ name: 'ModerationUserList' }">{{ $t('moderation.banner.users') }}</router-link>
         <router-link :to="{ name: 'ModerationShipList' }">{{ $t('moderation.shipList') }}</router-link>
         <router-link :to="{ name: 'ModerationReportList' }">{{ $t('moderation.reportToAddress') }}</router-link>
-        <router-link :to="{ name: 'ModerationBanAllUsers' }">{{ $t('moderation.banAllUsers') }}</router-link>
+        <router-link :to="{ name: 'ModerationBanAllUsers' }">{{ $t('moderation.banner.banAllUsers') }}</router-link>
     </div>
 </template>
 

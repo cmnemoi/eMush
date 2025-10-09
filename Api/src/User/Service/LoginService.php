@@ -11,6 +11,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTDecodeFailureException;
 use Mush\User\Entity\User;
 use Mush\User\Enum\RoleEnum;
+use Mush\User\ValueObject\IpHash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class LoginService
@@ -82,9 +83,7 @@ class LoginService
             $user->readLatestNews();
         }
 
-        $user->addHashedIp(
-            hash_hmac('sha256', $ip, $this->appSecret)
-        );
+        $user->addHashedIp(IpHash::hashFor($ip, $this->appSecret));
 
         $this->userService->persist($user);
 

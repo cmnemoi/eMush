@@ -109,7 +109,9 @@ final class ModerationService implements ModerationServiceInterface
     ): User {
         if ($byIp) {
             foreach ($user->getHashedIps() as $hashedIp) {
-                $this->bannedIpRepository->save(new BannedIp($hashedIp));
+                if (!$this->bannedIpRepository->exists($hashedIp)) {
+                    $this->bannedIpRepository->save(new BannedIp($hashedIp));
+                }
             }
         }
 

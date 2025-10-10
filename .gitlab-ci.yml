@@ -172,6 +172,19 @@ deploy-staging:
   before_script:
     - apk add --no-cache curl jq
   script:
-    - sh ./.gitlab/scripts/deploy_staging.sh
+    - sh ./.gitlab/scripts/deploy.sh staging
   only:
     - develop
+
+deploy-production:
+  stage: release
+  image: alpine:latest
+  needs:
+    - job: generate-changelog
+  before_script:
+    - apk add --no-cache curl jq
+  script:
+    - sh ./.gitlab/scripts/deploy.sh production
+  when: manual
+  only:
+    - master

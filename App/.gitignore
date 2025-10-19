@@ -20,3 +20,7 @@ pnpm-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+# Ruffle
+public/ruffle/
+

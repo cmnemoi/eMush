@@ -76,6 +76,8 @@ final class PlantCycleHandlerTest extends TestCase
         $this->daedalus = DaedalusFactory::createDaedalus();
         $this->heatLamps = ProjectFactory::createHeatLampProjectForDaedalus($this->daedalus);
         $this->foodRetailer = ProjectFactory::createNeronProjectByNameForDaedalus(name: ProjectName::FOOD_RETAILER, daedalus: $this->daedalus);
+
+        $this->daedalus->getDaedalusConfig()->setHoliday(HolidayEnum::NONE);
     }
 
     /**

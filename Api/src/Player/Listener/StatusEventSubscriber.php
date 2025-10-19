@@ -24,7 +24,9 @@ use Mush\Player\ValueObject\PlayerHighlight;
 use Mush\RoomLog\Service\RoomLogService;
 use Mush\Skill\Service\DeletePlayerSkillService;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Event\StatusEvent;
+use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class StatusEventSubscriber implements EventSubscriberInterface
@@ -37,6 +39,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
         private PlayerRepositoryInterface $playerRepository,
         private RoomLogService $roomLogService,
         private readonly UpdatePlayerNotificationService $updatePlayerNotification,
+        private StatusServiceInterface $statusService,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -141,6 +144,7 @@ final class StatusEventSubscriber implements EventSubscriberInterface
             $this->markPlayerAsHuman($player);
         }
         $this->removePlayerSpores($player);
+        $this->statusService->removeStatus(SkillPointsEnum::SPORE_POINTS->toString(), $player, $event->getTags(), $event->getTime());
     }
 
     private function removePlayerSpores(Player $player): void

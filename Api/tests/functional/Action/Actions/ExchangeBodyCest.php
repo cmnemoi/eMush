@@ -25,6 +25,7 @@ use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Entity\Skill;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Enum\SkillPointsEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -274,6 +275,15 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
         $this->thenTargetPlayerShouldHaveHighlightTransferTargetHighlight($I);
     }
 
+    public function shouldNotHaveSporePointsAfterTransfer(FunctionalTester $I): void
+    {
+        $this->givenSourcePlayerHasFertile($I);
+
+        $this->whenSourceExchangesBodyWithTarget();
+
+        $this->thenSourcePlayerShouldNotHaveSporePoints($I);
+    }
+
     private function givenTargetPlayerHasShooterSkill(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->target);
@@ -381,6 +391,11 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
     private function givenSourcePlayerHasClosedNewMushNotification(): void
     {
         $this->source->deleteNotificationByMessage(PlayerNotificationEnum::WELCOME_MUSH->toString());
+    }
+
+    private function givenSourcePlayerHasFertile(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::FERTILE, $I, $this->source);
     }
 
     private function whenSourceTriesToExchangeBodyWithTarget(): void
@@ -557,5 +572,10 @@ final class ExchangeBodyCest extends AbstractFunctionalTest
             ],
             actual: $this->target->getPlayerInfo()->getPlayerHighlights()[0]->toArray(),
         );
+    }
+
+    private function thenSourcePlayerShouldNotHaveSporePoints(FunctionalTester $I): void
+    {
+        $I->assertFalse($this->source->hasStatus(SkillPointsEnum::SPORE_POINTS->toString()));
     }
 }

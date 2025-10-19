@@ -3245,7 +3245,7 @@ abstract class ModifierConfigData
             'applyOnTarget' => false,
             'modifierRange' => ModifierHolderClassEnum::PLAYER,
             'type' => 'variable_event_modifier',
-            'delta' => 1,
+            'delta' => 0.25,
             'targetVariable' => EquipmentStatusEnum::PLANT_YOUNG,
             'mode' => VariableModifierModeEnum::SET_VALUE,
             'modifierActivationRequirements' => [],

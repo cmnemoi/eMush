@@ -752,7 +752,7 @@
       </segment>
       <segment id="green_thumb.description" state="translated">
         <source>green_thumb.description</source>
-        <target>Plants grow naturally in your presence, you only require speaking to them with a languishing gaze for them to bear beautiful fruit.//:point: Starts the game with an additional **two pots**.//:point: **Hybrids** made by the Green Thumb start with a short growth cycle.</target>
+        <target>Plants grow naturally in your presence, you only require speaking to them with a languishing gaze for them to bear beautiful fruit.//:point: Starts the game with an additional **two pots**.//:point: Your **Hybridized plants** start at 25% of their total growth time.</target>
       </segment>
     </unit>
     <unit id="polyvalent">

@@ -761,7 +761,7 @@
       </segment>
       <segment id="green_thumb.description" state="translated">
         <source>green_thumb.description</source>
-        <target>Les plantes poussent naturellement en votre présence, vous n'avez qu'à leur adresser un regard langoureux pour qu'elles produisent leurs plus beaux fruits.//:point: Commence la partie avec **deux pots** supplémentaires.//:point: Les **greffes** de la Main Verte commencent avec un cycle de maturation court.</target>
+        <target>Les plantes poussent naturellement en votre présence, vous n'avez qu'à leur adresser un regard langoureux pour qu'elles produisent leurs plus beaux fruits.//:point: Commence la partie avec **deux pots** supplémentaires.//:point: Les **greffes** de la Main Verte commencent avec un quart de leur temps total de maturation.</target>
       </segment>
     </unit>
     <unit id="polyvalent">

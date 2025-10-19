@@ -111,9 +111,11 @@ final class Graft extends AbstractAction
             return;
         }
 
+        $status = $graftedFruitPlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG);
+
         $this->statusService->updateCharge(
-            chargeStatus: $graftedFruitPlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG),
-            delta: $this->greenThumbBonus(),
+            chargeStatus: $status,
+            delta: (int) ($status->getMaturationTimeOrThrow() * $this->greenThumbBonus()),
             tags: $this->getTags(),
             time: new \DateTime(),
             mode: VariableEventInterface::CHANGE_VARIABLE,
@@ -165,9 +167,9 @@ final class Graft extends AbstractAction
         return $this->target instanceof GameItem ? $this->target : throw new \RuntimeException('Target must be a GameItem');
     }
 
-    private function greenThumbBonus(): int
+    private function greenThumbBonus(): float
     {
-        return (int) $this->player
+        return $this->player
             ->getModifiers()
             ->getModifierByModifierNameOrThrow(ModifierNameEnum::GREEN_THUMB_MODIFIER)
             ->getVariableModifierConfigOrThrow()

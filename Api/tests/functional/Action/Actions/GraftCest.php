@@ -185,7 +185,7 @@ final class GraftCest extends AbstractFunctionalTest
 
         $this->whenChunGraftsOnBananaTree();
 
-        $this->thenAnemolePlantShouldHaveAge(1, $I);
+        $this->thenAnemolePlantShouldHaveAge(2, $I);
     }
 
     private function givenKuanTiHasABananaTree(): void

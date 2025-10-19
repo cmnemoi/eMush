@@ -1188,5 +1188,23 @@
         <target>The caffeine dosage from our beloved coffee machine is way too high to safely raise it any further. However, by carefully adding some guarana-based foam atop every expresso, it should be feasible to raise the energizing properties of our beloved drink just a bit higher.</target>
       </segment>
     </unit>
+    <unit id="zeta_waves">
+      <segment id="zeta_waves.type" state="translated">
+        <source>zeta_waves.type</source>
+        <target>Res.</target>
+      </segment>
+      <segment id="zeta_waves.name" state="translated">
+        <source>zeta_waves.name</source>
+        <target>Zeta waves transmitter</target>
+      </segment>
+      <segment id="zeta_waves.description" state="translated">
+        <source>zeta_waves.description</source>
+        <target>Increases by 2 the maximum number of **private channels**.</target>
+      </segment>
+      <segment id="zeta_waves.lore" state="initial">
+        <source>zeta_waves.lore</source>
+        <target>Based on the work of Eridiani's physicists, we can invent new zeta wave transmitters to increase the amount of frequencies we can use for communication. Now we merely need a way to be able to follow five conversations at once.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -12,5 +12,6 @@ enum ProjectRequirementType: string
     case ITEM_IN_LABORATORY = 'item_in_laboratory';
     case ITEM_IN_PLAYER_INVENTORY = 'item_in_player_inventory';
     case FOOD_IN_LABORATORY = 'food_in_laboratory';
+    case REBEL_BASE_DECODED = 'rebel_base_decoded';
     case GAME_STARTED = 'game_started';
 }

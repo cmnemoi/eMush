@@ -85,6 +85,20 @@
         <target>Nous saluons l'équipage du Daedalus. 61 Cygni a été exploré durant votre voyage. La fédération ne sait pas que l'intégralité de notre formation est humaine. Nous simulons des envois d'information réguliers a l'aide d'un Pheromodem évolué. En trompant la vigilance du Mush nous préparons la contre-attaque armée de la rébellion depuis ce système. Les plans de notre missile SP2SP-230 ont été transférés vers NERON.//**L'équipage gagne 3:pmo:.**//**Les dégâts des Patrouilleurs sont augmentés d'un point.**</target>
       </segment>
     </unit>
+    <unit id="eridiani">
+      <segment id="name" state="translated">
+        <source>eridiani.name</source>
+        <target>Eridiani</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>eridiani.hoverName</source>
+        <target>Message du Conseil d'Eridiani</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eridiani.description</source>
+        <target>Ici le Conseil d'Eridiani à l'intention du Daedalus. Ce message sera bref car la Fédération a piraté nos communications publiques. Nos physiciens ont commencé à travailler sur un nouveau type d'onde pour contourner le problème. Nous vous envoyons nos travaux.//**Débloque la recherche : Émetteur d'ondes zêta**.</target>
+      </segment>
+    </unit>
     <unit id="unknown">
       <segment id="name" state="translated">
         <source>unknown.name</source>

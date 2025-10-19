@@ -637,6 +637,7 @@ class GameConfigData
                     ProjectName::SUPER_CALCULATOR,
                     ProjectName::TESLA_SUP2X,
                     ProjectName::ULTRA_HEALING_POMADE,
+                    ProjectName::ZETA_WAVES,
                 ],
                 'skillConfigs' => [
                     SkillEnum::ANONYMUSH,
@@ -737,6 +738,7 @@ class GameConfigData
                     RebelBaseEnum::KALADAAN,
                     RebelBaseEnum::LUYTEN_CETI,
                     RebelBaseEnum::CYGNI,
+                    RebelBaseEnum::ERIDIANI,
                 ],
                 'xylophConfigs' => [
                     XylophEnum::BLUEPRINTS,

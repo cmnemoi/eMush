@@ -3581,6 +3581,18 @@ abstract class ModifierConfigData
             'eventActivationRequirements' => [],
         ],
         [
+            'name' => ModifierNameEnum::ERIDIANI_PLUS_2_MAX_PRIVATE_CHANNELS,
+            'modifierName' => null,
+            'revertOnRemove' => true,
+            'modifierRange' => ModifierHolderClassEnum::PLAYER,
+            'type' => 'direct_modifier',
+            'strategy' => ModifierStrategyEnum::DIRECT_MODIFIER,
+            'triggeredEvent' => EventConfigData::CHANGE_VALUE_PLUS_2_MAX_PRIVATE_CHANNELS,
+            'modifierActivationRequirements' => [],
+            'targetFilters' => [],
+            'eventActivationRequirements' => [],
+        ],
+        [
             'name' => ModifierNameEnum::FITFUL_SLEEP_MINUS_ONE_ACTION_POINT,
             'modifierName' => ModifierNameEnum::FITFUL_SLEEP,
             'targetEvent' => PlayerCycleEvent::PLAYER_NEW_CYCLE,

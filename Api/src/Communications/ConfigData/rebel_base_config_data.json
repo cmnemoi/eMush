@@ -49,5 +49,12 @@
             "cygni_plus_1_damage_patrol_ships"
         ],
         "statusConfig": null
+    },
+    {
+        "key": "eridiani_default",
+        "name": "eridiani",
+        "contactOrder": 7,
+        "modifierConfigs": [],
+        "statusConfig": null
     }
 ]

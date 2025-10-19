@@ -905,6 +905,21 @@ abstract class ProjectConfigData
                     ProjectRequirementName::COFFEE_IN_LABORATORY,
                 ],
             ],
+            [
+                'name' => ProjectName::ZETA_WAVES,
+                'type' => ProjectType::RESEARCH,
+                'efficiency' => 12,
+                'bonusSkills' => [SkillEnum::BIOLOGIST, SkillEnum::MEDIC],
+                'activationRate' => 100,
+                'modifierConfigs' => [
+                    ModifierNameEnum::ERIDIANI_PLUS_2_MAX_PRIVATE_CHANNELS,
+                ],
+                'spawnEquipmentConfigs' => [],
+                'replaceEquipmentConfigs' => [],
+                'requirements' => [
+                    ProjectRequirementName::ERIDIANI_DECODED,
+                ],
+            ],
         ];
     }
 }

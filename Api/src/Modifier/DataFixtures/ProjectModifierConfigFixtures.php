@@ -371,6 +371,16 @@ final class ProjectModifierConfigFixtures extends Fixture
         $this->manager->persist($guaranaCappuccinoModifier);
         $this->addReference($guaranaCappuccinoModifier->getName(), $guaranaCappuccinoModifier);
 
+        /** @var VariableEventConfig $eventConfig */
+        $eventConfig = $this->getReference(EventConfigData::CHANGE_VALUE_PLUS_2_MAX_PRIVATE_CHANNELS);
+
+        $EridianiMaxPrivateChannelsModifier = DirectModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::ERIDIANI_PLUS_2_MAX_PRIVATE_CHANNELS)
+        );
+        $EridianiMaxPrivateChannelsModifier->setTriggeredEvent($eventConfig);
+        $this->addReference($EridianiMaxPrivateChannelsModifier->getName(), $EridianiMaxPrivateChannelsModifier);
+        $this->manager->persist($EridianiMaxPrivateChannelsModifier);
+
         $this->manager->flush();
     }
 }

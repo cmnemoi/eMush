@@ -18,6 +18,7 @@ enum ProjectRequirementName: string
     case SCHRODINGER_IN_PLAYER_INVENTORY = 'schrodinger_in_player_inventory';
     case FOOD_IN_LABORATORY = 'food_in_laboratory';
     case COFFEE_IN_LABORATORY = 'coffee_in_laboratory';
+    case ERIDIANI_DECODED = 'eridiani_decoded';
     case GAME_STARTED = 'game_started';
 
     public function toString(): string

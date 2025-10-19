@@ -36,6 +36,14 @@ final class InMemoryRebelBaseRepository implements RebelBaseRepositoryInterface
         );
     }
 
+    public function findAllDecodedRebelBases(int $daedalusId): array
+    {
+        return array_filter(
+            $this->rebelBases,
+            static fn (RebelBase $rebelBase) => $rebelBase->isDecoded() && $rebelBase->getDaedalusId() === $daedalusId
+        );
+    }
+
     public function findByDaedalusIdAndNameOrThrow(int $daedalusId, RebelBaseEnum $name): RebelBase
     {
         $rebelBase = array_filter(

@@ -86,6 +86,20 @@
         <target>We salute the crew of the Daedalus. 61 Cygni was explored during your voyage. The Federation is unaware that the majority of our information came from human sources. We are simulating the transmission of regular information using an adapted Pheromodem. By circumventing the Mush surveillance using this system we are preparing the rebel counterattack, plans for our SP2SP-230 missile have been transferred to NERON.//**Provides 3:pmo: for all crew members.**//**Patrol ships' damage is increased by one point.**</target>
       </segment>
     </unit>
+      <unit id="eridiani">
+      <segment id="name" state="translated">
+        <source>eridiani.name</source>
+        <target>Eridiani</target>
+      </segment>
+      <segment id="hoverName" state="translated">
+        <source>eridiani.hoverName</source>
+        <target>Message from the Council of Eridiani</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eridiani.description</source>
+        <target>Council of Eridiani to Daedalus. This message will be brief as the Federation has pirated our public communications. Our physicists have started working on a new type of wavelength as a workaround. We are sending you their work.//**Unlock the research: Zeta waves transmitter**.</target>
+      </segment>
+    </unit>
     <unit id="unknown">
       <segment id="name" state="translated">
         <source>unknown.name</source>

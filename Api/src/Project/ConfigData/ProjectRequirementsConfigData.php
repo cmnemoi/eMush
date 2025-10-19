@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Project\ConfigData;
 
+use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Equipment\Enum\GearItemEnum;
 use Mush\Equipment\Enum\ItemEnum;
@@ -79,6 +80,11 @@ abstract class ProjectRequirementsConfigData
                 name: ProjectRequirementName::COFFEE_IN_LABORATORY,
                 type: ProjectRequirementType::ITEM_IN_LABORATORY,
                 target: GameRationEnum::COFFEE,
+            ),
+            new ProjectRequirementConfigDto(
+                name: ProjectRequirementName::ERIDIANI_DECODED,
+                type: ProjectRequirementType::REBEL_BASE_DECODED,
+                target: RebelBaseEnum::ERIDIANI->toString(),
             ),
             new ProjectRequirementConfigDto(
                 name: ProjectRequirementName::GAME_STARTED,

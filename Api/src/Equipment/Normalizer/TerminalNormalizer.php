@@ -9,6 +9,7 @@ use Mush\Action\Actions\AbstractMoveDaedalusAction;
 use Mush\Action\Actions\AdvanceDaedalus;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Normalizer\ActionHolderNormalizerTrait;
+use Mush\Communications\Collection\RebelBaseCollection;
 use Mush\Communications\Repository\LinkWithSolRepositoryInterface;
 use Mush\Communications\Repository\NeronVersionRepositoryInterface;
 use Mush\Communications\Repository\RebelBaseRepositoryInterface;
@@ -167,11 +168,12 @@ class TerminalNormalizer implements NormalizerInterface, NormalizerAwareInterfac
     {
         /** @var Player $currentPlayer */
         $currentPlayer = $context['currentPlayer'];
+        $rebelBases = new RebelBaseCollection($this->rebelBaseRepository->findAllDecodedRebelBases($currentPlayer->getDaedalus()->getId()));
 
         $projects = match ($terminal->getName()) {
             EquipmentEnum::PILGRED => [$terminal->getDaedalus()->getPilgred()],
             EquipmentEnum::NERON_CORE, EquipmentEnum::AUXILIARY_TERMINAL => $terminal->getDaedalus()->getProposedNeronProjects(),
-            EquipmentEnum::RESEARCH_LABORATORY => $terminal->getDaedalus()->getVisibleResearchProjectsForPlayer($currentPlayer),
+            EquipmentEnum::RESEARCH_LABORATORY => $terminal->getDaedalus()->getVisibleResearchProjectsForPlayer($currentPlayer, $rebelBases),
             default => [],
         };
 

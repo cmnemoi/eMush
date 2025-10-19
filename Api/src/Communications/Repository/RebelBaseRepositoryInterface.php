@@ -21,6 +21,8 @@ interface RebelBaseRepositoryInterface
      */
     public function findAllContactingRebelBases(int $daedalusId): array;
 
+    public function findAllDecodedRebelBases(int $daedalusId): array;
+
     public function findByDaedalusIdAndNameOrThrow(int $daedalusId, RebelBaseEnum $name): RebelBase;
 
     public function findMostRecentContactingRebelBase(int $daedalusId): ?RebelBase;

@@ -1187,5 +1187,23 @@
         <target>Le dose de cafféine incluse dans le café de notre cher distributeur est bien trop élevée pour que nous puissions envisager un nouveau surdosage. Cependant, en ajoutant des extraits de guarana sous forme d'une émulsion crémeuse sur la partie supérieure de chaque expresso, il devrait être possible d'augmenter encore un peu le caractère énergisant de la boisson.</target>
       </segment>
     </unit>
+    <unit id="zeta_waves">
+      <segment id="zeta_waves.type" state="translated">
+        <source>zeta_waves.type</source>
+        <target>Rech.</target>
+      </segment>
+      <segment id="zeta_waves.name" state="translated">
+        <source>zeta_waves.name</source>
+        <target>Émetteur d'ondes zêta</target>
+      </segment>
+      <segment id="zeta_waves.description" state="translated">
+        <source>zeta_waves.description</source>
+        <target>Augmente de 2 le nombre maximum de **canaux privés**.</target>
+      </segment>
+      <segment id="zeta_waves.lore" state="translated">
+        <source>zeta_waves.lore</source>
+        <target>À partir des travaux des physiciens d'Eridiani, nous pouvons inventer de nouveaux émetteurs d'ondes zêta pour augmenter le nombre de fréquences disponibles sur lesquelles communiquer. Il ne nous manque plus qu'une solution pour arriver à suivre cinq conversations simultanément.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

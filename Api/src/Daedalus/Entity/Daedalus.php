@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Mush\Communications\Collection\RebelBaseCollection;
 use Mush\Daedalus\Enum\DaedalusVariableEnum;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\ValueObject\GameDate;
@@ -216,12 +217,12 @@ class Daedalus implements ModifierHolderInterface, GameVariableHolderInterface, 
         return $this->getPlayers()->getMushPlayer();
     }
 
-    public function getVisibleResearchProjectsForPlayer(Player $player): ProjectCollection
+    public function getVisibleResearchProjectsForPlayer(Player $player, RebelBaseCollection $rebelBases): ProjectCollection
     {
         return $this
             ->getResearchProjects()
             ->filter(static fn (Project $project) => $project->isNotFinished())
-            ->filter(static fn (Project $project) => $project->isVisibleFor($player));
+            ->filter(static fn (Project $project) => $project->isVisibleFor($player, $rebelBases));
     }
 
     public function getPlaces(): Collection

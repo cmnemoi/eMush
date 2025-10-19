@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Mush\Project\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mush\Communications\Collection\RebelBaseCollection;
+use Mush\Communications\Enum\RebelBaseEnum;
 use Mush\Place\Enum\RoomEnum;
 use Mush\Player\Entity\Player;
 use Mush\Project\Dto\ProjectRequirementConfigDto;
@@ -50,7 +52,7 @@ class ProjectRequirement
         $this->target = $configData->target;
     }
 
-    public function isSatisfiedFor(Player $player)
+    public function isSatisfiedFor(Player $player, RebelBaseCollection $rebelBases)
     {
         $daedalus = $player->getDaedalus();
         $laboratory = $daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
@@ -63,6 +65,7 @@ class ProjectRequirement
             ProjectRequirementType::MUSH_PLAYER_DEAD->value => $daedalus->getPlayers()->isThereAMushUnlockingProjects(),
             ProjectRequirementType::MUSH_SAMPLE_IN_LABORATORY->value => $player->hasSampleAvailable(),
             ProjectRequirementType::FOOD_IN_LABORATORY->value => $player->canReachFood(),
+            ProjectRequirementType::REBEL_BASE_DECODED->value => $rebelBases->hasRebelBaseByName(RebelBaseEnum::from($this->getTargetOrThrow())),
             default => throw new \LogicException("Unknown project requirement type: {$this->type}"),
         };
     }

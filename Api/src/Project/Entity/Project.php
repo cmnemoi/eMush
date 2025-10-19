@@ -11,6 +11,7 @@ use Mush\Action\Entity\ActionHolderInterface;
 use Mush\Action\Enum\ActionHolderEnum;
 use Mush\Action\Enum\ActionProviderOperationalStateEnum;
 use Mush\Action\Enum\ActionRangeEnum;
+use Mush\Communications\Collection\RebelBaseCollection;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Entity\DaedalusProjectsStatistics;
 use Mush\Equipment\Entity\Config\ReplaceEquipmentConfig;
@@ -114,11 +115,11 @@ class Project implements LogParameterInterface, ActionHolderInterface, ModifierP
         return $this->config;
     }
 
-    public function isVisibleFor(Player $player): bool
+    public function isVisibleFor(Player $player, RebelBaseCollection $rebelBases): bool
     {
         $requirements = $this->config->getRequirements();
         foreach ($requirements as $requirement) {
-            if (!$requirement->isSatisfiedFor($player)) {
+            if (!$requirement->isSatisfiedFor($player, $rebelBases)) {
                 return false;
             }
         }

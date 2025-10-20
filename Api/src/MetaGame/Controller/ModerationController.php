@@ -131,7 +131,7 @@ final class ModerationController extends AbstractFOSRestController
             message: $request->get('adminMessage', null),
             startingDate: $startDate,
             duration: $duration,
-            byIp: (bool) $request->get('byIp')
+            byIp: $request->get('byIp') === 'true'
         );
 
         return $this->view(['detail' => 'User banned successfully'], Response::HTTP_OK);

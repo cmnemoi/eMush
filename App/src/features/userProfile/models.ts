@@ -1,14 +1,17 @@
 export type ShipHistory = {
-    characterName: string;
-    daysSurvived: number;
-    nbExplorations: number;
-    nbNeronProjects: number;
-    nbResearchProjects: number;
-    nbScannedPlanets: number;
-    titles: string[];
-    triumph: `${number} :triumph:` | `${number} :triumph_mush:`;
-    endCause: string;
-    daedalusId: number;
+    data: {
+        characterName: string;
+        daysSurvived: integer;
+        nbExplorations: integer;
+        nbNeronProjects: integer;
+        nbResearchProjects: integer;
+        nbScannedPlanets: integer;
+        titles: string[];
+        triumph: `${integer} :triumph:` | `${integer} :triumph_mush:`;
+        endCause: string;
+        daedalusId: integer;
+    }[];
+    totalItems: integer;
 };
 
 export type User = {

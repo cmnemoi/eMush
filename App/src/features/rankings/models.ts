@@ -1,6 +1,13 @@
 export type RankingDaedalus = {
-    id: number,
-    endCause: string,
-    daysSurvived: number,
-    cyclesSurvived: number
+    data: {
+        id: number,
+        endCause: string,
+        daysSurvived: number,
+        cyclesSurvived: number,
+        humanTriumphSum: string,
+        mushTriumphSum: string,
+        highestHumanTriumph: string,
+        highestMushTriumph: string
+    }[],
+    totalItems: integer,
 };

@@ -4,18 +4,18 @@ import { ShipHistory, User } from "./models";
 export type UserProfileState = {
     loading: boolean;
     user: User,
-    shipsHistory: ShipHistory[],
+    shipsHistory: ShipHistory,
 };
 
 export function createUserProfileModule(
-    loadShipsHistory: (userId: number, page: number, itemsPerPage: number, language: string) => Promise<ShipHistory[]>,
+    loadShipsHistory: (userId: number, page: number, itemsPerPage: number, language: string) => Promise<ShipHistory>,
     loadUserById: (userId: string) => Promise<User>
 ): Module<UserProfileState, Record<string, any>> {
     return {
         namespaced: true,
         state: (): UserProfileState => ({
             loading: false,
-            shipsHistory: [],
+            shipsHistory: { data: [], totalItems: 0 },
             user: {
                 id: 0,
                 userId: '',
@@ -26,7 +26,7 @@ export function createUserProfileModule(
             setLoading(state: UserProfileState, loading: boolean) {
                 state.loading = loading;
             },
-            setShipsHistory(state: UserProfileState, shipsHistory: ShipHistory[]) {
+            setShipsHistory(state: UserProfileState, shipsHistory: ShipHistory) {
                 state.shipsHistory = shipsHistory;
             },
             setUser(state: UserProfileState, user: User) {
@@ -35,7 +35,7 @@ export function createUserProfileModule(
         },
         getters: {
             loading: (state: UserProfileState): boolean => state.loading,
-            shipsHistory: (state: UserProfileState): ShipHistory[] => state.shipsHistory,
+            shipsHistory: (state: UserProfileState): ShipHistory => state.shipsHistory,
             user: (state: UserProfileState): User => state.user
         },
         actions: {

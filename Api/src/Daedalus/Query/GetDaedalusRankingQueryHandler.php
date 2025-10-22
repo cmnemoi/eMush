@@ -9,11 +9,17 @@ use Mush\Daedalus\ViewModel\RankingDaedalusViewModel;
 
 final readonly class GetDaedalusRankingQueryHandler
 {
-    public function __construct(
-        private Connection $connection,
-    ) {}
+    public function __construct(private Connection $connection) {}
 
     public function execute(GetDaedalusRankingQuery $query): array
+    {
+        return [
+            'data' => array_map(static fn (array $row) => RankingDaedalusViewModel::fromQueryRow($row), $this->getRankingData($query)),
+            'totalItems' => $this->getTotalCount($query),
+        ];
+    }
+
+    private function getRankingData(GetDaedalusRankingQuery $query): array
     {
         $sql = 'SELECT
                 daedalus_closed.id AS id,
@@ -84,8 +90,35 @@ final readonly class GetDaedalusRankingQueryHandler
             ORDER BY cycles_survived DESC, daedalus_closed.id ASC
             LIMIT :limit OFFSET :offset';
 
-        $results = $this->connection->executeQuery($sql, $params)->fetchAllAssociative();
+        return $this->connection->executeQuery($sql, $params)->fetchAllAssociative();
+    }
 
-        return array_map(static fn (array $row) => RankingDaedalusViewModel::fromQueryRow($row), $results);
+    private function getTotalCount(GetDaedalusRankingQuery $query): int
+    {
+        $countSql = 'SELECT COUNT(*) AS total
+            FROM daedalus_closed
+            INNER JOIN daedalus_info
+            ON daedalus_closed.daedalus_info_id = daedalus_info.id
+            INNER JOIN config_game
+            ON daedalus_info.game_config_id = config_game.id
+            INNER JOIN config_daedalus
+            ON config_game.daedalus_config_id = config_daedalus.id
+            INNER JOIN config_localization
+            ON daedalus_info.localization_config_id = config_localization.id
+            WHERE daedalus_closed.finished_at IS NOT NULL
+            AND daedalus_closed.created_at IS NOT NULL
+            AND daedalus_closed.is_cheater = FALSE';
+
+        $countParams = [];
+
+        if ($query->language !== '') {
+            $countSql .= '
+            AND daedalus_info.localization_config_id IN (
+                SELECT id FROM config_localization WHERE language = :language
+            )';
+            $countParams['language'] = $query->language;
+        }
+
+        return (int) $this->connection->executeQuery($countSql, $countParams)->fetchOne();
     }
 }

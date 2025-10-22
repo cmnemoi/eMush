@@ -7,7 +7,7 @@ describe("User profile store", () => {
         const store = createStore({
             modules: {
                 userProfile: createUserProfileModule(
-                    () => Promise.resolve([]),
+                    () => Promise.resolve({ data: [], totalItems: 0 }),
                     (userId: string) => Promise.resolve({
                         id: 0,
                         userId: userId,
@@ -18,16 +18,16 @@ describe("User profile store", () => {
         });
 
         expect(store.state.userProfile.loading).toBe(false);
-        expect(store.state.userProfile.shipsHistory).toEqual([]);
+        expect(store.state.userProfile.shipsHistory).toEqual({ data: [], totalItems: 0 });
     });
 
     it("should load ships history", async () => {
         const store = createStore({
             modules: {
                 userProfile: createUserProfileModule(
-                    (userId: number, page: number, itemsPerPage: number, language: string) => {
-                        return Promise.resolve([
-                            {
+                    (_userId: number, _page: number, _itemsPerPage: number, _language: string) => {
+                        return Promise.resolve({
+                            data: [{
                                 characterName: "andie",
                                 daysSurvived: 1,
                                 nbExplorations: 0,
@@ -38,8 +38,9 @@ describe("User profile store", () => {
                                 triumph: "29 :triumph:",
                                 endCause: "super_nova",
                                 daedalusId: 1
-                            }
-                        ]);
+                            }],
+                            totalItems: 1
+                        });
                     },
                     (userId: string) => Promise.resolve({
                         id: 0,
@@ -58,8 +59,8 @@ describe("User profile store", () => {
         });
 
         expect(store.state.userProfile.loading).toBe(false);
-        expect(store.state.userProfile.shipsHistory).toEqual([
-            {
+        expect(store.state.userProfile.shipsHistory).toEqual({
+            data: [{
                 characterName: "andie",
                 daysSurvived: 1,
                 nbExplorations: 0,
@@ -70,15 +71,16 @@ describe("User profile store", () => {
                 triumph: "29 :triumph:",
                 endCause: "super_nova",
                 daedalusId: 1
-            }
-        ]);
+            }],
+            totalItems: 1
+        });
     });
 
     it("should load user", async () => {
         const store = createStore({
             modules: {
                 userProfile: createUserProfileModule(
-                    () => Promise.resolve([]),
+                    () => Promise.resolve({ data: [], totalItems: 0 }),
                     (userId: string) => Promise.resolve({
                         id: 0,
                         userId: userId,

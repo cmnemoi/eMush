@@ -13,6 +13,16 @@ final readonly class UserShipsHistoryQueryHandler
 
     public function execute(UserShipsHistoryQuery $query): array
     {
+        $results = $this->getShipsHistoryData($query);
+
+        return [
+            'data' => array_map(static fn (array $row) => UserShipsHistoryViewModel::fromQueryRow($row), $results),
+            'totalItems' => $this->getTotalCount($query),
+        ];
+    }
+
+    private function getShipsHistoryData(UserShipsHistoryQuery $query): array
+    {
         $sql
         = 'SELECT
             character_config.character_name AS character_name,
@@ -59,14 +69,29 @@ final readonly class UserShipsHistoryQueryHandler
         $params = [
             'user_id' => $query->userId,
             'items_per_page' => $query->itemsPerPage,
-            'offset' => $query->page - 1,
+            'offset' => ($query->page - 1) * $query->itemsPerPage,
         ];
 
-        $results = $this->connection->executeQuery($sql, $params)->fetchAllAssociative();
+        return $this->connection->executeQuery($sql, $params)->fetchAllAssociative();
+    }
 
-        return array_map(
-            static fn (array $row) => UserShipsHistoryViewModel::fromQueryRow($row),
-            $results
-        );
+    private function getTotalCount(UserShipsHistoryQuery $query): int
+    {
+        $countSql = 'SELECT COUNT(*) AS total
+        FROM users
+        INNER JOIN player_info
+        ON users.id = player_info.user_id
+        INNER JOIN closed_player
+        ON player_info.closed_player_id = closed_player.id
+        INNER JOIN daedalus_closed
+        ON closed_player.closed_daedalus_id = daedalus_closed.id
+        WHERE users.user_id = :user_id
+        AND daedalus_closed.is_cheater = FALSE';
+
+        $countParams = [
+            'user_id' => $query->userId,
+        ];
+
+        return (int) $this->connection->executeQuery($countSql, $countParams)->fetchOne();
     }
 }

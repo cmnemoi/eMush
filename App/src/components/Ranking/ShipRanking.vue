@@ -2,7 +2,7 @@
     <div class="ship_ranking_container box-container">
         <div class="label-container">
             <label>{{ $t('ranking.languages') }}
-                <select v-model="language" @change="updateFilter">
+                <select v-model="language" @change="updateFilterAndReloadData">
                     <option
                         v-for="option in languagesOption"
                         :value=option.value
@@ -48,11 +48,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import Datatable from "@/components/Utils/Datatable/Datatable.vue";
-import qs from "qs";
-import { getImgUrl } from "@/utils/getImgUrl";
 import { RankingDaedalus } from "@/features/rankings/models";
+import { getImgUrl } from "@/utils/getImgUrl";
+import qs from "qs";
+import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default defineComponent({
@@ -109,7 +109,7 @@ export default defineComponent({
                 totalItem: 1,
                 totalPage: 1
             },
-            rowData: [] as RankingDaedalus[],
+            rowData: {} as RankingDaedalus,
             filter: '',
             sortField: 'endDay',
             sortDirection: 'DESC',
@@ -154,8 +154,8 @@ export default defineComponent({
                 page: this.pagination.currentPage,
                 itemsPerPage: this.pagination.pageSize
             });
-            this.rowData = this.ranking;
-            this.pagination.totalItem = this.ranking.length;
+            this.rowData = this.ranking.data;
+            this.pagination.totalItem = this.ranking.totalItems;
             this.pagination.totalPage = this.pagination.totalItem / this.pagination.pageSize;
             this.loading = false;
         },
@@ -178,9 +178,11 @@ export default defineComponent({
             this.sortField = selectedField.key;
             this.loadData();
         },
+        updateFilterAndReloadData() {
+            this.loadData();
+        },
         updateFilter() {
             this.pagination.currentPage = 1;
-            this.loadData();
         },
         updateCategory() {
             if (this.category === 'timeSurvived') {

@@ -52,6 +52,11 @@ class ClosedDaedalus
     #[ORM\Column(type: 'boolean', nullable: false, options: ['default' => false])]
     private bool $isCheater = false;
 
+    public function __construct()
+    {
+        $this->players = new ArrayCollection();
+    }
+
     public function getId(): int
     {
         return $this->id;

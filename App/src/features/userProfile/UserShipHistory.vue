@@ -4,7 +4,7 @@
         <Datatable
             :headers="fields"
             :loading="loading"
-            :row-data="shipsHistory"
+            :row-data="shipsHistory.data"
             :pagination="pagination"
             :filter="filter"
             @pagination-click="paginationClick"
@@ -22,18 +22,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
-import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
 import Datatable from '@/components/Utils/Datatable/Datatable.vue';
-import { getImgUrl } from '@/utils/getImgUrl';
 import { ShipHistory } from '@/features/userProfile/models';
+import { getImgUrl } from '@/utils/getImgUrl';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 
 const route = useRoute();
 const store = useStore();
 
 const language = computed((): string => store.getters['locale/currentLocale']);
-const shipsHistory = computed((): ShipHistory[] => store.getters['userProfile/shipsHistory']);
+const shipsHistory = computed((): ShipHistory => store.getters['userProfile/shipsHistory']);
 const loading = computed((): boolean => store.getters['userProfile/loading']);
 
 const fields = ref([
@@ -94,7 +94,7 @@ const fields = ref([
 const pagination = ref({
     currentPage: 1,
     pageSize: 6,
-    totalItem: 1,
+    totalItems: 1,
     totalPage: 1
 });
 
@@ -107,8 +107,8 @@ const loadData = async () => {
         itemsPerPage: pagination.value.pageSize,
         language: language.value
     });
-    pagination.value.totalItem = shipsHistory.value.length;
-    pagination.value.totalPage = Math.ceil(pagination.value.totalItem / pagination.value.pageSize);
+    pagination.value.totalItems = shipsHistory.value.totalItems;
+    pagination.value.totalPage = Math.ceil(pagination.value.totalItems / pagination.value.pageSize);
 };
 
 

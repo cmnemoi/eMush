@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Mush;
 
-final readonly class ApiConfig
+final readonly class Config
 {
     private const string DEV_ENV_NAME = 'dev';
 
@@ -23,7 +23,7 @@ final readonly class ApiConfig
         $this->oauthClientSecret = $environmentVariables['OAUTH_SECRET_ID'];
     }
 
-    public function isApiOnDev(): bool
+    public function isAppOnDev(): bool
     {
         return $this->appEnv === self::DEV_ENV_NAME;
     }

@@ -5,9 +5,8 @@ ARG UID=1000
 ARG GID=1000
 ARG PHP_VERSION=8.4
 
-COPY php.ini /etc/php/${PHP_VERSION}/php.ini
 COPY php.ini /usr/local/etc/php/php.ini
-COPY php-fpm-pool.conf /etc/php/${PHP_VERSION}/pool.d/www.conf
+COPY php-fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Install PHP extensions and setup
 RUN apt-get -yq update && \

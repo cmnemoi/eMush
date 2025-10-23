@@ -71,6 +71,14 @@ services:
     stdin_open: true
     tty: true
 
+  mush-jaeger:
+    container_name: mush-jaeger
+    image: jaegertracing/jaeger:2.11.0
+    ports:
+      - 16686:16686
+    networks:
+      - mush-network
+
 networks:
   mush-network:
     driver: bridge

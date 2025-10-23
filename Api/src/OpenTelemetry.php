@@ -41,22 +41,21 @@ final class OpenTelemetry
             return;
         }
 
-        $apiConfig = new ApiConfig($_ENV);
+        $config = new Config($_ENV);
 
         $resource = ResourceInfoFactory::emptyResource()->merge(ResourceInfo::create(Attributes::create([
-            ResourceAttributes::SERVICE_NAME => $apiConfig->appName,
-            ResourceAttributes::DEPLOYMENT_ENVIRONMENT_NAME => $apiConfig->appEnv,
+            ResourceAttributes::SERVICE_NAME => $config->appName,
+            ResourceAttributes::DEPLOYMENT_ENVIRONMENT_NAME => $config->appEnv,
         ])));
         $spanExporter = new SpanExporter(
             PsrTransportFactory::discover()
                 ->create(
-                    $apiConfig->otelExporterOltpEndpoint,
+                    $config->otelExporterOltpEndpoint,
                     'application/x-protobuf',
-                    ['authorization' => self::getAuthorizationHeader($apiConfig->oauthClientId, $apiConfig->oauthClientSecret)]
+                    ['authorization' => self::getAuthorizationHeader($config->oauthClientId, $config->oauthClientSecret)]
                 )
         );
-
-        $spanProcessor = $apiConfig->isApiOnDev() ? new SimpleSpanProcessor($spanExporter) : new BatchSpanProcessor($spanExporter, Clock::getDefault());
+        $spanProcessor = $config->isAppOnDev() ? new SimpleSpanProcessor($spanExporter) : new BatchSpanProcessor($spanExporter, Clock::getDefault());
 
         $tracerProvider = TracerProvider::builder()
             ->addSpanProcessor($spanProcessor)

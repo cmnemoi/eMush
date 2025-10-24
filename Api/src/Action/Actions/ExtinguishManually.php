@@ -17,9 +17,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class implementing the Manual Extinguish action.
- * This action is granted by the Firefighter skill. (@TODO).
+ * This action is granted by the Firefighter skill.
  *
- * For 1 ActionConfig Point, this action gives a 10% chance to extinguish a fire.
+ * For 1 Action Point, this action gives a 25% chance to extinguish a fire.
  *
  * More info : https://mushpedia.com/wiki/Firefighter
  */

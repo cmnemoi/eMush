@@ -1046,8 +1046,7 @@
 				"name": "Paramètres",
 				"subscribeToNotifications": "S'abonner aux notifications",
 				"notifications": "Notifications",
-				"hideMushActions": "Masquer les actions Mush",
-				"showMushActions": "Afficher les actions Mush"
+				"actionTabs": "Séparer les actions Mush et humaines"
 			}
 		},
 		"topBar": {
@@ -1085,5 +1084,19 @@
 			"unsubscribeError": "Une erreur s'est produite lors de la désabonnement des notifications."
 		},
 		"newVersion": "Une nouvelle version du jeu est disponible, veuillez vider votre cache."
+	},
+	"actionTabs": {
+		"human": {
+			"name": "Actions humaines",
+			"description": "Affichez vos actions humaines."
+		},
+		"mush": {
+			"name": "Actions Mush",
+			"description": "Affichez vos actions Mush."
+		},
+		"admin": {
+			"name": "Actions admin",
+			"description": "Affichez vos actions admin."
+		}
 	}
 }

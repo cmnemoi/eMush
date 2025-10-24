@@ -2898,7 +2898,7 @@ class ActionData
         [
             'name' => ActionEnum::CREATE_TRADE->value,
             'action_name' => ActionEnum::CREATE_TRADE,
-            'types' => [],
+            'types' => [ActionTypeEnum::ACTION_ADMIN],
             'target' => ActionHolderEnum::PLAYER,
             'scope' => ActionRangeEnum::PLAYER,
             'visibilities' => ['success' => 'hidden', 'fail' => 'hidden'],

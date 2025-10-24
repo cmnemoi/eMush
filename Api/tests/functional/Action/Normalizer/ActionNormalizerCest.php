@@ -85,6 +85,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'canExecute' => true,
                 'isMushAction' => true,
                 'confirmation' => null,
+                'isAdminAction' => false,
             ],
             actual: $normalizedAction,
         );
@@ -129,6 +130,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'canExecute' => true,
                 'isMushAction' => true,
                 'confirmation' => null,
+                'isAdminAction' => false,
             ],
             actual: $normalizedAction,
         );
@@ -191,6 +193,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'description' => 'Vous n\'êtes pas blessée, mais ça peut s\'arranger...',
                 'canExecute' => false,
                 'isMushAction' => false,
+                'isAdminAction' => false,
             ],
             actual: $normalizedAction,
         );
@@ -251,6 +254,7 @@ final class ActionNormalizerCest extends AbstractFunctionalTest
                 'canExecute' => true,
                 'isMushAction' => false,
                 'confirmation' => null,
+                'isAdminAction' => false,
             ],
             actual: $normalizedAction,
         );

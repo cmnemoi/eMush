@@ -1,5 +1,5 @@
 <template>
-    <Tippy tag="div" :class="['action-button-flex-v2']" v-if="action && isVisible">
+    <Tippy tag="div" :class="['action-button-flex-v2']" v-if="action">
         <a
             :class="['action-button', cssClass, isDisabled].join(' ')"
             href="#">
@@ -33,14 +33,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
 import { Action } from "@/entities/Action";
 import { Player } from "@/entities/Player";
+import { skillPointEnum } from "@/enums/skill.point.enum";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { skillPointEnum } from "@/enums/skill.point.enum";
+import { defineComponent } from "vue";
 import { Tippy } from "vue-tippy";
-import { mapGetters } from "vuex";
 
 export default defineComponent ({
     components: { Tippy },
@@ -50,14 +49,8 @@ export default defineComponent ({
         player: Player
     },
     computed:{
-        ...mapGetters({
-            'hideMushActions': 'settings/hideMushActions'
-        }),
         isDisabled(): string {
             return !this.action?.canExecute ? "disabled" : "";
-        },
-        isVisible(): boolean {
-            return !(this.hideMushActions && this.action?.isMushAction);
         }
     },
     methods: {
@@ -85,5 +78,28 @@ export default defineComponent ({
 }
 .wide {
     min-width: 15em;
+}
+
+// sur mobile, mettre un max de margin top et botoom sur .action-button-flex-v2
+@media screen and (max-width: $breakpoint-desktop-m) {
+    .action-button-flex-v2 {
+        margin-bottom: 16px;
+        position: relative;
+
+        .action-button {
+            padding: 8px 1rem;
+            position: relative;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: -10px;
+                bottom: -10px;
+                left: 0;
+                right: 0;
+                z-index: -1;
+            }
+        }
+    }
 }
 </style>

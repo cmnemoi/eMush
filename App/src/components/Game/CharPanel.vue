@@ -58,12 +58,20 @@
                     @select="toggleItemSelection"
                 />
             </div>
+            <div v-if="! loading && selectedItem" class="item">
+                <span class="item-name">
+                    {{ selectedItem.name }}
+                    <Statuses :statuses="selectedItem.statuses" type="item" />
+                </span>
+            </div>
+            <ActionTabs
+                v-if="actionTabs"
+                v-model:activeTab="activeTab"
+                :target-actions-mush="targetActionsMush"
+                :target-actions-admin="targetActionsAdmin"
+            />
             <div v-if="! loading && target" class="interactions">
-                <div v-if="selectedItem" class="item">
-                    <span class="item-name">
-                        {{ selectedItem.name }}
-                        <Statuses :statuses="selectedItem.statuses" type="item" />
-                    </span>
+                <div v-if="selectedItem">
                     <ActionButton
                         v-for="(action, key) in targetActions"
                         :key="key"
@@ -170,30 +178,34 @@
 </template>
 
 <script lang="ts">
-import { Player, Skill } from "@/entities/Player";
-import { SelectableSkill } from "@/entities/Character";
-import { characterEnum } from '@/enums/character';
 import Inventory from "@/components/Game/Inventory.vue";
+import ActionTabs from "@/components/Game/Ship/ActionTabs.vue";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
-import { mapActions, mapGetters } from "vuex";
-import { Item } from "@/entities/Item";
-import { Equipment } from "@/entities/Equipment";
 import { Action } from "@/entities/Action";
+import { SelectableSkill } from "@/entities/Character";
 import { Door } from "@/entities/Door";
-import { defineComponent } from "vue";
+import { Equipment } from "@/entities/Equipment";
+import { Item } from "@/entities/Item";
+import { Player, Skill } from "@/entities/Player";
+import { SkillPoint } from "@/entities/SkillPoint";
+import { ActionEnum } from "@/enums/action.enum";
+import { characterEnum } from '@/enums/character';
+import { SkillIconRecord } from "@/enums/skill.enum";
+import { skillPointEnum } from "@/enums/skill.point.enum";
 import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { SkillPoint } from "@/entities/SkillPoint";
-import { skillPointEnum } from "@/enums/skill.point.enum";
-import { SkillIconRecord } from "@/enums/skill.enum";
-import { ActionEnum } from "@/enums/action.enum";
+import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
+
+type ActionType = 'human' | 'mush' | 'admin'
 
 export default defineComponent ({
     name: "CharPanel",
     components: {
         ActionButton,
+        ActionTabs,
         Inventory,
         Statuses
     },
@@ -207,7 +219,8 @@ export default defineComponent ({
         ...mapGetters({
             'loading': 'player/isLoading',
             'selectedItem': 'player/selectedItem',
-            'displayMushSkills': 'player/displayMushSkills'
+            'displayMushSkills': 'player/displayMushSkills',
+            'actionTabs': 'settings/actionTabs'
         }),
         characterPortrait(): string {
             return characterEnum[this.player.character.key].portrait ?? '';
@@ -228,6 +241,26 @@ export default defineComponent ({
             return this.selectedItem || this.player;
         },
         targetActions(): Action[] {
+            if (!this.actionTabs) return this.target?.actions || [];
+
+            const actionMap: { [key: string]: Action[] } = {
+                'human': this.targetActionsHuman,
+                'mush': this.targetActionsMush,
+                'admin': this.targetActionsAdmin
+            };
+
+            return actionMap[this.activeTab] || [];
+        },
+        targetActionsHuman() : Action[] {
+            return this.rawTargetActions.filter(action => !action.isMushAction && !action.isAdminAction);
+        },
+        targetActionsMush() : Action[] {
+            return this.rawTargetActions.filter(action => action.isMushAction && !action.isAdminAction);
+        },
+        targetActionsAdmin() : Action[] {
+            return this.rawTargetActions.filter(action => action.isAdminAction && !action.isMushAction);
+        },
+        rawTargetActions(): Action[] {
             let actions = this.target?.actions.filter(action => action.isNotMissionAction());
 
             // Setup commander order action cost to 0 if available
@@ -289,6 +322,8 @@ export default defineComponent ({
             return skillPointEnum[point.key]?.icon ?? '';
         },
         toggleItemSelection(item: Item | null): void {
+            this.activeTab = 'human';
+
             if (this.selectedItem === item) {
                 this.selectTarget({ target: null });
             } else {
@@ -321,7 +356,8 @@ export default defineComponent ({
     data() {
         return {
             ActionEnum,
-            StatusPlayerNameEnum
+            StatusPlayerNameEnum,
+            activeTab : 'human' as ActionType
         };
     },
     beforeMount() {
@@ -439,7 +475,7 @@ export default defineComponent ({
 
 div.inventory {
     overflow: visible;
-    margin: 0 -1px;
+    margin: 0 -1px 5px -1px;
 
     @media screen and (max-width: $breakpoint-desktop-l) {
         width: 110px;
@@ -449,18 +485,15 @@ div.inventory {
     @media screen and (max-width: $breakpoint-desktop-m) { width: 82px; }
 }
 
-.interactions {
-    margin-top: 12px;
+.item {
+    margin: 12px 0 4px 0;
+    letter-spacing: 0.03em;
+    font-variant: small-caps;
+    text-align: center;
 
-    .item {
-        margin: 0 0 4px 0;
-        letter-spacing: 0.03em;
-        font-variant: small-caps;
-
-        :deep(.status) {
-            vertical-align: middle;
-            margin-left: 2px;
-        }
+    :deep(.status) {
+        vertical-align: middle;
+        margin-left: 2px;
     }
 }
 
@@ -638,8 +671,6 @@ div.inventory {
         .char-sheet {
             display: block;
             width: 100%;
-            // flex-direction: row;
-            // align-items: flex-start;
             max-width: initial;
             min-height: initial;
 
@@ -657,7 +688,6 @@ div.inventory {
 
             .health-points { margin-top: -0.3em; }
 
-
             .inventory {
                 float: left;
                 clear: left;
@@ -668,6 +698,7 @@ div.inventory {
                 padding-left: 8%;
                 padding-right: 8%;
                 margin: auto;
+                background: none;
             }
         }
     }

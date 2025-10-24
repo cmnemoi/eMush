@@ -46,34 +46,47 @@
                 </Tippy>
             </div>
         </div>
-        <div class="interactions">
-            <ActionButton
-                v-for="(action, key) in getActions"
-                :key="key"
-                :action="action"
-                @click="executeTargetAction(action)"
+        <div class="action-part">
+            <ActionTabs
+                v-if="actionTabs"
+                v-model:activeTab="activeTab"
+                :target-actions-mush="targetActionsMush"
+                :target-actions-admin="targetActionsAdmin"
             />
+            <div class="interactions">
+                <ActionButton
+                    v-for="(action, key) in getActions"
+                    :key="key"
+                    :action="action"
+                    @click="executeTargetAction(action)"
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
+import ActionTabs from "@/components/Game/Ship/ActionTabs.vue";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
 import TitleImage from "@/components/Utils/TitleImage.vue";
-import { Player, Skill } from "@/entities/Player";
-import { characterEnum } from '@/enums/character';
-import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
 import { Action } from "@/entities/Action";
+import { Player, Skill } from "@/entities/Player";
+import { ActionEnum } from "@/enums/action.enum";
+import { characterEnum } from '@/enums/character';
 import { SkillIconRecord } from "@/enums/skill.enum";
 import { formatText } from "@/utils/formatText";
-import { ActionEnum } from "@/enums/action.enum";
+import { getImgUrl } from "@/utils/getImgUrl";
+import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
+
+type ActionType = 'human' | 'mush' | 'admin'
 
 export default defineComponent ({
     name: "CrewmatePanel",
     components: {
         ActionButton,
+        ActionTabs,
         Statuses,
         TitleImage
     },
@@ -88,15 +101,35 @@ export default defineComponent ({
     ],
     computed: {
         ...mapGetters({
-            'selectedTarget': 'room/selectedTarget'
+            'selectedTarget': 'room/selectedTarget',
+            'actionTabs': 'settings/actionTabs'
         }),
         getSelectedPlayer(): Player | null
         {
             if (this.selectedTarget instanceof Player) { return this.selectedTarget;}
             return null;
         },
-        getActions(): Action[]
-        {
+        getActions(): Action[] {
+            if (!this.actionTabs) return this.getAllActions;
+
+            const actionMap: { [key: string]: Action[] } = {
+                'human': this.targetActionsHuman,
+                'mush': this.targetActionsMush,
+                'admin': this.targetActionsAdmin
+            };
+
+            return actionMap[this.activeTab];
+        },
+        targetActionsHuman(): Action[] {
+            return this.getAllActions.filter(action => action.isMushAction == false && action.isAdminAction == false);
+        },
+        targetActionsMush(): Action[] {
+            return this.getAllActions.filter(action => action.isMushAction == true && action.isAdminAction == false);
+        },
+        targetActionsAdmin(): Action[] {
+            return this.getAllActions.filter(action => action.isAdminAction == true);
+        },
+        getAllActions(): Action[] {
             if (!(this.selectedTarget instanceof Player)) { return [];}
 
             let actions = this.selectedTarget.actions.filter(action => action.isNotMissionAction());
@@ -148,11 +181,16 @@ export default defineComponent ({
         formatText,
         skillImage(skill: Skill): string {
             return SkillIconRecord[skill.key].icon ?? '';
-        }
+        },
+        changeActionTab(tab : ActionType) {
+            this.activeTab = tab;
+        },
+        getImgUrl
     },
     data() {
         return {
-            ActionEnum
+            ActionEnum,
+            activeTab : 'human' as ActionType
         };
     }
 });
@@ -236,7 +274,6 @@ export default defineComponent ({
 
 .interactions {
     flex: 1;
-    max-width: 50%;
     padding: 1px;
     padding-left: 4px;
 }
@@ -249,5 +286,9 @@ export default defineComponent ({
     }
 }
 
+.action-part {
+    display: flex;
+    flex : 1;
+}
 
 </style>

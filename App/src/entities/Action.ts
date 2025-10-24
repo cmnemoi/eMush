@@ -20,6 +20,7 @@ export class Action {
     public actionProvider!: ActionProvider;
     public skillPointCosts: Array<string>;
     public isMushAction!: boolean;
+    public isAdminAction!: boolean;
 
     constructor() {
         this.iri = null;
@@ -51,6 +52,7 @@ export class Action {
             this.skillPointCosts = object.skillPointCosts;
             this.actionProvider = object.actionProvider;
             this.isMushAction = object.isMushAction;
+            this.isAdminAction = object.isAdminAction;
         }
         return this;
     }

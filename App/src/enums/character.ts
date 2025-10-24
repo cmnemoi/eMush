@@ -28,7 +28,7 @@ export enum CharacterEnum {
 export interface CharacterInfos {
     name?: string,
     completeName?: string,
-    head?: string,
+    head: string,
     body: string,
     portrait?: string,
     keyName: string,

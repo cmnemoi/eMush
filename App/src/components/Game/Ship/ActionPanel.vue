@@ -1,37 +1,50 @@
 <template>
     <div class="action-panel">
-        <ActionButton
-            v-for="(actionWithTarget, key) in getActionsWithTargets"
-            :key="key"
-            :action="actionWithTarget.action"
-            @click="executeActionWithTarget(actionWithTarget)"
+
+        <div class="action-list">
+            <ActionButton
+                v-for="(actionWithTarget, key) in getActions"
+                :key="key"
+                :action="actionWithTarget.action"
+                @click="executeActionWithTarget(actionWithTarget)"
+            />
+        </div>
+        <ActionTabs
+            v-if="actionTabs"
+            :target-actions-mush="targetActionsMush"
+            :target-actions-admin="targetActionsAdmin"
+            v-model:activeTab="activeTab"
         />
     </div>
 </template>
 
 <script lang="ts">
 import ActionButton from "@/components/Utils/ActionButton.vue";
-import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
-import { Player } from "@/entities/Player";
 import { Action } from "@/entities/Action";
 import { Equipment } from "@/entities/Equipment";
 import { Hunter } from "@/entities/Hunter";
+import { Player } from "@/entities/Player";
+import { getImgUrl } from "@/utils/getImgUrl";
+import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
+import ActionTabs, { ActionType } from './ActionTabs.vue';
 
-interface ActionWithTarget {
+export interface ActionWithTarget {
     action: Action,
     target: Equipment | Player | Hunter
 }
 
 export default defineComponent ({
     components: {
-        ActionButton
+        ActionButton,
+        ActionTabs
     },
     computed: {
-        ...mapGetters('room', [
-            'selectedTarget',
-            'getSpaceWeaponAndActions'
-        ]),
+        ...mapGetters({
+            'selectedTarget': 'room/selectedTarget',
+            'getSpaceWeaponAndActions': 'room/getSpaceWeaponAndActions',
+            'actionTabs': 'settings/actionTabs'
+        }),
         getActionsWithTargets(): ActionWithTarget[]
         {
             // if we are in spaceBattle the action given by the patrolShip should remain visible at any time
@@ -53,9 +66,36 @@ export default defineComponent ({
 
             return actionsWithTarget;
         },
+        targetActionsHuman(): ActionWithTarget[] {
+            return this.getActionsWithTargets.filter(action => action.action.isMushAction == false && action.action.isAdminAction == false);
+        },
+        targetActionsMush(): ActionWithTarget[] {
+            return this.getActionsWithTargets.filter(action => action.action.isMushAction == true && action.action.isAdminAction == false);
+        },
+        targetActionsAdmin(): ActionWithTarget[] {
+            return this.getActionsWithTargets.filter(action => action.action.isAdminAction == true);
+        },
+        getActions(): ActionWithTarget[] {
+            if (!this.actionTabs) return this.getActionsWithTargets;
+
+            const actionMap: { [key: string]: ActionWithTarget[] } = {
+                'human': this.targetActionsHuman,
+                'mush': this.targetActionsMush,
+                'admin': this.targetActionsAdmin
+            };
+
+            return actionMap[this.activeTab];
+        },
+
         ...mapGetters('player', [
             'player'
         ])
+    },
+    data() {
+        return {
+            oldTarget : null,
+            activeTab : 'human' as ActionType
+        };
     },
     props: {
         actions: Array
@@ -90,6 +130,19 @@ export default defineComponent ({
                 }
                 return a.actionPointCost - b.actionPointCost;
             });
+        },
+        changeActionTab(tab: ActionType) {
+            this.activeTab = tab;
+        },
+        getImgUrl
+    },
+    beforeMount() {
+        this.oldTarget = this.selectedTarget;
+    },
+    updated() {
+        if (this.selectedTarget != this.oldTarget) {
+            this.oldTarget = this.selectedTarget;
+            this.activeTab = 'human';
         }
     }
 });
@@ -100,6 +153,11 @@ export default defineComponent ({
 .action-panel {
     position: relative;
     background: #222a6b;
+}
+
+.action-list {
+    position: relative;
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -129,5 +187,4 @@ export default defineComponent ({
         border: none;
     }
 }
-
 </style>

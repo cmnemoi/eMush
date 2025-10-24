@@ -325,7 +325,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Une fois qu'il a commencé sa tâche, rien ne peut perturber l'équipier persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent plus vite**.</target>
+        <target>Une fois qu'il a commencé sa tâche, rien ne peut perturber l'équipier persévérant.//:point: En cas d'**échec** sur une action, les chances de réussite **augmentent par x1.5** *(au lieu de x1.25)*.</target>
       </segment>
     </unit>
     <unit id="optimist">

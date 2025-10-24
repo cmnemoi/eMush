@@ -41,7 +41,7 @@ final class DeterminedCest extends AbstractFunctionalTest
             $this->whenPlayerDoesAction();
         } while ($this->actionResult->isASuccess());
 
-        $this->thenActionSuccessRateShouldBe(18, $I);
+        $this->thenActionSuccessRateShouldBe(21, $I);
     }
 
     private function givenPlayerIsDetermined(FunctionalTester $I): void

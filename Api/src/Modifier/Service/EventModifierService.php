@@ -18,9 +18,9 @@ use Mush\Status\Enum\StatusEnum;
 class EventModifierService implements EventModifierServiceInterface
 {
     private const ATTEMPT_INCREASE = 1.25;
-    private const ATTEMPT_INCREASE_FOR_DETERMINED = 1.3;
+    private const ATTEMPT_INCREASE_FOR_DETERMINED = 1.5;
     private const ATTEMPT_INCREASE_FOR_DYNARCADE = 1.5;
-    private const ATTEMPT_INCREASE_FOR_DYNARCADE_DETERMINED = 1.6;
+    private const ATTEMPT_INCREASE_FOR_DYNARCADE_DETERMINED = 1.75;
 
     private ModifierHandlerServiceInterface $modifierHandlerService;
     private ModifierRequirementServiceInterface $modifierRequirementService;

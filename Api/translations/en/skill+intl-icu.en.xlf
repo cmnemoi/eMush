@@ -322,7 +322,7 @@
       </segment>
       <segment id="determined.description" state="translated">
         <source>determined.description</source>
-        <target>Once they begin their task, nothing can distract the determined crewmate.//:point: If an action **fails**, the chances of subsequent success **increases more rapidly**.</target>
+        <target>Once they begin their task, nothing can distract the determined crewmate.//:point: If an action **fails**, the chances of subsequent success **increases by x1.5** *(instead of x1.25)*.</target>
       </segment>
     </unit>
     <unit id="optimist">

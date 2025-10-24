@@ -75,7 +75,7 @@ final class MassGgedon extends AbstractAction
     protected function applyEffect(ActionResult $result): void
     {
         $this->removeTwoSporesFromPlayer();
-        $this->removeActionPointsToOtherPlayers();
+        $this->removeActionPointsToHumanPlayers();
         $this->makeAllPlayersDirty();
         $this->createDirtyLogForOtherPlayers();
         $this->createHasUsedMassGgedonStatus();
@@ -93,10 +93,10 @@ final class MassGgedon extends AbstractAction
         $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
     }
 
-    private function removeActionPointsToOtherPlayers(): void
+    private function removeActionPointsToHumanPlayers(): void
     {
         $now = new \DateTime();
-        foreach ($this->player->getDaedalus()->getAlivePlayers()->getAllExcept($this->player) as $player) {
+        foreach ($this->player->getDaedalus()->getAlivePlayers()->getHumanPlayer() as $player) {
             $playerVariableEvent = new PlayerVariableEvent(
                 player: $player,
                 variableName: PlayerVariableEnum::ACTION_POINT,

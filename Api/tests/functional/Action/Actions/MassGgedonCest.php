@@ -14,6 +14,7 @@ use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Enum\StatusEventLogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
+use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
 use Mush\Tests\RoomLogDto;
@@ -26,6 +27,7 @@ final class MassGgedonCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private MassGgedon $massGgedon;
 
+    private StatusServiceInterface $statusService;
     private GameEquipmentServiceInterface $gameEquipmentService;
 
     public function _before(FunctionalTester $I)
@@ -35,6 +37,7 @@ final class MassGgedonCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::MASS_GGEDON]);
         $this->massGgedon = $I->grabService(MassGgedon::class);
 
+        $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
         $this->addSkillToPlayer(SkillEnum::MASSIVE_MUSHIFICATION, $I, $this->kuanTi);
@@ -56,7 +59,7 @@ final class MassGgedonCest extends AbstractFunctionalTest
         $this->thenKuanTiShouldHaveSpores(0, $I);
     }
 
-    public function shouldRemoveTwoActionPlayersToOtherPlayers(FunctionalTester $I): void
+    public function shouldRemoveTwoActionPlayersToHumanPlayers(FunctionalTester $I): void
     {
         $this->givenKuanTiHasSpores(2);
 
@@ -65,6 +68,19 @@ final class MassGgedonCest extends AbstractFunctionalTest
         $this->whenKuanTiUsesMassGgedon();
 
         $this->thenChunShouldHaveActionPoints(0, $I);
+    }
+
+    public function shouldNotRemoveTwoActionPlayersToMushPlayers(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasSpores(2);
+
+        $this->givenChunHasActionPoints(2);
+
+        $this->givenChunIsMush();
+
+        $this->whenKuanTiUsesMassGgedon();
+
+        $this->thenChunShouldHaveActionPoints(2, $I);
     }
 
     public function shouldMakeOtherPlayersDirty(FunctionalTester $I): void
@@ -163,6 +179,16 @@ final class MassGgedonCest extends AbstractFunctionalTest
     private function givenChunIsInSpace(): void
     {
         $this->chun->changePlace($this->daedalus->getSpace());
+    }
+
+    private function givenChunIsMush(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::MUSH,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime(),
+        );
     }
 
     private function givenKuanTiUsesMassGgedon(): void

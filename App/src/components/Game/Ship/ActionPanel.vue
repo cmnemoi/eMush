@@ -1,6 +1,11 @@
 <template>
     <div class="action-panel">
-
+        <ActionTabs
+            v-if="actionTabs"
+            :target-actions-mush="targetActionsMush"
+            :target-actions-admin="targetActionsAdmin"
+            v-model:activeTab="activeTab"
+        />
         <div class="action-list">
             <ActionButton
                 v-for="(actionWithTarget, key) in getActions"
@@ -9,12 +14,6 @@
                 @click="executeActionWithTarget(actionWithTarget)"
             />
         </div>
-        <ActionTabs
-            v-if="actionTabs"
-            :target-actions-mush="targetActionsMush"
-            :target-actions-admin="targetActionsAdmin"
-            v-model:activeTab="activeTab"
-        />
     </div>
 </template>
 

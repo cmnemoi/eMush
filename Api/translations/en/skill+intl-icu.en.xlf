@@ -662,7 +662,7 @@
       </segment>
       <segment id="hard_boiled.description" state="translated">
         <source>hard_boiled.description</source>
-        <target>Your skin is particularly tough. Plastenite without the sweat.//:point: All **combat damage** you sustain is **reduced by one point**.</target>
+        <target>Your skin is particularly tough. Plastenite without the sweat.//:point: All **combat damage** you sustain is **reduced by one point**, except expedition fights.</target>
       </segment>
     </unit>
     <unit id="saboteur">

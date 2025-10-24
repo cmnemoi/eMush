@@ -26,11 +26,7 @@ use Mush\Player\Enum\EndCauseEnum;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\RoomLog\Enum\PlayerModifierLogEnum;
-use Mush\Skill\Dto\ChooseSkillDto;
-use Mush\Skill\Entity\SkillConfig;
-use Mush\Skill\Entity\SkillConfigCollection;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -40,7 +36,6 @@ use Mush\Tests\FunctionalTester;
 final class FightEventHandlerCest extends AbstractExplorationTester
 {
     private Fight $fightEventHandler;
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
     private Player $derek;
@@ -54,7 +49,6 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $this->fightEventHandler = $I->grabService(Fight::class);
 
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
         $this->rebelBaseRepository = $I->grabService(RebelBaseRepositoryInterface::class);
@@ -67,20 +61,6 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->janice = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::JANICE);
         $this->players->add($this->derek);
         $this->players->add($this->janice);
-
-        // given Chun and KT have pilot and shooter skills available
-        $this->chun->setAvailableHumanSkills(
-            new SkillConfigCollection([
-                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
-                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
-            ]),
-        );
-        $this->kuanTi->setAvailableHumanSkills(
-            new SkillConfigCollection([
-                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::PILOT]),
-                $I->grabEntityFromRepository(SkillConfig::class, ['name' => SkillEnum::SHOOTER]),
-            ])
-        );
 
         // given Chun, Kuan-Ti, and Janice have a spacesuit
         foreach ([$this->chun, $this->kuanTi, $this->janice] as $player) {
@@ -130,8 +110,8 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
         $this->givenBlasterOfPlayerIsEmpty($this->kuanTi);
 
-        $this->givenPlayerIsShooter($this->chun);
-        $this->givenPlayerIsShooter($this->kuanTi);
+        $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->chun);
+        $this->addSkillToPlayer(SkillEnum::SHOOTER, $I, $this->kuanTi);
 
         $exploration = $this->givenAnExpeditionToAnIntelligentLifeSector($I);
 
@@ -179,7 +159,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
     public function testFightEventNotUsingGrenadesIfWeHaveEnoughPointsToKillWithoutThem(FunctionalTester $I): void
     {
-        $this->givenNoAccidentWhenLanding();
+        $this->givenNoAccidentWhenLanding($I);
 
         $this->givenPlayerHasHealth(14, $this->chun);
 
@@ -197,7 +177,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
     public function testFightEventInflictsTheRightAmountOfDamage(FunctionalTester $I): void
     {
-        $this->givenNoAccidentWhenLanding();
+        $this->givenNoAccidentWhenLanding($I);
 
         $this->givenPlayerHasHealth(14, $this->chun);
 
@@ -214,7 +194,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
     public function testFightEventInflictsTheRightAmountOfDamageWithPlasteniteArmor(FunctionalTester $I): void
     {
-        $this->givenNoAccidentWhenLanding();
+        $this->givenNoAccidentWhenLanding($I);
 
         $this->givenPlayerHasHealth(14, $this->chun);
 
@@ -231,9 +211,28 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->thenThereShouldBeRoomLogForPlayerWithHealthLoss(10, $this->chun, $I);
     }
 
+    public function testFightEventInflictsTheRightAmountOfDamageWithHardBoiled(FunctionalTester $I): void
+    {
+        $this->givenNoAccidentWhenLanding($I);
+
+        $this->givenPlayerHasHealth(14, $this->chun);
+
+        $this->addSkillToPlayer(SkillEnum::HARD_BOILED, $I, $this->chun);
+
+        $exploration = $this->givenASoloExpeditionToAnIntelligentLifeSector($this->chun, $I);
+
+        $event = $this->givenExpeditionFightsCreatureOfStrength12($exploration, $I);
+
+        $this->whenIHandleTheEvent($event);
+
+        $this->thenPlayerShouldHaveHealthPoints(3, $this->chun, $I);
+
+        $this->thenThereShouldBeRoomLogForPlayerWithHealthLoss(11, $this->chun, $I);
+    }
+
     public function testFightEventPlayerDeathCauseIsExplorationCombat(FunctionalTester $I): void
     {
-        $this->givenNoAccidentWhenLanding();
+        $this->givenNoAccidentWhenLanding($I);
 
         $this->givenPlayerHasHealth(1, $this->chun);
 
@@ -250,7 +249,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
     public function testFightEventPlayerDeathCauseIsMankarogInMankarogSector(FunctionalTester $I): void
     {
-        $this->givenNoAccidentWhenLanding();
+        $this->givenNoAccidentWhenLanding($I);
 
         $this->givenPlayerHasHealth(1, $this->chun);
 
@@ -267,7 +266,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
     public function testFightEventPlayerDeathCauseIsMankarogIfFightingACreatureWithMankarogStrength(FunctionalTester $I): void
     {
-        $this->givenNoAccidentWhenLanding();
+        $this->givenNoAccidentWhenLanding($I);
 
         $this->givenPlayerHasHealth(1, $this->chun);
 
@@ -284,7 +283,7 @@ final class FightEventHandlerCest extends AbstractExplorationTester
 
     public function testFightEventGivesDisease(FunctionalTester $I): void
     {
-        $this->givenNoAccidentWhenLanding();
+        $this->givenNoAccidentWhenLanding($I);
 
         $exploration = $this->givenASoloExpeditionToAnIntelligentLifeSector($this->chun, $I);
 
@@ -315,9 +314,9 @@ final class FightEventHandlerCest extends AbstractExplorationTester
         $this->thenExpeditionStrengthShouldBe(3, $explorationLog, $I);
     }
 
-    private function givenNoAccidentWhenLanding()
+    private function givenNoAccidentWhenLanding(FunctionalTester $I)
     {
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::PILOT, $this->chun));
+        $this->addSkillToPlayer(SkillEnum::PILOT, $I, $this->chun);
     }
 
     private function givenRalucaIsInTheExpedition(FunctionalTester $I)
@@ -384,11 +383,6 @@ final class FightEventHandlerCest extends AbstractExplorationTester
     private function givenBlasterOfPlayerIsEmpty(Player $player): void
     {
         $player->getEquipmentByNameOrThrow(ItemEnum::BLASTER)->getChargeStatusByName(EquipmentStatusEnum::ELECTRIC_CHARGES)->setCharge(0);
-    }
-
-    private function givenPlayerIsShooter(Player $player)
-    {
-        $this->chooseSkillUseCase->execute(new ChooseSkillDto(SkillEnum::SHOOTER, $player));
     }
 
     private function givenAnExpeditionToAnIntelligentLifeSector(FunctionalTester $I): Exploration

@@ -383,6 +383,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($polymathMaxPrivateChannelsModifier->getName(), $polymathMaxPrivateChannelsModifier);
         $manager->persist($polymathMaxPrivateChannelsModifier);
 
+        $hardBoiledModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName('modifier_for_target_player_+1healthPoint_on_injury_hard_boiled')
+        );
+        $this->addReference($hardBoiledModifier->getName(), $hardBoiledModifier);
+        $manager->persist($hardBoiledModifier);
+
         $manager->flush();
     }
 

@@ -183,7 +183,7 @@ abstract class SkillConfigData
             new SkillConfigDto(
                 name: SkillEnum::HARD_BOILED,
                 modifierConfigs: [
-                    'modifier_for_target_player_+1healthPoint_on_injury',
+                    'modifier_for_target_player_+1healthPoint_on_injury_hard_boiled',
                 ],
             ),
             new SkillConfigDto(

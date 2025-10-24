@@ -3867,6 +3867,27 @@ abstract class ModifierConfigData
                 GameRationEnum::COFFEE => ModifierRequirementEnum::ALL_TAGS,
             ],
         ],
+        [
+            'name' => 'modifier_for_target_player_+1healthPoint_on_injury_hard_boiled',
+            'modifierName' => ModifierNameEnum::PLASTENITE_ARMOR_MODIFIER,
+            'targetEvent' => VariableEventInterface::CHANGE_VARIABLE,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::ADDITIVE_MODIFIER_VALUE,
+            'applyOnTarget' => true,
+            'modifierRange' => ModifierHolderClassEnum::TARGET_PLAYER,
+            'type' => 'variable_event_modifier',
+            'delta' => 1,
+            'targetVariable' => PlayerVariableEnum::HEALTH_POINT,
+            'mode' => VariableModifierModeEnum::ADDITIVE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::HIT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::SHOOT->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::ATTACK->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionOutputEnum::CRITICAL_SUCCESS => ModifierRequirementEnum::NONE_TAGS,
+                WeaponEventType::CRITIC->value => ModifierRequirementEnum::NONE_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -671,7 +671,7 @@
       </segment>
       <segment id="hard_boiled.description" state="translated">
         <source>hard_boiled.description</source>
-        <target>Votre épiderme est particulièrement coriace. Le plastenite sans la transpiration.//:point: Chaque **dégât de combat** qui vous est infligé est **réduit d'un point**.</target>
+        <target>Votre épiderme est particulièrement coriace. Le plastenite sans la transpiration.//:point: Chaque **dégât de combat** qui vous est infligé est **réduit d'un point**, sauf les combats en expédition.</target>
       </segment>
     </unit>
     <unit id="saboteur">

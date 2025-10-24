@@ -135,6 +135,11 @@ class GameItem extends GameEquipment
         return $this->getName() === ItemEnum::SCHRODINGER;
     }
 
+    public function isACamera(): bool
+    {
+        return $this->getName() === ItemEnum::CAMERA_ITEM;
+    }
+
     public function isPersonal(): bool
     {
         return $this->equipment->isPersonal();

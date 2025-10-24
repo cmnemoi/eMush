@@ -528,9 +528,17 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>install_camera.name</source>
         <target>Installer</target>
       </segment>
+      <segment id="mush.name" state="translated">
+        <source>mush.install_camera.name</source>
+        <target>Installer discrètement</target>
+      </segment>
       <segment id="description" state="translated">
         <source>install_camera.description</source>
         <target>Cette action permet d'installer un matériel pour le rendre fonctionnel.</target>
+      </segment>
+      <segment id="mush.description" state="translated">
+        <source>mush.install_camera.description</source>
+        <target>Cette action permet d'installer un matériel pour le rendre fonctionnel.//Vous n'avez aucun risque de vous salir.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
@@ -538,9 +546,17 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <source>remove_camera.name</source>
         <target>Enlever</target>
       </segment>
+      <segment id="mush.name" state="translated">
+        <source>mush.remove_camera.name</source>
+        <target>Enlever discrètement</target>
+      </segment>
       <segment id="description" state="translated">
         <source>remove_camera.description</source>
         <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.</target>
+      </segment>
+      <segment id="mush.description" state="translated">
+        <source>mush.remove_camera.description</source>
+        <target>Cette action permet d'enlever un matériel pour le rendre inopérant ou le déplacer.//Vous n'avez aucun risque de vous salir.</target>
       </segment>
     </unit>
     <unit id="examine">

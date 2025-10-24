@@ -705,6 +705,11 @@ class GameEquipment implements StatusHolderInterface, VisibleStatusHolderInterfa
         return $parameters;
     }
 
+    public function isACamera(): bool
+    {
+        return $this->getName() === EquipmentEnum::CAMERA_EQUIPMENT;
+    }
+
     private function isActionProvidedByMechanic(string $actionName): bool
     {
         $toolProvidesAction = $this->getToolMechanicOrNull()?->hasAction(ActionEnum::from($actionName));

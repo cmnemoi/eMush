@@ -522,9 +522,17 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <source>install_camera.name</source>
         <target>Install</target>
       </segment>
+      <segment id="mush.name" state="translated">
+        <source>mush.install_camera.name</source>
+        <target>Install secretly</target>
+      </segment>
       <segment id="description" state="translated">
         <source>install_camera.description</source>
         <target>This action allows you to install a piece of equipment to make it useful.</target>
+      </segment>
+      <segment id="mush.description" state="translated">
+        <source>mush.install_camera.description</source>
+        <target>This action allows you to install a piece of equipment to make it useful.//There is no risk of getting dirty.</target>
       </segment>
     </unit>
     <unit id="remove_camera">
@@ -532,9 +540,17 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
         <source>remove_camera.name</source>
         <target>Remove</target>
       </segment>
+      <segment id="mush.name" state="translated">
+        <source>mush.remove_camera.name</source>
+        <target>Remove secretly</target>
+      </segment>
       <segment id="description" state="translated">
         <source>remove_camera.description</source>
         <target>This action allows you to remove a piece of equipment to make it inoperative or to allow it to be moved.</target>
+      </segment>
+      <segment id="mush.description" state="translated">
+        <source>mush.remove_camera.description</source>
+        <target>This action allows you to remove a piece of equipment to make it inoperative or to allow it to be moved.//There is no risk of getting dirty.</target>
       </segment>
     </unit>
     <unit id="examine">

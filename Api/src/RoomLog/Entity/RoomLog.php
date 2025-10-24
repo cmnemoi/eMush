@@ -15,7 +15,6 @@ use Mush\Player\Entity\Player;
 use Mush\Player\Entity\PlayerInfo;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\RoomLog\Repository\RoomLogRepository;
-use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 
 #[ORM\Entity(repositoryClass: RoomLogRepository::class)]
@@ -302,8 +301,7 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
     public function shouldBeSecretForPlayer(): bool
     {
         return $this->isAlreadySecret()
-            || $this->isSecretBecausePlayerIsAPariah()
-            || $this->isSecretBecauseNimbleFingersIsInUse();
+            || $this->isSecretBecausePlayerIsAPariah();
     }
 
     public function shouldBeRevealedByCamera(): bool
@@ -347,17 +345,5 @@ class RoomLog implements TimestampableCancelInterface, SanctionEvidenceInterface
         $player = $this->getPlayerOrThrow();
 
         return $this->baseVisibility === VisibilityEnum::COVERT && $player->hasStatus(PlayerStatusEnum::PARIAH);
-    }
-
-    private function isSecretBecauseNimbleFingersIsInUse(): bool
-    {
-        $player = $this->getPlayerOrThrow();
-
-        return $this->isCameraManipulationLog() && $player->hasSkill(SkillEnum::NIMBLE_FINGERS);
-    }
-
-    private function isCameraManipulationLog(): bool
-    {
-        return $this->log === ActionLogEnum::INSTALL_CAMERA || $this->log === ActionLogEnum::REMOVE_CAMERA;
     }
 }

@@ -36,9 +36,9 @@ final class NimbleFingersCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->installCameraConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSTALL_CAMERA->value]);
+        $this->installCameraConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSTALL_CAMERA_NIMBLE_FINGERS->value]);
         $this->installCamera = $I->grabService(InstallCamera::class);
-        $this->removeCameraConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REMOVE_CAMERA->value]);
+        $this->removeCameraConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::REMOVE_CAMERA_NIMBLE_FINGERS->value]);
         $this->removeCamera = $I->grabService(RemoveCamera::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
@@ -100,7 +100,7 @@ final class NimbleFingersCest extends AbstractFunctionalTest
     {
         $this->installCamera->loadParameters(
             actionConfig: $this->installCameraConfig,
-            actionProvider: $this->camera,
+            actionProvider: $this->player,
             player: $this->player,
             target: $this->camera,
         );
@@ -111,7 +111,7 @@ final class NimbleFingersCest extends AbstractFunctionalTest
     {
         $this->removeCamera->loadParameters(
             actionConfig: $this->removeCameraConfig,
-            actionProvider: $this->camera,
+            actionProvider: $this->player,
             player: $this->player,
             target: $this->camera,
         );

@@ -283,6 +283,10 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::NIMBLE_FINGERS,
+                actionConfigs: [
+                    ActionEnum::INSTALL_CAMERA_NIMBLE_FINGERS,
+                    ActionEnum::REMOVE_CAMERA_NIMBLE_FINGERS,
+                ],
             ),
             new SkillConfigDto(
                 name: SkillEnum::NIGHTMARISH,

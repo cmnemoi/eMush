@@ -53,7 +53,7 @@ class InstallCamera extends AbstractAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof GameItem;
+        return $target instanceof GameItem && $target->isACamera();
     }
 
     protected function checkResult(): ActionResult

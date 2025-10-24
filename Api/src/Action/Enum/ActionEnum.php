@@ -103,7 +103,9 @@ enum ActionEnum: string
     case ACCESS_TERMINAL = 'access_terminal';
     case CONTACT_SOL = 'contact_sol';
     case INSTALL_CAMERA = 'install_camera';
+    case INSTALL_CAMERA_NIMBLE_FINGERS = 'install_camera_nimble_fingers';
     case REMOVE_CAMERA = 'remove_camera';
+    case REMOVE_CAMERA_NIMBLE_FINGERS = 'remove_camera_nimble_fingers';
     case CHECK_SPORE_LEVEL = 'check_spore_level';
     case REMOVE_SPORE = 'remove_spore';
     case TAKEOFF = 'takeoff';

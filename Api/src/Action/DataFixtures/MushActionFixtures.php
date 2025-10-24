@@ -74,6 +74,12 @@ class MushActionFixtures extends Fixture
         $goBerserkAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::GO_BERSERK));
         $manager->persist($goBerserkAction);
 
+        $removeCameraNimbleFingersAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::REMOVE_CAMERA_NIMBLE_FINGERS));
+        $manager->persist($removeCameraNimbleFingersAction);
+
+        $installCameraNimbleFingersAction = ActionConfig::fromConfigData(ActionData::getByName(ActionEnum::INSTALL_CAMERA_NIMBLE_FINGERS));
+        $manager->persist($installCameraNimbleFingersAction);
+
         $manager->flush();
 
         $this->addReference(self::EXTRACT_SPORE, $extractSporeAction);
@@ -87,5 +93,7 @@ class MushActionFixtures extends Fixture
         $this->addReference(ActionEnum::EXCHANGE_BODY->value, $exchangeBoodyAction);
         $this->addReference(ActionEnum::CONVERT_CAT->value, $convertCatAction);
         $this->addReference(ActionEnum::GO_BERSERK->value, $goBerserkAction);
+        $this->addReference(ActionEnum::REMOVE_CAMERA_NIMBLE_FINGERS->value, $removeCameraNimbleFingersAction);
+        $this->addReference(ActionEnum::INSTALL_CAMERA_NIMBLE_FINGERS->value, $installCameraNimbleFingersAction);
     }
 }

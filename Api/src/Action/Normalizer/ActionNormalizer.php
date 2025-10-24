@@ -169,7 +169,7 @@ class ActionNormalizer implements NormalizerInterface
         $translationParameters = $this->getTranslationParameters($actionClass, $currentPlayer, $actionTarget);
 
         $normalizedAction['name'] = $this->translationService->translate(
-            "{$actionName}.name",
+            $actionClass->hasTag(ActionTypeEnum::ACTION_MUSH_ALTERNATIVE->toString()) ? "mush.{$actionName}.name" : "{$actionName}.name",
             $translationParameters,
             'actions',
             $language
@@ -185,7 +185,7 @@ class ActionNormalizer implements NormalizerInterface
             $normalizedAction['canExecute'] = false;
         } else {
             $description = $this->translationService->translate(
-                "{$actionName}.description",
+                $actionClass->hasTag(ActionTypeEnum::ACTION_MUSH_ALTERNATIVE->toString()) ? "mush.{$actionName}.description" : "{$actionName}.description",
                 $translationParameters,
                 'actions',
                 $language

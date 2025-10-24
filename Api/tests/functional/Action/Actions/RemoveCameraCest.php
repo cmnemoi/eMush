@@ -10,6 +10,7 @@ use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Entity\GameItem;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
+use Mush\Place\Entity\Place;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -23,6 +24,7 @@ final class RemoveCameraCest extends AbstractFunctionalTest
     private RemoveCamera $removeCamera;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private GameItem $camera;
+    private Place $place;
 
     public function _before(FunctionalTester $I): void
     {
@@ -32,7 +34,15 @@ final class RemoveCameraCest extends AbstractFunctionalTest
         $this->removeCamera = $I->grabService(RemoveCamera::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
 
-        $this->givenPlayerHasCamera();
+        $this->place = $this->player->getPlace();
+        $this->givenPlaceHasCamera();
+    }
+
+    public function shouldHaveTheCameraInInventory(FunctionalTester $I): void
+    {
+        $this->whenPlayerRemoveACamera();
+
+        $this->thenPlayerShouldHaveACameraInInventory($I);
     }
 
     public function shouldCostZeroActionPointsForATechnician(FunctionalTester $I): void
@@ -44,20 +54,20 @@ final class RemoveCameraCest extends AbstractFunctionalTest
         $this->thenActionShouldCostZeroActionPoints($I);
     }
 
-    public function shouldCostOneChefPointsForATechnician(FunctionalTester $I): void
+    public function shouldCostOneTechnicianPointsForATechnician(FunctionalTester $I): void
     {
         $this->givenPlayerIsATechnician($I);
 
-        $this->whenPlayerInstallsCamera();
+        $this->whenPlayerRemoveACamera();
 
         $this->thenPlayerShouldHaveTechnicianPoints(1, $I);
     }
 
-    private function givenPlayerHasCamera(): void
+    private function givenPlaceHasCamera(): void
     {
         $this->camera = $this->gameEquipmentService->createGameEquipmentFromName(
             equipmentName: ItemEnum::CAMERA_ITEM,
-            equipmentHolder: $this->player,
+            equipmentHolder: $this->place,
             reasons: [],
             time: new \DateTime(),
         );
@@ -78,7 +88,7 @@ final class RemoveCameraCest extends AbstractFunctionalTest
         );
     }
 
-    private function whenPlayerInstallsCamera(): void
+    private function whenPlayerRemoveACamera(): void
     {
         $this->whenPlayerWantsToRemoveCamera();
         $this->removeCamera->execute();
@@ -92,5 +102,10 @@ final class RemoveCameraCest extends AbstractFunctionalTest
     private function thenPlayerShouldHaveTechnicianPoints(int $expectedTechnicianPoints, FunctionalTester $I): void
     {
         $I->assertEquals($expectedTechnicianPoints, $this->player->getSkillByNameOrThrow(SkillEnum::TECHNICIAN)->getSkillPoints());
+    }
+
+    private function thenPlayerShouldHaveACameraInInventory(FunctionalTester $I): void
+    {
+        $I->assertTrue($this->player->hasEquipmentByName(ItemEnum::CAMERA_ITEM));
     }
 }

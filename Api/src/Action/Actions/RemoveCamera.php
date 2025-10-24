@@ -44,7 +44,7 @@ class RemoveCamera extends AbstractAction
 
     public function support(?LogParameterInterface $target, array $parameters): bool
     {
-        return $target instanceof GameEquipment;
+        return $target instanceof GameEquipment && $target->isACamera();
     }
 
     protected function checkResult(): ActionResult

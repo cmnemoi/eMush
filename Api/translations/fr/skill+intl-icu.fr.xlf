@@ -931,7 +931,7 @@
       </segment>
       <segment id="nimble_fingers.description" state="translated">
         <source>nimble_fingers.description</source>
-        <target>Avec un petit peu d'aide de vos rhizomes vous pouvez faire des choses merveilleuses. Comme manipuler des caméras par exemple...//:point: Vos actions **Installer** et **Retirer** sont **discrètes** sur les caméras.</target>
+        <target>Avec un petit peu d'aide de vos rhizomes vous pouvez faire des choses merveilleuses. Comme manipuler des caméras par exemple...//:point: Vous pouvez **Installer discrètement** et **Enlever discrètement** les caméras.</target>
       </segment>
     </unit>
     <unit id="polymath">

@@ -26,6 +26,7 @@ enum ActionTypeEnum: string
     case ACTION_IMMUNE_TO_ACTION_POINT_MALUSES = 'action_immune_to_action_point_maluses';
     case ACTION_COMMS_CENTER = 'action_comms_center';
     case ACTION_MUSH = 'action_mush';
+    case ACTION_MUSH_ALTERNATIVE = 'action_mush_alternative';
 
     public function toString(): string
     {

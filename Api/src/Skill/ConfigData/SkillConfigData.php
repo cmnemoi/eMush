@@ -520,6 +520,12 @@ abstract class SkillConfigData
                     ModifierNameEnum::INCREASE_AGGRESIVE_ACTION_TO_SKILL_PLAYER_BY_2_AP,
                 ]
             ),
+            new SkillConfigDto(
+                name: SkillEnum::EPIGENETICS,
+                actionConfigs: [
+                    ActionEnum::ADAPT_EPIGENETICS,
+                ],
+            ),
         ];
     }
 

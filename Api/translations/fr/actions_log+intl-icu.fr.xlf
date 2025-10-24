@@ -1336,5 +1336,11 @@
         <target>***Pour la Modération Seulement*** : **{character}** se transfère dans **{target_character}**.</target>
       </segment>
     </unit>
+    <unit id="adapt_epigenetics_success">
+      <segment id="adapt_epigenetics_success" state="translated">
+        <source>adapt_epigenetics_success</source>
+        <target>Un changement de tactique s'impose! Vous avez réinitialisé vos compétences.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

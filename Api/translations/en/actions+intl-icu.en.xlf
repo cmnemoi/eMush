@@ -1741,5 +1741,19 @@ Or you simply need some fresh air.... or not.</target>
         <target>Allows you to check who is onboard.</target>
       </segment>
     </unit>
+    <unit id="adapt_epigenetics">
+      <segment id="name" state="translated">
+        <source>adapt_epigenetics.name</source>
+        <target>Sudden adaptation</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>adapt_epigenetics.description</source>
+        <target>Allows you to reset your mush skill selection (except Epigenetics).</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>adapt_epigenetics.confirmation</source>
+        <target>This action can only be performed once. Are you sure you want to continue?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

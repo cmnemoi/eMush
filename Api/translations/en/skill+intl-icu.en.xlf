@@ -965,5 +965,15 @@
         <target>When NERON feels sick, it's the whole Daedalus that vomits.//:point: For **3** :pa:, you can confuse NERON which will randomly change its settings next cycle.//:point: Doesn't work on the DMZ if it's blocked.</target>
       </segment>
     </unit>
+    <unit id="epigenetics">
+      <segment id="epigenetics.name" state="translated">
+        <source>epigenetics.name</source>
+        <target>Epigenetics</target>
+      </segment>
+      <segment id="epigenetics.description" state="translated">
+        <source>epigenetics.description</source>
+        <target>:beta: You can adapt to any difficulties. // :point: **Unique:** For **2** :pa:, you can reset your selected **Mush** skills (except Epigenetics). //// This skill is in :beta: beta: we welcome your feedback on the Eternaltwin forum and Discord.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2975,6 +2975,22 @@ class ActionData
             'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
             'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
         ],
+        [
+            'name' => ActionEnum::ADAPT_EPIGENETICS->value,
+            'action_name' => ActionEnum::ADAPT_EPIGENETICS,
+            'types' => [ActionTypeEnum::ACTION_CONFIRM, ActionTypeEnum::ACTION_MUSH],
+            'target' => ActionHolderEnum::PLAYER,
+            'scope' => ActionRangeEnum::SELF,
+            'visibilities' => ['success' => VisibilityEnum::PRIVATE, 'fail' => VisibilityEnum::PRIVATE],
+            'actionPoint' => ['value' => 2, 'min_value' => 0, 'max_value' => null],
+            'movementPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'moralPoint' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+            'percentageInjury' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageDirtiness' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'percentageSuccess' => ['value' => 100, 'min_value' => 1, 'max_value' => 100],
+            'percentageCritical' => ['value' => 0, 'min_value' => 0, 'max_value' => 100],
+            'outputQuantity' => ['value' => 0, 'min_value' => 0, 'max_value' => null],
+        ],
     ];
 
     public static function getByName(ActionEnum $name): array

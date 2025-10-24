@@ -1773,5 +1773,19 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Initie une conversation privée avec cet équipier.</target>
       </segment>
     </unit>
+    <unit id="adapt_epigenetics">
+      <segment id="name" state="translated">
+        <source>adapt_epigenetics.name</source>
+        <target>Adaptation forcée</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>adapt_epigenetics.description</source>
+        <target>Permet de réinitialiser votre sélection de compétences Mush (excepté Epigénétique).</target>
+      </segment>
+      <segment id="confirmation" state="translated">
+        <source>adapt_epigenetics.confirmation</source>
+        <target>Cette action ne peut être utilisée qu'une seule fois. Êtes-vous sûr de vouloir continuer ?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -529,6 +529,7 @@ class GameConfigData
                     DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT . '_default',
                     PlayerStatusEnum::PERSONAL_TRIUMPH_REGRESSION . '_default',
                     PlayerStatusEnum::FIRST . '_default',
+                    PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS . '_default',
                 ],
                 'triumphConfigs' => array_map(static fn (TriumphConfigDto $triumphConfig) => $triumphConfig->name->toConfigKey('default'), TriumphConfigData::getAll()),
                 'hunterConfigs' => [
@@ -663,6 +664,7 @@ class GameConfigData
                     SkillEnum::DIPLOMAT,
                     SkillEnum::DISHEARTENING_CONTACT,
                     SkillEnum::EXPERT,
+                    SkillEnum::EPIGENETICS,
                     SkillEnum::FERTILE,
                     SkillEnum::FIREFIGHTER,
                     SkillEnum::FRUGIVORE,

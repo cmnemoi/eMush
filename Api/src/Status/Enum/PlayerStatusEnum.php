@@ -84,4 +84,5 @@ abstract class PlayerStatusEnum
     public const string POINTLESS_PLAYER = 'pointless_player';
     public const string PERSONAL_TRIUMPH_REGRESSION = 'personal_triumph_regression';
     public const string FIRST = 'first';
+    public const string HAS_ADAPTED_EPIGENETICS = 'has_adapted_epigenetics';
 }

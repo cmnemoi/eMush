@@ -974,5 +974,15 @@
         <target>Quand NERON se sent mal, c'est tout le Daedalus qui vomit.//:point: Pour **3** :pa:, vous pouvez embrouiller NERON au prochain cycle, ce qui modifie aléatoirement ses réglages.//:point: Ne fonctionne pas sur l'entrave DMZ si elle est bloquée.</target>
       </segment>
     </unit>
+    <unit id="epigenetics">
+      <segment id="epigenetics.name" state="translated">
+        <source>epigenetics.name</source>
+        <target>Epigénétique</target>
+      </segment>
+      <segment id="epigenetics.description" state="translated">
+        <source>epigenetics.description</source>
+        <target>:beta: Vous êtes capable de vous adapter à toutes les épreuves. // :point: **Unique:** Pour **2** :pa:, vous pouvez réinitialiser votre sélection de compétences **Mush** (sauf Epigénétique). //// Cette compétence est en :beta: bêta-test: faites vos retours sur le forum ou le discord Eternaltwin.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

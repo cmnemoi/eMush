@@ -1091,5 +1091,11 @@ Will Blouzorg marry Blourka? [...] The lights go out. These alien series are rea
         <target>***For Moderation Only*** : **{character}** exchanges body with **{target_character}**.</target>
       </segment>
     </unit>
+    <unit id="adapt_epigenetics_success">
+      <segment id="adapt_epigenetics_success" state="translated">
+        <source>adapt_epigenetics_success</source>
+        <target>Change of plans! You have reset your mush skills.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

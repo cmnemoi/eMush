@@ -99,6 +99,7 @@ enum SkillEnum: string
     case VICTIMIZER = 'victimizer';
     case WRESTLER = 'wrestler';
     case DISABLED_SPRINTER = 'disabled_sprinter';
+    case EPIGENETICS = 'epigenetics';
 
     public function toString(): string
     {
@@ -134,6 +135,7 @@ enum SkillEnum: string
             self::TRAITOR,
             self::TRANSFER,
             self::TRAPPER,
+            self::EPIGENETICS,
         ]))->contains($this);
     }
 

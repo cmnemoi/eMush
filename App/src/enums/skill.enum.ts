@@ -92,6 +92,7 @@ export enum SkillEnum {
     VICTIMIZER = 'victimizer',
     WRESTLER = 'wrestler',
     DISABLED_SPRINTER = 'disabled_sprinter',
+    EPIGENETICS = 'epigenetics',
 }
 
 export const SkillIconRecord: {[index: string]: any} = {
@@ -457,6 +458,10 @@ export const SkillIconRecord: {[index: string]: any} = {
 
     [SkillEnum.DISABLED_SPRINTER]: {
         'icon': getImgUrl('skills/human/disabled_sprinter.png')
-    }
+    },
+
+    [SkillEnum.EPIGENETICS]: {
+        'icon': getImgUrl('skills/mush/beta_mush.png')
+    },
 };
 

@@ -177,6 +177,7 @@ abstract class ActionLogEnum
     public const string PLAY_WITH_DOG = 'play_with_dog';
     public const string MUTATE_SUCCESS = 'mutate_success';
     public const string PRINT_ZE_LIST = 'print_ze_list';
+    public const string ADAPT_EPIGENETICS = 'adapt_epigenetics';
 
     public const array ACTION_LOGS = [
         ActionEnum::DISASSEMBLE->value => [
@@ -615,6 +616,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::PRINT_ZE_LIST->value => [
             ActionOutputEnum::SUCCESS => self::PRINT_ZE_LIST,
+        ],
+        ActionEnum::ADAPT_EPIGENETICS->value => [
+            ActionOutputEnum::SUCCESS => self::ADAPT_EPIGENETICS,
         ],
     ];
 

@@ -667,6 +667,11 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         );
         $manager->persist($first);
 
+        $hasAdaptedEpigenetics = StatusConfig::fromConfigData(
+            StatusConfigData::getByName(PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS . '_default')
+        );
+        $manager->persist($hasAdaptedEpigenetics);
+
         $gameConfig
             ->addStatusConfig($noGravity)
             ->addStatusConfig($alienArtefact)
@@ -748,7 +753,8 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
             ->addStatusConfig($hasGainedComManagerTitle)
             ->addStatusConfig($pointlessPlayer)
             ->addStatusConfig($firstStarmapFragment)
-            ->addStatusConfig($first);
+            ->addStatusConfig($first)
+            ->addStatusConfig($hasAdaptedEpigenetics);
         $manager->persist($gameConfig);
 
         $this->addReference(self::ALIEN_ARTEFACT_STATUS, $alienArtefact);
@@ -824,6 +830,7 @@ class StatusFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(PlayerStatusEnum::POINTLESS_PLAYER, $pointlessPlayer);
         $this->addReference(DaedalusStatusEnum::FIRST_STARMAP_FRAGMENT, $firstStarmapFragment);
         $this->addReference(PlayerStatusEnum::FIRST, $first);
+        $this->addReference(PlayerStatusEnum::HAS_ADAPTED_EPIGENETICS, $hasAdaptedEpigenetics);
 
         $manager->flush();
     }

@@ -169,6 +169,7 @@ enum ActionEnum: string
     case MASS_GGEDON = 'mass_ggeddon';
     case SLIME_TRAP = 'slime_trap';
     case GIVE_NIGHTMARE = 'give_nightmare';
+    case ADAPT_EPIGENETICS = 'adapt_epigenetics';
 
     // Terminal related actions
     case EXIT_TERMINAL = 'exit_terminal';

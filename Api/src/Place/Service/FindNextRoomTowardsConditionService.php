@@ -39,7 +39,7 @@ final class FindNextRoomTowardsConditionService
         \SplQueue $queue,
         array &$visitedRooms
     ): void {
-        foreach ($currentRoom->getAdjacentRooms() as $adjacentRoom) {
+        foreach ($currentRoom->getAccessibleRooms() as $adjacentRoom) {
             // If the room has already been visited, skip it
             if (isset($visitedRooms[$adjacentRoom->getId()])) {
                 continue;

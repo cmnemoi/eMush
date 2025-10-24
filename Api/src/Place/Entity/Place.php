@@ -656,4 +656,9 @@ class Place implements StatusHolderInterface, VisibleStatusHolderInterface, Modi
     {
         return $this->getPlayers()->getPlayersWithSkill($skill)->getPlayerAlive()->count() > 0;
     }
+
+    public function hasAlivePlayerWithStatus(string $status): bool
+    {
+        return $this->getPlayers()->getPlayersWithStatus($status)->getPlayerAlive()->count() > 0;
+    }
 }

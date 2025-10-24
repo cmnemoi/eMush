@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mush\Equipment\NPCTasks\Pavlov;
+namespace Mush\Equipment\NPCTasks\Schrodinger;
 
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Event\NPCMovedEvent;
@@ -11,7 +11,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Mush\Game\Service\Random\GetRandomElementsFromArrayServiceInterface;
 use Mush\Place\Entity\Place;
 
-class MoveInRandomAdjacentRoomTask extends AbstractDogTask
+class MoveInRandomAdjacentRoomTask extends AbstractCatTask
 {
     public function __construct(
         protected EventServiceInterface $eventService,
@@ -21,23 +21,23 @@ class MoveInRandomAdjacentRoomTask extends AbstractDogTask
         parent::__construct($this->eventService);
     }
 
-    protected function applyEffect(GameEquipment $pavlov, \DateTime $time): void
+    protected function applyEffect(GameEquipment $NPC, \DateTime $time): void
     {
         // If there is no room to move to, the task is not applicable.
-        $roomToMoveTo = $this->getRoomToMoveTo($pavlov);
+        $roomToMoveTo = $this->getRoomToMoveTo($NPC);
         if (!$roomToMoveTo) {
             $this->taskNotApplicable = true;
 
             return;
         }
 
-        // Else, move the dog to the room.
-        $this->moveDogToPlace($pavlov, $roomToMoveTo, $time);
+        // Else, move the NPC to the room.
+        $this->moveNPCToPlace($NPC, $roomToMoveTo, $time);
     }
 
-    private function getRoomToMoveTo(GameEquipment $pavlov): ?Place
+    private function getRoomToMoveTo(GameEquipment $NPC): ?Place
     {
-        $adjacentRooms = $pavlov->getPlace()->getAccessibleRooms();
+        $adjacentRooms = $NPC->getPlace()->getAccessibleRooms();
         $roomToMoveTo = $this->getRandomElementsFromArray->execute(
             elements: $adjacentRooms->toArray(),
             number: 1
@@ -46,20 +46,20 @@ class MoveInRandomAdjacentRoomTask extends AbstractDogTask
         return $roomToMoveTo ?: null;
     }
 
-    private function moveDogToPlace(GameEquipment $pavlov, Place $place, \DateTime $time): void
+    private function moveNPCToPlace(GameEquipment $NPC, Place $place, \DateTime $time): void
     {
-        $oldRoom = $pavlov->getPlace();
+        $oldRoom = $NPC->getPlace();
         $this->gameEquipmentService->moveEquipmentTo(
-            equipment: $pavlov,
+            equipment: $NPC,
             newHolder: $place,
             time: $time
         );
 
-        $dogEvent = new NPCMovedEvent(
-            NPC: $pavlov,
+        $NPCEvent = new NPCMovedEvent(
+            NPC: $NPC,
             oldRoom: $oldRoom,
             time: $time
         );
-        $this->eventService->callEvent($dogEvent, NPCMovedEvent::class);
+        $this->eventService->callEvent($NPCEvent, NPCMovedEvent::class);
     }
 }

@@ -128,11 +128,6 @@ class PlayerCollection extends ArrayCollection
         return $this->getPlayersWithSkill($skill)->count() > 0;
     }
 
-    public function hasOneWithStatus(string $status): bool
-    {
-        return $this->filter(static fn (Player $player) => $player->hasStatus($status))->count() > 0;
-    }
-
     public function getAllExceptMultiple(self $playersToExclude): self
     {
         return $this->filter(static fn (Player $player) => !$playersToExclude->contains($player));
@@ -147,6 +142,11 @@ class PlayerCollection extends ArrayCollection
         }
 
         return $player;
+    }
+
+    public function getPlayersWithStatus(string $status): self
+    {
+        return $this->filter(static fn (Player $player) => $player->hasStatus($status));
     }
 
     public function hasPlayerWithStatus(string $status): bool

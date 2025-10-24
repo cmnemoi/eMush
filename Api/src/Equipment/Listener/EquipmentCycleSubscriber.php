@@ -7,6 +7,7 @@ use Mush\Equipment\Entity\Drone;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Event\EquipmentCycleEvent;
 use Mush\Equipment\NPCTasks\Pavlov\DogTasksHandler;
+use Mush\Equipment\NPCTasks\Schrodinger\CatTasksHandler;
 use Mush\Equipment\Repository\GameEquipmentRepositoryInterface;
 use Mush\Equipment\Service\EquipmentCycleHandlerServiceInterface;
 use Mush\Game\Enum\EventEnum;
@@ -20,6 +21,7 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
     public function __construct(
         private DroneTasksHandler $droneTasksHandler,
         private DogTasksHandler $dogTasksHandler,
+        private CatTasksHandler $catTasksHandler,
         private EventServiceInterface $eventService,
         private EquipmentCycleHandlerServiceInterface $equipmentCycleHandler,
         private GameEquipmentRepositoryInterface $gameEquipmentRepository,
@@ -32,7 +34,7 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
             EquipmentCycleEvent::EQUIPMENT_NEW_CYCLE => [
                 ['onNewCycle', EventPriorityEnum::LOW],
                 ['onDroneNewCycle', EventPriorityEnum::HIGH],
-                ['onDogNewCycle', EventPriorityEnum::LOW],
+                ['onNPCNewCycle', EventPriorityEnum::LOW],
             ],
         ];
     }
@@ -67,12 +69,16 @@ final class EquipmentCycleSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onDogNewCycle(EquipmentCycleEvent $event): void
+    public function onNPCNewCycle(EquipmentCycleEvent $event): void
     {
         $equipment = $event->getGameEquipment();
 
         if ($equipment->getName() === ItemEnum::PAVLOV) {
             $this->dogTasksHandler->execute($equipment, $event->getTime());
+        }
+
+        if ($equipment->getName() === ItemEnum::SCHRODINGER) {
+            $this->catTasksHandler->execute($equipment, $event->getTime());
         }
     }
 }

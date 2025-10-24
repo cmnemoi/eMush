@@ -18,13 +18,17 @@ final class FakeD100RollService implements D100RollServiceInterface
         return $this->isSuccessful === false;
     }
 
-    public function makeSuccessful(): void
+    public function makeSuccessful(): static
     {
         $this->isSuccessful = true;
+
+        return $this;
     }
 
-    public function makeFail(): void
+    public function makeFail(): static
     {
         $this->isSuccessful = false;
+
+        return $this;
     }
 }

@@ -35,6 +35,10 @@ final class DifficultyService implements DifficultyServiceInterface
 
     private function updateIncidentPoints(Daedalus $daedalus): void
     {
+        if ($daedalus->isFilling()) {
+            return;
+        }
+
         $pointsToAdd = $daedalus->getDay() <= 2 ? $daedalus->getDay() : 1;
 
         if ($daedalus->isInHardMode()) {

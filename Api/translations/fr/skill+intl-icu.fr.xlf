@@ -732,7 +732,7 @@
       </segment>
       <segment id="bypass.description" state="translated">
         <source>bypass.description</source>
-        <target>Les ambiguïtés dans le code de NERON envers le Mush sont si délectables parfois...//:point: Vous pouvez accéder au **BIOS** de NERON même si vous n'êtes pas **Administrateur**.</target>
+        <target>Les ambiguïtés dans le code de NERON envers le Mush sont si délectables parfois...//:point: Vous pouvez accéder **discrètement** au **BIOS** de NERON même si vous n'êtes pas **Administrateur**.</target>
       </segment>
     </unit>
     <unit id="traitor">

@@ -22,7 +22,7 @@ use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class AccessTerminal extends AbstractAction
+class AccessTerminal extends AbstractAction
 {
     protected ActionEnum $name = ActionEnum::ACCESS_TERMINAL;
 

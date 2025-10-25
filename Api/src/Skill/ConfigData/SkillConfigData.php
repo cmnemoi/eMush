@@ -54,6 +54,9 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::BYPASS,
+                actionConfigs: [
+                    ActionEnum::BYPASS_TERMINAL,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::CAFFEINE_JUNKIE,

@@ -3,9 +3,9 @@
 namespace Mush\Action\Validator;
 
 use Mush\Action\Actions\AbstractAction;
+use Mush\Action\Enum\ActionEnum;
 use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Game\Enum\TitleEnum;
-use Mush\Skill\Enum\SkillEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -51,7 +51,7 @@ class HasNeededTitleForTerminalValidator extends ConstraintValidator
         $terminal = $value->gameEquipmentTarget();
         $player = $value->getPlayer();
 
-        return $terminal->getName() === EquipmentEnum::BIOS_TERMINAL && $player->hasSkill(SkillEnum::BYPASS);
+        return $terminal->getName() === EquipmentEnum::BIOS_TERMINAL && $value->getActionName() === ActionEnum::BYPASS_TERMINAL->value;
     }
 
     private function shouldBuildViolation(bool $titleNeededToAccess, bool $playerHasTitle): bool

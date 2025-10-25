@@ -92,6 +92,7 @@ abstract class ActionLogEnum
     public const string SHOOT_HUNTER_FAIL = 'shoot_hunter_fail';
     public const string TAKEOFF_SUCCESS = 'takeoff_success';
     public const string ACCESS_TERMINAL_SUCCESS = 'access_terminal_success';
+    public const string BYPASS_TERMINAL_SUCCESS = 'bypass_terminal_success';
     public const string TAKEOFF_NO_PILOT = 'takeoff_no_pilot';
     public const string LAND_NO_PILOT = 'land_no_pilot';
     public const string LAND_SUCCESS = 'land_success';
@@ -399,6 +400,9 @@ abstract class ActionLogEnum
         ],
         ActionEnum::ACCESS_TERMINAL->value => [
             ActionOutputEnum::SUCCESS => self::ACCESS_TERMINAL_SUCCESS,
+        ],
+        ActionEnum::BYPASS_TERMINAL->value => [
+            ActionOutputEnum::SUCCESS => self::BYPASS_TERMINAL_SUCCESS,
         ],
         ActionEnum::TAKEOFF->value => [
             ActionOutputEnum::CRITICAL_SUCCESS => self::TAKEOFF_SUCCESS,

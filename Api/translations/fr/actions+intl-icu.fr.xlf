@@ -883,6 +883,16 @@ Se laver à la cuisine ne permet pas de bénéficier des effets de la Thalasso.<
         <target>Vous permet d'accéder aux services proposés par ce terminal.</target>
       </segment>
     </unit>
+    <unit id="bypass_terminal">
+      <segment id="name" state="translated">
+        <source>bypass_terminal.name</source>
+        <target>Accéder discrètement</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bypass_terminal.description</source>
+        <target>Vous permet d'accéder discrètement aux services proposés par ce terminal.</target>
+      </segment>
+    </unit>
     <unit id="land">
       <segment id="name" state="translated">
         <source>land.name</source>

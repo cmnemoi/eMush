@@ -101,6 +101,7 @@ enum ActionEnum: string
     case SHOOT_RANDOM_HUNTER = 'shoot_random_hunter';
     case SHOOT_RANDOM_HUNTER_PATROL_SHIP = 'shoot_random_hunter_patrol_ship';
     case ACCESS_TERMINAL = 'access_terminal';
+    case BYPASS_TERMINAL = 'bypass_terminal';
     case CONTACT_SOL = 'contact_sol';
     case INSTALL_CAMERA = 'install_camera';
     case INSTALL_CAMERA_NIMBLE_FINGERS = 'install_camera_nimble_fingers';

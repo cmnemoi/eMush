@@ -725,7 +725,7 @@
       </segment>
       <segment id="bypass.description" state="translated">
         <source>bypass.description</source>
-        <target>The ambiguities of the NERON code vis-a-vis Mush are sometimes so welcome...//:point: You can access NERON's **BIOS** even if you're not the **Administrator**.</target>
+        <target>The ambiguities of the NERON code vis-a-vis Mush are sometimes so welcome...//:point: You can access **secretly** NERON's **BIOS** even if you're not the **Administrator**.</target>
       </segment>
     </unit>
     <unit id="traitor">

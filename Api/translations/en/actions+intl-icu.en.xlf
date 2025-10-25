@@ -870,11 +870,21 @@ Washing in the kitchen doesn't give you the benefit of a Thalasso.</target>
     <unit id="access_terminal">
       <segment id="name" state="translated">
         <source>access_terminal.name</source>
-        <target>Access Terminal</target>
+        <target>Access terminal</target>
       </segment>
       <segment id="description" state="translated">
         <source>access_terminal.description</source>
         <target>Allow you to access services available on this terminal.</target>
+      </segment>
+    </unit>
+    <unit id="bypass_terminal">
+      <segment id="name" state="translated">
+        <source>bypass_terminal.name</source>
+        <target>Access terminal secretly</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>bypass_terminal.description</source>
+        <target>Allow you to access secretly the services available on this terminal.</target>
       </segment>
     </unit>
     <unit id="land">

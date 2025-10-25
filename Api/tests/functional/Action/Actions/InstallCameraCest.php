@@ -53,6 +53,15 @@ final class InstallCameraCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTechnicianPoints(1, $I);
     }
 
+    public function shouldCostZeroActionPointsForParanoid(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsParanoid($I);
+
+        $this->whenPlayerWantsToInstallCamera();
+
+        $this->thenActionShouldCostZeroActionPoints($I);
+    }
+
     private function givenPlayerHasCamera(): void
     {
         $this->camera = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -66,6 +75,11 @@ final class InstallCameraCest extends AbstractFunctionalTest
     private function givenPlayerIsATechnician(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I);
+    }
+
+    private function givenPlayerIsParanoid(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::PARANOID, $I);
     }
 
     private function whenPlayerWantsToInstallCamera(): void

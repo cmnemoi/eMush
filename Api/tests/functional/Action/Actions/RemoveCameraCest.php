@@ -63,6 +63,15 @@ final class RemoveCameraCest extends AbstractFunctionalTest
         $this->thenPlayerShouldHaveTechnicianPoints(1, $I);
     }
 
+    public function shouldCostZeroActionPointsForParanoid(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsParanoid($I);
+
+        $this->whenPlayerWantsToRemoveCamera();
+
+        $this->thenActionShouldCostZeroActionPoints($I);
+    }
+
     private function givenPlaceHasCamera(): void
     {
         $this->camera = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -76,6 +85,11 @@ final class RemoveCameraCest extends AbstractFunctionalTest
     private function givenPlayerIsATechnician(FunctionalTester $I): void
     {
         $this->addSkillToPlayer(SkillEnum::TECHNICIAN, $I);
+    }
+
+    private function givenPlayerIsParanoid(FunctionalTester $I): void
+    {
+        $this->addSkillToPlayer(SkillEnum::PARANOID, $I);
     }
 
     private function whenPlayerWantsToRemoveCamera(): void

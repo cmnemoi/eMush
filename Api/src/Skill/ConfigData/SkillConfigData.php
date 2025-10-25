@@ -516,7 +516,10 @@ abstract class SkillConfigData
             ),
             new SkillConfigDto(
                 name: SkillEnum::PARANOID,
-                spawnEquipmentConfig: SpawnEquipmentConfigData::TWO_CAMERAS_IN_PLAYER_INVENTORY,
+                spawnEquipmentConfig: SpawnEquipmentConfigData::ONE_CAMERA_IN_PLAYER_INVENTORY,
+                modifierConfigs: [
+                    ModifierNameEnum::PARANOID_MODIFIER_FREE_CAMERA_ACTIONS,
+                ]
             ),
             new SkillConfigDto(
                 name: SkillEnum::CRAZY_EYE,

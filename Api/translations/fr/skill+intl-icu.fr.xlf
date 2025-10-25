@@ -223,9 +223,10 @@
       </segment>
       <segment id="paranoid.description" state="translated">
         <source>paranoid.description</source>
-        <target>Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce à ses caméras supplémentaires.//
-:point: Commence avec 2 **Caméras** supplémentaires.//
-:point: Bonus pour développer certains **Projets NERON**.</target>
+        <target>Le Paranoïaque pense que tous ses collègues sont potentiellement dangereux, il surveille toujours ses arrières grâce aux caméras.//
+:point: Commence avec 1 **Caméra** supplémentaire.//
+:point: Bonus pour développer certains **Projets NERON**.//
+:point: **Installer** et **Enlever** les caméras est **gratuit**.</target>
       </segment>
     </unit>
     <unit id="biologist">

@@ -3888,6 +3888,28 @@ abstract class ModifierConfigData
                 WeaponEventType::CRITIC->value => ModifierRequirementEnum::NONE_TAGS,
             ],
         ],
+        [
+            'name' => ModifierNameEnum::PARANOID_MODIFIER_FREE_CAMERA_ACTIONS,
+            'modifierName' => null,
+            'targetEvent' => ActionVariableEvent::APPLY_COST,
+            'strategy' => ModifierStrategyEnum::VARIABLE_MODIFIER,
+            'priority' => ModifierPriorityEnum::OVERRIDE_VALUE_PRIORITY,
+            'applyOnTarget' => false,
+            'modifierRange' => 'player',
+            'type' => 'variable_event_modifier',
+            'triggeredEvent' => null,
+            'visibility' => null,
+            'delta' => 0,
+            'targetVariable' => PlayerVariableEnum::ACTION_POINT,
+            'mode' => VariableModifierModeEnum::SET_VALUE,
+            'modifierActivationRequirements' => [],
+            'tagConstraints' => [
+                ActionEnum::REMOVE_CAMERA->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::INSTALL_CAMERA->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::REMOVE_CAMERA_NIMBLE_FINGERS->value => ModifierRequirementEnum::ANY_TAGS,
+                ActionEnum::INSTALL_CAMERA_NIMBLE_FINGERS->value => ModifierRequirementEnum::ANY_TAGS,
+            ],
+        ],
     ];
 
     public static function getByName(string $name): array

@@ -161,4 +161,5 @@ abstract class ModifierNameEnum
     public const string PLAYER_PLUS_1_ACTION_POINTS_ON_CONSUME_ACTION_IF_COFFEE = 'player_+1_action_points_on_consume_action_if_coffee';
     public const string GUARANA_CAPPUCCINO_MODIFIER = 'guarana_cappuccino_modifier';
     public const string PLAYER_PLUS_1_MORALE_POINT_TO_OTHER_LAID_DOWN_PLAYERS_IN_ROOM = 'player_+1_morale_point_to_other_laid_down_players';
+    public const string PARANOID_MODIFIER_FREE_CAMERA_ACTIONS = 'paranoid_modifier_free_camera_actions';
 }

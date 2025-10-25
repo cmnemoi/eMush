@@ -22,10 +22,10 @@ final class ParanoidCest extends AbstractFunctionalTest
         $this->addSkillToPlayer(SkillEnum::PARANOID, $I);
     }
 
-    public function shouldSpawnTwoCamerasInPlayerInventory(FunctionalTester $I): void
+    public function shouldSpawnOneCameraInPlayerInventory(FunctionalTester $I): void
     {
         $I->assertCount(
-            expectedCount: 2,
+            expectedCount: 1,
             haystack: $this->player->getEquipments()->filter(static fn (GameEquipment $equipment) => $equipment->getName() === ItemEnum::CAMERA_ITEM)
         );
     }

@@ -222,7 +222,10 @@
       </segment>
       <segment id="paranoid.description" state="translated">
         <source>paranoid.description</source>
-        <target>The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using their extra cameras.//:point: Starts out with 2 additional **cameras**.</target>
+        <target>The paranoid crewmember always believes their crewmates to be potentially dangerous, they always watch their back using cameras.//
+:point: Starts out with 1 additional **camera**.//
+:point: Bonus for developing certain **NERON projects**.//
+:point: **Installing** and **Removing** cameras is **free**.</target>
       </segment>
     </unit>
     <unit id="biologist">

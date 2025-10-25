@@ -76,6 +76,17 @@ final class NimbleFingersCest extends AbstractFunctionalTest
         );
     }
 
+    public function shouldBeFreeWithParanoid(FunctionalTester $I): void
+    {
+        $this->givenCameraInPlayerInventory();
+
+        $this->addSkillToPlayer(SkillEnum::PARANOID, $I);
+
+        $this->whenPlayerWantsToInstallCamera();
+
+        $this->thenActionShouldCostZeroActionPoints($I);
+    }
+
     private function givenCameraInPlayerInventory(): void
     {
         $this->camera = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -116,5 +127,20 @@ final class NimbleFingersCest extends AbstractFunctionalTest
             target: $this->camera,
         );
         $this->removeCamera->execute();
+    }
+
+    private function whenPlayerWantsToInstallCamera(): void
+    {
+        $this->installCamera->loadParameters(
+            actionConfig: $this->installCameraConfig,
+            actionProvider: $this->camera,
+            player: $this->player,
+            target: $this->camera,
+        );
+    }
+
+    private function thenActionShouldCostZeroActionPoints(FunctionalTester $I): void
+    {
+        $I->assertEquals(0, $this->installCamera->getActionPointCost());
     }
 }

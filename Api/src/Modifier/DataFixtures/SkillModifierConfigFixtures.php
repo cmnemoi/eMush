@@ -389,6 +389,12 @@ final class SkillModifierConfigFixtures extends Fixture implements DependentFixt
         $this->addReference($hardBoiledModifier->getName(), $hardBoiledModifier);
         $manager->persist($hardBoiledModifier);
 
+        $paranoidModifier = VariableEventModifierConfig::fromConfigData(
+            ModifierConfigData::getByName(ModifierNameEnum::PARANOID_MODIFIER_FREE_CAMERA_ACTIONS)
+        );
+        $this->addReference($paranoidModifier->getName(), $paranoidModifier);
+        $manager->persist($paranoidModifier);
+
         $manager->flush();
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Player\Listener;
 
 use Mush\Action\Event\ActionVariableEvent;
@@ -16,14 +18,14 @@ use Mush\Player\Service\UpdatePlayerNotificationService;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ActionVariableSubscriber implements EventSubscriberInterface
+final readonly class ActionVariableSubscriber implements EventSubscriberInterface
 {
     public const ACTION_CLUMSINESS_DAMAGE = -2;
 
     public function __construct(
         private D100RollServiceInterface $d100Roll,
         private EventServiceInterface $eventService,
-        private readonly UpdatePlayerNotificationService $updatePlayerNotification,
+        private UpdatePlayerNotificationService $updatePlayerNotification,
     ) {}
 
     public static function getSubscribedEvents(): array
@@ -50,19 +52,79 @@ class ActionVariableSubscriber implements EventSubscriberInterface
 
     public function onRollPercentage(ActionVariableEvent $event): void
     {
-        if ($event->shouldHurtPlayer($this->d100Roll)) {
-            $this->hurtPlayer($event);
-            $this->haveCatInfectPlayer($event);
+        if (!$event->shouldHurtPlayer($this->d100Roll)) {
+            return;
+        }
+
+        if ($this->isHurtFromCat($event)) {
+            $this->infectHumanIfCatIsContaminated($event);
+        }
+
+        $this->hurtPlayer($event, $this->getClumsinessEndCause($event));
+    }
+
+    private function hurtPlayer(ActionVariableEvent $event, string $endCause): void
+    {
+        $event->addTag($endCause);
+
+        $damageWereApplied = $this->tryToApplyDamage($event);
+
+        if ($damageWereApplied) {
+            $notification = match ($endCause) {
+                EndCauseEnum::CLUMSINESS => PlayerNotificationEnum::CLUMSINESS,
+                EndCauseEnum::CLUMSINESS_CAT => PlayerNotificationEnum::CLUMSINESS_CAT,
+                default => throw new \InvalidArgumentException("Unknown end cause: {$endCause}"),
+            };
+
+            $this->updatePlayerNotification->execute(
+                player: $event->getAuthor(),
+                message: $notification,
+            );
         }
     }
 
-    private function hurtPlayer(ActionVariableEvent $event): void
+    private function infectHumanIfCatIsContaminated(ActionVariableEvent $event): void
     {
         $author = $event->getAuthor();
-        $event->addTag(EndCauseEnum::CLUMSINESS);
+        if ($author->isMush()) {
+            return;
+        }
 
+        $cat = $event->getEquipmentActionTargetOrThrow();
+
+        $catInfectedStatus = $cat->getStatusByName(EquipmentStatusEnum::CAT_INFECTED);
+        if (!$catInfectedStatus) {
+            return;
+        }
+
+        $infectAuthor = $catInfectedStatus->getPlayerTargetOrThrow();
         $playerVariableEvent = new PlayerVariableEvent(
             $author,
+            PlayerVariableEnum::SPORE,
+            1,
+            $event->getTagsWithout(EndCauseEnum::CLUMSINESS_CAT),
+            $event->getTime()
+        );
+        $playerVariableEvent->setAuthor($infectAuthor);
+        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+    }
+
+    private function isHurtFromCat(ActionVariableEvent $event): bool
+    {
+        $target = $event->getActionTarget();
+
+        return $target instanceof GameItem && $target->isSchrodinger();
+    }
+
+    private function getClumsinessEndCause(ActionVariableEvent $event): string
+    {
+        return $this->isHurtFromCat($event) ? EndCauseEnum::CLUMSINESS_CAT : EndCauseEnum::CLUMSINESS;
+    }
+
+    private function tryToApplyDamage(ActionVariableEvent $event): bool
+    {
+        $playerVariableEvent = new PlayerVariableEvent(
+            $event->getAuthor(),
             PlayerVariableEnum::HEALTH_POINT,
             self::ACTION_CLUMSINESS_DAMAGE,
             $event->getTags(),
@@ -70,46 +132,6 @@ class ActionVariableSubscriber implements EventSubscriberInterface
         );
         $events = $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
 
-        if ($events->werePrevented()) {
-            return;
-        }
-
-        $this->updatePlayerNotification->execute(
-            player: $author,
-            message: PlayerNotificationEnum::CLUMSINESS,
-        );
-    }
-
-    private function haveCatInfectPlayer(ActionVariableEvent $event): void
-    {
-        $actionAuthor = $event->getAuthor();
-
-        if ($actionAuthor->isMush()) {
-            return;
-        }
-
-        $pickedItem = $event->getActionTarget();
-
-        if (!$pickedItem instanceof GameItem) {
-            return;
-        }
-
-        $catInfectedStatus = $pickedItem->getStatusByName(EquipmentStatusEnum::CAT_INFECTED);
-
-        if (!$catInfectedStatus) {
-            return;
-        }
-
-        $infectAuthor = $catInfectedStatus->getPlayerTargetOrThrow();
-
-        $playerVariableEvent = new PlayerVariableEvent(
-            $actionAuthor,
-            PlayerVariableEnum::SPORE,
-            1,
-            $event->getTagsWithout(EndCauseEnum::CLUMSINESS),
-            $event->getTime()
-        );
-        $playerVariableEvent->setAuthor($infectAuthor);
-        $this->eventService->callEvent($playerVariableEvent, VariableEventInterface::CHANGE_VARIABLE);
+        return !$events->werePrevented();
     }
 }

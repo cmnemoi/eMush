@@ -25,6 +25,7 @@ abstract class PlayerModifierLogEnum
     public const string LOSS_MORAL_POINT = 'loss_moral_point';
     public const string PANIC_CRISIS = 'panic_crisis';
     public const string CLUMSINESS = 'clumsiness';
+    public const string CLUMSINESS_CAT = 'clumsiness_cat';
     public const string HUNGER = 'hunger';
     public const string DAILY_MORALE_LOSS = 'daily_morale_loss';
     public const string LOGISTIC_LOG = 'logistic_log';
@@ -62,6 +63,7 @@ abstract class PlayerModifierLogEnum
             SymptomEnum::BITING => SymptomEnum::BITING,
             PlayerEvent::PANIC_CRISIS => self::PANIC_CRISIS,
             EndCauseEnum::CLUMSINESS => self::CLUMSINESS,
+            EndCauseEnum::CLUMSINESS_CAT => self::CLUMSINESS_CAT,
             ModifierNameEnum::OPTIMIST_MODIFIER => self::OPTIMIST_WORKED,
             PlayerService::DAY_MORAL_CHANGE => self::DAILY_MORALE_LOSS,
             HunterEvent::HUNTER_SHOT => LogEnum::ATTACKED_BY_HUNTER,
@@ -78,6 +80,7 @@ abstract class PlayerModifierLogEnum
             SymptomEnum::BITING => VisibilityEnum::PUBLIC,
             PlayerEvent::PANIC_CRISIS => VisibilityEnum::PRIVATE,
             EndCauseEnum::CLUMSINESS => VisibilityEnum::PRIVATE,
+            EndCauseEnum::CLUMSINESS_CAT => VisibilityEnum::PRIVATE,
             PlayerService::DAY_MORAL_CHANGE => VisibilityEnum::PRIVATE,
             HunterEvent::HUNTER_SHOT => VisibilityEnum::PUBLIC,
             ModifierNameEnum::LOST_MODIFIER => VisibilityEnum::PRIVATE,

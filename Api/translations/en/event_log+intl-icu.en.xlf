@@ -119,6 +119,12 @@
         <target>That wasn't supposed to happen. In the heat of the action you hurt yourself...</target>
       </segment>
     </unit>
+    <unit id="clumsiness_cat">
+      <segment state="translated">
+        <source>clumsiness_cat</source>
+        <target>Whatever it is you're trying to do, Schrodinger lets their displeasure be known through a round of ferocious clawing.</target>
+      </segment>
+    </unit>
     <unit id="clumsiness_prevented">
       <segment state="translated">
         <source>clumsiness_prevented</source>

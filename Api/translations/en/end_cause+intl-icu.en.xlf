@@ -343,6 +343,24 @@
         <target>Whatever you did, you did it badly. Very badly. So badly that you hurt yourself. And not just a little bit. What a shame.</target>
       </segment>
     </unit>
+    <unit id="clumsiness_cat">
+      <segment id="name" state="translated">
+        <source>clumsiness_cat.name</source>
+        <target>Putting the 'fur' in feral</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>clumsiness_cat.short_name</source>
+        <target>Struck down by a very angry feline</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>clumsiness_cat.category</source>
+        <target>You are cat chow!</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>clumsiness_cat.description</source>
+        <target>Have you never been taught to let sleeping cats lie?</target>
+      </segment>
+    </unit>
     <unit id="space_battle">
       <segment id="name" state="translated">
         <source>space_battle.name</source>

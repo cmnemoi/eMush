@@ -35,6 +35,7 @@ abstract class EndCauseEnum
     public const string INJURY = 'injury';
     public const string BURNT = 'burnt';
     public const string CLUMSINESS = 'clumsiness';
+    public const string CLUMSINESS_CAT = 'clumsiness_cat';
     public const string SPACE_BATTLE = 'space_battle';
     public const string SPACE_ASPHYXIATED = 'space_asphyxiated';
     public const string BEHEADED = 'beheaded';
@@ -71,6 +72,7 @@ abstract class EndCauseEnum
         self::INJURY => self::INJURY,
         self::BURNT => self::BURNT,
         self::CLUMSINESS => self::CLUMSINESS,
+        self::CLUMSINESS_CAT => self::CLUMSINESS_CAT,
         self::SPACE_BATTLE => self::SPACE_BATTLE,
         self::SPACE_ASPHYXIATED => self::SPACE_ASPHYXIATED,
         self::BEHEADED => self::BEHEADED,
@@ -176,6 +178,7 @@ abstract class EndCauseEnum
             self::BLED,
             self::BURNT,
             self::CLUMSINESS,
+            self::CLUMSINESS_CAT,
             self::DAEDALUS_DESTROYED,
             self::DEPRESSION,
             self::ELECTROCUTED,

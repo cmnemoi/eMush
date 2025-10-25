@@ -27,6 +27,7 @@ enum PlayerNotificationEnum: string
     case EXCHANGE_BODY_HUMAN = 'exchange_body_human';
     case SOILED = 'soiled';
     case CLUMSINESS = 'clumsiness';
+    case CLUMSINESS_CAT = 'clumsiness_cat';
     case NULL = '';
 
     public function toString(): string
@@ -39,6 +40,7 @@ enum PlayerNotificationEnum: string
         return match ($this) {
             self::WELCOME_ON_BOARD => 'neron_eye.gif',
             self::WELCOME_MUSH => 'mush_stamp.png',
+            self::CLUMSINESS_CAT => 'angry_cat.png',
             default => '',
         };
     }

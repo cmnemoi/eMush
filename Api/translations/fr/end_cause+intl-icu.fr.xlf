@@ -343,6 +343,24 @@
         <target>Quoi que vous ayez fait, vous l'avez mal fait. Très mal. Tellement mal que vous vous êtes fait mal. Et pas qu'un peu. Dommage.</target>
       </segment>
     </unit>
+    <unit id="clumsiness_cat">
+      <segment id="name" state="translated">
+        <source>clumsiness_cat.name</source>
+        <target>Circonstances félines</target>
+      </segment>
+      <segment id="short_name" state="translated">
+        <source>clumsiness_cat.short_name</source>
+        <target>Achevé par un matou mal léché</target>
+      </segment>
+      <segment id="category" state="translated">
+        <source>clumsiness_cat.category</source>
+        <target>Vous êtes de la pâtée pour chat !</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>clumsiness_cat.description</source>
+        <target>Chat échaudé craint l'eau froide, c'est pourtant connu.</target>
+      </segment>
+    </unit>
     <unit id="space_battle">
       <segment id="name" state="translated">
         <source>space_battle.name</source>

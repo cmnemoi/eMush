@@ -5,7 +5,6 @@ namespace Mush\Exploration\ConfigData;
 use Doctrine\ORM\EntityManagerInterface;
 use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Game\ConfigData\ConfigDataLoader;
-use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Repository\EventConfigRepository;
 
 class PlanetSectorEventConfigDataLoader extends ConfigDataLoader
@@ -22,17 +21,14 @@ class PlanetSectorEventConfigDataLoader extends ConfigDataLoader
 
     public function loadConfigsData(): void
     {
-        foreach (EventConfigData::$planetSectorEventConfigData as $planetSectorEventConfigData) {
+        foreach (PlanetSectorEventConfigData::getAll() as $planetSectorEventConfigDto) {
             /** @var null|PlanetSectorEventConfig $planetSectorEventConfig */
-            $planetSectorEventConfig = $this->planetSectorEventConfigRepository->findOneBy(['name' => $planetSectorEventConfigData['name']]);
+            $planetSectorEventConfig = $this->planetSectorEventConfigRepository->findOneBy(['name' => $planetSectorEventConfigDto->name]);
             if ($planetSectorEventConfig === null) {
-                $planetSectorEventConfig = new PlanetSectorEventConfig();
+                $planetSectorEventConfig = PlanetSectorEventConfig::fromDto($planetSectorEventConfigDto);
+            } else {
+                $planetSectorEventConfig->updateFromDto($planetSectorEventConfigDto);
             }
-
-            $planetSectorEventConfig->setName($planetSectorEventConfigData['name']);
-            $planetSectorEventConfig->setEventName($planetSectorEventConfigData['eventName']);
-            $planetSectorEventConfig->setOutputTable($planetSectorEventConfigData['outputTable']);
-            $planetSectorEventConfig->setOutputQuantity($planetSectorEventConfigData['outputQuantity']);
 
             $this->entityManager->persist($planetSectorEventConfig);
         }

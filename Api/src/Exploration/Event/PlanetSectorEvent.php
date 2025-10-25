@@ -38,6 +38,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const string FUEL_1 = 'fuel_1';
     public const string FUEL_2 = 'fuel_2';
     public const string FUEL_3 = 'fuel_3';
+    public const string FUEL_3_NEGATIVE = 'fuel_3_negative';
     public const string FUEL_4 = 'fuel_4';
     public const string FUEL_5 = 'fuel_5';
     public const string FUEL_6 = 'fuel_6';
@@ -52,6 +53,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
     public const string MUSH_TRAP = 'mush_trap';
     public const string PLAYER_LOST = 'player_lost';
     public const string NOTHING_TO_REPORT = 'nothing_to_report';
+    public const string NOTHING_TO_REPORT_NEGATIVE = 'nothing_to_report_negative';
     public const string OXYGEN = 'oxygen';
     public const string OXYGEN_8 = 'oxygen_8';
     public const string OXYGEN_16 = 'oxygen_16';
@@ -161,7 +163,7 @@ class PlanetSectorEvent extends ExplorationEvent implements LoggableEventInterfa
 
     public function isNegative(): bool
     {
-        return self::isNegativeKey($this->getKey());
+        return $this->getConfig()->isNegative();
     }
 
     /**

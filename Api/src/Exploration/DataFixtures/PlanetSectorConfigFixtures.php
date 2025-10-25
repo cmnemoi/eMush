@@ -47,6 +47,7 @@ final class PlanetSectorConfigFixtures extends Fixture implements DependentFixtu
     {
         return [
             GameConfigFixtures::class,
+            PlanetSectorEventConfigFixtures::class,
         ];
     }
 }

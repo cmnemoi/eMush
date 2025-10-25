@@ -210,7 +210,7 @@ final class ExplorationService implements ExplorationServiceInterface
         if ($exploration->hasATraitor()) {
             /** @var string $eventKey */
             foreach ($sectorEvents->getKeys() as $eventKey) {
-                if (PlanetSectorEvent::isNegativeKey($eventKey)) {
+                if ($this->findPlanetSectorEventConfigByName($eventKey)->isNegative()) {
                     $newProbability = $sectorEvents->getElementProbability($eventKey) * 2;
                     $sectorEvents->setElementProbability($eventKey, $newProbability);
                 }

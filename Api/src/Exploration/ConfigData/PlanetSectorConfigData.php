@@ -185,7 +185,7 @@ final class PlanetSectorConfigData
             'weightAtPlanetExploration' => 8,
             'maxPerPlanet' => 2,
             'explorationEvents' => [
-                PlanetSectorEvent::FUEL_3 => 4,
+                PlanetSectorEvent::FUEL_3_NEGATIVE => 4,
                 PlanetSectorEvent::FUEL_4 => 3,
                 PlanetSectorEvent::FUEL_5 => 2,
                 PlanetSectorEvent::FUEL_6 => 1,
@@ -202,7 +202,7 @@ final class PlanetSectorConfigData
                 PlanetSectorEvent::OXYGEN_24 => 4,
                 PlanetSectorEvent::OXYGEN_16 => 3,
                 PlanetSectorEvent::OXYGEN_8 => 2,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 1,
+                PlanetSectorEvent::NOTHING_TO_REPORT_NEGATIVE => 1,
             ],
         ],
         [
@@ -311,7 +311,7 @@ final class PlanetSectorConfigData
             'explorationEvents' => [
                 PlanetSectorEvent::HARVEST_3 => 4,
                 PlanetSectorEvent::HARVEST_1 => 3,
-                PlanetSectorEvent::NOTHING_TO_REPORT => 3,
+                PlanetSectorEvent::NOTHING_TO_REPORT_NEGATIVE => 3,
             ],
         ],
         [

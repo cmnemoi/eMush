@@ -4,7 +4,6 @@ namespace Mush\Game\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Mush\Exploration\Entity\PlanetSectorEventConfig;
 use Mush\Game\ConfigData\EventConfigData;
 use Mush\Game\Entity\VariableEventConfig;
 
@@ -51,29 +50,6 @@ class EventConfigFixtures extends Fixture
             $this->addReference($eventConfig->getName(), $eventConfig);
             $manager->persist($eventConfig);
         }
-
-        foreach (EventConfigData::$planetSectorEventConfigData as $rawEventConfig) {
-            $eventConfig = new PlanetSectorEventConfig($rawEventConfig['name'], $rawEventConfig['eventName']);
-            $eventConfig
-                ->setOutputTable($rawEventConfig['outputTable'])
-                ->setOutputQuantity($rawEventConfig['outputQuantity']);
-
-            $this->addReference($eventConfig->getName(), $eventConfig);
-            $manager->persist($eventConfig);
-        }
-
-        $eventConfig = new PlanetSectorEventConfig(name: 'fight_1', eventName: 'fight');
-        $eventConfig->setOutputQuantity([]);
-        $eventConfig->setOutputTable([1 => 1]);
-        $this->addReference($eventConfig->getName(), $eventConfig);
-        $manager->persist($eventConfig);
-
-        $eventConfig = new PlanetSectorEventConfig(name: 'fight_2', eventName: 'fight');
-        $eventConfig->setOutputQuantity([]);
-        $eventConfig->setOutputTable([2 => 1]);
-        $this->addReference($eventConfig->getName(), $eventConfig);
-        $manager->persist($eventConfig);
-
         $manager->flush();
     }
 }

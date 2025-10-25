@@ -323,7 +323,13 @@
     <unit id="fight_prevented_by_skill">
       <segment id="description" state="translated">
         <source>fight_prevented_by_skill</source>
-        <target>Probability of combat cancelled {skill}</target>
+        <target>Probability of combat cancelled because the expedition team has the skill: {skill}</target>
+      </segment>
+    </unit>
+    <unit id="death_prevented_by_skill">
+      <segment id="description" state="translated">
+        <source>death_prevented_by_skill</source>
+        <target>Probability of death cancelled because the expedition team has the skill: {skill}</target>
       </segment>
     </unit>
     <unit id="kill_random">
@@ -623,7 +629,7 @@
       </segment>
       <segment id="description" state="translated">
         <source>find_lost.description</source>
-        <target>A lost teammate has been found!{fight_prevented_by_item}{fight_prevented_by_skill}</target>
+        <target>A lost teammate has been found!{fight_prevented_by_item}{fight_prevented_by_skill}{death_prevented_by_skill}</target>
       </segment>
       <segment id="lost_description" state="translated">
         <source>find_lost.lost_description</source>

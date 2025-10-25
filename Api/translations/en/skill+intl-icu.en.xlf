@@ -532,7 +532,7 @@
       </segment>
       <segment id="tracker.description" state="translated">
         <source>tracker.description</source>
-        <target>The Tracker can see the comings and goings of every team member. Furthermore, they can print any research results during the game via the Tabulatrix. This provides a list of players of which at least one is Mush.//:point: Full access to **movement history**.//:point: Able to use the Tabulatrix to **print the secret list**.</target>
+        <target>The Tracker can see the comings and goings of every team member. Furthermore, they can print any research results during the game via the Tabulatrix. This provides a list of players of which at least one is Mush.//:point: Full access to **movement history**.//:point: Able to use the Tabulatrix to **print the secret list**.//:point: Expedition: Prevents the **Death** event when searching for lost crewmates.</target>
       </segment>
     </unit>
     <unit id="bacterophiliac">

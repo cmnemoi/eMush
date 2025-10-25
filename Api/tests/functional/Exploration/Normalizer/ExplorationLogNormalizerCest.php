@@ -638,7 +638,7 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'planetSectorName' => 'Vie intelligente',
                 'eventName' => 'Provision',
                 'eventDescription' => 'Alors que l\'expédition progresse tranquillement vous tombez nez à nez avec un être étrange. Impossible de communiquer avec lui mais avant de partir, il vous donne un sac qui contient du gibier alien.',
-                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée Diplomatie',
+                'eventOutcome' => 'Vous gagnez 2 Steaks aliens.////Probabilité de combat annulée car l\'expédition dispose de la compétence : Diplomatie',
             ],
             actual: $normalizedExplorationLog,
         );
@@ -1441,6 +1441,59 @@ final class ExplorationLogNormalizerCest extends AbstractExplorationTester
                 'eventOutcome' => 'L\'équipier perdu meurt.',
             ],
             actual: $normalizedExplorationLog,
+        );
+    }
+
+    public function testNormalizeKillLostEventWithTracker(FunctionalTester $I): void
+    {
+        // given Lost sector only has guaranteed kill lost event and find lost event
+        $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: [
+                PlanetSectorEvent::KILL_LOST => PHP_INT_MAX - 1,
+                PlanetSectorEvent::FIND_LOST => 1,
+            ]
+        );
+
+        // given player is lost
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::LOST,
+            holder: $this->player,
+            tags: [],
+            time: new \DateTime(),
+        );
+
+        // given KuanTi is a tracker
+        $this->givenPlayerHasSkill($this->kuanTi, SkillEnum::TRACKER, $I);
+
+        // given exploration is created
+        $this->exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::LOST, PlanetSectorEnum::OXYGEN], $I),
+            explorators: $this->players,
+        );
+        $closedExploration = $this->exploration->getClosedExploration();
+
+        // given two extra steps are made to trigger the find lost event
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+        $this->explorationService->dispatchExplorationEvent($this->exploration);
+
+        // when kill lost event exploration log is normalized
+        $explorationLog = $closedExploration->getLogs()->filter(
+            static fn (ExplorationLog $explorationLog) => $explorationLog->getEventName() === PlanetSectorEvent::FIND_LOST
+        )->first();
+        $normalizedExplorationLog = $this->explorationLogNormalizer->normalize($explorationLog);
+
+        // then exploration log is normalized as expected
+
+        $firstVersion = 'Vous avez trouvé des traces de pas humaines !!! En les suivant vous tombez sur Chun. Quelle déception…';
+        $secondVersion = 'Alors que vous vous apprêtiez à quitter la zone, vous entendez des cris derrière vous. Il s\'agit de Chun qui court après vous en hurlant depuis plus d\'une heure. Ses vêtements sont tout déchirés !';
+
+        $I->assertEquals(expected: 'Perdu', actual: $normalizedExplorationLog['planetSectorName']);
+        $I->assertEquals(expected: 'Retrouvaille', actual: $normalizedExplorationLog['eventName']);
+        $I->assertEquals(expected: 'Un équipier perdu est retrouvé !////Probabilité de mort annulée car l\'expédition dispose de la compétence : Traqueur', actual: $normalizedExplorationLog['eventOutcome']);
+        $I->assertContains(
+            needle: $normalizedExplorationLog['eventDescription'],
+            haystack: [$firstVersion, $secondVersion],
         );
     }
 

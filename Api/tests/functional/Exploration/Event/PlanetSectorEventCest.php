@@ -1713,6 +1713,45 @@ final class PlanetSectorEventCest extends AbstractExplorationTester
         );
     }
 
+    public function testKillLostIsPreventedByTracker(FunctionalTester $I): void
+    {
+        // given an exploration is created without Janice
+        $exploration = $this->createExploration(
+            planet: $this->createPlanet([PlanetSectorEnum::LOST], $I),
+            explorators: new ArrayCollection([$this->chun, $this->kuanTi, $this->derek])
+        );
+
+        // given only kill lost event and nothing to report can happen in lost sector
+        $lostSectorConfig = $this->setupPlanetSectorEvents(
+            sectorName: PlanetSectorEnum::LOST,
+            events: [PlanetSectorEvent::KILL_LOST => PHP_INT_MAX - 1, 'nothing_to_report' => 1]
+        );
+        $lostSectorConfig->setWeightAtPlanetExploration(1);
+
+        // given Chun is a tracker
+        $this->addSkillToPlayer(SkillEnum::TRACKER, $I, $this->chun);
+
+        // when kill lost event is dispatched
+        $this->explorationService->dispatchExplorationEvent($exploration);
+
+        // then Janice is still alive
+        $I->assertTrue($this->janice->isAlive());
+
+        // then the kill lost event is not dispatched
+        $I->dontSeeInRepository(
+            entity: ExplorationLog::class,
+            params: [
+                'eventName' => PlanetSectorEvent::KILL_LOST,
+            ]
+        );
+
+        // then I should still see a lost crewmate alert
+        $I->SeeInRepository(
+            entity: Alert::class,
+            params: ['name' => AlertEnum::LOST_CREWMATE],
+        );
+    }
+
     public function accidentShouldDealOneLessDamageToASurvivalist(FunctionalTester $I): void
     {
         $this->givenChunIsASurvivalist($I);

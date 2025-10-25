@@ -75,6 +75,7 @@ abstract class AbstractPlanetSectorEventHandler
         $logParameters = [];
         $logParameters['fight_prevented_by_item'] = null;
         $logParameters['fight_prevented_by_skill'] = null;
+        $logParameters['death_prevented_by_skill'] = null;
 
         if ($event->hasTag(SkillEnum::DIPLOMAT->toString())) {
             $logParameters['fight_prevented_by_skill'] = '////' . $this->translationService->translate(
@@ -88,6 +89,14 @@ abstract class AbstractPlanetSectorEventHandler
             $logParameters['fight_prevented_by_item'] = '////' . $this->translationService->translate(
                 key: 'fight_prevented_by_item',
                 parameters: ['item' => ItemEnum::WHITE_FLAG],
+                domain: 'planet_sector_event',
+                language: $event->getExploration()->getDaedalus()->getLanguage()
+            );
+        }
+        if ($event->hasTag(SkillEnum::TRACKER->toString())) {
+            $logParameters['death_prevented_by_skill'] = '////' . $this->translationService->translate(
+                key: 'death_prevented_by_skill',
+                parameters: ['skill' => SkillEnum::TRACKER->toString(), 'character_gender' => 'other'],
                 domain: 'planet_sector_event',
                 language: $event->getExploration()->getDaedalus()->getLanguage()
             );

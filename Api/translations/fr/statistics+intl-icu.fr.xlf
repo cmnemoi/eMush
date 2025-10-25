@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="fr">
   <file id="statistics.ext">
+    <unit id="cat_cuddled">
+      <segment id="name" state="translated">
+        <source>cat_cuddled.name</source>
+        <target>Chats câlinés</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>cat_cuddled.description</source>
+        <target>Nombre de fois où vous avez attrapé Schrödinger.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>cat_cuddled_1.name</source>
+        <target>Félinophile</target>
+      </segment>
+    </unit>
     <unit id="planet_scanned">
       <segment id="name" state="translated">
         <source>planet_scanned.name</source>

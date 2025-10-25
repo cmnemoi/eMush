@@ -6,6 +6,7 @@ namespace Mush\Achievement\Listener;
 
 use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Player\Entity\Player;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Enum\StatusEnum;
 use Mush\Status\Event\StatusEvent;
@@ -26,17 +27,24 @@ final readonly class StatusEventSubscriber implements EventSubscriberInterface
 
     public function onStatusApplied(StatusEvent $event): void
     {
-        if ($event->getStatusName() === PlayerStatusEnum::GAGGED) {
-            $player = $event->getPlayerStatusHolder();
-
-            $this->commandBus->dispatch(
-                new IncrementUserStatisticCommand(
-                    userId: $player->getUser()->getId(),
-                    statisticName: StatisticEnum::GAGGED,
-                    language: $player->getLanguage(),
-                )
-            );
+        $player = $event->getStatusHolder();
+        if (!$player instanceof Player) {
+            return;
         }
+
+        $statisticName = match ($event->getStatusName()) {
+            PlayerStatusEnum::GAGGED => StatisticEnum::GAGGED,
+            PlayerStatusEnum::HAS_PETTED_CAT => StatisticEnum::CAT_CUDDLED,
+            default => StatisticEnum::NULL,
+        };
+
+        $this->commandBus->dispatch(
+            new IncrementUserStatisticCommand(
+                userId: $player->getUser()->getId(),
+                statisticName: $statisticName,
+                language: $player->getLanguage(),
+            )
+        );
     }
 
     public function onStatusRemoved(StatusEvent $event): void

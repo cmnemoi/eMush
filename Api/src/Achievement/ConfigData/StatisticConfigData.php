@@ -14,6 +14,7 @@ abstract class StatisticConfigData
     public static function getAll(): array
     {
         return [
+            new StatisticConfigDto(StatisticEnum::CAT_CUDDLED),
             new StatisticConfigDto(StatisticEnum::EXTINGUISH_FIRE),
             new StatisticConfigDto(StatisticEnum::GAGGED),
             new StatisticConfigDto(StatisticEnum::PLANET_SCANNED),

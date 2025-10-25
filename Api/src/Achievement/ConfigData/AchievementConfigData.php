@@ -20,6 +20,11 @@ abstract class AchievementConfigData
                 threshold: 1,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::CAT_CUDDLED_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

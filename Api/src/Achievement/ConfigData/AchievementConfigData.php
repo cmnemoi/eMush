@@ -15,6 +15,11 @@ abstract class AchievementConfigData
     {
         return [
             new AchievementConfigDto(
+                name: AchievementEnum::GAGGED_1,
+                points: 0,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

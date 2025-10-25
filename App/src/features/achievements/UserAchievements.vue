@@ -77,7 +77,7 @@
             <div class="stats-list" v-if="activeTab === 'gains'">
                 <Tippy class="stat-item" v-for="achievement in achievements" :key="achievement.name">
                     <div class="stat-icon">
-                        <img :src="getImgUrl(`achievements/${achievement.statisticKey}.png`)" />
+                        <img :src="StatisticRecords[achievement.statisticKey].icon" />
                     </div>
                     <div class="stat-name">{{ achievement.name }}</div>
                     <div class="stat-value">{{ achievement.formattedPoints }}</div>

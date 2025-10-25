@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Action\Actions;
 
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -77,14 +79,11 @@ class Gag extends AbstractAction
 
     protected function applyEffect(ActionResult $result): void
     {
-        /** @var Player $target */
-        $target = $this->target;
-
         $this->statusService->createStatusFromName(
-            PlayerStatusEnum::GAGGED,
-            $target,
-            $this->getActionConfig()->getActionTags(),
-            new \DateTime(),
+            statusName: PlayerStatusEnum::GAGGED,
+            holder: $this->playerTarget(),
+            tags: $this->getTags(),
+            time: new \DateTime(),
         );
     }
 }

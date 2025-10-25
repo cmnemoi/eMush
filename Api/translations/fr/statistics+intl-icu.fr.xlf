@@ -65,5 +65,19 @@
         <target>Inspecteur des travaux finis</target>
       </segment>
     </unit>
+    <unit id="gagged">
+      <segment id="name" state="translated">
+        <source>gagged.name</source>
+        <target>Bailloné</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gagged.description</source>
+        <target>Nombre de fois où vous avez été bailloné.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>gagged_1.name</source>
+        <target>Bailloné</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

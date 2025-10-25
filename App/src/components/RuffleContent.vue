@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount, ref, watch } from 'vue';
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
 export default defineComponent({
     name: 'RuffleContent',
@@ -38,7 +38,11 @@ export default defineComponent({
                 containerRef.value.appendChild(rufflePlayer);
             }
             rufflePlayerElement.value = rufflePlayer;
-            rufflePlayer.ruffle().load(props.swfUrl);
+            rufflePlayer.ruffle().load({
+                url: props.swfUrl,
+                autoplay: 'on',
+                unmuteOverlay: 'hidden'
+            });
         };
 
         onMounted(() => {

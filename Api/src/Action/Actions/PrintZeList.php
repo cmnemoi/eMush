@@ -26,6 +26,7 @@ use Mush\Player\Entity\Player;
 use Mush\RoomLog\Entity\LogParameterInterface;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -187,7 +188,9 @@ final class PrintZeList extends AbstractAction
 
     private function randomPlayersWithout(Player $selectedAlphaMush): array
     {
-        $players = $this->player->getDaedalus()->getPlayers()->getAllExcept($selectedAlphaMush)->toArray();
+        $players = $this->player->getDaedalus()->getPlayers()
+            ->getAllWithoutStatus(PlayerStatusEnum::IMMUNIZED)
+            ->getAllExcept($selectedAlphaMush)->toArray();
 
         return $this->randomService->getRandomElements($players, $this->numberOfNames() - 1);
     }

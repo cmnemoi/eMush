@@ -23,6 +23,7 @@ use Mush\RoomLog\Enum\LogEnum;
 use Mush\Skill\Enum\SkillEnum;
 use Mush\Skill\Service\AddSkillToPlayerService;
 use Mush\Status\Enum\EquipmentStatusEnum;
+use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -163,6 +164,27 @@ final class PrintZeListCest extends AbstractFunctionalTest
         $this->thenZeListShouldContainPlayerName('Kuan Ti', $I);
     }
 
+    public function zeListShouldNotContainImmunePlayers(FunctionalTester $I): void
+    {
+        $this->givenSomeExtraPlayersAreCreated(
+            players: [
+                CharacterEnum::CHAO,
+                CharacterEnum::TERRENCE,
+                CharacterEnum::JANICE,
+                CharacterEnum::ELEESHA,
+            ],
+            I: $I
+        );
+
+        $this->givenChunIsATracker();
+
+        $this->givenChunIsImmune();
+
+        $this->whenChunPrintsZeList();
+
+        $this->thenZeListShouldNotContainPlayerName('Chun', $I);
+    }
+
     public function shouldNotBeExecutableIfTabulatrixIsBroken(FunctionalTester $I): void
     {
         $this->givenChunIsATracker();
@@ -248,6 +270,16 @@ final class PrintZeListCest extends AbstractFunctionalTest
         $this->eventService->callEvent($playerEvent, PlayerEvent::CONVERSION_PLAYER);
     }
 
+    private function givenChunIsImmune(): void
+    {
+        $this->statusService->createStatusFromName(
+            statusName: PlayerStatusEnum::IMMUNIZED,
+            holder: $this->chun,
+            tags: [],
+            time: new \DateTime()
+        );
+    }
+
     private function givenTabulatrixIsBroken(): void
     {
         $this->statusService->createStatusFromName(
@@ -314,6 +346,13 @@ final class PrintZeListCest extends AbstractFunctionalTest
         $zeList = $this->chun->getEquipmentByName(ItemEnum::DOCUMENT);
 
         $I->assertStringContainsString($playerName, $zeList->getStatusByNameOrThrow(EquipmentStatusEnum::DOCUMENT_CONTENT)->getContent());
+    }
+
+    private function thenZeListShouldNotContainPlayerName(string $playerName, FunctionalTester $I): void
+    {
+        $zeList = $this->chun->getEquipmentByName(ItemEnum::DOCUMENT);
+
+        $I->assertStringNotContainsString($playerName, $zeList->getStatusByNameOrThrow(EquipmentStatusEnum::DOCUMENT_CONTENT)->getContent());
     }
 
     private function thenActionShouldNotBeExecutableWithMessage(string $cause, FunctionalTester $I): void

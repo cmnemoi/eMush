@@ -11,6 +11,10 @@ use Mush\Daedalus\Entity\Daedalus;
 #[ORM\Entity(repositoryClass: AlertRepository::class)]
 class Alert
 {
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $version = 1;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', length: 255, nullable: false)]

@@ -9,9 +9,8 @@ use Mush\Player\Entity\PlayerInfo;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'alert_element')]
-#[ORM\UniqueConstraint(
-    columns: ['alert_id', 'player_info_id', 'place_id', 'equipment_id']
-)]
+#[ORM\UniqueConstraint(columns: ['alert_id', 'equipment_id'])]
+#[ORM\UniqueConstraint(columns: ['alert_id', 'player_info_id', 'place_id', 'equipment_id'])]
 class AlertElement
 {
     #[ORM\Id]

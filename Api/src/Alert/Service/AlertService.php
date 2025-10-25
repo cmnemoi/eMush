@@ -64,10 +64,12 @@ class AlertService implements AlertServiceInterface
 
     public function deleteAlertElement(AlertElement $alertElement): void
     {
+        $alert = $alertElement->getAlert();
+        $alert->getAlertElements()->removeElement($alertElement);
+
         $this->entityManager->remove($alertElement);
         $this->entityManager->flush();
 
-        $alert = $alertElement->getAlert();
         if ($alert->getAlertElements()->count() <= 0) {
             $this->delete($alert);
         } else {
@@ -220,9 +222,6 @@ class AlertService implements AlertServiceInterface
         }
 
         $reportedEquipment = $this->getAlertEquipmentElement($brokenAlert, $equipment);
-
-        $brokenAlert->getAlertElements()->removeElement($reportedEquipment);
-
         $this->deleteAlertElement($reportedEquipment);
     }
 
@@ -241,19 +240,32 @@ class AlertService implements AlertServiceInterface
             throw $exception;
         }
 
-        $filteredList = $alert
+        $alertEquipment = $alert
             ->getAlertElements()
-            ->filter(static fn (AlertElement $element) => $element->getEquipment()?->equals($equipment));
-
-        $alertEquipment = $filteredList->first();
+            ->filter(static fn (AlertElement $element) => $element->getEquipment()?->equals($equipment))
+            ->first();
 
         if (!$alertEquipment) {
-            $alertEquipment = $this->createEquipmentAlertElement($equipment, $alert);
-            $filteredList->add($alertEquipment);
+            // Check alert element exists in database
+            $alertEquipment = $this->alertElementRepository->findOneBy(['alert' => $alert, 'equipment' => $equipment]);
+            if (!$alertEquipment) {
+                $alertEquipment = $this->createEquipmentAlertElement($equipment, $alert);
+            }
+
+            // Ensure alert element is associated with the alert
+            if ($alertEquipment && !$alert->getAlertElements()->contains($alertEquipment)) {
+                $alert->addAlertElement($alertEquipment);
+            }
         }
 
-        if ($filteredList->count() !== 1) {
-            $exception = new \LogicException("this equipment should be reported exactly one time. Currently reported {$filteredList->count()} times");
+        // Verify there's exactly one
+        $count = $alert
+            ->getAlertElements()
+            ->filter(static fn (AlertElement $element) => $element->getEquipment()?->equals($equipment))
+            ->count();
+
+        if ($count !== 1) {
+            $exception = new \LogicException("this equipment should be reported exactly one time. Currently reported {$count} times");
             $this->logger->error($exception->getMessage(), [
                 'daedalus' => $equipment->getDaedalus()->getId(),
                 'equipment' => $equipment->getId(),
@@ -292,9 +304,6 @@ class AlertService implements AlertServiceInterface
         }
 
         $reportedFire = $this->getAlertFireElement($fireAlert, $place);
-
-        $fireAlert->getAlertElements()->removeElement($reportedFire);
-
         $this->deleteAlertElement($reportedFire);
     }
 

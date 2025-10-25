@@ -1,10 +1,10 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
-import { fileURLToPath } from 'url';    
 import typescript from '@rollup/plugin-typescript';
 import vue from '@vitejs/plugin-vue';
-import { VitePWA } from "vite-plugin-pwa";
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { defineConfig } from 'vite';
+import { VitePWA } from "vite-plugin-pwa";
 
 const filename = fileURLToPath(import.meta.url);
 const pathSegments = path.dirname(filename);
@@ -18,8 +18,56 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon-180x180.png"],
       manifest: {
+        "id": "/",
         "name": "eMush",
         "short_name": "eMush",
+        "description": "eMush: explorations, exploits, and betrayals in space! Dive into a thrilling space opera that combines survival, social deduction, and role-playing in a unique multiplayer experience, with games lasting a few days, from all your devices!",
+        "start_url": "/",
+        "display": "standalone",
+        "display_override": ["standalone", "window-control-overlay"],
+        "background_color": "#0f0f43",
+        "theme_color": "#111317",
+        "orientation": "portrait",
+        "dir": "ltr",
+        "categories": ["games", "entertainment", "social"],
+        "shortcuts": [
+          {
+            "name": "Daedalus",
+            "short_name": "Daedalus",
+            "url": "/game",
+            "icons": [
+              {
+                "src": "pwa-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png"
+              },
+            ]
+          },
+          {
+            "name": "My account",
+            "short_name": "My account",
+            "url": "/me",
+            "icons": [
+              {
+                "src": "pwa-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png"
+              },
+            ]
+          },
+          {
+            "name": "News",
+            "short_name": "News",
+            "url": "/news",
+            "icons": [
+              {
+                "src": "pwa-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png"
+              },
+            ]
+          },
+        ],
         "icons": [
           {
             "src": "pwa-64x64.png",
@@ -29,7 +77,8 @@ export default defineConfig({
           {
             "src": "pwa-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
           },
           {
             "src": "pwa-512x512.png",
@@ -49,12 +98,29 @@ export default defineConfig({
             "purpose": "maskable",
           }
         ],
-        "start_url": "/",
-        "display": "standalone",
-        "background_color": "#FFFFFF",
-        "theme_color": "#FFFFFF",
-        "description": "eMush: explorations, exploits, and betrayals in space!  Dive into a thrilling space opera that combines survival, social deduction, and role-playing in a unique multiplayer experience, with games lasting a few days, from all your devices!",
-        "orientation": "portrait",
+        "screenshots": [
+          {
+            "src": "screenshots/screenshot-1.png",
+            "sizes": "794x871",
+            "type": "image/png"
+          },
+          {
+            "src": "screenshots/screenshot-2.png",
+            "sizes": "794x871",
+            "type": "image/png"
+          },
+          {
+            "src": "screenshots/screenshot-3.png",
+            "sizes": "794x871",
+            "type": "image/png"
+          },
+          {
+            "src": "screenshots/screenshot-4.png",
+            "sizes": "794x874",
+            "type": "image/png",
+            "form_factor": "wide"
+          }
+        ],
       },
       strategies: 'injectManifest',
       srcDir: 'src',

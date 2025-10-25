@@ -462,6 +462,6 @@ export const SkillIconRecord: {[index: string]: any} = {
 
     [SkillEnum.EPIGENETICS]: {
         'icon': getImgUrl('skills/mush/beta_mush.png')
-    },
+    }
 };
 

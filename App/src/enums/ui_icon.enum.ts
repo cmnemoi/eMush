@@ -124,6 +124,6 @@ export const UiIconIcons: {[index: string]: string} = {
     [UiIconEnum.CASIO]: getImgUrl('casio.png'),
     [UiIconEnum.WATCH]: getImgUrl('casio.png'),
     [UiIconEnum.DOG]: getImgUrl('ui_icons/dog.png'),
-    [UiIconEnum.BETA]: getImgUrl('ui_icons/beta_icon_small.png'),
+    [UiIconEnum.BETA]: getImgUrl('ui_icons/beta_icon_small.png')
 }
 ;

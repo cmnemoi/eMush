@@ -8,6 +8,9 @@ ARG PHP_VERSION=8.4
 COPY php.ini /usr/local/etc/php/php.ini
 COPY php-fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
 
+# Setup a non-root user
+RUN groupadd dev -g $GID && useradd dev -u $UID -g dev -d /home/dev -m
+
 # Install PHP extensions and setup
 RUN apt-get -yq update && \
     # Build dependencies
@@ -23,17 +26,17 @@ RUN apt-get -yq update && \
     docker-php-ext-install opcache && \
     docker-php-ext-configure opcache --enable-opcache && \
     # Xdebug
-    # pecl install xdebug && \
-    # docker-php-ext-enable xdebug && \
-    # echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    # echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    # echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    # echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    # echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    # echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    # echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    # echo "xdebug.client_host=$HOST_IP" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
-    # echo "xdebug.client_log=\"/tmp/xdebug.log\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    pecl install xdebug && \
+    docker-php-ext-enable xdebug && \
+    echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.mode=off" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.start_with_request=trigger" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.client_host=$HOST_IP" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.log=\"/home/dev/tmp/xdebug.log\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
     # OpenTelemetry dependencies
     pecl install protobuf && \
     docker-php-ext-enable protobuf && \
@@ -46,9 +49,8 @@ RUN apt-get -yq update && \
     locale-gen && \
     # Cleanup
     rm -rf /var/lib/apt/lists/*
-    
-# Setup a non-root user
-RUN groupadd dev -g $GID && useradd dev -u $UID -g dev -d /home/dev -m
+
+USER dev
 
 WORKDIR /www/
 

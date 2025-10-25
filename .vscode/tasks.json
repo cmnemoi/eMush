@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Unit Tests",
+      "type": "shell",
+      "command": "docker exec -u dev mush-php php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" vendor/bin/codecept run tests/unit",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Debug Unit Tests",
+      "type": "shell",
+      "command": "docker exec -u dev mush-php bash -c 'XDEBUG_MODE=debug XDEBUG_SESSION=1 php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" vendor/bin/codecept run tests/unit'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    }
+  ]
+}

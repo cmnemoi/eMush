@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "bmewburn.vscode-intelephense-client",
+    "Vue.volar",
+    "xdebug.php-debug",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+    "mhutchie.git-graph",
+    "ms-azuretools.vscode-containers",
+    "docker.docker",
+    "pkief.material-icon-theme",
+    "fill-labs.dependi",
+    "ethansk.restore-terminals",
+  ]
+}

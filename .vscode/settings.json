@@ -1,0 +1,107 @@
+{
+    "sqltools.connections": [
+      {
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "driver": "PostgreSQL",
+        "name": "local",
+        "group": "mush",
+        "database": "mush",
+        "username": "mysql",
+        "password": "password"
+      },
+      {
+        "previewLimit": 50,
+        "server": "staging.emush.eternaltwin.org",
+        "port": 5432,
+        "driver": "PostgreSQL",
+        "name": "staging",
+        "group": "mush",
+        "username": "emush.staging.read",
+        "database": "emush.staging"
+      },
+      {
+        "previewLimit": 50,
+        "server": "emush.eternaltwin.org",
+        "port": 5432,
+        "driver": "PostgreSQL",
+        "name": "production",
+        "group": "mush",
+        "database": "emush.production",
+        "username": "emush.production.read"
+      },
+      {
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "driver": "PostgreSQL",
+        "name": "eternaltwin.local",
+        "group": "mush",
+        "database": "etwin.dev",
+        "username": "mysql",
+        "password": "password"
+      },
+      {
+        "previewLimit": 50,
+        "server": "0.0.0.0",
+        "port": 5432,
+        "driver": "PostgreSQL",
+        "name": "test",
+        "group": "mush",
+        "database": "mush_test",
+        "username": "mysql",
+        "password": "password"
+      }
+    ],
+    "restoreTerminals.terminals": [
+        {
+          "splitTerminals": [
+            {
+              "name": "git",
+              "commands": ["git pull --rebase --autostash", "clear"]
+            },
+          ]
+        },
+        {
+          "splitTerminals": [
+            {
+              "name": "api",
+              "commands": ["sleep 2", "make bash-api", "clear"]
+            },
+          ]
+        },
+        {
+          "splitTerminals": [
+            {
+              "name": "front",
+              "commands": ["sleep 2", "make bash-front", "clear"]
+            },
+          ]
+        },
+        {
+          "splitTerminals": [
+            {
+              "name": "front:test",
+              "commands": ["sleep 2", "make bash-front", "clear", "yarn test"]
+            }
+          ]
+        },
+        {
+          "splitTerminals": [
+            {
+              "name": "db",
+              "commands": ["sleep 2", "make bash-mysql", "clear", "psql --username mysql mush"]
+            },
+          ]
+        },
+        {
+          "splitTerminals": [
+            {
+              "name": "watch",
+              "commands": ["make docker-watch"]
+            },
+          ]
+        }
+    ],
+}

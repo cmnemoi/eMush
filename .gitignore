@@ -1,8 +1,6 @@
 #IDE
 .idea
-.vscode/
 .cursor/
-
 
 # Ignore MacOS files
 # Folder view configuration files
@@ -36,7 +34,6 @@ TODO.md
 .windsurfrules
 project-guidelines.md
 AGENT.md
-AGENTS.md
 
 # Devbox
 .devbox

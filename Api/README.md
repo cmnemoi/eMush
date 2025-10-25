@@ -263,3 +263,11 @@ Check what the folowing command returns:
 
 On the host machine (not the docker container) run :
 `sudo ufw allow from any to any port 9003 proto tcp`
+
+### VSCode
+
+- A configuration file is provided in the `.vscode/launch.json` to start a debugging session. Make sure to run it from the Run and Debug view.
+
+![alt text](./docs/vscode_launch.png)
+
+- Run your tests with the following environment variables: `XDEBUG_MODE=debug XDEBUG_SESSION=1 composer test <your_test_file>`

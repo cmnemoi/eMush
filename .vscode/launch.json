@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for Xdebug",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "log": false,
+      "pathMappings": {
+        "/www": "${workspaceFolder}/Api"
+      }
+    },
+    {
+      "name": "Unit tests",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "log": false,
+      "pathMappings": {
+        "/www": "${workspaceFolder}/Api"
+      },
+      "program": "docker exec -u dev mush-php php -d error_reporting=\"E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED\" vendor/bin/codecept run tests/unit",
+    }
+  ]
+}

@@ -25,6 +25,7 @@ use Mush\Status\Entity\Status;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
+use Mush\User\Entity\User;
 use Mush\User\Factory\UserFactory;
 
 /**
@@ -60,33 +61,26 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $deadPlayer = $this->playerService->killPlayer($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
-        $I->seeInRepository(ClosedPlayer::class, [
-            'endCause' => EndCauseEnum::INJURY,
-            'dayDeath' => 5,
-            'cycleDeath' => 3,
-        ]);
-
-        $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getPlayerInfo()->getGameStatus());
-        $I->assertCount(1, $this->daedalus->getPlayers()->getPlayerDead());
-        $I->assertCount(2, $this->daedalus->getPlayers()->getHumanPlayer());
-        $I->assertCount(0, $this->daedalus->getPlayers()->getMushPlayer());
+        $this->thenPlayerShouldBeDeadWithEndCause($I, $player, EndCauseEnum::INJURY);
+        $this->thenDaedalusShouldHaveDeadPlayersCount($I, 1);
+        $this->thenDaedalusShouldHaveHumanPlayersCount($I, 2);
+        $this->thenDaedalusShouldHaveMushPlayersCount($I, 0);
     }
 
     public function testDeathPlayerLooseTitles(FunctionalTester $I): void
     {
         $kuanTi = $this->daedalus->getPlayers()->getPlayerByName(CharacterEnum::KUAN_TI);
 
-        $this->daedalusService->attributeTitles($this->daedalus, new \DateTime());
+        $this->whenTitlesAreAttributedToDaedalus();
         $I->assertNotEmpty($kuanTi->getTitles());
         $I->assertEquals($kuanTi->getTitles(), [TitleEnum::COMMANDER, TitleEnum::NERON_MANAGER, TitleEnum::COM_MANAGER]);
 
-        // Given Kuan is now (horribly) dead.
-        $this->playerService->killPlayer($kuanTi, EndCauseEnum::MANKAROG, new \DateTime());
-        $this->eventService->callEvent(new DaedalusCycleEvent($this->daedalus, [], new \DateTime()), DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+        $this->whenPlayerIsKilledWithEndCause($kuanTi, EndCauseEnum::MANKAROG);
+        $this->whenNewDaedalusCycleOccurs();
 
-        $I->assertEmpty($kuanTi->getTitles());
+        $this->thenPlayerShouldHaveNoTitles($I, $kuanTi);
     }
 
     public function testDeathMushPlayer(FunctionalTester $I): void
@@ -110,13 +104,11 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $status = new Status($player, $statusConfig);
         $I->haveInRepository($status);
 
-        $deadPlayer = $this->playerService->killPlayer($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
-        $closedPlayers = $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getPlayers();
-
-        $I->assertEquals(GameStatusEnum::FINISHED, $deadPlayer->getPlayerInfo()->getGameStatus());
-        $I->assertCount(1, $closedPlayers->filter(static fn (ClosedPlayer $player) => $player->isDead()));
-        $I->assertCount(1, $closedPlayers->filter(static fn (ClosedPlayer $player) => $player->isMush()));
+        $this->thenPlayerShouldBeDeadWithEndCause($I, $player, EndCauseEnum::INJURY);
+        $this->thenClosedDaedalusShouldHaveDeadPlayersCount($I, 1);
+        $this->thenClosedDaedalusShouldHaveMushPlayersCount($I, 1);
     }
 
     public function testDeathEffectOnOtherPlayer(FunctionalTester $I): void
@@ -140,10 +132,10 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $mushStatus = new ChargeStatus($mushPlayer, $mushConfig);
         $I->haveInRepository($mushStatus);
 
-        $this->playerService->killPlayer($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
-        $I->assertEquals(9, $player2->getMoralPoint());
-        $I->assertEquals(10, $mushPlayer->getMoralPoint());
+        $this->thenPlayerShouldHaveMoralPoint($I, $player2, 9);
+        $this->thenPlayerShouldHaveMoralPoint($I, $mushPlayer, 10);
     }
 
     public function testDeathEffectOnItems(FunctionalTester $I): void
@@ -162,12 +154,11 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         $player->addEquipment($gameItem);
 
-        $this->playerService->killPlayer($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
-        $I->assertCount(2, $room->getPlayers());
-        $I->assertCount(1, $room->getPlayers()->getPlayerAlive());
-        $I->assertCount(0, $player->getEquipments());
-        $I->assertCount(1, $room->getEquipments());
+        $this->thenPlaceShouldHaveAlivePlayersCount($I, 1);
+        $this->thenPlayerShouldHaveNoEquipments($I, $player);
+        $this->thenPlaceShouldHaveEquipmentsCount($I, 1);
     }
 
     public function testHandleNewCyclePointsEarned(FunctionalTester $I): void
@@ -175,10 +166,10 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $this->player1->setActionPoint(10);
         $this->player1->setMovementPoint(10);
 
-        $this->playerService->handleNewCycle($this->player1, new \DateTime());
+        $this->whenNewCycleIsHandledForPlayer($this->player1);
 
-        $I->assertEquals(11, $this->player1->getActionPoint());
-        $I->assertEquals(11, $this->player1->getMovementPoint());
+        $this->thenPlayerShouldHaveActionPoint($I, $this->player1, 11);
+        $this->thenPlayerShouldHaveMovementPoint($I, $this->player1, 11);
     }
 
     public function testEndPlayer(FunctionalTester $I): void
@@ -186,71 +177,59 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         /** @var Player $player */
         $player = $this->player;
         $deathTime = new \DateTime();
-        $this->playerService->killPlayer($player, EndCauseEnum::INJURY, $deathTime);
+        $this->whenPlayerIsKilledWithEndCauseAtTime($player, EndCauseEnum::INJURY, $deathTime);
 
         $otherPlayer = $this->player2;
 
-        $this->playerService->endPlayer($this->player, 'my end message', [$otherPlayer->getId()]);
+        $this->whenPlayerEndsWithMessageAndLikes($player, 'my end message', [$otherPlayer->getId()]);
 
-        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
-        $otherClosedPlayer = $otherPlayer->getPlayerInfo()->getClosedPlayer();
-
-        $I->assertEquals($closedPlayer->getMessage(), 'my end message');
-        $I->assertEquals($otherClosedPlayer->getMessage(), null);
-        $I->assertEquals($closedPlayer->getLikes(), 0);
-        $I->assertEquals($otherClosedPlayer->getLikes(), 1);
-        $I->assertEquals($closedPlayer->getFinishedAt(), $deathTime);
+        $this->thenClosedPlayerShouldHaveMessage($I, $player, 'my end message');
+        $this->thenClosedPlayerShouldHaveMessage($I, $otherPlayer, null);
+        $this->thenClosedPlayerShouldHaveLikes($I, $player, 0);
+        $this->thenClosedPlayerShouldHaveLikes($I, $otherPlayer, 1);
+        $this->thenClosedPlayerShouldHaveFinishedAt($I, $player, $deathTime);
     }
 
     public function testEndPlayerCannotLikeThemself(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->player;
-        $this->playerService->killPlayer($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
         $otherPlayer = $this->player2;
 
-        $this->playerService->endPlayer($this->player, '', [$otherPlayer->getId(), $player->getId()]);
+        $this->whenPlayerEndsWithMessageAndLikes($player, '', [$otherPlayer->getId(), $player->getId()]);
 
-        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
-        $otherClosedPlayer = $otherPlayer->getPlayerInfo()->getClosedPlayer();
-
-        $I->assertEquals($closedPlayer->getLikes(), 0);
-        $I->assertEquals($otherClosedPlayer->getLikes(), 1);
+        $this->thenClosedPlayerShouldHaveLikes($I, $player, 0);
+        $this->thenClosedPlayerShouldHaveLikes($I, $otherPlayer, 1);
     }
 
     public function testEndPlayerCannotLikeOtherPlayerMultipleTimes(FunctionalTester $I): void
     {
         /** @var Player $player */
         $player = $this->player;
-        $this->playerService->killPlayer($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
         $otherPlayer = $this->player2;
 
-        $this->playerService->endPlayer($this->player, '', [$otherPlayer->getId(), $otherPlayer->getId(), $otherPlayer->getId()]);
+        $this->whenPlayerEndsWithMessageAndLikes($player, '', [$otherPlayer->getId(), $otherPlayer->getId(), $otherPlayer->getId()]);
 
-        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
-        $otherClosedPlayer = $otherPlayer->getPlayerInfo()->getClosedPlayer();
-
-        $I->assertEquals($closedPlayer->getLikes(), 0);
-        $I->assertEquals($otherClosedPlayer->getLikes(), 1);
+        $this->thenClosedPlayerShouldHaveLikes($I, $player, 0);
+        $this->thenClosedPlayerShouldHaveLikes($I, $otherPlayer, 1);
     }
 
     public function testEndPlayerCannotLikePlayerFromDifferentDaedalus(FunctionalTester $I): void
     {
         $player = $this->player;
-        $this->playerService->killPlayer($player, EndCauseEnum::INJURY, new \DateTime());
+        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
 
         $daedalus2 = $this->createDaedalus($I);
         $otherPlayer = $this->addPlayerByCharacter($I, $daedalus2, CharacterEnum::ANDIE);
 
-        $this->playerService->endPlayer($this->player, '', [$otherPlayer->getId()]);
+        $this->whenPlayerEndsWithMessageAndLikes($player, '', [$otherPlayer->getId()]);
 
-        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
-        $otherClosedPlayer = $otherPlayer->getPlayerInfo()->getClosedPlayer();
-
-        $I->assertEquals($closedPlayer->getLikes(), 0);
-        $I->assertEquals($otherClosedPlayer->getLikes(), 0);
+        $this->thenClosedPlayerShouldHaveLikes($I, $player, 0);
+        $this->thenClosedPlayerShouldHaveLikes($I, $otherPlayer, 0);
     }
 
     public function shouldCreateBeginnerStatusForFirstTimePlayer(FunctionalTester $I): void
@@ -258,20 +237,16 @@ final class PlayerServiceCest extends AbstractFunctionalTest
         $user = UserFactory::createUser();
         $I->haveInRepository($user);
 
-        // given user plays for the first time
         $player = $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
 
-        // then player should have beginner status
-        $I->assertTrue($player->hasStatus(PlayerStatusEnum::BEGINNER));
+        $this->thenPlayerShouldHaveBeginnerStatus($I, $player);
     }
 
     public function quarantineShouldSpawnOrganicWaste(FunctionalTester $I): void
     {
-        // when player is quarantined
-        $this->playerService->killPlayer($this->player, EndCauseEnum::QUARANTINE, new \DateTime());
+        $this->whenPlayerIsKilledWithEndCause($this->player, EndCauseEnum::QUARANTINE);
 
-        // then place should have organic waste
-        $I->assertTrue($this->player->getPlace()->hasEquipmentByName(GameRationEnum::ORGANIC_WASTE));
+        $this->thenPlaceShouldHaveEquipmentByName($I, GameRationEnum::ORGANIC_WASTE);
     }
 
     public function createPlayerShouldCreateStartingItems(FunctionalTester $I): void
@@ -285,7 +260,7 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         /** @var EquipmentConfig $itemConfig */
         foreach ($characterConfig->getStartingItems() as $itemConfig) {
-            $I->assertTrue($andie->hasEquipmentByName($itemConfig->getEquipmentName()));
+            $this->thenPlayerShouldHaveEquipmentByName($I, $andie, $itemConfig->getEquipmentName());
         }
     }
 
@@ -296,6 +271,202 @@ final class PlayerServiceCest extends AbstractFunctionalTest
 
         $this->playerService->createPlayer($this->daedalus, $user, CharacterEnum::ANDIE);
 
+        $this->thenUserShouldBeInGame($I, $user);
+    }
+
+    public function testHandleNewCycleIncrementsCycleCountForAlivePlayer(FunctionalTester $I): void
+    {
+        /** @var Player $player */
+        $player = $this->player;
+
+        $initialCycles = $player->getPlayerInfo()->getHumanCyclesCount();
+
+        $this->whenNewCycleIsHandledForPlayer($player);
+
+        $this->thenPlayerHumanCycleCountShouldBeIncremented($I, $player, $initialCycles);
+    }
+
+    public function testHandleNewCycleDoesNotIncrementCycleCountForDeadPlayer(FunctionalTester $I): void
+    {
+        /** @var Player $player */
+        $player = $this->player;
+
+        $this->whenPlayerIsKilledWithEndCause($player, EndCauseEnum::INJURY);
+
+        $cyclesAfterDeath = $player->getPlayerInfo()->getHumanCyclesCount();
+
+        $this->whenNewCycleIsHandledForPlayer($player);
+
+        $this->thenPlayerHumanCycleCountShouldNotBeIncremented($I, $player, $cyclesAfterDeath);
+    }
+
+    public function testHandleNewCycleDoesNotIncrementCycleCountForMushPlayer(FunctionalTester $I): void
+    {
+        /** @var Player $player */
+        $player = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
+
+        $this->convertPlayerToMush($I, $player);
+
+        $initialCycles = $player->getPlayerInfo()->getHumanCyclesCount();
+
+        $this->whenNewCycleIsHandledForPlayer($player);
+
+        $this->thenPlayerHumanCycleCountShouldNotBeIncremented($I, $player, $initialCycles);
+    }
+
+    private function whenPlayerIsKilledWithEndCause(Player $player, string $endCause): void
+    {
+        $this->playerService->killPlayer($player, $endCause, new \DateTime());
+    }
+
+    private function whenPlayerIsKilledWithEndCauseAtTime(Player $player, string $endCause, \DateTime $time): void
+    {
+        $this->playerService->killPlayer($player, $endCause, $time);
+    }
+
+    private function whenNewCycleIsHandledForPlayer(Player $player): void
+    {
+        $this->playerService->handleNewCycle($player, new \DateTime());
+    }
+
+    private function whenPlayerEndsWithMessageAndLikes(Player $player, string $message, array $likedPlayerIds): void
+    {
+        $this->playerService->endPlayer($player, $message, $likedPlayerIds);
+    }
+
+    private function whenTitlesAreAttributedToDaedalus(): void
+    {
+        $this->daedalusService->attributeTitles($this->daedalus, new \DateTime());
+    }
+
+    private function whenNewDaedalusCycleOccurs(): void
+    {
+        $this->eventService->callEvent(new DaedalusCycleEvent($this->daedalus, [], new \DateTime()), DaedalusCycleEvent::DAEDALUS_NEW_CYCLE);
+    }
+
+    private function thenPlayerShouldBeDeadWithEndCause(FunctionalTester $I, Player $player, string $endCause): void
+    {
+        $I->seeInRepository(ClosedPlayer::class, [
+            'endCause' => $endCause,
+            'dayDeath' => $this->daedalus->getDay(),
+            'cycleDeath' => $this->daedalus->getCycle(),
+        ]);
+
+        $I->assertEquals(GameStatusEnum::FINISHED, $player->getPlayerInfo()->getGameStatus());
+    }
+
+    private function thenDaedalusShouldHaveDeadPlayersCount(FunctionalTester $I, int $count): void
+    {
+        $I->assertCount($count, $this->daedalus->getPlayers()->getPlayerDead());
+    }
+
+    private function thenDaedalusShouldHaveHumanPlayersCount(FunctionalTester $I, int $count): void
+    {
+        $I->assertCount($count, $this->daedalus->getPlayers()->getHumanPlayer());
+    }
+
+    private function thenDaedalusShouldHaveMushPlayersCount(FunctionalTester $I, int $count): void
+    {
+        $I->assertCount($count, $this->daedalus->getPlayers()->getMushPlayer());
+    }
+
+    private function thenPlayerShouldHaveTitles(FunctionalTester $I, Player $player, array $expectedTitles): void
+    {
+        $I->assertEquals($expectedTitles, $player->getTitles());
+    }
+
+    private function thenPlayerShouldHaveNoTitles(FunctionalTester $I, Player $player): void
+    {
+        $I->assertEmpty($player->getTitles());
+    }
+
+    private function thenClosedDaedalusShouldHaveDeadPlayersCount(FunctionalTester $I, int $count): void
+    {
+        $closedPlayers = $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getPlayers();
+        $I->assertCount($count, $closedPlayers->filter(static fn (ClosedPlayer $player) => $player->isDead()));
+    }
+
+    private function thenClosedDaedalusShouldHaveMushPlayersCount(FunctionalTester $I, int $count): void
+    {
+        $closedPlayers = $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getPlayers();
+        $I->assertCount($count, $closedPlayers->filter(static fn (ClosedPlayer $player) => $player->isMush()));
+    }
+
+    private function thenPlayerShouldHaveMoralPoint(FunctionalTester $I, Player $player, int $moralPoint): void
+    {
+        $I->assertEquals($moralPoint, $player->getMoralPoint());
+    }
+
+    private function thenPlaceShouldHaveAlivePlayersCount(FunctionalTester $I, int $count): void
+    {
+        $I->assertCount($count, $this->player->getPlace()->getPlayers()->getPlayerAlive());
+    }
+
+    private function thenPlayerShouldHaveNoEquipments(FunctionalTester $I, Player $player): void
+    {
+        $I->assertCount(0, $player->getEquipments());
+    }
+
+    private function thenPlaceShouldHaveEquipmentsCount(FunctionalTester $I, int $count): void
+    {
+        $I->assertCount($count, $this->player->getPlace()->getEquipments());
+    }
+
+    private function thenPlayerShouldHaveActionPoint(FunctionalTester $I, Player $player, int $actionPoint): void
+    {
+        $I->assertEquals($actionPoint, $player->getActionPoint());
+    }
+
+    private function thenPlayerShouldHaveMovementPoint(FunctionalTester $I, Player $player, int $movementPoint): void
+    {
+        $I->assertEquals($movementPoint, $player->getMovementPoint());
+    }
+
+    private function thenClosedPlayerShouldHaveMessage(FunctionalTester $I, Player $player, ?string $message): void
+    {
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $I->assertEquals($message, $closedPlayer->getMessage());
+    }
+
+    private function thenClosedPlayerShouldHaveLikes(FunctionalTester $I, Player $player, int $likes): void
+    {
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $I->assertEquals($likes, $closedPlayer->getLikes());
+    }
+
+    private function thenClosedPlayerShouldHaveFinishedAt(FunctionalTester $I, Player $player, \DateTime $finishedAt): void
+    {
+        $closedPlayer = $player->getPlayerInfo()->getClosedPlayer();
+        $I->assertEquals($finishedAt, $closedPlayer->getFinishedAt());
+    }
+
+    private function thenPlayerShouldHaveBeginnerStatus(FunctionalTester $I, Player $player): void
+    {
+        $I->assertTrue($player->hasStatus(PlayerStatusEnum::BEGINNER));
+    }
+
+    private function thenPlaceShouldHaveEquipmentByName(FunctionalTester $I, string $equipmentName): void
+    {
+        $I->assertTrue($this->player->getPlace()->hasEquipmentByName($equipmentName));
+    }
+
+    private function thenPlayerShouldHaveEquipmentByName(FunctionalTester $I, Player $player, string $equipmentName): void
+    {
+        $I->assertTrue($player->hasEquipmentByName($equipmentName));
+    }
+
+    private function thenUserShouldBeInGame(FunctionalTester $I, User $user): void
+    {
         $I->assertTrue($user->isInGame());
+    }
+
+    private function thenPlayerHumanCycleCountShouldBeIncremented(FunctionalTester $I, Player $player, int $initialCycles): void
+    {
+        $I->assertEquals($initialCycles + 1, $player->getPlayerInfo()->getHumanCyclesCount());
+    }
+
+    private function thenPlayerHumanCycleCountShouldNotBeIncremented(FunctionalTester $I, Player $player, int $cyclesAfterDeath): void
+    {
+        $I->assertEquals($cyclesAfterDeath, $player->getPlayerInfo()->getHumanCyclesCount());
     }
 }

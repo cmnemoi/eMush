@@ -291,5 +291,35 @@
         <target>Puceron</target>
       </segment>
     </unit>
+    <unit id="andie">
+      <segment id="name" state="translated">
+        <source>andie.name</source>
+        <target>Nombre de cycles passés à vénérer la Fédération</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>andie.description</source>
+        <target>Vous avez vécu dans la peau d'un pion de la Fédération, il serait temps de changer de bord !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>andie_50.name</source>
+        <target>Dans la Fédération je crois !</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>andie_200.name</source>
+        <target>Y'a quelque chose de louche !</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>andie_500.name</source>
+        <target>On m'aurait menti(e) ?</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>andie_2000.name</source>
+        <target>L'idole des jeunes</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>andie_10000.name</source>
+        <target>Promis à un brillant avenir !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -26,6 +26,12 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     public function onDaedalusFinish(DaedalusEvent $event): void
     {
+        $this->incrementEndCauseStatisticFromEvent($event);
+        $this->incrementHumanCyclesStatisticFromEvent($event);
+    }
+
+    private function incrementEndCauseStatisticFromEvent(DaedalusEvent $event): void
+    {
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
         $statisticName = match ($endCause) {
             EndCauseEnum::SOL_RETURN => StatisticEnum::BACK_TO_ROOT,
@@ -42,6 +48,24 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
                     userId: $player->getUser()->getId(),
                     statisticName: $statisticName,
                     language: $language,
+                )
+            );
+        }
+    }
+
+    private function incrementHumanCyclesStatisticFromEvent(DaedalusEvent $event): void
+    {
+        $daedalus = $event->getDaedalus();
+        $language = $daedalus->getLanguage();
+
+        /** @var Player $player */
+        foreach ($daedalus->getPlayers() as $player) {
+            $this->commandBus->dispatch(
+                new IncrementUserStatisticCommand(
+                    userId: $player->getUser()->getId(),
+                    statisticName: StatisticEnum::tryFrom($player->getName()) ?? StatisticEnum::NULL,
+                    language: $language,
+                    increment: $player->getPlayerInfo()->getHumanCyclesCount(),
                 )
             );
         }

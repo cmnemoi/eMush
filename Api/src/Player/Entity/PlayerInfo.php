@@ -45,6 +45,9 @@ class PlayerInfo
     #[ORM\Column(type: 'json', nullable: true, options: ['default' => '[]'])]
     private array $titles = [];
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $humanCyclesCount = 0;
+
     public function __construct(
         Player $player,
         User $user,
@@ -177,5 +180,19 @@ class PlayerInfo
     public function hasAllTitles(array $titles): bool
     {
         return array_diff($this->titles, $titles) === [];
+    }
+
+    public function getHumanCyclesCount(): int
+    {
+        return $this->humanCyclesCount;
+    }
+
+    public function incrementCyclesCount(int $increment = 1): static
+    {
+        if ($this->player?->isHuman()) {
+            $this->humanCyclesCount += $increment;
+        }
+
+        return $this;
     }
 }

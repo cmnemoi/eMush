@@ -41,8 +41,8 @@ final class UserShipsHistoryNormalizer implements NormalizerInterface
             'nbNeronProjects' => $object->nbNeronProjects,
             'nbResearchProjects' => $object->nbResearchProjects,
             'nbScannedPlanets' => $object->nbScannedPlanets,
-            'titles' => array_map(static fn (string $title) => ":{$title}:", $object->titles),
-            'triumph' => \sprintf('%s :triumph:', $object->triumph),
+            'titles' => implode('', array_map(static fn (string $title) => ":{$title}:", $object->titles)),
+            'triumph' => $object->playerWasMush ? \sprintf('%s :triumph_mush:', $object->triumph) : \sprintf('%s :triumph:', $object->triumph),
             'endCause' => $this->translationService->translate(
                 key: \sprintf('%s.name', $object->endCause),
                 parameters: [],

@@ -68,7 +68,7 @@ final readonly class UserShipsHistoryControllerCest
                 'nbNeronProjects' => 0,
                 'nbResearchProjects' => 0,
                 'nbScannedPlanets' => 0,
-                'titles' => [],
+                'titles' => '',
                 'triumph' => '0 :triumph:',
                 'endCause' => 'Daedalus détruit',
                 'daedalusId' => $this->daedalus->getDaedalusInfo()->getClosedDaedalus()->getId(),

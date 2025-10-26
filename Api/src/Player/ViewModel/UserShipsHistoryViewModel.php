@@ -20,6 +20,7 @@ final readonly class UserShipsHistoryViewModel implements ViewModelInterface
         public int $triumph,
         public string $endCause,
         public int $daedalusId,
+        public bool $playerWasMush,
     ) {}
 
     public static function fromQueryRow(array $row): self
@@ -35,6 +36,7 @@ final readonly class UserShipsHistoryViewModel implements ViewModelInterface
             (int) $row['triumph'],
             (string) $row['end_cause'],
             (int) $row['daedalus_id'],
+            (bool) $row['was_mush'],
         );
     }
 }

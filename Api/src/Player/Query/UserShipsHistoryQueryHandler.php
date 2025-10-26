@@ -44,7 +44,8 @@ final readonly class UserShipsHistoryQueryHandler
             player_info.titles AS titles,
             closed_player.triumph AS triumph,
             closed_player.end_cause AS end_cause,
-            daedalus_closed.id AS daedalus_id
+            daedalus_closed.id AS daedalus_id,
+            closed_player.is_mush AS was_mush
         FROM users
         INNER JOIN player_info
         ON users.id = player_info.user_id

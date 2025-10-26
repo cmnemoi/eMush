@@ -216,6 +216,16 @@ class PlayerCollection extends ArrayCollection
         return new self($this->matching($criteria)->toArray());
     }
 
+    public function toPlayerNames(): string
+    {
+        $names = array_map(
+            static fn (Player $player): string => $player->getName(),
+            $this->toArray(),
+        );
+
+        return implode(',', $names);
+    }
+
     private function getPlayerWithStatus(string $status): ?Player
     {
         return $this->filter(static fn (Player $player) => $player->hasStatus($status))->first() ?: null;

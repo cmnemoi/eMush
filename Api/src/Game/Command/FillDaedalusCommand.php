@@ -7,6 +7,7 @@ namespace Mush\Game\Command;
 use Mush\Daedalus\Entity\Daedalus;
 use Mush\Daedalus\Repository\DaedalusRepository;
 use Mush\Daedalus\Service\DaedalusServiceInterface;
+use Mush\Game\Enum\GameStatusEnum;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Player\Entity\Config\CharacterConfig;
 use Mush\Player\Repository\CharacterConfigRepository;
@@ -99,6 +100,10 @@ final class FillDaedalusCommand extends Command
         $characterConfigs = $this->characterConfigRepository->findAll();
         $boardedCount = $this->boardCharacters($characterConfigs, $daedalus, $membersToBoard, $io);
         $io->info("{$boardedCount} member(s) joined the Daedalus.");
+
+        if ($daedalus->getGameStatus() === GameStatusEnum::CURRENT) {
+            $io->info("The mush are {$daedalus->getMushPlayers()->toPlayerNames()}");
+        }
 
         return Command::SUCCESS;
     }

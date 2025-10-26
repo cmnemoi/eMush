@@ -12,5 +12,6 @@ final readonly class IncrementUserStatisticCommand
         public readonly int $userId,
         public readonly StatisticEnum $statisticName,
         public readonly string $language,
+        public readonly int $increment = 1,
     ) {}
 }

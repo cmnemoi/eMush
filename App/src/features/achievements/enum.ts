@@ -4,6 +4,7 @@ export const enum StatisticEnum {
     CAT_CUDDLED = "cat_cuddled",
     COFFEE_TAKEN = "coffee_taken",
     DOOR_REPAIRED = "door_repaired",
+    EXPLO_FEED = "explo_feed",
     EXTINGUISH_FIRE = "extinguish_fire",
     GAGGED = "gagged",
     GIVE_MISSION = "give_mission",
@@ -22,6 +23,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.DOOR_REPAIRED]: {
         'icon': getImgUrl('alerts/door.png')
+    },
+    [StatisticEnum.EXPLO_FEED]: {
+        'icon': getImgUrl('achievements/explo_feed.png')
     },
     [StatisticEnum.EXTINGUISH_FIRE]: {
         'icon': getImgUrl('achievements/signal_fire.png')

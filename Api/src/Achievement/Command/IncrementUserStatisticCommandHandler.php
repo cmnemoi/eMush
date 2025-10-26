@@ -30,13 +30,14 @@ final readonly class IncrementUserStatisticCommandHandler
         $statisticName = $command->statisticName;
         $userId = $command->userId;
         $language = $command->language;
+        $increment = $command->increment;
 
         $statistic = $this->statisticRepository->findByNameAndUserIdOrNull($statisticName, $userId)
             ?? new Statistic(
                 config: $this->statisticConfigRepository->findOneByName($statisticName),
                 userId: $userId
             );
-        $statistic->incrementCount();
+        $statistic->incrementCount($increment);
         $this->statisticRepository->save($statistic);
 
         $this->eventService->callEvent(new StatisticIncrementedEvent($statistic->getId(), $language), StatisticIncrementedEvent::class);

@@ -77,9 +77,9 @@ class Statistic
         return $this->config;
     }
 
-    public function incrementCount(): void
+    public function incrementCount(int $amount = 1): void
     {
-        ++$this->count;
+        $this->count += $amount;
     }
 
     public function toArray(): array

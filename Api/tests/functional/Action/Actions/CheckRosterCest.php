@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mush\Tests\Functional\Action\Actions;
 
 use Mush\Action\Actions\CheckRoster;
@@ -117,7 +119,7 @@ final class CheckRosterCest extends AbstractFunctionalTest
             ]
         );
 
-        $I->assertEquals(
+        $I->assertEqualsCanonicalizing(
             expected: [
                 ['entry' => ['Chun', 'Éveillée']],
                 ['entry' => ['Kuan Ti', 'Éveillé']],

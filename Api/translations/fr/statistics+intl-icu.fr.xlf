@@ -107,6 +107,36 @@
         <target>Général</target>
       </segment>
     </unit>
+    <unit id="explo_feed">
+      <segment id="name" state="translated">
+        <source>explo_feed.name</source>
+        <target>Approvisionneur</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>explo_feed.description</source>
+        <target>Nourriture rapportée d'expédition. Vous devez avoir survécu...</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>explo_feed_1.name</source>
+        <target>Cueilleur de baie</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>explo_feed_50.name</source>
+        <target>Chasseur</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>explo_feed_200.name</source>
+        <target>Meneur de safari</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>explo_feed_500.name</source>
+        <target>Génocideur de monde</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>explo_feed_1000.name</source>
+        <target>Grand destructeur de système solaire</target>
+      </segment>
+    </unit>
     <unit id="signal_equip">
       <segment id="name" state="translated">
         <source>signal_equip.name</source>

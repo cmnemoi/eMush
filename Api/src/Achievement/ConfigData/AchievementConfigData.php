@@ -60,6 +60,31 @@ abstract class AchievementConfigData
                 threshold: 500,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::EXPLO_FEED_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EXPLO_FEED_50,
+                points: 5,
+                threshold: 50,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EXPLO_FEED_200,
+                points: 10,
+                threshold: 200,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EXPLO_FEED_500,
+                points: 20,
+                threshold: 500,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EXPLO_FEED_1000,
+                points: 40,
+                threshold: 1_000,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

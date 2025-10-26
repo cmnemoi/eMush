@@ -15,6 +15,12 @@ enum AchievementEnum: string
     case GIVE_MISSION_50 = 'give_mission_50';
     case GIVE_MISSION_100 = 'give_mission_100';
     case GIVE_MISSION_500 = 'give_mission_500';
+    case EXPLO_FEED_1 = 'explo_feed_1';
+    case EXPLO_FEED_50 = 'explo_feed_50';
+    case EXPLO_FEED_200 = 'explo_feed_200';
+    case EXPLO_FEED_500 = 'explo_feed_500';
+    case EXPLO_FEED_1000 = 'explo_feed_1000';
+    case NEW_PLANTS_1 = 'new_plants_1';
     case PLANET_SCANNED_1 = 'planet_scanned_1';
     case SIGNAL_EQUIP_1 = 'signal_equip_1';
     case SIGNAL_EQUIP_20 = 'signal_equip_20';

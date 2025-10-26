@@ -77,6 +77,36 @@
         <target>Nombre d'incendies que vous avez éteints.</target>
       </segment>
     </unit>
+    <unit id="give_mission">
+      <segment id="name" state="translated">
+        <source>give_mission.name</source>
+        <target>Missions</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>give_mission.description</source>
+        <target>Missions que vous avez données et qui ont été acceptées</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>give_mission_1.name</source>
+        <target>Troufion</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>give_mission_10.name</source>
+        <target>Chef</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>give_mission_50.name</source>
+        <target>Capitaine</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>give_mission_100.name</source>
+        <target>Commandant</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>give_mission_500.name</source>
+        <target>Général</target>
+      </segment>
+    </unit>
     <unit id="signal_equip">
       <segment id="name" state="translated">
         <source>signal_equip.name</source>

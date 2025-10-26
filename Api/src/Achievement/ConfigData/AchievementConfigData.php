@@ -35,6 +35,31 @@ abstract class AchievementConfigData
                 threshold: 1,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::GIVE_MISSION_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::GIVE_MISSION_10,
+                points: 1,
+                threshold: 10,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::GIVE_MISSION_50,
+                points: 1,
+                threshold: 50,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::GIVE_MISSION_100,
+                points: 1,
+                threshold: 100,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::GIVE_MISSION_500,
+                points: 1,
+                threshold: 500,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

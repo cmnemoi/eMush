@@ -1,40 +1,15 @@
 import { User } from "../entities/User";
 
-const TOKEN_KEY = 'access_token';
-const REFRESH_TOKEN_KEY = 'refresh_token';
 const USER_INFO = 'user_info';
+const OAUTH_STATE = 'oauth_state';
 
 /**
- * Manage how Access Tokens are being stored and retrieved from storage.
+ * Manage how user data is stored.
  *
- * Current implementation stores to localStorage. Local Storage should always be
- * accessed through this instance.
+ * Note: JWT tokens are now stored in httpOnly cookies managed by the backend.
+ * This service only handles user info caching in localStorage.
  **/
 const TokenService = {
-    getToken(): string | null {
-        return localStorage.getItem(TOKEN_KEY);
-    },
-
-    saveToken(accessToken: string) : void{
-        localStorage.setItem(TOKEN_KEY, accessToken);
-    },
-
-    removeToken(): void {
-        localStorage.removeItem(TOKEN_KEY);
-    },
-
-    getRefreshToken(): string | null {
-        return localStorage.getItem(REFRESH_TOKEN_KEY);
-    },
-
-    saveRefreshToken(refreshToken: string): void {
-        localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
-    },
-
-    removeRefreshToken(): void {
-        localStorage.removeItem(REFRESH_TOKEN_KEY);
-    },
-
     getUserInfo(): User|null {
         const user = new User();
         const storedUserInfo = localStorage.getItem(USER_INFO);
@@ -50,6 +25,20 @@ const TokenService = {
 
     removeUserInfo(): void {
         localStorage.removeItem(USER_INFO);
+    },
+
+    generateOAuthState(): string {
+        const array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        const state = Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+        sessionStorage.setItem(OAUTH_STATE, state);
+        return state;
+    },
+
+    validateOAuthState(state: string): boolean {
+        const storedState = sessionStorage.getItem(OAUTH_STATE);
+        sessionStorage.removeItem(OAUTH_STATE); // Consume the state (single use)
+        return storedState !== null && storedState === state;
     }
 
 };

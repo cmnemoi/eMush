@@ -18,19 +18,21 @@
 <script lang="ts">
 
 import Banner from "@/components/Banner.vue";
-import ErrorPopup from "@/components/ErrorPopup.vue";
 import ConfirmPopup from "@/components/ConfirmPopup.vue";
-import Spinner from "@/components/Utils/Spinner.vue";
-import { mapGetters, mapActions } from "vuex";
-import Thanks from "@/components/Thanks.vue";
+import ErrorPopup from "@/components/ErrorPopup.vue";
+import PlayerNotificationPopUp from "@/components/Game/PlayerNotificationPopUp.vue";
 import MaintenancePage from "@/components/MaintenancePage.vue";
 import ModerationWarningBanner from "@/components/Moderation/ModerationWarningBanner.vue";
-import { defineComponent } from "vue";
-import ToastContainer from "./components/ToastContainer.vue";
-import PlayerNotificationPopUp from "@/components/Game/PlayerNotificationPopUp.vue";
+import Thanks from "@/components/Thanks.vue";
+import Spinner from "@/components/Utils/Spinner.vue";
+import { TokenService } from "@/services/storage.service";
 import UserService from "@/services/user.service";
+import store from "@/store";
+import { defineComponent } from "vue";
+import { mapActions, mapGetters } from "vuex";
 import TopBar from "./components/Hud/TopBar.vue";
 import UserMenu from "./components/Hud/UserMenu.vue";
+import ToastContainer from "./components/ToastContainer.vue";
 
 export default defineComponent({
     name: 'App',
@@ -83,6 +85,12 @@ export default defineComponent({
     },
     async beforeMount() {
         await this.loadGameMaintenanceStatus();
+
+        // Try to restore session from httpOnly cookie
+        if (TokenService.getUserInfo()) {
+            await store.dispatch('auth/userInfo');
+        }
+
         if (this.user) {
             await this.loadUserSanctions(this.user.id);
             const userHasNotReadLatestNews = await UserService.hasNotReadLatestNews();

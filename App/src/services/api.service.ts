@@ -1,7 +1,6 @@
 import axios, { AxiosPromise, AxiosResponse } from 'axios';
-import { TokenService } from './storage.service';
-import store from '../store';
 import { uuid } from 'vue3-uuid';
+import store from '../store';
 
 export type SuccessReponse = {
     config: any;
@@ -34,14 +33,7 @@ const ApiService = {
 
     init(baseURL: string): void {
         axios.defaults.baseURL = baseURL;
-    },
-
-    setHeader(): void {
-        axios.defaults.headers.common["Authorization"] = `Bearer ${TokenService.getToken()}`;
-    },
-
-    removeHeader(): void {
-        axios.defaults.headers.common = {};
+        axios.defaults.withCredentials = true;
     },
 
     get(resource: string, params?: Record<string, unknown>): Promise<AxiosResponse> {

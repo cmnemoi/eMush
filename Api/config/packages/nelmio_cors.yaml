@@ -6,5 +6,6 @@ nelmio_cors:
         allow_headers: ['Content-Type', 'Authorization', 'X-Request-Id']
         expose_headers: ['Link']
         max_age: 3600
+        allow_credentials: true
     paths:
         '^/': null

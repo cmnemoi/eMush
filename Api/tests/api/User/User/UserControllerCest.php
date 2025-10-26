@@ -43,6 +43,28 @@ class UserControllerCest
         $I->seeResponseCodeIs(200);
     }
 
+    public function testGetCurrentUserEndpoint(ApiTester $I): void
+    {
+        $user = $I->loginUser('default');
+
+        $I->sendGetRequest('users/me');
+
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'id' => $user->getId(),
+            'userId' => $user->getUserId(),
+            'username' => $user->getUsername(),
+        ]);
+    }
+
+    public function testGetCurrentUserEndpointWhenNotAuthenticated(ApiTester $I): void
+    {
+        $I->sendGetRequest('users/me');
+
+        $I->seeResponseCodeIs(403);
+    }
+
     private function createUser(string $userId): User
     {
         $user = new User();

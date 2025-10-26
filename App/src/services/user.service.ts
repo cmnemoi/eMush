@@ -1,8 +1,8 @@
+import { User } from "@/entities/User";
+import store from "@/store";
+import urlJoin from "url-join";
 import ApiService from './api.service';
 import { TokenService } from './storage.service';
-import { User } from "@/entities/User";
-import urlJoin from "url-join";
-import store from "@/store";
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 const OAUTH_URL = import.meta.env.VITE_APP_OAUTH_URL;
@@ -29,22 +29,23 @@ const UserService = {
     },
 
     redirectToLogin: async function(): Promise<void> {
-        const redirectUri = new URLSearchParams();
-        redirectUri.set('redirect_uri', callBackUrl);
-        global.window.location.href = decodeURIComponent(authorizationUrl + '?'+ redirectUri.toString());
+        // Generate and store a secure state parameter to prevent CSRF attacks
+        const state = TokenService.generateOAuthState();
+        
+        const params = new URLSearchParams();
+        params.set('redirect_uri', callBackUrl);
+        params.set('state', state);
+        
+        global.window.location.href = decodeURIComponent(authorizationUrl + '?'+ params.toString());
     },
 
-    login: async function(code: string): Promise<string> {
+    login: async function(code: string): Promise<void> {
         try {
-            const response = await ApiService.post(tokenUrl, {
+            await ApiService.post(tokenUrl, {
                 'grant_type': 'authorization_code',
                 'code': code
             });
 
-            TokenService.saveToken(response.data.token);
-            ApiService.setHeader();
-
-            return response.data.token;
         } catch (error: any) {
             console.error(error);
             // eslint-disable-next-line no-console
@@ -54,10 +55,10 @@ const UserService = {
 
     userInfo: async function(): Promise<User> {
         try {
-            const currentUserId = store.getters["auth/userId"];
-            const response = await ApiService.get(urlJoin(userEndPoint, currentUserId));
-            const user = new User();
-            TokenService.saveUserInfo(user.load(response.data));
+            // Get current user info from the backend using the JWT cookie
+            const response = await ApiService.get(urlJoin(userEndPoint, 'me'));
+            const user = new User().load(response.data);
+            TokenService.saveUserInfo(user);
 
             return user;
         } catch (error: any) {
@@ -67,16 +68,16 @@ const UserService = {
     },
 
     /**
-     * Logout the current user by removing the token from storage.
-     *
-     * Will also remove `Authorization Bearer <token>` header from future requests.
+     * Logout the current user by clearing the httpOnly cookie and user info.
      **/
-    logout(): void {
-        // Remove the token and remove Authorization header from Api Service as well
-        TokenService.removeToken();
-        TokenService.removeRefreshToken();
-        TokenService.removeUserInfo();
-        ApiService.removeHeader();
+    async logout(): Promise<void> {
+        try {
+            await ApiService.post(urlJoin(OAUTH_URL, 'logout'));
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            TokenService.removeUserInfo();
+        }
     },
 
 
@@ -158,4 +159,5 @@ const UserService = {
 
 export default UserService;
 
-export { UserService, AuthenticationError };
+export { AuthenticationError, UserService };
+

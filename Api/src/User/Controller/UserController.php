@@ -30,6 +30,19 @@ final class UserController extends AbstractFOSRestController
     }
 
     /**
+     * Get current user information.
+     */
+    #[OA\Tag(name: 'User')]
+    #[SecurityAnnotation(name: 'Bearer')]
+    #[Get(path: '/me')]
+    public function getCurrentUserEndpoint(): View
+    {
+        $this->denyAccessUnlessGranted(UserVoter::IS_CONNECTED, message: 'You must be connected to get user info.');
+
+        return $this->view($this->getUserOrThrow(), Response::HTTP_OK);
+    }
+
+    /**
      * Accept game rules.
      */
     #[OA\Tag(name: 'User')]

@@ -1,28 +1,25 @@
-import { UserService } from '@/services/user.service';
-import { TokenService } from '@/services/storage.service';
-import ApiService from "@/services/api.service";
 import { User } from "@/entities/User";
+import { TokenService } from '@/services/storage.service';
+import { UserService } from '@/services/user.service';
 import { ActionTree } from "vuex";
 
 export interface AuthState {
     userInfo: User | null
-    accessToken: null | string
-    refreshTokenPromise: null | string
+    isAuthenticated: boolean
     loading: boolean,
     hasAcceptedRules: boolean
 }
 
 const state =  {
     userInfo: TokenService.getUserInfo(),
-    accessToken: TokenService.getToken(),
-    refreshTokenPromise: null,
+    isAuthenticated: false, // Will be determined by checking if user can make authenticated requests
     loading: false,
     hasAcceptedRules: false
 };
 
 const getters = {
     loggedIn: (state : AuthState): boolean => {
-        return state.accessToken ? true : false;
+        return state.isAuthenticated && state.userInfo !== null;
     },
 
     getUserInfo: (state: AuthState): User | null => {
@@ -33,17 +30,8 @@ const getters = {
         return state.loading;
     },
 
-    userId: (state: AuthState): number | null => {
-        const token = state.accessToken;
-        if (token === null) {
-            return null;
-        }
-        try {
-            return JSON.parse(atob(token.split('.')[1])).userId;
-        } catch (e) {
-            console.error(e);
-            return null;
-        }
+    userId: (state: AuthState): string | null => {
+        return state.userInfo?.userId ?? null;
     },
 
     username: (state: AuthState): string | null => {
@@ -60,22 +48,10 @@ const getters = {
 
     hasAcceptedRules: (state: AuthState): boolean => {
         return state.hasAcceptedRules;
-    },
-    token(state: AuthState): string | null {
-        return state.accessToken;
     }
 };
 
 const actions: ActionTree<any, any> = {
-    async setToken({ commit }, { token }): Promise<void> {
-        TokenService.saveToken(token);
-        ApiService.setHeader();
-
-        await UserService.userInfo();
-
-        commit('setToken', token);
-    },
-
     redirectToRegister({ commit }): Promise<void> {
         commit('resetUserInfo');
         return UserService.redirectToRegister();
@@ -88,35 +64,35 @@ const actions: ActionTree<any, any> = {
 
     async login({ commit }, { code }): Promise<boolean> {
         try {
-            const token = await UserService.login(code);
-            commit('setToken', token);
+            await UserService.login(code);
+            commit('setAuthenticated', true);
             await this.dispatch('auth/userInfo');
 
             return true;
         } catch (e) {
             console.error(e);
+            commit('setAuthenticated', false);
             return false;
         }
     },
 
-    async userInfo({ commit, state }): Promise<User|null> {
-        if (state.accessToken) {
-            commit('resetUserInfo');
-            try {
-                const userInfo = await UserService.userInfo();
-                commit('setUserInfo', userInfo);
-                return userInfo;
-            } catch (e) {
-                console.error(e);
-                return null;
-            }
+    async userInfo({ commit }): Promise<User|null> {
+        commit('resetUserInfo');
+        try {
+            const userInfo = await UserService.userInfo();
+            commit('setUserInfo', userInfo);
+            commit('setAuthenticated', true);
+            return userInfo;
+        } catch (e) {
+            console.error(e);
+            commit('setAuthenticated', false);
+            return null;
         }
-        return null;
     },
 
-    logout({ commit }) {
-        UserService.logout();
-        commit('resetToken');
+    async logout({ commit }) {
+        await UserService.logout();
+        commit('resetAuth');
     },
 
     async loadHasAcceptedRules({ commit }): Promise<void> {
@@ -151,16 +127,14 @@ const mutations = {
         state.userInfo = userInfo;
     },
 
-    setToken(state: AuthState, accessToken: string): void {
-        state.accessToken = accessToken;
+    setAuthenticated(state: AuthState, isAuthenticated: boolean): void {
+        state.isAuthenticated = isAuthenticated;
     },
 
-    resetToken(state: AuthState): void {
-        state.accessToken = null;
-    },
-
-    setRefreshTokenPromise(state: AuthState, promise:string): void {
-        state.refreshTokenPromise = promise;
+    resetAuth(state: AuthState): void {
+        state.isAuthenticated = false;
+        state.userInfo = null;
+        state.hasAcceptedRules = false;
     },
 
     setHasAcceptedRules(state: AuthState, hasAcceptedRules: boolean): void {

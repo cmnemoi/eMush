@@ -138,8 +138,53 @@ class LoginService
             );
     }
 
-    public function getAuthorizationUri(string $scope, ?string $state): string
+    public function getAuthorizationUri(string $scope, string $csrfState): string
     {
-        return (string) $this->oauthClient->getAuthorizationUri($scope, $state ?? '');
+        return (string) $this->oauthClient->getAuthorizationUri($scope, $csrfState);
+    }
+
+    public function encodeOAuthState(string $csrfState, string $frontendRedirectUri): string
+    {
+        $json = json_encode(['csrf' => $csrfState, 'redirect' => $frontendRedirectUri]);
+        if (!$json) {
+            throw new \RuntimeException('Failed to encode OAuth state');
+        }
+
+        return base64_encode($json);
+    }
+
+    /**
+     * @return array{csrf: string, redirect: string}
+     */
+    public function decodeOAuthState(string $encodedState): array
+    {
+        $decoded = base64_decode($encodedState, true);
+        if (!$decoded) {
+            throw new UnauthorizedHttpException('Bad credentials: invalid state parameter');
+        }
+
+        $stateData = json_decode($decoded, true);
+
+        if (
+            !\is_array($stateData)
+            || !isset($stateData['csrf'])
+            || !isset($stateData['redirect'])
+            || !\is_string($stateData['csrf'])
+            || !\is_string($stateData['redirect'])
+        ) {
+            throw new UnauthorizedHttpException('Bad credentials: invalid state parameter');
+        }
+
+        return [
+            'csrf' => $stateData['csrf'],
+            'redirect' => $stateData['redirect'],
+        ];
+    }
+
+    public function buildFrontendCallbackUrl(string $frontendRedirectUri, string $token, string $csrfState): string
+    {
+        $parameters = http_build_query(['code' => $token, 'state' => $csrfState]);
+
+        return $frontendRedirectUri . '?' . $parameters;
     }
 }

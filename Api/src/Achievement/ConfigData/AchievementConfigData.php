@@ -25,6 +25,11 @@ abstract class AchievementConfigData
                 threshold: 1,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::COFFEE_TAKEN_1,
+                points: 0,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

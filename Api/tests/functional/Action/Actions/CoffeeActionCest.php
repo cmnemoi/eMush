@@ -2,6 +2,8 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepository;
 use Mush\Action\Actions\Coffee;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -31,6 +33,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
     private EventServiceInterface $eventService;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private StatisticRepository $statisticRepository;
     private Place $laboratory;
     private Place $refectory;
     private GameEquipment $coffeeMachine;
@@ -45,6 +48,7 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $this->eventService = $I->grabService(EventServiceInterface::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepository::class);
 
         $this->daedalus->getDaedalusConfig()->setCyclePerGameDay(8);
         $this->laboratory = $this->daedalus->getPlaceByNameOrThrow(RoomEnum::LABORATORY);
@@ -178,6 +182,31 @@ final class CoffeeActionCest extends AbstractFunctionalTest
         $I->assertEquals(4, $this->daedalus->getCycle());
 
         $this->thenPlayerCanPullACoffee($I);
+    }
+
+    public function shouldIncrementUserStatisticOnSuccess(FunctionalTester $I): void
+    {
+        $this->givenPlayerIsIn($this->refectory);
+
+        $this->coffeeAction->loadParameters(
+            actionConfig: $this->coffeeActionConfig,
+            actionProvider: $this->coffeeMachine,
+            player: $this->player,
+            target: $this->coffeeMachine
+        );
+        $this->coffeeAction->execute();
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::COFFEE_TAKEN, $this->player->getUser()->getId());
+
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::COFFEE_TAKEN,
+                'userId' => $this->player->getUser()->getId(),
+                'count' => 1,
+                'isRare' => false,
+            ],
+            actual: $statistic->toArray()
+        );
     }
 
     private function givenACoffeeMachineInRefectory(FunctionalTester $I): GameEquipment

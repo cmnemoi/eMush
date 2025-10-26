@@ -7,6 +7,7 @@ namespace Mush\Achievement\Enum;
 enum StatisticEnum: string
 {
     case CAT_CUDDLED = 'cat_cuddled';
+    case COFFEE_TAKEN = 'coffee_taken';
     case EXTINGUISH_FIRE = 'extinguish_fire';
     case GAGGED = 'gagged';
     case PLANET_SCANNED = 'planet_scanned';

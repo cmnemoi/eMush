@@ -77,7 +77,7 @@
             <div class="stats-list" v-if="activeTab === 'gains'">
                 <Tippy class="stat-item" v-for="achievement in achievements" :key="achievement.name">
                     <div class="stat-icon">
-                        <img :src="StatisticRecords[achievement.statisticKey].icon" />
+                        <img :src="StatisticRecords[achievement.statisticKey].icon" :alt="achievement.name" />
                     </div>
                     <div class="stat-name">{{ achievement.name }}</div>
                     <div class="stat-value">{{ achievement.formattedPoints }}</div>
@@ -92,14 +92,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onBeforeMount } from 'vue';
-import { useStore } from 'vuex';
-import { Tippy }  from 'vue-tippy';
-import { getImgUrl } from '@/utils/getImgUrl';
-import { Achievement, Statistic } from './models';
-import { User } from '../userProfile/models';
+import { computed, onBeforeMount, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { Tippy } from 'vue-tippy';
+import { useStore } from 'vuex';
+import { User } from '../userProfile/models';
 import { StatisticRecords } from './enum';
+import { Achievement, Statistic } from './models';
 
 const route = useRoute();
 const store = useStore();

@@ -15,6 +15,20 @@
         <target>Félinophile</target>
       </segment>
     </unit>
+    <unit id="coffee_taken">
+      <segment id="name" state="translated">
+        <source>coffee_taken.name</source>
+        <target>Squatteur de cafetière</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>coffee_taken.description</source>
+        <target>Nombre de cafés retirés en machine.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>coffee_taken_1.name</source>
+        <target>Pilier de comptoir</target>
+      </segment>
+    </unit>
     <unit id="planet_scanned">
       <segment id="name" state="translated">
         <source>planet_scanned.name</source>

@@ -32,6 +32,7 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
         $author = $event->getAuthor();
         $statisticName = match ($event->getActionName()) {
             ActionEnum::SEARCH => StatisticEnum::SUCCEEDED_INSPECTION,
+            ActionEnum::COFFEE => StatisticEnum::COFFEE_TAKEN,
             default => StatisticEnum::NULL,
         };
 

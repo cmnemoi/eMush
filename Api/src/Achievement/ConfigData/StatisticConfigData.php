@@ -18,6 +18,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::COFFEE_TAKEN),
             new StatisticConfigDto(StatisticEnum::DOOR_REPAIRED),
             new StatisticConfigDto(StatisticEnum::EXPLO_FEED),
+            new StatisticConfigDto(StatisticEnum::EXPLORER),
             new StatisticConfigDto(StatisticEnum::EXTINGUISH_FIRE),
             new StatisticConfigDto(StatisticEnum::GAGGED),
             new StatisticConfigDto(StatisticEnum::GIVE_MISSION),

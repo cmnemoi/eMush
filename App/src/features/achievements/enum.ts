@@ -5,6 +5,7 @@ export const enum StatisticEnum {
     COFFEE_TAKEN = "coffee_taken",
     DOOR_REPAIRED = "door_repaired",
     EXPLO_FEED = "explo_feed",
+    EXPLORER = "explorer",
     EXTINGUISH_FIRE = "extinguish_fire",
     GAGGED = "gagged",
     GIVE_MISSION = "give_mission",
@@ -27,8 +28,11 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     [StatisticEnum.EXPLO_FEED]: {
         'icon': getImgUrl('achievements/explo_feed.png')
     },
+    [StatisticEnum.EXPLORER]: {
+        'icon': getImgUrl('achievements/explorer.png')
+    },
     [StatisticEnum.EXTINGUISH_FIRE]: {
-        'icon': getImgUrl('achievements/signal_fire.png')
+        'icon': getImgUrl('achievements/extinguish_fire.png')
     },
     [StatisticEnum.GAGGED]: {
         'icon': getImgUrl('status/gagged.png')

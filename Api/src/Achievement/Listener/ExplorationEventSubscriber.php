@@ -27,6 +27,7 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
     public function onExplorationFinished(ExplorationEvent $event): void
     {
         $this->incrementExploFeedStatisticFromEvent($event);
+        $this->incrementExplorerStatisticFromEvent($event);
     }
 
     private function incrementExploFeedStatisticFromEvent(ExplorationEvent $event): void
@@ -51,6 +52,22 @@ final readonly class ExplorationEventSubscriber implements EventSubscriberInterf
                     statisticName: StatisticEnum::EXPLO_FEED,
                     language: $daedalus->getLanguage(),
                     increment: $broughtFood->count(),
+                )
+            );
+        }
+    }
+
+    private function incrementExplorerStatisticFromEvent(ExplorationEvent $event): void
+    {
+        $exploration = $event->getExploration();
+        $language = $exploration->getDaedalus()->getLanguage();
+
+        foreach ($exploration->getNotLostActiveExplorators() as $explorator) {
+            $this->commandBus->dispatch(
+                new IncrementUserStatisticCommand(
+                    userId: $explorator->getUser()->getId(),
+                    statisticName: StatisticEnum::EXPLORER,
+                    language: $language,
                 )
             );
         }

@@ -43,6 +43,32 @@
         <target>Serrurier</target>
       </segment>
     </unit>
+    <unit id="explorer">
+      <segment id="name" state="translated">
+        <source>explorer.name</source>
+        <target>Explorateur</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>explorer.description</source>
+        <target>Nombre de fois où vous avez exploré une planète et en êtes revenu vivant.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>explorer_1.name</source>
+        <target>Explorateur</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>explorer_50.name</source>
+        <target>Grand explorateur</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>explorer_200.name</source>
+        <target>Repousseur de frontière</target>
+      </segment>
+      <segment id="x1000" state="translated">
+        <source>explorer_1000.name</source>
+        <target>Christophe Colomb</target>
+      </segment>
+    </unit>
     <unit id="planet_scanned">
       <segment id="name" state="translated">
         <source>planet_scanned.name</source>

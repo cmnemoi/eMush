@@ -21,6 +21,10 @@ enum AchievementEnum: string
     case EXPLO_FEED_500 = 'explo_feed_500';
     case EXPLO_FEED_1000 = 'explo_feed_1000';
     case NEW_PLANTS_1 = 'new_plants_1';
+    case EXPLORER_1 = 'explorer_1';
+    case EXPLORER_50 = 'explorer_50';
+    case EXPLORER_200 = 'explorer_200';
+    case EXPLORER_1000 = 'explorer_1000';
     case PLANET_SCANNED_1 = 'planet_scanned_1';
     case SIGNAL_EQUIP_1 = 'signal_equip_1';
     case SIGNAL_EQUIP_20 = 'signal_equip_20';

@@ -85,6 +85,26 @@ abstract class AchievementConfigData
                 threshold: 1_000,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::EXPLORER_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EXPLORER_50,
+                points: 5,
+                threshold: 50,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EXPLORER_200,
+                points: 10,
+                threshold: 200,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EXPLORER_1000,
+                points: 5,
+                threshold: 1_000,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

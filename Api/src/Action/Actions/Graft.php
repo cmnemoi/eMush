@@ -102,6 +102,7 @@ final class Graft extends AbstractAction
             equipmentHolder: $this->player->getPlace(),
             reasons: $this->getTags(),
             time: new \DateTime(),
+            author: $this->player,
         );
     }
 

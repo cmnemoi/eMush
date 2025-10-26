@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\Graft;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Entity\ActionResult\ActionResult;
@@ -14,9 +16,9 @@ use Mush\Equipment\Enum\GamePlantEnum;
 use Mush\Equipment\Enum\ItemEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
+use Mush\Player\Entity\Player;
 use Mush\RoomLog\Enum\ActionLogEnum;
 use Mush\Skill\Enum\SkillEnum;
-use Mush\Skill\UseCase\ChooseSkillUseCase;
 use Mush\Status\Enum\EquipmentStatusEnum;
 use Mush\Status\Enum\PlayerStatusEnum;
 use Mush\Status\Service\StatusServiceInterface;
@@ -34,9 +36,9 @@ final class GraftCest extends AbstractFunctionalTest
     private GameItem $bananaTree;
     private GameItem $anemole;
 
-    private ChooseSkillUseCase $chooseSkillUseCase;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -44,9 +46,9 @@ final class GraftCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => 'graft']);
         $this->graft = $I->grabService(Graft::class);
-        $this->chooseSkillUseCase = $I->grabService(ChooseSkillUseCase::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->givenChunHasABananaTree();
         $this->givenChunHasAnAnemole();
@@ -186,6 +188,13 @@ final class GraftCest extends AbstractFunctionalTest
         $this->whenChunGraftsOnBananaTree();
 
         $this->thenAnemolePlantShouldHaveAge(2, $I);
+    }
+
+    public function shouldIncrementStatisticWhenSuccessful(FunctionalTester $I): void
+    {
+        $this->whenChunGraftsOnBananaTree();
+
+        $this->thenNewPlantsStatisticShouldBeIncrementedForPlayer($this->chun, $I);
     }
 
     private function givenKuanTiHasABananaTree(): void
@@ -404,6 +413,22 @@ final class GraftCest extends AbstractFunctionalTest
         $I->assertEquals(
             expected: $expectedAge,
             actual: $anemolePlant->getChargeStatusByNameOrThrow(EquipmentStatusEnum::PLANT_YOUNG)->getCharge(),
+        );
+    }
+
+    private function thenNewPlantsStatisticShouldBeIncrementedForPlayer(Player $player, FunctionalTester $I): void
+    {
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::NEW_PLANTS,
+                'userId' => $player->getUser()->getId(),
+                'isRare' => false,
+                'count' => 1,
+            ],
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(
+                name: StatisticEnum::NEW_PLANTS,
+                userId: $player->getUser()->getId(),
+            )->toArray()
         );
     }
 }

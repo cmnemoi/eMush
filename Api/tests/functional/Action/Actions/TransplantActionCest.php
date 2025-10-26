@@ -2,6 +2,8 @@
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\Transplant;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -24,6 +26,7 @@ final class TransplantActionCest extends AbstractFunctionalTest
     private Transplant $transplantAction;
     private ActionConfig $actionConfig;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I)
     {
@@ -33,6 +36,7 @@ final class TransplantActionCest extends AbstractFunctionalTest
         ]);
         $this->transplantAction = $I->grabService(Transplant::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
 
     public function testTransplant(FunctionalTester $I)
@@ -61,6 +65,16 @@ final class TransplantActionCest extends AbstractFunctionalTest
 
         // Then
         $this->thenIanShouldReceiveNaturalistTriumph($I, $ian);
+    }
+
+    public function shouldIncrementStatistic(FunctionalTester $I): void
+    {
+        $ian = $this->givenIanPlayerWithHydropot($I);
+        $alienFruit = $this->givenAlienFruitInIanPlace($I, $ian);
+
+        $this->whenIanTransplantsAlienFruit($alienFruit, $ian);
+
+        $this->thenNewPlantsStatisticShouldBeIncrementedForPlayer($ian, $I);
     }
 
     private function givenIanPlayerWithHydropot(FunctionalTester $I): Player
@@ -96,5 +110,19 @@ final class TransplantActionCest extends AbstractFunctionalTest
     private function thenIanShouldReceiveNaturalistTriumph(FunctionalTester $I, Player $ian): void
     {
         $I->assertEquals(3, $ian->getTriumph());
+    }
+
+    private function thenNewPlantsStatisticShouldBeIncrementedForPlayer(Player $player, FunctionalTester $I): void
+    {
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::NEW_PLANTS, $player->getUser()->getId());
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::NEW_PLANTS,
+                'userId' => $player->getUser()->getId(),
+                'count' => 1,
+                'isRare' => false,
+            ],
+            actual: $statistic?->toArray()
+        );
     }
 }

@@ -277,5 +277,19 @@
         <target>Citoyen de Sol</target>
       </segment>
     </unit>
+    <unit id="new_plants">
+      <segment id="name" state="translated">
+        <source>new_plants.name</source>
+        <target>Plantations</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>new_plants.description</source>
+        <target>Plantes que vous avez fait naître</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>new_plants_1.name</source>
+        <target>Puceron</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

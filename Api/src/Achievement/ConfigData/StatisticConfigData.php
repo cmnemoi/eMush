@@ -28,6 +28,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::SIGNAL_EQUIP),
             new StatisticConfigDto(StatisticEnum::SIGNAL_FIRE),
             new StatisticConfigDto(StatisticEnum::SUCCEEDED_INSPECTION),
+            new StatisticConfigDto(StatisticEnum::NEW_PLANTS),
         ];
     }
 

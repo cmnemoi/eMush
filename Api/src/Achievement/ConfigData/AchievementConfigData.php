@@ -184,6 +184,11 @@ abstract class AchievementConfigData
                 points: 0,
                 threshold: 1,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::NEW_PLANTS_1,
+                points: 1,
+                threshold: 1,
+            ),
         ];
     }
 

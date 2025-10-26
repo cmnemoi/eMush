@@ -381,5 +381,35 @@
         <target>Last Action Weirdo</target>
       </segment>
     </unit>
+    <unit id="finola">
+      <segment id="name" state="translated">
+        <source>finola.name</source>
+        <target>Nombre de cycles passés à scruter l'infiniment petit</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>finola.description</source>
+        <target>Vous avez été dans la peau d'une scientifique de renom, vous ne diriez pas non pour un petit prélèvement de plus ?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>finola_50.name</source>
+        <target>Mais qu'est ce que je fais là ?</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>finola_200.name</source>
+        <target>Neutrino crochu</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>finola_500.name</source>
+        <target>L'univers en 10²²</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>finola_2000.name</source>
+        <target>Plancké dans le mur</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>finola_10000.name</source>
+        <target>Master of the universe</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

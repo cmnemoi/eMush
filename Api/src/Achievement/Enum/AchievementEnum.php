@@ -56,6 +56,11 @@ enum AchievementEnum: string
     case CHAO_500 = 'chao_500';
     case CHAO_2000 = 'chao_2000';
     case CHAO_10000 = 'chao_10000';
+    case FINOLA_50 = 'finola_50';
+    case FINOLA_200 = 'finola_200';
+    case FINOLA_500 = 'finola_500';
+    case FINOLA_2000 = 'finola_2000';
+    case FINOLA_10000 = 'finola_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

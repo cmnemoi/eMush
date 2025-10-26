@@ -46,6 +46,11 @@ enum AchievementEnum: string
     case ANDIE_500 = 'andie_500';
     case ANDIE_2000 = 'andie_2000';
     case ANDIE_10000 = 'andie_10000';
+    case CHUN_50 = 'chun_50';
+    case CHUN_200 = 'chun_200';
+    case CHUN_500 = 'chun_500';
+    case CHUN_2000 = 'chun_2000';
+    case CHUN_10000 = 'chun_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

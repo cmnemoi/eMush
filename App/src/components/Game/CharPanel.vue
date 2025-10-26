@@ -241,7 +241,7 @@ export default defineComponent ({
             return this.selectedItem || this.player;
         },
         targetActions(): Action[] {
-            if (!this.actionTabs) return this.target?.actions || [];
+            if (!this.actionTabs) return this.rawTargetActions || [];
 
             const actionMap: { [key: string]: Action[] } = {
                 'human': this.targetActionsHuman,
@@ -265,7 +265,6 @@ export default defineComponent ({
 
             // Setup commander order action cost to 0 if available
             if (this.target instanceof Player && this.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
-
                 const commanderOrderAction = this.target.getActionByKey(ActionEnum.COMMANDER_ORDER);
                 actions = actions.filter(action => action.key !== ActionEnum.COMMANDER_ORDER);
                 const newOrderAction = (new Action()).decode(commanderOrderAction?.jsonEncode());

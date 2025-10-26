@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Daedalus\Event;
 
+use Codeception\Attribute\DataProvider;
+use Codeception\Example;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Daedalus\Event\DaedalusEvent;
 use Mush\Game\Enum\CharacterEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Player\Entity\Player;
 use Mush\Player\Enum\EndCauseEnum;
 use Mush\Tests\AbstractFunctionalTest;
 use Mush\Tests\FunctionalTester;
@@ -21,7 +22,6 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
 {
     private EventServiceInterface $eventService;
     private StatisticRepositoryInterface $statisticRepository;
-    private Player $andie;
 
     public function _before(FunctionalTester $I): void
     {
@@ -30,24 +30,33 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
     }
 
-    public function shouldIncrementAndieStatisticWhenDaedalusEnds(FunctionalTester $I): void
+    #[DataProvider('characterDataProvider')]
+    public function shouldIncrementCharacterStatisticWhenDaedalusEnds(FunctionalTester $I, Example $example): void
     {
-        $this->givenAndieIsInDaedalus($I);
-        $this->givenAndieHasLivedCycles(5);
+        $this->givenPlayerIsInDaedalus($I, $example['character']);
+        $this->givenPlayerHasLivedCycles(5);
 
         $this->whenDaedalusEndsWithSuperNova();
 
-        $this->thenAndieStatisticShouldBeIncrementedBy(5, $I);
+        $this->thenPlayerStatisticShouldBeIncrementedBy(5, $example['character'], $I);
     }
 
-    private function givenAndieIsInDaedalus(FunctionalTester $I): void
+    protected function characterDataProvider(): array
     {
-        $this->andie = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::ANDIE);
+        return [
+            ['character' => CharacterEnum::ANDIE],
+            ['character' => CharacterEnum::CHUN],
+        ];
     }
 
-    private function givenAndieHasLivedCycles(int $cycles): void
+    private function givenPlayerIsInDaedalus(FunctionalTester $I, string $character): void
     {
-        $this->andie->getPlayerInfo()->incrementCyclesCount($cycles);
+        $this->player = $this->addPlayerByCharacter($I, $this->daedalus, $character);
+    }
+
+    private function givenPlayerHasLivedCycles(int $cycles): void
+    {
+        $this->player->getPlayerInfo()->incrementCyclesCount($cycles);
     }
 
     private function whenDaedalusEndsWithSuperNova(): void
@@ -60,9 +69,12 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         $this->eventService->callEvent($endDaedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
     }
 
-    private function thenAndieStatisticShouldBeIncrementedBy(int $increment, FunctionalTester $I): void
+    private function thenPlayerStatisticShouldBeIncrementedBy(int $increment, string $character, FunctionalTester $I): void
     {
-        $andieStatistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::ANDIE, $this->andie->getUser()->getId());
-        $I->assertEquals($increment, $andieStatistic?->getCount());
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::tryFrom($character),
+            userId: $this->player->getUser()->getId()
+        );
+        $I->assertEquals($increment, $statistic?->getCount());
     }
 }

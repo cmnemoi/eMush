@@ -29,7 +29,8 @@ final readonly class GetUserAchievementsQueryHandler
             INNER JOIN statistic ON statistic.id = achievement.statistic_id
             INNER JOIN statistic_config ON statistic_config.id = statistic.config_id
             INNER JOIN achievement_config ON achievement_config.id = achievement.config_id
-            WHERE statistic.user_id = :userId
+            INNER JOIN users ON users.id = statistic.user_id
+            WHERE users.user_id = :userId
             ORDER BY achievement_config.name, statistic.count
             ',
             [

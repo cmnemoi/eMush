@@ -7,7 +7,7 @@
                     <UserShipHistory  />
                 </div>
                 <div class="user-sidebar">
-                    <UserAchievements v-if="user.id" :user="user" />
+                    <UserAchievements />
                 </div>
             </div>
         </div>
@@ -15,13 +15,12 @@
 </template>
 
 <script setup lang="ts">
+import UserAchievements from "@/features/achievements/UserAchievements.vue";
 import { User } from "@/features/userProfile/models";
 import UserShipHistory from "@/features/userProfile/UserShipHistory.vue";
-import { watch } from "vue";
-import { computed, onBeforeMount } from "vue";
+import { computed, onBeforeMount, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import UserAchievements from "@/features/achievements/UserAchievements.vue";
 
 const route = useRoute();
 const store = useStore();

@@ -10,7 +10,7 @@ final readonly class GetUserAchievementsQuery
 {
     public function __construct(
         #[Assert\NotBlank]
-        public int $userId,
+        public string $userId,
         #[Assert\NotBlank]
         public string $language,
     ) {}

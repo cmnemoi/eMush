@@ -45,7 +45,7 @@ final class AchievementControllerCest
         );
 
         $I->sendGetRequest('/statistics', [
-            'userId' => $this->user->getId(),
+            'userId' => $this->user->getUserId(),
             'language' => $example['language'],
         ]);
 
@@ -89,7 +89,7 @@ final class AchievementControllerCest
         );
 
         $I->sendGetRequest('/achievements', [
-            'userId' => $this->user->getId(),
+            'userId' => $this->user->getUserId(),
             'language' => 'fr',
         ]);
 

@@ -96,14 +96,11 @@ import { computed, onBeforeMount, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { Tippy } from 'vue-tippy';
 import { useStore } from 'vuex';
-import { User } from '../userProfile/models';
 import { StatisticRecords } from './enum';
 import { Achievement, Statistic } from './models';
 
 const route = useRoute();
 const store = useStore();
-
-const props = defineProps<{ user: User }>();
 
 // Store getters
 const language = computed<string>(() => store.getters['locale/currentLocale']);
@@ -112,42 +109,38 @@ const topThreeStatistics = computed<Statistic[]>(() => store.getters['achievemen
 const totalPoints = computed<integer>(() => store.getters['achievements/points']);
 const achievements = computed<Achievement[]>(() => store.getters['achievements/achievements']);
 const achievementCount = computed<integer>(() => store.getters['achievements/achievements'].length);
-const user = computed<User>(() => props.user);
+const userId = computed<string>(() => route.params.userId as string);
 
 // Store actions
-async function fetchStatistics(payload: { userId: integer; language: string }) {
+async function fetchStatistics(payload: { userId: string; language: string }) {
     await store.dispatch('achievements/fetchStatistics', payload);
 }
-async function fetchAchievements(payload: { userId: integer; language: string }) {
+async function fetchAchievements(payload: { userId: string; language: string }) {
     await store.dispatch('achievements/fetchAchievements', payload);
 }
 
-function setActiveCard(card: string) {
-    activeCard.value = card;
-}
-function setActiveTab(tab: string) {
-    activeTab.value = tab;
-}
+const setActiveCard = (card: string) => activeCard.value = card;
+const setActiveTab = (tab: string) => activeTab.value = tab;
 
 // Reacting to component lifecycle
 onBeforeMount(async () => {
     await Promise.allSettled([
-        fetchStatistics({ userId: user.value.id, language: language.value }),
-        fetchAchievements({ userId: user.value.id, language: language.value })
+        fetchStatistics({ userId: userId.value, language: language.value }),
+        fetchAchievements({ userId: userId.value, language: language.value })
     ]);
 });
 
-watch(language, async (language: string) => {
+watch(language, async (language) => {
     await Promise.allSettled([
-        fetchStatistics({ userId: user.value.id, language: language }),
-        fetchAchievements({ userId: user.value.id, language: language })
+        fetchStatistics({ userId: userId.value, language: language }),
+        fetchAchievements({ userId: userId.value, language: language })
     ]);
 });
 
 watch(route, async () => {
     await Promise.allSettled([
-        fetchStatistics({ userId: user.value.id, language: language.value }),
-        fetchAchievements({ userId: user.value.id, language: language.value })
+        fetchStatistics({ userId: userId.value, language: language.value }),
+        fetchAchievements({ userId: userId.value, language: language.value })
     ]);
 });
 

@@ -24,7 +24,9 @@ final readonly class GetUserStatisticsQueryHandler
             FROM statistic
             INNER JOIN statistic_config
             ON statistic.config_id = statistic_config.id
-            WHERE user_id = :userId
+            INNER JOIN users
+            ON users.id = statistic.user_id
+            WHERE users.user_id = :userId
             ORDER BY statistic_config.is_rare DESC, statistic.count DESC
             ',
             [

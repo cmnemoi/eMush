@@ -33,6 +33,7 @@ enum AchievementEnum: string
     case ARTEFACT_SPECIALIST_6 = 'artefact_specialist_6';
     case ARTEFACT_SPECIALIST_7 = 'artefact_specialist_7';
     case ARTEFACT_SPECIALIST_8 = 'artefact_specialist_8';
+    case BACK_TO_ROOT_1 = 'back_to_root_1';
     case PLANET_SCANNED_1 = 'planet_scanned_1';
     case SIGNAL_EQUIP_1 = 'signal_equip_1';
     case SIGNAL_EQUIP_20 = 'signal_equip_20';

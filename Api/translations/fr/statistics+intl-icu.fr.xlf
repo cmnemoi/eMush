@@ -263,5 +263,19 @@
         <target>Elijah Baley</target>
       </segment>
     </unit>
+    <unit id="back_to_root">
+      <segment id="name" state="translated">
+        <source>back_to_root.name</source>
+        <target>Sol</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>back_to_root.description</source>
+        <target>Nombre de trajets de retour vers Sol effectués. Content du voyage ?</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>back_to_root_1.name</source>
+        <target>Citoyen de Sol</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

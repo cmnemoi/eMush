@@ -145,6 +145,11 @@ abstract class AchievementConfigData
                 threshold: 8,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::BACK_TO_ROOT_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::PLANET_SCANNED_1,
                 points: 1,
                 threshold: 1,

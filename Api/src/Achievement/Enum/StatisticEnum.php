@@ -12,6 +12,7 @@ enum StatisticEnum: string
     case EXPLO_FEED = 'explo_feed';
     case EXPLORER = 'explorer';
     case ARTEFACT_SPECIALIST = 'artefact_specialist';
+    case BACK_TO_ROOT = 'back_to_root';
     case EXTINGUISH_FIRE = 'extinguish_fire';
     case GAGGED = 'gagged';
     case GIVE_MISSION = 'give_mission';

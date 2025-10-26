@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Mush\Tests\Unit\Achievement\Service;
+namespace Mush\Tests\Unit\Achievement\Command;
 
-use Mush\Achievement\Command\IncrementUserStatisticCommand;
-use Mush\Achievement\Command\IncrementUserStatisticCommandHandler;
+use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommand;
+use Mush\Achievement\Command\UpdateUserStatisticIfSuperiorCommandHandler;
 use Mush\Achievement\ConfigData\StatisticConfigData;
 use Mush\Achievement\Entity\Statistic;
 use Mush\Achievement\Entity\StatisticConfig;
@@ -22,10 +22,10 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  */
-final class IncrementUserStatisticCommandHandlerTest extends TestCase
+final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
 {
     private StatisticRepositoryInterface $statisticRepository;
-    private IncrementUserStatisticCommandHandler $incrementUserStatistic;
+    private UpdateUserStatisticIfSuperiorCommandHandler $updateUserStatistic;
     private User $user;
     private User $user2;
     private StatisticEnum $statisticName;
@@ -33,7 +33,7 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
     protected function setUp(): void
     {
         $this->statisticRepository = new InMemoryStatisticRepository();
-        $this->incrementUserStatistic = new IncrementUserStatisticCommandHandler(
+        $this->updateUserStatistic = new UpdateUserStatisticIfSuperiorCommandHandler(
             eventService: self::createStub(EventServiceInterface::class),
             statisticConfigRepository: new InMemoryStatisticConfigRepository(),
             statisticRepository: $this->statisticRepository
@@ -47,25 +47,43 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
     {
         $this->givenUserHasNoStatistic();
 
-        $this->whenIncrementingStatistic();
+        $this->whenUpdatingStatisticToValue(5);
 
-        $this->thenStatisticShouldBeCreatedWithCount(1);
+        $this->thenStatisticShouldBeCreatedWithCount(5);
     }
 
-    public function testShouldIncrementExistingStatistic(): void
+    public function testShouldUpdateExistingStatisticWhenNewValueIsHigher(): void
     {
         $this->givenUserHasExistingStatisticWithCount(2);
 
-        $this->whenIncrementingStatistic();
+        $this->whenUpdatingStatisticToValue(5);
 
-        $this->thenStatisticShouldHaveCount(3);
+        $this->thenStatisticShouldHaveCount(5);
+    }
+
+    public function testShouldNotUpdateExistingStatisticWhenNewValueIsLower(): void
+    {
+        $this->givenUserHasExistingStatisticWithCount(5);
+
+        $this->whenUpdatingStatisticToValue(2);
+
+        $this->thenStatisticShouldHaveCount(5);
+    }
+
+    public function testShouldNotUpdateExistingStatisticWhenNewValueIsEqual(): void
+    {
+        $this->givenUserHasExistingStatisticWithCount(5);
+
+        $this->whenUpdatingStatisticToValue(5);
+
+        $this->thenStatisticShouldHaveCount(5);
     }
 
     public function testShouldHandleMultipleStatisticsForSameUser(): void
     {
         $this->givenUserHasExistingStatisticWithCount(1);
 
-        $this->whenIncrementingDifferentStatistic();
+        $this->whenUpdatingDifferentStatisticToValue(3);
 
         $this->thenBothStatisticsShouldExist();
     }
@@ -74,18 +92,9 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
     {
         $this->givenTwoDifferentUsers();
 
-        $this->whenIncrementingStatisticForBothUsers();
+        $this->whenUpdatingStatisticForBothUsersToValue(5);
 
-        $this->thenEachUserShouldHaveOwnStatisticWithCount(1);
-    }
-
-    public function testShouldIncrementByAmount(): void
-    {
-        $this->givenUserHasExistingStatisticWithCount(2);
-
-        $this->whenIncrementingStatisticByAmount(2);
-
-        $this->thenStatisticShouldHaveCount(4);
+        $this->thenEachUserShouldHaveOwnStatisticWithCount(5);
     }
 
     private function givenUserHasNoStatistic(): void
@@ -103,32 +112,24 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
         $this->statisticRepository->save($existingStatistic);
     }
 
-    private function whenIncrementingStatistic(): void
+    private function whenUpdatingStatisticToValue(int $value): void
     {
-        $this->incrementUserStatistic->__invoke(new IncrementUserStatisticCommand(
+        $this->updateUserStatistic->__invoke(new UpdateUserStatisticIfSuperiorCommand(
             $this->user->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
+            $value
         ));
     }
 
-    private function whenIncrementingDifferentStatistic(): void
+    private function whenUpdatingDifferentStatisticToValue(int $value): void
     {
         // Using a different achievement name for testing multiple achievements
-        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
+        ($this->updateUserStatistic)(new UpdateUserStatisticIfSuperiorCommand(
             $this->user->getId(),
             StatisticEnum::EXTINGUISH_FIRE,
             LanguageEnum::FRENCH,
-        ));
-    }
-
-    private function whenIncrementingStatisticByAmount(int $amount): void
-    {
-        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
-            $this->user->getId(),
-            $this->statisticName,
-            LanguageEnum::FRENCH,
-            $amount,
+            $value
         ));
     }
 
@@ -145,7 +146,7 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
         $statistic = $this->statisticRepository->findByNameAndUserIdOrNull($this->statisticName, $this->user->getId())?->toArray();
 
         self::assertNotNull($statistic, 'Statistic should exist');
-        self::assertEquals($expectedCount, $statistic['count'], 'Statistic count should be incremented');
+        self::assertEquals($expectedCount, $statistic['count'], 'Statistic count should be updated');
     }
 
     private function thenBothStatisticsShouldExist(): void
@@ -156,7 +157,7 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
         self::assertNotNull($firstStatistic, 'First achievement should still exist');
         self::assertNotNull($secondStatistic, 'Second achievement should be created');
         self::assertEquals(1, $firstStatistic['count'], 'First achievement count should remain unchanged');
-        self::assertEquals(1, $secondStatistic['count'], 'Second achievement should have count 1');
+        self::assertEquals(3, $secondStatistic['count'], 'Second achievement should have count 3');
     }
 
     private function givenTwoDifferentUsers(): void
@@ -164,17 +165,19 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
         // Users are already created in setUp()
     }
 
-    private function whenIncrementingStatisticForBothUsers(): void
+    private function whenUpdatingStatisticForBothUsersToValue(int $value): void
     {
-        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
+        ($this->updateUserStatistic)(new UpdateUserStatisticIfSuperiorCommand(
             $this->user->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
+            $value
         ));
-        ($this->incrementUserStatistic)(new IncrementUserStatisticCommand(
+        ($this->updateUserStatistic)(new UpdateUserStatisticIfSuperiorCommand(
             $this->user2->getId(),
             $this->statisticName,
             LanguageEnum::FRENCH,
+            $value
         ));
     }
 

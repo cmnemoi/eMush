@@ -11,6 +11,8 @@ interface StatisticRepositoryInterface
 {
     public function findByNameAndUserIdOrNull(StatisticEnum $name, int $userId): ?Statistic;
 
+    public function findOrCreateByNameAndUserId(StatisticEnum $name, int $userId): Statistic;
+
     public function findOneById(int $id): Statistic;
 
     public function save(Statistic $statistic): void;

@@ -12,7 +12,7 @@ use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
-final readonly class IncrementUserStatisticCommandHandler
+final readonly class UpdateUserStatisticIfSuperiorCommandHandler
 {
     public function __construct(
         private EventServiceInterface $eventService,
@@ -20,14 +20,14 @@ final readonly class IncrementUserStatisticCommandHandler
         private StatisticRepositoryInterface $statisticRepository
     ) {}
 
-    public function __invoke(IncrementUserStatisticCommand $command): void
+    public function __invoke(UpdateUserStatisticIfSuperiorCommand $command): void
     {
         if ($command->statisticName === StatisticEnum::NULL) {
             return;
         }
 
         $statistic = $this->statisticRepository->findOrCreateByNameAndUserId($command->statisticName, $command->userId);
-        $statistic->incrementCount($command->increment);
+        $statistic->updateIfSuperior($command->newValue);
         $this->statisticRepository->save($statistic);
 
         $this->eventService->callEvent(new StatisticIncrementedEvent($statistic->getId(), $command->language), StatisticIncrementedEvent::class);

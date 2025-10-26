@@ -82,6 +82,13 @@ class Statistic
         $this->count += $amount;
     }
 
+    public function updateIfSuperior(int $newValue): void
+    {
+        if ($newValue > $this->count) {
+            $this->count = $newValue;
+        }
+    }
+
     public function toArray(): array
     {
         return [

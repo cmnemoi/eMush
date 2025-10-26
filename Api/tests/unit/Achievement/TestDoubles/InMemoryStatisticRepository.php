@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Mush\Tests\unit\Achievement\TestDoubles;
 
+use Mush\Achievement\ConfigData\StatisticConfigData;
 use Mush\Achievement\Entity\Statistic;
+use Mush\Achievement\Entity\StatisticConfig;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 
@@ -16,6 +18,14 @@ final class InMemoryStatisticRepository implements StatisticRepositoryInterface
     public function findByNameAndUserIdOrNull(StatisticEnum $name, int $userId): ?Statistic
     {
         return $this->statistics[$name->value . ':' . $userId] ?? null;
+    }
+
+    public function findOrCreateByNameAndUserId(StatisticEnum $name, int $userId): Statistic
+    {
+        return $this->statistics[$name->value . ':' . $userId] ??= new Statistic(
+            config: StatisticConfig::fromDto(StatisticConfigData::getByName($name)),
+            userId: $userId,
+        );
     }
 
     public function findOneById(int $id): Statistic

@@ -15,8 +15,10 @@ use Mush\User\Entity\User;
  */
 final class StatisticRepository extends ServiceEntityRepository implements StatisticRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        ManagerRegistry $registry,
+        private StatisticConfigRepository $statisticConfigRepository,
+    ) {
         parent::__construct($registry, Statistic::class);
     }
 
@@ -30,6 +32,19 @@ final class StatisticRepository extends ServiceEntityRepository implements Stati
             ->setParameter('userId', $userId);
 
         return $this->hydrate($queryBuilder->getQuery()->getOneOrNullResult());
+    }
+
+    public function findOrCreateByNameAndUserId(StatisticEnum $name, int $userId): Statistic
+    {
+        $statistic = $this->findByNameAndUserIdOrNull($name, $userId);
+        if (!$statistic) {
+            $statistic = new Statistic(
+                config: $this->statisticConfigRepository->findOneByName($name),
+                userId: $userId,
+            );
+        }
+
+        return $statistic;
     }
 
     public function findOneById(int $id): Statistic

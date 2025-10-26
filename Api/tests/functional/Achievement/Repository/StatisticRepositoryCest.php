@@ -28,7 +28,10 @@ final class StatisticRepositoryCest extends AbstractFunctionalTest
     {
         parent::_before($I);
 
-        $this->statisticRepository = new StatisticRepository($I->grabService(ManagerRegistry::class));
+        $this->statisticRepository = new StatisticRepository(
+            $I->grabService(ManagerRegistry::class),
+            $I->grabService(StatisticConfigRepositoryInterface::class)
+        );
         $this->user = $this->givenAUser($I);
         $this->anotherUser = $this->givenAnotherUser($I);
     }

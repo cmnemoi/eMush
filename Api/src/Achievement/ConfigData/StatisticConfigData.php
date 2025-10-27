@@ -34,6 +34,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::CHAO),
             new StatisticConfigDto(StatisticEnum::FINOLA),
             new StatisticConfigDto(StatisticEnum::CONTRIBUTIONS, isRare: true),
+            new StatisticConfigDto(StatisticEnum::FRIEDA),
         ];
     }
 

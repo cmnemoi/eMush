@@ -13,7 +13,6 @@ use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Game\Service\EventServiceInterface;
-use Mush\Tests\unit\Achievement\TestDoubles\InMemoryStatisticConfigRepository;
 use Mush\Tests\unit\Achievement\TestDoubles\InMemoryStatisticRepository;
 use Mush\User\Entity\User;
 use Mush\User\Factory\UserFactory;
@@ -35,7 +34,6 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
         $this->statisticRepository = new InMemoryStatisticRepository();
         $this->updateUserStatistic = new UpdateUserStatisticIfSuperiorCommandHandler(
             eventService: self::createStub(EventServiceInterface::class),
-            statisticConfigRepository: new InMemoryStatisticConfigRepository(),
             statisticRepository: $this->statisticRepository
         );
         $this->user = UserFactory::createUser();
@@ -95,6 +93,29 @@ final class UpdateUserStatisticIfSuperiorCommandHandlerTest extends TestCase
         $this->whenUpdatingStatisticForBothUsersToValue(5);
 
         $this->thenEachUserShouldHaveOwnStatisticWithCount(5);
+    }
+
+    public function testShouldNotCreateStatisticWithCountZero(): void
+    {
+        $this->whenUpdatingStatisticToValue(0);
+
+        self::assertNull($this->statisticRepository->findByNameAndUserIdOrNull($this->statisticName, $this->user->getId()));
+    }
+
+    public function testShouldNotUpdateStatisticFromNegativeValue(): void
+    {
+        $this->givenUserHasExistingStatisticWithCount(5);
+
+        $this->whenUpdatingStatisticToValue(-1);
+
+        $this->thenStatisticShouldHaveCount(5);
+    }
+
+    public function testShouldNotCreateStatisticWithNegativeValue(): void
+    {
+        $this->whenUpdatingStatisticToValue(-1);
+
+        self::assertNull($this->statisticRepository->findByNameAndUserIdOrNull($this->statisticName, $this->user->getId()));
     }
 
     private function givenUserHasNoStatistic(): void

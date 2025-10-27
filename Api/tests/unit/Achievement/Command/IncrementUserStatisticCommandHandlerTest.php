@@ -88,6 +88,24 @@ final class IncrementUserStatisticCommandHandlerTest extends TestCase
         $this->thenStatisticShouldHaveCount(4);
     }
 
+    public function testShouldNotIncrementStatisticWithCountZero(): void
+    {
+        $this->givenUserHasNoStatistic();
+
+        $this->whenIncrementingStatisticByAmount(0);
+
+        self::assertNull($this->statisticRepository->findByNameAndUserIdOrNull($this->statisticName, $this->user->getId()));
+    }
+
+    public function testShouldNotIncrementStatisticToNegativeValue(): void
+    {
+        $this->givenUserHasNoStatistic();
+
+        $this->whenIncrementingStatisticByAmount(-1);
+
+        self::assertNull($this->statisticRepository->findByNameAndUserIdOrNull($this->statisticName, $this->user->getId()));
+    }
+
     private function givenUserHasNoStatistic(): void
     {
         // User starts with no achievements by default

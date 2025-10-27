@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mush\Achievement\Command;
 
+use Mush\Achievement\Entity\Statistic;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Event\StatisticIncrementedEvent;
 use Mush\Achievement\Repository\StatisticConfigRepositoryInterface;
@@ -22,14 +23,28 @@ final readonly class IncrementUserStatisticCommandHandler
 
     public function __invoke(IncrementUserStatisticCommand $command): void
     {
-        if ($command->statisticName === StatisticEnum::NULL) {
+        if ($command->statisticName === StatisticEnum::NULL || $command->increment <= 0) {
             return;
         }
 
-        $statistic = $this->statisticRepository->findOrCreateByNameAndUserId($command->statisticName, $command->userId);
-        $statistic->incrementCount($command->increment);
+        $statistic = $this->incrementOrCreateStatistic($command);
         $this->statisticRepository->save($statistic);
-
         $this->eventService->callEvent(new StatisticIncrementedEvent($statistic->getId(), $command->language), StatisticIncrementedEvent::class);
+    }
+
+    private function incrementOrCreateStatistic(IncrementUserStatisticCommand $command): Statistic
+    {
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull($command->statisticName, $command->userId);
+        if ($statistic) {
+            $statistic->incrementCount($command->increment);
+
+            return $statistic;
+        }
+
+        return new Statistic(
+            config: $this->statisticConfigRepository->findOneByName($command->statisticName),
+            userId: $command->userId,
+            count: $command->increment,
+        );
     }
 }

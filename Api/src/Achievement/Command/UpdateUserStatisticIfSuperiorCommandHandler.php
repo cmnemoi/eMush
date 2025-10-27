@@ -6,7 +6,6 @@ namespace Mush\Achievement\Command;
 
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Event\StatisticIncrementedEvent;
-use Mush\Achievement\Repository\StatisticConfigRepositoryInterface;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Game\Service\EventServiceInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -16,13 +15,12 @@ final readonly class UpdateUserStatisticIfSuperiorCommandHandler
 {
     public function __construct(
         private EventServiceInterface $eventService,
-        private StatisticConfigRepositoryInterface $statisticConfigRepository,
         private StatisticRepositoryInterface $statisticRepository
     ) {}
 
     public function __invoke(UpdateUserStatisticIfSuperiorCommand $command): void
     {
-        if ($command->statisticName === StatisticEnum::NULL) {
+        if ($command->statisticName === StatisticEnum::NULL || $command->newValue <= 0) {
             return;
         }
 

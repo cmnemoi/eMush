@@ -54,8 +54,8 @@ final class AchievementControllerCest
             'key' => 'planet_scanned',
             'name' => $example['expectedName'],
             'description' => $example['expectedDescription'],
-            'count' => 0,
-            'formattedCount' => 'x0',
+            'count' => 1,
+            'formattedCount' => 'x1',
             'isRare' => false,
         ]]);
     }

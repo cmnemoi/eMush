@@ -37,17 +37,21 @@ class Statistic
     #[ORM\ManyToOne(targetEntity: User::class)]
     private User $user;
 
-    public function __construct(StatisticConfig $config, int $userId, int $count = 0)
+    public function __construct(StatisticConfig $config, int $userId, int $count = 1)
     {
         $this->config = $config;
         $this->userId = $userId;
         $this->count = $count;
+
+        if ($this->count <= 0) {
+            throw new \RuntimeException('Statistic count cannot be negative or zero');
+        }
     }
 
     /**
      * Never use this method in production code. It is only used for unit testing.
      */
-    public static function createForTest(StatisticEnum $name, int $count = 0, int $userId = 0): self
+    public static function createForTest(StatisticEnum $name, int $count = 1, int $userId = 0): self
     {
         $statistic = new self(StatisticConfig::fromDto(StatisticConfigData::getByName($name)), $userId);
         $statistic

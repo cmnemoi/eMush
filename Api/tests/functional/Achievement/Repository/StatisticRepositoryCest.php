@@ -103,7 +103,7 @@ final class StatisticRepositoryCest extends AbstractFunctionalTest
     {
         // Given
         $this->givenAnStatisticForUser(StatisticEnum::PLANET_SCANNED, 5, $I);
-        $this->givenAnStatisticForUser(StatisticEnum::NULL, 0, $I);
+        $this->givenAnStatisticForUser(StatisticEnum::NULL, 1, $I);
 
         // When
         $foundPlanetStatistic = $this->whenFindingStatisticByNameAndUserId(StatisticEnum::PLANET_SCANNED, $this->user->getId());
@@ -111,7 +111,7 @@ final class StatisticRepositoryCest extends AbstractFunctionalTest
 
         // Then
         $this->thenStatisticShouldBeFoundByNameAndCount($foundPlanetStatistic, StatisticEnum::PLANET_SCANNED, 5, $I);
-        $this->thenStatisticShouldBeFoundByNameAndCount($foundNullStatistic, StatisticEnum::NULL, 0, $I);
+        $this->thenStatisticShouldBeFoundByNameAndCount($foundNullStatistic, StatisticEnum::NULL, 1, $I);
     }
 
     public function shouldHandleMultipleUsersWithSameStatistic(FunctionalTester $I): void

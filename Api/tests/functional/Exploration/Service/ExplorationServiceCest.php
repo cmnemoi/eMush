@@ -8,6 +8,7 @@ use Codeception\Attribute\DataProvider;
 use Codeception\Example;
 use Doctrine\Common\Collections\ArrayCollection;
 use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Equipment\Entity\Config\EquipmentConfig;
 use Mush\Equipment\Entity\GameEquipment;
 use Mush\Equipment\Enum\EquipmentEnum;
@@ -47,6 +48,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
     private GameEquipmentServiceInterface $gameEquipmentService;
     private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     private GameEquipment $icarus;
     private Planet $planet;
@@ -59,6 +61,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         // given there is Icarus Bay on this Daedalus
         $icarusBay = $this->createExtraPlace(RoomEnum::ICARUS_BAY, $I, $this->daedalus);
@@ -818,7 +821,7 @@ final class ExplorationServiceCest extends AbstractExplorationTester
 
         $this->whenExplorationIsClosed($exploration);
 
-        $this->thenPlayerShouldHaveArtefactSpecialistStatisticSetTo(0, $this->player1, $I);
+        $I->assertNull($this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::ARTEFACT_SPECIALIST, $this->player1->getUser()->getId()));
     }
 
     private function givenAPlanetWithDesertSector(FunctionalTester $I): Planet

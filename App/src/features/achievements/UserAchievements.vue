@@ -20,10 +20,10 @@
                         class="stat-card"
                         v-for="statistic in topThreeStatistics"
                         :key="statistic.name"
-                        :class="{ active: activeCard === statistic.key }"
+                        :class="{ active: activeCard === statistic.key, rare: statistic.isRare }"
                         @click="setActiveCard(statistic.key)"
                     >
-                        <div class="card-value">{{ statistic.count }}</div>
+                        <div class="card-value" :class="{ rare: statistic.isRare }">{{ statistic.count }}</div>
                         <div class="card-icon">
                             <img :src="StatisticRecords[statistic.key].icon" :alt="statistic.name" />
                         </div>
@@ -65,7 +65,7 @@
                         <img :src="StatisticRecords[statistic.key].icon" :alt="statistic.name" />
                     </div>
                     <div class="stat-name" :class="{ rare: statistic.isRare }">{{ statistic.name }}</div>
-                    <div class="stat-value">{{ statistic.formattedCount }}</div>
+                    <div class="stat-value" :class="{ rare: statistic.isRare }">{{ statistic.formattedCount }}</div>
                     <template #content>
                         <h1>{{ statistic.name }}</h1>
                         <p>{{ statistic.description }}</p>
@@ -237,7 +237,7 @@ const activeTab    = ref<'stats'   | string>('stats');
   .stat-card {
     flex: 1;
     background-color: #353A8E;
-    border: 2px solid #F0B449;
+    border: 2px solid;
     border-radius: 4px;
     padding: 20px 8px 10px 8px;
     text-align: center;
@@ -248,19 +248,26 @@ const activeTab    = ref<'stats'   | string>('stats');
       0 0 8px rgba(243, 156, 18, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
+    &.rare {
+      border: 2px solid #F0B449
+    }
+
     .card-value {
       position: absolute;
       top: -12px;
       left: 50%;
       transform: translateX(-50%);
       background-color: #292C69;
-      color: #F0B449;
       font-size: 14px;
       font-weight: bold;
       padding: 2px 8px;
-      border: 1px solid #F0B449;
+      border: 1px solid;
       border-radius: 2px;
       min-width: 20px;
+
+      &.rare {
+        color: #F0B449;
+      }
     }
 
     .card-icon {
@@ -348,13 +355,20 @@ const activeTab    = ref<'stats'   | string>('stats');
       font-size: 11px;
       line-height: 1.3;
       font-weight: bold;
+
+      &.rare {
+        color: #F0B449;
+      }
     }
 
     .stat-value {
       font-size: 11px;
-      color: #ffffff;
       font-weight: bold;
       margin-left: 8px;
+
+      &.rare {
+        color: #F0B449;
+      }
     }
   }
 }

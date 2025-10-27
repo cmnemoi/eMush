@@ -31,11 +31,11 @@ const UserService = {
     redirectToLogin: async function(): Promise<void> {
         // Generate and store a secure state parameter to prevent CSRF attacks
         const state = TokenService.generateOAuthState();
-        
+
         const params = new URLSearchParams();
         params.set('redirect_uri', callBackUrl);
         params.set('state', state);
-        
+
         global.window.location.href = decodeURIComponent(authorizationUrl + '?'+ params.toString());
     },
 

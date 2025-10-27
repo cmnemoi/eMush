@@ -79,6 +79,11 @@ enum AchievementEnum: string
     case IAN_500 = 'ian_500';
     case IAN_2000 = 'ian_2000';
     case IAN_10000 = 'ian_10000';
+    case JANICE_50 = 'janice_50';
+    case JANICE_200 = 'janice_200';
+    case JANICE_500 = 'janice_500';
+    case JANICE_2000 = 'janice_2000';
+    case JANICE_10000 = 'janice_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

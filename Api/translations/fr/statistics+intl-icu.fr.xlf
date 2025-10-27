@@ -513,5 +513,35 @@
         <target>Flower master</target>
       </segment>
     </unit>
+    <unit id="janice">
+      <segment id="name" state="translated">
+        <source>janice.name</source>
+        <target>Nombre de cycles passés à écouter les autres</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>janice.description</source>
+        <target>Vous avez été dans la peau de la psychologue du Daedalus, alors... comment on se sent, folle ?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>janice_50.name</source>
+        <target>zZz....zZzz...</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>janice_200.name</source>
+        <target>Gnan Gnan Style</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>janice_500.name</source>
+        <target>Dans les yeux, j'ai dit dans les yeux !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>janice_2000.name</source>
+        <target>Psycho-Bimbo</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>janice_10000.name</source>
+        <target>Janice S. Freud</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

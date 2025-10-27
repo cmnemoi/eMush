@@ -8,6 +8,7 @@ export const enum StatisticEnum {
     CONTRIBUTIONS = "contributions",
     FRIEDA = "frieda",
     IAN = "ian",
+    JANICE = "janice",
     CAT_CUDDLED = "cat_cuddled",
     COFFEE_TAKEN = "coffee_taken",
     DOOR_REPAIRED = "door_repaired",
@@ -46,6 +47,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.IAN]: {
         'icon': getImgUrl('char/head/ian.png')
+    },
+    [StatisticEnum.JANICE]: {
+        'icon': getImgUrl('char/head/janice.png')
     },
     [StatisticEnum.CAT_CUDDLED]: {
         'icon': getImgUrl('achievements/cat.png')

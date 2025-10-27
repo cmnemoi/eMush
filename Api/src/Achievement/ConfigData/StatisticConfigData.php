@@ -31,6 +31,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::NEW_PLANTS),
             new StatisticConfigDto(StatisticEnum::ANDIE),
             new StatisticConfigDto(StatisticEnum::CHUN),
+            new StatisticConfigDto(StatisticEnum::CHAO),
         ];
     }
 

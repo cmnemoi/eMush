@@ -351,5 +351,35 @@
         <target>Dernier espoir de l'humanité</target>
       </segment>
     </unit>
+    <unit id="chao">
+      <segment id="name" state="translated">
+        <source>chao.name</source>
+        <target>Nombre de cycles passés à dégommer des trucs</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>chao.description</source>
+        <target>Vous avez été dans la peau d'un franc-tireur de l'espace, vous avez encore la gâchette facile ?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>chao_50.name</source>
+        <target>Boom! héhéhé...</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>chao_200.name</source>
+        <target>Garde tes amis près de toi, et tes ennemis encore plus près.</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>chao_500.name</source>
+        <target>Si vous posez une question, monsieur calibre donne la réponse.</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>chao_2000.name</source>
+        <target>Le premier qui bouge, je lui fais frire la cervelle !</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>chao_10000.name</source>
+        <target>Last Action Weirdo</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

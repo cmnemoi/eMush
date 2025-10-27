@@ -2,6 +2,7 @@ import { getImgUrl } from "@/utils/getImgUrl";
 
 export const enum StatisticEnum {
     ANDIE = "andie",
+    CHAO = "chao",
     CHUN = "chun",
     CAT_CUDDLED = "cat_cuddled",
     COFFEE_TAKEN = "coffee_taken",
@@ -23,6 +24,9 @@ export const enum StatisticEnum {
 export const StatisticRecords: {[index: string]: {icon: string}} = {
     [StatisticEnum.ANDIE]: {
         'icon': getImgUrl('char/head/andie.png')
+    },
+    [StatisticEnum.CHAO]: {
+        'icon': getImgUrl('char/head/chao.png')
     },
     [StatisticEnum.CHUN]: {
         'icon': getImgUrl('char/head/chun.png')

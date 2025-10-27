@@ -26,6 +26,35 @@ final class UserShipsHistoryQueryHandlerCest extends AbstractFunctionalTest
         $this->queryHandler = $I->grabService(UserShipsHistoryQueryHandler::class);
     }
 
+    public function shouldBeEmptyIfDaedalusIsNotFinished(FunctionalTester $I): void
+    {
+        // given
+        $closedDaedalus = $this->daedalus->getDaedalusInfo()->getClosedDaedalus();
+        $this->kuanTi->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($closedDaedalus);
+        $I->haveInRepository($this->kuanTi->getPlayerInfo()->getClosedPlayer());
+
+        // when
+        $result = $this->whenGettingUserShipsHistory($this->kuanTi->getUser());
+
+        // then
+        $I->assertCount(0, $result['data']);
+    }
+
+    public function shouldBeEmptyIfDaedalusCheated(FunctionalTester $I): void
+    {
+        // given
+        $closedDaedalus = $this->daedalus->getDaedalusInfo()->getClosedDaedalus();
+        $closedDaedalus->setFinishedAt(new \DateTime('now'))->markAsCheater();
+        $this->kuanTi->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($closedDaedalus);
+        $I->haveInRepository($this->kuanTi->getPlayerInfo()->getClosedPlayer());
+
+        // when
+        $result = $this->whenGettingUserShipsHistory($this->kuanTi->getUser());
+
+        // then
+        $I->assertCount(0, $result['data']);
+    }
+
     public function shouldReturnShipsHistoryIfUserHasPastGames(FunctionalTester $I): void
     {
         // given
@@ -42,7 +71,9 @@ final class UserShipsHistoryQueryHandlerCest extends AbstractFunctionalTest
         $this->kuanTi->getPlayerInfo()->getClosedPlayer()->setEndCause(EndCauseEnum::ABANDONED);
         $this->kuanTi->getPlayerInfo()->getClosedPlayer()->setIsMush(true);
 
-        $this->kuanTi->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($this->daedalus->getDaedalusInfo()->getClosedDaedalus());
+        $closedDaedalus = $this->daedalus->getDaedalusInfo()->getClosedDaedalus();
+        $closedDaedalus->setFinishedAt(new \DateTime('now'));
+        $this->kuanTi->getPlayerInfo()->getClosedPlayer()->setClosedDaedalus($closedDaedalus);
         $I->haveInRepository($this->kuanTi->getPlayerInfo()->getClosedPlayer());
 
         // when

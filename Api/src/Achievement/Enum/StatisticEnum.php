@@ -30,5 +30,6 @@ enum StatisticEnum: string
     case JIN_SU = 'jin_su';
     case CONTRIBUTIONS = 'contributions';
     case IAN = 'ian';
+    case STEPHEN = 'stephen';
     case NULL = '';
 }

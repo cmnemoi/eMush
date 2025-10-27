@@ -27,12 +27,12 @@
 - [x] planet_scanned : Planets Detected
 - [x] chao : Number of cycles played as human Chao (to be incremented when Daedalus is finished)
 - [x] chun : Number of cycles played as human Chun (to be incremented when Daedalus is finished)
-- [ ] finola : Number of cycles played as human Finola (to be incremented when Daedalus is finished)
-- [ ] frieda : Number of cycles played as human Frieda (to be incremented when Daedalus is finished)
-- [ ] ian : Number of cycles played as human Ian (to be incremented when Daedalus is finished)
-- [ ] janice : Number of cycles played as human Janice (to be incremented when Daedalus is finished)
-- [ ] jin_su : Number of cycles played as human Jin Su (to be incremented when Daedalus is finished)
-- [ ] stephen : Number of cycles played as human Stephen (to be incremented when Daedalus is finished)
+- [x] finola : Number of cycles played as human Finola (to be incremented when Daedalus is finished)
+- [x] frieda : Number of cycles played as human Frieda (to be incremented when Daedalus is finished)
+- [x] ian : Number of cycles played as human Ian (to be incremented when Daedalus is finished)
+- [x] janice : Number of cycles played as human Janice (to be incremented when Daedalus is finished)
+- [x] jin_su : Number of cycles played as human Jin Su (to be incremented when Daedalus is finished)
+- [x] stephen : Number of cycles played as human Stephen (to be incremented when Daedalus is finished)
 - [ ] communicator : Communications Expert
 - [ ] cooked_taken : Number of times you consume a cooked ration
 - [ ] daily_order : Number of times you did a General Announcement

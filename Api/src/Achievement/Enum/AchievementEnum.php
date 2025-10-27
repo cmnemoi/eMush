@@ -74,6 +74,11 @@ enum AchievementEnum: string
     case FRIEDA_500 = 'frieda_500';
     case FRIEDA_2000 = 'frieda_2000';
     case FRIEDA_10000 = 'frieda_10000';
+    case IAN_50 = 'ian_50';
+    case IAN_200 = 'ian_200';
+    case IAN_500 = 'ian_500';
+    case IAN_2000 = 'ian_2000';
+    case IAN_10000 = 'ian_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

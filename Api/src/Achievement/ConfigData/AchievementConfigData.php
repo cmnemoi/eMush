@@ -354,6 +354,31 @@ abstract class AchievementConfigData
                 points: 0,
                 threshold: 1500,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::IAN_50,
+                points: 5,
+                threshold: 50,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::IAN_200,
+                points: 10,
+                threshold: 200,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::IAN_500,
+                points: 5,
+                threshold: 500,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::IAN_2000,
+                points: 0,
+                threshold: 2_000,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::IAN_10000,
+                points: 0,
+                threshold: 10_000,
+            ),
         ];
     }
 

@@ -743,6 +743,7 @@ h2 {
     padding: 1em 0.8em;
     border: 1px solid #5f67bf;
     background-color: #2d377a;
+    overflow-wrap: break-word;
     font-style: italic;
     font-size: 1.3em;
     box-shadow: 0px 8px 6px -6px rgba(23, 68, 142, .6);
@@ -827,6 +828,7 @@ h2 {
         .death-cause { margin: 0; }
 
         .epitaph {
+            overflow-wrap: break-word;
             font-style: italic;
             margin: 0.6em 0;
             clear: both;
@@ -953,6 +955,7 @@ a.back {
         .epitaph {
             margin-right: 0;
             margin-bottom: 0;
+            overflow-wrap: break-word;
             font-size: 1.15em;
             padding: .6em;
 

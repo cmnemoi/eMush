@@ -43,7 +43,7 @@
 - [x] paola : Number of cycles played as human Paola (to be incremented when Daedalus is finished)
 - [x] raluca : Number of cycles played as human Raluca (to be incremented when Daedalus is finished)
 - [x] roland : Number of cycles played as human Roland (to be incremented when Daedalus is finished)
-- [ ] terrence : Number of cycles played as human Terrence (to be incremented when Daedalus is finished)
+- [x] terrence : Number of cycles played as human Terrence (to be incremented when Daedalus is finished)
 - [ ] communicator : Communications Expert
 - [ ] day_10_reached : Number of times you reached Day 10
 - [ ] day_15_reached : Number of times you reached Day 15

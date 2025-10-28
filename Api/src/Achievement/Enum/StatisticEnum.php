@@ -41,5 +41,6 @@ enum StatisticEnum: string
     case PAOLA = 'paola';
     case RALUCA = 'raluca';
     case ROLAND = 'roland';
+    case TERRENCE = 'terrence';
     case NULL = '';
 }

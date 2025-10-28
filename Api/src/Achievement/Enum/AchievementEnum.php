@@ -138,6 +138,11 @@ enum AchievementEnum: string
     case ROLAND_500 = 'roland_500';
     case ROLAND_2000 = 'roland_2000';
     case ROLAND_10000 = 'roland_10000';
+    case TERRENCE_50 = 'terrence_50';
+    case TERRENCE_200 = 'terrence_200';
+    case TERRENCE_500 = 'terrence_500';
+    case TERRENCE_2000 = 'terrence_2000';
+    case TERRENCE_10000 = 'terrence_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

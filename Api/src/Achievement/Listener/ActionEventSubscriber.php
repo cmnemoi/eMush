@@ -8,6 +8,7 @@ use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -34,6 +35,7 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
             ActionEnum::COMMANDER_ORDER => StatisticEnum::GIVE_MISSION,
             ActionEnum::COFFEE => StatisticEnum::COFFEE_TAKEN,
             ActionEnum::SEARCH => StatisticEnum::SUCCEEDED_INSPECTION,
+            ActionEnum::CONSUME => $this->getConsumeStatisticToIncrementFromEvent($event),
             default => StatisticEnum::NULL,
         };
 
@@ -44,5 +46,13 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
                 language: $author->getLanguage(),
             )
         );
+    }
+
+    private function getConsumeStatisticToIncrementFromEvent(ActionEvent $event): StatisticEnum
+    {
+        return match ($event->getEquipmentActionTargetOrThrow()->getName()) {
+            GameRationEnum::COOKED_RATION => StatisticEnum::COOKED_TAKEN,
+            default => StatisticEnum::NULL,
+        };
     }
 }

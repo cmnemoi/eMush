@@ -8,6 +8,7 @@ enum StatisticEnum: string
 {
     case CAT_CUDDLED = 'cat_cuddled';
     case COFFEE_TAKEN = 'coffee_taken';
+    case COOKED_TAKEN = 'cooked_taken';
     case DOOR_REPAIRED = 'door_repaired';
     case EXPLO_FEED = 'explo_feed';
     case EXPLORER = 'explorer';

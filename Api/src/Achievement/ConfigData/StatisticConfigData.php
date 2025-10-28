@@ -16,6 +16,7 @@ abstract class StatisticConfigData
         return [
             new StatisticConfigDto(StatisticEnum::CAT_CUDDLED),
             new StatisticConfigDto(StatisticEnum::COFFEE_TAKEN),
+            new StatisticConfigDto(StatisticEnum::COOKED_TAKEN),
             new StatisticConfigDto(StatisticEnum::DOOR_REPAIRED),
             new StatisticConfigDto(StatisticEnum::EXPLO_FEED),
             new StatisticConfigDto(StatisticEnum::EXPLORER),

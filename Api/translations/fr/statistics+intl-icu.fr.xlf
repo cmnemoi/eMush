@@ -28,8 +28,22 @@
         <source>coffee_taken_1.name</source>
         <target>Pilier de comptoir</target>
       </segment>
-    </unit>
-    <unit id="door_repaired">
+     </unit>
+     <unit id="cooked_taken">
+       <segment id="name" state="translated">
+         <source>cooked_taken.name</source>
+         <target>Rations cuisinées avalées</target>
+       </segment>
+       <segment id="description" state="translated">
+         <source>cooked_taken.description</source>
+         <target>Rations cuisinées avalées</target>
+       </segment>
+       <segment id="x1" state="translated">
+         <source>cooked_taken_1.name</source>
+         <target>Morfal</target>
+       </segment>
+     </unit>
+     <unit id="door_repaired">
       <segment id="name" state="translated">
         <source>door_repaired.name</source>
         <target>Portes réparées</target>

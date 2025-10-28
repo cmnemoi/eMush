@@ -3,6 +3,8 @@
 namespace Mush\Tests\functional\Action\Actions;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\Consume;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -41,6 +43,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
     private AddSkillToPlayerService $addSkillToPlayer;
     private GameEquipmentServiceInterface $gameEquipmentService;
     private StatusServiceInterface $statusService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     private Player $contaminator;
 
@@ -54,6 +57,7 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->contaminator = $this->addPlayerByCharacter($I, $this->daedalus, CharacterEnum::STEPHEN);
         $this->convertPlayerToMush($I, $this->contaminator);
@@ -283,6 +287,30 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         $I->assertEquals(0, $this->kuanTi->getPlayerInfo()->getStatistics()->getDrugsTaken());
     }
 
+    public function shouldIncrementCookedTakenStatisticWhenEatingCookedRation(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasFood(GameRationEnum::COOKED_RATION);
+
+        $this->whenKuanTiConsumesFood(GameRationEnum::COOKED_RATION);
+
+        $I->assertEquals(1, $this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::COOKED_TAKEN,
+            userId: $this->kuanTi->getUser()->getId(),
+        )->getCount());
+    }
+
+    public function shouldNotIncrementCookedTakenStatisticWhenEatingNonCookedRation(FunctionalTester $I): void
+    {
+        $this->givenKuanTiHasFood(GameRationEnum::STANDARD_RATION);
+
+        $this->whenKuanTiConsumesFood(GameRationEnum::STANDARD_RATION);
+
+        $I->assertNull($this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::COOKED_TAKEN,
+            userId: $this->kuanTi->getUser()->getId(),
+        ));
+    }
+
     private function givenKuanTiHasAContaminatedRationWithSpores(int $spores): void
     {
         $ration = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -386,6 +414,16 @@ final class ConsumeActionCest extends AbstractFunctionalTest
         );
     }
 
+    private function givenKuanTiHasFood(string $food): void
+    {
+        $this->gameEquipmentService->createGameEquipmentFromName(
+            equipmentName: $food,
+            equipmentHolder: $this->kuanTi,
+            reasons: [],
+            time: new \DateTime(),
+        );
+    }
+
     private function whenKuanTiConsumesTheRation(): void
     {
         $this->consumeAction->loadParameters(
@@ -404,6 +442,17 @@ final class ConsumeActionCest extends AbstractFunctionalTest
             actionProvider: $this->kuanTi->getEquipmentByName(GameFruitEnum::KUBINUS),
             player: $this->kuanTi,
             target: $this->kuanTi->getEquipmentByName(GameFruitEnum::KUBINUS),
+        );
+        $this->consumeAction->execute();
+    }
+
+    private function whenKuanTiConsumesFood(string $food): void
+    {
+        $this->consumeAction->loadParameters(
+            actionConfig: $this->consumeConfig,
+            actionProvider: $this->kuanTi->getEquipmentByName($food),
+            player: $this->kuanTi,
+            target: $this->kuanTi->getEquipmentByName($food),
         );
         $this->consumeAction->execute();
     }

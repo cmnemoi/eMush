@@ -9,6 +9,7 @@ enum AchievementEnum: string
     case GAGGED_1 = 'gagged_1';
     case CAT_CUDDLED_1 = 'cat_cuddled_1';
     case COFFEE_TAKEN_1 = 'coffee_taken_1';
+    case COOKED_TAKEN_1 = 'cooked_taken_1';
     case DOOR_REPAIRED_1 = 'door_repaired_1';
     case GIVE_MISSION_1 = 'give_mission_1';
     case GIVE_MISSION_10 = 'give_mission_10';

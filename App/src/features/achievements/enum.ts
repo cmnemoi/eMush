@@ -29,6 +29,7 @@ export const enum StatisticEnum {
     SIGNAL_EQUIP = "signal_equip",
     SIGNAL_FIRE = "signal_fire",
     SUCCEEDED_INSPECTION = "succeeded_inspection",
+    COOKED_TAKEN = "cooked_taken",
 }
 
 export const StatisticRecords: {[index: string]: {icon: string}} = {
@@ -115,5 +116,8 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.SUCCEEDED_INSPECTION]: {
         'icon': getImgUrl('achievements/search.png')
+    },
+    [StatisticEnum.COOKED_TAKEN]: {
+        'icon': getImgUrl('achievements/rationcooked.png')
     }
 };

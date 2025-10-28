@@ -30,6 +30,11 @@ abstract class AchievementConfigData
                 threshold: 1,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::COOKED_TAKEN_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::DOOR_REPAIRED_1,
                 points: 1,
                 threshold: 1,

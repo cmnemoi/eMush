@@ -18,8 +18,8 @@
                                 class="title">
                                 <TitleImage :title="key" />
                                 <template #content>
-                                    <h1 v-html="formatContent(key.name)" />
-                                    <p v-html="formatContent(key.description)" />
+                                    <h1 v-html="formatText(key.name)" />
+                                    <p v-html="formatText(key.description)" />
                                 </template>
                             </Tippy>
                         </div>
@@ -58,14 +58,14 @@
                     v-for="(action, key) in getActions"
                     :key="key"
                     :action="action"
-                    @click="executeTargetAction(action)"
+                    @click="executeWithDoubleTap(action)"
                 />
             </div>
         </div>
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import ActionTabs from "@/components/Game/Ship/ActionTabs.vue";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
@@ -76,124 +76,133 @@ import { ActionEnum } from "@/enums/action.enum";
 import { characterEnum } from '@/enums/character';
 import { SkillIconRecord } from "@/enums/skill.enum";
 import { formatText } from "@/utils/formatText";
-import { getImgUrl } from "@/utils/getImgUrl";
-import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
+import { useDoubleTap } from "@/utils/useDoubleTap";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 type ActionType = 'human' | 'mush' | 'admin'
 
-export default defineComponent ({
-    name: "CrewmatePanel",
-    components: {
-        ActionButton,
-        ActionTabs,
-        Statuses,
-        TitleImage
-    },
-    props: {
-        target: {
-            type: Player,
-            required: true
-        }
-    },
-    emits: [
-        'executeAction'
-    ],
-    computed: {
-        ...mapGetters({
-            'selectedTarget': 'room/selectedTarget',
-            'actionTabs': 'settings/actionTabs'
-        }),
-        getSelectedPlayer(): Player | null
-        {
-            if (this.selectedTarget instanceof Player) { return this.selectedTarget;}
-            return null;
-        },
-        getActions(): Action[] {
-            if (!this.actionTabs) return this.getAllActions;
+const props = defineProps<{
+    target: Player
+}>();
 
-            const actionMap: { [key: string]: Action[] } = {
-                'human': this.targetActionsHuman,
-                'mush': this.targetActionsMush,
-                'admin': this.targetActionsAdmin
-            };
+defineEmits<{
+    executeAction: []
+}>();
 
-            return actionMap[this.activeTab];
-        },
-        targetActionsHuman(): Action[] {
-            return this.getAllActions.filter(action => action.isMushAction == false && action.isAdminAction == false);
-        },
-        targetActionsMush(): Action[] {
-            return this.getAllActions.filter(action => action.isMushAction == true && action.isAdminAction == false);
-        },
-        targetActionsAdmin(): Action[] {
-            return this.getAllActions.filter(action => action.isAdminAction == true);
-        },
-        getAllActions(): Action[] {
-            if (!(this.selectedTarget instanceof Player)) { return [];}
+const store = useStore();
+const activeTab = ref<ActionType>('human');
+const doubleTapHandlers = new Map<string, () => void>();
 
-            let actions = this.selectedTarget.actions.filter(action => action.isNotMissionAction());
+const selectedTarget = computed(() => store.getters['room/selectedTarget']);
+const actionTabs = computed(() => store.getters['settings/actionTabs']);
+const player = computed(() => store.getters['player/player']);
 
-            // Setup commander order action to 0 action points if available
-            if (this.selectedTarget instanceof Player && this.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
-                const commanderOrderAction = this.selectedTarget.getActionByKey(ActionEnum.COMMANDER_ORDER);
-                actions = actions.filter(action => action.key !== ActionEnum.COMMANDER_ORDER);
-                const newOrderAction = (new Action()).decode(commanderOrderAction?.jsonEncode());
-                newOrderAction.actionPointCost = 0;
-                actions.push(newOrderAction);
-            }
-
-            return actions;
-        },
-        ...mapGetters('player', [
-            'player'
-        ]),
-        portrait(): string {
-            return characterEnum[this.target.character.key].portrait ?? '';
-        }
-    },
-    methods: {
-        ...mapActions({
-            'executeAction': 'action/executeAction',
-            'openLearnSkillPopUp': 'popup/openLearnSkillPopUp',
-            'openCommanderOrderPanel': 'player/openCommanderOrderPanel'
-        }),
-        async executeTargetAction(action: Action) {
-            if (action.canExecute === false) {
-                return;
-            }
-
-            if (action.key === ActionEnum.LEARN) {
-                this.openLearnSkillPopUp();
-                return;
-            }
-            if (action.key === ActionEnum.COMMANDER_ORDER) {
-                this.openCommanderOrderPanel();
-                return;
-            }
-
-            if (this.selectedTarget === this.player) {
-                await this.executeAction({ target: null, action });
-            } else {
-                await this.executeAction({ target: this.selectedTarget, action });
-            }
-        },
-        formatText,
-        skillImage(skill: Skill): string {
-            return SkillIconRecord[skill.key].icon ?? '';
-        },
-        changeActionTab(tab : ActionType) {
-            this.activeTab = tab;
-        },
-        getImgUrl
-    },
-    data() {
-        return {
-            ActionEnum,
-            activeTab : 'human' as ActionType
-        };
+const getSelectedPlayer = computed((): Player | null => {
+    if (selectedTarget.value instanceof Player) {
+        return selectedTarget.value;
     }
+    return null;
 });
+
+const getAllActions = computed((): Action[] => {
+    if (!(selectedTarget.value instanceof Player)) {
+        return [];
+    }
+
+    let actions = selectedTarget.value.actions.filter(action => action.isNotMissionAction());
+
+    // Setup commander order action to 0 action points if available
+    if (selectedTarget.value instanceof Player && props.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
+        const commanderOrderAction = selectedTarget.value.getActionByKey(ActionEnum.COMMANDER_ORDER);
+        if (commanderOrderAction) {
+            actions = actions.filter(action => action.key !== ActionEnum.COMMANDER_ORDER);
+            const newOrderAction = (new Action()).decode(commanderOrderAction.jsonEncode());
+            newOrderAction.actionPointCost = 0;
+            actions.push(newOrderAction);
+        }
+    }
+
+    return actions;
+});
+
+const targetActionsHuman = computed((): Action[] => {
+    return getAllActions.value.filter(action => action.isMushAction == false && action.isAdminAction == false);
+});
+
+const targetActionsMush = computed((): Action[] => {
+    return getAllActions.value.filter(action => action.isMushAction == true && action.isAdminAction == false);
+});
+
+const targetActionsAdmin = computed((): Action[] => {
+    return getAllActions.value.filter(action => action.isAdminAction == true);
+});
+
+const getActions = computed((): Action[] => {
+    if (!actionTabs.value) return getAllActions.value;
+
+    const actionMap: { [key: string]: Action[] } = {
+        'human': targetActionsHuman.value,
+        'mush': targetActionsMush.value,
+        'admin': targetActionsAdmin.value
+    };
+
+    return actionMap[activeTab.value];
+});
+
+const portrait = computed((): string => {
+    return characterEnum[props.target.character.key].portrait ?? '';
+});
+
+const openLearnSkillPopUp = () => store.dispatch('popup/openLearnSkillPopUp');
+const openCommanderOrderPanel = () => store.dispatch('player/openCommanderOrderPanel');
+
+const executeTargetAction = async (action: Action) => {
+    if (action.canExecute === false) {
+        return;
+    }
+
+    if (action.key === ActionEnum.LEARN) {
+        openLearnSkillPopUp();
+        return;
+    }
+    if (action.key === ActionEnum.COMMANDER_ORDER) {
+        openCommanderOrderPanel();
+        return;
+    }
+
+    if (selectedTarget.value === player.value) {
+        await store.dispatch('action/executeAction', { target: null, action });
+    } else {
+        await store.dispatch('action/executeAction', { target: selectedTarget.value, action });
+    }
+};
+
+const executeWithDoubleTap = async (action: Action): Promise<void> => {
+    if (!store.getters['settings/doubleTap']) {
+        await executeTargetAction(action);
+        return;
+    }
+
+    const actionKey = action.key;
+    if (!actionKey) return;
+
+    if (!doubleTapHandlers.has(actionKey)) {
+        const { handleTap } = useDoubleTap(async () => {
+            await executeTargetAction(action);
+        });
+        doubleTapHandlers.set(actionKey, handleTap);
+    }
+
+    const handler = doubleTapHandlers.get(actionKey);
+    if (handler) {
+        handler();
+    }
+};
+
+const skillImage = (skill: Skill): string => {
+    return SkillIconRecord[skill.key].icon ?? '';
+};
 </script>
 
 <style lang="scss" scoped>

@@ -76,7 +76,7 @@
                         v-for="(action, key) in targetActions"
                         :key="key"
                         :action="action"
-                        @click="executeTargetAction(target, action)"
+                        @click="executeWithDoubleTap(action, target)"
                     />
                 </div>
                 <div v-else>
@@ -84,7 +84,7 @@
                         v-for="(action, key) in targetActions"
                         :key="key"
                         :action="action"
-                        @click="executeTargetAction(null, action)"
+                        @click="executeWithDoubleTap(action)"
                     />
                 </div>
             </div>
@@ -177,13 +177,12 @@
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import Inventory from "@/components/Game/Inventory.vue";
 import ActionTabs from "@/components/Game/Ship/ActionTabs.vue";
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import Statuses from "@/components/Utils/Statuses.vue";
 import { Action } from "@/entities/Action";
-import { SelectableSkill } from "@/entities/Character";
 import { Door } from "@/entities/Door";
 import { Equipment } from "@/entities/Equipment";
 import { Item } from "@/entities/Item";
@@ -193,175 +192,201 @@ import { ActionEnum } from "@/enums/action.enum";
 import { characterEnum } from '@/enums/character';
 import { SkillIconRecord } from "@/enums/skill.enum";
 import { skillPointEnum } from "@/enums/skill.point.enum";
-import { StatusPlayerNameEnum } from "@/enums/status.player.enum";
 import { formatText } from "@/utils/formatText";
 import { getImgUrl } from "@/utils/getImgUrl";
-import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
+import { useDoubleTap } from "@/utils/useDoubleTap";
+import { computed, onBeforeMount, ref } from "vue";
+import { useStore } from "vuex";
 
 type ActionType = 'human' | 'mush' | 'admin'
 
-export default defineComponent ({
-    name: "CharPanel",
-    components: {
-        ActionButton,
-        ActionTabs,
-        Inventory,
-        Statuses
-    },
-    props: {
-        player: {
-            type: Player,
-            required: true
+const props = defineProps<{
+    player: Player
+}>();
+
+const store = useStore();
+const activeTab = ref<ActionType>('human');
+
+// Double tap handlers map
+const doubleTapHandlers = new Map<string, () => void>();
+
+// Vuex getters
+const loading = computed(() => store.getters['player/isLoading']);
+const selectedItem = computed(() => store.getters['player/selectedItem']);
+const displayMushSkills = computed(() => store.getters['player/displayMushSkills']);
+const actionTabs = computed(() => store.getters['settings/actionTabs']);
+
+// Computed properties
+const characterPortrait = computed((): string => {
+    return characterEnum[props.player.character.key].portrait ?? '';
+});
+
+const getTargetItem = computed((): Item | null => {
+    return selectedItem.value;
+});
+
+const numberOfSkillSlots = computed((): number => {
+    return displayMushSkills.value ? Math.max(props.player.character.mushSkillSlots - props.player.mushSkills.length, 0) : Math.max(props.player.character.humanSkillSlots - props.player.humanSkills.length, 0);
+});
+
+const skillsToDisplay = computed((): Array<Skill> => {
+    return displayMushSkills.value ? props.player.mushSkills : props.player.humanSkills;
+});
+
+const target = computed((): Item | Player | null => {
+    return selectedItem.value || props.player;
+});
+
+const rawTargetActions = computed((): Action[] => {
+    let actions = target.value?.actions.filter(action => action.isNotMissionAction()) || [];
+
+    // Setup commander order action cost to 0 if available
+    if (target.value instanceof Player && target.value.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
+        const commanderOrderAction = target.value.getActionByKey(ActionEnum.COMMANDER_ORDER);
+        if (commanderOrderAction) {
+            actions = actions.filter(action => action.key !== ActionEnum.COMMANDER_ORDER);
+            const newOrderAction = (new Action()).decode(commanderOrderAction.jsonEncode());
+            newOrderAction.actionPointCost = 0;
+            actions.push(newOrderAction);
         }
-    },
-    computed: {
-        ...mapGetters({
-            'loading': 'player/isLoading',
-            'selectedItem': 'player/selectedItem',
-            'displayMushSkills': 'player/displayMushSkills',
-            'actionTabs': 'settings/actionTabs'
-        }),
-        characterPortrait(): string {
-            return characterEnum[this.player.character.key].portrait ?? '';
-        },
-        getTargetItem(): Item | null {
-            return this.selectedItem;
-        },
-        numberOfSkillSlots(): number {
-            return this.displayMushSkills ? Math.max(this.player.character.mushSkillSlots - this.player.mushSkills.length, 0) : Math.max(this.player.character.humanSkillSlots - this.player.humanSkills.length, 0);
-        },
-        skillsToDisplay(): Array<Skill> {
-            return this.displayMushSkills ? this.player.mushSkills : this.player.humanSkills;
-        },
-        selectableSkillsToDisplay(): Array<SelectableSkill> {
-            return this.displayMushSkills ? this.player.character.selectableMushSkills : this.player.character.selectableHumanSkills;
-        },
-        target(): Item | Player | null {
-            return this.selectedItem || this.player;
-        },
-        targetActions(): Action[] {
-            if (!this.actionTabs) return this.rawTargetActions || [];
-
-            const actionMap: { [key: string]: Action[] } = {
-                'human': this.targetActionsHuman,
-                'mush': this.targetActionsMush,
-                'admin': this.targetActionsAdmin
-            };
-
-            return actionMap[this.activeTab] || [];
-        },
-        targetActionsHuman() : Action[] {
-            return this.rawTargetActions.filter(action => !action.isMushAction && !action.isAdminAction);
-        },
-        targetActionsMush() : Action[] {
-            return this.rawTargetActions.filter(action => action.isMushAction && !action.isAdminAction);
-        },
-        targetActionsAdmin() : Action[] {
-            return this.rawTargetActions.filter(action => action.isAdminAction && !action.isMushAction);
-        },
-        rawTargetActions(): Action[] {
-            let actions = this.target?.actions.filter(action => action.isNotMissionAction());
-
-            // Setup commander order action cost to 0 if available
-            if (this.target instanceof Player && this.target.hasActionByKey(ActionEnum.COMMANDER_ORDER)) {
-                const commanderOrderAction = this.target.getActionByKey(ActionEnum.COMMANDER_ORDER);
-                actions = actions.filter(action => action.key !== ActionEnum.COMMANDER_ORDER);
-                const newOrderAction = (new Action()).decode(commanderOrderAction?.jsonEncode());
-                newOrderAction.actionPointCost = 0;
-                actions.push(newOrderAction);
-            }
-
-            return actions;
-        }
-    },
-    methods: {
-        ...mapActions({
-            'executeAction': 'action/executeAction',
-            'selectTarget': 'player/selectTarget',
-            'openSkillSelectionPopUp': 'popup/openSkillSelectionPopUp',
-            'openLearnSkillPopUp': 'popup/openLearnSkillPopUp',
-            'initMushSkillsDisplay': 'player/initMushSkillsDisplay',
-            'toggleMushSkillsDisplay': 'player/toggleMushSkillsDisplay',
-            'openCommanderOrderPanel': 'player/openCommanderOrderPanel',
-            'openComManagerAnnouncementPanel': 'player/openComManagerAnnouncementPanel'
-        }),
-        getImgUrl,
-        formatText,
-        isFull (value: number, threshold: number): Record<string, boolean> {
-            return {
-                "full": value <= threshold,
-                'empty': value > threshold
-            };
-        },
-        skillSlotClass(index: number): string {
-            switch (index) {
-            case 1:
-                return 'skill-slot-basic';
-            case 2:
-                return 'skill-slot-once';
-            default:
-                return 'skill-slot-gold';
-            }
-        },
-        skillSlotImage(index: number): string {
-            switch (index) {
-            case 1:
-                return getImgUrl('skills/basicplus.png');
-            case 2:
-                return getImgUrl('skills/onceplus.png');
-            default:
-                return getImgUrl('skills/goldplus.png');
-            }
-        },
-        skillImage(skill: Skill): string {
-            return SkillIconRecord[skill.key]?.icon ?? '';
-        },
-        skillPointImg(point: SkillPoint): string {
-            return skillPointEnum[point.key]?.icon ?? '';
-        },
-        toggleItemSelection(item: Item | null): void {
-            this.activeTab = 'human';
-
-            if (this.selectedItem === item) {
-                this.selectTarget({ target: null });
-            } else {
-                this.selectTarget({ target: item });
-            }
-        },
-        async executeTargetAction(target: Door | Item | Equipment | Player | null, action: Action): Promise<void> {
-            if (action.canExecute === false) {
-                return;
-            }
-            if (action.key === ActionEnum.LEARN) {
-                this.openLearnSkillPopUp();
-                return;
-            }
-            if (action.key === ActionEnum.COMMANDER_ORDER) {
-                this.openCommanderOrderPanel();
-                return;
-            }
-            if (action.key === ActionEnum.COM_MANAGER_ANNOUNCEMENT) {
-                this.openComManagerAnnouncementPanel();
-                return;
-            }
-
-            await this.executeAction({ target, action });
-            if (this.selectedItem instanceof Item && ! this.player.items.includes(this.selectedItem)) {
-                this.selectedItem = null;
-            }
-        }
-    },
-    data() {
-        return {
-            ActionEnum,
-            StatusPlayerNameEnum,
-            activeTab : 'human' as ActionType
-        };
-    },
-    beforeMount() {
-        this.initMushSkillsDisplay({ player: this.player });
     }
+
+    return actions;
+});
+
+const targetActionsHuman = computed((): Action[] => {
+    return rawTargetActions.value.filter(action => !action.isMushAction && !action.isAdminAction);
+});
+
+const targetActionsMush = computed((): Action[] => {
+    return rawTargetActions.value.filter(action => action.isMushAction && !action.isAdminAction);
+});
+
+const targetActionsAdmin = computed((): Action[] => {
+    return rawTargetActions.value.filter(action => action.isAdminAction && !action.isMushAction);
+});
+
+const targetActions = computed((): Action[] => {
+    if (!actionTabs.value) return rawTargetActions.value || [];
+
+    const actionMap: { [key: string]: Action[] } = {
+        'human': targetActionsHuman.value,
+        'mush': targetActionsMush.value,
+        'admin': targetActionsAdmin.value
+    };
+
+    return actionMap[activeTab.value] || [];
+});
+
+// Methods
+const formatContent = (value: string | null | undefined): string => {
+    return !value ? '' : formatText(value.toString());
+};
+
+const isFull = (value: number, threshold: number): Record<string, boolean> => {
+    return {
+        "full": value <= threshold,
+        'empty': value > threshold
+    };
+};
+
+const skillSlotClass = (index: number): string => {
+    switch (index) {
+    case 1:
+        return 'skill-slot-basic';
+    case 2:
+        return 'skill-slot-once';
+    default:
+        return 'skill-slot-gold';
+    }
+};
+
+const skillSlotImage = (index: number): string => {
+    switch (index) {
+    case 1:
+        return getImgUrl('skills/basicplus.png');
+    case 2:
+        return getImgUrl('skills/onceplus.png');
+    default:
+        return getImgUrl('skills/goldplus.png');
+    }
+};
+
+const skillImage = (skill: Skill): string => {
+    return SkillIconRecord[skill.key]?.icon ?? '';
+};
+
+const skillPointImg = (point: SkillPoint): string => {
+    return point.key ? (skillPointEnum[point.key]?.icon ?? '') : '';
+};
+
+const toggleItemSelection = (item: Item | null): void => {
+    activeTab.value = 'human';
+
+    if (selectedItem.value === item) {
+        store.dispatch('player/selectTarget', { target: null });
+    } else {
+        store.dispatch('player/selectTarget', { target: item });
+    }
+};
+
+const executeTargetAction = async (target: Door | Item | Equipment | Player | null, action: Action): Promise<void> => {
+    if (action.canExecute === false) {
+        return;
+    }
+    if (action.key === ActionEnum.LEARN) {
+        store.dispatch('popup/openLearnSkillPopUp');
+        return;
+    }
+    if (action.key === ActionEnum.COMMANDER_ORDER) {
+        store.dispatch('player/openCommanderOrderPanel');
+        return;
+    }
+    if (action.key === ActionEnum.COM_MANAGER_ANNOUNCEMENT) {
+        store.dispatch('player/openComManagerAnnouncementPanel');
+        return;
+    }
+
+    await store.dispatch('action/executeAction', { target, action });
+    if (selectedItem.value instanceof Item && !props.player.items.includes(selectedItem.value)) {
+        store.dispatch('player/selectTarget', { target: null });
+    }
+};
+
+const executeWithDoubleTap = async(action: Action, target: Door | Item | Equipment | Player | null = null): Promise<void> => {
+    if (!store.getters['settings/doubleTap']) {
+        await executeTargetAction(target, action);
+        return;
+    }
+
+    const actionKey = action.key;
+    if (!actionKey) return;
+
+    if (!doubleTapHandlers.has(actionKey)) {
+        const { handleTap } = useDoubleTap(async () => {
+            await executeTargetAction(target, action);
+        });
+        doubleTapHandlers.set(actionKey, handleTap);
+    }
+
+    const handler = doubleTapHandlers.get(actionKey);
+    if (handler) {
+        handler();
+    }
+};
+
+
+const openSkillSelectionPopUp = (): void => {
+    store.dispatch('popup/openSkillSelectionPopUp');
+};
+
+const toggleMushSkillsDisplay = (): void => {
+    store.dispatch('player/toggleMushSkillsDisplay');
+};
+
+// Lifecycle
+onBeforeMount(() => {
+    store.dispatch('player/initMushSkillsDisplay', { player: props.player });
 });
 </script>
 

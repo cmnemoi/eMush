@@ -11,21 +11,21 @@
                 v-for="(actionWithTarget, key) in getActions"
                 :key="key"
                 :action="actionWithTarget.action"
-                @click="executeActionWithTarget(actionWithTarget)"
+                @click="executeWithDoubleTap(actionWithTarget)"
             />
         </div>
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import ActionButton from "@/components/Utils/ActionButton.vue";
 import { Action } from "@/entities/Action";
 import { Equipment } from "@/entities/Equipment";
 import { Hunter } from "@/entities/Hunter";
 import { Player } from "@/entities/Player";
-import { getImgUrl } from "@/utils/getImgUrl";
-import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
+import { useDoubleTap } from "@/utils/useDoubleTap";
+import { computed, ref, watch } from "vue";
+import { useStore } from "vuex";
 import ActionTabs, { ActionType } from './ActionTabs.vue';
 
 export interface ActionWithTarget {
@@ -33,117 +33,119 @@ export interface ActionWithTarget {
     target: Equipment | Player | Hunter
 }
 
-export default defineComponent ({
-    components: {
-        ActionButton,
-        ActionTabs
-    },
-    computed: {
-        ...mapGetters({
-            'selectedTarget': 'room/selectedTarget',
-            'getSpaceWeaponAndActions': 'room/getSpaceWeaponAndActions',
-            'actionTabs': 'settings/actionTabs'
-        }),
-        getActionsWithTargets(): ActionWithTarget[]
-        {
-            // if we are in spaceBattle the action given by the patrolShip should remain visible at any time
-            const actionsWithTarget = this.getSpaceWeaponAndActions.slice();
+const store = useStore();
 
-            // we need to add the actions provided by the current target
-            // the target is different for patrolShip actions and target actions
-            if (this.selectedTarget !== null) {
-                for (let i = 0; i < this.selectedTarget.actions.length; i++) {
-                    const actionWithTargetToAdd = { action: this.selectedTarget.actions[i], target: this.selectedTarget } as ActionWithTarget;
-                    if (!actionsWithTarget.some((actionWithTarget: ActionWithTarget) => actionWithTarget.action.id === actionWithTargetToAdd.action.id)) {
-                        actionsWithTarget.push(actionWithTargetToAdd);
-                    }
-                }
+// Computed properties from store
+const selectedTarget = computed(() => store.getters['room/selectedTarget']);
+const getSpaceWeaponAndActions = computed(() => store.getters['room/getSpaceWeaponAndActions']);
+const actionTabs = computed(() => store.getters['settings/actionTabs']);
+const player = computed(() => store.getters['player/player']);
+
+// Local state
+const activeTab = ref<ActionType>('human');
+const doubleTapHandlers = new Map<string, () => void>();
+
+// Computed
+const getActionsWithTargets = computed((): ActionWithTarget[] => {
+    // if we are in spaceBattle the action given by the patrolShip should remain visible at any time
+    const actionsWithTarget = getSpaceWeaponAndActions.value.slice();
+
+    // we need to add the actions provided by the current target
+    // the target is different for patrolShip actions and target actions
+    if (selectedTarget.value !== null) {
+        for (let i = 0; i < selectedTarget.value.actions.length; i++) {
+            const actionWithTargetToAdd = { action: selectedTarget.value.actions[i], target: selectedTarget.value } as ActionWithTarget;
+            if (!actionsWithTarget.some((actionWithTarget: ActionWithTarget) => actionWithTarget.action.id === actionWithTargetToAdd.action.id)) {
+                actionsWithTarget.push(actionWithTargetToAdd);
             }
-
-            // we need to sort back the actions by point cost and name (yes, this is ugly)
-            this.sortActionsByPointCostAndName(actionsWithTarget);
-
-            return actionsWithTarget;
-        },
-        targetActionsHuman(): ActionWithTarget[] {
-            return this.getActionsWithTargets.filter(action => action.action.isMushAction == false && action.action.isAdminAction == false);
-        },
-        targetActionsMush(): ActionWithTarget[] {
-            return this.getActionsWithTargets.filter(action => action.action.isMushAction == true && action.action.isAdminAction == false);
-        },
-        targetActionsAdmin(): ActionWithTarget[] {
-            return this.getActionsWithTargets.filter(action => action.action.isAdminAction == true);
-        },
-        getActions(): ActionWithTarget[] {
-            if (!this.actionTabs) return this.getActionsWithTargets;
-
-            const actionMap: { [key: string]: ActionWithTarget[] } = {
-                'human': this.targetActionsHuman,
-                'mush': this.targetActionsMush,
-                'admin': this.targetActionsAdmin
-            };
-
-            return actionMap[this.activeTab];
-        },
-
-        ...mapGetters('player', [
-            'player'
-        ])
-    },
-    data() {
-        return {
-            oldTarget : null,
-            activeTab : 'human' as ActionType
-        };
-    },
-    props: {
-        actions: Array
-    },
-    methods: {
-        ...mapActions({
-            'executeAction': 'action/executeAction'
-        }),
-        async executeActionWithTarget(actionWithTarget: ActionWithTarget): Promise<void> {
-            if (actionWithTarget.action.canExecute){
-                if (actionWithTarget.target === this.player) {
-                    await this.executeAction({ target: null, action: actionWithTarget.action });
-                } else {
-                    await this.executeAction({ target: actionWithTarget.target, action: actionWithTarget.action });
-                }
-            }
-        },
-        sortActionsByPointCostAndName(actionsWithTarget: ActionWithTarget[]): ActionWithTarget[] {
-            return actionsWithTarget.sort((action1: ActionWithTarget, action2: ActionWithTarget) => {
-                const a = action1.action;
-                const b = action2.action;
-
-                if (a.actionPointCost === null || b.actionPointCost === null) {
-                    throw new Error('ActionConfig point cost is null');
-                }
-                if (a.name === null || b.name === null) {
-                    throw new Error('ActionConfig name is null');
-                }
-
-                if (a.actionPointCost === b.actionPointCost) {
-                    return a.name.localeCompare(b.name);
-                }
-                return a.actionPointCost - b.actionPointCost;
-            });
-        },
-        changeActionTab(tab: ActionType) {
-            this.activeTab = tab;
-        },
-        getImgUrl
-    },
-    beforeMount() {
-        this.oldTarget = this.selectedTarget;
-    },
-    updated() {
-        if (this.selectedTarget != this.oldTarget) {
-            this.oldTarget = this.selectedTarget;
-            this.activeTab = 'human';
         }
     }
+
+    // we need to sort back the actions by point cost and name (yes, this is ugly)
+    sortActionsByPointCostAndName(actionsWithTarget);
+
+    return actionsWithTarget;
+});
+
+const targetActionsHuman = computed((): ActionWithTarget[] => {
+    return getActionsWithTargets.value.filter(action => action.action.isMushAction == false && action.action.isAdminAction == false);
+});
+
+const targetActionsMush = computed((): ActionWithTarget[] => {
+    return getActionsWithTargets.value.filter(action => action.action.isMushAction == true && action.action.isAdminAction == false);
+});
+
+const targetActionsAdmin = computed((): ActionWithTarget[] => {
+    return getActionsWithTargets.value.filter(action => action.action.isAdminAction == true);
+});
+
+const getActions = computed((): ActionWithTarget[] => {
+    if (!actionTabs.value) return getActionsWithTargets.value;
+
+    const actionMap: { [key: string]: ActionWithTarget[] } = {
+        'human': targetActionsHuman.value,
+        'mush': targetActionsMush.value,
+        'admin': targetActionsAdmin.value
+    };
+
+    return actionMap[activeTab.value];
+});
+
+// Methods
+const executeActionWithTarget = async (actionWithTarget: ActionWithTarget): Promise<void> => {
+    if (actionWithTarget.action.canExecute) {
+        if (actionWithTarget.target === player.value) {
+            await store.dispatch('action/executeAction', { target: null, action: actionWithTarget.action });
+        } else {
+            await store.dispatch('action/executeAction', { target: actionWithTarget.target, action: actionWithTarget.action });
+        }
+    }
+};
+
+const executeWithDoubleTap = async (actionWithTarget: ActionWithTarget): Promise<void> => {
+    if (!store.getters['settings/doubleTap']) {
+        await executeActionWithTarget(actionWithTarget);
+        return;
+    }
+
+    const actionKey = actionWithTarget.action.key;
+    if (!actionKey) return;
+
+    if (!doubleTapHandlers.has(actionKey)) {
+        const { handleTap } = useDoubleTap(async () => {
+            await executeActionWithTarget(actionWithTarget);
+        });
+        doubleTapHandlers.set(actionKey, handleTap);
+    }
+
+    const handler = doubleTapHandlers.get(actionKey);
+    if (handler) {
+        handler();
+    }
+};
+
+const sortActionsByPointCostAndName = (actionsWithTarget: ActionWithTarget[]): ActionWithTarget[] => {
+    return actionsWithTarget.sort((action1: ActionWithTarget, action2: ActionWithTarget) => {
+        const a = action1.action;
+        const b = action2.action;
+
+        if (a.actionPointCost === null || b.actionPointCost === null) {
+            throw new Error('ActionConfig point cost is null');
+        }
+        if (a.name === null || b.name === null) {
+            throw new Error('ActionConfig name is null');
+        }
+
+        if (a.actionPointCost === b.actionPointCost) {
+            return a.name.localeCompare(b.name);
+        }
+        return a.actionPointCost - b.actionPointCost;
+    });
+};
+
+// Watch for target changes and reset activeTab
+watch(selectedTarget, () => {
+    activeTab.value = 'human';
 });
 </script>
 

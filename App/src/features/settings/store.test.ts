@@ -28,9 +28,15 @@ describe("Settings store", () => {
             },
             actionTabs: {
                 name: 'actionTabs',
-                icon: 'M9.5 2a2.5 2.5 0 0 1 2.495 2.336L12 4.5v4.605l5.442.605a4 4 0 0 1 3.553 3.772l.005.203V14a8 8 0 0 1-7.75 7.996L13 22h-.674a8 8 0 0 1-7.024-4.171l-.131-.251l-2.842-5.684c-.36-.72-.093-1.683.747-2.028c1.043-.427 2.034-.507 3.055.012q.333.17.654.414l.215.17V4.5A2.5 2.5 0 0 1 9.5 2m0 2a.5.5 0 0 0-.492.41L9 4.5V13a1 1 0 0 1-1.78.625l-.332-.407l-.303-.354c-.58-.657-1.001-1.02-1.36-1.203a1.2 1.2 0 0 0-.694-.137l-.141.02l2.57 5.14a6 6 0 0 0 5.123 3.311l.243.005H13a6 6 0 0 0 5.996-5.775L19 14v-.315a2 2 0 0 0-1.621-1.964l-.158-.024l-5.442-.604a2 2 0 0 1-1.773-1.829L10 9.105V4.5a.5.5 0 0 0-.5-.5M4 6a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2zm12-1a1 1 0 0 1 .117 1.993L16 7h-1a1 1 0 0 1-.117-1.993L15 5zM4.707 1.293l1 1a1 1 0 0 1-1.414 1.414l-1-1a1 1 0 0 1 1.414-1.414m11 0a1 1 0 0 1 0 1.414l-1 1a1 1 0 1 1-1.414-1.414l1-1a1 1 0 0 1 1.414 0',
+                icon: 'M2 8a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3zm11-1h6a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-6zm-2 0H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h6z',
                 value: false,
                 action: 'settings/toggleActionTabsVisibility'
+            },
+            doubleTap: {
+                name: 'doubleTap',
+                icon: 'M9.5 2a2.5 2.5 0 0 1 2.495 2.336L12 4.5v4.605l5.442.605a4 4 0 0 1 3.553 3.772l.005.203V14a8 8 0 0 1-7.75 7.996L13 22h-.674a8 8 0 0 1-7.024-4.171l-.131-.251l-2.842-5.684c-.36-.72-.093-1.683.747-2.028c1.043-.427 2.034-.507 3.055.012q.333.17.654.414l.215.17V4.5A2.5 2.5 0 0 1 9.5 2m0 2a.5.5 0 0 0-.492.41L9 4.5V13a1 1 0 0 1-1.78.625l-.332-.407l-.303-.354c-.58-.657-1.001-1.02-1.36-1.203a1.2 1.2 0 0 0-.694-.137l-.141.02l2.57 5.14a6 6 0 0 0 5.123 3.311l.243.005H13a6 6 0 0 0 5.996-5.775L19 14v-.315a2 2 0 0 0-1.621-1.964l-.158-.024l-5.442-.604a2 2 0 0 1-1.773-1.829L10 9.105V4.5a.5.5 0 0 0-.5-.5M4 6a1 1 0 0 1 0 2H3a1 1 0 0 1 0-2zm12-1a1 1 0 0 1 .117 1.993L16 7h-1a1 1 0 0 1-.117-1.993L15 5zM4.707 1.293l1 1a1 1 0 0 1-1.414 1.414l-1-1a1 1 0 0 1 1.414-1.414m11 0a1 1 0 0 1 0 1.414l-1 1a1 1 0 1 1-1.414-1.414l1-1a1 1 0 0 1 1.414 0',
+                value: false,
+                action: 'settings/toggleDoubleTapVisibility'
             }
         });
     });
@@ -48,5 +54,20 @@ describe("Settings store", () => {
 
         expect(store.getters["settings/actionTabs"]).toBe(false);
         expect(localStorageService.getItemAsBoolean('actionTabs')).toBe(false);
+    });
+
+    it("should mark double tap as activated", () => {
+        store.dispatch("settings/toggleDoubleTapVisibility");
+
+        expect(store.getters["settings/doubleTap"]).toBe(true);
+        expect(localStorageService.getItemAsBoolean('doubleTap')).toBe(true);
+    });
+
+    it("should mark double tap as deactivated", () => {
+        store.dispatch("settings/toggleDoubleTapVisibility");
+        store.dispatch("settings/toggleDoubleTapVisibility");
+
+        expect(store.getters["settings/doubleTap"]).toBe(false);
+        expect(localStorageService.getItemAsBoolean('doubleTap')).toBe(false);
     });
 });

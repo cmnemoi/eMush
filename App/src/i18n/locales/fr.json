@@ -1047,7 +1047,8 @@
 				"name": "Paramètres",
 				"subscribeToNotifications": "S'abonner aux notifications",
 				"notifications": "Notifications",
-				"actionTabs": "Séparer les actions Mush et humaines"
+				"actionTabs": "Séparer les actions Mush et humaines",
+				"doubleTap": "Double clic pour les actions"
 			}
 		},
 		"topBar": {

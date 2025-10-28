@@ -411,5 +411,47 @@
         <target>Master of the universe</target>
       </segment>
     </unit>
+    <unit id="contributions">
+      <segment id="name" state="translated">
+        <source>contributions.name</source>
+        <target>Contributions</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>contributions.description</source>
+        <target>Vous avez participé au développement de eMush et grâce à vous on l'a fait avancer : merci !</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>contributions_1.name</source>
+        <target>Contributeur</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>contributions_5.name</source>
+        <target>« Je mettrais bien ça sur un CV… »</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>contributions_20.name</source>
+        <target>Ça part en prod !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>contributions_50.name</source>
+        <target>eMush Driven Development</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>contributions_100.name</source>
+        <target>Créateur d'expériences</target>
+      </segment>
+      <segment id="x300" state="translated">
+        <source>contributions_300.name</source>
+        <target>Kent Beck de l'espace</target>
+      </segment>
+      <segment id="x700" state="translated">
+        <source>contributions_700.name</source>
+        <target>Grand Réparateur de Cest</target>
+      </segment>
+      <segment id="x1500" state="translated">
+        <source>contributions_1500.name</source>
+        <target>Gardien du code source</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

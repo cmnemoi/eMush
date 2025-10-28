@@ -31,7 +31,7 @@ final readonly class GetUserAchievementsQueryHandler
             INNER JOIN achievement_config ON achievement_config.id = achievement.config_id
             INNER JOIN users ON users.id = statistic.user_id
             WHERE users.user_id = :userId
-            ORDER BY achievement_config.name, statistic.count
+            ORDER BY achievement.created_at DESC, statistic_config.name, achievement_config.unlock_threshold
             ',
             [
                 'userId' => $query->userId,

@@ -61,6 +61,14 @@ enum AchievementEnum: string
     case FINOLA_500 = 'finola_500';
     case FINOLA_2000 = 'finola_2000';
     case FINOLA_10000 = 'finola_10000';
+    case CONTRIBUTIONS_1 = 'contributions_1';
+    case CONTRIBUTIONS_5 = 'contributions_5';
+    case CONTRIBUTIONS_20 = 'contributions_20';
+    case CONTRIBUTIONS_50 = 'contributions_50';
+    case CONTRIBUTIONS_100 = 'contributions_100';
+    case CONTRIBUTIONS_300 = 'contributions_300';
+    case CONTRIBUTIONS_700 = 'contributions_700';
+    case CONTRIBUTIONS_1500 = 'contributions_1500';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

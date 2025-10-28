@@ -5,6 +5,7 @@ namespace Mush\Tests\api\Game\GameConfig;
 use Mush\Game\Entity\GameConfig;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Tests\ApiTester;
+use Mush\User\Enum\RoleEnum;
 
 class GameConfigControllerCest
 {
@@ -48,7 +49,7 @@ class GameConfigControllerCest
 
     public function testUpdateGameConfigNotPermitted(ApiTester $I)
     {
-        $I->loginUser(ApiTester::USER);
+        $I->loginUser(RoleEnum::USER);
 
         $I->sendPutRequest($this->url . '/' . $this->gameConfig->getId());
         $I->seeResponseCodeIs(403);
@@ -56,7 +57,7 @@ class GameConfigControllerCest
 
     public function testUpdateSucces(ApiTester $I)
     {
-        $I->loginUser(ApiTester::ADMIN);
+        $I->loginUser(RoleEnum::ADMIN);
 
         $data = [
             'name' => 'default',

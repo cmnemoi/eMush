@@ -33,6 +33,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::CHUN),
             new StatisticConfigDto(StatisticEnum::CHAO),
             new StatisticConfigDto(StatisticEnum::FINOLA),
+            new StatisticConfigDto(StatisticEnum::CONTRIBUTIONS, isRare: true),
         ];
     }
 

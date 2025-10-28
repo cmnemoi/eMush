@@ -289,6 +289,46 @@ abstract class AchievementConfigData
                 points: 0,
                 threshold: 10_000,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::CONTRIBUTIONS_1,
+                points: 0,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::CONTRIBUTIONS_5,
+                points: 0,
+                threshold: 5,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::CONTRIBUTIONS_20,
+                points: 0,
+                threshold: 20,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::CONTRIBUTIONS_50,
+                points: 0,
+                threshold: 50,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::CONTRIBUTIONS_100,
+                points: 0,
+                threshold: 100,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::CONTRIBUTIONS_300,
+                points: 0,
+                threshold: 300,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::CONTRIBUTIONS_700,
+                points: 0,
+                threshold: 700,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::CONTRIBUTIONS_1500,
+                points: 0,
+                threshold: 1500,
+            ),
         ];
     }
 

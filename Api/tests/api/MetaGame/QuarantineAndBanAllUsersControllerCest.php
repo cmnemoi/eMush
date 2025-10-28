@@ -6,6 +6,7 @@ namespace Mush\Tests\api\MetaGame;
 
 use Mush\Tests\ApiTester;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 use Mush\User\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,9 +20,9 @@ final class QuarantineAndBanAllUsersControllerCest
     public function _before(ApiTester $I): void
     {
         $this->userRepository = $I->grabService(UserRepositoryInterface::class);
-        $this->user1 = $I->loginUser('default');
-        $this->user2 = $I->loginUser('default');
-        $this->moderator = $I->loginUser(ApiTester::MODERATOR);
+        $this->user1 = $I->loginUser(RoleEnum::USER);
+        $this->user2 = $I->loginUser(RoleEnum::USER);
+        $this->moderator = $I->loginUser(RoleEnum::MODERATOR);
     }
 
     public function shouldBanAllUsersWhenPostingToEndpoint(ApiTester $I): void
@@ -30,7 +31,7 @@ final class QuarantineAndBanAllUsersControllerCest
 
         $this->whenSendingBanAllUsersRequest($I);
 
-        $this->thenAllUsersShouldBeBanned($I);
+        $this->thenAllUsersShouldBeBanned();
         $this->thenResponseShouldBeSuccessful($I);
     }
 
@@ -52,7 +53,7 @@ final class QuarantineAndBanAllUsersControllerCest
         ]);
     }
 
-    private function thenAllUsersShouldBeBanned(ApiTester $I): void
+    private function thenAllUsersShouldBeBanned(): void
     {
         $user1 = $this->userRepository->findOneByIdOrThrow($this->user1->getId());
         $user2 = $this->userRepository->findOneByIdOrThrow($this->user2->getId());

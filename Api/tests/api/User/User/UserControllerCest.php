@@ -4,6 +4,7 @@ namespace Mush\Tests\api\User\User;
 
 use Mush\Tests\ApiTester;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 
 class UserControllerCest
 {
@@ -32,7 +33,7 @@ class UserControllerCest
 
     public function getPaginatedUserList(ApiTester $I)
     {
-        $I->loginUser(ApiTester::ADMIN);
+        $I->loginUser(RoleEnum::ADMIN);
 
         for ($i = 0; $i < 20; ++$i) {
             $user = $this->createUser('user_' . $i);

@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mush\Daedalus\Entity\ClosedDaedalus;
 use Mush\Tests\ApiTester;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -21,7 +22,7 @@ final class AdminActionsControllerCest
 
     public function _before(ApiTester $I): void
     {
-        $this->user = $I->loginUser('admin');
+        $this->user = $I->loginUser(RoleEnum::ADMIN);
         $this->entityManager = $I->grabService(EntityManagerInterface::class);
     }
 

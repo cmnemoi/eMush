@@ -31,17 +31,14 @@ class ApiTester extends Actor
 {
     use _generated\ApiTesterActions;
 
-    public const string USER = 'user';
-    public const string MODERATOR = 'moderator';
-    public const string ADMIN = 'admin';
-
     public function loginUser(string|User $user)
     {
         if (!$user instanceof User) {
             $user = match ($user) {
-                self::USER => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::USER]]),
-                self::ADMIN => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::ADMIN]]),
-                self::MODERATOR => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::MODERATOR]]),
+                RoleEnum::ADMIN => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::ADMIN]]),
+                RoleEnum::MODERATOR => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::MODERATOR]]),
+                RoleEnum::SUPER_ADMIN => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::SUPER_ADMIN]]),
+                RoleEnum::USER => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122(), 'roles' => [RoleEnum::USER]]),
                 default => $this->have(User::class, ['userId' => Uuid::v7()->toRfc4122()]),
             };
         }

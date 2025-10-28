@@ -19,6 +19,7 @@ use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Game\Enum\LanguageEnum;
 use Mush\Tests\ApiTester;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 use Symfony\Component\HttpFoundation\Response;
 
 final class AchievementControllerCest
@@ -104,6 +105,23 @@ final class AchievementControllerCest
             'formattedPoints' => '+1',
             'isRare' => false,
         ]]);
+    }
+
+    public function shouldUpdateUserStatistic(ApiTester $I): void
+    {
+        $I->loginUser(RoleEnum::SUPER_ADMIN);
+        $I->sendPostRequest('/statistics/update', [
+            'userId' => $this->user->getId(),
+            'statisticName' => StatisticEnum::PLANET_SCANNED->value,
+            'language' => 'fr',
+            'newValue' => 2,
+        ]);
+
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->seeResponseContainsJson(['message' => "Statistic planet_scanned updated successfully for user {$this->user->getId()} to 2"]);
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::PLANET_SCANNED, $this->user->getId());
+        \assert($statistic->getCount() === 2);
     }
 
     public static function testCases(): array

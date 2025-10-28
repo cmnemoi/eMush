@@ -6,6 +6,7 @@ namespace Mush\Tests\api\MetaGame;
 
 use Mush\Tests\ApiTester;
 use Mush\User\Entity\User;
+use Mush\User\Enum\RoleEnum;
 use Mush\User\Repository\BannedIpRepository;
 
 final class ModerationControllerCest
@@ -17,8 +18,8 @@ final class ModerationControllerCest
 
     public function _before(ApiTester $I): void
     {
-        $this->user = $I->loginUser('user');
-        $this->moderator = $I->loginUser('moderator');
+        $this->user = $I->loginUser(RoleEnum::USER);
+        $this->moderator = $I->loginUser(RoleEnum::MODERATOR);
 
         $this->bannedIpRepository = $I->grabService(BannedIpRepository::class);
     }

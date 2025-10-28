@@ -104,6 +104,11 @@ enum AchievementEnum: string
     case DEREK_500 = 'derek_500';
     case DEREK_2000 = 'derek_2000';
     case DEREK_10000 = 'derek_10000';
+    case GIOELE_50 = 'gioele_50';
+    case GIOELE_200 = 'gioele_200';
+    case GIOELE_500 = 'gioele_500';
+    case GIOELE_2000 = 'gioele_2000';
+    case GIOELE_10000 = 'gioele_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

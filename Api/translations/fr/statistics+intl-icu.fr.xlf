@@ -410,6 +410,36 @@
         <source>chao_10000.name</source>
         <target>Last Action Weirdo</target>
       </segment>
+     </unit>
+    <unit id="gioele">
+      <segment id="name" state="translated">
+        <source>gioele.name</source>
+        <target>Nombre de cycles passés à compter ses billets</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>gioele.description</source>
+        <target>Être milliardaire, c'est le rêve de tout homme sur Terre... Mais dans l'espace, et avec un Mush à bord...</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>gioele_50.name</source>
+        <target>Moi d'abord !</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>gioele_200.name</source>
+        <target>Cash toi de là !</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>gioele_500.name</source>
+        <target>C'est à moi que tu parles ?</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>gioele_2000.name</source>
+        <target>Y'a du fric à se faire, je le sens !</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>gioele_10000.name</source>
+        <target>L'homme qui valait 3 milliards et des brouettes</target>
+      </segment>
     </unit>
     <unit id="eleesha">
       <segment id="name" state="translated">

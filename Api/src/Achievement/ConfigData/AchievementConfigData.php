@@ -290,6 +290,31 @@ abstract class AchievementConfigData
                 threshold: 10_000,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::ELEESHA_50,
+                points: 5,
+                threshold: 50,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::ELEESHA_200,
+                points: 10,
+                threshold: 200,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::ELEESHA_500,
+                points: 5,
+                threshold: 500,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::ELEESHA_2000,
+                points: 0,
+                threshold: 2_000,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::ELEESHA_10000,
+                points: 0,
+                threshold: 10_000,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::FINOLA_50,
                 points: 5,
                 threshold: 50,

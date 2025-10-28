@@ -56,6 +56,11 @@ enum AchievementEnum: string
     case CHAO_500 = 'chao_500';
     case CHAO_2000 = 'chao_2000';
     case CHAO_10000 = 'chao_10000';
+    case ELEESHA_50 = 'eleesha_50';
+    case ELEESHA_200 = 'eleesha_200';
+    case ELEESHA_500 = 'eleesha_500';
+    case ELEESHA_2000 = 'eleesha_2000';
+    case ELEESHA_10000 = 'eleesha_10000';
     case FINOLA_50 = 'finola_50';
     case FINOLA_200 = 'finola_200';
     case FINOLA_500 = 'finola_500';

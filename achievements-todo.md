@@ -34,7 +34,7 @@
 - [x] jin_su : Number of cycles played as human Jin Su (to be incremented when Daedalus is finished)
 - [x] stephen : Number of cycles played as human Stephen (to be incremented when Daedalus is finished)
 - [x] derek : Number of cycles played as human Derek (to be incremented when Daedalus is finished)
-- [ ] eleesha : Number of cycles played as human Eleesha (to be incremented when Daedalus is finished)
+- [x] eleesha : Number of cycles played as human Eleesha (to be incremented when Daedalus is finished)
 - [ ] gioele : Number of cycles played as human Gioele
 - [ ] hua : Number of cycles played as human Hua (to be incremented when Daedalus is finished)
 - [ ] kuan_ti : Number of cycles played as human Kuan Ti (to be incremented when Daedalus is finished)

@@ -411,6 +411,36 @@
         <target>Last Action Weirdo</target>
       </segment>
     </unit>
+    <unit id="eleesha">
+      <segment id="name" state="translated">
+        <source>eleesha.name</source>
+        <target>Nombre de cycles passés à coiffer sa touffe.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eleesha.description</source>
+        <target>Vous avez arpenté les couloirs du Daedalus sur le rythme du disco-pop, dommage que ce costume manque de paillette...</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>eleesha_50.name</source>
+        <target>Tardiflette</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>eleesha_200.name</source>
+        <target>Daddy cool</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>eleesha_500.name</source>
+        <target>La tigresse du Daedalus</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>eleesha_2000.name</source>
+        <target>En direct sur Eleesha TV</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>eleesha_10000.name</source>
+        <target>Au coeur de l'info</target>
+      </segment>
+    </unit>
     <unit id="finola">
       <segment id="name" state="translated">
         <source>finola.name</source>

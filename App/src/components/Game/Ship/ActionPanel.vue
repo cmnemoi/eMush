@@ -111,14 +111,16 @@ const executeWithDoubleTap = async (actionWithTarget: ActionWithTarget): Promise
     const actionKey = actionWithTarget.action.key;
     if (!actionKey) return;
 
-    if (!doubleTapHandlers.has(actionKey)) {
+    const handlerKey = `${actionKey}_${actionWithTarget.target.id}`;
+
+    if (!doubleTapHandlers.has(handlerKey)) {
         const { handleTap } = useDoubleTap(async () => {
             await executeActionWithTarget(actionWithTarget);
         });
-        doubleTapHandlers.set(actionKey, handleTap);
+        doubleTapHandlers.set(handlerKey, handleTap);
     }
 
-    const handler = doubleTapHandlers.get(actionKey);
+    const handler = doubleTapHandlers.get(handlerKey);
     if (handler) {
         handler();
     }
@@ -144,9 +146,7 @@ const sortActionsByPointCostAndName = (actionsWithTarget: ActionWithTarget[]): A
 };
 
 // Watch for target changes and reset activeTab
-watch(selectedTarget, () => {
-    activeTab.value = 'human';
-});
+watch(selectedTarget, () => activeTab.value = 'human');
 </script>
 
 <style lang="scss" scoped>

@@ -362,14 +362,16 @@ const executeWithDoubleTap = async(action: Action, target: Door | Item | Equipme
     const actionKey = action.key;
     if (!actionKey) return;
 
-    if (!doubleTapHandlers.has(actionKey)) {
+    const handlerKey = `${actionKey}_${target?.id}`;
+
+    if (!doubleTapHandlers.has(handlerKey)) {
         const { handleTap } = useDoubleTap(async () => {
             await executeTargetAction(target, action);
         });
-        doubleTapHandlers.set(actionKey, handleTap);
+        doubleTapHandlers.set(handlerKey, handleTap);
     }
 
-    const handler = doubleTapHandlers.get(actionKey);
+    const handler = doubleTapHandlers.get(handlerKey);
     if (handler) {
         handler();
     }

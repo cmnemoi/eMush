@@ -321,6 +321,36 @@
         <target>Promis à un brillant avenir !</target>
       </segment>
     </unit>
+    <unit id="jin_su">
+      <segment id="name" state="translated">
+        <source>jin_su.name</source>
+        <target>Nombre de cycles passés à jouer au chef</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>jin_su.description</source>
+        <target>Vous avez été dans la peau du commandant du Daedalus, alors... comment on se sent, tout puissant ?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>jin_su_50.name</source>
+        <target>Fayot de la FDS</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>jin_su_200.name</source>
+        <target>Ohé, ohé, capitaine abandonné</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>jin_su_500.name</source>
+        <target>Amirâl'eur</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>jin_su_2000.name</source>
+        <target>The boss</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>jin_su_10000.name</source>
+        <target>Commandant suprême en chef</target>
+      </segment>
+    </unit>
     <unit id="chun">
       <segment id="name" state="translated">
         <source>chun.name</source>

@@ -61,6 +61,21 @@ enum AchievementEnum: string
     case FINOLA_500 = 'finola_500';
     case FINOLA_2000 = 'finola_2000';
     case FINOLA_10000 = 'finola_10000';
+    case FRIEDA_50 = 'frieda_50';
+    case FRIEDA_200 = 'frieda_200';
+    case FRIEDA_500 = 'frieda_500';
+    case FRIEDA_2000 = 'frieda_2000';
+    case FRIEDA_10000 = 'frieda_10000';
+    case JANICE_50 = 'janice_50';
+    case JANICE_200 = 'janice_200';
+    case JANICE_500 = 'janice_500';
+    case JANICE_2000 = 'janice_2000';
+    case JANICE_10000 = 'janice_10000';
+    case JIN_SU_50 = 'jin_su_50';
+    case JIN_SU_200 = 'jin_su_200';
+    case JIN_SU_500 = 'jin_su_500';
+    case JIN_SU_2000 = 'jin_su_2000';
+    case JIN_SU_10000 = 'jin_su_10000';
     case CONTRIBUTIONS_1 = 'contributions_1';
     case CONTRIBUTIONS_5 = 'contributions_5';
     case CONTRIBUTIONS_20 = 'contributions_20';
@@ -69,21 +84,11 @@ enum AchievementEnum: string
     case CONTRIBUTIONS_300 = 'contributions_300';
     case CONTRIBUTIONS_700 = 'contributions_700';
     case CONTRIBUTIONS_1500 = 'contributions_1500';
-    case FRIEDA_50 = 'frieda_50';
-    case FRIEDA_200 = 'frieda_200';
-    case FRIEDA_500 = 'frieda_500';
-    case FRIEDA_2000 = 'frieda_2000';
-    case FRIEDA_10000 = 'frieda_10000';
     case IAN_50 = 'ian_50';
     case IAN_200 = 'ian_200';
     case IAN_500 = 'ian_500';
     case IAN_2000 = 'ian_2000';
     case IAN_10000 = 'ian_10000';
-    case JANICE_50 = 'janice_50';
-    case JANICE_200 = 'janice_200';
-    case JANICE_500 = 'janice_500';
-    case JANICE_2000 = 'janice_2000';
-    case JANICE_10000 = 'janice_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

@@ -5,10 +5,11 @@ export const enum StatisticEnum {
     CHAO = "chao",
     CHUN = "chun",
     FINOLA = "finola",
-    CONTRIBUTIONS = "contributions",
     FRIEDA = "frieda",
-    IAN = "ian",
     JANICE = "janice",
+    JIN_SU = "jin_su",
+    CONTRIBUTIONS = "contributions",
+    IAN = "ian",
     CAT_CUDDLED = "cat_cuddled",
     COFFEE_TAKEN = "coffee_taken",
     DOOR_REPAIRED = "door_repaired",
@@ -39,17 +40,20 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     [StatisticEnum.FINOLA]: {
         'icon': getImgUrl('char/head/finola.png')
     },
-    [StatisticEnum.CONTRIBUTIONS]: {
-        'icon': getImgUrl('ui_icons/action_points/pa_comp.png')
-    },
     [StatisticEnum.FRIEDA]: {
         'icon': getImgUrl('char/head/frieda.png')
     },
-    [StatisticEnum.IAN]: {
-        'icon': getImgUrl('char/head/ian.png')
-    },
     [StatisticEnum.JANICE]: {
         'icon': getImgUrl('char/head/janice.png')
+    },
+    [StatisticEnum.JIN_SU]: {
+        'icon': getImgUrl('char/head/jin_su.png')
+    },
+    [StatisticEnum.CONTRIBUTIONS]: {
+        'icon': getImgUrl('ui_icons/action_points/pa_comp.png')
+    },
+    [StatisticEnum.IAN]: {
+        'icon': getImgUrl('char/head/ian.png')
     },
     [StatisticEnum.CAT_CUDDLED]: {
         'icon': getImgUrl('achievements/cat.png')

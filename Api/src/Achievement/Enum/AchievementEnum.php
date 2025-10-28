@@ -128,6 +128,11 @@ enum AchievementEnum: string
     case PAOLA_500 = 'paola_500';
     case PAOLA_2000 = 'paola_2000';
     case PAOLA_10000 = 'paola_10000';
+    case RALUCA_50 = 'raluca_50';
+    case RALUCA_200 = 'raluca_200';
+    case RALUCA_500 = 'raluca_500';
+    case RALUCA_2000 = 'raluca_2000';
+    case RALUCA_10000 = 'raluca_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

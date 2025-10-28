@@ -41,7 +41,7 @@
 - [x] kuan_ti : Number of cycles played as human Kuan Ti (to be incremented when Daedalus is finished)
 - [x] hua : Number of cycles played as human Hua (to be incremented when Daedalus is finished)
 - [x] paola : Number of cycles played as human Paola (to be incremented when Daedalus is finished)
-- [ ] raluca : Number of cycles played as human Raluca (to be incremented when Daedalus is finished)
+- [x] raluca : Number of cycles played as human Raluca (to be incremented when Daedalus is finished)
 - [ ] roland : Number of cycles played as human Roland (to be incremented when Daedalus is finished)
 - [ ] terrence : Number of cycles played as human Terrence (to be incremented when Daedalus is finished)
 - [ ] communicator : Communications Expert

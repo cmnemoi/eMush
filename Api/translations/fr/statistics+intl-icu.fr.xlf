@@ -819,5 +819,35 @@
         <target>2,21 GigaHertz !</target>
       </segment>
     </unit>
+    <unit id="raluca">
+      <segment id="name" state="translated">
+        <source>raluca.name</source>
+        <target>Nombre de cycles passés à passer son temps à caresser son chat</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>raluca.description</source>
+        <target>Oui, personne ne comprend un traître mot de ce que vous dîtes, peut-être serait'il bon de revenir parmi le commun des mortels.</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>raluca_50.name</source>
+        <target>Miou miou</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>raluca_200.name</source>
+        <target>Convecteur combusto-réversiblo-spatio-temporel en marche</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>raluca_500.name</source>
+        <target>Couché Néron ! Toi aussi Schrödinger !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>raluca_2000.name</source>
+        <target>Pilgred in love</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>raluca_10000.name</source>
+        <target>In Pilgred we trust</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

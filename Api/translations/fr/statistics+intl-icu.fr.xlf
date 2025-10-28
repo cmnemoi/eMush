@@ -849,5 +849,35 @@
         <target>In Pilgred we trust</target>
       </segment>
     </unit>
+    <unit id="roland">
+      <segment id="name" state="translated">
+        <source>roland.name</source>
+        <target>Nombre de cycles à tourner en rond</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>roland.description</source>
+        <target>Vous avez été dans la peau d'un des plus redoutable chasseur du Daedalus... Bon, vous n'êtes pas très nombreux non plus...</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>roland_50.name</source>
+        <target>Tchou tchou !</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>roland_200.name</source>
+        <target>Full speed !</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>roland_500.name</source>
+        <target>Toujours plus vite, toujours plus loin !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>roland_2000.name</source>
+        <target>Interlooper spatio-temporel</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>roland_10000.name</source>
+        <target>As des As de l'esp-As</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

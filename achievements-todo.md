@@ -33,6 +33,15 @@
 - [x] janice : Number of cycles played as human Janice (to be incremented when Daedalus is finished)
 - [x] jin_su : Number of cycles played as human Jin Su (to be incremented when Daedalus is finished)
 - [x] stephen : Number of cycles played as human Stephen (to be incremented when Daedalus is finished)
+- [x] derek : Number of cycles played as human Derek (to be incremented when Daedalus is finished)
+- [ ] eleesha : Number of cycles played as human Eleesha (to be incremented when Daedalus is finished)
+- [ ] gioele : Number of cycles played as human Gioele
+- [ ] hua : Number of cycles played as human Hua (to be incremented when Daedalus is finished)
+- [ ] kuan_ti : Number of cycles played as human Kuan Ti (to be incremented when Daedalus is finished)
+- [ ] paola : Number of cycles played as human Paola (to be incremented when Daedalus is finished)
+- [ ] raluca : Number of cycles played as human Raluca (to be incremented when Daedalus is finished)
+- [ ] roland : Number of cycles played as human Roland (to be incremented when Daedalus is finished)
+- [ ] terrence : Number of cycles played as human Terrence (to be incremented when Daedalus is finished)
 - [ ] communicator : Communications Expert
 - [ ] cooked_taken : Number of times you consume a cooked ration
 - [ ] daily_order : Number of times you did a General Announcement
@@ -42,21 +51,16 @@
 - [ ] day_30_reached : Number of times you reached Day 30
 - [ ] day_5_reached : Number of times you reached Day 5
 - [ ] day_max : Track the day of your longest game
-- [ ] derek : Number of cycles played as human Derek (to be incremented when Daedalus is finished)
 - [ ] disease_contracted : Number of times you contracted a disease
 - [ ] drugs_taken : Number of times you consumed a drug
 - [ ] eden : Number of times you reached Eden as a human (dying with EDEN end cause)
 - [ ] eden_contaminated : Eden, the contaminated land
-- [ ] eleesha : Number of cycles played as human Eleesha (to be incremented when Daedalus is finished)
 - [ ] frozen_taken : Number of times you consumed frozen food (ration with FROZEN status)
-- [ ] gioele : Number of cycles played as human Gioele
 - [ ] grenadier : Number of times you used a grenade in expedition (while participing in the expedition)
 - [ ] has_mushed : Number of times you contaminated a human (last spore needed to turn them Mush) (to be incremented when Daedalus is finished)
-- [ ] hua : Number of cycles played as human Hua (to be incremented when Daedalus is finished)
 - [ ] hunter_down : Number of Hunters killed (not asteroids nor merchants)
 - [ ] kind_person : Number of disorders you healed as a shrink
 - [ ] kivanc_contacted : Kivanç Terzi contacted
-- [ ] kuan_ti : Number of cycles played as human Kuan Ti (to be incremented when Daedalus is finished)
 - [ ] last_member : Number of times you were the last to die
 - [ ] likemush : Number of likes received at the end of the game
 - [ ] mage_books_learned : Number of times you read a Mage Book / Apprentron
@@ -68,7 +72,6 @@
 - [ ] natamist : Number of times you killed a Mush player with the Natamy Rifle
 - [ ] new_plants : Number of times you plant a fruit
 - [ ] nils_contacted : Number of times you contacted Nils Carlsson while contacting Xyloph
-- [ ] paola : Number of cycles played as human Paola (to be incremented when Daedalus is finished)
 - [ ] physicist : Number of times you healed a physical disease of another player
 - [ ] pilgred_back_online : Number of times your crew repaired PILGRED
 - [ ] plasma_shield : Number of times your crew finished the Plasma Shield NERON project
@@ -81,19 +84,16 @@
 - [ ] quasar_second : Supernova of Excellence
 - [ ] quasar_special : Special Nova
 - [ ] quasar_third : Honorable Supernova
-- [ ] raluca : Number of cycles played as human Raluca (to be incremented when Daedalus is finished)
 - [ ] ration_cooked : Dishes Cooked
 - [ ] ration_taken : Rations eaten
 - [ ] rebels : Read all about it!
 - [ ] research_digged : Researcher
 - [ ] research_team : Research Team
-- [ ] roland : Number of cycles played as human Roland (to be incremented when Daedalus is finished)
 - [ ] shrinker : Complete Psychoanalysis
 - [ ] surgeon : Surgeon
 - [ ] tags_complete : Total Clearance
 - [ ] team_all_rebels : Revolution!
 - [ ] team_mush_killed : Soldier of Humanity
 - [ ] team_rebels : Rebellion!
-- [ ] terrence : Number of cycles played as human Terrence (to be incremented when Daedalus is finished)
 - [ ] triumph : Glory
 - [ ] venerian_disease : Venereal Diseases Caught

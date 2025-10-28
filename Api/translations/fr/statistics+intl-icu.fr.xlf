@@ -603,5 +603,35 @@
         <target>Master chef</target>
       </segment>
     </unit>
+    <unit id="derek">
+      <segment id="name" state="translated">
+        <source>derek.name</source>
+        <target>Nombre de cycles passés à draguer à tout va.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>derek.description</source>
+        <target>Vous avez vécu dans la peau d'un super héros intergalactique auto-proclamé, ceux qui se moque de vous s'en souviendront un jour !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>derek_50.name</source>
+        <target>Puceau de l'espace</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>derek_200.name</source>
+        <target>Quelqu'un me demande ?</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>derek_500.name</source>
+        <target>Tire sur tout ce qui bouge !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>derek_2000.name</source>
+        <target>Les yeux revolvers</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>derek_10000.name</source>
+        <target>Casanova intergalactique</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

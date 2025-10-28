@@ -39,6 +39,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::CONTRIBUTIONS, isRare: true),
             new StatisticConfigDto(StatisticEnum::IAN),
             new StatisticConfigDto(StatisticEnum::STEPHEN),
+            new StatisticConfigDto(StatisticEnum::DEREK),
         ];
     }
 

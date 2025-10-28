@@ -1,6 +1,6 @@
 <template>
     <Tippy tag="div" :class="['action-button-flex-v2']" v-if="action">
-        <button :class="['action-button', cssClass, isDisabled].join(' ')">
+        <a :class="['action-button', cssClass, isDisabled].join(' ')">
             <span v-if="action.actionPointCost && !action.movementPointCost && !action.moralePointCost" class="cost">{{ action.actionPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pa.png')" alt="ap"></span>
             <span v-else-if="action.movementPointCost && !action.actionPointCost && !action.moralePointCost" class="cost">{{ action.movementPointCost }}<img :src="getImgUrl('ui_icons/player_variables/pm.png')" alt="mp"></span>
             <span v-else-if="action.moralePointCost && !action.actionPointCost && !action.movementPointCost" class="cost">{{ action.moralePointCost }}<img :src="getImgUrl('ui_icons/player_variables/moral.png')" alt="pmo" /></span>
@@ -21,7 +21,7 @@
                 <s>{{ action.name }}</s>
                 <span v-if="action.successRate < 100" class="success-rate"> ({{ action.successRate }}%)</span>
             </span>
-        </button>
+        </a>
         <template #content>
             <h1 v-html="formatContent(action.name)" />
             <p v-html="formatContent(action.description)" />
@@ -69,6 +69,7 @@ export default defineComponent ({
     margin: 0.2rem !important;
     flex-flow: row wrap;
     @include button-style();
+    cursor: pointer;
 }
 .medium {
     min-width: 10em;

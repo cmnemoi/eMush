@@ -52,6 +52,11 @@ enum AchievementEnum: string
     case CHUN_500 = 'chun_500';
     case CHUN_2000 = 'chun_2000';
     case CHUN_10000 = 'chun_10000';
+    case KUAN_TI_50 = 'kuan_ti_50';
+    case KUAN_TI_200 = 'kuan_ti_200';
+    case KUAN_TI_500 = 'kuan_ti_500';
+    case KUAN_TI_2000 = 'kuan_ti_2000';
+    case KUAN_TI_10000 = 'kuan_ti_10000';
     case CHAO_50 = 'chao_50';
     case CHAO_200 = 'chao_200';
     case CHAO_500 = 'chao_500';

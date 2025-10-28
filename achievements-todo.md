@@ -25,6 +25,7 @@
 - [x] signal_fire : Fire Reports
 - [x] succeeded_inspection : Successful Inspections
 - [x] planet_scanned : Planets Detected
+- [x] cooked_taken : Number of times you consume a cooked ration
 - [x] chao : Number of cycles played as human Chao (to be incremented when Daedalus is finished)
 - [x] chun : Number of cycles played as human Chun (to be incremented when Daedalus is finished)
 - [x] finola : Number of cycles played as human Finola (to be incremented when Daedalus is finished)
@@ -36,14 +37,13 @@
 - [x] derek : Number of cycles played as human Derek (to be incremented when Daedalus is finished)
 - [x] eleesha : Number of cycles played as human Eleesha (to be incremented when Daedalus is finished)
 - [x] gioele : Number of cycles played as human Gioele
+- [x] kuan_ti : Number of cycles played as human Kuan Ti (to be incremented when Daedalus is finished)
 - [ ] hua : Number of cycles played as human Hua (to be incremented when Daedalus is finished)
-- [ ] kuan_ti : Number of cycles played as human Kuan Ti (to be incremented when Daedalus is finished)
 - [ ] paola : Number of cycles played as human Paola (to be incremented when Daedalus is finished)
 - [ ] raluca : Number of cycles played as human Raluca (to be incremented when Daedalus is finished)
 - [ ] roland : Number of cycles played as human Roland (to be incremented when Daedalus is finished)
 - [ ] terrence : Number of cycles played as human Terrence (to be incremented when Daedalus is finished)
 - [ ] communicator : Communications Expert
-- [ ] cooked_taken : Number of times you consume a cooked ration
 - [ ] daily_order : Number of times you did a General Announcement
 - [ ] day_10_reached : Number of times you reached Day 10
 - [ ] day_15_reached : Number of times you reached Day 15

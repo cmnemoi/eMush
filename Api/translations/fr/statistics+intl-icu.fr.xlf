@@ -394,8 +394,38 @@
         <source>chun_10000.name</source>
         <target>Dernier espoir de l'humanité</target>
       </segment>
-    </unit>
-    <unit id="chao">
+     </unit>
+     <unit id="kuan_ti">
+       <segment id="name" state="translated">
+         <source>kuan_ti.name</source>
+         <target>Nombre de cycles à contempler son oeuvre</target>
+       </segment>
+       <segment id="description" state="translated">
+         <source>kuan_ti.description</source>
+         <target>Vous avez été dans la peau du concepteur du Daedalus, alors... comment on se sent, fier ?</target>
+       </segment>
+       <segment id="x50" state="translated">
+         <source>kuan_ti_50.name</source>
+         <target>Lego system</target>
+       </segment>
+       <segment id="x200" state="translated">
+         <source>kuan_ti_200.name</source>
+         <target>Blindé d'argent et d'acier</target>
+       </segment>
+       <segment id="x500" state="translated">
+         <source>kuan_ti_500.name</source>
+         <target>A l'épreuve des icebergs spatiaux</target>
+       </segment>
+       <segment id="x2000" state="translated">
+         <source>kuan_ti_2000.name</source>
+         <target>Architecte retro-compatible</target>
+       </segment>
+       <segment id="x10000" state="translated">
+         <source>kuan_ti_10000.name</source>
+         <target>La grande classe universelle</target>
+       </segment>
+     </unit>
+     <unit id="chao">
       <segment id="name" state="translated">
         <source>chao.name</source>
         <target>Nombre de cycles passés à dégommer des trucs</target>

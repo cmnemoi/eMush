@@ -24,6 +24,7 @@ enum StatisticEnum: string
     case SUCCEEDED_INSPECTION = 'succeeded_inspection';
     case ANDIE = 'andie';
     case CHUN = 'chun';
+    case KUAN_TI = 'kuan_ti';
     case CHAO = 'chao';
     case ELEESHA = 'eleesha';
     case FINOLA = 'finola';

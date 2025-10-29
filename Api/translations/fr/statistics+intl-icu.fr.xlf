@@ -575,5 +575,369 @@
         <target>Maîtres des bots</target>
       </segment>
     </unit>
+    <unit id="eden">
+      <segment id="name" state="translated">
+        <source>eden.name</source>
+        <target>Eden, terre promise</target>
+      </segment>
+      <segment id="x1_description" state="translated">
+        <source>eden.description</source>
+        <target>Titre réservé aux survivants du Daedalus ayant atteint Eden, la terre promise.</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_1.name</source>
+        <target>Te''e à t'ibo'd !</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>eden_5.name</source>
+        <target>Il où dédé'n ?</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>eden_10.name</source>
+        <target>Pionnier d'Eden</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>eden_20.name</source>
+        <target>Edenien</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>eden_50.name</source>
+        <target>Fondateur de l'ordre d'Eden</target>
+      </segment>
+    </unit>
+    <unit id="contributions">
+      <segment id="name" state="translated">
+        <source>contributions.name</source>
+        <target>Contributions</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>contributions.description</source>
+        <target>Vous avez participé au développement de eMush et grâce à vous on l'a fait avancer : merci !</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>contributions_1.name</source>
+        <target>Contributeur</target>
+      </segment>
+      <segment id="x5" state="translated">
+        <source>contributions_5.name</source>
+        <target>« Je mettrais bien ça sur un CV… »</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>contributions_20.name</source>
+        <target>Ça part en prod !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>contributions_50.name</source>
+        <target>eMush Driven Development</target>
+      </segment>
+      <segment id="x100" state="translated">
+        <source>contributions_100.name</source>
+        <target>Créateur d'expériences</target>
+      </segment>
+      <segment id="x300" state="translated">
+        <source>contributions_300.name</source>
+        <target>Kent Beck de l'espace</target>
+      </segment>
+      <segment id="x700" state="translated">
+        <source>contributions_700.name</source>
+        <target>Grand Réparateur de Cest</target>
+      </segment>
+      <segment id="x1500" state="translated">
+        <source>contributions_1500.name</source>
+        <target>Gardien du code source</target>
+      </segment>
+    </unit>
+    <unit id="frieda">
+      <segment id="name" state="translated">
+        <source>frieda.name</source>
+        <target>Nombre de cycles passés à lire des cartes</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>frieda.description</source>
+        <target>Vous avez été dans la peau de la navigatrice du Daedalus, alors... comment on se sent, désorienté ?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>frieda_50.name</source>
+        <target>Navi-gâteux</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>frieda_200.name</source>
+        <target>Après la nebuleuse, tournez à droite</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>frieda_500.name</source>
+        <target>Compas dans l'oeil</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>frieda_2000.name</source>
+        <target>Astro-Physico-Navigato</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>frieda_10000.name</source>
+        <target>Encyclopedia Universalis</target>
+      </segment>
+    </unit>
+    <unit id="hua">
+      <segment id="name" state="translated">
+        <source>hua.name</source>
+        <target>Nombre de cycles passés à fréquenter des 3èmes types</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hua.description</source>
+        <target>Vous avez été dans la peau d'une exploratrice légendaire, alors... déçu de ne pas avoir 3 yeux ?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>hua_50.name</source>
+        <target>Un mars et ça repart</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>hua_200.name</source>
+        <target>Hé mec, Il est où mon vaisseau ?</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>hua_500.name</source>
+        <target>Toi, t'as pas une gueule de porte-bonheur !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>hua_2000.name</source>
+        <target>Tout le monde est perdu sauf moi ?! </target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>hua_10000.name</source>
+        <target>Les voyages épiques de Jiang Hua</target>
+      </segment>
+    </unit>
+    <unit id="ian">
+      <segment id="name" state="translated">
+        <source>ian.name</source>
+        <target>Nombre de cycles passés à cultiver des plantes hallucinogènes</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>ian.description</source>
+        <target>Vous avez été dans la peau d'un amoureux de la nature, à la fin de votre existence vous ferez sûrement du bon engrais.</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>ian_50.name</source>
+        <target>Elle m'aime un peu, beaucoup...</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>ian_200.name</source>
+        <target>L'ami des monstroplantes</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>ian_500.name</source>
+        <target>Fruti-magicien</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>ian_2000.name</source>
+        <target>J'ai la banane !</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>ian_10000.name</source>
+        <target>Flower master</target>
+      </segment>
+    </unit>
+    <unit id="janice">
+      <segment id="name" state="translated">
+        <source>janice.name</source>
+        <target>Nombre de cycles passés à écouter les autres</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>janice.description</source>
+        <target>Vous avez été dans la peau de la psychologue du Daedalus, alors... comment on se sent, folle ?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>janice_50.name</source>
+        <target>zZz....zZzz...</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>janice_200.name</source>
+        <target>Gnan Gnan Style</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>janice_500.name</source>
+        <target>Dans les yeux, j'ai dit dans les yeux !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>janice_2000.name</source>
+        <target>Psycho-Bimbo</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>janice_10000.name</source>
+        <target>Janice S. Freud</target>
+      </segment>
+    </unit>
+    <unit id="stephen">
+      <segment id="name" state="translated">
+        <source>stephen.name</source>
+        <target>Nombre de cycles passés à cuisiner des plats suspects</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>stephen.description</source>
+        <target>Leçon 1, Acte 1 : Where is Stephen ? Stephen is ... in the kitchen !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>stephen_50.name</source>
+        <target>À table !</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>stephen_200.name</source>
+        <target>Non, je fais aussi la cuisine.</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>stephen_500.name</source>
+        <target>Maître du hokuto de cuisine</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>stephen_2000.name</source>
+        <target>Descendant de Casey Ryback</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>stephen_10000.name</source>
+        <target>Master chef</target>
+      </segment>
+    </unit>
+    <unit id="derek">
+      <segment id="name" state="translated">
+        <source>derek.name</source>
+        <target>Nombre de cycles passés à draguer à tout va.</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>derek.description</source>
+        <target>Vous avez vécu dans la peau d'un super héros intergalactique auto-proclamé, ceux qui se moque de vous s'en souviendront un jour !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>derek_50.name</source>
+        <target>Puceau de l'espace</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>derek_200.name</source>
+        <target>Quelqu'un me demande ?</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>derek_500.name</source>
+        <target>Tire sur tout ce qui bouge !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>derek_2000.name</source>
+        <target>Les yeux revolvers</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>derek_10000.name</source>
+        <target>Casanova intergalactique</target>
+      </segment>
+    </unit>
+    <unit id="daily_order">
+      <segment id="name" state="translated">
+        <source>daily_order.name</source>
+        <target>Annonce Générale</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>daily_order.description</source>
+        <target>Annonces générales passées</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>daily_order_1.name</source>
+        <target>Annonceur</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>daily_order_10.name</source>
+        <target>Haut-Parleur</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>daily_order_20.name</source>
+        <target>Herault</target>
+      </segment>
+    </unit>
+    <unit id="paola">
+      <segment id="name" state="translated">
+        <source>paola.name</source>
+        <target>Nombre de cycles passés à surfer sur les basses fréquences</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>paola.description</source>
+        <target>Vous avez été dans la peau d'une intrépide rebelle au système, rien ni personne ne peut vous détourner de la vérité !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>paola_50.name</source>
+        <target>bzzzz...Bzzzitt !</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>paola_200.name</source>
+        <target>Purple touffe émettrice</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>paola_500.name</source>
+        <target>Radiohead</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>paola_2000.name</source>
+        <target>Video killed, radio star</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>paola_10000.name</source>
+        <target>2,21 GigaHertz !</target>
+      </segment>
+    </unit>
+    <unit id="raluca">
+      <segment id="name" state="translated">
+        <source>raluca.name</source>
+        <target>Nombre de cycles passés à passer son temps à caresser son chat</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>raluca.description</source>
+        <target>Oui, personne ne comprend un traître mot de ce que vous dîtes, peut-être serait'il bon de revenir parmi le commun des mortels.</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>raluca_50.name</source>
+        <target>Miou miou</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>raluca_200.name</source>
+        <target>Convecteur combusto-réversiblo-spatio-temporel en marche</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>raluca_500.name</source>
+        <target>Couché Néron ! Toi aussi Schrödinger !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>raluca_2000.name</source>
+        <target>Pilgred in love</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>raluca_10000.name</source>
+        <target>In Pilgred we trust</target>
+      </segment>
+    </unit>
+    <unit id="roland">
+      <segment id="name" state="translated">
+        <source>roland.name</source>
+        <target>Nombre de cycles à tourner en rond</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>roland.description</source>
+        <target>Vous avez été dans la peau d'un des plus redoutable chasseur du Daedalus... Bon, vous n'êtes pas très nombreux non plus...</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>roland_50.name</source>
+        <target>Tchou tchou !</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>roland_200.name</source>
+        <target>Full speed !</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>roland_500.name</source>
+        <target>Toujours plus vite, toujours plus loin !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>roland_2000.name</source>
+        <target>Interlooper spatio-temporel</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>roland_10000.name</source>
+        <target>As des As de l'esp-As</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

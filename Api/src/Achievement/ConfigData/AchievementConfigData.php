@@ -699,6 +699,26 @@ abstract class AchievementConfigData
                 points: 0,
                 threshold: 10_000,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EDEN_1,
+                points: 5,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EDEN_5,
+                points: 5,
+                threshold: 5
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EDEN_20,
+                points: 5,
+                threshold: 20
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EDEN_50,
+                points: 5,
+                threshold: 50
+            ),
         ];
     }
 

@@ -143,6 +143,10 @@ enum AchievementEnum: string
     case TERRENCE_500 = 'terrence_500';
     case TERRENCE_2000 = 'terrence_2000';
     case TERRENCE_10000 = 'terrence_10000';
+    case EDEN_1 = 'eden_1';
+    case EDEN_5 = 'eden_5';
+    case EDEN_20 = 'eden_20';
+    case EDEN_50 = 'eden_50';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

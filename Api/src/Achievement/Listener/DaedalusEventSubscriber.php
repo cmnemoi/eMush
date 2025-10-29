@@ -32,12 +32,6 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
 
     private function incrementEndCauseStatisticFromEvent(DaedalusEvent $event): void
     {
-        $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
-        $statisticName = match ($endCause) {
-            EndCauseEnum::SOL_RETURN => StatisticEnum::BACK_TO_ROOT,
-            default => StatisticEnum::NULL,
-        };
-
         $daedalus = $event->getDaedalus();
         $language = $daedalus->getLanguage();
 
@@ -46,7 +40,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
             $this->commandBus->dispatch(
                 new IncrementUserStatisticCommand(
                     userId: $player->getUser()->getId(),
-                    statisticName: $statisticName,
+                    statisticName: $this->getPlayerStatisticToIncrementFromEvent($player, $event),
                     language: $language,
                 )
             );
@@ -69,5 +63,14 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
                 )
             );
         }
+    }
+
+    private function getPlayerStatisticToIncrementFromEvent(Player $player, DaedalusEvent $event): StatisticEnum
+    {
+        return match ($event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP)) {
+            EndCauseEnum::EDEN => $player->isHuman() ? StatisticEnum::EDEN : StatisticEnum::NULL,
+            EndCauseEnum::SOL_RETURN => StatisticEnum::BACK_TO_ROOT,
+            default => StatisticEnum::NULL,
+        };
     }
 }

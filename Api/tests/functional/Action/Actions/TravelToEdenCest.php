@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\TravelToEden;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -14,6 +16,7 @@ use Mush\Equipment\Enum\EquipmentEnum;
 use Mush\Equipment\Service\GameEquipmentServiceInterface;
 use Mush\Game\Enum\VisibilityEnum;
 use Mush\Player\Enum\EndCauseEnum;
+use Mush\Player\Service\PlayerServiceInterface;
 use Mush\RoomLog\Entity\RoomLog;
 use Mush\RoomLog\Enum\LogEnum;
 use Mush\Status\Enum\DaedalusStatusEnum;
@@ -31,7 +34,9 @@ final class TravelToEdenCest extends AbstractFunctionalTest
     private TravelToEden $travelToEdenAction;
 
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private PlayerServiceInterface $playerService;
     private StatusServiceInterface $statusService;
+    private StatisticRepositoryInterface $statisticRepository;
 
     private GameEquipment $commandTerminal;
 
@@ -43,7 +48,9 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         $this->travelToEdenAction = $I->grabService(TravelToEden::class);
 
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->playerService = $I->grabService(PlayerServiceInterface::class);
         $this->statusService = $I->grabService(StatusServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->createCommandTerminal();
         $this->focusChunOnTerminal();
@@ -150,6 +157,39 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         $this->thenNoTraumaDiseasesShouldBeTriggered($I);
     }
 
+    public function shouldIncrementEdenStatisticForAlivePlayers(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+        $this->givenKuanTiIsDead();
+        $this->givenEdenCoordinatesAreComputed();
+
+        $this->whenChunTravelsToEden();
+
+        $this->thenEdenStatisticShouldBeIncrementedForAlivePlayers($I);
+    }
+
+    public function shouldNotIncrementEdenStatisticForMushPlayers(FunctionalTester $I): void
+    {
+        $this->givenPilgredIsFinished();
+        $this->givenKuanTiIsMush($I);
+        $this->givenEdenCoordinatesAreComputed();
+
+        $this->whenChunTravelsToEden();
+
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::EDEN,
+                'count' => 1,
+                'userId' => $this->chun->getUser()->getId(),
+                'isRare' => true,
+            ],
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EDEN, $this->chun->getUser()->getId())?->toArray()
+        );
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EDEN, $this->kuanTi->getUser()->getId());
+        $I->assertNull($statistic?->getId());
+    }
+
     private function createCommandTerminal(): void
     {
         $this->commandTerminal = $this->gameEquipmentService->createGameEquipmentFromName(
@@ -185,6 +225,16 @@ final class TravelToEdenCest extends AbstractFunctionalTest
             tags: [],
             time: new \DateTime()
         );
+    }
+
+    private function givenKuanTiIsDead(): void
+    {
+        $this->playerService->killPlayer($this->kuanTi, endReason: EndCauseEnum::DEPRESSION);
+    }
+
+    private function givenKuanTiIsMush(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->kuanTi);
     }
 
     private function whenChunTriesToTravelToEden(): void
@@ -269,5 +319,22 @@ final class TravelToEdenCest extends AbstractFunctionalTest
                 'log' => LogEnum::TRAUMA_DISEASE,
             ]
         );
+    }
+
+    private function thenEdenStatisticShouldBeIncrementedForAlivePlayers(FunctionalTester $I): void
+    {
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EDEN, $this->chun->getUser()->getId());
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::EDEN,
+                'count' => 1,
+                'userId' => $this->chun->getUser()->getId(),
+                'isRare' => true,
+            ],
+            actual: $statistic?->toArray()
+        );
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EDEN, $this->kuanTi->getUser()->getId());
+        $I->assertNull($statistic?->getId());
     }
 }

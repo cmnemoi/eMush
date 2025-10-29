@@ -36,5 +36,6 @@ enum StatisticEnum: string
     case STEPHEN = 'stephen';
     case DEREK = 'derek';
     case GIOELE = 'gioele';
+    case DAILY_ORDER = 'daily_order';
     case NULL = '';
 }

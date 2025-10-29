@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\ComManagerAnnounce;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -19,6 +21,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
 {
     private ActionConfig $actionConfig;
     private ComManagerAnnounce $comManagerAnnouncement;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -26,6 +29,7 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
 
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::COM_MANAGER_ANNOUNCEMENT]);
         $this->comManagerAnnouncement = $I->grabService(ComManagerAnnounce::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->givenChunIsCommsManager();
     }
@@ -56,6 +60,23 @@ final class ComManagerAnnounceCest extends AbstractFunctionalTest
         $this->whenChunMakesAGeneralAnnouncement();
 
         $this->thenKuanTiShouldHaveAnnouncementReceivedNotification($I);
+    }
+
+    public function shouldIncrementUserStatisticOnSuccess(FunctionalTester $I): void
+    {
+        $this->whenChunMakesAGeneralAnnouncement();
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::DAILY_ORDER, $this->chun->getUser()->getId());
+
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::DAILY_ORDER,
+                'userId' => $this->chun->getUser()->getId(),
+                'count' => 1,
+                'isRare' => false,
+            ],
+            actual: $statistic->toArray()
+        );
     }
 
     private function givenChunIsCommsManager(): void

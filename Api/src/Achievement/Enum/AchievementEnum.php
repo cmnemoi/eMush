@@ -115,6 +115,9 @@ enum AchievementEnum: string
     case GIOELE_500 = 'gioele_500';
     case GIOELE_2000 = 'gioele_2000';
     case GIOELE_10000 = 'gioele_10000';
+    case DAILY_ORDER_1 = 'daily_order_1';
+    case DAILY_ORDER_10 = 'daily_order_10';
+    case DAILY_ORDER_20 = 'daily_order_20';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

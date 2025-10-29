@@ -65,6 +65,21 @@ abstract class AchievementConfigData
                 threshold: 500,
             ),
             new AchievementConfigDto(
+                name: AchievementEnum::DAILY_ORDER_1,
+                points: 1,
+                threshold: 1,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::DAILY_ORDER_10,
+                points: 1,
+                threshold: 10,
+            ),
+            new AchievementConfigDto(
+                name: AchievementEnum::DAILY_ORDER_20,
+                points: 1,
+                threshold: 20,
+            ),
+            new AchievementConfigDto(
                 name: AchievementEnum::EXPLO_FEED_1,
                 points: 1,
                 threshold: 1,

@@ -737,5 +737,27 @@
         <target>Casanova intergalactique</target>
       </segment>
     </unit>
+    <unit id="daily_order">
+      <segment id="name" state="translated">
+        <source>daily_order.name</source>
+        <target>Annonce Générale</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>daily_order.description</source>
+        <target>Annonces générales passées</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>daily_order_1.name</source>
+        <target>Annonceur</target>
+      </segment>
+      <segment id="x10" state="translated">
+        <source>daily_order_10.name</source>
+        <target>Haut-Parleur</target>
+      </segment>
+      <segment id="x20" state="translated">
+        <source>daily_order_20.name</source>
+        <target>Herault</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

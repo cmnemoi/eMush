@@ -26,6 +26,7 @@
 - [x] succeeded_inspection : Successful Inspections
 - [x] planet_scanned : Planets Detected
 - [x] cooked_taken : Number of times you consume a cooked ration
+- [x] daily_order : Number of times you did a General Announcement
 - [x] chao : Number of cycles played as human Chao (to be incremented when Daedalus is finished)
 - [x] chun : Number of cycles played as human Chun (to be incremented when Daedalus is finished)
 - [x] finola : Number of cycles played as human Finola (to be incremented when Daedalus is finished)
@@ -44,7 +45,6 @@
 - [ ] roland : Number of cycles played as human Roland (to be incremented when Daedalus is finished)
 - [ ] terrence : Number of cycles played as human Terrence (to be incremented when Daedalus is finished)
 - [ ] communicator : Communications Expert
-- [ ] daily_order : Number of times you did a General Announcement
 - [ ] day_10_reached : Number of times you reached Day 10
 - [ ] day_15_reached : Number of times you reached Day 15
 - [ ] day_20_reached : Number of times you reached Day 20

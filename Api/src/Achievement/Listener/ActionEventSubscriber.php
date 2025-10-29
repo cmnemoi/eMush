@@ -36,6 +36,7 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
             ActionEnum::COFFEE => StatisticEnum::COFFEE_TAKEN,
             ActionEnum::SEARCH => StatisticEnum::SUCCEEDED_INSPECTION,
             ActionEnum::CONSUME => $this->getConsumeStatisticToIncrementFromEvent($event),
+            ActionEnum::COM_MANAGER_ANNOUNCEMENT => StatisticEnum::DAILY_ORDER,
             default => StatisticEnum::NULL,
         };
 

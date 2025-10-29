@@ -617,6 +617,36 @@
         <target>Encyclopedia Universalis</target>
       </segment>
     </unit>
+    <unit id="hua">
+      <segment id="name" state="translated">
+        <source>hua.name</source>
+        <target>Nombre de cycles passés à fréquenter des 3èmes types</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>hua.description</source>
+        <target>Vous avez été dans la peau d'une exploratrice légendaire, alors... déçu de ne pas avoir 3 yeux ?</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>hua_50.name</source>
+        <target>Un mars et ça repart</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>hua_200.name</source>
+        <target>Hé mec, Il est où mon vaisseau ?</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>hua_500.name</source>
+        <target>Toi, t'as pas une gueule de porte-bonheur !</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>hua_2000.name</source>
+        <target>Tout le monde est perdu sauf moi ?! </target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>hua_10000.name</source>
+        <target>Les voyages épiques de Jiang Hua</target>
+      </segment>
+    </unit>
     <unit id="ian">
       <segment id="name" state="translated">
         <source>ian.name</source>

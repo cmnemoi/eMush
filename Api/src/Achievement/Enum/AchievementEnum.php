@@ -77,6 +77,11 @@ enum AchievementEnum: string
     case FRIEDA_500 = 'frieda_500';
     case FRIEDA_2000 = 'frieda_2000';
     case FRIEDA_10000 = 'frieda_10000';
+    case HUA_50 = 'hua_50';
+    case HUA_200 = 'hua_200';
+    case HUA_500 = 'hua_500';
+    case HUA_2000 = 'hua_2000';
+    case HUA_10000 = 'hua_10000';
     case JANICE_50 = 'janice_50';
     case JANICE_200 = 'janice_200';
     case JANICE_500 = 'janice_500';

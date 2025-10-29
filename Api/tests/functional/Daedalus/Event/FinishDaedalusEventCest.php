@@ -51,6 +51,7 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
             ['character' => CharacterEnum::KUAN_TI],
             ['character' => CharacterEnum::FINOLA],
             ['character' => CharacterEnum::FRIEDA],
+            ['character' => CharacterEnum::HUA],
             ['character' => CharacterEnum::IAN],
             ['character' => CharacterEnum::JANICE],
             ['character' => CharacterEnum::JIN_SU],

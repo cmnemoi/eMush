@@ -39,7 +39,7 @@
 - [x] eleesha : Number of cycles played as human Eleesha (to be incremented when Daedalus is finished)
 - [x] gioele : Number of cycles played as human Gioele
 - [x] kuan_ti : Number of cycles played as human Kuan Ti (to be incremented when Daedalus is finished)
-- [ ] hua : Number of cycles played as human Hua (to be incremented when Daedalus is finished)
+- [x] hua : Number of cycles played as human Hua (to be incremented when Daedalus is finished)
 - [ ] paola : Number of cycles played as human Paola (to be incremented when Daedalus is finished)
 - [ ] raluca : Number of cycles played as human Raluca (to be incremented when Daedalus is finished)
 - [ ] roland : Number of cycles played as human Roland (to be incremented when Daedalus is finished)

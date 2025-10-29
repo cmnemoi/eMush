@@ -29,6 +29,7 @@ enum StatisticEnum: string
     case ELEESHA = 'eleesha';
     case FINOLA = 'finola';
     case FRIEDA = 'frieda';
+    case HUA = 'hua';
     case JANICE = 'janice';
     case JIN_SU = 'jin_su';
     case CONTRIBUTIONS = 'contributions';

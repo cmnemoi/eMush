@@ -38,6 +38,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::ELEESHA),
             new StatisticConfigDto(StatisticEnum::FINOLA),
             new StatisticConfigDto(StatisticEnum::FRIEDA),
+            new StatisticConfigDto(StatisticEnum::HUA),
             new StatisticConfigDto(StatisticEnum::JANICE),
             new StatisticConfigDto(StatisticEnum::JIN_SU),
             new StatisticConfigDto(StatisticEnum::CONTRIBUTIONS, isRare: true),

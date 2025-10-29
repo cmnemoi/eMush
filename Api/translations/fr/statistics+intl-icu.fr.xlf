@@ -125,6 +125,20 @@
         <target>Prophète</target>
       </segment>
     </unit>
+    <unit id="camera_installed">
+      <segment id="name" state="translated">
+        <source>camera_installed.name</source>
+        <target>Télégénie</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>camera_installed.description</source>
+        <target>Caméras installées</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>camera_installed_1.name</source>
+        <target>Télégénique</target>
+      </segment>
+    </unit>
     <unit id="planet_scanned">
       <segment id="name" state="translated">
         <source>planet_scanned.name</source>

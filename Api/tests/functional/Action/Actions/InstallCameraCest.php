@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepository;
 use Mush\Action\Actions\InstallCamera;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -22,6 +24,7 @@ final class InstallCameraCest extends AbstractFunctionalTest
     private ActionConfig $actionConfig;
     private InstallCamera $installCamera;
     private GameEquipmentServiceInterface $gameEquipmentService;
+    private StatisticRepository $statisticRepository;
     private GameItem $camera;
 
     public function _before(FunctionalTester $I): void
@@ -31,6 +34,7 @@ final class InstallCameraCest extends AbstractFunctionalTest
         $this->actionConfig = $I->grabEntityFromRepository(ActionConfig::class, ['name' => ActionEnum::INSTALL_CAMERA->value]);
         $this->installCamera = $I->grabService(InstallCamera::class);
         $this->gameEquipmentService = $I->grabService(GameEquipmentServiceInterface::class);
+        $this->statisticRepository = $I->grabService(StatisticRepository::class);
 
         $this->givenPlayerHasCamera();
     }
@@ -60,6 +64,23 @@ final class InstallCameraCest extends AbstractFunctionalTest
         $this->whenPlayerWantsToInstallCamera();
 
         $this->thenActionShouldCostZeroActionPoints($I);
+    }
+
+    public function shouldIncrementCameraInstalledStatistic(FunctionalTester $I): void
+    {
+        $this->whenPlayerInstallsCamera();
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::CAMERA_INSTALLED, $this->player->getUser()->getId());
+
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::CAMERA_INSTALLED,
+                'userId' => $this->player->getUser()->getId(),
+                'count' => 1,
+                'isRare' => false,
+            ],
+            actual: $statistic->toArray()
+        );
     }
 
     private function givenPlayerHasCamera(): void

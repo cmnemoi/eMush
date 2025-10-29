@@ -37,6 +37,7 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
             ActionEnum::SEARCH => StatisticEnum::SUCCEEDED_INSPECTION,
             ActionEnum::CONSUME => $this->getConsumeStatisticToIncrementFromEvent($event),
             ActionEnum::COM_MANAGER_ANNOUNCEMENT => StatisticEnum::DAILY_ORDER,
+            ActionEnum::INSTALL_CAMERA => StatisticEnum::CAMERA_INSTALLED,
             default => StatisticEnum::NULL,
         };
 

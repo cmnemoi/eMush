@@ -14,6 +14,7 @@ enum StatisticEnum: string
     case EXPLORER = 'explorer';
     case ARTEFACT_SPECIALIST = 'artefact_specialist';
     case BACK_TO_ROOT = 'back_to_root';
+    case CAMERA_INSTALLED = 'camera_installed';
     case EXTINGUISH_FIRE = 'extinguish_fire';
     case GAGGED = 'gagged';
     case GIVE_MISSION = 'give_mission';

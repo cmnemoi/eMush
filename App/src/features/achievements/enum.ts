@@ -25,6 +25,7 @@ export const enum StatisticEnum {
     EXPLORER = "explorer",
     ARTEFACT_SPECIALIST = "artefact_specialist",
     BACK_TO_ROOT = "back_to_root",
+    CAMERA_INSTALLED = "camera_installed",
     EXTINGUISH_FIRE = "extinguish_fire",
     GAGGED = "gagged",
     GIVE_MISSION = "give_mission",
@@ -110,6 +111,9 @@ export const StatisticRecords: {[index: string]: {icon: string}} = {
     },
     [StatisticEnum.BACK_TO_ROOT]: {
         'icon': getImgUrl('achievements/sol.png')
+    },
+    [StatisticEnum.CAMERA_INSTALLED]: {
+        'icon': getImgUrl('achievements/camera.png')
     },
     [StatisticEnum.EXTINGUISH_FIRE]: {
         'icon': getImgUrl('achievements/extinguish_fire.png')

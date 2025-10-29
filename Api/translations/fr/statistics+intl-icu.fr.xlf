@@ -789,5 +789,35 @@
         <target>Herault</target>
       </segment>
     </unit>
+    <unit id="paola">
+      <segment id="name" state="translated">
+        <source>paola.name</source>
+        <target>Nombre de cycles passés à surfer sur les basses fréquences</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>paola.description</source>
+        <target>Vous avez été dans la peau d'une intrépide rebelle au système, rien ni personne ne peut vous détourner de la vérité !</target>
+      </segment>
+      <segment id="x50" state="translated">
+        <source>paola_50.name</source>
+        <target>bzzzz...Bzzzitt !</target>
+      </segment>
+      <segment id="x200" state="translated">
+        <source>paola_200.name</source>
+        <target>Purple touffe émettrice</target>
+      </segment>
+      <segment id="x500" state="translated">
+        <source>paola_500.name</source>
+        <target>Radiohead</target>
+      </segment>
+      <segment id="x2000" state="translated">
+        <source>paola_2000.name</source>
+        <target>Video killed, radio star</target>
+      </segment>
+      <segment id="x10000" state="translated">
+        <source>paola_10000.name</source>
+        <target>2,21 GigaHertz !</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -46,6 +46,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::STEPHEN),
             new StatisticConfigDto(StatisticEnum::DEREK),
             new StatisticConfigDto(StatisticEnum::GIOELE),
+            new StatisticConfigDto(StatisticEnum::PAOLA),
         ];
     }
 

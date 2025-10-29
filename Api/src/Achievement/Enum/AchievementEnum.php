@@ -123,6 +123,11 @@ enum AchievementEnum: string
     case DAILY_ORDER_1 = 'daily_order_1';
     case DAILY_ORDER_10 = 'daily_order_10';
     case DAILY_ORDER_20 = 'daily_order_20';
+    case PAOLA_50 = 'paola_50';
+    case PAOLA_200 = 'paola_200';
+    case PAOLA_500 = 'paola_500';
+    case PAOLA_2000 = 'paola_2000';
+    case PAOLA_10000 = 'paola_10000';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

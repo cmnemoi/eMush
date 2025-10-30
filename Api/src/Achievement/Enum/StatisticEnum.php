@@ -45,5 +45,11 @@ enum StatisticEnum: string
     case ROLAND = 'roland';
     case TERRENCE = 'terrence';
     case EDEN = 'eden';
+    case MUSH_CYCLES = 'mush_cycles';
     case NULL = '';
+
+    public static function fromOrNull(string $value): self
+    {
+        return self::tryFrom($value) ?? self::NULL;
+    }
 }

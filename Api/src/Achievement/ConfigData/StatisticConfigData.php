@@ -53,6 +53,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::ROLAND),
             new StatisticConfigDto(StatisticEnum::TERRENCE),
             new StatisticConfigDto(StatisticEnum::EDEN, isRare: true),
+            new StatisticConfigDto(StatisticEnum::MUSH_CYCLES),
         ];
     }
 

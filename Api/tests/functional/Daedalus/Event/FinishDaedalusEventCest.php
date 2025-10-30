@@ -41,6 +41,20 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
         $this->thenPlayerStatisticShouldBeIncrementedBy(5, $example['character'], $I);
     }
 
+    public function shouldIncrementMushCyclesStatisticWhenDaedalusEnds(FunctionalTester $I): void
+    {
+        $this->convertPlayerToMush($I, $this->player);
+        $this->givenPlayerHasLivedCycles(5);
+
+        $this->whenDaedalusEndsWithSuperNova();
+
+        $I->assertNull($this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::from($this->player->getName()),
+            userId: $this->player->getUser()->getId()
+        ));
+        $this->thenPlayerMushCyclesStatisticShouldBeIncrementedBy(5, $I);
+    }
+
     protected function characterDataProvider(): array
     {
         return [
@@ -88,6 +102,15 @@ final class FinishDaedalusEventCest extends AbstractFunctionalTest
     {
         $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
             name: StatisticEnum::tryFrom($character),
+            userId: $this->player->getUser()->getId()
+        );
+        $I->assertEquals($increment, $statistic?->getCount());
+    }
+
+    private function thenPlayerMushCyclesStatisticShouldBeIncrementedBy(int $increment, FunctionalTester $I): void
+    {
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(
+            name: StatisticEnum::MUSH_CYCLES,
             userId: $this->player->getUser()->getId()
         );
         $I->assertEquals($increment, $statistic?->getCount());

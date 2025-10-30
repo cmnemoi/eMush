@@ -57,9 +57,17 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
             $this->commandBus->dispatch(
                 new IncrementUserStatisticCommand(
                     userId: $player->getUser()->getId(),
-                    statisticName: StatisticEnum::tryFrom($player->getName()) ?? StatisticEnum::NULL,
+                    statisticName: StatisticEnum::fromOrNull($player->getName()),
                     language: $language,
                     increment: $player->getPlayerInfo()->getHumanCyclesCount(),
+                )
+            );
+            $this->commandBus->dispatch(
+                new IncrementUserStatisticCommand(
+                    userId: $player->getUser()->getId(),
+                    statisticName: StatisticEnum::MUSH_CYCLES,
+                    language: $language,
+                    increment: $player->getPlayerInfo()->getMushCyclesCount(),
                 )
             );
         }

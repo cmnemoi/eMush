@@ -48,6 +48,9 @@ class PlayerInfo
     #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
     private int $humanCyclesCount = 0;
 
+    #[ORM\Column(type: 'integer', nullable: false, options: ['default' => 0])]
+    private int $mushCyclesCount = 0;
+
     public function __construct(
         Player $player,
         User $user,
@@ -187,9 +190,16 @@ class PlayerInfo
         return $this->humanCyclesCount;
     }
 
+    public function getMushCyclesCount(): int
+    {
+        return $this->mushCyclesCount;
+    }
+
     public function incrementCyclesCount(int $increment = 1): static
     {
-        if ($this->player?->isHuman()) {
+        if ($this->player?->isMush()) {
+            $this->mushCyclesCount += $increment;
+        } else {
             $this->humanCyclesCount += $increment;
         }
 

@@ -168,7 +168,7 @@ final class TravelToEdenCest extends AbstractFunctionalTest
         $this->thenEdenStatisticShouldBeIncrementedForAlivePlayers($I);
     }
 
-    public function shouldNotIncrementEdenStatisticForMushPlayers(FunctionalTester $I): void
+    public function shouldIncrementEdenContaminatedStatisticForMushPlayers(FunctionalTester $I): void
     {
         $this->givenPilgredIsFinished();
         $this->givenKuanTiIsMush($I);
@@ -186,8 +186,15 @@ final class TravelToEdenCest extends AbstractFunctionalTest
             actual: $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EDEN, $this->chun->getUser()->getId())?->toArray()
         );
 
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EDEN, $this->kuanTi->getUser()->getId());
-        $I->assertNull($statistic?->getId());
+        $I->assertEquals(
+            expected: [
+                'name' => StatisticEnum::EDEN_CONTAMINATED,
+                'count' => 1,
+                'userId' => $this->kuanTi->getUser()->getId(),
+                'isRare' => true,
+            ],
+            actual: $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::EDEN_CONTAMINATED, $this->kuanTi->getUser()->getId())?->toArray()
+        );
     }
 
     private function createCommandTerminal(): void

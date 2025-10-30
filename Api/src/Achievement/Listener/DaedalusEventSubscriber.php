@@ -76,7 +76,7 @@ final readonly class DaedalusEventSubscriber implements EventSubscriberInterface
     private function getPlayerStatisticToIncrementFromEvent(Player $player, DaedalusEvent $event): StatisticEnum
     {
         return match ($event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP)) {
-            EndCauseEnum::EDEN => $player->isHuman() ? StatisticEnum::EDEN : StatisticEnum::NULL,
+            EndCauseEnum::EDEN => $player->isMush() ? StatisticEnum::EDEN_CONTAMINATED : StatisticEnum::EDEN,
             EndCauseEnum::SOL_RETURN => StatisticEnum::BACK_TO_ROOT,
             default => StatisticEnum::NULL,
         };

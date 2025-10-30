@@ -1005,5 +1005,19 @@
         <target>Total Mushisation</target>
       </segment>
     </unit>
+    <unit id="eden_contaminated">
+      <segment id="name" state="translated">
+        <source>eden_contaminated.name</source>
+        <target>Eden, terre contaminée</target>
+      </segment>
+      <segment id="description" state="translated">
+        <source>eden_contaminated.description</source>
+        <target>Titre réservé aux Mushs ayant infesté Eden, la terre contaminée !</target>
+      </segment>
+      <segment id="x1" state="translated">
+        <source>eden_contaminated_1.name</source>
+        <target>Dévoreur des mondes</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

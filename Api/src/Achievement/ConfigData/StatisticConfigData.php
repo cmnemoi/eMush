@@ -54,6 +54,7 @@ abstract class StatisticConfigData
             new StatisticConfigDto(StatisticEnum::TERRENCE),
             new StatisticConfigDto(StatisticEnum::EDEN, isRare: true),
             new StatisticConfigDto(StatisticEnum::MUSH_CYCLES),
+            new StatisticConfigDto(StatisticEnum::EDEN_CONTAMINATED, isRare: true),
         ];
     }
 

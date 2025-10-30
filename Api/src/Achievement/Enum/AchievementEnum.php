@@ -156,6 +156,7 @@ enum AchievementEnum: string
     case MUSH_CYCLES_500 = 'mush_cycles_500';
     case MUSH_CYCLES_2000 = 'mush_cycles_2000';
     case MUSH_CYCLES_10000 = 'mush_cycles_10000';
+    case EDEN_CONTAMINATED_1 = 'eden_contaminated_1';
     case NULL = '';
 
     public function toStatisticName(): StatisticEnum

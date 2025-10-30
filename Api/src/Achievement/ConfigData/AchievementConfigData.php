@@ -764,6 +764,11 @@ abstract class AchievementConfigData
                 points: 0,
                 threshold: 10_000,
             ),
+            new AchievementConfigDto(
+                name: AchievementEnum::EDEN_CONTAMINATED_1,
+                points: 10,
+                threshold: 1,
+            ),
         ];
     }
 

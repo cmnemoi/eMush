@@ -7,6 +7,7 @@ namespace Mush\Action\Actions;
 use Mush\Action\Entity\ActionResult\ActionResult;
 use Mush\Action\Entity\ActionResult\Success;
 use Mush\Action\Enum\ActionEnum;
+use Mush\Action\Event\CommanderMissionAcceptedEvent;
 use Mush\Action\Service\ActionServiceInterface;
 use Mush\Action\Validator\ClassConstraint;
 use Mush\Action\Validator\PlayerHasPendingMissions;
@@ -98,6 +99,7 @@ final class AcceptMission extends AbstractAction
     {
         $mission->accept();
         $this->commanderMissionRepository->save($mission);
+        $this->eventService->callEvent(new CommanderMissionAcceptedEvent($mission), CommanderMissionAcceptedEvent::class);
     }
 
     private function sendAcceptedMissionNotificationToCommander(CommanderMission $mission): void

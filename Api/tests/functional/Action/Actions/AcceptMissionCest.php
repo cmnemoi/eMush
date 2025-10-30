@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
+use Mush\Achievement\Enum\StatisticEnum;
+use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\AcceptMission;
 use Mush\Action\Entity\ActionConfig;
 use Mush\Action\Enum\ActionEnum;
@@ -25,6 +27,7 @@ final class AcceptMissionCest extends AbstractFunctionalTest
     private AcceptMission $acceptMission;
     private CommanderMission $mission;
     private AddSkillToPlayerService $addSkillToPlayer;
+    private StatisticRepositoryInterface $statisticRepository;
 
     public function _before(FunctionalTester $I): void
     {
@@ -34,6 +37,7 @@ final class AcceptMissionCest extends AbstractFunctionalTest
         $this->acceptMission = $I->grabService(AcceptMission::class);
 
         $this->addSkillToPlayer = $I->grabService(AddSkillToPlayerService::class);
+        $this->statisticRepository = $I->grabService(StatisticRepositoryInterface::class);
 
         $this->givenChunSendsAMissionToKuanTi($I);
     }
@@ -104,6 +108,14 @@ final class AcceptMissionCest extends AbstractFunctionalTest
         $this->whenKuanTiAcceptsTheMission();
 
         $this->thenKuanTiShouldHaveActionPoints(6, $I);
+    }
+
+    public function shouldIncrementStatistic(FunctionalTester $I): void
+    {
+        $this->whenKuanTiAcceptsTheMission();
+
+        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::GIVE_MISSION, $this->chun->getUser()->getId());
+        $I->assertEquals(1, $statistic?->getCount());
     }
 
     private function givenChunSendsAMissionToKuanTi(FunctionalTester $I): void

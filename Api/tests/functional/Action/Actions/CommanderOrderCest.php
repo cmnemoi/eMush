@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mush\Tests\functional\Action\Actions;
 
-use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Achievement\Repository\StatisticRepositoryInterface;
 use Mush\Action\Actions\CommanderOrder;
 use Mush\Action\Actions\RejectMission;
@@ -106,14 +105,6 @@ final class CommanderOrderCest extends AbstractFunctionalTest
         $this->whenChunTriesToOrderAMissionToKuanTi();
 
         $this->thenActionIsNotExecutableWithMessage(ActionImpossibleCauseEnum::ISSUE_MISSION_NO_TARGET, $I);
-    }
-
-    public function shouldIncrementStatistic(FunctionalTester $I): void
-    {
-        $this->whenChunOrderAMissionToKuanTi();
-
-        $statistic = $this->statisticRepository->findByNameAndUserIdOrNull(StatisticEnum::GIVE_MISSION, $this->chun->getUser()->getId());
-        $I->assertEquals(1, $statistic?->getCount());
     }
 
     private function givenChunIsCommander(): void

@@ -8,6 +8,7 @@ use Mush\Achievement\Command\IncrementUserStatisticCommand;
 use Mush\Achievement\Enum\StatisticEnum;
 use Mush\Action\Enum\ActionEnum;
 use Mush\Action\Event\ActionEvent;
+use Mush\Action\Event\CommanderMissionAcceptedEvent;
 use Mush\Equipment\Enum\GameRationEnum;
 use Mush\Game\Enum\EventPriorityEnum;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -21,6 +22,7 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
     {
         return [
             ActionEvent::POST_ACTION => ['onPostAction', EventPriorityEnum::LOWEST],
+            CommanderMissionAcceptedEvent::class => ['onCommanderMissionAccepted', EventPriorityEnum::LOWEST],
         ];
     }
 
@@ -46,6 +48,17 @@ final readonly class ActionEventSubscriber implements EventSubscriberInterface
                 userId: $author->getUser()->getId(),
                 statisticName: $statisticName,
                 language: $author->getLanguage(),
+            )
+        );
+    }
+
+    public function onCommanderMissionAccepted(CommanderMissionAcceptedEvent $event): void
+    {
+        $this->commandBus->dispatch(
+            new IncrementUserStatisticCommand(
+                userId: $event->getCommander()->getUser()->getId(),
+                statisticName: StatisticEnum::GIVE_MISSION,
+                language: $event->getCommander()->getLanguage(),
             )
         );
     }

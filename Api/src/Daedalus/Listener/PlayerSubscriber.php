@@ -63,7 +63,7 @@ class PlayerSubscriber implements EventSubscriberInterface
         $endCause = $event->mapLog(EndCauseEnum::DEATH_CAUSE_MAP);
 
         if (!\in_array($endCause, [EndCauseEnum::SOL_RETURN, EndCauseEnum::EDEN, EndCauseEnum::SUPER_NOVA, EndCauseEnum::KILLED_BY_NERON], true)
-            && $player->getDaedalus()->getGameStatus() !== GameStatusEnum::STARTING
+            && !\in_array($player->getDaedalus()->getGameStatus(), [GameStatusEnum::STARTING, GameStatusEnum::FINISHED], true)
             && $player->getDaedalus()->getPlayers()->getPlayerAlive()->isEmpty()
         ) {
             $endDaedalusEvent = new DaedalusEvent(
@@ -71,7 +71,6 @@ class PlayerSubscriber implements EventSubscriberInterface
                 [EndCauseEnum::DAEDALUS_DESTROYED],
                 $event->getTime()
             );
-
             $this->eventService->callEvent($endDaedalusEvent, DaedalusEvent::FINISH_DAEDALUS);
         }
     }

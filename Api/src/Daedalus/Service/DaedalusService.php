@@ -217,14 +217,14 @@ class DaedalusService implements DaedalusServiceInterface
 
     public function endDaedalus(Daedalus $daedalus, string $cause, \DateTime $date): ClosedDaedalus
     {
-        $this->killRemainingPlayers($daedalus, [$cause], $date);
-
         $daedalus->setFinishedAt(new \DateTime());
 
         $daedalusInfo = $daedalus->getDaedalusInfo();
         $daedalusInfo->setGameStatus(GameStatusEnum::FINISHED);
 
         $this->persistDaedalusInfo($daedalusInfo);
+
+        $this->killRemainingPlayers($daedalus, [$cause], $date);
 
         // update closedDaedalus entity
         $closedDaedalus = $daedalusInfo->getClosedDaedalus();
